@@ -9,7 +9,7 @@ It goes without saying that you can't build a secure application without perform
 
 Security testing, by itself, isn't a particularly good stand alone measure of how secure an application is, because there are an infinite number of ways that an attacker might be able to make an application break, and it simply isn't possible to test them all. We can't hack ourselves secure and we only have a limited time to test and defend where an attacker does not have such constraints.
 
-In conjunction with other OWASP projects such as the Code review Guide, the Development Guide and tools such as OWASP ZAP, this is a great start towards building and maintaining secure applications. The [Development Guide](Building_Guide "wikilink") will show your project how to architect and build a secure application, the [Code Review Guide](Code_Review_Guide "wikilink") will tell you how to verify the security of your application's source code, and this [Testing Guide](Testing_Guide "wikilink") will show you how to verify the security of your running application. I highly recommend using these guides as part of your application security initiatives.
+In conjunction with other OWASP projects such as the Code review Guide, the Development Guide and tools such as OWASP ZAP, this is a great start towards building and maintaining secure applications. The [Development Guide](https://www.owasp.org/index.php/Building_Guide) will show your project how to architect and build a secure application, the [Code Review Guide](https://www.owasp.org/index.php/Code_Review_Guide) will tell you how to verify the security of your application's source code, and this [Testing Guide](https://www.owasp.org/index.php/OWASP_Testing_Project) will show you how to verify the security of your running application. I highly recommend using these guides as part of your application security initiatives.
 
 Why OWASP?
 ----------
@@ -33,15 +33,9 @@ In general there are several different roles within organizations that may use t
 
 -   Developers should use this guide to ensure that they are producing secure code. These tests should be a part of normal code and unit testing procedures.
 
-<!-- -->
-
 -   Software testers and QA should use this guide to expand the set of test cases they apply to applications. Catching these vulnerabilities early saves considerable time and effort later.
 
-<!-- -->
-
 -   Security specialists should use this guide in combination with other techniques as one way to verify that no security holes have been missed in an application.
-
-<!-- -->
 
 -   Project Managers should consider the reason this guide exists and that security issues are manifested via bugs in code and design.
 
@@ -52,7 +46,7 @@ This guide is best viewed as a set of techniques that you can use to find differ
 The Role of Automated Tools
 ---------------------------
 
-There are a number of companies selling automated security analysis and testing tools. Remember the limitations of these tools so that you can use them for what they're good at. As Michael Howard put it at the [2006 OWASP AppSec Conference in Seattle](OWASP_AppSec_Seattle_2006/Agenda "wikilink"), “Tools do not make software secure! They help scale the process and help enforce policy.”
+There are a number of companies selling automated security analysis and testing tools. Remember the limitations of these tools so that you can use them for what they're good at. As Michael Howard put it at the [2006 OWASP AppSec Conference in Seattle](https://www.owasp.org/index.php/OWASP_AppSec_Seattle_2006/Agenda), “Tools do not make software secure! They help scale the process and help enforce policy.”
 
 Most importantly, these tools are generic - meaning that they are not designed for your custom code, but for applications in general. That means that while they can find some generic problems, they do not have enough knowledge of your application to allow them to detect most flaws. In my experience, the most serious security issues are the ones that are not generic, but deeply intertwined in your business logic and custom application design.
 
@@ -63,10 +57,8 @@ Call to Action
 
 If you're building, designing or testing software, I strongly encourage you to get familiar with the security testing guidance in this document. It is a great road map for testing the most common issues facing applications today, but it is not exhaustive. If you find errors, please add a note to the discussion page or make the change yourself. You'll be helping thousands of others who use this guide.
 
-Please consider [joining us](Membership "wikilink") as an individual or corporate member so that we can continue to produce materials like this testing guide and all the other great projects at OWASP.
+Please consider [joining us](https://www.owasp.org/index.php/Membership) as an individual or corporate member so that we can continue to produce materials like this testing guide and all the other great projects at OWASP.
 
 Thank you to all the past and future contributors to this guide, your work will help to make applications worldwide more secure.
 
 --[Eoin Keary](https://www.owasp.org/index.php/Eoin_Keary), OWASP Board Member, April 19, 2013
-
-\_\_NOTOC\_\_
