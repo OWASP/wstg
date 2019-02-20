@@ -26,3 +26,18 @@ The aim of the Working Session is to discuss and define the scope and content of
 * 7: Start the second review phase
 * 8: Create the RC1
 * 9: Release version 5
+
+## Test Changes
+This outline will include proposed test changes that need to be incorporated into OTG v5. These should be proposed significant changes that are associated with an explicit test.
+
+### New Tests
+* Server-Side Template Injection
+
+### Test Changes
+* Testing for Horizontal Bypassing Authorization Schema
+
+### Deprecated Tests
+* *(Include brief explanation of reasoning)*
+
+## Methodology Changes
+* *(Include brief explanation of reasoning)*
