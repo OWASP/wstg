@@ -37,3 +37,8 @@ There are some cases where server converts uploaded file to a pdf.Try injecting 
 Tools
 ----- 
 Burpsuite, ZAP
+
+References
+------------
+* [Reading Internal Files Using SSRF Vulnerability](https://medium.com/@neerajedwards/reading-internal-files-using-ssrf-vulnerability-703c5706eefb)
+* [Abusing the AWS Metadata Service Using SSRF Vulnerabilities](https://blog.christophetd.fr/abusing-aws-metadata-service-using-ssrf-vulnerabilities/)
