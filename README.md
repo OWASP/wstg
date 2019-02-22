@@ -35,6 +35,7 @@ This outline will include proposed test changes that need to be incorporated int
 
 ### Test Changes
 * Testing for Horizontal Bypassing Authorization Schema
+* Testing for CSRF
 
 ### Deprecated Tests
 * *(Include brief explanation of reasoning)*
