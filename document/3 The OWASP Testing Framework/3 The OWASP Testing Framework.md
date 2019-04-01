@@ -1,11 +1,11 @@
-Overview
+## Overview
 --------
 
-This section describes a typical testing framework that can be developed within an organization. It can be seen as a reference framework that comprises techniques and tasks that are appropriate at various phases of the software development life cycle (SDLC). Companies and project teams can use this model to develop their own testing framework and to scope testing services from vendors. This framework should not be seen as prescriptive, but as a flexible approach that can be extended and molded to fit an organization’s development process and culture.
+This section describes a typical testing framework that can be developed within an organization. It can be seen as a reference framework that comprises techniques and tasks that are appropriate at various phases of the software development life cycle (SDLC). Companies and project teams can use this model to develop their own testing framework and to scope testing services from vendors. This framework should not be seen as prescriptive, but as a flexible approach that can be extended and molded to fit an organization's development process and culture.
 
 This section aims to help organizations build a complete strategic testing process, and is not aimed at consultants or contractors who tend to be engaged in more tactical, specific areas of testing.
 
-It is critical to understand why building an end-to-end testing framework is crucial to assessing and improving software security. In *Writing Secure Code* Howard and LeBlanc note that issuing a security bulletin costs Microsoft at least \$100,000, and it costs their customers collectively far more than that to implement the security patches. They also note that the US government’s CyberCrime web site (<u><http://www.justice.gov/criminal/cybercrime/></u>) details recent criminal cases and the loss to organizations. Typical losses far exceed USD \$100,000.
+It is critical to understand why building an end-to-end testing framework is crucial to assessing and improving software security. In *Writing Secure Code* Howard and LeBlanc note that issuing a security bulletin costs Microsoft at least &dollar;100,000, and it costs their customers collectively far more than that to implement the security patches. They also note that the US government's CyberCrime web site (http://www.justice.gov/criminal/cybercrime/) details recent criminal cases and the loss to organizations. Typical losses far exceed USD &dollar;100,000.
 
 With economics like this, it is little wonder why software vendors move from solely performing black box security testing, which can only be performed on applications that have already been developed, to concentrate on testing in the early cycles of application development such as definition, design, and development.
 
@@ -15,13 +15,13 @@ As discussed in the introduction of this document, there are many development me
 
 This testing framework consists of the following activities that should take place:
 
--   Before development begins
--   During definition and design
--   During development
--   During deployment
--   Maintenance and operations
+- Before development begins
+- During definition and design
+- During development
+- During deployment
+- Maintenance and operations
 
-Phase 1: Before Development Begins
+## Phase 1: Before Development Begins
 ----------------------------------
 
 ### Phase 1.1: Define a SDLC
@@ -32,7 +32,7 @@ Before application development starts an adequate SDLC must be defined where sec
 
 Ensure that there are appropriate policies, standards, and documentation in place. Documentation is extremely important as it gives development teams guidelines and policies that they can follow.
 
-*People can only do the right thing if they know what the right thing is.*' *'*
+*People can only do the right thing if they know what the right thing is.*
 
 If the application is to be developed in Java, it is essential that there is a Java secure coding standard. If the application is to use cryptography, it is essential that there is a cryptography standard. No policies or standards can cover every situation that the development team will face. By documenting the common and predictable issues, there will be fewer decisions that need to be made during the development process.
 
@@ -40,7 +40,7 @@ If the application is to be developed in Java, it is essential that there is a J
 
 Before development begins, plan the measurement program. By defining criteria that need to be measured, it provides visibility into defects in both the process and product. It is essential to define the metrics before development begins, as there may be a need to modify the process in order to capture the data.
 
-Phase 2: During Definition and Design
+## Phase 2: During Definition and Design
 -------------------------------------
 
 ### Phase 2.1: Review Security Requirements
@@ -51,16 +51,16 @@ For example, if there is a security requirement that states that users must be r
 
 When looking for requirements gaps, consider looking at security mechanisms such as:
 
--   User Management
--   Authentication
--   Authorization
--   Data Confidentiality
--   Integrity
--   Accountability
--   Session Management
--   Transport Security
--   Tiered System Segregation
--   Legislative and standards compliance (including Privacy, Government and Industry standards)
+- User Management
+- Authentication
+- Authorization
+- Data Confidentiality
+- Integrity
+- Accountability
+- Session Management
+- Transport Security
+- Tiered System Segregation
+- Legislative and standards compliance (including Privacy, Government and Industry standards)
 
 ### Phase 2.2: Review Design and Architecture
 
@@ -78,7 +78,7 @@ Once the design and architecture is complete, build Unified Modeling Language (U
 
 Armed with design and architecture reviews and the UML models explaining exactly how the system works, undertake a threat modeling exercise. Develop realistic threat scenarios. Analyze the design and architecture to ensure that these threats have been mitigated, accepted by the business, or assigned to a third party, such as an insurance firm. When identified threats have no mitigation strategies, revisit the design and architecture with the systems architect to modify the design.
 
-Phase 3: During Development
+## Phase 3: During Development
 ---------------------------
 
 Theoretically, development is the implementation of a design. However, in the real world, many design decisions are made during code development. These are often smaller decisions that were either too detailed to be described in the design, or issues where no policy or standard guidance was offered. If the design and architecture were not adequate, the developer will be faced with many decisions. If there were insufficient policies and standards, the developer will be faced with even more decisions.
@@ -95,16 +95,16 @@ Armed with a good understanding of how the code is structured and why certain th
 
 Static code reviews validate the code against a set of checklists, including:
 
--   Business requirements for availability, confidentiality, and integrity.
--   OWASP Guide or Top 10 Checklists for technical exposures (depending on the depth of the review).
--   Specific issues relating to the language or framework in use, such as the Scarlet paper for PHP or [Microsoft Secure Coding checklists for ASP.NET](https://msdn.microsoft.com/en-us/library/ff648269.aspx).
--   Any industry specific requirements, such as Sarbanes-Oxley 404, COPPA, ISO/IEC 27002, APRA, HIPAA, Visa Merchant guidelines, or other regulatory regimes.
+- Business requirements for availability, confidentiality, and integrity.
+- OWASP Guide or Top 10 Checklists for technical exposures (depending on the depth of the review).
+- Specific issues relating to the language or framework in use, such as the Scarlet paper for PHP or [Microsoft Secure Coding checklists for ASP.NET](https://msdn.microsoft.com/en-us/library/ff648269.aspx).
+- Any industry specific requirements, such as Sarbanes-Oxley 404, COPPA, ISO/IEC 27002, APRA, HIPAA, Visa Merchant guidelines, or other regulatory regimes.
 
 In terms of return on resources invested (mostly time), static code reviews produce far higher quality returns than any other security review method and rely least on the skill of the reviewer. However, they are not a silver bullet and need to be considered carefully within a full-spectrum testing regime.
 
-For more details on OWASP checklists, please refer to [OWASP Guide for Secure Web Applications](OWASP_Guide_Project "wikilink"), or the latest edition of the [OWASP Top 10](OWASP_Top_10 "wikilink").
+For more details on OWASP checklists, please refer to [OWASP Guide for Secure Web Applications](https://www.owasp.org/index.php/OWASP_Guide_Project), or the latest edition of the [OWASP Top 10](https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project).
 
-Phase 4: During Deployment
+## Phase 4: During Deployment
 --------------------------
 
 ### Phase 4.1: Application Penetration Testing
@@ -115,7 +115,7 @@ Having tested the requirements, analyzed the design, and performed code review, 
 
 The application penetration test should include the checking of how the infrastructure was deployed and secured. While the application may be secure, a small aspect of the configuration could still be at a default install stage and vulnerable to exploitation.
 
-Phase 5: Maintenance and Operations
+## Phase 5: Maintenance and Operations
 -----------------------------------
 
 ### Phase 5.1: Conduct Operational Management Reviews
@@ -130,9 +130,9 @@ Monthly or quarterly health checks should be performed on both the application a
 
 After every change has been approved and tested in the QA environment and deployed into the production environment, it is vital that the change is checked to ensure that the level of security has not been affected by the change. This should be integrated into the change management process.
 
-A Typical SDLC Testing Workflow
+## A Typical SDLC Testing Workflow
 -------------------------------
 
 The following figure shows a typical SDLC Testing Workflow.
 
-![](Typical_SDLC_Testing_Workflow.gif "Typical_SDLC_Testing_Workflow.gif")
+![Typical SDLC Testing Workflow](images/Typical_SDLC_Testing_Workflow.gif)
