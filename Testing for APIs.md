@@ -113,6 +113,7 @@ Step 8: Resend one of the operations from step 6 with an interception proxy (Bur
 This will send to the server a request with the session ID or token that was invalidated in step 7.
 
 ## Specific Testing – Brute Forcing Weak Secrets Used for JWT
+### Testing steps:
 Step 1: Clone the repository https://github.com/brendan-rius/c-jwt-cracker
 
 Step 2: Navigate to cloned repository and compile the source code using 'make'
