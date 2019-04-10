@@ -112,7 +112,7 @@ Step 7: Log out or change password of concurrent working user.
 Step 8: Resend one of the operations from step 6 with an interception proxy (Burp Repeater, for example). . 
 This will send to the server a request with the session ID or token that was invalidated in step 7.
 
-# Brute Forcing Weak Secrets used for JWT
+## Specific Testing – Brute Forcing Weak Secrets Used for JWT
 Step 1: Clone the repository https://github.com/brendan-rius/c-jwt-cracker
 
 Step 2: Navigate to cloned repository and compile the source code using 'make'
