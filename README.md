@@ -3,6 +3,10 @@
 Welcome to the OWASP Testing Guide (OTG) v5 repository!<br>
 You can download the stable version v4 [here](http://www.owasp.org/index.php/OWASP_Testing_Project).
 
+## Discussion/Support
+
+Join the Testing Guide Google Group if there are things you want to discuss https://groups.google.com/a/owasp.org/forum/#!forum/testing-guide-project
+
 ## We Need You!
 * Checkout the issue tracker, tackle creating some new content.
 * Read through some content and provide feedback (new issues with specific quotes/issues and potential solutions).
