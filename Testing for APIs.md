@@ -117,6 +117,13 @@ This will send to the server a request with the session ID or token that was inv
 * [Privilege escalation](https://github.com/OWASP/OWASP-Testing-Guide-v5/blob/master/document/4%20Web%20Application%20Security%20Testing/4.6%20Authorization%20Testing/4.6.3%20Testing%20for%20Privilege%20escalation%20(OTG-AUTHZ-003).md)
 * All [Session Management](https://github.com/OWASP/OWASP-Testing-Guide-v5/tree/master/document/4%20Web%20Application%20Security%20Testing/4.7%20Session%20Management%20Testing) test cases
 
+# Brute Force Weak Secrets used for JWT
+Step 1: Clone the repository https://github.com/brendan-rius/c-jwt-cracker
+Step 2: Navigate to cloned repository and compile the source code using 'make'
+Step 3: Run ./jwtcrack <JWT>
+
+In case of weak secret value, this will bruteforce the secret.
+  
 # Tools
 * ZAProxy
 * Burp suite
@@ -126,3 +133,4 @@ This will send to the server a request with the session ID or token that was inv
 * RFC3886 URI - https://tools.ietf.org/html/rfc3986
 * JWT - https://jwt.io/
 * Cracking JWT - https://www.sjoerdlangkemper.nl/2016/09/28/attacking-jwt-authentication/ 
+* Brute Forcing Secret Key - https://github.com/brendan-rius/c-jwt-cracker
