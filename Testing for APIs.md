@@ -112,6 +112,15 @@ Step 7: Log out or change password of concurrent working user.
 Step 8: Resend one of the operations from step 6 with an interception proxy (Burp Repeater, for example). . 
 This will send to the server a request with the session ID or token that was invalidated in step 7.
 
+# Brute Forcing Weak Secrets used for JWT
+Step 1: Clone the repository https://github.com/brendan-rius/c-jwt-cracker
+
+Step 2: Navigate to cloned repository and compile the source code using 'make'
+
+Step 3: Run ./jwtcrack <JWT>
+	
+In case of weak secret value, this will bruteforce the secret.
+  
 # Related Test Cases
 * [IDOR](https://github.com/OWASP/OWASP-Testing-Guide-v5/blob/master/document/4%20Web%20Application%20Security%20Testing/4.6%20Authorization%20Testing/4.6.4%20Testing%20for%20Insecure%20Direct%20Object%20References%20(OTG-AUTHZ-004).md)
 * [Privilege escalation](https://github.com/OWASP/OWASP-Testing-Guide-v5/blob/master/document/4%20Web%20Application%20Security%20Testing/4.6%20Authorization%20Testing/4.6.3%20Testing%20for%20Privilege%20escalation%20(OTG-AUTHZ-003).md)
@@ -125,4 +134,4 @@ This will send to the server a request with the session ID or token that was inv
 * REST HTTP Methods - https://restfulapi.net/http-methods/
 * RFC3886 URI - https://tools.ietf.org/html/rfc3986
 * JWT - https://jwt.io/
-* Cracking JWT - https://www.sjoerdlangkemper.nl/2016/09/28/attacking-jwt-authentication/ 
+* Cracking JWT - https://www.sjoerdlangkemper.nl/2016/09/28/attacking-jwt-authentication/
