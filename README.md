@@ -1,3 +1,6 @@
+[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/OWASP/OWASP-Testing-Guide-v5/issues)
+[![OWASP Flagship](https://img.shields.io/badge/owasp-flagship-brightgreen.svg)](https://www.owasp.org/index.php/OWASP_Project_Inventory#tab=Flagship_Projects)
+
 # OWASP-Testing-Guide-v5
 
 Welcome to the OWASP Testing Guide (OTG) v5 repository!<br>
