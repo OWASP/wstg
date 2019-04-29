@@ -24,4 +24,4 @@ Join the Testing Guide Google Group if there are things you want to discuss http
 
 ## Project Summit 2017 Outcomes
 
-The outcomes can be found [here](OWASP%20Summit%20Outcome.md)
+The outcomes can be found [here](OWASP_Summit_Outcome.md)
