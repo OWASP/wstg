@@ -22,6 +22,6 @@ Join the Testing Guide Google Group if there are things you want to discuss http
 * Please do use serial or Oxford commas (https://www.grammarly.com/blog/what-is-the-oxford-comma-and-why-do-people-care-so-much-about-it/).
 * Don't use `and/or`, chances are you can simply write `or`. (Note: The OR allows for the same True result as an AND, while also allowing for other combinations producing True results.) Unless, you actually mean something like "A and/exclusive or B" in which case read the sentence to yourself with those words and then figure out a different way to write it &#9786;
 
------
+## Project Summit 2017 Outcomes
 
-[Project Summit 2017 Outcomes](https://github.com/OWASP/OWASP-Testing-Guide-v5/blob/master/OWASP%20Summit%20Outcome.md)
+The outcomes can be found [here](OWASP%20Summit%20Outcome.md)
