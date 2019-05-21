@@ -2,18 +2,18 @@
 
 The Testing Guide v4 will be released in 2014. The Testing guide originated in 2003 with Dan Cuthbert as one of the original editors. It was handed over to Eoin Keary in 2005 and transformed into a wiki. Matteo Meucci has taken on the Testing guide and is now the lead of the OWASP Testing Guide Project. From 2012 Andrew Muller co-leadership the project with Matteo Meucci.
 
-September, 2014 :   “OWASP Testing Guide”, Version 4.0 <br>
-September, 2008 :   “OWASP Testing Guide”, Version 3.0 <br>
-December, 2006 :   “OWASP Testing Guide”, Version 2.0 <br>
-July, 2004 :   “OWASP Web Application Penetration Checklist”, Version 1.1 <br>
-December, 2004 :   “The OWASP Testing Guide”, Version 1.0 <br>
+- September, 2014 :   “OWASP Testing Guide”, Version 4.0
+- September, 2008 :   “OWASP Testing Guide”, Version 3.0
+- December, 2006 :   “OWASP Testing Guide”, Version 2.0
+- July, 2004 :   “OWASP Web Application Penetration Checklist”, Version 1.1
+- December, 2004 :   “The OWASP Testing Guide”, Version 1.0
 
 ### Leaders
 
-Andrew Muller: OWASP Testing Guide Lead since 2013. <br>
-Matteo Meucci: OWASP Testing Guide Lead since 2007. <br>
-Eoin Keary: OWASP Testing Guide 2005-2007 Lead. <br>
-Daniel Cuthbert: OWASP Testing Guide 2003-2005 Lead.
+- Andrew Muller: OWASP Testing Guide Lead since 2013.
+- Matteo Meucci: OWASP Testing Guide Lead since 2007.
+- Eoin Keary: OWASP Testing Guide 2005-2007 Lead.
+- Daniel Cuthbert: OWASP Testing Guide 2003-2005 Lead.
 
 ### v4 Authors
 
