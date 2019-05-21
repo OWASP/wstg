@@ -10,7 +10,7 @@ Placeholder-TBC
 
 Copyright (c) 2019 The OWASP Foundation. <br>
 
-This document is released under the [Creative Commons 2.5 License](https://creativecommons.org/licenses/by-sa/4.0/). Please read and understand the license and copyright conditions.
+This document is released under the [Creative Commons 4.0 License](https://creativecommons.org/licenses/by-sa/4.0/). Please read and understand the license and copyright conditions.
 
 ## v5 Authors
 
