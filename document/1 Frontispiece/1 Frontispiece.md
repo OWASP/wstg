@@ -14,19 +14,16 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 
 ## v5 Authors
 
-```
-  - Tal Argoni
-  - [Manh Pham Tien](https://www.linkedin.com/in/manhnho/)
-  - Rubal Jain
-  - Mark Clayton
-```
+
+- Tal Argoni
+- [Manh Pham Tien](https://www.linkedin.com/in/manhnho/)
+- Rubal Jain
+- Mark Clayton
 
 ## v5 Reviewers/Editors
 
-```
-  - Rick Mitchell
-  - Elie Saad
-```
+- Rick Mitchell
+- Elie Saad
 
 ## Trademarks
 
