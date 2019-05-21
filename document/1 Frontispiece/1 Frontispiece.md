@@ -16,7 +16,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 
 ```
   - Tal Argoni
-  - Manh Pham Tien
+  - [Manh Pham Tien](https://www.linkedin.com/in/manhnho/)
   - Rubal Jain
   - Mark Clayton
 ```
