@@ -529,8 +529,6 @@ To compliance auditors, security test metrics provide a level of software securi
 
 Finally, Chief Information Officers (CIOs) and Chief Information Security Officers (CISOs), who are responsible for the budget that needs to be allocated in security resources, look for derivation of a cost benefit analysis from security test data. This allows them to make informed decisions on which security activities and tools to invest. One of the metrics that supports such analysis is the Return On Investment (ROI) in Security. To derive such metrics from security test data, it is important to quantify the differential between the risk due to the exposure of vulnerabilities and the effectiveness of the security tests in mitigating the security risk, and factor this gap with the cost of the security testing activity or the testing tools adopted.
 
-### References
-----------
 
 [1]:https://www.google.com/search?q=T.+DeMarco+Controlling+Software+Projects+management+measurement
 [2]:http://www.sans.org/reading_room/whitepapers/auditing/55.php
