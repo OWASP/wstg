@@ -19,6 +19,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - [Manh Pham Tien](https://www.linkedin.com/in/manhnho/)
 - Rubal Jain
 - Mark Clayton
+- [Janos Zold](https://www.linkedin.com/in/janoszold/)
 
 ## v5 Reviewers/Editors
 
