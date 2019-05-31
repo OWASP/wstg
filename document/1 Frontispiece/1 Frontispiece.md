@@ -16,10 +16,10 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 
 
 - Tal Argoni
-- [Manh Pham Tien](https://www.linkedin.com/in/manhnho/)
+- Manh Pham Tien
 - Rubal Jain
 - Mark Clayton
-- [Janos Zold](https://www.linkedin.com/in/janoszold/)
+- Janos Zold
 
 ## v5 Reviewers/Editors
 
