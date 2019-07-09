@@ -29,7 +29,7 @@ REST API requests follow the [HTTP Request Methods](https://tools.ietf.org/html/
 | PUT     | Update a resource                             |
 | DELETE  | Remove a resource                             |
 | HEAD    | Get metadata associated with resource’s state |
-| OPTIONS | List available methods                         |
+| OPTIONS | List available methods                        |
 
 REST APIs use the response status code of HTTP response message to notify the client about their request’s result.
 
@@ -148,6 +148,6 @@ In case of weak secret value, this will bruteforce the secret.
 ## References
 
 - [REST HTTP Methods](https://restfulapi.net/http-methods/)
-- [RFC3886 URI](https://tools.ietf.org/html/rfc3986)
+- [RFC3986 URI](https://tools.ietf.org/html/rfc3986)
 - [JWT](https://jwt.io/)
 - [Cracking JWT](https://www.sjoerdlangkemper.nl/2016/09/28/attacking-jwt-authentication/)
