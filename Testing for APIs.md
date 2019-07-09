@@ -1,27 +1,26 @@
 # API Testing
 
-Web APIs have gained a lot of popularity because they allow third-party programs to interact with website in a more efficient and easy way.
-In this section, we will discuss with some basic concepts about API and the way to test security for APIs.
+Web APIs have gained a lot of popularity as they allow third-party programs to interact with websites in a more efficient and easy way. In this guide, we will discuss some basic concepts about APIs and the way to test security for APIs.
 
 ## Background Concepts
 
-REST (Reperesentational Sate Tranfer) is an architechture that is implemented while developer design APIs.
+REST (Representational State Transfer) is an architecture that is implemented while developer design APIs.
 Web application APIs following the REST style that called REST API.
-REST APIs using URIs (Uniform Resource Identifires) to access resources. The generic URI sysntax as defined in RFC 3986 as below:
+REST APIs using URIs (Uniform Resource Identifiers) to access resources. The generic URI syntax as defined in RFC 3986 as below:
 
 > URI = scheme "://" authority "/" path [ "?" query ] [ "#" fragment ]
 
-We are interseted in the path of URI as the relationship between user and resources.
+We are interested in the path of URI as the relationship between user and resources.
 For example, `https://api.test.xyz/admin/testing/report`, this shows report of testing, there is relationship between user admin and their reports.
 
-The path of any URI will definre REST API resource model, resources are seperated by a forward slash and based on Top-Down design.
+The path of any URI will define REST API resource model, resources are separated by a forward slash and based on Top-Down design.
 For example:
 
 - `https://api.test.xyz/admin/testing/report`
 - `https://api.test.xyz/admin/testing/`
 - `https://api.test.xyz/admin/`
 
-Request moethods are HTTP methods like GET,POST,… But at REST API’s model, these methods have fixed meaning.
+REST API requests follow the [HTTP Request Methods](https://tools.ietf.org/html/rfc7231#section-4) defined in [RFC7231](https://tools.ietf.org/html/rfc7231)
 
 | Methods | Description                                   |
 |---------|-----------------------------------------------|
@@ -30,7 +29,7 @@ Request moethods are HTTP methods like GET,POST,… But at REST API’s model, t
 | PUT     | Update a resource                             |
 | DELETE  | Remove a resource                             |
 | HEAD    | Get metadata associated with resource’s state |
-| OPTIONS | List avaiable methods                         |
+| OPTIONS | List available methods                         |
 
 REST APIs use the response status code of HTTP response message to notify the client about their request’s result.
 
@@ -48,8 +47,8 @@ REST APIs use the response status code of HTTP response message to notify the cl
 | 405           | Method Not Allowed    | Invalid method or unknown method used                                                                  |
 | 500           | Internal Server Error | Server failed to process request due to an internal error                                              |
 
-HTTP headers are used in request and reponses.
-While making API request, Content-Type header is used and is set to application/JSON, because message body contains JSON data format.
+HTTP headers are used in requests and responses.
+While making API requests, Content-Type header is used and is set to `application/json` because the message body contains JSON data format.
 
 JSON authentication types are based on:
 
