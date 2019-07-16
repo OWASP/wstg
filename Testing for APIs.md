@@ -5,8 +5,8 @@ Web APIs have gained a lot of popularity as they allow third-party programs to i
 ## Background Concepts
 
 REST (Representational State Transfer) is an architecture that is implemented while developer design APIs.
-Web application APIs following the REST style that called REST API.
-REST APIs using URIs (Uniform Resource Identifiers) to access resources. The generic URI syntax as defined in RFC 3986 as below:
+Web application APIs following the REST style are called REST API.
+REST APIs use URIs (Uniform Resource Identifiers) to access resources. The generic URI syntax as defined in [RFC3986](https://tools.ietf.org/html/rfc3986) as below:
 
 > URI = scheme "://" authority "/" path [ "?" query ] [ "#" fragment ]
 
@@ -103,7 +103,7 @@ The signature is created by applying the algorithm specified in the JWT header t
 HMACSHA256(base64UrlEncode(header) + "." + base64UrlEncode(payload), secret)
 ```
 
-Step 1: Login with valid credential. With ZAProxy or Burpsuite, we can retrieve JWT token.
+Step 1: Login with valid credentials. With ZAProxy or BurpSuite, we can retrieve JWT token.
 
 Step 2: Access the [JWT Debugger](https://jwt.io/#debugger) and then Decode the Base64-encoded JWT and find out what kind of data it transmits and whether that data is encrypted.
 Verify that no sensitive data, such as personal identifiable information, is embedded in the JWT.
