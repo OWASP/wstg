@@ -50,20 +50,17 @@ REST APIs use the response status code of HTTP response message to notify the cl
 HTTP headers are used in requests and responses.
 While making API requests, Content-Type header is used and is set to `application/json` because the message body contains JSON data format.
 
-JSON authentication types are based on:
+Web authentication types are based on:
 
-- Basic HTTP authentication: While making API requests, a new header, called the “Authorization” header  which contains authenticated information of a user in Base64 format.
-- Access token: In APIs, an access token is sent with the request which is verified by the API server, and thus, depending on its authenticity, the request is accepted or rejected.
-- Cookies: A session cookie is used to authenticate the user. A session cookie is cookie which is used to verify the user and is created when a successful login is registered.
-This cookie should be replayed with every API request and based on this a cookie request is accepted or rejected by the server.
+- Bearer Tokens: Identified by the `Authorization: Bearer <token>` header. Once a user logs in, they are provided with a bearer token that is sent on every request in order to authenticate and authorize the user to access OAuth 2.0 protected resources.
+- HTTP Cookies: Identified by the `Cookie: <name>=<unique value>` header. On user login success, the server replies with a `Set-Cookie` header specifying its name and unique value. On every request, the browser automatically appends it to the requests going to that server, following [SOP](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy).
+- Basic HTTP authentication: Identified by the `Authorization: Basic <base64 value>` header. Once a user is trying to login, the request is sent with the mentioned header containing the a base64 value, having its content as `username:password`. This is one of the weakest forms of authentication as it transmits the username and password on every request in an encoded manner, which can be easily retrieved.
 
-## How to test
+## How to Test
 
 ### Generic Testing Method
 
-#### Testing steps
-
-Step 1: Listing endpoint and make different request method: Login with user and then using Spider tool to list the endpoints of this role.
+Step 1: List endpoint and make different request method: Login with user and then using a spider tool to list the endpoints of this role.
 To examine the endpoints, need to make different request methods and then observe how the API behaves.
 
 Step 2: Exploit bugs- as know how to list endpoints and examine endpoints with HTTP methods at step 1, we will find some way to exploit bugs as some testing strategies below:
@@ -71,16 +68,16 @@ Step 2: Exploit bugs- as know how to list endpoints and examine endpoints with H
 - IDOR testing
 - Privilege escalation
 
-### Specific Testing – Testing (Token-Based) Authentication
+### Specific Testing – (Token-Based) Authentication
 
 Token-based authentication is implemented by sending a signed token (verified by the server) with each HTTP request.
-The most commonly used token format is the JSON Web Token, defined at [RFC7519](https://tools.ietf.org/html/rfc7519).
+The most commonly used token format is the JSON Web Token (JWT), defined in [RFC7519](https://tools.ietf.org/html/rfc7519).
 A JWT may encode the complete session state as a JSON object.
 Therefore, the server doesn't have to store any session data or authentication information.
 
 Example 1:
 
-JWT tokens consist of three Base64-encoded parts separated by dots. The following example shows a Base64-encoded JSON Web Token:
+JWT consist of three Base64-encoded parts separated by dots. The following example shows a Base64-encoded JSON Web Token:
 
 `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyMzQ1Njc4OTAiLCJuYW1lIjoiQWxpY2UiLCJpc0FkbWluIjoiRmFsc2UifQ.DERSXICJKao4Q4Cbao3FuPJWQy8CVAcwc84rLEeeQeQ`
 
