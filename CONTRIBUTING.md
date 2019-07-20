@@ -73,3 +73,10 @@ git push origin
 Now you can safely go and create a [new pull request](https://github.com/OWASP/OWASP-Testing-Guide-v5/compare?expand=1).
 
 At the PR submission, take into account reviewer's comments. Once accepted, your name will be added to the project authors.
+
+### How to set up my contributor environment
+
+1. [Join GitHub](https://github.com/join).
+1. Install [Visual Studio Code](https://code.visualstudio.com/).
+1. Install the following [markdown linter plugin](https://github.com/DavidAnson/vscode-markdownlint#install).
+1. You can safely follow now [how to send a PR](#how-to-send-a-pr).
