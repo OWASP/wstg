@@ -21,3 +21,12 @@ In order to report an issue:
 Create an [issue](https://github.com/OWASP/OWASP-Testing-Guide-v5/issues) using the [fix request template](https://github.com/OWASP/OWASP-Testing-Guide-v5/issues/new?assignees=&labels=QA%2FEdit&template=fix-request.md&title=)
 
 In order to fix an [issue](https://github.com/OWASP/OWASP-Testing-Guide-v5/issues), follow the guidance of [how to push a PR](#how-to-push-a-PR).
+
+### Creating New Guides
+
+This section guides you through providing new content to the testing guide. New content can be:
+
+- New methods to test against a certain weakness.
+- New guide to test against a newly discovered weakness.
+
+In order to suggest a new guide, follow the guidance of [how to push a PR](#how-to-push-a-PR).
