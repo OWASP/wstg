@@ -70,7 +70,7 @@ git rebase master
 git push origin
 ```
 
-Now you can safely go and create a [new pull request](https://github.com/OWASP/OWASP-Testing-Guide-v5/compare?expand=1).
+Now you can safely go and create a new pull request from your repository.
 
 At the PR submission, take into account reviewer's comments. Once accepted, your name will be added to the project authors.
 
