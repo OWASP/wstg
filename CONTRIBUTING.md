@@ -8,7 +8,7 @@ The guidelines mentioned below will help you to contribute in a manner to confor
 
 Other than what is discussed in the below sections, you can check out the Open Source Guide for [why and how to contribute](https://opensource.guide/how-to-contribute/).
 
-### Issues in the Testing Guides
+### Issues in the Testing Guide
 
 This section guides you through reporting issues in the existing project content. These issues can range from, and are not restricted to the below list:
 
