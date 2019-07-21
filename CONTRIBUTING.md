@@ -22,7 +22,7 @@ Create an [issue](https://github.com/OWASP/OWASP-Testing-Guide-v5/issues) using 
 
 In order to fix an [issue](https://github.com/OWASP/OWASP-Testing-Guide-v5/issues), follow the guidance of [how to send a PR](#how-to-send-a-PR).
 
-### Creating New Guides
+### Creating New Testing Scenarios
 
 This section guides you through providing new content to the testing guide. New content can be:
 
@@ -74,7 +74,7 @@ Now you can safely go and create a new pull request from your repository.
 
 At the PR submission, take into account reviewer's comments. Once accepted, your name will be added to the project authors.
 
-### How to set up my contributor environment
+### How to Set Up My Contributor Environment
 
 1. [Join GitHub](https://github.com/join).
 1. Install [Visual Studio Code](https://code.visualstudio.com/).
