@@ -326,3 +326,7 @@
 
 - Input Encoding
 - Output Encoding
+
+## [Appendix E: Misc](Appx.E_Misc/AppxE_History.md)
+
+- [History](Appx.E_Misc/AppxE_History.md)
