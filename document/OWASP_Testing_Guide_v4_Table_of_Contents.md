@@ -2,51 +2,51 @@
 
 ## [Foreword by Eoin Keary](0_Foreword/0_Foreword.md)
 
-## [1. Frontispiece](1_Frontispiece/1_Frontispiece.md)
+## [1. Frontispiece](1_Frontispiece/)
 
 **[1.1 About the OWASP Testing Guide Project](1_Frontispiece/1_Frontispiece.md)**
 
 **[1.2 About The Open Web Application Security Project](1_Frontispiece/1.2_About_The_Open_Web_Application_Security_Project.md)**
 
-## [2. Introduction](2_Introduction/2_Introduction.md)
+## [2. Introduction](2_Introduction/)
 
-**[2.1 The OWASP Testing Project](2_Introduction/2_Introduction.md#The_OWASP_Testing_Project)**
+**[2.1 The OWASP Testing Project](2_Introduction/2_Introduction.md#The-OWASP-Testing-Project)**
 
-**[2.2 Principles of Testing](2_Introduction/2_Introduction.md#Principles_of_Testing)**
+**[2.2 Principles of Testing](2_Introduction/2_Introduction.md#Principles-of-Testing)**
 
-**[2.3 Testing Techniques Explained](2_Introduction/2_Introduction.md#Testing_Techniques_Explained)**
+**[2.3 Testing Techniques Explained](2_Introduction/2_Introduction.md#Testing-Techniques-Explained)**
 
-**[2.4 Manual Inspections & Reviews](2_Introduction/2_Introduction.md#Manual_Inspections_.26_Reviews)**
+**[2.4 Manual Inspections & Reviews](2_Introduction/2_Introduction.md#Manual-Inspections-and-Reviews)**
 
-**[2.5 Threat Modeling](2_Introduction/2_Introduction.md#Threat_Modeling)**
+**[2.5 Threat Modeling](2_Introduction/2_Introduction.md#Threat-Modeling)**
 
-**[2.6 Source Code Review](2_Introduction/2_Introduction.md#Source_Code_Review)**
+**[2.6 Source Code Review](2_Introduction/2_Introduction.md#Source-Code-Review)**
 
-**[2.7 Penetration Testing](2_Introduction/2_Introduction.md#Penetration_Testing)**
+**[2.7 Penetration Testing](2_Introduction/2_Introduction.md#Penetration-Testing)**
 
-**[2.8 The Need for a Balanced Approach](2_Introduction/2_Introduction.md#The_Need_for_a_Balanced_Approach)**
+**[2.8 The Need for a Balanced Approach](2_Introduction/2_Introduction.md#The-Need-for-a-Balanced-Approach)**
 
-**[2.9 Deriving Security Test Requirements](2_Introduction/2_Introduction.md#Deriving_Security_Test_Requirements)**
+**[2.9 Deriving Security Test Requirements](2_Introduction/2_Introduction.md#Deriving-Security-Test-Requirements)**
 
-**[2.10 Security Tests Integrated in Development and Testing Workflows](2_Introduction/2_Introduction.md#Security_Tests_Integrated_in_Development_and_Testing_Workflows)**
+**[2.10 Security Tests Integrated in Development and Testing Workflows](2_Introduction/2_Introduction.md#Security-Tests-Integrated-in-Development-and-Testing_Workflows)**
 
-**[2.11 Security Test Data Analysis and Reporting](2_Introduction/2_Introduction.md#Security_Test_Data_Analysis_and_Reporting)**
+**[2.11 Security Test Data Analysis and Reporting](2_Introduction/2_Introduction.md#Security-Test-Data-Analysis-and_Reporting)**
 
-## [3. The OWASP Testing Framework](3_The_OWASP_Testing_Framework/3_The_OWASP_Testing_Framework.md)
+## [3. The OWASP Testing Framework](3_The_OWASP_Testing_Framework/)
 
 **[3.1 Overview](3_The_OWASP_Testing_Framework/3_The_OWASP_Testing_Framework.md#Overview)**
 
-**[3.2 Phase 1: Before Development Begins](3_The_OWASP_Testing_Framework/3_The_OWASP_Testing_Framework.md#Phase_1:_Before_Development_Begins "wikilink")**
+**[3.2 Phase 1: Before Development Begins](3_The_OWASP_Testing_Framework/3_The_OWASP_Testing_Framework.md#Phase-1:Before-Development-Begins)**
 
-**[3.3 Phase 2: During Definition and Design](3_The_OWASP_Testing_Framework/3_The_OWASP_Testing_Framework.md#Phase_2:_During_Definition_and_Design "wikilink")**
+**[3.3 Phase 2: During Definition and Design](3_The_OWASP_Testing_Framework/3_The_OWASP_Testing_Framework.md#Phase-2:During-Definition-and-Design)**
 
-**[3.4 Phase 3: During Development](3_The_OWASP_Testing_Framework/3_The_OWASP_Testing_Framework.md#Phase_3:_During_Development "wikilink")**
+**[3.4 Phase 3: During Development](3_The_OWASP_Testing_Framework/3_The_OWASP_Testing_Framework.md#Phase-3:During-Development)**
 
-**[3.5 Phase 4: During Deployment](3_The_OWASP_Testing_Framework/3_The_OWASP_Testing_Framework.md#Phase_4:_During_Deployment "wikilink")**
+**[3.5 Phase 4: During Deployment](3_The_OWASP_Testing_Framework/3_The_OWASP_Testing_Framework.md#Phase-4:During-Deployment)**
 
-**[3.6 Phase 5: Maintenance and Operations](3_The_OWASP_Testing_Framework/3_The_OWASP_Testing_Framework.md#Phase_5:_Maintenance_and_Operations "wikilink")**
+**[3.6 Phase 5: Maintenance and Operations](3_The_OWASP_Testing_Framework/3_The_OWASP_Testing_Framework.md#Phase-5:Maintenance-and-Operations)**
 
-**[3.7 A Typical SDLC Testing Workflow](3_The_OWASP_Testing_Framework/3_The_OWASP_Testing_Framework.md#A_Typical_SDLC_Testing_Workflow "wikilink")**
+**[3.7 A Typical SDLC Testing Workflow](3_The_OWASP_Testing_Framework/3_The_OWASP_Testing_Framework.md#A-Typical-SDLC-Testing-Workflow)**
 
 **[3.8 Penetration Testing Methodologies](3_The_OWASP_Testing_Framework/3.8_Penetration_Testing_Methodologies.md)**
 
