@@ -14,11 +14,15 @@ Web applications usually employ different types of input filtering mechanisms to
 
 Web browsers need to be aware of the encoding scheme used to coherently display a web page. Ideally, this information should be provided to the browser in the HTTP header (“Content-Type”) field, as shown below:
 
-    <nowiki>Content-Type: text/html; charset=UTF-8</nowiki>
+``` html
+<nowiki>Content-Type: text/html; charset=UTF-8</nowiki>
+```
 
 or through HTML META tag (“META HTTP-EQUIV”), as shown below:
 
-    <nowiki><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"></nowiki>
+``` html
+<nowiki><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"></nowiki>
+````
 
 It is through these character encoding declarations that the browser understands which set of characters to use when converting bytes to characters. Note that the content type mentioned in the HTTP header has precedence over the META tag declaration.
 
@@ -38,13 +42,19 @@ All the scenarios given below form only a subset of the various ways obfuscation
 
 Consider a basic input validation filter that protects against injection of single quote character. In this case the following injection would easily bypass this filter:
 
-    <nowiki><SCRIPT>alert(String.fromCharCode(88,83,83))</SCRIPT></nowiki>
+``` html
+<nowiki><SCRIPT>alert(String.fromCharCode(88,83,83))</SCRIPT></nowiki>
+```
 
 String.fromCharCode Javascript function takes the given Unicode values and returns the corresponding string. This is one of the most basic forms of encoded injections. Another vector that can be used to bypass this filter is:
 
-    <IMG SRC=javascript:alert(&quot ;XSS&quot ;)>
+``` html
+<IMG SRC=javascript:alert(&quot ;XSS&quot ;)>
+```
 
-    <IMG SRC=javascript:alert(&#34 ;XSS&#34 ;)> (Numeric reference)
+``` html
+<IMG SRC=javascript:alert(&#34 ;XSS&#34 ;)> (Numeric reference)
+```
 
 The above uses HTML Entities to construct the injection string. HTML Entities encoding is used to display characters that have a special meaning in HTML. For instance, ‘&gt;’ works as a closing bracket for a HTML tag. In order to actually display this character on the web page HTML character entities should be inserted in the page source. The injections mentioned above are one way of encoding. There are numerous other ways in which a string can be encoded (obfuscated) in order to bypass the above filter.
 
@@ -52,11 +62,15 @@ The above uses HTML Entities to construct the injection string. HTML Entities en
 
 Hex, short for Hexadecimal, is a base 16 numbering system i.e it has 16 different values from 0 to 9 and A to F to represent various characters. Hex encoding is another form of obfuscation that is sometimes used to bypass input validation filters. For instance, hex encoded version of the string `<IMG SRC=javascript:alert('XSS')>` is
 
-    <nowiki><IMG SRC=%6A%61%76%61%73%63%72%69%70%74%3A%61%6C%65%72%74%28%27%58%53%53%27%29></nowiki>
+``` html
+<nowiki><IMG SRC=%6A%61%76%61%73%63%72%69%70%74%3A%61%6C%65%72%74%28%27%58%53%53%27%29></nowiki>
+```
 
 A variation of the above string is given below. Can be used in case ‘%’ is being filtered:
 
-    <nowiki><IMG SRC=&#x6A&#x61&#x76&#x61&#x73&#x63&#x72&#x69&#x70&#x74&#x3A&#x61&#x6C&#x65&#x72&#x74&#x28&#x27&#x58&#x53&#x53&#x27&#x29></nowiki>
+``` html
+<nowiki><IMG SRC=&#x6A&#x61&#x76&#x61&#x73&#x63&#x72&#x69&#x70&#x74&#x3A&#x61&#x6C&#x65&#x72&#x74&#x28&#x27&#x58&#x53&#x53&#x27&#x29></nowiki>
+```
 
 There are other encoding schemes, such as Base64 and Octal, that may be used for obfuscation. Although, every encoding scheme may not work every time, a bit of trial and error coupled with intelligent manipulations would definitely reveal the loophole in a weakly built input validation filter.
 
@@ -64,13 +78,17 @@ There are other encoding schemes, such as Base64 and Octal, that may be used for
 
 UTF-7 encoding of
 
-    <SCRIPT>
-        alert(‘XSS’);
-    </SCRIPT>
+``` html
+<SCRIPT>
+    alert(‘XSS’);
+</SCRIPT>
+```
 
 is as below
 
-    <nowiki>+ADw-SCRIPT+AD4-alert('XSS');+ADw-/SCRIPT+AD4-</nowiki>
+``` html
+<nowiki>+ADw-SCRIPT+AD4-alert('XSS');+ADw-/SCRIPT+AD4-</nowiki>
+```
 
 For the above script to work, the browser has to interpret the web page as encoded in UTF-7.
 
@@ -82,10 +100,7 @@ Multibyte encoding has been used in the past to bypass standard input validation
 
 ## References
 
-- [http://en.wikipedia.org/wiki/Encode_(semiotics)](http://en.wikipedia.org/wiki/Encode_(semiotics))
-- [http://ha.ckers.org/xss.html](http://ha.ckers.org/xss.html)
-- [http://www.cert.org/tech_tips/malicious_code_mitigation.html](http://www.cert.org/tech_tips/malicious_code_mitigation.html)
-- [http://www.w3schools.com/HTML/html_entities.asp](http://www.w3schools.com/HTML/html_entities.asp)
-- [http://www.iss.net/security_center/advice/Intrusions/2000639/default.htm](http://www.iss.net/security_center/advice/Intrusions/2000639/default.htm)
-- [http://searchsecurity.techtarget.com/expert/KnowledgebaseAnswer/0,289625,sid14_gci1212217_tax299989,00.html](http://searchsecurity.techtarget.com/expert/KnowledgebaseAnswer/0,289625,sid14_gci1212217_tax299989,00.html)
-- [http://www.joelonsoftware.com/articles/Unicode.html](http://www.joelonsoftware.com/articles/Unicode.html)
+- [https://en.wikipedia.org/wiki/Encode_(semiotics)](https://en.wikipedia.org/wiki/Encode_(semiotics))
+- [https://www.w3schools.com/HTML/html_entities.asp](https://www.w3schools.com/HTML/html_entities.asp)
+- [https://searchsecurity.techtarget.com/expert/KnowledgebaseAnswer/0,289625,sid14_gci1212217_tax299989,00.html](https://searchsecurity.techtarget.com/expert/KnowledgebaseAnswer/0,289625,sid14_gci1212217_tax299989,00.html)
+- [https://www.joelonsoftware.com/articles/Unicode.html](https://www.joelonsoftware.com/articles/Unicode.html)
