@@ -12,8 +12,6 @@
 
 - [Software Assurance: An Overview of Current Practices](https://safecode.org/wp-content/uploads/2018/01/SAFECode_BestPractices0208.pdf)
 
-- [Software Security Testing: Software Assurance Pocket guide Series: Development, Volume III](https://buildsecurityin.us-cert.gov/swa/downloads/SoftwareSecurityTesting_PocketGuide_1%200_05182012_PostOnline.pdf)
-
 - [Use Cases: Just the FAQs and Answers](http://www.ibm.com/developerworks/rational/library/content/RationalEdge/jan03/UseCaseFAQS_TheRationalEdge_Jan2003.pdf)
 
 ## Books
@@ -30,7 +28,7 @@
 
 - [Hacking Exposed: Web Applications 3, by Joel Scambray, Vinvent Liu, Caleb Sima, published by McGraw-Hill Osborne Media, ISBN 007222438X (2010)](http://www.webhackingexposed.com/)
 
-- The Web Application Hacker's Handbook: Finding and Exploiting Security Flaws, 2nd Edition - [published by Dafydd Stuttard, Marcus Pinto, ISBN 9781118026472 (2011)
+- The Web Application Hacker's Handbook: Finding and Exploiting Security Flaws, 2nd Edition - [published by Dafydd Stuttard, Marcus Pinto, ISBN 9781118026472 (2011)]
 
 - How to Break Software Security, by James Whittaker, Herbert H. Thompson, published by Addison Wesley, ISBN 0321194330 (2003)
 
@@ -42,9 +40,9 @@
 - Mastering the Requirements Process, by Suzanne Robertson and James Robertson, published by Addison-Wesley Professional, ISBN 0201360462
   - [Online version available here](http://books.google.com/books?id=SN4WegDHVCcC&printsec=frontcover&source=gbs_ge_summary_r&cad=0#v=onepage&q&f=false)
 
-- [Secure Coding: Principles and Practices, by Mark Graff and Kenneth R. Van Wyk, published by O’Reilly, ISBN 0596002424 (2003)](http://www.securecoding.org)
+- Secure Coding: Principles and Practices, by Mark Graff and Kenneth R. Van Wyk, published by O’Reilly, ISBN 0596002424 (2003)
 
-- [Secure Programming for Linux and Unix HOWTO, David Wheeler (2004)](http://www.dwheeler.com/secure-programs)
+- Secure Programming for Linux and Unix HOWTO, David Wheeler (2004)
   - [Online version available here](http://www.dwheeler.com/secure-programs/Secure-Programs-HOWTO/index.html)
 
 - [Securing Java, by Gary McGraw, Edward W. Felten, published by Wiley, ISBN 047131952X (1999)](http://www.securingjava.com)
@@ -69,41 +67,39 @@
 
 - [Build Security In](https://buildsecurityin.us-cert.gov/bsi/home.html)
 
-- [Build Security In – Security-Specific Bibliography](https://buildsecurityin.us-cert.gov/bsi/articles/best-practices/measurement/1070-BSI.html)
+- [Build Security In – Security-Specific Bibliography](https://www.us-cert.gov/bsi/articles/best-practices/measurement/security-specific-bibliography)
 
-- [CERT Secure Coding](http://www.cert.org/secure-coding/)
+- [CERT Secure Coding](https://www.cert.org/secure-coding/)
 
-- [CERT Secure Coding Standards](https://www.securecoding.cert.org/confluence/display/seccode/CERT+Secure+Coding+Standards)
+- [CERT Secure Coding Standards](https://wiki.sei.cmu.edu/confluence/display/seccode/SEI+CERT+Coding+Standards)
 
-- [Exploit and Vulnerability Databases](https://buildsecurityin.us-cert.gov/swa/database.html)
+- [McAfee Foundstone Publications](https://www.mcafee.com/apps/view-all/publications.aspx?tf=foundstone&sz=10)
 
-- [McAfee Foundstone Publications](http://www.mcafee.com/apps/view-all/publications.aspx?tf=foundstone&sz=10)
+- [McAfee Free Tools](https://www.mcafee.com/us/downloads/free-tools/index.aspx)
 
-- [McAfee Free Tools](http://www.mcafee.com/us/downloads/free-tools/index.aspx)
+- [OASIS Web Application Security (WAS) TC](https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=was)
 
-- [OASIS Web Application Security (WAS) TC](http://www.oasis-open.org/committees/tc_home.php?wg_abbrev=was)
-
-- [Open Source Software Testing Tools](http://www.opensourcetesting.org/security.php)
+- [Open Source Software Testing Tools](https://www.opensourcetesting.org/security.php)
 - [OWASP Security Blitz](https://www.owasp.org/index.php/OWASP_Security_Blitz)
 
 - [OWASP Phoenix/Tool](https://www.owasp.org/index.php/Phoenix/Tools)
 - [SANS Internet Storm Center (ISC)](https://isc.sans.edu/)
 
-- [The Open Web Application Application Security Project (OWASP)](http://www.owasp.org)
+- [The Open Web Application Application Security Project (OWASP)](https://www.owasp.org)
 
 - [Pentestmonkey - Pen Testing Cheat Sheets](http://pentestmonkey.net/cheat-sheet)
 
-- [Secure Coding Guidelines for the .NET Framework 4.5](http://msdn.microsoft.com/en-us/library/8a3x2b7f.aspx)
+- [Secure Coding Guidelines for the .NET Framework 4.5](https://msdn.microsoft.com/en-us/library/8a3x2b7f.aspx)
 
-- [Security in the Java platform](http://docs.oracle.com/javase/6/docs/technotes/guides/security/overview/jsoverview.html)
+- [Security in the Java platform](https://docs.oracle.com/javase/6/docs/technotes/guides/security/overview/jsoverview.html)
 
-- [System Administration, Networking, and Security Institute (SANS)](http://www.sans.org)
+- [System Administration, Networking, and Security Institute (SANS)](https://www.sans.org)
 
-- [Technical INFO – Making Sense of Security](http://www.technicalinfo.net/index.html)
+- [Technical INFO – Making Sense of Security](https://www.technicalinfo.net/index.html)
 
-- [Web Application Security Consortium](http://www.webappsec.org/projects/)
+- [Web Application Security Consortium](https://www.webappsec.org/projects/)
 
-- [Web Application Security Scanner List](http://projects.webappsec.org/w/page/13246988/Web%20Application%20Security%20Scanner%20List)
+- [Web Application Security Scanner List](https://projects.webappsec.org/w/page/13246988/Web%20Application%20Security%20Scanner%20List)
 
 - [Web Security – Articles](https://www.acunetix.com/blog/category/web-security-zone/)
 
@@ -123,16 +119,14 @@
 
 - [Damn Vulnerable Web App](http://www.dvwa.co.uk/)
 
-- [Moth](http://www.bonsai-sec.com/en/research/moth.php)
+- [Moth](https://www.bonsai-sec.com/en/research/moth.php)
 
-- [Mutillidae](http://www.irongeek.com/i.php?page=mutillidae/mutillidae-deliberately-vulnerable-php-owasp-top-10)
+- [Mutillidae](https://www.irongeek.com/i.php?page=mutillidae/mutillidae-deliberately-vulnerable-php-owasp-top-10)
 
-- [Stanford SecuriBench](http://suif.stanford.edu/~livshits/securibench/)
+- [Stanford SecuriBench](https://suif.stanford.edu/~livshits/securibench/)
 
-- [Vicnum](http://vicnum.sourceforge.net/), [OWASP Vicnum](http://www.owasp.org/index.php/Category:OWASP_Vicnum_Project)
+- [Vicnum](https://vicnum.sourceforge.net/), [OWASP Vicnum](https://www.owasp.org/index.php/Category:OWASP_Vicnum_Project)
 
-- [WebGoat](http://www.owasp.org/index.php/Category:OWASP_WebGoat_Project)
+- [WebGoat](https://www.owasp.org/index.php/Category:OWASP_WebGoat_Project)
 
-- [WebMaven (better known as Buggy Bank)](http://www.mavensecurity.com/WebMaven.php)
-
-- [DOMXSS - JavaScript Security](http://www.domxss.com)
+- [WebMaven (better known as Buggy Bank)](https://www.mavensecurity.com/WebMaven.php)
