@@ -15,26 +15,37 @@ We examine and define each category in the sub-sections that follow.
 
 Recursive fuzzing can be defined as the process of fuzzing a part of a request by iterating through all the possible combinations of a set alphabet. Consider the case of:
 
-    <nowiki>http://www.example.com/8302fa3b</nowiki>
+``` html
+<nowiki>http://www.example.com/8302fa3b</nowiki>
+```
 
 Selecting “8302fa3b” as a part of the request to be fuzzed against the set hexadecimal alphabet (i.e. {0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f}) falls under the category of recursive fuzzing. This would generate a total of 16^8 requests of the form:
 
-    <nowiki>http://www.example.com/00000000</nowiki>
-    <nowiki>...</nowiki>
-    <nowiki>http://www.example.com/11000fff</nowiki>
-    <nowiki>...</nowiki>
-    <nowiki>http://www.example.com/ffffffff</nowiki>
+``` html
+<nowiki>http://www.example.com/00000000</nowiki>
+<nowiki>...</nowiki>
+<nowiki>http://www.example.com/11000fff</nowiki>
+<nowiki>...</nowiki>
+<nowiki>http://www.example.com/ffffffff</nowiki>
+```
 
 ### Replacive fuzzing
 
 Replacive fuzzing can be defined as the process of fuzzing part of a request by means of replacing it with a set value. This value is known as a fuzz vector. In the case of:
 
-    <nowiki>http://www.example.com/8302fa3b</nowiki>
+``` html
+<nowiki>http://www.example.com/8302fa3b</nowiki>
+```
 
 Testing against Cross Site Scripting (XSS) by sending the following fuzz vectors:
 
-    <nowiki>http://www.example.com/>"><script>alert("XSS")</script>&</nowiki>
-    <nowiki>http://www.example.com/'';!--"<XSS>=&{()}</nowiki>
+``` html
+<nowiki>http://www.example.com/>"><script>alert("XSS")</script>&</nowiki>
+```
+
+``` html
+<nowiki>http://www.example.com/'';!--"<XSS>=&{()}</nowiki>
+```
 
 This is a form of replacive fuzzing. In this category, the total number of requests is dependent on the number of fuzz vectors specified.
 
