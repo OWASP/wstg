@@ -22,7 +22,7 @@ or through HTML META tag (“META HTTP-EQUIV”), as shown below:
 
 ``` html
 <nowiki><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"></nowiki>
-````
+```
 
 It is through these character encoding declarations that the browser understands which set of characters to use when converting bytes to characters. Note that the content type mentioned in the HTTP header has precedence over the META tag declaration.
 
