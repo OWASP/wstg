@@ -28,23 +28,23 @@
 
 **[2.9 Deriving Security Test Requirements](2_Introduction/2_Introduction.md#Deriving-Security-Test-Requirements)**
 
-**[2.10 Security Tests Integrated in Development and Testing Workflows](2_Introduction/2_Introduction.md#Security-Tests-Integrated-in-Development-and-Testing_Workflows)**
+**[2.10 Security Tests Integrated in Development and Testing Workflows](2_Introduction/2_Introduction.md#Security-Tests-Integrated-in-Development-and-Testing-Workflows)**
 
-**[2.11 Security Test Data Analysis and Reporting](2_Introduction/2_Introduction.md#Security-Test-Data-Analysis-and_Reporting)**
+**[2.11 Security Test Data Analysis and Reporting](2_Introduction/2_Introduction.md#Security-Test-Data-Analysis-and-Reporting)**
 
 ## [3. The OWASP Testing Framework](3_The_OWASP_Testing_Framework/)
 
 **[3.1 Overview](3_The_OWASP_Testing_Framework/3_The_OWASP_Testing_Framework.md#Overview)**
 
-**[3.2 Phase 1: Before Development Begins](3_The_OWASP_Testing_Framework/3_The_OWASP_Testing_Framework.md#Phase-1:Before-Development-Begins)**
+**[3.2 Phase 1: Before Development Begins](3_The_OWASP_Testing_Framework/3_The_OWASP_Testing_Framework.md#Phase-1:-Before-Development-Begins)**
 
-**[3.3 Phase 2: During Definition and Design](3_The_OWASP_Testing_Framework/3_The_OWASP_Testing_Framework.md#Phase-2:During-Definition-and-Design)**
+**[3.3 Phase 2: During Definition and Design](3_The_OWASP_Testing_Framework/3_The_OWASP_Testing_Framework.md#Phase-2:-During-Definition-and-Design)**
 
-**[3.4 Phase 3: During Development](3_The_OWASP_Testing_Framework/3_The_OWASP_Testing_Framework.md#Phase-3:During-Development)**
+**[3.4 Phase 3: During Development](3_The_OWASP_Testing_Framework/3_The_OWASP_Testing_Framework.md#Phase-3:-During-Development)**
 
-**[3.5 Phase 4: During Deployment](3_The_OWASP_Testing_Framework/3_The_OWASP_Testing_Framework.md#Phase-4:During-Deployment)**
+**[3.5 Phase 4: During Deployment](3_The_OWASP_Testing_Framework/3_The_OWASP_Testing_Framework.md#Phase-4:-During-Deployment)**
 
-**[3.6 Phase 5: Maintenance and Operations](3_The_OWASP_Testing_Framework/3_The_OWASP_Testing_Framework.md#Phase-5:Maintenance-and-Operations)**
+**[3.6 Phase 5: Maintenance and Operations](3_The_OWASP_Testing_Framework/3_The_OWASP_Testing_Framework.md#Phase-5:-Maintenance-and-Operations)**
 
 **[3.7 A Typical SDLC Testing Workflow](3_The_OWASP_Testing_Framework/3_The_OWASP_Testing_Framework.md#A-Typical-SDLC-Testing-Workflow)**
 
@@ -305,7 +305,6 @@
 - [https://sourceforge.net/projects/matriux/?source=navbar](https://sourceforge.net/projects/matriux/?source=navbar)
 - [http://www.blackarch.org/downloads.html](http://www.blackarch.org/downloads.html)
 - [https://www.kali.org/](https://www.kali.org/)
-- [http://cyborg.ztrela.com/tools/](http://cyborg.ztrela.com/tools/)
 - [http://www.caine-live.net/index.html](http://www.caine-live.net/index.html)
 - [http://www.pentoo.ch/download/](http://www.pentoo.ch/download/)
 - [http://bugtraq-team.com/](http://bugtraq-team.com/)
@@ -327,4 +326,4 @@
 
 ## [Appendix E: Misc](Appx.E_Misc/AppxE_History.md)
 
-- [History](Appx.E_Misc/AppxE_History.md)
+- History
