@@ -10,7 +10,11 @@ You can download the stable version v4 [here](http://www.owasp.org/index.php/OWA
 
 **Everyone can contribute!** By simply reading the document, which you certainly should do, grammar mistakes, new ideas, or paragraph restructuring thoughts will show themselves! Just try it out, you'll see :smile:
 
+Not to mention, you'll be on the authors, or reviewers and editors list.
+
 Whenever you identify a contribution possibility, open up an [issue](https://github.com/OWASP/OWASP-Testing-Guide-v5/issues) with it in order for us to keep track and assign project milestones.
+
+For the ones that enjoy providing constructive feedback and feel like they can review other's contributions, head straight to our [Pull Requests](https://github.com/OWASP/OWASP-Testing-Guide-v5/pulls)!
 
 Despite us being technical, we love having technical and casual chats with others. Join us by following the below steps:
 
