@@ -76,7 +76,7 @@ Once accepted, your name will be added to the project authors.
 3. Install the following [markdown linter plugin](https://github.com/DavidAnson/vscode-markdownlint#install).
 4. You can safely follow now [how to send a PR](#how-to-send-a-pr).
 
-#### How to run lint checker locally ( Test )
+#### How to Run Lint Checker Locally ( Test )
 
 1. Go to the project folder in your terminal
 2. Make sure you have installed [node](https://nodejs.org)
