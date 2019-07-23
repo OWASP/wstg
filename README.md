@@ -19,7 +19,7 @@ For the ones that enjoy providing constructive feedback and feel like they can r
 Despite us being technical, we love having technical and casual chats with others. Join us by following the below steps:
 
 - Join [OWASP Slack](https://join.slack.com/t/owasp/shared_invite/enQtNjExMTc3MTg0MzU4LTViMDg1MmJiMzMwZGUxZjgxZWQ1MTE0NTBlOTBhNjhhZDIzZTZiNmEwOTJlYjdkMzAxMGVhNDkwNDNiNjZiOWQ).
-- Join this project's [channel](https://app.slack.com/client/T04T40NHX/CJ2QDHLRJ) (yes, you can join other channels, we won't stop you!).
+- Join this project's [channel: #testing-guide](https://app.slack.com/client/T04T40NHX/CJ2QDHLRJ) (yes, you can join other channels, we won't stop you!).
 
 Before you start contributing, please check our [**contribution guide**](CONTRIBUTING.md) which should help you get started and follow our best practices.
 
