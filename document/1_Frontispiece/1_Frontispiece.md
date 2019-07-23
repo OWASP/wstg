@@ -26,6 +26,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 
 - Rick Mitchell
 - Elie Saad
+- Rejah Rehim
 
 ## Trademarks
 
