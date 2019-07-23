@@ -1,4 +1,6 @@
-## Welcome to the OWASP Testing Guide 5.0
+# OWASP Testing Guide 5.0
+
+## Welcome
 
 Placeholder-TBC
 
@@ -14,7 +16,6 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 
 ## v5 Authors
 
-
 - Tal Argoni
 - Manh Pham Tien
 - Rubal Jain
@@ -25,6 +26,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 
 - Rick Mitchell
 - Elie Saad
+- Rejah Rehim
 
 ## Trademarks
 
