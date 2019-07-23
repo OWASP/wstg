@@ -72,6 +72,15 @@ Once accepted, your name will be added to the project authors.
 ### How to Set Up My Contributor Environment
 
 1. [Join GitHub](https://github.com/join).
-1. Install [Visual Studio Code](https://code.visualstudio.com/).
-1. Install the following [markdown linter plugin](https://github.com/DavidAnson/vscode-markdownlint#install).
-1. You can safely follow now [how to send a PR](#how-to-send-a-pr).
+2. Install [Visual Studio Code](https://code.visualstudio.com/).
+3. Install the following [markdown linter plugin](https://github.com/DavidAnson/vscode-markdownlint#install).
+4. You can safely follow now [how to send a PR](#how-to-send-a-pr).
+
+#### How to Run Local CI Tests
+
+1. Go to the project folder in your terminal
+2. Make sure you have installed [node](https://nodejs.org)
+3. Install node modules
+    `npm install`
+4. Run test
+    `npm test`
