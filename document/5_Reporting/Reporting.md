@@ -45,7 +45,6 @@ The findings section should include:
 
 The following is the list of controls that were tested during the assessment:
 
-
 | Test ID  | Test Description | Findings | Severity | Recommendations |
 | ---------| -----------------| -------- | -------- | --------------- |
 | **Information Gathering**  |
