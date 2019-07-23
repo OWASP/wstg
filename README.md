@@ -19,6 +19,8 @@ Despite us being technical, we love having technical and casual chats with other
 
 Before you start contributing, please check our [**contribution guide**](CONTRIBUTING.md) which should help you get started and follow our best practices.
 
+You can as well open up a post on our [Google Group](https://groups.google.com/a/owasp.org/forum/#!forum/testing-guide-project)!
+
 ## Style Guidelines
 
 - Please don't write in the first person (Ex: no "I" or "Me" statements).
