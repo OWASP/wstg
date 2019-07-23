@@ -17,7 +17,7 @@ The Testing Guide v4 will be released in 2014. The Testing guide originated in 2
 
 ## v4 Authors
 
-```
+```html
 - Matteo Meucci            - Cecil Su            - Brad Causey            - Davide Danelon
 - Pavol Luptak             - Aung KhAnt          - Vicente Aguilera       - Alexander Antukh
 - Marco Morana             - Norbert Szetei      - Ismael Gonçalves       - Thomas Kalamaris
@@ -35,7 +35,7 @@ The Testing Guide v4 will be released in 2014. The Testing guide originated in 2
 
 ## v4 Reviewers
 
-```
+```html
 - Davide Danelon          - Andrea Rosignoli     - Irene Abezgauz
 - Lode Vanstechelman      - Sebastien Gioria     - Yiannis Pavlosoglou
 - Aditya Balapure
@@ -43,7 +43,7 @@ The Testing Guide v4 will be released in 2014. The Testing guide originated in 2
 
 ## v3 Authors
 
-```
+```html
 - Anurag Agarwwal        - Giorgio Fedon        - Gianrico Ingrosso         - Mark Roxberry
 - Ferruh Mavituna        - Antonio Parata       - Andrew Van der Stock      - Marco Mella
 - Daniele Bellucci       - Adam Goodman         - Roberto Suggi Liverani    - Cecil Su
@@ -53,14 +53,14 @@ The Testing Guide v4 will be released in 2014. The Testing guide originated in 2
 
 ## v3 Reviewers
 
-```
+```html
 - Marco Cova            - Matteo Meucci         - Rick Mitchell
 - Kevin Fuller          - Nam Nguyen
 ```
 
 ## v2 Authors
 
-```
+```html
 - Vicente Aguilera      - David Endler               - Matteo Meucci        - Anush Shetty
 - Mauro Bregolin        - Giorgio Fedon              - Marco Morana         - Larry Shields
 - Tom Brennan           - Javier Fernández-Sanguino  - Laura Nunez          - Dafydd Studdard
@@ -75,7 +75,7 @@ The Testing Guide v4 will be released in 2014. The Testing guide originated in 2
 
 ## v2 Reviewers
 
-```
+```html
 - Vicente Aguilera      - Mauro Bregolin          - Daniel Cuthbert       - Stefano Di Paola
 - Simona Forti          - Eoin Keary              - Katie McDowell        - Matteo Meucci
 - Antonio Parata        - Mark Roxberry           - Marco Belotti         - Marco Cova
