@@ -1,5 +1,4 @@
-Foreword by [Eoin Keary](https://www.owasp.org/index.php/Eoin_Keary), OWASP Global Board
-----------------------------------------------------------------------------------------
+# Foreword by [Eoin Keary](https://www.owasp.org/index.php/Eoin_Keary), OWASP Global Board
 
 The problem of insecure software is perhaps the most important technical challenge of our time. The dramatic rise of web applications enabling business, social networking etc has only compounded the requirements to establish a robust approach to writing and securing our Internet, Web Applications and Data.
 
@@ -11,8 +10,7 @@ Security testing, by itself, isn't a particularly good stand alone measure of ho
 
 In conjunction with other OWASP projects such as the Code review Guide, the Development Guide and tools such as OWASP ZAP, this is a great start towards building and maintaining secure applications. The [Development Guide](https://www.owasp.org/index.php/Building_Guide) will show your project how to architect and build a secure application, the [Code Review Guide](https://www.owasp.org/index.php/Code_Review_Guide) will tell you how to verify the security of your application's source code, and this [Testing Guide](https://www.owasp.org/index.php/OWASP_Testing_Project) will show you how to verify the security of your running application. I highly recommend using these guides as part of your application security initiatives.
 
-Why OWASP?
-----------
+## Why OWASP?
 
 Creating a guide like this is a huge undertaking, requiring the expertise of hundreds of people around the world. There are many different ways to test for security flaws and this guide captures the consensus of the leading experts on how to perform this testing quickly, accurately, and efficiently. OWASP gives like minded security folks the ability to work together and form a leading practice approach to a security problem.
 
@@ -24,27 +22,22 @@ Keeping this information up to date is a critical aspect of this guide project. 
 
 This Guide is a great testament to the passion and energy our members and project volunteers have for this subject. It shall certainly help change the world a line of code at a time.
 
-Tailoring and Prioritizing
---------------------------
+## Tailoring and Prioritizing
 
 You should adopt this guide in your organization. You may need to tailor the information to match your organization's technologies, processes, and organizational structure.
 
 In general there are several different roles within organizations that may use this guide:
 
--   Developers should use this guide to ensure that they are producing secure code. These tests should be a part of normal code and unit testing procedures.
-
--   Software testers and QA should use this guide to expand the set of test cases they apply to applications. Catching these vulnerabilities early saves considerable time and effort later.
-
--   Security specialists should use this guide in combination with other techniques as one way to verify that no security holes have been missed in an application.
-
--   Project Managers should consider the reason this guide exists and that security issues are manifested via bugs in code and design.
+- Developers should use this guide to ensure that they are producing secure code. These tests should be a part of normal code and unit testing procedures.
+- Software testers and QA should use this guide to expand the set of test cases they apply to applications. Catching these vulnerabilities early saves considerable time and effort later.
+- Security specialists should use this guide in combination with other techniques as one way to verify that no security holes have been missed in an application.
+- Project Managers should consider the reason this guide exists and that security issues are manifested via bugs in code and design.
 
 The most important thing to remember when performing security testing is to continuously re-prioritize. There are an infinite number of possible ways that an application could fail, and organizations always have limited testing time and resources. Be sure time and resources are spent wisely. Try to focus on the security holes that are a real risk to your business. Try to contextualize risk in terms of the application and its use cases.
 
 This guide is best viewed as a set of techniques that you can use to find different types of security holes. But not all the techniques are equally important. Try to avoid using the guide as a checklist, new vulnerabilities are always manifesting and no guide can be an exhaustive list of “things to test for”, but rather a great place to start.
 
-The Role of Automated Tools
----------------------------
+## The Role of Automated Tools
 
 There are a number of companies selling automated security analysis and testing tools. Remember the limitations of these tools so that you can use them for what they're good at. As Michael Howard put it at the [2006 OWASP AppSec Conference in Seattle](https://www.owasp.org/index.php/OWASP_AppSec_Seattle_2006/Agenda), “Tools do not make software secure! They help scale the process and help enforce policy.”
 
@@ -52,8 +45,7 @@ Most importantly, these tools are generic - meaning that they are not designed f
 
 These tools can also be seductive, since they do find lots of potential issues. While running the tools doesn't take much time, each one of the potential problems takes time to investigate and verify. If the goal is to find and eliminate the most serious flaws as quickly as possible, consider whether your time is best spent with automated tools or with the techniques described in this guide. Still, these tools are certainly part of a well-balanced application security program. Used wisely, they can support your overall processes to produce more secure code.
 
-Call to Action
---------------
+## Call to Action
 
 If you're building, designing or testing software, I strongly encourage you to get familiar with the security testing guidance in this document. It is a great road map for testing the most common issues facing applications today, but it is not exhaustive. If you find errors, please add a note to the discussion page or make the change yourself. You'll be helping thousands of others who use this guide.
 
