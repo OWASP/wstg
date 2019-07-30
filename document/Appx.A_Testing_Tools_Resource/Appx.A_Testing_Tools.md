@@ -1,4 +1,4 @@
-# Open Source Black Box Testing tools
+# Open Source Black Box Testing Tools
 
 ## General Testing
 
@@ -49,7 +49,7 @@
 - [Subgraph Vega](http://www.subgraph.com/products.html)
   - Vega is a free and open source scanner and testing platform to test the security of web applications. Vega can help you find and validate SQL Injection, Cross-Site Scripting (XSS), inadvertently disclosed sensitive information, and other vulnerabilities. It is written in Java, GUI based, and runs on Linux, OS X, and Windows.
 
-### Testing for specific vulnerabilities
+### Testing for Specific Vulnerabilities
 
 #### Testing for JavaScript Security, DOM XSS
 
@@ -121,9 +121,9 @@
 - [Slowloris](https://github.com/gkbrk/slowloris)
 - [slowhttptest](https://github.com/shekyan/slowhttptest)
 
-## Commercial Black Box Testing tools
+## Commercial Black Box Testing Tools
 
-- [NGS Typhon](https://www.nccgroup.trust/uk/our-services/security-consulting/information-security-software/?utm_source=marketing&utm_medium=rd0517)
+- [NGS Typhon](https://www.nccgroup.trust/uk/our-services/security-consulting/information-security-software/?utm_medium=rd0517)
 - [IBM AppScan](https://www.ibm.com/hk-en/security/application-security/appscan)
 - [Burp Intruder](http://www.portswigger.net/burp/intruder.html)
 - [Acunetix Web Vulnerability Scanner](http://www.acunetix.com)
