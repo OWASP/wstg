@@ -2,37 +2,35 @@
 
 ## Overview
 
-This section describes a typical testing framework that can be developed within an organization. It can be seen as a reference framework that comprises techniques and tasks that are appropriate at various phases of the software development life cycle (SDLC). Companies and project teams can use this model to develop their own testing framework and to scope testing services from vendors. This framework should not be seen as prescriptive, but as a flexible approach that can be extended and molded to fit an organization's development process and culture.
+This section describes a typical testing framework that can be developed within an organization. It can be seen as a reference framework comprised of techniques and tasks that are appropriate at various phases of the software development life cycle (SDLC). Companies and project teams can use this model to develop their own testing framework, and to scope testing services from vendors. This framework should not be seen as prescriptive, but as a flexible approach that can be extended and molded to fit an organization's development process and culture.
 
 This section aims to help organizations build a complete strategic testing process, and is not aimed at consultants or contractors who tend to be engaged in more tactical, specific areas of testing.
 
-It is critical to understand why building an end-to-end testing framework is crucial to assessing and improving software security. In *Writing Secure Code* Howard and LeBlanc note that issuing a security bulletin costs Microsoft at least &dollar;100,000, and it costs their customers collectively far more than that to implement the security patches. They also note that the US government's [CyberCrime web site](http://www.justice.gov/criminal/cybercrime/) details recent criminal cases and the loss to organizations. Typical losses far exceed USD &dollar;100,000.
+It is critical to understand why building an end-to-end testing framework is crucial to assessing and improving software security. In *Writing Secure Code,* Howard and LeBlanc note that issuing a security bulletin costs Microsoft at least &dollar;100,000, and it costs their customers collectively far more than that to implement the security patches. They also note that the US government's [CyberCrime web site](https://www.justice.gov/criminal-ccips) details recent criminal cases and the loss to organizations. Typical losses far exceed USD &dollar;100,000.
 
-With economics like this, it is little wonder why software vendors move from solely performing black box security testing, which can only be performed on applications that have already been developed, to concentrate on testing in the early cycles of application development such as definition, design, and development.
+With economics like this, it is little wonder why software vendors move from solely performing black-box security testing, which can only be performed on applications that have already been developed, to concentrating on testing in the early cycles of application development, such as during definition, design, and development.
 
-Many security practitioners still see security testing in the realm of penetration testing. As discussed before, while penetration testing has a role to play, it is generally inefficient at finding bugs and relies excessively on the skill of the tester. It should only be considered as an implementation technique, or to raise awareness of production issues. To improve the security of applications, the security quality of the software must be improved. That means testing the security at the definition, design, develop, deploy, and maintenance stages, and not relying on the costly strategy of waiting until code is completely built.
+Many security practitioners still see security testing in the realm of penetration testing. As discussed in the previous chapter, while penetration testing has a role to play, it is generally inefficient at finding bugs and relies excessively on the skill of the tester. It should only be considered as an implementation technique, or to raise awareness of production issues. To improve the security of applications, the security quality of the software must be improved. That means testing security during the definition, design, development, deployment, and maintenance stages, and not relying on the costly strategy of waiting until code is completely built.
 
-As discussed in the introduction of this document, there are many development methodologies such as the Rational Unified Process, eXtreme and Agile development, and traditional waterfall methodologies. The intent of this guide is to suggest neither a particular development methodology nor provide specific guidance that adheres to any particular methodology. Instead, we are presenting a generic development model, and the reader should follow it according to their company process.
+As discussed in the introduction of this document, there are many development methodologies, such as the Rational Unified Process, eXtreme and Agile development, and traditional waterfall methodologies. The intent of this guide is to suggest neither a particular development methodology, nor provide specific guidance that adheres to any particular methodology. Instead, we are presenting a generic development model, and the reader should follow it according to their company process.
 
-This testing framework consists of the following activities that should take place:
+This testing framework consists of activities that should take place:
 
-- Before development begins
-- During definition and design
-- During development
-- During deployment
-- Maintenance and operations
+- Before development begins,
+- During definition and design,
+- During development,
+- During deployment, and
+- During maintenance and operations.
 
 ## Phase 1: Before Development Begins
 
 ### Phase 1.1: Define a SDLC
 
-Before application development starts an adequate SDLC must be defined where security is inherent at each stage.
+Before application development starts, an adequate SDLC must be defined where security is inherent at each stage.
 
 ### Phase 1.2: Review Policies and Standards
 
-Ensure that there are appropriate policies, standards, and documentation in place. Documentation is extremely important as it gives development teams guidelines and policies that they can follow.
-
-*People can only do the right thing if they know what the right thing is.*
+Ensure that there are appropriate policies, standards, and documentation in place. Documentation is extremely important as it gives development teams guidelines and policies that they can follow. People can only do the right thing if they know what the right thing is.
 
 If the application is to be developed in Java, it is essential that there is a Java secure coding standard. If the application is to use cryptography, it is essential that there is a cryptography standard. No policies or standards can cover every situation that the development team will face. By documenting the common and predictable issues, there will be fewer decisions that need to be made during the development process.
 
@@ -50,16 +48,16 @@ For example, if there is a security requirement that states that users must be r
 
 When looking for requirements gaps, consider looking at security mechanisms such as:
 
-- User Management
+- User management
 - Authentication
 - Authorization
-- Data Confidentiality
+- Data confidentiality
 - Integrity
 - Accountability
-- Session Management
-- Transport Security
-- Tiered System Segregation
-- Legislative and standards compliance (including Privacy, Government and Industry standards)
+- Session management
+- Transport security
+- Tiered system segregation
+- Legislative and standards compliance (including privacy, government and industry standards)
 
 ### Phase 2.2: Review Design and Architecture
 
@@ -93,10 +91,10 @@ Armed with a good understanding of how the code is structured and why certain th
 
 Static code reviews validate the code against a set of checklists, including:
 
-- Business requirements for availability, confidentiality, and integrity.
-- OWASP Guide or Top 10 Checklists for technical exposures (depending on the depth of the review).
-- Specific issues relating to the language or framework in use, such as the Scarlet paper for PHP or [Microsoft Secure Coding checklists for ASP.NET](https://msdn.microsoft.com/en-us/library/ff648269.aspx).
-- Any industry specific requirements, such as Sarbanes-Oxley 404, COPPA, ISO/IEC 27002, APRA, HIPAA, Visa Merchant guidelines, or other regulatory regimes.
+- Business requirements for availability, confidentiality, and integrity;
+- OWASP Guide or Top 10 Checklists for technical exposures (depending on the depth of the review);
+- Specific issues relating to the language or framework in use, such as the Scarlet paper for PHP or [Microsoft Secure Coding checklists for ASP.NET](https://msdn.microsoft.com/en-us/library/ff648269.aspx); and
+- Any industry-specific requirements, such as Sarbanes-Oxley 404, COPPA, ISO/IEC 27002, APRA, HIPAA, Visa Merchant guidelines, or other regulatory regimes.
 
 In terms of return on resources invested (mostly time), static code reviews produce far higher quality returns than any other security review method and rely least on the skill of the reviewer. However, they are not a silver bullet and need to be considered carefully within a full-spectrum testing regime.
 
@@ -106,13 +104,13 @@ For more details on OWASP checklists, please refer to [OWASP Guide for Secure We
 
 ### Phase 4.1: Application Penetration Testing
 
-Having tested the requirements, analyzed the design, and performed code review, it might be assumed that all issues have been caught. Hopefully this is the case, but penetration testing the application after it has been deployed provides a last check to ensure that nothing has been missed.
+Having tested the requirements, analyzed the design, and performed code review, it might be assumed that all issues have been caught. Hopefully this is the case, but penetration testing the application after it has been deployed provides an additional check to ensure that nothing has been missed.
 
 ### Phase 4.2: Configuration Management Testing
 
-The application penetration test should include the checking of how the infrastructure was deployed and secured. While the application may be secure, a small aspect of the configuration could still be at a default install stage and vulnerable to exploitation.
+The application penetration test should include an examination of how the infrastructure was deployed and secured. It is important to review configuration aspects, no matter how small, to ensure that none are left at a default setting that may be vulnerable to exploitation.
 
-## Phase 5: Maintenance and Operations
+## Phase 5: During Maintenance and Operations
 
 ### Phase 5.1: Conduct Operational Management Reviews
 
