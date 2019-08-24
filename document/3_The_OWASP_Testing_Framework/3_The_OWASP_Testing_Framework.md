@@ -130,4 +130,4 @@ The following figure shows a typical SDLC Testing Workflow.
 
 ![Typical SDLC Testing Workflow](images/Typical_SDLC_Testing_Workflow.gif)
 
- *Figure 5: Typical SDLC testing workflow*
+ *Figure 3-1: Typical SDLC testing workflow*
