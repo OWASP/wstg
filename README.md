@@ -31,6 +31,7 @@ You can as well open up a post on our [Google Group](https://groups.google.com/a
 - Please do use Title Caps for headings, using Title Capitalization as defined by the 'Chicago Manual of Style'. For quick reference you can use this online tool: [https://capitalizemytitle.com/#Chicago](https://capitalizemytitle.com/#Chicago) (make sure you select the "Chicago" tab).
 - Please do use serial or [Oxford commas](https://www.grammarly.com/blog/what-is-the-oxford-comma-and-why-do-people-care-so-much-about-it/).
 - Don't use `and/or`, chances are you can simply write `or`. (Note: The OR allows for the same True result as an AND, while also allowing for other combinations producing True results.) Unless, you actually mean something like "A and/exclusive or B" in which case read the sentence to yourself with those words and then figure out a different way to write it :smile:.
+- Caption figures using title case and with the section and sub-sections, for example: *Figure 4.2.1-1: Google Site Operation Search Result Example*.
 
 ## Project Summit 2017 Outcomes
 
