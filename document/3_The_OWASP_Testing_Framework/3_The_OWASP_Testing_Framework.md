@@ -57,7 +57,7 @@ When looking for requirements gaps, consider looking at security mechanisms such
 - Session management
 - Transport security
 - Tiered system segregation
-- Legislative and standards compliance (including privacy, government and industry standards)
+- Legislative and standards compliance (including privacy, government, and industry standards)
 
 ### Phase 2.2: Review Design and Architecture
 
