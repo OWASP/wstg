@@ -6,6 +6,13 @@
 Welcome to the OWASP Testing Guide (OTG) project!
 You can download the stable version v4 [here](http://www.owasp.org/index.php/OWASP_Testing_Project).
 
+1. [OWASP Testing Guide Project](#owasp-testing-guide-project)
+   1. [Contributions, Feature Requests, and Feedback](#contributions-feature-requests-and-feedback)
+   2. [Style Guidelines](#style-guidelines)
+   3. [Maintainers](#maintainers)
+   4. [Special Thanks](#special-thanks)
+   5. [Project Summit 2017 Outcomes](#project-summit-2017-outcomes)
+
 ## Contributions, Feature Requests, and Feedback
 
 **Everyone can contribute!** By simply reading the document, which you certainly should do, grammar mistakes, new ideas, or paragraph restructuring thoughts will show themselves! Just try it out, you'll see :smile:
@@ -31,6 +38,17 @@ You can as well open up a post on our [Google Group](https://groups.google.com/a
 - Please do use Title Caps for headings, using Title Capitalization as defined by the 'Chicago Manual of Style'. For quick reference you can use this online tool: [https://capitalizemytitle.com/#Chicago](https://capitalizemytitle.com/#Chicago) (make sure you select the "Chicago" tab).
 - Please do use serial or [Oxford commas](https://www.grammarly.com/blog/what-is-the-oxford-comma-and-why-do-people-care-so-much-about-it/).
 - Don't use `and/or`, chances are you can simply write `or`. (Note: The OR allows for the same True result as an AND, while also allowing for other combinations producing True results.) Unless, you actually mean something like "A and/exclusive or B" in which case read the sentence to yourself with those words and then figure out a different way to write it :smile:.
+
+## Maintainers
+
+- [Rick Mitchell](https://github.com/kingthorin)
+- [Elie Saad](https://github.com/ThunderSon)
+
+## Special Thanks
+
+For the people that helped migrate this project from MediaWiki to GitHub's flavored Markdown, thank you!
+
+- [Rejah Rehim](https://github.com/rejahrehim)
 
 ## Project Summit 2017 Outcomes
 
