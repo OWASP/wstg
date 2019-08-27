@@ -32,6 +32,17 @@ You can as well open up a post on our [Google Group](https://groups.google.com/a
 - Please do use serial or [Oxford commas](https://www.grammarly.com/blog/what-is-the-oxford-comma-and-why-do-people-care-so-much-about-it/).
 - Don't use `and/or`, chances are you can simply write `or`. (Note: The OR allows for the same True result as an AND, while also allowing for other combinations producing True results.) Unless, you actually mean something like "A and/exclusive or B" in which case read the sentence to yourself with those words and then figure out a different way to write it :smile:.
 
+## Maintainers
+
+- [Rick Mitchell](https://github.com/kingthorin)
+- [Elie Saad](https://github.com/ThunderSon)
+
+## Special Thanks
+
+For the people that helped migrate this project from MediaWiki to GitHub's flavored Markdown, thank you!
+
+- [Rejah Rehim](https://github.com/rejahrehim)
+
 ## Project Summit 2017 Outcomes
 
 The outcomes can be found [here](OWASP_Summit_Outcomes.md)
