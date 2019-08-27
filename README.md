@@ -6,6 +6,13 @@
 Welcome to the OWASP Testing Guide (OTG) project!
 You can download the stable version v4 [here](http://www.owasp.org/index.php/OWASP_Testing_Project).
 
+1. [OWASP Testing Guide Project](#owasp-testing-guide-project)
+   1. [Contributions, Feature Requests, and Feedback](#contributions-feature-requests-and-feedback)
+   2. [Style Guidelines](#style-guidelines)
+   3. [Maintainers](#maintainers)
+   4. [Special Thanks](#special-thanks)
+   5. [Project Summit 2017 Outcomes](#project-summit-2017-outcomes)
+
 ## Contributions, Feature Requests, and Feedback
 
 **Everyone can contribute!** By simply reading the document, which you certainly should do, grammar mistakes, new ideas, or paragraph restructuring thoughts will show themselves! Just try it out, you'll see :smile:
