@@ -10,6 +10,6 @@ Contained in this folder is an Excel file which provides the following worksheet
 
 https://raw.githubusercontent.com/OWASP/OWASP-Testing-Guide-v5/master/checklist/OWASP-Testing_Checklist.xlsx
 
-## Checksum
+## File Hash
 
 SHA-256: 6ababbbc354c383179c56b0f4d41219694ae0cdbf90edb85506aff340e97dae9
