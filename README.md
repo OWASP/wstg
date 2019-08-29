@@ -31,7 +31,7 @@ You can also open up a post on our [Google Group](https://groups.google.com/a/ow
 ## Style Guidelines
 
 - Please don't write in the first person (Ex: no "I" or "Me" statements).
-- Please do use Title Caps for headings, using Title Capitalization as defined by the *Chicago Manual of Style*. For quick reference you can use this online tool: [https://capitalizemytitle.com/#Chicago](https://capitalizemytitle.com/#Chicago) (make sure you select the "Chicago" tab).
+- Please do use Title Caps for headings, using Title Capitalization as defined by the *Chicago Manual of Style*. For quick reference you can use this [online tool](https://capitalizemytitle.com/#Chicago) (make sure you select the "Chicago" tab).
 - Please do use serial or [Oxford commas](https://www.grammarly.com/blog/what-is-the-oxford-comma-and-why-do-people-care-so-much-about-it/).
 - Don't use `and/or`. Chances are you can simply write `or`. (Note: The OR allows for the same True result as an AND, while also allowing for other combinations producing True results.) Unless you actually mean something like "A and/exclusive or B" in which case read the sentence to yourself with those words and then figure out a different way to write it. :smile:
 - Caption figures using title case, with the section and sub-section numbers, followed by the figure position in the document. Use the format *`Figure <section>.<sub-section>-<position>: Caption Title`*. For example, the first image shown in section 4.8, sub-section 19 would be added as follows:
