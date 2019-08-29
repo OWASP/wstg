@@ -4,13 +4,16 @@
 [![OWASP Flagship](https://img.shields.io/badge/owasp-flagship-brightgreen.svg)](https://www.owasp.org/index.php/OWASP_Project_Inventory#tab=Flagship_Projects)
 
 Welcome to the OWASP Testing Guide (OTG) project!
+
 You can download the stable version v4 [here](http://www.owasp.org/index.php/OWASP_Testing_Project).
 
 ## Contributions, Feature Requests, and Feedback
 
-**Everyone can contribute!** By simply reading the document, which you certainly should do, grammar mistakes, new ideas, or paragraph restructuring thoughts will show themselves! Just try it out, you'll see :smile:
+**Everyone can contribute!** By simply reading the document, which you certainly should do, grammar mistakes, new ideas, or paragraph restructuring thoughts will show themselves! Just try it out, you'll see. :smile:
 
 Not to mention, you'll be on the authors, or reviewers and editors list.
+
+Before you start contributing, please read our [**contribution guide**](CONTRIBUTING.md) which should help you get started and follow our best practices.
 
 Whenever you identify a contribution possibility, open up an [issue](https://github.com/OWASP/OWASP-Testing-Guide-v5/issues) with it in order for us to keep track and assign project milestones.
 
@@ -21,17 +24,53 @@ Despite us being technical, we love having technical and casual chats with other
 - Join [OWASP Slack](https://join.slack.com/t/owasp/shared_invite/enQtNjExMTc3MTg0MzU4LTViMDg1MmJiMzMwZGUxZjgxZWQ1MTE0NTBlOTBhNjhhZDIzZTZiNmEwOTJlYjdkMzAxMGVhNDkwNDNiNjZiOWQ).
 - Join this project's [channel: #testing-guide](https://app.slack.com/client/T04T40NHX/CJ2QDHLRJ) (yes, you can join other channels, we won't stop you!).
 
-Before you start contributing, please check our [**contribution guide**](CONTRIBUTING.md) which should help you get started and follow our best practices.
+Feel free to ask questions, bounce ideas off us, or just hang out and chat!
 
-You can as well open up a post on our [Google Group](https://groups.google.com/a/owasp.org/forum/#!forum/testing-guide-project)!
+You can also open up a post on our [Google Group](https://groups.google.com/a/owasp.org/forum/#!forum/testing-guide-project)!
 
 ## Style Guidelines
 
 - Please don't write in the first person (Ex: no "I" or "Me" statements).
-- Please do use Title Caps for headings, using Title Capitalization as defined by the 'Chicago Manual of Style'. For quick reference you can use this online tool: [https://capitalizemytitle.com/#Chicago](https://capitalizemytitle.com/#Chicago) (make sure you select the "Chicago" tab).
+- Please do use Title Caps for headings, using Title Capitalization as defined by the *Chicago Manual of Style*. For quick reference you can use this online tool: [https://capitalizemytitle.com/#Chicago](https://capitalizemytitle.com/#Chicago) (make sure you select the "Chicago" tab).
 - Please do use serial or [Oxford commas](https://www.grammarly.com/blog/what-is-the-oxford-comma-and-why-do-people-care-so-much-about-it/).
-- Don't use `and/or`, chances are you can simply write `or`. (Note: The OR allows for the same True result as an AND, while also allowing for other combinations producing True results.) Unless, you actually mean something like "A and/exclusive or B" in which case read the sentence to yourself with those words and then figure out a different way to write it :smile:.
-- Caption figures using title case and with the section and sub-sections, for example: *Figure 4.2.1-1: Google Site Operation Search Result Example*.
+- Don't use `and/or`. Chances are you can simply write `or`. (Note: The OR allows for the same True result as an AND, while also allowing for other combinations producing True results.) Unless you actually mean something like "A and/exclusive or B" in which case read the sentence to yourself with those words and then figure out a different way to write it. :smile:
+- Caption figures using title case, with the section and sub-section numbers, followed by the figure position in the document. Use the format *`Figure <section>.<sub-section>-<position>: Caption Title`*. For example, the first image shown in section 4.8, sub-section 19 would be added as follows:
+
+    ```md
+    ![SSTI XVWA Example](images/SSTI_XVWA.jpeg)\
+    *Figure 4.8.19-1: SSTI XVWA Example*
+    ```
+
+## Project folder structure
+
+When adding articles and images, please place articles in the appropriate sub-section directory, and place images in an `images/` folder within the article directory. Here is an example of the project structure:
+
+```console
+document/
+ ├───0_Foreword/
+ │   └───0_Foreword.md
+ ├───1_Frontispiece/
+ │   ├───images/
+ │   │   └───example.jpg
+ │   └───1_Frontispiece.md
+ ├───2_Introduction/
+ │   ├───images/
+ │   │   └───example.jpg
+ │   └───2_Introduction.md
+ ├───3_The_OWASP_Testing_Framework/
+ │   ├───images/
+ │   │   └───example.jpg
+ │   └───3_The_OWASP_Testing_Framework.md
+ ├───4_Web_Application_Security_Testing/
+ │   ├───4.1_Introduction_and_Objectives/
+ │   │   └───4.1_Testing_Introduction_and_Objectives.md
+ │   ├───4.2_Information_Gathering/
+ │   │   ├───images/
+ │   │   │   └───example.jpg
+ │   │   ├───4.2_Testing_Information_Gathering.md
+ │   │   └───4.2.1_Conduct_Search_Engine_Discovery.md
+
+```
 
 ## Project Summit 2017 Outcomes
 
