@@ -20,7 +20,7 @@ You can download the stable version v4 [here](http://www.owasp.org/index.php/OWA
 
 Not to mention, you'll be on the authors, or reviewers and editors list.
 
-Before you start contributing, please read our [**contribution guide**](CONTRIBUTING.md) which should help you get started and follow our best practices.
+Before you start contributing, please read our [**contribution guide**](CONTRIBUTING.md) and [**template**](template/999.2_Template_Explanation_OTG-FOO-002.md) which should help you get started and follow our best practices.
 
 Whenever you identify a contribution possibility, open up an [issue](https://github.com/OWASP/OWASP-Testing-Guide-v5/issues) with it in order for us to keep track and assign project milestones.
 
