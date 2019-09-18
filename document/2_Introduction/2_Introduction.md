@@ -13,7 +13,9 @@ The rest of this guide is organized as follows: this introduction covers the pre
 ### Measuring Security: the Economics of Insecure Software
 
 A basic tenet of software engineering is summed up in a quote from *Controlling Software Projects: Management, Measurement, & Estimates* by [Tom DeMarco](https://en.wikiquote.org/wiki/Tom_DeMarco):
+
 > You can't control what you can't measure.
+
 Security testing is no different. Unfortunately, measuring security is a notoriously difficult process.
 
 One aspect that should be emphasized is that security measurements are about both the specific technical issues (e.g., how prevalent a certain vulnerability is) and how these issues affect the economics of software. Most technical people will at least understand the basic issues, or they may have a deeper understanding of the vulnerabilities. Sadly, few are able to translate that technical knowledge into monetary terms and quantify the potential cost of vulnerabilities to the application owner's business. Until this happens, CIOs will not be able to develop an accurate return on security investment and, subsequently, assign appropriate budgets for software security.
@@ -57,7 +59,9 @@ An effective testing program should have components that test the following:
 
 Unless a holistic approach is adopted, testing just the technical implementation of an application will not uncover management or operational vulnerabilities that could be present. By testing the people, policies, and processes, an organization can catch issues that would later manifest themselves into defects in the technology, thus eradicating bugs early and identifying the root causes of defects. Likewise, testing only some of the technical issues that can be present in a system will result in an incomplete and inaccurate security posture assessment.
 
-Denis Verdon, Head of Information Security at [Fidelity National Financial](http://www.fnf.com), presented an excellent analogy for this misconception at the [OWASP AppSec 2004 Conference in New York](https://www.owasp.org/index.php/OWASP_AppSec_NYC_2004): “If cars were built like applications ... safety tests would assume frontal impact only. Cars would not be roll tested, or tested for stability in emergency maneuvers, brake effectiveness, side impact, and resistance to theft.”
+Denis Verdon, Head of Information Security at [Fidelity National Financial](http://www.fnf.com), presented an excellent analogy for this misconception at the [OWASP AppSec 2004 Conference in New York](https://www.owasp.org/index.php/OWASP_AppSec_NYC_2004):
+
+> “If cars were built like applications ... safety tests would assume frontal impact only. Cars would not be roll tested, or tested for stability in emergency maneuvers, brake effectiveness, side impact, and resistance to theft.”
 
 ### Feedback and Comments
 
@@ -391,9 +395,9 @@ Threat modeling tools such as threat trees and attack libraries can be useful to
 
 ### Deriving Security Test Requirements Through Use and Misuse Cases
 
-A prerequisite to describing the application functionality is to understand what the application is supposed to do and how. This can be done by describing *use cases*. Use cases, in the graphical form as is commonly used in software engineering, show the interactions of actors and their relations. They help to identify the actors in the application, their relationships, the intended sequence of actions for each scenario, alternative actions, special requirements, preconditions, and post-conditions.
+A prerequisite to describing the application functionality is to understand what the application is supposed to do and how. This can be done by describing use cases. Use cases, in the graphical form as is commonly used in software engineering, show the interactions of actors and their relations. They help to identify the actors in the application, their relationships, the intended sequence of actions for each scenario, alternative actions, special requirements, preconditions, and post-conditions.
 
-Similar to use cases, [*misuse and abuse cases*](https://folk.uio.no/nik/2001/21-sindre.pdf) describe unintended and malicious use scenarios of the application. These misuse cases provide a way to describe scenarios of how an attacker could misuse and abuse the application. By going through the individual steps in a use scenario and thinking about how it can be maliciously exploited, potential flaws or aspects of the application that are not well defined can be discovered. The key is to describe all possible or, at least, the most critical use and misuse scenarios.
+Similar to use cases, [misuse and abuse cases](https://folk.uio.no/nik/2001/21-sindre.pdf) describe unintended and malicious use scenarios of the application. These misuse cases provide a way to describe scenarios of how an attacker could misuse and abuse the application. By going through the individual steps in a use scenario and thinking about how it can be maliciously exploited, potential flaws or aspects of the application that are not well defined can be discovered. The key is to describe all possible or, at least, the most critical use and misuse scenarios.
 
 Misuse scenarios allow the analysis of the application from the attacker's point of view and contribute to identifying potential vulnerabilities and the countermeasures that need to be implemented to mitigate the impact caused by the potential exposure to such vulnerabilities. Given all of the use and abuse cases, it is important to analyze them to determine which are the most critical and need to be documented in security requirements. The identification of the most critical misuse and abuse cases drives the documentation of security requirements and the necessary controls where security risks should be mitigated.
 
