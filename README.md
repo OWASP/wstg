@@ -48,7 +48,7 @@ You can also open up a post on our [Google Group](https://groups.google.com/a/ow
     *Figure 4.8.19-1: SSTI XVWA Example*
     ```
 
-## Project folder structure
+## Project Folder Structure
 
 When adding articles and images, please place articles in the appropriate sub-section directory, and place images in an `images/` folder within the article directory. Here is an example of the project structure:
 
