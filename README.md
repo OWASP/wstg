@@ -28,7 +28,7 @@ For the ones that enjoy providing constructive feedback and feel like they can r
 
 Despite us being technical, we love having technical and casual chats with others. Join us by following the below steps:
 
-- Join [OWASP Slack](https://join.slack.com/t/owasp/shared_invite/enQtNjExMTc3MTg0MzU4LTViMDg1MmJiMzMwZGUxZjgxZWQ1MTE0NTBlOTBhNjhhZDIzZTZiNmEwOTJlYjdkMzAxMGVhNDkwNDNiNjZiOWQ).
+- Join [OWASP Slack](https://join.slack.com/t/owasp/shared_invite/enQtNjExMTc3MTg0MzU4LWQ2Nzg3NGJiZGQ2MjRmNzkzN2Q4YzU1MWYyZTdjYjA2ZTA5M2RkNzE2ZjdkNzI5ZThhOWY5MjljYWZmYmY4ZjM).
 - Join this project's [channel: #testing-guide](https://app.slack.com/client/T04T40NHX/CJ2QDHLRJ) (yes, you can join other channels, we won't stop you!).
 
 Feel free to ask questions, bounce ideas off us, or just hang out and chat!
@@ -48,7 +48,7 @@ You can also open up a post on our [Google Group](https://groups.google.com/a/ow
     *Figure 4.8.19-1: SSTI XVWA Example*
     ```
 
-## Project folder structure
+## Project Folder Structure
 
 When adding articles and images, please place articles in the appropriate sub-section directory, and place images in an `images/` folder within the article directory. Here is an example of the project structure:
 
