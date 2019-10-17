@@ -131,7 +131,7 @@ Note that attempting to load such a definition file within a fuzzer application 
 
 Format string attacks are a class of vulnerabilities that involve supplying language specific format tokens to execute arbitrary code or crash a program. Fuzzing for such errors has as an objective to check for unfiltered user input.
 
-An excellent introduction on FSE can be found in the USENIX paper entitled: [Detecting Format String Vulnerabilities with Type Qualifiers](http://research.microsoft.com/pubs/74359/01-shankar.pdfl)
+An excellent introduction on FSE can be found in the USENIX paper entitled: [Detecting Format String Vulnerabilities with Type Qualifiers](https://www.microsoft.com/en-us/research/wp-content/uploads/2001/01/01-shankar.pdf)
 
 Note that attempting to load such a definition file within a fuzzer application can potentially cause the application to crash.
 

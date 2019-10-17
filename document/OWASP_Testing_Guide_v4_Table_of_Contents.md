@@ -292,9 +292,9 @@
 
 - [PTES_Technical_Guidelines](http://www.pentest-standard.org/index.php/PTES_Technical_Guidelines)
 - [http://www.vulnerabilityassessment.co.uk/Penetration%20Test.html](http://www.vulnerabilityassessment.co.uk/Penetration%20Test.html)
-- [http://sectools.org](http://sectools.org/)
+- [https://sectools.org](https://sectools.org/)
 - [https://www.kali.org](https://www.kali.org/)
-- [http://www.blackarch.org/tools.html](http://www.blackarch.org/tools.html)
+- [https://www.blackarch.org/tools.html](https://www.blackarch.org/tools.html)
 
 ### Security Testing Tools in Virtual Image
 
@@ -303,11 +303,11 @@
 - [https://sourceforge.net/projects/santoku/](https://sourceforge.net/projects/santoku/)
 - [https://sourceforge.net/projects/parrotsecurity/?source=navbar](https://sourceforge.net/projects/parrotsecurity/?source=navbar)
 - [https://sourceforge.net/projects/matriux/?source=navbar](https://sourceforge.net/projects/matriux/?source=navbar)
-- [http://www.blackarch.org/downloads.html](http://www.blackarch.org/downloads.html)
+- [https://www.blackarch.org/downloads.html](https://www.blackarch.org/downloads.html)
 - [https://www.kali.org/](https://www.kali.org/)
-- [http://www.caine-live.net/index.html](http://www.caine-live.net/index.html)
-- [http://www.pentoo.ch/download/](http://www.pentoo.ch/download/)
-- [http://bugtraq-team.com/](http://bugtraq-team.com/)
+- [https://www.caine-live.net/index.html](https://www.caine-live.net/index.html)
+- [https://www.pentoo.ch/download/](https://www.pentoo.ch/download/)
+- [https://bugtraq-team.com/](https://bugtraq-team.com/)
 
 ## [Appendix B: Suggested Reading](Appx.B_Suggested_Reading/Appx.B_Suggested_Reading.md)
 
