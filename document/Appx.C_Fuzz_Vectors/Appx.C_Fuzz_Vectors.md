@@ -1,6 +1,6 @@
 # Fuzz Vectors
 
-The following are fuzzing vectors which can be used with [ZAP](https://www.owasp.org/index.php/ZAP), [WebScarab](https://www.owasp.org/index.php/WebScarab), [JBroFuzz](https://www.owasp.org/index.php/JBroFuzz), [WSFuzzer](https://www.owasp.org/index.php/WSFuzzer) or another fuzzer. Fuzzing is the “kitchen sink” approach to testing the response of an application to parameter manipulation. Generally one looks for error conditions that are generated in an application as a result of fuzzing. This is the simple part of the discovery phase. Once an error has been discovered identifying and exploiting a potential vulnerability is where skill is required.
+The following are fuzzing vectors which can be used with [ZAP](https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project), [JBroFuzz](https://www.owasp.org/index.php/JBroFuzz), [WSFuzzer](https://www.owasp.org/index.php/WSFuzzer) or another fuzzer. Fuzzing is the “kitchen sink” approach to testing the response of an application to parameter manipulation. Generally one looks for error conditions that are generated in an application as a result of fuzzing. This is the simple part of the discovery phase. Once an error has been discovered identifying and exploiting a potential vulnerability is where skill is required.
 
 ## Fuzz Categories
 
@@ -131,7 +131,7 @@ Note that attempting to load such a definition file within a fuzzer application 
 
 Format string attacks are a class of vulnerabilities that involve supplying language specific format tokens to execute arbitrary code or crash a program. Fuzzing for such errors has as an objective to check for unfiltered user input.
 
-An excellent introduction on FSE can be found in the USENIX paper entitled: [Detecting Format String Vulnerabilities with Type Qualifiers](http://research.microsoft.com/pubs/74359/01-shankar.pdfl)
+An excellent introduction on FSE can be found in the USENIX paper entitled: [Detecting Format String Vulnerabilities with Type Qualifiers](https://www.microsoft.com/en-us/research/publication/detecting-format-string-vulnerabilities-with-type-qualifiers/)
 
 Note that attempting to load such a definition file within a fuzzer application can potentially cause the application to crash.
 
