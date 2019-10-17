@@ -4,6 +4,8 @@
 
 - [The Economic Impacts of Inadequate Infrastructure for Software Testing](https://www.nist.gov/sites/default/files/documents/director/planning/report02-3.pdf)
 
+- [Improving Web Application Security: Threats and Countermeasures](https://www.microsoft.com/en-ca/download/details.aspx?id=1330)
+
 - [NIST Publications](https://csrc.nist.gov/publications/sp)
 
 - [The Open Web Application Security Project (OWASP) Guide Project](https://www.owasp.org/index.php/OWASP_Guide_Project)
@@ -33,14 +35,17 @@
 - How to Break Software: Functional and Security Testing of Web Applications and Web Services, by Make Andrews, James A. Whittaker, published by Pearson Education Inc., ISBN 0321369440 (2006)
 
 - [Innocent Code: A Security Wake-Up Call for Web Programmers, by Sverre Huseby, published by John Wiley & Sons, ISBN 0470857447(2004)](http://innocentcode.thathost.com)
+
   - [Online version available here](https://books.google.com/books?id=RjVjgPQsKogC&printsec=frontcover&source=gbs_ge_summary_r&redir_esc=y#v=onepage&q&f=false)
 
 - Mastering the Requirements Process, by Suzanne Robertson and James Robertson, published by Addison-Wesley Professional, ISBN 0201360462
+
   - [Online version available here](https://books.google.com/books?id=SN4WegDHVCcC&printsec=frontcover&source=gbs_ge_summary_r&cad=0#v=onepage&q&f=false)
 
 - Secure Coding: Principles and Practices, by Mark Graff and Kenneth R. Van Wyk, published by O’Reilly, ISBN 0596002424 (2003)
 
 - Secure Programming HOWTO, David Wheeler (2015)
+
   - [Online version available here](https://dwheeler.com/secure-programs/Secure-Programs-HOWTO/index.html)
 
 - [Securing Java, by Gary McGraw, Edward W. Felten, published by Wiley, ISBN 047131952X (1999)](http://www.securingjava.com)
@@ -73,7 +78,8 @@
 
 - [OASIS Web Application Security (WAS) TC](https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=was)
 
-- [Open Source Software Testing Tools](http://www.opensourcetesting.org/category/security/)
+- [Open Source Software Testing Tools](https://www.opensourcetesting.org/category/security/)
+
 - [OWASP Security Blitz](https://www.owasp.org/index.php/OWASP_Security_Blitz)
 
 - [OWASP Phoenix/Tool](https://www.owasp.org/index.php/Phoenix/Tools)
@@ -83,7 +89,7 @@
 
 - [Pentestmonkey - Pen Testing Cheat Sheets](http://pentestmonkey.net/cheat-sheet)
 
-- [Secure Coding Guidelines for the .NET Framework 4.5](https://docs.microsoft.com/en-us/dotnet/standard/security/secure-coding-guidelines?redirectedfrom=MSDN)
+- [Secure Coding Guidelines for the .NET Framework 4.5](https://docs.microsoft.com/en-us/dotnet/standard/security/secure-coding-guidelines)
 
 - [Security in the Java platform](https://docs.oracle.com/javase/6/docs/technotes/guides/security/overview/jsoverview.html)
 
