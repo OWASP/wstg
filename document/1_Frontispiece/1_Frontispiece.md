@@ -25,6 +25,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 
 ## v5 Reviewers/Editors
 
+- Asharaf Ali
 - Elie Saad
 - Patrick Santos
 - Rejah Rehim
