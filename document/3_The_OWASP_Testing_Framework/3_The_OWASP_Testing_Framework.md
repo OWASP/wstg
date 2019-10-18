@@ -128,6 +128,5 @@ After every change has been approved and tested in the QA environment and deploy
 
 The following figure shows a typical SDLC Testing Workflow.
 
-![Typical SDLC Testing Workflow](images/Typical_SDLC_Testing_Workflow.gif)
-
+![Typical SDLC Testing Workflow](images/Typical_SDLC_Testing_Workflow.gif)\
  *Figure 3-1: Typical SDLC testing workflow*
