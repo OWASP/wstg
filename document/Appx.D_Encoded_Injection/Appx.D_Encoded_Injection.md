@@ -96,7 +96,7 @@ Multibyte encoding has been used in the past to bypass standard input validation
 
 ## References
 
-- [https://en.wikipedia.org/wiki/Encode_(semiotics)](https://en.wikipedia.org/wiki/Encode_(semiotics))
-- [https://www.w3schools.com/HTML/html_entities.asp](https://www.w3schools.com/HTML/html_entities.asp)
-- [https://searchsecurity.techtarget.com/expert/KnowledgebaseAnswer/0,289625,sid14_gci1212217_tax299989,00.html](https://searchsecurity.techtarget.com/expert/KnowledgebaseAnswer/0,289625,sid14_gci1212217_tax299989,00.html)
-- [https://www.joelonsoftware.com/articles/Unicode.html](https://www.joelonsoftware.com/articles/Unicode.html)
+- [Encoding (Semiotics)](https://en.wikipedia.org/wiki/Encoding_(semiotics))
+- [HTML Entities](https://www.w3schools.com/HTML/html_entities.asp)
+- [How to prevent input validation attacks](https://searchsecurity.techtarget.com/answer/How-to-prevent-input-validation-attacks)
+- [Unicode and Character Sets](https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/)
