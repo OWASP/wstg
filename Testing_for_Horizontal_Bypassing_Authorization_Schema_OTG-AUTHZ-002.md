@@ -45,4 +45,4 @@ Tools
 -------
 Burp extension: Authorize.
 References
-OWASP Application Security Verification Standard 3.0.1, V4.1, 4.4, 4.9, 4.16.
+OWASP Application Security Verification Standard 3.0.1, 4.1, 4.4, 4.9, 4.16.

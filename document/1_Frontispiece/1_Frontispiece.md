@@ -16,17 +16,21 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 
 ## v5 Authors
 
-- Tal Argoni
-- Manh Pham Tien
-- Rubal Jain
-- Mark Clayton
 - Janos Zold
+- Manh Pham Tien
+- Mark Clayton
+- Rubal Jain
+- Tal Argoni
+- Victoria Drake
 
 ## v5 Reviewers/Editors
 
-- Rick Mitchell
+- Asharaf Ali
 - Elie Saad
+- Patrick Santos
 - Rejah Rehim
+- Rick Mitchell
+- Victoria Drake
 
 ## Trademarks
 
@@ -34,8 +38,8 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Merriam-Webster is a trademark of Merriam-Webster, Inc.
 - Microsoft is a registered trademark of Microsoft Corporation.
 - Octave is a service mark of Carnegie Mellon University.
+- OWASP is a registered trademark of the OWASP Foundation
 - VeriSign and Thawte are registered trademarks of VeriSign, Inc.
 - Visa is a registered trademark of VISA USA.
-- OWASP is a registered trademark of the OWASP Foundation
 
 All other products and company names may be trademarks of their respective owners. Use of a term in this document should not be regarded as affecting the validity of any trademark or service mark.
