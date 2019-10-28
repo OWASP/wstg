@@ -19,7 +19,7 @@ A basic tenet of software engineering is summed up in a quote from [Controlling 
 Security testing is no different. Unfortunately, measuring security is a notoriously difficult process.
 
 One aspect that should be emphasized is that security measurements are about both the specific technical issues (e.g., how prevalent a certain vulnerability is) and how these issues affect the economics of software. Most technical people will at least understand the basic issues, or they may have a deeper understanding of the vulnerabilities. Sadly, few are able to translate that technical knowledge into monetary terms and quantify the potential cost of vulnerabilities to the application owner's business. Until this happens, CIOs will not be able to develop an accurate return on security investment and, subsequently, assign appropriate budgets for software security.
-While estimating the cost of insecure software may appear a daunting task, there has been a significant amount of work in this direction. For example, in June 2002, the US National Institute of Standards (NIST) published a [survey on the cost of insecure software to the US economy due to inadequate software testing](https://www.nist.gov/director/planning/upload/report02-3.pdf). Interestingly, they estimate that a better testing infrastructure would save more than a third of these costs, or about &dollar;22 billion a year. More recently, the links between economics and security have been studied by academic researchers. [Ross Andrerson's page](https://www.cl.cam.ac.uk/~rja14/econsec.html) on economics and security has more information about some of these efforts.
+While estimating the cost of insecure software may appear a daunting task, there has been a significant amount of work in this direction. For example, in June 2002, the US National Institute of Standards (NIST) published a [survey on the cost of insecure software to the US economy due to inadequate software testing](https://www.nist.gov/director/planning/upload/report02-3.pdf). Interestingly, they estimate that a better testing infrastructure would save more than a third of these costs, or about $22 billion a year. More recently, the links between economics and security have been studied by academic researchers. [Ross Andrerson's page](https://www.cl.cam.ac.uk/~rja14/econsec.html) on economics and security has more information about some of these efforts.
 
 The framework described in this document encourages people to measure security throughout the entire development process. They can then relate the cost of insecure software to the impact it has on the business, and consequently develop appropriate business processes and assign resources to manage the risk. Remember that measuring and testing web applications is even more critical than for other software, since web applications are exposed to millions of users through the Internet.
 
@@ -27,7 +27,7 @@ The framework described in this document encourages people to measure security t
 
 Many things need to be tested during the development life cycle of a web application, but what does testing actually mean? The Oxford Dictionary of English defines "test" as:
 
-> __test__ (noun): a procedure intended to establish the quality, performance, or reliability of something, especially before it is taken into widespread use.
+> **test** (noun): a procedure intended to establish the quality, performance, or reliability of something, especially before it is taken into widespread use.
 
 For the purposes of this document, testing is a process of comparing the state of a system or application against a set of criteria. In the security industry, people frequently test against a set of mental criteria that are neither well defined nor complete. As a result of this, many outsiders regard security testing as a black art. The aim of this document is to change that perception, and to make it easier for people without in-depth security knowledge to make a difference in testing.
 
@@ -39,9 +39,8 @@ This document is designed to help organizations understand what comprises a test
 
 Most people today don’t test software until it has already been created and is in the deployment phase of its life cycle (i.e., code has been created and instantiated into a working web application). This is generally a very ineffective and cost-prohibitive practice. One of the best methods to prevent security bugs from appearing in production applications is to improve the Software Development Life Cycle (SDLC) by including security in each of its phases. An SDLC is a structure imposed on the development of software artifacts. If an SDLC is not currently being used in your environment, it is time to pick one! The following figure shows a generic SDLC model as well as the (estimated) increasing cost of fixing security bugs in such a model.
 
-![Figure 1 - Generic SDLC Model](images/SDLC.jpg)
-
-*Figure 2-1 - Generic SDLC Model*
+![Generic SDLC Model](images/SDLC.jpg)\
+*Figure 2-1: Generic SDLC Model*
 
 Companies should inspect their overall SDLC to ensure that security is an integral part of the development process. SDLCs should include security tests to ensure security is adequately covered and controls are effective throughout the development process.
 
@@ -83,8 +82,7 @@ Vulnerability studies such as [Symantec's Internet Security Threat Report](https
 
 There are several incorrect assumptions in the patch-and-penetrate model. Many users believe that patches interfere with normal operations or might break existing applications. It is also incorrect to assume that all users are aware of newly released patches. Consequently not all users of a product will apply patches, either because they think patching may interfere with how the software works, or because they lack knowledge about the existence of the patch.
 
-![Figure 2: Window of Vulnerability](images/WindowExposure.jpg)
-
+![Window of Vulnerability](images/WindowExposure.jpg)\
 *Figure 2-2: Window of Vulnerability*
 
 It is essential to build security into the Software Development Life Cycle (SDLC) to prevent reoccurring security problems within an application. Developers can build security into the SDLC by developing standards, policies, and guidelines that fit and work within the development methodology. Threat modeling and other techniques should be used to help assign appropriate resources to those parts of a system that are most at risk.
@@ -261,15 +259,13 @@ Of course there are times and circumstances where only one technique is possible
 
 A balanced approach varies depending on many factors, such as the maturity of the testing process and corporate culture. It is recommended that a balanced testing framework should look something like the representations shown in Figure 3 and Figure 4. The following figure shows a typical proportional representation overlaid onto the SLDC. In keeping with research and experience, it is essential that companies place a higher emphasis on the early stages of development.
 
-![Figure 2-3: Proportion of Test Effort in SDLC](images/ProportionSDLC.png)
-
-*Figure 3: Proportion of Test Effort in SDLC*
+![Proportion of Test Effort in SDLC](images/ProportionSDLC.png)\
+*Figure 2-3: Proportion of Test Effort in SDLC*
 
 The following figure shows a typical proportional representation overlaid onto testing techniques.
 
-![Figure 2-4: Proportion of Test Effort According to Test Technique](images/ProportionTest.png)
-
-*Figure 4: Proportion of Test Effort According to Test Technique*
+![Proportion of Test Effort According to Test Technique](images/ProportionTest.png)\
+*Figure 2-4: Proportion of Test Effort According to Test Technique*
 
 ### A Note about Web Application Scanners
 
@@ -292,8 +288,8 @@ Given that all of the other parameters were simple two- and three-characters fie
 The code for this exemplar Magic Parameter check may look like the following:
 
 ```java
-public void doPost( HttpServletRequest request, HttpServletResponse response) { 
-  String magic = “sf8g7sfjdsurtsdieerwqredsgnfg8d”; 
+public void doPost( HttpServletRequest request, HttpServletResponse response) {
+  String magic = “sf8g7sfjdsurtsdieerwqredsgnfg8d”;
   boolean admin = magic.equals( request.getParameter(“magic”));
   if (admin) doAdmin( request, response);
   else … // normal processing
@@ -320,11 +316,11 @@ To have a successful testing program, one must know what the testing objectives 
 
 ### Testing Objectives
 
-One of the objectives of security testing is to validate that security controls operate as expected. This is documented via *security requirements* that describe the functionality of the security control. At a high level, this means proving confidentiality, integrity, and availability of the data as well as the service. The other objective is to validate that security controls are implemented with few or no vulnerabilities. These are common vulnerabilities, such as the [OWASP Top Ten](https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project), as well as vulnerabilities that have been previously identified with security assessments during the SDLC, such as threat modelling, source code analysis, and penetration test.
+One of the objectives of security testing is to validate that security controls operate as expected. This is documented via `security requirements` that describe the functionality of the security control. At a high level, this means proving confidentiality, integrity, and availability of the data as well as the service. The other objective is to validate that security controls are implemented with few or no vulnerabilities. These are common vulnerabilities, such as the [OWASP Top Ten](https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project), as well as vulnerabilities that have been previously identified with security assessments during the SDLC, such as threat modelling, source code analysis, and penetration test.
 
 ### Security Requirements Documentation
 
-The first step in the documentation of security requirements is to understand the *business requirements*. A business requirement document can provide initial high-level information on the expected functionality of the application. For example, the main purpose of an application may be to provide financial services to customers or to allow goods to be purchased from an on-line catalog. A security section of the business requirements should highlight the need to protect the customer data as well as to comply with applicable security documentation such as regulations, standards, and policies.
+The first step in the documentation of security requirements is to understand the `business requirements`. A business requirement document can provide initial high-level information on the expected functionality of the application. For example, the main purpose of an application may be to provide financial services to customers or to allow goods to be purchased from an on-line catalog. A security section of the business requirements should highlight the need to protect the customer data as well as to comply with applicable security documentation such as regulations, standards, and policies.
 
 A general checklist of the applicable regulations, standards, and policies is a good preliminary security compliance analysis for web applications. For example, compliance regulations can be identified by checking information about the business sector and the country or state where the application will operate. Some of these compliance guidelines and regulations might translate into specific technical requirements for security controls. For example, in the case of financial applications, compliance with the [Federal Financial Institutions Examination Council guidelines for authentication](https://www.ffiec.gov/pdf/authentication_guidance.pdf) requires that financial institutions implement applications that mitigate weak authentication risks with multi-layered security control and multi-factor authentication.
 
@@ -342,7 +338,7 @@ Security issues that are identified early in the SDLC can be documented in a tes
 
 ### Threats and Countermeasures Taxonomies
 
-A *threat and countermeasure classification*, which takes into consideration root causes of vulnerabilities, is the critical factor in verifying that security controls are designed, coded, and built to mitigate the impact of the exposure of such vulnerabilities. In the case of web applications, the exposure of security controls to common vulnerabilities, such as the OWASP Top Ten, can be a good starting point to derive general security requirements. The [OWASP Testing Guide Checklist](https://github.com/OWASP/OWASP-Testing-Guide-v5/tree/master/checklist) is a helpful resource for guiding testers through specific vulnerabilities and validation tests.
+A `threat and countermeasure classification`, which takes into consideration root causes of vulnerabilities, is the critical factor in verifying that security controls are designed, coded, and built to mitigate the impact of the exposure of such vulnerabilities. In the case of web applications, the exposure of security controls to common vulnerabilities, such as the OWASP Top Ten, can be a good starting point to derive general security requirements. The [OWASP Testing Guide Checklist](https://github.com/OWASP/OWASP-Testing-Guide-v5/tree/master/checklist) is a helpful resource for guiding testers through specific vulnerabilities and validation tests.
 
 The focus of a threat and countermeasure categorization is to define security requirements in terms of the threats and the root cause of the vulnerability. A threat can be categorized by using [STRIDE](https://en.wikipedia.org/wiki/STRIDE_(security)), an acronym for Spoofing, Tampering, Repudiation, Information disclosure, Denial of service, and Elevation of privilege. The root cause can be categorized as security flaw in design, a security bug in coding, or an issue due to insecure configuration. For example, the root cause of weak authentication vulnerability might be the lack of mutual authentication when data crosses a trust boundary between the client and server tiers of the application. A security requirement that captures the threat of non-repudiation during an architecture design review allows for the documentation of the requirement for the countermeasure (e.g., mutual authentication) that can be validated later on with security tests.
 
@@ -350,7 +346,7 @@ A threat and countermeasure categorization for vulnerabilities can also be used 
 
 ### Security Testing and Risk Analysis
 
-Security requirements need to take into consideration the severity of the vulnerabilities to support a *risk mitigation strategy*. Assuming that the organization maintains a repository of vulnerabilities found in applications (i.e, a vulnerability knowledge base), the security issues can be reported by type, issue, mitigation, root cause, and mapped to the applications where they are found. Such a vulnerability knowledge base can also be used to establish a metrics to analyze the effectiveness of the security tests throughout the SDLC.
+Security requirements need to take into consideration the severity of the vulnerabilities to support a `risk mitigation strategy`. Assuming that the organization maintains a repository of vulnerabilities found in applications (i.e, a vulnerability knowledge base), the security issues can be reported by type, issue, mitigation, root cause, and mapped to the applications where they are found. Such a vulnerability knowledge base can also be used to establish a metrics to analyze the effectiveness of the security tests throughout the SDLC.
 
 For example, consider an input validation issue, such as a SQL injection, which was identified via source code analysis and reported with a coding error root cause and input validation vulnerability type. The exposure of such vulnerability can be assessed via a penetration test, by probing input fields with several SQL injection attack vectors. This test might validate that special characters are filtered before hitting the database and mitigate the vulnerability. By combining the results of source code analysis and penetration testing, it is possible to determine the likelihood and exposure of the vulnerability and calculate the risk rating of the vulnerability. By reporting vulnerability risk ratings in the findings (e.g., test report) it is possible to decide on the mitigation strategy. For example, high and medium risk vulnerabilities can be prioritized for remediation, while low risk vulnerabilities can be fixed in further releases.
 
@@ -360,7 +356,7 @@ By considering the threat scenarios of exploiting common vulnerabilities, it is 
 
 #### Functional Security Requirements
 
-From the perspective of functional security requirements, the applicable standards, policies, and regulations drive both the need for a type of security control as well as the control functionality. These requirements are also referred to as “positive requirements”, since they state the expected functionality that can be validated through security tests. Examples of positive requirements are: “the application will lockout the user after six failed log on attempts” or “passwords need to be a minimum of ten alphanumeric characters”. The validation of positive requirements consists of asserting the expected functionality and can be tested by re-creating the testing conditions and running the test according to predefined inputs. The results are then shown as as a fail or pass condition.
+From the perspective of functional security requirements, the applicable standards, policies, and regulations drive both the need for a type of security control as well as the control functionality. These requirements are also referred to as "positive requirements", since they state the expected functionality that can be validated through security tests. Examples of positive requirements are: "the application will lockout the user after six failed log on attempts" or "passwords need to be a minimum of ten alphanumeric characters". The validation of positive requirements consists of asserting the expected functionality and can be tested by re-creating the testing conditions and running the test according to predefined inputs. The results are then shown as as a fail or pass condition.
 
 In order to validate security requirements with security tests, security requirements need to be function-driven. They need to highlight the expected functionality (the what) and imply the implementation (the how). Examples of high-level security design requirements for authentication can be:
 
@@ -415,8 +411,7 @@ Attacker breaks the authentication through a brute force or dictionary attack of
 
 The graphical example below depicts the derivation of security requirements via use and misuse cases. The functional scenario consists of the user actions (entering a username and password) and the application actions (authenticating the user and providing an error message if validation fails). The misuse case consists of the attacker actions, i.e. trying to break authentication by brute forcing the password via a dictionary attack and by guessing the valid usernames from error messages. By graphically representing the threats to the user actions (misuses), it is possible to derive the countermeasures as the application actions that mitigate such threats.
 
-![Use and Misuse case](images/640px-UseAndMisuseCase.jpg)
-
+![Use and Misuse case](images/640px-UseAndMisuseCase.jpg)\
 *Figure 2-5: Use and Misuse Case*
 
 #### Step 4: Elicit The Security Requirements

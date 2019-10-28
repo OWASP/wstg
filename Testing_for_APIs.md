@@ -130,7 +130,7 @@ Step 2: Navigate to cloned repository and compile the source code using 'make'
 Step 3: Run `./jwtcrack <JWT>`
 
 In case of weak secret value, this will bruteforce the secret.
-  
+
 ## Related Test Cases
 
 - [IDOR](https://github.com/OWASP/OWASP-Testing-Guide-v5/blob/master/document/4_Web_Application_Security_Testing/4.6_Authorization_Testing/4.6.4_Testing_for_Insecure_Direct_Object_References_OTG-AUTHZ-004.md)

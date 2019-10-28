@@ -5,8 +5,6 @@
 - [OWASP ZAP](https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project)
   - The Zed Attack Proxy (ZAP) is an easy to use integrated penetration testing tool for finding vulnerabilities in web applications. It is designed to be used by people with a wide range of security experience and as such is ideal for developers and functional testers who are new to penetration testing.
   - ZAP provides automated scanners as well as a set of tools that allow you to find security vulnerabilities manually.
-- [OWASP WebScarab](https://www.owasp.org/index.php/OWASP_WebScarab_Project)
-  - WebScarab is a framework for analysing applications that communicate using the HTTP and HTTPS protocols. It is written in Java, and is portable to many platforms. WebScarab has several modes of operation that are implemented by a number of plugins.
 - [OWASP CAL9000](https://www.owasp.org/index.php/OWASP_CAL9000_Project)
   - CAL9000 is a collection of browser-based tools that enable more effective and efficient manual testing efforts.
   - Includes an XSS Attack Library, Character Encoder/Decoder, HTTP Request Generator and Response Evaluator, Testing Checklist, Automated Attack Editor and much more.

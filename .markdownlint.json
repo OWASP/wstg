@@ -1,0 +1,6 @@
+{
+  "line-length": false,
+  "no-duplicate-heading": false,
+  "no-trailing-punctuation": { "punctuation" : ".,;:!。，；：!" },
+  "code-block-style": { "style" : "fenced" }
+}
