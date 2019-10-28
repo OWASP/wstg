@@ -15,7 +15,7 @@
     "url": "git+https://github.com/OWASP/OWASP-Testing-Guide-v5.git"
   },
   "author": "OWASP",
-  "license": "ISC",
+  "license": "CC-BY-SA-4.0",
   "bugs": {
     "url": "https://github.com/OWASP/OWASP-Testing-Guide-v5/issues"
   },
