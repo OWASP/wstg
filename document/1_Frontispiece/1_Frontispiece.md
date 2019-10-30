@@ -30,6 +30,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Patrick Santos
 - Rejah Rehim
 - Rick Mitchell
+- Roman Mueller
 - Victoria Drake
 
 ## Trademarks
