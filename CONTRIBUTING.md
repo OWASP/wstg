@@ -31,6 +31,8 @@ This section guides you through providing new content to the testing guide. New 
 
 In order to suggest a new scenario, follow the guidance of [how to send a PR](#how-to-send-a-PR).
 
+Leverage the [template materials](https://github.com/OWASP/wstg/tree/master/template) when adding content.
+
 ### How to Send a PR
 
 - Make sure that you have properly [setup your environment](#how-to-set-up-my-contributor-environment).
