@@ -29,9 +29,7 @@ This section guides you through providing new content to the testing guide. New 
 - New methods to test against a certain weakness.
 - New techniques or details to test against a newly discovered weakness.
 
-In order to suggest a new scenario, follow the guidance of [how to send a PR](#how-to-send-a-PR).
-
-Leverage the [template materials](https://github.com/OWASP/wstg/tree/master/template) when adding content.
+In order to suggest a new scenario, follow the guidance of [how to send a PR](#how-to-send-a-PR). **Note** you are expected to leverage the [template materials](https://github.com/OWASP/wstg/tree/master/template) when adding content.
 
 ### How to Send a PR
 

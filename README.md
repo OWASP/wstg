@@ -48,7 +48,7 @@ You can also open up a post on our [Google Group](https://groups.google.com/a/ow
     *Figure 4.8.19-1: SSTI XVWA Example*
     ```
 
-- Please leverage the [template materials](https://github.com/OWASP/wstg/tree/master/template).
+- **Please** leverage the [template materials](https://github.com/OWASP/wstg/tree/master/template).
 
 ## Project Folder Structure
 
