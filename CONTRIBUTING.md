@@ -24,12 +24,14 @@ In order to fix an [issue](https://github.com/OWASP/OWASP-Testing-Guide-v5/issue
 
 ### Creating New Testing Scenarios
 
-This section guides you through providing new content to the testing guide. New content can be:
+This section guides you through providing new content to the testing guide. When adding new content, please follow the [template materials](https://github.com/OWASP/wstg/tree/master/template).
+
+New content can be:
 
 - New methods to test against a certain weakness.
 - New techniques or details to test against a newly discovered weakness.
 
-In order to suggest a new scenario, follow the guidance of [how to send a PR](#how-to-send-a-PR). **Note** you are expected to leverage the [template materials](https://github.com/OWASP/wstg/tree/master/template) when adding content.
+In order to suggest a new scenario, follow the guidance of [how to send a PR](#how-to-send-a-PR).
 
 ### How to Send a PR
 
