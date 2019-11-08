@@ -37,6 +37,7 @@ You can also open up a post on our [Google Group](https://groups.google.com/a/ow
 
 ## Style Guidelines
 
+- Please refer to the [template materials](https://github.com/OWASP/wstg/tree/master/template) when adding content.
 - Please don't write in the first person (Ex: no "I" or "Me" statements).
 - Please do use Title Caps for headings, using Title Capitalization as defined by the *Chicago Manual of Style*. For quick reference you can use this [online tool](https://capitalizemytitle.com/#Chicago) (make sure you select the "Chicago" tab).
 - Please do use serial or [Oxford commas](https://www.grammarly.com/blog/what-is-the-oxford-comma-and-why-do-people-care-so-much-about-it/).
