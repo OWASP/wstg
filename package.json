@@ -1,6 +1,6 @@
 {
   "name": "wstg",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/OWASP/wstg/issues) [![OWASP Flagship](https://img.shields.io/badge/owasp-flagship-brightgreen.svg)](https://www.owasp.org/index.php/OWASP_Project_Inventory#tab=Flagship_Projects)",
   "main": "index.js",
   "dependencies": {},
