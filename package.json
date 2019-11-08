@@ -1,7 +1,7 @@
 {
-  "name": "owasp-testing-guide-v5",
-  "version": "1.0.0",
-  "description": "[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/OWASP/OWASP-Testing-Guide-v5/issues) [![OWASP Flagship](https://img.shields.io/badge/owasp-flagship-brightgreen.svg)](https://www.owasp.org/index.php/OWASP_Project_Inventory#tab=Flagship_Projects)",
+  "name": "wstg",
+  "version": "1.0.1",
+  "description": "[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/OWASP/wstg/issues) [![OWASP Flagship](https://img.shields.io/badge/owasp-flagship-brightgreen.svg)](https://www.owasp.org/index.php/OWASP_Project_Inventory#tab=Flagship_Projects)",
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
@@ -12,12 +12,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/OWASP/OWASP-Testing-Guide-v5.git"
+    "url": "git+https://github.com/OWASP/wstg.git"
   },
   "author": "OWASP",
   "license": "CC-BY-SA-4.0",
   "bugs": {
-    "url": "https://github.com/OWASP/OWASP-Testing-Guide-v5/issues"
+    "url": "https://github.com/OWASP/wstg/issues"
   },
-  "homepage": "https://github.com/OWASP/OWASP-Testing-Guide-v5#readme"
+  "homepage": "https://github.com/OWASP/wstg#readme"
 }
