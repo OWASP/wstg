@@ -3,7 +3,7 @@ name: Markdown Lint Check
 on: [push, pull_request]
 
 jobs:
-  Lint Check:
+  Lint:
 
     runs-on: ubuntu-latest
 
