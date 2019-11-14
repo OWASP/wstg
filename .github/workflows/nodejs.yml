@@ -9,6 +9,8 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
+    env:
+      CI: true
     steps:
     - name: Setup Action
       uses: actions/checkout@v1
@@ -17,12 +19,6 @@ jobs:
       with:
         node-version: 12.x
     - name: Install dependencies
-      run: |
-        npm install -g markdownlint-cli
-      env:
-        CI: true
+      run: npm install -g markdownlint-cli
     - name: Run linter
-      run: |
-        npm test
-      env:
-        CI: true
+      run: npm test
