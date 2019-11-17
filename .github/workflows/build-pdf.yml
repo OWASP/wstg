@@ -1,9 +1,9 @@
 name: Build PDF 
 
 on:
-  push:
-    tags: 
-      - '*'
+  push: 
+    branches: 
+      - refs/tags/*
 jobs:
   build:
     runs-on: ubuntu-latest
