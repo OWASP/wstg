@@ -2,6 +2,8 @@ name: Build PDF
 
 on:
   push:
+    tags: 
+      - '*'
 jobs:
   build:
     runs-on: ubuntu-latest
