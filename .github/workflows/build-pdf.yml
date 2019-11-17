@@ -1,0 +1,25 @@
+name: Build PDF 
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      CI: true
+    steps:
+    - name: Setup Action
+      uses: actions/checkout@v1
+    - name: Setup Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: Install dependencies
+      run: npm install -g md-to-pdf
+    - name: Get Version
+      id: vars
+      run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
+    - name: Run Build
+      run: npm run-script  pdfgen -- ${{ steps.vars.outputs.tag }}
