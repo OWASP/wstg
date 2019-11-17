@@ -3,9 +3,10 @@ name: Build PDF
 on:
   push: 
     branches: 
-      - refs/tags/*
+      - '*'
 jobs:
   build:
+    name: lint
     runs-on: ubuntu-latest
     env:
       CI: true
