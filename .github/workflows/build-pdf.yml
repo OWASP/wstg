@@ -1,7 +1,7 @@
 name: Build PDF 
 
 on:
-  push:
+  create:
     tags: 
       - '*'
 jobs:
