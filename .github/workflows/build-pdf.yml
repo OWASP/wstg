@@ -6,7 +6,7 @@ on:
       - '*'
 jobs:
   build:
-    name: lint
+    name: Build
     runs-on: ubuntu-latest
     env:
       CI: true
