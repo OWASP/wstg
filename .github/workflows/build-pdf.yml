@@ -1,9 +1,9 @@
 name: Build PDF 
 
 on:
-  create:
+  push:
     tags: 
-      - '*'
+      - v*.*.*
 jobs:
   build:
     name: Build
