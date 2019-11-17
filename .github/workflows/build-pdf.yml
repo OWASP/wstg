@@ -1,8 +1,8 @@
 name: Build PDF 
 
 on:
-  push: 
-    branches: 
+  push:
+    tags: 
       - '*'
 jobs:
   build:
