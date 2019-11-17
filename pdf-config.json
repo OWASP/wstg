@@ -1,0 +1,20 @@
+{
+  "stylesheet":"../../assets/pdf-style.css",
+  "css": "body { color: tomato; }",
+  "body_class": "markdown-body",
+  "highlight_style": "monokai",
+  "marked_options": {
+    "headerIds": false,
+    "smartypants": true
+  },
+  "pdf_options": {
+    "format": "A4",
+    "margin": "20mm",
+    "displayHeaderFooter": true,
+    "headerTemplate": "<style>section { margin: 0 10mm; font-family: system-ui; font-size: 10px; color:#efefef; </style><section>OWASP Testing Guide 4.0.1</section>",
+    "footerTemplate":"<section><div><span class=\"pageNumber\"></span></div></section>",
+    "printBackground":true,
+    "preferCSSPageSize":true
+  },
+  "stylesheet_encoding": "utf-8"
+}
