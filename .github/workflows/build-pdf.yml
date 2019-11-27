@@ -1,4 +1,4 @@
-name: Build PDF 
+name: Build PDF
 
 on:
   push:
@@ -17,6 +17,10 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 12.x
+    - name: SetUp python
+      uses: actions/setup-python@v1
+      with:
+        python-version: '3.x'
     - name: Install dependencies
       run: npm install -g md-to-pdf
     - name: Get Version
