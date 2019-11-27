@@ -27,7 +27,7 @@ echo "<body class=\"cover-page\"><div class=\"cover-page\"></div><h1>OWASP Testi
 # Create the final single markdown file.
 ls | sort -n | while read x; do cat $x | sed -e 's/^# /<div style=\"page-break-after: always\;\"><\/div>\
 \
-# /'  >> ../wstg-$1.md; done
+# /' | sed 's/\[\([^\n]\+\)\]([^\n]\+.md#\([^\)]\+\)/[\1](#\2/' | sed 's/\(^#\{1\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h1 id=\"\2\">\2<\/h1>/' | sed 's/\(^#\{2\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h2 id=\"\2\">\2<\/h2>/' | sed 's/\(^#\{3\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h3 id=\"\2\">\2<\/h3>/' | sed 's/\(^#\{4\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h4 id=\"\2\">\2<\/h4>/' | sed 's/\(^#\{5\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h5 id=\"\2\">\2<\/h5>/' | python -c "import re; import sys; print re.sub(r'id=\"([^\n]+)\"', lambda m: m.group().replace(' ', '-'), sys.stdin.read())" >> ../wstg-$1.md; done
 
 # Convert the markdown to PDF
 md-to-pdf  --config-file ../../pdf-config.json ../wstg-$1.md
