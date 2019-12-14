@@ -28,7 +28,7 @@ We use an article template to help ensure topics are complete and easy to unders
 
 When adding articles and images, please place articles in the appropriate sub-section directory. Place images in an `images/` folder within the article directory. Here is an example of the project structure:
 
-```
+```sh
 document/
  ├───0_Foreword/
  │   └───0_Foreword.md
@@ -55,16 +55,17 @@ document/
 
 ```
 
-
 ### Code Syntax Highlighting
 
 Use code fences with syntax highlighting for snippets. For example:
 
+```md
     ```javascript
     if (isAwesome){
-      return true
+        return true
     }
     ```
+```
 
 ### Caption Images
 
@@ -72,14 +73,18 @@ Caption images and figures using title case. Use the section and sub-section num
 
 For example, caption the first image shown in section 4.8, sub-section 19 as follows:
 
-    ![SSTI XVWA Example](images/SSTI_XVWA.jpeg)\
-    _Figure 4.8.19-1: SSTI XVWA Example_
+```md
+![SSTI XVWA Example](images/SSTI_XVWA.jpeg)\
+_Figure 4.8.19-1: SSTI XVWA Example_
+```
 
 ### Inline Links
 
 Add links inline. Use words in the sentence to describe them, or include their specific title. For example:
 
-    This project provides [guidance for making a contribution](https://github.com/OWASP/wstg/blob/master/CONTRIBUTING.md). For specific formatting guidelines, see the [Style Guide](https://github.com/OWASP/wstg/blob/master/Style_Guide.md).
+```md
+This project provides [guidance for making a contribution](https://github.com/OWASP/wstg/blob/master/CONTRIBUTING.md). For specific formatting guidelines, see the [Style Guide](https://github.com/OWASP/wstg/blob/master/Style_Guide.md).
+```
 
 ### Bold, Italic, and Underline
 

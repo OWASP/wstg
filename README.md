@@ -31,7 +31,6 @@ To learn how to contribute successfully, read the [contribution guide](CONTRIBUT
 
 Successful contributors appear on [the project's list of authors, reviewers, or editors](document/1_Frontispiece/1_Frontispiece.md).
 
-
 ## Chat With Us
 
 We're easy to find on Slack:
