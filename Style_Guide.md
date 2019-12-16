@@ -216,3 +216,31 @@ These are letters.
 The abbreviation _i.e._ refers to the Latin _id est_, which means "in other words." The abbreviation _e.g._ is for _exempli gratia_, translating to "for example." To use these in a sentence:
 
 > Write using proper English, i.e. correct spelling and grammar. Use common words over uncommon ones, e.g. "learn" instead of "glean."
+
+#### _etc_
+
+These are also letters.
+
+The Latin phrase _et cetera_ translates to "and the rest." It is abbreviated _etc._ and typically placed at the end of a list that seems redundant to complete:
+
+> WSTG authors like rainbow colors, such as red, yellow, green, etc.
+
+In technical writing, the use of _etc._ is problematic. It assumes the reader knows what you're talking about, and they may not. Violet is one of the colors of the rainbow, but the example above does not explicitly tell you if violet is a color that WSTG authors like.
+
+It is better to be explicit and thorough than to make assumptions of the reader. Only use _etc._ to avoid completing a list that was given in full earlier in the document.
+
+#### _..._ (ellipsis)
+
+The ellipsis punctuation mark can indicate that words have been left out of a quote:
+
+> Linus Torvalds once said, "Once you realize that documentation should be laughed at... THEN, and only then, have you reached the level where you can safely read it and try to use it to actually implement a driver. "
+
+As long as the omission does not change the meaning of the quote, this is acceptable usage of ellipsis in the WSTG.
+
+All other uses of ellipsis, such as to indicate an unfinished thought, are not.
+
+#### _ex_
+
+While this is a word, it is likely not the word you are looking for. The word _ex_ has particular meaning in the fields of finance and commerce, and may refer to a person if you are discussing your past relationships. None of these topics should appear in the WSTG.
+
+The abbreviation _ex._ may be used to mean "example" by lazy writers. Please don't be lazy, and write _example_ instead.
