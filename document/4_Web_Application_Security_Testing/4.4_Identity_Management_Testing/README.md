@@ -1,6 +1,7 @@
 # 4.4 Testing for Identity Management
 
-Testing for Identity Management includes the following sections:\
+Testing for Identity Management includes the following sections:
+
 [4.4.1 Test Role Definitions (OTG-IDENT-001)](4.4.1_Test_Role_Definitions_OTG-IDENT-001.md)
 
 [4.4.2 Test User Registration Process (OTG-IDENT-002)](4.4.2_Test_User_Registration_Process_OTG-IDENT-002.md)

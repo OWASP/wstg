@@ -1,4 +1,4 @@
-# 4.3 Testing for Configuration and Deployment management
+# 4.3 Testing for Configuration and Deployment Management
 
 Understanding the deployed configuration of the server hosting the web application is almost as important as the application security testing itself. After all, an application chain is only as strong as its weakest link. Application platforms are wide and varied, but some key platform configuration errors can compromise the application in the same way an unsecured application can compromise the server.
 
