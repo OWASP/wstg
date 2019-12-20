@@ -2,6 +2,7 @@
 
 [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/OWASP/wstg/issues)
 [![OWASP Flagship](https://img.shields.io/badge/owasp-flagship-brightgreen.svg)](https://www.owasp.org/index.php/OWASP_Project_Inventory#tab=Flagship_Projects)
+![Twitter Follow](https://img.shields.io/twitter/follow/owasp_wstg?style=social)
 
 [![Creative Commons License](https://licensebuttons.net/l/by-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-sa/4.0/ "CC BY-SA 4.0")
 
@@ -39,6 +40,8 @@ We're easy to find on Slack:
 2. Join this project's [channel, #testing-guide](https://app.slack.com/client/T04T40NHX/CJ2QDHLRJ).
 
 Feel free to ask questions, suggest ideas, or share your best recipes.
+
+You can @ us on Twitter [@owasp_wstg](https://twitter.com/owasp_wstg).
 
 You can also join our [Google Group](https://groups.google.com/a/owasp.org/forum/#!forum/testing-guide-project).
 
