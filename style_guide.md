@@ -83,7 +83,7 @@ _Figure 4.8.19-1: SSTI XVWA Example_
 Add links inline. Use words in the sentence to describe them, or include their specific title. For example:
 
 ```md
-This project provides [guidance for making a contribution](https://github.com/OWASP/wstg/blob/master/CONTRIBUTING.md). For specific formatting guidelines, see the [Style Guide](https://github.com/OWASP/wstg/blob/master/Style_Guide.md).
+This project provides [guidance for making a contribution](https://github.com/OWASP/wstg/blob/master/CONTRIBUTING.md). For specific formatting guidelines, see the [style guide](https://github.com/OWASP/wstg/blob/master/style_guide.md).
 ```
 
 ### Bold, Italic, and Underline
@@ -94,7 +94,7 @@ You may italicize a word when referring to the word itself, though the need for 
 
 ## Language and Grammar
 
-To make the WSTG consistent and pleasant to read, please check your spelling and use proper grammar. Use American English.
+To make the WSTG consistent and pleasant to read, please check your spelling (we use American English) and use proper grammar.
 
 The sections below describe specific style choices to follow.
 

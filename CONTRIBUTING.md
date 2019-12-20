@@ -22,7 +22,7 @@ Here are the steps for creating and submitting a Pull Request (PR) that we can q
 
 1. [Set up your environment](#how-to-set-up-your-contributor-environment) to fork the project and install a Markdown linter.
 2. Associate your contribution with an [issue](https://github.com/OWASP/wstg/issues). To change existing content, read [Improve Existing Content](#improve-existing-content). To make additions, read [Add New Content](#add-new-content).
-3. Make your modifications. Be sure to follow our [Style Guide](Style_Guide.md).
+3. Make your modifications. Be sure to follow our [style guide](style_guide.md).
 4. When you're ready to submit your work, push your changes to your fork. Ensure that your fork is [synced with `master`](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork), then [create a PR](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork). You may want to [allow edits from maintainers](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/allowing-changes-to-a-pull-request-branch-created-from-a-fork) so we can help with small changes like fixing typos.
 5. We'll review your PR. We may comment to ask for clarification or changes, so please check back in the next few days.
 
@@ -30,7 +30,7 @@ Once the PR is complete, we'll merge it! At that point, you may like to add your
 
 #### Improve Existing Content
 
-Keeping the project up to date and looking spiffy is a group effort! The WSTG is a constantly updated document. Please don't hesitate to make as many changes as you see fit, especially if you notice that existing content does not match the [article template materials](template) and [Style Guide](Style_Guide.md).
+Keeping the project up to date and looking spiffy is a group effort! The WSTG is a constantly updated document. Please don't hesitate to make as many changes as you see fit, especially if you notice that existing content does not match the [article template materials](template) and [style guide](style_guide.md).
 
 We greatly appreciate your help with updating content, and fixing errors including spelling and grammar.
 
@@ -54,11 +54,11 @@ To help us keep track of your work, associate your contribution with an issue:
 2. Install [Visual Studio Code](https://code.visualstudio.com/) and this [Markdown linter plugin](https://github.com/DavidAnson/vscode-markdownlint#install). We use this linter to help keep the project content consistent and pretty.
 3. Fork and clone your own copy of the repository. Here are complete instructions for [forking and syncing with GitHub](https://help.github.com/en/github/getting-started-with-github/fork-a-repo).
 
-## How to Submit an Accepted PR
+## How to Submit a Good PR
 
 To increase the chances that your PR is merged, please make sure that:
 
 1. You've followed the guidelines above for associating your work with an issue.
 2. Your work is Markdown linted.
-3. Your writing follows the [article template materials](template) and [Style Guide](Style_Guide.md).
+3. Your writing follows the [article template materials](template) and [style guide](style_guide.md).
 4. Your code snippets are correct, well-tested, and commented where necessary for understanding.
