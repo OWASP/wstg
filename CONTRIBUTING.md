@@ -41,7 +41,7 @@ To help us keep track of your work, associate your contribution with an issue:
 
 #### Add New Content
 
-The OWASP Testing Guide would not be possible without the contributions of the security community. Whether you are submitting a new section or adding information to an existing one, please follow the [template example](template/999.1_Testing_for_a_Cat_in_a_Box_OTG-FOO-001.md). The [article sections are explained here](template/999.2_Template_Explanation_OTG-FOO-002.md).
+The OWASP Testing Guide would not be possible without the contributions of the security community. Whether you are submitting a new section or adding information to an existing one, please follow the [template example](template/999.1_Testing_for_a_Cat_in_a_Box_OTG-FOO-001.md). The [template sections are explained here](template/999.2_Template_Explanation_OTG-FOO-002.md).
 
 To help us keep track of your work, associate your contribution with an issue:
 
