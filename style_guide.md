@@ -83,7 +83,7 @@ _Figure 4.8.19-1: SSTI XVWA Example_
 Add links inline. Use words in the sentence to describe them, or include their specific title. For example:
 
 ```md
-This project provides [guidance for making a contribution](https://github.com/OWASP/wstg/blob/master/CONTRIBUTING.md). For specific formatting guidelines, see the [style guide](https://github.com/OWASP/wstg/blob/master/style_guide.md).
+This project provides a [style guide](style_guide.md). Some style choices are taken from the [Chicago Manual of Style](https://www.chicagomanualofstyle.org/).
 ```
 
 ### Bold, Italic, and Underline
