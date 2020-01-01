@@ -307,7 +307,6 @@
 - [https://www.kali.org/](https://www.kali.org/)
 - [https://www.caine-live.net/index.html](https://www.caine-live.net/index.html)
 - [https://www.pentoo.ch/download/](https://www.pentoo.ch/download/)
-- [https://bugtraq-team.com/](https://bugtraq-team.com/)
 
 ## [Appendix B: Suggested Reading](Appx.B_Suggested_Reading/Appx.B_Suggested_Reading.md)
 
