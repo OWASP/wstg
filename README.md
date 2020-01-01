@@ -1,83 +1,49 @@
-# OWASP Testing Guide Project
+# OWASP Web Security Testing Guide
 
-[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/OWASP/OWASP-Testing-Guide-v5/issues)
+[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/OWASP/wstg/issues)
 [![OWASP Flagship](https://img.shields.io/badge/owasp-flagship-brightgreen.svg)](https://www.owasp.org/index.php/OWASP_Project_Inventory#tab=Flagship_Projects)
+![Twitter Follow](https://img.shields.io/twitter/follow/owasp_wstg?style=social)
 
-Welcome to the OWASP Testing Guide (OTG) project!
+[![Creative Commons License](https://licensebuttons.net/l/by-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-sa/4.0/ "CC BY-SA 4.0")
 
-You can download the stable version v4 [here](http://www.owasp.org/index.php/OWASP_Testing_Project).
+Welcome to the official repository for the Open Web Application Security Project (OWASP) Web Security Testing Guide (WSTG). The WSTG is a comprehensive guide to testing the security of web applications and web services. Created by the collaborative efforts of security professionals and dedicated volunteers, the WSTG provides a framework of best practices used by penetration testers and organizations all over the world.
 
-1. [OWASP Testing Guide Project](#owasp-testing-guide-project)
-   1. [Contributions, Feature Requests, and Feedback](#contributions-feature-requests-and-feedback)
-   2. [Style Guidelines](#style-guidelines)
-   3. [Maintainers](#maintainers)
-   4. [Special Thanks](#special-thanks)
-   5. [Project Summit 2017 Outcomes](#project-summit-2017-outcomes)
+We are currently working on release version 5.0. You can [read the current document here on GitHub](https://github.com/OWASP/wstg/tree/master/document).
+
+For the last stable release, [view the previous version 4.0](http://www.owasp.org/index.php/OWASP_Testing_Project).
+
+- [OWASP Web Security Testing Guide](#owasp-web-security-testing-guide)
+  - [Contributions, Feature Requests, and Feedback](#contributions-feature-requests-and-feedback)
+  - [Chat With Us](#chat-with-us)
+  - [Maintainers](#maintainers)
+  - [Special Thanks](#special-thanks)
 
 ## Contributions, Feature Requests, and Feedback
 
-**Everyone can contribute!** By simply reading the document, which you certainly should do, grammar mistakes, new ideas, or paragraph restructuring thoughts will show themselves! Just try it out, you'll see. :smile:
+We are actively inviting new contributors! To start, read the [contribution guide](CONTRIBUTING.md).
 
-Not to mention, you'll be on the authors, or reviewers and editors list.
+This project is only possible thanks to the work of many dedicated volunteers. Everyone is encouraged to help in ways large and small. Here are a few ways you can help:
 
-Before you start contributing, please read our [**contribution guide**](CONTRIBUTING.md) and [**template**](template/999.2_Template_Explanation_OTG-FOO-002.md) which should help you get started and follow our best practices.
+- Read the current content and help us fix any spelling mistakes or grammatical errors.
+- Choose an existing issue and submit a pull request to fix it.
+- Open a new issue to report an opportunity for improvement.
 
-Whenever you identify a contribution possibility, open up an [issue](https://github.com/OWASP/OWASP-Testing-Guide-v5/issues) with it in order for us to keep track and assign project milestones.
+To learn how to contribute successfully, read the [contribution guide](CONTRIBUTING.md).
 
-For the ones that enjoy providing constructive feedback and feel like they can review other's contributions, head straight to our [Pull Requests](https://github.com/OWASP/OWASP-Testing-Guide-v5/pulls)!
+Successful contributors appear on [the project's list of authors, reviewers, or editors](document/1_Frontispiece/1_Frontispiece.md).
 
-Despite us being technical, we love having technical and casual chats with others. Join us by following the below steps:
+## Chat With Us
 
-- Join [OWASP Slack](https://join.slack.com/t/owasp/shared_invite/enQtNjExMTc3MTg0MzU4LWQ2Nzg3NGJiZGQ2MjRmNzkzN2Q4YzU1MWYyZTdjYjA2ZTA5M2RkNzE2ZjdkNzI5ZThhOWY5MjljYWZmYmY4ZjM).
-- Join this project's [channel: #testing-guide](https://app.slack.com/client/T04T40NHX/CJ2QDHLRJ) (yes, you can join other channels, we won't stop you!).
+We're easy to find on Slack:
 
-Feel free to ask questions, bounce ideas off us, or just hang out and chat!
+1. Join the OWASP Group Slack with this [invitation link](https://join.slack.com/t/owasp/shared_invite/enQtNjExMTc3MTg0MzU4LWQ2Nzg3NGJiZGQ2MjRmNzkzN2Q4YzU1MWYyZTdjYjA2ZTA5M2RkNzE2ZjdkNzI5ZThhOWY5MjljYWZmYmY4ZjM).
+2. Join this project's [channel, #testing-guide](https://app.slack.com/client/T04T40NHX/CJ2QDHLRJ).
 
-You can also open up a post on our [Google Group](https://groups.google.com/a/owasp.org/forum/#!forum/testing-guide-project)!
+Feel free to ask questions, suggest ideas, or share your best recipes.
 
-## Style Guidelines
+You can @ us on Twitter [@owasp_wstg](https://twitter.com/owasp_wstg).
 
-- Please don't write in the first person (Ex: no "I" or "Me" statements).
-- Please do use Title Caps for headings, using Title Capitalization as defined by the *Chicago Manual of Style*. For quick reference you can use this [online tool](https://capitalizemytitle.com/#Chicago) (make sure you select the "Chicago" tab).
-- Please do use serial or [Oxford commas](https://www.grammarly.com/blog/what-is-the-oxford-comma-and-why-do-people-care-so-much-about-it/).
-- Don't use `and/or`. Chances are you can simply write `or`. (Note: The OR allows for the same True result as an AND, while also allowing for other combinations producing True results.) Unless you actually mean something like "A and/exclusive or B" in which case read the sentence to yourself with those words and then figure out a different way to write it. :smile:
-- Caption figures using title case, with the section and sub-section numbers, followed by the figure position in the document. Use the format *`Figure <section>.<sub-section>-<position>: Caption Title`*. For example, the first image shown in section 4.8, sub-section 19 would be added as follows:
-
-    ```md
-    ![SSTI XVWA Example](images/SSTI_XVWA.jpeg)\
-    *Figure 4.8.19-1: SSTI XVWA Example*
-    ```
-
-## Project Folder Structure
-
-When adding articles and images, please place articles in the appropriate sub-section directory, and place images in an `images/` folder within the article directory. Here is an example of the project structure:
-
-```console
-document/
- ├───0_Foreword/
- │   └───0_Foreword.md
- ├───1_Frontispiece/
- │   ├───images/
- │   │   └───example.jpg
- │   └───1_Frontispiece.md
- ├───2_Introduction/
- │   ├───images/
- │   │   └───example.jpg
- │   └───2_Introduction.md
- ├───3_The_OWASP_Testing_Framework/
- │   ├───images/
- │   │   └───example.jpg
- │   └───3_The_OWASP_Testing_Framework.md
- ├───4_Web_Application_Security_Testing/
- │   ├───4.1_Introduction_and_Objectives/
- │   │   └───4.1_Testing_Introduction_and_Objectives.md
- │   ├───4.2_Information_Gathering/
- │   │   ├───images/
- │   │   │   └───example.jpg
- │   │   ├───4.2_Testing_Information_Gathering.md
- │   │   └───4.2.1_Conduct_Search_Engine_Discovery.md
-
-```
+You can also join our [Google Group](https://groups.google.com/a/owasp.org/forum/#!forum/testing-guide-project).
 
 ## Maintainers
 
@@ -86,10 +52,4 @@ document/
 
 ## Special Thanks
 
-For the people that helped migrate this project from MediaWiki to GitHub's flavored Markdown, thank you!
-
-- [Rejah Rehim](https://github.com/rejahrehim)
-
-## Project Summit 2017 Outcomes
-
-The outcomes can be found [here](OWASP_Summit_Outcomes.md)
+- [Rejah Rehim](https://github.com/rejahrehim) for your help to migrate this project from MediaWiki to GitHub Flavored Markdown.

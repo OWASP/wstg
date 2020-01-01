@@ -1,4 +1,4 @@
-# OWASP Testing Guide 5.0
+# OWASP Web Security Testing Guide 5.0
 
 ## Welcome
 
@@ -14,7 +14,7 @@ Copyright (c) 2019 The OWASP Foundation.
 
 This document is released under the [Creative Commons 4.0 License](https://creativecommons.org/licenses/by-sa/4.0/). Please read and understand the license and copyright conditions.
 
-## v5 Authors
+## Authors
 
 - Janos Zold
 - Manh Pham Tien
@@ -23,13 +23,14 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Tal Argoni
 - Victoria Drake
 
-## v5 Reviewers/Editors
+## Reviewers or Editors
 
 - Asharaf Ali
 - Elie Saad
 - Patrick Santos
 - Rejah Rehim
 - Rick Mitchell
+- Roman Mueller
 - Victoria Drake
 
 ## Trademarks

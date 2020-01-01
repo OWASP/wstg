@@ -284,7 +284,7 @@
 
 [4.12.12 Test Local Storage (OTG-CLIENT-012)](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.12_Test_Local_Storage_OTG-CLIENT-012.md)
 
-## [5. Reporting](5_Reporting/Reporting.md)
+## [5. Reporting](5_Reporting/5_Reporting.md)
 
 ## [Appendix A: Testing Tools Resource](Appx.A_Testing_Tools_Resource/Appx.A_Testing_Tools.md)
 
@@ -324,6 +324,6 @@
 - Input Encoding
 - Output Encoding
 
-## [Appendix E: Misc](Appx.E_Misc/AppxE_History.md)
+## [Appendix E: Misc](Appx.E_Misc/Appx.E_History.md)
 
 - History

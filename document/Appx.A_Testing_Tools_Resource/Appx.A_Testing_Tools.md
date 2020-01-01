@@ -1,4 +1,4 @@
-# Open Source Black Box Testing Tools
+# Open Source Black-Box Testing Tools
 
 ## General Testing
 
@@ -117,7 +117,7 @@
 - [Slowloris](https://github.com/gkbrk/slowloris)
 - [slowhttptest](https://github.com/shekyan/slowhttptest)
 
-## Commercial Black Box Testing Tools
+## Commercial Black-Box Testing Tools
 
 - [NGS Typhon](https://www.nccgroup.trust/uk/our-services/cyber-security/technology-solutions/)
 - [IBM AppScan](https://www.ibm.com/hk-en/security/application-security/appscan)
