@@ -51,10 +51,6 @@
 
 - [BlueClosure BC Detect](https://www.blueclosure.com)
 
-#### Testing AJAX
-
-- [OWASP Sprajax Project](https://www.owasp.org/index.php/Category:OWASP_Sprajax_Project)
-
 #### Testing for SQL Injection
 
 - [OWASP SQLiX](https://www.owasp.org/index.php/Category:OWASP_SQLiX_Project)
@@ -65,7 +61,6 @@
 - [Bsqlbf-v2: A perl script allows extraction of data from Blind SQL Injections](https://code.google.com/p/bsqlbf-v2/)
 - [Pangolin: An automatic SQL injection penetration testing tool](https://www.darknet.org.uk/2009/05/pangolin-automatic-sql-injection-tool/)
 - [Multiple DBMS Sql Injection tool - SQL Power Injector](http://www.sqlpowerinjector.com/)
-- [MySql Blind Injection Bruteforcing, Reversing.org - sqlbftools](https://packetstormsecurity.org/files/43795/sqlbftools-1.2.tar.gz.html)
 
 #### Testing Oracle
 
@@ -84,8 +79,7 @@
 
 - [THC Hydra](https://github.com/vanhauser-thc/thc-hydra)
 - [John the Ripper](https://www.openwall.com/john/)
-- [Brutus](http://www.hoobie.net/brutus/)
-- [Medusa](http://www.foofus.net/~jmk/medusa/medusa.html)
+- [Medusa](https://github.com/jmk-foofus/medusa)
 - [Ncat](https://nmap.org/ncat/)
 - [HashCat](https://hashcat.net/hashcat/#features-algos)
 - [fgdump](http://foofus.net/goons/fizzgig/fgdump/)
@@ -205,6 +199,6 @@ Acceptance testing tools are used to validate the functionality of web applicati
 ### Site Mirroring
 
 - [wget](https://www.gnu.org/software/wget/)
-- [Wget for windows](http://www.interlog.com/~tcharron/wgetwin.html)
+- [Wget for windows](http://gnuwin32.sourceforge.net/packages/wget.htm)
 - [curl](https://curl.haxx.se/)
 - [Xenu's Link Sleuth](http://home.snafu.de/tilman/xenulink.html)
