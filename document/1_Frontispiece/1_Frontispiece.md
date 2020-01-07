@@ -27,6 +27,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 
 - Asharaf Ali
 - Elie Saad
+- Lukasz Lubczynski
 - Patrick Santos
 - Rejah Rehim
 - Rick Mitchell
