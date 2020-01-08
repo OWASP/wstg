@@ -45,11 +45,13 @@ You can @ us on Twitter [@owasp_wstg](https://twitter.com/owasp_wstg).
 
 You can also join our [Google Group](https://groups.google.com/a/owasp.org/forum/#!forum/testing-guide-project).
 
-## Maintainers
+## Project Leaders
 
 - [Rick Mitchell](https://github.com/kingthorin)
 - [Elie Saad](https://github.com/ThunderSon)
+- [Matteo Meucci](https://github.com/MatOwasp)
 
-## Special Thanks
+## Core Team
 
-- [Rejah Rehim](https://github.com/rejahrehim) for your help to migrate this project from MediaWiki to GitHub Flavored Markdown.
+- [Rejah Rehim](https://github.com/rejahrehim)
+- [Victoria Drake](https://github.com/victoriadrake)
