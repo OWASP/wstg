@@ -30,3 +30,5 @@ The following instructions can be used to import the Checklist spreadsheet direc
 7. In the 'File Upload' dialog, paste the previously copied URL (from step 3) into the 'File name' field, click the 'Open' button.
 8. Wait a few seconds and a 'Import file' dialog should be displayed (choose your 'Import location', likely 'Replace spreadsheet'), then click the 'import data' button.
 9. You should now have a fully populated and functional Web Security Testing Guide Checklist Google sheet, with the four tabs as mentioned above.
+
+Note: These instructions are based on use of Mozilla Firefox (72.0.1) on Win 10, and Google sheets on 2020-01-12. Minor procedural differences may be necessary for other browsers, OSes, or future iterations of Google sheets.
