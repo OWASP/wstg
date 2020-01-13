@@ -10,8 +10,7 @@ OWASP thanks the many authors, reviewers, and editors for their hard work in bri
 
 ## Version 4.1
 
-This minor release represents a transitional step between the 2014 release of v4 via the OWASP wiki, and the preparation of v5 which is being 
-assembled via GitHub.
+This minor release represents a transitional step between the 2014 release of v4 via the OWASP wiki, and the preparation of v5 which is being assembled via GitHub.
 
 ## Copyright and Licensee
 
