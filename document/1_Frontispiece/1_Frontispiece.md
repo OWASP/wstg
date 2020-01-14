@@ -3,15 +3,15 @@
 ## Welcome
 
 > Open and collaborative knowledge: that is the OWASP way.
+> With V4 we realized a new guide that will be the standard de-facto guide to perform Web Application Penetration Testing. \
 
-With V4 we realized a new guide that will be the standard de-facto guide to perform Web Application Penetration Testing. \
 -- Matteo Meucci
 
 OWASP thanks the many authors, reviewers, and editors for their hard work in bringing this guide to where it is today. If you have any comments or suggestions on the Testing Guide, please feel free to open an Issue or submit a fix/contribution via Pull Request to our [GitHub repo](https://github.com/OWASP/wstg/).
 
 ## Version 4.1
 
-This minor release represents a transitional step between the 2014 release of v4 via the OWASP wiki, and the preparation of v5 which is being assembled via GitHub.
+This minor release represents a transitional step between the 2014 release of v4 via the OWASP wiki, and the preparation of v5, currently underway on GitHub.
 
 ## Copyright and Licensee
 
