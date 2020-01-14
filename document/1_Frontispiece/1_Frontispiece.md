@@ -3,7 +3,7 @@
 ## Welcome
 
 > Open and collaborative knowledge: that is the OWASP way.
-> With V4 we realized a new guide that will be the standard de-facto guide to perform Web Application Penetration Testing. \
+> With V4 we realized a new guide that will be the standard de-facto guide to perform Web Application Penetration Testing.
 
 -- Matteo Meucci
 
