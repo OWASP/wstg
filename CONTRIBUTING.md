@@ -1,88 +1,64 @@
 # Contributing to the Testing Guide
 
-The team thanks you for considering contributing to the project!
+Thank you for considering contributing to the Web Security Testing Guide (WSTG)!
 
-The guidelines mentioned below will help you to contribute in a manner to conform to the project's rules, which makes all contributions uniform, and allows the reviewing team to review in a faster manner. If you feel like what you are working on breaks a rule, and that rule needs to be broken as a necessity for that contribution, kindly use your best judgement. If you feel like this document can be improved in any manner, send us a pull request and it will be taken into consideration.
+This document explains how to make a helpful contribution.
 
 ## How to Contribute
 
-Other than what is discussed in the below sections, you can check out the Open Source Guide for [why and how to contribute](https://opensource.guide/how-to-contribute/).
+Here are two ways you can contribute to the guide. You will need a [GitHub account](https://help.github.com/en/github/getting-started-with-github/signing-up-for-a-new-github-account) in order to help out.
 
-### Issues in the Testing Guide
+The [Open Source Guide for why and how to contribute](https://opensource.guide/how-to-contribute/) is also a good resource.
 
-This section guides you through reporting issues in the existing project content. These issues can range from, and are not restricted to the below list:
+### 1. Tell Us How to Improve
 
-- Grammar mistakes.
-- Lacking enough details to achieve a full attack.
-- Deprecated attack implementation that no longer works.
+[Create an issue](https://github.com/OWASP/wstg/issues/new/choose) using the appropriate template.
 
-In order to report an issue:
+Choose a short, descriptive title. Briefly explain what you think needs changing. Among other things, your suggestions may include grammar or spelling errors, or address insufficient or outdated content.
 
-Create an [issue](https://github.com/OWASP/OWASP-Testing-Guide-v5/issues) using the [fix request template](https://github.com/OWASP/OWASP-Testing-Guide-v5/issues/new?assignees=&labels=QA%2FEdit&template=fix-request.md&title=)
+### 2. Make an Improvement Yourself
 
-In order to fix an [issue](https://github.com/OWASP/OWASP-Testing-Guide-v5/issues), follow the guidance of [how to send a PR](#how-to-send-a-PR).
+Here are the steps for creating and submitting a Pull Request (PR) that we can quickly review and merge.
 
-### Creating New Testing Scenarios
+1. [Set up your environment](#how-to-set-up-your-contributor-environment) to fork the project and install a Markdown linter.
+2. Associate your contribution with an [issue](https://github.com/OWASP/wstg/issues). To change existing content, read [Improve Existing Content](#improve-existing-content). To make additions, read [Add New Content](#add-new-content).
+3. Make your modifications. Be sure to follow our [style guide](style_guide.md).
+4. When you're ready to submit your work, push your changes to your fork. Ensure that your fork is [synced with `master`](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork), then [create a PR](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork). You may want to [allow edits from maintainers](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/allowing-changes-to-a-pull-request-branch-created-from-a-fork) so we can help with small changes like fixing typos.
+5. We'll review your PR. We may comment to ask for clarification or changes, so please check back in the next few days.
 
-This section guides you through providing new content to the testing guide. When adding new content, please follow the [template materials](https://github.com/OWASP/wstg/tree/master/template).
+Once the PR is complete, we'll merge it! At that point, you may like to add yourself to [the project's list of authors, reviewers, or editors](document/1_Frontispiece/1_Frontispiece.md).
 
-New content can be:
+#### Improve Existing Content
 
-- New methods to test against a certain weakness.
-- New techniques or details to test against a newly discovered weakness.
+Keeping the project up to date and looking spiffy is a group effort! The WSTG is a constantly updated document. Please don't hesitate to make as many changes as you see fit, especially if you notice that existing content does not match the [article template materials](template) and [style guide](style_guide.md).
 
-In order to suggest a new scenario, follow the guidance of [how to send a PR](#how-to-send-a-PR).
+We greatly appreciate your help with updating content, and fixing errors including spelling and grammar.
 
-### How to Send a PR
+To help us keep track of your work, associate your contribution with an issue:
 
-- Make sure that you have properly [setup your environment](#how-to-set-up-my-contributor-environment).
-- Fork the repository by using the Fork button in our [repository](https://github.com/OWASP/OWASP-Testing-Guide-v5).
-  - If you have a fork that is behind from master, make sure that you [sync your fork](https://help.github.com/en/articles/syncing-a-fork) first.
+1. Choose an [open and unassigned issue](https://github.com/OWASP/wstg/issues?q=is%3Aopen+is%3Aissue+no%3Aassignee) to work on, or [open an issue](https://github.com/OWASP/wstg/issues/new/choose) yourself. Post a comment in the issue and request to be assigned to it.
+2. Create and switch to a new local branch with the name `fix-<issue number>`. For example, `git checkout -b fix-88`.
 
-#### Create a New Branch
+#### Add New Content
 
-```bash
-# Checkout the master branch to be sure that your new branch is coming from master
-git checkout master
+The OWASP Testing Guide would not be possible without the contributions of the security community. Whether you are submitting a new section or adding information to an existing one, please follow the [template example](template/999.1_Testing_for_a_Cat_in_a_Box_OTG-FOO-001.md). The [template sections are explained here](template/999.2_Template_Explanation_OTG-FOO-002.md).
 
-# Create a new branch such as OTG-96
-git branch OTG-[issue number]
+To help us keep track of your work, associate your contribution with an issue:
 
-# Switch to your new branch
-git checkout OTG-[issue number]
-```
+1. Open an [Add New Content issue](https://github.com/OWASP/wstg/issues/new?assignees=&labels=New&template=new-content.md&title=), or choose an [unassigned new content issue](https://github.com/OWASP/wstg/issues?q=is%3Aopen+is%3Aissue+label%3ANew+no%3Aassignee) and ask to be assigned to it.
+2. Create and switch to a new local branch with the name `new-<issue number>`. For example, `git checkout -b new-164`.
 
-Now, you can go high and low with your commits and contributions.
+## How to Set Up Your Contributor Environment
 
-#### Submit the New Branch
+1. [Create an account on GitHub](https://help.github.com/en/github/getting-started-with-github/signing-up-for-a-new-github-account).
+2. Install [Visual Studio Code](https://code.visualstudio.com/) and this [Markdown linter plugin](https://github.com/DavidAnson/vscode-markdownlint#install). We use this linter to help keep the project content consistent and pretty.
+3. Fork and clone your own copy of the repository. Here are complete instructions for [forking and syncing with GitHub](https://help.github.com/en/github/getting-started-with-github/fork-a-repo).
 
-Once done, you should submit your work to the main repository.
+## How to Submit a Good PR
 
-```bash
-# Push all your changes to your repository
-git push origin
-```
+To increase the chances that your PR is merged, please make sure that:
 
-Now you can safely go and create a new pull request from your repository.
-
-At the PR submission, take into account reviewer's comments.
-
-To update your work based on the reviews, simply create new commits on the branch you created and push them to your repository.
-
-Once accepted, your name will be added to the project authors.
-
-### How to Set Up My Contributor Environment
-
-1. [Join GitHub](https://github.com/join).
-2. Install [Visual Studio Code](https://code.visualstudio.com/).
-3. Install the following [markdown linter plugin](https://github.com/DavidAnson/vscode-markdownlint#install).
-4. You can safely follow now [how to send a PR](#how-to-send-a-pr).
-
-#### How to Run Local CI Tests
-
-1. Go to the project folder in your terminal
-2. Make sure you have installed [node](https://nodejs.org)
-3. Install node modules
-    `npm install`
-4. Run test
-    `npm test`
+1. You've followed the guidelines above for associating your work with an issue.
+2. Your work is Markdown linted.
+3. Your writing follows the [article template materials](template) and [style guide](style_guide.md).
+4. Your code snippets are correct, well-tested, and commented where necessary for understanding.

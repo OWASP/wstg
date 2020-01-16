@@ -8,4 +8,4 @@ assignees: ''
 ---
 
 **What would you like to happen?**
-_Add a clear and concise description of your idea to improve the project._
+Add a clear and concise description of your idea to improve the project.

@@ -12,12 +12,10 @@
   - Pantera uses an improved version of SpikeProxy to provide a powerful web application analysis engine. The primary goal of Pantera is to combine automated capabilities with complete manual testing to get the best penetration testing results.
 - [OWASP Mantra - Security Framework](https://www.owasp.org/index.php/:OWASP_Mantra_-_Security_Framework)
   - Mantra is a web application security testing framework built on top of a browser. It supports Windows, Linux(both 32 and 64 bit) and Macintosh. In addition, it can work with other software like ZAP using built in proxy management function which makes it much more convenient. Mantra is available in 9 languages: Arabic, Chinese - Simplified, Chinese - Traditional, English, French, Portuguese, Russian, Spanish and Turkish.
-- [Burp Proxy](http://www.portswigger.net/Burp/)
+- [Burp Proxy](https://www.portswigger.net/Burp/)
   - Burp Proxy is an intercepting proxy server for security testing of web applications it allows Intercepting and modifying all HTTP(S) traffic passing in both directions, it can work with custom SSL certificates and non-proxy-aware clients.
-- [Webstretch Proxy](http://sourceforge.net/projects/webstretch)
+- [Webstretch Proxy](https://sourceforge.net/projects/webstretch)
   - Webstretch Proxy enable users to view and alter all aspects of communications with a web site via a proxy. It can also be used for debugging during development.
-- [WATOBO](http://sourceforge.net/apps/mediawiki/watobo/index.php?title=Main_Page)
-  - WATOBO works like a local proxy, similar to ZAP or BurpSuite and it supports passive and active checks.
 - [Firefox HTTP Header Live](https://addons.mozilla.org/en-US/firefox/addon/http-header-live)
   - View HTTP headers of a page and while browsing.
 - [Firefox Tamper Data](https://addons.mozilla.org/en-US/firefox/addon/tamper-data-for-ff-quantum/)
@@ -30,9 +28,9 @@
   - Grendel-Scan is an automated security scanning of web applications and also supports manual penetration testing.
 - [OWASP SWFIntruder](https://www.owasp.org/index.php/Category:SWFIntruder)
   - SWFIntruder (pronounced Swiff Intruder) is the first tool specifically developed for analyzing and testing security of Flash applications at runtime.
-- [w3af](http://w3af.org)
+- [w3af](https://w3af.org)
   - w3af is a Web Application Attack and Audit Framework. The project’s goal is finding and exploiting web application vulnerabilities.
-- [skipfish](http://code.google.com/p/skipfish/)
+- [skipfish](https://code.google.com/p/skipfish/)
   - Skipfish is an active web application security reconnaissance tool.
 - [Web Developer toolbar](https://chrome.google.com/webstore/detail/bfbameneiokkgbdmiekhjnmfkcnldhhm)
   - The Web Developer extension adds a toolbar button to the browser with various web developer tools. This is the official port of the Web Developer extension for Firefox.
@@ -44,64 +42,58 @@
   - Swap My Cookies is a session manager, it manages cookies, letting you login on any website with several different accounts.
 - [Session Manager](https://chrome.google.com/webstore/detail/session-manager/mghenlmbmjcpehccoangkdpagbcbkdpc)
   - With Session Manager you can quickly save your current browser state and reload it whenever necessary. You can manage multiple sessions, rename or remove them from the session library. Each session remembers the state of the browser at its creation time, i.e the opened tabs and windows.
-- [Subgraph Vega](http://www.subgraph.com/products.html)
+- [Subgraph Vega](https://subgraph.com/vega/)
   - Vega is a free and open source scanner and testing platform to test the security of web applications. Vega can help you find and validate SQL Injection, Cross-Site Scripting (XSS), inadvertently disclosed sensitive information, and other vulnerabilities. It is written in Java, GUI based, and runs on Linux, OS X, and Windows.
 
 ### Testing for Specific Vulnerabilities
 
 #### Testing for JavaScript Security, DOM XSS
 
-- [BlueClosure BC Detect](http://www.blueclosure.com)
-
-#### Testing AJAX
-
-- [OWASP Sprajax Project](https://www.owasp.org/index.php/Category:OWASP_Sprajax_Project)
+- [BlueClosure BC Detect](https://www.blueclosure.com)
 
 #### Testing for SQL Injection
 
 - [OWASP SQLiX](https://www.owasp.org/index.php/Category:OWASP_SQLiX_Project)
-- [Sqlninja: a SQL Server Injection & Takeover Tool](http://sqlninja.sourceforge.net)
+- [Sqlninja: a SQL Server Injection & Takeover Tool](https://sourceforge.net/projects/sqlninja/)
 - [Bernardo Damele A. G.: sqlmap, automatic SQL injection tool](http://sqlmap.org/)
-- [Absinthe 1.1 (formerly SQLSqueal)](http://sourceforge.net/projects/absinthe/)
+- [Absinthe 1.1 (formerly SQLSqueal)](https://sourceforge.net/projects/absinthe/)
 - [SQLInjector - Uses inference techniques to extract data and determine the backend database server](https://github.com/p4pentest/SQLInjector)
-- [Bsqlbf-v2: A perl script allows extraction of data from Blind SQL Injections](http://code.google.com/p/bsqlbf-v2/)
-- [Pangolin: An automatic SQL injection penetration testing tool](http://www.darknet.org.uk/2009/05/pangolin-automatic-sql-injection-tool/)
+- [Bsqlbf-v2: A perl script allows extraction of data from Blind SQL Injections](https://code.google.com/p/bsqlbf-v2/)
+- [Pangolin: An automatic SQL injection penetration testing tool](https://www.darknet.org.uk/2009/05/pangolin-automatic-sql-injection-tool/)
 - [Multiple DBMS Sql Injection tool - SQL Power Injector](http://www.sqlpowerinjector.com/)
-- [MySql Blind Injection Bruteforcing, Reversing.org - sqlbftools](http://packetstormsecurity.org/files/43795/sqlbftools-1.2.tar.gz.html)
 
 #### Testing Oracle
 
-- [Toad for Oracle](http://www.quest.com/toad)
+- [Toad for Oracle](https://www.quest.com/toad)
 
 #### Testing SSL
 
 - [O-Saft](https://www.owasp.org/index.php/O-Saft)
 - [sslyze](https://github.com/iSECPartners/sslyze)
-- [TestSSLServer](http://www.bolet.org/TestSSLServer/)
-- [SSLScan](http://sourceforge.net/projects/sslscan/)
+- [TestSSLServer](https://www.bolet.org/TestSSLServer/)
+- [SSLScan](https://sourceforge.net/projects/sslscan/)
 - [SSLScan windows](https://github.com/rbsec/sslscan/releases)
 - [SSLLabs](https://www.ssllabs.com/ssltest/)
 
 #### Testing for Brute Force Password
 
 - [THC Hydra](https://github.com/vanhauser-thc/thc-hydra)
-- [John the Ripper](http://www.openwall.com/john/)
-- [Brutus](http://www.hoobie.net/brutus/)
-- [Medusa](http://www.foofus.net/~jmk/medusa/medusa.html)
-- [Ncat](http://nmap.org/ncat/)
-- [HashCat](http://hashcat.net/hashcat/#features-algos)
+- [John the Ripper](https://www.openwall.com/john/)
+- [Medusa](https://github.com/jmk-foofus/medusa)
+- [Ncat](https://nmap.org/ncat/)
+- [HashCat](https://hashcat.net/hashcat/#features-algos)
 - [fgdump](http://foofus.net/goons/fizzgig/fgdump/)
-- [Password Dictionary](https://crackstation.net/buy-crackstation-wordlist-password-cracking-dictionary.htm)
+- [Password Dictionary](https://crackstation.net/crackstation-wordlist-password-cracking-dictionary.htm)
 
 #### Testing Buffer Overflow
 
 - [OllyDbg](http://www.ollydbg.de)
   - “A windows based debugger used for analyzing buffer overflow vulnerabilities”
-- [Spike](http://www.immunitysec.com/downloads/SPIKE2.9.tgz)
+- [Spike](https://www.immunitysec.com/downloads/SPIKE2.9.tgz)
   - A fuzzer framework that can be used to explore vulnerabilities and perform length testing
-- [Brute Force Binary Tester (BFB)](http://bfbtester.sourceforge.net)
+- [Brute Force Binary Tester (BFB)](https://sourceforge.net/projects/bfbtester/)
   - A proactive binary checker
-- [Metasploit](http://www.metasploit.com/)
+- [Metasploit](https://www.metasploit.com/)
   - A rapid exploit development and Testing frame work
 
 #### Fuzzer
@@ -111,7 +103,7 @@
 
 #### Googling
 
-- [Bishop Fox's Google Hacking Diggity Project](http://www.bishopfox.com/resources/tools/google-hacking-diggity/)
+- [Bishop Fox's Google Hacking Diggity Project](https://resources.bishopfox.com/resources/tools/google-hacking-diggity/)
 - [Google Hacking database](https://www.exploit-db.com/google-hacking-database/)
 
 #### Slow HTTP
@@ -121,30 +113,29 @@
 
 ## Commercial Black-Box Testing Tools
 
-- [NGS Typhon](https://www.nccgroup.trust/uk/our-services/security-consulting/information-security-software/?utm_medium=rd0517)
+- [NGS Typhon](https://www.nccgroup.trust/uk/our-services/cyber-security/technology-solutions/)
 - [IBM AppScan](https://www.ibm.com/hk-en/security/application-security/appscan)
-- [Burp Intruder](http://www.portswigger.net/burp/intruder.html)
-- [Acunetix Web Vulnerability Scanner](http://www.acunetix.com)
-- [Sleuth](http://www.sandsprite.com/tools.php?id=-1)
+- [Burp Intruder](https://portswigger.net/burp)
+- [Acunetix Web Vulnerability Scanner](https://www.acunetix.com)
 - [MaxPatrol Security Scanner](https://www.ptsecurity.com/ww-en/products/maxpatrol/)
-- [Parasoft SOAtest (more QA-type tool)](http://www.parasoft.com/jsp/products/soatest.jsp?itemId=101)
-- [N-Stalker Web Application Security Scanner](http://www.nstalker.com)
-- [SoapUI (Web Service security testing)](http://www.soapui.org/Security/getting-started.html)
-- [Netsparker](http://www.mavitunasecurity.com/netsparker/)
-- [SAINT](http://www.saintcorporation.com/)
-- [QualysGuard WAS](http://www.qualys.com/enterprises/qualysguard/web-application-scanning/)
-- [IndusGuard Web](https://www.indusface.com/index.php/products/indusguard-web)
+- [Parasoft SOAtest (more QA-type tool)](https://www.parasoft.com/products/soatest)
+- [N-Stalker Web Application Security Scanner](https://www.nstalker.com)
+- [SoapUI (Web Service security testing)](https://www.soapui.org/security-testing/getting-started.html)
+- [Netsparker](https://www.netsparker.com/web-vulnerability-scanner/)
+- [SAINT](https://www.carson-saint.com/)
+- [QualysGuard WAS](https://www.qualys.com/apps/web-app-scanning/)
+- [IndusGuard Web](https://www.indusface.com/products/application-security/web-application-scanning/)
 
 ### Linux Distrubtion
 
-- [PenTestBox](https://tools.pentestbox.com/)
+- [PenTestBox](https://pentestbox.org/)
 - [Samurai](https://sourceforge.net/p/samurai/wiki/Home/)
 - [Santoku](https://sourceforge.net/projects/santoku/)
 - [ParrotSecurity](https://www.parrotsec.org/)
 - [Kali](https://www.kali.org/)
 - [Matriux](https://sourceforge.net/projects/matriux/?source=navbar)
-- [BlackArch](http://www.blackarch.org/downloads.html)
-- [PenToo](http://www.pentoo.ch/download/)
+- [BlackArch](https://blackarch.org/downloads.html)
+- [PenToo](https://www.pentoo.ch/download/)
 - [bugtraq](http://bugtraq-team.com/)
 
 ## Source Code Analyzers
@@ -155,26 +146,26 @@
 - [OWASP LAPSE](https://www.owasp.org/index.php/Category:OWASP_LAPSE_Project)
 - [OWASP O2 Platform](https://www.owasp.org/index.php/OWASP_O2_Platform)
 - [OWASP WAP-Web Application Protection](https://www.owasp.org/index.php/OWASP_WAP-Web_Application_Protection)
-- [FindBugs](http://findbugs.sourceforge.net)
-- [Find Security Bugs](http://h3xstream.github.io/find-sec-bugs/)
-- [FlawFinder](http://www.dwheeler.com/flawfinder)
+- [Spotbugs](https://spotbugs.github.io/)
+- [Find Security Bugs](https://find-sec-bugs.github.io/)
+- [FlawFinder](https://dwheeler.com/flawfinder/)
 - [phpcs-security-audit](https://github.com/squizlabs/PHP_CodeSniffer)
-- [PMD](http://pmd.sourceforge.net/)
+- [PMD](https://pmd.github.io/)
 - [Microsoft’s FxCop](https://www.owasp.org/index.php/FxCop)
-- [Oedipus](http://www.darknet.org.uk/2006/06/oedipus-open-source-web-application-security-analysis/)
-- [Splint](http://splint.org)
-- [SonarQube](http://sonarqube.org)
-- [W3af](http://w3af.sourceforge.net/)
+- [Oedipus](https://www.darknet.org.uk/2006/06/oedipus-open-source-web-application-security-analysis/)
+- [Splint](https://splint.org/)
+- [SonarQube](https://www.sonarqube.org/)
+- [W3af](https://w3af.org/)
 
 ### Commercial
 
-- [Checkmarx CxSuite](http://www.checkmarx.com)
-- [GrammaTech](http://www.grammatech.com)
-- [ITS4](http://seclab.cs.ucdavis.edu/projects/testing/tools/its4.html)
-- [ParaSoft](http://www.parasoft.com)
+- [Checkmarx CxSuite](https://www.checkmarx.com/)
+- [GrammaTech](https://www.grammatech.com/)
+- [ITS4](https://testarmy.com/en/)
+- [ParaSoft](https://www.parasoft.com/)
 - [Virtual Forge CodeProfiler for ABAP](https://www.virtualforge.com/de/codeprofiler-for-abap)
-- [Veracode](http://www.veracode.com)
-- [Peach Fuzzer](http://www.peachfuzzer.com/)
+- [Veracode](https://www.veracode.com/)
+- [Peach Fuzzer](https://www.peach.tech/)
 - [Burp Suite](https://portswigger.net/burp/)
 
 ## Acceptance Testing Tools
@@ -188,13 +179,13 @@ Acceptance testing tools are used to validate the functionality of web applicati
 - [HtmlUnit](http://htmlunit.sourceforge.net)
   - A Java and JUnit based framework that uses the Apache HttpClient as the transport.
   - Very robust and configurable and is used as the engine for a number of other testing tools.
-- [jWebUnit](http://jwebunit.sourceforge.net)
+- [jWebUnit](https://jwebunit.github.io/jwebunit/)
   - A Java based meta-framework that uses htmlunit or selenium as the testing engine.
 - [HttpUnit](http://httpunit.sourceforge.net)
   - One of the first web testing frameworks, suffers from using the native JDK provided HTTP transport, which can be a bit limiting for security testing.
 - [Solex](http://solex.sourceforge.net)
   - An Eclipse plugin that provides a graphical tool to record HTTP sessions and make assertions based on the results.
-- [Selenium](http://seleniumhq.org/)
+- [Selenium](https://www.seleniumhq.org/)
   - JavaScript based testing framework, cross-platform and provides a GUI for creating tests.
   - Mature and popular tool, but the use of JavaScript could hamper certain security tests.
 
@@ -202,12 +193,12 @@ Acceptance testing tools are used to validate the functionality of web applicati
 
 ### Binary Analysis
 
-- [BugScam IDC Package](http://sourceforge.net/projects/bugscam)
-- [Veracode](http://www.veracode.com)
+- [BugScam IDC Package](https://sourceforge.net/projects/bugscam/)
+- [Veracode](https://www.veracode.com)
 
 ### Site Mirroring
 
-- [wget](http://www.gnu.org/software/wget)
-- [Wget for windows](http://www.interlog.com/~tcharron/wgetwin.html)
-- [curl](http://curl.haxx.se)
+- [wget](https://www.gnu.org/software/wget/)
+- [Wget for windows](http://gnuwin32.sourceforge.net/packages/wget.htm)
+- [curl](https://curl.haxx.se/)
 - [Xenu's Link Sleuth](http://home.snafu.de/tilman/xenulink.html)

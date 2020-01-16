@@ -50,6 +50,7 @@
 - [Open Source Software Testing Tools](https://www.opensourcetesting.org/category/security/)
 - [OWASP Security Blitz](https://www.owasp.org/index.php/OWASP_Security_Blitz)
 - [OWASP Phoenix/Tool](https://www.owasp.org/index.php/Phoenix/Tools)
+
 - [SANS Internet Storm Center (ISC)](https://isc.sans.edu/)
 - [The Open Web Application Application Security Project (OWASP)](https://www.owasp.org/index.php/Main_Page)
 - [Pentestmonkey - Pen Testing Cheat Sheets](http://pentestmonkey.net/cheat-sheet)
@@ -64,7 +65,8 @@
 ## Videos
 
 - [OWASP Appsec Tutorial Series](https://www.owasp.org/index.php/OWASP_Appsec_Tutorial_Series)
-- [SecurityTube](http://www.securitytube.net/)
+
+- [PentesterAcademy](https://www.pentesteracademy.com/)
 
 ## Deliberately Insecure Web Applications
 

@@ -58,7 +58,7 @@ An effective testing program should have components that test the following:
 
 Unless a holistic approach is adopted, testing just the technical implementation of an application will not uncover management or operational vulnerabilities that could be present. By testing the people, policies, and processes, an organization can catch issues that would later manifest themselves into defects in the technology, thus eradicating bugs early and identifying the root causes of defects. Likewise, testing only some of the technical issues that can be present in a system will result in an incomplete and inaccurate security posture assessment.
 
-Denis Verdon, Head of Information Security at [Fidelity National Financial](http://www.fnf.com), presented an excellent analogy for this misconception at the [OWASP AppSec 2004 Conference in New York](https://www.owasp.org/index.php/OWASP_AppSec_NYC_2004):
+Denis Verdon, Head of Information Security at [Fidelity National Financial](https://www.fnf.com), presented an excellent analogy for this misconception at the [OWASP AppSec 2004 Conference in New York](https://www.owasp.org/index.php/OWASP_AppSec_NYC_2004):
 
 > If cars were built like applications ... safety tests would assume frontal impact only. Cars would not be roll tested, or tested for stability in emergency maneuvers, brake effectiveness, side impact, and resistance to theft.
 
