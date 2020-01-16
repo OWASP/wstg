@@ -50,13 +50,13 @@
 
 **[3.8 Penetration Testing Methodologies](3_The_OWASP_Testing_Framework/3.8_Penetration_Testing_Methodologies.md)**
 
-## [4. Web Application Security Testing](4_Web_Application_Security_Testing/4_Web_Application_Penetration_Testing.md)
+## [4. Web Application Security Testing](4_Web_Application_Security_Testing/)
 
-**[4.1 Introduction and Objectives](4_Web_Application_Security_Testing/4.1_Introduction_and_Objectives/4.1_Testing_Introduction_and_Objectives.md)**
+**[4.1 Introduction and Objectives](4_Web_Application_Security_Testing/4.1_Introduction_and_Objectives/)**
 
 [4.1.1 Testing Checklist](4_Web_Application_Security_Testing/4.1_Introduction_and_Objectives/4.1.1_Testing_Checklist.md)
 
-**[4.2 Information Gathering](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2_Testing_Information_Gathering.md)**
+**[4.2 Information Gathering](4_Web_Application_Security_Testing/4.2_Information_Gathering/)**
 
 [4.2.1 Conduct Search Engine Discovery and Reconnaissance for Information Leakage (OTG-INFO-001)](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.1_Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage_OTG-INFO-001.md)
 
@@ -78,7 +78,7 @@
 
 [4.2.10 Map Application Architecture (OTG-INFO-010)](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.10_Map_Application_Architecture_OTG-INFO-010.md)
 
-**[4.3 Configuration and Deployment Management Testing](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3_Testing_for_Configuration_Management.md)**
+**[4.3 Configuration and Deployment Management Testing](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/)**
 
 [4.3.1 Test Network/Infrastructure Configuration (OTG-CONFIG-001)](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.1_Test_Network_Infrastructure_Configuration_OTG-CONFIG-001.md)
 
@@ -100,7 +100,7 @@
 
 [4.3.10 Test for Subdomain Takeover (OTG-CONFIG-010)](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.10_Test_for_Subdomain_Takeover_OTG-CONFIG-010.md)
 
-**[4.4 Identity Management Testing](4_Web_Application_Security_Testing/4.4_Identity_Management_Testing/4.4_Identity_Management_Testing.md)**
+**[4.4 Identity Management Testing](4_Web_Application_Security_Testing/4.4_Identity_Management_Testing/)**
 
 [4.4.1 Test Role Definitions (OTG-IDENT-001)](4_Web_Application_Security_Testing/4.4_Identity_Management_Testing/4.4.1_Test_Role_Definitions_OTG-IDENT-001.md)
 
@@ -112,7 +112,7 @@
 
 [4.4.5 Testing for Weak or unenforced username policy (OTG-IDENT-005)](4_Web_Application_Security_Testing/4.4_Identity_Management_Testing/4.4.5_Testing_for_Weak_or_Unenforced_Username_Policy_OTG-IDENT-005.md)
 
-**[4.5 Authentication Testing](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5_Testing_for_Authentication.md)**
+**[4.5 Authentication Testing](4_Web_Application_Security_Testing/4.5_Authentication_Testing/)**
 
 [4.5.1 Testing for Credentials Transported over an Encrypted Channel (OTG-AUTHN-001)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.1_Testing_for_Credentials_Transported_over_an_Encrypted_Channel_OTG-AUTHN-001.md)
 
@@ -134,7 +134,7 @@
 
 [4.5.10 Testing for Weaker authentication in alternative channel (OTG-AUTHN-010)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.10_Testing_for_Weaker_Authentication_in_Alternative_Channel_OTG-AUTHN-010.md)
 
-**[4.6 Authorization Testing](4_Web_Application_Security_Testing/4.6_Authorization_Testing/4.6_Testing_for_Authorization.md)**
+**[4.6 Authorization Testing](4_Web_Application_Security_Testing/4.6_Authorization_Testing/)**
 
 [4.6.1 Testing Directory traversal/file include (OTG-AUTHZ-001)](4_Web_Application_Security_Testing/4.6_Authorization_Testing/4.6.1_Testing_Directory_Traversal_File_Include_OTG-AUTHZ-001.md)
 
@@ -144,7 +144,7 @@
 
 [4.6.4 Testing for Insecure Direct Object References (OTG-AUTHZ-004)](4_Web_Application_Security_Testing/4.6_Authorization_Testing/4.6.4_Testing_for_Insecure_Direct_Object_References_OTG-AUTHZ-004.md)
 
-**[4.7 Session Management Testing](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7_Testing_for_Session_Management.md)**
+**[4.7 Session Management Testing](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/)**
 
 [4.7.1 Testing for Bypassing Session Management Schema (OTG-SESS-001)](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.1_Testing_for_Session_Management_Schema_OTG-SESS-001.md)
 
@@ -162,7 +162,7 @@
 
 [4.7.8 Testing for Session puzzling (OTG-SESS-008)](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.8_Testing_for_Session_Puzzling_OTG-SESS-008.md)
 
-**[4.8 Input Validation Testing](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8_Testing_for_Input_Validation.md)**
+**[4.8 Input Validation Testing](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/)**
 
 [4.8.1 Testing for Reflected Cross Site Scripting (OTG-INPVAL-001)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.1_Testing_for_Reflected_Cross_Site_Scripting_OTG-INPVAL-001.md)
 
@@ -222,13 +222,13 @@
 
 [4.8.18 Testing for Host Header Injection (OTG-INPVAL-018)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.18_Testing_for_Host_Header_Injection_OTG-INPVAL-018.md)
 
-**[4.9 Testing for Error Handling](4_Web_Application_Security_Testing/4.9_Testing_for_Error_Handling/4.9_Testing_for_Error_Handling.md)**
+**[4.9 Testing for Error Handling](4_Web_Application_Security_Testing/4.9_Testing_for_Error_Handling/)**
 
 [4.9.1 Analysis of Error Codes (OTG-ERR-001)](4_Web_Application_Security_Testing/4.9_Testing_for_Error_Handling/4.9.1_Testing_for_Error_Code_OTG-ERR-001.md)
 
 [4.9.2 Analysis of Stack Traces (OTG-ERR-002)](4_Web_Application_Security_Testing/4.9_Testing_for_Error_Handling/4.9.2_Testing_for_Stack_Traces_OTG-ERR-002.md)
 
-**[4.10 Testing for weak Cryptography](4_Web_Application_Security_Testing/4.10_Testing_for_Weak_Cryptography/4.10_Testing_for_Weak_Cryptography.md)**
+**[4.10 Testing for weak Cryptography](4_Web_Application_Security_Testing/4.10_Testing_for_Weak_Cryptography/)**
 
 [4.10.1 Testing for Weak SSL/TLS Ciphers, Insufficient Transport Layer Protection (OTG-CRYPST-001)](4_Web_Application_Security_Testing/4.10_Testing_for_Weak_Cryptography/4.10.1_Testing_for_Weak_SSL_TLS_Ciphers_Insufficient_Transport_Layer_Protection_OTG-CRYPST-001.md)
 
@@ -238,7 +238,7 @@
 
 [4.10.4 Testing for Weak Encryption (OTG-CRYPST-004)](4_Web_Application_Security_Testing/4.10_Testing_for_Weak_Cryptography/4.10.4_Testing_for_Weak_Encryption_OTG-CRYPST-004.md)
 
-**[4.11 Business Logic Testing](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11_Testing_for_Business_Logic.md)**
+**[4.11 Business Logic Testing](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/)**
 
 [4.11.1 Test Business Logic Data Validation (OTG-BUSLOGIC-001)](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.1_Test_Business_Logic_Data_Validation_OTG-BUSLOGIC-001.md)
 
@@ -258,7 +258,7 @@
 
 [4.11.9 Test Upload of Malicious Files (OTG-BUSLOGIC-009)](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.9_Test_Upload_of_Malicious_Files_OTG-BUSLOGIC-009.md)
 
-**[4.12 Client Side Testing](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12_Client_Side_Testing.md)**
+**[4.12 Client Side Testing](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/)**
 
 [4.12.1 Testing for DOM based Cross Site Scripting (OTG-CLIENT-001)](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.1_Testing_for_DOM-based_Cross_Site_Scripting_OTG-CLIENT-001.md)
 
