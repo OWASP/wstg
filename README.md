@@ -15,8 +15,8 @@ For the last stable release, [view the previous version 4.0](http://www.owasp.or
 - [OWASP Web Security Testing Guide](#owasp-web-security-testing-guide)
   - [Contributions, Feature Requests, and Feedback](#contributions-feature-requests-and-feedback)
   - [Chat With Us](#chat-with-us)
-  - [Maintainers](#maintainers)
-  - [Special Thanks](#special-thanks)
+  - [Project Leaders](#project-leaders)
+  - [Core Team](#core-team)
 
 ## Contributions, Feature Requests, and Feedback
 
