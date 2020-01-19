@@ -2,16 +2,16 @@
 
 - README.md (Table of Contents)
 - 0_Foreword
-  - 0_Foreword.md
+  - README.md (formerly 0_Foreword.md)
 - 1_Frontispiece
   - 1.2_About_The_Open_Web_Application_Security_Project.md
-  - 1_Frontispiece.md
+  - README.md (formerly 1_Frontispiece.md)
 - 2_Introduction_to_the_Guide
-  - 2_Introduction.md
+  - README.md (formerly 2_Introduction.md)
 - Introduction_to_Web_Testing (formerly 4.1_Introduction_to_Web_Testing)
   - The_OWASP_Testing_Framework (formerly 3_The_OWASP_Testing_Framework.md)
   - Penetration_Testing_Methodologies (formerly 3.8_Penetration_Testing_Methodologies.md)
-  - Introduction_to_Testing (formerly 4.1_Testing_Introduction_and_Objectives.md)
+  - README.md (formerly 4.1_Testing_Introduction_and_Objectives.md)
   - Testing_Checklist (formerly 4.1.1_Testing_Checklist.md)
 - Application_Programming_Interface_Testing (formerly Testing_for_APIs.md)
 - Authentication_Testing (formerly 4.5_Authentication_Testing)
@@ -147,12 +147,12 @@
 - Reporting (formerly 5_Reporting)
   - README.md (formerly 5_Reporting.md)
 - Appx.A_Testing_Tools_Resource
-  - Appx.A_Testing_Tools.md
+  - README.md (formerly Appx.A_Testing_Tools.md)
 - Appx.B_Suggested_Reading
-  - Appx.B_Suggested_Reading.md
+  - README.md (formerly Appx.B_Suggested_Reading.md)
 - Appx.C_Fuzz_Vectors
-  - Appx.C_Fuzz_Vectors.md
+  - README.md (formerly Appx.C_Fuzz_Vectors.md)
 - Appx.D_Encoded_Injection
-  - Appx.D_Encoded_Injection.md
+  - README.md (formerly Appx.D_Encoded_Injection.md)
 - Appx.E_Misc
-  - Appx.E_History.md
+  - README.md (formerly Appx.E_History.md)
