@@ -286,7 +286,6 @@
 
 [4.12.13 Testing for Cross Site Script Inclusion (OTG-CLIENT-013)](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.13_Testing_for_Cross_Site_Script_Inclusion_OTG-CLIENT-013.md)
 
-
 ## [5. Reporting](5_Reporting/5_Reporting.md)
 
 ## [Appendix A: Testing Tools Resource](Appx.A_Testing_Tools_Resource/Appx.A_Testing_Tools.md)
