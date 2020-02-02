@@ -23,8 +23,17 @@ jobs:
     - name: Run link check
       run: npm run-script link-check
     - name: Show broken links
+      id: broknlinks
       if: failure()
       run: |
-        brokenLinks=`cat log | awk -v RS="FILE:" 'match($0, /(\S*\.md).*\[✖\].*(\d*\slinks\schecked\.)(.*)/, arr ) { print "FILE:"arr[1] arr[3]}'`
+        cat log | awk -v RS="FILE:" 'match($0, /(\S*\.md).*\[✖\].*(\d*\slinks\schecked\.)(.*)/, arr ) { print "FILE:"arr[1] arr[3]}' > broknlinks
         rm -f err log
-        echo "Broken Links:" $brokenLinks
+        broken=true
+        cat brokenLinks
+        echo ::set-output name=links::$(cat brokenLinks)
+    - name: Send comment to PR with broken links
+      if: $broken
+      uses: thollander/actions-comment-pull-request@master
+      with:
+        message:  ${{ steps.broknlinks.outputs.links }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
