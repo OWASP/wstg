@@ -103,7 +103,7 @@ In these tests, testers check for different types of buffer overflow vulnerabili
 
 - [4.8.14.1 Heap overflow](4.8.14.1_Testing_for_Heap_Overflow.md)
 - [4.8.14.2 Stack overflow](4.8.14.2_Testing_for_Stack_Overflow.md)
-- [4.8.14.3 Format string](4.8.14.3_Testing_for_Format_String)
+- [4.8.14.3 Format string](4.8.14.3_Testing_for_Format_String.md)
 
 In general Buffer overflow breaks the following pattern:
 
