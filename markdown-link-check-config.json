@@ -1,14 +1,6 @@
 {
     "ignorePatterns": [
     {
-        "pattern": "^bundle.zip"
-
-    },
-    {
-        "pattern": "^News.xml"
-
-    },
-    {
         "pattern": "^\/"
 
     }
