@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "markdownlint .  --ignore node_modules",
-    "link-check" : "find  document/Appx.B_Suggested_Reading/Appx.B_Suggested_Reading.md -name \\*.md -exec markdown-link-check -c markdown-link-check-config.json 1> log 2> err {} \\; && if [ -e err ] && grep -q  \"ERROR:\" err ; then exit 113  ; else echo -e \"All good\"; fi"
+    "link-check" : "find  document -name \\*.md -exec markdown-link-check -c markdown-link-check-config.json 1> log 2> err {} \\; && if [ -e err ] && grep -q  \"ERROR:\" err ; then exit 113  ; else echo -e \"All good\"; fi"
   },
   "repository": {
     "type": "git",
