@@ -1,0 +1,30 @@
+name: Markdown Link Check
+
+on:
+  push:
+  pull_request:
+    branches:
+    - master
+
+jobs:
+  link-check:
+    runs-on: ubuntu-latest
+    env:
+      CI: true
+    steps:
+    - name: Setup Action
+      uses: actions/checkout@v1
+    - name: Setup Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: Install dependencies
+      run: npm install -g markdown-link-check
+    - name: Run link check
+      run: npm run-script link-check
+    - name: Show broken links
+      if: failure()
+      run: |
+        brokenLinks=`cat log | awk -v RS="FILE:" 'match($0, /(\S*\.md).*\[✖\].*(\d*\slinks\schecked\.)(.*)/, arr ) { print "FILE:"arr[1] arr[3]}'`
+        rm -f err log
+        echo "Broken Links:" $brokenLinks
