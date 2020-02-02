@@ -8,7 +8,8 @@
     "markdownlint-cli": "^0.19.0"
   },
   "scripts": {
-    "test": "markdownlint .  --ignore node_modules"
+    "test": "markdownlint .  --ignore node_modules",
+    "link-check" : "find  document/0_Foreword -name \\*.md -exec markdown-link-check -c markdown-link-check-config.json 1> log 2> err {} \\; && if [ -e err ] && grep -q  \"ERROR:\" err ; then exit 113  ; else echo -e \"All good\"; fi"
   },
   "repository": {
     "type": "git",
