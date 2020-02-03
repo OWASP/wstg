@@ -16,7 +16,7 @@ The following articles describe how to conduct a Client-Side test of a web appli
 
 [4.12.6 Testing for Client Side Resource Manipulation (OTG-CLIENT-006)](4.12.6_Testing_for_Client_Side_Resource_Manipulation_OTG-CLIENT-006.md)
 
-[4.12.7 Test Cross Origin Resource Sharing (OTG-CLIENT-007)](4.12.7_Test_Cross_Origin_Resource_Sharing_OTG-CLIENT-007.md)
+[4.12.7 Test Cross Origin Resource Sharing (OTG-CLIENT-007)](4.12.7_Testing_Cross_Origin_Resource_Sharing_OTG-CLIENT-007.md)
 
 [4.12.8 Testing for Cross Site Flashing (OTG-CLIENT-008)](4.12.8_Testing_for_Cross_Site_Flashing_OTG-CLIENT-008.md)
 
@@ -24,8 +24,8 @@ The following articles describe how to conduct a Client-Side test of a web appli
 
 [4.12.10 Testing WebSockets (OTG-CLIENT-010)](4.12.10_Testing_WebSockets_OTG-CLIENT-010.md)
 
-[4.12.11 Test Web Messaging (OTG-CLIENT-011)](4.12.11_Test_Web_Messaging_OTG-CLIENT-011.md)
+[4.12.11 Test Web Messaging (OTG-CLIENT-011)](4.12.11_Testing_Web_Messaging_OTG-CLIENT-011.md)
 
-[4.12.12 Test Local Storage (OTG-CLIENT-012)](4.12.12_Test_Local_Storage_OTG-CLIENT-012.md)
+[4.12.12 Test Local Storage (OTG-CLIENT-012)](4.12.12_Testing_Web_Storage_OTG-CLIENT-012.md)
 
 [4.12.13 Test for Cross Site Script Inclusion (OTG-CLIENT-013)](4.12.13_Testing_for_Cross_Site_Script_Inclusion_OTG-CLIENT-013.md)
