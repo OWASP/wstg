@@ -136,7 +136,6 @@
 - [Matriux](https://sourceforge.net/projects/matriux/?source=navbar)
 - [BlackArch](https://blackarch.org/downloads.html)
 - [PenToo](https://www.pentoo.ch/download/)
-- [bugtraq](http://bugtraq-team.com/)
 
 ## Source Code Analyzers
 
