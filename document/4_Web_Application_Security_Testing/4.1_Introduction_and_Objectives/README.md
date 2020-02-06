@@ -48,7 +48,7 @@ Testing can be categorized as passive or active:
 
 ### Passive Testing
 
-During passive testing, a tester tries to understand the application's logic and explores the application as a user. Tools can be used for information gathering. For example, an HTTP proxy can be used to observe all the HTTP requests and responses. At the end of this phase, the tester should understand all the access points (*gates*) of the application (e.g., HTTP headers, parameters, and cookies). The [Information Gathering](../4.2_Information_Gathering/4.2_Testing_Information_Gathering.md) section explains how to perform passive testing.
+During passive testing, a tester tries to understand the application's logic and explores the application as a user. Tools can be used for information gathering. For example, an HTTP proxy can be used to observe all the HTTP requests and responses. At the end of this phase, the tester should understand all the access points (*gates*) of the application (e.g., HTTP headers, parameters, and cookies). The [Information Gathering](../4.2_Information_Gathering/README.md) section explains how to perform passive testing.
 
 For example, a tester may find a page at the following URL:
 

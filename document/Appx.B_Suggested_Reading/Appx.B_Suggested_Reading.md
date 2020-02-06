@@ -2,7 +2,7 @@
 
 ## Whitepapers
 
-- [The Economic Impacts of Inadequate Infrastructure for Software Testing](https://www.nist.gov/sites/default/files/documents/director/planning/report02-3.pdf)
+- [The Economic Impacts of Inadequate Infrastructure for Software Testing](https://www.nist.gov/system/files/documents/director/planning/report02-3.pdf)
 - [Improving Web Application Security: Threats and Countermeasures](https://www.microsoft.com/en-ca/download/details.aspx?id=1330)
 - [NIST Publications](https://csrc.nist.gov/publications/sp)
 - [The Open Web Application Security Project (OWASP) Guide Project](https://www.owasp.org/index.php/OWASP_Guide_Project)
@@ -49,7 +49,7 @@
 - [OASIS Web Application Security (WAS) TC](https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=was)
 - [Open Source Software Testing Tools](https://www.opensourcetesting.org/category/security/)
 - [OWASP Security Blitz](https://www.owasp.org/index.php/OWASP_Security_Blitz)
-- [OWASP Phoenix/Tool](https://www.owasp.org/index.php/Phoenix/Tools)
+- [OWASP Phoenix/Tool](https://www.owasp.org/index.php?title=Phoenix/Tools&setlang=en)
 
 - [SANS Internet Storm Center (ISC)](https://isc.sans.edu/)
 - [The Open Web Application Application Security Project (OWASP)](https://www.owasp.org/index.php/Main_Page)
