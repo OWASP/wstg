@@ -1,5 +1,5 @@
 
-# Testing for Vertical Bypassing Authorization Schema (OTG-AUTHZ-00X)
+# Testing for Vertical Bypassing Authorization Schema (WSTG-AUTHZ-00X)
 
 ## Summary
 
