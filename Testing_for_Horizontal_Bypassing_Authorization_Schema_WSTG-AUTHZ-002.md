@@ -1,4 +1,4 @@
-# Testing for Horizontal Bypassing Authorization Schema (OTG-AUTHZ-002)
+# Testing for Horizontal Bypassing Authorization Schema (WSTG-AUTHZ-002)
 
 ## Summary
 

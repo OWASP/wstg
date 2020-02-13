@@ -47,119 +47,119 @@ The following is the list of controls that were tested during the assessment:
 
 | Test ID  | Test Description | Findings | Severity | Recommendations |
 | ---------| -----------------| -------- | -------- | --------------- |
-| **OTG-INFO**     | **Information Gathering**  |
-| OTG-INFO-001 | Conduct Search Engine Discovery and Reconnaissance for Information Leakage |
-| OTG-INFO-002 | Fingerprint Web Server |
-| OTG-INFO-003 | Review Webserver Metafiles for Information |
-| OTG-INFO-004 | Enumerate Applications on Webserver |
-| OTG-INFO-005 | Review Webpage Comments and Metadata for Information Leakage |
-| OTG-INFO-006 | Identify application entry points |
-| OTG-INFO-007 | Map execution paths through application |
-| OTG-INFO-009 | Fingerprint Web Application Framework |
-| OTG-INFO-009 | Fingerprint Web Application |
-| OTG-INFO-010 | Map Application Architecture |
-| **OTG-CONFIG** | **Configuration and Deploy Management Testing** |
-| OTG-CONFIG-001 | Test Network/Infrastructure Configuration |
-| OTG-CONFIG-002 | Test Application Platform Configuration |
-| OTG-CONFIG-003 | Test File Extensions Handling for Sensitive Information |
-| OTG-CONFIG-004 | Backup and Unreferenced Files for Sensitive Information |
-| OTG-CONFIG-005 | Enumerate Infrastructure and Application Admin Interfaces |
-| OTG-CONFIG-006 | Test HTTP Methods |
-| OTG-CONFIG-007 | Test HTTP Strict Transport Security |
-| OTG-CONFIG-008 | Test RIA cross domain policy |
-| **OTG-IDENT** | **Identity Management Testing** |
-| OTG-IDENT-001 | Test Role Definitions |
-| OTG-IDENT-002 | Test User Registration Process |
-| OTG-IDENT-003 | Test Account Provisioning Process |
-| OTG-IDENT-004 | Testing for Account Enumeration and Guessable User Account |
-| OTG-IDENT-005 | Testing for Weak or unenforced username policy |
-| OTG-IDENT-006 | Test Permissions of Guest/Training Accounts |
-| OTG-IDENT-007 | Test Account Suspension/Resumption Process |
-| **OTG-AUTHN** | **Authentication Testing** |
-| OTG-AUTHN-001 | Testing for Credentials Transported over an Encrypted Channel |
-| OTG-AUTHN-002 | Testing for default credentials |
-| OTG-AUTHN-003 | Testing for Weak lock out mechanism |
-| OTG-AUTHN-004 | Testing for bypassing authentication schema |
-| OTG-AUTHN-005 | Test remember password functionality |
-| OTG-AUTHN-006 | Testing for Browser cache weakness |
-| OTG-AUTHN-007 | Testing for Weak password policy |
-| OTG-AUTHN-008 | Testing for Weak security question/answer |
-| OTG-AUTHN-009 | Testing for weak password change or reset functionalities |
-| OTG-AUTHN-010 | Testing for Weaker authentication in alternative channel |
-| **OTG-AUTHZ** | **Authorization Testing** |
-| OTG-AUTHZ-001 | Testing Directory traversal/file include |
-| OTG-AUTHZ-002 | Testing for bypassing authorization schema |
-| OTG-AUTHZ-003 | Testing for Privilege Escalation |
-| OTG-AUTHZ-004 | Testing for Insecure Direct Object References |
-| **OTG-SESS** | **Session Management Testing** |
-| OTG-SESS-001 | Testing for Bypassing Session Management Schema |
-| OTG-SESS-002 | Testing for Cookies attributes |
-| OTG-SESS-003 | Testing for Session Fixation |
-| OTG-SESS-004 | Testing for Exposed Session Variables |
-| OTG-SESS-005 | Testing for Cross Site Request Forgery |
-| OTG-SESS-006 | Testing for logout functionality |
-| OTG-SESS-007 | Test Session Timeout |
-| OTG-SESS-008 | Testing for Session puzzling |
-| **OTG-INPVAL** |**Input Validation Testing** |
-| OTG-INPVAL-001 | Testing for Reflected Cross Site Scripting |
-| OTG-INPVAL-002 | Testing for Stored Cross Site Scripting |
-| OTG-INPVAL-003 | Testing for HTTP Verb Tampering |
-| OTG-INPVAL-004 | Testing for HTTP Parameter pollution |
-| OTG-INPVAL-005 | Testing for SQL Injection |
+| **WSTG-INFO**     | **Information Gathering**  |
+| WSTG-INFO-001 | Conduct Search Engine Discovery and Reconnaissance for Information Leakage |
+| WSTG-INFO-002 | Fingerprint Web Server |
+| WSTG-INFO-003 | Review Webserver Metafiles for Information |
+| WSTG-INFO-004 | Enumerate Applications on Webserver |
+| WSTG-INFO-005 | Review Webpage Comments and Metadata for Information Leakage |
+| WSTG-INFO-006 | Identify application entry points |
+| WSTG-INFO-007 | Map execution paths through application |
+| WSTG-INFO-009 | Fingerprint Web Application Framework |
+| WSTG-INFO-009 | Fingerprint Web Application |
+| WSTG-INFO-010 | Map Application Architecture |
+| **WSTG-CONFIG** | **Configuration and Deploy Management Testing** |
+| WSTG-CONFIG-001 | Test Network/Infrastructure Configuration |
+| WSTG-CONFIG-002 | Test Application Platform Configuration |
+| WSTG-CONFIG-003 | Test File Extensions Handling for Sensitive Information |
+| WSTG-CONFIG-004 | Backup and Unreferenced Files for Sensitive Information |
+| WSTG-CONFIG-005 | Enumerate Infrastructure and Application Admin Interfaces |
+| WSTG-CONFIG-006 | Test HTTP Methods |
+| WSTG-CONFIG-007 | Test HTTP Strict Transport Security |
+| WSTG-CONFIG-008 | Test RIA cross domain policy |
+| **WSTG-IDENT** | **Identity Management Testing** |
+| WSTG-IDENT-001 | Test Role Definitions |
+| WSTG-IDENT-002 | Test User Registration Process |
+| WSTG-IDENT-003 | Test Account Provisioning Process |
+| WSTG-IDENT-004 | Testing for Account Enumeration and Guessable User Account |
+| WSTG-IDENT-005 | Testing for Weak or unenforced username policy |
+| WSTG-IDENT-006 | Test Permissions of Guest/Training Accounts |
+| WSTG-IDENT-007 | Test Account Suspension/Resumption Process |
+| **WSTG-AUTHN** | **Authentication Testing** |
+| WSTG-AUTHN-001 | Testing for Credentials Transported over an Encrypted Channel |
+| WSTG-AUTHN-002 | Testing for default credentials |
+| WSTG-AUTHN-003 | Testing for Weak lock out mechanism |
+| WSTG-AUTHN-004 | Testing for bypassing authentication schema |
+| WSTG-AUTHN-005 | Test remember password functionality |
+| WSTG-AUTHN-006 | Testing for Browser cache weakness |
+| WSTG-AUTHN-007 | Testing for Weak password policy |
+| WSTG-AUTHN-008 | Testing for Weak security question/answer |
+| WSTG-AUTHN-009 | Testing for weak password change or reset functionalities |
+| WSTG-AUTHN-010 | Testing for Weaker authentication in alternative channel |
+| **WSTG-AUTHZ** | **Authorization Testing** |
+| WSTG-AUTHZ-001 | Testing Directory traversal/file include |
+| WSTG-AUTHZ-002 | Testing for bypassing authorization schema |
+| WSTG-AUTHZ-003 | Testing for Privilege Escalation |
+| WSTG-AUTHZ-004 | Testing for Insecure Direct Object References |
+| **WSTG-SESS** | **Session Management Testing** |
+| WSTG-SESS-001 | Testing for Bypassing Session Management Schema |
+| WSTG-SESS-002 | Testing for Cookies attributes |
+| WSTG-SESS-003 | Testing for Session Fixation |
+| WSTG-SESS-004 | Testing for Exposed Session Variables |
+| WSTG-SESS-005 | Testing for Cross Site Request Forgery |
+| WSTG-SESS-006 | Testing for logout functionality |
+| WSTG-SESS-007 | Test Session Timeout |
+| WSTG-SESS-008 | Testing for Session puzzling |
+| **WSTG-INPVAL** |**Input Validation Testing** |
+| WSTG-INPVAL-001 | Testing for Reflected Cross Site Scripting |
+| WSTG-INPVAL-002 | Testing for Stored Cross Site Scripting |
+| WSTG-INPVAL-003 | Testing for HTTP Verb Tampering |
+| WSTG-INPVAL-004 | Testing for HTTP Parameter pollution |
+| WSTG-INPVAL-005 | Testing for SQL Injection |
 | | Oracle Testing |
 | | MySQL Testing   |
 | | SQL Server Testing |
 | | Testing PostgreSQL |
 | | MS Access Testing |
 | | Testing for NoSQL injection |
-| OTG-INPVAL-006 | Testing for LDAP Injection |
-| OTG-INPVAL-007 | Testing for ORM Injection |
-| OTG-INPVAL-008 | Testing for XML Injection |
-| OTG-INPVAL-008 | Testing for SSI Injection |
-| OTG-INPVAL-010 | Testing for XPath Injection |
-| OTG-INPVAL-011 | IMAP/SMTP Injection |
-| OTG-INPVAL-012 |Testing for Code Injection |
+| WSTG-INPVAL-006 | Testing for LDAP Injection |
+| WSTG-INPVAL-007 | Testing for ORM Injection |
+| WSTG-INPVAL-008 | Testing for XML Injection |
+| WSTG-INPVAL-008 | Testing for SSI Injection |
+| WSTG-INPVAL-010 | Testing for XPath Injection |
+| WSTG-INPVAL-011 | IMAP/SMTP Injection |
+| WSTG-INPVAL-012 |Testing for Code Injection |
 | |Testing for Local File Inclusion |
 | |Testing for Remote File Inclusion |
-| OTG-INPVAL-013 | Testing for Command Injection |
-| OTG-INPVAL-014 | Testing for Buffer overflow |
+| WSTG-INPVAL-013 | Testing for Command Injection |
+| WSTG-INPVAL-014 | Testing for Buffer overflow |
 | | Testing for Heap overflow |
 | | Testing for Stack overflow |
 | | Testing for Format string |
-| OTG-INPVAL-015  | Testing for incubated vulnerabilities |
-| OTG-INPVAL-016  | Testing for HTTP Splitting/Smuggling |
-| OTG-INPVAL-017  | Testing for HTTP Incoming requests |
-| **OTG-ERR**  |**Error Handling** |
-| OTG-ERR-001  | Analysis of Error Codes |
-| OTG-ERR-002  | Analysis of Stack Traces |
-| **OTG-CRYPST** | **Cryptography** |
-| OTG-CRYPST-001 | Testing for Weak SSL/TSL Ciphers, Insufficient|
-| **OTG-CRYPST** | **Transport Layer Protection** |
-| OTG-CRYPST-002 | Testing for Padding Oracle |
-| OTG-CRYPST-003 | Testing for Sensitive information sent via unencrypted  channels |
-| **OTG-BUSLOGIC** | **Business Logic Testing** |
-| OTG-BUSLOGIC-001 | Test Business Logic Data Validation |
-| OTG-BUSLOGIC-002 | Test Ability to Forge Requests |
-| OTG-BUSLOGIC-003 | Test Integrity Checks |
-| OTG-BUSLOGIC-004 | Test for Process Timing |
-| OTG-BUSLOGIC-005 | Test Number of Times a Function Can be Used Limits |
-| OTG-BUSLOGIC-006 | Testing for the Circumvention of Work Flows |
-| OTG-BUSLOGIC-007 | Test Defenses Against Application Mis-use |
-| OTG-BUSLOGIC-008 | Test Upload of Unexpected File Types |
-| OTG-BUSLOGIC-009 | Test Upload of Malicious Files |
-| **OTG-CLIENT** | **Client Side Testing** |
-| OTG-CLIENT-001 | Testing for DOM based Cross Site Scripting |
-| OTG-CLIENT-002 | Testing for JavaScript Execution |
-| OTG-CLIENT-003 | Testing for HTML Injection |
-| OTG-CLIENT-004 | Testing for Client Side URL Redirect |
-| OTG-CLIENT-005 | Testing for CSS Injection |
-| OTG-CLIENT-006 | Testing for Client Side Resource Manipulation |
-| OTG-CLIENT-007 | Test Cross Origin Resource Sharing |
-| OTG-CLIENT-008 | Testing for Cross Site Flashing |
-| OTG-CLIENT-009 | Testing for Clickjacking |
-| OTG-CLIENT-010 | Testing WebSockets |
-| OTG-CLIENT-011 | Test Web Messaging |
-| OTG-CLIENT-012 | Test Local Storage |
+| WSTG-INPVAL-015  | Testing for incubated vulnerabilities |
+| WSTG-INPVAL-016  | Testing for HTTP Splitting/Smuggling |
+| WSTG-INPVAL-017  | Testing for HTTP Incoming requests |
+| **WSTG-ERR**  |**Error Handling** |
+| WSTG-ERR-001  | Analysis of Error Codes |
+| WSTG-ERR-002  | Analysis of Stack Traces |
+| **WSTG-CRYPST** | **Cryptography** |
+| WSTG-CRYPST-001 | Testing for Weak SSL/TSL Ciphers, Insufficient|
+| **WSTG-CRYPST** | **Transport Layer Protection** |
+| WSTG-CRYPST-002 | Testing for Padding Oracle |
+| WSTG-CRYPST-003 | Testing for Sensitive information sent via unencrypted  channels |
+| **WSTG-BUSLOGIC** | **Business Logic Testing** |
+| WSTG-BUSLOGIC-001 | Test Business Logic Data Validation |
+| WSTG-BUSLOGIC-002 | Test Ability to Forge Requests |
+| WSTG-BUSLOGIC-003 | Test Integrity Checks |
+| WSTG-BUSLOGIC-004 | Test for Process Timing |
+| WSTG-BUSLOGIC-005 | Test Number of Times a Function Can be Used Limits |
+| WSTG-BUSLOGIC-006 | Testing for the Circumvention of Work Flows |
+| WSTG-BUSLOGIC-007 | Test Defenses Against Application Mis-use |
+| WSTG-BUSLOGIC-008 | Test Upload of Unexpected File Types |
+| WSTG-BUSLOGIC-009 | Test Upload of Malicious Files |
+| **WSTG-CLIENT** | **Client Side Testing** |
+| WSTG-CLIENT-001 | Testing for DOM based Cross Site Scripting |
+| WSTG-CLIENT-002 | Testing for JavaScript Execution |
+| WSTG-CLIENT-003 | Testing for HTML Injection |
+| WSTG-CLIENT-004 | Testing for Client Side URL Redirect |
+| WSTG-CLIENT-005 | Testing for CSS Injection |
+| WSTG-CLIENT-006 | Testing for Client Side Resource Manipulation |
+| WSTG-CLIENT-007 | Test Cross Origin Resource Sharing |
+| WSTG-CLIENT-008 | Testing for Cross Site Flashing |
+| WSTG-CLIENT-009 | Testing for Clickjacking |
+| WSTG-CLIENT-010 | Testing WebSockets |
+| WSTG-CLIENT-011 | Test Web Messaging |
+| WSTG-CLIENT-012 | Test Local Storage |
 
 ## Appendix
 
