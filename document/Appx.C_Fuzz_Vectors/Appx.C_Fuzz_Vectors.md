@@ -99,7 +99,7 @@ For details on XSS: [Cross-site Scripting (XSS)](https://www.owasp.org/index.php
 
 A buffer overflow or memory corruption attack is a programming condition which allows overflowing of valid data beyond its prelocated storage limit in memory.
 
-For details on Buffer Overflows: [Testing for Buffer Overflow](../4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.14_Testing_for_Buffer_Overflow_OTG-INPVAL-014.md)
+For details on Buffer Overflows: [Testing for Buffer Overflow](../4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.14_Testing_for_Buffer_Overflow_WSTG-INPVAL-014.md)
 
 Note that attempting to load such a definition file within a fuzzer application can potentially cause the application to crash.
 
@@ -203,7 +203,7 @@ Integer overflow errors occur when a program fails to account for the fact that 
 
 This attack can affect the database layer of an application and is typically present when user input is not filtered for SQL statements.
 
-For details on Testing SQL Injection: [Testing for SQL Injection](../4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.5_Testing_for_SQL_Injection_OTG-INPVAL-005.md)
+For details on Testing SQL Injection: [Testing for SQL Injection](../4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.5_Testing_for_SQL_Injection_WSTG-INPVAL-005.md)
 
 SQL Injection is classified in the following two categories, depending on the exposure of database information (passive) or the alteration of database information (active).
 
@@ -348,7 +348,7 @@ Active SQL Injection statements can have a detrimental effect on the underlying 
 
 ## LDAP Injection
 
-For details on LDAP Injection: [Testing for LDAP Injection](../4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.6_Testing_for_LDAP_Injection_OTG-INPVAL-006.md)
+For details on LDAP Injection: [Testing for LDAP Injection](../4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.6_Testing_for_LDAP_Injection_WSTG-INPVAL-006.md)
 
 `|`
 
@@ -392,7 +392,7 @@ For details on LDAP Injection: [Testing for LDAP Injection](../4_Web_Application
 
 ## XPATH Injection
 
-For details on XPATH Injection: [Testing for XPath Injection](../4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.10_Testing_for_XPath_Injection_OTG-INPVAL-010.md)
+For details on XPATH Injection: [Testing for XPath Injection](../4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.10_Testing_for_XPath_Injection_WSTG-INPVAL-010.md)
 
 `'+or+'1'='1`
 
@@ -416,7 +416,7 @@ For details on XPATH Injection: [Testing for XPath Injection](../4_Web_Applicati
 
 ## XML Injection
 
-Details on XML Injection here: [Testing for XML Injection](../4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.8_Testing_for_XML_Injection_OTG-INPVAL-008.md)
+Details on XML Injection here: [Testing for XML Injection](../4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.8_Testing_for_XML_Injection_WSTG-INPVAL-008.md)
 
 `<![CDATA[<script>var n=0;while(true){n++;}</script>]]>`
 
