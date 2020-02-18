@@ -3,6 +3,15 @@
     {
         "pattern": "^\/"
 
+    },
+    {
+        "pattern": "https://www.nstalker.com"
+    },
+    {
+        "pattern": "https://www.kali.org/"
+    },
+    {
+        "pattern": "https://www.linkedin.com/"
     }
     ],
     "httpHeaders": [{
