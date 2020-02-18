@@ -5,13 +5,13 @@
 
     },
     {
-        "pattern": "https://www.nstalker.com"
+        "pattern": "^https://www.nstalker.com"
     },
     {
-        "pattern": "https://www.kali.org/"
+        "pattern": "^https://www.kali.org"
     },
     {
-        "pattern": "https://www.linkedin.com/"
+        "pattern": "^https://www.linkedin.com"
     }
     ],
     "httpHeaders": [{
