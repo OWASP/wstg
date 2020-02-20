@@ -23,6 +23,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 ## Authors
 
 - Janos Zold
+- Jeremy Bonghwan Choi
 - Manh Pham Tien
 - Mark Clayton
 - Rubal Jain
