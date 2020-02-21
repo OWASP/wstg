@@ -5,6 +5,8 @@ on:
   pull_request:
     branches:
     - master
+    paths:
+    - '**.md'
 
 jobs:
   link-check:
@@ -20,8 +22,20 @@ jobs:
         node-version: 12.x
     - name: Install dependencies
       run: npm install -g markdown-link-check
+    - name: Changed Files Exporter
+      id: files
+      uses: futuratrepadeira/changed-files@v3.0.0
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Run link check
-      run: npm run-script link-check
+      env:
+        FILES: '${{ steps.files.outputs.files_updated }} ${{ steps.files.outputs.files_created }}'
+      run: |
+        echo "The Following files were changed or created:"
+        echo $FILES
+        touch log err
+        for FILE in $FILES; do echo $FILE | grep -q .*\.md\$ && markdown-link-check -c markdown-link-check-config.json $FILE 1>> log 2>> err; done
+        if grep -q  \"ERROR:\" err ; then exit 1 ; else echo -e \"No broken links found.\"; fi
     - name: Show broken links
       id: brokenlinks
       if: failure()

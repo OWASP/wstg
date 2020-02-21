@@ -7,10 +7,6 @@
   "devDependencies": {
     "markdownlint-cli": "^0.19.0"
   },
-  "scripts": {
-    "test": "markdownlint .  --ignore node_modules",
-    "link-check" : "find  document -name \\*.md -exec markdown-link-check -c markdown-link-check-config.json 1> log 2> err {} \\; && if [ -e err ] && grep -q  \"ERROR:\" err ; then exit 113  ; else echo -e \"No broken links found.\"; fi"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/OWASP/wstg.git"
