@@ -7,6 +7,9 @@
   "devDependencies": {
     "markdownlint-cli": "^0.19.0"
   },
+  "scripts": {
+    "test": "markdownlint .  --ignore node_modules"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/OWASP/wstg.git"
