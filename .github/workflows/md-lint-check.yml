@@ -1,7 +1,6 @@
 name: Markdown Lint Check
 
 on:
-  push:
   pull_request:
     branches:
     - master
