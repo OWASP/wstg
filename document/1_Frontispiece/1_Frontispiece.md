@@ -23,6 +23,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 ## Authors
 
 - Janos Zold
+- Jeremy Bonghwan Choi
 - Manh Pham Tien
 - Mark Clayton
 - Rubal Jain
@@ -33,11 +34,13 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 
 - Asharaf Ali
 - Elie Saad
+- Jeremy Bonghwan Choi
 - Lukasz Lubczynski
 - Patrick Santos
 - Rejah Rehim
 - Rick Mitchell
 - Roman Mueller
+- Tom Bowyer
 - Victoria Drake
 
 ## Trademarks

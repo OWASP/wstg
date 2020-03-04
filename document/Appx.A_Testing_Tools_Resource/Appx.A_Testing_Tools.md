@@ -2,7 +2,7 @@
 
 ## General Testing
 
-- [OWASP ZAP](https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project)
+- [OWASP ZAP](https://www.zaproxy.org)
   - The Zed Attack Proxy (ZAP) is an easy to use integrated penetration testing tool for finding vulnerabilities in web applications. It is designed to be used by people with a wide range of security experience and as such is ideal for developers and functional testers who are new to penetration testing.
   - ZAP provides automated scanners as well as a set of tools that allow you to find security vulnerabilities manually.
 - [OWASP CAL9000](https://www.owasp.org/index.php/OWASP_CAL9000_Project)
@@ -136,7 +136,6 @@
 - [Matriux](https://sourceforge.net/projects/matriux/?source=navbar)
 - [BlackArch](https://blackarch.org/downloads.html)
 - [PenToo](https://www.pentoo.ch/download/)
-- [bugtraq](http://bugtraq-team.com/)
 
 ## Source Code Analyzers
 
