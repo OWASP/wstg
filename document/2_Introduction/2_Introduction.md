@@ -224,6 +224,8 @@ Examples of issues that are particularly conducive to being found through source
 - Cannot detect run-time errors easily
 - The source code actually deployed might differ from the one being analyzed
 
+For more on code review, see the [OWASP code review project](https://wiki.owasp.org/index.php/Category:OWASP_Code_Review_Project).
+
 ## Penetration Testing
 
 ### Overview
