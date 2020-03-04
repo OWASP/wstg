@@ -4,7 +4,6 @@
 - Foreword
   - README.md (formerly 0_Foreword.md)
 - Frontispiece
-  - 1.2_About_The_Open_Web_Application_Security_Project.md
   - README.md (formerly 1_Frontispiece.md)
 - Introduction_to_the_Guide
   - README.md (formerly 2_Introduction.md)
