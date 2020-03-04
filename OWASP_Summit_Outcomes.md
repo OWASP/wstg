@@ -35,7 +35,7 @@ REVIEW:
 - Information and Config management testing
 - Authentication Testing: add oauth testing
 - Reporting: adding how to create security testing case for devs
-- Add [Client Side SQLi](https://www.owasp.org/index.php/Test_Local_Storage_(WSTG-CLIENT-012))
+- Add `Client Side SQLi`
 
 ## Two questions for OWASP
 

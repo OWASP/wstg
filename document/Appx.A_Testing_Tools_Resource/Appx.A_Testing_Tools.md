@@ -5,13 +5,6 @@
 - [OWASP ZAP](https://www.zaproxy.org)
   - The Zed Attack Proxy (ZAP) is an easy to use integrated penetration testing tool for finding vulnerabilities in web applications. It is designed to be used by people with a wide range of security experience and as such is ideal for developers and functional testers who are new to penetration testing.
   - ZAP provides automated scanners as well as a set of tools that allow you to find security vulnerabilities manually.
-- [OWASP CAL9000](https://www.owasp.org/index.php/OWASP_CAL9000_Project)
-  - CAL9000 is a collection of browser-based tools that enable more effective and efficient manual testing efforts.
-  - Includes an XSS Attack Library, Character Encoder/Decoder, HTTP Request Generator and Response Evaluator, Testing Checklist, Automated Attack Editor and much more.
-- [OWASP Pantera Web Assessment Studio Project](https://www.owasp.org/index.php/Category:OWASP_Pantera_Web_Assessment_Studio_Project)
-  - Pantera uses an improved version of SpikeProxy to provide a powerful web application analysis engine. The primary goal of Pantera is to combine automated capabilities with complete manual testing to get the best penetration testing results.
-- [OWASP Mantra - Security Framework](https://www.owasp.org/index.php/:OWASP_Mantra_-_Security_Framework)
-  - Mantra is a web application security testing framework built on top of a browser. It supports Windows, Linux(both 32 and 64 bit) and Macintosh. In addition, it can work with other software like ZAP using built in proxy management function which makes it much more convenient. Mantra is available in 9 languages: Arabic, Chinese - Simplified, Chinese - Traditional, English, French, Portuguese, Russian, Spanish and Turkish.
 - [Burp Proxy](https://www.portswigger.net/Burp/)
   - Burp Proxy is an intercepting proxy server for security testing of web applications it allows Intercepting and modifying all HTTP(S) traffic passing in both directions, it can work with custom SSL certificates and non-proxy-aware clients.
 - [Webstretch Proxy](https://sourceforge.net/projects/webstretch)
@@ -26,7 +19,6 @@
   - DOM Inspector is a developer tool used to inspect, browse, and edit the Document Object Model (DOM)
 - [Grendel-Scan](https://sourceforge.net/projects/grendel/)
   - Grendel-Scan is an automated security scanning of web applications and also supports manual penetration testing.
-- [OWASP SWFIntruder](https://www.owasp.org/index.php/Category:SWFIntruder)
   - SWFIntruder (pronounced Swiff Intruder) is the first tool specifically developed for analyzing and testing security of Flash applications at runtime.
 - [w3af](https://w3af.org)
   - w3af is a Web Application Attack and Audit Framework. The project’s goal is finding and exploiting web application vulnerabilities.
@@ -53,7 +45,6 @@
 
 #### Testing for SQL Injection
 
-- [OWASP SQLiX](https://www.owasp.org/index.php/Category:OWASP_SQLiX_Project)
 - [Sqlninja: a SQL Server Injection & Takeover Tool](https://sourceforge.net/projects/sqlninja/)
 - [Bernardo Damele A. G.: sqlmap, automatic SQL injection tool](http://sqlmap.org/)
 - [Absinthe 1.1 (formerly SQLSqueal)](https://sourceforge.net/projects/absinthe/)
@@ -68,7 +59,7 @@
 
 #### Testing SSL
 
-- [O-Saft](https://www.owasp.org/index.php/O-Saft)
+- [O-Saft](https://github.com/OWASP/O-Saft)
 - [sslyze](https://github.com/iSECPartners/sslyze)
 - [TestSSLServer](https://www.bolet.org/TestSSLServer/)
 - [SSLScan](https://sourceforge.net/projects/sslscan/)
@@ -98,7 +89,6 @@
 
 #### Fuzzer
 
-- [OWASP WSFuzzer](https://www.owasp.org/index.php/Category:OWASP_WSFuzzer_Project)
 - [Wfuzz](http://www.darknet.org.uk/2007/07/wfuzz-a-tool-for-bruteforcingfuzzing-web-applications/)
 
 #### Googling
@@ -141,16 +131,12 @@
 
 ### Open Source / Freeware
 
-- [Owasp Orizon](https://www.owasp.org/index.php/Category:OWASP_Orizon_Project)
-- [OWASP LAPSE](https://www.owasp.org/index.php/Category:OWASP_LAPSE_Project)
-- [OWASP O2 Platform](https://www.owasp.org/index.php/OWASP_O2_Platform)
-- [OWASP WAP-Web Application Protection](https://www.owasp.org/index.php/OWASP_WAP-Web_Application_Protection)
 - [Spotbugs](https://spotbugs.github.io/)
 - [Find Security Bugs](https://find-sec-bugs.github.io/)
 - [FlawFinder](https://dwheeler.com/flawfinder/)
 - [phpcs-security-audit](https://github.com/squizlabs/PHP_CodeSniffer)
 - [PMD](https://pmd.github.io/)
-- [Microsoft’s FxCop](https://www.owasp.org/index.php/FxCop)
+- [Microsoft’s FxCop](https://docs.microsoft.com/en-us/visualstudio/code-quality/install-fxcop-analyzers?view=vs-2019)
 - [Oedipus](https://www.darknet.org.uk/2006/06/oedipus-open-source-web-application-security-analysis/)
 - [Splint](https://splint.org/)
 - [SonarQube](https://www.sonarqube.org/)
