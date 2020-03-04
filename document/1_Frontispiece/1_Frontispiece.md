@@ -54,3 +54,12 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Visa is a registered trademark of VISA USA.
 
 All other products and company names may be trademarks of their respective owners. Use of a term in this document should not be regarded as affecting the validity of any trademark or service mark.
+
+## Contacting OWASP
+
+Contact details for the [OWASP Foundation](https://owasp.org/) are available [online](https://owasp.org/contact/). If you have a question concerning a particular project, we strongly recommend using the [mailing list](https://groups.google.com/a/owasp.org/forum/) for that project. Many questions can also be answered by searching the [OWASP](https://owasp.org/) web site, so please check there first.
+
+### Follow Us
+
+* [Follow OWASP on LinkedIn](https://www.linkedin.com/company/owasp/)
+* [Follow @owasp_wstg on twitter](https://twitter.com/owasp_wstg)
