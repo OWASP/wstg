@@ -61,5 +61,5 @@ Contact details for the [OWASP Foundation](https://owasp.org/) are available [on
 
 ### Follow Us
 
-* [Follow OWASP on LinkedIn](https://www.linkedin.com/company/owasp/)
-* [Follow @owasp_wstg on twitter](https://twitter.com/owasp_wstg)
+- [![Follow OWASP on LinkedIn](images/follow_badge.png)](https://www.linkedin.com/company/owasp/)
+- [![Follow @owasp_wstg on twitter](https://img.shields.io/twitter/follow/owasp_wstg?style=social)](https://twitter.com/owasp_wstg)
