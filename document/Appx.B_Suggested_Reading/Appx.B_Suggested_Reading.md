@@ -6,6 +6,7 @@
 - [Improving Web Application Security: Threats and Countermeasures](https://www.microsoft.com/en-ca/download/details.aspx?id=1330)
 - [NIST Publications](https://csrc.nist.gov/publications/sp)
 - [Software Assurance: An Overview of Current Practices](https://safecode.org/wp-content/uploads/2018/01/SAFECode_BestPractices0208.pdf)
+- [The OWASP Guide Project](https://wiki.owasp.org/index.php/OWASP_Guide_Project)
 - [Use Cases: Just the FAQs and Answers](https://www.ibm.com/developerworks/rational/library/content/RationalEdge/jan03/UseCaseFAQS_TheRationalEdge_Jan2003.pdf)
 
 ## Books
