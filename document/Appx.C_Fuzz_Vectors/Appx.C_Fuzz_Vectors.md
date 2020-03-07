@@ -1,6 +1,6 @@
 # Fuzz Vectors
 
-The following are fuzzing vectors which can be used with [ZAP](https://www.zaproxy.org), [JBroFuzz](https://www.owasp.org/index.php/JBroFuzz), [WSFuzzer](https://www.owasp.org/index.php/WSFuzzer) or another fuzzer. Fuzzing is the “kitchen sink” approach to testing the response of an application to parameter manipulation. Generally one looks for error conditions that are generated in an application as a result of fuzzing. This is the simple part of the discovery phase. Once an error has been discovered identifying and exploiting a potential vulnerability is where skill is required.
+The following are fuzzing vectors which can be used with [ZAP](https://www.zaproxy.org), or another fuzzer. [Fuzzing](https://owasp.org/www-community/Fuzzing) is the “kitchen sink” approach to testing the response of an application to parameter manipulation. Generally one looks for error conditions that are generated in an application as a result of fuzzing. This is the simple part of the discovery phase. Once an error has been discovered identifying and exploiting a potential vulnerability is where skill is required.
 
 ## Fuzz Categories
 
@@ -47,7 +47,7 @@ The remainder of this appendix presents a number of fuzz vector categories.
 
 ## Cross Site Scripting (XSS)
 
-For details on XSS: [Cross-site Scripting (XSS)](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS))
+For details on XSS: [Cross-site Scripting (XSS)](https://owasp.org/www-community/attacks/xss/)
 
 `>"><script>alert("XSS")</script>&`
 

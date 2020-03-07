@@ -58,7 +58,7 @@ An effective testing program should have components that test the following:
 
 Unless a holistic approach is adopted, testing just the technical implementation of an application will not uncover management or operational vulnerabilities that could be present. By testing the people, policies, and processes, an organization can catch issues that would later manifest themselves into defects in the technology, thus eradicating bugs early and identifying the root causes of defects. Likewise, testing only some of the technical issues that can be present in a system will result in an incomplete and inaccurate security posture assessment.
 
-Denis Verdon, Head of Information Security at [Fidelity National Financial](https://www.fnf.com), presented an excellent analogy for this misconception at the [OWASP AppSec 2004 Conference in New York](https://www.owasp.org/index.php/OWASP_AppSec_NYC_2004):
+Denis Verdon, Head of Information Security at [Fidelity National Financial](https://www.fnf.com), presented an excellent analogy for this misconception at the OWASP AppSec 2004 Conference in New York:
 
 > If cars were built like applications ... safety tests would assume frontal impact only. Cars would not be roll tested, or tested for stability in emergency maneuvers, brake effectiveness, side impact, and resistance to theft.
 
@@ -224,7 +224,7 @@ Examples of issues that are particularly conducive to being found through source
 - Cannot detect run-time errors easily
 - The source code actually deployed might differ from the one being analyzed
 
-For more on code review, see the [OWASP code review project](https://www.owasp.org/index.php/Category:OWASP_Code_Review_Project).
+For more on code review, see the [OWASP code review project](https://wiki.owasp.org/index.php/Category:OWASP_Code_Review_Project).
 
 ## Penetration Testing
 
@@ -271,7 +271,7 @@ The following figure shows a typical proportional representation overlaid onto t
 
 Many organizations have started to use automated web application scanners. While they undoubtedly have a place in a testing program, some fundamental issues need to be highlighted about why it is believed that automating black-box testing is not (nor will ever be) completely effective. However, highlighting these issues should not discourage the use of web application scanners. Rather, the aim is to ensure the limitations are understood and testing frameworks are planned appropriately.
 
-It is helpful to understand the efficacy and limitations of automated vulnerability detection tools. To this end, the [OWASP Benchmark Project](https://www.owasp.org/index.php/Benchmark) is a test suite designed to evaluate the speed, coverage, and accuracy of automated software vulnerability detection tools and services. Benchmarking can help to test the capabilities of these automated tools, and help to make their usefulness explicit.
+It is helpful to understand the efficacy and limitations of automated vulnerability detection tools. To this end, the [OWASP Benchmark Project](https://owasp.org/www-project-benchmark/) is a test suite designed to evaluate the speed, coverage, and accuracy of automated software vulnerability detection tools and services. Benchmarking can help to test the capabilities of these automated tools, and help to make their usefulness explicit.
 
 The following examples show why automated black-box testing may not be effective.
 
@@ -316,7 +316,7 @@ To have a successful testing program, one must know what the testing objectives 
 
 ### Testing Objectives
 
-One of the objectives of security testing is to validate that security controls operate as expected. This is documented via `security requirements` that describe the functionality of the security control. At a high level, this means proving confidentiality, integrity, and availability of the data as well as the service. The other objective is to validate that security controls are implemented with few or no vulnerabilities. These are common vulnerabilities, such as the [OWASP Top Ten](https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project), as well as vulnerabilities that have been previously identified with security assessments during the SDLC, such as threat modelling, source code analysis, and penetration test.
+One of the objectives of security testing is to validate that security controls operate as expected. This is documented via `security requirements` that describe the functionality of the security control. At a high level, this means proving confidentiality, integrity, and availability of the data as well as the service. The other objective is to validate that security controls are implemented with few or no vulnerabilities. These are common vulnerabilities, such as the [OWASP Top Ten](https://owasp.org/www-project-top-ten/), as well as vulnerabilities that have been previously identified with security assessments during the SDLC, such as threat modeling, source code analysis, and penetration test.
 
 ### Security Requirements Documentation
 
