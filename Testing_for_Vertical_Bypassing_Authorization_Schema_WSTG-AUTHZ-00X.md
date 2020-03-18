@@ -10,7 +10,6 @@ It is common in modern enterprises to define system roles to manage users and au
 
 ## How to Test
 
-
 If you want to test manually, the process of testing for bypass authorization scheme could look like this, for each role:
 
 1. For each role, register/generate a user.
@@ -73,7 +72,6 @@ If the response of the attacker’s request contains the same data (`“message�
 ### Example 2
 
 Suppose that the administrator menu is part of the administrator account. The application will be considered vulnerable if any other role rather than administrator could access the administrator menu. Sometimes, developer perform authorization validation at the GUI level only, and leave the functions without authorization validation, thus potentially resulting in a vulnerability.
-
 
 ## Tools
 
