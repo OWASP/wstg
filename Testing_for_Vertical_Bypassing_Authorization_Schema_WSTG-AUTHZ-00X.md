@@ -75,11 +75,9 @@ Suppose that the administrator menu is part of the administrator account. The ap
 
 ## Tools
 
-- ZAP extension: Access Control Testing. <https://www.zaproxy.org/docs/desktop/addons/access-control-testing/>
-
-- Burp extension: AuthMatrix. <https://github.com/SecurityInnovation/AuthMatrix/>
-
-- Burp extension: Authorize. <https://github.com/Quitten/Autorize>
+- [ZAP extension: Access Control Testing](https://www.zaproxy.org/docs/desktop/addons/access-control-testing/)
+- [Burp extension: AuthMatrix](https://github.com/SecurityInnovation/AuthMatrix/)
+- [Burp extension: Authorize](https://github.com/Quitten/Autorize)
 
 ### References
 
