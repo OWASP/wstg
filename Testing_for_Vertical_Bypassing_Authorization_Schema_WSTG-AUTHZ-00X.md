@@ -8,7 +8,8 @@ It is common in modern enterprises to define system roles to manage users and au
 - Is it possible to access resources that should be accessible only to higher role user?
 - Is it possible to operate functions on resources that should be operative only by a user that holds a higher or specific role identity?
 
-## How to test
+## How to Test
+
 
 If you want to test manually, the process of testing for bypass authorization scheme could look like this, for each role:
 
