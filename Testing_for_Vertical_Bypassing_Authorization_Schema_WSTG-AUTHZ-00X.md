@@ -71,7 +71,8 @@ If the response of the attacker’s request contains the same data (`“message�
 
 ### Example 2
 
-Suppose that the administrator menu is part of the administrator account. The application will be considered vulnerable if any other role rather than administrator could access the administrator menu. Sometimes, developer perform authorization validation at the GUI level only, and leave the functions without authorization validation, thus resulting possibly in a vulnerability.
+Suppose that the administrator menu is part of the administrator account. The application will be considered vulnerable if any other role rather than administrator could access the administrator menu. Sometimes, developer perform authorization validation at the GUI level only, and leave the functions without authorization validation, thus potentially resulting in a vulnerability.
+
 
 ## Tools
 
