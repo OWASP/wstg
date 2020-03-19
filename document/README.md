@@ -6,8 +6,6 @@
 
 **[1.1 About the OWASP Testing Guide Project](1_Frontispiece/1_Frontispiece.md)**
 
-**[1.2 About The Open Web Application Security Project](1_Frontispiece/1.2_About_The_Open_Web_Application_Security_Project.md)**
-
 ## [2. Introduction](2_Introduction/)
 
 **[2.1 The OWASP Testing Project](2_Introduction/2_Introduction.md#The-OWASP-Testing-Project)**
