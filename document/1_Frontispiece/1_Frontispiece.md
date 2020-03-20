@@ -20,6 +20,17 @@ Copyright (c) 2020 The OWASP Foundation.
 
 This document is released under the [Creative Commons 4.0 License](https://creativecommons.org/licenses/by-sa/4.0/). Please read and understand the license and copyright conditions.
 
+## Leaders
+
+- Rick Mitchell
+- Elie Saad
+- Matteo Meucci
+
+## Core Team
+
+- Rejah Rehim
+- Victoria Drake
+
 ## Authors
 
 - Janos Zold
