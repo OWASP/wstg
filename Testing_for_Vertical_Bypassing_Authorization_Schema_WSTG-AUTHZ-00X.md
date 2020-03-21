@@ -11,7 +11,7 @@ A Vertical authorization bypass is specific to the case that an attacker obtains
 
 ## How to Test
 
-The process of testing for bypass authorization scheme follows the below:
+The process of testing for bypass authorization scheme follows:
 
 1. For each role, register a user.
 2. Generate and keep the session tokens by authenticating to the application (one session token for each role).
