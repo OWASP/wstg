@@ -156,3 +156,4 @@
   - Appx.C_Fuzz_Vectors.md
   - Appx.D_Encoded_Injection.md
   - Appx.E_Revision_History.md
+  - README.md
