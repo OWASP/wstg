@@ -1,6 +1,6 @@
-# 4.1 Testing Business Logic
+# 4.11 Testing Business Logic
 
-[4.1 Introduction to Business Logic](4.11_Introduction_to_Business_Logic.md)
+[4.11 Introduction to Business Logic](4.11_Introduction_to_Business_Logic.md)
 
 [4.11.1 Test Business Logic Data Validation (WSTG-BUSLOGIC-001)](4.11.1_Test_Business_Logic_Data_Validation_WSTG-BUSLOGIC-001.md)
 
