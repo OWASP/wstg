@@ -35,6 +35,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 
 - Janos Zold
 - Jeremy Bonghwan Choi
+- Joel Espunya
 - Manh Pham Tien
 - Mark Clayton
 - Rubal Jain
