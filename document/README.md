@@ -62,7 +62,7 @@
 
 [4.2.3 Review Webserver Metafiles for Information Leakage](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.3_Review_Webserver_Metafiles_for_Information_Leakage.md)
 
-[4.2.4 Enumerate Applications on Webserver (WSTG-INFO-004)](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.4_Enumerate_Applications_on_Webserver_WSTG-INFO-004.md)
+[4.2.4 Enumerate Applications on Webserver](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.4_Enumerate_Applications_on_Webserver.md)
 
 [4.2.5 Review Webpage Comments and Metadata for Information Leakage (WSTG-INFO-005)](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.5_Review_Webpage_Comments_and_Metadata_for_Information_Leakage_WSTG-INFO-005.md)
 
