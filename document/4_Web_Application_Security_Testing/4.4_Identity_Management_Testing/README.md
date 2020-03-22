@@ -6,7 +6,7 @@ Testing for Identity Management includes the following sections:
 
 [4.4.2 Test User Registration Process](4.4.2_Test_User_Registration_Process.md)
 
-[4.4.3 Test Account Provisioning Process (WSTG-IDENT-003)](4.4.3_Test_Account_Provisioning_Process_WSTG-IDENT-003.md)
+[4.4.3 Test Account Provisioning Process](4.4.3_Test_Account_Provisioning_Process.md)
 
 [4.4.4 Testing for Account Enumeration and Guessable User Account (WSTG-IDENT-004)](4.4.4_Testing_for_Account_Enumeration_and_Guessable_User_Account_WSTG-IDENT-004.md)
 
