@@ -109,7 +109,7 @@ In general Buffer overflow breaks the following pattern:
 
 Input -&gt; Fixed buffer or format string == overflow
 
-[4.8.15 Incubated vulnerability (WSTG-INPVAL-015)](4.8.15_Testing_for_Incubated_Vulnerability_WSTG-INPVAL-015.md)
+[4.8.15 Incubated Vulnerability](4.8.15_Testing_for_Incubated_Vulnerability.md)
 
 Incubated testing is a complex testing that needs more than one data validation vulnerability to work.
 

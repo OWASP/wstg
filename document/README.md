@@ -214,7 +214,7 @@
 
 [4.8.14.3 Testing for Format string](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.14.3_Testing_for_Format_String.md)
 
-[4.8.15 Testing for incubated vulnerabilities (WSTG-INPVAL-015)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.15_Testing_for_Incubated_Vulnerability_WSTG-INPVAL-015.md)
+[4.8.15 Testing for incubated vulnerabilities](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.15_Testing_for_Incubated_Vulnerability.md)
 
 [4.8.16 Testing for HTTP Splitting/Smuggling (WSTG-INPVAL-016)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.16_Testing_for_HTTP_Splitting_Smuggling_WSTG-INPVAL-016.md)
 
