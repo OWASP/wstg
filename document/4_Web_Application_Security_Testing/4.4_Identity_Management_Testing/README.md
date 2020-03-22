@@ -4,7 +4,7 @@ Testing for Identity Management includes the following sections:
 
 [4.4.1 Test Role Definitions](4.4.1_Test_Role_Definitions.md)
 
-[4.4.2 Test User Registration Process (WSTG-IDENT-002)](4.4.2_Test_User_Registration_Process_WSTG-IDENT-002.md)
+[4.4.2 Test User Registration Process](4.4.2_Test_User_Registration_Process.md)
 
 [4.4.3 Test Account Provisioning Process (WSTG-IDENT-003)](4.4.3_Test_Account_Provisioning_Process_WSTG-IDENT-003.md)
 
