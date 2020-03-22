@@ -68,7 +68,7 @@
 
 [4.2.6 Identify application entry points](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.6_Identify_Application_Entry_Points.md)
 
-[4.2.7 Map execution paths through application (WSTG-INFO-007)](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.7_Map_Execution_Paths_Through_Application_WSTG-INFO-007.md)
+[4.2.7 Map execution paths through application](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.7_Map_Execution_Paths_Through_Application.md)
 
 [4.2.8 Fingerprint Web Application Framework (WSTG-INFO-008)](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.8_Fingerprint_Web_Application_Framework_WSTG-INFO-008.md)
 
