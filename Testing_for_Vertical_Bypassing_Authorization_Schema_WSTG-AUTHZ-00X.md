@@ -2,21 +2,21 @@
 
 ## Summary
 
-It is common in modern enterprises to define system roles to manage users and authorization to system resources. The purpose of the system role is to distinguish between user levels and to bind the assigned privileges to each role. An Authorization bypass enables an attacker to gain access to resources that are usually protected from an application or user.
+Modern enterprises commonly define roles to manage users and authorization for system resources. Roles distinguish between user permission levels, each having certain privileges. An authorization bypass enables an attacker to gain access to permissions and resources that are assigned to other roles.
 
-A Vertical authorization bypass is specific to the case that an attacker obtains a role higher than their own. This kind of test focuses on verifying how the Vertical authorization schema has been implemented for each role in getting access rights to data and resources of other users with different roles or privileges. Vertical authorization bypass may occur when an attacker gets access to more resources or data than they are allowed. For every function, page, specific role, and request that the application executes during the post-authentication phase, it is necessary to verify:
+A vertical authorization bypass is specific to the case that an attacker obtains a role higher than their own. Testing for this bypass focuses on verifying how the vertical authorization schema has been implemented for each role. Vertical authorization bypass may occur when an attacker gets access to more resources or data than intended. For every function, page, specific role, and request that the application executes during the post-authentication phase, it is necessary to verify if it is possible to:
 
-- Is it possible to access resources that should be accessible only to higher role user?
-- Is it possible to operate functions on resources that should be operative only by a user that holds a higher or specific role identity?
+- Access resources that should be accessible only to a higher role user.
+- Operate functions on resources that should be operative only by a user that holds a higher or specific role identity.
 
 ## How to Test
 
-The process of testing for bypass authorization scheme follows the below:
+The process of testing for bypass authorization scheme follows:
 
 1. For each role, register a user.
 2. Generate and keep the session tokens by authenticating to the application (one session token for each role).
 3. For every request, change the session token from the original token to another role session token and diagnose the responses for each token.
-4. An application will be considered vulnerable if the responses are the same, contain same private data, or indicate successful operation on other users resource or data.
+4. An application will be considered vulnerable if the responses are the same, contain the same private data, or indicate successful operations on other user resources or data.
 
 In the [Tools](#tools) section, there are multiple add-ons for proxies such as ZAP and Burp that enables them to automatically conduct vertical authorization bypasses on a larger scale, coupling them with manual configuration and report reviewing.
 
@@ -52,7 +52,7 @@ Cookie: SessionID=xh6Tm2DfgRp01AZ03
 EventID=1000001
 ```
 
-Valid and legitimate response:
+The valid response:
 
 ```html
 HTTP/1.1 200 OK
