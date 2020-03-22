@@ -18,7 +18,7 @@ The following articles describe how to conduct a Client-Side test of a web appli
 
 [4.12.7 Test Cross Origin Resource Sharing](4.12.7_Testing_Cross_Origin_Resource_Sharing.md)
 
-[4.12.8 Testing for Cross Site Flashing (WSTG-CLIENT-008)](4.12.8_Testing_for_Cross_Site_Flashing_WSTG-CLIENT-008.md)
+[4.12.8 Testing for Cross Site Flashing](4.12.8_Testing_for_Cross_Site_Flashing.md)
 
 [4.12.9 Testing for Clickjacking (WSTG-CLIENT-009)](4.12.9_Testing_for_Clickjacking_WSTG-CLIENT-009.md)
 
