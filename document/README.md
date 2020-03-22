@@ -242,7 +242,7 @@
 
 [4.11.2 Test Ability to Forge Requests](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.2_Test_Ability_to_Forge_Requests.md)
 
-[4.11.3 Test Integrity Checks (WSTG-BUSLOGIC-003)](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.3_Test_Integrity_Checks_WSTG-BUSLOGIC-003.md)
+[4.11.3 Test Integrity Checks](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.3_Test_Integrity_Checks.md)
 
 [4.11.4 Test for Process Timing (WSTG-BUSLOGIC-004)](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.4_Test_for_Process_Timing_WSTG-BUSLOGIC-004.md)
 

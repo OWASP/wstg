@@ -46,7 +46,7 @@ In business logic data validation testing, we verify that the application does n
 
 In forged and predictive parameter request testing, we verify that the application does not allow users to submit or alter data to any component of the system that they should not have access to, are accessing at that particular time or in that particular manner. This is important because without this safeguard attackers may be able to “fool/trick” the application into letting them into sections of thwe application of system that they should not be allowed in at that particular time, thus circumventing the applications business logic workflow.
 
-[4.11.3 Test Integrity Checks (WSTG-BUSLOGIC-003)](4.11.3_Test_Integrity_Checks_WSTG-BUSLOGIC-003.md)
+[4.11.3 Test Integrity Checks](4.11.3_Test_Integrity_Checks.md)
 
 In integrity check and tamper evidence testing, we verify that the application does not allow users to destroy the integrity of any part of the system or its data. This is important because without these safe guards attackers may break the business logic workflow and change of compromise the application/system data or cover up actions by altering information including log files.
 
