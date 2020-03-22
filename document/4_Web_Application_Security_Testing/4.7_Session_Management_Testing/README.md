@@ -18,7 +18,7 @@ This chapter covers the following topics:
 
 [4.7.5 Testing for Cross Site Request Forgery (CSRF)](4.7.5_Testing_for_CSRF.md)
 
-[4.7.6 Testing for Logout Functionality (WSTG-SESS-006)](4.7.6_Testing_for_Logout_Functionality_WSTG-SESS-006.md)
+[4.7.6 Testing for Logout Functionality](4.7.6_Testing_for_Logout_Functionality.md)
 
 [4.7.7 Test Session Timeout (WSTG-SESS-007)](4.7.7_Test_Session_Timeout_WSTG-SESS-007.md)
 
