@@ -18,7 +18,7 @@ In order to evaluate the readiness of the application platform, testing for conf
 
 [4.3.7 Test HTTP Strict Transport Security](4.3.7_Test_HTTP_Strict_Transport_Security.md)
 
-[4.3.8 Test RIA Cross Domain Policy (WSTG-CONFIG-008)](4.3.8_Test_RIA_Cross_Domain_Policy_WSTG-CONFIG-008.md)
+[4.3.8 Test RIA Cross Domain Policy](4.3.8_Test_RIA_Cross_Domain_Policy.md)
 
 [4.3.9 Test File Permission (WSTG-CONFIG-009)](4.3.9_Test_File_Permission_WSTG-CONFIG-009.md)
 

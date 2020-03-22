@@ -92,7 +92,7 @@
 
 [4.3.7 Test HTTP Strict Transport Security](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.7_Test_HTTP_Strict_Transport_Security.md)
 
-[4.3.8 Test RIA cross domain policy (WSTG-CONFIG-008)](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.8_Test_RIA_Cross_Domain_Policy_WSTG-CONFIG-008.md)
+[4.3.8 Test RIA cross domain policy](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.8_Test_RIA_Cross_Domain_Policy.md)
 
 [4.3.9 Test File Permission (WSTG-CONFIG-009)](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.9_Test_File_Permission_WSTG-CONFIG-009.md)
 
