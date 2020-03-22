@@ -392,7 +392,7 @@ For details on LDAP Injection: [Testing for LDAP Injection](../4_Web_Application
 
 ## XPATH Injection
 
-For details on XPATH Injection: [Testing for XPath Injection](../4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.10_Testing_for_XPath_Injection_WSTG-INPVAL-010.md)
+For details on XPATH Injection: [Testing for XPath Injection](../4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.10_Testing_for_XPath_Injection.md)
 
 `'+or+'1'='1`
 

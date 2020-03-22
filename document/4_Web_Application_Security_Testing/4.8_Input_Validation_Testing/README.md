@@ -68,7 +68,7 @@ Input -&gt; XML doc == XML injection
 
 Web servers usually give developers the ability to add small pieces of dynamic code inside static HTML pages, without having to deal with full-fledged server-side or client-side languages. This feature is incarnated by Server-Side Includes (SSI) Injection. In SSI injection testing, testers check if it is possible to inject into the application data that will be interpreted by SSI mechanisms. A successful exploitation of this vulnerability allows an attacker to inject code into HTML pages or even perform remote code execution.
 
-[4.8.10 XPath Injection (WSTG-INPVAL-010)](4.8.10_Testing_for_XPath_Injection_WSTG-INPVAL-010.md)
+[4.8.10 XPath Injection](4.8.10_Testing_for_XPath_Injection.md)
 
 XPath is a language that has been designed and developed primarily to address parts of an XML document. In XPath injection testing, testers check if it is possible to inject data into an application so that it executes user-controlled XPath queries. When successfully exploited, this vulnerability may allow an attacker to bypass authentication mechanisms or access information without proper authorization.
 

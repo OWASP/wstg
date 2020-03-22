@@ -194,7 +194,7 @@
 
 [4.8.9 Testing for SSI Injection (WSTG-INPVAL-009)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.9_Testing_for_SSI_Injection_WSTG-INPVAL-009.md)
 
-[4.8.10 Testing for XPath Injection (WSTG-INPVAL-010)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.10_Testing_for_XPath_Injection_WSTG-INPVAL-010.md)
+[4.8.10 Testing for XPath Injection](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.10_Testing_for_XPath_Injection.md)
 
 [4.8.11 IMAP/SMTP Injection (WSTG-INPVAL-011)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.11_Testing_for_IMAP_SMTP_Injection_WSTG-INPVAL-011.md)
 
