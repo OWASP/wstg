@@ -97,7 +97,7 @@ An OS Command Injection attack breaks the following pattern:
 
 Input -&gt; OS Command == OS Command Injection
 
-[4.8.14 Buffer overflow (WSTG-INPVAL-014)](4.8.14_Testing_for_Buffer_Overflow_WSTG-INPVAL-014.md)
+[4.8.14 Buffer Overflow](4.8.14_Testing_for_Buffer_Overflow.md)
 
 In these tests, testers check for different types of buffer overflow vulnerabilities. Here are the testing methods for the common types of buffer overflow vulnerabilities:
 

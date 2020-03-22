@@ -99,7 +99,7 @@ For details on XSS: [Cross-site Scripting (XSS)](https://owasp.org/www-community
 
 A buffer overflow or memory corruption attack is a programming condition which allows overflowing of valid data beyond its prelocated storage limit in memory.
 
-For details on Buffer Overflows: [Testing for Buffer Overflow](../4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.14_Testing_for_Buffer_Overflow_WSTG-INPVAL-014.md)
+For details on Buffer Overflows: [Testing for Buffer Overflow](../4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.14_Testing_for_Buffer_Overflow.md)
 
 Note that attempting to load such a definition file within a fuzzer application can potentially cause the application to crash.
 
