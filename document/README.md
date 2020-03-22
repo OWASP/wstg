@@ -120,7 +120,7 @@
 
 [4.5.3 Testing for Weak lock out mechanism](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.3_Testing_for_Weak_Lock_Out_Mechanism.md)
 
-[4.5.4 Testing for bypassing authentication schema (WSTG-AUTHN-004)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.4_Testing_for_Bypassing_Authentication_Schema_WSTG-AUTHN-004.md)
+[4.5.4 Testing for bypassing authentication schema](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.4_Testing_for_Bypassing_Authentication_Schema.md)
 
 [4.5.5 Test remember password functionality (WSTG-AUTHN-005)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.5_Testing_for_Vulnerable_Remember_Password_WSTG-AUTHN-005.md)
 
