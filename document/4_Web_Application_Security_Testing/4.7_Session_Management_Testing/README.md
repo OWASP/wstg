@@ -20,6 +20,6 @@ This chapter covers the following topics:
 
 [4.7.6 Testing for Logout Functionality](4.7.6_Testing_for_Logout_Functionality.md)
 
-[4.7.7 Test Session Timeout (WSTG-SESS-007)](4.7.7_Test_Session_Timeout_WSTG-SESS-007.md)
+[4.7.7 Test Session Timeout](4.7.7_Test_Session_Timeout.md)
 
 [4.7.8 Testing for Session Puzzling (WSTG-SESS-008)](4.7.8_Testing_for_Session_Puzzling_WSTG-SESS-008.md)
