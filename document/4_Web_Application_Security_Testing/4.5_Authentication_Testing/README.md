@@ -16,7 +16,7 @@ In computer security, authentication is the process of attempting to verify the 
 
 [4.5.6 Testing for Browser Cache Weaknesses](4.5.6_Testing_for_Browser_Cache_Weaknesses.md)
 
-[4.5.7 Testing for Weak Password Policy (WSTG-AUTHN-007)](4.5.7_Testing_for_Weak_Password_Policy_WSTG-AUTHN-007.md)
+[4.5.7 Testing for Weak Password Policy](4.5.7_Testing_for_Weak_Password_Policy.md)
 
 [4.5.8 Testing for Weak Security Question/Answer (WSTG-AUTHN-008)](4.5.8_Testing_for_Weak_Security_Question_Answer_WSTG-AUTHN-008.md)
 

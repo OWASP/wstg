@@ -126,7 +126,7 @@
 
 [4.5.6 Testing for Browser cache weakness](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.6_Testing_for_Browser_Cache_Weaknesses.md)
 
-[4.5.7 Testing for Weak password policy (WSTG-AUTHN-007)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.7_Testing_for_Weak_Password_Policy_WSTG-AUTHN-007.md)
+[4.5.7 Testing for Weak password policy](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.7_Testing_for_Weak_Password_Policy.md)
 
 [4.5.8 Testing for Weak security question/answer (WSTG-AUTHN-008)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.8_Testing_for_Weak_Security_Question_Answer_WSTG-AUTHN-008.md)
 
