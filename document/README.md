@@ -220,7 +220,7 @@
 
 [4.8.17 Testing for HTTP Incoming Requests](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.17_Testing_for_HTTP_Incoming_Requests.md)
 
-[4.8.18 Testing for Host Header Injection (WSTG-INPVAL-018)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.18_Testing_for_Host_Header_Injection_WSTG-INPVAL-018.md)
+[4.8.18 Testing for Host Header Injection](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.18_Testing_for_Host_Header_Injection.md)
 
 **[4.9 Testing for Error Handling](4_Web_Application_Security_Testing/4.9_Testing_for_Error_Handling/)**
 
