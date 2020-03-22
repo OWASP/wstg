@@ -192,7 +192,7 @@
 
 [4.8.8 Testing for XML Injection](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.8_Testing_for_XML_Injection.md)
 
-[4.8.9 Testing for SSI Injection (WSTG-INPVAL-009)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.9_Testing_for_SSI_Injection_WSTG-INPVAL-009.md)
+[4.8.9 Testing for SSI Injection](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.9_Testing_for_SSI_Injection.md)
 
 [4.8.10 Testing for XPath Injection](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.10_Testing_for_XPath_Injection.md)
 

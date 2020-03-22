@@ -64,7 +64,7 @@ An XML Injection attack breaks the following pattern:
 
 Input -&gt; XML doc == XML injection
 
-[4.8.9 SSI Injection (WSTG-INPVAL-009)](4.8.9_Testing_for_SSI_Injection_WSTG-INPVAL-009.md)
+[4.8.9 SSI Injection](4.8.9_Testing_for_SSI_Injection.md)
 
 Web servers usually give developers the ability to add small pieces of dynamic code inside static HTML pages, without having to deal with full-fledged server-side or client-side languages. This feature is incarnated by Server-Side Includes (SSI) Injection. In SSI injection testing, testers check if it is possible to inject into the application data that will be interpreted by SSI mechanisms. A successful exploitation of this vulnerability allows an attacker to inject code into HTML pages or even perform remote code execution.
 
