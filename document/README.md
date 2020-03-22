@@ -56,7 +56,7 @@
 
 **[4.2 Information Gathering](4_Web_Application_Security_Testing/4.2_Information_Gathering/)**
 
-[4.2.1 Conduct Search Engine Discovery and Reconnaissance for Information Leakage (WSTG-INFO-001)](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.1_Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage_WSTG-INFO-001.md)
+[4.2.1 Conduct Search Engine Discovery and Reconnaissance for Information Leakage](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.1_Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage.md)
 
 [4.2.2 Fingerprint Web Server (WSTG-INFO-002)](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.2_Fingerprint_Web_Server_WSTG-INFO-002.md)
 
