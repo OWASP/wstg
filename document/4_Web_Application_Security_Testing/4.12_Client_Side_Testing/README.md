@@ -6,7 +6,7 @@ The following articles describe how to conduct a Client-Side test of a web appli
 
 [4.12.1 Testing for DOM based Cross Site Scripting](4.12.1_Testing_for_DOM-based_Cross_Site_Scripting.md)
 
-[4.12.2 Testing for JavaScript Execution (WSTG-CLIENT-002)](4.12.2_Testing_for_JavaScript_Execution_WSTG-CLIENT-002.md)
+[4.12.2 Testing for JavaScript Execution](4.12.2_Testing_for_JavaScript_Execution.md)
 
 [4.12.3 Testing for HTML Injection (WSTG-CLIENT-003)](4.12.3_Testing_for_HTML_Injection_WSTG-CLIENT-003.md)
 
