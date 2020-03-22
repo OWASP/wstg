@@ -66,7 +66,7 @@ In circumventing workflow and bypassing correct sequence testing, we verify that
 
 In application mis-use testing, we verify that the application does not allow users to manipulate the application in an unintended manner.
 
-[4.11.8 Test Upload of Unexpected File Types (WSTG-BUSLOGIC-008)](4.11.8_Test_Upload_of_Unexpected_File_Types_WSTG-BUSLOGIC-008.md)
+[4.11.8 Test Upload of Unexpected File Types](4.11.8_Test_Upload_of_Unexpected_File_Types.md)
 
 In unexpected file upload testing, we verify that the application does not allow users to upload file types that the system is not expecting or wanted per the business logic requirements. This is important because without these safeguards in place attackers may be able to submit unexpected files such as .exe or .php that could be saved to the system and then executed against the application or system.
 

@@ -252,7 +252,7 @@
 
 [4.11.7 Test Defenses Against Application Mis-use](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.7_Test_Defenses_Against_Application_Mis-use.md)
 
-[4.11.8 Test Upload of Unexpected File Types (WSTG-BUSLOGIC-008)](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.8_Test_Upload_of_Unexpected_File_Types_WSTG-BUSLOGIC-008.md)
+[4.11.8 Test Upload of Unexpected File Types](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.8_Test_Upload_of_Unexpected_File_Types.md)
 
 [4.11.9 Test Upload of Malicious Files (WSTG-BUSLOGIC-009)](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.9_Test_Upload_of_Malicious_Files_WSTG-BUSLOGIC-009.md)
 
