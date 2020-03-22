@@ -122,7 +122,7 @@
 
 [4.5.4 Testing for bypassing authentication schema](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.4_Testing_for_Bypassing_Authentication_Schema.md)
 
-[4.5.5 Test remember password functionality (WSTG-AUTHN-005)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.5_Testing_for_Vulnerable_Remember_Password_WSTG-AUTHN-005.md)
+[4.5.5 Test remember password functionality](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.5_Testing_for_Vulnerable_Remember_Password.md)
 
 [4.5.6 Testing for Browser cache weakness (WSTG-AUTHN-006)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.6_Testing_for_Browser_Cache_Weaknesses_WSTG-AUTHN-006.md)
 
