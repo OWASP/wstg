@@ -94,7 +94,7 @@
 
 [4.3.8 Test RIA cross domain policy](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.8_Test_RIA_Cross_Domain_Policy.md)
 
-[4.3.9 Test File Permission (WSTG-CONFIG-009)](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.9_Test_File_Permission_WSTG-CONFIG-009.md)
+[4.3.9 Test File Permission](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.9_Test_File_Permission.md)
 
 [4.3.10 Test for Subdomain Takeover](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.10_Test_for_Subdomain_Takeover.md)
 
