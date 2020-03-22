@@ -140,7 +140,7 @@
 
 [4.6.2 Testing for bypassing authorization schema)](4_Web_Application_Security_Testing/4.6_Authorization_Testing/4.6.2_Testing_for_Bypassing_Authorization_Schema.md)
 
-[4.6.3 Testing for Privilege Escalation (WSTG-AUTHZ-003)](4_Web_Application_Security_Testing/4.6_Authorization_Testing/4.6.3_Testing_for_Privilege_Escalation_WSTG-AUTHZ-003.md)
+[4.6.3 Testing for Privilege Escalation](4_Web_Application_Security_Testing/4.6_Authorization_Testing/4.6.3_Testing_for_Privilege_Escalation.md)
 
 [4.6.4 Testing for Insecure Direct Object References (WSTG-AUTHZ-004)](4_Web_Application_Security_Testing/4.6_Authorization_Testing/4.6.4_Testing_for_Insecure_Direct_Object_References_WSTG-AUTHZ-004.md)
 
