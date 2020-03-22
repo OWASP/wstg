@@ -222,6 +222,8 @@
 
 [4.8.18 Testing for Host Header Injection](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.18_Testing_for_Host_Header_Injection.md)
 
+[4.8.19 Testing for Server Side Template Injection](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.19_Testing_for_Server_Side_Template_Injection.md)
+
 **[4.9 Testing for Error Handling](4_Web_Application_Security_Testing/4.9_Testing_for_Error_Handling/)**
 
 [4.9.1 Analysis of Error Codes](4_Web_Application_Security_Testing/4.9_Testing_for_Error_Handling/4.9.1_Testing_for_Error_Code.md)

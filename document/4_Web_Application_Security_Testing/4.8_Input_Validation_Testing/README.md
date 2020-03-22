@@ -122,3 +122,5 @@ In every pattern shown, the data should be validated by the application before i
 [4.8.17 Testing for HTTP Incoming Requests](4.8.17_Testing_for_HTTP_Incoming_Requests.md)
 
 [4.8.18 Testing for Host Header Injection](4.8.18_Testing_for_Host_Header_Injection.md)
+
+[4.8.19 Testing for Server Side Template Injection](4.8.19_Testing_for_Server_Side_Template_Injection.md)
