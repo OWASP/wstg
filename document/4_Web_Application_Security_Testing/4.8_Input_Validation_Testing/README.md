@@ -26,7 +26,7 @@ HTTP Verb Tampering tests the web application's response to different HTTP metho
 
 HTTP Verb Tampering is described in
 
-[4.8.3 Testing for HTTP Verb Tampering (WSTG-INPVAL-003)](4.8.3_Testing_for_HTTP_Verb_Tampering_WSTG-INPVAL-003.md)
+[4.8.3 Testing for HTTP Verb Tampering](4.8.3_Testing_for_HTTP_Verb_Tampering.md)
 
 and HTTP Parameter testing techniques are presented in
 

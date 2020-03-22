@@ -168,7 +168,7 @@
 
 [4.8.2 Testing for Stored Cross Site Scripting](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.2_Testing_for_Stored_Cross_Site_Scripting.md)
 
-[4.8.3 Testing for HTTP Verb Tampering (WSTG-INPVAL-003)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.3_Testing_for_HTTP_Verb_Tampering_WSTG-INPVAL-003.md)
+[4.8.3 Testing for HTTP Verb Tampering](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.3_Testing_for_HTTP_Verb_Tampering.md)
 
 [4.8.4 Testing for HTTP Parameter pollution (WSTG-INPVAL-004)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.4_Testing_for_HTTP_Parameter_Pollution_WSTG-INPVAL-004.md)
 
