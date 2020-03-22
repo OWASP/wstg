@@ -16,7 +16,7 @@ Testing for Information Gathering includes the following articles:
 
 [4.2.7 Map Execution Paths Through Application](4.2.7_Map_Execution_Paths_Through_Application.md)
 
-[4.2.8 Fingerprint Web Application Framework (WSTG-INFO-008)](4.2.8_Fingerprint_Web_Application_Framework_WSTG-INFO-008.md)
+[4.2.8 Fingerprint Web Application Framework](4.2.8_Fingerprint_Web_Application_Framework.md)
 
 [4.2.9 Fingerprint Web Application (WSTG-INFO-009)](4.2.9_Fingerprint_Web_Application_WSTG-INFO-009.md)
 

@@ -70,7 +70,7 @@
 
 [4.2.7 Map execution paths through application](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.7_Map_Execution_Paths_Through_Application.md)
 
-[4.2.8 Fingerprint Web Application Framework (WSTG-INFO-008)](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.8_Fingerprint_Web_Application_Framework_WSTG-INFO-008.md)
+[4.2.8 Fingerprint Web Application Framework](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.8_Fingerprint_Web_Application_Framework.md)
 
 [4.2.9 Fingerprint Web Application (WSTG-INFO-009)](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.9_Fingerprint_Web_Application_WSTG-INFO-009.md)
 
