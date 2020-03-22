@@ -4,7 +4,7 @@ Testing for Information Gathering includes the following articles:
 
 [4.2.1 Conduct Search Engine Discovery and Reconnaissance for Information Leakage](4.2.1_Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage.md)
 
-[4.2.2 Fingerprint Web Server (WSTG-INFO-002)](4.2.2_Fingerprint_Web_Server_WSTG-INFO-002.md)
+[4.2.2 Fingerprint Web Server](4.2.2_Fingerprint_Web_Server.md)
 
 [4.2.3 Review Webserver Metafiles for Information Leakage (WSTG-INFO-003)](4.2.3_Review_Webserver_Metafiles_for_Information_Leakage_WSTG-INFO-003.md)
 
