@@ -6,7 +6,7 @@ In computer security, authentication is the process of attempting to verify the 
 
 [4.5.1 Testing for Credentials Transported over an Encrypted Channel](4.5.1_Testing_for_Credentials_Transported_over_an_Encrypted_Channel.md)
 
-[4.5.2 Testing for Default Credentials (WSTG-AUTHN-002)](4.5.2_Testing_for_Default_Credentials_WSTG-AUTHN-002.md)
+[4.5.2 Testing for Default Credentials](4.5.2_Testing_for_Default_Credentials.md)
 
 [4.5.3 Testing for Weak Lock Out Mechanism (WSTG-AUTHN-003)](4.5.3_Testing_for_Weak_Lock_Out_Mechanism_WSTG-AUTHN-003.md)
 
