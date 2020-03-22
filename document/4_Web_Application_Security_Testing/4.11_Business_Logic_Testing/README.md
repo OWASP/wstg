@@ -54,7 +54,7 @@ In integrity check and tamper evidence testing, we verify that the application d
 
 In process timing testing, we verify that the application does not allow users to manipulate a system or guess its behavior based on input or output timing. This is important because without this safeguard in place attackers may be able to monitor processing time and determine outputs based on timing, or circumvent the application’s business logic by not completing transactions or actions in a timely manner.
 
-[4.11.5 Test Number of Times a Function Can be Used Limits (WSTG-BUSLOGIC-005)](4.11.5_Test_Number_of_Times_a_Function_Can_Be_Used_Limits_WSTG-BUSLOGIC-005.md)
+[4.11.5 Test Number of Times a Function Can be Used Limits](4.11.5_Test_Number_of_Times_a_Function_Can_Be_Used_Limits.md)
 
 In function limit testing, we verify that the application does not allow users to exercise portions of the application or its functions more times than required by the business logic workflow. This is important because without this safeguard in place attackers may be able to use a function or portion of the application more times than permissible per the business logic to gain additional benefits.
 

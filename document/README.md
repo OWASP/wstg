@@ -246,7 +246,7 @@
 
 [4.11.4 Test for Process Timing](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.4_Test_for_Process_Timing.md)
 
-[4.11.5 Test Number of Times a Function Can be Used Limits (WSTG-BUSLOGIC-005)](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.5_Test_Number_of_Times_a_Function_Can_Be_Used_Limits_WSTG-BUSLOGIC-005.md)
+[4.11.5 Test Number of Times a Function Can be Used Limits](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.5_Test_Number_of_Times_a_Function_Can_Be_Used_Limits.md)
 
 [4.11.6 Testing for the Circumvention of Work Flows (WSTG-BUSLOGIC-006)](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.6_Testing_for_the_Circumvention_of_Work_Flows_WSTG-BUSLOGIC-006.md)
 
