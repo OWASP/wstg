@@ -30,7 +30,7 @@ HTTP Verb Tampering is described in
 
 and HTTP Parameter testing techniques are presented in
 
-[4.8.4 Testing for HTTP Parameter pollution (WSTG-INPVAL-004)](4.8.4_Testing_for_HTTP_Parameter_Pollution_WSTG-INPVAL-004.md)
+[4.8.4 Testing for HTTP Parameter pollution](4.8.4_Testing_for_HTTP_Parameter_Pollution.md)
 
 [4.8.5 SQL Injection (WSTG-INPVAL-005)](4.8.5_Testing_for_SQL_Injection_WSTG-INPVAL-005.md)
 

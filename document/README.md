@@ -170,7 +170,7 @@
 
 [4.8.3 Testing for HTTP Verb Tampering](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.3_Testing_for_HTTP_Verb_Tampering.md)
 
-[4.8.4 Testing for HTTP Parameter pollution (WSTG-INPVAL-004)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.4_Testing_for_HTTP_Parameter_Pollution_WSTG-INPVAL-004.md)
+[4.8.4 Testing for HTTP Parameter pollution](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.4_Testing_for_HTTP_Parameter_Pollution.md)
 
 [4.8.5 Testing for SQL Injection (WSTG-INPVAL-005)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.5_Testing_for_SQL_Injection_WSTG-INPVAL-005.md)
 
