@@ -198,7 +198,7 @@
 
 [4.8.11 IMAP/SMTP Injection)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.11_Testing_for_IMAP_SMTP_Injection.md)
 
-[4.8.12 Testing for Code Injection (WSTG-INPVAL-012)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.12_Testing_for_Code_Injection_WSTG-INPVAL-012.md)
+[4.8.12 Testing for Code Injection](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.12_Testing_for_Code_Injection.md)
 
 [4.8.12.1 Testing for Local File Inclusion](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.12.1_Testing_for_Local_File_Inclusion.md)
 

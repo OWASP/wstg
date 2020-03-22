@@ -79,7 +79,7 @@ An IMAP/SMTP Injection attack breaks the following pattern:
 
 Input -&gt; IMAP/SMTP command == IMAP/SMTP Injection
 
-[4.8.12 Code Injection (WSTG-INPVAL-012)](4.8.12_Testing_for_Code_Injection_WSTG-INPVAL-012.md)
+[4.8.12 Code Injection](4.8.12_Testing_for_Code_Injection.md)
 
 Code injection testing checks if it is possible to inject into an application data that will be later executed by the web server.
 A Code Injection attack breaks the following pattern:
