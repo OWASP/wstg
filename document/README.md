@@ -60,7 +60,7 @@
 
 [4.2.2 Fingerprint Web Server](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.2_Fingerprint_Web_Server.md)
 
-[4.2.3 Review Webserver Metafiles for Information Leakage (WSTG-INFO-003)](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.3_Review_Webserver_Metafiles_for_Information_Leakage_WSTG-INFO-003.md)
+[4.2.3 Review Webserver Metafiles for Information Leakage](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.3_Review_Webserver_Metafiles_for_Information_Leakage.md)
 
 [4.2.4 Enumerate Applications on Webserver (WSTG-INFO-004)](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.4_Enumerate_Applications_on_Webserver_WSTG-INFO-004.md)
 
