@@ -88,7 +88,7 @@
 
 [4.3.5 Enumerate Infrastructure and Application Admin Interfaces](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.5_Enumerate_Infrastructure_and_Application_Admin_Interfaces.md)
 
-[4.3.6 Test HTTP Methods (WSTG-CONFIG-006)](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.6_Test_HTTP_Methods_WSTG-CONFIG-006.md)
+[4.3.6 Test HTTP Methods](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.6_Test_HTTP_Methods.md)
 
 [4.3.7 Test HTTP Strict Transport Security (WSTG-CONFIG-007)](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.7_Test_HTTP_Strict_Transport_Security_WSTG-CONFIG-007.md)
 
