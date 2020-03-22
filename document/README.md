@@ -264,7 +264,7 @@
 
 [4.12.3 Testing for HTML Injection](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.3_Testing_for_HTML_Injection.md)
 
-[4.12.4 Testing for Client Side URL Redirect (WSTG-CLIENT-004)](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.4_Testing_for_Client_Side_URL_Redirect_WSTG-CLIENT-004.md)
+[4.12.4 Testing for Client Side URL Redirect](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.4_Testing_for_Client_Side_URL_Redirect.md)
 
 [4.12.5 Testing for CSS Injection (WSTG-CLIENT-005)](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.5_Testing_for_CSS_Injection_WSTG-CLIENT-005.md)
 
