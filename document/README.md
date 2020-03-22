@@ -254,7 +254,7 @@
 
 [4.11.8 Test Upload of Unexpected File Types](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.8_Test_Upload_of_Unexpected_File_Types.md)
 
-[4.11.9 Test Upload of Malicious Files (WSTG-BUSLOGIC-009)](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.9_Test_Upload_of_Malicious_Files_WSTG-BUSLOGIC-009.md)
+[4.11.9 Test Upload of Malicious Files](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.9_Test_Upload_of_Malicious_Files.md)
 
 **[4.12 Client Side Testing](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/)**
 

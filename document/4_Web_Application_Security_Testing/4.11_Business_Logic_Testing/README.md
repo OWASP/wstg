@@ -70,7 +70,7 @@ In application mis-use testing, we verify that the application does not allow us
 
 In unexpected file upload testing, we verify that the application does not allow users to upload file types that the system is not expecting or wanted per the business logic requirements. This is important because without these safeguards in place attackers may be able to submit unexpected files such as .exe or .php that could be saved to the system and then executed against the application or system.
 
-[4.11.9 Test Upload of Malicious Files (WSTG-BUSLOGIC-009)](4.11.9_Test_Upload_of_Malicious_Files_WSTG-BUSLOGIC-009.md)
+[4.11.9 Test Upload of Malicious Files](4.11.9_Test_Upload_of_Malicious_Files.md)
 
 In malicious file upload testing, we verify that the application does not allow users to upload files to the system that are malicious or potentially malicious to the system security. This is important because without these safeguards in place attackers may be able to upload files to the system that may spread viruses, malware or even exploits such as shellcode when executed.
 
