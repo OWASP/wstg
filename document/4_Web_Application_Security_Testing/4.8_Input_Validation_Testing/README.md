@@ -72,7 +72,7 @@ Web servers usually give developers the ability to add small pieces of dynamic c
 
 XPath is a language that has been designed and developed primarily to address parts of an XML document. In XPath injection testing, testers check if it is possible to inject data into an application so that it executes user-controlled XPath queries. When successfully exploited, this vulnerability may allow an attacker to bypass authentication mechanisms or access information without proper authorization.
 
-[4.8.11 IMAP/SMTP Injection (WSTG-INPVAL-011)](4.8.11_Testing_for_IMAP_SMTP_Injection_WSTG-INPVAL-011.md)
+[4.8.11 IMAP/SMTP Injection](4.8.11_Testing_for_IMAP_SMTP_Injection.md)
 
 This threat affects all the applications that communicate with mail servers (IMAP/SMTP), generally web mail applications. In IMAP/SMTP injection testing, testers check if it possible to inject arbitrary IMAP/SMTP commands into the mail servers, due to input data not properly sanitized.
 An IMAP/SMTP Injection attack breaks the following pattern:
