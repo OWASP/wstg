@@ -274,7 +274,7 @@
 
 [4.12.8 Testing for Cross Site Flashing](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.8_Testing_for_Cross_Site_Flashing.md)
 
-[4.12.9 Testing for Clickjacking (WSTG-CLIENT-009)](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.9_Testing_for_Clickjacking_WSTG-CLIENT-009.md)
+[4.12.9 Testing for Clickjacking](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.9_Testing_for_Clickjacking.md)
 
 [4.12.10 Testing WebSockets](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.10_Testing_WebSockets.md)
 
