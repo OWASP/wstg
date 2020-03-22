@@ -276,7 +276,7 @@
 
 [4.12.9 Testing for Clickjacking (WSTG-CLIENT-009)](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.9_Testing_for_Clickjacking_WSTG-CLIENT-009.md)
 
-[4.12.10 Testing WebSockets (WSTG-CLIENT-010)](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.10_Testing_WebSockets_WSTG-CLIENT-010.md)
+[4.12.10 Testing WebSockets](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.10_Testing_WebSockets.md)
 
 [4.12.11 Testing Web Messaging (WSTG-CLIENT-011)](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.11_Testing_Web_Messaging_WSTG-CLIENT-011.md)
 
