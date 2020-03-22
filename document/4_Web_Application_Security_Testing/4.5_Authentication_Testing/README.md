@@ -8,7 +8,7 @@ In computer security, authentication is the process of attempting to verify the 
 
 [4.5.2 Testing for Default Credentials](4.5.2_Testing_for_Default_Credentials.md)
 
-[4.5.3 Testing for Weak Lock Out Mechanism (WSTG-AUTHN-003)](4.5.3_Testing_for_Weak_Lock_Out_Mechanism_WSTG-AUTHN-003.md)
+[4.5.3 Testing for Weak Lock Out Mechanism](4.5.3_Testing_for_Weak_Lock_Out_Mechanism.md)
 
 [4.5.4 Testing for Bypassing Authentication Schema (WSTG-AUTHN-004)](4.5.4_Testing_for_Bypassing_Authentication_Schema_WSTG-AUTHN-004.md)
 

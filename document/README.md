@@ -118,7 +118,7 @@
 
 [4.5.2 Testing for default credentials](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.2_Testing_for_Default_Credentials.md)
 
-[4.5.3 Testing for Weak lock out mechanism (WSTG-AUTHN-003)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.3_Testing_for_Weak_Lock_Out_Mechanism_WSTG-AUTHN-003.md)
+[4.5.3 Testing for Weak lock out mechanism](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.3_Testing_for_Weak_Lock_Out_Mechanism.md)
 
 [4.5.4 Testing for bypassing authentication schema (WSTG-AUTHN-004)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.4_Testing_for_Bypassing_Authentication_Schema_WSTG-AUTHN-004.md)
 
