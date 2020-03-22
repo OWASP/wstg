@@ -244,7 +244,7 @@
 
 [4.11.3 Test Integrity Checks](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.3_Test_Integrity_Checks.md)
 
-[4.11.4 Test for Process Timing (WSTG-BUSLOGIC-004)](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.4_Test_for_Process_Timing_WSTG-BUSLOGIC-004.md)
+[4.11.4 Test for Process Timing](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.4_Test_for_Process_Timing.md)
 
 [4.11.5 Test Number of Times a Function Can be Used Limits (WSTG-BUSLOGIC-005)](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.5_Test_Number_of_Times_a_Function_Can_Be_Used_Limits_WSTG-BUSLOGIC-005.md)
 

@@ -50,7 +50,7 @@ In forged and predictive parameter request testing, we verify that the applicati
 
 In integrity check and tamper evidence testing, we verify that the application does not allow users to destroy the integrity of any part of the system or its data. This is important because without these safe guards attackers may break the business logic workflow and change of compromise the application/system data or cover up actions by altering information including log files.
 
-[4.11.4 Test for Process Timing (WSTG-BUSLOGIC-004)](4.11.4_Test_for_Process_Timing_WSTG-BUSLOGIC-004.md)
+[4.11.4 Test for Process Timing](4.11.4_Test_for_Process_Timing.md)
 
 In process timing testing, we verify that the application does not allow users to manipulate a system or guess its behavior based on input or output timing. This is important because without this safeguard in place attackers may be able to monitor processing time and determine outputs based on timing, or circumvent the application’s business logic by not completing transactions or actions in a timely manner.
 
