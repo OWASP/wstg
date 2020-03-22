@@ -98,6 +98,8 @@
 
 [4.3.10 Test for Subdomain Takeover](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.10_Test_for_Subdomain_Takeover.md)
 
+[4.3.11 Test Cloud Storage](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.11_Test_Cloud_Storage.md)
+
 **[4.4 Identity Management Testing](4_Web_Application_Security_Testing/4.4_Identity_Management_Testing/)**
 
 [4.4.1 Test Role Definitions (WSTG-IDENT-001)](4_Web_Application_Security_Testing/4.4_Identity_Management_Testing/4.4.1_Test_Role_Definitions_WSTG-IDENT-001.md)
