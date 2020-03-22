@@ -4,7 +4,7 @@ Understanding the deployed configuration of the server hosting the web applicati
 
 In order to evaluate the readiness of the application platform, testing for configuration management includes the following sections:
 
-[4.3.1 Test Network/Infrastructure Configuration (WSTG-CONFIG-001)](4.3.1_Test_Network_Infrastructure_Configuration_WSTG-CONFIG-001.md)
+[4.3.1 Test Network/Infrastructure Configuration](4.3.1_Test_Network_Infrastructure_Configuration.md)
 
 [4.3.2 Test Application Platform Configuration (WSTG-CONFIG-002)](4.3.2_Test_Application_Platform_Configuration_WSTG-CONFIG-002.md)
 
