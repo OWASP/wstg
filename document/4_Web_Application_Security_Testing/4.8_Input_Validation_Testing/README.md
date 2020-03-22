@@ -47,7 +47,7 @@ SQL Injection testing is further broken down by product or vendor:
 - [4.8.5.5 MS Access Testing](4.8.5.5_Testing_for_MS_Access.md)
 - [4.8.5.6 Testing for NoSQL Injection](4.8.5.6_Testing_for_NoSQL_Injection.md)
 
-[4.8.6 LDAP Injection (WSTG-INPVAL-006)](4.8.6_Testing_for_LDAP_Injection_WSTG-INPVAL-006.md)
+[4.8.6 LDAP Injection](4.8.6_Testing_for_LDAP_Injection.md)
 
 LDAP injection testing is similar to SQL Injection testing. The differences are that testers use the LDAP protocol instead of SQL and the target is an LDAP Server instead of a SQL Server. An LDAP Injection attack breaks the following pattern:
 

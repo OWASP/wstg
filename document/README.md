@@ -186,7 +186,7 @@
 
 [4.8.5.6 Testing for NoSQL injection](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.5.6_Testing_for_NoSQL_Injection.md)
 
-[4.8.6 Testing for LDAP Injection (WSTG-INPVAL-006)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.6_Testing_for_LDAP_Injection_WSTG-INPVAL-006.md)
+[4.8.6 Testing for LDAP Injection](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.6_Testing_for_LDAP_Injection.md)
 
 [4.8.7 Testing for ORM Injection (WSTG-INPVAL-007)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.7_Testing_for_ORM_Injection_WSTG-INPVAL-007.md)
 

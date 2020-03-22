@@ -348,7 +348,7 @@ Active SQL Injection statements can have a detrimental effect on the underlying 
 
 ## LDAP Injection
 
-For details on LDAP Injection: [Testing for LDAP Injection](../4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.6_Testing_for_LDAP_Injection_WSTG-INPVAL-006.md)
+For details on LDAP Injection: [Testing for LDAP Injection](../4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.6_Testing_for_LDAP_Injection.md)
 
 `|`
 
