@@ -86,7 +86,7 @@
 
 [4.3.4 Review Old, Backup and Unreferenced Files for Sensitive Information](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.4_Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information.md)
 
-[4.3.5 Enumerate Infrastructure and Application Admin Interfaces (WSTG-CONFIG-005)](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.5_Enumerate_Infrastructure_and_Application_Admin_Interfaces_WSTG-CONFIG-005.md)
+[4.3.5 Enumerate Infrastructure and Application Admin Interfaces](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.5_Enumerate_Infrastructure_and_Application_Admin_Interfaces.md)
 
 [4.3.6 Test HTTP Methods (WSTG-CONFIG-006)](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.6_Test_HTTP_Methods_WSTG-CONFIG-006.md)
 
