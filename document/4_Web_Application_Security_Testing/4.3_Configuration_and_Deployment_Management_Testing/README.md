@@ -8,7 +8,7 @@ In order to evaluate the readiness of the application platform, testing for conf
 
 [4.3.2 Test Application Platform Configuration](4.3.2_Test_Application_Platform_Configuration.md)
 
-[4.3.3 Test File Extensions Handling for Sensitive Information (WSTG-CONFIG-003)](4.3.3_Test_File_Extensions_Handling_for_Sensitive_Information_WSTG-CONFIG-003.md)
+[4.3.3 Test File Extensions Handling for Sensitive Information](4.3.3_Test_File_Extensions_Handling_for_Sensitive_Information.md)
 
 [4.3.4 Review Old, Backup and Unreferenced Files for Sensitive Information (WSTG-CONFIG-004)](4.3.4_Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information_WSTG-CONFIG-004.md)
 
