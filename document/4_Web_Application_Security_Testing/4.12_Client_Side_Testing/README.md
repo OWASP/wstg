@@ -26,6 +26,6 @@ The following articles describe how to conduct a Client-Side test of a web appli
 
 [4.12.11 Test Web Messaging](4.12.11_Testing_Web_Messaging.md)
 
-[4.12.12 Test Local Storage (WSTG-CLIENT-012)](4.12.12_Testing_Web_Storage_WSTG-CLIENT-012.md)
+[4.12.12 Test Local Storage](4.12.12_Testing_Web_Storage.md)
 
 [4.12.13 Test for Cross Site Script Inclusion (WSTG-CLIENT-013)](4.12.13_Testing_for_Cross_Site_Script_Inclusion_WSTG-CLIENT-013.md)
