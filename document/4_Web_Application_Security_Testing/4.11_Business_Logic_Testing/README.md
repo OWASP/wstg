@@ -62,7 +62,7 @@ In function limit testing, we verify that the application does not allow users t
 
 In circumventing workflow and bypassing correct sequence testing, we verify that the application does not allow users to perform actions outside of the “approved/required” business process flow. This is important because without this safeguard in place attackers may be able to bypass or circumvent workflows and “checks” allowing them to prematurely enter or skip “required” sections of the application potentially allowing the action/transaction to be completed without successfully completing the entire business process, leaving the system with incomplete backend tracking information.
 
-[4.11.7 Test Defenses Against Application Mis-use (WSTG-BUSLOGIC-007)](4.11.7_Test_Defenses_Against_Application_Mis-use_WSTG-BUSLOGIC-007.md)
+[4.11.7 Test Defenses Against Application Mis-use](4.11.7_Test_Defenses_Against_Application_Mis-use.md)
 
 In application mis-use testing, we verify that the application does not allow users to manipulate the application in an unintended manner.
 
