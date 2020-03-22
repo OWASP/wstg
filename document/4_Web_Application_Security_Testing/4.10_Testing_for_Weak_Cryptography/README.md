@@ -6,4 +6,4 @@
 
 [4.10.3 Testing for Sensitive Information Sent via Unencrypted Channels](4.10.3_Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels.md)
 
-[4.10.4 Testing for Weak Encryption (WSTG-CRYPST-004)](4.10.4_Testing_for_Weak_Encryption_WSTG-CRYPST-004.md)
+[4.10.4 Testing for Weak Encryption](4.10.4_Testing_for_Weak_Encryption.md)
