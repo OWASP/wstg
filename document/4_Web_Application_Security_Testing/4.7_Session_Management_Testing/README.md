@@ -16,7 +16,7 @@ This chapter covers the following topics:
 
 [4.7.4 Testing for Exposed Session Variables](4.7.4_Testing_for_Exposed_Session_Variables.md)
 
-[4.7.5 Testing for Cross Site Request Forgery (CSRF) (WSTG-SESS-005)](4.7.5_Testing_for_CSRF_WSTG-SESS-005.md)
+[4.7.5 Testing for Cross Site Request Forgery (CSRF)](4.7.5_Testing_for_CSRF.md)
 
 [4.7.6 Testing for Logout Functionality (WSTG-SESS-006)](4.7.6_Testing_for_Logout_Functionality_WSTG-SESS-006.md)
 
