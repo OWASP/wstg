@@ -204,7 +204,7 @@
 
 [4.8.12.2 Testing for Remote File Inclusion](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.12.2_Testing_for_Remote_File_Inclusion.md)
 
-[4.8.13 Testing for Command Injection (WSTG-INPVAL-013)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.13_Testing_for_Command_Injection_WSTG-INPVAL-013.md)
+[4.8.13 Testing for Command Injection](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.13_Testing_for_Command_Injection.md)
 
 [4.8.14 Testing for Buffer overflow (WSTG-INPVAL-014)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.14_Testing_for_Buffer_Overflow_WSTG-INPVAL-014.md)
 

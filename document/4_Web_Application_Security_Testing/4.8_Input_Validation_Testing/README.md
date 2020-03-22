@@ -90,7 +90,7 @@ Input -&gt; malicious Code == Code Injection
 
 [4.8.12.2 Testing for Remote File Inclusion](4.8.12.2_Testing_for_Remote_File_Inclusion.md)
 
-[4.8.13 OS Commanding (WSTG-INPVAL-013)](4.8.13_Testing_for_Command_Injection_WSTG-INPVAL-013.md)
+[4.8.13 OS Commanding](4.8.13_Testing_for_Command_Injection.md)
 
 In command injection testing testers will try to inject an OS command through an HTTP request into the application.
 An OS Command Injection attack breaks the following pattern:
