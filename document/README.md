@@ -114,7 +114,7 @@
 
 **[4.5 Authentication Testing](4_Web_Application_Security_Testing/4.5_Authentication_Testing/)**
 
-[4.5.1 Testing for Credentials Transported over an Encrypted Channel (WSTG-AUTHN-001)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.1_Testing_for_Credentials_Transported_over_an_Encrypted_Channel_WSTG-AUTHN-001.md)
+[4.5.1 Testing for Credentials Transported over an Encrypted Channel](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.1_Testing_for_Credentials_Transported_over_an_Encrypted_Channel.md)
 
 [4.5.2 Testing for default credentials (WSTG-AUTHN-002)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.2_Testing_for_Default_Credentials_WSTG-AUTHN-002.md)
 
