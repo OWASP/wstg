@@ -16,7 +16,7 @@ In this guide, the following types of XSS testing are discussed in details:
 
 [4.8.1 Testing for Reflected Cross Site Scripting](4.8.1_Testing_for_Reflected_Cross_Site_Scripting.md)
 
-[4.8.2 Testing for Stored Cross Site Scripting (WSTG-INPVAL-002)](4.8.2_Testing_for_Stored_Cross_Site_Scripting_WSTG-INPVAL-002.md)
+[4.8.2 Testing for Stored Cross Site Scripting](4.8.2_Testing_for_Stored_Cross_Site_Scripting.md)
 
 Client side XSS testing, such as DOM XSS and Cross site Flashing is discussed in the Client Side testing section.
 
