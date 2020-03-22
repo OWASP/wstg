@@ -113,7 +113,7 @@ Input -&gt; Fixed buffer or format string == overflow
 
 Incubated testing is a complex testing that needs more than one data validation vulnerability to work.
 
-[4.8.16 Testing for HTTP Splitting/Smuggling (WSTG-INPVAL-016)](4.8.16_Testing_for_HTTP_Splitting_Smuggling_WSTG-INPVAL-016.md)
+[4.8.16 Testing for HTTP Splitting/Smuggling](4.8.16_Testing_for_HTTP_Splitting_Smuggling.md)
 
 Describes how to test for an HTTP Exploit, as HTTP Verb, HTTP Splitting, HTTP Smuggling.
 
