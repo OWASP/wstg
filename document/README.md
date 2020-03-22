@@ -278,7 +278,7 @@
 
 [4.12.10 Testing WebSockets](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.10_Testing_WebSockets.md)
 
-[4.12.11 Testing Web Messaging (WSTG-CLIENT-011)](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.11_Testing_Web_Messaging_WSTG-CLIENT-011.md)
+[4.12.11 Testing Web Messaging](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.11_Testing_Web_Messaging.md)
 
 [4.12.12 Testing Local Storage (WSTG-CLIENT-012)](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.12_Testing_Web_Storage_WSTG-CLIENT-012.md)
 

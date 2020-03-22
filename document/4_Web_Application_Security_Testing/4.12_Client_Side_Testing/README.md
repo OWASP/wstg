@@ -24,7 +24,7 @@ The following articles describe how to conduct a Client-Side test of a web appli
 
 [4.12.10 Testing WebSockets](4.12.10_Testing_WebSockets.md)
 
-[4.12.11 Test Web Messaging (WSTG-CLIENT-011)](4.12.11_Testing_Web_Messaging_WSTG-CLIENT-011.md)
+[4.12.11 Test Web Messaging](4.12.11_Testing_Web_Messaging.md)
 
 [4.12.12 Test Local Storage (WSTG-CLIENT-012)](4.12.12_Testing_Web_Storage_WSTG-CLIENT-012.md)
 
