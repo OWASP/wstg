@@ -16,7 +16,7 @@ In order to evaluate the readiness of the application platform, testing for conf
 
 [4.3.6 Test HTTP Methods](4.3.6_Test_HTTP_Methods.md)
 
-[4.3.7 Test HTTP Strict Transport Security (WSTG-CONFIG-007)](4.3.7_Test_HTTP_Strict_Transport_Security_WSTG-CONFIG-007.md)
+[4.3.7 Test HTTP Strict Transport Security](4.3.7_Test_HTTP_Strict_Transport_Security.md)
 
 [4.3.8 Test RIA Cross Domain Policy (WSTG-CONFIG-008)](4.3.8_Test_RIA_Cross_Domain_Policy_WSTG-CONFIG-008.md)
 
