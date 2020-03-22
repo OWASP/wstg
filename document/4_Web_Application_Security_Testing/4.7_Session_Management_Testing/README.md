@@ -8,7 +8,7 @@ There are a number of ways in which a web application may interact with a user. 
 
 This chapter covers the following topics:
 
-[4.7.1 Testing for Bypassing Session Management Schema (WSTG-SESS-001)](4.7.1_Testing_for_Session_Management_Schema_WSTG-SESS-001.md)
+[4.7.1 Testing for Bypassing Session Management Schema](4.7.1_Testing_for_Session_Management_Schema.md)
 
 [4.7.2 Testing for Cookies Attributes (WSTG-SESS-002)](4.7.2_Testing_for_Cookies_Attributes_WSTG-SESS-002.md)
 

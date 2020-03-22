@@ -146,7 +146,7 @@
 
 **[4.7 Session Management Testing](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/)**
 
-[4.7.1 Testing for Bypassing Session Management Schema (WSTG-SESS-001)](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.1_Testing_for_Session_Management_Schema_WSTG-SESS-001.md)
+[4.7.1 Testing for Bypassing Session Management Schema](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.1_Testing_for_Session_Management_Schema.md)
 
 [4.7.2 Testing for Cookies attributes (WSTG-SESS-002)](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.2_Testing_for_Cookies_Attributes_WSTG-SESS-002.md)
 
