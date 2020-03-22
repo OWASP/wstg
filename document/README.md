@@ -160,7 +160,7 @@
 
 [4.7.7 Test Session Timeout](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.7_Test_Session_Timeout.md)
 
-[4.7.8 Testing for Session puzzling (WSTG-SESS-008)](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.8_Testing_for_Session_Puzzling_WSTG-SESS-008.md)
+[4.7.8 Testing for Session puzzling](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.8_Testing_for_Session_Puzzling.md)
 
 **[4.8 Input Validation Testing](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/)**
 

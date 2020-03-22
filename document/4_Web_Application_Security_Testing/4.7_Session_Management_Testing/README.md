@@ -22,4 +22,4 @@ This chapter covers the following topics:
 
 [4.7.7 Test Session Timeout](4.7.7_Test_Session_Timeout.md)
 
-[4.7.8 Testing for Session Puzzling (WSTG-SESS-008)](4.7.8_Testing_for_Session_Puzzling_WSTG-SESS-008.md)
+[4.7.8 Testing for Session Puzzling](4.7.8_Testing_for_Session_Puzzling.md)
