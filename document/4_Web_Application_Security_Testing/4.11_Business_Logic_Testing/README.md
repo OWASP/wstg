@@ -42,7 +42,7 @@ Every application has a different business process, application specific logic a
 
 In business logic data validation testing, we verify that the application does not allow users to insert “unvalidated” data into the system/application. This is important because without this safeguard attackers may be able to insert “unvalidated” data/information into the application/system at “handoff points” where the application/system believes that the data/information is “good” and has been valid since the “entry points” performed data validation as part of the business logic workflow.
 
-[4.11.2 Test Ability to Forge Requests (WSTG-BUSLOGIC-002)](4.11.2_Test_Ability_to_Forge_Requests_WSTG-BUSLOGIC-002.md)
+[4.11.2 Test Ability to Forge Requests](4.11.2_Test_Ability_to_Forge_Requests.md)
 
 In forged and predictive parameter request testing, we verify that the application does not allow users to submit or alter data to any component of the system that they should not have access to, are accessing at that particular time or in that particular manner. This is important because without this safeguard attackers may be able to “fool/trick” the application into letting them into sections of thwe application of system that they should not be allowed in at that particular time, thus circumventing the applications business logic workflow.
 
