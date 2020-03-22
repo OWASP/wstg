@@ -66,7 +66,7 @@
 
 [4.2.5 Review Webpage Comments and Metadata for Information Leakage](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.5_Review_Webpage_Comments_and_Metadata_for_Information_Leakage.md)
 
-[4.2.6 Identify application entry points (WSTG-INFO-006)](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.6_Identify_Application_Entry_Points_WSTG-INFO-006.md)
+[4.2.6 Identify application entry points](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.6_Identify_Application_Entry_Points.md)
 
 [4.2.7 Map execution paths through application (WSTG-INFO-007)](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.7_Map_Execution_Paths_Through_Application_WSTG-INFO-007.md)
 
