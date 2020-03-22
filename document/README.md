@@ -132,7 +132,7 @@
 
 [4.5.9 Testing for weak password change or reset functionalities (WSTG-AUTHN-009)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.9_Testing_for_Weak_Password_Change_or_Reset_Functionalities_WSTG-AUTHN-009.md)
 
-[4.5.10 Testing for Weaker authentication in alternative channel (WSTG-AUTHN-010)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.10_Testing_for_Weaker_Authentication_in_Alternative_Channel_WSTG-AUTHN-010.md)
+[4.5.10 Testing for Weaker authentication in alternative channel](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.10_Testing_for_Weaker_Authentication_in_Alternative_Channel.md)
 
 **[4.6 Authorization Testing](4_Web_Application_Security_Testing/4.6_Authorization_Testing/)**
 
