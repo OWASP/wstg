@@ -96,7 +96,7 @@
 
 [4.3.9 Test File Permission (WSTG-CONFIG-009)](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.9_Test_File_Permission_WSTG-CONFIG-009.md)
 
-[4.3.10 Test for Subdomain Takeover (WSTG-CONFIG-010)](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.10_Test_for_Subdomain_Takeover_WSTG-CONFIG-010.md)
+[4.3.10 Test for Subdomain Takeover](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.10_Test_for_Subdomain_Takeover.md)
 
 **[4.4 Identity Management Testing](4_Web_Application_Security_Testing/4.4_Identity_Management_Testing/)**
 

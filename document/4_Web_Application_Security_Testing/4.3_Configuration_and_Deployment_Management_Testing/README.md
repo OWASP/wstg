@@ -22,4 +22,4 @@ In order to evaluate the readiness of the application platform, testing for conf
 
 [4.3.9 Test File Permission (WSTG-CONFIG-009)](4.3.9_Test_File_Permission_WSTG-CONFIG-009.md)
 
-[4.3.10 Test for Subdomain Takeover (WSTG-CONFIG-010)](4.3.10_Test_for_Subdomain_Takeover_WSTG-CONFIG-010.md)
+[4.3.10 Test for Subdomain Takeover](4.3.10_Test_for_Subdomain_Takeover.md)
