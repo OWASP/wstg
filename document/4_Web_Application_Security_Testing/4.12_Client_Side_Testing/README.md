@@ -14,7 +14,7 @@ The following articles describe how to conduct a Client-Side test of a web appli
 
 [4.12.5 Testing for CSS Injection](4.12.5_Testing_for_CSS_Injection.md)
 
-[4.12.6 Testing for Client Side Resource Manipulation (WSTG-CLIENT-006)](4.12.6_Testing_for_Client_Side_Resource_Manipulation_WSTG-CLIENT-006.md)
+[4.12.6 Testing for Client Side Resource Manipulation](4.12.6_Testing_for_Client_Side_Resource_Manipulation.md)
 
 [4.12.7 Test Cross Origin Resource Sharing (WSTG-CLIENT-007)](4.12.7_Testing_Cross_Origin_Resource_Sharing_WSTG-CLIENT-007.md)
 
