@@ -136,7 +136,7 @@
 
 **[4.6 Authorization Testing](4_Web_Application_Security_Testing/4.6_Authorization_Testing/)**
 
-[4.6.1 Testing Directory traversal/file include (WSTG-AUTHZ-001)](4_Web_Application_Security_Testing/4.6_Authorization_Testing/4.6.1_Testing_Directory_Traversal_File_Include_WSTG-AUTHZ-001.md)
+[4.6.1 Testing Directory traversal/file include](4_Web_Application_Security_Testing/4.6_Authorization_Testing/4.6.1_Testing_Directory_Traversal_File_Include.md)
 
 [4.6.2 Testing for bypassing authorization schema (WSTG-AUTHZ-002)](4_Web_Application_Security_Testing/4.6_Authorization_Testing/4.6.2_Testing_for_Bypassing_Authorization_Schema_WSTG-AUTHZ-002.md)
 
