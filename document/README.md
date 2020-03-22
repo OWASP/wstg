@@ -258,7 +258,7 @@
 
 **[4.12 Client Side Testing](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/)**
 
-[4.12.1 Testing for DOM based Cross Site Scripting (WSTG-CLIENT-001)](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.1_Testing_for_DOM-based_Cross_Site_Scripting_WSTG-CLIENT-001.md)
+[4.12.1 Testing for DOM based Cross Site Scripting](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.1_Testing_for_DOM-based_Cross_Site_Scripting.md)
 
 [4.12.2 Testing for JavaScript Execution (WSTG-CLIENT-002)](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.2_Testing_for_JavaScript_Execution_WSTG-CLIENT-002.md)
 

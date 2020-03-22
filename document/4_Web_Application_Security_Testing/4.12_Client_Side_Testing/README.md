@@ -4,7 +4,7 @@ Client-side testing is concerned with the execution of code on the client, typic
 
 The following articles describe how to conduct a Client-Side test of a web application:
 
-[4.12.1 Testing for DOM based Cross Site Scripting (WSTG-CLIENT-001)](4.12.1_Testing_for_DOM-based_Cross_Site_Scripting_WSTG-CLIENT-001.md)
+[4.12.1 Testing for DOM based Cross Site Scripting](4.12.1_Testing_for_DOM-based_Cross_Site_Scripting.md)
 
 [4.12.2 Testing for JavaScript Execution (WSTG-CLIENT-002)](4.12.2_Testing_for_JavaScript_Execution_WSTG-CLIENT-002.md)
 
