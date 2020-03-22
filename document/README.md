@@ -110,7 +110,7 @@
 
 [4.4.4 Testing for Account Enumeration and Guessable User Account](4_Web_Application_Security_Testing/4.4_Identity_Management_Testing/4.4.4_Testing_for_Account_Enumeration_and_Guessable_User_Account.md)
 
-[4.4.5 Testing for Weak or unenforced username policy (WSTG-IDENT-005)](4_Web_Application_Security_Testing/4.4_Identity_Management_Testing/4.4.5_Testing_for_Weak_or_Unenforced_Username_Policy_WSTG-IDENT-005.md)
+[4.4.5 Testing for Weak or unenforced username policy](4_Web_Application_Security_Testing/4.4_Identity_Management_Testing/4.4.5_Testing_for_Weak_or_Unenforced_Username_Policy.md)
 
 **[4.5 Authentication Testing](4_Web_Application_Security_Testing/4.5_Authentication_Testing/)**
 

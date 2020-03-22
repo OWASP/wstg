@@ -10,4 +10,4 @@ Testing for Identity Management includes the following sections:
 
 [4.4.4 Testing for Account Enumeration and Guessable User Account](4.4.4_Testing_for_Account_Enumeration_and_Guessable_User_Account.md)
 
-[4.4.5 Testing for Weak or Unenforced Username Policy (WSTG-IDENT-005)](4.4.5_Testing_for_Weak_or_Unenforced_Username_Policy_WSTG-IDENT-005.md)
+[4.4.5 Testing for Weak or Unenforced Username Policy](4.4.5_Testing_for_Weak_or_Unenforced_Username_Policy.md)
