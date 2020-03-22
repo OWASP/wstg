@@ -416,7 +416,7 @@ For details on XPATH Injection: [Testing for XPath Injection](../4_Web_Applicati
 
 ## XML Injection
 
-Details on XML Injection here: [Testing for XML Injection](../4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.8_Testing_for_XML_Injection_WSTG-INPVAL-008.md)
+Details on XML Injection here: [Testing for XML Injection](../4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.8_Testing_for_XML_Injection.md)
 
 `<![CDATA[<script>var n=0;while(true){n++;}</script>]]>`
 

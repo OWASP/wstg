@@ -190,7 +190,7 @@
 
 [4.8.7 Testing for ORM Injection](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.7_Testing_for_ORM_Injection.md)
 
-[4.8.8 Testing for XML Injection (WSTG-INPVAL-008)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.8_Testing_for_XML_Injection_WSTG-INPVAL-008.md)
+[4.8.8 Testing for XML Injection](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.8_Testing_for_XML_Injection.md)
 
 [4.8.9 Testing for SSI Injection (WSTG-INPVAL-009)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.9_Testing_for_SSI_Injection_WSTG-INPVAL-009.md)
 
