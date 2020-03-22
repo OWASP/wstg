@@ -43,7 +43,7 @@ SQL Injection testing is further broken down by product or vendor:
 - [4.8.5.1 Oracle Testing](4.8.5.1_Testing_for_Oracle.md)
 - [4.8.5.2 MySQL Testing](4.8.5.2_Testing_for_MySQL.md)
 - [4.8.5.3 SQL Server Testing](4.8.5.3_Testing_for_SQL_Server.md)
-- [4.8.5.4 Testing PostgreSQL](4.8.5.4_OWASP_Backend_Security_Project_Testing_PostgreSQL.md)
+- [4.8.5.4 Testing PostgreSQL](4.8.5.4_OWASP_Testing_PostgreSQL.md)
 - [4.8.5.5 MS Access Testing](4.8.5.5_Testing_for_MS_Access.md)
 - [4.8.5.6 Testing for NoSQL Injection](4.8.5.6_Testing_for_NoSQL_Injection.md)
 

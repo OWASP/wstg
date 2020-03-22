@@ -180,7 +180,7 @@
 
 [4.8.5.3 SQL Server Testing](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.5.3_Testing_for_SQL_Server.md)
 
-[4.8.5.4 Testing PostgreSQL (from OWASP BSP)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.5.4_OWASP_Backend_Security_Project_Testing_PostgreSQL.md)
+[4.8.5.4 Testing PostgreSQL](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.5.4_Testing_PostgreSQL.md)
 
 [4.8.5.5 MS Access Testing](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.5.5_Testing_for_MS_Access.md)
 
