@@ -58,7 +58,7 @@ In process timing testing, we verify that the application does not allow users t
 
 In function limit testing, we verify that the application does not allow users to exercise portions of the application or its functions more times than required by the business logic workflow. This is important because without this safeguard in place attackers may be able to use a function or portion of the application more times than permissible per the business logic to gain additional benefits.
 
-[4.11.6 Testing for the Circumvention of Work Flows (WSTG-BUSLOGIC-006)](4.11.6_Testing_for_the_Circumvention_of_Work_Flows_WSTG-BUSLOGIC-006.md)
+[4.11.6 Testing for the Circumvention of Work Flows](4.11.6_Testing_for_the_Circumvention_of_Work_Flows.md)
 
 In circumventing workflow and bypassing correct sequence testing, we verify that the application does not allow users to perform actions outside of the “approved/required” business process flow. This is important because without this safeguard in place attackers may be able to bypass or circumvent workflows and “checks” allowing them to prematurely enter or skip “required” sections of the application potentially allowing the action/transaction to be completed without successfully completing the entire business process, leaving the system with incomplete backend tracking information.
 
