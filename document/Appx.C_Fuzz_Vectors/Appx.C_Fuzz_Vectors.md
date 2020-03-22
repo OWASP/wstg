@@ -203,7 +203,7 @@ Integer overflow errors occur when a program fails to account for the fact that 
 
 This attack can affect the database layer of an application and is typically present when user input is not filtered for SQL statements.
 
-For details on Testing SQL Injection: [Testing for SQL Injection](../4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.5_Testing_for_SQL_Injection_WSTG-INPVAL-005.md)
+For details on Testing SQL Injection: [Testing for SQL Injection](../4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.5_Testing_for_SQL_Injection.md)
 
 SQL Injection is classified in the following two categories, depending on the exposure of database information (passive) or the alteration of database information (active).
 

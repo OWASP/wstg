@@ -172,7 +172,7 @@
 
 [4.8.4 Testing for HTTP Parameter pollution](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.4_Testing_for_HTTP_Parameter_Pollution.md)
 
-[4.8.5 Testing for SQL Injection (WSTG-INPVAL-005)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.5_Testing_for_SQL_Injection_WSTG-INPVAL-005.md)
+[4.8.5 Testing for SQL Injection](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.5_Testing_for_SQL_Injection.md)
 
 [4.8.5.1 Oracle Testing](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.5.1_Testing_for_Oracle.md)
 

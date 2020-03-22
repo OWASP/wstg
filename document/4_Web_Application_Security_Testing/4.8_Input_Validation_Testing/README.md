@@ -32,7 +32,7 @@ and HTTP Parameter testing techniques are presented in
 
 [4.8.4 Testing for HTTP Parameter pollution](4.8.4_Testing_for_HTTP_Parameter_Pollution.md)
 
-[4.8.5 SQL Injection (WSTG-INPVAL-005)](4.8.5_Testing_for_SQL_Injection_WSTG-INPVAL-005.md)
+[4.8.5 SQL Injection](4.8.5_Testing_for_SQL_Injection.md)
 
 SQL injection testing checks if it is possible to inject data into the application so that it executes a user-controlled SQL query in the back-end database. Testers find an SQL injection vulnerability if the application uses user input to create SQL queries without proper input validation. A successful exploitation of this class of vulnerability allows an unauthorized user to access or manipulate data in the database. Note that application data often represents the core asset of a company. An SQL Injection attack breaks the following pattern:
 
