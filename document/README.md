@@ -228,7 +228,7 @@
 
 **[4.10 Testing for weak Cryptography](4_Web_Application_Security_Testing/4.10_Testing_for_Weak_Cryptography/)**
 
-[4.10.1 Testing for Weak SSL/TLS Ciphers, Insufficient Transport Layer Protection (WSTG-CRYPST-001)](4_Web_Application_Security_Testing/4.10_Testing_for_Weak_Cryptography/4.10.1_Testing_for_Weak_SSL_TLS_Ciphers_Insufficient_Transport_Layer_Protection_WSTG-CRYPST-001.md)
+[4.10.1 Testing for Weak SSL/TLS Ciphers, Insufficient Transport Layer Protection](4_Web_Application_Security_Testing/4.10_Testing_for_Weak_Cryptography/4.10.1_Testing_for_Weak_SSL_TLS_Ciphers_Insufficient_Transport_Layer_Protection.md)
 
 [4.10.2 Testing for Padding Oracle (WSTG-CRYPST-002)](4_Web_Application_Security_Testing/4.10_Testing_for_Weak_Cryptography/4.10.2_Testing_for_Padding_Oracle_WSTG-CRYPST-002.md)
 
