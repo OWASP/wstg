@@ -152,7 +152,7 @@
 
 [4.7.3 Testing for Session Fixation](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.3_Testing_for_Session_Fixation.md)
 
-[4.7.4 Testing for Exposed Session Variables (WSTG-SESS-004)](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.4_Testing_for_Exposed_Session_Variables_WSTG-SESS-004.md)
+[4.7.4 Testing for Exposed Session Variables](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.4_Testing_for_Exposed_Session_Variables.md)
 
 [4.7.5 Testing for Cross Site Request Forgery (CSRF) (WSTG-SESS-005)](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.5_Testing_for_CSRF_WSTG-SESS-005.md)
 
