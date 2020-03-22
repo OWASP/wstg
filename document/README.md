@@ -282,7 +282,7 @@
 
 [4.12.12 Testing Local Storage](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.12_Testing_Web_Storage.md)
 
-[4.12.13 Testing for Cross Site Script Inclusion (WSTG-CLIENT-013)](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.13_Testing_for_Cross_Site_Script_Inclusion_WSTG-CLIENT-013.md)
+[4.12.13 Testing for Cross Site Script Inclusion](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.13_Testing_for_Cross_Site_Script_Inclusion.md)
 
 ## [5. Reporting](5_Reporting/5_Reporting.md)
 
