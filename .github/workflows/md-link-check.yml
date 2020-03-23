@@ -49,7 +49,8 @@ jobs:
         echo ::set-output name=links::**Following links are broken:** %0A$links
     - name: Send comment to PR with broken links
       if: failure() && github.event_name == 'pull_request'
-      uses: thollander/actions-comment-pull-request@1.0.0
+      uses: mshick/add-pr-comment@v1
       with:
         message: ${{ steps.brokenlinks.outputs.links }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        allow-repeats: true
