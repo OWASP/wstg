@@ -14,7 +14,7 @@
 
 [4.11.6 Testing for the Circumvention of Work Flows](4.11.6_Testing_for_the_Circumvention_of_Work_Flows.md)
 
-[4.11.7 Test Defenses Against Application Mis-use](4.11.7_Test_Defenses_Against_Application_Mis-use.md)
+[4.11.7 Test Defenses Against Application Mis-use](4.11.7_Test_Defenses_Against_Application_Misuse.md)
 
 [4.11.8 Test Upload of Unexpected File Types](4.11.8_Test_Upload_of_Unexpected_File_Types.md)
 
