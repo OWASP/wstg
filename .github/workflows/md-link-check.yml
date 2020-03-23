@@ -23,7 +23,7 @@ jobs:
       run: npm install -g markdown-link-check
     - name: Changed Files Exporter
       id: files
-      uses: futuratrepadeira/changed-files@v3.0.0
+      uses: futuratrepadeira/changed-files@v3.0.1
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Run link check
@@ -49,7 +49,7 @@ jobs:
         echo ::set-output name=links::**Following links are broken:** %0A$links
     - name: Send comment to PR with broken links
       if: failure() && github.event_name == 'pull_request'
-      uses: thollander/actions-comment-pull-request@master
+      uses: thollander/actions-comment-pull-request@1.0.0
       with:
         message: ${{ steps.brokenlinks.outputs.links }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.wstg_comment_token }}
