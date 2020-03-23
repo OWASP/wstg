@@ -66,9 +66,9 @@
 
 [4.2.5 Review Webpage Comments and Metadata for Information Leakage (WSTG-INFO-005)](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.5_Review_Webpage_Comments_and_Metadata_for_Information_Leakage_WSTG-INFO-005.md)
 
-[4.2.6 Identify application entry points (WSTG-INFO-006)](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.6_Identify_Application_Entry_Points_WSTG-INFO-006.md)
+[4.2.6 Identify Application Entry Points (WSTG-INFO-006)](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.6_Identify_Application_Entry_Points_WSTG-INFO-006.md)
 
-[4.2.7 Map execution paths through application (WSTG-INFO-007)](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.7_Map_Execution_Paths_Through_Application_WSTG-INFO-007.md)
+[4.2.7 Map Execution Paths Through Application (WSTG-INFO-007)](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.7_Map_Execution_Paths_Through_Application_WSTG-INFO-007.md)
 
 [4.2.8 Fingerprint Web Application Framework (WSTG-INFO-008)](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.8_Fingerprint_Web_Application_Framework_WSTG-INFO-008.md)
 
@@ -92,7 +92,7 @@
 
 [4.3.7 Test HTTP Strict Transport Security (WSTG-CONFIG-007)](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.7_Test_HTTP_Strict_Transport_Security_WSTG-CONFIG-007.md)
 
-[4.3.8 Test RIA cross domain policy (WSTG-CONFIG-008)](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.8_Test_RIA_Cross_Domain_Policy_WSTG-CONFIG-008.md)
+[4.3.8 Test RIA Cross Domain Policy (WSTG-CONFIG-008)](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.8_Test_RIA_Cross_Domain_Policy_WSTG-CONFIG-008.md)
 
 [4.3.9 Test File Permission (WSTG-CONFIG-009)](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.9_Test_File_Permission_WSTG-CONFIG-009.md)
 
@@ -108,35 +108,35 @@
 
 [4.4.4 Testing for Account Enumeration and Guessable User Account (WSTG-IDENT-004)](4_Web_Application_Security_Testing/4.4_Identity_Management_Testing/4.4.4_Testing_for_Account_Enumeration_and_Guessable_User_Account_WSTG-IDENT-004.md)
 
-[4.4.5 Testing for Weak or unenforced username policy (WSTG-IDENT-005)](4_Web_Application_Security_Testing/4.4_Identity_Management_Testing/4.4.5_Testing_for_Weak_or_Unenforced_Username_Policy_WSTG-IDENT-005.md)
+[4.4.5 Testing for Weak or Unenforced Username Policy (WSTG-IDENT-005)](4_Web_Application_Security_Testing/4.4_Identity_Management_Testing/4.4.5_Testing_for_Weak_or_Unenforced_Username_Policy_WSTG-IDENT-005.md)
 
 **[4.5 Authentication Testing](4_Web_Application_Security_Testing/4.5_Authentication_Testing/)**
 
-[4.5.1 Testing for Credentials Transported over an Encrypted Channel (WSTG-AUTHN-001)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.1_Testing_for_Credentials_Transported_over_an_Encrypted_Channel_WSTG-AUTHN-001.md)
+[4.5.1 Testing for Credentials Transported Over an Encrypted Channel (WSTG-AUTHN-001)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.1_Testing_for_Credentials_Transported_over_an_Encrypted_Channel_WSTG-AUTHN-001.md)
 
-[4.5.2 Testing for default credentials (WSTG-AUTHN-002)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.2_Testing_for_Default_Credentials_WSTG-AUTHN-002.md)
+[4.5.2 Testing for Default Credentials (WSTG-AUTHN-002)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.2_Testing_for_Default_Credentials_WSTG-AUTHN-002.md)
 
-[4.5.3 Testing for Weak lock out mechanism (WSTG-AUTHN-003)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.3_Testing_for_Weak_Lock_Out_Mechanism_WSTG-AUTHN-003.md)
+[4.5.3 Testing for Weak Lock out Mechanism (WSTG-AUTHN-003)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.3_Testing_for_Weak_Lock_Out_Mechanism_WSTG-AUTHN-003.md)
 
-[4.5.4 Testing for bypassing authentication schema (WSTG-AUTHN-004)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.4_Testing_for_Bypassing_Authentication_Schema_WSTG-AUTHN-004.md)
+[4.5.4 Testing for Bypassing Authentication Schema (WSTG-AUTHN-004)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.4_Testing_for_Bypassing_Authentication_Schema_WSTG-AUTHN-004.md)
 
-[4.5.5 Test remember password functionality (WSTG-AUTHN-005)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.5_Testing_for_Vulnerable_Remember_Password_WSTG-AUTHN-005.md)
+[4.5.5 Test Remember Password Functionality (WSTG-AUTHN-005)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.5_Testing_for_Vulnerable_Remember_Password_WSTG-AUTHN-005.md)
 
-[4.5.6 Testing for Browser cache weakness (WSTG-AUTHN-006)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.6_Testing_for_Browser_Cache_Weaknesses_WSTG-AUTHN-006.md)
+[4.5.6 Testing for Browser Cache Weakness (WSTG-AUTHN-006)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.6_Testing_for_Browser_Cache_Weaknesses_WSTG-AUTHN-006.md)
 
-[4.5.7 Testing for Weak password policy (WSTG-AUTHN-007)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.7_Testing_for_Weak_Password_Policy_WSTG-AUTHN-007.md)
+[4.5.7 Testing for Weak Password Policy (WSTG-AUTHN-007)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.7_Testing_for_Weak_Password_Policy_WSTG-AUTHN-007.md)
 
-[4.5.8 Testing for Weak security question/answer (WSTG-AUTHN-008)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.8_Testing_for_Weak_Security_Question_Answer_WSTG-AUTHN-008.md)
+[4.5.8 Testing for Weak Security Question/Answer (WSTG-AUTHN-008)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.8_Testing_for_Weak_Security_Question_Answer_WSTG-AUTHN-008.md)
 
-[4.5.9 Testing for weak password change or reset functionalities (WSTG-AUTHN-009)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.9_Testing_for_Weak_Password_Change_or_Reset_Functionalities_WSTG-AUTHN-009.md)
+[4.5.9 Testing for Weak Password Change or Reset Functionalities (WSTG-AUTHN-009)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.9_Testing_for_Weak_Password_Change_or_Reset_Functionalities_WSTG-AUTHN-009.md)
 
-[4.5.10 Testing for Weaker authentication in alternative channel (WSTG-AUTHN-010)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.10_Testing_for_Weaker_Authentication_in_Alternative_Channel_WSTG-AUTHN-010.md)
+[4.5.10 Testing for Weaker Authentication in Alternative Channel (WSTG-AUTHN-010)](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.10_Testing_for_Weaker_Authentication_in_Alternative_Channel_WSTG-AUTHN-010.md)
 
 **[4.6 Authorization Testing](4_Web_Application_Security_Testing/4.6_Authorization_Testing/)**
 
-[4.6.1 Testing Directory traversal/file include (WSTG-AUTHZ-001)](4_Web_Application_Security_Testing/4.6_Authorization_Testing/4.6.1_Testing_Directory_Traversal_File_Include_WSTG-AUTHZ-001.md)
+[4.6.1 Testing Directory Traversal/File Include (WSTG-AUTHZ-001)](4_Web_Application_Security_Testing/4.6_Authorization_Testing/4.6.1_Testing_Directory_Traversal_File_Include_WSTG-AUTHZ-001.md)
 
-[4.6.2 Testing for bypassing authorization schema (WSTG-AUTHZ-002)](4_Web_Application_Security_Testing/4.6_Authorization_Testing/4.6.2_Testing_for_Bypassing_Authorization_Schema_WSTG-AUTHZ-002.md)
+[4.6.2 Testing for Bypassing Authorization Schema (WSTG-AUTHZ-002)](4_Web_Application_Security_Testing/4.6_Authorization_Testing/4.6.2_Testing_for_Bypassing_Authorization_Schema_WSTG-AUTHZ-002.md)
 
 [4.6.3 Testing for Privilege Escalation (WSTG-AUTHZ-003)](4_Web_Application_Security_Testing/4.6_Authorization_Testing/4.6.3_Testing_for_Privilege_Escalation_WSTG-AUTHZ-003.md)
 
@@ -146,7 +146,7 @@
 
 [4.7.1 Testing for Bypassing Session Management Schema (WSTG-SESS-001)](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.1_Testing_for_Session_Management_Schema_WSTG-SESS-001.md)
 
-[4.7.2 Testing for Cookies attributes (WSTG-SESS-002)](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.2_Testing_for_Cookies_Attributes_WSTG-SESS-002.md)
+[4.7.2 Testing for Cookies Attributes (WSTG-SESS-002)](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.2_Testing_for_Cookies_Attributes_WSTG-SESS-002.md)
 
 [4.7.3 Testing for Session Fixation (WSTG-SESS-003)](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.3_Testing_for_Session_Fixation_WSTG-SESS-003.md)
 
@@ -154,11 +154,11 @@
 
 [4.7.5 Testing for Cross Site Request Forgery (CSRF) (WSTG-SESS-005)](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.5_Testing_for_CSRF_WSTG-SESS-005.md)
 
-[4.7.6 Testing for logout functionality (WSTG-SESS-006)](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.6_Testing_for_Logout_Functionality_WSTG-SESS-006.md)
+[4.7.6 Testing for Logout Functionality (WSTG-SESS-006)](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.6_Testing_for_Logout_Functionality_WSTG-SESS-006.md)
 
 [4.7.7 Test Session Timeout (WSTG-SESS-007)](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.7_Test_Session_Timeout_WSTG-SESS-007.md)
 
-[4.7.8 Testing for Session puzzling (WSTG-SESS-008)](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.8_Testing_for_Session_Puzzling_WSTG-SESS-008.md)
+[4.7.8 Testing for Session Puzzling (WSTG-SESS-008)](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.8_Testing_for_Session_Puzzling_WSTG-SESS-008.md)
 
 **[4.8 Input Validation Testing](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/)**
 
@@ -168,7 +168,7 @@
 
 [4.8.3 Testing for HTTP Verb Tampering (WSTG-INPVAL-003)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.3_Testing_for_HTTP_Verb_Tampering_WSTG-INPVAL-003.md)
 
-[4.8.4 Testing for HTTP Parameter pollution (WSTG-INPVAL-004)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.4_Testing_for_HTTP_Parameter_Pollution_WSTG-INPVAL-004.md)
+[4.8.4 Testing for HTTP Parameter Pollution (WSTG-INPVAL-004)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.4_Testing_for_HTTP_Parameter_Pollution_WSTG-INPVAL-004.md)
 
 [4.8.5 Testing for SQL Injection (WSTG-INPVAL-005)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.5_Testing_for_SQL_Injection_WSTG-INPVAL-005.md)
 
@@ -178,11 +178,11 @@
 
 [4.8.5.3 SQL Server Testing](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.5.3_Testing_for_SQL_Server.md)
 
-[4.8.5.4 Testing PostgreSQL (from OWASP BSP)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.5.4_OWASP_Backend_Security_Project_Testing_PostgreSQL.md)
+[4.8.5.4 Testing PostgreSQL (From OWASP BSP)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.5.4_OWASP_Backend_Security_Project_Testing_PostgreSQL.md)
 
 [4.8.5.5 MS Access Testing](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.5.5_Testing_for_MS_Access.md)
 
-[4.8.5.6 Testing for NoSQL injection](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.5.6_Testing_for_NoSQL_Injection.md)
+[4.8.5.6 Testing for NoSQL Injection](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.5.6_Testing_for_NoSQL_Injection.md)
 
 [4.8.6 Testing for LDAP Injection (WSTG-INPVAL-006)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.6_Testing_for_LDAP_Injection_WSTG-INPVAL-006.md)
 
@@ -204,15 +204,15 @@
 
 [4.8.13 Testing for Command Injection (WSTG-INPVAL-013)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.13_Testing_for_Command_Injection_WSTG-INPVAL-013.md)
 
-[4.8.14 Testing for Buffer overflow (WSTG-INPVAL-014)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.14_Testing_for_Buffer_Overflow_WSTG-INPVAL-014.md)
+[4.8.14 Testing for Buffer Overflow (WSTG-INPVAL-014)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.14_Testing_for_Buffer_Overflow_WSTG-INPVAL-014.md)
 
-[4.8.14.1 Testing for Heap overflow](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.14.1_Testing_for_Heap_Overflow.md)
+[4.8.14.1 Testing for Heap Overflow](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.14.1_Testing_for_Heap_Overflow.md)
 
-[4.8.14.2 Testing for Stack overflow](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.14.2_Testing_for_Stack_Overflow.md)
+[4.8.14.2 Testing for Stack Overflow](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.14.2_Testing_for_Stack_Overflow.md)
 
-[4.8.14.3 Testing for Format string](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.14.3_Testing_for_Format_String.md)
+[4.8.14.3 Testing for Format String](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.14.3_Testing_for_Format_String.md)
 
-[4.8.15 Testing for incubated vulnerabilities (WSTG-INPVAL-015)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.15_Testing_for_Incubated_Vulnerability_WSTG-INPVAL-015.md)
+[4.8.15 Testing for Incubated Vulnerabilities (WSTG-INPVAL-015)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.15_Testing_for_Incubated_Vulnerability_WSTG-INPVAL-015.md)
 
 [4.8.16 Testing for HTTP Splitting/Smuggling (WSTG-INPVAL-016)](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.16_Testing_for_HTTP_Splitting_Smuggling_WSTG-INPVAL-016.md)
 
@@ -226,13 +226,13 @@
 
 [4.9.2 Analysis of Stack Traces (WSTG-ERR-002)](4_Web_Application_Security_Testing/4.9_Testing_for_Error_Handling/4.9.2_Testing_for_Stack_Traces_WSTG-ERR-002.md)
 
-**[4.10 Testing for weak Cryptography](4_Web_Application_Security_Testing/4.10_Testing_for_Weak_Cryptography/)**
+**[4.10 Testing for Weak Cryptography](4_Web_Application_Security_Testing/4.10_Testing_for_Weak_Cryptography/)**
 
 [4.10.1 Testing for Weak SSL/TLS Ciphers, Insufficient Transport Layer Protection (WSTG-CRYPST-001)](4_Web_Application_Security_Testing/4.10_Testing_for_Weak_Cryptography/4.10.1_Testing_for_Weak_SSL_TLS_Ciphers_Insufficient_Transport_Layer_Protection_WSTG-CRYPST-001.md)
 
 [4.10.2 Testing for Padding Oracle (WSTG-CRYPST-002)](4_Web_Application_Security_Testing/4.10_Testing_for_Weak_Cryptography/4.10.2_Testing_for_Padding_Oracle_WSTG-CRYPST-002.md)
 
-[4.10.3 Testing for Sensitive information sent via unencrypted channels (WSTG-CRYPST-003)](4_Web_Application_Security_Testing/4.10_Testing_for_Weak_Cryptography/4.10.3_Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels_WSTG-CRYPST-003.md)
+[4.10.3 Testing for Sensitive Information Sent via Unencrypted Channels (WSTG-CRYPST-003)](4_Web_Application_Security_Testing/4.10_Testing_for_Weak_Cryptography/4.10.3_Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels_WSTG-CRYPST-003.md)
 
 [4.10.4 Testing for Weak Encryption (WSTG-CRYPST-004)](4_Web_Application_Security_Testing/4.10_Testing_for_Weak_Cryptography/4.10.4_Testing_for_Weak_Encryption_WSTG-CRYPST-004.md)
 
@@ -246,11 +246,11 @@
 
 [4.11.4 Test for Process Timing (WSTG-BUSLOGIC-004)](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.4_Test_for_Process_Timing_WSTG-BUSLOGIC-004.md)
 
-[4.11.5 Test Number of Times a Function Can be Used Limits (WSTG-BUSLOGIC-005)](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.5_Test_Number_of_Times_a_Function_Can_Be_Used_Limits_WSTG-BUSLOGIC-005.md)
+[4.11.5 Test Number of Times a Function Can Be Used Limits (WSTG-BUSLOGIC-005)](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.5_Test_Number_of_Times_a_Function_Can_Be_Used_Limits_WSTG-BUSLOGIC-005.md)
 
 [4.11.6 Testing for the Circumvention of Work Flows (WSTG-BUSLOGIC-006)](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.6_Testing_for_the_Circumvention_of_Work_Flows_WSTG-BUSLOGIC-006.md)
 
-[4.11.7 Test Defenses Against Application Mis-use (WSTG-BUSLOGIC-007)](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.7_Test_Defenses_Against_Application_Mis-use_WSTG-BUSLOGIC-007.md)
+[4.11.7 Test Defenses Against Application Misuse (WSTG-BUSLOGIC-007)](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.7_Test_Defenses_Against_Application_Mis-use_WSTG-BUSLOGIC-007.md)
 
 [4.11.8 Test Upload of Unexpected File Types (WSTG-BUSLOGIC-008)](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.8_Test_Upload_of_Unexpected_File_Types_WSTG-BUSLOGIC-008.md)
 
@@ -258,7 +258,7 @@
 
 **[4.12 Client Side Testing](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/)**
 
-[4.12.1 Testing for DOM based Cross Site Scripting (WSTG-CLIENT-001)](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.1_Testing_for_DOM-based_Cross_Site_Scripting_WSTG-CLIENT-001.md)
+[4.12.1 Testing for DOM-Based Cross Site Scripting (WSTG-CLIENT-001)](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.1_Testing_for_DOM-based_Cross_Site_Scripting_WSTG-CLIENT-001.md)
 
 [4.12.2 Testing for JavaScript Execution (WSTG-CLIENT-002)](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.2_Testing_for_JavaScript_Execution_WSTG-CLIENT-002.md)
 
