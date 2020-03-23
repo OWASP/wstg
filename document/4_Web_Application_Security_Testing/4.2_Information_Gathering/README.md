@@ -1,7 +1,5 @@
 # 4.2 Testing for Information Gathering
 
-Testing for Information Gathering includes the following articles:
-
 [4.2.1 Conduct Search Engine Discovery and Reconnaissance for Information Leakage](4.2.1_Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage.md)
 
 [4.2.2 Fingerprint Web Server](4.2.2_Fingerprint_Web_Server.md)

@@ -1,9 +1,5 @@
 # 4.12 Client-Side Testing
 
-Client-side testing is concerned with the execution of code on the client, typically natively within a web browser or browser plugin. The execution of code on the client-side is distinct from executing on the server and returning the subsequent content.
-
-The following articles describe how to conduct a Client-Side test of a web application:
-
 [4.12.1 Testing for DOM based Cross Site Scripting](4.12.1_Testing_for_DOM-based_Cross_Site_Scripting.md)
 
 [4.12.2 Testing for JavaScript Execution](4.12.2_Testing_for_JavaScript_Execution.md)

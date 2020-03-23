@@ -66,9 +66,9 @@
 
 [4.2.5 Review Webpage Comments and Metadata for Information Leakage](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.5_Review_Webpage_Comments_and_Metadata_for_Information_Leakage.md)
 
-[4.2.6 Identify application entry points](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.6_Identify_Application_Entry_Points.md)
+[4.2.6 Identify Application Entry Points](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.6_Identify_Application_Entry_Points.md)
 
-[4.2.7 Map execution paths through application](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.7_Map_Execution_Paths_Through_Application.md)
+[4.2.7 Map Execution Paths Through Application](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.7_Map_Execution_Paths_Through_Application.md)
 
 [4.2.8 Fingerprint Web Application Framework](4_Web_Application_Security_Testing/4.2_Information_Gathering/4.2.8_Fingerprint_Web_Application_Framework.md)
 
@@ -92,7 +92,7 @@
 
 [4.3.7 Test HTTP Strict Transport Security](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.7_Test_HTTP_Strict_Transport_Security.md)
 
-[4.3.8 Test RIA cross domain policy](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.8_Test_RIA_Cross_Domain_Policy.md)
+[4.3.8 Test RIA Cross Domain Policy](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.8_Test_RIA_Cross_Domain_Policy.md)
 
 [4.3.9 Test File Permission](4_Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.9_Test_File_Permission.md)
 
@@ -110,35 +110,35 @@
 
 [4.4.4 Testing for Account Enumeration and Guessable User Account](4_Web_Application_Security_Testing/4.4_Identity_Management_Testing/4.4.4_Testing_for_Account_Enumeration_and_Guessable_User_Account.md)
 
-[4.4.5 Testing for Weak or unenforced username policy](4_Web_Application_Security_Testing/4.4_Identity_Management_Testing/4.4.5_Testing_for_Weak_or_Unenforced_Username_Policy.md)
+[4.4.5 Testing for Weak or Unenforced Username Policy](4_Web_Application_Security_Testing/4.4_Identity_Management_Testing/4.4.5_Testing_for_Weak_or_Unenforced_Username_Policy.md)
 
 **[4.5 Authentication Testing](4_Web_Application_Security_Testing/4.5_Authentication_Testing/)**
 
-[4.5.1 Testing for Credentials Transported over an Encrypted Channel](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.1_Testing_for_Credentials_Transported_over_an_Encrypted_Channel.md)
+[4.5.1 Testing for Credentials Transported Over an Encrypted Channel](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.1_Testing_for_Credentials_Transported_over_an_Encrypted_Channel.md)
 
-[4.5.2 Testing for default credentials](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.2_Testing_for_Default_Credentials.md)
+[4.5.2 Testing for Default Credentials](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.2_Testing_for_Default_Credentials.md)
 
-[4.5.3 Testing for Weak lock out mechanism](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.3_Testing_for_Weak_Lock_Out_Mechanism.md)
+[4.5.3 Testing for Weak Lock out Mechanism](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.3_Testing_for_Weak_Lock_Out_Mechanism.md)
 
-[4.5.4 Testing for bypassing authentication schema](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.4_Testing_for_Bypassing_Authentication_Schema.md)
+[4.5.4 Testing for Bypassing Authentication Schema](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.4_Testing_for_Bypassing_Authentication_Schema.md)
 
-[4.5.5 Test remember password functionality](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.5_Testing_for_Vulnerable_Remember_Password.md)
+[4.5.5 Test Remember Password Functionality](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.5_Testing_for_Vulnerable_Remember_Password.md)
 
-[4.5.6 Testing for Browser cache weakness](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.6_Testing_for_Browser_Cache_Weaknesses.md)
+[4.5.6 Testing for Browser Cache Weakness](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.6_Testing_for_Browser_Cache_Weaknesses.md)
 
-[4.5.7 Testing for Weak password policy](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.7_Testing_for_Weak_Password_Policy.md)
+[4.5.7 Testing for Weak Password Policy](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.7_Testing_for_Weak_Password_Policy.md)
 
-[4.5.8 Testing for Weak security question/answer](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.8_Testing_for_Weak_Security_Question_Answer.md)
+[4.5.8 Testing for Weak Security Question/Answer](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.8_Testing_for_Weak_Security_Question_Answer.md)
 
-[4.5.9 Testing for weak password change or reset functionalities](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.9_Testing_for_Weak_Password_Change_or_Reset_Functionalities.md)
+[4.5.9 Testing for Weak Password Change or Reset Functionalities](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.9_Testing_for_Weak_Password_Change_or_Reset_Functionalities.md)
 
-[4.5.10 Testing for Weaker authentication in alternative channel](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.10_Testing_for_Weaker_Authentication_in_Alternative_Channel.md)
+[4.5.10 Testing for Weaker Authentication in Alternative Channel](4_Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.10_Testing_for_Weaker_Authentication_in_Alternative_Channel.md)
 
 **[4.6 Authorization Testing](4_Web_Application_Security_Testing/4.6_Authorization_Testing/)**
 
-[4.6.1 Testing Directory traversal/file include](4_Web_Application_Security_Testing/4.6_Authorization_Testing/4.6.1_Testing_Directory_Traversal_File_Include.md)
+[4.6.1 Testing Directory Traversal/File Include](4_Web_Application_Security_Testing/4.6_Authorization_Testing/4.6.1_Testing_Directory_Traversal_File_Include.md)
 
-[4.6.2 Testing for bypassing authorization schema)](4_Web_Application_Security_Testing/4.6_Authorization_Testing/4.6.2_Testing_for_Bypassing_Authorization_Schema.md)
+[4.6.2 Testing for Bypassing Authorization Schema)](4_Web_Application_Security_Testing/4.6_Authorization_Testing/4.6.2_Testing_for_Bypassing_Authorization_Schema.md)
 
 [4.6.3 Testing for Privilege Escalation](4_Web_Application_Security_Testing/4.6_Authorization_Testing/4.6.3_Testing_for_Privilege_Escalation.md)
 
@@ -148,7 +148,7 @@
 
 [4.7.1 Testing for Bypassing Session Management Schema](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.1_Testing_for_Session_Management_Schema.md)
 
-[4.7.2 Testing for Cookies attributes](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.2_Testing_for_Cookies_Attributes.md)
+[4.7.2 Testing for Cookies Attributes](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.2_Testing_for_Cookies_Attributes.md)
 
 [4.7.3 Testing for Session Fixation](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.3_Testing_for_Session_Fixation.md)
 
@@ -156,11 +156,11 @@
 
 [4.7.5 Testing for Cross Site Request Forgery (CSRF)](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.5_Testing_for_CSRF.md)
 
-[4.7.6 Testing for logout functionality](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.6_Testing_for_Logout_Functionality.md)
+[4.7.6 Testing for Logout Functionality](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.6_Testing_for_Logout_Functionality.md)
 
 [4.7.7 Test Session Timeout](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.7_Test_Session_Timeout.md)
 
-[4.7.8 Testing for Session puzzling](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.8_Testing_for_Session_Puzzling.md)
+[4.7.8 Testing for Session Puzzling](4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.8_Testing_for_Session_Puzzling.md)
 
 **[4.8 Input Validation Testing](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/)**
 
@@ -170,7 +170,7 @@
 
 [4.8.3 Testing for HTTP Verb Tampering](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.3_Testing_for_HTTP_Verb_Tampering.md)
 
-[4.8.4 Testing for HTTP Parameter pollution](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.4_Testing_for_HTTP_Parameter_Pollution.md)
+[4.8.4 Testing for HTTP Parameter Pollution](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.4_Testing_for_HTTP_Parameter_Pollution.md)
 
 [4.8.5 Testing for SQL Injection](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.5_Testing_for_SQL_Injection.md)
 
@@ -184,7 +184,7 @@
 
 [4.8.5.5 MS Access Testing](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.5.5_Testing_for_MS_Access.md)
 
-[4.8.5.6 Testing for NoSQL injection](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.5.6_Testing_for_NoSQL_Injection.md)
+[4.8.5.6 Testing for NoSQL Injection](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.5.6_Testing_for_NoSQL_Injection.md)
 
 [4.8.6 Testing for LDAP Injection](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.6_Testing_for_LDAP_Injection.md)
 
@@ -206,15 +206,15 @@
 
 [4.8.13 Testing for Command Injection](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.13_Testing_for_Command_Injection.md)
 
-[4.8.14 Testing for Buffer overflow](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.14_Testing_for_Buffer_Overflow.md)
+[4.8.14 Testing for Buffer Overflow](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.14_Testing_for_Buffer_Overflow.md)
 
-[4.8.14.1 Testing for Heap overflow](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.14.1_Testing_for_Heap_Overflow.md)
+[4.8.14.1 Testing for Heap Overflow](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.14.1_Testing_for_Heap_Overflow.md)
 
-[4.8.14.2 Testing for Stack overflow](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.14.2_Testing_for_Stack_Overflow.md)
+[4.8.14.2 Testing for Stack Overflow](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.14.2_Testing_for_Stack_Overflow.md)
 
-[4.8.14.3 Testing for Format string](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.14.3_Testing_for_Format_String.md)
+[4.8.14.3 Testing for Format String](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.14.3_Testing_for_Format_String.md)
 
-[4.8.15 Testing for incubated vulnerabilities](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.15_Testing_for_Incubated_Vulnerability.md)
+[4.8.15 Testing for Incubated Vulnerabilities](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.15_Testing_for_Incubated_Vulnerability.md)
 
 [4.8.16 Testing for HTTP Splitting/Smuggling](4_Web_Application_Security_Testing/4.8_Input_Validation_Testing/4.8.16_Testing_for_HTTP_Splitting_Smuggling.md)
 
@@ -230,13 +230,13 @@
 
 [4.9.2 Analysis of Stack Traces](4_Web_Application_Security_Testing/4.9_Testing_for_Error_Handling/4.9.2_Testing_for_Stack_Traces.md)
 
-**[4.10 Testing for weak Cryptography](4_Web_Application_Security_Testing/4.10_Testing_for_Weak_Cryptography/)**
+**[4.10 Testing for Weak Cryptography](4_Web_Application_Security_Testing/4.10_Testing_for_Weak_Cryptography/)**
 
 [4.10.1 Testing for Weak SSL/TLS Ciphers, Insufficient Transport Layer Protection](4_Web_Application_Security_Testing/4.10_Testing_for_Weak_Cryptography/4.10.1_Testing_for_Weak_SSL_TLS_Ciphers_Insufficient_Transport_Layer_Protection.md)
 
 [4.10.2 Testing for Padding Oracle](4_Web_Application_Security_Testing/4.10_Testing_for_Weak_Cryptography/4.10.2_Testing_for_Padding_Oracle.md)
 
-[4.10.3 Testing for Sensitive information sent via unencrypted channels](4_Web_Application_Security_Testing/4.10_Testing_for_Weak_Cryptography/4.10.3_Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels.md)
+[4.10.3 Testing for Sensitive Information Sent via Unencrypted Channels](4_Web_Application_Security_Testing/4.10_Testing_for_Weak_Cryptography/4.10.3_Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels.md)
 
 [4.10.4 Testing for Weak Encryption](4_Web_Application_Security_Testing/4.10_Testing_for_Weak_Cryptography/4.10.4_Testing_for_Weak_Encryption.md)
 
@@ -250,11 +250,11 @@
 
 [4.11.4 Test for Process Timing](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.4_Test_for_Process_Timing.md)
 
-[4.11.5 Test Number of Times a Function Can be Used Limits](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.5_Test_Number_of_Times_a_Function_Can_Be_Used_Limits.md)
+[4.11.5 Test Number of Times a Function Can Be Used Limits](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.5_Test_Number_of_Times_a_Function_Can_Be_Used_Limits.md)
 
 [4.11.6 Testing for the Circumvention of Work Flows](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.6_Testing_for_the_Circumvention_of_Work_Flows.md)
 
-[4.11.7 Test Defenses Against Application Mis-use](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.7_Test_Defenses_Against_Application_Mis-use.md)
+[4.11.7 Test Defenses Against Application Misuse](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.7_Test_Defenses_Against_Application_Mis-use.md)
 
 [4.11.8 Test Upload of Unexpected File Types](4_Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.8_Test_Upload_of_Unexpected_File_Types.md)
 
@@ -262,7 +262,7 @@
 
 **[4.12 Client Side Testing](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/)**
 
-[4.12.1 Testing for DOM based Cross Site Scripting](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.1_Testing_for_DOM-based_Cross_Site_Scripting.md)
+[4.12.1 Testing for DOM-Based Cross Site Scripting](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.1_Testing_for_DOM-based_Cross_Site_Scripting.md)
 
 [4.12.2 Testing for JavaScript Execution](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.2_Testing_for_JavaScript_Execution.md)
 
