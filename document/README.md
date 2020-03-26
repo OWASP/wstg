@@ -1,34 +1,34 @@
 # Table of Contents
 
-## [Foreword by Eoin Keary](0_Foreword/0_Foreword.md)
+## [Foreword by Eoin Keary](0_Foreword/README.md)
 
 ## [1. Frontispiece](1_Frontispiece/)
 
-**[1.1 About the OWASP Testing Guide Project](1_Frontispiece/1_Frontispiece.md)**
+**[1.1 About the OWASP Testing Guide Project](1_Frontispiece/README.md)**
 
 ## [2. Introduction](2_Introduction/)
 
-**[2.1 The OWASP Testing Project](2_Introduction/2_Introduction.md#The-OWASP-Testing-Project)**
+**[2.1 The OWASP Testing Project](2_Introduction/README.md#The-OWASP-Testing-Project)**
 
-**[2.2 Principles of Testing](2_Introduction/2_Introduction.md#Principles-of-Testing)**
+**[2.2 Principles of Testing](2_Introduction/README.md#Principles-of-Testing)**
 
-**[2.3 Testing Techniques Explained](2_Introduction/2_Introduction.md#Testing-Techniques-Explained)**
+**[2.3 Testing Techniques Explained](2_Introduction/README.md#Testing-Techniques-Explained)**
 
-**[2.4 Manual Inspections & Reviews](2_Introduction/2_Introduction.md#Manual-Inspections-and-Reviews)**
+**[2.4 Manual Inspections & Reviews](2_Introduction/README.md#Manual-Inspections-and-Reviews)**
 
-**[2.5 Threat Modeling](2_Introduction/2_Introduction.md#Threat-Modeling)**
+**[2.5 Threat Modeling](2_Introduction/README.md#Threat-Modeling)**
 
-**[2.6 Source Code Review](2_Introduction/2_Introduction.md#Source-Code-Review)**
+**[2.6 Source Code Review](2_Introduction/README.md#Source-Code-Review)**
 
-**[2.7 Penetration Testing](2_Introduction/2_Introduction.md#Penetration-Testing)**
+**[2.7 Penetration Testing](2_Introduction/README.md#Penetration-Testing)**
 
-**[2.8 The Need for a Balanced Approach](2_Introduction/2_Introduction.md#The-Need-for-a-Balanced-Approach)**
+**[2.8 The Need for a Balanced Approach](2_Introduction/README.md#The-Need-for-a-Balanced-Approach)**
 
-**[2.9 Deriving Security Test Requirements](2_Introduction/2_Introduction.md#Deriving-Security-Test-Requirements)**
+**[2.9 Deriving Security Test Requirements](2_Introduction/README.md#Deriving-Security-Test-Requirements)**
 
-**[2.10 Security Tests Integrated in Development and Testing Workflows](2_Introduction/2_Introduction.md#Security-Tests-Integrated-in-Development-and-Testing-Workflows)**
+**[2.10 Security Tests Integrated in Development and Testing Workflows](2_Introduction/README.md#Security-Tests-Integrated-in-Development-and-Testing-Workflows)**
 
-**[2.11 Security Test Data Analysis and Reporting](2_Introduction/2_Introduction.md#Security-Test-Data-Analysis-and-Reporting)**
+**[2.11 Security Test Data Analysis and Reporting](2_Introduction/README.md#Security-Test-Data-Analysis-and-Reporting)**
 
 ## [3. The OWASP Testing Framework](3_The_OWASP_Testing_Framework/)
 
@@ -288,9 +288,9 @@
 
 [4.12.13 Testing for Cross Site Script Inclusion](4_Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.13_Testing_for_Cross_Site_Script_Inclusion.md)
 
-## [5. Reporting](5_Reporting/5_Reporting.md)
+## [5. Reporting](5_Reporting/README.md)
 
-## [Appendix A: Testing Tools Resource](Appx.A_Testing_Tools_Resource/Appx.A_Testing_Tools.md)
+## [Appendix A: Testing Tools Resource](Appx.A_Testing_Tools_Resource/README.md)
 
 ### Security Testing Tools
 
@@ -312,21 +312,21 @@
 - [https://www.caine-live.net/index.html](https://www.caine-live.net/index.html)
 - [https://www.pentoo.ch/download/](https://www.pentoo.ch/download/)
 
-## [Appendix B: Suggested Reading](Appx.B_Suggested_Reading/Appx.B_Suggested_Reading.md)
+## [Appendix B: Suggested Reading](Appx.B_Suggested_Reading/README.md)
 
 - Whitepapers
 - Books
 - Useful Websites
 
-## [Appendix C: Fuzz Vectors](Appx.C_Fuzz_Vectors/Appx.C_Fuzz_Vectors.md)
+## [Appendix C: Fuzz Vectors](Appx.C_Fuzz_Vectors/README.md)
 
 - Fuzz Categories
 
-## [Appendix D: Encoded Injection](Appx.D_Encoded_Injection/Appx.D_Encoded_Injection.md)
+## [Appendix D: Encoded Injection](Appx.D_Encoded_Injection/README.md)
 
 - Input Encoding
 - Output Encoding
 
-## [Appendix E: Misc](Appx.E_Misc/Appx.E_History.md)
+## [Appendix E: Misc](Appx.E_Misc/README.md)
 
 - History

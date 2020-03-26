@@ -72,7 +72,7 @@ To increase the chances that your PR is merged, please make sure that:
 3. Your writing follows the [article template materials](template) and [style guide](style_guide.md).
 4. Your code snippets are correct, well-tested, and commented where necessary for understanding.
 
-Once the PR is complete, we'll merge it! At that point, you may like to add yourself to [the project's list of authors, reviewers, or editors](document/1_Frontispiece/1_Frontispiece.md).
+Once the PR is complete, we'll merge it! At that point, you may like to add yourself to [the project's list of authors, reviewers, or editors](document/1_Frontispiece/READMEe.md).
 
 ## How to Set Up Your Contributor Environment
 
