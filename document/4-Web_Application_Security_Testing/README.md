@@ -20,6 +20,6 @@
 
 [4.10 Cryptography](09-Testing_for_Weak_Cryptography/README.md)
 
-[4.11 Business Logic Testing](4.11_Business_Logic_Testing/README.md)
+[4.11 Business Logic Testing](10-Business_Logic_Testing/README.md)
 
 [4.12 Client Side Testing](4.12_Client_Side_Testing/README.md)

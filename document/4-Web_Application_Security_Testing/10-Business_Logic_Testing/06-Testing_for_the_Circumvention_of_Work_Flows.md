@@ -53,21 +53,21 @@ An electronic bulletin board system may be designed to ensure that initial posts
 
 [Testing for Bypassing Session Management Schema](../06-Session_Management_Testing/01-Testing_for_Session_Management_Schema.md)
 
-[Test Business Logic Data Validation](4.11.1_Test_Business_Logic_Data_Validation.md)
+[Test Business Logic Data Validation](01-Test_Business_Logic_Data_Validation.md)
 
-[Test Ability to Forge Requests](4.11.2_Test_Ability_to_Forge_Requests.md)
+[Test Ability to Forge Requests](02-Test_Ability_to_Forge_Requests.md)
 
-[Test Integrity Checks](4.11.3_Test_Integrity_Checks.md)
+[Test Integrity Checks](03-Test_Integrity_Checks.md)
 
-[Test for Process Timing](4.11.4_Test_for_Process_Timing.md)
+[Test for Process Timing](04-Test_for_Process_Timing.md)
 
-[Test Number of Times a Function Can be Used Limits](4.11.5_Test_Number_of_Times_a_Function_Can_Be_Used_Limits.md)
+[Test Number of Times a Function Can be Used Limits](05-Test_Number_of_Times_a_Function_Can_Be_Used_Limits.md)
 
-[Test Defenses Against Application Mis-use](4.11.7_Test_Defenses_Against_Application_Misuse.md)
+[Test Defenses Against Application Mis-use](07-Test_Defenses_Against_Application_Misuse.md)
 
-[Test Upload of Unexpected File Types](4.11.8_Test_Upload_of_Unexpected_File_Types.md)
+[Test Upload of Unexpected File Types](08-Test_Upload_of_Unexpected_File_Types.md)
 
-[Test Upload of Malicious Files](4.11.9_Test_Upload_of_Malicious_Files.md)
+[Test Upload of Malicious Files](09-Test_Upload_of_Malicious_Files.md)
 
 ## References
 

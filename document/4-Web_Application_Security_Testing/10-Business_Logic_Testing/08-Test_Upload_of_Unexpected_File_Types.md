@@ -52,7 +52,7 @@ Specific Testing Method
 
 [Test File Extensions Handling for Sensitive Information](../02-Configuration_and_Deployment_Management_Testing/03-Test_File_Extensions_Handling_for_Sensitive_Information.md)
 
-[Test Upload of Malicious Files](4.11.9_Test_Upload_of_Malicious_Files.md)
+[Test Upload of Malicious Files](09-Test_Upload_of_Malicious_Files.md)
 
 ## References
 

@@ -238,25 +238,25 @@
 
 [4.10.4 Testing for Weak Encryption](4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/04-Testing_for_Weak_Encryption.md)
 
-**[4.11 Business Logic Testing](4-Web_Application_Security_Testing/4.11_Business_Logic_Testing/)**
+**[4.11 Business Logic Testing](4-Web_Application_Security_Testing/10-Business_Logic_Testing/)**
 
-[4.11.1 Test Business Logic Data Validation](4-Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.1_Test_Business_Logic_Data_Validation.md)
+[4.11.1 Test Business Logic Data Validation](4-Web_Application_Security_Testing/10-Business_Logic_Testing/01-Test_Business_Logic_Data_Validation.md)
 
-[4.11.2 Test Ability to Forge Requests](4-Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.2_Test_Ability_to_Forge_Requests.md)
+[4.11.2 Test Ability to Forge Requests](4-Web_Application_Security_Testing/10-Business_Logic_Testing/02-Test_Ability_to_Forge_Requests.md)
 
-[4.11.3 Test Integrity Checks](4-Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.3_Test_Integrity_Checks.md)
+[4.11.3 Test Integrity Checks](4-Web_Application_Security_Testing/10-Business_Logic_Testing/03-Test_Integrity_Checks.md)
 
-[4.11.4 Test for Process Timing](4-Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.4_Test_for_Process_Timing.md)
+[4.11.4 Test for Process Timing](4-Web_Application_Security_Testing/10-Business_Logic_Testing/04-Test_for_Process_Timing.md)
 
-[4.11.5 Test Number of Times a Function Can Be Used Limits](4-Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.5_Test_Number_of_Times_a_Function_Can_Be_Used_Limits.md)
+[4.11.5 Test Number of Times a Function Can Be Used Limits](4-Web_Application_Security_Testing/10-Business_Logic_Testing/05-Test_Number_of_Times_a_Function_Can_Be_Used_Limits.md)
 
-[4.11.6 Testing for the Circumvention of Work Flows](4-Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.6_Testing_for_the_Circumvention_of_Work_Flows.md)
+[4.11.6 Testing for the Circumvention of Work Flows](4-Web_Application_Security_Testing/10-Business_Logic_Testing/06-Testing_for_the_Circumvention_of_Work_Flows.md)
 
-[4.11.7 Test Defenses Against Application Misuse](4-Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.7_Test_Defenses_Against_Application_Misuse.md)
+[4.11.7 Test Defenses Against Application Misuse](4-Web_Application_Security_Testing/10-Business_Logic_Testing/07-Test_Defenses_Against_Application_Misuse.md)
 
-[4.11.8 Test Upload of Unexpected File Types](4-Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.8_Test_Upload_of_Unexpected_File_Types.md)
+[4.11.8 Test Upload of Unexpected File Types](4-Web_Application_Security_Testing/10-Business_Logic_Testing/08-Test_Upload_of_Unexpected_File_Types.md)
 
-[4.11.9 Test Upload of Malicious Files](4-Web_Application_Security_Testing/4.11_Business_Logic_Testing/4.11.9_Test_Upload_of_Malicious_Files.md)
+[4.11.9 Test Upload of Malicious Files](4-Web_Application_Security_Testing/10-Business_Logic_Testing/09-Test_Upload_of_Malicious_Files.md)
 
 **[4.12 Client Side Testing](4-Web_Application_Security_Testing/4.12_Client_Side_Testing/)**
 

@@ -124,7 +124,7 @@ Upload the [ZIP bomb](https://github.com/AbhiAgarwal/notes/wiki/Zip-bomb) file t
 
 [Test File Extensions Handling for Sensitive Information](../02-Configuration_and_Deployment_Management_Testing/03-Test_File_Extensions_Handling_for_Sensitive_Information.md)
 
-[Test Upload of Unexpected File Types](../4.11_Business_Logic_Testing/4.11.8_Test_Upload_of_Unexpected_File_Types.md)
+[Test Upload of Unexpected File Types](../4.11_Business_Logic_Testing/08-Test_Upload_of_Unexpected_File_Types.md)
 
 ## Tools
 
