@@ -22,4 +22,4 @@
 
 [4.11 Business Logic Testing](10-Business_Logic_Testing/README.md)
 
-[4.12 Client Side Testing](4.12_Client_Side_Testing/README.md)
+[4.12 Client Side Testing](11-Client_Side_Testing/README.md)

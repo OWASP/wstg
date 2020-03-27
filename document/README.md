@@ -258,33 +258,33 @@
 
 [4.11.9 Test Upload of Malicious Files](4-Web_Application_Security_Testing/10-Business_Logic_Testing/09-Test_Upload_of_Malicious_Files.md)
 
-**[4.12 Client Side Testing](4-Web_Application_Security_Testing/4.12_Client_Side_Testing/)**
+**[4.12 Client Side Testing](4-Web_Application_Security_Testing/11-Client_Side_Testing/)**
 
-[4.12.1 Testing for DOM-Based Cross Site Scripting](4-Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.1_Testing_for_DOM-based_Cross_Site_Scripting.md)
+[4.12.1 Testing for DOM-Based Cross Site Scripting](4-Web_Application_Security_Testing/11-Client_Side_Testing/01-Testing_for_DOM-based_Cross_Site_Scripting.md)
 
-[4.12.2 Testing for JavaScript Execution](4-Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.2_Testing_for_JavaScript_Execution.md)
+[4.12.2 Testing for JavaScript Execution](4-Web_Application_Security_Testing/11-Client_Side_Testing/02-Testing_for_JavaScript_Execution.md)
 
-[4.12.3 Testing for HTML Injection](4-Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.3_Testing_for_HTML_Injection.md)
+[4.12.3 Testing for HTML Injection](4-Web_Application_Security_Testing/11-Client_Side_Testing/03-Testing_for_HTML_Injection.md)
 
-[4.12.4 Testing for Client Side URL Redirect](4-Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.4_Testing_for_Client_Side_URL_Redirect.md)
+[4.12.4 Testing for Client Side URL Redirect](4-Web_Application_Security_Testing/11-Client_Side_Testing/04-Testing_for_Client_Side_URL_Redirect.md)
 
-[4.12.5 Testing for CSS Injection](4-Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.5_Testing_for_CSS_Injection.md)
+[4.12.5 Testing for CSS Injection](4-Web_Application_Security_Testing/11-Client_Side_Testing/05-Testing_for_CSS_Injection.md)
 
-[4.12.6 Testing for Client Side Resource Manipulation](4-Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.6_Testing_for_Client_Side_Resource_Manipulation.md)
+[4.12.6 Testing for Client Side Resource Manipulation](4-Web_Application_Security_Testing/11-Client_Side_Testing/06-Testing_for_Client_Side_Resource_Manipulation.md)
 
-[4.12.7 Testing Cross Origin Resource Sharing](4-Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.7_Testing_Cross_Origin_Resource_Sharing.md)
+[4.12.7 Testing Cross Origin Resource Sharing](4-Web_Application_Security_Testing/11-Client_Side_Testing/07-Testing_Cross_Origin_Resource_Sharing.md)
 
-[4.12.8 Testing for Cross Site Flashing](4-Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.8_Testing_for_Cross_Site_Flashing.md)
+[4.12.8 Testing for Cross Site Flashing](4-Web_Application_Security_Testing/11-Client_Side_Testing/08-Testing_for_Cross_Site_Flashing.md)
 
-[4.12.9 Testing for Clickjacking](4-Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.9_Testing_for_Clickjacking.md)
+[4.12.9 Testing for Clickjacking](4-Web_Application_Security_Testing/11-Client_Side_Testing/09-Testing_for_Clickjacking.md)
 
-[4.12.10 Testing WebSockets](4-Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.10_Testing_WebSockets.md)
+[4.12.10 Testing WebSockets](4-Web_Application_Security_Testing/11-Client_Side_Testing/10-Testing_WebSockets.md)
 
-[4.12.11 Testing Web Messaging](4-Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.11_Testing_Web_Messaging.md)
+[4.12.11 Testing Web Messaging](4-Web_Application_Security_Testing/11-Client_Side_Testing/11-Testing_Web_Messaging.md)
 
-[4.12.12 Testing Local Storage](4-Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.12_Testing_Web_Storage.md)
+[4.12.12 Testing Local Storage](4-Web_Application_Security_Testing/11-Client_Side_Testing/12-Testing_Web_Storage.md)
 
-[4.12.13 Testing for Cross Site Script Inclusion](4-Web_Application_Security_Testing/4.12_Client_Side_Testing/4.12.13_Testing_for_Cross_Site_Script_Inclusion.md)
+[4.12.13 Testing for Cross Site Script Inclusion](4-Web_Application_Security_Testing/11-Client_Side_Testing/13-Testing_for_Cross_Site_Script_Inclusion.md)
 
 ## [5. Reporting](5_Reporting/README.md)
 
