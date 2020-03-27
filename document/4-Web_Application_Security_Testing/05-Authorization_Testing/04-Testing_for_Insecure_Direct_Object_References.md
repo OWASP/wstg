@@ -45,7 +45,7 @@ Sample request:
 
 In this case, the value of the *file* parameter is used to tell the application what file the user intends to retrieve. By providing the name or identifier of a different file (for example file=image00012.jpg) the attacker will be able to retrieve objects belonging to other users.
 
-To test for this case, the tester should obtain a reference the user is not supposed to be able to access and attempt to access it by using it as the value of *file* parameter. Note: This vulnerability is often exploited in conjunction with a directory/path traversal vulnerability (see [Testing for Path Traversal](4.6.1_Testing_Directory_Traversal_File_Include.md))
+To test for this case, the tester should obtain a reference the user is not supposed to be able to access and attempt to access it by using it as the value of *file* parameter. Note: This vulnerability is often exploited in conjunction with a directory/path traversal vulnerability (see [Testing for Path Traversal](01-Testing_Directory_Traversal_File_Include.md))
 
 ### The Value of a Parameter Is Used Directly to Access Application Functionality
 

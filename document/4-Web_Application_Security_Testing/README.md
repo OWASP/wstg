@@ -10,7 +10,7 @@
 
 [4.5 Authentication Testing](04-Authentication_Testing/README.md)
 
-[4.6 Authorization Testing](4.6_Authorization_Testing/README.md)
+[4.6 Authorization Testing](05-Authorization_Testing/README.md)
 
 [4.7 Session Management Testing](4.7_Session_Management_Testing/README.md)
 
