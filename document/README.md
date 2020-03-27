@@ -32,21 +32,21 @@
 
 ## [3. The OWASP Testing Framework](3-The_OWASP_Testing_Framework/)
 
-**[3.1 Overview](3-The_OWASP_Testing_Framework/0_The_OWASP_Testing_Framework.md#Overview)**
+**[3.1 Overview](3-The_OWASP_Testing_Framework/0-The_OWASP_Testing_Framework.md#Overview)**
 
-**[3.2 Phase 1: Before Development Begins](3-The_OWASP_Testing_Framework/0_The_OWASP_Testing_Framework.md#Phase-1:-Before-Development-Begins)**
+**[3.2 Phase 1: Before Development Begins](3-The_OWASP_Testing_Framework/0-The_OWASP_Testing_Framework.md#Phase-1:-Before-Development-Begins)**
 
-**[3.3 Phase 2: During Definition and Design](3-The_OWASP_Testing_Framework/0_The_OWASP_Testing_Framework.md#Phase-2:-During-Definition-and-Design)**
+**[3.3 Phase 2: During Definition and Design](3-The_OWASP_Testing_Framework/0-The_OWASP_Testing_Framework.md#Phase-2:-During-Definition-and-Design)**
 
-**[3.4 Phase 3: During Development](3-The_OWASP_Testing_Framework/0_The_OWASP_Testing_Framework.md#Phase-3:-During-Development)**
+**[3.4 Phase 3: During Development](3-The_OWASP_Testing_Framework/0-The_OWASP_Testing_Framework.md#Phase-3:-During-Development)**
 
-**[3.5 Phase 4: During Deployment](3-The_OWASP_Testing_Framework/0_The_OWASP_Testing_Framework.md#Phase-4:-During-Deployment)**
+**[3.5 Phase 4: During Deployment](3-The_OWASP_Testing_Framework/0-The_OWASP_Testing_Framework.md#Phase-4:-During-Deployment)**
 
-**[3.6 Phase 5: Maintenance and Operations](3-The_OWASP_Testing_Framework/0_The_OWASP_Testing_Framework.md#Phase-5:-Maintenance-and-Operations)**
+**[3.6 Phase 5: Maintenance and Operations](3-The_OWASP_Testing_Framework/0-The_OWASP_Testing_Framework.md#Phase-5:-Maintenance-and-Operations)**
 
-**[3.7 A Typical SDLC Testing Workflow](3-The_OWASP_Testing_Framework/0_The_OWASP_Testing_Framework.md#A-Typical-SDLC-Testing-Workflow)**
+**[3.7 A Typical SDLC Testing Workflow](3-The_OWASP_Testing_Framework/0-The_OWASP_Testing_Framework.md#A-Typical-SDLC-Testing-Workflow)**
 
-**[3.8 Penetration Testing Methodologies](3-The_OWASP_Testing_Framework/1_Penetration_Testing_Methodologies.md)**
+**[3.8 Penetration Testing Methodologies](3-The_OWASP_Testing_Framework/1-Penetration_Testing_Methodologies.md)**
 
 ## [4. Web Application Security Testing](4-Web_Application_Security_Testing/)
 
