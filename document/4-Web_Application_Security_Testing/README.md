@@ -8,7 +8,7 @@
 
 [4.4 Identity Management Testing](03-Identity_Management_Testing/README.md)
 
-[4.5 Authentication Testing](4.5_Authentication_Testing/README.md)
+[4.5 Authentication Testing](04-Authentication_Testing/README.md)
 
 [4.6 Authorization Testing](4.6_Authorization_Testing/README.md)
 

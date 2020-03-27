@@ -110,27 +110,27 @@
 
 [4.4.5 Testing for Weak or Unenforced Username Policy](4-Web_Application_Security_Testing/03-Identity_Management_Testing/05-Testing_for_Weak_or_Unenforced_Username_Policy.md)
 
-**[4.5 Authentication Testing](4-Web_Application_Security_Testing/4.5_Authentication_Testing/)**
+**[4.5 Authentication Testing](4-Web_Application_Security_Testing/04-Authentication_Testing/)**
 
-[4.5.1 Testing for Credentials Transported Over an Encrypted Channel](4-Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.1_Testing_for_Credentials_Transported_over_an_Encrypted_Channel.md)
+[4.5.1 Testing for Credentials Transported Over an Encrypted Channel](4-Web_Application_Security_Testing/04-Authentication_Testing/01-Testing_for_Credentials_Transported_over_an_Encrypted_Channel.md)
 
-[4.5.2 Testing for Default Credentials](4-Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.2_Testing_for_Default_Credentials.md)
+[4.5.2 Testing for Default Credentials](4-Web_Application_Security_Testing/04-Authentication_Testing/02-Testing_for_Default_Credentials.md)
 
-[4.5.3 Testing for Weak Lock out Mechanism](4-Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.3_Testing_for_Weak_Lock_Out_Mechanism.md)
+[4.5.3 Testing for Weak Lock out Mechanism](4-Web_Application_Security_Testing/04-Authentication_Testing/03-Testing_for_Weak_Lock_Out_Mechanism.md)
 
-[4.5.4 Testing for Bypassing Authentication Schema](4-Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.4_Testing_for_Bypassing_Authentication_Schema.md)
+[4.5.4 Testing for Bypassing Authentication Schema](4-Web_Application_Security_Testing/04-Authentication_Testing/04-Testing_for_Bypassing_Authentication_Schema.md)
 
-[4.5.5 Test Remember Password Functionality](4-Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.5_Testing_for_Vulnerable_Remember_Password.md)
+[4.5.5 Test Remember Password Functionality](4-Web_Application_Security_Testing/04-Authentication_Testing/05-Testing_for_Vulnerable_Remember_Password.md)
 
-[4.5.6 Testing for Browser Cache Weakness](4-Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.6_Testing_for_Browser_Cache_Weaknesses.md)
+[4.5.6 Testing for Browser Cache Weakness](4-Web_Application_Security_Testing/04-Authentication_Testing/06-Testing_for_Browser_Cache_Weaknesses.md)
 
-[4.5.7 Testing for Weak Password Policy](4-Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.7_Testing_for_Weak_Password_Policy.md)
+[4.5.7 Testing for Weak Password Policy](4-Web_Application_Security_Testing/04-Authentication_Testing/07-Testing_for_Weak_Password_Policy.md)
 
-[4.5.8 Testing for Weak Security Question/Answer](4-Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.8_Testing_for_Weak_Security_Question_Answer.md)
+[4.5.8 Testing for Weak Security Question/Answer](4-Web_Application_Security_Testing/04-Authentication_Testing/08-Testing_for_Weak_Security_Question_Answer.md)
 
-[4.5.9 Testing for Weak Password Change or Reset Functionalities](4-Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.9_Testing_for_Weak_Password_Change_or_Reset_Functionalities.md)
+[4.5.9 Testing for Weak Password Change or Reset Functionalities](4-Web_Application_Security_Testing/04-Authentication_Testing/09-Testing_for_Weak_Password_Change_or_Reset_Functionalities.md)
 
-[4.5.10 Testing for Weaker Authentication in Alternative Channel](4-Web_Application_Security_Testing/4.5_Authentication_Testing/4.5.10_Testing_for_Weaker_Authentication_in_Alternative_Channel.md)
+[4.5.10 Testing for Weaker Authentication in Alternative Channel](4-Web_Application_Security_Testing/04-Authentication_Testing/10-Testing_for_Weaker_Authentication_in_Alternative_Channel.md)
 
 **[4.6 Authorization Testing](4-Web_Application_Security_Testing/4.6_Authorization_Testing/)**
 

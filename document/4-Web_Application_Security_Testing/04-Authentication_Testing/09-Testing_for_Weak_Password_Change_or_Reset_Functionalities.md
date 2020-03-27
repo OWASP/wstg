@@ -28,7 +28,7 @@ In addition to the previous checks it is important to verify the following:
 - What information is required to reset the password?
 
   The first step is to check whether secret questions are required. Sending the password (or a password reset link) to the user email address without first asking for a secret question means relying 100% on the security of that email address, which is not suitable if the application needs a high level of security.
-  On the other hand, if secret questions are used, the next step is to assess their strength. This specific test is discussed in detail in the [Testing for Weak security question/answer](4.5.8_Testing_for_Weak_Security_Question_Answer.md) paragraph of this guide.
+  On the other hand, if secret questions are used, the next step is to assess their strength. This specific test is discussed in detail in the [Testing for Weak security question/answer](08-Testing_for_Weak_Security_Question_Answer.md) paragraph of this guide.
 
 - How are reset passwords communicated to the user?
   The most insecure scenario here is if the password reset tool shows you the password; this gives the attacker the ability to log into the account, and unless the application provides information about the last log in the victim would not know that their account has been compromised.
@@ -51,7 +51,7 @@ In addition to the previous test it is important to verify:
 - Is the old password requested to complete the change?
 
   The most insecure scenario here is if the application permits the change of the password without requesting the current password. Indeed if an attacker is able to take control of a valid session they could easily change the victim's password.
-  See also [Testing for Weak password policy](4.5.7_Testing_for_Weak_Password_Policy.md) paragraph of this guide.
+  See also [Testing for Weak password policy](07-Testing_for_Weak_Password_Policy.md) paragraph of this guide.
 
 ## References
 
