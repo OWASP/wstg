@@ -18,7 +18,7 @@
 
 [4.9 Error Handling](08-Testing_for_Error_Handling/README.md)
 
-[4.10 Cryptography](4.10_Testing_for_Weak_Cryptography/README.md)
+[4.10 Cryptography](09-Testing_for_Weak_Cryptography/README.md)
 
 [4.11 Business Logic Testing](4.11_Business_Logic_Testing/README.md)
 
