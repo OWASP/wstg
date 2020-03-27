@@ -19,7 +19,7 @@ For both password change and password reset it is important to check:
 
 1. if users, other than administrators, can change or reset passwords for accounts other than their own.
 2. if users can manipulate or subvert the password change or reset process to change or reset the password of another user or administrator.
-3. if the password change or reset process is vulnerable to [CSRF](../4.7_Session_Management_Testing/4.7.5_Testing_for_CSRF.md).
+3. if the password change or reset process is vulnerable to [CSRF](../06-Session_Management_Testing/05-Testing_for_CSRF.md).
 
 ### Test Password Reset
 

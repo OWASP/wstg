@@ -186,7 +186,7 @@ Session token should have a defined time-out (it depends on the criticality of t
   - secure (set only on HTTPS channel): `Set-Cookie: cookie=data; path=/; domain=.aaa.it; secure`
   - [HTTPOnly](https://owasp.org/www-community/HttpOnly) (not readable by a script): `Set-Cookie: cookie=data; path=/; domain=.aaa.it; HttpOnly`
 
-More information here: [Testing for cookies attributes](4.7.2_Testing_for_Cookies_Attributes.md)
+More information here: [Testing for cookies attributes](02-Testing_for_Cookies_Attributes.md)
 
 ## Tools
 

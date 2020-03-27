@@ -1,0 +1,17 @@
+# 4.7 Session Management Testing
+
+[4.7.1 Testing for Bypassing Session Management Schema](01-Testing_for_Session_Management_Schema.md)
+
+[4.7.2 Testing for Cookies Attributes](02-Testing_for_Cookies_Attributes.md)
+
+[4.7.3 Testing for Session Fixation](03-Testing_for_Session_Fixation.md)
+
+[4.7.4 Testing for Exposed Session Variables](04-Testing_for_Exposed_Session_Variables.md)
+
+[4.7.5 Testing for Cross Site Request Forgery (CSRF)](05-Testing_for_CSRF.md)
+
+[4.7.6 Testing for Logout Functionality](06-Testing_for_Logout_Functionality.md)
+
+[4.7.7 Test Session Timeout](07-Testing_Session_Timeout.md)
+
+[4.7.8 Testing for Session Puzzling](08-Testing_for_Session_Puzzling.md)

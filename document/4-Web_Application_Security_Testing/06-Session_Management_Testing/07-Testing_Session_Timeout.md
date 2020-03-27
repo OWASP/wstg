@@ -22,7 +22,7 @@ The most common scenario for this kind of attack is a public computer that is us
 
 ### Black-Box Testing
 
-The same approach seen in the [Testing for logout functionality](4.7.6_Testing_for_Logout_Functionality.md) section can be applied when measuring the timeout log out.
+The same approach seen in the [Testing for logout functionality](06-Testing_for_Logout_Functionality.md) section can be applied when measuring the timeout log out.
 The testing methodology is very similar. First, testers have to check whether a timeout exists, for instance, by logging in and waiting for the timeout log out to be triggered. As in the log out function, after the timeout has passed, all session tokens should be destroyed or be unusable.
 
 Then, if the timeout is configured, testers need to understand whether the timeout is enforced by the client or by the server (or both). If the session cookie is non-persistent (or, more in general, the session cookie does not store any data about the time), testers can assume that the timeout is enforced by the server. If the session cookie contains some time related data (e.g., log in time, or last access time, or expiration date for a persistent cookie), then it's possible that the client is involved in the timeout enforcing. In this case, testers could try to modify the cookie (if it's not cryptographically protected) and see what happens to the session. For instance, testers can set the cookie expiration date far in the future and see whether the session can be prolonged.

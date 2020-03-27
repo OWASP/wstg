@@ -12,7 +12,7 @@
 
 [4.6 Authorization Testing](05-Authorization_Testing/README.md)
 
-[4.7 Session Management Testing](4.7_Session_Management_Testing/README.md)
+[4.7 Session Management Testing](06-Session_Management_Testing/README.md)
 
 [4.8 Input Validation Testing](4.8_Input_Validation_Testing/README.md)
 

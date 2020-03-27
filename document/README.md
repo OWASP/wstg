@@ -142,23 +142,23 @@
 
 [4.6.4 Testing for Insecure Direct Object References](4-Web_Application_Security_Testing/05-Authorization_Testing/04-Testing_for_Insecure_Direct_Object_References.md)
 
-**[4.7 Session Management Testing](4-Web_Application_Security_Testing/4.7_Session_Management_Testing/)**
+**[4.7 Session Management Testing](4-Web_Application_Security_Testing/06-Session_Management_Testing/)**
 
-[4.7.1 Testing for Bypassing Session Management Schema](4-Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.1_Testing_for_Session_Management_Schema.md)
+[4.7.1 Testing for Bypassing Session Management Schema](4-Web_Application_Security_Testing/06-Session_Management_Testing/01-Testing_for_Session_Management_Schema.md)
 
-[4.7.2 Testing for Cookies Attributes](4-Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.2_Testing_for_Cookies_Attributes.md)
+[4.7.2 Testing for Cookies Attributes](4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.md)
 
-[4.7.3 Testing for Session Fixation](4-Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.3_Testing_for_Session_Fixation.md)
+[4.7.3 Testing for Session Fixation](4-Web_Application_Security_Testing/06-Session_Management_Testing/03-Testing_for_Session_Fixation.md)
 
-[4.7.4 Testing for Exposed Session Variables](4-Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.4_Testing_for_Exposed_Session_Variables.md)
+[4.7.4 Testing for Exposed Session Variables](4-Web_Application_Security_Testing/06-Session_Management_Testing/04-Testing_for_Exposed_Session_Variables.md)
 
-[4.7.5 Testing for Cross Site Request Forgery (CSRF)](4-Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.5_Testing_for_CSRF.md)
+[4.7.5 Testing for Cross Site Request Forgery (CSRF)](4-Web_Application_Security_Testing/06-Session_Management_Testing/05-Testing_for_CSRF.md)
 
-[4.7.6 Testing for Logout Functionality](4-Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.6_Testing_for_Logout_Functionality.md)
+[4.7.6 Testing for Logout Functionality](4-Web_Application_Security_Testing/06-Session_Management_Testing/06-Testing_for_Logout_Functionality.md)
 
-[4.7.7 Test Session Timeout](4-Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.7_Test_Session_Timeout.md)
+[4.7.7 Test Session Timeout](4-Web_Application_Security_Testing/06-Session_Management_Testing/07-Testing_Session_Timeout.md)
 
-[4.7.8 Testing for Session Puzzling](4-Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.8_Testing_for_Session_Puzzling.md)
+[4.7.8 Testing for Session Puzzling](4-Web_Application_Security_Testing/06-Session_Management_Testing/08-Testing_for_Session_Puzzling.md)
 
 **[4.8 Input Validation Testing](4-Web_Application_Security_Testing/4.8_Input_Validation_Testing/)**
 
