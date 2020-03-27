@@ -16,7 +16,7 @@
 
 [4.8 Input Validation Testing](07-Input_Validation_Testing/README.md)
 
-[4.9 Error Handling](4.9_Testing_for_Error_Handling/README.md)
+[4.9 Error Handling](08-Testing_for_Error_Handling/README.md)
 
 [4.10 Cryptography](4.10_Testing_for_Weak_Cryptography/README.md)
 
