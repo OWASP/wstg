@@ -286,7 +286,7 @@
 
 [4.12.13 Testing for Cross Site Script Inclusion](4-Web_Application_Security_Testing/11-Client_Side_Testing/13-Testing_for_Cross_Site_Script_Inclusion.md)
 
-## [5. Reporting](5_Reporting/README.md)
+## [5. Reporting](5-Reporting/README.md)
 
 ## [Appendix A: Testing Tools Resource](Appx.A_Testing_Tools_Resource/README.md)
 
