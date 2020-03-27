@@ -74,29 +74,29 @@
 
 [4.1.10 Map Application Architecture](4-Web_Application_Security_Testing/1-Information_Gathering/10-Map_Application_Architecture.md)
 
-**[4.3 Configuration and Deployment Management Testing](4-Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/)**
+**[4.3 Configuration and Deployment Management Testing](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/)**
 
-[4.3.1 Test Network/Infrastructure Configuration](4-Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.1_Test_Network_Infrastructure_Configuration.md)
+[4.3.1 Test Network/Infrastructure Configuration](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/01-Test_Network_Infrastructure_Configuration.md)
 
-[4.3.2 Test Application Platform Configuration](4-Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.2_Test_Application_Platform_Configuration.md)
+[4.3.2 Test Application Platform Configuration](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/02-Test_Application_Platform_Configuration.md)
 
-[4.3.3 Test File Extensions Handling for Sensitive Information](4-Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.3_Test_File_Extensions_Handling_for_Sensitive_Information.md)
+[4.3.3 Test File Extensions Handling for Sensitive Information](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/03-Test_File_Extensions_Handling_for_Sensitive_Information.md)
 
-[4.3.4 Review Old, Backup and Unreferenced Files for Sensitive Information](4-Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.4_Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information.md)
+[4.3.4 Review Old, Backup and Unreferenced Files for Sensitive Information](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/04-Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information.md)
 
-[4.3.5 Enumerate Infrastructure and Application Admin Interfaces](4-Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.5_Enumerate_Infrastructure_and_Application_Admin_Interfaces.md)
+[4.3.5 Enumerate Infrastructure and Application Admin Interfaces](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/05-Enumerate_Infrastructure_and_Application_Admin_Interfaces.md)
 
-[4.3.6 Test HTTP Methods](4-Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.6_Test_HTTP_Methods.md)
+[4.3.6 Test HTTP Methods](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/06-Test_HTTP_Methods.md)
 
-[4.3.7 Test HTTP Strict Transport Security](4-Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.7_Test_HTTP_Strict_Transport_Security.md)
+[4.3.7 Test HTTP Strict Transport Security](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/07-Test_HTTP_Strict_Transport_Security.md)
 
-[4.3.8 Test RIA Cross Domain Policy](4-Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.8_Test_RIA_Cross_Domain_Policy.md)
+[4.3.8 Test RIA Cross Domain Policy](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/08-Test_RIA_Cross_Domain_Policy.md)
 
-[4.3.9 Test File Permission](4-Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.9_Test_File_Permission.md)
+[4.3.9 Test File Permission](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/09-Test_File_Permission.md)
 
-[4.3.10 Test for Subdomain Takeover](4-Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.10_Test_for_Subdomain_Takeover.md)
+[4.3.10 Test for Subdomain Takeover](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/10-Test_for_Subdomain_Takeover.md)
 
-[4.3.11 Test Cloud Storage](4-Web_Application_Security_Testing/4.3_Configuration_and_Deployment_Management_Testing/4.3.11_Test_Cloud_Storage.md)
+[4.3.11 Test Cloud Storage](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/11-Test_Cloud_Storage.md)
 
 **[4.4 Identity Management Testing](4-Web_Application_Security_Testing/4.4_Identity_Management_Testing/)**
 

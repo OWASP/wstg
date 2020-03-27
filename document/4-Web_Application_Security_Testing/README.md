@@ -4,7 +4,7 @@
 
 [4.2 Information Gathering](4.2_Information_Gathering/README.md)
 
-[4.3 Configuration and Deployment Management Testing](4.3_Configuration_and_Deployment_Management_Testing/README.md)
+[4.3 Configuration and Deployment Management Testing](02-Configuration_and_Deployment_Management_Testing/README.md)
 
 [4.4 Identity Management Testing](4.4_Identity_Management_Testing/README.md)
 
