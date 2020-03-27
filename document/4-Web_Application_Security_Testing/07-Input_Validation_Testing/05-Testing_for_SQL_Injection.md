@@ -557,9 +557,9 @@ EXEC(@SQLivar)
 
 Technology specific Testing Guide pages have been created for the following DBMSs:
 
-- [Oracle](4.8.5.1_Testing_for_Oracle.md)
-- [MySQL](4.8.5.2_Testing_for_MySQL.md)
-- [SQL Server](4.8.5.3_Testing_for_SQL_Server.md)
+- [Oracle](05.1-Testing_for_Oracle.md)
+- [MySQL](05.2-Testing_for_MySQL.md)
+- [SQL Server](05.3-Testing_for_SQL_Server.md)
 
 ### Whitepapers
 
