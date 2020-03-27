@@ -6,7 +6,7 @@
 
 [4.3 Configuration and Deployment Management Testing](02-Configuration_and_Deployment_Management_Testing/README.md)
 
-[4.4 Identity Management Testing](4.4_Identity_Management_Testing/README.md)
+[4.4 Identity Management Testing](03-Identity_Management_Testing/README.md)
 
 [4.5 Authentication Testing](4.5_Authentication_Testing/README.md)
 
