@@ -10,7 +10,7 @@ Sensitive data must be protected when it is transmitted through the network. If 
 
 - [OWASP Top 10 2017 A3-Sensitive Data Exposure](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure).
 - [OWASP ASVS - Verification V10](https://code.google.com/p/owasp-asvs/wiki/Verification_V10).
-- [Transport Layer Protection Cheat Sheet](https://owasp.org/www-project-cheat-sheets/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html).
+- [Transport Layer Protection Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html).
 
 As a rule of thumb if data must be protected when it is stored, this data must also be protected during transmission. Some examples for sensitive data are:
 
