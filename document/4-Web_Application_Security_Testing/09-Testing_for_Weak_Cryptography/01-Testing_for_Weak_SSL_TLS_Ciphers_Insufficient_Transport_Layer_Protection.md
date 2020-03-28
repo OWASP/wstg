@@ -1167,12 +1167,12 @@ Rather than providing a fictitious example, this guide includes an anonymized re
 We are visiting a .it site and the certificate was issued to a .com site. Internet Explorer warns that the name on the certificate does not match the name of the site.
 
 ![IE SSL Certificate Validity Warning](images/SSL_Certificate_Validity_Testing_IE_Warning.gif) \
-*Figure 4.10.1-1: Warning issued by Microsoft Internet Explorer*
+*Figure 4.9.1-1: Warning issued by Microsoft Internet Explorer*
 
 The message issued by Firefox is different. Firefox complains because it cannot ascertain the identity of the .com site the certificate refers to because it does not know the CA which signed the certificate. In fact, Internet Explorer and Firefox do not come pre-loaded with the same list of CAs. Therefore, the behavior experienced with various browsers may differ.
 
 ![FF SSL Certificate Validity Warning](images/SSL_Certificate_Validity_Testing_Firefox_Warning.gif) \
-*Figure 4.10.1-2: Warning issued by Mozilla Firefox*
+*Figure 4.9.1-2: Warning issued by Mozilla Firefox*
 
 ### Testing for Other Vulnerabilities
 
