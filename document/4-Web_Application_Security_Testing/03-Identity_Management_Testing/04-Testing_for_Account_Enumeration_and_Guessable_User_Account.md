@@ -33,12 +33,12 @@ Now, the tester should try to insert a valid user ID and a wrong password and re
 > The browser should display a message similar to the following one:
 >
 > ![Authentication Failed](images/AuthenticationFailed.png)\
-> *Figure 4.4.4-1: Authentication Failed*
+> *Figure 4.3.4-1: Authentication Failed*
 >
 > or something like:
 >
 > ![No Configuration Found](images/NoConfFound.jpg)\
-> *Figure 4.4.4-2: No Configuration Found*
+> *Figure 4.3.4-2: No Configuration Found*
 >
 > against any message that reveals the existence of user, for instance, message similar to:
 >
@@ -53,7 +53,7 @@ Now, the tester should try to insert an invalid user ID and a wrong password and
 > If the tester enters a nonexistent user ID, they can receive a message similar to:
 >
 > ![This User is Not Active](images/Userisnotactive.png)\
-> *Figure 4.4.4-3: This User is Not Active*
+> *Figure 4.3.4-3: This User is Not Active*
 >
 > or message like the following one:
 >

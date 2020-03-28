@@ -34,12 +34,12 @@ Validate the registration process:
 In the WordPress example below, the only identification requirement is an email address that is accessible to the registrant.
 
 ![Wordpress Registration Page](images/Wordpress_registration_page.jpg)\
-*Figure 4.4.2-1: Wordpress Registration Page*
+*Figure 4.3.2-1: Wordpress Registration Page*
 
 In contrast, in the Google example below the identification requirements include name, date of birth, country, mobile phone number, email address and CAPTCHA response. While only two of these can be verified (email address and mobile number), the identification requirements are stricter than WordPress.
 
 ![Google Registration Page](images/Google_registration_page.jpg)\
-*Figure 4.4.2-2: Google Registration Page*
+*Figure 4.3.2-2: Google Registration Page*
 
 ## Tools
 
