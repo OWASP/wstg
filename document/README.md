@@ -74,9 +74,9 @@
 
 #### [4.1.10 Map Application Architecture](4-Web_Application_Security_Testing/01-Information_Gathering/10-Map_Application_Architecture.md)
 
-### [4.2 Configuration and Deployment Management Testing](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/)
+### [4.2 Configuration and Deployment Management Testing](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/README.md)
 
-#### [4.2.1 Test Network/Infrastructure Configuration](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/01-Test_Network_Infrastructure_Configuration.md)
+#### [4.2.1 Test Network Infrastructure Configuration](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/01-Test_Network_Infrastructure_Configuration.md)
 
 #### [4.2.2 Test Application Platform Configuration](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/02-Test_Application_Platform_Configuration.md)
 
@@ -98,7 +98,7 @@
 
 #### [4.2.11 Test Cloud Storage](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/11-Test_Cloud_Storage.md)
 
-### [4.3 Identity Management Testing](4-Web_Application_Security_Testing/03-Identity_Management_Testing/)
+### [4.3 Identity Management Testing](4-Web_Application_Security_Testing/03-Identity_Management_Testing/README.md)
 
 #### [4.3.1 Test Role Definitions](4-Web_Application_Security_Testing/03-Identity_Management_Testing/01-Test_Role_Definitions.md)
 
@@ -110,7 +110,7 @@
 
 #### [4.3.5 Testing for Weak or Unenforced Username Policy](4-Web_Application_Security_Testing/03-Identity_Management_Testing/05-Testing_for_Weak_or_Unenforced_Username_Policy.md)
 
-### [4.4 Authentication Testing](4-Web_Application_Security_Testing/04-Authentication_Testing/)
+### [4.4 Authentication Testing](4-Web_Application_Security_Testing/04-Authentication_Testing/README.md)
 
 #### [4.4.1 Testing for Credentials Transported Over an Encrypted Channel](4-Web_Application_Security_Testing/04-Authentication_Testing/01-Testing_for_Credentials_Transported_over_an_Encrypted_Channel.md)
 
@@ -132,7 +132,7 @@
 
 #### [4.4.10 Testing for Weaker Authentication in Alternative Channel](4-Web_Application_Security_Testing/04-Authentication_Testing/10-Testing_for_Weaker_Authentication_in_Alternative_Channel.md)
 
-### [4.5 Authorization Testing](4-Web_Application_Security_Testing/05-Authorization_Testing/)
+### [4.5 Authorization Testing](4-Web_Application_Security_Testing/05-Authorization_Testing/README.md)
 
 #### [4.5.1 Testing Directory Traversal/File Include](4-Web_Application_Security_Testing/05-Authorization_Testing/01-Testing_Directory_Traversal_File_Include.md)
 
@@ -142,7 +142,7 @@
 
 #### [4.5.4 Testing for Insecure Direct Object References](4-Web_Application_Security_Testing/05-Authorization_Testing/04-Testing_for_Insecure_Direct_Object_References.md)
 
-### [4.6 Session Management Testing](4-Web_Application_Security_Testing/06-Session_Management_Testing/)
+### [4.6 Session Management Testing](4-Web_Application_Security_Testing/06-Session_Management_Testing/README.md)
 
 #### [4.6.1 Testing for Bypassing Session Management Schema](4-Web_Application_Security_Testing/06-Session_Management_Testing/01-Testing_for_Session_Management_Schema.md)
 
@@ -160,7 +160,7 @@
 
 #### [4.6.8 Testing for Session Puzzling](4-Web_Application_Security_Testing/06-Session_Management_Testing/08-Testing_for_Session_Puzzling.md)
 
-### [4.7 Input Validation Testing](4-Web_Application_Security_Testing/07-Input_Validation_Testing/)
+### [4.7 Input Validation Testing](4-Web_Application_Security_Testing/07-Input_Validation_Testing/README.md)
 
 #### [4.7.1 Testing for Reflected Cross Site Scripting](4-Web_Application_Security_Testing/07-Input_Validation_Testing/01-Testing_for_Reflected_Cross_Site_Scripting.md)
 
@@ -222,13 +222,13 @@
 
 #### [4.7.19 Testing for Server Side Template Injection](4-Web_Application_Security_Testing/07-Input_Validation_Testing/19-Testing_for_Server_Side_Template_Injection.md)
 
-### [4.8 Testing for Error Handling](4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/)
+### [4.8 Testing for Error Handling](4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/README.md)
 
 #### [4.8.1 Analysis of Error Codes](4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/01-Testing_for_Error_Code.md)
 
 #### [4.8.2 Analysis of Stack Traces](4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/02-Testing_for_Stack_Traces.md)
 
-### [4.9 Testing for Weak Cryptography](4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/)
+### [4.9 Testing for Weak Cryptography](4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/README.md)
 
 #### [4.9.1 Testing for Weak SSL/TLS Ciphers, Insufficient Transport Layer Protection](4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_SSL_TLS_Ciphers_Insufficient_Transport_Layer_Protection.md)
 
@@ -238,7 +238,7 @@
 
 #### [4.9.4 Testing for Weak Encryption](4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/04-Testing_for_Weak_Encryption.md)
 
-### [4.10 Business Logic Testing](4-Web_Application_Security_Testing/10-Business_Logic_Testing/)
+### [4.10 Business Logic Testing](4-Web_Application_Security_Testing/10-Business_Logic_Testing/README.md)
 
 #### [4.10.1 Test Business Logic Data Validation](4-Web_Application_Security_Testing/10-Business_Logic_Testing/01-Test_Business_Logic_Data_Validation.md)
 
@@ -258,7 +258,7 @@
 
 #### [4.10.9 Test Upload of Malicious Files](4-Web_Application_Security_Testing/10-Business_Logic_Testing/09-Test_Upload_of_Malicious_Files.md)
 
-### [4.11 Client Side Testing](4-Web_Application_Security_Testing/11-Client_Side_Testing/)
+### [4.11 Client Side Testing](4-Web_Application_Security_Testing/11-Client_Side_Testing/README.md)
 
 #### [4.11.1 Testing for DOM-Based Cross Site Scripting](4-Web_Application_Security_Testing/11-Client_Side_Testing/01-Testing_for_DOM-based_Cross_Site_Scripting.md)
 
