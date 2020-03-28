@@ -148,7 +148,7 @@ This section presents a high-level overview of various testing techniques that c
 - Code Review
 - Penetration Testing
 
-## Manual Inspections & Reviews
+## Manual Inspections and Reviews
 
 ### Overview
 
