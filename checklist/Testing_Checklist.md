@@ -1,4 +1,4 @@
-# 4.1.1 Testing Checklist
+# Testing Checklist
 
 The following is the list of controls to test during the assessment:
 
