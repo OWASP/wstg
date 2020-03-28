@@ -32,7 +32,6 @@ This was a campaign that was proposed by the founder of the website " The Pirate
 This attack was perfomed by sending very small amounts of money of 1 SEK ($0.13) to the law firm.
 The bank account to which the payments were directed had only 1000 free transfers, after which any transfers have a surcharge  for the account holder (2 SEK). After the first thousand internet transactions every 1 SEK donation to the law firm will actually end up costing it 1 SEK instead.
 
-
 ## How to Test
 
 ### Generic Test Method
@@ -70,7 +69,6 @@ All [Input Validation](../07-Input_Validation_Testing/README.md) test cases.
 [OWASP Proactive controls(C5) - Validate all inputs](https://owasp.org/www-project-proactive-controls/v3/en/c5-validate-inputs)
 
 [OWASP Cheatsheet series - Input_Validation_Cheat_Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html)
-
 
 ## Remediation
 
