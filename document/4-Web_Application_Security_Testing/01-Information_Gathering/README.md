@@ -1,4 +1,4 @@
-# 4.2 Testing for Information Gathering
+# 4.1 Testing for Information Gathering
 
 [4.1.1 Conduct Search Engine Discovery and Reconnaissance for Information Leakage](01-Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage.md)
 
