@@ -53,17 +53,17 @@ Apart from information gathered from HTML sources, there is another approach whi
 In order to uncover them a technique known as dirbusting is used. Dirbusting is brute forcing a target with predictable folder and file names and monitoring HTTP-responses to emumerate server contents. This information can be used both for finding default files and attacking them, and for fingerprinting the web application. Dirbusting can be done in several ways, the example below shows a successful dirbusting attack against a WordPress-powered target with the help of defined list and intruder functionality of Burp Suite.
 
 ![Dirbusting with Burp](images/Wordpress_dirbusting.png)\
-*Figure 4.2.9-1: Dirbusting with Burp*
+*Figure 4.1.9-1: Dirbusting with Burp*
 
 We can see that for some WordPress-specific folders (for instance, `/wp-includes/`, `/wp-admin/` and `/wp-content/`) HTTP-reponses are 403 (Forbidden), 302 (Found, redirection to wp-login.php) and 200 (OK) respectively. This is a good indicator that the target is WordPress-powered. The same way it is possible to dirbust different application plugin folders and their versions. On the screenshot below one can see a typical CHANGELOG file of a Drupal plugin, which provides information on the application being used and discloses a vulnerable plugin version.
 
 ![Drupal Botcha Disclosure](images/Drupal_botcha_disclosure.png)\
-*Figure 4.2.9-2: Drupal Botcha Disclosure*
+*Figure 4.1.9-2: Drupal Botcha Disclosure*
 
 Tip: before starting dirbusting, it is recommended to check the robots.txt file first. Sometimes application specific folders and other sensitive information can be found there as well. An example of such a robots.txt file is presented on a screenshot below.
 
 ![Robots Info Disclosure](images/Robots-info-disclosure.png)\
-*Figure 4.2.9-3: Robots Info Disclosure*
+*Figure 4.1.9-3: Robots Info Disclosure*
 
 Specific files and folders are different for each specific application. It is recommended to install the corresponding application during penetration tests in order to have better understanding of what infrastructure is presented and what files might be left on the server. However, several good file lists already exist and one good example is [FuzzDB wordlists of predictable files/folders](https://github.com/fuzzdb-project/fuzzdb).
 
@@ -126,7 +126,7 @@ Currently one of the best fingerprinting tools on the market. Included in a defa
 Sample output is presented on a screenshot below:
 
 ![Whatweb Output sample](images/Whatweb-sample.png)\
-*Figure 4.2.9-3: Whatweb Output Sample*
+*Figure 4.1.9-4: Whatweb Output Sample*
 
 ### BlindElephant
 
@@ -176,7 +176,7 @@ Note that by default, Wappalyzer will send anonymised data about the technology 
 Sample output of a plug-in is presented on a screenshot below.
 
 ![Wappalyzer Output for OWASP Website](images/Owasp-wappalyzer.png)\
-*Figure 4.2.9-4: Wappalyzer Output for OWASP Website*
+*Figure 4.1.9-5: Wappalyzer Output for OWASP Website*
 
 ## References
 

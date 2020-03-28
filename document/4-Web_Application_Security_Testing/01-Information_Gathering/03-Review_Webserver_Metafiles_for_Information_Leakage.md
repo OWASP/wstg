@@ -136,7 +136,7 @@ Based on the Disallow directive(s) listed within the robots.txt file in webroot,
 For example, the robots.txt file from facebook.com has a `Disallow: /ac.php` entry [http://facebook.com/robots.txt](http://facebook.com/robots.txt) and the resulting search for `<META NAME="ROBOTS"` shown below:
 
 ![Facebook Meta Tag Example](images/Meta_Tag_Example-Facebook-Aug_2013.png)\
-*Figure 10: Facebook Meta Tag Example*
+*Figure 4.1.3-1: Facebook Meta Tag Example*
 
 The above might be considered a fail since `INDEX,FOLLOW` is the default `<META>` Tag specified by the “Robots Exclusion Protocol” yet `Disallow: /ac.php` is listed in robots.txt.
 
