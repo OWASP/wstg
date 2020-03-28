@@ -17,11 +17,11 @@ To name your file:
 
 ## Article Sections
 
-The remainder of this document explains each section in the [article example](999.1_Testing_for_a_Cat_in_a_Box_WSTG-FOO-001.md).
+The remainder of this document explains each section in the [article example](999-Foo_Testing/1-Testing_for_a_Cat_in_a_Box.md).
 
 ## Title
 
-The first line of the document is a title at level H1. Followed by a markdown table that includes the ID of the testing scenario. Ex:
+The first line of the document is a title at level H1. Followed by a markdown table that includes the ID of the testing scenario. For example:
 
 ```md
 |ID          |

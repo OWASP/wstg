@@ -17,7 +17,7 @@ Here are some ways you can make a helpful contribution. The [Open Source Guide f
 
 This project would not be possible without the contributions of writers in the security community! Our authors help to keep the WSTG relevant and useful for everyone.
 
-Whether you are submitting a new section or adding information to an existing one, please follow the [template example](template/1-Testing_for_a_Cat_in_a_Box.md). The [template sections are explained here](template/2-Template_Explanation.md).
+Whether you are submitting a new section or adding information to an existing one, please follow the [template example](template/999-Foo_Testing/1-Testing_for_a_Cat_in_a_Box.md). The [template sections are explained here](template/999-Foo_Testing/2-Template_Explanation.md).
 
 When submitting your [pull request](#how-to-submit-a-pull-request), authors should link contributions to an issue:
 
