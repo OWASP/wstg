@@ -1,5 +1,9 @@
 # Testing for a Cat in a Box
 
+|ID          |
+|------------|
+|WSTG-FOO-001|
+
 ## Summary
 
 A [box](https://en.wikipedia.org/wiki/Box) is a tangible object, typically made up of six rectangular sides. It typically has the ability to be open or closed, and to contain things. Boxes are often used to transport other objects, or to store objects temporarily or permanently. Boxes can be constructed from various materials, such as cardboard, wood, or steel.
