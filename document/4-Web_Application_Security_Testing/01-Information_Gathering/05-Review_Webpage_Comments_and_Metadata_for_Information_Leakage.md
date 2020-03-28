@@ -56,28 +56,6 @@ Some Meta tags do not provide active attack vectors but instead allow an attacke
 <META name="Author" content="Andrew Muller">
 ```
 
-Some Meta tags alter HTTP response headers, such as http-equiv that sets an HTTP response header based on the the content attribute of a meta element, such as:
-
-```html
-<META http-equiv="Expires" content="Fri, 21 Dec 2012 12:34:56 GMT">
-```
-
-which will result in the HTTP header:
-
-`Expires: Fri, 21 Dec 2012 12:34:56 GMT`
-
-and
-
-```html
-<META http-equiv="Cache-Control" content="no-cache">
-```
-
-will result in
-
-`Cache-Control: no-cache`
-
-Test to see if this can be used to conduct injection attacks (e.g. CRLF attack). It can also help determine the level of data leakage via the browser cache.
-
 A common (but not WCAG compliant) Meta tag is the refresh.
 
 ```html
