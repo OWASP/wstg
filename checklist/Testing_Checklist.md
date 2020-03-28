@@ -1,0 +1,117 @@
+# Testing Checklist
+
+The following is the list of controls to test during the assessment:
+
+| Ref. No. | Category     | Test Name                  |
+|----------|--------------|----------------------------|
+| **4.2**  | **WSTG-INFO** | **Information Gathering**  |
+| 4.2.1    | WSTG-INFO-001 | Conduct Search Engine Discovery and Reconnaissance for Information Leakage |
+| 4.2.2    | WSTG-INFO-002 | Fingerprint Web Server |
+| 4.2.3    | WSTG-INFO-003 | Review Webserver Metafiles for Information Leakage |
+| 4.2.4    | WSTG-INFO-004 | Enumerate Applications on Webserver |
+| 4.2.5    | WSTG-INFO-005 | Review Webpage Comments and Metadata for Information Leakage |
+| 4.2.6    | WSTG-INFO-006 | Identify application entry points |
+| 4.2.7    | WSTG-INFO-007 | Map execution paths through application |
+| 4.2.8    | WSTG-INFO-008 | Fingerprint Web Application Framework |
+| 4.2.9    | WSTG-INFO-009 | Fingerprint Web Application |
+| 4.2.10   | WSTG-INFO-010 | Map Application Architecture  |
+| **4.3**    | **WSTG-CONFIG** | **Configuration and Deploy Management Testing** |
+| 4.3.1    | WSTG-CONFIG-001 | Test Network/Infrastructure Configuration |
+| 4.3.2    | WSTG-CONFIG-002 | Test Application Platform Configuration |
+| 4.3.3    | WSTG-CONFIG-003 | Test File Extensions Handling for Sensitive Information |
+| 4.3.4    | WSTG-CONFIG-004 | Backup and Unreferenced Files for Sensitive Information |
+| 4.3.5    | WSTG-CONFIG-005 | Enumerate Infrastructure and Application Admin Interfaces  |
+| 4.3.6    | WSTG-CONFIG-006 | Test HTTP Methods |
+| 4.3.7    | WSTG-CONFIG-007 | Test HTTP Strict Transport Security |
+| 4.3.8    | WSTG-CONFIG-008 | Test RIA cross domain policy |
+| **4.4**  | **WSTG-IDENT**  | **Identity Management Testing** |
+| 4.4.1    | WSTG-IDENT-001  | Test Role Definitions |
+| 4.4.2    | WSTG-IDENT-002  | Test User Registration Process |
+| 4.4.3    | WSTG-IDENT-003  | Test Account Provisioning Process |
+| 4.4.4    | WSTG-IDENT-004  | Testing for Account Enumeration and Guessable User Account |
+| 4.4.5    | WSTG-IDENT-005  | Testing for Weak or unenforced username policy |
+| 4.4.6    | WSTG-IDENT-006  | Test Permissions of Guest/Training Accounts |
+| 4.4.7    | WSTG-IDENT-007  | Test Account Suspension/Resumption Process  |
+| **4.5**  | **WSTG-AUTHN**  | **Authentication Testing** |
+| 4.5.1    | WSTG-AUTHN-001  | Testing for Credentials Transported over an Encrypted Channel |
+| 4.5.2    | WSTG-AUTHN-002  | Testing for default credentials |
+| 4.5.3    | WSTG-AUTHN-003  | Testing for Weak lock out mechanism |
+| 4.5.4    | WSTG-AUTHN-004  | Testing for bypassing authentication schema |
+| 4.5.5    | WSTG-AUTHN-005  | Test remember password functionality |
+| 4.5.6    | WSTG-AUTHN-006  | Testing for Browser cache weakness |
+| 4.5.7    | WSTG-AUTHN-007  | Testing for Weak password policy |
+| 4.5.8    | WSTG-AUTHN-008  | Testing for Weak security question/answer |
+| 4.5.9    | WSTG-AUTHN-009  | Testing for weak password change or reset functionalities |
+| 4.5.10   | WSTG-AUTHN-010  | Testing for Weaker authentication in alternative channel |
+| **4.6**  | **WSTG-AUTHZ** | **Authorization Testing** |
+| 4.6.1    | WSTG-AUTHZ-001 | Testing Directory traversal/file include |
+| 4.6.2    | WSTG-AUTHZ-002 | Testing for bypassing authorization schema |
+| 4.6.3    | WSTG-AUTHZ-003 | Testing for Privilege Escalation |
+| 4.6.4    | WSTG-AUTHZ-004 | Testing for Insecure Direct Object References |
+| **4.7**  | **WSTG-SESS**  | **Session Management Testing** |
+| 4.7.1    | WSTG-SESS-001  | Testing for Bypassing Session Management Schema |
+| 4.7.2    | WSTG-SESS-002  | Testing for Cookies attributes |
+| 4.7.3    | WSTG-SESS-003  | Testing for Session Fixation |
+| 4.7.4    | WSTG-SESS-004  | Testing for Exposed Session Variables |
+| 4.7.5    | WSTG-SESS-005  | Testing for Cross Site Request Forgery |
+| 4.7.6    | WSTG-SESS-006  | Testing for logout functionality |
+| 4.7.7    | WSTG-SESS-007  | Test Session Timeout |
+| 4.7.8    | WSTG-SESS-008  | Testing for Session puzzling |
+| **4.8**  | **WSTG-INPVAL** | **Data Validation Testing** |
+| 4.8.1    | WSTG-INPVAL-001 | Testing for Reflected Cross Site Scripting |
+| 4.8.2    | WSTG-INPVAL-002 | Testing for Stored Cross Site Scripting |
+| 4.8.3    | WSTG-INPVAL-003 | Testing for HTTP Verb Tampering |
+| 4.8.4    | WSTG-INPVAL-004 | Testing for HTTP Parameter pollution |
+| 4.8.5    | WSTG-INPVAL-005 | Testing for SQL Injection |
+| 4.8.5.1  |                | Oracle Testing |
+| 4.8.5.2  |                | MySQL Testing |
+| 4.8.5.3  |                | SQL Server Testing |
+| 4.8.5.4  |                | Testing PostgreSQL |
+| 4.8.5.5  |                | MS Access Testing |
+| 4.8.5.6  |                | Testing for NoSQL injection |
+| 4.8.6    | WSTG-INPVAL-006 | Testing for LDAP Injection |
+| 4.8.7    | WSTG-INPVAL-007 | Testing for ORM Injection |
+| 4.8.8    | WSTG-INPVAL-008 | Testing for XML Injection |
+| 4.8.9    | WSTG-INPVAL-009 | Testing for SSI Injection |
+| 4.8.10   | WSTG-INPVAL-010 | Testing for XPath Injection |
+| 4.8.11   | WSTG-INPVAL-011 | IMAP/SMTP Injection |
+| 4.8.12   | WSTG-INPVAL-012 | Testing for Code Injection |
+| 4.8.12.1 |                | Testing for Local File Inclusion |
+| 4.8.12.2 |                | Testing for Remote File Inclusion |
+| 4.8.13   | WSTG-INPVAL-013 | Testing for Command Injection |
+| 4.8.14   | WSTG-INPVAL-014 | Testing for Buffer overflow |
+| 4.8.14.1 |                | Testing for Heap overflow |
+| 4.8.14.2 |                | Testing for Stack overflow |
+| 4.8.14.3 |                | Testing for Format string |
+| 4.8.15   | WSTG-INPVAL-015 | Testing for incubated vulnerabilities |
+| 4.8.16   | WSTG-INPVAL-016 | Testing for HTTP Splitting/Smuggling |
+| **4.9**  | **WSTG-ERR**    | **Error Handling** |
+| 4.9.1    | WSTG-ERR-001    | Analysis of Error Codes |
+| 4.9.2    | WSTG-ERR-002    | Analysis of Stack Traces |
+| **4.10** | **WSTG-CRYPST** | **Cryptography** |
+| 4.10.1   | WSTG-CRYPST-001 | Testing for Weak SSL/TSL Ciphers, Insufficient Transport Layer Protection  |
+| 4.10.2   | WSTG-CRYPST-002 | Testing for Padding Oracle |
+| 4.10.3   | WSTG-CRYPST-003 | Testing for Sensitive information sent via unencrypted channels |
+| **4.11** | **WSTG-BUSLOGIC** | **Business Logic Testing** |
+| 4.11.1   | WSTG-BUSLOGIC-001 | Test Business Logic Data Validation |
+| 4.11.2   | WSTG-BUSLOGIC-002 | Test Ability to Forge Requests |
+| 4.11.3   | WSTG-BUSLOGIC-003 | Test Integrity Checks |
+| 4.11.4   | WSTG-BUSLOGIC-004 | Test for Process Timing |
+| 4.11.5   | WSTG-BUSLOGIC-005 | Test Number of Times a Function Can be Used Limits |
+| 4.11.6   | WSTG-BUSLOGIC-006 | Testing for the Circumvention of Work Flows |
+| 4.11.7   | WSTG-BUSLOGIC-007 | Test Defenses Against Application Misuse |
+| 4.11.8   | WSTG-BUSLOGIC-008 | Test Upload of Unexpected File Types |
+| 4.11.9   | WSTG-BUSLOGIC-009 | Test Upload of Malicious Files |
+| **4.12** | **WSTG-CLIENT** | **Client Side Testing** |
+| 4.12.1   | WSTG-CLIENT-001 | Testing for DOM based Cross Site Scripting |
+| 4.12.2   | WSTG-CLIENT-002 | Testing for JavaScript Execution |
+| 4.12.3   | WSTG-CLIENT-003 | Testing for HTML Injection |
+| 4.12.4   | WSTG-CLIENT-004 | Testing for Client Side URL Redirect |
+| 4.12.5   | WSTG-CLIENT-005 | Testing for CSS Injection |
+| 4.12.6   | WSTG-CLIENT-006 | Testing for Client Side Resource Manipulation |
+| 4.12.7   | WSTG-CLIENT-007 | Test Cross Origin Resource Sharing |
+| 4.12.8   | WSTG-CLIENT-008 | Testing for Cross Site Flashing |
+| 4.12.9   | WSTG-CLIENT-009 | Testing for Clickjacking |
+| 4.12.10  | WSTG-CLIENT-010 | Testing WebSockets |
+| 4.12.11  | WSTG-CLIENT-011 | Test Web Messaging |
+| 4.12.12  | WSTG-CLIENT-012 | Test Local Storage |

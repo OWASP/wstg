@@ -17,7 +17,7 @@ Here are some ways you can make a helpful contribution. The [Open Source Guide f
 
 This project would not be possible without the contributions of writers in the security community! Our authors help to keep the WSTG relevant and useful for everyone.
 
-Whether you are submitting a new section or adding information to an existing one, please follow the [template example](template/999.1_Testing_for_a_Cat_in_a_Box_WSTG-FOO-001.md). The [template sections are explained here](template/999.2_Template_Explanation_WSTG-FOO-002.md).
+Whether you are submitting a new section or adding information to an existing one, please follow the [template example](template/999-Foo_Testing/1-Testing_for_a_Cat_in_a_Box.md). The [template sections are explained here](template/999-Foo_Testing/2-Template_Explanation.md).
 
 When submitting your [pull request](#how-to-submit-a-pull-request), authors should link contributions to an issue:
 
@@ -72,7 +72,7 @@ To increase the chances that your PR is merged, please make sure that:
 3. Your writing follows the [article template materials](template) and [style guide](style_guide.md).
 4. Your code snippets are correct, well-tested, and commented where necessary for understanding.
 
-Once the PR is complete, we'll merge it! At that point, you may like to add yourself to [the project's list of authors, reviewers, or editors](document/1_Frontispiece/1_Frontispiece.md).
+Once the PR is complete, we'll merge it! At that point, you may like to add yourself to [the project's list of authors, reviewers, or editors](document/1-Frontispiece/README.md).
 
 ## How to Set Up Your Contributor Environment
 
