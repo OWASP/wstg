@@ -69,12 +69,12 @@ OrgName: GitHub, Inc.
 The tester visits subdomain.victim.com or issues a HTTP GET request which returns a "404 - File not found" response which is a clear indication of the vulnerability.
 
 ![GitHub 404 File Not Found response](images/subdomain_takeover_ex1.jpeg)\
-*Figure 4.3.10-1: GitHub 404 File Not Found response*
+*Figure 4.2.10-1: GitHub 404 File Not Found response*
 
 The tester claims the domain using GitHub Pages:
 
 ![GitHub claim domain](images/subdomain_takeover_ex2.jpeg)\
-*Figure 4.3.10-2: GitHub claim domain*
+*Figure 4.2.10-2: GitHub claim domain*
 
 #### Testing NS Record Subdomain Takeover
 
