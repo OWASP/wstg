@@ -34,7 +34,7 @@ There are several methods of bypassing the authentication schema that is used by
 If a web application implements access control only on the log in page, the authentication schema could be bypassed. For example, if a user directly requests a different page via forced browsing, that page may not check the credentials of the user before granting access. Attempt to directly access a protected page through the address bar in your browser to test using this method.
 
 ![Direct Request to Protected Page](images/Basm-directreq.jpg)\
-*Figure 4.5.4-1: Direct Request to Protected Page*
+*Figure 4.4.4-1: Direct Request to Protected Page*
 
 #### Parameter Modification
 
@@ -60,7 +60,7 @@ Another problem related to authentication design is when the application verifie
 ```
 
 ![Parameter Modified Request](images/Basm-parammod.jpg)\
-*Figure 4.5.4-2: Parameter Modified Request*
+*Figure 4.4.4-2: Parameter Modified Request*
 
 #### Session ID Prediction
 
@@ -69,24 +69,24 @@ Many web applications manage authentication by using session identifiers (sessio
 In the following figure, values inside cookies increase linearly, so it could be easy for an attacker to guess a valid session ID.
 
 ![Cookie Values Over Time](images/Basm-sessid.jpg)\
-*Figure 4.5.4-3: Cookie Values Over Time*
+*Figure 4.4.4-3: Cookie Values Over Time*
 
 In the following figure, values inside cookies change only partially, so it's possible to restrict a brute force attack to the defined fields shown below.
 
 ![Partially Changed Cookie Values](images/Basm-sessid2.jpg)\
-*Figure 4.5.4-4: Partially Changed Cookie Values*
+*Figure 4.4.4-4: Partially Changed Cookie Values*
 
 #### SQL Injection (HTML Form Authentication)
 
 SQL Injection is a widely known attack technique. This section is not going to describe this technique in detail as there are several sections in this guide that explain injection techniques beyond the scope of this section.
 
 ![SQL Injection](images/Basm-sqlinj.jpg)\
-*Figure 4.5.4-5: SQL Injection*
+*Figure 4.4.4-5: SQL Injection*
 
 The following figure shows that with a simple SQL injection attack, it is sometimes possible to bypass the authentication form.
 
 ![Simple SQL Injection Attack](images/Basm-sqlinj2.gif)\
-*Figure 4.5.4-6: Simple SQL Injection Attack*
+*Figure 4.4.4-6: Simple SQL Injection Attack*
 
 ### Gray-Box Testing
 
