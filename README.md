@@ -1,7 +1,7 @@
 # OWASP Web Security Testing Guide
 
 [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/OWASP/wstg/issues)
-[![OWASP Flagship](https://img.shields.io/badge/owasp-flagship-brightgreen.svg)](https://www.owasp.org/index.php/OWASP_Project_Inventory#tab=Flagship_Projects)
+[![OWASP Flagship](https://img.shields.io/badge/owasp-flagship-brightgreen.svg)](https://owasp.org/projects/)
 ![Twitter Follow](https://img.shields.io/twitter/follow/owasp_wstg?style=social)
 
 [![Creative Commons License](https://licensebuttons.net/l/by-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-sa/4.0/ "CC BY-SA 4.0")
@@ -10,7 +10,7 @@ Welcome to the official repository for the Open Web Application Security Project
 
 We are currently working on release version 5.0. You can [read the current document here on GitHub](https://github.com/OWASP/wstg/tree/master/document).
 
-For the last stable release, [view the previous version 4.0](http://www.owasp.org/index.php/OWASP_Testing_Project).
+For the last stable release, [view the previous version 4.0](https://owasp.org/www-project-web-security-testing-guide/).
 
 - [OWASP Web Security Testing Guide](#owasp-web-security-testing-guide)
   - [Contributions, Feature Requests, and Feedback](#contributions-feature-requests-and-feedback)
@@ -36,7 +36,7 @@ Successful contributors appear on [the project's list of authors, reviewers, or 
 
 We're easy to find on Slack:
 
-1. Join the OWASP Group Slack with this [invitation link](https://join.slack.com/t/owasp/shared_invite/enQtNjExMTc3MTg0MzU4LWQ2Nzg3NGJiZGQ2MjRmNzkzN2Q4YzU1MWYyZTdjYjA2ZTA5M2RkNzE2ZjdkNzI5ZThhOWY5MjljYWZmYmY4ZjM).
+1. Join the OWASP Group Slack with this [invitation link](https://owasp-slack.herokuapp.com/).
 2. Join this project's [channel, #testing-guide](https://app.slack.com/client/T04T40NHX/CJ2QDHLRJ).
 
 Feel free to ask questions, suggest ideas, or share your best recipes.

@@ -5,8 +5,8 @@
 - [The Economic Impacts of Inadequate Infrastructure for Software Testing](https://www.nist.gov/system/files/documents/director/planning/report02-3.pdf)
 - [Improving Web Application Security: Threats and Countermeasures](https://www.microsoft.com/en-ca/download/details.aspx?id=1330)
 - [NIST Publications](https://csrc.nist.gov/publications/sp)
-- [The Open Web Application Security Project (OWASP) Guide Project](https://www.owasp.org/index.php/OWASP_Guide_Project)
 - [Software Assurance: An Overview of Current Practices](https://safecode.org/wp-content/uploads/2018/01/SAFECode_BestPractices0208.pdf)
+- [The OWASP Guide Project](https://wiki.owasp.org/index.php/OWASP_Guide_Project)
 - [Use Cases: Just the FAQs and Answers](https://www.ibm.com/developerworks/rational/library/content/RationalEdge/jan03/UseCaseFAQS_TheRationalEdge_Jan2003.pdf)
 
 ## Books
@@ -48,11 +48,9 @@
 - [McAfee Free Tools](https://www.mcafee.com/enterprise/en-us/downloads/free-tools.html)
 - [OASIS Web Application Security (WAS) TC](https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=was)
 - [Open Source Software Testing Tools](https://www.opensourcetesting.org/category/security/)
-- [OWASP Security Blitz](https://www.owasp.org/index.php/OWASP_Security_Blitz)
-- [OWASP Phoenix/Tool](https://www.owasp.org/index.php?title=Phoenix/Tools&setlang=en)
 
 - [SANS Internet Storm Center (ISC)](https://isc.sans.edu/)
-- [The Open Web Application Application Security Project (OWASP)](https://www.owasp.org/index.php/Main_Page)
+- [The Open Web Application Application Security Project (OWASP)](https://owasp.org)
 - [Pentestmonkey - Pen Testing Cheat Sheets](http://pentestmonkey.net/cheat-sheet)
 - [Secure Coding Guidelines for the .NET Framework 4.5](https://docs.microsoft.com/en-us/dotnet/standard/security/secure-coding-guidelines)
 - [Security in the Java platform](https://docs.oracle.com/javase/6/docs/technotes/guides/security/overview/jsoverview.html)
@@ -64,17 +62,15 @@
 
 ## Videos
 
-- [OWASP Appsec Tutorial Series](https://www.owasp.org/index.php/OWASP_Appsec_Tutorial_Series)
-
 - [PentesterAcademy](https://www.pentesteracademy.com/)
 
 ## Deliberately Insecure Web Applications
 
-- [OWASP Vulnerable Web Applications Directory Project](https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project#tab=Main)
+- [OWASP Vulnerable Web Applications Directory Project](https://owasp.org/www-project-vulnerable-web-applications-directory/)
 - [BadStore](https://www.vulnhub.com/entry/badstore-123,41)
 - [Damn Vulnerable Web App](http://www.dvwa.co.uk/)
 - [Mutillidae](https://www.irongeek.com/i.php?page=mutillidae/mutillidae-deliberately-vulnerable-php-owasp-top-10)
 - [Stanford SecuriBench](https://suif.stanford.edu/~livshits/securibench/)
-- [Vicnum](https://sourceforge.net/projects/vicnum/), [OWASP Vicnum](https://www.owasp.org/index.php/Category:OWASP_Vicnum_Project)
-- [WebGoat](https://www.owasp.org/index.php/Category:OWASP_WebGoat_Project)
+- [Vicnum](https://sourceforge.net/projects/vicnum/)
+- [WebGoat](https://owasp.org/www-project-webgoat/)
 - [WebMaven (better known as Buggy Bank)](https://www.mavensecurity.com/about/webmaven)
