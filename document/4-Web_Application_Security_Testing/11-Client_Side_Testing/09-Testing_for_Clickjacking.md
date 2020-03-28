@@ -13,12 +13,12 @@ A clickjacking attack uses seemingly-harmless features of HTML and JavaScript to
 To carry out this attack, an attacker creates a seemingly-harmless web page that loads the target application through the use of an inline frame (concealed with CSS code). Once this is done, an attacker may induce the victim to interact with the web page by other means (through, for example, social engineering). Like other attacks, a common prerequisite is that the victim is authenticated against the attacker’s target website.
 
 ![Clickjacking illustration](images/Clickjacking_description.png)\
-*Figure 4.12.9-1: Clickjacking inline frame illustration*
+*Figure 4.11.9-1: Clickjacking inline frame illustration*
 
 The victim surfs the attacker's web page with the intention of interacting with the visible user interface, but is inadvertently performing actions on the hidden page. Using the hidden page, an attacker can deceive users into performing actions they never intended to perform through the positioning of the hidden elements in the web page.
 
 ![Masked inline frame illustration](images/Masked_iframe.png)\
-*Figure 4.12.9-2: Masked inline frame illustration*
+*Figure 4.11.9-2: Masked inline frame illustration*
 
 The power of this method is that the actions performed by the victim are originated from the hidden but authentic target web page. Consequently, some of the anti-CSRF protections deployed by the developers to protect the web page from CSRF attacks could be bypassed.
 
@@ -264,7 +264,7 @@ Once we have discovered that the site we are testing is vulnerable to clickjacki
 Suppose that to execute the transfer the developers have planned three steps. In the first step the user fill a form with the destination account and the amount. In the second step, whenever the user submits the form, is presented a summary page asking the user confirmation (like the one presented in the following picture).
 
 ![Clickjacking Example Step 2](images/Clickjacking_example_step2.png)\
-*Figure 4.12.9-3: Clickjacking Example Step 2*
+*Figure 4.11.9-3: Clickjacking Example Step 2*
 
 Following a snippet of the code for the step 2:
 
@@ -326,12 +326,12 @@ The target page for the attack is the second step of the money transfer procedur
 The attacker's page may look like a simple and harmless web page like the one presented below:
 
 ![Clickjacking Example Malicious Page 1](images/Clickjacking_example_malicious_page_1.png)\
-*Figure 4.12.9-4: Clickjacking Example Malicious Page 1*
+*Figure 4.11.9-4: Clickjacking Example Malicious Page 1*
 
 But playing with the CSS opacity value we can see what is hidden under the seemingly innocuous web page.
 
 ![Clickjacking Example Malicious Page 2](images/Clickjacking_example_malicious_page_2.png)\
-*Figure 4.12.9-5: Clickjacking Example Malicious Page 2*
+*Figure 4.11.9-5: Clickjacking Example Malicious Page 2*
 
 The clickjacking code to create this page is presented below:
 
@@ -390,7 +390,7 @@ The clickjacking code to create this page is presented below:
 With the help of CSS (note the `#clickjacking` block) we can mask and suitably position the iframe in such a way as to match the buttons. If the victim click on the button “Click and go!” the form is submitted and the transfer is completed.
 
 ![Clickjacking Example Malicious Page 3](images/Clickjacking_example_malicious_page_3.png)\
-*Figure 4.12.9-6: Clickjacking Example Malicious Page 3*
+*Figure 4.11.9-6: Clickjacking Example Malicious Page 3*
 
 The example presented uses only basic clickjacking technique, but with advanced technique is possible to force user filling form with values defined by the attacker.
 

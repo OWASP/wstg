@@ -60,6 +60,6 @@ By appending to the page URL, testers can cause a pop up to appear.
 `http://server/StoragePOC.html#<img src=x onerror=alert(1)>`
 
 ![A pop up alert window on the example page](images/Storage-xss.png)\
-*Figure 4.12.12-1: Screenshot of storage XSS attack*
+*Figure 4.11.12-1: Screenshot of storage XSS attack*
 
 For more OWASP resources on the HTML5 Web Storage API, see the [Session Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#html5-web-storage-api).
