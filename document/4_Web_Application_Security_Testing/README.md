@@ -1,7 +1,5 @@
 # Web Application Penetration Testing
 
-The following sections describe the 12 sub-categories of the Web Application Penetration Testing Methodology:
-
 [4.1 Introduction and Objectives](4.1_Introduction_and_Objectives/README.md)
 
 [4.2 Information Gathering](4.2_Information_Gathering/README.md)
