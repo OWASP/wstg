@@ -2,7 +2,7 @@
 
 |ID             |
 |---------------|
-|WSTG-INPVAL-010|
+|WSTG-INPVAL-009|
 
 ## Summary
 
