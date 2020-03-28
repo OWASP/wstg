@@ -16,7 +16,7 @@ Browsers provide the following client-side storage mechanisms for developers to 
 
 These storage mechanisms can be viewed and edited using the browser's developer tools, such as [Google Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/storage/localstorage) or [Firefox's Storage Inspector](https://developer.mozilla.org/en-US/docs/Tools/Storage_Inspector).
 
-Note: While cache is also a form of storage it is covered in a [separate section](../4.5_Authentication_Testing/4.5.6_Testing_for_Browser_Cache_Weaknesses.md) covering its own peculiarities and concerns.
+Note: While cache is also a form of storage it is covered in a [separate section](../04-Authentication_Testing/06-Testing_for_Browser_Cache_Weaknesses.md) covering its own peculiarities and concerns.
 
 ## Test Objectives
 
@@ -112,7 +112,7 @@ Web SQL is deprecated since November 18, 2010 and it's recommended that web deve
 
 Cookies are a key value storage mechanism that is primarily used for session management but web developers can still use it to store arbitrary string data.
 
-Cookies are covered extensively in [4.7.2 Testing for Cookies attributes (WSTG-SESS-002)](https://github.com/OWASP/wstg/blob/master/document/4_Web_Application_Security_Testing/4.7_Session_Management_Testing/4.7.2_Testing_for_Cookies_Attributes.md)
+Cookies are covered extensively in the [testing for Cookies attributes](../06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.md) scenario.
 
 #### List All Cookies
 
@@ -162,7 +162,7 @@ _(Modified version of this [snippet](https://stackoverflow.com/a/17246535/309913
 
 ### Attack Chain
 
-Following the identification any of the above attack vectors, an attack chain can be formed with different types of client side attacks, such as [DOM based XSS](4.12.1_Testing_for_DOM-based_Cross_Site_Scripting.md) attacks.
+Following the identification any of the above attack vectors, an attack chain can be formed with different types of client side attacks, such as [DOM based XSS](01-Testing_for_DOM-based_Cross_Site_Scripting.md) attacks.
 
 ### Remediation
 

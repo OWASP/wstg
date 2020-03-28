@@ -99,7 +99,7 @@ For details on XSS: [Cross-site Scripting (XSS)](https://owasp.org/www-community
 
 A buffer overflow or memory corruption attack is a programming condition which allows overflowing of valid data beyond its prelocated storage limit in memory.
 
-For details on Buffer Overflows: [Testing for Buffer Overflow](../4-Web_Application_Security_Testing/07-Input_Validation_Testing/14-Testing_for_Buffer_Overflow.md)
+For details on Buffer Overflows: [Testing for Buffer Overflow](../4-Web_Application_Security_Testing/07-Input_Validation_Testing/13-Testing_for_Buffer_Overflow.md)
 
 Note that attempting to load such a definition file within a fuzzer application can potentially cause the application to crash.
 
@@ -392,7 +392,7 @@ For details on LDAP Injection: [Testing for LDAP Injection](../4-Web_Application
 
 ## XPATH Injection
 
-For details on XPATH Injection: [Testing for XPath Injection](../4-Web_Application_Security_Testing/07-Input_Validation_Testing/10-Testing_for_XPath_Injection.md)
+For details on XPATH Injection: [Testing for XPath Injection](../4-Web_Application_Security_Testing/07-Input_Validation_Testing/09-Testing_for_XPath_Injection.md)
 
 `'+or+'1'='1`
 
@@ -416,7 +416,7 @@ For details on XPATH Injection: [Testing for XPath Injection](../4-Web_Applicati
 
 ## XML Injection
 
-Details on XML Injection here: [Testing for XML Injection](../4-Web_Application_Security_Testing/07-Input_Validation_Testing/08-Testing_for_XML_Injection.md)
+Details on XML Injection here: [Testing for XML Injection](../4-Web_Application_Security_Testing/07-Input_Validation_Testing/07-Testing_for_XML_Injection.md)
 
 `<![CDATA[<script>var n=0;while(true){n++;}</script>]]>`
 

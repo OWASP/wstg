@@ -14,9 +14,9 @@ See the OWASP article on [Buffer Overflow](https://owasp.org/www-community/attac
 
 Different types of buffer overflow vulnerabilities have different testing methods. Here are the testing methods for the common types of buffer overflow vulnerabilities.
 
-- [Testing for heap overflow vulnerability](14.1-Testing_for_Heap_Overflow.md)
-- [Testing for stack overflow vulnerability](14.2-Testing_for_Stack_Overflow.md)
-- [Testing for format string vulnerability](14.3-Testing_for_Format_String.md)
+- [Testing for heap overflow vulnerability](13.1-Testing_for_Heap_Overflow.md)
+- [Testing for stack overflow vulnerability](13.2-Testing_for_Stack_Overflow.md)
+- [Testing for format string vulnerability](13.3-Testing_for_Format_String.md)
 
 ### Code Review
 
