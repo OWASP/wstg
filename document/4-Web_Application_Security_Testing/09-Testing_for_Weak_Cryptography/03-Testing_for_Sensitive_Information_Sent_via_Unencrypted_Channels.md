@@ -136,3 +136,5 @@ Checking if logs or source code may contain phone number, email address, ID or a
 - [curl](https://curl.haxx.se/)
 - [grep](http://man7.org/linux/man-pages/man1/egrep.1.html)
 - [Identity Finder](https://download.cnet.com/Identity-Finder-Free-Edition/3000-2144_4-10906766.html)
+- [Wireshark](https://www.wireshark.org/)
+- [TCPDUMP](https://www.tcpdump.org/)

@@ -122,6 +122,8 @@ Speak with the developers of the web application and try to understand if they a
 - [OWASP Zed Attack Proxy (ZAP)](https://owasp.org/www-project-zap/)
 - [mitmproxy](https://mitmproxy.org)
 - [Burp Suite](https://portswigger.net/burp)
+- [Wireshark](https://www.wireshark.org/)
+- [TCPDUMP](https://www.tcpdump.org/)
 
 ## References
 
