@@ -42,7 +42,7 @@
 
 ### [3.5 Phase 4: During Deployment](3-The_OWASP_Testing_Framework/0-The_OWASP_Testing_Framework.md#Phase-4:-During-Deployment)
 
-### [3.6 Phase 5: Maintenance and Operations](3-The_OWASP_Testing_Framework/0-The_OWASP_Testing_Framework.md#Phase-5:-Maintenance-and-Operations)
+### [3.6 Phase 5: Maintenance and Operations](3-The_OWASP_Testing_Framework/0-The_OWASP_Testing_Framework.md#Phase-5:-During-Maintenance-and-Operations)
 
 ### [3.7 A Typical SDLC Testing Workflow](3-The_OWASP_Testing_Framework/0-The_OWASP_Testing_Framework.md#A-Typical-SDLC-Testing-Workflow)
 
