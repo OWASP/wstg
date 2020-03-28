@@ -75,7 +75,7 @@ For example, caption the first image shown in section 4.8, sub-section 19 as fol
 
 ```md
 ![SSTI XVWA Example](images/SSTI_XVWA.jpeg)\
-_Figure 4.8.19-1: SSTI XVWA Example_
+_Figure 4.7.19-1: SSTI XVWA Example_
 ```
 
 ### Inline Links

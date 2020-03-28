@@ -128,7 +128,7 @@ This example is written using the netcat package from openbsd (standard with mos
    An example of a failed test (ie, the server supports OPTIONS despite no need for it):
 
    ![OPTIONS Verb Tampering](images/OPTIONS_verb_tampering.png)\
-   *Figure 4.8.3-1: OPTIONS Verb Tampering*
+   *Figure 4.7.3-1: OPTIONS Verb Tampering*
 
 ### Automated HTTP Verb Tampering Testing
 
