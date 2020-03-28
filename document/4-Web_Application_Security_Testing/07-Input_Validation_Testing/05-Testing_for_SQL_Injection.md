@@ -36,6 +36,10 @@ About the techniques to exploit SQL injection flaws there are five commons techn
 - Out-of-band: technique used to retrieve data using a different channel (e.g., make a HTTP connection to send the results to a web server).
 - Time delay: use database commands (e.g. sleep) to delay answers in conditional queries. It is useful when attacker doesn’t have some kind of answer (result, output, or error) from the application.
 
+## Test Objectives
+
+SQL Injection testing allows the tester to identify and exploit issues pertaining to query inputs where secure practices are not properly implemented.
+
 ## How to Test
 
 ### Detection Techniques
@@ -70,7 +74,7 @@ Monitor all the responses from the web server and have a look at the HTML/javasc
 
 ### Standard SQL Injection Testing
 
-#### Example 1 (Classical SQL Injection)
+#### Classic SQL Injection
 
 Consider the following SQL query:
 
@@ -124,7 +128,7 @@ In this way, we create a request like the follow:
 
 `http://www.example.com/index.php?username=1'%20or%20'1'%20=%20'1'))%20LIMIT%201/*&amp;password=foo`
 
-#### Example 2 (Simple SELECT Statement)
+#### SELECT Statement
 
 Consider the following SQL query:
 
@@ -146,7 +150,7 @@ In this case, probably the application would return some message telling us ther
 
 `http://www.example.com/product.php?id=10 AND 1=1`
 
-#### Example 3 (Stacked Queries)
+#### Stacked Queries
 
 Depending on the API which the web application is using and the DBMS (e.g. PHP + PostgreSQL, ASP+SQL SERVER) it may be possible to execute multiple queries in one call.
 
@@ -531,14 +535,23 @@ EXEC(@SQLivar)
 
 #### Alternative Expression of 'or 1 = 1'
 
-- OR 'SQLi' = 'SQL'+'i'
-- OR 'SQLi' &gt; 'S'
-- or 20 &gt; 1
-- OR 2 between 3 and 1
-- OR 'SQLi' = N'SQLi'
-- 1 and 1 = 1
-- 1 || 1 = 1
-- 1 && 1 = 1
+```text
+OR 'SQLi' = 'SQL'+'i'
+OR 'SQLi' &gt; 'S'
+or 20 &gt; 1
+OR 2 between 3 and 1
+OR 'SQLi' = N'SQLi'
+1 and 1 = 1
+1 || 1 = 1
+1 && 1 = 1
+```
+
+## Remediation
+
+- To secure the application from SQL injection vulnerabilities, refer to the [SQL Injection Prevention CheatSheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html).
+- To secure the SQL server, refer to the [Database Security CheatSheet](https://cheatsheetseries.owasp.org/cheatsheets/Database_Security_Cheat_Sheet.html).
+
+For generic input validation security, refer to the [Input Validation CheatSheet](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html).
 
 ## Tools
 
@@ -557,9 +570,9 @@ EXEC(@SQLivar)
 
 Technology specific Testing Guide pages have been created for the following DBMSs:
 
-- [Oracle](05.1-Testing_for_Oracle.md)
-- [MySQL](05.2-Testing_for_MySQL.md)
-- [SQL Server](05.3-Testing_for_SQL_Server.md)
+- [Oracle](4.8.5.1_Testing_for_Oracle.md)
+- [MySQL](4.8.5.2_Testing_for_MySQL.md)
+- [SQL Server](4.8.5.3_Testing_for_SQL_Server.md)
 
 ### Whitepapers
 
