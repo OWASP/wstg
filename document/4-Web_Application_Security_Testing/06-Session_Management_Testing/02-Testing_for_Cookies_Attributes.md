@@ -10,18 +10,18 @@ Web Cookies (hereon referred to as cookies) are often a key attack vector for ma
 
 HTTP is a stateless protocol, meaning that it doesn't hold any reference to requests being sent by the same user. In order to fix this issue, sessions were created and appended to HTTP requests. Browsers, as discussed in [testing web storage](../11-Client_Side_Testing/12-Testing_Web_Storage.md), contain a multitude of storage mechanisms. In that section of the guide, each is discussed thoroughly.
 
-The most used session storage mechanism in browsers is the cookie storage. It is set by the server, by appending a [`Set-Cookie`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie) header in the HTTP response. Cookies can be used for a multitude of reasons, such as:
+The most used session storage mechanism in browsers is cookie storage. Cookies can be set by the server, by including a [`Set-Cookie`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie) header in the HTTP response or via JavaScript. Cookies can be used for a multitude of reasons, such as:
 
 - session management
 - personalization
 - tracking
 
-In order to secure that header, browsers created means to help lock down these cookies, and by doing so, limiting the attack surface area. This made them the best storage mechanism for web application to use, as it allowed developers to properly secure the data inside of those cookies, and mostly, to secure the user sessions.
+In order to secure cookie data, the industry has developed means to help lock down these cookies and limit their attack surface. Over time cookies have become a preferred storage mechanism for web applications, as they allow great flexibility in use and protection.
 
 The means to protect the cookies are:
 
-- [Cookie Prefixes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#Cookie_prefixes)
 - [Cookie Attributes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#Creating_cookies)
+- [Cookie Prefixes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#Cookie_prefixes)
 
 ## Test Objectives
 
@@ -35,7 +35,7 @@ Below, a description of every attribute and prefix will be discussed. The tester
 
 #### Secure Attribute
 
-The [`Secure`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#Secure) attribute tells the browser to only send the cookie if the request is being sent over a secure channel such as `HTTPS`. This will help protect the cookie from being passed over unencrypted requests. If the application can be accessed over both `HTTP` and `HTTPS`, an attacker would be able to redirect the user to send their cookie through clear-text, non-protected requests.
+The [`Secure`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#Secure) attribute tells the browser to only send the cookie if the request is being sent over a secure channel such as `HTTPS`. This will help protect the cookie from being passed in unencrypted requests. If the application can be accessed over both `HTTP` and `HTTPS`, an attacker could be able to redirect the user to send their cookie as part of non-protected requests.
 
 #### HttpOnly Attribute
 
@@ -45,7 +45,7 @@ The [`HttpOnly`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-C
 
 #### Domain Attribute
 
-The [`Domain`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#Scope_of_cookies) attribute is used to compare the cookie's domain against the domain of the server in which the URL is being requested. If the domain matches or if it is a subdomain, then the [`path`](#path-attribute) attribute will be checked next.
+The [`Domain`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#Scope_of_cookies) attribute is used to compare the cookie's domain against the domain of the server for which the HTTP request is being made. If the domain matches or if it is a subdomain, then the [`path`](#path-attribute) attribute will be checked next.
 
 Note that only hosts that belong to the specified domain can set a cookie for that domain. Additionally, the `domain` attribute cannot be a top level domain (such as `.gov` or `.com`) to prevent servers from setting arbitrary cookies for another domain (such as setting a cookie for `owasp.org`). If the domain attribute is not set, then the host name of the server that generated the cookie is used as the default value of the `domain`.
 
@@ -56,17 +56,23 @@ For example, if a cookie is set by an application at `app.mydomain.com` with no 
 The [`Path`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#Scope_of_cookies) attribute plays a major role in setting the scope of the cookies in conjunction with the [`domain`](#domain-attribute). In addition to the domain, the URL path that the cookie is valid for can be specified. If the domain and path match, then the cookie will be sent in the request. Just as with the domain attribute, if the path attribute is set too loosely, then it could leave the application vulnerable to attacks by other applications on the same server. For example, if the path attribute was set to the web server root `/`, then the application cookies will be sent to every application within the same domain (if multiple application reside under the same server). A couple of examples for multiple applications under the same server:
 
 - `path=/bank`
-- `path=/api`
-- `path=/api/private`
+- `path=/private`
 - `path=/docs`
+- `path=/docs/admin`
 
 #### Expires Attribute
 
-The [`Expires`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#Permanent_cookies) attribute is used to set persistent cookies. Unlike [session cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#Session_cookies), persistent cookies will be used by the browser until the cookie expires. Once the expiration date has exceeded the time set, the browser will delete the cookie. Session cookies are recommended to be set as a [session cookie](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#Session_cookies), and not in a permanent fashion.
+The [`Expires`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#Permanent_cookies) attribute is used to:
+
+- set persistent cookies
+- limit lifespan if a session lives for too long
+- remove a cookie forcefully by setting it to a past date
+
+Unlike [session cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#Session_cookies), persistent cookies will be used by the browser until the cookie expires. Once the expiration date has exceeded the time set, the browser will delete the cookie.
 
 #### SameSite Attribute
 
-The [`SameSite`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#SameSite_cookies) attribute is used to assert that a cookie ought not to be sent along with cross-site requests. These features allows the server to mitigate the risk of cross-orgin information leakage. In some cases, it is used too as a risk reduction (or a defense in depth mechanism) strategy in front of [cross-site request forgery](05-Testing_for_CSRF.md) attacks. This attribute can be configured in three different modes:
+The [`SameSite`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#SameSite_cookies) attribute is used to assert that a cookie ought not to be sent along with cross-site requests. This feature allows the server to mitigate the risk of cross-orgin information leakage. In some cases, it is used too as a risk reduction (or defense in depth mechanism) strategy to prevent [cross-site request forgery](05-Testing_for_CSRF.md) attacks. This attribute can be configured in three different modes:
 
 - `Strict`
 - `Lax`
@@ -74,7 +80,7 @@ The [`SameSite`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#SameS
 
 ##### Strict Value
 
-The `Strict` value is the most restrictive usage of `SameSite`, allowing the browser to send the cookie only to first-party context without top-level navigation. In other words, the data associated with the cookie will only be sent on the requests matching the current site shown on the browser URL menu bar. The cookie will not be sent on requests generated by third-party websites. This value is especially recommended for actions performed at the same domain. However, it can have some limitations with some session management systems negatively affecting the user navigation experience. Since the browser would not send the cookie on any requests generated from a third-party domain or email, the user would be required to sign in again in even if they already have an authenticated session.
+The `Strict` value is the most restrictive usage of `SameSite`, allowing the browser to send the cookie only to first-party context without top-level navigation. In other words, the data associated with the cookie will only be sent on requests matching the current site shown on the browser URL bar. The cookie will not be sent on requests generated by third-party websites. This value is especially recommended for actions performed at the same domain. However, it can have some limitations with some session management systems negatively affecting the user navigation experience. Since the browser would not send the cookie on any requests generated from a third-party domain or email, the user would be required to sign in again even if they already have an authenticated session.
 
 ##### Lax Value
 
@@ -115,7 +121,7 @@ The [`__Secure-`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#Cook
 
 Based on the application needs, and how the cookie should function, the attributes and prefixes must be applied. The more the cookie is locked down, the better.
 
-Putting all this together, we can define the perfect cookie attribute configuration as: `Set-Cookie: __Host-SID=<session token>; path=/; Secure; HttpOnly; SameSite=Strict`.
+Putting all this together, we can define the most secure cookie attribute configuration as: `Set-Cookie: __Host-SID=<session token>; path=/; Secure; HttpOnly; SameSite=Strict`.
 
 ## Tools
 
