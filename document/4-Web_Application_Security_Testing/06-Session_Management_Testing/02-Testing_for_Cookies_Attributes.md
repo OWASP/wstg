@@ -6,7 +6,7 @@
 
 ## Summary
 
-Web Cookies (hereon referred to as cookies) are often a key attack vector for malicious users (typically targeting other users) and the application should always take due diligence to protect cookies.
+Web Cookies (herein referred to as cookies) are often a key attack vector for malicious users (typically targeting other users) and the application should always take due diligence to protect cookies.
 
 HTTP is a stateless protocol, meaning that it doesn't hold any reference to requests being sent by the same user. In order to fix this issue, sessions were created and appended to HTTP requests. Browsers, as discussed in [testing web storage](../11-Client_Side_Testing/12-Testing_Web_Storage.md), contain a multitude of storage mechanisms. In that section of the guide, each is discussed thoroughly.
 
