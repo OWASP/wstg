@@ -133,9 +133,9 @@ In case of weak secret value, this will bruteforce the secret.
 
 ## Related Test Cases
 
-- [IDOR](https://github.com/OWASP/OWASP-Testing-Guide-v5/blob/master/document/4_Web_Application_Security_Testing/4.6_Authorization_Testing/4.6.4_Testing_for_Insecure_Direct_Object_References_OTG-AUTHZ-004.md)
-- [Privilege escalation](https://github.com/OWASP/OWASP-Testing-Guide-v5/blob/master/document/4_Web_Application_Security_Testing/4.6_Authorization_Testing/4.6.3_Testing_for_Privilege_Escalation_OTG-AUTHZ-003.md)
-- All [Session Management](https://github.com/OWASP/OWASP-Testing-Guide-v5/tree/master/document/4_Web_Application_Security_Testing/4.7_Session_Management_Testing) test cases
+- [IDOR](https://github.com/OWASP/OWASP-Testing-Guide-v5/blob/master/document/4-Web_Application_Security_Testing/05-Authorization_Testing/04-Testing_for_Insecure_Direct_Object_References.md)
+- [Privilege escalation](https://github.com/OWASP/OWASP-Testing-Guide-v5/blob/master/document/4-Web_Application_Security_Testing/05-Authorization_Testing/03-Testing_for_Privilege_Escalation.md)
+- All [Session Management](https://github.com/OWASP/OWASP-Testing-Guide-v5/tree/master/document/4-Web_Application_Security_Testing/06-Session_Management_Testing) test cases
 
 ## Tools
 

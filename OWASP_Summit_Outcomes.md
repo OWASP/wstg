@@ -35,7 +35,7 @@ REVIEW:
 - Information and Config management testing
 - Authentication Testing: add oauth testing
 - Reporting: adding how to create security testing case for devs
-- Add [Client Side SQLi](https://www.owasp.org/index.php/Test_Local_Storage_(OTG-CLIENT-012))
+- Add `Client Side SQLi`
 
 ## Two questions for OWASP
 
@@ -73,7 +73,7 @@ The aim of the Working Session is to discuss and define the scope and content of
 
 ## Test Changes
 
-This outline will include proposed test changes that need to be incorporated into OTG v5. These should be proposed significant changes that are associated with an explicit test.
+This outline will include proposed test changes that need to be incorporated into WSTG v5. These should be proposed significant changes that are associated with an explicit test.
 
 ### New Tests
 
