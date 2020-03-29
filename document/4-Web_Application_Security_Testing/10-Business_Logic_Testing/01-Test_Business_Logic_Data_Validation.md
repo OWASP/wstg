@@ -27,10 +27,10 @@ Many credit card systems are now downloading account balances nightly so the cus
 ### Example 3
 
 **Distributed Denial of Dollar (DDo$):**
-This was a campaign that was proposed by the founder of the website " The Pirate Bay " against the law firm who brought prosecutions against them. The goal was to take advantage of errors in the design of business features and in the process of credit transfer validation.
+This was a campaign that was proposed by the founder of the website "The Pirate Bay" against the law firm who brought prosecutions against "The Pirate Bay". The goal was to take advantage of errors in the design of business features and in the process of credit transfer validation.
 
-This attack was perfomed by sending very small amounts of money of 1 SEK ($0.13) to the law firm.
-The bank account to which the payments were directed had only 1000 free transfers, after which any transfers have a surcharge  for the account holder (2 SEK). After the first thousand internet transactions every 1 SEK donation to the law firm will actually end up costing it 1 SEK instead.
+This attack was perfomed by sending very small amounts of money of 1 SEK ($0.13 USD) to the law firm.
+The bank account to which the payments were directed had only 1000 free transfers, after which any transfers have a surcharge for the account holder (2 SEK). After the first thousand internet transactions every 1 SEK donation to the law firm will actually end up costing it 1 SEK instead.
 
 ## How to Test
 
@@ -66,9 +66,9 @@ All [Input Validation](../07-Input_Validation_Testing/README.md) test cases.
 
 [Beginning Microsoft Visual Studio LightSwitch Development](https://books.google.com/books?id=x76L_kaTgdEC&pg=PA280&lpg=PA280&dq=business+logic+example+valid+data+example&source=bl&ots=GOfQ-7f4Hu&sig=4jOejZVligZOrvjBFRAT4-jy8DI&hl=en&sa=X&ei=mydYUt6qEOX54APu7IDgCQ&ved=0CFIQ6AEwBDgK#v=onepage&q=business%20logic%20example%20valid%20data%20example&f=false)
 
-[OWASP Proactive controls(C5) - Validate all inputs](https://owasp.org/www-project-proactive-controls/v3/en/c5-validate-inputs)
+[OWASP Proactive Controls (C5) - Validate All Inputs](https://owasp.org/www-project-proactive-controls/v3/en/c5-validate-inputs)
 
-[OWASP Cheatsheet series - Input_Validation_Cheat_Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html)
+[OWASP Cheatsheet Series - Input_Validation_Cheat_Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html)
 
 ## Remediation
 
