@@ -184,7 +184,7 @@
 
 ##### [4.7.5.6 Testing for NoSQL Injection](4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.6-Testing_for_NoSQL_Injection.md)
 
-##### [4.7.5.7 ORM Injection](4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.7_Testing_for_ORM_Injection.md)
+##### [4.7.5.7 ORM Injection](4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.7-Testing_for_ORM_Injection.md)
 
 ##### [4.7.5.8 Client Side SQLi](4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.8-Testing_for_Client_Side.md)
 
