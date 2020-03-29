@@ -400,7 +400,7 @@ The example presented uses only basic clickjacking technique, but with advanced 
 
 ### OWASP Resources
 
-- [Clickjacking](https://owasp.org/www-community/Clickjacking)
+- [Clickjacking](https://owasp.org/www-community/attacks/Clickjacking)
 
 ### Whitepapers
 
