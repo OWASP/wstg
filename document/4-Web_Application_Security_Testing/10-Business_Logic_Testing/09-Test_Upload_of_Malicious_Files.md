@@ -110,11 +110,11 @@ The executable extensions should be in black list such as file.php5, file.shtml,
 
 Once it's uploaded, the file will be executed as x.php
 
-### Zip files path
+### Zip Files Path
 
 One Zip file may contain the malicious PHP with target purpose path such as `..\\..\\..\\..\\hacker.php`. If the website doesn't check the unzip target path, the hacker.php may unzip to the specified path.
 
-### Zip Bomp
+### Zip Bomb
 
 Upload the [ZIP bomb](https://github.com/AbhiAgarwal/notes/wiki/Zip-bomb) file that may cause application denial of service.
 
