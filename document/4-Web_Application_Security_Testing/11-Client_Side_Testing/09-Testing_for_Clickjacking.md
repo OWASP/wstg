@@ -257,7 +257,7 @@ Web proxies are known for adding and stripping headers. In the case in which a w
 
 Also in this case, since the `X-FRAME-OPTIONS` has to be implemented in every page of the website, the developers may have not protected the mobile version of the website.
 
-### Create a “Proof of Concept”
+### Create a Proof of Concept
 
 Once we have discovered that the site we are testing is vulnerable to clickjacking attack, we can proceed with the development of a `proof of concept` (PoC) to demonstrate the vulnerability. It is important to note that, as mentioned previously, these attacks can be used in conjunction with other forms of attacks (for example CSRF attacks) and could lead to overcome anti-CSRF tokens. In this regard we can imagine that, for example, the target site allows to authenticated and authorized users to make a transfer of money to another account.
 
