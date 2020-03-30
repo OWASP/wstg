@@ -1,5 +1,5 @@
 {
-  "stylesheet":"../../assets/pdf-style.css",
+  "stylesheet":"assets/pdf-style.css",
   "css": "body { color: tomato; }",
   "body_class": "markdown-body",
   "highlight_style": "monokai",
