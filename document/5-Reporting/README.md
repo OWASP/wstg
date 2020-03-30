@@ -130,8 +130,8 @@ The following is the list of controls that were tested during the assessment:
 | WSTG-INPV-16  | Testing for HTTP Splitting/Smuggling |
 | WSTG-INPV-17  | Testing for HTTP Incoming requests |
 | **WSTG-ERR**  |**Error Handling** |
-| WSTG-ERR-001  | Analysis of Error Codes |
-| WSTG-ERR-002  | Analysis of Stack Traces |
+| WSTG-ERRH-01  | Analysis of Error Codes |
+| WSTG-ERRH-02  | Analysis of Stack Traces |
 | **WSTG-CRYPST** | **Cryptography** |
 | WSTG-CRYPST-001 | Testing for Weak SSL/TSL Ciphers, Insufficient|
 | **WSTG-CRYPST** | **Transport Layer Protection** |

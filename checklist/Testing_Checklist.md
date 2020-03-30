@@ -86,8 +86,8 @@ The following is the list of controls to test during the assessment:
 | 4.8.15   | WSTG-INPV-15 | Testing for incubated vulnerabilities |
 | 4.8.16   | WSTG-INPV-16 | Testing for HTTP Splitting/Smuggling |
 | **4.9**  | **WSTG-ERR**    | **Error Handling** |
-| 4.9.1    | WSTG-ERR-001    | Analysis of Error Codes |
-| 4.9.2    | WSTG-ERR-002    | Analysis of Stack Traces |
+| 4.9.1    | WSTG-ERRH-01    | Analysis of Error Codes |
+| 4.9.2    | WSTG-ERRH-02    | Analysis of Stack Traces |
 | **4.10** | **WSTG-CRYPST** | **Cryptography** |
 | 4.10.1   | WSTG-CRYPST-001 | Testing for Weak SSL/TSL Ciphers, Insufficient Transport Layer Protection  |
 | 4.10.2   | WSTG-CRYPST-002 | Testing for Padding Oracle |
