@@ -11,7 +11,7 @@ In the case of stateless network protocol fuzzing (like HTTP(S)) two broad categ
 
 We examine and define each category in the sub-sections that follow.
 
-### Recursive fuzzing
+### Recursive Fuzzing
 
 Recursive fuzzing can be defined as the process of fuzzing a part of a request by iterating through all the possible combinations of a set alphabet. Consider the case of:
 
@@ -29,7 +29,7 @@ Selecting “8302fa3b” as a part of the request to be fuzzed against the set h
 
 `http://www.example.com/ffffffff`
 
-### Replacive fuzzing
+### Replacive Fuzzing
 
 Replacive fuzzing can be defined as the process of fuzzing part of a request by means of replacing it with a set value. This value is known as a fuzz vector. In the case of:
 

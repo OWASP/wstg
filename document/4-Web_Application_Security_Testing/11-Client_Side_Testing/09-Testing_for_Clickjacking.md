@@ -53,7 +53,7 @@ The most common client side method, that has been developed to protect a web pag
 
 The structure of frame busting code typically consists of a “conditional statement” and a “counter-action” statement. For this type of protection, there are some work arounds that fall under the name of “Bust frame busting”. Some of this techniques are browser-specific while others work across browsers.
 
-##### Mobile website Version
+##### Mobile Website Version
 
 Mobile versions of the website are usually smaller and faster than the desktop ones, and they have to be less complex than the main application. Mobile variants have often less protection since there is the wrong assumption that an attacker could not attack an application by the smart phone. This is fundamentally wrong, because an attacker can fake the real origin given by a web browser, such that a non-mobile victim may be able to visit an application made for mobile users. From this assumption follows that in some cases it is not necessary to use techniques to evade frame busting when there are unprotected alternatives, which allow the use of same attack vectors.
 
@@ -89,7 +89,7 @@ Attacker’s fictitious sub-frame (fictitious.html):
 <iframe src="http://target site">
 ```
 
-##### Disabling javascript
+##### Disabling JavaScript
 
 Since these type of client side protections relies on JavaScript frame busting code, if the victim has JavaScript disabled or it is possible for an attacker to disable JavaScript code, the web page will not have any protection mechanism against clickjacking.
 
@@ -205,7 +205,7 @@ Attacker code:
 <iframe src=”http://target site/?param=if(top+!%3D+self)+%7B+top.location%3Dself.location%3B+%7D”>
 ```
 
-##### Redefining location
+##### Redefining Location
 
 For several browser the “document.location” variable is an immutable attribute. However, for some version of Internet Explorer and Safari, it is possible to redefine this attribute. This fact can be exploited to evade frame busting code.
 
@@ -237,7 +237,7 @@ An alternative approach to client side frame busting code was implemented by Mic
 
 The “X-FRAME-OPTIONS” is a very good solution, and was adopted by major browser, but also for this technique there are some limitations that could lead in any case to exploit the clickjacking vulnerability.
 
-##### Browser compatibility
+##### Browser Compatibility
 
 Since the “X-FRAME-OPTIONS” was introduced in 2009, this header is not compatible with old browser. So every user that doesn't have an updated browser could be victim of clickjacking attack.
 
@@ -253,13 +253,13 @@ Since the “X-FRAME-OPTIONS” was introduced in 2009, this header is not compa
 
 Web proxies are known for adding and stripping headers. In the case in which a web proxy strips the “X-FRAME-OPTIONS” header then the site loses its framing protection.
 
-##### Mobile website version
+##### Mobile Website Version
 
 Also in this case, since the `X-FRAME-OPTIONS` has to be implemented in every page of the website, the developers may have not protected the mobile version of the website.
 
-### Create a “proof of concept”
+### Create a Proof of Concept
 
-Once we have discovered that the site we are testing is vulnerable to clickjacking attack, we can proceed with the development of a `proof of concept` to demonstrate the vulnerability. It is important to note that, as mentioned previously, these attacks can be used in conjunction with other forms of attacks (for example CSRF attacks) and could lead to overcome anti-CSRF tokens. In this regard we can imagine that, for example, the target site allows to authenticated and authorized users to make a transfer of money to another account.
+Once we have discovered that the site we are testing is vulnerable to clickjacking attack, we can proceed with the development of a `proof of concept` (PoC) to demonstrate the vulnerability. It is important to note that, as mentioned previously, these attacks can be used in conjunction with other forms of attacks (for example CSRF attacks) and could lead to overcome anti-CSRF tokens. In this regard we can imagine that, for example, the target site allows to authenticated and authorized users to make a transfer of money to another account.
 
 Suppose that to execute the transfer the developers have planned three steps. In the first step the user fill a form with the destination account and the amount. In the second step, whenever the user submits the form, is presented a summary page asking the user confirmation (like the one presented in the following picture).
 
@@ -400,7 +400,7 @@ The example presented uses only basic clickjacking technique, but with advanced 
 
 ### OWASP Resources
 
-- [Clickjacking](https://owasp.org/www-community/Clickjacking)
+- [Clickjacking](https://owasp.org/www-community/attacks/Clickjacking)
 
 ### Whitepapers
 
