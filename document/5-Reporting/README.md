@@ -87,10 +87,10 @@ The following is the list of controls that were tested during the assessment:
 | WSTG-ATHN-09 | Testing for weak password change or reset functionalities |
 | WSTG-ATHN-10 | Testing for Weaker authentication in alternative channel |
 | **WSTG-AUTHZ** | **Authorization Testing** |
-| WSTG-AUTHZ-001 | Testing Directory traversal/file include |
-| WSTG-AUTHZ-002 | Testing for bypassing authorization schema |
-| WSTG-AUTHZ-003 | Testing for Privilege Escalation |
-| WSTG-AUTHZ-004 | Testing for Insecure Direct Object References |
+| WSTG-ATHZ-01 | Testing Directory traversal/file include |
+| WSTG-ATHZ-02 | Testing for bypassing authorization schema |
+| WSTG-ATHZ-03 | Testing for Privilege Escalation |
+| WSTG-ATHZ-04 | Testing for Insecure Direct Object References |
 | **WSTG-SESS** | **Session Management Testing** |
 | WSTG-SESS-001 | Testing for Bypassing Session Management Schema |
 | WSTG-SESS-002 | Testing for Cookies attributes |
