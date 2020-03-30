@@ -49,14 +49,14 @@ The following is the list of controls to test during the assessment:
 | 4.6.3    | WSTG-ATHZ-03 | Testing for Privilege Escalation |
 | 4.6.4    | WSTG-ATHZ-04 | Testing for Insecure Direct Object References |
 | **4.7**  | **WSTG-SESS**  | **Session Management Testing** |
-| 4.7.1    | WSTG-SESS-001  | Testing for Bypassing Session Management Schema |
-| 4.7.2    | WSTG-SESS-002  | Testing for Cookies attributes |
-| 4.7.3    | WSTG-SESS-003  | Testing for Session Fixation |
-| 4.7.4    | WSTG-SESS-004  | Testing for Exposed Session Variables |
-| 4.7.5    | WSTG-SESS-005  | Testing for Cross Site Request Forgery |
-| 4.7.6    | WSTG-SESS-006  | Testing for logout functionality |
-| 4.7.7    | WSTG-SESS-007  | Test Session Timeout |
-| 4.7.8    | WSTG-SESS-008  | Testing for Session puzzling |
+| 4.7.1    | WSTG-SESS-01  | Testing for Bypassing Session Management Schema |
+| 4.7.2    | WSTG-SESS-02  | Testing for Cookies attributes |
+| 4.7.3    | WSTG-SESS-03  | Testing for Session Fixation |
+| 4.7.4    | WSTG-SESS-04  | Testing for Exposed Session Variables |
+| 4.7.5    | WSTG-SESS-05  | Testing for Cross Site Request Forgery |
+| 4.7.6    | WSTG-SESS-06  | Testing for logout functionality |
+| 4.7.7    | WSTG-SESS-07  | Test Session Timeout |
+| 4.7.8    | WSTG-SESS-08  | Testing for Session puzzling |
 | **4.8**  | **WSTG-INPVAL** | **Data Validation Testing** |
 | 4.8.1    | WSTG-INPVAL-001 | Testing for Reflected Cross Site Scripting |
 | 4.8.2    | WSTG-INPVAL-002 | Testing for Stored Cross Site Scripting |

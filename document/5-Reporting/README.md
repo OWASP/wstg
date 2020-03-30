@@ -92,14 +92,14 @@ The following is the list of controls that were tested during the assessment:
 | WSTG-ATHZ-03 | Testing for Privilege Escalation |
 | WSTG-ATHZ-04 | Testing for Insecure Direct Object References |
 | **WSTG-SESS** | **Session Management Testing** |
-| WSTG-SESS-001 | Testing for Bypassing Session Management Schema |
-| WSTG-SESS-002 | Testing for Cookies attributes |
-| WSTG-SESS-003 | Testing for Session Fixation |
-| WSTG-SESS-004 | Testing for Exposed Session Variables |
-| WSTG-SESS-005 | Testing for Cross Site Request Forgery |
-| WSTG-SESS-006 | Testing for logout functionality |
-| WSTG-SESS-007 | Test Session Timeout |
-| WSTG-SESS-008 | Testing for Session puzzling |
+| WSTG-SESS-01 | Testing for Bypassing Session Management Schema |
+| WSTG-SESS-02 | Testing for Cookies attributes |
+| WSTG-SESS-03 | Testing for Session Fixation |
+| WSTG-SESS-04 | Testing for Exposed Session Variables |
+| WSTG-SESS-05 | Testing for Cross Site Request Forgery |
+| WSTG-SESS-06 | Testing for logout functionality |
+| WSTG-SESS-07 | Test Session Timeout |
+| WSTG-SESS-08 | Testing for Session puzzling |
 | **WSTG-INPVAL** |**Input Validation Testing** |
 | WSTG-INPVAL-001 | Testing for Reflected Cross Site Scripting |
 | WSTG-INPVAL-002 | Testing for Stored Cross Site Scripting |
