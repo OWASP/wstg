@@ -148,18 +148,18 @@ The following is the list of controls that were tested during the assessment:
 | WSTG-BUSL-08 | Test Upload of Unexpected File Types |
 | WSTG-BUSL-09 | Test Upload of Malicious Files |
 | **WSTG-CLIENT** | **Client Side Testing** |
-| WSTG-CLIENT-001 | Testing for DOM based Cross Site Scripting |
-| WSTG-CLIENT-002 | Testing for JavaScript Execution |
-| WSTG-CLIENT-003 | Testing for HTML Injection |
-| WSTG-CLIENT-004 | Testing for Client Side URL Redirect |
-| WSTG-CLIENT-005 | Testing for CSS Injection |
-| WSTG-CLIENT-006 | Testing for Client Side Resource Manipulation |
-| WSTG-CLIENT-007 | Test Cross Origin Resource Sharing |
-| WSTG-CLIENT-008 | Testing for Cross Site Flashing |
-| WSTG-CLIENT-009 | Testing for Clickjacking |
-| WSTG-CLIENT-010 | Testing WebSockets |
-| WSTG-CLIENT-011 | Test Web Messaging |
-| WSTG-CLIENT-012 | Test Local Storage |
+| WSTG-CLNT-01 | Testing for DOM based Cross Site Scripting |
+| WSTG-CLNT-02 | Testing for JavaScript Execution |
+| WSTG-CLNT-03 | Testing for HTML Injection |
+| WSTG-CLNT-04 | Testing for Client Side URL Redirect |
+| WSTG-CLNT-05 | Testing for CSS Injection |
+| WSTG-CLNT-06 | Testing for Client Side Resource Manipulation |
+| WSTG-CLNT-07 | Test Cross Origin Resource Sharing |
+| WSTG-CLNT-08 | Testing for Cross Site Flashing |
+| WSTG-CLNT-09 | Testing for Clickjacking |
+| WSTG-CLNT-10 | Testing WebSockets |
+| WSTG-CLNT-11 | Test Web Messaging |
+| WSTG-CLNT-12 | Test Local Storage |
 
 ## Appendix
 

@@ -103,15 +103,15 @@ The following is the list of controls to test during the assessment:
 | 4.11.8   | WSTG-BUSL-08 | Test Upload of Unexpected File Types |
 | 4.11.9   | WSTG-BUSL-09 | Test Upload of Malicious Files |
 | **4.12** | **WSTG-CLIENT** | **Client Side Testing** |
-| 4.12.1   | WSTG-CLIENT-001 | Testing for DOM based Cross Site Scripting |
-| 4.12.2   | WSTG-CLIENT-002 | Testing for JavaScript Execution |
-| 4.12.3   | WSTG-CLIENT-003 | Testing for HTML Injection |
-| 4.12.4   | WSTG-CLIENT-004 | Testing for Client Side URL Redirect |
-| 4.12.5   | WSTG-CLIENT-005 | Testing for CSS Injection |
-| 4.12.6   | WSTG-CLIENT-006 | Testing for Client Side Resource Manipulation |
-| 4.12.7   | WSTG-CLIENT-007 | Test Cross Origin Resource Sharing |
-| 4.12.8   | WSTG-CLIENT-008 | Testing for Cross Site Flashing |
-| 4.12.9   | WSTG-CLIENT-009 | Testing for Clickjacking |
-| 4.12.10  | WSTG-CLIENT-010 | Testing WebSockets |
-| 4.12.11  | WSTG-CLIENT-011 | Test Web Messaging |
-| 4.12.12  | WSTG-CLIENT-012 | Test Local Storage |
+| 4.12.1   | WSTG-CLNT-01 | Testing for DOM based Cross Site Scripting |
+| 4.12.2   | WSTG-CLNT-02 | Testing for JavaScript Execution |
+| 4.12.3   | WSTG-CLNT-03 | Testing for HTML Injection |
+| 4.12.4   | WSTG-CLNT-04 | Testing for Client Side URL Redirect |
+| 4.12.5   | WSTG-CLNT-05 | Testing for CSS Injection |
+| 4.12.6   | WSTG-CLNT-06 | Testing for Client Side Resource Manipulation |
+| 4.12.7   | WSTG-CLNT-07 | Test Cross Origin Resource Sharing |
+| 4.12.8   | WSTG-CLNT-08 | Testing for Cross Site Flashing |
+| 4.12.9   | WSTG-CLNT-09 | Testing for Clickjacking |
+| 4.12.10  | WSTG-CLNT-10 | Testing WebSockets |
+| 4.12.11  | WSTG-CLNT-11 | Test Web Messaging |
+| 4.12.12  | WSTG-CLNT-12 | Test Local Storage |
