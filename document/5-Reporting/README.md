@@ -59,7 +59,7 @@ The following is the list of controls that were tested during the assessment:
 | WSTG-INFO-09 | Fingerprint Web Application |
 | WSTG-INFO-10 | Map Application Architecture |
 | **WSTG-CONF** | **Configuration and Deploy Management Testing** |
-| WSTG-CONF-01 | Test Network/Infrastructure Configuration |
+| WSTG-CONF-01 | Test Network Infrastructure Configuration |
 | WSTG-CONF-02 | Test Application Platform Configuration |
 | WSTG-CONF-03 | Test File Extensions Handling for Sensitive Information |
 | WSTG-CONF-04 | Backup and Unreferenced Files for Sensitive Information |
@@ -67,20 +67,21 @@ The following is the list of controls that were tested during the assessment:
 | WSTG-CONF-06 | Test HTTP Methods |
 | WSTG-CONF-07 | Test HTTP Strict Transport Security |
 | WSTG-CONF-08 | Test RIA Cross Domain Policy |
+| WSTG-CONF-09 | Test File Permission |
+| WSTG-CONF-10 | Test for Subdomain Takeover |
+| WSTG-CONF-11 | Test Cloud Storage |
 | **WSTG-IDNT** | **Identity Management Testing** |
 | WSTG-IDNT-01 | Test Role Definitions |
 | WSTG-IDNT-02 | Test User Registration Process |
 | WSTG-IDNT-03 | Test Account Provisioning Process |
 | WSTG-IDNT-04 | Testing for Account Enumeration and Guessable User Account |
 | WSTG-IDNT-05 | Testing for Weak or Unenforced Username Policy |
-| WSTG-IDNT-06 | Test Permissions of Guest/Training Accounts |
-| WSTG-IDNT-07 | Test Account Suspension/Resumption Process |
 | **WSTG-ATHN** | **Authentication Testing** |
 | WSTG-ATHN-01 | Testing for Credentials Transported over an Encrypted Channel |
-| WSTG-ATHN-02 | Testing for default credentials |
+| WSTG-ATHN-02 | Testing for Default Credentials |
 | WSTG-ATHN-03 | Testing for Weak Lock Out Mechanism |
 | WSTG-ATHN-04 | Testing for Bypassing Authentication Schema |
-| WSTG-ATHN-05 | Test Remember Password Functionality |
+| WSTG-ATHN-05 | Testing for Vulnerable Remember Password |
 | WSTG-ATHN-06 | Testing for Browser Cache Weakness |
 | WSTG-ATHN-07 | Testing for Weak Password Policy |
 | WSTG-ATHN-08 | Testing for Weak Security Question Answer |
@@ -106,14 +107,14 @@ The following is the list of controls that were tested during the assessment:
 | WSTG-INPV-03 | Testing for HTTP Verb Tampering |
 | WSTG-INPV-04 | Testing for HTTP Parameter pollution |
 | WSTG-INPV-05 | Testing for SQL Injection |
-| | Oracle Testing |
-| | MySQL Testing   |
-| | SQL Server Testing |
-| | Testing PostgreSQL |
-| | MS Access Testing |
-| | Testing for NoSQL injection |
-| | Testing for ORM Injection |
-| | Testing for Client Side |
+| | Oracle |
+| | MySQL |
+| | SQL Server |
+| | PostgreSQL |
+| | MS Access |
+| | NoSQL |
+| | ORM |
+| | Client Side |
 | WSTG-INPV-06 | Testing for LDAP Injection |
 | WSTG-INPV-07 | Testing for XML Injection |
 | WSTG-INPV-08 | Testing for SSI Injection |
@@ -147,7 +148,7 @@ The following is the list of controls that were tested during the assessment:
 | WSTG-BUSL-04 | Test for Process Timing |
 | WSTG-BUSL-05 | Test Number of Times a Function Can be Used Limits |
 | WSTG-BUSL-06 | Testing for the Circumvention of Work Flows |
-| WSTG-BUSL-07 | Test Defenses Against Application Mis-use |
+| WSTG-BUSL-07 | Test Defenses Against Application Misuse |
 | WSTG-BUSL-08 | Test Upload of Unexpected File Types |
 | WSTG-BUSL-09 | Test Upload of Malicious Files |
 | **WSTG-CLIENT** | **Client Side Testing** |

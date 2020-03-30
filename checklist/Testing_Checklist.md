@@ -7,7 +7,7 @@ The following is the list of controls to test during the assessment:
 | **4.1** | **WSTG-INFO** | **Information Gathering** |
 | 4.1.1 | WSTG-INFO-01 | Conduct Search Engine Discovery and Reconnaissance for Information Leakage |
 | 4.1.2 | WSTG-INFO-02 | Fingerprint Web Server |
-| 4.1.3 | WSTG-INFO-03 | Review Webserver Metafiles for Information |
+| 4.1.3 | WSTG-INFO-03 | Review Webserver Metafiles for Information Leakage |
 | 4.1.4 | WSTG-INFO-04 | Enumerate Applications on Webserver |
 | 4.1.5 | WSTG-INFO-05 | Review Webpage Comments and Metadata for Information Leakage |
 | 4.1.6 | WSTG-INFO-06 | Identify Application Entry Points |
@@ -16,7 +16,7 @@ The following is the list of controls to test during the assessment:
 | 4.1.9 | WSTG-INFO-09 | Fingerprint Web Application |
 | 4.1.10 | WSTG-INFO-10 | Map Application Architecture |
 | **4.2** | **WSTG-CONF** | **Configuration and Deploy Management Testing** |
-| 4.2.1 | WSTG-CONF-01 | Test Network/Infrastructure Configuration |
+| 4.2.1 | WSTG-CONF-01 | Test Network Infrastructure Configuration |
 | 4.2.2 | WSTG-CONF-02 | Test Application Platform Configuration |
 | 4.2.3 | WSTG-CONF-03 | Test File Extensions Handling for Sensitive Information |
 | 4.2.4 | WSTG-CONF-04 | Backup and Unreferenced Files for Sensitive Information |
@@ -24,20 +24,21 @@ The following is the list of controls to test during the assessment:
 | 4.2.6 | WSTG-CONF-06 | Test HTTP Methods |
 | 4.2.7 | WSTG-CONF-07 | Test HTTP Strict Transport Security |
 | 4.2.8 | WSTG-CONF-08 | Test RIA Cross Domain Policy |
+| 4.2.9 | WSTG-CONF-09 | Test File Permission |
+| 4.2.10 | WSTG-CONF-10 | Test for Subdomain Takeover |
+| 4.2.11 | WSTG-CONF-11 | Test Cloud Storage |
 | **4.3** | **WSTG-IDNT** | **Identity Management Testing** |
 | 4.3.1 | WSTG-IDNT-01 | Test Role Definitions |
 | 4.3.2 | WSTG-IDNT-02 | Test User Registration Process |
 | 4.3.3 | WSTG-IDNT-03 | Test Account Provisioning Process |
 | 4.3.4 | WSTG-IDNT-04 | Testing for Account Enumeration and Guessable User Account |
 | 4.3.5 | WSTG-IDNT-05 | Testing for Weak or Unenforced Username Policy |
-| 4.3.6 | WSTG-IDNT-06 | Test Permissions of Guest/Training Accounts |
-| 4.3.7 | WSTG-IDNT-07 | Test Account Suspension/Resumption Process |
 | **4.4** | **WSTG-ATHN** | **Authentication Testing** |
 | 4.4.1 | WSTG-ATHN-01 | Testing for Credentials Transported over an Encrypted Channel |
-| 4.4.2 | WSTG-ATHN-02 | Testing for default credentials |
+| 4.4.2 | WSTG-ATHN-02 | Testing for Default Credentials |
 | 4.4.3 | WSTG-ATHN-03 | Testing for Weak Lock Out Mechanism |
 | 4.4.4 | WSTG-ATHN-04 | Testing for Bypassing Authentication Schema |
-| 4.4.5 | WSTG-ATHN-05 | Test Remember Password Functionality |
+| 4.4.5 | WSTG-ATHN-05 | Testing for Vulnerable Remember Password |
 | 4.4.6 | WSTG-ATHN-06 | Testing for Browser Cache Weakness |
 | 4.4.7 | WSTG-ATHN-07 | Testing for Weak Password Policy |
 | 4.4.8 | WSTG-ATHN-08 | Testing for Weak Security Question Answer |
@@ -63,14 +64,14 @@ The following is the list of controls to test during the assessment:
 | 4.7.3 | WSTG-INPV-03 | Testing for HTTP Verb Tampering |
 | 4.7.4 | WSTG-INPV-04 | Testing for HTTP Parameter pollution |
 | 4.7.5 | WSTG-INPV-05 | Testing for SQL Injection |
-| 4.7.5.1 | | Oracle Testing |
-| 4.7.5.2 | | MySQL Testing |
-| 4.7.5.3 | | SQL Server Testing |
-| 4.7.5.4 | | Testing PostgreSQL |
-| 4.7.5.5 | | MS Access Testing |
-| 4.7.5.6 | | Testing for NoSQL injection |
-| 4.7.5.7 | | Testing for ORM Injection |
-| 4.7.5.8 | | Testing for Client Side |
+| 4.7.5.1 | | Oracle |
+| 4.7.5.2 | | MySQL |
+| 4.7.5.3 | | SQL Server |
+| 4.7.5.4 | | PostgreSQL |
+| 4.7.5.5 | | MS Access |
+| 4.7.5.6 | | NoSQL |
+| 4.7.5.7 | | ORM |
+| 4.7.5.8 | | Client Side |
 | 4.7.6 | WSTG-INPV-06 | Testing for LDAP Injection |
 | 4.7.7 | WSTG-INPV-07 | Testing for XML Injection |
 | 4.7.8 | WSTG-INPV-08 | Testing for SSI Injection |
@@ -104,7 +105,7 @@ The following is the list of controls to test during the assessment:
 | 4.10.4 | WSTG-BUSL-04 | Test for Process Timing |
 | 4.10.5 | WSTG-BUSL-05 | Test Number of Times a Function Can be Used Limits |
 | 4.10.6 | WSTG-BUSL-06 | Testing for the Circumvention of Work Flows |
-| 4.10.7 | WSTG-BUSL-07 | Test Defenses Against Application Mis-use |
+| 4.10.7 | WSTG-BUSL-07 | Test Defenses Against Application Misuse |
 | 4.10.8 | WSTG-BUSL-08 | Test Upload of Unexpected File Types |
 | 4.10.9 | WSTG-BUSL-09 | Test Upload of Malicious Files |
 | **4.11** | **WSTG-CLIENT** | **Client Side Testing** |
