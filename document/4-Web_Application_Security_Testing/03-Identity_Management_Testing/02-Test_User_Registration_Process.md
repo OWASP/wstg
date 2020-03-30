@@ -2,7 +2,7 @@
 
 |ID            |
 |--------------|
-|WSTG-IDENT-002|
+|WSTG-IDNT-02|
 
 ## Summary
 

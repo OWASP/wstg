@@ -68,13 +68,13 @@ The following is the list of controls that were tested during the assessment:
 | WSTG-CONF-07 | Test HTTP Strict Transport Security |
 | WSTG-CONF-08 | Test RIA cross domain policy |
 | **WSTG-IDENT** | **Identity Management Testing** |
-| WSTG-IDENT-001 | Test Role Definitions |
-| WSTG-IDENT-002 | Test User Registration Process |
-| WSTG-IDENT-003 | Test Account Provisioning Process |
-| WSTG-IDENT-004 | Testing for Account Enumeration and Guessable User Account |
-| WSTG-IDENT-005 | Testing for Weak or unenforced username policy |
-| WSTG-IDENT-006 | Test Permissions of Guest/Training Accounts |
-| WSTG-IDENT-007 | Test Account Suspension/Resumption Process |
+| WSTG-IDNT-01 | Test Role Definitions |
+| WSTG-IDNT-02 | Test User Registration Process |
+| WSTG-IDNT-03 | Test Account Provisioning Process |
+| WSTG-IDNT-04 | Testing for Account Enumeration and Guessable User Account |
+| WSTG-IDNT-05 | Testing for Weak or unenforced username policy |
+| WSTG-IDNT-06 | Test Permissions of Guest/Training Accounts |
+| WSTG-IDNT-07 | Test Account Suspension/Resumption Process |
 | **WSTG-AUTHN** | **Authentication Testing** |
 | WSTG-AUTHN-001 | Testing for Credentials Transported over an Encrypted Channel |
 | WSTG-AUTHN-002 | Testing for default credentials |

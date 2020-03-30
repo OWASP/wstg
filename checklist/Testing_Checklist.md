@@ -25,13 +25,13 @@ The following is the list of controls to test during the assessment:
 | 4.3.7    | WSTG-CONF-07 | Test HTTP Strict Transport Security |
 | 4.3.8    | WSTG-CONF-08 | Test RIA cross domain policy |
 | **4.4**  | **WSTG-IDENT**  | **Identity Management Testing** |
-| 4.4.1    | WSTG-IDENT-001  | Test Role Definitions |
-| 4.4.2    | WSTG-IDENT-002  | Test User Registration Process |
-| 4.4.3    | WSTG-IDENT-003  | Test Account Provisioning Process |
-| 4.4.4    | WSTG-IDENT-004  | Testing for Account Enumeration and Guessable User Account |
-| 4.4.5    | WSTG-IDENT-005  | Testing for Weak or unenforced username policy |
-| 4.4.6    | WSTG-IDENT-006  | Test Permissions of Guest/Training Accounts |
-| 4.4.7    | WSTG-IDENT-007  | Test Account Suspension/Resumption Process  |
+| 4.4.1    | WSTG-IDNT-01  | Test Role Definitions |
+| 4.4.2    | WSTG-IDNT-02  | Test User Registration Process |
+| 4.4.3    | WSTG-IDNT-03  | Test Account Provisioning Process |
+| 4.4.4    | WSTG-IDNT-04  | Testing for Account Enumeration and Guessable User Account |
+| 4.4.5    | WSTG-IDNT-05  | Testing for Weak or unenforced username policy |
+| 4.4.6    | WSTG-IDNT-06  | Test Permissions of Guest/Training Accounts |
+| 4.4.7    | WSTG-IDNT-07  | Test Account Suspension/Resumption Process  |
 | **4.5**  | **WSTG-AUTHN**  | **Authentication Testing** |
 | 4.5.1    | WSTG-AUTHN-001  | Testing for Credentials Transported over an Encrypted Channel |
 | 4.5.2    | WSTG-AUTHN-002  | Testing for default credentials |
