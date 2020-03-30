@@ -101,34 +101,34 @@ The following is the list of controls that were tested during the assessment:
 | WSTG-SESS-07 | Test Session Timeout |
 | WSTG-SESS-08 | Testing for Session puzzling |
 | **WSTG-INPVAL** |**Input Validation Testing** |
-| WSTG-INPVAL-001 | Testing for Reflected Cross Site Scripting |
-| WSTG-INPVAL-002 | Testing for Stored Cross Site Scripting |
-| WSTG-INPVAL-003 | Testing for HTTP Verb Tampering |
-| WSTG-INPVAL-004 | Testing for HTTP Parameter pollution |
-| WSTG-INPVAL-005 | Testing for SQL Injection |
+| WSTG-INPV-01 | Testing for Reflected Cross Site Scripting |
+| WSTG-INPV-02 | Testing for Stored Cross Site Scripting |
+| WSTG-INPV-03 | Testing for HTTP Verb Tampering |
+| WSTG-INPV-04 | Testing for HTTP Parameter pollution |
+| WSTG-INPV-05 | Testing for SQL Injection |
 | | Oracle Testing |
 | | MySQL Testing   |
 | | SQL Server Testing |
 | | Testing PostgreSQL |
 | | MS Access Testing |
 | | Testing for NoSQL injection |
-| WSTG-INPVAL-006 | Testing for LDAP Injection |
-| WSTG-INPVAL-007 | Testing for ORM Injection |
-| WSTG-INPVAL-008 | Testing for XML Injection |
-| WSTG-INPVAL-008 | Testing for SSI Injection |
-| WSTG-INPVAL-010 | Testing for XPath Injection |
-| WSTG-INPVAL-011 | IMAP/SMTP Injection |
-| WSTG-INPVAL-012 |Testing for Code Injection |
+| WSTG-INPV-06 | Testing for LDAP Injection |
+| WSTG-INPV-07 | Testing for ORM Injection |
+| WSTG-INPV-08 | Testing for XML Injection |
+| WSTG-INPV-08 | Testing for SSI Injection |
+| WSTG-INPV-10 | Testing for XPath Injection |
+| WSTG-INPV-11 | IMAP/SMTP Injection |
+| WSTG-INPV-12 |Testing for Code Injection |
 | |Testing for Local File Inclusion |
 | |Testing for Remote File Inclusion |
-| WSTG-INPVAL-013 | Testing for Command Injection |
-| WSTG-INPVAL-014 | Testing for Buffer overflow |
+| WSTG-INPV-13 | Testing for Command Injection |
+| WSTG-INPV-14 | Testing for Buffer overflow |
 | | Testing for Heap overflow |
 | | Testing for Stack overflow |
 | | Testing for Format string |
-| WSTG-INPVAL-015  | Testing for incubated vulnerabilities |
-| WSTG-INPVAL-016  | Testing for HTTP Splitting/Smuggling |
-| WSTG-INPVAL-017  | Testing for HTTP Incoming requests |
+| WSTG-INPV-15  | Testing for incubated vulnerabilities |
+| WSTG-INPV-16  | Testing for HTTP Splitting/Smuggling |
+| WSTG-INPV-17  | Testing for HTTP Incoming requests |
 | **WSTG-ERR**  |**Error Handling** |
 | WSTG-ERR-001  | Analysis of Error Codes |
 | WSTG-ERR-002  | Analysis of Stack Traces |

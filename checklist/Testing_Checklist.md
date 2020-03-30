@@ -58,33 +58,33 @@ The following is the list of controls to test during the assessment:
 | 4.7.7    | WSTG-SESS-07  | Test Session Timeout |
 | 4.7.8    | WSTG-SESS-08  | Testing for Session puzzling |
 | **4.8**  | **WSTG-INPVAL** | **Data Validation Testing** |
-| 4.8.1    | WSTG-INPVAL-001 | Testing for Reflected Cross Site Scripting |
-| 4.8.2    | WSTG-INPVAL-002 | Testing for Stored Cross Site Scripting |
-| 4.8.3    | WSTG-INPVAL-003 | Testing for HTTP Verb Tampering |
-| 4.8.4    | WSTG-INPVAL-004 | Testing for HTTP Parameter pollution |
-| 4.8.5    | WSTG-INPVAL-005 | Testing for SQL Injection |
+| 4.8.1    | WSTG-INPV-01 | Testing for Reflected Cross Site Scripting |
+| 4.8.2    | WSTG-INPV-02 | Testing for Stored Cross Site Scripting |
+| 4.8.3    | WSTG-INPV-03 | Testing for HTTP Verb Tampering |
+| 4.8.4    | WSTG-INPV-04 | Testing for HTTP Parameter pollution |
+| 4.8.5    | WSTG-INPV-05 | Testing for SQL Injection |
 | 4.8.5.1  |                | Oracle Testing |
 | 4.8.5.2  |                | MySQL Testing |
 | 4.8.5.3  |                | SQL Server Testing |
 | 4.8.5.4  |                | Testing PostgreSQL |
 | 4.8.5.5  |                | MS Access Testing |
 | 4.8.5.6  |                | Testing for NoSQL injection |
-| 4.8.6    | WSTG-INPVAL-006 | Testing for LDAP Injection |
-| 4.8.7    | WSTG-INPVAL-007 | Testing for ORM Injection |
-| 4.8.8    | WSTG-INPVAL-008 | Testing for XML Injection |
-| 4.8.9    | WSTG-INPVAL-009 | Testing for SSI Injection |
-| 4.8.10   | WSTG-INPVAL-010 | Testing for XPath Injection |
-| 4.8.11   | WSTG-INPVAL-011 | IMAP/SMTP Injection |
-| 4.8.12   | WSTG-INPVAL-012 | Testing for Code Injection |
+| 4.8.6    | WSTG-INPV-06 | Testing for LDAP Injection |
+| 4.8.7    | WSTG-INPV-07 | Testing for ORM Injection |
+| 4.8.8    | WSTG-INPV-08 | Testing for XML Injection |
+| 4.8.9    | WSTG-INPV-09 | Testing for SSI Injection |
+| 4.8.10   | WSTG-INPV-10 | Testing for XPath Injection |
+| 4.8.11   | WSTG-INPV-11 | IMAP/SMTP Injection |
+| 4.8.12   | WSTG-INPV-12 | Testing for Code Injection |
 | 4.8.12.1 |                | Testing for Local File Inclusion |
 | 4.8.12.2 |                | Testing for Remote File Inclusion |
-| 4.8.13   | WSTG-INPVAL-013 | Testing for Command Injection |
-| 4.8.14   | WSTG-INPVAL-014 | Testing for Buffer overflow |
+| 4.8.13   | WSTG-INPV-13 | Testing for Command Injection |
+| 4.8.14   | WSTG-INPV-14 | Testing for Buffer overflow |
 | 4.8.14.1 |                | Testing for Heap overflow |
 | 4.8.14.2 |                | Testing for Stack overflow |
 | 4.8.14.3 |                | Testing for Format string |
-| 4.8.15   | WSTG-INPVAL-015 | Testing for incubated vulnerabilities |
-| 4.8.16   | WSTG-INPVAL-016 | Testing for HTTP Splitting/Smuggling |
+| 4.8.15   | WSTG-INPV-15 | Testing for incubated vulnerabilities |
+| 4.8.16   | WSTG-INPV-16 | Testing for HTTP Splitting/Smuggling |
 | **4.9**  | **WSTG-ERR**    | **Error Handling** |
 | 4.9.1    | WSTG-ERR-001    | Analysis of Error Codes |
 | 4.9.2    | WSTG-ERR-002    | Analysis of Stack Traces |
