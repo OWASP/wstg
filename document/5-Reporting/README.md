@@ -59,14 +59,14 @@ The following is the list of controls that were tested during the assessment:
 | WSTG-INFO-09 | Fingerprint Web Application |
 | WSTG-INFO-10 | Map Application Architecture |
 | **WSTG-CONFIG** | **Configuration and Deploy Management Testing** |
-| WSTG-CONFIG-001 | Test Network/Infrastructure Configuration |
-| WSTG-CONFIG-002 | Test Application Platform Configuration |
-| WSTG-CONFIG-003 | Test File Extensions Handling for Sensitive Information |
-| WSTG-CONFIG-004 | Backup and Unreferenced Files for Sensitive Information |
-| WSTG-CONFIG-005 | Enumerate Infrastructure and Application Admin Interfaces |
-| WSTG-CONFIG-006 | Test HTTP Methods |
-| WSTG-CONFIG-007 | Test HTTP Strict Transport Security |
-| WSTG-CONFIG-008 | Test RIA cross domain policy |
+| WSTG-CONF-01 | Test Network/Infrastructure Configuration |
+| WSTG-CONF-02 | Test Application Platform Configuration |
+| WSTG-CONF-03 | Test File Extensions Handling for Sensitive Information |
+| WSTG-CONF-04 | Backup and Unreferenced Files for Sensitive Information |
+| WSTG-CONF-05 | Enumerate Infrastructure and Application Admin Interfaces |
+| WSTG-CONF-06 | Test HTTP Methods |
+| WSTG-CONF-07 | Test HTTP Strict Transport Security |
+| WSTG-CONF-08 | Test RIA cross domain policy |
 | **WSTG-IDENT** | **Identity Management Testing** |
 | WSTG-IDENT-001 | Test Role Definitions |
 | WSTG-IDENT-002 | Test User Registration Process |

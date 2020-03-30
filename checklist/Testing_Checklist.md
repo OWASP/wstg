@@ -16,14 +16,14 @@ The following is the list of controls to test during the assessment:
 | 4.2.9    | WSTG-INFO-09 | Fingerprint Web Application |
 | 4.2.10   | WSTG-INFO-10 | Map Application Architecture  |
 | **4.3**    | **WSTG-CONFIG** | **Configuration and Deploy Management Testing** |
-| 4.3.1    | WSTG-CONFIG-001 | Test Network/Infrastructure Configuration |
-| 4.3.2    | WSTG-CONFIG-002 | Test Application Platform Configuration |
-| 4.3.3    | WSTG-CONFIG-003 | Test File Extensions Handling for Sensitive Information |
-| 4.3.4    | WSTG-CONFIG-004 | Backup and Unreferenced Files for Sensitive Information |
-| 4.3.5    | WSTG-CONFIG-005 | Enumerate Infrastructure and Application Admin Interfaces  |
-| 4.3.6    | WSTG-CONFIG-006 | Test HTTP Methods |
-| 4.3.7    | WSTG-CONFIG-007 | Test HTTP Strict Transport Security |
-| 4.3.8    | WSTG-CONFIG-008 | Test RIA cross domain policy |
+| 4.3.1    | WSTG-CONF-01 | Test Network/Infrastructure Configuration |
+| 4.3.2    | WSTG-CONF-02 | Test Application Platform Configuration |
+| 4.3.3    | WSTG-CONF-03 | Test File Extensions Handling for Sensitive Information |
+| 4.3.4    | WSTG-CONF-04 | Backup and Unreferenced Files for Sensitive Information |
+| 4.3.5    | WSTG-CONF-05 | Enumerate Infrastructure and Application Admin Interfaces  |
+| 4.3.6    | WSTG-CONF-06 | Test HTTP Methods |
+| 4.3.7    | WSTG-CONF-07 | Test HTTP Strict Transport Security |
+| 4.3.8    | WSTG-CONF-08 | Test RIA cross domain policy |
 | **4.4**  | **WSTG-IDENT**  | **Identity Management Testing** |
 | 4.4.1    | WSTG-IDENT-001  | Test Role Definitions |
 | 4.4.2    | WSTG-IDENT-002  | Test User Registration Process |
