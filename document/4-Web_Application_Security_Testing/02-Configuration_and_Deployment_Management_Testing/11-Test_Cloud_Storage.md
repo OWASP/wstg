@@ -2,7 +2,7 @@
 
 |ID             |
 |---------------|
-|WSTG-CONFIG-011|
+|WSTG-CONF-11|
 
 ## Summary
 

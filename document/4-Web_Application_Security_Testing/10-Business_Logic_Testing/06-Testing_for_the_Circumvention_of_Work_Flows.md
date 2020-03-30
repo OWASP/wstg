@@ -2,7 +2,7 @@
 
 |ID               |
 |-----------------|
-|WSTG-BUSLOGIC-006|
+|WSTG-BUSL-06|
 
 ## Summary
 
@@ -71,7 +71,7 @@ An electronic bulletin board system may be designed to ensure that initial posts
 
 ## References
 
-[OWASP Abuse Case Cheat Sheet](https://owasp.org/www-project-cheat-sheets/cheatsheets/Abuse_Case_Cheat_Sheet.html)
+[OWASP Abuse Case Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Abuse_Case_Cheat_Sheet.html)
 
 [CWE-840: Business Logic Errors](https://cwe.mitre.org/data/definitions/840.html)
 

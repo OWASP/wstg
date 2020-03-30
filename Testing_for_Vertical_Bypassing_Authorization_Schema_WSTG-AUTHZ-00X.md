@@ -1,4 +1,8 @@
-# Testing for Vertical Bypassing Authorization Schema (WSTG-AUTHZ-00X)
+# Testing for Vertical Bypassing Authorization Schema
+
+|ID           |
+|-------------|
+|WSTG-ATHZ-00X|
 
 ## Summary
 
