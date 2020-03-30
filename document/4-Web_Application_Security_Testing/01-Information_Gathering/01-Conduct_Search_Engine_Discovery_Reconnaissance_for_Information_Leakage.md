@@ -2,7 +2,7 @@
 
 |ID           |
 |-------------|
-|WSTG-INFO-001|
+|WSTG-INFO-01|
 
 ## Summary
 

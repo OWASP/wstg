@@ -5,16 +5,16 @@ The following is the list of controls to test during the assessment:
 | Ref. No. | Category     | Test Name                  |
 |----------|--------------|----------------------------|
 | **4.2**  | **WSTG-INFO** | **Information Gathering**  |
-| 4.2.1    | WSTG-INFO-001 | Conduct Search Engine Discovery and Reconnaissance for Information Leakage |
-| 4.2.2    | WSTG-INFO-002 | Fingerprint Web Server |
-| 4.2.3    | WSTG-INFO-003 | Review Webserver Metafiles for Information Leakage |
-| 4.2.4    | WSTG-INFO-004 | Enumerate Applications on Webserver |
-| 4.2.5    | WSTG-INFO-005 | Review Webpage Comments and Metadata for Information Leakage |
-| 4.2.6    | WSTG-INFO-006 | Identify application entry points |
-| 4.2.7    | WSTG-INFO-007 | Map execution paths through application |
-| 4.2.8    | WSTG-INFO-008 | Fingerprint Web Application Framework |
-| 4.2.9    | WSTG-INFO-009 | Fingerprint Web Application |
-| 4.2.10   | WSTG-INFO-010 | Map Application Architecture  |
+| 4.2.1    | WSTG-INFO-01 | Conduct Search Engine Discovery and Reconnaissance for Information Leakage |
+| 4.2.2    | WSTG-INFO-02 | Fingerprint Web Server |
+| 4.2.3    | WSTG-INFO-03 | Review Webserver Metafiles for Information Leakage |
+| 4.2.4    | WSTG-INFO-04 | Enumerate Applications on Webserver |
+| 4.2.5    | WSTG-INFO-05 | Review Webpage Comments and Metadata for Information Leakage |
+| 4.2.6    | WSTG-INFO-06 | Identify application entry points |
+| 4.2.7    | WSTG-INFO-07 | Map execution paths through application |
+| 4.2.8    | WSTG-INFO-08 | Fingerprint Web Application Framework |
+| 4.2.9    | WSTG-INFO-09 | Fingerprint Web Application |
+| 4.2.10   | WSTG-INFO-10 | Map Application Architecture  |
 | **4.3**    | **WSTG-CONFIG** | **Configuration and Deploy Management Testing** |
 | 4.3.1    | WSTG-CONFIG-001 | Test Network/Infrastructure Configuration |
 | 4.3.2    | WSTG-CONFIG-002 | Test Application Platform Configuration |
