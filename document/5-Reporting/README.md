@@ -76,16 +76,16 @@ The following is the list of controls that were tested during the assessment:
 | WSTG-IDNT-06 | Test Permissions of Guest/Training Accounts |
 | WSTG-IDNT-07 | Test Account Suspension/Resumption Process |
 | **WSTG-AUTHN** | **Authentication Testing** |
-| WSTG-AUTHN-001 | Testing for Credentials Transported over an Encrypted Channel |
-| WSTG-AUTHN-002 | Testing for default credentials |
-| WSTG-AUTHN-003 | Testing for Weak lock out mechanism |
-| WSTG-AUTHN-004 | Testing for bypassing authentication schema |
-| WSTG-AUTHN-005 | Test remember password functionality |
-| WSTG-AUTHN-006 | Testing for Browser cache weakness |
-| WSTG-AUTHN-007 | Testing for Weak password policy |
-| WSTG-AUTHN-008 | Testing for Weak security question/answer |
-| WSTG-AUTHN-009 | Testing for weak password change or reset functionalities |
-| WSTG-AUTHN-010 | Testing for Weaker authentication in alternative channel |
+| WSTG-ATHN-01 | Testing for Credentials Transported over an Encrypted Channel |
+| WSTG-ATHN-02 | Testing for default credentials |
+| WSTG-ATHN-03 | Testing for Weak lock out mechanism |
+| WSTG-ATHN-04 | Testing for bypassing authentication schema |
+| WSTG-ATHN-05 | Test remember password functionality |
+| WSTG-ATHN-06 | Testing for Browser cache weakness |
+| WSTG-ATHN-07 | Testing for Weak password policy |
+| WSTG-ATHN-08 | Testing for Weak security question/answer |
+| WSTG-ATHN-09 | Testing for weak password change or reset functionalities |
+| WSTG-ATHN-10 | Testing for Weaker authentication in alternative channel |
 | **WSTG-AUTHZ** | **Authorization Testing** |
 | WSTG-AUTHZ-001 | Testing Directory traversal/file include |
 | WSTG-AUTHZ-002 | Testing for bypassing authorization schema |

@@ -2,7 +2,7 @@
 
 |ID            |
 |--------------|
-|WSTG-AUTHN-001|
+|WSTG-ATHN-01|
 
 ## Summary
 

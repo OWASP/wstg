@@ -33,16 +33,16 @@ The following is the list of controls to test during the assessment:
 | 4.4.6    | WSTG-IDNT-06  | Test Permissions of Guest/Training Accounts |
 | 4.4.7    | WSTG-IDNT-07  | Test Account Suspension/Resumption Process  |
 | **4.5**  | **WSTG-AUTHN**  | **Authentication Testing** |
-| 4.5.1    | WSTG-AUTHN-001  | Testing for Credentials Transported over an Encrypted Channel |
-| 4.5.2    | WSTG-AUTHN-002  | Testing for default credentials |
-| 4.5.3    | WSTG-AUTHN-003  | Testing for Weak lock out mechanism |
-| 4.5.4    | WSTG-AUTHN-004  | Testing for bypassing authentication schema |
-| 4.5.5    | WSTG-AUTHN-005  | Test remember password functionality |
-| 4.5.6    | WSTG-AUTHN-006  | Testing for Browser cache weakness |
-| 4.5.7    | WSTG-AUTHN-007  | Testing for Weak password policy |
-| 4.5.8    | WSTG-AUTHN-008  | Testing for Weak security question/answer |
-| 4.5.9    | WSTG-AUTHN-009  | Testing for weak password change or reset functionalities |
-| 4.5.10   | WSTG-AUTHN-010  | Testing for Weaker authentication in alternative channel |
+| 4.5.1    | WSTG-ATHN-01  | Testing for Credentials Transported over an Encrypted Channel |
+| 4.5.2    | WSTG-ATHN-02  | Testing for default credentials |
+| 4.5.3    | WSTG-ATHN-03  | Testing for Weak lock out mechanism |
+| 4.5.4    | WSTG-ATHN-04  | Testing for bypassing authentication schema |
+| 4.5.5    | WSTG-ATHN-05  | Test remember password functionality |
+| 4.5.6    | WSTG-ATHN-06  | Testing for Browser cache weakness |
+| 4.5.7    | WSTG-ATHN-07  | Testing for Weak password policy |
+| 4.5.8    | WSTG-ATHN-08  | Testing for Weak security question/answer |
+| 4.5.9    | WSTG-ATHN-09  | Testing for weak password change or reset functionalities |
+| 4.5.10   | WSTG-ATHN-10  | Testing for Weaker authentication in alternative channel |
 | **4.6**  | **WSTG-AUTHZ** | **Authorization Testing** |
 | 4.6.1    | WSTG-AUTHZ-001 | Testing Directory traversal/file include |
 | 4.6.2    | WSTG-AUTHZ-002 | Testing for bypassing authorization schema |
