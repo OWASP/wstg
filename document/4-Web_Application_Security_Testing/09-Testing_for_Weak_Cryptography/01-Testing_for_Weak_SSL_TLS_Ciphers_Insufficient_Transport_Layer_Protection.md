@@ -135,7 +135,7 @@ The following standards can be used as reference while assessing SSL servers:
 - OWASP has a lot of resources about SSL/TLS Security:
   - [Transport Layer Protection Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html).
   - [OWASP Top 10 2017 A3-Sensitive Data Exposure](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure).
-  - [OWASP ASVS - Verification V10](https://code.google.com/p/owasp-asvs/wiki/Verification_V10).
+  - [OWASP ASVS - Verification V9](https://github.com/OWASP/ASVS/blob/master/4.0/en/0x17-V9-Communications.md).
   - [OWASP Application Security FAQ - Cryptography/SSL](https://owasp.org/www-community/OWASP_Application_Security_FAQ#cryptographyssl).
 
 Some tools and scanners both free (e.g. [SSLAudit](https://code.google.com/p/sslaudit/) or [SSLScan](https://sourceforge.net/projects/sslscan/)) and commercial (e.g. [Tenable Nessus](https://www.tenable.com/products/nessus)), can be used to assess SSL/TLS vulnerabilities. But due to evolution of these vulnerabilities a good way to test is to check them manually with [OpenSSL](https://www.openssl.org/) or use the tool’s output as an input for manual evaluation using the references.
