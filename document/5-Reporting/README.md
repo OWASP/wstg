@@ -138,15 +138,15 @@ The following is the list of controls that were tested during the assessment:
 | WSTG-CRYP-02 | Testing for Padding Oracle |
 | WSTG-CRYP-03 | Testing for Sensitive information sent via unencrypted  channels |
 | **WSTG-BUSLOGIC** | **Business Logic Testing** |
-| WSTG-BUSLOGIC-001 | Test Business Logic Data Validation |
-| WSTG-BUSLOGIC-002 | Test Ability to Forge Requests |
-| WSTG-BUSLOGIC-003 | Test Integrity Checks |
-| WSTG-BUSLOGIC-004 | Test for Process Timing |
-| WSTG-BUSLOGIC-005 | Test Number of Times a Function Can be Used Limits |
-| WSTG-BUSLOGIC-006 | Testing for the Circumvention of Work Flows |
-| WSTG-BUSLOGIC-007 | Test Defenses Against Application Mis-use |
-| WSTG-BUSLOGIC-008 | Test Upload of Unexpected File Types |
-| WSTG-BUSLOGIC-009 | Test Upload of Malicious Files |
+| WSTG-BUSL-01 | Test Business Logic Data Validation |
+| WSTG-BUSL-02 | Test Ability to Forge Requests |
+| WSTG-BUSL-03 | Test Integrity Checks |
+| WSTG-BUSL-04 | Test for Process Timing |
+| WSTG-BUSL-05 | Test Number of Times a Function Can be Used Limits |
+| WSTG-BUSL-06 | Testing for the Circumvention of Work Flows |
+| WSTG-BUSL-07 | Test Defenses Against Application Mis-use |
+| WSTG-BUSL-08 | Test Upload of Unexpected File Types |
+| WSTG-BUSL-09 | Test Upload of Malicious Files |
 | **WSTG-CLIENT** | **Client Side Testing** |
 | WSTG-CLIENT-001 | Testing for DOM based Cross Site Scripting |
 | WSTG-CLIENT-002 | Testing for JavaScript Execution |

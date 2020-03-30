@@ -2,7 +2,7 @@
 
 |ID               |
 |-----------------|
-|WSTG-BUSLOGIC-006|
+|WSTG-BUSL-06|
 
 ## Summary
 

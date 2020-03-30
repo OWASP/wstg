@@ -93,15 +93,15 @@ The following is the list of controls to test during the assessment:
 | 4.10.2   | WSTG-CRYP-02 | Testing for Padding Oracle |
 | 4.10.3   | WSTG-CRYP-03 | Testing for Sensitive information sent via unencrypted channels |
 | **4.11** | **WSTG-BUSLOGIC** | **Business Logic Testing** |
-| 4.11.1   | WSTG-BUSLOGIC-001 | Test Business Logic Data Validation |
-| 4.11.2   | WSTG-BUSLOGIC-002 | Test Ability to Forge Requests |
-| 4.11.3   | WSTG-BUSLOGIC-003 | Test Integrity Checks |
-| 4.11.4   | WSTG-BUSLOGIC-004 | Test for Process Timing |
-| 4.11.5   | WSTG-BUSLOGIC-005 | Test Number of Times a Function Can be Used Limits |
-| 4.11.6   | WSTG-BUSLOGIC-006 | Testing for the Circumvention of Work Flows |
-| 4.11.7   | WSTG-BUSLOGIC-007 | Test Defenses Against Application Misuse |
-| 4.11.8   | WSTG-BUSLOGIC-008 | Test Upload of Unexpected File Types |
-| 4.11.9   | WSTG-BUSLOGIC-009 | Test Upload of Malicious Files |
+| 4.11.1   | WSTG-BUSL-01 | Test Business Logic Data Validation |
+| 4.11.2   | WSTG-BUSL-02 | Test Ability to Forge Requests |
+| 4.11.3   | WSTG-BUSL-03 | Test Integrity Checks |
+| 4.11.4   | WSTG-BUSL-04 | Test for Process Timing |
+| 4.11.5   | WSTG-BUSL-05 | Test Number of Times a Function Can be Used Limits |
+| 4.11.6   | WSTG-BUSL-06 | Testing for the Circumvention of Work Flows |
+| 4.11.7   | WSTG-BUSL-07 | Test Defenses Against Application Misuse |
+| 4.11.8   | WSTG-BUSL-08 | Test Upload of Unexpected File Types |
+| 4.11.9   | WSTG-BUSL-09 | Test Upload of Malicious Files |
 | **4.12** | **WSTG-CLIENT** | **Client Side Testing** |
 | 4.12.1   | WSTG-CLIENT-001 | Testing for DOM based Cross Site Scripting |
 | 4.12.2   | WSTG-CLIENT-002 | Testing for JavaScript Execution |
