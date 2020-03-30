@@ -988,7 +988,7 @@ Checking localhost:443 for ROBUST use of anti-caching mechanism ...
 Robust Solution:
 
     - Cache-Control: no-cache, no-store, must-revalidate, pre-check=0, post-check=0, max-age=0, s-maxage=0
-    - Ref: https://www.owasp.org/index.php/Testing_for_Browser_cache_weakness_(WSTG-AUTHN-006)
+    - Ref: https://wiki.owasp.org/index.php/Testing_for_Browser_cache_weakness_(OTG-AUTHN-006)
            https://docs.microsoft.com/en-us/iis/configuration/system.webserver/staticcontent/clientcache
 
 =====================================
