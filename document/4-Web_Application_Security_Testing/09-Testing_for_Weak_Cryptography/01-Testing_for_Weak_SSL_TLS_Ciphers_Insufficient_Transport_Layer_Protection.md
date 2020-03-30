@@ -2,7 +2,7 @@
 
 |ID             |
 |---------------|
-|WSTG-CRYPST-001|
+|WSTG-CRYP-01|
 
 ## Summary
 
