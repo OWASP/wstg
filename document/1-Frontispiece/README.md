@@ -33,11 +33,13 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 
 ## Authors
 
+- Elie Saad
 - Janos Zold
 - Jeremy Bonghwan Choi
 - Joel Espunya
 - Manh Pham Tien
 - Mark Clayton
+- Rick Mitchell
 - Rubal Jain
 - Tal Argoni
 - Victoria Drake

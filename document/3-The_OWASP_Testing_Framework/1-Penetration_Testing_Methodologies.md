@@ -26,11 +26,11 @@ Instead of simply methodology or process, PTES also provides hands-on technical 
 
 [PTES Technical Guidelines](http://www.pentest-standard.org/index.php/PTES_Technical_Guidelines)
 
-## PCI Penetration testing guide
+## PCI Penetration Testing Guide
 
 Payment Card Industry Data Security Standard (PCI DSS) Requirement 11.3 defines the penetration testing. PCI also defines Penetration Testing Guidance.
 
-### PCI DSS Penetration Testing guidance
+### PCI DSS Penetration Testing Guidance
 
 The PCI DSS Penetration testing guideline provides a very good reference of the following area while it's not a hands-on technical guideline to introduce testing tools.
 

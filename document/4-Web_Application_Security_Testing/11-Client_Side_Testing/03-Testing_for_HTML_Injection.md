@@ -2,7 +2,7 @@
 
 |ID             |
 |---------------|
-|WSTG-CLIENT-003|
+|WSTG-CLNT-03|
 
 ## Summary
 

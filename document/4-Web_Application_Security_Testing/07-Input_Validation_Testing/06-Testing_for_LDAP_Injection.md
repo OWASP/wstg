@@ -2,7 +2,7 @@
 
 |ID             |
 |---------------|
-|WSTG-INPVAL-006|
+|WSTG-INPV-06|
 
 ## Summary
 

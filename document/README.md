@@ -292,41 +292,10 @@
 
 ## [Appendix A: Testing Tools Resource](Appx.A_Testing_Tools_Resource/README.md)
 
-### Security Testing Tools
-
-- [PTES_Technical_Guidelines](http://www.pentest-standard.org/index.php/PTES_Technical_Guidelines)
-- [http://www.vulnerabilityassessment.co.uk/Penetration%20Test.html](http://www.vulnerabilityassessment.co.uk/Penetration%20Test.html)
-- [https://sectools.org](https://sectools.org/)
-- [https://www.kali.org](https://www.kali.org/)
-- [https://www.blackarch.org/tools.html](https://www.blackarch.org/tools.html)
-
-### Security Testing Tools in Virtual Image
-
-- [https://tools.pentestbox.com/](https://tools.pentestbox.com/)
-- [https://sourceforge.net/p/samurai/wiki/Home/](https://sourceforge.net/p/samurai/wiki/Home/)
-- [https://sourceforge.net/projects/santoku/](https://sourceforge.net/projects/santoku/)
-- [https://sourceforge.net/projects/parrotsecurity/?source=navbar](https://sourceforge.net/projects/parrotsecurity/?source=navbar)
-- [https://sourceforge.net/projects/matriux/?source=navbar](https://sourceforge.net/projects/matriux/?source=navbar)
-- [https://www.blackarch.org/downloads.html](https://www.blackarch.org/downloads.html)
-- [https://www.kali.org/](https://www.kali.org/)
-- [https://www.caine-live.net/index.html](https://www.caine-live.net/index.html)
-- [https://www.pentoo.ch/download/](https://www.pentoo.ch/download/)
-
 ## [Appendix B: Suggested Reading](Appx.B_Suggested_Reading/README.md)
-
-- Whitepapers
-- Books
-- Useful Websites
 
 ## [Appendix C: Fuzz Vectors](Appx.C_Fuzz_Vectors/README.md)
 
-- Fuzz Categories
-
 ## [Appendix D: Encoded Injection](Appx.D_Encoded_Injection/README.md)
 
-- Input Encoding
-- Output Encoding
-
 ## [Appendix E: Misc](Appx.E_Misc/README.md)
-
-- History
