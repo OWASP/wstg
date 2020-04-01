@@ -42,8 +42,7 @@ The `submit` event handler passes the current value of any `textarea` elements t
 
 The following payload can be used to test the vulnerability.`<img src=x onerror=alert(1) />`
 
-The developer console would display two errors:
-- one which indicates that `https://www.example.com/x` was requested and returned a 404 (due to the src attribute of the img tag), and another which reported a violation of the website's CSP. This second error occurred because the browser attempts to execute the JavaScript code in the `onerror` attribute, but the website's CSP prevented the execution. Performing the same actions in a browser with CSP disabled allowed the JavaScript in the `onerror` attribute to execute.
+The developer console would display two errors: One which indicates that `https://www.example.com/x` was requested and returned a 404 (due to the src attribute of the img tag). Another which reported a violation of the website's CSP. This second error occurred because the browser attempts to execute the JavaScript code in the `onerror` attribute, but the website's CSP prevented the execution. Performing the same actions in a browser with CSP disabled allowed the JavaScript in the `onerror` attribute to execute.
 
 An attacker could exploit this vulnerability by convincing a user to paste a malicious payload into the 'message' field of the contact form and then click the 'send message' button. This attack could be enhanced by convincing the user to use a browser version which does not support CSP.
 
