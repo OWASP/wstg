@@ -2,7 +2,7 @@
   "stylesheet":"assets/pdf-style.css",
   "css": "body { color: tomato; }",
   "body_class": "markdown-body",
-  "highlight_style": "monokai",
+  "highlight_style": "default",
   "marked_options": {
     "headerIds": false,
     "smartypants": true
