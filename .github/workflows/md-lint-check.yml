@@ -6,6 +6,7 @@ on:
     - master
     paths:
     - '**.md'
+    - '!www/**'
 jobs:
   lint:
     runs-on: ubuntu-latest
