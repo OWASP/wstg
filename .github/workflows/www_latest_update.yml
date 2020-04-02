@@ -64,7 +64,7 @@ jobs:
         # Create the _data directory if necessary and copy the navigation yaml to it
         mkdir -p $WWW_BASE/_data || true && cp latest.yaml $WWW_BASE/_data/.
         cd $WWW_BASE
-        git remote set-url origin https://wstgbot:${{ secrets.wstg_deploy_tokenn }}@github.com/wstgbot/www-project-web-security-testing-guide.git
+        git remote set-url origin https://$GITHUB_USER:${{ secrets.wstg_deploy_tokenn }}@github.com/$GITHUB_USER/www-project-web-security-testing-guide.git
         git add .
         git commit -m "Publish Latest $SHORT_DATE" -m "Updates based on $SRC_BASE"
         git push --set-upstream origin $BRANCH_STAMP
