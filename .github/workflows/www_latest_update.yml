@@ -24,7 +24,7 @@ jobs:
         git config --global user.name $GITHUB_USER
         # Clone the necessary repos
         git clone https://github.com/OWASP/wstg.git
-        git clone https://github.com/OWASP/www-project-web-security-testing-guide.git
+        git clone -o upstream https://github.com/OWASP/www-project-web-security-testing-guide.git
         # Setup some env vars etc for future use
         cd wstg
         WSTG_BASE="$(pwd)"
@@ -33,6 +33,7 @@ jobs:
         SHORT_DATE="$(date +"%Y-%m-%d")"
         cd ../www-project-web-security-testing-guide
         WWW_BASE="$(pwd)"
+        git remote add origin https://github.com/$GITHUB_USER/www-project-web-security-testing-guide.git
         # Checkout what will be the new feature branch
         git checkout -b $BRANCH_STAMP
         # Remove old 'latest' content
@@ -67,4 +68,4 @@ jobs:
         git add .
         git commit -m "Publish Latest $SHORT_DATE" -m "Updates based on $SRC_BASE"
         git push --set-upstream origin $BRANCH_STAMP
-        hub pull-request -b upstream:master --no-edit
+        hub pull-request --no-edit
