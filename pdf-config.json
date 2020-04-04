@@ -1,6 +1,6 @@
 {
   "stylesheet":"assets/pdf-style.css",
-  "css": "body { color: tomato; }",
+  "css": "body { margin: 0px; padding:0px; }",
   "body_class": "markdown-body",
   "highlight_style": "default",
   "marked_options": {
@@ -9,10 +9,10 @@
   },
   "pdf_options": {
     "format": "A4",
-    "margin": "20mm",
+    "margin": "25mm 20mm 10mm 20mm",
     "displayHeaderFooter": true,
-    "headerTemplate": "<style>section { margin: 0 10mm; font-family: system-ui; font-size: 10px; color:#efefef; </style><section>OWASP Testing Guide {PDF Version}</section>",
-    "footerTemplate":"<section><div><span class=\"pageNumber\"></span></div></section>",
+    "headerTemplate": "<style>section { margin: 0 15mm; padding:25px 0px 5px 0px; width:100%; font-family: 'system-ui'; font-size: 8px; font-weight: 300; font-style: bold; color:#004391; border-bottom: 1px solid #7DC6E9;}</style><section> <span class=\"pageNumber\" style=\"background-color:#D4F2FD; font-size: 7px; border: 1px solid #D4F2FD; border-radius:50px; padding:5px; color:#0080BD; position:absolute; margin-left:-12.5mm; margin-top:-8mm;\"></span> Web Security Testing Guide {PDF Version}</section>",
+    "footerTemplate":"<section style=\"display:none;\"></section>",
     "printBackground":true,
     "preferCSSPageSize":true
   },

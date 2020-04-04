@@ -22,7 +22,9 @@ jobs:
       with:
         python-version: '3.x'
     - name: Install dependencies
-      run: npm install -g md-to-pdf
+      run: |
+        npm install -g md-to-pdf
+        sudo snap install pdftk
     - name: Get Version
       id: vars
       run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
