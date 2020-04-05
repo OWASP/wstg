@@ -14,25 +14,30 @@ jobs:
     steps:
     - name: Setup
       run: |
-        sudo apt-get update
-        sudo apt-get install moreutils
-    - name: Checkout Repos and Build Feature Branch
+        sudo apt update
+        sudo apt install moreutils
+    - name: Git Clone and Global Config
       run: |
         # Git setup
-        export GITHUB_USER=wstgbot
+        echo ::set-env name=GITHUB_USER::wstgbot
         git config --global user.email "62450690+wstgbot@users.noreply.github.com"
         git config --global user.name $GITHUB_USER
         # Clone the necessary repos
         git clone https://github.com/OWASP/wstg.git
         git clone -o upstream https://github.com/OWASP/www-project-web-security-testing-guide.git
+    - name: Setup Environment Variables
+      run : |
         # Setup some env vars etc for future use
         cd wstg
-        WSTG_BASE="$(pwd)"
-        SRC_BASE="OWASP/wstg@"$(git log -1 --format=format:%h)
-        BRANCH_STAMP="$(date +"%Y%m%d%H%M%S")"
-        SHORT_DATE="$(date +"%Y-%m-%d")"
-        cd ../www-project-web-security-testing-guide
-        WWW_BASE="$(pwd)"
+        echo ::set-env name=WSTG_BASE::"$(pwd)"
+        echo ::set-env name=SRC_BASE="OWASP/wstg@"$(git log -1 --format=format:%h)
+        echo ::set-env name=BRANCH_STAMP="$(date +"%Y%m%d%H%M%S")"
+        echo ::set-env name=SHORT_DATE="$(date +"%Y-%m-%d")"
+        cd www-project-web-security-test-guide
+        echo ::set-env name=WWW_BASE::"$(pwd)"
+    - name: Create Feature Branch
+      run: |
+        cd $WWW_BASE
         git remote add origin https://github.com/$GITHUB_USER/www-project-web-security-testing-guide.git
         # Checkout what will be the new feature branch
         git checkout -b $BRANCH_STAMP
@@ -41,13 +46,17 @@ jobs:
         mkdir latest
         # Copy new 'latest' content
         cp -R ../wstg/document/* ./latest
-        cd latest
+    - name: Modify Files for Web Deployment
+      run: |
+        cd $WWW_BASE/latest
         # Append front mater
         for FILE in `find . -type f -name "*.md"`; do cat $WSTG_BASE/www/latest/prepend.txt $FILE | sponge $FILE; done
         # Duplicate README.md as index.md in case people forcefully browse to directory bases
         find . -type f -name "README.md" -execdir cp -v {} ./index.md \;
         # Copy info.md to all directories (excluding 'images' directories)
         find . -type d -not -name "images" -execdir cp -v $WSTG_BASE/www/latest/info.md {} \;
+    - name: Setup Navigation
+      run: |
         # Copy the current ToC for manipulation
         cp $WSTG_BASE/document/README.md $WSTG_BASE/www/latest/.
         cd $WSTG_BASE/www/latest/
@@ -63,6 +72,8 @@ jobs:
         cat prepend.nav > latest.yaml && cat README.md >> latest.yaml
         # Create the _data directory if necessary and copy the navigation yaml to it
         mkdir -p $WWW_BASE/_data || true && cp latest.yaml $WWW_BASE/_data/.
+    - name: Push Feature Branch and Raise PR
+      run: |
         cd $WWW_BASE
         git remote set-url origin https://$GITHUB_USER:${{ secrets.wstg_deploy_tokenn }}@github.com/$GITHUB_USER/www-project-web-security-testing-guide.git
         git add .
