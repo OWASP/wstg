@@ -24,8 +24,8 @@ jobs:
         git config --global user.email "62450690+wstgbot@users.noreply.github.com"
         git config --global user.name $GITHUB_USER
         # Clone the necessary repos
-        git clone https://github.com/OWASP/wstg.git
-        git clone -o upstream https://github.com/OWASP/www-project-web-security-testing-guide.git
+        git clone https://github.com/OWASP/wstg.git --depth 1
+        git clone -o upstream https://github.com/OWASP/www-project-web-security-testing-guide.git --depth 1
     - name: Setup Environment Variables
       run : |
         # Setup some env vars etc for future use
