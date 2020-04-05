@@ -19,7 +19,8 @@ jobs:
     - name: Git Clone and Global Config
       run: |
         # Git setup
-        echo ::set-env name=GITHUB_USER::wstgbot
+        export GITHUB_USER=wstgbot
+        echo ::set-env name=GITHUB_USER::GITHUB_USER
         git config --global user.email "62450690+wstgbot@users.noreply.github.com"
         git config --global user.name $GITHUB_USER
         # Clone the necessary repos
