@@ -82,7 +82,7 @@ Vulnerability studies such as [Symantec's Internet Security Threat Report](https
 
 There are several incorrect assumptions in the patch-and-penetrate model. Many users believe that patches interfere with normal operations or might break existing applications. It is also incorrect to assume that all users are aware of newly released patches. Consequently not all users of a product will apply patches, either because they think patching may interfere with how the software works, or because they lack knowledge about the existence of the patch.
 
-![Window of Vulnerability](images/WindowExposure.jpg)\
+![Window of Vulnerability](images/WindowExposure.png)\
 *Figure 2-2: Window of Vulnerability*
 
 It is essential to build security into the Software Development Life Cycle (SDLC) to prevent reoccurring security problems within an application. Developers can build security into the SDLC by developing standards, policies, and guidelines that fit and work within the development methodology. Threat modeling and other techniques should be used to help assign appropriate resources to those parts of a system that are most at risk.
@@ -411,7 +411,7 @@ Attacker breaks the authentication through a brute force or dictionary attack of
 
 The graphical example below depicts the derivation of security requirements via use and misuse cases. The functional scenario consists of the user actions (entering a username and password) and the application actions (authenticating the user and providing an error message if validation fails). The misuse case consists of the attacker actions, i.e. trying to break authentication by brute forcing the password via a dictionary attack and by guessing the valid usernames from error messages. By graphically representing the threats to the user actions (misuses), it is possible to derive the countermeasures as the application actions that mitigate such threats.
 
-![Use and Misuse case](images/640px-UseAndMisuseCase.jpg)\
+![Use and Misuse case](images/640px-UseAndMisuseCase.png)\
 *Figure 2-5: Use and Misuse Case*
 
 #### Step 4: Elicit The Security Requirements
