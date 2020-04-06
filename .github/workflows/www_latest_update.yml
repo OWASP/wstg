@@ -25,7 +25,7 @@ jobs:
         git config --global user.name $GITHUB_USER
         # Clone the necessary repos
         git clone https://github.com/OWASP/wstg.git --depth 1
-        git clone -o upstream https://github.com/OWASP/www-project-web-security-testing-guide.git --depth 1
+        git clone -o upstream https://github.com/OWASP/www-project-web-security-testing-guide.git
     - name: Setup Environment Variables
       run : |
         # Setup some env vars etc for future use
