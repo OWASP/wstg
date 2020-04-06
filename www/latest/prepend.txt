@@ -1,0 +1,7 @@
+---
+
+layout: col-document
+title: WSTG - Latest
+tags: WSTG
+
+---
