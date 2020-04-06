@@ -1,4 +1,4 @@
-# Web Application Penetration Testing
+# Web Application Security Testing
 
 [4.0 Introduction and Objectives](0-Introduction_and_Objectives/README.md)
 

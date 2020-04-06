@@ -14,7 +14,7 @@
 
 ### [2.3 Testing Techniques Explained](2-Introduction/README.md#Testing-Techniques-Explained)
 
-### [2.4 Manual Inspections & Reviews](2-Introduction/README.md#Manual-Inspections-and-Reviews)
+### [2.4 Manual Inspections and Reviews](2-Introduction/README.md#Manual-Inspections-and-Reviews)
 
 ### [2.5 Threat Modeling](2-Introduction/README.md#Threat-Modeling)
 
