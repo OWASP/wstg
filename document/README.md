@@ -4,8 +4,6 @@
 
 ## [1. Frontispiece](1-Frontispiece/)
 
-### [1.1 About the OWASP Testing Guide Project](1-Frontispiece/README.md)
-
 ## [2. Introduction](2-Introduction/)
 
 ### [2.1 The OWASP Testing Project](2-Introduction/README.md#The-OWASP-Testing-Project)
