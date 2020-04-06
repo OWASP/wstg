@@ -134,7 +134,7 @@
 
 #### [4.5.1 Testing Directory Traversal/File Include](4-Web_Application_Security_Testing/05-Authorization_Testing/01-Testing_Directory_Traversal_File_Include.md)
 
-#### [4.5.2 Testing for Bypassing Authorization Schema)](4-Web_Application_Security_Testing/05-Authorization_Testing/02-Testing_for_Bypassing_Authorization_Schema.md)
+#### [4.5.2 Testing for Bypassing Authorization Schema](4-Web_Application_Security_Testing/05-Authorization_Testing/02-Testing_for_Bypassing_Authorization_Schema.md)
 
 #### [4.5.3 Testing for Privilege Escalation](4-Web_Application_Security_Testing/05-Authorization_Testing/03-Testing_for_Privilege_Escalation.md)
 
@@ -150,7 +150,7 @@
 
 #### [4.6.4 Testing for Exposed Session Variables](4-Web_Application_Security_Testing/06-Session_Management_Testing/04-Testing_for_Exposed_Session_Variables.md)
 
-#### [4.6.5 Testing for Cross Site Request Forgery (CSRF)](4-Web_Application_Security_Testing/06-Session_Management_Testing/05-Testing_for_CSRF.md)
+#### [4.6.5 Testing for Cross Site Request Forgery](4-Web_Application_Security_Testing/06-Session_Management_Testing/05-Testing_for_CSRF.md)
 
 #### [4.6.6 Testing for Logout Functionality](4-Web_Application_Security_Testing/06-Session_Management_Testing/06-Testing_for_Logout_Functionality.md)
 
@@ -196,7 +196,7 @@
 
 #### [4.7.10 IMAP/SMTP Injection](4-Web_Application_Security_Testing/07-Input_Validation_Testing/10-Testing_for_IMAP_SMTP_Injection.md)
 
-#### [4.7.11 Code Injection)](4-Web_Application_Security_Testing/07-Input_Validation_Testing/11-Testing_for_Code_Injection.md)
+#### [4.7.11 Code Injection](4-Web_Application_Security_Testing/07-Input_Validation_Testing/11-Testing_for_Code_Injection.md)
 
 ##### [4.7.11.1 Local File Inclusion](4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.1-Testing_for_Local_File_Inclusion.md)
 
