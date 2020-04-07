@@ -10,11 +10,11 @@
 
 [4.10.4 Test for Process Timing](04-Test_for_Process_Timing.md)
 
-[4.10.5 Test Number of Times a Function Can be Used Limits](05-Test_Number_of_Times_a_Function_Can_Be_Used_Limits.md)
+[4.10.5 Test Number of Times a Function Can Be Used Limits](05-Test_Number_of_Times_a_Function_Can_Be_Used_Limits.md)
 
 [4.10.6 Testing for the Circumvention of Work Flows](06-Testing_for_the_Circumvention_of_Work_Flows.md)
 
-[4.10.7 Test Defenses Against Application Mis-use](07-Test_Defenses_Against_Application_Misuse.md)
+[4.10.7 Test Defenses Against Application Misuse](07-Test_Defenses_Against_Application_Misuse.md)
 
 [4.10.8 Test Upload of Unexpected File Types](08-Test_Upload_of_Unexpected_File_Types.md)
 
