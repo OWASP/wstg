@@ -80,7 +80,7 @@
 
 #### [4.2.3 Test File Extensions Handling for Sensitive Information](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/03-Test_File_Extensions_Handling_for_Sensitive_Information.md)
 
-#### [4.2.4 Review Old, Backup and Unreferenced Files for Sensitive Information](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/04-Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information.md)
+#### [4.2.4 Review Old Backup and Unreferenced Files for Sensitive Information](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/04-Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information.md)
 
 #### [4.2.5 Enumerate Infrastructure and Application Admin Interfaces](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/05-Enumerate_Infrastructure_and_Application_Admin_Interfaces.md)
 
@@ -94,7 +94,7 @@
 
 #### [4.2.10 Test for Subdomain Takeover](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/10-Test_for_Subdomain_Takeover.md)
 
-#### [4.2.11 Test Cloud Storage](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/11-Test_Cloud_Storage.md)
+#### [4.2.11 Testing Cloud Storage](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/11-Test_Cloud_Storage.md)
 
 ### [4.3 Testing for Identity Management](4-Web_Application_Security_Testing/03-Identity_Management_Testing/README.md)
 
