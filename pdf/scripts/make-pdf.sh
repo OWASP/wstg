@@ -30,9 +30,9 @@ ls build/md | sort -n | while read x; do cat build/md/$x | sed -e 's/^# /<div st
 \
 # /' | sed 's/\[\([^\n]\+\)\]([^\n]\+.md#\([^\)]\+\)/[\1](#\2/' | sed 's/\(^#\{1\} \)\(\[\([0-9. ]*\)\(.*\)\]\(.*\)\(\?\:\n\+\|$\)\)/<h1><a href=\"#\4\">\4<\/a><\/h1>/'  | sed 's/\(^#\{2\} \)\(\[\([0-9. ]*\)\(.*\)\]\(.*\)\(\?\:\n\+\|$\)\)/<h2><a href=\"#\4\">\4<\/a><\/h2>/' | sed 's/\(^#\{3\} \)\(\[\([0-9. ]*\)\(.*\)\]\(.*\)\(\?\:\n\+\|$\)\)/<h3><a href=\"#\4\">\4<\/a><\/h3>/'| sed 's/\(^#\{4\} \)\(\[\([0-9. ]*\)\(.*\)\]\(.*\)\(\?\:\n\+\|$\)\)/<h4><a href=\"#\4\">\4<\/a><\/h4>/' | sed 's/\(^#\{5\} \)\(\[\([0-9. ]*\)\(.*\)\]\(.*\)\(\?\:\n\+\|$\)\)/<h5><a href=\"#\4\">\4<\/a><\/h5>/' | sed 's/\(^#\{1\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h1 id=\"\2\">\2<\/h1>/' | sed 's/\(^#\{2\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h2 id=\"\2\">\2<\/h2>/' | sed 's/\(^#\{3\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h3 id=\"\2\">\2<\/h3>/' | sed 's/\(^#\{4\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h4 id=\"\2\">\2<\/h4>/' | sed 's/\(^#\{5\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h5 id=\"\2\">\2<\/h5>/' | sed 's/\(\[\([0-9. ]*\)\(.*\)\]([0-9_.\/\-]*\(.*\).md)\(\?\:\n\+\|$\)\)/\2 <a href=\"#\3\">\3<\/a>/' | python -c "import re; import sys; print(re.sub(r'id=\"([^\n]+)\"', lambda m: m.group().replace(' ', '-'), sys.stdin.read()))"  | python -c "import re; import sys; print(re.sub(r'href=\"([^\n]+)\"', lambda m: m.group().replace(' ', '-'), sys.stdin.read()))" | sed 's/<h1 id=\"[0-9.]*-\(.*\)\">\(.*\)<\/h1>/<h1 id="\1">\2<\/h1>/' | sed 's/\*\(Figure [0-9.\-]*\: .*\)\*/<span class="image-name-tag">\1<\/span>/' >>  build/wstg-doc-$VERSION.md ; done
 
-md-to-pdf  --config-file pdf-config.json  --pdf-options '{"margin":"0mm", "format": "A4"}' build/cover-$1.md
+md-to-pdf  --config-file pdf/pdf-config.json  --pdf-options '{"margin":"0mm", "format": "A4"}' build/cover-$1.md
 
-md-to-pdf  --config-file pdf-config.json build/wstg-doc-$1.md
+md-to-pdf  --config-file pdf/pdf-config.json build/wstg-doc-$1.md
 
 # Combine the files
 pdftk build/cover-$VERSION.pdf build/wstg-doc-$1.pdf cat output build/wstg-com-$VERSION.pdf
@@ -45,7 +45,7 @@ ls build/md | sort -n | while read x; do cat build/md/$x | sed -e 's/^# /<div st
 
 cp -r build/images build/pdf/
 
-for f in build/pdf/*.md ; do md-to-pdf  --config-file pdf-config.json $f && rm $f; done
+for f in build/pdf/*.md ; do md-to-pdf  --config-file pdf/pdf-config.json $f && rm $f; done
 
 # Generate capter details form individual chapter PDFfiles
 for f in build/pdf/*.pdf; do IFS='>>>' read -ra FILE <<< "$f"; for i in "${FILE[@]}"; do echo $i | sed 's/build\/pdf\/document/section: /'  | sed 's/\([0-9.]\+\)-\(.*\)\.pdf/\1 \; file: \2 \;/' | sed 's/Appx\.[A-Z]_\(.*\)/6 \; sectionTitle: Appendix \;  subsection: \1 \; sectionTitle: \1 \; subsection: /' | sed 's/\([0-9.]\+\)-\(.*\)/\1 \; sectionTitle: \2 \; subsection: /' | sed 's/_/ /g' | tr -d '\n' >> build/chapters.txt; done; pdftk $f dump_data | grep NumberOfPages | awk  '{print "numberofpages: " $2 " ;"}' >>  build/chapters.txt; done;
