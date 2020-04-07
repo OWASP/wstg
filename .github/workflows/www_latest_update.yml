@@ -34,7 +34,7 @@ jobs:
         echo ::set-env name=SRC_BASE="OWASP/wstg@"$(git log -1 --format=format:%h)
         echo ::set-env name=BRANCH_STAMP="$(date +"%Y%m%d%H%M%S")"
         echo ::set-env name=SHORT_DATE="$(date +"%Y-%m-%d")"
-        cd ../www-project-web-security-test-guide
+        cd ../www-project-web-security-testing-guide
         echo ::set-env name=WWW_BASE::"$(pwd)"
     - name: Create Feature Branch
       run: |
@@ -71,7 +71,7 @@ jobs:
         sed -i 's/.md/.html/g' README.md
         # Add the leadin and add the generated yaml
         cat prepend.nav > latest.yaml && cat README.md >> latest.yaml
-        # Create the _data directory if necessary and copy the navigation yaml to it
+        # Copy the navigation yaml to _data
         cp latest.yaml $WWW_BASE/_data/.
     - name: Push Feature Branch and Raise PR
       run: |
