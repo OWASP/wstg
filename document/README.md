@@ -142,7 +142,7 @@
 
 ### [4.6 Session Management Testing](4-Web_Application_Security_Testing/06-Session_Management_Testing/README.md)
 
-#### [4.6.1 Testing for Bypassing Session Management Schema](4-Web_Application_Security_Testing/06-Session_Management_Testing/01-Testing_for_Session_Management_Schema.md)
+#### [4.6.1 Testing for Session Management Schema](4-Web_Application_Security_Testing/06-Session_Management_Testing/01-Testing_for_Session_Management_Schema.md)
 
 #### [4.6.2 Testing for Cookies Attributes](4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.md)
 
