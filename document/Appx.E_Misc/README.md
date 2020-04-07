@@ -1,4 +1,4 @@
-# Revision History
+# Appendix E: Misc
 
 The Testing Guide v4 was released in 2014. The Testing guide originated in 2003 with Dan Cuthbert as one of the original editors. It was handed over to Eoin Keary in 2005 and transformed into a wiki. Matteo Meucci has taken on the Testing guide and is now the lead of the OWASP Testing Guide Project. From 2013 Andrew Muller co-lead the project with Matteo Meucci into 2018/2019.
 
