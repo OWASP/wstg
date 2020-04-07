@@ -72,7 +72,7 @@
 
 #### [4.1.10 Map Application Architecture](4-Web_Application_Security_Testing/01-Information_Gathering/10-Map_Application_Architecture.md)
 
-### [4.2 Configuration and Deployment Management Testing](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/README.md)
+### [4.2 Testing for Configuration and Deployment Management](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/README.md)
 
 #### [4.2.1 Test Network Infrastructure Configuration](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/01-Test_Network_Infrastructure_Configuration.md)
 
@@ -96,7 +96,7 @@
 
 #### [4.2.11 Test Cloud Storage](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/11-Test_Cloud_Storage.md)
 
-### [4.3 Identity Management Testing](4-Web_Application_Security_Testing/03-Identity_Management_Testing/README.md)
+### [4.3 Testing for Identity Management](4-Web_Application_Security_Testing/03-Identity_Management_Testing/README.md)
 
 #### [4.3.1 Test Role Definitions](4-Web_Application_Security_Testing/03-Identity_Management_Testing/01-Test_Role_Definitions.md)
 
@@ -238,7 +238,7 @@
 
 #### [4.9.4 Testing for Weak Encryption](4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/04-Testing_for_Weak_Encryption.md)
 
-### [4.10 Business Logic Testing](4-Web_Application_Security_Testing/10-Business_Logic_Testing/README.md)
+### [4.10 Testing Business Logic](4-Web_Application_Security_Testing/10-Business_Logic_Testing/README.md)
 
 #### [4.10.1 Test Business Logic Data Validation](4-Web_Application_Security_Testing/10-Business_Logic_Testing/01-Test_Business_Logic_Data_Validation.md)
 
