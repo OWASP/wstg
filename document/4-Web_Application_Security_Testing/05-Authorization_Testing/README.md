@@ -1,6 +1,6 @@
 # 4.5 Authorization Testing
 
-[4.5.1 Testing Directory Traversal/File Include](01-Testing_Directory_Traversal_File_Include.md)
+[4.5.1 Testing Directory Traversal File Include](01-Testing_Directory_Traversal_File_Include.md)
 
 [4.5.2 Testing for Bypassing Authorization Schema](02-Testing_for_Bypassing_Authorization_Schema.md)
 
