@@ -132,7 +132,7 @@
 
 ### [4.5 Authorization Testing](4-Web_Application_Security_Testing/05-Authorization_Testing/README.md)
 
-#### [4.5.1 Testing Directory Traversal/File Include](4-Web_Application_Security_Testing/05-Authorization_Testing/01-Testing_Directory_Traversal_File_Include.md)
+#### [4.5.1 Testing Directory Traversal File Include](4-Web_Application_Security_Testing/05-Authorization_Testing/01-Testing_Directory_Traversal_File_Include.md)
 
 #### [4.5.2 Testing for Bypassing Authorization Schema](4-Web_Application_Security_Testing/05-Authorization_Testing/02-Testing_for_Bypassing_Authorization_Schema.md)
 
