@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "markdownlint .  --ignore node_modules",
-    "pdfgen": "bash ./scripts/make-pdf.sh"
+    "pdfgen": "bash ./pdf/scripts/make-pdf.sh"
   },
   "repository": {
     "type": "git",
