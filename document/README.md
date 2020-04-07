@@ -224,9 +224,9 @@
 
 ### [4.8 Testing for Error Handling](4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/README.md)
 
-#### [4.8.1 Analysis of Error Codes](4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/01-Testing_for_Error_Code.md)
+#### [4.8.1 Testing for Error Code](4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/01-Testing_for_Error_Code.md)
 
-#### [4.8.2 Analysis of Stack Traces](4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/02-Testing_for_Stack_Traces.md)
+#### [4.8.2 Testing for Stack Traces](4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/02-Testing_for_Stack_Traces.md)
 
 ### [4.9 Testing for Weak Cryptography](4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/README.md)
 
