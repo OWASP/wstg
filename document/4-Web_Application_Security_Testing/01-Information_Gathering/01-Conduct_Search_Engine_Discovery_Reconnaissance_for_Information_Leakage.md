@@ -56,7 +56,7 @@ For example, to find the web content of owasp.org as indexed by a typical search
 
 `site:owasp.org`
 
-![Google Site Operation Search Result Example](images/Google_site_Operator_Search_Results_Example_20190828.png)\
+![Google Site Operation Search Result Example](images/Google_site_Operator_Search_Results_Example_20200406.png)\
 *Figure 4.1.1-1: Google Site Operation Search Result Example*
 
 ### Viewing Cached Content
@@ -67,7 +67,7 @@ To view owasp.org as it is cached, the syntax is:
 
 `cache:owasp.org`
 
-![Google Cache Operation Search Result Example](images/Google_cache_Operator_Search_Results_Example_20190828.png)\
+![Google Cache Operation Search Result Example](images/Google_cache_Operator_Search_Results_Example_20200406.png)\
 *Figure 4.1.1-2: Google Cache Operation Search Result Example*
 
 ### Google Hacking, or Dorking
