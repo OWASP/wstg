@@ -34,7 +34,7 @@ jobs:
         echo ::set-env name=SRC_BASE="OWASP/wstg@"$(git log -1 --format=format:%h)
         echo ::set-env name=BRANCH_STAMP="$(date +"%Y%m%d%H%M%S")"
         echo ::set-env name=SHORT_DATE="$(date +"%Y-%m-%d")"
-        cd ../www-project-web-security-test-guide
+        cd ../www-project-web-security-testing-guide
         echo ::set-env name=WWW_BASE::"$(pwd)"
     - name: Create Feature Branch
       run: |
