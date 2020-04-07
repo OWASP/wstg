@@ -230,7 +230,7 @@
 
 ### [4.9 Testing for Weak Cryptography](4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/README.md)
 
-#### [4.9.1 Testing for Weak SSL/TLS Ciphers, Insufficient Transport Layer Protection](4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_SSL_TLS_Ciphers_Insufficient_Transport_Layer_Protection.md)
+#### [4.9.1 Testing for Weak Cryptography](4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_SSL_TLS_Ciphers_Insufficient_Transport_Layer_Protection.md)
 
 #### [4.9.2 Testing for Padding Oracle](4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/02-Testing_for_Padding_Oracle.md)
 
@@ -272,7 +272,7 @@
 
 #### [4.11.6 Testing for Client Side Resource Manipulation](4-Web_Application_Security_Testing/11-Client_Side_Testing/06-Testing_for_Client_Side_Resource_Manipulation.md)
 
-#### [4.11.7 Testing Cross Origin Resource Sharing](4-Web_Application_Security_Testing/11-Client_Side_Testing/07-Testing_Cross_Origin_Resource_Sharing.md)
+#### [4.11.7 Testing for Cross Origin Resource Sharing](4-Web_Application_Security_Testing/11-Client_Side_Testing/07-Testing_Cross_Origin_Resource_Sharing.md)
 
 #### [4.11.8 Testing for Cross Site Flashing](4-Web_Application_Security_Testing/11-Client_Side_Testing/08-Testing_for_Cross_Site_Flashing.md)
 
@@ -282,7 +282,7 @@
 
 #### [4.11.11 Testing Web Messaging](4-Web_Application_Security_Testing/11-Client_Side_Testing/11-Testing_Web_Messaging.md)
 
-#### [4.11.12 Testing Local Storage](4-Web_Application_Security_Testing/11-Client_Side_Testing/12-Testing_Web_Storage.md)
+#### [4.11.12 Testing Browser Storage](4-Web_Application_Security_Testing/11-Client_Side_Testing/12-Testing_Web_Storage.md)
 
 #### [4.11.13 Testing for Cross Site Script Inclusion](4-Web_Application_Security_Testing/11-Client_Side_Testing/13-Testing_for_Cross_Site_Script_Inclusion.md)
 
