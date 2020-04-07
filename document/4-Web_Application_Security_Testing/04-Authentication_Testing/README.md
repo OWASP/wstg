@@ -8,13 +8,13 @@
 
 [4.4.4 Testing for Bypassing Authentication Schema](04-Testing_for_Bypassing_Authentication_Schema.md)
 
-[4.4.5 Test Remember Password Functionality](05-Testing_for_Vulnerable_Remember_Password.md)
+[4.4.5 Testing for Vulnerable Remember Password](05-Testing_for_Vulnerable_Remember_Password.md)
 
 [4.4.6 Testing for Browser Cache Weaknesses](06-Testing_for_Browser_Cache_Weaknesses.md)
 
 [4.4.7 Testing for Weak Password Policy](07-Testing_for_Weak_Password_Policy.md)
 
-[4.4.8 Testing for Weak Security Question/Answer](08-Testing_for_Weak_Security_Question_Answer.md)
+[4.4.8 Testing for Weak Security Question Answer](08-Testing_for_Weak_Security_Question_Answer.md)
 
 [4.4.9 Testing for Weak Password Change or Reset Functionalities](09-Testing_for_Weak_Password_Change_or_Reset_Functionalities.md)
 
