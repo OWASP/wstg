@@ -16,6 +16,8 @@ mkdir -p build/images
 find document -name "*.md" | while IFS= read -r FILE; do cp -v "$FILE" build/md/"${FILE//\//>>>}"; done
 find document -name "images"  -exec cp -r {}/. build/images/. ";"
 cp pdf/assets/cover.jpg build/images/book-cover.jpg
+cp pdf/assets/back-cover.png build/images/back-cover.png
+cp pdf/assets/second-cover.png build/images/second-cover.png
 
 # Rename README files by prepending "0-0.0_" to keep them in the correct order
 find build/md -name "*README.md" | while IFS= read -r FILE; do mv -v "$FILE" "${FILE//README/0-0.0_README}"; done
@@ -23,11 +25,13 @@ find build/md -name "*README.md" | while IFS= read -r FILE; do mv -v "$FILE" "${
 # Update build version number in pdf-config
 sed -i "s/{PDF Version}/$VERSION/g" pdf/pdf-config.json
 
-# Creating the Markdown file for the cover page
+# Create the Markdown file for the cover pages
 echo "<img src=\"images/book-cover.jpg\" style=\"overflow:hidden; margin-bottom:-25px;\" />
         <h1 style=\"position:fixed; top:52.48%; right:46.9%; color: white;
                     border:none; font-family: 'Montserrat';font-weight: 500;
                     font-style: normal;\" >$VERSION</h1>" > build/cover-$VERSION.md
+echo "<img src=\"images/second-cover.png\" style=\"overflow:hidden; margin-bottom:-25px;\" />" > build/second-cover-$VERSION.md
+echo "<img src=\"images/back-cover.png\" style=\"overflow:hidden; margin-bottom:-25px;\" />" > build/back-$VERSION.md
 
 # Create the single document Markdown file
 # Sed section 1: Add page break after each chapter
@@ -57,17 +61,19 @@ python -c "import re; import sys; print(re.sub(r'href=\"([^\n]+)\"', lambda m: m
 sed 's/<h1 id=\"[0-9.]*-\(.*\)\">\(.*\)<\/h1>/<h1 id="\1">\2<\/h1>/' | \
 sed 's/\*\(Figure [0-9.\-]*\: .*\)\*/<span class="image-name-tag">\1<\/span>/' >>  build/wstg-doc-$VERSION.md ; done
 
-# Create cover page by converting Markdown to PDF
+# Create cover pages by converting Markdown to PDF
 md-to-pdf  --config-file pdf/pdf-config.json  --pdf-options '{"margin":"0mm", "format": "A4"}' build/cover-$VERSION.md
+md-to-pdf  --config-file pdf/pdf-config.json  --pdf-options '{"margin":"0mm", "format": "A4"}' build/second-cover-$VERSION.md
+md-to-pdf  --config-file pdf/pdf-config.json  --pdf-options '{"margin":"0mm", "format": "A4"}' build/back-$VERSION.md
 
 # Create Document body pages by converting Markdown to PDF
 md-to-pdf  --config-file pdf/pdf-config.json build/wstg-doc-$VERSION.md
 
 # Combine Cover page and Document body
-pdftk build/cover-$VERSION.pdf build/wstg-doc-$VERSION.pdf cat output build/wstg-com-$VERSION.pdf
+pdftk build/cover-$VERSION.pdf build/second-cover-$VERSION.pdf build/wstg-doc-$VERSION.pdf build/back-$VERSION.pdf cat output build/wstg-com-$VERSION.pdf
 
 # Create chapter wise Markdown files for generating bookmarks
-# Sed sections are exactly same as lines 29-37
+# Sed sections are exactly same as the previous one
 ls build/md | sort -n | while read x; do cat build/md/$x | sed -e 's/^# /<div style=\"page-break-after: always\;\"><\/div>\
 \
 # /' | sed 's/\[\([^\n]\+\)\]([^\n]\+.md#\([^\)]\+\)/[\1](#\2/' | \
@@ -131,7 +137,7 @@ done;
 sectionValue="";
 subsection1Value="";
 subsection2Value="";
-pagenumber=2;
+pagenumber=3;
 headerlevel=0;
 subsection1="";
 subsection2="";
