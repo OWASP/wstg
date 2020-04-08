@@ -1,6 +1,6 @@
 # 4.11 Client-Side Testing
 
-[4.11.1 Testing for DOM based Cross Site Scripting](01-Testing_for_DOM-based_Cross_Site_Scripting.md)
+[4.11.1 Testing for DOM-Based Cross Site Scripting](01-Testing_for_DOM-based_Cross_Site_Scripting.md)
 
 [4.11.2 Testing for JavaScript Execution](02-Testing_for_JavaScript_Execution.md)
 
@@ -12,7 +12,7 @@
 
 [4.11.6 Testing for Client Side Resource Manipulation](06-Testing_for_Client_Side_Resource_Manipulation.md)
 
-[4.11.7 Test Cross Origin Resource Sharing](07-Testing_Cross_Origin_Resource_Sharing.md)
+[4.11.7 Testing for Cross Origin Resource Sharing](07-Testing_Cross_Origin_Resource_Sharing.md)
 
 [4.11.8 Testing for Cross Site Flashing](08-Testing_for_Cross_Site_Flashing.md)
 
@@ -20,8 +20,8 @@
 
 [4.11.10 Testing WebSockets](10-Testing_WebSockets.md)
 
-[4.11.11 Test Web Messaging](11-Testing_Web_Messaging.md)
+[4.11.11 Testing Web Messaging](11-Testing_Web_Messaging.md)
 
-[4.11.12 Test Local Storage](12-Testing_Web_Storage.md)
+[4.11.12 Testing Browser Storage](12-Testing_Web_Storage.md)
 
-[4.11.13 Test for Cross Site Script Inclusion](13-Testing_for_Cross_Site_Script_Inclusion.md)
+[4.11.13 Testing for Cross Site Script Inclusion](13-Testing_for_Cross_Site_Script_Inclusion.md)

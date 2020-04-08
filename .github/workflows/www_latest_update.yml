@@ -1,0 +1,83 @@
+name: Deploy Latest WSTG Content to Web
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'document/**'
+
+jobs:
+  create_pr:
+    name: Create Pull Request
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup
+      run: |
+        sudo apt update
+        sudo apt install moreutils
+    - name: Git Clone and Global Config
+      run: |
+        # Git setup
+        export GITHUB_USER=wstgbot
+        echo ::set-env name=GITHUB_USER::$GITHUB_USER
+        git config --global user.email "62450690+wstgbot@users.noreply.github.com"
+        git config --global user.name $GITHUB_USER
+        # Clone the necessary repos
+        git clone https://github.com/OWASP/wstg.git --depth 1
+        git clone -o upstream https://github.com/OWASP/www-project-web-security-testing-guide.git
+    - name: Setup Environment Variables
+      run : |
+        # Setup some env vars etc for future use
+        cd wstg
+        echo ::set-env name=WSTG_BASE::"$(pwd)"
+        echo ::set-env name=SRC_BASE="OWASP/wstg@"$(git log -1 --format=format:%h)
+        echo ::set-env name=BRANCH_STAMP="$(date +"%Y%m%d%H%M%S")"
+        echo ::set-env name=SHORT_DATE="$(date +"%Y-%m-%d")"
+        cd ../www-project-web-security-testing-guide
+        echo ::set-env name=WWW_BASE::"$(pwd)"
+    - name: Create Feature Branch
+      run: |
+        cd $WWW_BASE
+        git remote add origin https://github.com/$GITHUB_USER/www-project-web-security-testing-guide.git
+        # Checkout what will be the new feature branch
+        git checkout -b $BRANCH_STAMP
+        # Remove old 'latest' content
+        rm -rf latest
+        mkdir latest
+        # Copy new 'latest' content
+        cp -R ../wstg/document/* ./latest
+    - name: Modify Files for Web Deployment
+      run: |
+        cd $WWW_BASE/latest
+        # Append front mater
+        for FILE in `find . -type f -name "*.md"`; do cat $WSTG_BASE/www/latest/prepend.txt $FILE | sponge $FILE; done
+        # Duplicate README.md as index.md in case people forcefully browse to directory bases
+        find . -type f -name "README.md" -execdir cp -v {} ./index.md \;
+        # Copy info.md to all directories (excluding 'images' directories)
+        find . -type d -not -name "images" -execdir cp -v $WSTG_BASE/www/latest/info.md {} \;
+    - name: Setup Navigation
+      run: |
+        # Copy the current ToC for manipulation
+        cp $WSTG_BASE/document/README.md $WSTG_BASE/www/latest/.
+        cd $WSTG_BASE/www/latest/
+        # Create new navigation details from ToC and prepend file
+        sed -i -E 's/^#{2,5}\s\[(.*?)\]\((.*?)\)/- title: '\''\1'\''\n  url: \2/g' README.md
+        # Remove the title from the README (first line)
+        sed -i '1d' README.md
+        # Find the anchor links (URL fragments) and lowercase them
+        sed -i -E 's/\.md#(.*)$/\.md#\L\1/g' README.md
+        # Switch .md references to .html
+        sed -i 's/.md/.html/g' README.md
+        # Add the leadin and add the generated yaml
+        cat prepend.nav > latest.yaml && cat README.md >> latest.yaml
+        # Copy the navigation yaml to _data
+        cp latest.yaml $WWW_BASE/_data/.
+    - name: Push Feature Branch and Raise PR
+      run: |
+        cd $WWW_BASE
+        git remote set-url origin https://$GITHUB_USER:${{ secrets.wstg_deploy_tokenn }}@github.com/$GITHUB_USER/www-project-web-security-testing-guide.git
+        git add .
+        git commit -m "Publish Latest $SHORT_DATE" -m "Updates based on $SRC_BASE"
+        git push --set-upstream origin $BRANCH_STAMP
+        hub pull-request --no-edit
