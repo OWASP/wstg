@@ -21,6 +21,7 @@ jobs:
         # Git setup
         export GITHUB_USER=wstgbot
         echo ::set-env name=GITHUB_USER::$GITHUB_USER
+        echo ::set-env name=GITHUB_TOKEN::${{ secrets.wstg_deploy_token }}
         git config --global user.email "62450690+wstgbot@users.noreply.github.com"
         git config --global user.name $GITHUB_USER
         # Clone the necessary repos
@@ -61,7 +62,10 @@ jobs:
         # Copy the current ToC for manipulation
         cp $WSTG_BASE/document/README.md $WSTG_BASE/www/latest/.
         cd $WSTG_BASE/www/latest/
-        # Create new navigation details from ToC and prepend file
+        # Create new navigation details from ToC
+        # Handle numbered entries
+        sed -i -E 's/^#{2,5}\s([0-9.]*\s)\[(.*?)\]\((.*?)\)/- title: '\''\1\2'\''\n  url: \3/g' README.md
+        # Handle un-numbered entries
         sed -i -E 's/^#{2,5}\s\[(.*?)\]\((.*?)\)/- title: '\''\1'\''\n  url: \2/g' README.md
         # Remove the title from the README (first line)
         sed -i '1d' README.md
@@ -76,7 +80,7 @@ jobs:
     - name: Push Feature Branch and Raise PR
       run: |
         cd $WWW_BASE
-        git remote set-url origin https://$GITHUB_USER:${{ secrets.wstg_deploy_tokenn }}@github.com/$GITHUB_USER/www-project-web-security-testing-guide.git
+        git remote set-url origin https://$GITHUB_USER:${{ secrets.wstg_deploy_token }}@github.com/$GITHUB_USER/www-project-web-security-testing-guide.git
         git add .
         git commit -m "Publish Latest $SHORT_DATE" -m "Updates based on $SRC_BASE"
         git push --set-upstream origin $BRANCH_STAMP
