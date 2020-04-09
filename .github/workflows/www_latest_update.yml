@@ -62,7 +62,10 @@ jobs:
         # Copy the current ToC for manipulation
         cp $WSTG_BASE/document/README.md $WSTG_BASE/www/latest/.
         cd $WSTG_BASE/www/latest/
-        # Create new navigation details from ToC and prepend file
+        # Create new navigation details from ToC
+        # Handle numbered entries
+        sed -i -E 's/^#{2,5}\s([0-9.]*\s)\[(.*?)\]\((.*?)\)/- title: '\''\1\2'\''\n  url: \3/g' README.md
+        # Handle un-numbered entries
         sed -i -E 's/^#{2,5}\s\[(.*?)\]\((.*?)\)/- title: '\''\1'\''\n  url: \2/g' README.md
         # Remove the title from the README (first line)
         sed -i '1d' README.md
