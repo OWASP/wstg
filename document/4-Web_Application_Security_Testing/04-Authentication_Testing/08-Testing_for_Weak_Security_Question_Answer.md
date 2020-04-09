@@ -61,5 +61,5 @@ The key to successfully exploiting and bypassing a weak security question scheme
 
 ## References
 
-[The Curse of the Secret Question](https://www.schneier.com/essay-081.html)
-[The OWASP Security Questions Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Choosing_and_Using_Security_Questions_Cheat_Sheet.html)
+- [The Curse of the Secret Question](https://www.schneier.com/essay-081.html)
+- [The OWASP Security Questions Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Choosing_and_Using_Security_Questions_Cheat_Sheet.html)
