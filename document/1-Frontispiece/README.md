@@ -46,7 +46,8 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 
 ## Graphic Designers
 
--Muhammed Anees
+- Muhammed Anees
+- Jishnu Vijayan C K
 
 ## Reviewers or Editors
 
