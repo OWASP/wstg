@@ -145,9 +145,9 @@ There are other OS and application framework specific considerations as well. Fo
 
 When the analysis is performed with a gray-box testing approach, testers have to follow the same methodology as in black-box testing. However, since they can review the source code, it is possible to search the input vectors (*stage (**a**) of the testing*) more easily and accurately. During a source code review, they can use simple tools (such as the *grep* command) to search for one or more common patterns within the application code: inclusion functions/methods, filesystem operations, and so on.
 
-`PHP: include(), include_once(), require(), require_once(), fopen(), readfile(), ...`
-`JSP/Servlet: java.io.File(), java.io.FileReader(), ...`
-`ASP: include file, include virtual, ...`
+- `PHP: include(), include_once(), require(), require_once(), fopen(), readfile(), ...`
+- `JSP/Servlet: java.io.File(), java.io.FileReader(), ...`
+- `ASP: include file, include virtual, ...`
 
 Using online code search engines (e.g., [Searchcode](https://searchcode.com/)), it may also be possible to find path traversal flaws in Open Source software published on the Internet.
 
