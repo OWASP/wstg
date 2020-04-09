@@ -44,6 +44,10 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Tal Argoni
 - Victoria Drake
 
+## Graphic Designers
+
+-Muhammed Anees
+
 ## Reviewers or Editors
 
 - Asharaf Ali
