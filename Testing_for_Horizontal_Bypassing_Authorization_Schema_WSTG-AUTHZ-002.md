@@ -61,6 +61,6 @@ If the response of the attacker’s request contains the same data (“pincode�
 
 ## Tools
 
-Burp extension: Authorize.
+Burp extension: Autorize.
 References
 OWASP Application Security Verification Standard 3.0.1, 4.1, 4.4, 4.9, 4.16.
