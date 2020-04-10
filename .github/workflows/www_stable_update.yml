@@ -45,7 +45,7 @@ jobs:
     - name: Create Feature Branch
       run: |
         cd $WSTG_BASE
-        git checkout tags/$VERSION -b ver-branch
+        git checkout tags/$VERS_TAG -b ver-branch
         cd $WWW_BASE
         git remote add origin https://github.com/$GITHUB_USER/www-project-web-security-testing-guide.git
         # Checkout what will be the new feature branch
