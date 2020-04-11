@@ -31,10 +31,10 @@ jobs:
       run : |
         # Setup some env vars etc for future use
         # Extract version from tag ref
-        VERS_TAG=${GITHUB_REF/refs\/tags\//}
-        echo ::set-env name=VERS_TAG::$VERS_TAG
-        VERSION=$(echo $VERS | tr -d .)
-        echo ::set-env name=VERSION::$VERSION
+        VERSION_TAG=${GITHUB_REF/refs\/tags\//}
+        echo ::set-env name=VERSION_TAG::$VERSION_TAG
+        VERSION_PATH=$(echo $VERSION_TAG | tr -d .)
+        echo ::set-env name=VERSION_PATH::$VERSION_PATH
         cd wstg
         echo ::set-env name=WSTG_BASE::"$(pwd)"
         echo ::set-env name=SRC_BASE::"OWASP/wstg@"$(git log -1 --format=format:%h)
@@ -45,7 +45,7 @@ jobs:
     - name: Create Feature Branch
       run: |
         cd $WSTG_BASE
-        git checkout tags/$VERS_TAG -b ver-branch
+        git checkout tags/$VERSION_TAG -b ver-branch
         cd $WWW_BASE
         git remote add origin https://github.com/$GITHUB_USER/www-project-web-security-testing-guide.git
         # Checkout what will be the new feature branch
@@ -56,9 +56,9 @@ jobs:
         # Copy new 'stable' content
         cp -R $WSTG_BASE/document/* ./stable
         # Create version directory
-        mkdir $VERSION
+        mkdir $VERSION_PATH
         # Copy new version content
-        cp -R $WSTG_BASE/document/* ./$VERSION
+        cp -R $WSTG_BASE/document/* ./$VERSION_PATH
     - name: Modify Files for Web Deployment (Stable)
       run: |
         cd $WWW_BASE/stable
@@ -90,20 +90,20 @@ jobs:
         cp stable.yaml $WWW_BASE/_data/.
     - name: Modify Files for Web Deployment (Versioned)
       run: |
-        cd $WWW_BASE/$VERSION
+        cd $WWW_BASE/$VERSION_PATH
         # Append front mater
-        for FILE in `find . -type f -name "*.md"`; do cat $WSTG_BASE/www/$VERSION/prepend.txt $FILE | sponge $FILE; done
+        for FILE in `find . -type f -name "*.md"`; do cat $WSTG_BASE/www/$VERSION_PATH/prepend.txt $FILE | sponge $FILE; done
         # Duplicate README.md as index.md in case people forcefully browse to directory bases
         find . -type f -name "README.md" -execdir cp -v {} ./index.md \;
         # Copy info.md to all directories (excluding 'images' directories)
-        find . -type d -not -name "images" -execdir cp -v $WSTG_BASE/www/$VERSION/info.md {} \;
+        find . -type d -not -name "images" -execdir cp -v $WSTG_BASE/www/$VERSION_PATH/info.md {} \;
         # Set stable_version in site config
-        yq w $WWW_BASE/_config.yml stable_version $VERSION |sponge $WWW_BASE/_config.yml
+        yq w $WWW_BASE/_config.yml stable_version $VERSION_PATH |sponge $WWW_BASE/_config.yml
     - name: Setup Navigation (Versioned)
       run: |
         # Copy the current ToC for manipulation
-        cp $WSTG_BASE/document/README.md $WSTG_BASE/www/$VERSION/.
-        cd $WSTG_BASE/www/$VERSION/
+        cp $WSTG_BASE/document/README.md $WSTG_BASE/www/$VERSION_PATH/.
+        cd $WSTG_BASE/www/$VERSION_PATH/
         # Create new navigation details from ToC
         # Handle numbered entries
         sed -i -E 's/^#{2,5}\s([0-9.]*\s)\[(.*?)\]\((.*?)\)/- title: '\''\1\2'\''\n  url: \3/g' README.md
@@ -116,14 +116,14 @@ jobs:
         # Switch .md references to .html
         sed -i 's/.md/.html/g' README.md
         # Add the leadin and add the generated yaml
-        cat prepend.nav > $VERSION.yaml && cat README.md >> $VERSION.yaml
+        cat prepend.nav > $VERSION_PATH.yaml && cat README.md >> $VERSION_PATH.yaml
         # Copy the navigation yaml to _data
-        cp $VERSION.yaml $WWW_BASE/_data/.
+        cp $VERSION_PATH.yaml $WWW_BASE/_data/.
     - name: Push Feature Branch and Raise PR
       run: |
         cd $WWW_BASE
         git remote set-url origin https://$GITHUB_USER:${{ secrets.wstg_deploy_token }}@github.com/$GITHUB_USER/www-project-web-security-testing-guide.git
         git add .
-        git commit -m "Publish Stable and $VERS_TAG - $SHORT_DATE" -m "Updates based on $SRC_BASE $VERS_TAG"
+        git commit -m "Publish Stable and $VERSION_TAG - $SHORT_DATE" -m "Updates based on $SRC_BASE $VERSION_TAG"
         git push --set-upstream origin $BRANCH_STAMP
         hub pull-request --no-edit
