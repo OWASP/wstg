@@ -282,7 +282,7 @@ ros# Table of Contents
 
 #### 4.11.11 [Testing Web Messaging](4-Web_Application_Security_Testing/11-Client_Side_Testing/11-Testing_Web_Messaging.md)
 
-#### 4.11.12 [Testing Browser Storage](4-Web_Application_Security_Testing/11-Client_Side_Testing/12-Testing_Web_Storage.md)
+#### 4.11.12 [Testing Browser Storage](4-Web_Application_Security_Testing/11-Client_Side_Testing/12-Testing_Browser_Storage.md)
 
 #### 4.11.13 [Testing for Cross Site Script Inclusion](4-Web_Application_Security_Testing/11-Client_Side_Testing/13-Testing_for_Cross_Site_Script_Inclusion.md)
 
