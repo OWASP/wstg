@@ -1,4 +1,4 @@
-# Test Session Timeout
+# Testing Session Timeout
 
 |ID           |
 |-------------|
