@@ -50,7 +50,7 @@ Also, if an attacker was able to see through a proxy that the application has a 
 
 [Testing for Exposed Session Variables](../06-Session_Management_Testing/04-Testing_for_Exposed_Session_Variables.md)
 
-[Testing for Cross Site Request Forgery (CSRF)](../06-Session_Management_Testing/05-Testing_for_CSRF.md)
+[Testing for Cross Site Request Forgery (CSRF)](../06-Session_Management_Testing/05-Testing_for_Cross_Site_Request_Forgery.md)
 
 [Testing for Account Enumeration and Guessable User Account](../03-Identity_Management_Testing/04-Testing_for_Account_Enumeration_and_Guessable_User_Account.md)
 
