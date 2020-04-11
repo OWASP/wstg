@@ -1,6 +1,6 @@
 # The OWASP Testing Framework
 
-3.1 [Overview](0-The_OWASP_Testing_Framework.md#Overview)
+3.1 [The OWASP Testing Framework](0-The_OWASP_Testing_Framework.md)
 
 3.2 [Phase 1: Before Development Begins](0-The_OWASP_Testing_Framework.md#Phase-1-Before-Development-Begins)
 
