@@ -56,12 +56,20 @@ sed 's/\(^#\{2\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h2 id=\"\2\">\2<\/h2>/' | \
 sed 's/\(^#\{3\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h3 id=\"\2\">\2<\/h3>/' | \
 sed 's/\(^#\{4\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h4 id=\"\2\">\2<\/h4>/' | \
 sed 's/\(^#\{5\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h5 id=\"\2\">\2<\/h5>/' | \
-sed 's/\[\(.*\)\](.*[0-9-]\(.*\.md\))/\<a href=\"#\2\">\1<\/a>/' | \
-python -c "import re; import sys; print(re.sub(r'href=\"(#.*\.md)\"', lambda m: m.group().replace('_', '-'), sys.stdin.read()))"  | \
-python -c "import re; import sys; print(re.sub(r'href=\"(#.*/README\.md)\"', lambda m: m.group().replace('/README.md', ''), sys.stdin.read()))"  | \
-python -c "import re; import sys; print(re.sub(r'href=\"(#.*\.md)\"', lambda m: m.group().replace('.md', ''), sys.stdin.read()))"  | \
+sed 's/\[\([^\[]*\)\]([^\[]*[0-9]\-\([^(]*\.md\))/<a href=\"#\2\">\1<\/a>/g' | \
+sed 's/\[\([^\[]*\)\]([^\[]*\(Appx[^(]*\.md\))/<a href=\"#\2\">\1<\/a>/g' | \
+python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().lower(), sys.stdin.read()))"  | \
+python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().replace(' ', '-'), sys.stdin.read()))" | \
+python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().replace('_', '-'), sys.stdin.read()))"  | \
+python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*/readme\.md)\"', lambda m: m.group().replace('/readme.md', ''), sys.stdin.read()))"  | \
+python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().replace('.md', ''), sys.stdin.read()))"  | \
 python -c "import re; import sys; print(re.sub(r'id=\"([^\n]+)\"', lambda m: m.group().replace(' ', '-'), sys.stdin.read()))"  | \
-python -c "import re; import sys; print(re.sub(r'href=\"([^\n]+)\"', lambda m: m.group().replace(' ', '-'), sys.stdin.read()))" | \
+python -c "import re; import sys; print(re.sub(r'id=\"([^\n]+)\"', lambda m: m.group().lower(), sys.stdin.read()))"  | \
+python -c "import re; import sys; print(re.sub(r'id=\"([^\n]+)\"', lambda m: m.group().replace(':', ''), sys.stdin.read()))"  | \
+python -c "import re; import sys; print(re.sub(r'id=\"([^\n]+)\"', lambda m: m.group().replace('.', ''), sys.stdin.read()))"  | \
+python -c "import re; import sys; print(re.sub(r'id=\"([^\n]+)\"', lambda m: m.group().replace(',', ''), sys.stdin.read()))"  | \
+python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*)\"', lambda m: m.group().replace(' ', '-'), sys.stdin.read()))" | \
+python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*)\"', lambda m: m.group().lower(), sys.stdin.read()))"  | \
 sed 's/<h1 id=\"[0-9.]*-\(.*\)\">\(.*\)<\/h1>/<h1 id="\1">\2<\/h1>/' | \
 sed 's/\*\(Figure [0-9.\-]*\: .*\)\*/<span class="image-name-tag">\1<\/span>/' >>  build/wstg-doc-$VERSION.md ; done
 
@@ -92,12 +100,20 @@ sed 's/\(^#\{2\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h2 id=\"\2\">\2<\/h2>/' | \
 sed 's/\(^#\{3\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h3 id=\"\2\">\2<\/h3>/' | \
 sed 's/\(^#\{4\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h4 id=\"\2\">\2<\/h4>/' | \
 sed 's/\(^#\{5\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h5 id=\"\2\">\2<\/h5>/' | \
-sed 's/\[\(.*\)\](.*[0-9-]\(.*\.md\))/\<a href=\"#\2\">\1<\/a>/' | \
-python -c "import re; import sys; print(re.sub(r'href=\"(#.*\.md)\"', lambda m: m.group().replace('_', '-'), sys.stdin.read()))"  | \
-python -c "import re; import sys; print(re.sub(r'href=\"(#.*/README\.md)\"', lambda m: m.group().replace('/README.md', ''), sys.stdin.read()))"  | \
-python -c "import re; import sys; print(re.sub(r'href=\"(#.*\.md)\"', lambda m: m.group().replace('.md', ''), sys.stdin.read()))"  | \
+sed 's/\[\([^\[]*\)\]([^\[]*[0-9]\-\([^(]*\.md\))/<a href=\"#\2\">\1<\/a>/g' | \
+sed 's/\[\([^\[]*\)\]([^\[]*\(Appx[^(]*\.md\))/<a href=\"#\2\">\1<\/a>/g' | \
+python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().lower(), sys.stdin.read()))"  | \
+python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().replace(' ', '-'), sys.stdin.read()))" | \
+python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().replace('_', '-'), sys.stdin.read()))"  | \
+python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*/readme\.md)\"', lambda m: m.group().replace('/readme.md', ''), sys.stdin.read()))"  | \
+python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().replace('.md', ''), sys.stdin.read()))"  | \
 python -c "import re; import sys; print(re.sub(r'id=\"([^\n]+)\"', lambda m: m.group().replace(' ', '-'), sys.stdin.read()))"  | \
-python -c "import re; import sys; print(re.sub(r'href=\"([^\n]+)\"', lambda m: m.group().replace(' ', '-'), sys.stdin.read()))" | \
+python -c "import re; import sys; print(re.sub(r'id=\"([^\n]+)\"', lambda m: m.group().lower(), sys.stdin.read()))"  | \
+python -c "import re; import sys; print(re.sub(r'id=\"([^\n]+)\"', lambda m: m.group().replace(':', ''), sys.stdin.read()))"  | \
+python -c "import re; import sys; print(re.sub(r'id=\"([^\n]+)\"', lambda m: m.group().replace('.', ''), sys.stdin.read()))"  | \
+python -c "import re; import sys; print(re.sub(r'id=\"([^\n]+)\"', lambda m: m.group().replace(',', ''), sys.stdin.read()))"  | \
+python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*)\"', lambda m: m.group().replace(' ', '-'), sys.stdin.read()))" | \
+python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*)\"', lambda m: m.group().lower(), sys.stdin.read()))"  | \
 sed 's/<h1 id=\"[0-9.]*-\(.*\)\">\(.*\)<\/h1>/<h1 id="\1">\2<\/h1>/' | \
 sed 's/\*\(Figure [0-9.\-]*\: .*\)\*/<span class="image-name-tag">\1<\/span>/'  >  build/pdf/$x ; done
 
@@ -218,6 +234,10 @@ while read line; do
             fi
         fi
         echo "BookmarkPageNumber:" $pagenumber >> build/bookmarks;
+    else
+        echo "BookmarkBegin" >> build/bookmarks;
+        echo "BookmarkTitle: Table of Contents"  >> build/bookmarks;
+        echo "BookmarkLevel: 1"  >> build/bookmarks;
     fi
     pagenumber=$(($pagenumber+$numberofpages));
     numberofpages=0;
