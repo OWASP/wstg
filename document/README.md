@@ -288,12 +288,12 @@
 
 ## 5. [Reporting](5-Reporting/README.md)
 
-## [Appendix A: Testing Tools Resource](Appx.A_Testing_Tools_Resource/README.md)
+## Appendix A. [Testing Tools Resource](Appendix/A-Testing_Tools_Resource.md)
 
-## [Appendix B: Suggested Reading](Appx.B_Suggested_Reading/README.md)
+## Appendix B. [Suggested Reading](Appendix/B-Suggested_Reading.md)
 
-## [Appendix C: Fuzz Vectors](Appx.C_Fuzz_Vectors/README.md)
+## Appendix C. [Fuzz Vectors](Appendix/C-Fuzz_Vectors.md)
 
-## [Appendix D: Encoded Injection](Appx.D_Encoded_Injection/README.md)
+## Appendix D. [Encoded Injection](Appendix/D-Encoded_Injection.md)
 
-## [Appendix E: Misc](Appx.E_Misc/README.md)
+## Appendix E. [History](Appendix/E-History.md)
