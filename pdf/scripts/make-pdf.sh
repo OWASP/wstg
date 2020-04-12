@@ -57,7 +57,7 @@ sed 's/\(^#\{3\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h3 id=\"\2\">\2<\/h3>/' | \
 sed 's/\(^#\{4\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h4 id=\"\2\">\2<\/h4>/' | \
 sed 's/\(^#\{5\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h5 id=\"\2\">\2<\/h5>/' | \
 sed 's/\[\([^\[]*\)\]([^\[]*[0-9]\-\([^(]*\.md\))/<a href=\"#\2\">\1<\/a>/g' | \
-sed 's/\[\([^\[]*\)\]([^\[]*\(Appx[^(]*\.md\))/<a href=\"#\2\">\1<\/a>/g' | \
+sed 's/\[\([^\[]*\)\]([^\[]*[ABCDE]-\([^(]*\.md\))/<a href=\"#\2\">\1<\/a>/g' | \
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().lower(), sys.stdin.read()))"  | \
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().replace(' ', '-'), sys.stdin.read()))" | \
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().replace('_', '-'), sys.stdin.read()))"  | \
@@ -101,7 +101,7 @@ sed 's/\(^#\{3\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h3 id=\"\2\">\2<\/h3>/' | \
 sed 's/\(^#\{4\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h4 id=\"\2\">\2<\/h4>/' | \
 sed 's/\(^#\{5\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h5 id=\"\2\">\2<\/h5>/' | \
 sed 's/\[\([^\[]*\)\]([^\[]*[0-9]\-\([^(]*\.md\))/<a href=\"#\2\">\1<\/a>/g' | \
-sed 's/\[\([^\[]*\)\]([^\[]*\(Appx[^(]*\.md\))/<a href=\"#\2\">\1<\/a>/g' | \
+sed 's/\[\([^\[]*\)\]([^\[]*[ABCDE]-\([^(]*\.md\))/<a href=\"#\2\">\1<\/a>/g' | \
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().lower(), sys.stdin.read()))"  | \
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().replace(' ', '-'), sys.stdin.read()))" | \
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().replace('_', '-'), sys.stdin.read()))"  | \
@@ -131,7 +131,7 @@ done
 for f in build/pdf/*.pdf; do
     pdftk $f cat end output lastpage.pdf
     size=$(du -b lastpage.pdf | cut -f 1)
-    if [ $size -lt "12000" ]; then
+    if [ $size -lt "13000" ]; then
         page_count=$(pdftk $f dump_data | grep NumberOfPages | awk  '{print $2}')
         page_count=$(( $page_count - 1 ))
         pdftk A="$f" cat A1-$page_count output tempfile.pdf
@@ -149,8 +149,9 @@ for f in build/pdf/*.pdf; do
         echo $i | \
         sed 's/build\/pdf\/document/section: /'  | \
         sed 's/\([0-9.]\+\)-\(.*\)\.pdf/\1 \; file: \2 \;/' | \
-        sed 's/Appx\.[A-Z]_\(.*\)/6 \; sectionTitle: Appendix \;  subsection: \1 \; sectionTitle: \1 \; subsection: /' | \
         sed 's/\([0-9.]\+\)-\(.*\)/\1 \; sectionTitle: \2 \; subsection: /' | \
+        sed 's/Appendix/6 \; sectionTitle: Appendix \; subsection: /'  | \
+        sed 's/\([ABCDE]\)-\(.*\)\.pdf/\1 - \2\;/' | \
         sed 's/_/ /g' | \
         tr -d '\n' >> build/chapters.txt;
     done;
@@ -201,7 +202,11 @@ while read line; do
             if [[ -n $sectionTitle1 ]]; then
                 if [ "$subsection1Value" != "$subsection1" ]; then
                     subsection1Value=$subsection1;
-                    echo "BookmarkTitle:" $subsection1 - $sectionTitle1 >> build/bookmarks;
+                    if [ "$sectionTitle" == "Appendix" ] ; then
+                        echo "BookmarkTitle:" $subsection1  >> build/bookmarks;
+                    else
+                        echo "BookmarkTitle:" $subsection1 - $sectionTitle1 >> build/bookmarks;
+                    fi
                     echo "BookmarkLevel: 2"  >> build/bookmarks;
                 else
                     if [[ -n $sectionTitle2 ]]; then
