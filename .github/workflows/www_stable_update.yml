@@ -1,4 +1,4 @@
-name: Deploy Latest WSTG Content to Web
+name: Deploy Stable and Versioned WSTG Content to Web
 
 on:
   push:
