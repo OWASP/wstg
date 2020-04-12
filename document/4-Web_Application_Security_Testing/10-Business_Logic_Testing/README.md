@@ -1,4 +1,4 @@
-# 4.10 Testing Business Logic
+# 4.10 Business Logic Testing
 
 4.10.0 [Introduction to Business Logic Testing](0-Introduction_to_Business_Logic.md)
 
