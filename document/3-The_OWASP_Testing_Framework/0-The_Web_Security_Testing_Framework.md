@@ -1,4 +1,4 @@
-# The OWASP Testing Framework
+# The Web Security Testing Framework
 
 ## Overview
 
