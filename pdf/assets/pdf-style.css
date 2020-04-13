@@ -544,7 +544,8 @@
 .markdown-body img {
 	max-width: 100%;
 	box-sizing: content-box;
-	background-color: #fff
+	background-color: #fff;
+	text-align:center;
 }
 
 .markdown-body img[align=right] {
@@ -658,7 +659,10 @@
 	text-align:center;
 	margin: 5px;
 }
-
+.markdown-body .image-name-tag-wrap {
+	text-align:center;
+	padding: 4px 8px;
+}
 .markdown-body pre {
 	white-space: pre-wrap;
 	word-wrap: break-word;

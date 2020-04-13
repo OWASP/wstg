@@ -36,15 +36,10 @@ echo "<img src=\"images/back-cover.png\" style=\"overflow:hidden; margin-bottom:
 # Create the single document Markdown file
 # Sed section 1: Add page break after each chapter
 # Sed section 2: Correct Markdown file links with fragment identifiers. Remove file path and keep fragmentidentifier alone.
-# Sed section 3 - 7: Replace internal Links inside headings with anchor tags inside the respective heading and link href as the heading text
-# Sed section 8 - 12: Add header text as `id` element for heading to get referenced by links
-# Sed section 13: Set href for internal links inside section README file. Remove subsection numbers from href.
-# Sed section 14 -15: Replace the spaces inside 'id' value and `href` values with hyphen
-# Sed section 16: Replace the subsection number from header text and 'id'
-# Sed section 17: Add css class for image number tags
 ls build/md | sort -n | while read x; do cat build/md/$x | sed -e 's/^# /<div style=\"page-break-after: always\;\"><\/div>\
 \
 # /' | sed 's/\[\([^\n]\+\)\]([^\n]\+.md#\([^\)]\+\)/[\1](#\2/' | \
+# Sed section 3 - 8: Replace internal Links inside headings with anchor tags inside the respective heading and link href as the heading text
 sed 's/\(^#\{2\} \)\(\[\(.*\)\]\(.*\)\(\?\:\n\+\|$\)\)/<h2><a href=\"#\3\">\3<\/a><\/h2>/'  | \
 sed 's/\(^#\{1\} \)\([0-9. ]*\) \(\[\(.*\)\]\(.*\)\(\?\:\n\+\|$\)\)/<h1>\2 <a href=\"#\4\">\4<\/a><\/h1>/'  | \
 sed 's/\(^#\{2\} \)\([0-9. ]*\) \(\[\(.*\)\]\(.*\)\(\?\:\n\+\|$\)\)/<h2>\2 <a href=\"#\4\">\4<\/a><\/h2>/' | \
@@ -52,27 +47,42 @@ sed 's/\(^#\{2\} \)\(Appendix [ABCDE]\.\) \(\[\(.*\)\]\(.*\)\(\?\:\n\+\|$\)\)/<h
 sed 's/\(^#\{3\} \)\([0-9. ]*\) \(\[\(.*\)\]\(.*\)\(\?\:\n\+\|$\)\)/<h3>\2 <a href=\"#\4\">\4<\/a><\/h3>/'| \
 sed 's/\(^#\{4\} \)\([0-9. ]*\) \(\[\(.*\)\]\(.*\)\(\?\:\n\+\|$\)\)/<h4>\2 <a href=\"#\4\">\4<\/a><\/h4>/' | \
 sed 's/\(^#\{5\} \)\([0-9. ]*\) \(\[\(.*\)\]\(.*\)\(\?\:\n\+\|$\)\)/<h5>\2 <a href=\"#\4\">\4<\/a><\/h5>/' | \
+# Sed section 9 - 13: Add header text as `id` element for heading to get referenced by links
 sed 's/\(^#\{1\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h1 id=\"\2\">\2<\/h1>/' | \
 sed 's/\(^#\{2\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h2 id=\"\2\">\2<\/h2>/' | \
 sed 's/\(^#\{3\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h3 id=\"\2\">\2<\/h3>/' | \
 sed 's/\(^#\{4\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h4 id=\"\2\">\2<\/h4>/' | \
 sed 's/\(^#\{5\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h5 id=\"\2\">\2<\/h5>/' | \
+# Sed section 14: Set href for internal links. Remove subsection numbers from href.
 sed 's/\[\([^\[]*\)\]([^\[]*[0-9]\-\([^(]*\.md\))/<a href=\"#\2\">\1<\/a>/g' | \
+# Sed section 15: Set href for Appendix internal links. Remove subsection numbers from href.
 sed 's/\[\([^\[]*\)\]([^\[]*[ABCDE]-\([^(]*\.md\))/<a href=\"#\2\">\1<\/a>/g' | \
+# pyhton section 16: convert all chars inside href to lower case
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().lower(), sys.stdin.read()))"  | \
+# pyhton section 17: Replace the spaces inside `href` values with hyphen
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().replace(' ', '-'), sys.stdin.read()))" | \
+# pyhton section 18: Replace the `_` inside `href` values with hyphen
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().replace('_', '-'), sys.stdin.read()))"  | \
+# pyhton section 19: remove readme.md from the file path inside href
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*/readme\.md)\"', lambda m: m.group().replace('/readme.md', ''), sys.stdin.read()))"  | \
+# pyhton section 20: remove .md from all file path inside href
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().replace('.md', ''), sys.stdin.read()))"  | \
+# pyhton section 21: Replace the spaces inside 'id' value with hyphen
 python -c "import re; import sys; print(re.sub(r'id=\"([^\n]+)\"', lambda m: m.group().replace(' ', '-'), sys.stdin.read()))"  | \
+# pyhton section 22: convert all chars inside id to lower case
 python -c "import re; import sys; print(re.sub(r'id=\"([^\n]+)\"', lambda m: m.group().lower(), sys.stdin.read()))"  | \
+# pyhton section 23 - 25: Remove `:`, `,`, `.` inside id values
 python -c "import re; import sys; print(re.sub(r'id=\"([^\n]+)\"', lambda m: m.group().replace(':', ''), sys.stdin.read()))"  | \
 python -c "import re; import sys; print(re.sub(r'id=\"([^\n]+)\"', lambda m: m.group().replace('.', ''), sys.stdin.read()))"  | \
 python -c "import re; import sys; print(re.sub(r'id=\"([^\n]+)\"', lambda m: m.group().replace(',', ''), sys.stdin.read()))"  | \
+# pyhton section 26: Replace the space with hyphen inside href values
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*)\"', lambda m: m.group().replace(' ', '-'), sys.stdin.read()))" | \
+# pyhton section 27: convert all chars inside href to lower case
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*)\"', lambda m: m.group().lower(), sys.stdin.read()))"  | \
+# Sed section 28: Move the number out of href
 sed 's/<h1 id=\"[0-9.]*-\(.*\)\">\(.*\)<\/h1>/<h1 id="\1">\2<\/h1>/' | \
-sed 's/\*\(Figure [0-9.\-]*\: .*\)\*/<span class="image-name-tag">\1<\/span>/' >>  build/wstg-doc-$VERSION.md ; done
+# Sed section 29: Add design to image name text
+sed 's/\*\(Figure [0-9.\-]*\: .*\)\*/<div class="image-name-tag-wrap"><span class="image-name-tag">\1<\/span><\/div>/' >>  build/wstg-doc-$VERSION.md ; done
 
 # Create cover pages by converting Markdown to PDF
 md-to-pdf  --config-file pdf/pdf-config.json  --pdf-options '{"margin":"0mm", "format": "A4"}' build/cover-$VERSION.md
@@ -86,7 +96,7 @@ md-to-pdf  --config-file pdf/pdf-config.json build/wstg-doc-$VERSION.md
 pdftk build/cover-$VERSION.pdf build/second-cover-$VERSION.pdf build/wstg-doc-$VERSION.pdf build/back-$VERSION.pdf cat output build/wstg-com-$VERSION.pdf
 
 # Create chapter wise Markdown files for generating bookmarks
-# Sed sections are exactly same as the previous one
+# Sed and Python sections are exactly same as the previous one
 ls build/md | sort -n | while read x; do cat build/md/$x | sed -e 's/^# /<div style=\"page-break-after: always\;\"><\/div>\
 \
 # /' | sed 's/\[\([^\n]\+\)\]([^\n]\+.md#\([^\)]\+\)/[\1](#\2/' | \
@@ -116,7 +126,7 @@ python -c "import re; import sys; print(re.sub(r'id=\"([^\n]+)\"', lambda m: m.g
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*)\"', lambda m: m.group().replace(' ', '-'), sys.stdin.read()))" | \
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*)\"', lambda m: m.group().lower(), sys.stdin.read()))"  | \
 sed 's/<h1 id=\"[0-9.]*-\(.*\)\">\(.*\)<\/h1>/<h1 id="\1">\2<\/h1>/' | \
-sed 's/\*\(Figure [0-9.\-]*\: .*\)\*/<span class="image-name-tag">\1<\/span>/'  >  build/pdf/$x ; done
+sed 's/\*\(Figure [0-9.\-]*\: .*\)\*/<div class="image-name-tag-wrap"><span class="image-name-tag">\1<\/span><\/div>/'  >  build/pdf/$x ; done
 
 # Copy images to the temporary folder to generate chapter wise PDFs
 cp -r build/images build/pdf/
