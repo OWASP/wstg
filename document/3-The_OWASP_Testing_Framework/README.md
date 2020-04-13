@@ -1,6 +1,6 @@
 # The OWASP Testing Framework
 
-3.1 [The OWASP Testing Framework](0-The_Web_Security_Testing_Framework.md)
+3.1 [The Web Security Testing Framework](0-The_Web_Security_Testing_Framework.md)
 
 3.2 [Phase 1 Before Development Begins](0-The_Web_Security_Testing_Framework.md#phase-1-before-development-begins)
 
