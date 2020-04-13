@@ -48,7 +48,7 @@
 
 ## 4. [Web Application Security Testing](4-Web_Application_Security_Testing/)
 
-### 4.0 [Introduction and Objectives](4-Web_Application_Security_Testing/0-Introduction_and_Objectives/README.md)
+### 4.0 [Introduction and Objectives](4-Web_Application_Security_Testing/00-Introduction_and_Objectives/README.md)
 
 ### 4.1 [Information Gathering](4-Web_Application_Security_Testing/01-Information_Gathering/README.md)
 
