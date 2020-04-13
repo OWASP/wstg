@@ -1,4 +1,4 @@
-# Appendix B: Suggested Reading
+# Suggested Reading
 
 ## Whitepapers
 

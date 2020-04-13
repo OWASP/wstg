@@ -48,7 +48,7 @@
 
 ## 4. [Web Application Security Testing](4-Web_Application_Security_Testing/)
 
-### 4.0 [Introduction and Objectives](4-Web_Application_Security_Testing/0-Introduction_and_Objectives/README.md)
+### 4.0 [Introduction and Objectives](4-Web_Application_Security_Testing/00-Introduction_and_Objectives/README.md)
 
 ### 4.1 [Information Gathering](4-Web_Application_Security_Testing/01-Information_Gathering/README.md)
 
@@ -288,12 +288,12 @@
 
 ## 5. [Reporting](5-Reporting/README.md)
 
-## [Appendix A: Testing Tools Resource](Appx.A_Testing_Tools_Resource/README.md)
+## Appendix A. [Testing Tools Resource](6-Appendix/A-Testing_Tools_Resource.md)
 
-## [Appendix B: Suggested Reading](Appx.B_Suggested_Reading/README.md)
+## Appendix B. [Suggested Reading](6-Appendix/B-Suggested_Reading.md)
 
-## [Appendix C: Fuzz Vectors](Appx.C_Fuzz_Vectors/README.md)
+## Appendix C. [Fuzz Vectors](6-Appendix/C-Fuzz_Vectors.md)
 
-## [Appendix D: Encoded Injection](Appx.D_Encoded_Injection/README.md)
+## Appendix D. [Encoded Injection](6-Appendix/D-Encoded_Injection.md)
 
-## [Appendix E: Misc](Appx.E_Misc/README.md)
+## Appendix E. [History](6-Appendix/E-History.md)

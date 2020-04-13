@@ -66,7 +66,7 @@ jobs:
         # Handle numbered entries
         sed -i -E 's/^#{2,5}\s([0-9.]*\s)\[(.*?)\]\((.*?)\)/- title: '\''\1\2'\''\n  url: \3/g' README.md
         # Handle un-numbered entries
-        sed -i -E 's/^#{2,5}\s\[(.*?)\]\((.*?)\)/- title: '\''\1'\''\n  url: \2/g' README.md
+        sed -i -E 's/^#{2,5}\s([a-zA-Z. ]*\s)\[(.*?)\]\((.*?)\)/- title: '\''\1\2'\''\n  url: \3/g' README.md
         # Remove the title from the README (first line)
         sed -i '1d' README.md
         # Find the anchor links (URL fragments) and lowercase them
