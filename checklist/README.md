@@ -11,7 +11,7 @@ Contained in this folder is an Excel file which provides the following worksheet
 
 ## Direct Link
 
-[OWASP Testing Checklist](https://raw.githubusercontent.com/OWASP/OWASP-Testing-Guide-v5/master/checklist/OWASP-Testing_Checklist.xlsx)
+[OWASP Testing Checklist](https://raw.githubusercontent.com/OWASP/wstg/master/checklist/OWASP-Testing_Checklist.xlsx)
 
 ## File Hash
 

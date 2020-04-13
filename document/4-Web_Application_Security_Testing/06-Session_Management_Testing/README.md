@@ -8,7 +8,7 @@
 
 4.6.4 [Testing for Exposed Session Variables](04-Testing_for_Exposed_Session_Variables.md)
 
-4.6.5 [Testing for Cross Site Request Forgery](05-Testing_for_CSRF.md)
+4.6.5 [Testing for Cross Site Request Forgery](05-Testing_for_Cross_Site_Request_Forgery.md)
 
 4.6.6 [Testing for Logout Functionality](06-Testing_for_Logout_Functionality.md)
 

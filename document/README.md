@@ -30,19 +30,19 @@
 
 ## 3. [The OWASP Testing Framework](3-The_OWASP_Testing_Framework/)
 
-### 3.1 [Overview](3-The_OWASP_Testing_Framework/0-The_OWASP_Testing_Framework.md#Overview)
+### 3.1 [The OWASP Testing Framework](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md)
 
-### 3.2 [Phase 1: Before Development Begins](3-The_OWASP_Testing_Framework/0-The_OWASP_Testing_Framework.md#Phase-1-Before-Development-Begins)
+### 3.2 [Phase 1: Before Development Begins](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#Phase-1-Before-Development-Begins)
 
-### 3.3 [Phase 2: During Definition and Design](3-The_OWASP_Testing_Framework/0-The_OWASP_Testing_Framework.md#Phase-2-During-Definition-and-Design)
+### 3.3 [Phase 2: During Definition and Design](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#Phase-2-During-Definition-and-Design)
 
-### 3.4 [Phase 3: During Development](3-The_OWASP_Testing_Framework/0-The_OWASP_Testing_Framework.md#Phase-3-During-Development)
+### 3.4 [Phase 3: During Development](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#Phase-3-During-Development)
 
-### 3.5 [Phase 4: During Deployment](3-The_OWASP_Testing_Framework/0-The_OWASP_Testing_Framework.md#Phase-4-During-Deployment)
+### 3.5 [Phase 4: During Deployment](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#Phase-4-During-Deployment)
 
-### 3.6 [Phase 5: During Maintenance and Operations](3-The_OWASP_Testing_Framework/0-The_OWASP_Testing_Framework.md#Phase-5-During-Maintenance-and-Operations)
+### 3.6 [Phase 5: During Maintenance and Operations](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#Phase-5-During-Maintenance-and-Operations)
 
-### 3.7 [A Typical SDLC Testing Workflow](3-The_OWASP_Testing_Framework/0-The_OWASP_Testing_Framework.md#A-Typical-SDLC-Testing-Workflow)
+### 3.7 [A Typical SDLC Testing Workflow](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#A-Typical-SDLC-Testing-Workflow)
 
 ### 3.8 [Penetration Testing Methodologies](3-The_OWASP_Testing_Framework/1-Penetration_Testing_Methodologies.md)
 
@@ -150,7 +150,7 @@
 
 #### 4.6.4 [Testing for Exposed Session Variables](4-Web_Application_Security_Testing/06-Session_Management_Testing/04-Testing_for_Exposed_Session_Variables.md)
 
-#### 4.6.5 [Testing for Cross Site Request Forgery](4-Web_Application_Security_Testing/06-Session_Management_Testing/05-Testing_for_CSRF.md)
+#### 4.6.5 [Testing for Cross Site Request Forgery](4-Web_Application_Security_Testing/06-Session_Management_Testing/05-Testing_for_Cross_Site_Request_Forgery.md)
 
 #### 4.6.6 [Testing for Logout Functionality](4-Web_Application_Security_Testing/06-Session_Management_Testing/06-Testing_for_Logout_Functionality.md)
 
@@ -230,7 +230,7 @@
 
 ### 4.9 [Testing for Weak Cryptography](4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/README.md)
 
-#### 4.9.1 [Testing for Weak Cryptography](4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_SSL_TLS_Ciphers_Insufficient_Transport_Layer_Protection.md)
+#### 4.9.1 [Testing for Weak SSL TLS Ciphers Insufficient Transport Layer Protection](4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_SSL_TLS_Ciphers_Insufficient_Transport_Layer_Protection.md)
 
 #### 4.9.2 [Testing for Padding Oracle](4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/02-Testing_for_Padding_Oracle.md)
 
@@ -282,7 +282,7 @@
 
 #### 4.11.11 [Testing Web Messaging](4-Web_Application_Security_Testing/11-Client_Side_Testing/11-Testing_Web_Messaging.md)
 
-#### 4.11.12 [Testing Browser Storage](4-Web_Application_Security_Testing/11-Client_Side_Testing/12-Testing_Web_Storage.md)
+#### 4.11.12 [Testing Browser Storage](4-Web_Application_Security_Testing/11-Client_Side_Testing/12-Testing_Browser_Storage.md)
 
 #### 4.11.13 [Testing for Cross Site Script Inclusion](4-Web_Application_Security_Testing/11-Client_Side_Testing/13-Testing_for_Cross_Site_Script_Inclusion.md)
 

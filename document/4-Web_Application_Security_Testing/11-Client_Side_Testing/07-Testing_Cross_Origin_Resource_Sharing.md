@@ -1,4 +1,4 @@
-# Testing for Cross Origin Resource Sharing
+# Testing Cross Origin Resource Sharing
 
 |ID             |
 |---------------|

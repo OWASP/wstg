@@ -22,6 +22,6 @@
 
 4.11.11 [Testing Web Messaging](11-Testing_Web_Messaging.md)
 
-4.11.12 [Testing Browser Storage](12-Testing_Web_Storage.md)
+4.11.12 [Testing Browser Storage](12-Testing_Browser_Storage.md)
 
 4.11.13 [Testing for Cross Site Script Inclusion](13-Testing_for_Cross_Site_Script_Inclusion.md)
