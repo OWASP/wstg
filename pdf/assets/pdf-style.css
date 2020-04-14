@@ -659,6 +659,9 @@
 	text-align:center;
 	margin: 5px;
 }
+.markdown-body .image-center {
+	text-align:center;
+}
 .markdown-body .image-name-tag-wrap {
 	text-align:center;
 	padding: 4px 8px;

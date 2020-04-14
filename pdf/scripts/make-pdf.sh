@@ -22,14 +22,16 @@ cp pdf/assets/second-cover.png build/images/second-cover.png
 # Rename README files by prepending "0-0.0_" to keep them in the correct order
 find build/md -name "*README.md" | while IFS= read -r FILE; do mv -v "$FILE" "${FILE//README/0-0.0_README}"; done
 
+# Extract version nuber from version tag
+VERSION_NUMBER=`echo $VERSION | sed 's/v//'`
 # Update build version number in pdf-config
 sed -i "s/{PDF Version}/$VERSION/g" pdf/pdf-config.json
 
 # Create the Markdown file for the cover pages
 echo "<img src=\"images/book-cover.jpg\" style=\"overflow:hidden; margin-bottom:-25px;\" />
-        <h1 style=\"position:fixed; top:52.48%; right:46.9%; color: white;
-                    border:none; font-family: 'Montserrat';font-weight: 500;
-                    font-style: normal;\" >$VERSION</h1>" > build/cover-$VERSION.md
+        <h1 style=\"position:fixed; top:61.44%; right:37%; color: #ffffff !important;
+                    border:none; font-weight: 500; font-size:33px;
+                    font-style: normal;\" >$VERSION_NUMBER</h1>" > build/cover-$VERSION.md
 echo "<img src=\"images/second-cover.png\" style=\"overflow:hidden; margin-bottom:-25px;\" />" > build/second-cover-$VERSION.md
 echo "<img src=\"images/back-cover.png\" style=\"overflow:hidden; margin-bottom:-25px;\" />" > build/back-$VERSION.md
 
@@ -81,7 +83,9 @@ python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*)\"', lambda m: 
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*)\"', lambda m: m.group().lower(), sys.stdin.read()))"  | \
 # Sed section 28: Move the number out of href
 sed 's/<h1 id=\"[0-9.]*-\(.*\)\">\(.*\)<\/h1>/<h1 id="\1">\2<\/h1>/' | \
-# Sed section 29: Add design to image name text
+# Sed section 29: Add design to image  and remove extra '\'
+sed 's/\!\[\([^\[]*\)\](\(.*\)).$/<div class="image-center"><img src="\2" alt="\1"><\/div>/' | \
+# Sed section 30: Add design to image name text
 sed 's/\*\(Figure [0-9.\-]*\: .*\)\*/<div class="image-name-tag-wrap"><span class="image-name-tag">\1<\/span><\/div>/' >>  build/wstg-doc-$VERSION.md ; done
 
 # Create cover pages by converting Markdown to PDF
@@ -126,6 +130,7 @@ python -c "import re; import sys; print(re.sub(r'id=\"([^\n]+)\"', lambda m: m.g
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*)\"', lambda m: m.group().replace(' ', '-'), sys.stdin.read()))" | \
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*)\"', lambda m: m.group().lower(), sys.stdin.read()))"  | \
 sed 's/<h1 id=\"[0-9.]*-\(.*\)\">\(.*\)<\/h1>/<h1 id="\1">\2<\/h1>/' | \
+sed 's/\!\[\([^\[]*\)\](\(.*\)).$/<div class="image-center"><img src="\2" alt="\1"><\/div>/' | \
 sed 's/\*\(Figure [0-9.\-]*\: .*\)\*/<div class="image-name-tag-wrap"><span class="image-name-tag">\1<\/span><\/div>/'  >  build/pdf/$x ; done
 
 # Copy images to the temporary folder to generate chapter wise PDFs
