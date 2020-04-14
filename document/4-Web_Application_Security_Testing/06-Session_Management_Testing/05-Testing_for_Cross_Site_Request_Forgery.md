@@ -24,7 +24,7 @@ Points 1, 2, and 3 are essential for the vulnerability to be present, while poin
 For simplicity's sake, consider GET-accessible URLs (though the discussion applies as well to POST requests). If *victim* has already authenticated themselves, submitting another request causes the cookie to be automatically sent with it. The figure below illustrates the user accessing an application on `www.example.com`.
 
 ![Session Riding](images/Session_riding.GIF)\
-*Figure 4.6.5-1:Session Riding*
+*Figure 4.6.5-1: Session Riding*
 
 The GET request could be sent by the user in several different ways:
 
@@ -79,7 +79,7 @@ To delete all rules:
 This example is intentionally naive, but shows in a simplified way the dangers of CSRF.
 
 ![Session Riding Firewall Management](images/Session_Riding_Firewall_Management.gif)\
-*Figure 4.6.5-2:Session Riding Firewall Management*
+*Figure 4.6.5-2: Session Riding Firewall Management*
 
 Using the form pictured in the figure above, entering the value `*` and clicking the Delete button will submit the following GET request:
 
@@ -88,7 +88,7 @@ Using the form pictured in the figure above, entering the value `*` and clicking
 This would delete all firewall rules.
 
 ![Session Riding Firewall Management 2](images/Session_Riding_Firewall_Management_2.gif)\
-*Figure 4.6.5-3:Session Riding Firewall Management 2*
+*Figure 4.6.5-3: Session Riding Firewall Management 2*
 
 The user might also have accomplished the same results by manually submitting the URL:
 

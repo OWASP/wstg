@@ -21,6 +21,7 @@ jobs:
         # Git setup
         export GITHUB_USER=wstgbot
         echo ::set-env name=GITHUB_USER::$GITHUB_USER
+        echo ::set-env name=GITHUB_TOKEN::${{ secrets.wstg_deploy_token }}
         git config --global user.email "62450690+wstgbot@users.noreply.github.com"
         git config --global user.name $GITHUB_USER
         # Clone the necessary repos
@@ -31,9 +32,9 @@ jobs:
         # Setup some env vars etc for future use
         cd wstg
         echo ::set-env name=WSTG_BASE::"$(pwd)"
-        echo ::set-env name=SRC_BASE="OWASP/wstg@"$(git log -1 --format=format:%h)
-        echo ::set-env name=BRANCH_STAMP="$(date +"%Y%m%d%H%M%S")"
-        echo ::set-env name=SHORT_DATE="$(date +"%Y-%m-%d")"
+        echo ::set-env name=SRC_BASE::"OWASP/wstg@"$(git log -1 --format=format:%h)
+        echo ::set-env name=BRANCH_STAMP::"$(date +"%Y%m%d%H%M%S")"
+        echo ::set-env name=SHORT_DATE::"$(date +"%Y-%m-%d")"
         cd ../www-project-web-security-testing-guide
         echo ::set-env name=WWW_BASE::"$(pwd)"
     - name: Create Feature Branch
@@ -61,8 +62,11 @@ jobs:
         # Copy the current ToC for manipulation
         cp $WSTG_BASE/document/README.md $WSTG_BASE/www/latest/.
         cd $WSTG_BASE/www/latest/
-        # Create new navigation details from ToC and prepend file
-        sed -i -E 's/^#{2,5}\s\[(.*?)\]\((.*?)\)/- title: '\''\1'\''\n  url: \2/g' README.md
+        # Create new navigation details from ToC
+        # Handle numbered entries
+        sed -i -E 's/^#{2,5}\s([0-9.]*\s)\[(.*?)\]\((.*?)\)/- title: '\''\1\2'\''\n  url: \3/g' README.md
+        # Handle un-numbered entries
+        sed -i -E 's/^#{2,5}\s([a-zA-Z. ]*\s)\[(.*?)\]\((.*?)\)/- title: '\''\1\2'\''\n  url: \3/g' README.md
         # Remove the title from the README (first line)
         sed -i '1d' README.md
         # Find the anchor links (URL fragments) and lowercase them
@@ -76,7 +80,7 @@ jobs:
     - name: Push Feature Branch and Raise PR
       run: |
         cd $WWW_BASE
-        git remote set-url origin https://$GITHUB_USER:${{ secrets.wstg_deploy_tokenn }}@github.com/$GITHUB_USER/www-project-web-security-testing-guide.git
+        git remote set-url origin https://$GITHUB_USER:${{ secrets.wstg_deploy_token }}@github.com/$GITHUB_USER/www-project-web-security-testing-guide.git
         git add .
         git commit -m "Publish Latest $SHORT_DATE" -m "Updates based on $SRC_BASE"
         git push --set-upstream origin $BRANCH_STAMP

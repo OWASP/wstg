@@ -1,4 +1,4 @@
-# Appendix D: Encoded Injection
+# Encoded Injection
 
 ## Background
 

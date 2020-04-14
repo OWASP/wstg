@@ -1,4 +1,4 @@
-# Appendix A: Testing Tools Resource
+# Testing Tools Resource
 
 ## General Testing
 

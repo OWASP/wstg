@@ -8,7 +8,7 @@
 
 Web Cookies (herein referred to as cookies) are often a key attack vector for malicious users (typically targeting other users) and the application should always take due diligence to protect cookies.
 
-HTTP is a stateless protocol, meaning that it doesn't hold any reference to requests being sent by the same user. In order to fix this issue, sessions were created and appended to HTTP requests. Browsers, as discussed in [testing web storage](../11-Client_Side_Testing/12-Testing_Web_Storage.md), contain a multitude of storage mechanisms. In that section of the guide, each is discussed thoroughly.
+HTTP is a stateless protocol, meaning that it doesn't hold any reference to requests being sent by the same user. In order to fix this issue, sessions were created and appended to HTTP requests. Browsers, as discussed in [testing browser storage](../11-Client_Side_Testing/12-Testing_Browser_Storage.md), contain a multitude of storage mechanisms. In that section of the guide, each is discussed thoroughly.
 
 The most used session storage mechanism in browsers is cookie storage. Cookies can be set by the server, by including a [`Set-Cookie`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie) header in the HTTP response or via JavaScript. Cookies can be used for a multitude of reasons, such as:
 
@@ -72,7 +72,7 @@ Unlike [session cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cooki
 
 #### SameSite Attribute
 
-The [`SameSite`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#SameSite_cookies) attribute is used to assert that a cookie ought not to be sent along with cross-site requests. This feature allows the server to mitigate the risk of cross-orgin information leakage. In some cases, it is used too as a risk reduction (or defense in depth mechanism) strategy to prevent [cross-site request forgery](05-Testing_for_CSRF.md) attacks. This attribute can be configured in three different modes:
+The [`SameSite`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#SameSite_cookies) attribute is used to assert that a cookie ought not to be sent along with cross-site requests. This feature allows the server to mitigate the risk of cross-orgin information leakage. In some cases, it is used too as a risk reduction (or defense in depth mechanism) strategy to prevent [cross-site request forgery](05-Testing_for_Cross_Site_Request_Forgery.md) attacks. This attribute can be configured in three different modes:
 
 - `Strict`
 - `Lax`
