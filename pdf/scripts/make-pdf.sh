@@ -35,7 +35,7 @@ echo "<img src=\"images/back-cover.png\" style=\"overflow:hidden; margin-bottom:
 
 # Create the single document Markdown file
 # Sed section 1: Add page break after each chapter
-# Sed section 2: Correct Markdown file links with fragment identifiers. Remove file path and keep fragmentidentifier alone.
+# Sed section 2: Correct Markdown file links with fragment identifiers. Remove file path and keep fragment identifier alone.
 ls build/md | sort -n | while read x; do cat build/md/$x | sed -e 's/^# /<div style=\"page-break-after: always\;\"><\/div>\
 \
 # /' | sed 's/\[\([^\n]\+\)\]([^\n]\+.md#\([^\)]\+\)/[\1](#\2/' | \
@@ -138,7 +138,7 @@ done
 
 
 # In rare cases some PDF files has a blank page at the end due to newlines or box padding.
-# This affects the bookmark creation. So Remove those last pages if it is less than 12000 bytes
+# This affects the bookmark creation. So Remove those last pages if it is less than 13000 bytes
 for f in build/pdf/*.pdf; do
     pdftk $f cat end output lastpage.pdf
     size=$(du -b lastpage.pdf | cut -f 1)
@@ -151,7 +151,7 @@ for f in build/pdf/*.pdf; do
     fi
 done;
 
-# Generate chapter details form individual chapter PDF files
+# Generate chapter details from individual chapter PDF files
 # Extracts folder names and number of pages in each chapter
 # Write this to chapters.txt inside build folder
 for f in build/pdf/*.pdf; do
