@@ -83,7 +83,7 @@ python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*)\"', lambda m: 
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*)\"', lambda m: m.group().lower(), sys.stdin.read()))"  | \
 # Sed section 28: Move the number out of href
 sed 's/<h1 id=\"[0-9.]*-\(.*\)\">\(.*\)<\/h1>/<h1 id="\1">\2<\/h1>/' | \
-# Sed section 29: Add design to image  and remove extra '\'
+# Sed section 29: Add design to image and remove extra '\'
 sed 's/\!\[\([^\[]*\)\](\(.*\)).$/<div class="image-center"><img src="\2" alt="\1"><\/div>/' | \
 # Sed section 30: Add design to image name text
 sed 's/\*\(Figure [0-9.\-]*\: .*\)\*/<div class="image-name-tag-wrap"><span class="image-name-tag">\1<\/span><\/div>/' >>  build/wstg-doc-$VERSION.md ; done
