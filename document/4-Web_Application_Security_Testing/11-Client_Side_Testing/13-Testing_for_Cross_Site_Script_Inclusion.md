@@ -148,7 +148,7 @@ In this example, using the `___` columns as injection points and inserting JavaS
 </html>
 ```
 
-### 4. Sensitive Data Leakage via Javascript Runtime Errors
+### 4. Sensitive Data Leakage via JavaScript Runtime Errors
 
 Browsers normally present standardized [JavaScript error messages](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors). However, in the case of IE9/10, runtime error messages provided additional details that could be used to leak data. For example, a website `victim.com` serves the following content at the URI `http://victim.com/service/csvendpoint` for authenticated users:
 
