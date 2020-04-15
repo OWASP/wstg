@@ -368,7 +368,7 @@ Content-Length: 1792
 read:errno=0
 ```
 
-Even if the HEAD is not permitted, client-intiated renegotiation is permitted.
+Even if the HEAD is not permitted, client-initiated renegotiation is permitted.
 
 #### Example 4. Testing Supported Cipher Suites, BEAST and CRIME Attacks via TestSSLServer
 
