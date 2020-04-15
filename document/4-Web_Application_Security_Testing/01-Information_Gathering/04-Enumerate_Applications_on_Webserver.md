@@ -85,12 +85,12 @@ PORT      STATE SERVICE     VERSION
 
 From this example, one see that:
 
-- There is an Apache http server running on port 80.
-- It looks like there is an https server on port 443 (but this needs to be confirmed, for example, by visiting `https://192.168.1.100` with a browser).
+- There is an Apache HTTP server running on port 80.
+- It looks like there is an HTTPS server on port 443 (but this needs to be confirmed, for example, by visiting `https://192.168.1.100` with a browser).
 - On port 901 there is a Samba SWAT web interface.
-- The service on port 1241 is not https, but is the SSL-wrapped Nessus daemon.
+- The service on port 1241 is not HTTPS, but is the SSL-wrapped Nessus daemon.
 - Port 3690 features an unspecified service (nmap gives back its *fingerprint* - here omitted for clarity - together with instructions to submit it for incorporation in the nmap fingerprint database, provided you know which service it represents).
-- Another unspecified service on port 8000; this might possibly be http, since it is not uncommon to find http servers on this port. Let's examine this issue:
+- Another unspecified service on port 8000; this might possibly be HTTP, since it is not uncommon to find HTTP servers on this port. Let's examine this issue:
 
 ```bash
 $ telnet 192.168.10.100 8000
@@ -114,7 +114,7 @@ This confirms that in fact it is an HTTP server. Alternatively, testers could ha
 
 - Apache Tomcat running on port 8080.
 
-The same task may be performed by vulnerability scanners, but first check that the scanner of choice is able to identify http[s] services running on non-standard ports. For example, Nessus is capable of identifying them on arbitrary ports (provided it is instructed to scan all the ports), and will provide, with respect to nmap, a number of tests on known web server vulnerabilities, as well as on the SSL configuration of https services. As hinted before, Nessus is also able to spot popular applications or web interfaces which could otherwise go unnoticed (for example, a Tomcat administrative interface).
+The same task may be performed by vulnerability scanners, but first check that the scanner of choice is able to identify HTTP[S] services running on non-standard ports. For example, Nessus is capable of identifying them on arbitrary ports (provided it is instructed to scan all the ports), and will provide, with respect to nmap, a number of tests on known web server vulnerabilities, as well as on the SSL configuration of HTTPS services. As hinted before, Nessus is also able to spot popular applications or web interfaces which could otherwise go unnoticed (for example, a Tomcat administrative interface).
 
 #### Approaches to Address Issue 3 - Virtual Hosts
 

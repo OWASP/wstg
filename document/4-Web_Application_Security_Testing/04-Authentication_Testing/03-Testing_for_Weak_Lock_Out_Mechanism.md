@@ -47,7 +47,7 @@ Factors to consider when implementing an account lockout mechanism:
 
 1. What is the risk of brute force password guessing against the application?
 2. Is a CAPTCHA sufficient to mitigate this risk?
-3. Is a client-side lockout mechanism being used (e.g., Javascript)? (If so, disable the client-side code to test.)
+3. Is a client-side lockout mechanism being used (e.g., JavaScript)? (If so, disable the client-side code to test.)
 4. Number of unsuccessful log in attempts before lockout. If the lockout threshold is to low then valid users may be locked out too often. If the lockout threshold is to high then the more attempts an attacker can make to brute force the account before it will be locked. Depending on the application's purpose, a range of 5 to 10 unsuccessful attempts is typical lockout threshold.
 5. How will accounts be unlocked?
     1. Manually by an administrator: this is the most secure lockout method, but may cause inconvenience to users and take up the administrator's “valuable” time.

@@ -29,8 +29,8 @@ Many credit card systems are now downloading account balances nightly so the cus
 **[Distributed Denial of Dollar (DDo$)](https://news.hitb.org/content/pirate-bay-proposes-distributed-denial-dollars-attack-ddo):**
 This was a campaign that was proposed by the founder of the website "The Pirate Bay" against the law firm who brought prosecutions against "The Pirate Bay". The goal was to take advantage of errors in the design of business features and in the process of credit transfer validation.
 
-This attack was perfomed by sending very small amounts of money of 1 SEK ($0.13 USD) to the law firm.
-The bank account to which the payments were directed had only 1000 free transfers, after which any transfers have a surcharge for the account holder (2 SEK). After the first thousand internet transactions every 1 SEK donation to the law firm will actually end up costing it 1 SEK instead.
+This attack was performed by sending very small amounts of money of 1 SEK ($0.13 USD) to the law firm.
+The bank account to which the payments were directed had only 1000 free transfers, after which any transfers have a surcharge for the account holder (2 SEK). After the first thousand Internet transactions every 1 SEK donation to the law firm will actually end up costing it 1 SEK instead.
 
 ## How to Test
 

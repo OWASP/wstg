@@ -37,7 +37,7 @@ This test is unusual in that the result can be drawn from all the other tests pe
 - Blocked requests
 - Actions that log a user out or lock their account
 
-These may only be localised. Common localized (per function) defenses are:
+These may only be localized. Common localized (per function) defenses are:
 
 - Rejecting input containing certain characters
 - Locking out an account temporarily after a number of authentication failures
@@ -51,7 +51,7 @@ Localized security controls are not sufficient. There are often no defenses agai
 - Multiple input validation or business logic verification failures with values that cannot be the result user mistakes or typos
 - Structured data (e.g. JSON, XML) of an invalid format is received
 - Blatant cross-site scripting or SQL injection payloads are received
-- Utilising the application faster than would be possible without automation tools
+- Utilizing the application faster than would be possible without automation tools
 - Change in continental geo-location of a user
 - Change of user agent
 - Accessing a multi-stage business process in the wrong order

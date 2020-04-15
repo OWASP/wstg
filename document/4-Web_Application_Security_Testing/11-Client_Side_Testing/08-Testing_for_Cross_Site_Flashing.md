@@ -58,7 +58,7 @@ Since the first publication of [Testing Flash Applications](http://www.wisec.it/
 
 ### Decompilation
 
-Since SWF files are interpreted by a virtual machine embedded in the player itself, they can be potentially decompiled and analysed. The most known and free ActionScript 2.0 decompiler is flare.
+Since SWF files are interpreted by a virtual machine embedded in the player itself, they can be potentially decompiled and analyzed. The most known and free ActionScript 2.0 decompiler is flare.
 
 To decompile a SWF file with flare just type:
 
@@ -155,7 +155,7 @@ Unsafe Methods since version r47 are:
 - `flash.external.ExternalInterface.call(_root.callback)`
 - `htmlText`
 
-### Explotation by Reflected XSS
+### Exploitation by Reflected XSS
 
 The swf file should be hosted on the victim's host, and the techniques of reflected XSS must be used. An attacker forces the browser to load a pure swf file directly in the location bar (by redirection or social engineering) or by loading it through an iframe from an evil page:
 

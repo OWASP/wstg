@@ -44,7 +44,7 @@ Consider a basic input validation filter that protects against injection of sing
 <SCRIPT>alert(String.fromCharCode(88,83,83))</SCRIPT>
 ```
 
-`String.fromCharCode` Javascript function takes the given Unicode values and returns the corresponding string. This is one of the most basic forms of encoded injections. Another vector that can be used to bypass this filter is:
+`String.fromCharCode` JavaScript function takes the given Unicode values and returns the corresponding string. This is one of the most basic forms of encoded injections. Another vector that can be used to bypass this filter is:
 
 ``` html
 <IMG SRC=javascript:alert(&quot ;XSS&quot ;)>

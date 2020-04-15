@@ -32,7 +32,7 @@ Also, if an attacker was able to see through a proxy that the application has a 
 
 - Review the project documentation and use exploratory testing looking for guessable, predictable or hidden functionality of fields.
 
-- Once found try to insert logically valid data into the application/system allowing the user go through the application/system against the normal busineess logic workflow.
+- Once found try to insert logically valid data into the application/system allowing the user go through the application/system against the normal business logic workflow.
 
 ### Specific Testing Method 1
 

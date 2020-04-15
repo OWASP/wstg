@@ -286,9 +286,9 @@ PORT    STATE SERVICE
 Nmap done: 1 IP address (1 host up) scanned in 8.64 seconds
 ```
 
-#### Example 3 Checking for Client-Initiated Renegotiation and Secure Renegotiation Via Openssl (Manually)
+#### Example 3 Checking for Client-Initiated Renegotiation and Secure Renegotiation Via OpenSSL (Manually)
 
-[OpenSSL](https://www.openssl.org/) can be used for testing manually SSL/TLS. In this example the tester tries to initiate a renegotiation by client `m` connecting to server with OpenSSL. The tester then writes the fist line of an HTTP request and types `R` in a new line. He then waits for renegotiaion and completion of the HTTP request and checks if secure renegotiaion is supported by looking at the server output. Using manual requests it is also possible to see if Compression is enabled for TLS and to check for [CRIME](https://community.qualys.com/blogs/securitylabs/2011/10/31/tls-renegotiation-and-denial-of-service-attacks), for ciphers and for other vulnerabilities.
+[OpenSSL](https://www.openssl.org/) can be used for testing manually SSL/TLS. In this example the tester tries to initiate a renegotiation by client `m` connecting to server with OpenSSL. The tester then writes the fist line of an HTTP request and types `R` in a new line. He then waits for renegotiation and completion of the HTTP request and checks if secure renegotiation is supported by looking at the server output. Using manual requests it is also possible to see if Compression is enabled for TLS and to check for [CRIME](https://community.qualys.com/blogs/securitylabs/2011/10/31/tls-renegotiation-and-denial-of-service-attacks), for ciphers and for other vulnerabilities.
 
 ```bash
 $ openssl s_client -connect www2.example.com:443
@@ -368,13 +368,13 @@ Content-Length: 1792
 read:errno=0
 ```
 
-Even if the HEAD is not permitted, client-intiated renegotiaion is permitted.
+Even if the HEAD is not permitted, client-initiated renegotiation is permitted.
 
 #### Example 4. Testing Supported Cipher Suites, BEAST and CRIME Attacks via TestSSLServer
 
 [TestSSLServer](https://www.bolet.org/TestSSLServer/) is a script which permits the tester to check the cipher suite and also for BEAST and CRIME attacks. BEAST (Browser Exploit Against SSL/TLS) exploits a vulnerability of CBC in TLS 1.0. CRIME (Compression Ratio Info-leak Made Easy) exploits a vulnerability of TLS Compression, that should be disabled. What is interesting is that the first fix for BEAST was the use of RC4, but this is now discouraged due to a [crypto-analytical attack to RC4](https://community.qualys.com/blogs/securitylabs/2013/03/19/rc4-in-tls-is-broken-now-what).
 
-An online tool to check for these attacks is SSL Labs, but can be used only for internet facing servers. Also consider that target data will be stored on SSL Labs server and also will result some connection from [SSL Labs server](https://www.ssllabs.com/ssltest/index.html).
+An online tool to check for these attacks is SSL Labs, but can be used only for Internet facing servers. Also consider that target data will be stored on SSL Labs server and also will result some connection from [SSL Labs server](https://www.ssllabs.com/ssltest/index.html).
 
 ```bash
 $ java -jar TestSSLServer.jar www3.example.com 443
@@ -1158,11 +1158,11 @@ Firstly upgrade the browser because CA certs expire and in every release of the 
 
 By clicking on the padlock that appears in the browser window when visiting an HTTPS site, testers can look at information related to the certificate – including the issuer, period of validity, encryption characteristics, etc. If the application requires a client certificate, that tester has probably installed one to access it. Certificate information is available in the browser by inspecting the relevant certificate(s) in the list of the installed certificates.
 
-These checks must be applied to all visible SSL-wrapped communication channels used by the application. Though this is the usual https service running on port 443, there may be additional services involved depending on the web application architecture and on deployment issues (an HTTPS administrative port left open, HTTPS services on non-standard ports, etc.). Therefore, apply these checks to all SSL-wrapped ports which have been discovered. For example, the nmap scanner features a scanning mode (enabled by the –sV command line switch) which identifies SSL-wrapped services. The Nessus vulnerability scanner has the capability of performing SSL checks on all SSL/TLS-wrapped services.
+These checks must be applied to all visible SSL-wrapped communication channels used by the application. Though this is the usual HTTPS service running on port 443, there may be additional services involved depending on the web application architecture and on deployment issues (an HTTPS administrative port left open, HTTPS services on non-standard ports, etc.). Therefore, apply these checks to all SSL-wrapped ports which have been discovered. For example, the nmap scanner features a scanning mode (enabled by the –sV command line switch) which identifies SSL-wrapped services. The Nessus vulnerability scanner has the capability of performing SSL checks on all SSL/TLS-wrapped services.
 
 #### Example 1. Testing for Certificate Validity (Manually)
 
-Rather than providing a fictitious example, this guide includes an anonymized real-life example to stress how frequently one stumbles on https sites whose certificates are inaccurate with respect to naming. The following screenshots refer to a regional site of a high-profile IT company.
+Rather than providing a fictitious example, this guide includes an anonymized real-life example to stress how frequently one stumbles on HTTPS sites whose certificates are inaccurate with respect to naming. The following screenshots refer to a regional site of a high-profile IT company.
 
 We are visiting a .it site and the certificate was issued to a .com site. Internet Explorer warns that the name on the certificate does not match the name of the site.
 
@@ -1201,7 +1201,7 @@ To test if a website is vulnerable carry out the following tests:
 
 Some applications supports both HTTP and HTTPS, either for usability or so users can type both addresses and get to the site. Often users go into an HTTPS website from link or a redirect. Typically personal banking sites have a similar configuration with an iframed log in or a form with action attribute over HTTPS but the page under HTTP.
 
-An attacker in a privileged position - as described in [SSL strip](https://moxie.org/software/sslstrip/) - can intercept traffic when the user is in the http site and manipulate it to get a Man-In-The-Middle attack under HTTPS. An application is vulnerable if it supports both HTTP and HTTPS.
+An attacker in a privileged position - as described in [SSL strip](https://moxie.org/software/sslstrip/) - can intercept traffic when the user is in the HTTP site and manipulate it to get a Man-In-The-Middle attack under HTTPS. An application is vulnerable if it supports both HTTP and HTTPS.
 
 ### Testing via HTTP Proxy
 
@@ -1223,7 +1223,7 @@ All connections to `localhost:9999` will be effectively relayed by socat via pro
 
 ### Testing for Weak SSL/TLS Cipher Suites
 
-Check the configuration of the web servers that provide https services. If the web application provides other SSL/TLS wrapped services, these should be checked as well.
+Check the configuration of the web servers that provide HTTPS services. If the web application provides other SSL/TLS wrapped services, these should be checked as well.
 
 #### Example 1. Windows Server
 

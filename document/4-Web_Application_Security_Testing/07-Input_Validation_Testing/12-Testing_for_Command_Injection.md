@@ -24,7 +24,7 @@ Example URL modified:
 
 This will execute the command `/bin/ls`.
 
-Appending a semicolon to the end of a URL for a .PHP page followed by an operating system command, will execute the command. `%3B` is url encoded and decodes to semicolon
+Appending a semicolon to the end of a URL for a .PHP page followed by an operating system command, will execute the command. `%3B` is URL encoded and decodes to semicolon
 
 Example:
 
