@@ -1,0 +1,53 @@
+name: Build PDF
+
+on:
+  push:
+    tags: 
+      - '*'
+jobs:
+  build:
+    if: github.actor == 'kingthorin' || github.actor == 'ThunderSon' || github.actor == 'rejahrehim' || github.actor == 'victoriadrake'
+    name: Build
+    runs-on: ubuntu-latest
+    env:
+      CI: true
+    steps:
+    - name: Setup Action
+      uses: actions/checkout@v2
+    - name: Setup Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: SetUp python
+      uses: actions/setup-python@v1
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        npm install -g md-to-pdf
+        sudo snap install pdftk
+    - name: Get Version
+      id: vars
+      run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
+    - name: Run Build
+      run: npm run-script  pdfgen -- ${{ steps.vars.outputs.tag }}
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: true
+    - name: Upload Release Asset
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1.0.2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./build/wstg-${{ steps.vars.outputs.tag }}.pdf
+        asset_name: wstg-${{ steps.vars.outputs.tag }}.pdf
+        asset_content_type: application/pdf
