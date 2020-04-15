@@ -117,7 +117,7 @@ This example is written using the netcat package from openbsd (standard with mos
 
 2. Sending HTTP requests
 
-   For each method and/or method text file, send the request to your web server via netcat or telnet on port 80 (HTTP):
+   For each method or method text file, send the request to your web server via netcat or telnet on port 80 (HTTP):
 
    `nc www.example.com 80 < OPTIONS.http.txt`
 

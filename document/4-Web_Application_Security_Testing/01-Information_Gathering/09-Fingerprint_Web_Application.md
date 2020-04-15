@@ -35,7 +35,7 @@ The cookie *wp-settings-time-1* has automatically been set, which gives informat
 
 ### HTML Source Code
 
-This technique is based on finding certain patterns in the HTML page source code. Often one can find a lot of information which helps a tester to recognize a specific web application. One of the common markers are HTML comments that directly lead to application disclosure. More often certain application-specific paths can be found, i.e. links to application-specific CSS and/or JS folders. Finally, specific script variables might also point to a certain application.
+This technique is based on finding certain patterns in the HTML page source code. Often one can find a lot of information which helps a tester to recognize a specific web application. One of the common markers are HTML comments that directly lead to application disclosure. More often certain application-specific paths can be found, i.e. links to application-specific CSS or JS folders. Finally, specific script variables might also point to a certain application.
 
 From the meta tag below, one can easily learn the application used by a website and its version. The comment, specific paths and script variables can all help an attacker to quickly determine an instance of an application.
 

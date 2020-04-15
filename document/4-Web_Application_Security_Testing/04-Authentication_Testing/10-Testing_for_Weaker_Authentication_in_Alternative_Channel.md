@@ -81,7 +81,7 @@ While enumerating these it is worth taking note of how session management is und
 
 ### Review and Test
 
-Alternative channels should be mentioned in the testing report, even if they are marked as “information only” and/or “out of scope”. In some cases the test scope might include the alternative channel (e.g. because it is just another path on the target host name), or may be added to the scope after discussion with the owners of all the channels. If testing is permitted and authorized, all the other authentication tests in this guide should then be performed, and compared against the primary channel.
+Alternative channels should be mentioned in the testing report, even if they are marked as “information only” or “out of scope”. In some cases the test scope might include the alternative channel (e.g. because it is just another path on the target host name), or may be added to the scope after discussion with the owners of all the channels. If testing is permitted and authorized, all the other authentication tests in this guide should then be performed, and compared against the primary channel.
 
 ## Related Test Cases
 

@@ -50,7 +50,7 @@ The first step required to manipulate the cookie is to understand how the applic
 
 Surf the application. Note when cookies are created. Make a list of received cookies, the page that sets them (with the set-cookie directive), the domain for which they are valid, their value, and their characteristics.
 
-- Which parts of the the application generate and/or modify the cookie?
+- Which parts of the the application generate or modify the cookie?
 
 Surfing the application, find which cookies remain constant and which get modified. What events modify the cookie?
 
@@ -121,7 +121,7 @@ Now that the tester has enumerated the cookies and has a general idea of their u
 
 These characteristics are summarized below:
 
-1. Unpredictability: a cookie must contain some amount of hard-to-guess data. The harder it is to forge a valid cookie, the harder is to break into legitimate user's session. If an attacker can guess the cookie used in an active session of a legitimate user, they will be able to fully impersonate that user (session hijacking). In order to make a cookie unpredictable, random values and/or cryptography can be used.
+1. Unpredictability: a cookie must contain some amount of hard-to-guess data. The harder it is to forge a valid cookie, the harder is to break into legitimate user's session. If an attacker can guess the cookie used in an active session of a legitimate user, they will be able to fully impersonate that user (session hijacking). In order to make a cookie unpredictable, random values or cryptography can be used.
 2. Tamper resistance: a cookie must resist malicious attempts of modification. If the tester receives a cookie like IsAdmin=No, it is trivial to modify it to get administrative rights, unless the application performs a double check (for instance, appending to the cookie an encrypted hash of its value)
 3. Expiration: a critical cookie must be valid only for an appropriate period of time and must be deleted from the disk or memory afterwards to avoid the risk of being replayed. This does not apply to cookies that store non-critical data that needs to be remembered across sessions (e.g., site look-and-feel).
 4. “Secure” flag: a cookie whose value is critical for the integrity of the session should have this flag enabled in order to allow its transmission only in an encrypted channel to deter eavesdropping.
