@@ -30,7 +30,7 @@ Suppose the motor vehicle administration system required an employee initially v
 
 ### Example 4
 
-Many systems include logging for auditing and troubleshooting purposes. But, how good/valid is the information in these logs? Can they be manipulated by attackers either intentionally or accidentially having their integrity destroyed?
+Many systems include logging for auditing and troubleshooting purposes. But, how good/valid is the information in these logs? Can they be manipulated by attackers either intentionally or accidentally having their integrity destroyed?
 
 ## How to Test
 
