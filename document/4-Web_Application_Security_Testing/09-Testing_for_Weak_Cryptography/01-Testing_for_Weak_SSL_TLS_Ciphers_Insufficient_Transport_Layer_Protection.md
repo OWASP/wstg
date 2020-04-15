@@ -374,7 +374,7 @@ Even if the HEAD is not permitted, client-initiated renegotiation is permitted.
 
 [TestSSLServer](https://www.bolet.org/TestSSLServer/) is a script which permits the tester to check the cipher suite and also for BEAST and CRIME attacks. BEAST (Browser Exploit Against SSL/TLS) exploits a vulnerability of CBC in TLS 1.0. CRIME (Compression Ratio Info-leak Made Easy) exploits a vulnerability of TLS Compression, that should be disabled. What is interesting is that the first fix for BEAST was the use of RC4, but this is now discouraged due to a [crypto-analytical attack to RC4](https://community.qualys.com/blogs/securitylabs/2013/03/19/rc4-in-tls-is-broken-now-what).
 
-An online tool to check for these attacks is SSL Labs, but can be used only for internet facing servers. Also consider that target data will be stored on SSL Labs server and also will result some connection from [SSL Labs server](https://www.ssllabs.com/ssltest/index.html).
+An online tool to check for these attacks is SSL Labs, but can be used only for Internet facing servers. Also consider that target data will be stored on SSL Labs server and also will result some connection from [SSL Labs server](https://www.ssllabs.com/ssltest/index.html).
 
 ```bash
 $ java -jar TestSSLServer.jar www3.example.com 443
