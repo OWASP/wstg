@@ -2,7 +2,7 @@
 
 |ID           |
 |-------------|
-|WSTG-INFO-08|
+|WSTG-INFO-08 |
 
 ## Summary
 
@@ -48,7 +48,7 @@ Vary: Accept-Encoding
 X-Powered-By: Mono
 ```
 
-From the `X-Powered-By` field, we understand that the web application framework is likely to be Mono. However, although this approach is simple and quick, this methodology doesn't work in 100% of cases. It is possible to easily disable `X-Powered-By` header by a proper configuration. There are also several techniques that allow a web site to obfuscate HTTP headers (see an example in [#Remediation](#Remediation) chapter).
+From the `X-Powered-By` field, we understand that the web application framework is likely to be Mono. However, although this approach is simple and quick, this methodology doesn't work in 100% of cases. It is possible to easily disable `X-Powered-By` header by a proper configuration. There are also several techniques that allow a web site to obfuscate HTTP headers (see an example in the [Remediation](#Remediation) section).
 
 So in the same example the tester could either miss the `X-Powered-By` header or obtain an answer like the following:
 
@@ -84,10 +84,10 @@ Another similar and somehow more reliable way to determine the current web frame
 
 Consider the following HTTP-request:
 
-![Cakephp Http Request](images/Cakephp_cookie.png)\
-*Figure 4.1.8-1: Cakephp Http Request*
+![Cakephp HTTP Request](images/Cakephp_cookie.png)\
+*Figure 4.1.8-1: Cakephp HTTP Request*
 
-The cookie `CAKEPHP` has automatically been set, which gives information about the framework being used. List of common cookies names is presented in chapter [#Cookies](#Cookies). Limitations are the same - it is possible to change the name of the cookie. For example, for the selected `CakePHP` framework this could be done by the following configuration (excerpt from core.php):
+The cookie `CAKEPHP` has automatically been set, which gives information about the framework being used. List of common cookies names is presented in [Cookies](#Cookies) section. Limitations are the same - it is possible to change the name of the cookie. For example, for the selected `CakePHP` framework this could be done by the following configuration (excerpt from core.php):
 
 ```php
 /**
@@ -110,7 +110,7 @@ This technique is based on finding certain patterns in the HTML page source code
 From the screenshot below one can easily learn the used framework and its version by the mentioned markers. The comment, specific paths and script variables can all help an attacker to quickly determine an instance of ZK framework.
 
 ![ZK Framework Sample](images/Zk_html_source.png)\
-*Figure 4.1.8-2: Cakephp Http Request*
+*Figure 4.1.8-2: Cakephp HTTP Request*
 
 More frequently such information is placed between `<head>``</head>`
 tags, in `<meta>` tags or at the end of the page. Nevertheless, it is recommended to check the whole document since it can be useful for other purposes such as inspection of other useful comments and hidden fields. Sometimes, web developers do not care much about hiding information about the framework used. It is still possible to stumble upon something like this at the bottom of the page:
