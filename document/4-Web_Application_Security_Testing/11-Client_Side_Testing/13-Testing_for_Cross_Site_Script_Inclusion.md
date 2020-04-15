@@ -2,13 +2,13 @@
 
 |ID             |
 |---------------|
-|WSTG-CLNT-13|
+|WSTG-CLNT-13   |
 
 ## Summary
 
 Cross Site Script Inclusion (XSSI) vulnerability allows sensitive data leakage across-origin or cross-domain boundaries. Sensitive data could include authentication-related data (login states, cookies, auth tokens, session IDs, etc.) or user's personal or sensitive personal data (email addresses, phone numbers, credit card details, social security numbers, etc.). XSSI is a client-side attack similar to Cross Site Request Forgery (CSRF) but has a different purpose. Where CSRF uses the authenticated user context to execute certain state-changing actions inside a victim’s page (e.g. transfer money to the attacker's account, modify privileges, reset password, etc.), XSSI instead uses JavaScript on the client side to leak sensitive data from authenticated sessions.
 
-By default, websites are only allowed to access data if they are from the same origin. This is a key application security principle and governed by the same-origin policy (defined by [RFC 6454](https://tools.ietf.org/html/rfc6454)). An origin is defined as the combination of URI scheme (http or https), host name, and port number. However, this policy is not applicable for HTML `<script>` tag inclusions. This exception is necessary, as without it websites would not be able to consume third party services, perform traffic analysis, or use advertisement platforms, etc.
+By default, websites are only allowed to access data if they are from the same origin. This is a key application security principle and governed by the same-origin policy (defined by [RFC 6454](https://tools.ietf.org/html/rfc6454)). An origin is defined as the combination of URI scheme (HTTP or HTTPS), host name, and port number. However, this policy is not applicable for HTML `<script>` tag inclusions. This exception is necessary, as without it websites would not be able to consume third party services, perform traffic analysis, or use advertisement platforms, etc.
 
 When the browser opens a website with `<script>` tags, the resources are fetched from the cross-origin domain. The resources then run in the same context as the including site or browser, which presents the opportunity to leak sensitive data. In most cases, this is achieved using JavaScript, however, the script source doesn't have to be a JavaScript file with type `text/javascript` or `.js` extension.
 

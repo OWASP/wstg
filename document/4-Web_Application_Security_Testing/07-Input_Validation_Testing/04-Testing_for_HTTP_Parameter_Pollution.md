@@ -116,7 +116,7 @@ In particular, pay attention to responses having HPP vectors within `data`, `src
 ### Whitepapers
 
 - [HTTP Parameter Pollution - Luca Carettoni, Stefano di Paola](https://owasp.org/www-pdf-archive/AppsecEU09_CarettoniDiPaola_v0.8.pdf)
-- [Client-side Http Parameter Pollution Example (Yahoo! Classic Mail flaw) - Stefano di Paola](https://blog.mindedsecurity.com/2009/05/client-side-http-parameter-pollution.html)
+- [Client-side HTTP Parameter Pollution Example (Yahoo! Classic Mail flaw) - Stefano di Paola](https://blog.mindedsecurity.com/2009/05/client-side-http-parameter-pollution.html)
 - [How to Detect HTTP Parameter Pollution Attacks - Chrysostomos Daniel](https://www.acunetix.com/blog/whitepaper-http-parameter-pollution/)
 - [CAPEC-460: HTTP Parameter Pollution (HPP) - Evgeny Lebanidze](https://capec.mitre.org/data/definitions/460.html)
 - [Automated Discovery of Parameter Pollution Vulnerabilities in Web Applications - Marco Balduzzi, Carmen Torrano Gimenez, Davide Balzarotti, Engin Kirda](http://s3.eurecom.fr/docs/ndss11_hpp.pdf)
