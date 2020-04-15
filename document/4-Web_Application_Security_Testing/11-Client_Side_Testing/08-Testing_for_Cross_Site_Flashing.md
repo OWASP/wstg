@@ -155,7 +155,7 @@ Unsafe Methods since version r47 are:
 - `flash.external.ExternalInterface.call(_root.callback)`
 - `htmlText`
 
-### Explotation by Reflected XSS
+### Exploitation by Reflected XSS
 
 The swf file should be hosted on the victim's host, and the techniques of reflected XSS must be used. An attacker forces the browser to load a pure swf file directly in the location bar (by redirection or social engineering) or by loading it through an iframe from an evil page:
 
