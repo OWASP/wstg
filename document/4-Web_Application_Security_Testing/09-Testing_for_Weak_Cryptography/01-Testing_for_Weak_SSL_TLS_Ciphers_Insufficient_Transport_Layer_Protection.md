@@ -288,7 +288,7 @@ Nmap done: 1 IP address (1 host up) scanned in 8.64 seconds
 
 #### Example 3 Checking for Client-Initiated Renegotiation and Secure Renegotiation Via OpenSSL (Manually)
 
-[OpenSSL](https://www.openssl.org/) can be used for testing manually SSL/TLS. In this example the tester tries to initiate a renegotiation by client `m` connecting to server with OpenSSL. The tester then writes the fist line of an HTTP request and types `R` in a new line. He then waits for renegotiaion and completion of the HTTP request and checks if secure renegotiaion is supported by looking at the server output. Using manual requests it is also possible to see if Compression is enabled for TLS and to check for [CRIME](https://community.qualys.com/blogs/securitylabs/2011/10/31/tls-renegotiation-and-denial-of-service-attacks), for ciphers and for other vulnerabilities.
+[OpenSSL](https://www.openssl.org/) can be used for testing manually SSL/TLS. In this example the tester tries to initiate a renegotiation by client `m` connecting to server with OpenSSL. The tester then writes the fist line of an HTTP request and types `R` in a new line. He then waits for renegotiation and completion of the HTTP request and checks if secure renegotiation is supported by looking at the server output. Using manual requests it is also possible to see if Compression is enabled for TLS and to check for [CRIME](https://community.qualys.com/blogs/securitylabs/2011/10/31/tls-renegotiation-and-denial-of-service-attacks), for ciphers and for other vulnerabilities.
 
 ```bash
 $ openssl s_client -connect www2.example.com:443
@@ -368,7 +368,7 @@ Content-Length: 1792
 read:errno=0
 ```
 
-Even if the HEAD is not permitted, client-intiated renegotiaion is permitted.
+Even if the HEAD is not permitted, client-intiated renegotiation is permitted.
 
 #### Example 4. Testing Supported Cipher Suites, BEAST and CRIME Attacks via TestSSLServer
 
