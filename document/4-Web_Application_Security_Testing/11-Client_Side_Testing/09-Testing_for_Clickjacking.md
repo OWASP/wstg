@@ -307,7 +307,7 @@ if( (!empty($_SESSION['antiCsrf'])) && (!empty($_POST['antiCsrf'])) )
     //check the anti-CSRF token
     if( ($_SESSION['antiCsrf'] == $_POST['antiCsrf']) )
     {
-        echo '<p> '. $_POST['amount'] .' &euro; successfully transfered to account: '. $_POST['account'] .' </p>';
+        echo '<p> '. $_POST['amount'] .' &euro; successfully transferred to account: '. $_POST['account'] .' </p>';
     }
 
 }
