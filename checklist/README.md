@@ -7,13 +7,14 @@ Contained in this folder is an Excel file which provides the following worksheet
 - _Risk Assessment Calculator_ - a dropdown driven sheet for calculating likelihood and impact scores, and a qualitative overall risk rating.
 - _References_ - provides the lists/sets that the calculator is based upon.
 
-**Note:** The current checklist is based on v4 of the OWASP Testing Guide, as content for v5 is still under development.
+**Note:** The current (Excel) checklist is based on v4 of the OWASP Testing Guide, as content for v5 is still under development.
 
 ## Direct Link
 
-[OWASP Testing Checklist](https://raw.githubusercontent.com/OWASP/wstg/master/checklist/OWASP-Testing_Checklist.xlsx)
+- [OWASP Testing Checklist (Excel)](https://raw.githubusercontent.com/OWASP/wstg/master/checklist/OWASP-Testing_Checklist.xlsx)
+- [OWASP Testing Checklist (Markdown)](https://raw.githubusercontent.com/OWASP/wstg/master/checklist/Testing_Checklist.md) (**Note:** this has been updated for v4.1) 
 
-## File Hash
+## Excel File Hash
 
 SHA-256: 6ababbbc354c383179c56b0f4d41219694ae0cdbf90edb85506aff340e97dae9
 
@@ -24,7 +25,7 @@ The following instructions can be used to import the Checklist spreadsheet direc
 Note: These instructions are based on use of Mozilla Firefox (72.0.1) on Win 10, and Google sheets on 2020-01-12. Minor procedural differences may be necessary for other browsers, OSes, or future iterations of Google sheets.
 
 1. Visit this page :+1:
-2. In another tab create a new [Google sheet](https://sheet.new).
+2. In another tab create a new [Google sheet](https://sheets.new).
 3. Copy the "Direct Link" listed above.
 4. In your Google sheet select "File > Import" from the main menu.
 5. In the "Import file" dialog select the "Upload" tab.
