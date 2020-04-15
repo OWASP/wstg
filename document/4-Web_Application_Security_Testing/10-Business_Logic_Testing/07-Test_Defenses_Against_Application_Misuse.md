@@ -37,7 +37,7 @@ This test is unusual in that the result can be drawn from all the other tests pe
 - Blocked requests
 - Actions that log a user out or lock their account
 
-These may only be localised. Common localized (per function) defenses are:
+These may only be localized. Common localized (per function) defenses are:
 
 - Rejecting input containing certain characters
 - Locking out an account temporarily after a number of authentication failures
