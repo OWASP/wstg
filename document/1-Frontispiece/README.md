@@ -48,6 +48,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 
 - Muhammed Anees
 - Jishnu Vijayan C K
+- Hugo Costa
 
 ## Reviewers or Editors
 
