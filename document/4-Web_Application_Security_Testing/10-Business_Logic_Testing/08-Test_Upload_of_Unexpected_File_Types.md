@@ -14,7 +14,7 @@ The application may be expecting only certain file types to be uploaded for proc
 
 ## Example
 
-Suppose a picture sharing application allows users to upload a .gif or .jpg graphic file to the web site. What if an attacker is able to upload an html file with a `<script>` tag in it or php file? The system may move the file from a temporary location to the final location where the php code can now be executed against the application or system.
+Suppose a picture sharing application allows users to upload a .gif or .jpg graphic file to the web site. What if an attacker is able to upload an HTML file with a `<script>` tag in it or php file? The system may move the file from a temporary location to the final location where the php code can now be executed against the application or system.
 
 ## How to Test
 
@@ -30,7 +30,7 @@ Specific Testing Method
 
 - Study the applications logical requirements.
 
-- Prepare a library of files that are “not approved” for upload that may contain files such as: jsp, exe, or html files containing script.
+- Prepare a library of files that are “not approved” for upload that may contain files such as: jsp, exe, or HTML files containing script.
 
 - In the application navigate to the file submission or upload mechanism.
 
