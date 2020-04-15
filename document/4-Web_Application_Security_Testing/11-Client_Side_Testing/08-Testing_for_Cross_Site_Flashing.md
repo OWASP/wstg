@@ -58,7 +58,7 @@ Since the first publication of [Testing Flash Applications](http://www.wisec.it/
 
 ### Decompilation
 
-Since SWF files are interpreted by a virtual machine embedded in the player itself, they can be potentially decompiled and analysed. The most known and free ActionScript 2.0 decompiler is flare.
+Since SWF files are interpreted by a virtual machine embedded in the player itself, they can be potentially decompiled and analyzed. The most known and free ActionScript 2.0 decompiler is flare.
 
 To decompile a SWF file with flare just type:
 
