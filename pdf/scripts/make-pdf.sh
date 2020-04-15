@@ -37,11 +37,10 @@ echo "<img src=\"images/back-cover.png\" style=\"overflow:hidden; margin-bottom:
 
 # Create the single document Markdown file
 # Sed section 1: Add page break after each chapter
-# Sed section 2: Correct Markdown file links with fragment identifiers. Remove file path and keep fragment identifier alone.
 ls build/md | sort -n | while read x; do cat build/md/$x | sed -e 's/^# /<div style=\"page-break-after: always\;\"><\/div>\
 \
-# /' | sed 's/\[\([^\n]\+\)\]([^\n]\+.md#\([^\)]\+\)/[\1](#\2/' | \
-# Sed section 3 - 8: Replace internal Links inside headings with anchor tags inside the respective heading and link href as the heading text
+# /' |
+# Sed section 2 - 8: Replace internal Links inside headings with anchor tags inside the respective heading and link href as the heading text
 sed 's/\(^#\{2\} \)\(\[\(.*\)\]\(.*\)\(\?\:\n\+\|$\)\)/<h2><a href=\"#\3\">\3<\/a><\/h2>/'  | \
 sed 's/\(^#\{1\} \)\([0-9. ]*\) \(\[\(.*\)\]\(.*\)\(\?\:\n\+\|$\)\)/<h1>\2 <a href=\"#\4\">\4<\/a><\/h1>/'  | \
 sed 's/\(^#\{2\} \)\([0-9. ]*\) \(\[\(.*\)\]\(.*\)\(\?\:\n\+\|$\)\)/<h2>\2 <a href=\"#\4\">\4<\/a><\/h2>/' | \
@@ -59,33 +58,37 @@ sed 's/\(^#\{5\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h5 id=\"\2\">\2<\/h5>/' | \
 sed 's/\[\([^\[]*\)\]([^\[]*[0-9]\-\([^(]*\.md\))/<a href=\"#\2\">\1<\/a>/g' | \
 # Sed section 15: Set href for Appendix internal links. Remove subsection numbers from href.
 sed 's/\[\([^\[]*\)\]([^\[]*[ABCDE]-\([^(]*\.md\))/<a href=\"#\2\">\1<\/a>/g' | \
-# pyhton section 16: convert all chars inside href to lower case
+# Sed section 16: Correct Markdown file links with fragment identifiers. Remove file path and keep fragment identifier alone.
+sed 's/\[\([^\n]\+\)\]([^\n]\+.md#\([^\)]\+\))/<a href=\"#\2\">\1<\/a>/' | \
+# Sed section 17: Correct Markdown links with fragment identifiers.
+sed 's/\[\([^\n]\+\)\](#\([^\)]\+\))/<a href=\"#\2\">\1<\/a>/' |\
+# pyhton section 18: convert all chars inside href to lower case
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().lower(), sys.stdin.read()))"  | \
-# pyhton section 17: Replace the spaces inside `href` values with hyphen
+# pyhton section 19: Replace the spaces inside `href` values with hyphen
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().replace(' ', '-'), sys.stdin.read()))" | \
-# pyhton section 18: Replace the `_` inside `href` values with hyphen
+# pyhton section 20: Replace the `_` inside `href` values with hyphen
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().replace('_', '-'), sys.stdin.read()))"  | \
-# pyhton section 19: remove readme.md from the file path inside href
+# pyhton section 21: remove readme.md from the file path inside href
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*/readme\.md)\"', lambda m: m.group().replace('/readme.md', ''), sys.stdin.read()))"  | \
-# pyhton section 20: remove .md from all file path inside href
+# pyhton section 22: remove .md from all file path inside href
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().replace('.md', ''), sys.stdin.read()))"  | \
-# pyhton section 21: Replace the spaces inside 'id' value with hyphen
+# pyhton section 23: Replace the spaces inside 'id' value with hyphen
 python -c "import re; import sys; print(re.sub(r'id=\"([^\n]+)\"', lambda m: m.group().replace(' ', '-'), sys.stdin.read()))"  | \
-# pyhton section 22: convert all chars inside id to lower case
+# pyhton section 24: convert all chars inside id to lower case
 python -c "import re; import sys; print(re.sub(r'id=\"([^\n]+)\"', lambda m: m.group().lower(), sys.stdin.read()))"  | \
-# pyhton section 23 - 25: Remove `:`, `,`, `.` inside id values
+# pyhton section 25 - 27: Remove `:`, `,`, `.` inside id values
 python -c "import re; import sys; print(re.sub(r'id=\"([^\n]+)\"', lambda m: m.group().replace(':', ''), sys.stdin.read()))"  | \
 python -c "import re; import sys; print(re.sub(r'id=\"([^\n]+)\"', lambda m: m.group().replace('.', ''), sys.stdin.read()))"  | \
 python -c "import re; import sys; print(re.sub(r'id=\"([^\n]+)\"', lambda m: m.group().replace(',', ''), sys.stdin.read()))"  | \
-# pyhton section 26: Replace the space with hyphen inside href values
+# pyhton section 28: Replace the space with hyphen inside href values
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*)\"', lambda m: m.group().replace(' ', '-'), sys.stdin.read()))" | \
-# pyhton section 27: convert all chars inside href to lower case
+# pyhton section 29: convert all chars inside href to lower case
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*)\"', lambda m: m.group().lower(), sys.stdin.read()))"  | \
-# Sed section 28: Move the number out of href
+# Sed section 30: Move the number out of href
 sed 's/<h1 id=\"[0-9.]*-\(.*\)\">\(.*\)<\/h1>/<h1 id="\1">\2<\/h1>/' | \
-# Sed section 29: Add design to image and remove extra '\'
+# Sed section 31: Add design to image  and remove extra '\'
 sed 's/\!\[\([^\[]*\)\](\(.*\)).$/<div class="image-center"><img src="\2" alt="\1"><\/div>/' | \
-# Sed section 30: Add design to image name text
+# Sed section 32: Add design to image name text
 sed 's/\*\(Figure [0-9.\-]*\: .*\)\*/<div class="image-name-tag-wrap"><span class="image-name-tag">\1<\/span><\/div>/' >>  build/wstg-doc-$VERSION.md ; done
 
 # Create cover pages by converting Markdown to PDF
@@ -103,7 +106,7 @@ pdftk build/cover-$VERSION.pdf build/second-cover-$VERSION.pdf build/wstg-doc-$V
 # Sed and Python sections are exactly same as the previous one
 ls build/md | sort -n | while read x; do cat build/md/$x | sed -e 's/^# /<div style=\"page-break-after: always\;\"><\/div>\
 \
-# /' | sed 's/\[\([^\n]\+\)\]([^\n]\+.md#\([^\)]\+\)/[\1](#\2/' | \
+# /' |
 sed 's/\(^#\{2\} \)\(\[\(.*\)\]\(.*\)\(\?\:\n\+\|$\)\)/<h2><a href=\"#\3\">\3<\/a><\/h2>/'  | \
 sed 's/\(^#\{1\} \)\([0-9. ]*\) \(\[\(.*\)\]\(.*\)\(\?\:\n\+\|$\)\)/<h1>\2 <a href=\"#\4\">\4<\/a><\/h1>/'  | \
 sed 's/\(^#\{2\} \)\([0-9. ]*\) \(\[\(.*\)\]\(.*\)\(\?\:\n\+\|$\)\)/<h2>\2 <a href=\"#\4\">\4<\/a><\/h2>/' | \
@@ -117,6 +120,8 @@ sed 's/\(^#\{4\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h4 id=\"\2\">\2<\/h4>/' | \
 sed 's/\(^#\{5\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h5 id=\"\2\">\2<\/h5>/' | \
 sed 's/\[\([^\[]*\)\]([^\[]*[0-9]\-\([^(]*\.md\))/<a href=\"#\2\">\1<\/a>/g' | \
 sed 's/\[\([^\[]*\)\]([^\[]*[ABCDE]-\([^(]*\.md\))/<a href=\"#\2\">\1<\/a>/g' | \
+sed 's/\[\([^\n]\+\)\]([^\n]\+.md#\([^\)]\+\))/<a href=\"#\2\">\1<\/a>/' | \
+sed 's/\[\([^\n]\+\)\](#\([^\)]\+\))/<a href=\"#\2\">\1<\/a>/' |\
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().lower(), sys.stdin.read()))"  | \
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().replace(' ', '-'), sys.stdin.read()))" | \
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().replace('_', '-'), sys.stdin.read()))"  | \
