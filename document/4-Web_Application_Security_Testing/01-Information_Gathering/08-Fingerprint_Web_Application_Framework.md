@@ -105,7 +105,7 @@ However, these changes are less likely to be made than changes to the `X-Powered
 
 #### HTML Source Code
 
-This technique is based on finding certain patterns in the HTML page source code. Often one can find a lot of information which helps a tester to recognize a specific web framework. One of the common markers are HTML comments that directly lead to framework disclosure. More often certain framework-specific paths can be found, i.e. links to framework-specific css and/or JS folders. Finally, specific script variables might also point to a certain framework.
+This technique is based on finding certain patterns in the HTML page source code. Often one can find a lot of information which helps a tester to recognize a specific web framework. One of the common markers are HTML comments that directly lead to framework disclosure. More often certain framework-specific paths can be found, i.e. links to framework-specific CSS and/or JS folders. Finally, specific script variables might also point to a certain framework.
 
 From the screenshot below one can easily learn the used framework and its version by the mentioned markers. The comment, specific paths and script variables can all help an attacker to quickly determine an instance of ZK framework.
 
@@ -272,7 +272,7 @@ General guidelines:
 - Make sure there are no visual markers disclosing the framework
 - Remove any unnecessary comments (copyrights, bug information, specific framework comments)
 - Remove META and generator tags
-- Use the companies own css or JS files and do not store those in a framework-specific folders
+- Use the companies own CSS or JS files and do not store those in a framework-specific folders
 - Do not use default scripts on the page or obfuscate them if they must be used.
 
 ### Specific Files and Folders
