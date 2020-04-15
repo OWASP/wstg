@@ -46,4 +46,4 @@ Suppose a precious metals e-commerce site allows users to make purchases with a 
 
 Develop applications with processing time in mind. If attackers could possibly gain some type of advantage from knowing the different processing times and results add extra steps or processing so that no matter the results they are provided in the same time frame.
 
-Additionally, the application/system must have mechanism in place to not allow attackers to extend transactions over an “acceptable” amount of time. This may be done by cancelling or resetting transactions after a specified amount of time has passed like some ticket vendors are now using.
+Additionally, the application/system must have mechanism in place to not allow attackers to extend transactions over an “acceptable” amount of time. This may be done by canceling or resetting transactions after a specified amount of time has passed like some ticket vendors are now using.
