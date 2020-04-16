@@ -58,6 +58,11 @@ sed 's/\(^#\{5\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h5 id=\"\2\">\2<\/h5>/' | \
 sed 's/\[\([^\[]*\)\]([^\[]*[0-9]\-\([^(]*\.md\))/<a href=\"#\2\">\1<\/a>/g' | \
 # Sed section 15: Set href for Appendix internal links. Remove subsection numbers from href.
 sed 's/\[\([^\[]*\)\]([^\[]*[ABCDE]-\([^(]*\.md\))/<a href=\"#\2\">\1<\/a>/g' | \
+# Sed section: Workaround to address the bug in duplicate fragment links in 4.1.
+sed 's/\[\([^\n]\+\)\](#tools)/\1/i' |\
+sed 's/\[\([^\n]\+\)\](#references)/\1/i' |\
+sed 's/\[\([^\n]\+\)\](#Remediation)/\1/i' |\
+sed 's/\[\([^\n]\+\)\]([^\n]\+.md#remediation)/\1/i' | \
 # Sed section 16: Correct Markdown file links with fragment identifiers. Remove file path and keep fragment identifier alone.
 sed 's/\[\([^\n]\+\)\]([^\n]\+.md#\([^\)]\+\))/<a href=\"#\2\">\1<\/a>/' | \
 # Sed section 17: Correct Markdown links with fragment identifiers.
