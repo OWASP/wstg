@@ -23,7 +23,7 @@ In every portion of the application where a user can create information in the d
 #### Manipulation of User Group
 
 For example:
-The following HTTP POST allows the user that belongs to grp001 to access order #0001:
+The following HTTP POST allows the user that belongs to `grp001` to access order #0001:
 
 ```html
 POST /user/viewOrder.jsp HTTP/1.1
@@ -33,7 +33,7 @@ Host: www.example.com
 groupID=grp001&orderID=0001
 ```
 
-Verify if a user that does not belong to grp001 can modify the value of the parameters ‘groupID’ and ‘orderID’ to gain access to that privileged data.
+Verify if a user that does not belong to `grp001` can modify the value of the parameters `groupID` and `orderID` to gain access to that privileged data.
 
 #### Manipulation of User Profile
 
@@ -61,7 +61,7 @@ Connection: close
 </tr>
 ```
 
-What if the tester modifies the value of the variable “profile” to “SysAdmin”? Is it possible to become administrator?
+What if the tester modifies the value of the variable `profile` to `SysAdmin`? Is it possible to become **administrator**?
 
 #### Manipulation of Condition Value
 
@@ -69,8 +69,8 @@ For example:
 In an environment where the server sends an error message contained as a value in a specific parameter in a set of answer codes, as the following:
 
 ```html
-@0`1`3`3``0`UC`1`Status`OK`SEC`5`1`0`ResultSet`0`PVValid`-1`0`0` Notifications`0`0`3`Command  Manager`0`0`0` StateToolsBar`0`0`0`     ```
-`` StateExecToolBar`0`0`0`FlagsToolBar`0
+@0`1`3`3``0`UC`1`Status`OK`SEC`5`1`0`ResultSet`0`PVValid`-1`0`0` Notifications`0`0`3`Command  Manager`0`0`0` StateToolsBar`0`0`0`
+StateExecToolBar`0`0`0`FlagsToolBar`0
 ```
 
 The server gives an implicit trust to the user. It believes that the user will answer with the above message closing the session.
@@ -85,7 +85,7 @@ For example:
 
 `X-Forwarded-For: 8.1.1.1`
 
-In this case, if the website uses the value of 'X-forwarded-For' as client IP address, tester may change the IP value of the 'X-forwarded-For' HTTP header to workaround the IP source identification.
+In this case, if the website uses the value of `X-forwarded-For` as client IP address, tester may change the IP value of the `X-forwarded-For` HTTP header to workaround the IP source identification.
 
 ### URL Traversal
 

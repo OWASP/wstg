@@ -21,38 +21,26 @@ Suppose a picture sharing application allows users to upload a .gif or .jpg grap
 ### Generic Testing Method
 
 - Review the project documentation and perform some exploratory testing looking for file types that should be “unsupported” by the application/system.
-
 - Try to upload these “unsupported” files an verify that it are properly rejected.
-
 - If multiple files can be uploaded at once, there must be tests in place to verify that each file is properly evaluated.
 
-Specific Testing Method
+### Specific Testing Method
 
 - Study the applications logical requirements.
-
 - Prepare a library of files that are “not approved” for upload that may contain files such as: jsp, exe, or HTML files containing script.
-
 - In the application navigate to the file submission or upload mechanism.
-
 - Submit the “not approved” file for upload and verify that they are properly prevented from uploading
-
 - Check if the website only do file type check in client side JavaScript
-
 - Check if the website only check the file type by “Content-Type” in HTTP request.
-
 - Check if the website only check by the file extension.
-
 - Check if other uploaded files can be accessed directly by specified URL.
-
 - Check if the uploaded file can include code or script injection.
-
 - Check if there is any file path checking for uploaded files. Especially, hackers may compress files with specified path in ZIP so that the unzip files can be uploaded to intended path after uploading and unzip.
 
 ## Related Test Cases
 
-[Test File Extensions Handling for Sensitive Information](../02-Configuration_and_Deployment_Management_Testing/03-Test_File_Extensions_Handling_for_Sensitive_Information.md)
-
-[Test Upload of Malicious Files](09-Test_Upload_of_Malicious_Files.md)
+- [Test File Extensions Handling for Sensitive Information](../02-Configuration_and_Deployment_Management_Testing/03-Test_File_Extensions_Handling_for_Sensitive_Information.md)
+- [Test Upload of Malicious Files](09-Test_Upload_of_Malicious_Files.md)
 
 ## References
 

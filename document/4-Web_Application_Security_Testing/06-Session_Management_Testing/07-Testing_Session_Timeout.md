@@ -37,7 +37,7 @@ The tester needs to check that:
 - The server performs proper checks on the session state, disallowing an attacker to replay previously destroyed session identifiers
 - A timeout is enforced and it is properly enforced by the server. If the server uses an expiration time that is read from a session token that is sent by the client (but this is not advisable), then the token must be cryptographically protected from tampering.
 
-Note that the most important thing is for the application to invalidate the session on the server side. Generally this means that the code must invoke the appropriate methods, e.g. HttpSession.invalidate() in Java and Session.abandon() in .NET. Clearing the cookies from the browser is advisable, but is not strictly necessary, since if the session is properly invalidated on the server, having the cookie in the browser will not help an attacker.
+Note that the most important thing is for the application to invalidate the session on the server side. Generally this means that the code must invoke the appropriate methods, e.g. `HttpSession.invalidate()` in Java and `Session.abandon()` in .NET. Clearing the cookies from the browser is advisable, but is not strictly necessary, since if the session is properly invalidated on the server, having the cookie in the browser will not help an attacker.
 
 ## References
 
