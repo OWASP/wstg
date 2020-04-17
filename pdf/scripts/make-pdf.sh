@@ -16,6 +16,7 @@ mkdir -p build/images
 find document -name "*.md" | while IFS= read -r FILE; do cp -v "$FILE" build/md/"${FILE//\//>>>}"; done
 find document -name "images"  -exec cp -r {}/. build/images/. ";"
 cp pdf/assets/cover.jpg build/images/book-cover.jpg
+cp pdf/assets/cover-$VERSION.jpg build/images/book-cover-$VERSION.jpg
 cp pdf/assets/back-cover.png build/images/back-cover.png
 cp pdf/assets/second-cover.png build/images/second-cover.png
 
@@ -27,11 +28,19 @@ VERSION_NUMBER=`echo $VERSION | sed 's/v//'`
 # Update build version number in pdf-config
 sed -i "s/{PDF Version}/$VERSION/g" pdf/pdf-config.json
 
-# Create the Markdown file for the cover pages
-echo "<img src=\"images/book-cover.jpg\" style=\"overflow:hidden; margin-bottom:-25px;\" />
+# Create the Markdown file for the front cover pages
+# Create the cover image with versioned image if exists else use the default with version number
+VERSIONED_COVER_IMAGE_FILE=images/book-cover-$VERSION.jpg
+if [[ -f "build/$VERSIONED_COVER_IMAGE_FILE" ]]; then
+    echo "<img src=\"$VERSIONED_COVER_IMAGE_FILE\" style=\"overflow:hidden; margin-bottom:-25px;\" />" > build/cover-$VERSION.md
+else
+    echo "<img src=\"images/book-cover.jpg\" style=\"overflow:hidden; margin-bottom:-25px;\" />
         <h1 style=\"position:fixed; top:61.44%; right:37%; color: #ffffff !important;
                     border:none; font-weight: 500; font-size:33px;
                     font-style: normal;\" >$VERSION_NUMBER</h1>" > build/cover-$VERSION.md
+fi
+
+# Create the Markdown file for the second and last cover pages
 echo "<img src=\"images/second-cover.png\" style=\"overflow:hidden; margin-bottom:-25px;\" />" > build/second-cover-$VERSION.md
 echo "<img src=\"images/back-cover.png\" style=\"overflow:hidden; margin-bottom:-25px;\" />" > build/back-$VERSION.md
 
