@@ -41,13 +41,12 @@ Login with admin permission and access pages that only for administrator. Then, 
 
 ## Tools
 
-While the most thorough and accurate approach to completing this test is to conduct it manually, [spidering tools](https://github.com/zaproxy/zap-core-help/wiki/HelpStartConceptsSpider) are also useful. Log on with each role in turn and spider the application (don't forget to exclude the logout link from the spidering).
+While the most thorough and accurate approach to completing this test is to conduct it manually, [spidering tools](https://www.zaproxy.org/docs/desktop/start/features/spider/) are also useful. Log on with each role in turn and spider the application (don't forget to exclude the logout link from the spidering).
 
 ## References
 
-[Role Engineering for Enterprise Security Management, E Coyne & J Davis, 2007](https://www.bookdepository.co.uk/Role-Engineering-for-Enterprise-Security-Management-Edward-Coyne/9781596932180)
-
-[Role engineering and RBAC standards](https://csrc.nist.gov/projects/role-based-access-control#rbac-standard)
+- [Role Engineering for Enterprise Security Management, E Coyne & J Davis, 2007](https://www.bookdepository.co.uk/Role-Engineering-for-Enterprise-Security-Management-Edward-Coyne/9781596932180)
+- [Role engineering and RBAC standards](https://csrc.nist.gov/projects/role-based-access-control#rbac-standard)
 
 ## Remediation
 
