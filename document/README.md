@@ -32,15 +32,15 @@
 
 ### 3.1 [The OWASP Testing Framework](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md)
 
-### 3.2 [Phase 1: Before Development Begins](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#Phase-1-Before-Development-Begins)
+### 3.2 [Phase 1 Before Development Begins](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#Phase-1-Before-Development-Begins)
 
-### 3.3 [Phase 2: During Definition and Design](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#Phase-2-During-Definition-and-Design)
+### 3.3 [Phase 2 During Definition and Design](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#Phase-2-During-Definition-and-Design)
 
-### 3.4 [Phase 3: During Development](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#Phase-3-During-Development)
+### 3.4 [Phase 3 During Development](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#Phase-3-During-Development)
 
-### 3.5 [Phase 4: During Deployment](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#Phase-4-During-Deployment)
+### 3.5 [Phase 4 During Deployment](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#Phase-4-During-Deployment)
 
-### 3.6 [Phase 5: During Maintenance and Operations](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#Phase-5-During-Maintenance-and-Operations)
+### 3.6 [Phase 5 During Maintenance and Operations](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#Phase-5-During-Maintenance-and-Operations)
 
 ### 3.7 [A Typical SDLC Testing Workflow](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#A-Typical-SDLC-Testing-Workflow)
 
@@ -72,7 +72,7 @@
 
 #### 4.1.10 [Map Application Architecture](4-Web_Application_Security_Testing/01-Information_Gathering/10-Map_Application_Architecture.md)
 
-### 4.2 [Testing for Configuration and Deployment Management](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/README.md)
+### 4.2 [Configuration and Deployment Management Testing](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/README.md)
 
 #### 4.2.1 [Test Network Infrastructure Configuration](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/01-Test_Network_Infrastructure_Configuration.md)
 
@@ -94,9 +94,9 @@
 
 #### 4.2.10 [Test for Subdomain Takeover](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/10-Test_for_Subdomain_Takeover.md)
 
-#### 4.2.11 [Testing Cloud Storage](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/11-Test_Cloud_Storage.md)
+#### 4.2.11 [Test Cloud Storage](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/11-Test_Cloud_Storage.md)
 
-### 4.3 [Testing for Identity Management](4-Web_Application_Security_Testing/03-Identity_Management_Testing/README.md)
+### 4.3 [Identity Management Testing](4-Web_Application_Security_Testing/03-Identity_Management_Testing/README.md)
 
 #### 4.3.1 [Test Role Definitions](4-Web_Application_Security_Testing/03-Identity_Management_Testing/01-Test_Role_Definitions.md)
 
@@ -154,7 +154,7 @@
 
 #### 4.6.6 [Testing for Logout Functionality](4-Web_Application_Security_Testing/06-Session_Management_Testing/06-Testing_for_Logout_Functionality.md)
 
-#### 4.6.7 [Test Session Timeout](4-Web_Application_Security_Testing/06-Session_Management_Testing/07-Testing_Session_Timeout.md)
+#### 4.6.7 [Testing Session Timeout](4-Web_Application_Security_Testing/06-Session_Management_Testing/07-Testing_Session_Timeout.md)
 
 #### 4.6.8 [Testing for Session Puzzling](4-Web_Application_Security_Testing/06-Session_Management_Testing/08-Testing_for_Session_Puzzling.md)
 
@@ -184,7 +184,7 @@
 
 ##### 4.7.5.7 [Testing for ORM Injection](4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.7-Testing_for_ORM_Injection.md)
 
-##### 4.7.5.8 [Testing for Client Side SQL Injection](4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.8-Testing_for_Client_Side.md)
+##### 4.7.5.8 [Testing for Client Side](4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.8-Testing_for_Client_Side.md)
 
 #### 4.7.6 [Testing for LDAP Injection](4-Web_Application_Security_Testing/07-Input_Validation_Testing/06-Testing_for_LDAP_Injection.md)
 
@@ -238,7 +238,7 @@
 
 #### 4.9.4 [Testing for Weak Encryption](4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/04-Testing_for_Weak_Encryption.md)
 
-### 4.10 [Testing Business Logic](4-Web_Application_Security_Testing/10-Business_Logic_Testing/README.md)
+### 4.10 [Business Logic Testing](4-Web_Application_Security_Testing/10-Business_Logic_Testing/README.md)
 
 #### 4.10.1 [Test Business Logic Data Validation](4-Web_Application_Security_Testing/10-Business_Logic_Testing/01-Test_Business_Logic_Data_Validation.md)
 
@@ -272,7 +272,7 @@
 
 #### 4.11.6 [Testing for Client Side Resource Manipulation](4-Web_Application_Security_Testing/11-Client_Side_Testing/06-Testing_for_Client_Side_Resource_Manipulation.md)
 
-#### 4.11.7 [Testing for Cross Origin Resource Sharing](4-Web_Application_Security_Testing/11-Client_Side_Testing/07-Testing_Cross_Origin_Resource_Sharing.md)
+#### 4.11.7 [Testing Cross Origin Resource Sharing](4-Web_Application_Security_Testing/11-Client_Side_Testing/07-Testing_Cross_Origin_Resource_Sharing.md)
 
 #### 4.11.8 [Testing for Cross Site Flashing](4-Web_Application_Security_Testing/11-Client_Side_Testing/08-Testing_for_Cross_Site_Flashing.md)
 
