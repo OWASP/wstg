@@ -90,7 +90,9 @@ Content-length: 45
 User=test&Pass=test&portal=ExamplePortal
 ```
 
-We can see that our request is addressed to `www.example.com:443/login.do` using HTTPS. But if we have a look at the Referer-header (the page from which we came), it is `www.example.com/homepage.do` and is accessible via simple HTTP. Although we are sending data via HTTPS, this deployment can allow [SSLStrip](https://moxie.org/software/sslstrip/) attacks (a type of [Man-in-the-middle](https://en.wikipedia.org/wiki/Man-in-the-middle_attack) attack)
+We can see that our request is addressed to `www.example.com:443/login.do` using HTTPS. But if we have a look at the Referer-header (the page from which we came), it is `www.example.com/homepage.do` and is accessible via simple HTTP. Although we are sending data via HTTPS, this deployment can allow [SSLStrip](https://moxie.org/software/sslstrip/) attacks.
+
+> The above mentioned attack is a [Man-in-the-middle](https://en.wikipedia.org/wiki/Man-in-the-middle_attack) attack.
 
 #### Example 4: Sending Data with GET Method Through HTTPS
 
