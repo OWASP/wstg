@@ -12,6 +12,6 @@
 
 4.6.6 [Testing for Logout Functionality](06-Testing_for_Logout_Functionality.md)
 
-4.6.7 [Test Session Timeout](07-Testing_Session_Timeout.md)
+4.6.7 [Testing Session Timeout](07-Testing_Session_Timeout.md)
 
 4.6.8 [Testing for Session Puzzling](08-Testing_for_Session_Puzzling.md)

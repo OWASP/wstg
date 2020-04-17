@@ -30,7 +30,7 @@
 
 ## 3. [The OWASP Testing Framework](3-The_OWASP_Testing_Framework/)
 
-### 3.1 [The OWASP Testing Framework](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md)
+### 3.1 [The Web Security Testing Framework](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md)
 
 ### 3.2 [Phase 1 Before Development Begins](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#Phase-1-Before-Development-Begins)
 
@@ -239,6 +239,8 @@
 #### 4.9.4 [Testing for Weak Encryption](4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/04-Testing_for_Weak_Encryption.md)
 
 ### 4.10 [Business Logic Testing](4-Web_Application_Security_Testing/10-Business_Logic_Testing/README.md)
+
+#### 4.10.0 [Introduction to Business Logic](4-Web_Application_Security_Testing/10-Business_Logic_Testing/00-Introduction_to_Business_Logic.md)
 
 #### 4.10.1 [Test Business Logic Data Validation](4-Web_Application_Security_Testing/10-Business_Logic_Testing/01-Test_Business_Logic_Data_Validation.md)
 

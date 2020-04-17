@@ -12,7 +12,7 @@
 
 4.11.6 [Testing for Client Side Resource Manipulation](06-Testing_for_Client_Side_Resource_Manipulation.md)
 
-4.11.7 [Testing for Cross Origin Resource Sharing](07-Testing_Cross_Origin_Resource_Sharing.md)
+4.11.7 [Testing Cross Origin Resource Sharing](07-Testing_Cross_Origin_Resource_Sharing.md)
 
 4.11.8 [Testing for Cross Site Flashing](08-Testing_for_Cross_Site_Flashing.md)
 
