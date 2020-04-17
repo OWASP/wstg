@@ -1,6 +1,6 @@
 # 4.10 Business Logic Testing
 
-4.10.0 [Introduction to Business Logic Testing](00-Introduction_to_Business_Logic.md)
+4.10.0 [Introduction to Business Logic](00-Introduction_to_Business_Logic.md)
 
 4.10.1 [Test Business Logic Data Validation](01-Test_Business_Logic_Data_Validation.md)
 

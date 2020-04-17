@@ -1,11 +1,11 @@
 # Appendix
 
-Appendix A [Testing Tools Resource](A-Testing_Tools_Resource.md)
+Appendix A. [Testing Tools Resource](A-Testing_Tools_Resource.md)
 
-Appendix B [Suggested Reading](B-Suggested_Reading.md)
+Appendix B. [Suggested Reading](B-Suggested_Reading.md)
 
-Appendix C [Fuzz Vectors](C-Fuzz_Vectors.md)
+Appendix C. [Fuzz Vectors](C-Fuzz_Vectors.md)
 
-Appendix D [Encoded Injection](D-Encoded_Injection.md)
+Appendix D. [Encoded Injection](D-Encoded_Injection.md)
 
-Appendix E [History](E-History.md)
+Appendix E. [History](E-History.md)
