@@ -38,9 +38,8 @@ Suppose a precious metals e-commerce site allows users to make purchases with a 
 
 ## Related Test Cases
 
-[Testing for Cookies Attributes](../06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.md)
-
-[Test Session Timeout](../06-Session_Management_Testing/07-Testing_Session_Timeout.md)
+- [Testing for Cookies Attributes](../06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.md)
+- [Test Session Timeout](../06-Session_Management_Testing/07-Testing_Session_Timeout.md)
 
 ## Remediation
 

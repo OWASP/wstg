@@ -32,8 +32,8 @@ Comment review should be done in order to determine if any information is being 
 
 CIS-CAT gives IT and security professionals a fast, detailed assessment of target systems' conformance to CIS Benchmarks. CIS also provides the recommended system configuration hardening guide including database, OS, Web server, visualization.
 
-[1 CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks/)
-[2 CIS Benchmarks Downloads](https://learn.cisecurity.org/benchmarks)
+- [1 CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks/)
+- [2 CIS Benchmarks Downloads](https://learn.cisecurity.org/benchmarks)
 
 ### Gray-Box Testing
 

@@ -31,28 +31,25 @@ Also, if an attacker was able to see through a proxy that the application has a 
 ### Generic Testing Method
 
 - Review the project documentation and use exploratory testing looking for guessable, predictable or hidden functionality of fields.
-
 - Once found try to insert logically valid data into the application/system allowing the user go through the application/system against the normal business logic workflow.
 
 ### Specific Testing Method 1
 
 - Using an intercepting proxy observe the HTTP POST/GET looking for some indication that values are incrementing at a regular interval or are easily guessable.
-
 - If it is found that some value is guessable this value may be changed and one may gain unexpected visibility.
 
 ### Specific Testing Method 2
 
 - Using an intercepting proxy observe the HTTP POST/GET looking for some indication of hidden features such as debug that can be switched on or activated.
-
-• If any are found try to guess and change these values to get a different application response or behavior.
+- If any are found try to guess and change these values to get a different application response or behavior.
 
 ## Related Test Cases
 
-[Testing for Exposed Session Variables](../06-Session_Management_Testing/04-Testing_for_Exposed_Session_Variables.md)
+- [Testing for Exposed Session Variables](../06-Session_Management_Testing/04-Testing_for_Exposed_Session_Variables.md)
 
-[Testing for Cross Site Request Forgery (CSRF)](../06-Session_Management_Testing/05-Testing_for_Cross_Site_Request_Forgery.md)
+- [Testing for Cross Site Request Forgery (CSRF)](../06-Session_Management_Testing/05-Testing_for_Cross_Site_Request_Forgery.md)
 
-[Testing for Account Enumeration and Guessable User Account](../03-Identity_Management_Testing/04-Testing_for_Account_Enumeration_and_Guessable_User_Account.md)
+- [Testing for Account Enumeration and Guessable User Account](../03-Identity_Management_Testing/04-Testing_for_Account_Enumeration_and_Guessable_User_Account.md)
 
 ## Tools
 
@@ -60,11 +57,9 @@ Also, if an attacker was able to see through a proxy that the application has a 
 
 ## References
 
-[Cross Site Request Forgery - Legitimizing Forged Requests](http://www.stan.gr/2012/11/cross-site-request-forgery-legitimazing.html)
-
-[Easter egg](https://en.wikipedia.org/wiki/Easter_egg_(media))
-
-[Top 10 Software Easter Eggs](https://lifehacker.com/371083/top-10-software-easter-eggs)
+- [Cross Site Request Forgery - Legitimizing Forged Requests](http://www.stan.gr/2012/11/cross-site-request-forgery-legitimazing.html)
+- [Easter egg](https://en.wikipedia.org/wiki/Easter_egg_(media))
+- [Top 10 Software Easter Eggs](https://lifehacker.com/371083/top-10-software-easter-eggs)
 
 ## Remediation
 

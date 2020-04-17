@@ -24,15 +24,13 @@ Suppose an eCommerce site allows users to take advantage of any one of many disc
 
 ## Related Test Cases
 
-[Testing for Account Enumeration and Guessable User Account](../03-Identity_Management_Testing/04-Testing_for_Account_Enumeration_and_Guessable_User_Account.md)
-
-[Testing for Weak lock out mechanism](../04-Authentication_Testing/03-Testing_for_Weak_Lock_Out_Mechanism.md)
+- [Testing for Account Enumeration and Guessable User Account](../03-Identity_Management_Testing/04-Testing_for_Account_Enumeration_and_Guessable_User_Account.md)
+- [Testing for Weak lock out mechanism](../04-Authentication_Testing/03-Testing_for_Weak_Lock_Out_Mechanism.md)
 
 ## References
 
-[InfoPath Forms Services business logic exceeded the maximum limit of operations Rule](http://mpwiki.viacode.com/default.aspx?g=posts&t=115678)
-
-[Gold Trading Was Temporarily Halted On The CME This Morning](https://www.businessinsider.com/gold-halted-on-cme-for-stop-logic-event-2013-10)
+-[InfoPath Forms Services business logic exceeded the maximum limit of operations Rule](http://mpwiki.viacode.com/default.aspx?g=posts&t=115678)
+-[Gold Trading Was Temporarily Halted On The CME This Morning](https://www.businessinsider.com/gold-halted-on-cme-for-stop-logic-event-2013-10)
 
 ## Remediation
 

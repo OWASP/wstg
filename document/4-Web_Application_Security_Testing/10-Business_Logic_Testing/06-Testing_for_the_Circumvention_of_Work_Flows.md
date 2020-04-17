@@ -30,50 +30,36 @@ An electronic bulletin board system may be designed to ensure that initial posts
 ### Generic Testing Method
 
 - Review the project documentation and use exploratory testing looking for methods to skip or go to steps in the application process in a different order from the designed/intended business logic flow.
-
 - For each method develop a misuse case and try to circumvent or perform an action that is “not acceptable” per the the business logic workflow.
 
 #### Testing Method 1
 
 - Start a transaction going through the application past the points that triggers credits/points to the users account.
-
 - Cancel out of the transaction or reduce the final tender so that the point values should be decreased and check the points/ credit system to ensure that the proper points/credits were recorded.
 
 #### Testing Method 2
 
 - On a content management or bulletin board system enter and save valid initial text or values.
-
 - Then try to append, edit and remove data that would leave the existing data in an invalid state or with invalid values to ensure that the user is not allowed to save the incorrect information. Some “invalid” data or information may be specific words (profanity) or specific topics (such as political issues).
 
 ## Related Test Cases
 
-[Testing Directory Traversal/File Include](../05-Authorization_Testing/01-Testing_Directory_Traversal_File_Include.md)
-
-[Testing for Bypassing Authorization Schema](../05-Authorization_Testing/02-Testing_for_Bypassing_Authorization_Schema.md)
-
-[Testing for Bypassing Session Management Schema](../06-Session_Management_Testing/01-Testing_for_Session_Management_Schema.md)
-
-[Test Business Logic Data Validation](01-Test_Business_Logic_Data_Validation.md)
-
-[Test Ability to Forge Requests](02-Test_Ability_to_Forge_Requests.md)
-
-[Test Integrity Checks](03-Test_Integrity_Checks.md)
-
-[Test for Process Timing](04-Test_for_Process_Timing.md)
-
-[Test Number of Times a Function Can be Used Limits](05-Test_Number_of_Times_a_Function_Can_Be_Used_Limits.md)
-
-[Test Defenses Against Application Mis-use](07-Test_Defenses_Against_Application_Misuse.md)
-
-[Test Upload of Unexpected File Types](08-Test_Upload_of_Unexpected_File_Types.md)
-
-[Test Upload of Malicious Files](09-Test_Upload_of_Malicious_Files.md)
+- [Testing Directory Traversal/File Include](../05-Authorization_Testing/01-Testing_Directory_Traversal_File_Include.md)
+- [Testing for Bypassing Authorization Schema](../05-Authorization_Testing/02-Testing_for_Bypassing_Authorization_Schema.md)
+- [Testing for Bypassing Session Management Schema](../06-Session_Management_Testing/01-Testing_for_Session_Management_Schema.md)
+- [Test Business Logic Data Validation](01-Test_Business_Logic_Data_Validation.md)
+- [Test Ability to Forge Requests](02-Test_Ability_to_Forge_Requests.md)
+- [Test Integrity Checks](03-Test_Integrity_Checks.md)
+- [Test for Process Timing](04-Test_for_Process_Timing.md)
+- [Test Number of Times a Function Can be Used Limits](05-Test_Number_of_Times_a_Function_Can_Be_Used_Limits.md)
+- [Test Defenses Against Application Mis-use](07-Test_Defenses_Against_Application_Misuse.md)
+- [Test Upload of Unexpected File Types](08-Test_Upload_of_Unexpected_File_Types.md)
+- [Test Upload of Malicious Files](09-Test_Upload_of_Malicious_Files.md)
 
 ## References
 
-[OWASP Abuse Case Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Abuse_Case_Cheat_Sheet.html)
-
-[CWE-840: Business Logic Errors](https://cwe.mitre.org/data/definitions/840.html)
+- [OWASP Abuse Case Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Abuse_Case_Cheat_Sheet.html)
+- [CWE-840: Business Logic Errors](https://cwe.mitre.org/data/definitions/840.html)
 
 ## Remediation
 

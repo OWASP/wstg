@@ -73,19 +73,12 @@ Cookie Editor is a cookie manager. You can add, delete, edit, search, protect, a
 ### Whitepapers
 
 - [The Common Misuse Scoring System (CMSS): Metrics for Software Feature Misuse Vulnerabilities - NISTIR 7864](https://csrc.nist.gov/publications/detail/nistir/7864/final)
-
 - [Designing a Framework Method for Secure Business Application Logic Integrity in e-Commerce Systems, Faisal Nabi](http://ijns.femto.com.tw/contents/ijns-v12-n1/ijns-2011-v12-n1-p29-41.pdf)
-
 - [Finite State testing of Graphical User Interfaces, Fevzi Belli](https://pdfs.semanticscholar.org/b57c/6c8022abfd2cb17ec785d3622027b3edfaaf.pdf)
-
 - [Principles and Methods of Testing Finite State Machines - A Survey, David Lee, Mihalis Yannakakis](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.380.3405&rep=rep1&type=pdf)
-
 - [Security Issues in Online Games, Jianxin Jeff Yan and Hyun-Jin Choi](https://www.researchgate.net/publication/220677013_Security_issues_in_online_games)
-
 - [Securing Virtual Worlds Against Real Attack, Dr. Igor Muttik, McAfee](https://www.info-point-security.com/open_downloads/2008/McAfee_wp_online_gaming_0808.pdf)
-
 - [Seven Business Logic Flaws That Put Your Website At Risk – Jeremiah Grossman Founder and CTO, WhiteHat Security](https://www.slideshare.net/jeremiahgrossman/seven-business-logic-flaws-that-put-your-website-at-risk-harvard-07062008)
-
 - [Toward Automated Detection of Logic Vulnerabilities in Web Applications - Viktoria Felmetsger Ludovico Cavedon Christopher Kruegel Giovanni Vigna](https://www.usenix.org/legacy/event/sec10/tech/full_papers/Felmetsger.pdf)
 
 ### OWASP Related
@@ -95,17 +88,11 @@ Cookie Editor is a cookie manager. You can add, delete, edit, search, protect, a
 ### Useful Web Sites
 
 - [Abuse of Functionality](http://projects.webappsec.org/w/page/13246913/Abuse-of-Functionality)
-
 - [Business logic](https://en.wikipedia.org/wiki/Business_logic)
-
 - [Business Logic Flaws and Yahoo Games](http://jeremiahgrossman.blogspot.com/2006/12/business-logic-flaws.html)
-
 - [CWE-840: Business Logic Errors](https://cwe.mitre.org/data/definitions/840.html)
-
 - [Defying Logic: Theory, Design, and Implementation of Complex Systems for Testing Application Logic](https://pdfs.semanticscholar.org/d14a/18f08f6488f903f2f691a1d159e95d8ee04f.pdf)
-
 - [Prevent application logic attacks with sound app security practices](http://searchappsecurity.techtarget.com/qna/0,289202,sid92_gci1213424,00.html?bucket=NEWS&topic=302570)
-
 - [Software Testing Lifecycle](http://softwaretestingfundamentals.com/software-testing-life-cycle/)
 
 ### Books

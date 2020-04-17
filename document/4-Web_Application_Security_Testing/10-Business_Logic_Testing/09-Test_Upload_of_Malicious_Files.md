@@ -23,23 +23,18 @@ Suppose a picture sharing application allows users to upload their .gif or .jpg 
 ### Generic Testing Method
 
 - Review the project documentation and use exploratory testing looking at the application/system to identify what constitutes and “malicious” file in your environment.
-
 - Develop or acquire a known “malicious” file. An [EICAR anti-malware test file](https://2016.eicar.org/85-0-Download.html) can be used as harmless, but widely detected by antivirus software.
-
 - Try to upload the malicious file to the application/system and verify that it is correctly rejected.
-
 - If multiple files can be uploaded at once, there must be tests in place to verify that each file is properly evaluated.
 
 ### Exploit Payload
 
 - Using the Metasploit payload generation functionality generates a shellcode as a Windows executable using the Metasploit “msfpayload” command.
-
 - Submit the executable via the application’s upload functionality and see if it is accepted or properly rejected.
 
 ### Malicious File
 
 - Develop or create a file that should fail the application malware detection process. There are many available on the Internet such as ducklin.htm or ducklin-html.htm.
-
 - Submit the executable via the application’s upload functionality and see if it is accepted or properly rejected.
 
 [Intended Use - EICAR](https://2016.eicar.org/86-0-Intended-use.html)
@@ -80,7 +75,6 @@ Other PHP example:
 ### Invalid File
 
 - Set up the intercepting proxy to capture the “valid” request for an accepted file.
-
 - Send an “invalid” request through with a valid/acceptable file extension and see if the request is accepted or properly rejected.
 
 ### Source Code Review
@@ -96,17 +90,17 @@ When there is file upload feature supported, the following API/methods are commo
 The following techniques may be used to bypass the website file upload checking rules and filters.
 
 - Change the value of `Content-Type` as `image/jpeg` in HTTP request
-- Change the extensions as executable extensions such as file.php5, file.shtml, file.asa, file.cert, file.jsp, file.jspx, file.aspx, file.asp, file.phtml
+- Change the extensions as executable extensions such as `file.php5`, `file.shtml`, `file.asa`, `file.cert`, `file.jsp`, `file.jspx`, `file.aspx`, `file.asp`, `file.phtml`
 - Changes of capital letters of extensions. such as file.PhP or file.AspX
-- Using special trailing such as spaces, dots or null characters such as file.asp… . file.php;jpg, file.asp%00.jpg, 1.jpg%00.php
+- Using special trailing such as spaces, dots or null characters such as `file.asp...`, `file.php;jpg`, `file.asp%00.jpg`, `1.jpg%00.php`
 
-The executable extensions should be in black list such as file.php5, file.shtml, file.asa, file.cert, file.jsp, file.jspx, file.aspx, file.asp, file.phtml
+The executable extensions should be in black list such as `file.php5`, `file.shtml`, `file.asa`, `file.cert`, `file.jsp`, `file.jspx`, `file.aspx`, `file.asp`, `file.phtml`
 
-- In IIS6 vulnerability, if the file name is file.asp;file.jpg, the file will be executed as file.asp.
+- In IIS6 vulnerability, if the file name is `file.asp;file.jpg`, the file will be executed as `file.asp`:
 
 `http://www.targetVictim.com/path/file.asp;file.jpg`
 
-- In NginX, if the original file name is test.jpg, testers/hackers may change it to `test.jpg/x.php`
+- In NginX, if the original file name is `test.jpg`, testers/hackers may change it to `test.jpg/x.php`
 
 Once it's uploaded, the file will be executed as x.php
 
@@ -122,35 +116,25 @@ Upload the [ZIP bomb](https://github.com/AbhiAgarwal/notes/wiki/Zip-bomb) file t
 
 ## Related Test Cases
 
-[Test File Extensions Handling for Sensitive Information](../02-Configuration_and_Deployment_Management_Testing/03-Test_File_Extensions_Handling_for_Sensitive_Information.md)
-
-[Test Upload of Unexpected File Types](08-Test_Upload_of_Unexpected_File_Types.md)
+- [Test File Extensions Handling for Sensitive Information](../02-Configuration_and_Deployment_Management_Testing/03-Test_File_Extensions_Handling_for_Sensitive_Information.md)
+- [Test Upload of Unexpected File Types](08-Test_Upload_of_Unexpected_File_Types.md)
 
 ## Tools
 
 - Metasploit's payload generation functionality
-
 - Intercepting proxy
 
 ## References
 
-[OWASP - Unrestricted File Upload](https://owasp.org/www-community/vulnerabilities/Unrestricted_File_Upload)
-
-[Why File Upload Forms are a Major Security Threat](https://www.acunetix.com/websitesecurity/upload-forms-threat/)
-
-[Overview of Malicious File Upload Attacks](http://securitymecca.com/article/overview-of-malicious-file-upload-attacks/)
-
-[8 Basic Rules to Implement Secure File Uploads](https://software-security.sans.org/blog/2009/12/28/8-basic-rules-to-implement-secure-file-uploads)
-
-[Stop people uploading malicious PHP files via forms](https://stackoverflow.com/questions/602539/stop-people-uploading-malicious-php-files-via-forms)
-
-[How to Tell if a File is Malicious](https://www.techsupportalert.com/content/how-tell-if-file-malicious.htm)
-
-[CWE-434: Unrestricted Upload of File with Dangerous Type](https://cwe.mitre.org/data/definitions/434.html)
-
-[Implementing Secure File Upload](https://infosecauditor.wordpress.com/tag/malicious-file-upload/)
-
-[Metasploit Generating Payloads](https://www.offensive-security.com/metasploit-unleashed/Generating_Payloads)
+- [OWASP - Unrestricted File Upload](https://owasp.org/www-community/vulnerabilities/Unrestricted_File_Upload)
+- [Why File Upload Forms are a Major Security Threat](https://www.acunetix.com/websitesecurity/upload-forms-threat/)
+- [Overview of Malicious File Upload Attacks](http://securitymecca.com/article/overview-of-malicious-file-upload-attacks/)
+- [8 Basic Rules to Implement Secure File Uploads](https://software-security.sans.org/blog/2009/12/28/8-basic-rules-to-implement-secure-file-uploads)
+- [Stop people uploading malicious PHP files via forms](https://stackoverflow.com/questions/602539/stop-people-uploading-malicious-php-files-via-forms)
+- [How to Tell if a File is Malicious](https://www.techsupportalert.com/content/how-tell-if-file-malicious.htm)
+- [CWE-434: Unrestricted Upload of File with Dangerous Type](https://cwe.mitre.org/data/definitions/434.html)
+- [Implementing Secure File Upload](https://infosecauditor.wordpress.com/tag/malicious-file-upload/)
+- [Metasploit Generating Payloads](https://www.offensive-security.com/metasploit-unleashed/Generating_Payloads)
 
 ## Remediation
 
