@@ -75,7 +75,7 @@ sed 's/\[\([^\n]\+\)\]([^\n]\+.md#remediation)/\1/i' | \
 # Sed section 16: Correct Markdown file links with fragment identifiers. Remove file path and keep fragment identifier alone.
 sed 's/\[\([^\n]\+\)\]([^\n]\+.md#\([^\)]\+\))/<a href=\"#\2\">\1<\/a>/' | \
 # Sed section 17: Correct Markdown links with fragment identifiers.
-sed 's/\[\([^\n]\+\)\](#\([^\)]\+\))/<a href=\"#\2\">\1<\/a>/' |\
+sed 's/\[\([^\[]\+\)\](#\([^\)]\+\))/<a href=\"#\2\">\1<\/a>/' |\
 # pyhton section 18: convert all chars inside href to lower case
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().lower(), sys.stdin.read()))"  | \
 # pyhton section 19: Replace the spaces inside `href` values with hyphen
