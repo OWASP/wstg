@@ -669,8 +669,10 @@
 .markdown-body pre {
 	white-space: pre-wrap;
 	word-wrap: break-word;
+	text-align: left;
 }
 .markdown-body pre>code {
 	white-space: pre-wrap;
 	word-wrap: break-word;
+	text-align: left;
 }
