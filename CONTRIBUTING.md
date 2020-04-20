@@ -62,8 +62,12 @@ Here are the steps for creating and submitting a Pull Request (PR) that we can q
 1. [Set up your environment](#how-to-set-up-your-contributor-environment) to fork the project and install a Markdown linter.
 2. Associate your contribution with an [issue](https://github.com/OWASP/wstg/issues). To change existing content, read [Become a Reviewer or Editor](#become-a-reviewer-or-editor). To make additions, read [Become an Author](#become-an-author).
 3. Make your modifications. Be sure to follow our [style guide](style_guide.md).
-4. When you're ready to submit your work, push your changes to your fork. Ensure that your fork is [synced with `master`](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork), then [create a PR](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork). You may want to [allow edits from maintainers](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/allowing-changes-to-a-pull-request-branch-created-from-a-fork) so we can help with small changes like fixing typos.
-5. We'll review your PR. We may comment to ask for clarification or changes, so please check back in the next few days.
+4. When you're ready to submit your work, push your changes to your fork. Ensure that your fork is [synced with `master`](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork).
+5. You can submit a [draft PR](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests#draft-pull-requests) or a [regular PR](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork). If your work is not yet ready for review and merge, choose a draft PR. When your changes are ready to be reviewed, you can convert to a regular PR. See [how to change the stage of a PR](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/changing-the-stage-of-a-pull-request) for more.
+
+You may want to [allow edits from maintainers](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/allowing-changes-to-a-pull-request-branch-created-from-a-fork) so we can help with small changes like fixing typos.
+
+Once you've submitted your ready-for-review PR, we'll review it. We may comment to ask for clarification or changes, so please check back in the next few days.
 
 To increase the chances that your PR is merged, please make sure that:
 
