@@ -24,6 +24,8 @@ jobs:
         python-version: '3.x'
     - name: Install dependencies
       run: |
+        sudo apt update
+        sudo apt install libgbm1
         npm install -g md-to-pdf
         sudo snap install pdftk
     - name: Get Version
