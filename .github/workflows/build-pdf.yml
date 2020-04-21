@@ -1,9 +1,9 @@
 name: Build PDF
 
 on:
-  push:
-    tags: 
-      - '*'
+  pull_request:
+    branches:
+    - master
 jobs:
   build:
     if: github.actor == 'kingthorin' || github.actor == 'ThunderSon' || github.actor == 'rejahrehim' || github.actor == 'victoriadrake'
