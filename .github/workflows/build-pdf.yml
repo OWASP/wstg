@@ -1,9 +1,9 @@
 name: Build PDF
 
 on:
-  pull_request:
-    branches:
-    - master
+  push:
+    tags: 
+      - '*'
 jobs:
   build:
     if: github.actor == 'kingthorin' || github.actor == 'ThunderSon' || github.actor == 'rejahrehim' || github.actor == 'victoriadrake'
@@ -24,13 +24,11 @@ jobs:
         python-version: '3.x'
     - name: Install dependencies
       run: |
-        sudo apt update
-        sudo apt install libgbm1
         npm install -g md-to-pdf
         sudo snap install pdftk
     - name: Get Version
       id: vars
-      run: echo ::set-output name=tag::v4.1
+      run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
     - name: Run Build
       run: npm run-script  pdfgen -- ${{ steps.vars.outputs.tag }}
     - name: Create Release
