@@ -18,19 +18,18 @@ The Testing Guide v4 was released in 2014. The Testing guide originated in 2003 
 ## v4 Authors
 
 ```html
-- Matteo Meucci            - Cecil Su            - Brad Causey            - Davide Danelon
-- Pavol Luptak             - Aung KhAnt          - Vicente Aguilera       - Alexander Antukh
-- Marco Morana             - Norbert Szetei      - Ismael Gonçalves       - Thomas Kalamaris
-- Giorgio Fedon            - Michael Boman       - David Fern             - Alexander Vavousis
-- Stefano Di Paola         - Wagner Elias        - Tom Eston              - Clerkendweller
-- Gianrico Ingrosso        - Kevin Horvat        - Kevin Horvath          - Christian Heinrich
-- Giuseppe Bonfà           - Tom Brennan         - Rick Mitchell          - Babu Arokiadas
-- Andrew Muller            - Juan Galiana Lara   - Eduardo Castellanos    - Rob Barnes
-- Robert Winkel            - Sumit Siddharth     - Simone Onofri          - Ben Walther
-- Roberto Suggi Liverani   - Mike Hryekewicz     - Harword Sheen          - Raul Siles
-- Robert Smith             - Simon Bennetts      - Amro AlOlaqi           - Ryan Dewhurst
-- Tripurari Rai            - Ray Schippers       - Suhas Desai            - Zaki Akhmad
-- Tony Hsu Hsiang Chih     - Thomas Ryan         - Tim Bertels            - Jayanta Karmakar
+- Matteo Meucci          - Thomas Ryan       - Mike Hryekewicz  - Eduardo Castellano - Babu Arokiadas
+- Pavol Luptak           - Tim Bertels       - Simon Bennetts   - Simone Onofri      - Rob Barnes
+- Marco Morana           - Cecil Su          - Ray Schippers    - Harword Sheen      - Ben Walther
+- Giorgio Fedon          - Aung KhAnt        - Raul Siles       - Amro AlOlaqi       - Anant Shrivastava
+- Stefano Di Paola       - Norbert Szetei    - Jayanta Karmakar - Suhas Desai        - Colin Watson
+- Gianrico Ingrosso      - Michael Boman     - Brad Causey      - Ryan Dewhurst      - Luca Carettoni
+- Giuseppe Bonfà         - Wagner Elias      - Vicente Aguilera - Zaki Akhmad        - Eoin Keary
+- Andrew Muller          - Kevin Horvat      - Ismael Gonçalves - Davide Danelon     - Jeff Williams
+- Robert Winkel          - Tom Brennan       - David Fern       - Alexander Antukh   - Juan Manuel Bahamonde
+- Roberto Suggi Liverani - Tomas Zatko       - Tom Eston        - Thomas Kalamaris   - Thomas Skora
+- Tripurari Rai          - Juan Galiana Lara - Kevin Horvath    - Alexander Vavousis - Irene Abezgauz
+- Robert Smith           - Sumit Siddharth   - Rick Mitchell    - Christian Heinrich - Hugo Costa
 ```
 
 ## v4 Reviewers
