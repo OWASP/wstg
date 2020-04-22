@@ -172,6 +172,41 @@ If the tester thinks that the system is vulnerable to this issue, they should is
 
 With some luck, using the above three commands - modified to suit the application under test and testing requirements - a new user would be created, a password assigned, and made an administrator, all using blind request submission.
 
+### Testing for HTTP Method Overriding
+
+Some web frameworks provide a way to override the actual HTTP method in the request  by emulating the missing HTTP verbs passing some custom header in the requests. The main purpose of this is to circumvent some middleware (e.g. proxy, firewalls) limitation where methods allowed usually do not encompass verbs such as PUT or DELETE for instance. The following alternative headers could be used to do verb tunneling:
+
+- X-HTTP-Method
+- X-HTTP-Method-Override
+- X-Method-Override
+
+In order to test this, in the scenarios where restrictive verbs such as PUT or DELETE returns a “405 Method not allowed” replay the same request with the addition of the alternative headers for HTTP method overriding and observe how the web server will respond. The webserver should respond with a different status code (e.g. 200) in case method overriding is supported:
+
+```bash
+$ nc www.example.com 80
+DELETE /resource.html HTTP/1.1
+Host: www.example.com
+
+HTTP/1.1 405 Method Not Allowed
+Date: Sat, 04 Apr 2020 18:26:53 GMT
+Server: Apache
+Allow: GET,HEAD,POST,OPTIONS
+Content-Length: 320
+Content-Type: text/html; charset=iso-8859-1
+Vary: Accept-Encoding
+
+$ nc www.example.com 80
+DELETE /resource.html HTTP/1.1
+Host: www.example.com
+X-HTTP-Method: DELETE
+
+HTTP/1.1 200 OK
+Date: Sat, 04 Apr 2020 19:26:01 GMT
+Server: Apache
+
+```
+
+
 ## Tools
 
 - [NetCat](http://nc110.sourceforge.net)
