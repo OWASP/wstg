@@ -203,7 +203,6 @@ X-HTTP-Method: DELETE
 HTTP/1.1 200 OK
 Date: Sat, 04 Apr 2020 19:26:01 GMT
 Server: Apache
-
 ```
 
 ## Tools
