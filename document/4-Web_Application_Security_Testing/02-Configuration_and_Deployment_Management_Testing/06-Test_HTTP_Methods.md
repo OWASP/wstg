@@ -180,7 +180,7 @@ Some web frameworks provide a way to override the actual HTTP method in the requ
 - `X-HTTP-Method-Override`
 - `X-Method-Override`
 
-In order to test this, in the scenarios where restrictive verbs such as PUT or DELETE returns a “405 Method not allowed” replay the same request with the addition of the alternative headers for HTTP method overriding and observe how the web server will respond. The webserver should respond with a different status code (e.g. 200) in case method overriding is supported:
+In order to test this, in the scenarios where restrictive verbs such as PUT or DELETE return a “405 Method not allowed”, replay the same request with the addition of the alternative headers for HTTP method overriding, and observe how the system will respond. The application should respond with a different status code (e.g. 200) in cases where method overriding is supported:
 
 ```bash
 $ nc www.example.com 80
