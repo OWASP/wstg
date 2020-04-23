@@ -34,6 +34,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 ## Authors
 
 - Elie Saad
+- Ismael Goncalves
 - Janos Zold
 - Jeremy Bonghwan Choi
 - Joel Espunya
