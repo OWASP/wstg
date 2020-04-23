@@ -219,3 +219,4 @@ Server: Apache
 - [RFC 2109](https://tools.ietf.org/html/rfc2109) and [RFC 2965](https://tools.ietf.org/html/rfc2965): “HTTP State Management Mechanism”
 - [Jeremiah Grossman: “Cross Site Tracing (XST)](https://www.cgisecurity.com/whitehat-mirror/WH-WhitePaper_XST_ebook.pdf)
 - [Amit Klein: “XS(T) attack variants which can, in some cases, eliminate the need for TRACE”](https://www.securityfocus.com/archive/107/308433)
+- [Fortify - Misused HTTP Method Override](https://vulncat.fortify.com/en/detail?id=desc.dynamic.xtended_preview.often_misused_http_method_override)
