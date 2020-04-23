@@ -176,9 +176,9 @@ With some luck, using the above three commands - modified to suit the applicatio
 
 Some web frameworks provide a way to override the actual HTTP method in the request by emulating the missing HTTP verbs passing some custom header in the requests. The main purpose of this is to circumvent some middleware (e.g. proxy, firewall) limitation where methods allowed usually do not encompass verbs such as `PUT` or `DELETE`. The following alternative headers could be used to do such verb tunneling:
 
-- X-HTTP-Method
-- X-HTTP-Method-Override
-- X-Method-Override
+- `X-HTTP-Method`
+- `X-HTTP-Method-Override`
+- `X-Method-Override`
 
 In order to test this, in the scenarios where restrictive verbs such as PUT or DELETE returns a “405 Method not allowed” replay the same request with the addition of the alternative headers for HTTP method overriding and observe how the web server will respond. The webserver should respond with a different status code (e.g. 200) in case method overriding is supported:
 
