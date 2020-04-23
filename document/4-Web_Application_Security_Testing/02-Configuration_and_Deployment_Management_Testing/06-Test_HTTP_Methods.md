@@ -174,7 +174,7 @@ With some luck, using the above three commands - modified to suit the applicatio
 
 ### Testing for HTTP Method Overriding
 
-Some web frameworks provide a way to override the actual HTTP method in the request  by emulating the missing HTTP verbs passing some custom header in the requests. The main purpose of this is to circumvent some middleware (e.g. proxy, firewalls) limitation where methods allowed usually do not encompass verbs such as PUT or DELETE for instance. The following alternative headers could be used to do verb tunneling:
+Some web frameworks provide a way to override the actual HTTP method in the request by emulating the missing HTTP verbs passing some custom header in the requests. The main purpose of this is to circumvent some middleware (e.g. proxy, firewall) limitation where methods allowed usually do not encompass verbs such as `PUT` or `DELETE`. The following alternative headers could be used to do such verb tunneling:
 
 - X-HTTP-Method
 - X-HTTP-Method-Override
