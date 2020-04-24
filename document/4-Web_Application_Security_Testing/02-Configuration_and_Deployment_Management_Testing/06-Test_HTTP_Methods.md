@@ -172,6 +172,39 @@ If the tester thinks that the system is vulnerable to this issue, they should is
 
 With some luck, using the above three commands - modified to suit the application under test and testing requirements - a new user would be created, a password assigned, and made an administrator, all using blind request submission.
 
+### Testing for HTTP Method Overriding
+
+Some web frameworks provide a way to override the actual HTTP method in the request by emulating the missing HTTP verbs passing some custom header in the requests. The main purpose of this is to circumvent some middleware (e.g. proxy, firewall) limitation where methods allowed usually do not encompass verbs such as `PUT` or `DELETE`. The following alternative headers could be used to do such verb tunneling:
+
+- `X-HTTP-Method`
+- `X-HTTP-Method-Override`
+- `X-Method-Override`
+
+In order to test this, in the scenarios where restrictive verbs such as PUT or DELETE return a “405 Method not allowed”, replay the same request with the addition of the alternative headers for HTTP method overriding, and observe how the system will respond. The application should respond with a different status code (e.g. 200) in cases where method overriding is supported:
+
+```bash
+$ nc www.example.com 80
+DELETE /resource.html HTTP/1.1
+Host: www.example.com
+
+HTTP/1.1 405 Method Not Allowed
+Date: Sat, 04 Apr 2020 18:26:53 GMT
+Server: Apache
+Allow: GET,HEAD,POST,OPTIONS
+Content-Length: 320
+Content-Type: text/html; charset=iso-8859-1
+Vary: Accept-Encoding
+
+$ nc www.example.com 80
+DELETE /resource.html HTTP/1.1
+Host: www.example.com
+X-HTTP-Method: DELETE
+
+HTTP/1.1 200 OK
+Date: Sat, 04 Apr 2020 19:26:01 GMT
+Server: Apache
+```
+
 ## Tools
 
 - [NetCat](http://nc110.sourceforge.net)
@@ -186,3 +219,4 @@ With some luck, using the above three commands - modified to suit the applicatio
 - [RFC 2109](https://tools.ietf.org/html/rfc2109) and [RFC 2965](https://tools.ietf.org/html/rfc2965): “HTTP State Management Mechanism”
 - [Jeremiah Grossman: “Cross Site Tracing (XST)](https://www.cgisecurity.com/whitehat-mirror/WH-WhitePaper_XST_ebook.pdf)
 - [Amit Klein: “XS(T) attack variants which can, in some cases, eliminate the need for TRACE”](https://www.securityfocus.com/archive/107/308433)
+- [Fortify - Misused HTTP Method Override](https://vulncat.fortify.com/en/detail?id=desc.dynamic.xtended_preview.often_misused_http_method_override)
