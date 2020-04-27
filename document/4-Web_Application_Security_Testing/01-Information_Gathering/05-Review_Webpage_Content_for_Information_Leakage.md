@@ -1,8 +1,8 @@
-# Review webpage content for information leakage
+# Review Webpage Content for Information Leakage
 
 |ID           |
 |-------------|
-|WSTG-INFO-05|
+|WSTG-INFO-05 |
 
 ## Summary
 
