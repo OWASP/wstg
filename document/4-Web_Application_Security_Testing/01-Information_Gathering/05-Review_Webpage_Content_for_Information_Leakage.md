@@ -1,4 +1,4 @@
-# Review webpage comments and metadata for information leakage
+# Review webpage content for information leakage
 
 |ID           |
 |-------------|
