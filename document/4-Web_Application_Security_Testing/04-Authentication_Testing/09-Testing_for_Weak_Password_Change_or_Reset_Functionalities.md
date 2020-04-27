@@ -1,7 +1,7 @@
 # Testing for Weak Password Change or Reset Functionalities
 
-|ID            |
-|--------------|
+|ID          |
+|------------|
 |WSTG-ATHN-09|
 
 ## Summary

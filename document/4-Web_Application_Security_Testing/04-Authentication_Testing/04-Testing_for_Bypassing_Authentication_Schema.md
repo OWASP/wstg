@@ -1,7 +1,7 @@
 # Testing for Bypassing Authentication Schema
 
-|ID            |
-|--------------|
+|ID          |
+|------------|
 |WSTG-ATHN-04|
 
 ## Summary

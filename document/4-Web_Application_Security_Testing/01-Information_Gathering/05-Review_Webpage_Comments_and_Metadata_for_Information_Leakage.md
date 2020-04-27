@@ -1,7 +1,7 @@
 # Review Webpage Comments and Metadata for Information Leakage
 
-|ID           |
-|-------------|
+|ID          |
+|------------|
 |WSTG-INFO-05|
 
 ## Summary

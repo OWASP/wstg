@@ -1,7 +1,7 @@
 # Testing for Weak or Unenforced Username Policy
 
-|ID            |
-|--------------|
+|ID          |
+|------------|
 |WSTG-IDNT-05|
 
 ## Summary

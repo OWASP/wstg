@@ -1,8 +1,8 @@
 # Fingerprint Web Application Framework
 
-|ID           |
-|-------------|
-|WSTG-INFO-08 |
+|ID          |
+|------------|
+|WSTG-INFO-08|
 
 ## Summary
 

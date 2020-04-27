@@ -1,7 +1,7 @@
 # Testing for Vulnerable Remember Password
 
-|ID            |
-|--------------|
+|ID          |
+|------------|
 |WSTG-ATHN-05|
 
 ## Summary

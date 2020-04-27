@@ -1,7 +1,7 @@
 # Testing for Client Side URL Redirect
 
-|ID             |
-|---------------|
+|ID          |
+|------------|
 |WSTG-CLNT-04|
 
 ## Summary

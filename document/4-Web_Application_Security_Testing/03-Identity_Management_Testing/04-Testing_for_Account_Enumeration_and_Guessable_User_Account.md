@@ -1,7 +1,7 @@
 # Testing for Account Enumeration and Guessable User Account
 
-|ID            |
-|--------------|
+|ID          |
+|------------|
 |WSTG-IDNT-04|
 
 ## Summary

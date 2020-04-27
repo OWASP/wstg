@@ -1,7 +1,7 @@
 # Test User Registration Process
 
-|ID            |
-|--------------|
+|ID          |
+|------------|
 |WSTG-IDNT-02|
 
 ## Summary

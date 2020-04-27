@@ -1,7 +1,7 @@
 # Fingerprint Web Application
 
-|ID           |
-|-------------|
+|ID          |
+|------------|
 |WSTG-INFO-09|
 
 ## Summary

@@ -1,7 +1,7 @@
 # Review Webserver Metafiles for Information Leakage
 
-|ID           |
-|-------------|
+|ID          |
+|------------|
 |WSTG-INFO-03|
 
 ## Summary

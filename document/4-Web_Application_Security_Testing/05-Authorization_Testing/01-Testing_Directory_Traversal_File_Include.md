@@ -1,7 +1,7 @@
 # Testing Directory Traversal File Include
 
-|ID            |
-|--------------|
+|ID          |
+|------------|
 |WSTG-ATHZ-01|
 
 ## Summary
