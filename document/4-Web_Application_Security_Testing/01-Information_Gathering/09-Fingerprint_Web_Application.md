@@ -1,7 +1,7 @@
 # Fingerprint Web Application
 
-|ID           |
-|-------------|
+|ID          |
+|------------|
 |WSTG-INFO-09|
 
 ## Summary
@@ -111,7 +111,7 @@ A list of general and well-known tools is presented below. There are also a lot 
 
 ### WhatWeb
 
-Website: [https://www.morningstarsecurity.com/research/whatweb](https://www.morningstarsecurity.com/research/whatweb)
+Website: [https://github.com/urbanadventurer/WhatWeb](https://github.com/urbanadventurer/WhatWeb)
 
 Currently one of the best fingerprinting tools on the market. Included in a default [Kali Linux](https://www.kali.org/) build. Language: Ruby Matches for fingerprinting are made with:
 

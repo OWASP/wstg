@@ -1,7 +1,7 @@
 # Testing for Weak Encryption
 
-|ID             |
-|---------------|
+|ID          |
+|------------|
 |WSTG-CRYP-04|
 
 ## Summary

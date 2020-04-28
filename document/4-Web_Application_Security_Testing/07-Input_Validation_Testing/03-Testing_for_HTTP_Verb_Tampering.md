@@ -1,7 +1,7 @@
 # Testing for HTTP Verb Tampering
 
-|ID             |
-|---------------|
+|ID          |
+|------------|
 |WSTG-INPV-03|
 
 ## Summary

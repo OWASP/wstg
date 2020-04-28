@@ -1,7 +1,7 @@
 # Testing for Reflected Cross Site Scripting
 
-|ID             |
-|---------------|
+|ID          |
+|------------|
 |WSTG-INPV-01|
 
 ## Summary

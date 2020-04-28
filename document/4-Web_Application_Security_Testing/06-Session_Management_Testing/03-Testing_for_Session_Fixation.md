@@ -1,7 +1,7 @@
 # Testing for Session Fixation
 
-|ID           |
-|-------------|
+|ID          |
+|------------|
 |WSTG-SESS-03|
 
 ## Summary

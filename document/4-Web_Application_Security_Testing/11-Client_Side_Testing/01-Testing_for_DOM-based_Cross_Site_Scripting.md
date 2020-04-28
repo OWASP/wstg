@@ -1,7 +1,7 @@
 # Testing for DOM-Based Cross Site Scripting
 
-|ID             |
-|---------------|
+|ID          |
+|------------|
 |WSTG-CLNT-01|
 
 ## Summary

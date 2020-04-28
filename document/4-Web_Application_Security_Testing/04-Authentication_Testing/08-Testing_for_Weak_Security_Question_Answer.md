@@ -1,7 +1,7 @@
 # Testing for Weak Security Question Answer
 
-|ID            |
-|--------------|
+|ID          |
+|------------|
 |WSTG-ATHN-08|
 
 ## Summary

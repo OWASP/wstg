@@ -1,7 +1,7 @@
 # Testing for Server Side Template Injection
 
-|ID             |
-|---------------|
+|ID          |
+|------------|
 |WSTG-INPV-18|
 
 ## Summary

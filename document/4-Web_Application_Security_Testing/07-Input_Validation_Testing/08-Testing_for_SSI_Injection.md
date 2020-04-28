@@ -1,7 +1,7 @@
 # Testing for SSI Injection
 
-|ID             |
-|---------------|
+|ID          |
+|------------|
 |WSTG-INPV-08|
 
 ## Summary

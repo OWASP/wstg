@@ -1,7 +1,7 @@
 # Testing for LDAP Injection
 
-|ID             |
-|---------------|
+|ID          |
+|------------|
 |WSTG-INPV-06|
 
 ## Summary

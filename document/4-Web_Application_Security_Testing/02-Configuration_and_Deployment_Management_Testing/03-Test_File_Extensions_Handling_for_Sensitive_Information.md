@@ -1,7 +1,7 @@
 # Test File Extensions Handling for Sensitive Information
 
-|ID             |
-|---------------|
+|ID          |
+|------------|
 |WSTG-CONF-03|
 
 ## Summary

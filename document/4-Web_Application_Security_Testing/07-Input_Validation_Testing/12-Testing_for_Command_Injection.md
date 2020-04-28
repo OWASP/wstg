@@ -1,7 +1,7 @@
 # Testing for Command Injection
 
-|ID             |
-|---------------|
+|ID          |
+|------------|
 |WSTG-INPV-12|
 
 ## Summary

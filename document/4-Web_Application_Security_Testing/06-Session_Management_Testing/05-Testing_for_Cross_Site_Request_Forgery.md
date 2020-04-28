@@ -1,7 +1,7 @@
 # Testing for Cross Site Request Forgery
 
-|ID           |
-|-------------|
+|ID          |
+|------------|
 |WSTG-SESS-05|
 
 ## Summary
