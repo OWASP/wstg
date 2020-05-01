@@ -1,7 +1,7 @@
 # Testing Browser Storage
 
-|ID             |
-|---------------|
+|ID          |
+|------------|
 |WSTG-CLNT-12|
 
 ## Summary

@@ -1,7 +1,7 @@
 # Testing Cross Origin Resource Sharing
 
-|ID             |
-|---------------|
+|ID          |
+|------------|
 |WSTG-CLNT-07|
 
 ## Summary

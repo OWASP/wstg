@@ -1,7 +1,7 @@
 # Testing for Browser Cache Weaknesses
 
-|ID            |
-|--------------|
+|ID          |
+|------------|
 |WSTG-ATHN-06|
 
 ## Summary

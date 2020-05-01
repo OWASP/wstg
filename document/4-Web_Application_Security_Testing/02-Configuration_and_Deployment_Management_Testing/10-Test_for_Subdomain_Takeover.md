@@ -1,7 +1,7 @@
 # Test for Subdomain Takeover
 
-|ID             |
-|---------------|
+|ID          |
+|------------|
 |WSTG-CONF-10|
 
 ## Summary

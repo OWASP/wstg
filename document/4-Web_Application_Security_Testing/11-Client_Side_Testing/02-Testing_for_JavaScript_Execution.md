@@ -1,7 +1,7 @@
 # Testing for JavaScript Execution
 
-|ID             |
-|---------------|
+|ID          |
+|------------|
 |WSTG-CLNT-02|
 
 ## Summary

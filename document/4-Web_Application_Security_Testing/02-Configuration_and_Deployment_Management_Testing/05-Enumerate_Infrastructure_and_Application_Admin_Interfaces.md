@@ -1,7 +1,7 @@
 # Enumerate Infrastructure and Application Admin Interfaces
 
-|ID             |
-|---------------|
+|ID          |
+|------------|
 |WSTG-CONF-05|
 
 ## Summary

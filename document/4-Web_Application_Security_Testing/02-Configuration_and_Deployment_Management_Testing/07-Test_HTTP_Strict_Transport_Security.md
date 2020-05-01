@@ -1,7 +1,7 @@
 # Test HTTP Strict Transport Security
 
-|ID             |
-|---------------|
+|ID          |
+|------------|
 |WSTG-CONF-07|
 
 ## Summary
