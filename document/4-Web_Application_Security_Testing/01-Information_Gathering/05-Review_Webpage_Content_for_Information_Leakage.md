@@ -8,15 +8,15 @@
 
 It is very common, and even recommended, for programmers to include detailed comments and metadata on their source code. However, comments and metadata included into the HTML code might reveal internal information that should not be available to potential attackers. Comments and metadata review should be done in order to determine if any information is being leaked.
 
-For modern web apps, the use of client-Side JavaScript for the front-end is becoming more popular. The popular front-end construction technologies use client-side JavaScript like ReactJS, AngularJS, or Vue.  Similar to the comments and metadata on the HTML code, many programmers also hardcode sensitive information in JavaScript variables on the front-end. Sensitive information can be referred to as a Private API Key (*e.g.* an unrestricted Google Map API Key), internal IP addresses, sensitive routes (*e.g.* route to hidden admin page), or even credentials. This sensitive information can be leaked from such front-end JavaScript code. A review should be done in order to determine if any sensitive information leaked could be used by attackers for abuse.
+For modern web apps, the use of client-Side JavaScript for the front-end is becoming more popular. Popular front-end construction technologies use client-side JavaScript like ReactJS, AngularJS, or Vue.  Similar to the comments and metadata in HTML code, many programmers also hardcod sensitive information in JavaScript variables on the front-end. Sensitive information can include (but is not limited to): Private API Keys (*e.g.* an unrestricted Google Map API Key), internal IP addresses, sensitive routes (*e.g.* route to hidden admin pages or functionality), or even credentials. This sensitive information can be leaked from such front-end JavaScript code. A review should be done in order to determine if any sensitive information leaked which could be used by attackers for abuse.
 
-For large web application, performance issues are a big concern to programmers. Programmers have used different methods to optimize front-end performance, including Syntactically Awesome StyleSheets (SASS), Sassy CSS (SCSS), WebPack, etc. Using these technologies, front-end code will sometimes become harder to understand and difficult to debug, and because of it, programmers often deploy source map files for debugging purposes. A “source map” is a special file that connects a minified/uglified version of an asset (CSS or JavaScript) to the original authored version. Programmers are still debating whether or not to bring source map files to the production environment. However, it is undeniable that source map files or files for debugging if released to the production environment will make their source more human-readable. It can make it easier for attackers to find vulnerabilities from the front-end or collect sensitive information from it. JavaScript code review should be done in order to determine if any debug files are exposed from the front-end. Depending on the context and sensitivity of the project, a security expert should decide whether the files should exist in the production environment or not.
+For large web applications, performance issues are a big concern to programmers. Programmers have used different methods to optimize front-end performance, including Syntactically Awesome StyleSheets (SASS), Sassy CSS (SCSS), WebPack, etc. Using these technologies, front-end code will sometimes become harder to understand and difficult to debug, and because of it, programmers often deploy source map files for debugging purposes. A “source map” is a special file that connects a minified/uglified version of an asset (CSS or JavaScript) to the original authored version. Programmers are still debating whether or not to bring source map files to the production environment. However, it is undeniable that source map files or files for debugging if released to the production environment will make their source more human-readable. It can make it easier for attackers to find vulnerabilities from the front-end or collect sensitive information from it. JavaScript code review should be done in order to determine if any debug files are exposed from the front-end. Depending on the context and sensitivity of the project, a security expert should decide whether the files should exist in the production environment or not.
 
 ## Test Objectives
 
 * Review webpage comments and metadata to better understand the application and to find any information leakage.
 * Identify and gather JavaScript files, review JavaScript code in an application to better understand the application and to find any information leakage.
-* Identifyif source map files or other front-end debug files exist.
+* Identify if source map files or other front-end debug files exist.
 
 ## How to Test
 
@@ -56,13 +56,13 @@ Check HTML version information for valid version numbers and Data Type Definitio
 * `loose.dtd` -- loose DTD
 * `frameset.dtd` -- DTD for frameset documents
 
-Some `META` tags do not provide active attack vectors but instead allow an attacker to profile an application
+Some `META` tags do not provide active attack vectors but instead allow an attacker to profile an application:
 
 ```html
 <META name="Author" content="Andrew Muller">
 ```
 
-A common (but not [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) compliant) `META` tag is the [Refresh](https://en.wikipedia.org/wiki/Meta_refresh).
+A common (but not [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) compliant) `META` tag is [Refresh](https://en.wikipedia.org/wiki/Meta_refresh).
 
 ```html
 <META http-equiv="Refresh" content="15;URL=https://www.owasp.org/index.html">
