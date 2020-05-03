@@ -236,8 +236,6 @@ Website: [https://www.wappalyzer.com/](https://www.wappalyzer.com/)
 
 Wapplyzer is a Firefox Chrome extension. It works only on regular expression matching and doesn't need anything other than the page to be loaded on browser. It works completely at the browser level and gives results in the form of icons. Although sometimes it has false positives, this is very handy to have notion of what technologies were used to construct a target website immediately after browsing a page.
 
-Note that by default, Wappalyzer will send anonymised data about the technology running on visited websites back to the developers, which is then sold to third parties. Make sure you disable this data collection in the add-on options. (ZAP's Technology Detection addon which leverages Wappalyzer is not subject to such data sharing.)
-
 Sample output of a plug-in is presented on a screenshot below.
 
 ![Wappalyzer Output for OWASP Website](images/Owasp-wappalyzer.png)\
