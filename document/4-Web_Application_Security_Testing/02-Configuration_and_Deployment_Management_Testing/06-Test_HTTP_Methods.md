@@ -62,7 +62,7 @@ As we can see in the example, OPTIONS provides a list of the methods that are su
 
 The same test can also be executed using nmap and the http-methods NSE script:
 
-```powershell
+```console
 C:\Tools\nmap-6.40>nmap -p 443 --script http-methods localhost
 
 Starting Nmap 6.40 ( http://nmap.org ) at 2015-11-04 11:52 Romance Standard Time
