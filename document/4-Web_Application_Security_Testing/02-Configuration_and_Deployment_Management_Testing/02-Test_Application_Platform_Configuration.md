@@ -32,8 +32,8 @@ Comment review should be done in order to determine if any information is being 
 
 Various tools, documents, or checklists can be used to give IT and security professionals a detailed assessment of target systems' conformance to various configuration baselines or benchmarks. Such tools include (but are not limited to):
 
-- [Microsoft's Baseline Security Analyzer](https://www.microsoft.com/en-ca/download/details.aspx?id=19892)
 - [CIS-CAT Lite](https://www.cisecurity.org/blog/introducing-cis-cat-lite/)
+- [Microsoft's Attack Surface Analyzer](https://github.com/microsoft/AttackSurfaceAnalyzer)
 - [NIST's National Checklist Program](https://nvd.nist.gov/ncp/repository)
 
 ### Gray-Box Testing
