@@ -15,7 +15,7 @@ This section describes how to test the robots.txt file for information leakage o
 
 ## How to Test
 
-Note: Any of the actions performed below with `wget` could also be done with `curl`. Many Dynamic Application Security Testing (DAST) tools such as ZAP and Burp Suite include checks or parsing for these resources as part of their spider/crawler functionality. They can also be identified using various 'Google Dorks' or leveraging advanced search features such as `inurl:`.
+Note: Any of the actions performed below with `wget` could also be done with `curl`. Many Dynamic Application Security Testing (DAST) tools such as ZAP and Burp Suite include checks or parsing for these resources as part of their spider/crawler functionality. They can also be identified using various [Google Dorks](https://en.wikipedia.org/wiki/Google_hacking) or leveraging advanced search features such as `inurl:`.
 
 ### robots.txt
 
