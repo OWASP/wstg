@@ -66,7 +66,7 @@ robots.txt                                 [ <=>                                
 
 2020-05-05 08:33:43 (9.89 MB/s) - ‘robots.txt’ saved [7004]
 
-$ head -n5 robots.txt 
+$ head -n5 robots.txt
 User-agent: *
 Disallow: /search
 Allow: /search/about
@@ -79,7 +79,7 @@ $ curl -O http://www.google.com/robots.txt
                                  Dload  Upload   Total   Spent    Left  Speed
 100  7004    0  7004    0     0   151k      0 --:--:-- --:--:-- --:--:--  151k
 
-$ head -n5 robots.txt 
+$ head -n5 robots.txt
 User-agent: *
 Disallow: /search
 Allow: /search/about
@@ -132,7 +132,7 @@ HTTP request sent, awaiting response... 200 OK
 Length: 2049 (2.0K) [text/xml]
 Saving to: ‘sitemap.xml.3’
 
-sitemap.xml.3                          100%[===========================================================================>]   2.00K  --.-KB/s    in 0s      
+sitemap.xml.3                          100%[===========================================================================>]   2.00K  --.-KB/s    in 0s
 
 2020-05-05 12:23:30 (9.24 MB/s) - ‘sitemap.xml.3’ saved [2049/2049]
 
@@ -147,7 +147,7 @@ sitemap.xml.3                          100%[====================================
 ...
 ```
 
-Exploring from there a tester may wish to retrieve the gmail sitemap `https://www.google.com/gmail/sitemap.xml`: 
+Exploring from there a tester may wish to retrieve the gmail sitemap `https://www.google.com/gmail/sitemap.xml`:
 
 ```bash
 $ wget https://www.google.com/gmail/sitemap.xml && head -n8 sitemap.xml
@@ -158,7 +158,7 @@ HTTP request sent, awaiting response... 200 OK
 Length: 971960 (949K) [text/xml]
 Saving to: ‘sitemap.xml’
 
-sitemap.xml                            100%[===========================================================================>] 949.18K  --.-KB/s    in 0.1s    
+sitemap.xml                            100%[===========================================================================>] 949.18K  --.-KB/s    in 0.1s
 
 2020-05-05 12:26:52 (8.29 MB/s) - ‘sitemap.xml’ saved [971960/971960]
 
@@ -184,8 +184,8 @@ sitemap.xml                            100%[====================================
 
 The file may be present either in the root of the webserver or in the `.well-known/` directory. Ex:
 
-- https://example.com/security.txt
-- https://example.com/.well-known/security.txt
+- `https://example.com/security.txt`
+- `https://example.com/.well-known/security.txt`
 
 #### security.txt with wget
 
@@ -200,7 +200,7 @@ HTTP request sent, awaiting response... 200 OK
 Length: 333 [text/plain]
 Saving to: ‘security.txt’
 
-security.txt                           100%[===========================================================================>]     333  --.-KB/s    in 0s      
+security.txt                           100%[===========================================================================>]     333  --.-KB/s    in 0s
 
 2020-05-05 15:30:31 (2.71 MB/s) - ‘security.txt’ saved [333/333]
 
@@ -229,7 +229,7 @@ HTTP request sent, awaiting response... 200 OK
 Length: 286 [text/plain]
 Saving to: ‘humans.txt’
 
-humans.txt                             100%[===========================================================================>]     286  --.-KB/s    in 0s      
+humans.txt                             100%[===========================================================================>]     286  --.-KB/s    in 0s
 
 2020-05-05 12:47:41 (77.1 MB/s) - ‘humans.txt’ saved [286/286]
 
