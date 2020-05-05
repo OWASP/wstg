@@ -61,7 +61,7 @@ character string ''.
 /target/target.asp, line 113
 ```
 
-Also comment delimiters (`--` or `/* */`, etc) and other SQL keywords like 'AND' and 'OR' can be used to try to modify the query. A very simple but sometimes still effective technique is simply to insert a string where a number is expected, as an error like the following might be generated:
+Also comment delimiters (`--` or `/* */`, etc) and other SQL keywords like `AND` and `OR` can be used to try to modify the query. A very simple but sometimes still effective technique is simply to insert a string where a number is expected, as an error like the following might be generated:
 
 ```asp
 Microsoft OLE DB Provider for ODBC Drivers error '80040e07'
