@@ -21,7 +21,7 @@ Note: Any of the actions performed below with `wget` could also be done with `cu
 
 Web Spiders, Robots, or Crawlers retrieve a web page and then recursively traverse hyperlinks to retrieve further web content. Their accepted behavior is specified by the [Robots Exclusion Protocol](https://www.robotstxt.org) of the [robots.txt](https://www.robotstxt.org/) file in the web root directory.
 
-As an example, the beginning of the robots.txt file from [https://www.google.com/robots.txt](https://www.google.com/robots.txt) sampled on 2020 May 5 is quoted below:
+As an example, the beginning of the `robots.txt` file from <https://www.google.com/robots.txt> sampled on 2020 May 5 is quoted below:
 
 ```text
 User-agent: *
