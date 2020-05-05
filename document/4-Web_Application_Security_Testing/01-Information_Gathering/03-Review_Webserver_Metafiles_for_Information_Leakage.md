@@ -6,18 +6,19 @@
 
 ## Summary
 
-This section describes how to test the robots.txt file for information leakage of the web application's directory or folder path(s). Furthermore, the list of directories that are to be avoided by Spiders, Robots, or Crawlers can also be created as a dependency for [Map execution paths through application](07-Map_Execution_Paths_Through_Application.md)
+This section describes how to test various metadata files for information leakage of the web application's path(s), or functionality. Furthermore, the list of directories that are to be avoided by Spiders, Robots, or Crawlers can also be created as a dependency for [Map execution paths through application](07-Map_Execution_Paths_Through_Application.md). Other information may also be collected to identify attack surface, technology details, or for use in social engineering engagement.
 
 ## Test Objectives
 
-1. Information leakage of the web application's directory or folder path(s).
+1. Information leakage of the web application's path(s) or functionality.
 2. Create the list of directories that are to be avoided by Spiders, Robots, or Crawlers.
+3. Identify other information which may benefit testers or attackers.
 
 ## How to Test
 
 Note: Any of the actions performed below with `wget` could also be done with `curl`. Many Dynamic Application Security Testing (DAST) tools such as ZAP and Burp Suite include checks or parsing for these resources as part of their spider/crawler functionality. They can also be identified using various [Google Dorks](https://en.wikipedia.org/wiki/Google_hacking) or leveraging advanced search features such as `inurl:`.
 
-### robots.txt
+### Robots
 
 Web Spiders, Robots, or Crawlers retrieve a web page and then recursively traverse hyperlinks to retrieve further web content. Their accepted behavior is specified by the [Robots Exclusion Protocol](https://www.robotstxt.org) of the [robots.txt](https://www.robotstxt.org/) file in the web root directory.
 
@@ -47,11 +48,9 @@ Disallow: /sdch
 ...
 ```
 
-Web spiders/robots/crawlers can [intentionally ignore](https://blog.isc2.org/isc2_blog/2008/07/the-attack-of-t.html) the `Disallow` directives specified in a robots.txt file, such as those from [Social Networks](https://www.htbridge.com/news/social_networks_can_robots_violate_user_privacy.html) to ensure that shared linked are still valid. Hence, robots.txt should not be considered as a mechanism to enforce restrictions on how web content is accessed, stored, or republished by third parties.
+Web spiders/robots/crawlers can [intentionally ignore](https://blog.isc2.org/isc2_blog/2008/07/the-attack-of-t.html) the `Disallow` directives specified in a `robots.txt` file, such as those from [Social Networks](https://www.htbridge.com/news/social_networks_can_robots_violate_user_privacy.html) to ensure that shared linked are still valid. Hence, `robots.txt` should not be considered as a mechanism to enforce restrictions on how web content is accessed, stored, or republished by third parties.
 
-#### robots.txt in Webroot - with wget or curl
-
-The robots.txt file is retrieved from the web root directory of the web server. For example, to retrieve the robots.txt from `www.google.com` using `wget` or `curl`:
+The `robots.txt` file is retrieved from the web root directory of the web server. For example, to retrieve the `robots.txt` from `www.google.com` using `wget` or `curl`:
 
 ```bash
 $ wget https://www.google.com/robots.txt
@@ -90,7 +89,7 @@ $
 
 #### Analyze robots.txt Using Google Webmaster Tools
 
-Web site owners can use the Google “Analyze robots.txt” function to analyse the website as part of its [Google Webmaster Tools](https://www.google.com/webmasters/tools). This tool can assist with testing and the procedure is as follows:
+Web site owners can use the Google "Analyze robots.txt" function to analyze the website as part of its [Google Webmaster Tools](https://www.google.com/webmasters/tools). This tool can assist with testing and the procedure is as follows:
 
 1. Sign into Google Webmaster Tools with a Google account.
 2. On the dashboard, enter the URL for the site to be analyzed.
@@ -98,28 +97,26 @@ Web site owners can use the Google “Analyze robots.txt” function to analyse 
 
 ### META Tag
 
-`<META>` tags are located within the HEAD section of each HTML Document and should be consistent across a web site in the likely event that the robot/spider/crawler start point does not begin from a document link other than webroot i.e. a [deep link](https://en.wikipedia.org/wiki/Deep_linking).
+`<META>` tags are located within the `HEAD` section of each HTML document and should be consistent across a web site in the event that the robot/spider/crawler start point does not begin from a document link other than webroot i.e. a [deep link](https://en.wikipedia.org/wiki/Deep_linking).
 
-If there is no `<META NAME="ROBOTS" ... >` entry then the “Robots Exclusion Protocol” defaults to `INDEX,FOLLOW` respectively. Therefore, the other two valid entries defined by the “Robots Exclusion Protocol” are prefixed with `NO...` i.e. `NOINDEX` and `NOFOLLOW`.
+If there is no `<META NAME="ROBOTS" ... >` entry then the "Robots Exclusion Protocol" defaults to `INDEX,FOLLOW` respectively. Therefore, the other two valid entries defined by the “Robots Exclusion Protocol” are prefixed with `NO...` i.e. `NOINDEX` and `NOFOLLOW`.
 
-Web spiders/robots/crawlers can intentionally ignore the `<META NAME="ROBOTS"` tag as the robots.txt file convention is preferred.  Hence, **<META> Tags should not be considered the primary mechanism, rather a complementary control to robots.txt**.
+Web spiders/robots/crawlers can intentionally ignore the `<META NAME="ROBOTS"` tag as the `robots.txt` file convention is preferred. Hence, **<META> Tags should not be considered the primary mechanism, rather a complementary control to robots.txt**.
 
 #### META Tags - with Burp
 
-Based on the Disallow directive(s) listed within the robots.txt file in webroot, a regular expression search for `<META NAME="ROBOTS"` within each web page is undertaken and the result compared to the robots.txt file in webroot.
+Based on the Disallow directive(s) listed within the `robots.txt` file in webroot, a regular expression search for `<META NAME="ROBOTS"` within each web page is undertaken and the result compared to the `robots.txt` file in webroot.
 
-For example, the robots.txt file from facebook.com has a `Disallow: /ac.php` entry [http://facebook.com/robots.txt](http://facebook.com/robots.txt) and the resulting search for `<META NAME="ROBOTS"` shown below:
+For example, the `robots.txt` file from facebook.com has a `Disallow: /ac.php` entry [http://facebook.com/robots.txt](http://facebook.com/robots.txt) and the resulting search for `<META NAME="ROBOTS"` shown below:
 
 ![Facebook Meta Tag Example](images/Meta_Tag_Example-Facebook-Aug_2013.png)\
 *Figure 4.1.3-1: Facebook Meta Tag Example*
 
-The above might be considered a fail since `INDEX,FOLLOW` is the default `<META>` Tag specified by the “Robots Exclusion Protocol” yet `Disallow: /ac.php` is listed in robots.txt.
+The above might be considered a fail since `INDEX,FOLLOW` is the default `<META>` Tag specified by the “Robots Exclusion Protocol” yet `Disallow: /ac.php` is listed in `robots.txt`.
 
-### sitemap.xml
+### Sitemaps
 
 A sitemap is a file where a developer or organization can provide information about the pages, videos, and other files offered by the site or application, and the relationship between them. Search engines can use this file to more intelligently explore your site. Testers can use `sitemap.xml` files to learn more about the site or application to explore it more completely.
-
-#### sitemap.xml - with wget
 
 The following excerpt is from Google's primary sitemap retrieved 2020 May 05.
 
@@ -173,7 +170,7 @@ sitemap.xml                            100%[====================================
 ...
 ```
 
-### security.txt
+### Security
 
 `security.txt` is a [proposed standard](https://securitytxt.org/) which allows websites to define security policies and contact details. There are multiple reasons this might be of interest in testing scenarios, including but not limited to:
 
@@ -186,8 +183,6 @@ The file may be present either in the root of the webserver or in the `.well-kno
 
 - `https://example.com/security.txt`
 - `https://example.com/.well-known/security.txt`
-
-#### security.txt with wget
 
 Here is a real world example retrieved from LinkedIn 2020 May 05:
 
@@ -212,11 +207,9 @@ Canonical: https://www.linkedin.com/.well-known/security.txt
 Policy: https://www.linkedin.com/help/linkedin/answer/62924
 ```
 
-### humans.txt
+### Humans
 
-`humans.txt` is an initiative for knowing the people behind a website. It takes the form of a text file that contains information about the different people who have contributed to building the website. See [humanstxt](http://humanstxt.org/) for more info. This file often (though not always) contains information for carreer or job sites/paths.
-
-#### humans.txt with wget
+`humans.txt` is an initiative for knowing the people behind a website. It takes the form of a text file that contains information about the different people who have contributed to building the website. See [humanstxt](http://humanstxt.org/) for more info. This file often (though not always) contains information for career or job sites/paths.
 
 The following example was retrieved from Google 2020 May 05:
 
