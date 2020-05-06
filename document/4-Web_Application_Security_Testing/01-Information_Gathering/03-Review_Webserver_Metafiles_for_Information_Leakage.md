@@ -61,7 +61,8 @@ HTTP request sent, awaiting response... 200 OK
 Length: unspecified [text/plain]
 Saving to: ‘robots.txt’
 
-robots.txt                                 [ <=>                                                                        ]   6.84K  --.-KB/s    in 0.001s  
+robots.txt
+[ <=>                         ]   6.84K  --.-KB/s    in 0.001s  
 
 2020-05-05 08:33:43 (9.89 MB/s) - ‘robots.txt’ saved [7004]
 
@@ -107,7 +108,7 @@ Web spiders/robots/crawlers can intentionally ignore the `<META NAME="ROBOTS"` t
 
 Based on the Disallow directive(s) listed within the `robots.txt` file in webroot, a regular expression search for `<META NAME="ROBOTS"` within each web page is undertaken and the result compared to the `robots.txt` file in webroot.
 
-For example, the `robots.txt` file from facebook.com has a `Disallow: /ac.php` entry [http://facebook.com/robots.txt](http://facebook.com/robots.txt) and the resulting search for `<META NAME="ROBOTS"` shown below:
+For example, the `robots.txt` file from `facebook.com` has a `Disallow: /ac.php` entry <https://facebook.com/robots.txt> and the resulting search for `<META NAME="ROBOTS"` shown below:
 
 ![Facebook Meta Tag Example](images/Meta_Tag_Example-Facebook-Aug_2013.png)\
 *Figure 4.1.3-1: Facebook Meta Tag Example*
@@ -129,7 +130,8 @@ HTTP request sent, awaiting response... 200 OK
 Length: 2049 (2.0K) [text/xml]
 Saving to: ‘sitemap.xml.3’
 
-sitemap.xml.3                          100%[===========================================================================>]   2.00K  --.-KB/s    in 0s
+sitemap.xml.3
+100%[=============================================>]   2.00K  --.-KB/s    in 0s
 
 2020-05-05 12:23:30 (9.24 MB/s) - ‘sitemap.xml.3’ saved [2049/2049]
 
@@ -155,7 +157,8 @@ HTTP request sent, awaiting response... 200 OK
 Length: 971960 (949K) [text/xml]
 Saving to: ‘sitemap.xml’
 
-sitemap.xml                            100%[===========================================================================>] 949.18K  --.-KB/s    in 0.1s
+sitemap.xml
+100%[===========================================>] 949.18K  --.-KB/s    in 0.1s
 
 2020-05-05 12:26:52 (8.29 MB/s) - ‘sitemap.xml’ saved [971960/971960]
 
@@ -170,7 +173,7 @@ sitemap.xml                            100%[====================================
 ...
 ```
 
-### Security
+### Security TXT
 
 `security.txt` is a [proposed standard](https://securitytxt.org/) which allows websites to define security policies and contact details. There are multiple reasons this might be of interest in testing scenarios, including but not limited to:
 
@@ -195,7 +198,8 @@ HTTP request sent, awaiting response... 200 OK
 Length: 333 [text/plain]
 Saving to: ‘security.txt’
 
-security.txt                           100%[===========================================================================>]     333  --.-KB/s    in 0s
+security.txt
+100%[=============================================>]     333  --.-KB/s    in 0s
 
 2020-05-05 15:30:31 (2.71 MB/s) - ‘security.txt’ saved [333/333]
 
@@ -207,7 +211,7 @@ Canonical: https://www.linkedin.com/.well-known/security.txt
 Policy: https://www.linkedin.com/help/linkedin/answer/62924
 ```
 
-### Humans
+### Humans TXT
 
 `humans.txt` is an initiative for knowing the people behind a website. It takes the form of a text file that contains information about the different people who have contributed to building the website. See [humanstxt](http://humanstxt.org/) for more info. This file often (though not always) contains information for career or job sites/paths.
 
@@ -222,7 +226,8 @@ HTTP request sent, awaiting response... 200 OK
 Length: 286 [text/plain]
 Saving to: ‘humans.txt’
 
-humans.txt                             100%[===========================================================================>]     286  --.-KB/s    in 0s
+humans.txt
+100%[=============================================>]     286  --.-KB/s    in 0s
 
 2020-05-05 12:47:41 (77.1 MB/s) - ‘humans.txt’ saved [286/286]
 
