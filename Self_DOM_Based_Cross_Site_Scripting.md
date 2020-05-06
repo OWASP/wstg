@@ -1,5 +1,3 @@
-
-
 # Self DOM-Based Cross-Site Scripting Testing
 
 |ID           |
