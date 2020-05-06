@@ -19,6 +19,8 @@ Try to access the application as an administrative user and track all the admini
 - Is it possible to access administrative functions also if the tester is logged as a user with standard privileges?
 - Is it possible to use these administrative functions as a user with a different role and for whom that action should be denied?
 
+Also we will give an insight into horizontal and vertical bypassing authorization.
+
 ## How to Test
 
 ### Testing for Access to Administrative Functions
@@ -82,6 +84,163 @@ X-Rewrite-URL: /donotexist2
 If the response for either request contains markers that the resource was not found, this indicates that the application supports the special request headers. These markers may include the HTTP response status code 404, or a "resource not found" message in the response body.
 
 Once the support for the header X-Original-URL or X-Rewrite-URL was validated then the tentative of bypass against the access control restriction can be leveraged by sending the expected request to the application but specifying a URL "allowed" by the front-end component as the main request URL and specifying the real target URL in the X-Original-URL or X-Rewrite-URL header depending on the one supported. If both are supported then try one after the other to verify for which header the bypass is effective.
+
+### Testing for Horizontal Bypassing Authorization Schema
+
+#### Summary
+
+This kind of test focuses on verifying how the Horizontal authorization schema has been implemented for each role or privilege to get access rights to data and resources of other users with the same role or privilege.
+Horizontal authorization bypass may occur when an attacker gets access to more resources or data than they are normally allowed. Such elevation or changes should be prevented by the application.
+For every function, specific role and request that the application executes during the post-authentication phase, it is necessary to verify:
+
+- Is it possible to access resources that should be accessible to a user that holds a different identity with the same role or privilege?
+- Is it possible to operate functions on resources that should be accessible to a user that holds a different identity?
+
+#### How to test
+
+For each role:
+
+1. Register/generate two users with the same role.
+2. Generate and keep two different session tokens by authenticating the application (one session token for each user).
+3. For every request, change the relevant parameters and the session token from token one to token two and diagnose the responses for each token.
+4. An application will be considered vulnerable if the responses are the same, contain same private data or indicate successful operation on other users resource or data.
+
+For example, suppose that the 'viewCCpincode.jsp' function is part of every account menu of the application with the same role, and it is possible to access it by requesting the following URL:
+
+`https://www.example.com/account/viewCCpincode.jsp`
+
+Then, the following HTTP request is generated when calling the `viewCCpincode` function:
+
+```html
+POST /account/viewCCpincode.jsp HTTP/1.1
+Host: www.example.com
+[other HTTP headers]
+Cookie: SessionID=xh6Tm2DfgRp01AZ03
+
+Idpincode=user1
+```
+
+Valid and legitimate response:
+
+```html
+HTTP1.1 200 OK
+[other HTTP headers]
+
+{“pincode”:8432}
+```
+
+The attacker may try and execute that request with the same `Idpincode` parameter:
+
+```html
+POST /account/viewCCpincode.jsp HTTP/1.1
+Host: www.example.com
+[other HTTP headers]
+Cookie: SessionID=GbcvA1_ATTACKER_SESSION_6fhTscd
+
+Idpincode=user1
+```
+
+If the response of the attacker’s request contains the same data (“pincode”:8432) the application is vulnerable.
+
+#### Tools
+
+Burp extension: Authorize.
+References
+OWASP Application Security Verification Standard 3.0.1, 4.1, 4.4, 4.9, 4.16.
+
+### Testing for Vertical Bypassing Authorization Schema
+
+|ID           |
+|-------------|
+|WSTG-ATHZ-00X|
+
+#### Summary
+
+Modern enterprises commonly define roles to manage users and authorization for system resources. Roles distinguish between user permission levels, each having certain privileges. An authorization bypass enables an attacker to gain access to permissions and resources that are assigned to other roles.
+
+A vertical authorization bypass is specific to the case that an attacker obtains a role higher than their own. Testing for this bypass focuses on verifying how the vertical authorization schema has been implemented for each role. Vertical authorization bypass may occur when an attacker gets access to more resources or data than intended. For every function, page, specific role, and request that the application executes during the post-authentication phase, it is necessary to verify if it is possible to:
+
+- Access resources that should be accessible only to a higher role user.
+- Operate functions on resources that should be operative only by a user that holds a higher or specific role identity.
+
+#### How to Test
+
+The process of testing for bypass authorization scheme follows:
+
+1. For each role, register a user.
+2. Generate and keep the session tokens by authenticating to the application (one session token for each role).
+3. For every request, change the session token from the original token to another role session token and diagnose the responses for each token.
+4. An application will be considered vulnerable if the responses are the same, contain the same private data, or indicate successful operations on other user resources or data.
+
+In the [Tools](#tools) section, there are multiple add-ons for proxies such as ZAP and Burp that enables them to automatically conduct vertical authorization bypasses on a larger scale, coupling them with manual configuration and report reviewing.
+
+##### Example 1
+
+The following table illustrates the system role on banking site. Each role bind with specific permissions for the event menu functionality:
+
+| ROLE | PERMISSION | ADDITIONAL PERMISSION |
+|------|------------|-----------------------|
+| Administrator | Full Control     | Delete |
+| Manager       | Modify, Add, Read | Add    |
+| Staff         | Read, Modify     | Modify |
+| Customer      | Read Only        |        |
+
+The application will be considered vulnerable if the:
+
+1. Customer could operate administrator, manager or staff functions;
+2. Staff user could operate manager or administrator functions;
+3. Manager could operate administrator functions.
+
+Suppose that the `deleteEvent.jsp` function is part of the administrator account menu of the application, and it is possible to access it by requesting the following URL:
+
+`https://www.example.com/account/deleteEvent.jsp`
+
+Then, the following HTTP request is generated when calling the `deleteEvent` function:
+
+```html
+POST /account/deleteEvent.jsp HTTP/1.1
+Host: www.example.com
+[other HTTP headers]
+Cookie: SessionID=xh6Tm2DfgRp01AZ03
+
+EventID=1000001
+```
+
+The valid response:
+
+```html
+HTTP/1.1 200 OK
+[other HTTP headers]
+
+{“message”:”Event was deleted”}
+```
+
+The attacker may try and execute the same request:
+
+```html
+POST /account/deleteEvent.jsp HTTP/1.1
+Host: www.example.com
+[other HTTP headers]
+Cookie: SessionID=GbcvA1_CUSTOMER_ATTACKER_SESSION_6fhTscd
+
+EventID=1000002
+```
+
+If the response of the attacker’s request contains the same data (`“message”:”Event was deleted”`) the application is vulnerable.
+
+##### Example 2
+
+Suppose that the administrator menu is part of the administrator account. The application will be considered vulnerable if any other role rather than administrator could access the administrator menu. Sometimes, developer perform authorization validation at the GUI level only, and leave the functions without authorization validation, thus potentially resulting in a vulnerability.
+
+#### Tools
+
+- [ZAP extension: Access Control Testing](https://www.zaproxy.org/docs/desktop/addons/access-control-testing/)
+- [Burp extension: AuthMatrix](https://github.com/SecurityInnovation/AuthMatrix/)
+- [Burp extension: Autorize](https://github.com/Quitten/Autorize)
+
+#### References
+
+[OWASP Application Security Verification Standard 3.0.1](https://github.com/OWASP/ASVS/tree/master/3.0.1), V4.1, 4.4, 4.9, 4.16.
 
 ## Tools
 
