@@ -16,13 +16,13 @@ This section describes how to test various metadata files for information leakag
 
 ## How to Test
 
-Note: Any of the actions performed below with `wget` could also be done with `curl`. Many Dynamic Application Security Testing (DAST) tools such as ZAP and Burp Suite include checks or parsing for these resources as part of their spider/crawler functionality. They can also be identified using various [Google Dorks](https://en.wikipedia.org/wiki/Google_hacking) or leveraging advanced search features such as `inurl:`.
+> Any of the actions performed below with `wget` could also be done with `curl`. Many Dynamic Application Security Testing (DAST) tools such as ZAP and Burp Suite include checks or parsing for these resources as part of their spider/crawler functionality. They can also be identified using various [Google Dorks](https://en.wikipedia.org/wiki/Google_hacking) or leveraging advanced search features such as `inurl:`.
 
 ### Robots
 
 Web Spiders, Robots, or Crawlers retrieve a web page and then recursively traverse hyperlinks to retrieve further web content. Their accepted behavior is specified by the [Robots Exclusion Protocol](https://www.robotstxt.org) of the [robots.txt](https://www.robotstxt.org/) file in the web root directory.
 
-As an example, the beginning of the `robots.txt` file from <https://www.google.com/robots.txt> sampled on 2020 May 5 is quoted below:
+As an example, the beginning of the `robots.txt` file from [Google](https://www.google.com/robots.txt) sampled on 2020 May 5 is quoted below:
 
 ```text
 User-agent: *
@@ -108,12 +108,12 @@ Web spiders/robots/crawlers can intentionally ignore the `<META NAME="ROBOTS"` t
 
 Based on the Disallow directive(s) listed within the `robots.txt` file in webroot, a regular expression search for `<META NAME="ROBOTS"` within each web page is undertaken and the result compared to the `robots.txt` file in webroot.
 
-For example, the `robots.txt` file from `facebook.com` has a `Disallow: /ac.php` entry <https://facebook.com/robots.txt> and the resulting search for `<META NAME="ROBOTS"` shown below:
+For example, the `robots.txt` file from `facebook.com` has a `Disallow: /album.php` and the resulting search for `<META NAME="ROBOTS"` is shown below:
 
 ![Facebook Meta Tag Example](images/Meta_Tag_Example-Facebook-Aug_2013.png)\
 *Figure 4.1.3-1: Facebook Meta Tag Example*
 
-The above might be considered a fail since `INDEX,FOLLOW` is the default `<META>` Tag specified by the “Robots Exclusion Protocol” yet `Disallow: /ac.php` is listed in `robots.txt`.
+The above might be considered a fail since `INDEX,FOLLOW` is the default `<META>` Tag specified by the “Robots Exclusion Protocol”, yet `Disallow: /album.php` is listed in `robots.txt`.
 
 ### Sitemaps
 
