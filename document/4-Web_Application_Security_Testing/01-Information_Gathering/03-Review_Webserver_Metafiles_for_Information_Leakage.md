@@ -126,18 +126,8 @@ A sitemap is a file where a developer or organization can provide information ab
 The following excerpt is from Google's primary sitemap retrieved 2020 May 05.
 
 ```bash
-$ wget https://www.google.com/sitemap.xml && head -n8 sitemap.xml
---2020-05-05 12:23:30--  https://www.google.com/sitemap.xml
-Resolving www.google.com (www.google.com)... 172.217.13.164, 2607:f8b0:4020:806::2004
-Connecting to www.google.com (www.google.com)|172.217.13.164|:443... connected.
-HTTP request sent, awaiting response... 200 OK
-Length: 2049 (2.0K) [text/xml]
-Saving to: ‘sitemap.xml.3’
-
-sitemap.xml.3
-100%[=============================================>]   2.00K  --.-KB/s    in 0s
-
-2020-05-05 12:23:30 (9.24 MB/s) - ‘sitemap.xml.3’ saved [2049/2049]
+$ wget --no-verbose https://www.google.com/sitemap.xml && head -n8 sitemap.xml
+2020-05-05 12:23:30 URL:https://www.google.com/sitemap.xml [2049] -> "sitemap.xml" [1]
 
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.google.com/schemas/sitemap/0.84">
@@ -181,19 +171,8 @@ The file may be present either in the root of the webserver or in the `.well-kno
 Here is a real world example retrieved from LinkedIn 2020 May 05:
 
 ```bash
-$ wget https://www.linkedin.com/.well-known/security.txt && cat security.txt
---2020-05-05 15:30:31--  https://www.linkedin.com/.well-known/security.txt
-Resolving www.linkedin.com (www.linkedin.com)... 108.174.10.10, 2620:109:c002::6cae:a0a
-Connecting to www.linkedin.com (www.linkedin.com)|108.174.10.10|:443... connected.
-HTTP request sent, awaiting response... 200 OK
-Length: 333 [text/plain]
-Saving to: ‘security.txt’
-
-security.txt
-100%[=============================================>]     333  --.-KB/s    in 0s
-
-2020-05-05 15:30:31 (2.71 MB/s) - ‘security.txt’ saved [333/333]
-
+$ wget --no-verbose https://www.linkedin.com/.well-known/security.txt && cat security.txt
+2020-05-07 12:56:51 URL:https://www.linkedin.com/.well-known/security.txt [333/333] -> "security.txt" [1]
 # Conforms to IETF `draft-foudil-securitytxt-07`
 Contact: mailto:security@linkedin.com
 Contact: https://www.linkedin.com/help/linkedin/answer/62924
@@ -209,19 +188,8 @@ Policy: https://www.linkedin.com/help/linkedin/answer/62924
 The following example was retrieved from Google 2020 May 05:
 
 ```bash
-kali@kali:~/wstgtmp$ wget https://www.google.com/humans.txt && cat humans.txt
---2020-05-05 12:47:41--  https://www.google.com/humans.txt
-Resolving www.google.com (www.google.com)... 172.217.13.164, 2607:f8b0:4020:804::2004
-Connecting to www.google.com (www.google.com)|172.217.13.164|:443... connected.
-HTTP request sent, awaiting response... 200 OK
-Length: 286 [text/plain]
-Saving to: ‘humans.txt’
-
-humans.txt
-100%[=============================================>]     286  --.-KB/s    in 0s
-
-2020-05-05 12:47:41 (77.1 MB/s) - ‘humans.txt’ saved [286/286]
-
+$ wget --no-verbose  https://www.google.com/humans.txt && cat humans.txt
+2020-05-07 12:57:52 URL:https://www.google.com/humans.txt [286/286] -> "humans.txt" [1]
 Google is built by a large team of engineers, designers, researchers, robots, and others in many different sites across the globe. It is updated continuously, and built with more tools and technologies than we can shake a stick at. If you'd like to help us out, see careers.google.com.
 ```
 
