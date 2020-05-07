@@ -53,12 +53,7 @@ Web spiders/robots/crawlers can [intentionally ignore](https://blog.isc2.org/isc
 The `robots.txt` file is retrieved from the web root directory of the web server. For example, to retrieve the `robots.txt` from `www.google.com` using `wget` or `curl`:
 
 ```bash
-$ curl -O http://www.google.com/robots.txt
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100  7004    0  7004    0     0   151k      0 --:--:-- --:--:-- --:--:--  151k
-
-$ head -n5 robots.txt
+$ curl -O -Ss http://www.google.com/robots.txt && head -n5 robots.txt
 User-agent: *
 Disallow: /search
 Allow: /search/about
@@ -82,8 +77,6 @@ Web site owners can use the Google "Analyze robots.txt" function to analyze the 
 #### Robots Meta Tag
 
 If there is no `<META NAME="ROBOTS" ... >` entry then the "Robots Exclusion Protocol" defaults to `INDEX,FOLLOW` respectively. Therefore, the other two valid entries defined by the “Robots Exclusion Protocol” are prefixed with `NO...` i.e. `NOINDEX` and `NOFOLLOW`.
-
-Web spiders/robots/crawlers can intentionally ignore the `<META NAME="ROBOTS"` tag as the `robots.txt` file convention is preferred.
 
 ##### Robots META Tags - with Burp
 
