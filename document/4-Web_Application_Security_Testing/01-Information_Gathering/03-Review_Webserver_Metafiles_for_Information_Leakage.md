@@ -53,27 +53,6 @@ Web spiders/robots/crawlers can [intentionally ignore](https://blog.isc2.org/isc
 The `robots.txt` file is retrieved from the web root directory of the web server. For example, to retrieve the `robots.txt` from `www.google.com` using `wget` or `curl`:
 
 ```bash
-$ wget https://www.google.com/robots.txt
---2020-05-05 08:33:43--  https://www.google.com/robots.txt
-Resolving www.google.com (www.google.com)... 172.217.13.164, 2607:f8b0:4020:805::2004
-Connecting to www.google.com (www.google.com)|172.217.13.164|:443... connected.
-HTTP request sent, awaiting response... 200 OK
-Length: unspecified [text/plain]
-Saving to: ‘robots.txt’
-
-robots.txt
-[ <=>                         ]   6.84K  --.-KB/s    in 0.001s  
-
-2020-05-05 08:33:43 (9.89 MB/s) - ‘robots.txt’ saved [7004]
-
-$ head -n5 robots.txt
-User-agent: *
-Disallow: /search
-Allow: /search/about
-Allow: /search/static
-Allow: /search/howsearchworks
-$
-
 $ curl -O http://www.google.com/robots.txt
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
@@ -85,7 +64,7 @@ Disallow: /search
 Allow: /search/about
 Allow: /search/static
 Allow: /search/howsearchworks
-$
+...
 ```
 
 #### Analyze robots.txt Using Google Webmaster Tools
@@ -96,15 +75,17 @@ Web site owners can use the Google "Analyze robots.txt" function to analyze the 
 2. On the dashboard, enter the URL for the site to be analyzed.
 3. Choose between the available methods and follow the on screen instruction.
 
-### META Tag
+### META Tags
 
 `<META>` tags are located within the `HEAD` section of each HTML document and should be consistent across a web site in the event that the robot/spider/crawler start point does not begin from a document link other than webroot i.e. a [deep link](https://en.wikipedia.org/wiki/Deep_linking).
 
+#### Robots Meta Tag
+
 If there is no `<META NAME="ROBOTS" ... >` entry then the "Robots Exclusion Protocol" defaults to `INDEX,FOLLOW` respectively. Therefore, the other two valid entries defined by the “Robots Exclusion Protocol” are prefixed with `NO...` i.e. `NOINDEX` and `NOFOLLOW`.
 
-Web spiders/robots/crawlers can intentionally ignore the `<META NAME="ROBOTS"` tag as the `robots.txt` file convention is preferred. Hence, **<META> Tags should not be considered the primary mechanism, rather a complementary control to robots.txt**.
+Web spiders/robots/crawlers can intentionally ignore the `<META NAME="ROBOTS"` tag as the `robots.txt` file convention is preferred.
 
-#### META Tags - with Burp
+##### Robots META Tags - with Burp
 
 Based on the Disallow directive(s) listed within the `robots.txt` file in webroot, a regular expression search for `<META NAME="ROBOTS"` within each web page is undertaken and the result compared to the `robots.txt` file in webroot.
 
@@ -114,6 +95,36 @@ For example, the `robots.txt` file from `facebook.com` has a `Disallow: /album.p
 *Figure 4.1.3-1: Facebook Meta Tag Example*
 
 The above might be considered a fail since `INDEX,FOLLOW` is the default `<META>` Tag specified by the “Robots Exclusion Protocol”, yet `Disallow: /album.php` is listed in `robots.txt`.
+
+#### Miscellaneous META Information Tags
+
+Organizations often embed informational META tags in web content to support various technologies such as screen readers, social networking previews, search engine indexing, etc. Such meta-information can be of value to testers in identifying technologies used, and additional paths/functionality to explore and test. The following meta information was retrieved from `www.whitehouse.gov` via View Page Source on 2020 May 05:
+
+```html
+<meta name="description" content="We, the citizens of America, are now joined in a great national effort to rebuild our country and to restore its promise for all. – President Donald Trump."/>
+...
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="The White House" />
+<meta property="og:description" content="We, the citizens of America, are now joined in a great national effort to rebuild our country and to restore its promise for all. – President Donald Trump." />
+<meta property="og:url" content="https://www.whitehouse.gov/" />
+<meta property="og:site_name" content="The White House" />
+<meta property="fb:app_id" content="1790466490985150" />
+<meta property="og:image" content="https://www.whitehouse.gov/wp-content/uploads/2017/12/wh.gov-share-img_03-1024x538.png" />
+<meta property="og:image:secure_url" content="https://www.whitehouse.gov/wp-content/uploads/2017/12/wh.gov-share-img_03-1024x538.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:description" content="We, the citizens of America, are now joined in a great national effort to rebuild our country and to restore its promise for all. – President Donald Trump." />
+<meta name="twitter:title" content="The White House" />
+<meta name="twitter:site" content="@whitehouse" />
+<meta name="twitter:image" content="https://www.whitehouse.gov/wp-content/uploads/2017/12/wh.gov-share-img_03-1024x538.png" />
+<meta name="twitter:creator" content="@whitehouse" />
+...
+<meta name="apple-mobile-web-app-title" content="The White House">
+<meta name="application-name" content="The White House">
+<meta name="msapplication-TileColor" content="#0c2644">
+<meta name="theme-color" content="#f5f5f5">
+...
+```
 
 ### Sitemaps
 
@@ -148,20 +159,7 @@ sitemap.xml.3
 
 Exploring from there a tester may wish to retrieve the gmail sitemap `https://www.google.com/gmail/sitemap.xml`:
 
-```bash
-$ wget https://www.google.com/gmail/sitemap.xml && head -n8 sitemap.xml
---2020-05-05 12:26:52--  https://www.google.com/gmail/sitemap.xml
-Resolving www.google.com (www.google.com)... 172.217.13.164, 2607:f8b0:4020:806::2004
-Connecting to www.google.com (www.google.com)|172.217.13.164|:443... connected.
-HTTP request sent, awaiting response... 200 OK
-Length: 971960 (949K) [text/xml]
-Saving to: ‘sitemap.xml’
-
-sitemap.xml
-100%[===========================================>] 949.18K  --.-KB/s    in 0.1s
-
-2020-05-05 12:26:52 (8.29 MB/s) - ‘sitemap.xml’ saved [971960/971960]
-
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
