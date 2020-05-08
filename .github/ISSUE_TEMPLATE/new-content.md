@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-**What would you like added?**
+**What would you like to add?**
 Briefly describe the topic of the new content. Is this a new section or an addition to an existing topic?
 
 Would you like to be assigned to this issue?
