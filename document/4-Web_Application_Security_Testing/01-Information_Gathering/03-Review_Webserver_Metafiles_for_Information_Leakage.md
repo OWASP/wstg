@@ -72,27 +72,17 @@ Web site owners can use the Google "Analyze robots.txt" function to analyze the 
 
 `<META>` tags are located within the `HEAD` section of each HTML document and should be consistent across a web site in the event that the robot/spider/crawler start point does not begin from a document link other than webroot i.e. a [deep link](https://en.wikipedia.org/wiki/Deep_linking).
 
-#### Robots Meta Tag
+#### Robots META Tag
 
 If there is no `<META NAME="ROBOTS" ... >` entry then the "Robots Exclusion Protocol" defaults to `INDEX,FOLLOW` respectively. Therefore, the other two valid entries defined by the “Robots Exclusion Protocol” are prefixed with `NO...` i.e. `NOINDEX` and `NOFOLLOW`.
 
-##### Robots META Tags - with Burp
-
 Based on the Disallow directive(s) listed within the `robots.txt` file in webroot, a regular expression search for `<META NAME="ROBOTS"` within each web page is undertaken and the result compared to the `robots.txt` file in webroot.
-
-For example, the `robots.txt` file from `facebook.com` has a `Disallow: /album.php` and the resulting search for `<META NAME="ROBOTS"` is shown below:
-
-![Facebook Meta Tag Example](images/Meta_Tag_Example-Facebook-Aug_2013.png)\
-*Figure 4.1.3-1: Facebook Meta Tag Example*
-
-The above might be considered a fail since `INDEX,FOLLOW` is the default `<META>` Tag specified by the “Robots Exclusion Protocol”, yet `Disallow: /album.php` is listed in `robots.txt`.
 
 #### Miscellaneous META Information Tags
 
 Organizations often embed informational META tags in web content to support various technologies such as screen readers, social networking previews, search engine indexing, etc. Such meta-information can be of value to testers in identifying technologies used, and additional paths/functionality to explore and test. The following meta information was retrieved from `www.whitehouse.gov` via View Page Source on 2020 May 05:
 
 ```html
-<meta name="description" content="We, the citizens of America, are now joined in a great national effort to rebuild our country and to restore its promise for all. – President Donald Trump."/>
 ...
 <meta property="og:locale" content="en_US" />
 <meta property="og:type" content="website" />
