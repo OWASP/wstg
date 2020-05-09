@@ -70,7 +70,7 @@ Web site owners can use the Google "Analyze robots.txt" function to analyze the 
 
 ### META Tags
 
-`<META>` tags are located within the `HEAD` section of each HTML document and should be consistent across a web site in the event that the robot/spider/crawler start point does not begin from a document link other than webroot i.e. a [deep link](https://en.wikipedia.org/wiki/Deep_linking).
+`<META>` tags are located within the `HEAD` section of each HTML document and should be consistent across a web site in the event that the robot/spider/crawler start point does not begin from a document link other than webroot i.e. a [deep link](https://en.wikipedia.org/wiki/Deep_linking). Robots directive can also be specified through use of a specific [META tag](https://www.robotstxt.org/meta.html).
 
 #### Robots META Tag
 
