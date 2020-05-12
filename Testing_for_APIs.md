@@ -121,17 +121,17 @@ Step 7: Log out or change password of concurrent working user.
 
 Step 8: Resend one of the operations from step 6 with an interception proxy (Burp Repeater, for example). This will send to the server a request with the session ID or token that was invalidated in step 7.
 
-> For performing the step 2 and 5, use the following python tool which can perform the task automatically to break JWT tokens and find JWT based vulnerabilities faster
+##### For performing the step 2 and 5, use the following python tool which can perform the task automatically to break JWT tokens and find JWT based vulnerabilities faster
 
-> Step 1: Clone the repository [JWTweak](https://github.com/rishuranjanofficial/JWTweak)
+Step 1: Clone the repository [JWTweak](https://github.com/rishuranjanofficial/JWTweak)
 
-> Step 2: Navigate to cloned repository 
+Step 2: Navigate to cloned repository 
 
-> Step 3: Run `python3 JWTweak.py`
+Step 3: Run `python3 JWTweak.py`
 
-> ![JWTweak](https://user-images.githubusercontent.com/51092706/81723364-58941780-94a0-11ea-8fa4-01eb15a6adab.png)
+![JWTweak](https://user-images.githubusercontent.com/51092706/81723364-58941780-94a0-11ea-8fa4-01eb15a6adab.png)
 
-> Usage - Detects the algorithm of input JWT Token and provide options to generate the new JWT token based on the user selected algorithm.
+Usage - Detects the algorithm of input JWT Token and provide options to generate the new JWT token based on the user selected algorithm.
 
 ### Specific Testing – Brute Forcing Weak Secrets Used for JWT
 
