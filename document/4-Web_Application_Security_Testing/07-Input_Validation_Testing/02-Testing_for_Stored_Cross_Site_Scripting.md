@@ -198,7 +198,7 @@ The following table summarizes some special variables and functions to look at w
 
 ### Whitepapers
 
-- [CERT: “CERT Advisory CA-2000-02 Malicious HTML Tags Embedded in Client Web Requests”](https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=496186)
+- [CERT: “CERT Advisory CA-2000-02 Malicious HTML Tags Embedded in Client Web Requests”](https://www.redhat.com/archives/blinux-list/2000-February/msg00013.html)
 - [Amit Klein: “Cross-site Scripting Explained”](https://courses.csail.mit.edu/6.857/2009/handouts/css-explained.pdf)
 - [Gunter Ollmann: “HTML Code Injection and Cross-site Scripting”](http://www.technicalinfo.net/papers/CSS.html)
 - [CGISecurity.com: “The Cross Site Scripting FAQ”](https://www.cgisecurity.com/xss-faq.html)
