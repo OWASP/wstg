@@ -48,7 +48,7 @@ As the HTML standard does not support request methods other than GET or POST, we
 
 This example is written using the netcat package from openbsd (standard with most Linux distributions). You may also use telnet (included with Windows) in a similar fashion.
 
-#### 1. Crafting custom HTTP requests
+#### 1. Crafting Custom HTTP Requests
 
 Each HTTP 1.1 request follows the following basic formatting and syntax. Elements surrounded by brackets `[ ]` are contextual to your application. The empty newline at the end is required.
 
