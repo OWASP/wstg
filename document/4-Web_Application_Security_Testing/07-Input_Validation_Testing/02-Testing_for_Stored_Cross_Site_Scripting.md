@@ -123,7 +123,6 @@ Consider the following HTTP POST request for file upload:
 ```html
 POST /fileupload.aspx HTTP/1.1
 […]
-
 Content-Disposition: form-data; name="uploadfile1"; filename="C:\Documents and Settings\test\Desktop\test.txt"
 Content-Type: text/plain
 
