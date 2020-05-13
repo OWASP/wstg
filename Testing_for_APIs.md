@@ -124,7 +124,6 @@ Step 8: Resend one of the operations from step 6 with an interception proxy (Bur
 For performing the step 2 and 5, use the following python tool which can perform the task to break JWT tokens faster
 
 Step 1: Clone the repository [JWTweak](https://github.com/rishuranjanofficial/JWTweak)
-
 Step 2: Navigate to cloned repository
 Step 3: Run `python3 JWTweak.py`
 
