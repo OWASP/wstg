@@ -72,10 +72,7 @@ https://secure.example.com/login
 
 POST /login HTTP/1.1
 Host: secure.example.com
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:25.0) Gecko/20100101 Firefox/25.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
-Accept-Language: en-US,en;q=0.5
-Accept-Encoding: gzip, deflate
+[...]
 Referer: https://secure.example.com/
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 188
@@ -83,17 +80,9 @@ Content-Length: 188
 HTTP/1.1 302 Found
 Date: Tue, 03 Dec 2013 21:18:55 GMT
 Server: Apache
-Cache-Control: no-store, no-cache, must-revalidate, max-age=0
-Expires: Thu, 01 Jan 1970 00:00:00 GMT
-Pragma: no-cache
 Set-Cookie: JSESSIONID=BD99F321233AF69593EDF52B123B5BDA; expires=Fri, 01-Jan-2014 00:00:00 GMT; path=/; domain=example.com; httponly
 Location: private/
-X-Content-Type-Options: nosniff
-X-XSS-Protection: 1; mode=block
-X-Frame-Options: SAMEORIGIN
 Content-Length: 0
-Keep-Alive: timeout=1, max=100
-Connection: Keep-Alive
 Content-Type: text/html
 
 ----------------------------------------------------------
@@ -101,18 +90,11 @@ http://example.com/private
 
 GET /private HTTP/1.1
 Host: example.com
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:25.0) Gecko/20100101 Firefox/25.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
-Accept-Language: en-US,en;q=0.5
-Accept-Encoding: gzip, deflate
+[...]
 Referer: https://secure.example.com/login
 Cookie: JSESSIONID=BD99F321233AF69593EDF52B123B5BDA;
-Connection: keep-alive
 
 HTTP/1.1 200 OK
-Cache-Control: no-store
-Pragma: no-cache
-Expires: 0
 Content-Type: text/html;charset=UTF-8
 Content-Length: 730
 Date: Tue, 25 Dec 2013 00:00:00 GMT

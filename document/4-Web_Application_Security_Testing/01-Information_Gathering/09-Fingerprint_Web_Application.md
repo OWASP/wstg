@@ -22,13 +22,13 @@ Consider the following HTTP-request:
 
 ```html
 GET / HTTP/1.1
+Host: blog.example.org
 User-Agent: Mozilla/5.0 (Windows NT 6.2; WOW64; rv:31.0) Gecko/20100101 Firefox/31.0
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
 Accept-Language: en-US,en;q=0.5
-'''Cookie: wp-settings-time-1=1406093286; wp-settings-time-2=1405988284'''
+Cookie: wp-settings-time-1=1406093286; wp-settings-time-2=1405988284
 DNT: 1
 Connection: keep-alive
-Host: blog.owasp.org
 ```
 
 The cookie *wp-settings-time-1* has automatically been set, which gives information about the framework being used. List of common cookies names is presented in [Common Application Identifiers](#common-application-identifiers) section. However, it is possible to change the name of the cookie.
