@@ -128,7 +128,7 @@ Step 1: Clone the repository [JWTweak](https://github.com/rishuranjanofficial/JW
 Step 2: Navigate to cloned repository
 Step 3: Run `python3 JWTweak.py`
 
-JWTweak can also detects the algorithm of input JWT Token and provide options to generate the new JWT token based on the user selected algorithm.
+JWTweak can also detect the algorithm of input JWT Token and provide options to generate the new token based on the user selected algorithm.
 
 ### Specific Testing – Brute Forcing Weak Secrets Used for JWT
 
