@@ -126,7 +126,6 @@ For performing the step 2 and 5, use the following python tool which can perform
 Step 1: Clone the repository [JWTweak](https://github.com/rishuranjanofficial/JWTweak)
 
 Step 2: Navigate to cloned repository
-
 Step 3: Run `python3 JWTweak.py`
 
 JWTweak can also detects the algorithm of input JWT Token and provide options to generate the new JWT token based on the user selected algorithm.
