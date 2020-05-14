@@ -33,7 +33,7 @@ If enabled, the Web Distributed Authoring and Version [(WebDAV)](http://www.webd
 However, most web applications only need to respond to GET and POST requests, providing user data in the URL query string or appended to the request respectively. The standard `<a href=""></a>` style links trigger a GET request; form data submitted via
 `<form method='POST'></form>`trigger POST requests. Forms defined without a method also send data via GET by default.
 
-Oddly, the other valid HTTP methods are not supported by the [HTML standard](https://www.w3.org/TR/REC-html40/interact/forms.html#h-17.13.1). Any HTTP method other than GET or POST needs to be called outside the HTML document. However, JavaScript and AJAX calls may send methods other than GET and POST. For this reason, most web applications should not need to accept other HTTP methods.
+Oddly, the other valid HTTP methods (mentioned earlier) are not supported by the [HTML standard](https://www.w3.org/TR/REC-html40/interact/forms.html#h-17.13.1). Any HTTP method other than GET or POST needs to be called outside the HTML document. However, JavaScript and AJAX calls may send methods other than GET and POST. For this reason, most web applications should not need to accept other HTTP methods.
 
 If an application has to accept other methods, e.g. when implementing a RESTful Web Service, test it thoroughly to make sure that all endpoints only accept the methods that they require, and that all requests regardless of method are properly authenticated and authorized.
 
