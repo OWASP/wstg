@@ -173,7 +173,7 @@ Log statistics or analysis should not be generated, nor stored, in the same serv
 - General
   - [Logging Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html), OWASP
   - [SP 800-92](https://csrc.nist.gov/publications/detail/sp/800-92/final) Guide to Computer Security Log Management, NIST
-  - [PCI DSS v3.1](https://www.pcisecuritystandards.org/document_library) Requirement 10 and PA-DSS v2.0 Requirement 4, PCI Security Standards Council
+  - [PCI DSS v3.2.1](https://www.pcisecuritystandards.org/document_library) Requirement 10 and PA-DSS v3.2 Requirement 4, PCI Security Standards Council
 
 - Generic:
   - [CERT Security Improvement Modules: Securing Public Web Servers](https://resources.sei.cmu.edu/asset_files/SecurityImprovementModule/2000_006_001_13637.pdf)
