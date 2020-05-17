@@ -6,32 +6,30 @@
 
 ## Summary
 
-Web framework[*] fingerprinting is an important subtask of the information gathering process. Knowing the type of framework can automatically give a great advantage if such a framework has already been tested by the penetration tester. It is not only the known vulnerabilities in unpatched versions but specific misconfigurations in the framework and known file structure that makes the fingerprinting process so important.
+There is nothing new under the sun, and nearly every web application that one may think of developing has already been developed. With the vast number of free and open source software projects that are actively developed and deployed around the world, it is very likely that an application security test will face a target that is entirely or partly dependent on these well known applications or frameworks (e.g. Wordpress, phpBB, Mediawiki, etc). Knowing the web application components that are being tested significantly helps in the testing process and will also drastically reduce the effort required during the test. These well known web applications have known HTML headers, cookies, and directory structures that can be enumerated to identify the application.
 
-Several different vendors and versions of web frameworks are widely used. Information about it significantly helps in the testing process, and can also help in changing the course of the test. Such information can be derived by careful analysis of certain common locations. Most of the web frameworks have several markers in those locations which help an attacker to spot them. This is basically what all automatic tools do, they look for a marker from a predefined location and then compare it to the database of known signatures. For better accuracy several markers are usually used.
-
-[*] Please note that this article makes no differentiation between Web Application Frameworks and Content Management Systems (CMS). This has been done to make it convenient to fingerprint both of them in one chapter. Furthermore, both categories are referenced as web frameworks.
+Several different vendors and versions of web frameworks are widely used. Information about them can help significantly in the testing process, and can also change the course of the test. Such information can be derived by careful analysis of certain common locations. Most of the web frameworks have several markers in those locations which help an attacker or tester to recognize them. This is basically what all automatic tools do, they look for a marker from a predefined location and then compare it to the database of known signatures. For better accuracy several markers are usually used.
 
 ## Test Objectives
 
-To define type of used web framework so as to have a better understanding of the security testing methodology.
+To define type of web components used so as to have a better understanding of the target being assessed.
 
 ## How to Test
 
 ### Black-Box Testing
 
-There are several most common locations to look in in order to define the current framework:
+There are several common locations to consider in order to identify frameworks or components:
 
 - HTTP headers
 - Cookies
 - HTML source code
 - Specific files and folders
-- File Extensions
-- Error Message
+- File extensions
+- Error messages
 
 #### HTTP Headers
 
-The most basic form of identifying a web framework is to look at the `X-Powered-By` field in the HTTP response header. Many tools can be used to fingerprint a target. The simplest one is netcat utility.
+The most basic form of identifying a web framework is to look at the `X-Powered-By` field in the HTTP response header. Many tools can be used to fingerprint a target, the simplest one is netcat..
 
 Consider the following HTTP Request-Response:
 
@@ -41,14 +39,11 @@ HEAD / HTTP/1.0
 
 HTTP/1.1 200 OK
 Server: nginx/1.0.14
-Date: Sat, 07 Sep 2013 08:19:15 GMT
-Content-Type: text/html;charset=ISO-8859-1
-Connection: close
-Vary: Accept-Encoding
+[...]
 X-Powered-By: Mono
 ```
 
-From the `X-Powered-By` field, we understand that the web application framework is likely to be Mono. However, although this approach is simple and quick, this methodology doesn't work in 100% of cases. It is possible to easily disable `X-Powered-By` header by a proper configuration. There are also several techniques that allow a web site to obfuscate HTTP headers (see an example in the [Remediation](#Remediation) section).
+From the `X-Powered-By` field, we understand that the web application framework is likely to be `Mono`. However, although this approach is simple and quick, this methodology doesn't work in 100% of cases. It is possible to easily disable `X-Powered-By` header by a proper configuration. There are also several techniques that allow a web site to obfuscate HTTP headers (see an example in the [Remediation](#Remediation) section). In the example above we can also note a specific version of `nginx` is being used to serve the content.
 
 So in the same example the tester could either miss the `X-Powered-By` header or obtain an answer like the following:
 
@@ -62,7 +57,7 @@ Vary: Accept-Encoding
 X-Powered-By: Blood, sweat and tears
 ```
 
-Sometimes there are more HTTP-headers that point at a certain web framework. In the following example, according to the information from HTTP-request, one can see that `X-Powered-By` header contains PHP version. However, the `X-Generator` header points out the used framework is actually Swiftlet, which helps a penetration tester to expand his attack vectors. When performing fingerprinting, always carefully inspect every HTTP-header for such leaks.
+Sometimes there are more HTTP-headers that point at a certain framework. In the following example, according to the information from HTTP-request, one can see that `X-Powered-By` header contains PHP version. However, the `X-Generator` header points out the used framework is actually `Swiftlet`, which helps a penetration tester to expand their attack vectors. When performing fingerprinting, carefully inspect every HTTP-header for such leaks.
 
 ```html
 HTTP/1.1 200 OK
@@ -80,14 +75,14 @@ X-Generator: Swiftlet
 
 #### Cookies
 
-Another similar and somehow more reliable way to determine the current web framework are framework-specific cookies.
+Another similar and somewhat more reliable way to determine the current web framework are framework-specific cookies.
 
 Consider the following HTTP-request:
 
 ![Cakephp HTTP Request](images/Cakephp_cookie.png)\
-*Figure 4.1.8-1: Cakephp HTTP Request*
+*Figure 4.1.8-7: Cakephp HTTP Request*
 
-The cookie `CAKEPHP` has automatically been set, which gives information about the framework being used. List of common cookies names is presented in [Cookies](#Cookies) section. Limitations are the same - it is possible to change the name of the cookie. For example, for the selected `CakePHP` framework this could be done by the following configuration (excerpt from core.php):
+The cookie `CAKEPHP` has automatically been set, which gives information about the framework being used. A list of common cookie names is presented in [Cookies](#Cookies) section. Limitations still exist in relying on this identification mechanism - it is possible to change the name of cookies. For example, for the selected `CakePHP` framework this could be done via the following configuration (excerpt from `core.php`):
 
 ```php
 /**
@@ -101,74 +96,124 @@ The cookie `CAKEPHP` has automatically been set, which gives information about t
 Configure::write('Session.cookie', 'CAKEPHP');
 ```
 
-However, these changes are less likely to be made than changes to the `X-Powered-By` header, so this approach can be considered as more reliable.
+However, these changes are less likely to be made than changes to the `X-Powered-By` header, so this approach to identification can be considered as more reliable.
 
 #### HTML Source Code
 
-This technique is based on finding certain patterns in the HTML page source code. Often one can find a lot of information which helps a tester to recognize a specific web framework. One of the common markers are HTML comments that directly lead to framework disclosure. More often certain framework-specific paths can be found, i.e. links to framework-specific CSS or JS folders. Finally, specific script variables might also point to a certain framework.
+This technique is based on finding certain patterns in the HTML page source code. Often one can find a lot of information which helps a tester to recognize a specific component. One of the common markers are HTML comments that directly lead to framework disclosure. More often certain framework-specific paths can be found, i.e. links to framework-specific CSS or JS folders. Finally, specific script variables might also point to a certain framework.
 
 From the screenshot below one can easily learn the used framework and its version by the mentioned markers. The comment, specific paths and script variables can all help an attacker to quickly determine an instance of ZK framework.
 
 ![ZK Framework Sample](images/Zk_html_source.png)\
 *Figure 4.1.8-2: Cakephp HTTP Request*
 
-More frequently such information is placed between `<head>``</head>`
-tags, in `<meta>` tags or at the end of the page. Nevertheless, it is recommended to check the whole document since it can be useful for other purposes such as inspection of other useful comments and hidden fields. Sometimes, web developers do not care much about hiding information about the framework used. It is still possible to stumble upon something like this at the bottom of the page:
+Frequently such information is positioned in the `<head>` section of HTTP responses, in `<meta>` tags, or at the end of the page. Nevertheless, entire responses should be analyzed since it can be useful for other purposes such as inspection of other useful comments and hidden fields. Sometimes, web developers do not care much about hiding information about the frameworks or components used. It is still possible to stumble upon something like this at the bottom of the page:
 
 ![Banshee Bottom Page](images/Banshee_bottom_page.png)\
 *Figure 4.1.8-3: Banshee Bottom Page*
 
+### Specific Files and Folders
+
+There is another approach which greatly helps an attacker or tester to identify applications or components with high accuracy. Everything has its own specific file and folder structure on the server. It has been notes that one can see the specific path from the HTML page source but sometimes they are not explicitly presented there and still reside on the server.
+
+In order to uncover them a technique known as forced browsing or "dirbusting" is used. Dirbusting is brute forcing a target with known folder and file names and monitoring HTTP-responses to enumerate server content. This information can be used both for finding default files and attacking them, and for fingerprinting the web application. Dirbusting can be done in several ways, the example below shows a successful dirbusting attack against a WordPress-powered target with the help of defined list and intruder functionality of Burp Suite.
+
+![Dirbusting with Burp](images/Wordpress_dirbusting.png)\
+*Figure 4.1.8-4: Dirbusting with Burp*
+
+We can see that for some WordPress-specific folders (for instance, `/wp-includes/`, `/wp-admin/` and `/wp-content/`) HTTP responses are 403 (Forbidden), 302 (Found, redirection to `wp-login.php`), and 200 (OK) respectively. This is a good indicator that the target is WordPress powered. The same way it is possible to dirbust different application plugin folders and their versions. In the screenshot below one can see a typical CHANGELOG file of a Drupal plugin, which provides information on the application being used and discloses a vulnerable plugin version.
+
+![Drupal Botcha Disclosure](images/Drupal_botcha_disclosure.png)\
+*Figure 4.1.8-5: Drupal Botcha Disclosure*
+
+Tip: before starting with dirbusting, check the `robots.txt` file first. Sometimes application specific folders and other sensitive information can be found there as well. An example of such a `robots.txt` file is presented on a screenshot below.
+
+![Robots Info Disclosure](images/Robots-info-disclosure.png)\
+*Figure 4.1.8-6: Robots Info Disclosure*
+
+Specific files and folders are different for each specific application. If the identified application or component is Open Source there may be value in setting up a temporary installation during penetration tests in order to gain a better understanding of what infrastructure or functionality is presented, and what files might be left on the server. However, several good file lists already exist; one good example is [FuzzDB wordlists of predictable files/folders](https://github.com/fuzzdb-project/fuzzdb).
+
 #### File Extensions
 
-URL may include file extensions. The file extensions can also help to identify the web platform or technology.
+URLs may include file extensions, which can also help to identify the web platform or technology.
 
-For example, OWASP is using PHP
+For example, OWASP is using PHP:
 
 ```php
 https://www.owasp.org/index.php?title=Fingerprint_Web_Application_Framework&action=edit&section=4
 ```
 
-Here are some common web extensions and technology
+Here are some common web file extensions and associated technologies:
 
-- php -- PHP
-- aspx -- Microsoft ASP.NET
-- jsp -- Java Server Pages
+- `.php` -- PHP
+- `.aspx` -- Microsoft ASP.NET
+- `.jsp` -- Java Server Pages
 
-#### Error Message
+#### Error Messages
 
-## Common Frameworks
+As can be seen in the following screenshot the listed file system path points to use of WordPress (`wp-content`). Also testers shoudl be aware that WordPress is PHP based (`functions.php`).
+
+![WordPress Parse error](images/wp-syntaxerror.png)\
+*Figure 4.1.8-7: WordPress Parse Error*
+
+## Common Identifiers
 
 ### Cookies
 
-|Framework  | Cookie name      |
-|-----------|------------------|
-| Zope      | zope3            |
-| CakePHP   | cakephp          |
-| Kohana    | kohanasession    |
-| Laravel   | laravel_session |
+| Framework    | Cookie name                       |
+|--------------|-----------------------------------|
+| Zope         | zope3                             |
+| CakePHP      | cakephp                           |
+| Kohana       | kohanasession                     |
+| Laravel      | laravel_session                   |
+| phpBB        | phpbb3_                           |
+| Wordpress    | wp-settings                       |
+| 1C-Bitrix    | BITRIX_                           |
+| AMPcms       | AMP                               |
+| Django CMS   | django                            |
+| DotNetNuke   | DotNetNukeAnonymous               |
+| e107         | e107_tz                           |
+| EPiServer    | EPiTrace, EPiServer               |
+| Graffiti CMS | graffitibot                       |
+| Hotaru CMS   | hotaru_mobile                     |
+| ImpressCMS   | ICMSession                        |
+| Indico       | MAKACSESSION                      |
+| InstantCMS   | InstantCMS[logdate]               |
+| Kentico CMS  | CMSPreferredCulture               |
+| MODx         | SN4[12symb]                       |
+| TYPO3        | fe_typo_user                      |
+| Dynamicweb   | Dynamicweb                        |
+| LEPTON       | lep[some_numeric_value]+sessionid |
+| Wix          | Domain=.wix.com                   |
+| VIVVO        | VivvoSessionId                    |
 
 ### HTML Source Code
 
+| Application | Keyword                                                                        |
+|-------------|--------------------------------------------------------------------------------|
+| Wordpress   | `<meta name="generator" content="WordPress 3.9.2" />`                          |
+| phpBB       | `&lt;body id=“phpbb”`                                                          |
+| Mediawiki   | `<meta name="generator" content="MediaWiki 1.21.9" />`                         |
+| Joomla      | `<meta name="generator" content="Joomla! - Open Source Content Management" />` |
+| Drupal      | `<meta name="Generator" content="Drupal 7 (http://drupal.org)" />`             |
+| DotNetNuke  | DNN Platform - [http://www.dnnsoftware.com](http://www.dnnsoftware.com)        |
+
 #### General Markers
 
-- %framework_name%
-- powered by
-- built upon
-- running
+- `%framework_name%`
+- `powered by`
+- `built upon`
+- `running`
 
 #### Specific Markers
 
-| Framework          | Keyword              |
-|--------------------|----------------------|
-| Adobe ColdFusion   | &lt;!-- START headerTags.cfm |
-| Microsoft ASP.NET  | __VIEWSTATE        |
-| ZK   |  &lt;!-- ZK |
-| Business Catalyst  | &lt;!-- BC_OBNW --&gt; |
-| Indexhibit         |         ndxz-studio |
-
-### Specific Files and Folders
-
-Specific files and folders are different for each specific framework. It is recommended to install the corresponding framework during penetration tests in order to have better understanding of what infrastructure is presented and what files might be left on the server. However, several good file lists already exist and one good example is [FuzzDB wordlists of predictable files/folders](https://github.com/fuzzdb-project/fuzzdb).
+| Framework         | Keyword                      |
+|-------------------|------------------------------|
+| Adobe ColdFusion  | &lt;!-- START headerTags.cfm |
+| Microsoft ASP.NET | __VIEWSTATE                  |
+| ZK                | &lt;!-- ZK                   |
+| Business Catalyst | &lt;!-- BC_OBNW --&gt;       |
+| Indexhibit        | ndxz-studio                  |
 
 ## Tools
 
@@ -191,111 +236,54 @@ Currently one of the best fingerprinting tools on the market. Included in a defa
 Sample output is presented on a screenshot below:
 
 ![Whatweb Output sample](images/Whatweb-sample.png)\
-*Figure 4.1.8-4: Whatweb Output sample*
-
-### BlindElephant
-
-Website:[http://blindelephant.sourceforge.net/](http://blindelephant.sourceforge.net/)
-
-This great tool works on the principle of static file checksum based version difference thus providing a very high quality of fingerprinting. Language: Python
-
-Sample output of a successful fingerprint:
-
-```bash
-pentester$ python BlindElephant.py http://my_target drupal
-Loaded /Library/Python/2.7/site-packages/blindelephant/dbs/drupal.pkl with 145 versions, 478 differentiating paths, and 434 version groups.
-Starting BlindElephant fingerprint for version of drupal at http://my_target
-
-Hit http://my_target/CHANGELOG.txt
-File produced no match. Error: Retrieved file doesn't match known fingerprint. 527b085a3717bd691d47713dff74acf4
-
-Hit http://my_target/INSTALL.txt
-File produced no match. Error: Retrieved file doesn't match known fingerprint. 14dfc133e4101be6f0ef5c64566da4a4
-
-Hit http://my_target/misc/drupal.js
-Possible versions based on result: 7.12, 7.13, 7.14
-
-Hit http://my_target/MAINTAINERS.txt
-File produced no match. Error: Retrieved file doesn't match known fingerprint. 36b740941a19912f3fdbfcca7caa08ca
-
-Hit http://my_target/themes/garland/style.css
-Possible versions based on result: 7.2, 7.3, 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 7.10, 7.11, 7.12, 7.13, 7.14
-
-...
-
-Fingerprinting resulted in:
-7.14
-
-
-Best Guess: 7.14
-```
+*Figure 4.1.8-8: Whatweb Output sample*
 
 ### Wappalyzer
 
 Website: [https://www.wappalyzer.com/](https://www.wappalyzer.com/)
 
-Wapplyzer is a Firefox Chrome extension. It works only on regular expression matching and doesn't need anything other than the page to be loaded on browser. It works completely at the browser level and gives results in the form of icons. Although sometimes it has false positives, this is very handy to have notion of what technologies were used to construct a target website immediately after browsing a page.
+Wapplyzer is available in multiple usage models, the most popular of which is likely the Firefox/Chrome extensions. THey work only on regular expression matching and doesn't need anything other than the page to be loaded in browser. It works completely at the browser level and gives results in the form of icons. Although sometimes it has false positives, this is very handy to have notion of what technologies were used to construct a target website immediately after browsing a page.
 
 Sample output of a plug-in is presented on a screenshot below.
 
 ![Wappalyzer Output for OWASP Website](images/Owasp-wappalyzer.png)\
-*Figure 4.1.8-5: Wappalyzer Output for OWASP Website*
+*Figure 4.1.8-9: Wappalyzer Output for OWASP Website*
 
 ## References
 
 ### Whitepapers
 
 - [Saumil Shah: “An Introduction to HTTP fingerprinting”](https://web.archive.org/web/20190526182734/https://net-square.com/httprint_paper.html)
-
 - [Anant Shrivastava : “Web Application Finger Printing”](https://anantshri.info/articles/web_app_finger_printing.html)
 
 ## Remediation
 
-The general advice is to use several of the tools described above and check logs to better understand what exactly helps an attacker to disclose the web framework. By performing multiple scans after changes have been made to hide framework tracks, it's possible to achieve a better level of security and to make sure of the framework can not be detected by automatic scans. Below are some specific recommendations by framework marker location and some additional interesting approaches.
+Below are some specific recommendations by framework marker location and some additional interesting approaches.
 
-### HTTP Headers
+- HTTP Headers
+  - Check the componet configuration and disable or obfuscate all HTTP headers that disclose information about the technologies used.
+- Cookies
+  - Change cookie names by making changes in the corresponding configuration files.
+- HTML Source Code
+  - Manually check the contents of the HTML code and remove everything that explicitly points to the framework. General guidelines:
+    - Make sure there are no visual markers disclosing the framework.
+    - Remove any unnecessary comments (copyrights, bug information, specific framework comments).
+    - Remove `META` and generator tags.
+    - Use the companies own CSS or JS files and do not store those in framework-specific folders.
+    - Do not use default scripts on the page or obfuscate them if they must be used.
+- Specific Files and Folders
+  - Remove any unnecessary or unused files on the server. This implies text files disclosing information about versions and installation too.
+  - Restrict access to other files in order to achieve 404-response when accessing them from outside. This can be done, on Apache web servers for example, by modifying `htaccess` file and adding `RewriteCond` or `RewriteRule` there. An example of such restriction for two common WordPress folders is presented below.
 
-Check the configuration and disable or obfuscate all HTTP-headers that disclose information the technologies used. Here is an interesting article about HTTP-headers obfuscation using Netscaler
+    ```apache
+    RewriteCond %{REQUEST_URI} /wp-login\.php$ [OR]
+    RewriteCond %{REQUEST_URI} /wp-admin/$
+    RewriteRule $ /http://your_website [R=404,L]
+    ```
 
-### Cookies
-
-It is recommended to change cookie names by making changes in the corresponding configuration files.
-
-### HTML Source Code
-
-Manually check the contents of the HTML code and remove everything that explicitly points to the framework.
-
-General guidelines:
-
-- Make sure there are no visual markers disclosing the framework
-- Remove any unnecessary comments (copyrights, bug information, specific framework comments)
-- Remove META and generator tags
-- Use the companies own CSS or JS files and do not store those in a framework-specific folders
-- Do not use default scripts on the page or obfuscate them if they must be used.
-
-### Specific Files and Folders
-
-General guidelines:
-
-- Remove any unnecessary or unused files on the server. This implies text files disclosing information about versions and installation too.
-- Restrict access to other files in order to achieve 404-response when accessing them from outside. This can be done, for example, by modifying htaccess file and adding RewriteCond or RewriteRule there. An example of such restriction for two common WordPress folders is presented below.
-
-```apache
-RewriteCond %{REQUEST_URI} /wp-login\.php$ [OR]
-RewriteCond %{REQUEST_URI} /wp-admin/$
-RewriteRule $ /http://your_website [R=404,L]
-```
-
-However, these are not the only ways to restrict access. In order to automate this process, certain framework-specific plugins exist. One example for WordPress is [StealthLogin](https://wordpress.org/plugins/stealth-login-page).
-
-### Additional Approaches
-
-General guidelines:
-
-- Checksum management
-  The purpose of this approach is to beat checksum-based scanners and not let them disclose files by their hashes. Generally, there are two approaches in checksum management:
-  - Change the location of where those files are placed (i.e. move them to another folder, or rename the existing folder)
-  - Modify the contents - even slight modification results in a completely different hash sum, so adding a single byte in the end of the file should not be a big problem.
-
-- Controlled chaos
-  A funny and effective method that involves adding bogus files and folders from other frameworks in order to fool scanners and confuse an attacker. But be careful not to overwrite existing files and folders and to break the current framework!
+  - However, these are not the only ways to restrict access. In order to automate this process, certain framework-specific plugins exist. One example for WordPress is [StealthLogin](https://wordpress.org/plugins/stealth-login-page).
+- Additional approaches
+  - Checksum management - The purpose of this approach is to beat checksum-based scanners and not let them disclose files by their hashes. Generally, there are two approaches in checksum management:
+    - Change the location of where those files are placed (i.e. move them to another folder, or rename the existing folder).
+    - Modify the contents - even slight modification results in a completely different hash sum, so adding a single byte in the end of the file should not be a big problem.
+  - Controlled chaos - A funny and effective method that involves adding bogus files and folders from other frameworks in order to fool scanners and confuse an attacker. But be careful not to overwrite existing files and folders and to break the current framework!
