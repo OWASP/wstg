@@ -6,9 +6,7 @@
 
 ## Summary
 
-There is nothing new under the sun, and nearly every web application that one may think of developing has already been developed. With the vast number of free and open source software projects that are actively developed and deployed around the world, it is very likely that an application security test will face a target that is entirely or partly dependent on these well known applications or frameworks (e.g. Wordpress, phpBB, Mediawiki, etc). Knowing the web application components that are being tested significantly helps in the testing process and will also drastically reduce the effort required during the test. These well known web applications have known HTML headers, cookies, and directory structures that can be enumerated to identify the application.
-
-Several different vendors and versions of web frameworks are widely used. Information about them can help significantly in the testing process, and can also change the course of the test. Such information can be derived by careful analysis of certain common locations. Most of the web frameworks have several markers in those locations which help an attacker or tester to recognize them. This is basically what all automatic tools do, they look for a marker from a predefined location and then compare it to the database of known signatures. For better accuracy several markers are usually used.
+There is nothing new under the sun, and nearly every web application that one may think of developing has already been developed. With the vast number of free and Open Source software projects that are actively developed and deployed around the world, it is very likely that an application security test will face a target that is entirely or partly dependent on these well known applications or frameworks (e.g. Wordpress, phpBB, Mediawiki, etc). Knowing the web application components that are being tested significantly helps in the testing process and will also drastically reduce the effort required during the test. These well known web applications have known HTML headers, cookies, and directory structures that can be enumerated to identify the application. Most of the web frameworks have several markers in those locations which help an attacker or tester to recognize them. This is basically what all automatic tools do, they look for a marker from a predefined location and then compare it to the database of known signatures. For better accuracy several markers are usually used.
 
 ## Test Objectives
 
@@ -29,7 +27,7 @@ There are several common locations to consider in order to identify frameworks o
 
 #### HTTP Headers
 
-The most basic form of identifying a web framework is to look at the `X-Powered-By` field in the HTTP response header. Many tools can be used to fingerprint a target, the simplest one is netcat..
+The most basic form of identifying a web framework is to look at the `X-Powered-By` field in the HTTP response header. Many tools can be used to fingerprint a target, the simplest one is netcat.
 
 Consider the following HTTP Request-Response:
 
@@ -105,7 +103,7 @@ This technique is based on finding certain patterns in the HTML page source code
 From the screenshot below one can easily learn the used framework and its version by the mentioned markers. The comment, specific paths and script variables can all help an attacker to quickly determine an instance of ZK framework.
 
 ![ZK Framework Sample](images/Zk_html_source.png)\
-*Figure 4.1.8-2: Cakephp HTTP Request*
+*Figure 4.1.8-2: ZK Framework HTML Source Sample*
 
 Frequently such information is positioned in the `<head>` section of HTTP responses, in `<meta>` tags, or at the end of the page. Nevertheless, entire responses should be analyzed since it can be useful for other purposes such as inspection of other useful comments and hidden fields. Sometimes, web developers do not care much about hiding information about the frameworks or components used. It is still possible to stumble upon something like this at the bottom of the page:
 
@@ -114,7 +112,7 @@ Frequently such information is positioned in the `<head>` section of HTTP respon
 
 ### Specific Files and Folders
 
-There is another approach which greatly helps an attacker or tester to identify applications or components with high accuracy. Everything has its own specific file and folder structure on the server. It has been notes that one can see the specific path from the HTML page source but sometimes they are not explicitly presented there and still reside on the server.
+There is another approach which greatly helps an attacker or tester to identify applications or components with high accuracy. Every web component has its own specific file and folder structure on the server. It has been noted that one can see the specific path from the HTML page source but sometimes they are not explicitly presented there and still reside on the server.
 
 In order to uncover them a technique known as forced browsing or "dirbusting" is used. Dirbusting is brute forcing a target with known folder and file names and monitoring HTTP-responses to enumerate server content. This information can be used both for finding default files and attacking them, and for fingerprinting the web application. Dirbusting can be done in several ways, the example below shows a successful dirbusting attack against a WordPress-powered target with the help of defined list and intruder functionality of Burp Suite.
 
@@ -137,7 +135,7 @@ Specific files and folders are different for each specific application. If the i
 
 URLs may include file extensions, which can also help to identify the web platform or technology.
 
-For example, OWASP is using PHP:
+For example, the OWASP wiki used PHP:
 
 ```php
 https://www.owasp.org/index.php?title=Fingerprint_Web_Application_Framework&action=edit&section=4
@@ -151,7 +149,7 @@ Here are some common web file extensions and associated technologies:
 
 #### Error Messages
 
-As can be seen in the following screenshot the listed file system path points to use of WordPress (`wp-content`). Also testers shoudl be aware that WordPress is PHP based (`functions.php`).
+As can be seen in the following screenshot the listed file system path points to use of WordPress (`wp-content`). Also testers should be aware that WordPress is PHP based (`functions.php`).
 
 ![WordPress Parse error](images/wp-syntaxerror.png)\
 *Figure 4.1.8-7: WordPress Parse Error*
@@ -196,7 +194,7 @@ As can be seen in the following screenshot the listed file system path points to
 | Mediawiki   | `<meta name="generator" content="MediaWiki 1.21.9" />`                         |
 | Joomla      | `<meta name="generator" content="Joomla! - Open Source Content Management" />` |
 | Drupal      | `<meta name="Generator" content="Drupal 7 (http://drupal.org)" />`             |
-| DotNetNuke  | DNN Platform - [http://www.dnnsoftware.com](http://www.dnnsoftware.com)        |
+| DotNetNuke  | `DNN Platform - [http://www.dnnsoftware.com](http://www.dnnsoftware.com)`      |
 
 #### General Markers
 
@@ -207,13 +205,13 @@ As can be seen in the following screenshot the listed file system path points to
 
 #### Specific Markers
 
-| Framework         | Keyword                      |
-|-------------------|------------------------------|
-| Adobe ColdFusion  | &lt;!-- START headerTags.cfm |
-| Microsoft ASP.NET | __VIEWSTATE                  |
-| ZK                | &lt;!-- ZK                   |
-| Business Catalyst | &lt;!-- BC_OBNW --&gt;       |
-| Indexhibit        | ndxz-studio                  |
+| Framework         | Keyword                        |
+|-------------------|--------------------------------|
+| Adobe ColdFusion  | `&lt;!-- START headerTags.cfm` |
+| Microsoft ASP.NET | `__VIEWSTATE`                  |
+| ZK                | `&lt;!-- ZK`                   |
+| Business Catalyst | `&lt;!-- BC_OBNW --&gt;`       |
+| Indexhibit        | `ndxz-studio`                  |
 
 ## Tools
 
@@ -242,12 +240,16 @@ Sample output is presented on a screenshot below:
 
 Website: [https://www.wappalyzer.com/](https://www.wappalyzer.com/)
 
-Wapplyzer is available in multiple usage models, the most popular of which is likely the Firefox/Chrome extensions. THey work only on regular expression matching and doesn't need anything other than the page to be loaded in browser. It works completely at the browser level and gives results in the form of icons. Although sometimes it has false positives, this is very handy to have notion of what technologies were used to construct a target website immediately after browsing a page.
+Wapplyzer is available in multiple usage models, the most popular of which is likely the Firefox/Chrome extensions. They work only on regular expression matching and doesn't need anything other than the page to be loaded in browser. It works completely at the browser level and gives results in the form of icons. Although sometimes it has false positives, this is very handy to have notion of what technologies were used to construct a target website immediately after browsing a page.
 
 Sample output of a plug-in is presented on a screenshot below.
 
 ![Wappalyzer Output for OWASP Website](images/Owasp-wappalyzer.png)\
 *Figure 4.1.8-9: Wappalyzer Output for OWASP Website*
+
+## Remediation
+
+While efforts can be made to use different cookie names (through changing configs), hiding or changing file/directory paths (through rewriting or source code changes), removing known headers, etc. such efforts boil down to "security through obscurity". System owners/admins should recognize that those efforts only slow down the most basic of adversaries. The time/effort may be better used on stakeholder awareness and solution maintenance activities. 
 
 ## References
 
@@ -255,35 +257,3 @@ Sample output of a plug-in is presented on a screenshot below.
 
 - [Saumil Shah: “An Introduction to HTTP fingerprinting”](https://web.archive.org/web/20190526182734/https://net-square.com/httprint_paper.html)
 - [Anant Shrivastava : “Web Application Finger Printing”](https://anantshri.info/articles/web_app_finger_printing.html)
-
-## Remediation
-
-Below are some specific recommendations by framework marker location and some additional interesting approaches.
-
-- HTTP Headers
-  - Check the componet configuration and disable or obfuscate all HTTP headers that disclose information about the technologies used.
-- Cookies
-  - Change cookie names by making changes in the corresponding configuration files.
-- HTML Source Code
-  - Manually check the contents of the HTML code and remove everything that explicitly points to the framework. General guidelines:
-    - Make sure there are no visual markers disclosing the framework.
-    - Remove any unnecessary comments (copyrights, bug information, specific framework comments).
-    - Remove `META` and generator tags.
-    - Use the companies own CSS or JS files and do not store those in framework-specific folders.
-    - Do not use default scripts on the page or obfuscate them if they must be used.
-- Specific Files and Folders
-  - Remove any unnecessary or unused files on the server. This implies text files disclosing information about versions and installation too.
-  - Restrict access to other files in order to achieve 404-response when accessing them from outside. This can be done, on Apache web servers for example, by modifying `htaccess` file and adding `RewriteCond` or `RewriteRule` there. An example of such restriction for two common WordPress folders is presented below.
-
-    ```apache
-    RewriteCond %{REQUEST_URI} /wp-login\.php$ [OR]
-    RewriteCond %{REQUEST_URI} /wp-admin/$
-    RewriteRule $ /http://your_website [R=404,L]
-    ```
-
-  - However, these are not the only ways to restrict access. In order to automate this process, certain framework-specific plugins exist. One example for WordPress is [StealthLogin](https://wordpress.org/plugins/stealth-login-page).
-- Additional approaches
-  - Checksum management - The purpose of this approach is to beat checksum-based scanners and not let them disclose files by their hashes. Generally, there are two approaches in checksum management:
-    - Change the location of where those files are placed (i.e. move them to another folder, or rename the existing folder).
-    - Modify the contents - even slight modification results in a completely different hash sum, so adding a single byte in the end of the file should not be a big problem.
-  - Controlled chaos - A funny and effective method that involves adding bogus files and folders from other frameworks in order to fool scanners and confuse an attacker. But be careful not to overwrite existing files and folders and to break the current framework!
