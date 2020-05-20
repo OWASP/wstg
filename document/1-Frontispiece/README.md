@@ -44,6 +44,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Rubal Jain
 - Tal Argoni
 - Victoria Drake
+- Phu Nguyen (Tony)
 
 ## Graphic Designers
 
