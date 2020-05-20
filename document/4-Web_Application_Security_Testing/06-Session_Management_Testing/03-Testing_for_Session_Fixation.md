@@ -1,7 +1,7 @@
 # Testing for Session Fixation
 
-|ID           |
-|-------------|
+|ID          |
+|------------|
 |WSTG-SESS-03|
 
 ## Summary
@@ -44,18 +44,12 @@ Content-Language: en-US
 
 The application sets a new session identifier JSESSIONID=0000d8eyYq3L0z2fgq10m4v-rt4:-1 for the client.
 
-Next, if the tester successfully authenticates to the application with the following POST HTTPS:
+Next, if the tester successfully authenticates to the application with the following POST (`https://www.example.com/authentication.php`):
 
 ```html
-POST https://www.example.com/authentication.php HTTP/1.1
+POST /authentication.php HTTP/1.1
 Host: www.example.com
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.16) Gecko/20080702 Firefox/2.0.0.16
-Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5
-Accept-Language: it-it,it;q=0.8,en-us;q=0.5,en;q=0.3
-Accept-Encoding: gzip,deflate
-Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
-Keep-Alive: 300
-Connection: keep-alive
+[...]
 Referer: http://www.example.com
 Cookie: JSESSIONID=0000d8eyYq3L0z2fgq10m4v-rt4:-1
 Content-Type: application/x-www-form-urlencoded

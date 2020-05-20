@@ -1,7 +1,7 @@
 # Test File Permission
 
-|ID             |
-|---------------|
+|ID          |
+|------------|
 |WSTG-CONF-09|
 
 ## Summary

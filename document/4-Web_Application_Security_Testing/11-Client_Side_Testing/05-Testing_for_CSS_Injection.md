@@ -1,7 +1,7 @@
 # Testing for CSS Injection
 
-|ID             |
-|---------------|
+|ID          |
+|------------|
 |WSTG-CLNT-05|
 
 ## Summary

@@ -1,7 +1,7 @@
 # Testing for Clickjacking
 
-|ID             |
-|---------------|
+|ID          |
+|------------|
 |WSTG-CLNT-09|
 
 ## Summary

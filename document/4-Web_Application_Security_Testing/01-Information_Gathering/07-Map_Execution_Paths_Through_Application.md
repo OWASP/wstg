@@ -1,12 +1,12 @@
 # Map Execution Paths Through Application
 
-|ID           |
-|-------------|
+|ID          |
+|------------|
 |WSTG-INFO-07|
 
 ## Summary
 
-Before commencing security testing, understanding the structure of the application is paramount. Without a thorough understanding of the layout of the application, it is unlkely that it will be tested thoroughly.
+Before commencing security testing, understanding the structure of the application is paramount. Without a thorough understanding of the layout of the application, it is unlikely that it will be tested thoroughly.
 
 ## Test Objectives
 

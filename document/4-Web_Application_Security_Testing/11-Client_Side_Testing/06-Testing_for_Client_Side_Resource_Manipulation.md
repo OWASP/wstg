@@ -1,7 +1,7 @@
 # Testing for Client Side Resource Manipulation
 
-|ID             |
-|---------------|
+|ID          |
+|------------|
 |WSTG-CLNT-06|
 
 ## Summary

@@ -1,7 +1,7 @@
 # Testing for HTTP Parameter Pollution
 
-|ID             |
-|---------------|
+|ID          |
+|------------|
 |WSTG-INPV-04|
 
 ## Summary
@@ -24,10 +24,11 @@ Another HPP vulnerability turned out to affect *Apple Cups*, the well-known prin
 
 ### Authentication Bypass
 
-An even more critical HPP vulnerability was discovered in *Blogger*, the popular blogging platform. The bug allowed malicious users to take ownership of the victim’s blog by using the following HTTP request:
+An even more critical HPP vulnerability was discovered in *Blogger*, the popular blogging platform. The bug allowed malicious users to take ownership of the victim’s blog by using the following HTTP request (`https://www.blogger.com/add-authors.do`):
 
 ```html
 POST /add-authors.do HTTP/1.1
+[...]
 
 security_token=attackertoken&blogID=attackerblogidvalue&blogID=victimblogidvalue&authorsList=goldshlager19test%40gmail.com(attacker email)&ok=Invite
 ```

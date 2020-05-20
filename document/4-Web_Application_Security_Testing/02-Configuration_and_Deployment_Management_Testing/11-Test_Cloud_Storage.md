@@ -1,7 +1,7 @@
 # Test Cloud Storage
 
-|ID             |
-|---------------|
+|ID          |
+|------------|
 |WSTG-CONF-11|
 
 ## Summary

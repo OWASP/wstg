@@ -1,7 +1,7 @@
 # Testing for HTTP Verb Tampering
 
-|ID             |
-|---------------|
+|ID          |
+|------------|
 |WSTG-INPV-03|
 
 ## Summary
@@ -48,87 +48,87 @@ As the HTML standard does not support request methods other than GET or POST, we
 
 This example is written using the netcat package from openbsd (standard with most Linux distributions). You may also use telnet (included with Windows) in a similar fashion.
 
-1. Crafting custom HTTP requests
+#### 1. Crafting Custom HTTP Requests
 
-   Each HTTP 1.1 request follows the following basic formatting and syntax. Elements surrounded by brackets `[ ]` are contextual to your application. The empty newline at the end is required.
+Each HTTP 1.1 request follows the following basic formatting and syntax. Elements surrounded by brackets `[ ]` are contextual to your application. The empty newline at the end is required.
 
-   ```html
-   [METHOD] /[index.htm] HTTP/1.1
-   host: [www.example.com]
-   ```
+```html
+[METHOD] /[index.htm] HTTP/1.1
+host: [www.example.com]
+```
 
-   In order to craft separate requests, you can manually type each request into netcat or telnet and examine the response. However, to speed up testing, you may also store each request in a separate file. This second approach is what we'll demonstrate in these examples. Use your favorite editor to create a text file for each method. Modify for your application's landing page and domain.
+In order to craft separate requests, you can manually type each request into netcat or telnet and examine the response. However, to speed up testing, you may also store each request in a separate file. This second approach is what we'll demonstrate in these examples. Use your favorite editor to create a text file for each method. Modify for your application's landing page and domain.
 
-   1.1 OPTIONS
+##### 1.1 OPTIONS
 
-   ```html
-   OPTIONS /index.html HTTP/1.1
-   host: www.example.com
-   ```
+```html
+OPTIONS /index.html HTTP/1.1
+host: www.example.com
+```
 
-   1.2 GET
+##### 1.2 GET
 
-   ```html
-   GET /index.html HTTP/1.1
-   host: www.example.com
-   ```
+```html
+GET /index.html HTTP/1.1
+host: www.example.com
+```
 
-   1.3 HEAD
+##### 1.3 HEAD
 
-   ```html
-   HEAD /index.html HTTP/1.1
-   host: www.example.com
-   ```
+```html
+HEAD /index.html HTTP/1.1
+host: www.example.com
+```
 
-   1.4 POST
+##### 1.4 POST
 
-   ```html
-   POST /index.html HTTP/1.1
-   host: www.example.com
-   ```
+```html
+POST /index.html HTTP/1.1
+host: www.example.com
+```
 
-   1.5 PUT
+##### 1.5 PUT
 
-   ```html
-   PUT /index.html HTTP/1.1
-   host: www.example.com
-   ```
+```html
+PUT /index.html HTTP/1.1
+host: www.example.com
+```
 
-   1.6 DELETE
+##### 1.6 DELETE
 
-   ```html
-   DELETE /index.html HTTP/1.1
-   host: www.example.com
-   ```
+```html
+DELETE /index.html HTTP/1.1
+host: www.example.com
+```
 
-   1.7 TRACE
+##### 1.7 TRACE
 
-   ```html
-   TRACE /index.html HTTP/1.1
-   host: www.example.com
-   ```
+```html
+TRACE /index.html HTTP/1.1
+host: www.example.com
+```
 
-   1.8 CONNECT
+##### 1.8 CONNECT
 
-   ```html
-   CONNECT /index.html HTTP/1.1
-   host: www.example.com
-   ```
+```html
+CONNECT /index.html HTTP/1.1
+host: www.example.com
+```
 
-2. Sending HTTP requests
+#### 2. Sending HTTP Requests
 
-   For each method or method text file, send the request to your web server via netcat or telnet on port 80 (HTTP):
+For each method or method text file, send the request to your web server via netcat or telnet on port 80 (HTTP):
 
-   `nc www.example.com 80 < OPTIONS.http.txt`
+`nc www.example.com 80 < OPTIONS.http.txt`
 
-3. Parsing HTTP responses
+#### 3. Parsing HTTP Responses
 
-   Although each HTTP method can potentially return different results, there is only a single valid result for all methods other than GET and POST. The web server should either ignore the request completely or return an error. Any other response indicates a test failure as the server is responding to methods/verbs that are unnecessary. These methods should be disabled.
+Although each HTTP method can potentially return different results, there is only a single valid result for all methods other than GET and POST. The web server should either ignore the request completely or return an error. Any other response indicates a test failure as the server is responding to methods/verbs that are unnecessary. These methods should be disabled.
 
-   An example of a failed test (ie, the server supports OPTIONS despite no need for it):
+An example of a failed test (ie, the server supports OPTIONS despite no need for it):
 
-   ![OPTIONS Verb Tampering](images/OPTIONS_verb_tampering.png)\
-   *Figure 4.7.3-1: OPTIONS Verb Tampering*
+![OPTIONS Verb Tampering](images/OPTIONS_verb_tampering.png)\
+*Figure 4.7.3-1: OPTIONS Verb Tampering*
 
 ### Automated HTTP Verb Tampering Testing
 

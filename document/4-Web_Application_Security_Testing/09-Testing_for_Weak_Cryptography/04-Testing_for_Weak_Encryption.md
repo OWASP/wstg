@@ -1,7 +1,7 @@
 # Testing for Weak Encryption
 
-|ID             |
-|---------------|
+|ID          |
+|------------|
 |WSTG-CRYP-04|
 
 ## Summary
@@ -42,7 +42,7 @@ ECDH、ECDSA: 256 bits
 
 `MD4, MD5, RC4, RC2, DES, Blowfish, SHA-1, ECB`
 
-- For Java implementation, the following API is related to encyprtion. Review the parameters of the encryption implementation. For example,
+- For Java implementation, the following API is related to encryption. Review the parameters of the encryption implementation. For example,
 
 ```java
 SecretKeyFactory(SecretKeyFactorySpi keyFacSpi, Provider provider, String algorithm)
@@ -77,7 +77,7 @@ cipher.init(..., s);
  cipher.init(Cipher.ENCRYPT_MODE, skey, iv);
 ```
 
-- In Java, search for MessageDigest to check if weak hash althorithm (MD5 or CRC) is used. For example:
+- In Java, search for MessageDigest to check if weak hash algorithm (MD5 or CRC) is used. For example:
 
 `MessageDigest md5 = MessageDigest.getInstance("MD5");`
 
@@ -103,7 +103,7 @@ private static byte[] pbkdf2(char[] password, byte[] salt, int iteration
 
 ```text
 User related keywords: name, root, su, superuser, login, username, uid
-Key related keywords: public key, AK, SK, secret Key,  private key, passwd, password, pwd, share key, cryto, base64
+Key related keywords: public key, AK, SK, secret Key, private key, passwd, password, pwd, share key, cryto, base64
 Other common senstive keywords: sysadmin, root, privilege, pass, key, code, master, admin, uname, session, joken, Oauth, privatekey
 ```
 

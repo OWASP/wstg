@@ -1,7 +1,7 @@
 # Testing for HTTP Splitting Smuggling
 
-|ID             |
-|---------------|
+|ID          |
+|------------|
 |WSTG-INPV-15|
 
 ## Summary

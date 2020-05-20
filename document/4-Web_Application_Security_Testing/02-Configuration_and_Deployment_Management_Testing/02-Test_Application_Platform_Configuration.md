@@ -1,7 +1,7 @@
 # Test Application Platform Configuration
 
-|ID             |
-|---------------|
+|ID          |
+|------------|
 |WSTG-CONF-02|
 
 ## Summary
@@ -30,10 +30,11 @@ Comment review should be done in order to determine if any information is being 
 
 #### System Configuration
 
-CIS-CAT gives IT and security professionals a fast, detailed assessment of target systems' conformance to CIS Benchmarks. CIS also provides the recommended system configuration hardening guide including database, OS, Web server, visualization.
+Various tools, documents, or checklists can be used to give IT and security professionals a detailed assessment of target systems' conformance to various configuration baselines or benchmarks. Such tools include (but are not limited to):
 
-- [1 CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks/)
-- [2 CIS Benchmarks Downloads](https://learn.cisecurity.org/benchmarks)
+- [CIS-CAT Lite](https://www.cisecurity.org/blog/introducing-cis-cat-lite/)
+- [Microsoft's Attack Surface Analyzer](https://github.com/microsoft/AttackSurfaceAnalyzer)
+- [NIST's National Checklist Program](https://nvd.nist.gov/ncp/repository)
 
 ### Gray-Box Testing
 
@@ -172,7 +173,7 @@ Log statistics or analysis should not be generated, nor stored, in the same serv
 - General
   - [Logging Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html), OWASP
   - [SP 800-92](https://csrc.nist.gov/publications/detail/sp/800-92/final) Guide to Computer Security Log Management, NIST
-  - [PCI DSS v3.1](https://www.pcisecuritystandards.org/document_library) Requirement 10 and PA-DSS v2.0 Requirement 4, PCI Security Standards Council
+  - [PCI DSS v3.2.1](https://www.pcisecuritystandards.org/document_library) Requirement 10 and PA-DSS v3.2 Requirement 4, PCI Security Standards Council
 
 - Generic:
   - [CERT Security Improvement Modules: Securing Public Web Servers](https://resources.sei.cmu.edu/asset_files/SecurityImprovementModule/2000_006_001_13637.pdf)
