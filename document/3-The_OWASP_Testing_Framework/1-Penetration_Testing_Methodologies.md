@@ -3,12 +3,12 @@
 ## Summary
 
 - OWASP Testing Guide
-- Penetration Testing Execution Standard
 - PCI Penetration Testing Guide
+- Penetration Testing Execution Standard
+- NIST 800-115
 - Penetration Testing Framework
-- Technical Guide to Information Security Testing and Assessment (NIST800-115)
-  - Information Systems Security Assessment Framework (ISSAF)
-  - Open Source Security Testing Methodology Manual (OSSTMM)
+- Information Systems Security Assessment Framework (ISSAF)
+- Open Source Security Testing Methodology Manual (OSSTMM)
 
 ## Penetration Testing Execution Standard (PTES)
 
