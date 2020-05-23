@@ -56,7 +56,9 @@ This second error occurred because the browser attempts to execute the JavaScrip
 
 An attacker could exploit this vulnerability by convincing a user to paste a malicious payload into the 'message' field of the contact form and then click the 'send message' button. This attack could be enhanced by convincing the user to use a browser version which does not support CSP.
 
-For further reading upon this topic and how to use CSP properly I would recommend this source: `https://hacks.mozilla.org/2016/02/implementing-content-security-policy/`
+## Remediation
+
+In order to properly protect services from DOM based XSS, refer to the [DOM based XSS prevention cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html).
 
 ### References
 
