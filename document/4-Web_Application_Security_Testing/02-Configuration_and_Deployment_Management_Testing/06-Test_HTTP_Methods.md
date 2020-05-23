@@ -6,87 +6,30 @@
 
 ## Summary
 
-HTTP offers a number of methods that can be used to perform actions on the web server (the HTTP 1.1 standard refers to them as `methods` but they are also commonly described as `verbs`). Many of theses methods are designed to aid developers in deploying and testing HTTP applications. These HTTP methods can be used for nefarious purposes if the web server is misconfigured. Additionally, Cross Site Tracing (XST), a form of cross site scripting using the server's HTTP TRACE method, is examined.
-While GET and POST are by far the most common methods that are used to access information provided by a web server, the Hypertext Transfer Protocol (HTTP) allows several other (and somewhat less known) methods.
+HTTP offers a number of methods that can be used to perform actions on the web server (the HTTP 1.1 standard refers to them as `methods` but they are also commonly described as `verbs`). While GET and POST are by far the most common methods that are used to access information provided by a web server, HTTP allows several other (and somewhat less known) methods. Some of these can be used for nefarious purposes if the web server is misconfigured.
 
-The full [HTTP 1.1 specification](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html) defines the following valid HTTP request methods, or verbs:
+[RFC 7231 –  Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content](https://tools.ietf.org/html/rfc7231) defines the following valid HTTP request methods, or verbs:
 
-- [`OPTIONS`](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.2)
-- [`GET`](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.3)
-- [`HEAD`](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.4)
-- [`POST`](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.5)
-- [`PUT`](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.6)
-- [`DELETE`](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.7)
-- [`TRACE`](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.8)
-- [`CONNECT`](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.9)
+- [`GET`](https://tools.ietf.org/html/rfc7231#section-4.3.1)
+- [`HEAD`](https://tools.ietf.org/html/rfc7231#section-4.3.2)
+- [`POST`](https://tools.ietf.org/html/rfc7231#section-4.3.3)
+- [`PUT`](https://tools.ietf.org/html/rfc7231#section-4.3.4)
+- [`DELETE`](https://tools.ietf.org/html/rfc7231#section-4.3.5)
+- [`CONNECT`](https://tools.ietf.org/html/rfc7231#section-4.3.6)
+- [`OPTIONS`](https://tools.ietf.org/html/rfc7231#section-4.3.7)
+- [`TRACE`](https://tools.ietf.org/html/rfc7231#section-4.3.8)
 
-If enabled, the Web Distributed Authoring and Version [(WebDAV)](http://www.webdav.org/specs/rfc2518.html) [extensions](https://tools.ietf.org/html/rfc4918) permit several more HTTP methods:
+However, most web applications only need to respond to GET and POST requests, receiving user data in the URL query string or appended to the request respectively. The standard `<a href=""></a>` style links as well as forms defined wihtout a method trigger a GET request; form data submitted via `<form method='POST'></form>` trigger POST requests. JavaScript and AJAX calls may send methods other than GET and POST but should usally not need to do that. If an application has to accept other methods, e.g. when implementing a RESTful Web Service, test it thoroughly to make sure that all endpoints only accept the methods that they require and that attacks such as Cross-Site Tracing (XST) are not possible.
 
-- [`PROPFIND`](http://www.webdav.org/specs/rfc2518.html#METHOD_PROPFIND)
-- [`PROPPATCH`](http://www.webdav.org/specs/rfc2518.html#METHOD_PROPPATCH)
-- [`MKCOL`](http://www.webdav.org/specs/rfc2518.html#METHOD_MKCOL)
-- [`COPY`](http://www.webdav.org/specs/rfc2518.html#METHOD_COPY)
-- [`MOVE`](http://www.webdav.org/specs/rfc2518.html#METHOD_MOVE)
-- [`LOCK`](http://www.webdav.org/specs/rfc2518.html#METHOD_LOCK)
-- [`UNLOCK`](http://www.webdav.org/specs/rfc2518.html#METHOD_UNLOCK)
-
-However, most web applications only need to respond to GET and POST requests, providing user data in the URL query string or appended to the request respectively. The standard `<a href=""></a>` style links trigger a GET request; form data submitted via
-`<form method='POST'></form>`trigger POST requests. Forms defined without a method also send data via GET by default.
-
-Oddly, the other valid HTTP methods (mentioned earlier) are not supported by the [HTML standard](https://www.w3.org/TR/REC-html40/interact/forms.html#h-17.13.1). Any HTTP method other than GET or POST needs to be called outside the HTML document. However, JavaScript and AJAX calls may send methods other than GET and POST. For this reason, most web applications should not need to accept other HTTP methods.
-
-If an application has to accept other methods, e.g. when implementing a RESTful Web Service, test it thoroughly to make sure that all endpoints only accept the methods that they require, and that all requests regardless of method are properly authenticated and authorized.
-
-### Arbitrary HTTP Methods
-
-Arshan Dabirsiaghi (see links) discovered that many web application frameworks allowed well chosen or arbitrary HTTP methods to bypass an environment level access control check:
-
-- Many frameworks and languages treat “HEAD” as a “GET” request, albeit one without any body in the response. If a security constraint was set on “GET” requests such that only “authenticatedUsers” could access GET requests for a particular servlet or resource, it would be bypassed for the “HEAD” version. This allowed unauthorized blind submission of any privileged GET request.
-
-- Some frameworks allowed arbitrary HTTP methods such as “JEFF” or “CATS” to be used without limitation. These were treated as if a “GET” method was issued, and were found not to be subject to method role based access control checks on a number of languages and frameworks, again allowing unauthorized blind submission of privileged GET requests.
-
-In many cases, code which explicitly checked for a “GET” or “POST” method would be safe.
+Also, verify that the web application authenticates and authorizes all requests regardless of request method, e.g. if a GET request for an endpoint requires authentication and authorization then a POST request to the same endpoint should typically also require authentication and authorization and so should typically a HEAD request as well.
 
 ## How to Test
 
 ### Discover the Supported Methods
 
-To perform this test, the tester needs some way to figure out which HTTP methods are supported by the web server that is being examined. The OPTIONS HTTP method provides the tester with the most direct and effective way to do that. RFC 2616 states that, “The OPTIONS method represents a request for information about the communication options available on the request/response chain identified by the Request-URI”.
+To perform this test, the tester needs some way to figure out which HTTP methods are supported by the web server that is being examined. While the OPTIONS HTTP method provides a direct way to do that, use a tool such as the http-methods nmap script to verify the servers response to the OPTIONS request.
 
-The testing method is extremely straightforward and we only need to fire up netcat (or telnet):
-
-```bash
-$ nc www.victim.com 80
-OPTIONS / HTTP/1.1
-Host: www.victim.com
-
-HTTP/1.1 200 OK
-Server: Microsoft-IIS/5.0
-Date: Tue, 31 Oct 2006 08:00:29 GMT
-Connection: close
-Allow: GET, HEAD, POST, TRACE, OPTIONS
-Content-Length: 0
-```
-
-As we can see in the example, OPTIONS provides a list of the methods that are supported by the web server, and in this case we can see that TRACE method is enabled. The danger that is posed by this method is illustrated in the following section
-
-The same test can also be executed using nmap and the http-methods NSE script:
-
-```console
-C:\Tools\nmap-6.40>nmap -p 443 --script http-methods localhost
-
-Starting Nmap 6.40 ( http://nmap.org ) at 2015-11-04 11:52 Romance Standard Time
-
-Nmap scan report for localhost (127.0.0.1)
-Host is up (0.0094s latency).
-PORT    STATE SERVICE
-443/tcp open  https
-| http-methods: OPTIONS TRACE GET HEAD POST
-| Potentially risky methods: TRACE
-|_See http://nmap.org/nsedoc/scripts/http-methods.html
-
-Nmap done: 1 IP address (1 host up) scanned in 20.48 seconds
-```
+To use the http-methods nmap script to test the endpoint `/admin` on the server `localhost` using HTTPs, issue the command `nmap -p 443 --script http-methods --script-args http-methods.url-path='/index.php' localhost`
 
 ### Test XST Potential
 
@@ -123,34 +66,9 @@ An attacker has two ways to successfully launch a Cross Site Tracing attack:
 
 More detailed information, together with code samples, can be found in the original whitepaper written by Jeremiah Grossman.
 
-### Testing for Arbitrary HTTP Methods
+### Testing for Access Control Bypass
 
-Find a page to visit that has a security constraint such that it would normally force a 302 redirect to a log in page or forces a log in directly. The test URL in this example works like this, as do many web applications. However, if a tester obtains a “200” response that is not a log in page, it is possible to bypass authentication and thus authorization.
-
-```bash
-$ nc www.example.com 80
-JEFF / HTTP/1.1
-Host: www.example.com
-
-HTTP/1.1 200 OK
-Date: Mon, 18 Aug 2008 22:38:40 GMT
-Server: Apache
-Set-Cookie: PHPSESSID=K53QW...
-```
-
-If the framework or firewall or application does not support the “JEFF” method, it should issue an error page (or preferably a 405 Not Allowed or 501 Not implemented error page). If it services the request, it is vulnerable to this issue.
-
-If the tester feels that the system is vulnerable to this issue, they should issue CSRF-like attacks to exploit the issue more fully:
-
-- FOOBAR /admin/createUser.php?member=myAdmin
-- JEFF /admin/changePw.php?member=myAdmin&passwd=foo123&confirm=foo123
-- CATS /admin/groupEdit.php?group=Admins&member=myAdmin&action=add
-
-With some luck, using the above three commands - modified to suit the application under test and testing requirements - a new user would be created, a password assigned, and made an administrator.
-
-### Testing for HEAD Access Control Bypass
-
-Find a page to visit that has a security constraint such that it would normally force a 302 redirect to a log in page or forces a log in directly. The test URL in this example works like this, as do many web applications. However, if the tester obtains a “200” response that is not a login page, it is possible to bypass authentication and thus authorization.
+Find a page to visit that has a security constraint such that a GET request would normally force a 302 redirect to a log in page or force a log in directly. Issue requests using various methods such as HEAD, POST, PUT etc. as well as arbitrarily made up methods such as BILBAO, FOOBAR, CATS etc., if the web application responds with a `HTTP/1.1 200 OK` that is not a login page, it may be possible to bypass authentication and/or authorization. The following example uses netcat, to test web applications using HTTPs, substitute netcat for another tool such as NMAPs `ncat`.
 
 ```bash
 $ nc www.example.com 80
@@ -172,13 +90,11 @@ Connection: close
 Content-Type: text/html; charset=ISO-8859-1
 ```
 
-If the tester gets a “405 Method not allowed” or “501 Method Unimplemented”, the target (application/framework/language/system/firewall) is working correctly. If a “200” response code comes back, and the response contains no body, it's likely that the application has processed the request without authentication or authorization and further testing is warranted.
-
-If the tester thinks that the system is vulnerable to this issue, they should issue CSRF-like attacks to exploit the issue more fully:
+If the system appears vulnerable, issue CSRF-like attacks such as the following to exploit the issue more fully:
 
 - HEAD /admin/createUser.php?member=myAdmin
-- HEAD /admin/changePw.php?member=myAdmin&passwd=foo123&confirm=foo123
-- HEAD /admin/groupEdit.php?group=Admins&member=myAdmin&action=add
+- PUT /admin/changePw.php?member=myAdmin&passwd=foo123&confirm=foo123
+- CATS /admin/groupEdit.php?group=Admins&member=myAdmin&action=add
 
 With some luck, using the above three commands - modified to suit the application under test and testing requirements - a new user would be created, a password assigned, and made an administrator, all using blind request submission.
 
@@ -220,14 +136,14 @@ Server: Apache
 - [NetCat](http://nc110.sourceforge.net)
 - [cURL](https://curl.haxx.se/)
 - [nmap http-methods NSE script](https://nmap.org/nsedoc/scripts/http-methods.html)
+- [w3af plugin htaccess_methods](http://w3af.org/plugins/audit/htaccess_methods)
 
 ## References
 
 ### Whitepapers
 
-- [RFC 2616: “Hypertext Transfer Protocol -- HTTP/1.1”](https://tools.ietf.org/html/rfc2616)
 - [RFC 2109](https://tools.ietf.org/html/rfc2109) and [RFC 2965](https://tools.ietf.org/html/rfc2965): “HTTP State Management Mechanism”
-- [Arshan Dabirsiaghi: “Bypassing URL Authentication and Authorization with HTTP Verb Tampering”](https://web.archive.org/web/20081116154150/http://www.aspectsecurity.com/documents/Bypassing_VBAAC_with_HTTP_Verb_Tampering.pdf)
+- [HTACCESS: BILBAO Method Exposed](https://web.archive.org/web/20160616172703/http://www.kernelpanik.org/docs/kernelpanik/bme.eng.pdf)
 - [Jeremiah Grossman: “Cross Site Tracing (XST)](https://www.cgisecurity.com/whitehat-mirror/WH-WhitePaper_XST_ebook.pdf)
 - [Amit Klein: “XS(T) attack variants which can, in some cases, eliminate the need for TRACE”](https://www.securityfocus.com/archive/107/308433)
 - [Fortify - Misused HTTP Method Override](https://vulncat.fortify.com/en/detail?id=desc.dynamic.xtended_preview.often_misused_http_method_override)
