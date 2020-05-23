@@ -62,4 +62,5 @@ In order to properly protect services from DOM based XSS, refer to the [DOM base
 
 ### References
 
-- [OWASP website - DOM-Based Cross Site Scripting](https://owasp.org/www-community/attacks/DOM_Based_XSS)
+- [OWASP - DOM-Based Cross Site Scripting](https://owasp.org/www-community/attacks/DOM_Based_XSS)
+- [CSP Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html)
