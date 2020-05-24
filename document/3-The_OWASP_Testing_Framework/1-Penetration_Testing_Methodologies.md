@@ -1,5 +1,10 @@
 # Penetration Testing Methodologies
 
+## Summary
+
+- [OWASP](#owasp)
+  - [Web Security Testing Guide (WSTG)](#web-security-testing-guide-wstg)
+  - [Mobile Security Testing Guide (WSTG)](#mobile-security-testing-guide-wstg)
 - [Penetration Testing Execution Standard (PTES)](#penetration-testing-execution-standard-ptes)
 - [PCI Penetration Testing Guide](#pci-penetration-testing-guide)
   - [PCI DSS Penetration Testing Guidance](#pci-dss-penetration-testing-guidance)
@@ -9,6 +14,10 @@
 - [Information Systems Security Assessment Framework (ISSAF)](#information-systems-security-assessment-framework-issaf)
 - [Open Source Security Testing Methodology Manual (OSSTMM)](#open-source-security-testing-methodology-manual-osstmm)
 - [References](#references)
+
+## OWASP
+
+This present document (WSTG) describes the OWASP-recommended methodology for web application security testing. For recommendations specific to mobile devices, the Mobile Security Testing Guide (MSTG) is also available.
 
 ## Penetration Testing Execution Standard (PTES)
 
