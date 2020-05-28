@@ -17,7 +17,7 @@
 
 ## OWASP
 
-This present document (WSTG) describes the OWASP-recommended methodology for web application security testing. For recommendations specific to mobile devices, the Mobile Security Testing Guide (MSTG) is also available.
+This present document (WSTG) describes the OWASP-recommended methodology for web application security testing. For recommendations specific to mobile devices, the [Mobile Security Testing Guide (MSTG)](https://owasp.org/www-project-mobile-security-testing-guide/) is also available.
 
 ## Penetration Testing Execution Standard (PTES)
 
