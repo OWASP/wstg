@@ -3,8 +3,8 @@
 ## Summary
 
 - [OWASP](#owasp)
-  - [Web Security Testing Guide (WSTG)](#web-security-testing-guide-wstg)
-  - [Mobile Security Testing Guide (MSTG)](#mobile-security-testing-guide-wstg)
+  - Web Security Testing Guide (WSTG)
+  - Mobile Security Testing Guide (MSTG)
 - [Penetration Testing Execution Standard (PTES)](#penetration-testing-execution-standard-ptes)
 - [PCI Penetration Testing Guide](#pci-penetration-testing-guide)
   - [PCI DSS Penetration Testing Guidance](#pci-dss-penetration-testing-guidance)
