@@ -556,12 +556,9 @@ For generic input validation security, refer to the [Input Validation CheatSheet
 ## Tools
 
 - [SQL Injection Fuzz Strings (from wfuzz tool) - Fuzzdb](https://github.com/fuzzdb-project/fuzzdb/tree/master/attack/sql-injection)
-- [Francois Larouche: Multiple DBMS SQL Injection tool -SQL Power Injector](http://www.sqlpowerinjector.com/index.htm)
 - [sqlbftools](http://packetstormsecurity.org/files/43795/sqlbftools-1.2.tar.gz.html)
 - [Bernardo Damele A. G.: sqlmap, automatic SQL injection tool](http://sqlmap.org/)
-- [icesurfer: SQL Server Takeover Tool - sqlninja](http://sqlninja.sourceforge.net)
 - [Muhaimin Dzulfakar: MySqloit, MySql Injection takeover tool](https://github.com/dtrip/mysqloit)
-- [bsqlbf, a blind SQL injection tool in Perl](https://code.google.com/p/bsqlbf-v2/)
 
 ## References
 
