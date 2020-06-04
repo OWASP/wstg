@@ -104,7 +104,7 @@
 - [ParrotSecurity](https://www.parrotsec.org/)
 - [Kali](https://www.kali.org/)
 - [BlackArch](https://blackarch.org/downloads.html)
-- [PenToo](https://www.pentoo.ch/download/)
+- [PenToo](https://www.pentoo.ch/)
 
 ## Source Code Analyzers
 
