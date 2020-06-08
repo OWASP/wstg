@@ -1201,7 +1201,7 @@ To test if a website is vulnerable carry out the following tests:
 
 Some applications supports both HTTP and HTTPS, either for usability or so users can type both addresses and get to the site. Often users go into an HTTPS website from link or a redirect. Typically personal banking sites have a similar configuration with an iframed log in or a form with action attribute over HTTPS but the page under HTTP.
 
-An attacker in a privileged position - as described in [SSL strip](https://moxie.org/software/sslstrip/) - can intercept traffic when the user is in the HTTP site and manipulate it to get a Man-In-The-Middle attack under HTTPS. An application is vulnerable if it supports both HTTP and HTTPS.
+An attacker in a privileged position - as described in [SSL strip](https://github.com/moxie0/sslstrip) - can intercept traffic when the user is in the HTTP site and manipulate it to get a Man-In-The-Middle attack under HTTPS. An application is vulnerable if it supports both HTTP and HTTPS.
 
 ### Testing via HTTP Proxy
 
