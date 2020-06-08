@@ -12,7 +12,7 @@ OS command injection is a technique used via a web interface in order to execute
 
 ## How to Test
 
-When viewing a file in a web application, the file name is often shown in the URL. Perl allows piping data from a process into an open statement. The user can simply append the Pipe symbol `|` onto the end of the file name.
+When viewing a file in a web application, the filename is often shown in the URL. Perl allows piping data from a process into an open statement. The user can simply append the Pipe symbol `|` onto the end of the filename.
 
 Example URL before alteration:
 

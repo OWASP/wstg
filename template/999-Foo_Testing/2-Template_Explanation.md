@@ -6,14 +6,14 @@
 
 ## How to Name Your File
 
-The file name format is:
+The filename format is:
 
 `<number>-Article_Name.md`
 
 To name your file:
 
 - Replace `<number>` with the appropriate integer. If you are unsure which section your article belongs in, post a comment in your [new content issue](https://github.com/OWASP/wstg/issues?q=is%3Aopen+is%3Aissue+label%3ANew) asking for input.
-- Write the article name in title case spaced with underscores for better URL encoding. If the article is titled, "Testing Foo Bypass in Bars" the file name component is: `Testing_Foo_Bypass_in_Bars` (with a hyphen separating the `<number>` from the title).
+- Write the article name in title case spaced with underscores for better URL encoding. If the article is titled, "Testing Foo Bypass in Bars" the filename component is: `Testing_Foo_Bypass_in_Bars` (with a hyphen separating the `<number>` from the title).
 
 ## Article Sections
 
@@ -21,7 +21,7 @@ The remainder of this document explains each section in the [article example](99
 
 ## Title
 
-The first line of the document is a title at level H1. Followed by a markdown table that includes the ID of the testing scenario. For example:
+The first line of the document is a title at level H1. Followed by a Markdown table that includes the ID of the testing scenario. For example:
 
 ```md
 |ID          |

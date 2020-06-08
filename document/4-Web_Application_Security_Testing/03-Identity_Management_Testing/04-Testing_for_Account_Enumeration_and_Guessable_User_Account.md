@@ -67,7 +67,7 @@ Now, the tester should try to insert an invalid user ID and a wrong password and
 > - Client request: Wrong user/wrong password
 > - Server answer:'User not recognized'
 >
-> The above responses let the client understand that for the first request they have a valid user name. So they can interact with the application requesting a set of possible user IDs and observing the answer.
+> The above responses let the client understand that for the first request they have a valid username. So they can interact with the application requesting a set of possible user IDs and observing the answer.
 >
 > Looking at the second server response, the tester understand in the same way that they don't hold a valid username. So they can interact in the same manner and create a list of valid user ID looking at the server answers.
 
@@ -117,10 +117,10 @@ For instance, if a user cannot authenticate to an application and receives a web
 
 When we use a recovery facility (i.e. a forgotten password function) a vulnerable application might return a message that reveals if a username exists or not.
 
-For example, message similar to the following:\
-Invalid username: e-mail address is not valid or the specified user was not found.
+For example, messages similar to the following:
 
-`Valid username: Your password has been successfully sent to the email address you registered with.`
+- `Invalid username: email address is not valid or the specified user was not found.`
+- `Valid username: Your password has been successfully sent to the email address you registered with.`
 
 #### Friendly 404 Error Message
 

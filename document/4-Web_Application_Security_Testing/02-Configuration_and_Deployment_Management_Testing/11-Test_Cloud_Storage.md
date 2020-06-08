@@ -73,9 +73,9 @@ For black-box testing, S3 URLs can be found in the HTTP messages. The following 
 
 For gray-box testing, you can obtain bucket URLs from Amazon's web interface, documents, source code, or any other available sources.
 
-#### Testing with AWS CLI Tool
+#### Testing with AWS Command-line Tool
 
-In addition to testing with curl, you can also test with the AWS Command Line Interface (CLI) tool. In this case `s3://` protocol is used.
+In addition to testing with curl, you can also test with the AWS Command-line tool. In this case `s3://` protocol is used.
 
 ##### List
 
@@ -111,7 +111,7 @@ The following is the command to remove an object
 
 ## Tools
 
-- [AWS Command Line Interface](https://aws.amazon.com/cli/)
+- [AWS CLI](https://aws.amazon.com/cli/)
 
 ## References
 

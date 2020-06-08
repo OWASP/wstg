@@ -89,7 +89,7 @@ Each operating system uses different characters as path separator:
 - root directory: "`<drive letter>:\`"
 - directory separator: "\" or "/"
 
-*Classic Mac OS*:
+*Classic macOS*:
 
 - root directory: "`<drive letter>:`"
 - directory separator: "`:`"

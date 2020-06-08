@@ -6,7 +6,7 @@
 
 ## Summary
 
-There is nothing new under the sun, and nearly every web application that one may think of developing has already been developed. With the vast number of free and Open Source software projects that are actively developed and deployed around the world, it is very likely that an application security test will face a target that is entirely or partly dependent on these well known applications or frameworks (e.g. Wordpress, phpBB, Mediawiki, etc). Knowing the web application components that are being tested significantly helps in the testing process and will also drastically reduce the effort required during the test. These well known web applications have known HTML headers, cookies, and directory structures that can be enumerated to identify the application. Most of the web frameworks have several markers in those locations which help an attacker or tester to recognize them. This is basically what all automatic tools do, they look for a marker from a predefined location and then compare it to the database of known signatures. For better accuracy several markers are usually used.
+There is nothing new under the sun, and nearly every web application that one may think of developing has already been developed. With the vast number of free and Open Source software projects that are actively developed and deployed around the world, it is very likely that an application security test will face a target that is entirely or partly dependent on these well known applications or frameworks (e.g. WordPress, phpBB, Mediawiki, etc). Knowing the web application components that are being tested significantly helps in the testing process and will also drastically reduce the effort required during the test. These well known web applications have known HTML headers, cookies, and directory structures that can be enumerated to identify the application. Most of the web frameworks have several markers in those locations which help an attacker or tester to recognize them. This is basically what all automatic tools do, they look for a marker from a predefined location and then compare it to the database of known signatures. For better accuracy several markers are usually used.
 
 ## Test Objectives
 
@@ -114,7 +114,7 @@ Frequently such information is positioned in the `<head>` section of HTTP respon
 
 There is another approach which greatly helps an attacker or tester to identify applications or components with high accuracy. Every web component has its own specific file and folder structure on the server. It has been noted that one can see the specific path from the HTML page source but sometimes they are not explicitly presented there and still reside on the server.
 
-In order to uncover them a technique known as forced browsing or "dirbusting" is used. Dirbusting is brute forcing a target with known folder and file names and monitoring HTTP-responses to enumerate server content. This information can be used both for finding default files and attacking them, and for fingerprinting the web application. Dirbusting can be done in several ways, the example below shows a successful dirbusting attack against a WordPress-powered target with the help of defined list and intruder functionality of Burp Suite.
+In order to uncover them a technique known as forced browsing or "dirbusting" is used. Dirbusting is brute forcing a target with known folder and filenames and monitoring HTTP-responses to enumerate server content. This information can be used both for finding default files and attacking them, and for fingerprinting the web application. Dirbusting can be done in several ways, the example below shows a successful dirbusting attack against a WordPress-powered target with the help of defined list and intruder functionality of Burp Suite.
 
 ![Dirbusting with Burp](images/Wordpress_dirbusting.png)\
 *Figure 4.1.8-4: Dirbusting with Burp*
@@ -165,7 +165,7 @@ As can be seen in the following screenshot the listed file system path points to
 | Kohana       | kohanasession                     |
 | Laravel      | laravel_session                   |
 | phpBB        | phpbb3_                           |
-| Wordpress    | wp-settings                       |
+| WordPress    | wp-settings                       |
 | 1C-Bitrix    | BITRIX_                           |
 | AMPcms       | AMP                               |
 | Django CMS   | django                            |
@@ -189,7 +189,7 @@ As can be seen in the following screenshot the listed file system path points to
 
 | Application | Keyword                                                                        |
 |-------------|--------------------------------------------------------------------------------|
-| Wordpress   | `<meta name="generator" content="WordPress 3.9.2" />`                          |
+| WordPress   | `<meta name="generator" content="WordPress 3.9.2" />`                          |
 | phpBB       | `&lt;body id=“phpbb”`                                                          |
 | Mediawiki   | `<meta name="generator" content="MediaWiki 1.21.9" />`                         |
 | Joomla      | `<meta name="generator" content="Joomla! - Open Source Content Management" />` |

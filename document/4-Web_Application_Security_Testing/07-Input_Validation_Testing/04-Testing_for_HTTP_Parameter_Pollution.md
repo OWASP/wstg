@@ -57,7 +57,7 @@ Given the URL and querystring: `http://example.com/?color=red&color=blue`
   | mod_wsgi (Python) / Apache | First occurrence only | color=red |
   | Python / Zope | All occurrences in List data type | color=['red','blue'] |
 
-(source: [https://owasp.org/www-pdf-archive/AppsecEU09_CarettoniDiPaola_v0.8.pdf](https://owasp.org/www-pdf-archive/AppsecEU09_CarettoniDiPaola_v0.8.pdf))
+(source: [Appsec EU 2009 Carettoni & Paola](https://owasp.org/www-pdf-archive/AppsecEU09_CarettoniDiPaola_v0.8.pdf))
 
 ## How to Test
 

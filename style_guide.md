@@ -213,7 +213,7 @@ As adverbs, use the hyphenated _white-box_, _black-box_, and _grey-box_. Do not 
 
 These are letters.
 
-The abbreviation _i.e._ refers to the Latin _id est_, which means "in other words." The abbreviation _e.g._ is for _exempli gratia_, translating to "for example." To use these in a sentence:
+The abbreviation _i.e._ refers to the Latin `id est`, which means "in other words." The abbreviation _e.g._ is for `exempli gratia`, translating to "for example." To use these in a sentence:
 
 > Write using proper English, i.e. correct spelling and grammar. Use common words over uncommon ones, e.g. "learn" instead of "glean."
 

@@ -17,7 +17,7 @@ Some common vulnerabilities related to server-side request forgery:
 
 ### How to Test
 
-#### Case I: End points which fetch external/internal resources
+#### Case I: Endpoints Which Fetch External/Internal Resources
 
 With GET request:
 
@@ -34,7 +34,7 @@ Host: example.com
 url=https://hacker.com/as&name2=value2
 ```
 
-#### Case II: PDF generators
+#### Case II: PDF Generators
 
 There are some cases where server converts uploaded file to a pdf.Try injecting `<iframe>`, `<img>`, `<base>` or `<script>` elements or CSS url() functions pointing to internal services.
 

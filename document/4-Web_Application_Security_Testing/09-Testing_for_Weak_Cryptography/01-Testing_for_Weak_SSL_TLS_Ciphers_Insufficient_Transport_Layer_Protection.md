@@ -670,7 +670,7 @@ Additionally it provides a prototype (via `testssl.sh -V`) of mapping to RFC cip
 11. HSTS: Check for SubDomains support
 12. Certificate expiration
 13. Insufficient public key-length
-14. Host-name mismatch
+14. Hostname mismatch
 15. Weak/Insecure Hashing Algorithm (MD2, MD4, MD5, SHA1)
 16. SSLv2 support
 17. Weak ciphers check (Low, Anon, Null, Export)
@@ -1141,7 +1141,7 @@ Checking localhost:443 for TLS Compression support against CRIME (CVE-2012-4929)
 7. PFS: Forward Secrecy support
 8. HSTS: Check for implementation of HSTS header
 9. SNI support
-10. Certificate: Host-name mismatch
+10. Certificate: Hostname mismatch
 11. Certificate expiration
 12. Certificate extension
 13. Weak/Insecure Hashing Algorithm (MD2, MD4, MD5, SHA1)
@@ -1158,7 +1158,7 @@ Firstly upgrade the browser because CA certs expire and in every release of the 
 
 By clicking on the padlock that appears in the browser window when visiting an HTTPS site, testers can look at information related to the certificate – including the issuer, period of validity, encryption characteristics, etc. If the application requires a client certificate, that tester has probably installed one to access it. Certificate information is available in the browser by inspecting the relevant certificate(s) in the list of the installed certificates.
 
-These checks must be applied to all visible SSL-wrapped communication channels used by the application. Though this is the usual HTTPS service running on port 443, there may be additional services involved depending on the web application architecture and on deployment issues (an HTTPS administrative port left open, HTTPS services on non-standard ports, etc.). Therefore, apply these checks to all SSL-wrapped ports which have been discovered. For example, the nmap scanner features a scanning mode (enabled by the –sV command line switch) which identifies SSL-wrapped services. The Nessus vulnerability scanner has the capability of performing SSL checks on all SSL/TLS-wrapped services.
+These checks must be applied to all visible SSL-wrapped communication channels used by the application. Though this is the usual HTTPS service running on port 443, there may be additional services involved depending on the web application architecture and on deployment issues (an HTTPS administrative port left open, HTTPS services on non-standard ports, etc.). Therefore, apply these checks to all SSL-wrapped ports which have been discovered. For example, the nmap scanner features a scanning mode (enabled by the `–sV` command-line switch) which identifies SSL-wrapped services. The Nessus vulnerability scanner has the capability of performing SSL checks on all SSL/TLS-wrapped services.
 
 #### Example 1. Testing for Certificate Validity (Manually)
 

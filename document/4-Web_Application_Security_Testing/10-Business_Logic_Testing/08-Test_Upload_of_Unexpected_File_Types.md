@@ -14,7 +14,7 @@ The application may be expecting only certain file types to be uploaded for proc
 
 ## Example
 
-Suppose a picture sharing application allows users to upload a .gif or .jpg graphic file to the web site. What if an attacker is able to upload an HTML file with a `<script>` tag in it or PHP file? The system may move the file from a temporary location to the final location where the PHP code can now be executed against the application or system.
+Suppose a picture sharing application allows users to upload a `.gif` or `.jpg` graphic file to the web site. What if an attacker is able to upload an HTML file with a `<script>` tag in it or PHP file? The system may move the file from a temporary location to the final location where the PHP code can now be executed against the application or system.
 
 ## How to Test
 

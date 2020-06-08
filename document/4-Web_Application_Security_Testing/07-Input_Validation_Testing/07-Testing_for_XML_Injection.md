@@ -194,7 +194,7 @@ For example, if there is the need to represent the string `<foo>` inside a text 
 
 so that `<foo>` won't be parsed as markup and will be considered as character data.
 
-If a node is built in the following way:
+If a node is created in the following way:
 
 `<username><![CDATA[<$userName]]></username>`
 
@@ -398,7 +398,7 @@ Check source code if the docType, external DTD, and external parameter entities 
 
 In addition, the Java POI office reader may be vulnerable to XXE if the version is under 3.10.1.
 
-The version of POI library can be identified from the file name of the JAR. For example,
+The version of POI library can be identified from the filename of the JAR. For example,
 
 - poi-3.8.jar
 - poi-ooxml-3.8.jar
