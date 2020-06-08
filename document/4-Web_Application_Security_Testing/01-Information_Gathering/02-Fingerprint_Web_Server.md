@@ -174,7 +174,7 @@ Here are some commonly-used scan tools that include web server fingerprinting fu
 
 - [Netcraft](https://toolbar.netcraft.com/site_report), an online tool that scans websites for information, including the web server.
 - [Nikto](https://github.com/sullo/nikto), an Open Source command-line scanning tool.
-- [Nmap](https://nmap.org/), an Open Source command line-tool that also has a GUI, [Zenmap](https://nmap.org/zenmap/).
+- [Nmap](https://nmap.org/), an Open Source command-line tool that also has a GUI, [Zenmap](https://nmap.org/zenmap/).
 
 ## Remediation
 

@@ -73,7 +73,7 @@ For black-box testing, S3 URLs can be found in the HTTP messages. The following 
 
 For gray-box testing, you can obtain bucket URLs from Amazon's web interface, documents, source code, or any other available sources.
 
-#### Testing with AWS Command-line Tool
+#### Testing with AWS-CLI
 
 In addition to testing with curl, you can also test with the AWS Command-line tool. In this case `s3://` protocol is used.
 
