@@ -17,7 +17,7 @@ To name your file:
 
 ## Article Sections
 
-The remainder of this document explains each section in the [article example](999-Foo_Testing/1-Testing_for_a_Cat_in_a_Box.md).
+The remainder of this document explains each section in the [article example](1-Testing_for_a_Cat_in_a_Box.md).
 
 ## Title
 
@@ -31,11 +31,11 @@ The first line of the document is a title at level H1. Followed by a Markdown ta
 
 ## Summary
 
-Fully describe the reason for the test. Name specific vulnerabilities. Give the background information necessary for a reader with basic technical expertise. Explain terminology and abbreviations. See the [style guide](../style_guide.md) for more.
+Fully describe the reason for the test. Name specific vulnerabilities. Give the background information necessary for a reader with basic technical expertise. Explain terminology and abbreviations. See the [style guide](../../style_guide.md) for more.
 
 ## Test Objectives
 
-Use an [active voice](../style_guide.md#active-voice) to describe the goal of the test.
+Use an [active voice](../../style_guide.md#active-voice) to describe the goal of the test.
 
 ## How to Test
 
