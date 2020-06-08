@@ -26,7 +26,7 @@ Other vulnerabilities linked to this are:
 - Software exposed must be updated due to possibility of [known vulnerabilities](../02-Configuration_and_Deployment_Management_Testing/01-Test_Network_Infrastructure_Configuration.md).
 - Usage of [Secure flag for Session Cookies](../06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.md).
 - Usage of [HTTP Strict Transport Security (HSTS)](../02-Configuration_and_Deployment_Management_Testing/07-Test_HTTP_Strict_Transport_Security.md).
-- The presence of both [HTTP](https://resources.enablesecurity.com/resources/Surf%20Jacking.pdf) and [HTTPS](https://moxie.org/software/sslstrip/), which can be used to intercept traffic.
+- The presence of both [HTTP](https://resources.enablesecurity.com/resources/Surf%20Jacking.pdf) and [HTTPS](https://github.com/moxie0/sslstrip), which can be used to intercept traffic.
 - The presence of mixed HTTPS and HTTP content in the same page, which can be used to Leak information.
 
 ### Sensitive Data Transmitted in Clear-Text
