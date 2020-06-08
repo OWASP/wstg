@@ -129,7 +129,7 @@ Pages and functionality in Internet-facing web applications that are not referen
 
 #### Filename Filter Bypass
 
-Because blacklist filters are based on regular expressions, one can sometimes take advantage of obscure OS filename expansion features in which work in ways the developer didn't expect. The tester can sometimes exploit differences in ways that filenames are parsed by the application, web server, and underlying OS and it's filename conventions.
+Because deny list filters are based on regular expressions, one can sometimes take advantage of obscure OS filename expansion features in which work in ways the developer didn't expect. The tester can sometimes exploit differences in ways that filenames are parsed by the application, web server, and underlying OS and it's filename conventions.
 
 Example: Windows 8.3 filename expansion `c:\\program files` becomes `C:\\PROGRA\~1`
 
