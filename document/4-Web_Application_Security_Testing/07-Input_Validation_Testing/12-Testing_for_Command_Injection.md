@@ -12,7 +12,7 @@ OS command injection is a technique used via a web interface in order to execute
 
 ## How to Test
 
-When viewing a file in a web application, the file name is often shown in the URL. Perl allows piping data from a process into an open statement. The user can simply append the Pipe symbol `|` onto the end of the file name.
+When viewing a file in a web application, the filename is often shown in the URL. Perl allows piping data from a process into an open statement. The user can simply append the Pipe symbol `|` onto the end of the filename.
 
 Example URL before alteration:
 
@@ -148,9 +148,9 @@ Be aware of the uses of following API as it may introduce the command injection 
 
 #### Sanitization
 
-The URL and form data needs to be sanitized for invalid characters. A blacklist of characters is an option but it may be difficult to think of all of the characters to validate against. Also there may be some that were not discovered as of yet. A whitelist containing only allowable characters or command list should be created to validate the user input. Characters that were missed, as well as undiscovered threats, should be eliminated by this list.
+The URL and form data needs to be sanitized for invalid characters. A deny list of characters is an option but it may be difficult to think of all of the characters to validate against. Also there may be some that were not discovered as of yet. An allow list containing only allowable characters or command list should be created to validate the user input. Characters that were missed, as well as undiscovered threats, should be eliminated by this list.
 
-General blacklist to be included for command injection can be `|` `;` `&` `$` `>` `<` `'` `\` `!` `>>` `#`
+General deny list to be included for command injection can be `|` `;` `&` `$` `>` `<` `'` `\` `!` `>>` `#`
 
 Escape or filter special characters for windows,   `(` `)` `<` `>` `&` `*` `‘` `|` `=` `?` `;` `[` `]` `^` `~` `!` `.` `”` `%` `@` `/` `\` `:` `+` `,`  ``` ` ```
 Escape or filter special characters for Linux, `{` `}` `(` `)` `>` `<` `&` `*` `‘` `|` `=` `?` `;` `[` `]` `$` `–` `#` `~` `!` `.` `”` `%`  `/` `\` `:` `+` `,` ``` ` ```

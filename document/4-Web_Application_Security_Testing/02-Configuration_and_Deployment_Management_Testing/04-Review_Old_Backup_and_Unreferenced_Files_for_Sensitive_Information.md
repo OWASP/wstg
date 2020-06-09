@@ -31,7 +31,7 @@ Old, backup and unreferenced files present various threats to the security of a 
 - Old and backup files may contain vulnerabilities that have been fixed in more recent versions; for example `viewdoc.old.jsp` may contain a directory traversal vulnerability that has been fixed in `viewdoc.jsp` but can still be exploited by anyone who finds the old version.
 - Backup files may disclose the source code for pages designed to execute on the server; for example requesting `viewdoc.bak` may return the source code for `viewdoc.jsp`, which can be reviewed for vulnerabilities that may be difficult to find by making blind requests to the executable page. While this threat obviously applies to scripted languages, such as Perl, PHP, ASP, shell scripts, JSP, etc., it is not limited to them, as shown in the example provided in the next bullet.
 - Backup archives may contain copies of all files within (or even outside) the webroot. This allows an attacker to quickly enumerate the entire application, including unreferenced pages, source code, include files, etc. For example, if you forget a file named `myservlets.jar.old` file containing (a backup copy of) your servlet implementation classes, you are exposing a lot of sensitive information which is susceptible to decompilation and reverse engineering.
-- In some cases copying or editing a file does not modify the file extension, but modifies the file name. This happens for example in Windows environments, where file copying operations generate file names prefixed with “Copy of “ or localized versions of this string. Since the file extension is left unchanged, this is not a case where an executable file is returned as plain text by the web server, and therefore not a case of source code disclosure. However, these files too are dangerous because there is a chance that they include obsolete and incorrect logic that, when invoked, could trigger application errors, which might yield valuable information to an attacker, if diagnostic message display is enabled.
+- In some cases copying or editing a file does not modify the file extension, but modifies the filename. This happens for example in Windows environments, where file copying operations generate filenames prefixed with “Copy of “ or localized versions of this string. Since the file extension is left unchanged, this is not a case where an executable file is returned as plain text by the web server, and therefore not a case of source code disclosure. However, these files too are dangerous because there is a chance that they include obsolete and incorrect logic that, when invoked, could trigger application errors, which might yield valuable information to an attacker, if diagnostic message display is enabled.
 - Log files may contain sensitive information about the activities of application users, for example sensitive data passed in URL parameters, session IDs, URLs visited (which may disclose additional unreferenced content), etc. Other log files (e.g. ftp logs) may contain sensitive information about the maintenance of the application by system administrators.
 - File system snapshots may contain copies of the code that contain vulnerabilities that have been fixed in more recent versions. For example `/.snapshot/monthly.1/view.php` may contain a directory traversal vulnerability that has been fixed in `/view.php` but can still be exploited by anyone who finds the old version.
 
@@ -85,7 +85,7 @@ Disallow: /include
 
 #### Blind Guessing
 
-In its simplest form, this involves running a list of common file names through a request engine in an attempt to guess files and directories that exist on the server. The following netcat wrapper script will read a wordlist from stdin and perform a basic guessing attack:
+In its simplest form, this involves running a list of common filenames through a request engine in an attempt to guess files and directories that exist on the server. The following netcat wrapper script will read a wordlist from stdin and perform a basic guessing attack:
 
 ```bash
 #!/bin/bash
@@ -105,9 +105,9 @@ Depending upon the server, GET may be replaced with HEAD for faster results. The
 The basic guessing attack should be run against the webroot, and also against all directories that have been identified through other enumeration techniques. More advanced/effective guessing attacks can be performed as follows:
 
 - Identify the file extensions in use within known areas of the application (e.g. jsp, aspx, html), and use a basic wordlist appended with each of these extensions (or use a longer list of common extensions if resources permit).
-- For each file identified through other enumeration techniques, create a custom wordlist derived from that filename. Get a list of common file extensions (including ~, bak, txt, src, dev, old, inc, orig, copy, tmp, swp, etc.) and use each extension before, after, and instead of, the extension of the actual file name.
+- For each file identified through other enumeration techniques, create a custom wordlist derived from that filename. Get a list of common file extensions (including ~, bak, txt, src, dev, old, inc, orig, copy, tmp, swp, etc.) and use each extension before, after, and instead of, the extension of the actual filename.
 
-Note: Windows file copying operations generate file names prefixed with “Copy of “ or localized versions of this string, hence they do not change file extensions. While “Copy of ” files typically do not disclose source code when accessed, they might yield valuable information in case they cause errors when invoked.
+Note: Windows file copying operations generate filenames prefixed with “Copy of “ or localized versions of this string, hence they do not change file extensions. While “Copy of ” files typically do not disclose source code when accessed, they might yield valuable information in case they cause errors when invoked.
 
 #### Information Obtained Through Server Vulnerabilities and Misconfiguration
 
@@ -127,9 +127,9 @@ Pages and functionality in Internet-facing web applications that are not referen
 - In addition, Google and Yahoo keep cached versions of pages found by their robots. Even if `1998results.asp` has been removed from the target server, a version of its output may still be stored by these search engines. The cached version may contain references to, or clues about, additional hidden content that still remains on the server.
 - Content that is not referenced from within a target application may be linked to by third-party websites. For example, an application which processes online payments on behalf of third-party traders may contain a variety of bespoke functionality which can (normally) only be found by following links within the web sites of its customers.
 
-#### File Name Filter Bypass
+#### Filename Filter Bypass
 
-Because blacklist filters are based on regular expressions, one can sometimes take advantage of obscure OS file name expansion features in which work in ways the developer didn't expect. The tester can sometimes exploit differences in ways that file names are parsed by the application, web server, and underlying OS and it's file name conventions.
+Because deny list filters are based on regular expressions, one can sometimes take advantage of obscure OS filename expansion features in which work in ways the developer didn't expect. The tester can sometimes exploit differences in ways that filenames are parsed by the application, web server, and underlying OS and it's filename conventions.
 
 Example: Windows 8.3 filename expansion `c:\\program files` becomes `C:\\PROGRA\~1`
 

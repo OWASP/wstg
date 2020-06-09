@@ -16,7 +16,7 @@ The application may allow the upload of malicious files that include exploits or
 
 ## Example
 
-Suppose a picture sharing application allows users to upload their .gif or .jpg graphic files to the web site. What if an attacker is able to upload a PHP shell, or exe file, or virus? The attacker may then upload the file that may be saved on the system and the virus may spread itself or through remote processes exes or shell code can be executed.
+Suppose a picture sharing application allows users to upload their `.gif` or `.jpg` graphic files to the web site. What if an attacker is able to upload a PHP shell, or exe file, or virus? The attacker may then upload the file that may be saved on the system and the virus may spread itself or through remote processes exes or shell code can be executed.
 
 ## How to Test
 
@@ -81,9 +81,9 @@ Other PHP example:
 
 When there is file upload feature supported, the following API/methods are common to be found in the source code.
 
-- Java: new file, import, upload, getFileName, Download, getOutputString
-- C/C++: open, fopen
-- PHP: move_uploaded_file(),Readfile, file_put_contents(),file(),parse_ini_file(), copy(),fopen(),include(), require()
+- Java: `new file`, `import`, `upload`, `getFileName`, `Download`, `getOutputString`
+- C/C++: `open`, `fopen`
+- PHP: `move_uploaded_file()`, `Readfile`, `file_put_contents()`, `file()`, `parse_ini_file()`, `copy()`, `fopen()`, `include()`, `require()`
 
 ### Evasion of the Filter
 
@@ -94,15 +94,15 @@ The following techniques may be used to bypass the website file upload checking 
 - Changes of capital letters of extensions. such as file.PhP or file.AspX
 - Using special trailing such as spaces, dots or null characters such as `file.asp...`, `file.php;jpg`, `file.asp%00.jpg`, `1.jpg%00.php`
 
-The executable extensions should be in black list such as `file.php5`, `file.shtml`, `file.asa`, `file.cert`, `file.jsp`, `file.jspx`, `file.aspx`, `file.asp`, `file.phtml`
+The executable extensions should be in deny list such as `file.php5`, `file.shtml`, `file.asa`, `file.cert`, `file.jsp`, `file.jspx`, `file.aspx`, `file.asp`, `file.phtml`
 
-- In IIS6 vulnerability, if the file name is `file.asp;file.jpg`, the file will be executed as `file.asp`:
+- In IIS6 vulnerability, if the filename is `file.asp;file.jpg`, the file will be executed as `file.asp`:
 
 `http://www.targetVictim.com/path/file.asp;file.jpg`
 
-- In NginX, if the original file name is `test.jpg`, testers/hackers may change it to `test.jpg/x.php`
+- In NginX, if the original filename is `test.jpg`, testers/hackers may change it to `test.jpg/x.php`
 
-Once it's uploaded, the file will be executed as x.php
+Once it's uploaded, the file will be executed as `x.php`.
 
 ### Zip Files Path
 
@@ -112,7 +112,7 @@ One Zip file may contain the malicious PHP with target purpose path such as `..\
 
 Upload the [ZIP bomb](https://github.com/AbhiAgarwal/notes/wiki/Zip-bomb) file that may cause application denial of service.
 
-- new File, file, OutputSteam, upload, import, file_put_contents, open, fopen
+- `new File`, `file`, `OutputSteam`, `upload`, `import`, `file_put_contents`, `open`, `fopen`, etc.
 
 ## Related Test Cases
 

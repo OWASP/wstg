@@ -2,7 +2,7 @@
 
 |ID          |
 |------------|
-|WSTG-CLNT-13   |
+|WSTG-CLNT-13|
 
 ## Summary
 
@@ -18,7 +18,7 @@ Older browser's vulnerabilities (IE9/10) allowed data leakage via JavaScript err
 
 ### Collect Data Using Authenticated and Unauthenticated User Sessions
 
-Identify which endpoints are responsible for sending sensitive data, what parameters are required, and identify all relevant dynamically and statically generated JavaScript responses using authenticated user sessions. Pay special attention to sensitive data sent using [JSONP](https://en.wikipedia.org/wiki/JSONP). To find dynamically generated JavaScript responses, generate authenticated and unauthenticated requests, then compare them. If they're different, it means the response is dynamic; otherwise it's static. To simplify this task, a tool such as [Veit Hailperin's Burp proxy plugin](https://github.com/luh2/DetectDynamicJS) can be used. Make sure to check other filetypes in addition to JavaScript; XSSI is not limited to JavaScript files alone.
+Identify which endpoints are responsible for sending sensitive data, what parameters are required, and identify all relevant dynamically and statically generated JavaScript responses using authenticated user sessions. Pay special attention to sensitive data sent using [JSONP](https://en.wikipedia.org/wiki/JSONP). To find dynamically generated JavaScript responses, generate authenticated and unauthenticated requests, then compare them. If they're different, it means the response is dynamic; otherwise it's static. To simplify this task, a tool such as [Veit Hailperin's Burp proxy plugin](https://github.com/luh2/DetectDynamicJS) can be used. Make sure to check other file types in addition to JavaScript; XSSI is not limited to JavaScript files alone.
 
 ### Determine Whether the Sensitive Data Can Be Leaked Using JavaScript
 

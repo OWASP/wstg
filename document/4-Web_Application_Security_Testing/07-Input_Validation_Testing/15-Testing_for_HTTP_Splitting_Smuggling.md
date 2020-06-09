@@ -22,7 +22,7 @@ In the second attack, the attacker exploits the fact that some specially crafted
 
 #### HTTP Splitting
 
-Some web applications use part of the user input to generate the values of some headers of their responses. The most straightforward example is provided by redirections in which the target URL depends on some user-submitted value. Let's say for instance that the user is asked to choose whether he/she prefers a standard or advanced web interface. The choice will be passed as a parameter that will be used in the response header to trigger the redirection to the corresponding page.
+Some web applications use part of the user input to generate the values of some headers of their responses. The most straightforward example is provided by redirections in which the target URL depends on some user-submitted value. Let's say for instance that the user is asked to choose whether they prefer a standard or advanced web interface. The choice will be passed as a parameter that will be used in the response header to trigger the redirection to the corresponding page.
 
 More specifically, if the parameter 'interface' has the value 'advanced', the application will answer with the following:
 
@@ -57,7 +57,7 @@ Content-Length: 35
 
 The web cache will see two different responses, so if the attacker sends, immediately after the first request, a second one asking for `/index.html`, the web cache will match this request with the second response and cache its content, so that all subsequent requests directed to `victim.com/index.html` passing through that web cache will receive the “system down” message. In this way, an attacker would be able to effectively deface the site for all users using that web cache (the whole Internet, if the web cache is a reverse proxy for the web application).
 
-Alternatively, the attacker could pass to those users a JavaScript snippet that mounts a cross site scripting attack, e.g., to steal the cookies. Note that while the vulnerability is in the application, the target here is its users. Therefore, in order to look for this vulnerability, the tester needs to identify all user controlled input that influences one or more headers in the response, and check whether he/she can successfully inject a CR+LF sequence in it.
+Alternatively, the attacker could pass to those users a JavaScript snippet that mounts a cross site scripting attack, e.g., to steal the cookies. Note that while the vulnerability is in the application, the target here is its users. Therefore, in order to look for this vulnerability, the tester needs to identify all user controlled input that influences one or more headers in the response, and check whether they can successfully inject a CR+LF sequence in it.
 
 The headers that are the most likely candidates for this attack are:
 
@@ -66,7 +66,7 @@ The headers that are the most likely candidates for this attack are:
 
 It must be noted that a successful exploitation of this vulnerability in a real world scenario can be quite complex, as several factors must be taken into account:
 
-1. The pen-tester must properly set the headers in the fake response for it to be successfully cached (e.g., a Last-Modified header with a date set in the future). He/she might also have to destroy previously cached versions of the target pagers, by issuing a preliminary request with `Pragma: no-cache` in the request headers
+1. The pen-tester must properly set the headers in the fake response for it to be successfully cached (e.g., a Last-Modified header with a date set in the future). They might also have to destroy previously cached versions of the target pagers, by issuing a preliminary request with `Pragma: no-cache` in the request headers
 2. The application, while not filtering the CR+LF sequence, might filter other characters that are needed for a successful attack (e.g., `<` and `>`). In this case, the tester can try to use other encodings (e.g., UTF-7)
 3. Some targets (e.g., ASP) will URL-encode the path part of the Location header (e.g., `www.victim.com/redirect.asp`), making a CRLF sequence useless. However, they fail to encode the query section (e.g., ?interface=advanced), meaning that a leading question mark is enough to bypass this filtering
 

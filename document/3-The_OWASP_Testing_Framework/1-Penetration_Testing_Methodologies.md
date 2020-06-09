@@ -135,7 +135,7 @@ The ISSAF is a very good reference source of penetration testing though Informat
 
 ## Open Source Security Testing Methodology Manual (OSSTMM)
 
-OSSTMM is a methodology to test the operational security of physical locations, workflow, human security testing, physical security testing, wireless security testing, telecommunication security testing, data networks security testing and compliance. OSSTMM can be supporting reference of IOS 27001 instead of a hands-on penetration testing guide.
+OSSTMM is a methodology to test the operational security of physical locations, workflow, human security testing, physical security testing, wireless security testing, telecommunication security testing, data networks security testing and compliance. OSSTMM can be supporting reference of ISO 27001 instead of a hands-on penetration testing guide.
 
 OSSTMM includes the following key sections:
 

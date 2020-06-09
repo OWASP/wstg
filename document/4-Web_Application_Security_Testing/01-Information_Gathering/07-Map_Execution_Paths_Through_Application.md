@@ -14,7 +14,7 @@ Map the target application and understand the principal workflows.
 
 ## How to Test
 
-In black-box testing it is extremely difficult to test the entire code base. Not just because the tester has no view of the code paths through the application, but even if they did, to test all code paths would be very time consuming. One way to reconcile this is to document what code paths were discovered and tested.
+In black-box testing it is extremely difficult to test the entire codebase. Not just because the tester has no view of the code paths through the application, but even if they did, to test all code paths would be very time consuming. One way to reconcile this is to document what code paths were discovered and tested.
 
 There are several ways to approach the testing and measurement of code coverage:
 
