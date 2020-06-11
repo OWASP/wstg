@@ -4,7 +4,7 @@
 
 In a Server-Side Request Forgery (SSRF) attack, the attacker can abuse functionality on the server to read or update internal resources. The attacker can supply or a modify a request which the code running on the server will process. By carefully selecting the details, the attacker may be able to read server configuration such as AWS metadata, connect to internal services like HTTP enabled databases, or perform POST requests towards internal services which are not intended to be exposed.
 
-### Description
+## Description
 
 The target application may have functionality for importing data from a URL, publishing data to a URL, or otherwise reading data from a request that can be tampered with. The attacker modifies the calls to this functionality by supplying a completely different request or by manipulating how requests are built (path traversal, etc.).
 
@@ -15,9 +15,9 @@ Some common vulnerabilities related to server-side request forgery:
 - SQL injection
 - Link Injection
 
-### How to Test
+## How to Test
 
-#### Case I: Endpoints Which Fetch External/Internal Resources
+### Case I: Endpoints Which Fetch External/Internal Resources
 
 With GET request:
 
@@ -34,7 +34,7 @@ Host: example.com
 url=https://hacker.com/as&name2=value2
 ```
 
-#### Case II: PDF Generators
+### Case II: PDF Generators
 
 There are some cases where server converts uploaded file to a pdf.Try injecting `<iframe>`, `<img>`, `<base>` or `<script>` elements or CSS url() functions pointing to internal services.
 
