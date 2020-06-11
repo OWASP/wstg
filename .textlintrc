@@ -70,6 +70,7 @@
 					"a npm",
 					"an npm"
 				],
+
 				// Abbreviations
 				"3D",
 				[
@@ -112,6 +113,7 @@
 					"wi[- ]?fi",
 					"Wi-Fi"
 				],
+
 				// Words and phrases
 				"ID",
 				"JavaScript",
@@ -185,6 +187,7 @@
 					"white[- ]list|whitelist",
 					"allow list"
 				],
+
 				// Single word
 				[
 					"auto[- ]complete",
@@ -327,6 +330,7 @@
 					"wild[- ]card(s)?",
 					"wildcard$1"
 				],
+
 				// Multiple words
 				[
 					"css-?in-?js",
@@ -372,6 +376,7 @@
 					"web-page(s)?",
 					"webpage$1"
 				],
+
 				// Hyphenated
 				[
 					"built ?in",
@@ -435,34 +440,103 @@
 					"(?<=(?:\\w+[^.?!])? )npm\\b",
 					"npm"
 				],
+
 				// Typos
+				[
+					"accidentially",
+					"accidentally"
+				],
+				[
+					"busineess",
+					"business"
+				],
+				[
+					"busines",
+					"business"
+				],
+				[
+					"analysed",
+					"analyzed"
+				],
+				[
+					"cancelling",
+					"canceling"
+				],
 				[
 					"environemnt(s)?",
 					"environment$1"
 				],
 				[
+					"explotation",
+					"exploitation"
+				],
+				[
+					"encyprtion",
+					"encryption"
+				]
+				[
 					"flacky test(s)?",
 					"flaky test$1"
-				],
-				[
-					"pacakge(s)?",
-					"package$1"
-				],
-				[
-					"tilda",
-					"tilde"
 				],
 				[
 					"falsey",
 					"falsy"
 				],
 				[
+					"hsot",
+					"host"
+				],
+				[
+					"intiated",
+					"initiated"
+				],
+				[
+					"localised",
+					"localized"
+				],
+				[
+					"pacakge(s)?",
+					"package$1"
+				],
+				[
+					"perfomed",
+					"performed"
+				],
+				[
+					"refernece(s)?",
+					"reference$1"
+				],
+				[
+					"renegotiaion(s)?",
+					"renegotiation$1"
+				],
+				[
+					"traget",
+					"target"
+				],
+				[
+					"tagret",
+					"target"
+				],
+				[
+					"tilda",
+					"tilde"
+				],
+				[
 					"teh",
 					"the"
 				],
 				[
-					"hsot",
-					"host"
+					"transfered",
+					"transferred"
+				],
+				[
+					"unlkely",
+					"unlikely"
+				],
+				[
+					"utilising",
+					"utilizing"
 				]
 			]
 		}
