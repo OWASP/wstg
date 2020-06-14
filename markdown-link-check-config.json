@@ -11,7 +11,7 @@
         "pattern": "^https://www.kali.org"
     },
     {
-        "pattern": "^https://www.linkedin.com"
+        "pattern": "^https://.*.linkedin.com"
     }
     ],
     "httpHeaders": [{
