@@ -96,7 +96,7 @@ An attacker has two ways to successfully launch a Cross Site Tracing attack:
 - Leveraging another server-side vulnerability: the attacker injects the hostile JavaScript snippet that contains the TRACE request in the vulnerable application, as in a normal Cross Site Scripting attack
 - Leveraging a client-side vulnerability: the attacker creates a malicious website that contains the hostile JavaScript snippet and exploits some cross-domain vulnerability of the browser of the victim, in order to make the JavaScript code successfully perform a connection to the site that supports the TRACE method and that originated the cookie that the attacker is trying to steal.
 
-More detailed information, together with code samples, can be found in [Jeremiah Grossman: “Cross Site Tracing (XST)”](https://www.cgisecurity.com/whitehat-mirror/WH-WhitePaper_XST_ebook.pdf).
+More detailed information can be found at [Cross Site Tracing](https://owasp.org/www-community/attacks/Cross_Site_Tracing) or in [Jeremiah Grossman: “Cross Site Tracing (XST)”](https://www.cgisecurity.com/whitehat-mirror/WH-WhitePaper_XST_ebook.pdf).
 
 ### Testing for HTTP Method Overriding
 
