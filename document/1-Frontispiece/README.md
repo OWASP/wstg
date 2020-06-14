@@ -51,6 +51,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Hugo Costa
 - Jishnu Vijayan C K
 - Muhammed Anees
+- Ramzi Fazah
 
 ## Reviewers or Editors
 
