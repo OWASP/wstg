@@ -91,7 +91,7 @@ TRACE / HTTP/1.1
 Host: www.victim.com
 ```
 
-The response body is exactly a copy of our original request, meaning that the target allows this method. Now, where is the danger lurking? If the browser is instructed to issue a TRACE request to the web server, and this browser has a cookie for that domain, the cookie will be included in the request headers, and will therefore be echoed back in the resulting response. At that point, the cookie string will be accessible by JavaScript and it will be possible to send it to a third party even when the cookie is tagged as httpOnly.
+The response body is exactly a copy of our original request, meaning that the target allows this method. Now, where is the danger lurking? If the browser is instructed to issue a TRACE request to the web server, and this browser has a cookie for that domain, the cookie will be included in the request headers, and will therefore be echoed back in the resulting response. At that point, the cookie string will be accessible by JavaScript and it will be possible to send it to a third party even when the cookie is tagged as [HttpOnly](../06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.md#httponly-attribute).
 
 There are multiple ways to make a browser issue a TRACE request, such as the XMLHTTP ActiveX control in Internet Explorer and XMLDOM in Mozilla and Netscape. However, for security reasons the browser is allowed to start a connection only to the domain where the hostile script resides. This is a mitigating factor, as the attacker needs to combine the TRACE method with another vulnerability in order to mount the attack.
 
