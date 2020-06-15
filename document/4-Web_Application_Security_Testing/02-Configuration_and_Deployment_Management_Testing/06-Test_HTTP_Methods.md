@@ -71,7 +71,7 @@ Using the above three commands, modified to suit the application under test and 
 
 Note: in order to understand the logic and the goals of a cross-site tracing (XST) attack, one must be familiar with [cross-site scripting attacks](https://owasp.org/www-community/attacks/xss/).
 
-The TRACE method, intended for testing and debugging, instructs the web server to reflect the received message back to the client. This method, while apparently harmless, can be successfully leveraged in some scenarios to steal legitimate users' credentials. This attack technique was discovered by Jeremiah Grossman in 2003, in an attempt to bypass the [HTTPOnly](https://owasp.org/www-community/HttpOnly) tag that Microsoft introduced in Internet Explorer 6 SP1 to protect cookies from being accessed by JavaScript. One of the most often recurring attack patterns in cross-site scripting is to access the `document.cookie` object and send it to a web server controlled by the attacker so that they can hijack the victim's session. Tagging a cookie as httpOnly forbids JavaScript from accessing it, protecting it from being sent to a third party. However, the TRACE method can be used to bypass this protection and access the cookie even in this scenario.
+The `TRACE` method, intended for testing and debugging, instructs the web server to reflect the received message back to the client. This method, while apparently harmless, can be successfully leveraged in some scenarios to steal legitimate users' credentials. This attack technique was discovered by Jeremiah Grossman in 2003, in an attempt to bypass the [HttpOnly](https://owasp.org/www-community/HttpOnly) attribute that aims to protect cookies from being accessed by JavaScript.  However, the TRACE method can be used to bypass this protection and access the cookie even when this attribute is set.
 
 Test for cross-site tracing potential by issuing a request such as the following:
 
@@ -79,28 +79,25 @@ Test for cross-site tracing potential by issuing a request such as the following
 $ nc www.victim.com 80
 TRACE / HTTP/1.1
 Host: www.victim.com
+Random: Header
 
 HTTP/1.1 200 OK
-Server: Microsoft-IIS/5.0
-Date: Tue, 31 Oct 2006 08:01:48 GMT
-Connection: close
-Content-Type: message/http
-Content-Length: 39
-
-TRACE / HTTP/1.1
-Host: www.victim.com
+Random: Header
+...
 ```
 
-The response body is exactly a copy of our original request, meaning that the target allows this method. Now, where is the danger lurking? If the browser is instructed to issue a TRACE request to the web server, and this browser has a cookie for that domain, the cookie will be included in the request headers, and will therefore be echoed back in the resulting response. At that point, the cookie string will be accessible by JavaScript and it will be possible to send it to a third party even when the cookie is tagged as [HttpOnly](../06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.md#httponly-attribute).
+The web server returned a 200 and reflected the random header that was set in place. To further exploit this issue:
 
-There are multiple ways to make a browser issue a TRACE request, such as the XMLHTTP ActiveX control in Internet Explorer and XMLDOM in Mozilla and Netscape. However, for security reasons the browser is allowed to start a connection only to the domain where the hostile script resides. This is a mitigating factor, as the attacker needs to combine the TRACE method with another vulnerability in order to mount the attack.
+```bash
+$ nc www.victim.com 80
+TRACE / HTTP/1.1
+Host: www.victim.com
+Attack: <script>prompt()</script>
+```
 
-An attacker has two ways to successfully launch a cross-site tracing attack:
+The above example works if the response is being reflected in the HTML context.
 
-- Leveraging another server-side vulnerability: the attacker injects the hostile JavaScript snippet that contains the TRACE request in the vulnerable application, as in a normal cross-site scripting attack
-- Leveraging a client-side vulnerability: the attacker creates a malicious website that contains the hostile JavaScript snippet and exploits some cross-domain vulnerability of the browser of the victim, in order to make the JavaScript code successfully perform a connection to the site that supports the TRACE method and that originated the cookie that the attacker is trying to steal.
-
-More detailed information can be found at [Cross Site Tracing](https://owasp.org/www-community/attacks/Cross_Site_Tracing) or in [Jeremiah Grossman: “Cross Site Tracing (XST)”](https://www.cgisecurity.com/whitehat-mirror/WH-WhitePaper_XST_ebook.pdf).
+In older browsers, attacks were pulled using [XHR](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) technology, which leaked the headers when the server reflects them (*e.g.* Cookies, Authorization tokens, etc.) and bypassed security measures such as the [HttpOnly](../06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.md#httponly-attribute) attribute. This attack can be pulled in recent browsers only if the application integrates with technologies similar to Flash.
 
 ### Testing for HTTP Method Overriding
 
