@@ -44,7 +44,7 @@ When testing an application that has to accept other methods, e.g. a RESTful Web
 
 ### Testing for Access Control Bypass
 
-Find a page to visit that has a security constraint such that a GET request would normally force a 302 redirect to a log in page or force a log in directly. Issue requests using various methods such as HEAD, POST, PUT etc. as well as arbitrarily made up methods such as BILBAO, FOOBAR, CATS, etc. If the web application responds with a `HTTP/1.1 200 OK` that is not a log in page, it may be possible to bypass authentication or authorization. The following example uses [netcat](https://nc110.sourceforge.io/). To test web applications using HTTPS, substitute [netcat](https://nc110.sourceforge.io/) for another tool such as [Nmap's `ncat`](https://nmap.org/ncat/).
+Find a page to visit that has a security constraint such that a GET request would normally force a 302 redirect to a log in page or force a log in directly. Issue requests using various methods such as HEAD, POST, PUT etc. as well as arbitrarily made up methods such as BILBAO, FOOBAR, CATS, etc. If the web application responds with a `HTTP/1.1 200 OK` that is not a log in page, it may be possible to bypass authentication or authorization. The following example uses [Nmap's `ncat`](https://nmap.org/ncat/).
 
 ```bash
 $ ncat www.example.com 80
