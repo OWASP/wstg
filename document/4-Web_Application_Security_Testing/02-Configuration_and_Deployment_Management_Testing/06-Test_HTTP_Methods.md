@@ -27,7 +27,11 @@ However, most web applications only need to respond to GET and POST requests, re
 
 To perform this test, the tester needs some way to figure out which HTTP methods are supported by the web server that is being examined. While the `OPTIONS` HTTP method provides a direct way to do that, verify the server's response by issuing requests using different methods. This can be achieved by manual testing or something like the [`http-methods`](https://nmap.org/nsedoc/scripts/http-methods.html) Nmap script.
 
-To use the `http-methods` Nmap script to test the endpoint `/admin` on the server `localhost` using HTTPS, issue the command `nmap -p 443 --script http-methods --script-args http-methods.url-path='/index.php' localhost`.
+To use the `http-methods` Nmap script to test the endpoint `/admin` on the server `localhost` using HTTPS, issue the command:
+
+```bash
+nmap -p 443 --script http-methods --script-args http-methods.url-path='/index.php' localhost
+```
 
 When testing an application that has to accept other methods, e.g. a RESTful Web Service, test it thoroughly to make sure that all endpoints accept only the methods that they require.
 
