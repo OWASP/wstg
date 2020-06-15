@@ -24,6 +24,7 @@ However, most web applications only need to respond to GET and POST requests, re
 ## Test Objectives
 
 - Test supported HTTP methods.
+- Test for access control bypass.
 - Test XST vulnerabilities.
 - Test HTTP method overriding techniques.
 
