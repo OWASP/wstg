@@ -21,6 +21,12 @@ HTTP offers a number of methods that can be used to perform actions on the web s
 
 However, most web applications only need to respond to GET and POST requests, receiving user data in the URL query string or appended to the request respectively. The standard `<a href=""></a>` style links as well as forms defined without a method trigger a GET request; form data submitted via `<form method='POST'></form>` trigger POST requests. JavaScript and AJAX calls may send methods other than GET and POST but should usually not need to do that. Since the other methods are so rarely used, many developers do not know, or fail to take into consideration, how the web server or application framework's implementation of these methods impact the security features of the application.
 
+## Test Objectives
+
+- Test supported HTTP methods.
+- Test XST vulnerabilities.
+- Test HTTP method overriding techniques.
+
 ## How to Test
 
 ### Discover the Supported Methods
