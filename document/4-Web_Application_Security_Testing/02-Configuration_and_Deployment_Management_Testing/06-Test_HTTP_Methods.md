@@ -138,6 +138,11 @@ Date: Sat, 04 Apr 2020 19:26:01 GMT
 Server: Apache
 ```
 
+## Remediation
+
+- Ensure that only the required headers are allowed, and that the allowed headers are properly configured.
+- Ensure that no workarounds are implemented to bypass security measures implemented by user-agents, frameworks, or web servers.
+
 ## Tools
 
 - [Netcat](http://nc110.sourceforge.net)
