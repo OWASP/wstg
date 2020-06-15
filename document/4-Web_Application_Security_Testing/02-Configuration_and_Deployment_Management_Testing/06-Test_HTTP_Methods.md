@@ -67,9 +67,9 @@ Content-Type: text/html; charset=ISO-8859-1
 
 If the system appears vulnerable, issue CSRF-like attacks such as the following to exploit the issue more fully:
 
-- HEAD /admin/createUser.php?member=myAdmin
-- PUT /admin/changePw.php?member=myAdmin&passwd=foo123&confirm=foo123
-- CATS /admin/groupEdit.php?group=Admins&member=myAdmin&action=add
+- `HEAD /admin/createUser.php?member=myAdmin`
+- `PUT /admin/changePw.php?member=myAdmin&passwd=foo123&confirm=foo123`
+- `CATS /admin/groupEdit.php?group=Admins&member=myAdmin&action=add`
 
 Using the above three commands, modified to suit the application under test and testing requirements, a new user would be created, a password assigned, and the user made an administrator, all using blind request submission.
 
@@ -113,7 +113,9 @@ Some web frameworks provide a way to override the actual HTTP method in the requ
 - `X-HTTP-Method-Override`
 - `X-Method-Override`
 
-In order to test this, in the scenarios where restricted verbs such as PUT or DELETE return a “405 Method not allowed”, replay the same request with the addition of the alternative headers for HTTP method overriding, and observe how the system responds. The application should respond with a different status code (e.g. 200) in cases where method overriding is supported, such as in the following example:
+In order to test this, in the scenarios where restricted verbs such as PUT or DELETE return a “405 Method not allowed”, replay the same request with the addition of the alternative headers for HTTP method overriding, and observe how the system responds. The application should respond with a different status code (*e.g.* 200) in cases where method overriding is supported.
+
+The web server in the following example does not allow the `DELETE` method and blocks it:
 
 ```bash
 $ nc www.example.com 80
@@ -127,7 +129,11 @@ Allow: GET,HEAD,POST,OPTIONS
 Content-Length: 320
 Content-Type: text/html; charset=iso-8859-1
 Vary: Accept-Encoding
+```
 
+After adding the `X-HTTP-Header`, the server responds to the request with a 200:
+
+```bash
 $ nc www.example.com 80
 DELETE /resource.html HTTP/1.1
 Host: www.example.com
@@ -145,16 +151,15 @@ Server: Apache
 
 ## Tools
 
-- [Netcat](http://nc110.sourceforge.net)
+- [Ncat](https://nmap.org/ncat/)
 - [cURL](https://curl.haxx.se/)
 - [nmap http-methods NSE script](https://nmap.org/nsedoc/scripts/http-methods.html)
 - [w3af plugin htaccess_methods](http://w3af.org/plugins/audit/htaccess_methods)
 
 ## References
 
-### Whitepapers
-
 - [RFC 2109](https://tools.ietf.org/html/rfc2109) and [RFC 2965](https://tools.ietf.org/html/rfc2965): “HTTP State Management Mechanism”
 - [HTACCESS: BILBAO Method Exposed](https://web.archive.org/web/20160616172703/http://www.kernelpanik.org/docs/kernelpanik/bme.eng.pdf)
 - [Amit Klein: “XS(T) attack variants which can, in some cases, eliminate the need for TRACE”](https://www.securityfocus.com/archive/107/308433)
 - [Fortify - Misused HTTP Method Override](https://vulncat.fortify.com/en/detail?id=desc.dynamic.xtended_preview.often_misused_http_method_override)
+- [CAPEC-107: Cross Site Tracing](https://capec.mitre.org/data/definitions/107.html)
