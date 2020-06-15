@@ -63,7 +63,7 @@ If the system appears vulnerable, issue CSRF-like attacks such as the following 
 
 Using the above three commands, modified to suit the application under test and testing requirements, a new user would be created, a password assigned, and the user made an administrator, all using blind request submission.
 
-### Test Cross-Site Tracing Potential
+### Testing for Cross-Site Tracing Potential
 
 Note: in order to understand the logic and the goals of a cross-site tracing (XST) attack, one must be familiar with [cross-site scripting attacks](https://owasp.org/www-community/attacks/xss/).
 
