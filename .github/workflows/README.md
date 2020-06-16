@@ -1,0 +1,22 @@
+- build-pdf.yml > For building PDFs at release.
+	- Trigger: Tag applied to repo.
+	- See: `/pdf/` in the root of the repo.
+- dummy.yml > Utility action so that PRs without markdown files can pass the branch protection rules. `lint` is required per the branch protection rules. So when something is PRed (like an image or yml that isn't linted) the dummy runs and passes the branch protection requirement.
+	- Trigger: Pull Requests.
+- md-link-check.yml > Checks Pull Requests for broken links.
+	- Trigger: Pull Requests.
+	- Config File: `markdown-link-check-config.json`
+- md-lint-check.yml > Checks markdown files and flags style or syntax issues.
+	- Trigger: Pull Requests.
+	- Config File: `.markdownlint.json`
+- md-textlint-check.yml > Checks markdown files for spelling style and typo issues.
+	- Trigger: Pull Requests.
+	- Config File: `.textlintrc`
+- refresh-stale > Checks issues and PRs for activity within 30 days, removes assignees, and sets label(s).
+	- Trigger: Schedule, mid-night daily.
+- www_latest_update.yml > Publishes the latest web content using the @wstgbot account to `OWASP/www-project-web-security-testing-guide`.
+	- Trigger: Push.
+	- See: `/www/latest/` in the root of the repo.
+- www_stable_update.yml > Publishes stable and versioned web content using the @wstgbot account to `OWASP/www-project-web-security-testing-guide`.
+	- Trigger: Tag applied to repo (format `v*`).
+	- See: `/www/` in the root of the repo.
