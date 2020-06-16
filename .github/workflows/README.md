@@ -8,7 +8,7 @@
 	- Config File: `markdown-link-check-config.json`
 - md-lint-check.yml > Checks Markdown files and flags style or syntax issues.
 	- Trigger: Pull Requests.
-	- Config File: `.Markdownlint.json`
+	- Config File: `.markdownlint.json`
 - md-textlint-check.yml > Checks Markdown files for spelling style and typo issues.
 	- Trigger: Pull Requests.
 	- Config File: `.textlintrc`
