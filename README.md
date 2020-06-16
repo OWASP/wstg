@@ -34,6 +34,8 @@ Linking to Web Security Testing Guide scenarios should be done using versioned l
 
 We are actively inviting new contributors! To start, read the [contribution guide](CONTRIBUTING.md).
 
+First time here? Here are [GitHub's suggestions for first-time contributors](https://github.com/OWASP/wstg/contribute) to this repository.
+
 This project is only possible thanks to the work of many dedicated volunteers. Everyone is encouraged to help in ways large and small. Here are a few ways you can help:
 
 - Read the current content and help us fix any spelling mistakes or grammatical errors.

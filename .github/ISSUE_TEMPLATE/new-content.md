@@ -2,7 +2,7 @@
 name: Add New Content
 about: Suggest additions to the Testing Guide
 title: ''
-labels: new
+labels: new, help wanted
 assignees: ''
 
 ---
