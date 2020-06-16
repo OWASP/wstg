@@ -8,6 +8,7 @@ on:
     - '**.md'
     - '!www/**'
     - '!pdf/**'
+    - '!.github/**'
 
 jobs:
   textlint:
@@ -36,9 +37,9 @@ jobs:
         FILES: '${{ steps.files.outputs.files_updated }} ${{ steps.files.outputs.files_created }}'
       run: |
         touch log.txt
-        # All markdown files, excluding www and pdf
+        # All markdown files, excluding www, pdf, and .github
         # Use fix flag so that it goes through all files
-        for FILE in $FILES; do echo $FILE | grep -v www | grep -v pdf && textlint --fix --rule terminology $FILE | tee -a log.txt; done
+        for FILE in $FILES; do echo $FILE | grep -v www | grep -v pdf | grep -v \.github && textlint --fix --rule terminology $FILE | tee -a log.txt; done
         if grep -q  'Incorrect usage' log.txt ; then exit 1 ; else echo -e \"No broken links found.\"; fi
     - name: Show Mistakes
       id: mistakes
