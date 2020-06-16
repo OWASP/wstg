@@ -1,0 +1,21 @@
+name: Refresh Stale Issues with Help Wanted Label
+on:
+  schedule:
+  - cron: "0 0 * * *"
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/stale@v3
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        stale-issue-message: 'This issue has been inactive for 30 days. To give everyone a chance to contribute, we are releasing it to new contributors. Please comment if you are still working on it!'
+        stale-issue-label: 'help wanted'
+        exempt-issue-labels: 'help wanted'
+        stale-pr-message: 'This PR has been inactive for 30 days. To give everyone a chance to contribute, we are releasing it for new contributors to take over. Please comment if you are still working on it!'
+        stale-pr-label: 'help wanted'
+        exempt-pr-labels: 'help wanted'
+        remove-stale-when-updated: false
+        days-before-stale: 30
+        days-before-close: -1
