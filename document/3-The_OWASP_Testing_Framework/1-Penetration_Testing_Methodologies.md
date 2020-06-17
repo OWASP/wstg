@@ -143,7 +143,6 @@ OSSTMM includes the following key sections:
 
 [Open Source Security Testing Methodology Manual](https://www.isecom.org/OSSTMM.3.pdf)
 
-
 ## References
 
 - [PCI Data Security Standard - Penetration TestingGuidance](https://www.pcisecuritystandards.org/documents/Penetration-Testing-Guidance-v1_1.pdf)
