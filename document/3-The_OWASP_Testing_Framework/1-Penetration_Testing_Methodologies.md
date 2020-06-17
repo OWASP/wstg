@@ -77,7 +77,7 @@ The PCI DSS requirement refer to Payment Card Industry Data Security Standard (P
 
 The Penetration testing framework provides comprehensive hands-on penetration testing guide. It also lists usages of the security testing tools in each testing category. The major area of penetration testing includes -
 
-- Network Foot-printing (Reconnaissance)
+- Network Footprinting (Reconnaissance)
 - Discovery & Probing
 - Enumeration
 - Password cracking
