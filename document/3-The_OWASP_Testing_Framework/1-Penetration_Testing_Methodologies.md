@@ -2,38 +2,29 @@
 
 ## Summary
 
-- [OWASP](#owasp)
+- [OWASP Testing Guides](#owasp-testing-guides)
   - Web Security Testing Guide (WSTG)
   - Mobile Security Testing Guide (MSTG)
-- [Penetration Testing Execution Standard (PTES)](#penetration-testing-execution-standard-ptes)
+  - Firmware Security Testing Methodology
+- [Penetration Testing Execution Standard](#penetration-testing-execution-standard)
 - [PCI Penetration Testing Guide](#pci-penetration-testing-guide)
   - [PCI DSS Penetration Testing Guidance](#pci-dss-penetration-testing-guidance)
   - [PCI DSS Penetration Testing Requirements](#pci-dss-penetration-testing-requirements)
 - [Penetration Testing Framework](#penetration-testing-framework)
-- [Technical Guide to Information Security Testing and Assessment (NIST800-115)](#technical-guide-to-information-security-testing-and-assessment-nist800-115)
-- [Information Systems Security Assessment Framework (ISSAF)](#information-systems-security-assessment-framework-issaf)
-- [Open Source Security Testing Methodology Manual (OSSTMM)](#open-source-security-testing-methodology-manual-osstmm)
+- [Technical Guide to Information Security Testing and Assessment](#technical-guide-to-information-security-testing-and-assessment)
+- [Open Source Security Testing Methodology Manual](#open-source-security-testing-methodology-manual)
 - [References](#references)
 
-## OWASP
+## OWASP Testing Guides
 
-This present document (WSTG) describes the OWASP-recommended methodology for web application security testing. For recommendations specific to mobile devices, the [Mobile Security Testing Guide (MSTG)](https://owasp.org/www-project-mobile-security-testing-guide/) is also available.
+In terms of technical security testing execution, the OWASP testing guides are highly recommended. Depending on the types of the applications, the testing guides are listed below for the web/cloud services, Mobile app (Android/iOS), or IoT firmware respectively. 
 
+- [OWASP Web Security Testing Guide](https://owasp.org/www-project-web-security-testing-guide/)
+- [OWASP Mobile Security Testing Guide](https://owasp.org/www-project-mobile-security-testing-guide/)
+- [OWASP Firmware Security Testing Methodology](https://github.com/scriptingxss/owasp-fstm)
 
-
-## OWASP Testing Guide
-In terms of technical security testing execution, the OWASP testing guides are highly recommended. Depend on the types of the applications, the testing guides are listed below for the web/cloud services, Mobile APP (Android/iOS) or the IoT firmware respectively. 
-
-[OWASP Web Security Testing Guide](https://owasp.org/www-project-web-security-testing-guide/)
-
-[OWASP Mobile Security Testing Guide](
-https://owasp.org/www-project-mobile-security-testing-guide/)
-
-[OWASP Firmware Security Testing Methodology](https://github.com/scriptingxss/owasp-fstm)
-
-
-## Penetration Testing Execution Standard (PTES)
-PTES defines penetration testing as 7 phases. Particularly, PTES Technical Guidelines give hands-on suggestions on testing procedures, and recommendation for security testing tools.
+## Penetration Testing Execution Standard
+Penetration Testing Execution Standard (PTES) defines penetration testing as 7 phases. Particularly, PTES Technical Guidelines give hands-on suggestions on testing procedures, and recommendation for security testing tools.
 
 - Pre-engagement Interactions
 - Intelligence Gathering
@@ -72,9 +63,9 @@ The PCI DSS requirement refer to Payment Card Industry Data Security Standard (P
 [PCI DSS Penetration Test Guidance](https://www.pcisecuritystandards.org/documents/Penetration_Testing_Guidance_March_2015.pdf)
 
 
-## Penetration Testing Framework (PTF)
+## Penetration Testing Framework
 
-The Penetration testing framework provides comprehensive hands-on penetration testing guide. It also lists usages of the security testing tools in each testing category. The major area of penetration testing includes -
+The Penetration Testing Framework (PTF) provides comprehensive hands-on penetration testing guide. It also lists usages of the security testing tools in each testing category. The major area of penetration testing includes -
 
 - Network Footprinting (Reconnaissance)
 - Discovery & Probing
@@ -94,8 +85,8 @@ The Penetration testing framework provides comprehensive hands-on penetration te
 
 [Penetration Testing Framework](http://www.vulnerabilityassessment.co.uk/Penetration%20Test.html)
 
-## Technical Guide to Information Security Testing and Assessment (NIST 800-115)
-Technical Guide to Information Security Testing and Assessment was published by NIST, it includes some assessment techniques listed below.
+## Technical Guide to Information Security Testing and Assessment
+Technical Guide to Information Security Testing and Assessment (NIST 800-115) was published by NIST, it includes some assessment techniques listed below.
 
 - Review Techniques
 - Target Identification and Analysis Techniques
@@ -106,29 +97,12 @@ Technical Guide to Information Security Testing and Assessment was published by 
 
 The NIST 800-115 can be accessed [here](https://csrc.nist.gov/publications/detail/sp/800-115/final)
 
-## Information Systems Security Assessment Framework (ISSAF)
+## Open Source Security Testing Methodology Manual
 
-The ISSAF which was previously supported by Open Information Systems Security Group (OISSG) and was not an active community. However, it provides the following specific scenario-based security assessment.
-
-- Database Security Assessment
-- WLAN Security Assessment
-- Switch Security Assessment
-- Router Security Assessment
-- Firewall Security Assessment
-- Intrusion Detection System Security Assessment
-- VPN Security Assessment
-- Storage Area Network (SAN) Security Assessment
-
-Refer to the ISSAF Chapter 7 for the listed security assessment above.
-[ISSAF References](https://sourceforge.net/projects/isstf/)
-
-
-## Open Source Security Testing Methodology Manual (OSSTMM)
-
-
-OSSTMM is a methodology to test the operational security of physical locations, workflow, human security testing, physical security testing, wireless security testing, telecommunication security testing, data networks security testing and compliance. OSSTMM can be supporting reference of IOS 27001 instead of a hands-on or technical application penetration testing guide. 
+The Open Source Security Testing Methodology Manual (OSSTMM) is a methodology to test the operational security of physical locations, workflow, human security testing, physical security testing, wireless security testing, telecommunication security testing, data networks security testing and compliance. OSSTMM can be supporting reference of ISO 27001 instead of a hands-on or technical application penetration testing guide. 
 
 OSSTMM includes the following key sections:
+
 - Security Analysis
 - Operational Security Metrics
 - Trust Analysis
@@ -146,7 +120,7 @@ OSSTMM includes the following key sections:
 ## References
 
 - [PCI Data Security Standard - Penetration TestingGuidance](https://www.pcisecuritystandards.org/documents/Penetration-Testing-Guidance-v1_1.pdf)
-- [PTES PenTest Standard](http://www.pentest-standard.org/index.php/Main_Page)
+- [PTES Standard](http://www.pentest-standard.org/index.php/Main_Page)
 - [Open Source Security Testing Methodology Manual (OSSTMM)](http://www.isecom.org/research/osstmm.html)
 - [Technical Guide to Information Security Testing and Assessment NIST SP 800-115](https://csrc.nist.gov/publications/detail/sp/800-115/final)
 - [HIPAA Security Testing Assessment 2012](http://csrc.nist.gov/news_events/hiipaa_june2012/day2/day2-6_kscarfone-rmetzer_security-testing-assessment.pdf)
