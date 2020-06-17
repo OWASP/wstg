@@ -95,7 +95,7 @@ The Penetration testing framework provides comprehensive hands-on penetration te
 [Penetration Testing Framework](http://www.vulnerabilityassessment.co.uk/Penetration%20Test.html)
 
 ## Technical Guide to Information Security Testing and Assessment (NIST 800-115)
-Technical Guide to Information Security Testing and Assessment was published by NIST U.S. Department of Commerce. There are some assessment techniques suggested by the NIST 800-115 listed below.
+Technical Guide to Information Security Testing and Assessment was published by NIST, it includes some assessment techniques listed below.
 
 - Review Techniques
 - Target Identification and Analysis Techniques
