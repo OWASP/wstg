@@ -30,7 +30,7 @@ Keeping the project up to date and looking spiffy is a group effort! The WSTG is
 
 When submitting your [pull request](#how-to-submit-a-pull-request), reviewers and editors should link contributions to an issue:
 
-1. Choose an [open and unassigned issue](https://github.com/OWASP/wstg/issues?q=is%3Aopen+is%3Aissue+no%3Aassignee) to work on, or [open an issue](https://github.com/OWASP/wstg/issues/new/choose) yourself. Post a comment in the issue and request to be assigned to it.
+1. Choose an [open issue with the `help wanted` label](https://github.com/OWASP/wstg/labels/help%20wanted) to work on, or [open an issue](https://github.com/OWASP/wstg/issues/new/choose) yourself. Post a comment in the issue and request to be assigned to it.
 2. Create and switch to a new local branch with the name `fix-<issue number>`. For example, `git checkout -b fix-88`.
 
 ### Technical Review

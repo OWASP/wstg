@@ -110,7 +110,7 @@ Web SQL is deprecated since November 18, 2010 and it's recommended that web deve
 
 ### Cookies
 
-Cookies are a key value storage mechanism that is primarily used for session management but web developers can still use it to store arbitrary string data.
+Cookies are a key-value storage mechanism that is primarily used for session management but web developers can still use it to store arbitrary string data.
 
 Cookies are covered extensively in the [testing for Cookies attributes](../06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.md) scenario.
 

@@ -2,13 +2,23 @@
 
 ## Summary
 
-- OWASP Testing Guide
-- Penetration Testing Execution Standard (PTES)
-- PCI Penetration Testing Guide
-- Penetration Testing Framework (PTF)
-- Technical Guide to Information Security Testing and Assessment (NIST 800-115)
-- Information Systems Security Assessment Framework (ISSAF)
-- Open Source Security Testing Methodology Manual (OSSTMM)
+- [OWASP](#owasp)
+  - Web Security Testing Guide (WSTG)
+  - Mobile Security Testing Guide (MSTG)
+- [Penetration Testing Execution Standard (PTES)](#penetration-testing-execution-standard-ptes)
+- [PCI Penetration Testing Guide](#pci-penetration-testing-guide)
+  - [PCI DSS Penetration Testing Guidance](#pci-dss-penetration-testing-guidance)
+  - [PCI DSS Penetration Testing Requirements](#pci-dss-penetration-testing-requirements)
+- [Penetration Testing Framework](#penetration-testing-framework)
+- [Technical Guide to Information Security Testing and Assessment (NIST800-115)](#technical-guide-to-information-security-testing-and-assessment-nist800-115)
+- [Information Systems Security Assessment Framework (ISSAF)](#information-systems-security-assessment-framework-issaf)
+- [Open Source Security Testing Methodology Manual (OSSTMM)](#open-source-security-testing-methodology-manual-osstmm)
+- [References](#references)
+
+## OWASP
+
+This present document (WSTG) describes the OWASP-recommended methodology for web application security testing. For recommendations specific to mobile devices, the [Mobile Security Testing Guide (MSTG)](https://owasp.org/www-project-mobile-security-testing-guide/) is also available.
+
 
 
 ## OWASP Testing Guide
@@ -115,6 +125,7 @@ Refer to the ISSAF Chapter 7 for the listed security assessment above.
 
 
 ## Open Source Security Testing Methodology Manual (OSSTMM)
+
 
 OSSTMM is a methodology to test the operational security of physical locations, workflow, human security testing, physical security testing, wireless security testing, telecommunication security testing, data networks security testing and compliance. OSSTMM can be supporting reference of IOS 27001 instead of a hands-on or technical application penetration testing guide. 
 

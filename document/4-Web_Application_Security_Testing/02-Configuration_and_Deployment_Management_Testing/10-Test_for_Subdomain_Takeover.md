@@ -17,7 +17,7 @@ If the subdomain takeover is successful a wide variety of attacks are possible (
 
 1. The victim (victim.com) uses GitHub for development and configured a DNS record (coderepo.victim.com) to access it.
 2. The victim decides to migrate their code repository from GitHub to a commercial platform and does not remove coderepo.victim.com from their DNS server.
-3. An adversary finds out that coderepo.victim.com is hosted on GitHub and uses GitHub Pages to claim coderepo.victim.com using his/her GitHub account.
+3. An adversary finds out that coderepo.victim.com is hosted on GitHub and uses GitHub Pages to claim coderepo.victim.com using their GitHub account.
 
 ## Example2 - Expired Domain
 

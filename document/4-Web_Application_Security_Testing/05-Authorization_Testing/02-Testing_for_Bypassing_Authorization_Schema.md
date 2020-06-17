@@ -32,7 +32,7 @@ Then, the following HTTP request is generated when calling the AddUser function:
 ```html
 POST /admin/addUser.jsp HTTP/1.1
 Host: www.example.com
-[other HTTP headers]
+[...]
 
 userID=fakeuser&role=3&group=grp001
 ```
@@ -58,7 +58,7 @@ To detect the support for the header `X-Original-URL` or `X-Rewrite-URL`, the fo
 ```html
 GET / HTTP/1.1
 Host: www.example.com
-[other standard HTTP headers]
+[...]
 ```
 
 #### 2. Send a Request with an X-Original-Url Header Pointing to a Non-Existing Resource
@@ -67,7 +67,7 @@ Host: www.example.com
 GET / HTTP/1.1
 Host: www.example.com
 X-Original-URL: /donotexist1
-[other standard HTTP headers]
+[...]
 ```
 
 #### 3. Send a Request with an X-Rewrite-Url Header Pointing to a Non-Existing Resource
@@ -76,7 +76,7 @@ X-Original-URL: /donotexist1
 GET / HTTP/1.1
 Host: www.example.com
 X-Rewrite-URL: /donotexist2
-[other standard HTTP headers]
+[...]
 ```
 
 If the response for either request contains markers that the resource was not found, this indicates that the application supports the special request headers. These markers may include the HTTP response status code 404, or a "resource not found" message in the response body.

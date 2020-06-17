@@ -12,7 +12,7 @@ OS command injection is a technique used via a web interface in order to execute
 
 ## How to Test
 
-When viewing a file in a web application, the file name is often shown in the URL. Perl allows piping data from a process into an open statement. The user can simply append the Pipe symbol `|` onto the end of the file name.
+When viewing a file in a web application, the filename is often shown in the URL. Perl allows piping data from a process into an open statement. The user can simply append the Pipe symbol `|` onto the end of the filename.
 
 Example URL before alteration:
 
@@ -32,18 +32,12 @@ Example:
 
 ### Example
 
-Consider the case of an application that contains a set of documents that you can browse from the Internet. If you fire up a personal proxy (such as ZAP or Burp Suite), you can obtain a POST HTTP like the following:
+Consider the case of an application that contains a set of documents that you can browse from the Internet. If you fire up a personal proxy (such as ZAP or Burp Suite), you can obtain a POST HTTP like the following (`http://www.example.com/public/doc`):
 
 ```txt
-POST http://www.example.com/public/doc HTTP/1.1
+POST /public/doc HTTP/1.1
 Host: www.example.com
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1) Gecko/20061010 FireFox/2.0
-Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5
-Accept-Language: it-it,it;q=0.8,en-us;q=0.5,en;q=0.3
-Accept-Encoding: gzip,deflate
-Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
-Keep-Alive: 300
-Proxy-Connection: keep-alive
+[...]
 Referer: http://127.0.0.1/WebGoat/attack?Screen=20
 Cookie: JSESSIONID=295500AD2AAEEBEDC9DB86E34F24A0A5
 Authorization: Basic T2Vbc1Q9Z3V2Tc3e=
@@ -53,18 +47,12 @@ Content-length: 33
 Doc=Doc1.pdf
 ```
 
-In this post request, we notice how the application retrieves the public documentation. Now we can test if it is possible to add an operating system command to inject in the POST HTTP. Try the following:
+In this post request, we notice how the application retrieves the public documentation. Now we can test if it is possible to add an operating system command to inject in the POST HTTP. Try the following (`http://www.example.com/public/doc`):
 
 ```txt
-POST http://www.example.com/public/doc HTTP/1.1
+POST /public/doc HTTP/1.1
 Host: www.example.com
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1) Gecko/20061010 FireFox/2.0
-Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5
-Accept-Language: it-it,it;q=0.8,en-us;q=0.5,en;q=0.3
-Accept-Encoding: gzip,deflate
-Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
-Keep-Alive: 300
-Proxy-Connection: keep-alive
+[...]
 Referer: http://127.0.0.1/WebGoat/attack?Screen=20
 Cookie: JSESSIONID=295500AD2AAEEBEDC9DB86E34F24A0A5
 Authorization: Basic T2Vbc1Q9Z3V2Tc3e=
@@ -160,9 +148,9 @@ Be aware of the uses of following API as it may introduce the command injection 
 
 #### Sanitization
 
-The URL and form data needs to be sanitized for invalid characters. A blacklist of characters is an option but it may be difficult to think of all of the characters to validate against. Also there may be some that were not discovered as of yet. A whitelist containing only allowable characters or command list should be created to validate the user input. Characters that were missed, as well as undiscovered threats, should be eliminated by this list.
+The URL and form data needs to be sanitized for invalid characters. A deny list of characters is an option but it may be difficult to think of all of the characters to validate against. Also there may be some that were not discovered as of yet. An allow list containing only allowable characters or command list should be created to validate the user input. Characters that were missed, as well as undiscovered threats, should be eliminated by this list.
 
-General blacklist to be included for command injection can be `|` `;` `&` `$` `>` `<` `'` `\` `!` `>>` `#`
+General deny list to be included for command injection can be `|` `;` `&` `$` `>` `<` `'` `\` `!` `>>` `#`
 
 Escape or filter special characters for windows,   `(` `)` `<` `>` `&` `*` `‘` `|` `=` `?` `;` `[` `]` `^` `~` `!` `.` `”` `%` `@` `/` `\` `:` `+` `,`  ``` ` ```
 Escape or filter special characters for Linux, `{` `}` `(` `)` `>` `<` `&` `*` `‘` `|` `=` `?` `;` `[` `]` `$` `–` `#` `~` `!` `.` `”` `%`  `/` `\` `:` `+` `,` ``` ` ```

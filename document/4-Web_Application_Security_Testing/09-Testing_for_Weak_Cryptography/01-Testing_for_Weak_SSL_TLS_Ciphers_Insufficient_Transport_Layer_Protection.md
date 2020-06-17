@@ -26,7 +26,7 @@ Other vulnerabilities linked to this are:
 - Software exposed must be updated due to possibility of [known vulnerabilities](../02-Configuration_and_Deployment_Management_Testing/01-Test_Network_Infrastructure_Configuration.md).
 - Usage of [Secure flag for Session Cookies](../06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.md).
 - Usage of [HTTP Strict Transport Security (HSTS)](../02-Configuration_and_Deployment_Management_Testing/07-Test_HTTP_Strict_Transport_Security.md).
-- The presence of both [HTTP](https://resources.enablesecurity.com/resources/Surf%20Jacking.pdf) and [HTTPS](https://moxie.org/software/sslstrip/), which can be used to intercept traffic.
+- The presence of both [HTTP](https://resources.enablesecurity.com/resources/Surf%20Jacking.pdf) and [HTTPS](https://github.com/moxie0/sslstrip), which can be used to intercept traffic.
 - The presence of mixed HTTPS and HTTP content in the same page, which can be used to Leak information.
 
 ### Sensitive Data Transmitted in Clear-Text
@@ -138,7 +138,7 @@ The following standards can be used as reference while assessing SSL servers:
   - [OWASP ASVS - Verification V9](https://github.com/OWASP/ASVS/blob/master/4.0/en/0x17-V9-Communications.md).
   - [OWASP Application Security FAQ - Cryptography/SSL](https://owasp.org/www-community/OWASP_Application_Security_FAQ#cryptographyssl).
 
-Some tools and scanners both free (e.g. [SSLAudit](https://code.google.com/p/sslaudit/) or [SSLScan](https://sourceforge.net/projects/sslscan/)) and commercial (e.g. [Tenable Nessus](https://www.tenable.com/products/nessus)), can be used to assess SSL/TLS vulnerabilities. But due to evolution of these vulnerabilities a good way to test is to check them manually with [OpenSSL](https://www.openssl.org/) or use the tool’s output as an input for manual evaluation using the references.
+Some tools and scanners both free (e.g. [SSLScan](https://sourceforge.net/projects/sslscan/)) and commercial (e.g. [Tenable Nessus](https://www.tenable.com/products/nessus)), can be used to assess SSL/TLS vulnerabilities. But due to evolution of these vulnerabilities a good way to test is to check them manually with [OpenSSL](https://www.openssl.org/) or use the tool’s output as an input for manual evaluation using the references.
 
 Sometimes the SSL/TLS enabled service is not directly accessible and the tester can access it only via a HTTP proxy using [CONNECT method](https://tools.ietf.org/html/rfc2817). Most of the tools will try to connect to desired tcp port to start SSL/TLS handshake. This will not work since desired port is accessible only via HTTP proxy. The tester can easily circumvent this by using relaying software such as [socat](https://linux.die.net/man/1/socat).
 
@@ -670,7 +670,7 @@ Additionally it provides a prototype (via `testssl.sh -V`) of mapping to RFC cip
 11. HSTS: Check for SubDomains support
 12. Certificate expiration
 13. Insufficient public key-length
-14. Host-name mismatch
+14. Hostname mismatch
 15. Weak/Insecure Hashing Algorithm (MD2, MD4, MD5, SHA1)
 16. SSLv2 support
 17. Weak ciphers check (Low, Anon, Null, Export)
@@ -1141,7 +1141,7 @@ Checking localhost:443 for TLS Compression support against CRIME (CVE-2012-4929)
 7. PFS: Forward Secrecy support
 8. HSTS: Check for implementation of HSTS header
 9. SNI support
-10. Certificate: Host-name mismatch
+10. Certificate: Hostname mismatch
 11. Certificate expiration
 12. Certificate extension
 13. Weak/Insecure Hashing Algorithm (MD2, MD4, MD5, SHA1)
@@ -1158,7 +1158,7 @@ Firstly upgrade the browser because CA certs expire and in every release of the 
 
 By clicking on the padlock that appears in the browser window when visiting an HTTPS site, testers can look at information related to the certificate – including the issuer, period of validity, encryption characteristics, etc. If the application requires a client certificate, that tester has probably installed one to access it. Certificate information is available in the browser by inspecting the relevant certificate(s) in the list of the installed certificates.
 
-These checks must be applied to all visible SSL-wrapped communication channels used by the application. Though this is the usual HTTPS service running on port 443, there may be additional services involved depending on the web application architecture and on deployment issues (an HTTPS administrative port left open, HTTPS services on non-standard ports, etc.). Therefore, apply these checks to all SSL-wrapped ports which have been discovered. For example, the nmap scanner features a scanning mode (enabled by the –sV command line switch) which identifies SSL-wrapped services. The Nessus vulnerability scanner has the capability of performing SSL checks on all SSL/TLS-wrapped services.
+These checks must be applied to all visible SSL-wrapped communication channels used by the application. Though this is the usual HTTPS service running on port 443, there may be additional services involved depending on the web application architecture and on deployment issues (an HTTPS administrative port left open, HTTPS services on non-standard ports, etc.). Therefore, apply these checks to all SSL-wrapped ports which have been discovered. For example, the nmap scanner features a scanning mode (enabled by the `–sV` command-line switch) which identifies SSL-wrapped services. The Nessus vulnerability scanner has the capability of performing SSL checks on all SSL/TLS-wrapped services.
 
 #### Example 1. Testing for Certificate Validity (Manually)
 
@@ -1201,7 +1201,7 @@ To test if a website is vulnerable carry out the following tests:
 
 Some applications supports both HTTP and HTTPS, either for usability or so users can type both addresses and get to the site. Often users go into an HTTPS website from link or a redirect. Typically personal banking sites have a similar configuration with an iframed log in or a form with action attribute over HTTPS but the page under HTTP.
 
-An attacker in a privileged position - as described in [SSL strip](https://moxie.org/software/sslstrip/) - can intercept traffic when the user is in the HTTP site and manipulate it to get a Man-In-The-Middle attack under HTTPS. An application is vulnerable if it supports both HTTP and HTTPS.
+An attacker in a privileged position - as described in [SSL strip](https://github.com/moxie0/sslstrip) - can intercept traffic when the user is in the HTTP site and manipulate it to get a Man-In-The-Middle attack under HTTPS. An application is vulnerable if it supports both HTTP and HTTPS.
 
 ### Testing via HTTP Proxy
 

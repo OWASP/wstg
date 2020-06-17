@@ -22,7 +22,7 @@ A test is an action to demonstrate that an application meets the security requir
 
 The OWASP approach is open and collaborative:
 
-- Open: every security expert can participate with his or her experience in the project. Everything is free.
+- Open: every security expert can participate with their experience in the project. Everything is free.
 - Collaborative: brainstorming is performed before the articles are written so the team can share ideas and develop a collective vision of the project. That means rough consensus, a wider audience and increased participation.
 
 This approach tends to create a defined Testing Methodology that will be:

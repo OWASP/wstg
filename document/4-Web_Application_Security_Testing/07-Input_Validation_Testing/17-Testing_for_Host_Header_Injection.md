@@ -20,17 +20,14 @@ Initial testing is as simple as supplying another domain (i.e. `attacker.com`) i
 ```html
 GET / HTTP/1.1
 Host: www.attacker.com
-Cache-Control: max-age=0
-Connection: Keep-alive
-Accept-Encoding: gzip, deflate, br
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36
+[...]
 ```
 
 In the simplest case, this may cause a 302 redirect to the supplied domain.
 
 ```html
 HTTP/1.1 302 Found
-...
+[...]
 Location: http://www.attacker.com/login.php
 
 ```

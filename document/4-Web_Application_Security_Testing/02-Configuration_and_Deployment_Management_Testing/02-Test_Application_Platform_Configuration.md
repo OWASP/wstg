@@ -30,10 +30,11 @@ Comment review should be done in order to determine if any information is being 
 
 #### System Configuration
 
-CIS-CAT gives IT and security professionals a fast, detailed assessment of target systems' conformance to CIS Benchmarks. CIS also provides the recommended system configuration hardening guide including database, OS, Web server, visualization.
+Various tools, documents, or checklists can be used to give IT and security professionals a detailed assessment of target systems' conformance to various configuration baselines or benchmarks. Such tools include (but are not limited to):
 
-- [1 CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks/)
-- [2 CIS Benchmarks Downloads](https://learn.cisecurity.org/benchmarks)
+- [CIS-CAT Lite](https://www.cisecurity.org/blog/introducing-cis-cat-lite/)
+- [Microsoft's Attack Surface Analyzer](https://github.com/microsoft/AttackSurfaceAnalyzer)
+- [NIST's National Checklist Program](https://nvd.nist.gov/ncp/repository)
 
 ### Gray-Box Testing
 
@@ -44,7 +45,7 @@ The web server or application server configuration takes an important role in pr
 It is impossible to generically say how a server should be configured, however, some common guidelines should be taken into account:
 
 - Only enable server modules (ISAPI extensions in the case of IIS) that are needed for the application. This reduces the attack surface since the server is reduced in size and complexity as software modules are disabled. It also prevents vulnerabilities that might appear in the vendor software from affecting the site if they are only present in modules that have been already disabled.
-- Handle server errors (40x or 50x) with custom-made pages instead of with the default web server pages. Specifically make sure that any application errors will not be returned to the end-user and that no code is leaked through these errors since it will help an attacker. It is actually very common to forget this point since developers do need this information in pre-production environments.
+- Handle server errors (40x or 50x) with custom-made pages instead of with the default web server pages. Specifically make sure that any application errors will not be returned to the end user and that no code is leaked through these errors since it will help an attacker. It is actually very common to forget this point since developers do need this information in pre-production environments.
 - Make sure that the server software runs with minimized privileges in the operating system. This prevents an error in the server software from directly compromising the whole system, although an attacker could elevate privileges once running code as the web server.
 - Make sure the server software properly logs both legitimate access and errors.
 - Make sure that the server is configured to properly handle overloads and prevent Denial of Service attacks. Ensure that the server has been performance-tuned properly.
@@ -172,7 +173,7 @@ Log statistics or analysis should not be generated, nor stored, in the same serv
 - General
   - [Logging Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html), OWASP
   - [SP 800-92](https://csrc.nist.gov/publications/detail/sp/800-92/final) Guide to Computer Security Log Management, NIST
-  - [PCI DSS v3.1](https://www.pcisecuritystandards.org/document_library) Requirement 10 and PA-DSS v2.0 Requirement 4, PCI Security Standards Council
+  - [PCI DSS v3.2.1](https://www.pcisecuritystandards.org/document_library) Requirement 10 and PA-DSS v3.2 Requirement 4, PCI Security Standards Council
 
 - Generic:
   - [CERT Security Improvement Modules: Securing Public Web Servers](https://resources.sei.cmu.edu/asset_files/SecurityImprovementModule/2000_006_001_13637.pdf)

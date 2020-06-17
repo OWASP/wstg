@@ -45,8 +45,8 @@ IMAP special parameters that should be used are:
 
 | On the IMAP server     | On the SMTP server |
 |------------------------|--------------------|
-| Authentication         | Emissor e-mail     |
-| operations with mail boxes (list, read, create, delete, rename) | Destination e-mail |
+| Authentication         | Emissor email     |
+| operations with mail boxes (list, read, create, delete, rename) | Destination email |
 | operations with messages (read, copy, move, delete) | Subject   |
 | Disconnection          | Message body       |
 |                        | Attached files     |

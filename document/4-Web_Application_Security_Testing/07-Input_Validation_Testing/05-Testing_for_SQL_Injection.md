@@ -61,7 +61,7 @@ character string ''.
 /target/target.asp, line 113
 ```
 
-Also comment delimiters (-- or /* */, etc) and other SQL keywords like 'AND' and 'OR' can be used to try to modify the query. A very simple but sometimes still effective technique is simply to insert a string where a number is expected, as an error like the following might be generated:
+Also comment delimiters (`--` or `/* */`, etc) and other SQL keywords like `AND` and `OR` can be used to try to modify the query. A very simple but sometimes still effective technique is simply to insert a string where a number is expected, as an error like the following might be generated:
 
 ```asp
 Microsoft OLE DB Provider for ODBC Drivers error '80040e07'
@@ -70,7 +70,7 @@ varchar value 'test' to a column of data type int.
 /target/target.asp, line 113
 ```
 
-Monitor all the responses from the web server and have a look at the HTML/javascript source code. Sometimes the error is present inside them but for some reason (e.g. javascript error, HTML comments, etc) is not presented to the user. A full error message, like those in the examples, provides a wealth of information to the tester in order to mount a successful injection attack. However, applications often do not provide so much detail: a simple '500 Server Error' or a custom error page might be issued, meaning that we need to use blind injection techniques. In any case, it is very important to test each field separately: only one variable must vary while all the other remain constant, in order to precisely understand which parameters are vulnerable and which are not.
+Monitor all the responses from the web server and have a look at the HTML/JavaScript source code. Sometimes the error is present inside them but for some reason (e.g. JavaScript error, HTML comments, etc) is not presented to the user. A full error message, like those in the examples, provides a wealth of information to the tester in order to mount a successful injection attack. However, applications often do not provide so much detail: a simple '500 Server Error' or a custom error page might be issued, meaning that we need to use blind injection techniques. In any case, it is very important to test each field separately: only one variable must vary while all the other remain constant, in order to precisely understand which parameters are vulnerable and which are not.
 
 ### Standard SQL Injection Testing
 
@@ -221,7 +221,7 @@ The UNION operator is used in SQL injections to join a query, purposely forged b
 
 `SELECT Name, Phone, Address FROM Users WHERE Id=$id`
 
-We will set the following $id value:
+We will set the following `$id` value:
 
 `$id=1 UNION ALL SELECT creditCardNumber,1,1 FROM CreditCardTable`
 
@@ -261,7 +261,7 @@ After the successful information gathering, depending on the application, it may
 
 The Boolean exploitation technique is very useful when the tester finds a [Blind SQL Injection](https://owasp.org/www-community/attacks/Blind_SQL_Injection) situation, in which nothing is known on the outcome of an operation. For example, this behavior happens in cases where the programmer has created a custom error page that does not reveal anything on the structure of the query or on the database. (The page does not return a SQL error, it may just return a HTTP 500, 404, or redirect).
 
-By using inference methods, it is possible to avoid this obstacle and thus to succeed in recovering the values of some desired fields. This method consists of carrying out a series of boolean queries against the server, observing the answers and finally deducing the meaning of such answers. We consider, as always, the www.example.com domain and we suppose that it contains a parameter named id vulnerable to SQL injection. This means that carrying out the following request:
+By using inference methods, it is possible to avoid this obstacle and thus to succeed in recovering the values of some desired fields. This method consists of carrying out a series of boolean queries against the server, observing the answers and finally deducing the meaning of such answers. We consider, as always, the www.example.com domain and we suppose that it contains a parameter named `id` vulnerable to SQL injection. This means that carrying out the following request:
 
 `http://www.example.com/index.php?id=1'`
 
@@ -325,7 +325,7 @@ The malicious request would be (e.g. Oracle 10g):
 
 `http://www.example.com/product.php?id=10||UTL_INADDR.GET_HOST_NAME( (SELECT user FROM DUAL) )--`
 
-In this example, the tester is concatenating the value 10 with the result of the function `UTL_INADDR.GET_HOST_NAME`. This Oracle function will try to return the host name of the parameter passed to it, which is other query, the name of the user. When the database looks for a host name with the user database name, it will fail and return an error message like:
+In this example, the tester is concatenating the value 10 with the result of the function `UTL_INADDR.GET_HOST_NAME`. This Oracle function will try to return the hostname of the parameter passed to it, which is other query, the name of the user. When the database looks for a hostname with the user database name, it will fail and return an error message like:
 
 `ORA-292257: host SCOTT unknown`
 
@@ -432,7 +432,7 @@ Most of the situation and techniques presented here can be performed in a automa
 
 The techniques are used to bypass defenses such as Web application firewalls (WAFs) or intrusion prevention systems (IPSs). Also refer to [https://owasp.org/www-community/attacks/SQL_Injection_Bypassing_WAF](https://owasp.org/www-community/attacks/SQL_Injection_Bypassing_WAF)
 
-#### White Space
+#### Whitespace
 
 Dropping space or adding spaces that won't affect the SQL statement. For example
 
@@ -556,12 +556,9 @@ For generic input validation security, refer to the [Input Validation CheatSheet
 ## Tools
 
 - [SQL Injection Fuzz Strings (from wfuzz tool) - Fuzzdb](https://github.com/fuzzdb-project/fuzzdb/tree/master/attack/sql-injection)
-- [Francois Larouche: Multiple DBMS SQL Injection tool -SQL Power Injector](http://www.sqlpowerinjector.com/index.htm)
 - [sqlbftools](http://packetstormsecurity.org/files/43795/sqlbftools-1.2.tar.gz.html)
 - [Bernardo Damele A. G.: sqlmap, automatic SQL injection tool](http://sqlmap.org/)
-- [icesurfer: SQL Server Takeover Tool - sqlninja](http://sqlninja.sourceforge.net)
 - [Muhaimin Dzulfakar: MySqloit, MySql Injection takeover tool](https://github.com/dtrip/mysqloit)
-- [bsqlbf, a blind SQL injection tool in Perl](https://code.google.com/p/bsqlbf-v2/)
 
 ## References
 

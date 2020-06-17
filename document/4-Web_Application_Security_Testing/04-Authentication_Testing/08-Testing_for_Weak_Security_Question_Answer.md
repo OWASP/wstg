@@ -44,9 +44,9 @@ Use the methods described in [Testing for Weak lock out mechanism](03-Testing_fo
 
 The first thing to take into consideration when trying to exploit security questions is the number of questions that need to be answered. The majority of applications only need the user to answer a single question, whereas some critical applications may require the user to answer two or even more questions.
 
-The next step is to assess the strength of the security questions. Could the answers be obtained by a simple Google search or with social engineering attack? As a penetration tester, here is a step-by-step walk-through of exploiting a security question scheme:
+The next step is to assess the strength of the security questions. Could the answers be obtained by a simple Google search or with social engineering attack? As a penetration tester, here is a step-by-step walkthrough of exploiting a security question scheme:
 
-- Does the application allow the end-user to choose the question that needs to be answered? If so, focus on questions which have:
+- Does the application allow the end user to choose the question that needs to be answered? If so, focus on questions which have:
 
   - A “public” answer; for example, something that could be find with a simple search-engine query.
   - A factual answer such as a “first school” or other facts which can be looked up.
