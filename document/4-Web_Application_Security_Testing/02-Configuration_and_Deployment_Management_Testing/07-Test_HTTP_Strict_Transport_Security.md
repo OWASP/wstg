@@ -8,7 +8,7 @@
 
 The HTTP Strict Transport Security (HSTS) header is a mechanism that web sites have to communicate to the web browsers that all traffic exchanged with a given domain must always be sent over https, this will help protect the information from being passed over unencrypted requests.
 
-Considering the importance of this security measure it is important to verify that the web site is using this HTTP header in order to ensure that all the data travels encrypted from the web browser to the server.
+Considering the importance of this security measure it is prudent to verify that the web site is using this HTTP header in order to ensure that all the data travels encrypted from the web browser to the server.
 
 The HTTP Strict Transport Security (HSTS) feature lets a web application inform the browser through the use of a special response header that it should never establish a connection to the the specified domain servers using HTTP. Instead it should automatically establish all connection requests to access the site through HTTPS.
 
