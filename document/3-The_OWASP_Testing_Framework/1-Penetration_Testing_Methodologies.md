@@ -132,7 +132,7 @@ OSSTMM includes the following key sections:
 - Security Analysis
 - Operational Security Metrics
 - Trust Analysis
-- Work Flow.
+- Work Flow
 - Human Security Testing
 - Physical Security Testing
 - Wireless Security Testing
