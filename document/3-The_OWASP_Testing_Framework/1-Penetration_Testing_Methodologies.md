@@ -104,7 +104,7 @@ Technical Guide to Information Security Testing and Assessment was published by 
 - Security Assessment Execution
 - Post-Testing Activities
 
-The NIST 800-115 can be accessed [here]( https://csrc.nist.gov/publications/detail/sp/800-115/final)
+The NIST 800-115 can be accessed [here](https://csrc.nist.gov/publications/detail/sp/800-115/final)
 
 ## Information Systems Security Assessment Framework (ISSAF)
 
