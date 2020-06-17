@@ -65,7 +65,7 @@ The PCI DSS requirement refer to Payment Card Industry Data Security Standard (P
 
 ## Penetration Testing Framework
 
-The Penetration Testing Framework (PTF) provides comprehensive hands-on penetration testing guide. It also lists usages of the security testing tools in each testing category. The major area of penetration testing includes -
+The Penetration Testing Framework (PTF) provides comprehensive hands-on penetration testing guide. It also lists usages of the security testing tools in each testing category. The major area of penetration testing includes:
 
 - Network Footprinting (Reconnaissance)
 - Discovery & Probing
