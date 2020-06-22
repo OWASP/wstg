@@ -6,7 +6,7 @@
 
 [![Creative Commons License](https://licensebuttons.net/l/by-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-sa/4.0/ "CC BY-SA 4.0")
 
-Welcome to the official repository for the Open Web Application Security Project (OWASP) Web Security Testing Guide (WSTG). The WSTG is a comprehensive guide to testing the security of web applications and web services. Created by the collaborative efforts of security professionals and dedicated volunteers, the WSTG provides a framework of best practices used by penetration testers and organizations all over the world.
+Welcome to the official repository for the Open Web Application Security Project® (OWASP®) Web Security Testing Guide (WSTG). The WSTG is a comprehensive guide to testing the security of web applications and web services. Created by the collaborative efforts of security professionals and dedicated volunteers, the WSTG provides a framework of best practices used by penetration testers and organizations all over the world.
 
 We are currently working on release version 5.0. You can [read the current document here on GitHub](https://github.com/OWASP/wstg/tree/master/document).
 
@@ -69,3 +69,5 @@ You can also join our [Google Group](https://groups.google.com/a/owasp.org/forum
 
 - [Rejah Rehim](https://github.com/rejahrehim)
 - [Victoria Drake](https://github.com/victoriadrake)
+
+Open Web Application Security Project and OWASP are registered trademarks of the OWASP Foundation, Inc.

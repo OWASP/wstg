@@ -72,7 +72,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Merriam-Webster is a trademark of Merriam-Webster, Inc.
 - Microsoft is a registered trademark of Microsoft Corporation.
 - Octave is a service mark of Carnegie Mellon University.
-- OWASP is a registered trademark of the OWASP Foundation
+- Open Web Application Security Project and OWASP are registered trademarks of the OWASP Foundation, Inc.
 - VeriSign and Thawte are registered trademarks of VeriSign, Inc.
 - Visa is a registered trademark of VISA USA.
 
