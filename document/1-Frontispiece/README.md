@@ -75,6 +75,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - OWASP is a registered trademark of the OWASP Foundation
 - VeriSign and Thawte are registered trademarks of VeriSign, Inc.
 - Visa is a registered trademark of VISA USA.
+- Open Web Application Security Project and OWASP are registered trademarks of the OWASP Foundation, Inc.
 
 All other products and company names may be trademarks of their respective owners. Use of a term in this document should not be regarded as affecting the validity of any trademark or service mark.
 
