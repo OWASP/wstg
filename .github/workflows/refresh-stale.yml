@@ -15,7 +15,7 @@ jobs:
         exempt-issue-labels: 'help wanted,blocked'
         stale-pr-message: 'Please comment if you are still working on this PR, as it has been inactive for 30 days. To give everyone a chance to contribute, we are releasing it for new contributors to take over.'
         stale-pr-label: 'help wanted'
-        exempt-pr-labels: 'help wanted'
+        exempt-pr-labels: 'help wanted,blocked'
         remove-stale-when-updated: false
         days-before-stale: 30
         days-before-close: -1
