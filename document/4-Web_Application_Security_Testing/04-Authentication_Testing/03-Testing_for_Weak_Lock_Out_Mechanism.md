@@ -38,7 +38,19 @@ To evaluate the account lockout mechanism's ability to mitigate brute force pass
 8. Attempt to log in with the correct password 10 minutes later. The application returns “Your account is locked out.”, thereby showing that the lockout mechanism does not automatically unlock after 10 minutes.
 9. Successfully log in with the correct password 15 minutes later, thereby showing that the lockout mechanism automatically unlocks after a 10 to 15 minute period.
 
-A CAPTCHA may hinder brute force attacks, but they can come with their own set of weaknesses, and should not replace a lockout mechanism.
+A CAPTCHA may hinder brute force attacks, but they can come with their own set of weaknesses, and should not replace a lockout mechanism. A CAPTCHA mechanism may be bypassed if implemented incorrectly. CAPTCHA flaws include:
+
+1. Easily defeated challenge, such as arithimetic or limited question set.
+2. CAPTCHA checks for HTTP response code instead of response success.
+3. CAPTCHA server-side logic defaults to a successful solve.
+4. CAPTCHA challenge result is never validated server-side.
+
+To evaluate CAPTCHA effectiveness:
+
+1. Assess CAPTCHA challenges and attempt automating solutions depending on difficulty.
+2. Attempt to submit request without solving CAPTCHA.
+3. Attempt to submit request with intentional CAPTCHA challenge failure.
+4. Attempt to submit request without solving CAPTCHA using testing proxy (request submitted directly server-side).
 
 Repeat this process to every possible functionality that could require a lockout mechanism.
 
