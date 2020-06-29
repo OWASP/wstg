@@ -115,6 +115,7 @@ The tester can also identify what other objects, methods and properties can be e
 4. [Server Side Template Injection: from detection to Remote shell](https://www.okiok.com/server-side-template-injection-from-detection-to-remote-shell/)
 5. [Extreme Vulnerable Web Application](https://github.com/s4n7h0/xvwa)
 6. [Divine Selorm Tsa: Exploiting server side template injection with tplmap](https://owasp.org/www-pdf-archive/Owasp_SSTI_final.pdf)
+7. [Exploiting SSTI in Thymeleaf](https://www.acunetix.com/blog/web-security-zone/exploiting-ssti-in-thymeleaf/)
 
 ## Tools
 
