@@ -44,6 +44,7 @@ A CAPTCHA may hinder brute force attacks, but they can come with their own set o
 2. CAPTCHA checks for HTTP response code instead of response success.
 3. CAPTCHA server-side logic defaults to a successful solve.
 4. CAPTCHA challenge result is never validated server-side.
+5. CAPTCHA input field or parameter is improperly validated or escaped.
 
 To evaluate CAPTCHA effectiveness:
 
@@ -51,6 +52,7 @@ To evaluate CAPTCHA effectiveness:
 2. Attempt to submit request without solving CAPTCHA.
 3. Attempt to submit request with intentional CAPTCHA challenge failure.
 4. Attempt to submit request without solving CAPTCHA using testing proxy (request submitted directly server-side).
+5. Attempt to fuzz CAPTCHA input field or request parameter (if present) with injection payloads.
 
 Repeat this process to every possible functionality that could require a lockout mechanism.
 
