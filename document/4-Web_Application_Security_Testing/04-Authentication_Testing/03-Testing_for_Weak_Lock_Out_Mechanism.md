@@ -84,5 +84,20 @@ Factors to consider when implementing an account lockout mechanism:
 
 ## References
 
+<<<<<<< Upstream, based on upstream/master
 - See the OWASP article on [Brute Force](https://owasp.org/www-community/attacks/Brute_force_attack) Attacks.
 - [Forgot Password CS](https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html).
+=======
+- [OWASP - Brute Force Attacks](https://owasp.org/www-community/attacks/Brute_force_attack)
+- [SecureLayer7 - CAPTCHA Bypass](https://blog.securelayer7.net/owasp-top-10-insufficient-attack-protection-7-captcha-bypass/)
+- [Google - reCAPTCHA docs](https://developers.google.com/recaptcha/docs/v3)
+
+## Remediation
+
+Apply account unlock mechanisms depending on the risk level. In order from lowest to highest assurance:
+
+1. Time-based lockout and unlock.
+2. Self-service unlock (sends unlock email to registered email address).
+3. Manual administrator unlock.
+4. Manual administrator unlock with positive user identification.
+>>>>>>> d9fa825 Update document/4-Web_Application_Security_Testing/04-Authentication_Testing/03-Testing_for_Weak_Lock_Out_Mechanism.md
