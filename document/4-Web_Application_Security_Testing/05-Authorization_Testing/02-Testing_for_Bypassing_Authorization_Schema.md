@@ -83,6 +83,25 @@ If the response for either request contains markers that the resource was not fo
 
 Once the support for the header `X-Original-URL` or `X-Rewrite-URL` was validated then the tentative of bypass against the access control restriction can be leveraged by sending the expected request to the application but specifying a URL "allowed" by the front-end component as the main request URL and specifying the real target URL in the `X-Original-URL` or `X-Rewrite-URL` header depending on the one supported. If both are supported then try one after the other to verify for which header the bypass is effective.
 
+#### 4. Other Headers to Consider
+
+Often admin panels or administrative related bits of functionality are only accessible to clients on local networks/connections, therefore if may be possible to abuse various proxy or forwarder related HTTP headers to gain access. Some headers and values to test with are:
+
+- Headers:
+  - `X-Forward-For`
+  - `X-Remote-IP`
+  - `X-Originating-IP`
+  - `X-Remote-Addr`
+  - `X-Client-IP`
+  - Values
+  - `127.0.0.1` (or anything in the `127.0.0.0/8` or `::1/128` address spaces)
+  - `localhost`
+  - Any [RFC1918](https://tools.ietf.org/html/rfc1918) address:
+    - `10.0.0.0/8`
+    - `172.16.0.0/12`
+    - `192.168.0.0/16`
+
 ## Tools
 
 - [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org/)
+- [Port Swigger Burp Suite](https://portswigger.net/burp)
