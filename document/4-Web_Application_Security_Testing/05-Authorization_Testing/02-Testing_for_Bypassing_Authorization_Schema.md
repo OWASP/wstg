@@ -93,7 +93,7 @@ Often admin panels or administrative related bits of functionality are only acce
   - `X-Originating-IP`
   - `X-Remote-Addr`
   - `X-Client-IP`
-  - Values
+- Values
   - `127.0.0.1` (or anything in the `127.0.0.0/8` or `::1/128` address spaces)
   - `localhost`
   - Any [RFC1918](https://tools.ietf.org/html/rfc1918) address:
