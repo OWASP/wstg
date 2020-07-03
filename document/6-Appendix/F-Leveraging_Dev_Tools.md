@@ -54,6 +54,20 @@ All major browsers support manipulating CSS leveraging the Dev Tools Console and
 
 ## Disable JavaScript
 
+### Google Chrome
+
+Assuming dev tools is already visible.
+
+1. Click on triple dot 'kebob' menu on the right side of the web developer toolbar and click on `Settings`.
+2. On the `Preferences` tab, under the `Debugger` section, check the `Disable JavaScript` checkbox.
+
+### Mozilla Firefox
+
+Assuming dev tools is already visible.
+
+1. Click on the settings gear button in the upper right corner of the developer toolbar.
+2. Select `Disable JavaScript` from the dropdown (this is an enable/disable menu item, when JavaScript is disabled the meny item has a check mark).
+
 ## View HTTP Headers
 
 ## Screenshots
@@ -75,4 +89,4 @@ All major browsers support encoding and decoding strings in various ways leverag
 
 ## Credit
 
-This appendix was suggested by [Abhi-M](https://github.com/Abhi-M) and was assembled based on details from: [Web App Security Testing with Browsers](https://getmantra.com/web-app-security-testing-with-browsers/).
+This appendix was assembled based on details from: [Web App Security Testing with Browsers](https://getmantra.com/web-app-security-testing-with-browsers/) along with team modifications and suggestions.
