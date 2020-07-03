@@ -89,6 +89,7 @@ Often admin panels or administrative related bits of functionality are only acce
 
 - Headers:
   - `X-Forwarded-For`
+  - `X-Forward-For`
   - `X-Remote-IP`
   - `X-Originating-IP`
   - `X-Remote-Addr`
