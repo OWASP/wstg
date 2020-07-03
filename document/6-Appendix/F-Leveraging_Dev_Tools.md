@@ -45,7 +45,7 @@ Assuming dev tools is already active.
 2. Un-check the “Select automatically” check box.
 3. Select the user agent from dropdown menu or enter a custom user agent
 
-![](images/f_chrome_devtools_ua_switch.png)\
+![](images/f_chrome_devtools_ua_switch.png "The User-Agent selection dropdown menu in Google Chrome")\
 _Figure 6.F-1: Google Chrome Dev Tools User-Agent Switching Functionality_
 
 ### Mozilla Firefox
@@ -55,7 +55,7 @@ _Figure 6.F-1: Google Chrome Dev Tools User-Agent Switching Functionality_
 3. Look for `general.useragent.override`, if you can't see this preference, look for one that show a set of radio buttons `Boolean, Number, String` select `String` then click the plus sign `Add` button on the `about:config` page.
 4. Set the value of `general.useragent.override` to whatever [User-Agent](http://www.useragentstring.com/pages/useragentstring.php) you might need.
 
-![](images/f_firefox_ua_switch.png)\
+![](images/f_firefox_ua_switch.png "The User-Agent configuration preference in Mozilla Firefox")\
 _Figure 6.F-2: Mozilla Firefox User-Agent Switching Functionality_
 
 Later click on the garbage can `Delete` button to the right of the `general.useragent.override` preference to remove the override and switch back to the default user agent.
