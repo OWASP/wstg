@@ -102,7 +102,7 @@ Often admin panels or administrative related bits of functionality are only acce
     - `192.168.0.0/16`
   - Link local addresses: `169.254.0.0/16`
 
-Note: Including a port element along with the address or host name may also help bypass edge protections such as web application firewalls, etc.
+Note: Including a port element along with the address or hostname may also help bypass edge protections such as web application firewalls, etc.
 For example: `127.0.0.4:80`, `127.0.0.4:443`, `127.0.0.4:43982`
 
 ## Tools
