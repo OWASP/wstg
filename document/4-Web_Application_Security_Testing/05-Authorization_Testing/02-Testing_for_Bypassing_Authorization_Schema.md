@@ -88,7 +88,7 @@ Once the support for the header `X-Original-URL` or `X-Rewrite-URL` was validate
 Often admin panels or administrative related bits of functionality are only accessible to clients on local networks, therefore it may be possible to abuse various proxy or forwarding related HTTP headers to gain access. Some headers and values to test with are:
 
 - Headers:
-  - `X-Forward-For`
+  - `X-Forwarded-For`
   - `X-Remote-IP`
   - `X-Originating-IP`
   - `X-Remote-Addr`
