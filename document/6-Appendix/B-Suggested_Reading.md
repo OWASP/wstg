@@ -55,7 +55,6 @@
 - [Web Application Security Scanner List](http://projects.webappsec.org/w/page/13246988/Web%20Application%20Security%20Scanner%20List)
 - [Web Security – Articles](https://www.acunetix.com/blog/category/web-security-zone/)
 - [Testing Client Side Security issues](http://www.domxss.com/domxss/)
-- [How-to guide for performing basic web app security tests using the browser dev tools](https://getmantra.com/web-app-security-testing-with-browsers/)
 
 ## Videos
 
