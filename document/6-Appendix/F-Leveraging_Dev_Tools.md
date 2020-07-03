@@ -33,7 +33,7 @@ Opening Dev Tools can be accomplished in a number of ways.
 | Encoding and Decoding | Y       | Y       | Y       | Y      |
 | Responsive Design Mode| Y       | Y       | Y       |        |
 
-* Anything that applies to Google Chrome should be applicable to "New" Edge.
+`*` Anything that applies to Google Chrome should be applicable to "New" Edge.
 
 ## User-Agent Switching
 
@@ -44,6 +44,13 @@ Opening Dev Tools can be accomplished in a number of ways.
 ## Local Storage Editing
 
 ## Disable CSS
+
+All major browsers support manipulating CSS leveraging the Dev Tools Console and JavaScript functionality:
+
+* To remove all external style-sheets: `$('style,link[rel="stylesheet"]').remove();`
+* To remove all internal style-sheets: `$('style').remove();`
+* To remove all in-line styles: `Array.prototype.forEach.call(document.querySelectorAll('*'),function(el){el.removeAttribute('style');});`
+* To remove everything from head tag: `$('head').remove();`
 
 ## Disable JavaScript
 
