@@ -10,7 +10,7 @@ Opening Dev Tools can be accomplished in a number of ways.
 
 1. Via the keyboard shortcut `F12`.
 2. Via the keyboard shortcut `ctrl` + `shift` + `i` on Windows.
-3. Via the keyboard short cut `cmd` + `option` `i` on Mac.
+3. Via the keyboard short cut `cmd` + `option` + `i` on Mac.
 4. Via the web page right click context menu and then selecting `Inspect` in Google Chrome.
 5. Via the web page right click context menu and then selecting `Inspect Element` in Mozilla Firefox.
 6. Via the triple dot 'kabob' menu in Google Chrome then selecting `More Tools` and then `Developer Tools`.
