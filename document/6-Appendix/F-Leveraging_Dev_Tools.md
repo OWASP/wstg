@@ -21,7 +21,7 @@ Opening Dev Tools can be accomplished in a number of ways.
 
 | Functionality         | Chrome* | Firefox | Edge/IE | Safari |
 |-----------------------|:-------:|:-------:|:-------:|:------:|
-| User Agent Switching  | Y       | Y       | Y       | Y      |
+| User-Agent Switching  | Y       | Y       | Y       | Y      |
 | Edit/Resend Requests  | N       | Y       | N       | N      |
 | Cookie Editing        | Y       | Y       | Y       | N      |
 | Local Storage Editing | Y       | Y       | Y       | N      |
@@ -35,7 +35,7 @@ Opening Dev Tools can be accomplished in a number of ways.
 
 * Anything that applies to Google Chrome should be applicable to "New" Edge.
 
-## User Agent Switching
+## User-Agent Switching
 
 ## Edit/Resend Requests
 
