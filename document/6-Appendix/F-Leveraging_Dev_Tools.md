@@ -42,7 +42,7 @@ Opening Dev Tools can be accomplished in a number of ways.
 Assuming dev tools is already active.
 
 1. Click on triple dot 'kabob' menu on the right side of the Developer Tools pane, select `More tools` then select `Network conditions`.
-2. Un-check the “Select automatically” check box.
+2. Un-check the “Select automatically” checkbox.
 3. Select the user agent from dropdown menu or enter a custom user agent
 
 ![](images/f_chrome_devtools_ua_switch.png "The User-Agent selection dropdown menu in Google Chrome")\
