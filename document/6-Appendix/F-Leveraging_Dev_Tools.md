@@ -57,12 +57,12 @@ Opening Dev Tools can be accomplished in a number of ways.
 
 All major browsers support encoding and decoding strings in various ways leveraging the Dev Tools Console and JavaScript functionality:
 
-- Base64 encode : `btoa("string-to-encode")`
-- Base64 decode : `atob("string-to-decode")`
-- URL encode : `encodeURIComponent("string-to-encode")`
-- URL decode : `decodeURIComponent("string-to-decode")`
-- HTML encode : `escape("string-to-encode")`
-- HTML decode : `unescape("string-to-decode")`
+* Base64 encode: `btoa("string-to-encode")`
+* Base64 decode: `atob("string-to-decode")`
+* URL encode: `encodeURIComponent("string-to-encode")`
+* URL decode: `decodeURIComponent("string-to-decode")`
+* HTML encode: `escape("string-to-encode")`
+* HTML decode: `unescape("string-to-decode")`
 
 ## Responsive Design Mode
 
