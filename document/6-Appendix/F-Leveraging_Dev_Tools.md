@@ -19,18 +19,21 @@ Opening Dev Tools can be accomplished in a number of ways.
 
 ## Capabilities
 
-| Functionality         | Firefox | Chrome | Edge/IE | Safari |
-|-----------------------|:-------:|:------:|:-------:|:------:|
-| User Agent Switching  | Y       | Y      | Y       | Y      |
-| Edit/Resend Requests  | N       | Y      | N       | N      |
-| Cookie Editing        | Y       | Y      | Y       | N      |
-| Local Storage Editing | Y       | Y      | Y       | N      |
-| Disable CSS           | Y       | Y      | Y       | Y      |
-| Disable JavaScript    | Y       | Y      | N       | Y      |
-| View HTTP Headers     | Y       | Y      | Y       | Y      |
-| Screenshots           | Y       | Y      | Y       | N      |
-| Offline Mode          | Y       | Y      | N       | N      |
-| Encoding and Decoding | Y       | Y      | Y       | Y      |
+| Functionality         | Chrome* | Firefox | Edge/IE | Safari |
+|-----------------------|:-------:|:-------:|:-------:|:------:|
+| User Agent Switching  | Y       | Y       | Y       | Y      |
+| Edit/Resend Requests  | N       | Y       | N       | N      |
+| Cookie Editing        | Y       | Y       | Y       | N      |
+| Local Storage Editing | Y       | Y       | Y       | N      |
+| Disable CSS           | Y       | Y       | Y       | Y      |
+| Disable JavaScript    | Y       | Y       | N       | Y      |
+| View HTTP Headers     | Y       | Y       | Y       | Y      |
+| Screenshots           | Y       | Y       | Y       | N      |
+| Offline Mode          | Y       | Y       | N       | N      |
+| Encoding and Decoding | Y       | Y       | Y       | Y      |
+| Responsive Design Mode| Y       | Y       | Y       |        |
+
+* Anything that applies to Google Chrome should be applicable to "New" Edge.
 
 ## User Agent Switching
 
@@ -52,6 +55,17 @@ Opening Dev Tools can be accomplished in a number of ways.
 
 ## Encoding and Decoding
 
+All major browsers support encoding and decoding strings in various ways leveraging the Dev Tools Console and JavaScript functionality:
+
+- Base64 encode : `btoa("string-to-encode")`
+- Base64 decode : `atob("string-to-decode")`
+- URL encode : `encodeURIComponent("string-to-encode")`
+- URL decode : `decodeURIComponent("string-to-decode")`
+- HTML encode : `escape("string-to-encode")`
+- HTML decode : `unescape("string-to-decode")`
+
+## Responsive Design Mode
+
 ## Credit
 
-This appendix was suggested by [Abhi-M](https://github.com/Abhi-M) and was assembled based on details from: [Web App Security Testing with Browsers](https://getmantra.com/web-app-security-testing-with-browsers/)
+This appendix was suggested by [Abhi-M](https://github.com/Abhi-M) and was assembled based on details from: [Web App Security Testing with Browsers](https://getmantra.com/web-app-security-testing-with-browsers/).
