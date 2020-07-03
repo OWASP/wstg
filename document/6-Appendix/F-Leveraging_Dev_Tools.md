@@ -37,6 +37,29 @@ Opening Dev Tools can be accomplished in a number of ways.
 
 ## User-Agent Switching
 
+### Google Chrome
+
+Assuming dev tools is already active.
+
+1. Click on triple dot 'kabob' menu on the right side of the Developer Tools pane, select `More tools` then select `Network conditions`.
+2. Un-check the “Select automatically” check box.
+3. Select the user agent from dropdown menu or enter a custom user agent
+
+![](images/f_chrome_devtools_ua_switch.png)\
+_Figure 6.F-1: Google Chrome Dev Tools User-Agent Switching Functionality_
+
+### Mozilla Firefox
+
+1. Navigate to Firefox’s `about:config` page and click `I accept the risk!`.
+2. Enter `general.useragent.override` into the search field.
+3. Look for `general.useragent.override`, if you can't see this preference, look for one that show a set of radio buttons `Boolean, Number, String` select `String` then click the plus sign `Add` button on the `about:config` page.
+4. Set the value of `general.useragent.override` to whatever [User-Agent](http://www.useragentstring.com/pages/useragentstring.php) you might need.
+
+![](images/f_firefox_ua_switch.png)\
+_Figure 6.F-2: Mozilla Firefox User-Agent Switching Functionality_
+
+Later click on the garbage can `Delete` button to the right of the `general.useragent.override` preference to remove the override and switch back to the default user agent.
+
 ## Edit/Resend Requests
 
 ## Cookie Editing
@@ -58,14 +81,14 @@ All major browsers support manipulating CSS leveraging the Dev Tools Console and
 
 Assuming dev tools is already visible.
 
-1. Click on triple dot 'kebob' menu on the right side of the web developer toolbar and click on `Settings`.
+1. Click on triple dot 'kabob' menu on the right side of the web developer toolbar and click on `Settings`.
 2. On the `Preferences` tab, under the `Debugger` section, check the `Disable JavaScript` checkbox.
 
 ### Mozilla Firefox
 
 Assuming dev tools is already visible.
 
-1. Click on the settings gear button in the upper right corner of the developer toolbar.
+1. On the dev tools `Debugger` tab, click on the settings gear button in the upper right corner of the developer toolbar.
 2. Select `Disable JavaScript` from the dropdown (this is an enable/disable menu item, when JavaScript is disabled the meny item has a check mark).
 
 ## View HTTP Headers
