@@ -31,7 +31,7 @@ Opening Dev Tools can be accomplished in a number of ways.
 | Screenshots           | Y       | Y       | Y       | N      |
 | Offline Mode          | Y       | Y       | N       | N      |
 | Encoding and Decoding | Y       | Y       | Y       | Y      |
-| Responsive Design Mode| Y       | Y       | Y       |        |
+| Responsive Design Mode| Y       | Y       | Y       | Y      |
 
 `*` Anything that applies to Google Chrome should be applicable to "New" Edge.
 
