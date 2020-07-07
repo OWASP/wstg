@@ -68,6 +68,7 @@ During active testing, a tester begins to use the methodologies described in the
 
 The set of active tests have been split into 11 sub-categories for a total of 91 controls:
 
+- Information Gathering
 - Configuration and Deployment Management Testing
 - Identity Management Testing
 - Authentication Testing
