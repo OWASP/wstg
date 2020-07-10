@@ -91,6 +91,18 @@ All major browsers support manipulating CSS leveraging the Dev Tools Console and
 
 ## Screenshots
 
+### Google Chrome
+
+1. Press on the `Toggle Device Toolbar` button or press `ctrl` + `shift` + `m`.
+2. Click the triple dot 'kabob' menu in the Device Toolbar.
+3. Select `Capture screenshot` or `Capture full size screenshot`.
+
+### Mozilla Firefox
+
+1. Press the triple dot `elipsis` button in the address bar.
+2. Select `Take a Screenshot`.
+3. Select either the `Save full page` or `Save visible` option.
+
 ## Offline Mode
 
 ### Google Chrome
