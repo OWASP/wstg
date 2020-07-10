@@ -17,6 +17,8 @@ Opening Dev Tools can be accomplished in a number of ways.
 7. Via the triple line 'hamburger' (or 'pancake') menu in Mozilla Firefox then selecting `Web Developer` and then `Toggle Tools`.
 8. Via the gear icon settings menu in Edge/IE then selecting `Developer Tools`.
 
+> NOTE: The majority of the instructions below assume that Dev Tools is already open or active.
+
 ## Capabilities
 
 | Functionality         | Chrome* | Firefox | Edge/IE | Safari |
@@ -38,8 +40,6 @@ Opening Dev Tools can be accomplished in a number of ways.
 ## User-Agent Switching
 
 ### Google Chrome
-
-Assuming dev tools is already active.
 
 1. Click on triple dot 'kabob' menu on the right side of the Developer Tools pane, select `More tools` then select `Network conditions`.
 2. Un-check the “Select automatically” checkbox.
@@ -79,14 +79,10 @@ All major browsers support manipulating CSS leveraging the Dev Tools Console and
 
 ### Google Chrome
 
-Assuming dev tools is already visible.
-
 1. Click on triple dot 'kabob' menu on the right side of the web developer toolbar and click on `Settings`.
 2. On the `Preferences` tab, under the `Debugger` section, check the `Disable JavaScript` checkbox.
 
 ### Mozilla Firefox
-
-Assuming dev tools is already visible.
 
 1. On the dev tools `Debugger` tab, click on the settings gear button in the upper right corner of the developer toolbar.
 2. Select `Disable JavaScript` from the dropdown (this is an enable/disable menu item, when JavaScript is disabled the meny item has a check mark).
@@ -96,6 +92,21 @@ Assuming dev tools is already visible.
 ## Screenshots
 
 ## Offline Mode
+
+### Google Chrome
+
+1. Navigate to `Network` tab.
+2. In the `Throttle` dropdown select `Offline`.
+
+![Offline Option in Google Chrome](images/f_chrome_devtools_offline.png)\
+_Figure 6.F-3: Google Chrome Offline Option_
+
+### Mozilla Firefox
+
+1. From the triple line 'hamburger' (or 'pancake') menu select `Web Developer` and then `Work Offline`.
+
+![Offline Option in Mozilla Firefox](images/f_firefox_devtools_offline.png)\
+_Figure 6.F-4: Mozilla Firefox Offline Option_
 
 ## Encoding and Decoding
 
