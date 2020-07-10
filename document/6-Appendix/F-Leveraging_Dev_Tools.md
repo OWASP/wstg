@@ -89,6 +89,22 @@ All major browsers support manipulating CSS leveraging the Dev Tools Console and
 
 ## View HTTP Headers
 
+### Google Chrome
+
+1. On the `Networking` tab in Dev Tools select any URL or request.
+2. In the lower right hand pane select the `Headers` tab.
+
+![Headers View in Google Chrome](images/f_chrome_devtools_headers.png)\
+_Figure 6.F-3: Google Chrome Headers View_
+
+### Mozilla Firefox
+
+1. On the `Networking` tab in Dev Tools select any URL or request.
+2. In the lower right hand pane select the `Headers` tab.
+
+![Headers View in Mozilla Firefox](images/f_firefox_devtools_headers.png)\
+_Figure 6.F-4: Mozilla Firefox Headers View_
+
 ## Screenshots
 
 ### Google Chrome
@@ -99,7 +115,7 @@ All major browsers support manipulating CSS leveraging the Dev Tools Console and
 
 ### Mozilla Firefox
 
-1. Press the triple dot `elipsis` button in the address bar.
+1. Press the triple dot `ellipsis` button in the address bar.
 2. Select `Take a Screenshot`.
 3. Select either the `Save full page` or `Save visible` option.
 
@@ -111,14 +127,14 @@ All major browsers support manipulating CSS leveraging the Dev Tools Console and
 2. In the `Throttle` dropdown select `Offline`.
 
 ![Offline Option in Google Chrome](images/f_chrome_devtools_offline.png)\
-_Figure 6.F-3: Google Chrome Offline Option_
+_Figure 6.F-5: Google Chrome Offline Option_
 
 ### Mozilla Firefox
 
 1. From the triple line 'hamburger' (or 'pancake') menu select `Web Developer` and then `Work Offline`.
 
 ![Offline Option in Mozilla Firefox](images/f_firefox_devtools_offline.png)\
-_Figure 6.F-4: Mozilla Firefox Offline Option_
+_Figure 6.F-6: Mozilla Firefox Offline Option_
 
 ## Encoding and Decoding
 
