@@ -149,6 +149,7 @@ All major browsers support encoding and decoding strings in various ways leverag
 
 ## Responsive Design Mode
 
-## Credit
+## References
 
-This appendix was assembled based on details from: [Web App Security Testing with Browsers](https://getmantra.com/web-app-security-testing-with-browsers/) along with team modifications and suggestions.
+- [Web App Security Testing with Browsers](https://getmantra.com/web-app-security-testing-with-browsers/)
+- [Black Hills Information Security - Webcast: Free Tools! How to Use Developer Tools and Javascript in Webapp Pentests](https://www.blackhillsinfosec.com/webcast-free-tools-how-to-use-developer-tools-and-javascript-in-webapp-pentests/)
