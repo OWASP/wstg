@@ -1,4 +1,4 @@
-# Testing for Client Side Resource Manipulation
+# Testing for Client-side Resource Manipulation
 
 |ID          |
 |------------|
@@ -6,7 +6,7 @@
 
 ## Summary
 
-A client side resource manipulation vulnerability is an input validation flaw. It occurs when an application accepts user-controlled input that specifies the path of a resource such as the source of an iframe, JavaScript, applet, or the handler of an XMLHttpRequest. This vulnerability consists of the ability to control the URLs that link to some resources present in a web page. The impact of this vulnerability varies, and it is usually adopted to conduct XSS attacks. This vulnerability makes it is possible to interfere with the expected application's behavior by causing it to load and render malicious objects.
+A client-side resource manipulation vulnerability is an input validation flaw. It occurs when an application accepts user-controlled input that specifies the path of a resource such as the source of an iframe, JavaScript, applet, or the handler of an XMLHttpRequest. This vulnerability consists of the ability to control the URLs that link to some resources present in a web page. The impact of this vulnerability varies, and it is usually adopted to conduct XSS attacks. This vulnerability makes it is possible to interfere with the expected application's behavior by causing it to load and render malicious objects.
 
 The following JavaScript code shows a possible vulnerable script in which an attacker is able to control the `location.hash` (source) which reaches the attribute `src` of a script element. This particular case leads to a XSS attack as external JavaScript could be injected.
 
@@ -72,7 +72,7 @@ header('Access-Control-Allow-Origin: http://www.victim.com');
 
 ## How to Test
 
-To manually check for this type of vulnerability, we must identify whether the application employs inputs without correctly validating them. If so, these inputs are under the control of the user and could be used to specify external resources. Since there are many resources that could be included in the application (such as images, video, objects, css, and iframes), the client side scripts that handle the associated URLs should be investigated for potential issues.
+To manually check for this type of vulnerability, we must identify whether the application employs inputs without correctly validating them. If so, these inputs are under the control of the user and could be used to specify external resources. Since there are many resources that could be included in the application (such as images, video, objects, css, and iframes), the client-side scripts that handle the associated URLs should be investigated for potential issues.
 
 The following table shows possible injection points (sink) that should be checked:
 
@@ -86,4 +86,4 @@ The following table shows possible injection points (sink) that should be checke
 | Object          | object                                    | data   |
 | Script          | script                                    | src    |
 
-The most interesting ones are those that allow to an attacker to include client side code (for example JavaScript) that could lead to XSS vulnerabilities.
+The most interesting ones are those that allow to an attacker to include client-side code (for example JavaScript) that could lead to XSS vulnerabilities.
