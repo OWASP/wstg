@@ -114,7 +114,7 @@ The following is the list of controls that were tested during the assessment:
 | | MS Access |
 | | NoSQL |
 | | ORM |
-| | Client Side |
+| | Client-ide |
 | WSTG-INPV-06 | Testing for LDAP Injection |
 | WSTG-INPV-07 | Testing for XML Injection |
 | WSTG-INPV-08 | Testing for SSI Injection |
@@ -151,13 +151,13 @@ The following is the list of controls that were tested during the assessment:
 | WSTG-BUSL-07 | Test Defenses Against Application Misuse |
 | WSTG-BUSL-08 | Test Upload of Unexpected File Types |
 | WSTG-BUSL-09 | Test Upload of Malicious Files |
-| **WSTG-CLIENT** | **Client Side Testing** |
+| **WSTG-CLIENT** | **Client-side Testing** |
 | WSTG-CLNT-01 | Testing for DOM based Cross Site Scripting |
 | WSTG-CLNT-02 | Testing for JavaScript Execution |
 | WSTG-CLNT-03 | Testing for HTML Injection |
-| WSTG-CLNT-04 | Testing for Client Side URL Redirect |
+| WSTG-CLNT-04 | Testing for Client-side URL Redirect |
 | WSTG-CLNT-05 | Testing for CSS Injection |
-| WSTG-CLNT-06 | Testing for Client Side Resource Manipulation |
+| WSTG-CLNT-06 | Testing for Client-side Resource Manipulation |
 | WSTG-CLNT-07 | Test Cross Origin Resource Sharing |
 | WSTG-CLNT-08 | Testing for Cross Site Flashing |
 | WSTG-CLNT-09 | Testing for Clickjacking |
