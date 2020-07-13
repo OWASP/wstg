@@ -114,7 +114,7 @@ The following is the list of controls that were tested during the assessment:
 | | MS Access |
 | | NoSQL |
 | | ORM |
-| | Client-ide |
+| | Client-side |
 | WSTG-INPV-06 | Testing for LDAP Injection |
 | WSTG-INPV-07 | Testing for XML Injection |
 | WSTG-INPV-08 | Testing for SSI Injection |
