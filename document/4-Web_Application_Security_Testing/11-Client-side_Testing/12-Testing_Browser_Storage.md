@@ -166,7 +166,7 @@ Following the identification any of the above attack vectors, an attack chain ca
 
 ### Remediation
 
-- Applications should be storing sensitive data on the server side, and not on the client-side, in a secured manner following best practices.
+- Applications should be storing sensitive data on the server-side, and not on the client-side, in a secured manner following best practices.
 
 ## References
 

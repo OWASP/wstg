@@ -88,7 +88,7 @@ Performing these steps is mostly a matter of using grep to find the right keywor
 
 ### Whitepapers
 
-- [Apache Tutorial: “Introduction to Server Side Includes”](https://httpd.apache.org/docs/1.3/howto/ssi.html)
+- [Apache Tutorial: “Introduction to Server-side Includes”](https://httpd.apache.org/docs/1.3/howto/ssi.html)
 - [Apache: “Module mod_include”](https://httpd.apache.org/docs/1.3/mod/mod_include.html)
 - [Apache: “Security Tips for Server Configuration”](https://httpd.apache.org/docs/1.3/misc/security_tips.html#ssi)
 - [Header Based Exploitation](https://www.cgisecurity.com/papers/header-based-exploitation.txt)

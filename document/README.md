@@ -220,7 +220,7 @@
 
 #### 4.7.17 [Testing for Host Header Injection](4-Web_Application_Security_Testing/07-Input_Validation_Testing/17-Testing_for_Host_Header_Injection.md)
 
-#### 4.7.18 [Testing for Server Side Template Injection](4-Web_Application_Security_Testing/07-Input_Validation_Testing/18-Testing_for_Server_Side_Template_Injection.md)
+#### 4.7.18 [Testing for Server-side Template Injection](4-Web_Application_Security_Testing/07-Input_Validation_Testing/18-Testing_for_Server-side_Template_Injection.md)
 
 ### 4.8 [Testing for Error Handling](4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/README.md)
 

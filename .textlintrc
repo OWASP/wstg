@@ -162,10 +162,10 @@
 					"repo\\b",
 					"repository"
 				],
-				//[
-				//	"server-side",
-				//	"server side"
-				//],
+				[
+					"server side|serverside",
+					"server-side"
+				],
 				[
 					"smartphone(s)?",
 					"mobile phone$1"

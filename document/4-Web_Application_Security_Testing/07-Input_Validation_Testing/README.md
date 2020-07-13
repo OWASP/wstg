@@ -60,4 +60,4 @@
 
 4.7.17 [Testing for Host Header Injection](17-Testing_for_Host_Header_Injection.md)
 
-4.7.18 [Testing for Server Side Template Injection](18-Testing_for_Server_Side_Template_Injection.md)
+4.7.18 [Testing for Server-side Template Injection](18-Testing_for_Server-side_Template_Injection.md)

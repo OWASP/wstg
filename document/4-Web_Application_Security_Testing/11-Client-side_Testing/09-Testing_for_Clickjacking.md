@@ -231,7 +231,7 @@ Example:
 <iframe src="http://target site"></iframe>
 ```
 
-#### Server side protection: X-Frame-Options
+#### Server-side protection: X-Frame-Options
 
 An alternative approach to client-side frame busting code was implemented by Microsoft and it consists of an header based defense. This new “X-FRAME-OPTIONS” header is sent from the server on HTTP responses and is used to mark web pages that shouldn't be framed. This header can take the values DENY, SAMEORIGIN, ALLOW-FROM origin, or non-standard ALLOWALL. Recommended value is DENY.
 
