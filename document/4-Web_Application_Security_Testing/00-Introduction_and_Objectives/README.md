@@ -78,4 +78,4 @@ The set of active tests have been split into 11 sub-categories for a total of 91
 - Error Handling
 - Cryptography
 - Business Logic Testing
-- Client Side Testing
+- Client-side Testing

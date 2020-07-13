@@ -130,10 +130,10 @@
 					"build system(s)?",
 					"build tool$1"
 				],
-				//[
-				//	"client-side",
-				//	"client side"
-				//],
+				[
+					"client side|clientside",
+					"client-side"
+				],
 				[
 					"CLI tool(s)?",
 					"command-line tool$1"

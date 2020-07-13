@@ -54,7 +54,7 @@
 - [Web Application Security Consortium](http://www.webappsec.org/projects/)
 - [Web Application Security Scanner List](http://projects.webappsec.org/w/page/13246988/Web%20Application%20Security%20Scanner%20List)
 - [Web Security – Articles](https://www.acunetix.com/blog/category/web-security-zone/)
-- [Testing Client Side Security issues](http://www.domxss.com/domxss/)
+- [Testing Client-side Security issues](http://www.domxss.com/domxss/)
 
 ## Videos
 
