@@ -112,9 +112,9 @@ The tester can also identify what other objects, methods and properties can be e
 1. [James Kettle: Server-Side Template Injection:RCE for the modern webapp (whitepaper)](https://portswigger.net/kb/papers/serversidetemplateinjection.pdf)
 2. [Server-Side Template Injection](https://portswigger.net/blog/server-side-template-injection)
 3. [Exploring SSTI in Flask/Jinja2](https://www.lanmaster53.com/2016/03/exploring-ssti-flask-jinja2/)
-4. [Server-side Template Injection: from detection to Remote shell](https://www.okiok.com/server-side-template-injection-from-detection-to-remote-shell/)
+4. [Server Side Template Injection: from detection to Remote shell](https://www.okiok.com/server-side-template-injection-from-detection-to-remote-shell/)
 5. [Extreme Vulnerable Web Application](https://github.com/s4n7h0/xvwa)
-6. [Divine Selorm Tsa: Exploiting server-side template injection with tplmap](https://owasp.org/www-pdf-archive/Owasp_SSTI_final.pdf)
+6. [Divine Selorm Tsa: Exploiting server side template injection with tplmap](https://owasp.org/www-pdf-archive/Owasp_SSTI_final.pdf)
 7. [Exploiting SSTI in Thymeleaf](https://www.acunetix.com/blog/web-security-zone/exploiting-ssti-in-thymeleaf/)
 
 ## Tools

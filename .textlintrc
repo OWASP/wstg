@@ -5,6 +5,7 @@
 			"defaultTerms": false,
 			// Syntax elements to skip. Overrides the default
 			"skip": [
+				"Link",
 				"Blockquote"
 			],
 			// List of terms
