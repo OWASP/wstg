@@ -66,7 +66,7 @@ The session tokens (Cookie, SessionID or Hidden Field) themselves should be exam
 
 - Token Structure & Information Leakage
 
-The first stage is to examine the structure and content of a Session ID provided by the application. A common mistake is to include specific data in the Token instead of issuing a generic value and referencing real data at the server side.
+The first stage is to examine the structure and content of a Session ID provided by the application. A common mistake is to include specific data in the Token instead of issuing a generic value and referencing real data server-side.
 
 If the Session ID is clear-text, the structure and pertinent data may be immediately obvious as the following:
 

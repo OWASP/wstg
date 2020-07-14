@@ -6,11 +6,11 @@
 
 4.11.3 [Testing for HTML Injection](03-Testing_for_HTML_Injection.md)
 
-4.11.4 [Testing for Client Side URL Redirect](04-Testing_for_Client_Side_URL_Redirect.md)
+4.11.4 [Testing for Client-side URL Redirect](04-Testing_for_Client-side_URL_Redirect.md)
 
 4.11.5 [Testing for CSS Injection](05-Testing_for_CSS_Injection.md)
 
-4.11.6 [Testing for Client Side Resource Manipulation](06-Testing_for_Client_Side_Resource_Manipulation.md)
+4.11.6 [Testing for Client-side Resource Manipulation](06-Testing_for_Client-side_Resource_Manipulation.md)
 
 4.11.7 [Testing Cross Origin Resource Sharing](07-Testing_Cross_Origin_Resource_Sharing.md)
 

@@ -6,9 +6,9 @@
 
 ## Summary
 
-This section describes how to monitor all incoming/outgoing HTTP requests on both client or web server side. The purpose of this testing is to verify if there is unnecessary or suspicious HTTP request sending in the background.
+This section describes how to monitor all incoming/outgoing HTTP requests on both client-side or server-side. The purpose of this testing is to verify if there is unnecessary or suspicious HTTP request sending in the background.
 
-Most of Web security testing tools (i.e. AppScan, BurpSuite, ZAP) act as HTTP Proxy. This will require changes of proxy on client side application or browser. The testing techniques listed below is primary focused on how we can monitor HTTP requests without changes of client side which will be more close to production usage scenario.
+Most of Web security testing tools (i.e. AppScan, BurpSuite, ZAP) act as HTTP Proxy. This will require changes of proxy on client-side application or browser. The testing techniques listed below is primary focused on how we can monitor HTTP requests without changes of client-side which will be more close to production usage scenario.
 
 ## Test Objectives
 
@@ -19,7 +19,7 @@ Most of Web security testing tools (i.e. AppScan, BurpSuite, ZAP) act as HTTP Pr
 
 ### Reverse Proxy
 
-There is situation that we would like to monitor all HTTP incoming requests on web server side but we can't change configuration on browser or application client side. In this scenario, we can setup reverse proxy on web server side to monitor all incoming/outgoing requests on web server side.
+There is situation that we would like to monitor all HTTP incoming requests on web server but we can't change configuration on the browser or application client-side. In this scenario, we can setup a reverse proxy on web server end to monitor all incoming/outgoing requests on web server.
 
 For windows platform, Fiddler is recommended. It provides not only monitor but can also edit/reply the HTTP requests. Refer to [this reference for how to configure Fiddler as reverse Proxy](http://docs.telerik.com/fiddler/Configure-Fiddler/Tasks/UseFiddlerAsReverseProxy)
 
@@ -35,7 +35,7 @@ The testing steps:
 
 ### Port Forwarding
 
-Port forwarding is another way to allow us intercept HTTP requests without changes of client side. You can also use Charles as a SOCKS proxy to act as port forwarding or uses of Port Forwarding tools. It will allow us to forward all coming client side captured traffic to web server port.
+Port forwarding is another way to allow us intercept HTTP requests without changes of client-side. You can also use Charles as a SOCKS proxy to act as port forwarding or uses of Port Forwarding tools. It will allow us to forward all coming client-side captured traffic to web server port.
 
 The testing flow will be:
 
@@ -48,7 +48,7 @@ This technique monitor all the network traffic at TCP-level. TCPDump or WireShar
 
 The testing steps will be:
 
-1. Activate TCPDump or WireShark on Web Server side to capture network traffic
+1. Activate TCPDump or WireShark on Web Server to capture network traffic
 2. Monitor the captured files (PCAP)
 3. Edit PCAP files by Ostinato tool based on need
 4. Reply the HTTP requests

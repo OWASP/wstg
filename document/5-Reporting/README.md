@@ -114,7 +114,7 @@ The following is the list of controls that were tested during the assessment:
 | | MS Access |
 | | NoSQL |
 | | ORM |
-| | Client Side |
+| | Client-side |
 | WSTG-INPV-06 | Testing for LDAP Injection |
 | WSTG-INPV-07 | Testing for XML Injection |
 | WSTG-INPV-08 | Testing for SSI Injection |
@@ -132,7 +132,7 @@ The following is the list of controls that were tested during the assessment:
 | WSTG-INPV-15 | Testing for HTTP Splitting/Smuggling |
 | WSTG-INPV-16 | Testing for HTTP Incoming Requests |
 | WSTG-INPV-17 | Testing for Host Header Injection |
-| WSTG-INPV-18 | Testing for Server Side Template Injection |
+| WSTG-INPV-18 | Testing for Server-side Template Injection |
 | **WSTG-ERRH**  |**Error Handling** |
 | WSTG-ERRH-01  | Analysis of Error Codes |
 | WSTG-ERRH-02  | Analysis of Stack Traces |
@@ -151,13 +151,13 @@ The following is the list of controls that were tested during the assessment:
 | WSTG-BUSL-07 | Test Defenses Against Application Misuse |
 | WSTG-BUSL-08 | Test Upload of Unexpected File Types |
 | WSTG-BUSL-09 | Test Upload of Malicious Files |
-| **WSTG-CLIENT** | **Client Side Testing** |
+| **WSTG-CLIENT** | **Client-side Testing** |
 | WSTG-CLNT-01 | Testing for DOM based Cross Site Scripting |
 | WSTG-CLNT-02 | Testing for JavaScript Execution |
 | WSTG-CLNT-03 | Testing for HTML Injection |
-| WSTG-CLNT-04 | Testing for Client Side URL Redirect |
+| WSTG-CLNT-04 | Testing for Client-side URL Redirect |
 | WSTG-CLNT-05 | Testing for CSS Injection |
-| WSTG-CLNT-06 | Testing for Client Side Resource Manipulation |
+| WSTG-CLNT-06 | Testing for Client-side Resource Manipulation |
 | WSTG-CLNT-07 | Test Cross Origin Resource Sharing |
 | WSTG-CLNT-08 | Testing for Cross Site Flashing |
 | WSTG-CLNT-09 | Testing for Clickjacking |

@@ -8,7 +8,7 @@
 
 Clickjacking, a subset of UI redressing, is a malicious technique whereby a web user is deceived into interacting (in most cases by clicking) with something other than what the user believes they are interacting with. This type of attack, either alone or in conjunction with other attacks, could potentially send unauthorized commands or reveal confidential information while the victim is interacting with seemingly-harmless web pages. The term clickjacking was coined by Jeremiah Grossman and Robert Hansen in 2008.
 
-A clickjacking attack uses seemingly-harmless features of HTML and JavaScript to force the victim to perform undesired actions, such as clicking an invisible button that performs an unintended operation. This is a client side security issue that affects a variety of browsers and platforms.
+A clickjacking attack uses seemingly-harmless features of HTML and JavaScript to force the victim to perform undesired actions, such as clicking an invisible button that performs an unintended operation. This is a client-side security issue that affects a variety of browsers and platforms.
 
 To carry out this attack, an attacker creates a seemingly-harmless web page that loads the target application through the use of an inline frame (concealed with CSS code). Once this is done, an attacker may induce the victim to interact with the web page by other means (through, for example, social engineering). Like other attacks, a common prerequisite is that the victim is authenticated against the attacker’s target website.
 
@@ -47,9 +47,9 @@ If the `http://www.target.site` page does not appear in the inline frame, the si
 
 Methods to protect a web page from clickjacking can be divided into a few main mechanisms. It is possible to bypass these methods in some circumstances by employing specific workarounds. For further OWASP resources on clickjacking defense, see the [OWASP Clickjacking Defense Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Clickjacking_Defense_Cheat_Sheet.html).
 
-#### Client Side Protection: Frame Busting
+#### Client-side Protection: Frame Busting
 
-The most common client side method, that has been developed to protect a web page from clickjacking, is called Frame Busting and it consists of a script in each page that should not be framed. The aim of this technique is to prevent a site from functioning when it is loaded inside a frame.
+The most common client-side method, that has been developed to protect a web page from clickjacking, is called Frame Busting and it consists of a script in each page that should not be framed. The aim of this technique is to prevent a site from functioning when it is loaded inside a frame.
 
 The structure of frame busting code typically consists of a “conditional statement” and a “counter-action” statement. For this type of protection, there are some work arounds that fall under the name of “Bust frame busting”. Some of this techniques are browser-specific while others work across browsers.
 
@@ -91,7 +91,7 @@ Attacker’s fictitious sub-frame (fictitious.html):
 
 ##### Disabling JavaScript
 
-Since these type of client side protections relies on JavaScript frame busting code, if the victim has JavaScript disabled or it is possible for an attacker to disable JavaScript code, the web page will not have any protection mechanism against clickjacking.
+Since these type of client-side protections relies on JavaScript frame busting code, if the victim has JavaScript disabled or it is possible for an attacker to disable JavaScript code, the web page will not have any protection mechanism against clickjacking.
 
 There are three deactivation techniques that can be used with frames:
 
@@ -231,9 +231,9 @@ Example:
 <iframe src="http://target site"></iframe>
 ```
 
-#### Server side protection: X-Frame-Options
+#### Server-side protection: X-Frame-Options
 
-An alternative approach to client side frame busting code was implemented by Microsoft and it consists of an header based defense. This new “X-FRAME-OPTIONS” header is sent from the server on HTTP responses and is used to mark web pages that shouldn't be framed. This header can take the values DENY, SAMEORIGIN, ALLOW-FROM origin, or non-standard ALLOWALL. Recommended value is DENY.
+An alternative approach to client-side frame busting code was implemented by Microsoft and it consists of an header based defense. This new “X-FRAME-OPTIONS” header is sent from the server on HTTP responses and is used to mark web pages that shouldn't be framed. This header can take the values DENY, SAMEORIGIN, ALLOW-FROM origin, or non-standard ALLOWALL. Recommended value is DENY.
 
 The “X-FRAME-OPTIONS” is a very good solution, and was adopted by major browser, but also for this technique there are some limitations that could lead in any case to exploit the clickjacking vulnerability.
 

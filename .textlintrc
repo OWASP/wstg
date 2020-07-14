@@ -5,6 +5,7 @@
 			"defaultTerms": false,
 			// Syntax elements to skip. Overrides the default
 			"skip": [
+				"Link",
 				"Blockquote"
 			],
 			// List of terms
@@ -130,10 +131,10 @@
 					"build system(s)?",
 					"build tool$1"
 				],
-				//[
-				//	"client-side",
-				//	"client side"
-				//],
+				[
+					"client side|clientside",
+					"client-side"
+				],
 				[
 					"CLI tool(s)?",
 					"command-line tool$1"
@@ -162,10 +163,10 @@
 					"repo\\b",
 					"repository"
 				],
-				//[
-				//	"server-side",
-				//	"server side"
-				//],
+				[
+					"server side|serverside",
+					"server-side"
+				],
 				[
 					"smartphone(s)?",
 					"mobile phone$1"
