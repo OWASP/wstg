@@ -56,9 +56,9 @@ When testing an application that has to accept other methods, e.g. a RESTful Web
    </html>
    ```
 
-3. If the server response with 2XX success codes or 3XX redirections and then confirm by `GET` request for `test.html` file. The application is vulnerable. 
+3. If the server response with 2XX success codes or 3XX redirections and then confirm by `GET` request for `test.html` file. The application is vulnerable.
 4. Now, add the webshell using the `PUT` method.
-   
+
    `shell.php` for PHP based server or `shell.jsp` for JAVA based server or `shell.aspx` for ASP.NET based server
 
 If the HTTP `PUT` method is not allowed on base URL or request, try other paths in the system.
