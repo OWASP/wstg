@@ -47,7 +47,7 @@ When testing an application that has to accept other methods, e.g. a RESTful Web
 1. Capture the base request of the testing website with a personal proxy and leverage that request via the proxy's resend functionality.
 2. Change the request method to `PUT` and add `test.html` file and send the request to the application server.
 
-```
+```html
 PUT /test.html HTTP/1.1
 Host: testing-website
 
@@ -55,6 +55,7 @@ Host: testing-website
 HTTP PUT Method is Enabled
 </html>
 ```
+
 3. If the server response with 2XX success codes or 3XX redirections and then confirm by `GET` request for `test.html` file. The application is vulnerable.
 
 If the HTTP `PUT` method is not allowed on base URL or request, try other paths in the system.
