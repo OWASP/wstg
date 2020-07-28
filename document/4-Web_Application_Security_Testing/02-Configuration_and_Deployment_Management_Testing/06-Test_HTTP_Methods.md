@@ -45,7 +45,7 @@ When testing an application that has to accept other methods, e.g. a RESTful Web
 Audit Guideline for HTTP PUT method enabled
 1) Capture the base request of the vulnerable website with a personal proxy and leverage that request via the proxy's resend functionality.
 2) Change the request method to PUT and set the path along the shell as follow and send the request to the application server.
-`/test/shell.php` for PHP based server or `/test/shell.jsp ` for JAVA based server or `/test/shell.aspx` for asp.net based server 
+`/test/shell.php` for PHP based server or `/test/shell.jsp ` for JAVA based server or `/test/shell.aspx` for ASP.NET based server 
 3) Observe the response if the server response with 201 Created response. Then the application is vulnerable.
 4) Run the command on remote application server.
 
