@@ -6,22 +6,34 @@
 
 ## Summary
 
-When an application does not renew its session cookie(s) after a successful user authentication, it could be possible to find a session fixation vulnerability and force a user to utilize a cookie known by the attacker.
+Session fixation is enabled by the insecure practice of preserving the same value of the session cookies before and after authentication. This typically happens when session cookies are used to store state information even before login, e.g., to add items to a shopping cart.
 
-Session fixation vulnerabilities occur when:
+In the generic exploit of session fixation vulnerabilities, an attacker can obtain a set of session cookies from the target website without authenticating and force them into the victim's browser, using different techniques; if the victim later authenticates at the target, she will be identified by the session cookies chosen by the attacker, who will then become able to impersonate the victim.
 
-- A web application authenticates a user without first invalidating the existing session ID, thereby continuing to use the session ID already associated with the user.
-- An attacker is able to force a known session ID on a user so that, once the user authenticates, the attacker has access to the authenticated session.
-
-In the generic exploit of session fixation vulnerabilities, an attacker creates a new session on a web application and records the associated session identifier. The attacker then causes the victim to authenticate against the server using the same session identifier, giving the attacker access to the user's account through the active session.
-
-Furthermore, the issue described above is problematic for sites that issue a session identifier over HTTP and then redirect the user to a HTTPS log in form. If the session identifier is not reissued upon authentication, the attacker can eavesdrop and steal the identifier and then use it to hijack the session.
+Overall, the issue described above occurs in sites where either there is no full [HSTS](https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security) adoption or `__Host-` and `__Secure-` prefixes in the cookie name are missing.
 
 ## How to Test
 
 ### Black-Box Testing
 
-#### Testing for Session Fixation Vulnerabilities
+We simulate a scenario where a network attacker (i.e., an attacker who has access to the same network as the victim) forces in Alice's browser all the cookies which are not freshly issued after login and do not have integrity against her. After Alice's login, the attacker presents the forced cookies to access Alice's account: if they are enough to act on Alice's behalf, session fixation is possible.
+
+Specifically, the testing strategy proceeds as follows:
+
+1. Login to `www.target.com` as Alice and reach the page under test;
+2. Find the cookies which has not `__Host-` and `__Secure-` prefixes in the name and were not freshly issued after the login process, then clear all the other cookies from the browser;
+3. Perform an operation on Alice's account under test;
+4. Check: has the operation been performed? If yes, report as insecure;
+5. Clear the cookies from the browser;
+6. Login to `www.target.com` as the attacker and reach the page under test;
+7. Restore in the browser the cookies previously kept at step 2;
+8. Perform again the operation under test;
+9. Clear the cookies from the browser and login to `www.target.com` as Alice;
+10. Check: has the operation been performed? If yes, report as insecure.
+
+We recommend using two different machines and/or browsers for Alice and the attacker.
+
+#### Alternative Strategy
 
 The first step is to make a request to the site to be tested (_e.g._ `www.example.com`). If the tester requests the following:
 
@@ -84,7 +96,7 @@ As no new cookie has been issued upon a successful authentication the tester kno
 
 Talk with developers and understand if they have implemented a session token renew after a user successful authentication.
 
-> The application should always first invalidate the existing session ID before authenticating a user, and if the authentication is successful, provide another sessionID.
+> The application should always first invalidate the existing session ID before authenticating a user, and if the authentication is successful, provide another session ID.
 
 ## Tools
 
@@ -92,6 +104,8 @@ Talk with developers and understand if they have implemented a session token ren
 - [OWASP ZAP](https://www.zaproxy.org)
 
 ## References
+
+- Calzavara, S., Rabitti, A., Ragazzo, A., Bugliesi, M.: Testing for Integrity Flaws in Web Sessions.
 
 ### Whitepapers
 
