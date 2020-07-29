@@ -108,11 +108,19 @@ Once it's uploaded, the file will be executed as `x.php`.
 
 One Zip file may contain the malicious PHP with target purpose path such as `..\\..\\..\\..\\hacker.php`. If the website doesn't check the unzip target path, the hacker.php may unzip to the specified path.
 
-### Zip Bomb
+### Zip Bombs
 
-Upload the [ZIP bomb](https://github.com/AbhiAgarwal/notes/wiki/Zip-bomb) file that may cause application denial of service.
+A [Zip bomb](https://en.wikipedia.org/wiki/Zip_bomb) (more generally known as a decompression bomb) is an archive file that contains a large volume of data. It's intended to cause a denial of service by exhausting the disk space or memory of the target system that tries to extract the archive. Note that although the Zip format is the most example of this, other formats are also affected, including gzip (which is frequently used to compress data in transit).
 
-- `new File`, `file`, `OutputSteam`, `upload`, `import`, `file_put_contents`, `open`, `fopen`, etc.
+At its simplest level, a Zip bomb can be created by compressing a large file consisting of a single character. The example below shows how to create a 1MB file that will decompress to 1GB:
+
+```bash
+dd if=/dev/zero bs=1M count=1024 | zip -9 > bomb.zip
+```
+
+There are a number of methods that can be used to achieve much higher compression ratios, including multiple levels of compression, [abusing the Zip format](https://www.bamsoftware.com/hacks/zipbomb/) and [quines](https://research.swtch.com/zip) (which are archives that contain a copy of themselves, causing infinite recursion).
+
+A successful Zip bomb attack will result in a denial of service, and can also lead to increased costs if an auto-scaling cloud platform is used. **Do not carry out this kind of attack unless you have considered these risks and have written approval to do so.**
 
 ## Related Test Cases
 
