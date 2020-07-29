@@ -74,8 +74,7 @@ If the filtering is performed on the server-side, then various techniques can be
 - Change the capitalisation of the extension, such as `file.PhP` or `file.AspX`
 - If the request includes multiple file names, change them to different values.
 - Using special trailing characters such as spaces, dots or null characters such as `file.asp...`, `file.php;jpg`, `file.asp%00.jpg`, `1.jpg%00.php`
-- In old versions of IIS 6, if the filename is `file.asp;file.jpg`, the file may be executed as `file.asp`:
-- In old or badly configured versions of nginx, uploading a file as `test.jpg/x.php` may allow it to be executed as `x.php`.
+- In badly configured versions of nginx, uploading a file as `test.jpg/x.php` may allow it to be executed as `x.php`.
 
 ### Malicious File Contents
 
