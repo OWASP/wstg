@@ -62,7 +62,7 @@ If the HTTP `PUT` method is not allowed on base URL or request, try other paths 
 
 > NOTE: If you are successful in uploading a web shell you should overwrite it or ensure that the security team of the target are aware and remove the component promptly after your proof-of-concept.
 
-Leveraging the `PUT` method an attacker may be able to place arbitrary and potentially malicious content, into the system which may lead to remote code execution, defacing the site or Denial of Service.
+Leveraging the `PUT` method an attacker may be able to place arbitrary and potentially malicious content, into the system which may lead to remote code execution, defacing the site or denial of service.
 
 ### Testing for Access Control Bypass
 
