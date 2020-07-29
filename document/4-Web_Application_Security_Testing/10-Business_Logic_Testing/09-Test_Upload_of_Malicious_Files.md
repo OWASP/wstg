@@ -16,16 +16,17 @@ The application may allow the upload of malicious files that include exploits or
 
 ## Example
 
-Suppose a picture sharing application allows users to upload their `.gif` or `.jpg` graphic files to the web site. What if an attacker is able to upload a PHP shell, or exe file, or virus? The attacker may then upload the file that may be saved on the system and the virus may spread itself or through remote processes exes or shell code can be executed.
+A common example of this vulnerability is an application such as a blog or forum that allows users to upload images and other media files. While these are considered safe, if an attacker is able to upload executable code (such as a PHP script), this could allow them to execute operating system commands, read and modify information in the filesystem, access the back end database and fully compromise the server.
 
 ## How to Test
 
 ### Generic Testing Method
 
-- Review the project documentation and use exploratory testing looking at the application/system to identify what constitutes and “malicious” file in your environment.
-- Develop or acquire a known “malicious” file. An [EICAR anti-malware test file](https://2016.eicar.org/85-0-Download.html) can be used as harmless, but widely detected by antivirus software.
-- Try to upload the malicious file to the application/system and verify that it is correctly rejected.
-- If multiple files can be uploaded at once, there must be tests in place to verify that each file is properly evaluated.
+- Identify the file upload functionality.
+- Review the project documentation to identify what types of files are considered acceptable, and what types would be considered dangerous or malicious.
+- Determine how the uploaded files are processed.
+- Obtain or create a set of "malicious" files for testing.
+- Try to upload the "malicious" files to the application and determine whether it is accepted and processed.
 
 ### Malicious Files
 
