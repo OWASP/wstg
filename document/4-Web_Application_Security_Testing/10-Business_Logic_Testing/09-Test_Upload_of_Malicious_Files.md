@@ -42,6 +42,8 @@ Uploading this kind of shell onto an Internet facing server is dangerous, becaus
 - Password protecting the shell.
 - Implementing IP based restrictions on the shell.
 
+**Remember to remove the shell when you are done.**
+
 The example below shows a simple PHP based shell, that executes operating system commands passed to it in a GET parameter, and can only be accessed from a specific IP address:
 
 ```php
@@ -61,13 +63,6 @@ Once the shell is uploaded (with a random name), you can execute operating syste
 
 `https://example.org/7sna8uuorvcx3x4fx.php?cmd=cat+/etc/passwd`
 
-**Remember to remove the shell when you are done.**
-
-#### Invalid File
-
-- Set up the intercepting proxy to capture the "valid" request for an accepted file.
-- Send an "invalid" request through with a valid/acceptable file extension and see if the request is accepted or properly rejected.
-
 #### Filter Evasion
 
 The first step is to determine what the filters are allowing or blocking, and where they are implemented. If the restrictions are performed on the client side using JavaScript, then they can be trivially bypassed with an intercepting proxy.
@@ -77,6 +72,7 @@ If the filtering is performed on the server side, then various techniques can be
 - Change the value of `Content-Type` as `image/jpeg` in HTTP request.
 - Change the extensions to a less common extension, such as `file.php5`, `file.shtml`, `file.asa`, `file.jsp`, `file.jspx`, `file.aspx`, `file.asp`, `file.phtml`, `file.cshtml`
 - Change the capitalisation of the extension, such as `file.PhP` or `file.AspX`
+- If the request includes multiple file names, change them to different values.
 - Using special trailing characters such as spaces, dots or null characters such as `file.asp...`, `file.php;jpg`, `file.asp%00.jpg`, `1.jpg%00.php`
 - In old versions of IIS 6, if the filename is `file.asp;file.jpg`, the file may be executed as `file.asp`:
 - In old or badly configured versions of nginx, uploading a file as `test.jpg/x.php` may allow it to be executed as `x.php`.
@@ -129,6 +125,7 @@ When there is file upload feature supported, the following API/methods are commo
 
 - [Test File Extensions Handling for Sensitive Information](../02-Configuration_and_Deployment_Management_Testing/03-Test_File_Extensions_Handling_for_Sensitive_Information.md)
 - [Test Upload of Unexpected File Types](08-Test_Upload_of_Unexpected_File_Types.md)
+- [Testing for XML Injection](../07-Input_Validation_Testing/07-Testing_for_XML_Injection.md)
 
 ## Tools
 
