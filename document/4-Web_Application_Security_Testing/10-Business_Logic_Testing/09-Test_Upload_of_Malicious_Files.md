@@ -90,9 +90,9 @@ The following techniques may be used to bypass the website file upload checking 
 - In old versions of IIS 6, if the filename is `file.asp;file.jpg`, the file may be executed as `file.asp`:
 - In old or badly configured versions of nginx, uploading a file as `test.jpg/x.php` may allow it to be executed as `x.php`.
 
-### Zip Files Path
+### Archive Directory Traversal
 
-One Zip file may contain the malicious PHP with target purpose path such as `..\\..\\..\\..\\hacker.php`. If the website doesn't check the unzip target path, the hacker.php may unzip to the specified path.
+If the application extracts archives (such as Zip files), then it may be possible to write to unintended locations using directory traversal. This can be exploited by uploading a malicious zip file that contains paths that traverse the file system using sequences such as `..\..\..\..\shell.php`. This technique is discussed further in the [snyk advisory](https://snyk.io/research/zip-slip-vulnerability).
 
 ### Zip Bombs
 
