@@ -65,9 +65,9 @@ Once the shell is uploaded (with a random name), you can execute operating syste
 
 #### Filter Evasion
 
-The first step is to determine what the filters are allowing or blocking, and where they are implemented. If the restrictions are performed on the client side using JavaScript, then they can be trivially bypassed with an intercepting proxy.
+The first step is to determine what the filters are allowing or blocking, and where they are implemented. If the restrictions are performed on the client-side using JavaScript, then they can be trivially bypassed with an intercepting proxy.
 
-If the filtering is performed on the server side, then various techniques can be attempted to bypass it, including:
+If the filtering is performed on the server-side, then various techniques can be attempted to bypass it, including:
 
 - Change the value of `Content-Type` as `image/jpeg` in HTTP request.
 - Change the extensions to a less common extension, such as `file.php5`, `file.shtml`, `file.asa`, `file.jsp`, `file.jspx`, `file.aspx`, `file.asp`, `file.phtml`, `file.cshtml`
