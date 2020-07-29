@@ -112,6 +112,16 @@ XML files have a number of potential vulnerabilities such as XML eXternal Entiti
 
 These are discussed further in the [Testing for XML Injection](../07-Input_Validation_Testing/07-Testing_for_XML_Injection.md) guide.
 
+#### Other File Formats
+
+Many other file formats also have specific security concerns that need to be taken into account, such as:
+
+- CSV files may allow [CSV injection attacks](https://owasp.org/www-community/attacks/CSV_Injection).
+- Office files may contain malicious macros or PowerShell code.
+- PDFs may contain malicious JavaScript.
+
+The permitted file formats should be carefully reviewed for potentially dangerous functionality, and where possible attempts should be made to exploit this during testing.
+
 ### Source Code Review
 
 When there is file upload feature supported, the following API/methods are common to be found in the source code.
