@@ -124,8 +124,8 @@ When there is file upload feature supported, the following API/methods are commo
 ## Related Test Cases
 
 - [Test File Extensions Handling for Sensitive Information](../02-Configuration_and_Deployment_Management_Testing/03-Test_File_Extensions_Handling_for_Sensitive_Information.md)
-- [Test Upload of Unexpected File Types](08-Test_Upload_of_Unexpected_File_Types.md)
 - [Testing for XML Injection](../07-Input_Validation_Testing/07-Testing_for_XML_Injection.md)
+- [Test Upload of Unexpected File Types](08-Test_Upload_of_Unexpected_File_Types.md)
 
 ## Tools
 
