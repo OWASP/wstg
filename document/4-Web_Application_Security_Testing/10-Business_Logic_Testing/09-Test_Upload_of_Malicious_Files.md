@@ -111,7 +111,7 @@ There are a number of methods that can be used to achieve much higher compressio
 
 A successful Zip bomb attack will result in a denial of service, and can also lead to increased costs if an auto-scaling cloud platform is used. **Do not carry out this kind of attack unless you have considered these risks and have written approval to do so.**
 
-### XML Files
+#### XML Files
 
 XML files have a number of potential vulnerabilities such as XML eXternal Entities (XXE) and denial of service attacks such as the [billion laughs attack](https://en.wikipedia.org/wiki/Billion_laughs_attack).
 
