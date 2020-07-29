@@ -87,22 +87,14 @@ When there is file upload feature supported, the following API/methods are commo
 
 ### Evasion of the Filter
 
-The following techniques may be used to bypass the website file upload checking rules and filters.
+The following techniques may be used to bypass the website file upload checking rules and filters, particularly if they are written using a blacklisting approach:
 
-- Change the value of `Content-Type` as `image/jpeg` in HTTP request
-- Change the extensions as executable extensions such as `file.php5`, `file.shtml`, `file.asa`, `file.cert`, `file.jsp`, `file.jspx`, `file.aspx`, `file.asp`, `file.phtml`
-- Changes of capital letters of extensions. such as file.PhP or file.AspX
-- Using special trailing such as spaces, dots or null characters such as `file.asp...`, `file.php;jpg`, `file.asp%00.jpg`, `1.jpg%00.php`
-
-The executable extensions should be in deny list such as `file.php5`, `file.shtml`, `file.asa`, `file.cert`, `file.jsp`, `file.jspx`, `file.aspx`, `file.asp`, `file.phtml`
-
-- In IIS6 vulnerability, if the filename is `file.asp;file.jpg`, the file will be executed as `file.asp`:
-
-`http://www.targetVictim.com/path/file.asp;file.jpg`
-
-- In NginX, if the original filename is `test.jpg`, testers/hackers may change it to `test.jpg/x.php`
-
-Once it's uploaded, the file will be executed as `x.php`.
+- Change the value of `Content-Type` as `image/jpeg` in HTTP request.
+- Change the extensions to a less common extension, such as `file.php5`, `file.shtml`, `file.asa`, `file.jsp`, `file.jspx`, `file.aspx`, `file.asp`, `file.phtml`, `file.cshtml`
+- Change the capitalisation of the extension, such as `file.PhP` or `file.AspX`
+- Using special trailing characters such as spaces, dots or null characters such as `file.asp...`, `file.php;jpg`, `file.asp%00.jpg`, `1.jpg%00.php`
+- In old versions of IIS 6, if the filename is `file.asp;file.jpg`, the file may be executed as `file.asp`:
+- In old or badly configured versions of nginx, uploading a file as `test.jpg/x.php` may allow it to be executed as `x.php`.
 
 ### Zip Files Path
 
