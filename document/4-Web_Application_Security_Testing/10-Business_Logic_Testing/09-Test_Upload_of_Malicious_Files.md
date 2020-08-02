@@ -24,7 +24,7 @@ A common example of this vulnerability is an application such as a blog or forum
 
 - Identify the file upload functionality.
 - Review the project documentation to identify what file types are considered acceptable, and what types would be considered dangerous or malicious.
-  * If documentation is not available then consider what would be appropriate based on the purpose of the application.
+  - If documentation is not available then consider what would be appropriate based on the purpose of the application.
 - Determine how the uploaded files are processed.
 - Obtain or create a set of "malicious" files for testing.
 - Try to upload the "malicious" files to the application and determine whether it is accepted and processed.
