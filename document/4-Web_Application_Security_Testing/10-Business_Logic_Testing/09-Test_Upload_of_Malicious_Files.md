@@ -141,8 +141,13 @@ When there is file upload feature supported, the following API/methods are commo
 - Metasploit's payload generation functionality
 - Intercepting proxy
 
+## Remediation
+
+Fully protecting against malicious file upload can be complex, and the exact steps required will vary depending on the types files that are uploaded, and how the files are processed or parsed on the server. This is discussed more fully in the [File Upload Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html).
+
 ## References
 
+- [OWASP - File Upload Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html)
 - [OWASP - Unrestricted File Upload](https://owasp.org/www-community/vulnerabilities/Unrestricted_File_Upload)
 - [Why File Upload Forms are a Major Security Threat](https://www.acunetix.com/websitesecurity/upload-forms-threat/)
 - [Overview of Malicious File Upload Attacks](http://securitymecca.com/article/overview-of-malicious-file-upload-attacks/)
@@ -152,7 +157,3 @@ When there is file upload feature supported, the following API/methods are commo
 - [CWE-434: Unrestricted Upload of File with Dangerous Type](https://cwe.mitre.org/data/definitions/434.html)
 - [Implementing Secure File Upload](https://infosecauditor.wordpress.com/tag/malicious-file-upload/)
 - [Metasploit Generating Payloads](https://www.offensive-security.com/metasploit-unleashed/Generating_Payloads)
-
-## Remediation
-
-While safeguards such as blacklisting or whitelisting of file extensions, using "Content-Type" from the header, or using a file type recognizer may not always be protections against this type of vulnerability. Every application that accepts files from users must have a mechanism to verify that the uploaded file does not contain malicious code. Uploaded files should never be stored where the users or attackers can directly access them.
