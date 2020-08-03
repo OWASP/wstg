@@ -53,7 +53,7 @@ _Figure 6.F-1: Google Chrome Dev Tools User-Agent Switching Functionality_
 1. Navigate to Firefox’s `about:config` page and click `I accept the risk!`.
 2. Enter `general.useragent.override` into the search field.
 3. Look for `general.useragent.override`, if you can't see this preference, look for one that show a set of radio buttons `Boolean, Number, String` select `String` then click the plus sign `Add` button on the `about:config` page.
-4. Set the value of `general.useragent.override` to whatever [User-Agent](http://www.useragentstring.com/pages/useragentstring.php) you might need.
+4. Set the value of `general.useragent.override` to whatever [User-Agent](https://developers.whatismybrowser.com/useragents/explore/) you might need.
 
 ![User-Agent configuration preference in Mozilla Firefox](images/f_firefox_ua_switch.png)\
 _Figure 6.F-2: Mozilla Firefox User-Agent Switching Functionality_
@@ -101,7 +101,7 @@ _Figure 6.F-3: Mozilla Firefox Cookie Editing Functionality_
 2. Expand `Local Storage` under the `Storage` heading.
 3. Select the relevant domain name.
 4. Double click in the `Value` column to edit any cookie value.
-4. Double click in the applicable Cell to edit the `Key` or `Value`.
+5. Double click in the applicable Cell to edit the `Key` or `Value`.
 
 > Note: Editing `Session Storage` or `Index DB` follows essentially the same steps.
 > Note: Items can be added or deleted via the right-click context menu.
@@ -203,3 +203,4 @@ All major browsers support encoding and decoding strings in various ways leverag
 
 * [Web App Security Testing with Browsers](https://getmantra.com/web-app-security-testing-with-browsers/)
 * [Black Hills Information Security - Webcast: Free Tools! How to Use Developer Tools and JavaScript in Webapp Pentests](https://www.blackhillsinfosec.com/webcast-free-tools-how-to-use-developer-tools-and-javascript-in-webapp-pentests/)
+* [List of UserAgent Strings](http://user-agent-string.info/list-of-ua)
