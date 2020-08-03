@@ -64,6 +64,27 @@ Later click on the garbage can `Delete` button to the right of the `general.user
 
 ## Cookie Editing
 
+### Google Chrome
+
+1. Click the `Application` tab.
+2. Expand `Cookies` under the `Storage` heading.
+3. Select the relevant domain name.
+4. Double click in the `Value` column to edit any cookie value.
+
+> Note: Cookies can be deleted once selected by pressing the `delete` key, or from the right click context menu.
+
+### Mozilla Firefox
+
+1. Click the `Storage` tab.
+2. Expand the `Cookies` section.
+3. Select the relevant domain name.
+4. Double click in the `Value` column to edit any cookie value.
+
+> Note: Cookies can be deleted once selected by pressing the `delete` key, or with various options from the right click context menu.
+
+![Cookie Editing functionality in Mozilla Firefox](images/f_firefox_cookie_edit.png)\
+_Figure 6.F-3: Mozilla Firefox Cookie Editing Functionality_
+
 ## Local Storage Editing
 
 ## Disable CSS
@@ -95,7 +116,7 @@ All major browsers support manipulating CSS leveraging the Dev Tools Console and
 2. In the lower right hand pane select the `Headers` tab.
 
 ![Headers View in Google Chrome](images/f_chrome_devtools_headers.png)\
-_Figure 6.F-3: Google Chrome Headers View_
+_Figure 6.F-4: Google Chrome Headers View_
 
 ### Mozilla Firefox
 
@@ -103,7 +124,7 @@ _Figure 6.F-3: Google Chrome Headers View_
 2. In the lower right hand pane select the `Headers` tab.
 
 ![Headers View in Mozilla Firefox](images/f_firefox_devtools_headers.png)\
-_Figure 6.F-4: Mozilla Firefox Headers View_
+_Figure 6.F-5: Mozilla Firefox Headers View_
 
 ## Screenshots
 
@@ -127,14 +148,14 @@ _Figure 6.F-4: Mozilla Firefox Headers View_
 2. In the `Throttle` dropdown select `Offline`.
 
 ![Offline Option in Google Chrome](images/f_chrome_devtools_offline.png)\
-_Figure 6.F-5: Google Chrome Offline Option_
+_Figure 6.F-6: Google Chrome Offline Option_
 
 ### Mozilla Firefox
 
 1. From the triple line 'hamburger' (or 'pancake') menu select `Web Developer` and then `Work Offline`.
 
 ![Offline Option in Mozilla Firefox](images/f_firefox_devtools_offline.png)\
-_Figure 6.F-6: Mozilla Firefox Offline Option_
+_Figure 6.F-7: Mozilla Firefox Offline Option_
 
 ## Encoding and Decoding
 
