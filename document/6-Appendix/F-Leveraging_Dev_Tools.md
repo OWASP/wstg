@@ -11,8 +11,8 @@ Opening Dev Tools can be accomplished in a number of ways.
 1. Via the keyboard shortcut `F12`.
 2. Via the keyboard shortcut `ctrl` + `shift` + `i` on Windows.
 3. Via the keyboard short cut `cmd` + `option` + `i` on Mac.
-4. Via the web page right click context menu and then selecting `Inspect` in Google Chrome.
-5. Via the web page right click context menu and then selecting `Inspect Element` in Mozilla Firefox.
+4. Via the web page right-click context menu and then selecting `Inspect` in Google Chrome.
+5. Via the web page right-click context menu and then selecting `Inspect Element` in Mozilla Firefox.
 6. Via the triple dot 'kabob' menu in Google Chrome then selecting `More Tools` and then `Developer Tools`.
 7. Via the triple line 'hamburger' (or 'pancake') menu in Mozilla Firefox then selecting `Web Developer` and then `Toggle Tools`.
 8. Via the gear icon settings menu in Edge/IE then selecting `Developer Tools`.
@@ -62,6 +62,14 @@ Later click on the garbage can `Delete` button to the right of the `general.user
 
 ## Edit/Resend Requests
 
+### Mozilla Firefox
+
+1. Select the `Network` tab.
+2. Perform any action in the web application.
+3. Right-click on the HTTP request from the list and select `Edit and Resend`.
+4. Make desired modifications and click on the `Send` button.
+5. Right-click on the modified request and select `Open in New Tab`.
+
 ## Cookie Editing
 
 ### Google Chrome
@@ -71,7 +79,7 @@ Later click on the garbage can `Delete` button to the right of the `general.user
 3. Select the relevant domain name.
 4. Double click in the `Value` column to edit any cookie value.
 
-> Note: Cookies can be deleted once selected by pressing the `delete` key, or from the right click context menu.
+> Note: Cookies can be deleted once selected by pressing the `delete` key, or from the right-click context menu.
 
 ### Mozilla Firefox
 
@@ -80,12 +88,33 @@ Later click on the garbage can `Delete` button to the right of the `general.user
 3. Select the relevant domain name.
 4. Double click in the `Value` column to edit any cookie value.
 
-> Note: Cookies can be deleted once selected by pressing the `delete` key, or with various options from the right click context menu.
+> Note: Cookies can be deleted once selected by pressing the `delete` key, or with various options from the right-click context menu.
 
 ![Cookie Editing functionality in Mozilla Firefox](images/f_firefox_cookie_edit.png)\
 _Figure 6.F-3: Mozilla Firefox Cookie Editing Functionality_
 
 ## Local Storage Editing
+
+### Google Chrome
+
+1. Click the `Application` tab.
+2. Expand `Local Storage` under the `Storage` heading.
+3. Select the relevant domain name.
+4. Double click in the `Value` column to edit any cookie value.
+4. Double click in the applicable Cell to edit the `Key` or `Value`.
+
+> Note: Editing `Session Storage` or `Index DB` follows essentially the same steps.
+> Note: Items can be added or deleted via the right-click context menu.
+
+### Mozilla Firefox
+
+1. Click the `Storage` tab.
+2. Expand the `Local Storage` section.
+3. Select the relevant domain name.
+4. Double click in the applicable Cell to edit the `Key` or `Value`.
+
+> Note: Editing `Session Storage` or `Index DB` follows essentially the same steps.
+> Note: Items can be added or deleted via the right-click context menu.
 
 ## Disable CSS
 
