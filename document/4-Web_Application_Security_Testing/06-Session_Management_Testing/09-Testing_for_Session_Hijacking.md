@@ -9,9 +9,9 @@
 An attacker who gets access to a honest user's cookies can impersonate her by presenting such cookies: this attack is known as session hijacking.Cookies marked with the HttpOnly attribute are not accessible to JS and cookies marked with the Secure attribute are only sent over HTTPS. Remember that the Secure attribute should be used even when the web application is entirely deployed over HTTPS and the reason is the following one:
 Assume that www.good.com is entirely deployed over HTTPS, but does not mark its session cookies as Secure:
 
-1. The user sends a request to `http://another-site.com`
-2. The attacker corrupts the corresponding response so that it triggers a request to `http://www.good.com`
-3. The browser now tries to access `http://www.good.com`
+1. The user sends a request to `www.another-site.com`
+2. The attacker corrupts the corresponding response so that it triggers a request to `www.good.com`
+3. The browser now tries to access `www.good.com`
 4. Though the request fails, the session cookies are leaked in clear.
 
 ## How to test
@@ -34,5 +34,3 @@ The intuition behind the testing strategy for session hijacking is to simulate a
 ## References
 
 - Calzavara, S., Rabitti, A., Ragazzo, A., Bugliesi, M.: Testing for Integrity Flaws in Web Sessions.
-
-### Whitepapers
