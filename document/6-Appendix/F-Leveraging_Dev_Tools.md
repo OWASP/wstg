@@ -199,6 +199,20 @@ All major browsers support encoding and decoding strings in various ways leverag
 
 ## Responsive Design Mode
 
+### Google Chrome
+
+1. Click the `Toggle device toolbar` button or press `ctrl` + `shift` + `m`.
+
+![Responsive Design Mode in Google Chrome](images/f_chrome_responsive_design_mode.png)\
+_Figure 6.F-8: Google Chrome Responsive Design Mode_
+
+### Mozilla Firefox
+
+1. Click the `Responsive Design Mode` button or press `ctrl` + `shift` + `m`.
+
+![Responsive Design Mode in Mozilla Firefo](images/f_firefox_responsive_design_mode.png)\
+_Figure 6.F-9: Mozilla Firefox Responsive Design Mode_
+
 ## References
 
 * [Web App Security Testing with Browsers](https://getmantra.com/web-app-security-testing-with-browsers/)
