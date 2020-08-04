@@ -4,6 +4,12 @@ on:
   push:
     tags: 
       - '*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version?'
+        required: true
+        default: '4.x'
 jobs:
   build:
     if: github.actor == 'kingthorin' || github.actor == 'ThunderSon' || github.actor == 'rejahrehim' || github.actor == 'victoriadrake'
@@ -28,12 +34,18 @@ jobs:
         sudo apt install libgbm1
         npm install -g md-to-pdf
         sudo snap install pdftk
-    - name: Get Version
+    - name: Get Tag Version
+      if: github.event_name == 'push'
       id: vars
       run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
-    - name: Run Build
+    - name: Run Push Build
+      if: github.event_name == 'push'
       run: npm run-script  pdfgen -- ${{ steps.vars.outputs.tag }}
+    - name: Run Workflow Build
+      if: github.event_name == 'workflow_dispatch'
+      run: npm run-script  pdfgen -- ${{ github.event.inputs.version }}
     - name: Create Release
+      if: github.event_name == 'push'
       id: create_release
       uses: actions/create-release@v1
       env:
@@ -44,6 +56,7 @@ jobs:
         draft: false
         prerelease: true
     - name: Upload Release Asset
+      if: github.event_name == 'push'
       id: upload-release-asset
       uses: actions/upload-release-asset@v1.0.2
       env:
@@ -53,3 +66,9 @@ jobs:
         asset_path: ./build/wstg-${{ steps.vars.outputs.tag }}.pdf
         asset_name: wstg-${{ steps.vars.outputs.tag }}.pdf
         asset_content_type: application/pdf
+    - name: Attach PDF
+      if: github.event_name == 'workflow_dispatch'
+      uses: actions/upload-artifact@v1
+      with:
+        name: wstg-${{ github.event.inputs.version }}.pdf
+        path: ./build/wstg-${{ github.event.inputs.version }}.pdf

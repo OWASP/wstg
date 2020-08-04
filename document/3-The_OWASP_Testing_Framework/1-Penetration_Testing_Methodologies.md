@@ -2,17 +2,30 @@
 
 ## Summary
 
-- OWASP Testing Guide
-- PCI Penetration Testing Guide
-- Penetration Testing Execution Standard
-- NIST 800-115
-- Penetration Testing Framework
-- Information Systems Security Assessment Framework (ISSAF)
-- Open Source Security Testing Methodology Manual (OSSTMM)
+- [OWASP Testing Guides](#owasp-testing-guides)
+  - Web Security Testing Guide (WSTG)
+  - Mobile Security Testing Guide (MSTG)
+  - Firmware Security Testing Methodology
+- [Penetration Testing Execution Standard](#penetration-testing-execution-standard)
+- [PCI Penetration Testing Guide](#pci-penetration-testing-guide)
+  - [PCI DSS Penetration Testing Guidance](#pci-dss-penetration-testing-guidance)
+  - [PCI DSS Penetration Testing Requirements](#pci-dss-penetration-testing-requirements)
+- [Penetration Testing Framework](#penetration-testing-framework)
+- [Technical Guide to Information Security Testing and Assessment](#technical-guide-to-information-security-testing-and-assessment)
+- [Open Source Security Testing Methodology Manual](#open-source-security-testing-methodology-manual)
+- [References](#references)
 
-## Penetration Testing Execution Standard (PTES)
+## OWASP Testing Guides
 
-PTES defines penetration testing as 7 phases.
+In terms of technical security testing execution, the OWASP testing guides are highly recommended. Depending on the types of the applications, the testing guides are listed below for the web/cloud services, Mobile app (Android/iOS), or IoT firmware respectively.
+
+- [OWASP Web Security Testing Guide](https://owasp.org/www-project-web-security-testing-guide/)
+- [OWASP Mobile Security Testing Guide](https://owasp.org/www-project-mobile-security-testing-guide/)
+- [OWASP Firmware Security Testing Methodology](https://github.com/scriptingxss/owasp-fstm)
+
+## Penetration Testing Execution Standard
+
+Penetration Testing Execution Standard (PTES) defines penetration testing as 7 phases. Particularly, PTES Technical Guidelines give hands-on suggestions on testing procedures, and recommendation for security testing tools.
 
 - Pre-engagement Interactions
 - Intelligence Gathering
@@ -22,8 +35,6 @@ PTES defines penetration testing as 7 phases.
 - Post Exploitation
 - Reporting
 
-Instead of simply methodology or process, PTES also provides hands-on technical guidelines for what/how to test, rationale of testing and recommended testing tools and usage.
-
 [PTES Technical Guidelines](http://www.pentest-standard.org/index.php/PTES_Technical_Guidelines)
 
 ## PCI Penetration Testing Guide
@@ -32,7 +43,7 @@ Payment Card Industry Data Security Standard (PCI DSS) Requirement 11.3 defines 
 
 ### PCI DSS Penetration Testing Guidance
 
-The PCI DSS Penetration testing guideline provides a very good reference of the following area while it's not a hands-on technical guideline to introduce testing tools.
+The PCI DSS Penetration testing guideline provides guidance on the following:
 
 - Penetration Testing Components
 - Qualifications of a Penetration Tester
@@ -50,9 +61,11 @@ The PCI DSS requirement refer to Payment Card Industry Data Security Standard (P
 - Application-layer testing
 - Network-layer tests for network and OS
 
+[PCI DSS Penetration Test Guidance](https://www.pcisecuritystandards.org/documents/Penetration_Testing_Guidance_March_2015.pdf)
+
 ## Penetration Testing Framework
 
-The Penetration testing framework provides very comprehensive hands-on penetration testing guide. It also list usage of the testing tools in each testing category. The major area of penetration testing includes -
+The Penetration Testing Framework (PTF) provides comprehensive hands-on penetration testing guide. It also lists usages of the security testing tools in each testing category. The major area of penetration testing includes:
 
 - Network Footprinting (Reconnaissance)
 - Discovery & Probing
@@ -72,67 +85,29 @@ The Penetration testing framework provides very comprehensive hands-on penetrati
 
 [Penetration Testing Framework](http://www.vulnerabilityassessment.co.uk/Penetration%20Test.html)
 
-## Technical Guide to Information Security Testing and Assessment (NIST800-115)
+## Technical Guide to Information Security Testing and Assessment
 
-## Information Systems Security Assessment Framework (ISSAF)
+Technical Guide to Information Security Testing and Assessment (NIST 800-115) was published by NIST, it includes some assessment techniques listed below.
 
-The ISSAF is a very good reference source of penetration testing though Information Systems Security Assessment Framework (ISSAF) is not an active community. It provides comprehensive penetration testing technical guidance. It covers the area below.
+- Review Techniques
+- Target Identification and Analysis Techniques
+- Target Vulnerability Validation Techniques
+- Security Assessment Planning
+- Security Assessment Execution
+- Post-Testing Activities
 
-- Project Management
-- Guidelines And Best Practices - Pre-Assessment, Assessment And Post Assessment
-- Assessment Methodology
-- Review Of Information Security Policy And Security Organization
-- Evaluation Of Risk Assessment Methodology
-- Technical Control Assessment
-- Technical Control Assessment - Methodology
-- Password Security
-- Password Cracking Strategies
-- Unix /Linux System Security Assessment
-- Windows System Security Assessment
-- Novell Netware Security Assessment
-- Database Security Assessment
-- Wireless Security Assessment
-- Switch Security Assessment
-- Router Security Assessment
-- Firewall Security Assessment
-- Intrusion Detection System Security Assessment
-- VPN Security Assessment
-- Anti-Virus System Security Assessment And Management Strategy
-- Web Application Security Assessment
-- Storage Area Network (SAN) Security
-- Internet User Security
-- As 400 Security
-- Source Code Auditing
-- Binary Auditing
-- Social Engineering
-- Physical Security Assessment
-- Incident Analysis
-- Review Of Logging / Monitoring & Auditing Processes
-- Business Continuity Planning And Disaster Recovery
-- Security Awareness And Training
-- Outsourcing Security Concerns
-- Knowledge Base
-- Legal Aspects Of Security Assessment Projects
-- Non-Disclosure Agreement (NDA)
-- Security Assessment Contract
-- Request For Proposal Template
-- Desktop Security Check-List - Windows
-- Linux Security Check-List
-- Solaris Operating System Security Check-List
-- Default Ports - Firewall
-- Default Ports - IDS/IPS
-- Links
-- Penetration Testing Lab Design
+The NIST 800-115 can be accessed [here](https://csrc.nist.gov/publications/detail/sp/800-115/final)
 
-## Open Source Security Testing Methodology Manual (OSSTMM)
+## Open Source Security Testing Methodology Manual
 
-OSSTMM is a methodology to test the operational security of physical locations, workflow, human security testing, physical security testing, wireless security testing, telecommunication security testing, data networks security testing and compliance. OSSTMM can be supporting reference of IOS 27001 instead of a hands-on penetration testing guide.
+The Open Source Security Testing Methodology Manual (OSSTMM) is a methodology to test the operational security of physical locations, workflow, human security testing, physical security testing, wireless security testing, telecommunication security testing, data networks security testing and compliance. OSSTMM can be supporting reference of ISO 27001 instead of a hands-on or technical application penetration testing guide.
 
 OSSTMM includes the following key sections:
 
+- Security Analysis
 - Operational Security Metrics
 - Trust Analysis
-- Work Flow.
+- Work Flow
 - Human Security Testing
 - Physical Security Testing
 - Wireless Security Testing
@@ -141,16 +116,17 @@ OSSTMM includes the following key sections:
 - Compliance Regulations
 - Reporting with the STAR (Security Test Audit Report)
 
+[Open Source Security Testing Methodology Manual](https://www.isecom.org/OSSTMM.3.pdf)
+
 ## References
 
 - [PCI Data Security Standard - Penetration TestingGuidance](https://www.pcisecuritystandards.org/documents/Penetration-Testing-Guidance-v1_1.pdf)
-- [Pentest Standard](http://www.pentest-standard.org/index.php/Main_Page)
+- [PTES Standard](http://www.pentest-standard.org/index.php/Main_Page)
 - [Open Source Security Testing Methodology Manual (OSSTMM)](http://www.isecom.org/research/osstmm.html)
-- [NIST - SP 800-115](https://csrc.nist.gov/publications/detail/sp/800-115/final)
-- [HIPAA 2012](http://csrc.nist.gov/news_events/hiipaa_june2012/day2/day2-6_kscarfone-rmetzer_security-testing-assessment.pdf)
+- [Technical Guide to Information Security Testing and Assessment NIST SP 800-115](https://csrc.nist.gov/publications/detail/sp/800-115/final)
+- [HIPAA Security Testing Assessment 2012](http://csrc.nist.gov/news_events/hiipaa_june2012/day2/day2-6_kscarfone-rmetzer_security-testing-assessment.pdf)
 - [Penetration Testing Framework 0.59](http://www.vulnerabilityassessment.co.uk/Penetration%20Test.html)
 - [OWASP Mobile Security Testing Guide](https://owasp.org/www-project-mobile-security-testing-guide/)
 - [Security Testing Guidelines for Mobile Apps](https://owasp.org/www-pdf-archive/Security_Testing_Guidelines_for_mobile_Apps_-_Florian_Stahl%2BJohannes_Stroeher.pdf)
-- [Kali](https://www.kali.org/)
-- [ISSTF](https://sourceforge.net/projects/isstf/files/issaf%20document/issaf0.1/)
+- [Kali Linux](https://www.kali.org/)
 - [Information Supplement: Requirement 11.3 Penetration Testing](https://www.pcisecuritystandards.org/pdfs/infosupp_11_3_penetration_testing.pdf)

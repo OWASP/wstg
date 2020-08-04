@@ -66,7 +66,7 @@ The session tokens (Cookie, SessionID or Hidden Field) themselves should be exam
 
 - Token Structure & Information Leakage
 
-The first stage is to examine the structure and content of a Session ID provided by the application. A common mistake is to include specific data in the Token instead of issuing a generic value and referencing real data at the server side.
+The first stage is to examine the structure and content of a Session ID provided by the application. A common mistake is to include specific data in the Token instead of issuing a generic value and referencing real data server-side.
 
 If the Session ID is clear-text, the structure and pertinent data may be immediately obvious as the following:
 
@@ -130,7 +130,7 @@ The approach here is to collect a sufficient number of instances of a cookie and
 
 It is important to pay particular attention to the workflow of the application, as the state of a session can have a heavy impact on collected cookies. A cookie collected before being authenticated can be very different from a cookie obtained after the authentication.
 
-Another aspect to keep into consideration is time. Always record the exact time when a cookie has been obtained, when there is the possibility that time plays a role in the value of the cookie (the server could use a time stamp as part of the cookie value). The time recorded could be the local time or the server's time stamp included in the HTTP response (or both).
+Another aspect to keep into consideration is time. Always record the exact time when a cookie has been obtained, when there is the possibility that time plays a role in the value of the cookie (the server could use a timestamp as part of the cookie value). The time recorded could be the local time or the server's tiemstamp included in the HTTP response (or both).
 
 When analyzing the collected values, the tester should try to figure out all variables that could have influenced the cookie value and try to vary them one at the time. Passing to the server modified versions of the same cookie can be very helpful in understanding how the application reads and processes the cookie.
 
@@ -203,6 +203,6 @@ More information here: [Testing for cookies attributes](02-Testing_for_Cookies_A
 - [Michal Zalewski: “Strange Attractors and TCP/IP Sequence Number Analysis - One Year Later” (2002)](http://lcamtuf.coredump.cx/newtcp/)
 - [Correlation Coefficient](http://mathworld.wolfram.com/CorrelationCoefficient.html)
 - [ENT](https://fourmilab.ch/random/)
-- [https://seclists.org/lists/fulldisclosure/2005/Jun/0188.html](https://seclists.org/lists/fulldisclosure/2005/Jun/0188.html)
+- [DMA[2005-0614a] - 'Global Hauri ViRobot Server cookie overflow'](https://seclists.org/lists/fulldisclosure/2005/Jun/0188.html)
 - [Gunter Ollmann: “Web Based Session Management”](http://www.technicalinfo.net)
 - [OWASP Code Review Guide](https://wiki.owasp.org/index.php/Category:OWASP_Code_Review_Project)

@@ -14,7 +14,7 @@ The application may be expecting only certain file types to be uploaded for proc
 
 ## Example
 
-Suppose a picture sharing application allows users to upload a .gif or .jpg graphic file to the web site. What if an attacker is able to upload an HTML file with a `<script>` tag in it or PHP file? The system may move the file from a temporary location to the final location where the PHP code can now be executed against the application or system.
+Suppose a picture sharing application allows users to upload a `.gif` or `.jpg` graphic file to the web site. What if an attacker is able to upload an HTML file with a `<script>` tag in it or PHP file? The system may move the file from a temporary location to the final location where the PHP code can now be executed against the application or system.
 
 ## How to Test
 
@@ -30,7 +30,7 @@ Suppose a picture sharing application allows users to upload a .gif or .jpg grap
 - Prepare a library of files that are “not approved” for upload that may contain files such as: jsp, exe, or HTML files containing script.
 - In the application navigate to the file submission or upload mechanism.
 - Submit the “not approved” file for upload and verify that they are properly prevented from uploading
-- Check if the website only do file type check in client side JavaScript
+- Check if the website only do file type check in client-side JavaScript
 - Check if the website only check the file type by “Content-Type” in HTTP request.
 - Check if the website only check by the file extension.
 - Check if other uploaded files can be accessed directly by specified URL.

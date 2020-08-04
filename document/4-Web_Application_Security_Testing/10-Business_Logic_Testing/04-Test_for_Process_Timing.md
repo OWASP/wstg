@@ -20,7 +20,7 @@ Video gambling/slot machines may take longer to process a transaction just prior
 
 ### Example 2
 
-Many system log on processes ask for the user name and password. If you look closely you may be able to see that entering an invalid user name and invalid user password takes more time to return an error than entering a valid username and invalid user password. This may allow the attacker to know if they have a valid username and not need to rely on the GUI message.
+Many system log on processes ask for the username and password. If you look closely you may be able to see that entering an invalid username and invalid user password takes more time to return an error than entering a valid username and invalid user password. This may allow the attacker to know if they have a valid username and not need to rely on the GUI message.
 
 ### Example 3
 

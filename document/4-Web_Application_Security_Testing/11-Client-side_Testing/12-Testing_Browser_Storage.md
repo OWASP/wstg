@@ -110,7 +110,7 @@ Web SQL is deprecated since November 18, 2010 and it's recommended that web deve
 
 ### Cookies
 
-Cookies are a key value storage mechanism that is primarily used for session management but web developers can still use it to store arbitrary string data.
+Cookies are a key-value storage mechanism that is primarily used for session management but web developers can still use it to store arbitrary string data.
 
 Cookies are covered extensively in the [testing for Cookies attributes](../06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.md) scenario.
 
@@ -162,11 +162,11 @@ _(Modified version of this [snippet](https://stackoverflow.com/a/17246535/309913
 
 ### Attack Chain
 
-Following the identification any of the above attack vectors, an attack chain can be formed with different types of client side attacks, such as [DOM based XSS](01-Testing_for_DOM-based_Cross_Site_Scripting.md) attacks.
+Following the identification any of the above attack vectors, an attack chain can be formed with different types of client-side attacks, such as [DOM based XSS](01-Testing_for_DOM-based_Cross_Site_Scripting.md) attacks.
 
 ### Remediation
 
-- Applications should be storing sensitive data on the server side, and not on the client-side, in a secured manner following best practices.
+- Applications should be storing sensitive data on the server-side, and not on the client-side, in a secured manner following best practices.
 
 ## References
 

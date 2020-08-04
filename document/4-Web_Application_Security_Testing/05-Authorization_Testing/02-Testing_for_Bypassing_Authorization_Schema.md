@@ -163,7 +163,7 @@ Then, the following HTTP request is generated when calling the AddUser function:
 ```html
 POST /admin/addUser.jsp HTTP/1.1
 Host: www.example.com
-[other HTTP headers]
+[...]
 
 userID=fakeuser&role=3&group=grp001
 ```
@@ -193,7 +193,7 @@ To detect the support for the header X-Original-URL or X-Rewrite-URL, the follow
 ```html
 GET / HTTP/1.1
 Host: www.example.com
-[other standard HTTP headers]
+[...]
 ```
 
 #### 2. Send a Request with an X-Original-Url Header Pointing to a Non-Existing Resource
@@ -202,7 +202,7 @@ Host: www.example.com
 GET / HTTP/1.1
 Host: www.example.com
 X-Original-URL: /donotexist1
-[other standard HTTP headers]
+[...]
 ```
 
 #### 3. Send a Request with an X-Rewrite-Url Header Pointing to a Non-Existing Resource
@@ -211,7 +211,7 @@ X-Original-URL: /donotexist1
 GET / HTTP/1.1
 Host: www.example.com
 X-Rewrite-URL: /donotexist2
-[other standard HTTP headers]
+[...]
 ```
 
 If the response for either request contains markers that the resource was not found, this indicates that the application supports the special request headers. These markers may include the HTTP response status code 404, or a "resource not found" message in the response body.
@@ -222,9 +222,36 @@ Once the support for the header X-Original-URL or X-Rewrite-URL was validated th
 
 [OWASP Application Security Verification Standard 3.0.1](https://github.com/OWASP/ASVS/tree/master/3.0.1), V4.1, 4.4, 4.9, 4.16.
 
+#### 4. Other Headers to Consider
+
+Often admin panels or administrative related bits of functionality are only accessible to clients on local networks, therefore it may be possible to abuse various proxy or forwarding related HTTP headers to gain access. Some headers and values to test with are:
+
+- Headers:
+  - `X-Forwarded-For`
+  - `X-Forward-For`
+  - `X-Remote-IP`
+  - `X-Originating-IP`
+  - `X-Remote-Addr`
+  - `X-Client-IP`
+- Values
+  - `127.0.0.1` (or anything in the `127.0.0.0/8` or `::1/128` address spaces)
+  - `localhost`
+  - Any [RFC1918](https://tools.ietf.org/html/rfc1918) address:
+    - `10.0.0.0/8`
+    - `172.16.0.0/12`
+    - `192.168.0.0/16`
+  - Link local addresses: `169.254.0.0/16`
+
+Note: Including a port element along with the address or hostname may also help bypass edge protections such as web application firewalls, etc.
+For example: `127.0.0.4:80`, `127.0.0.4:443`, `127.0.0.4:43982`
+
 ## Tools
 
 - [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org/)
+<<<<<<< HEAD
 - [ZAP extension: Access Control Testing](https://www.zaproxy.org/docs/desktop/addons/access-control-testing/)
 - [Burp extension: AuthMatrix](https://github.com/SecurityInnovation/AuthMatrix/)
 - [Burp extension: Autorize](https://github.com/Quitten/Autorize)
+=======
+- [Port Swigger Burp Suite](https://portswigger.net/burp)
+>>>>>>> master

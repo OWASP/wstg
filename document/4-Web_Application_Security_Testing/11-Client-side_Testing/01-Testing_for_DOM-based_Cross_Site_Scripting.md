@@ -16,7 +16,7 @@ In comparison to other types of cross site scripting vulnerabilities ([reflected
 
 Due to their nature, DOM-based XSS vulnerabilities can be executed in many instances without the server being able to determine what is actually being executed. This may make many of the general XSS filtering and detection techniques impotent to such attacks.
 
-This hypothetical example uses the following client side code:
+This hypothetical example uses the following client-side code:
 
 ```html
 <script>
@@ -80,8 +80,8 @@ else
 </script>
 ```
 
-For this reason, automated testing will not detect areas that may be susceptible to DOM-based XSS unless the testing tool can perform additional analysis of the client side code.
+For this reason, automated testing will not detect areas that may be susceptible to DOM-based XSS unless the testing tool can perform additional analysis of the client-side code.
 
 Manual testing should therefore be undertaken and can be done by examining areas in the code where parameters are referred to that may be useful to an attacker. Examples of such areas include places where code is dynamically written to the page and elsewhere where the DOM is modified or even where scripts are directly executed. Further examples are described in this excellent [DOM XSS article by Amit Klein](http://www.webappsec.org/projects/articles/071105.html).
 
-For further OWASP resources on preventing DOM-based XSS, see the [DOM-based XSS Prevention Cheat Sheet](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.md).
+For further OWASP resources on preventing DOM-based XSS, see the [DOM-based XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html).

@@ -8,7 +8,7 @@
 >
 > — Matteo Meucci
 
-OWASP thanks the many authors, reviewers, and editors for their hard work in bringing this guide to where it is today. If you have any comments or suggestions on the Testing Guide, please feel free to open an Issue or submit a fix/contribution via Pull Request to our [GitHub repo](https://github.com/OWASP/wstg/).
+OWASP thanks the many authors, reviewers, and editors for their hard work in bringing this guide to where it is today. If you have any comments or suggestions on the Testing Guide, please feel free to open an Issue or submit a fix/contribution via Pull Request to our [GitHub repository](https://github.com/OWASP/wstg/).
 
 ## Version 4.1
 
@@ -44,12 +44,14 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Rubal Jain
 - Tal Argoni
 - Victoria Drake
+- Phu Nguyen (Tony)
 
 ## Graphic Designers
 
 - Hugo Costa
 - Jishnu Vijayan C K
 - Muhammed Anees
+- Ramzi Fazah
 
 ## Reviewers or Editors
 
@@ -70,7 +72,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Merriam-Webster is a trademark of Merriam-Webster, Inc.
 - Microsoft is a registered trademark of Microsoft Corporation.
 - Octave is a service mark of Carnegie Mellon University.
-- OWASP is a registered trademark of the OWASP Foundation
+- Open Web Application Security Project and OWASP are registered trademarks of the OWASP Foundation, Inc.
 - VeriSign and Thawte are registered trademarks of VeriSign, Inc.
 - Visa is a registered trademark of VISA USA.
 

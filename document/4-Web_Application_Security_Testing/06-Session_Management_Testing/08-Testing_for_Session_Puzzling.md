@@ -28,7 +28,7 @@ This vulnerability can be detected and exploited by enumerating all of the sessi
 
 #### Examples
 
-A very simple example could be the password reset functionality that, in the entry point, could request the user to provide some identifying information such as the username or the e-mail address. This page might then populate the session with these identifying values, which are received directly from the client side, or obtained from queries or calculations based on the received input. At this point there may be some pages in the application that show private data based on this session object. In this manner the attacker could bypass the authentication process.
+A very simple example could be the password reset functionality that, in the entry point, could request the user to provide some identifying information such as the username or the email address. This page might then populate the session with these identifying values, which are received directly from the client-side, or obtained from queries or calculations based on the received input. At this point there may be some pages in the application that show private data based on this session object. In this manner the attacker could bypass the authentication process.
 
 ### Gray-Box Testing
 

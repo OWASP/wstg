@@ -1,4 +1,4 @@
-# Testing for Server Side Template Injection
+# Testing for Server-side Template Injection
 
 |ID          |
 |------------|
@@ -6,7 +6,7 @@
 
 ## Summary
 
-Web applications commonly use server side templating technologies (Jinja2, Twig, FreeMaker, etc.) to generate dynamic HTML responses. Server Side Template Injection vulnerabilities (SSTI) occur when user input is embedded in a template in an unsafe manner and results in remote code execution on the server. Any features that support advanced user-supplied markup may be vulnerable to SSTI including wiki-pages, reviews, marketing applications, CMS systems etc. Some template engines employ various mechanisms (eg. sandbox, whitelisting, etc.) to protect against SSTI.
+Web applications commonly use server-side templating technologies (Jinja2, Twig, FreeMaker, etc.) to generate dynamic HTML responses. Server-side Template Injection vulnerabilities (SSTI) occur when user input is embedded in a template in an unsafe manner and results in remote code execution on the server. Any features that support advanced user-supplied markup may be vulnerable to SSTI including wiki-pages, reviews, marketing applications, CMS systems etc. Some template engines employ various mechanisms (eg. sandbox, whitelisting, etc.) to protect against SSTI.
 
 ## Example - Twig
 
@@ -102,7 +102,7 @@ The main goal in this step is to identify to gain further control on the server 
 
 - **For template authors** sections covering basic syntax.
 - **Security considerations** sections.
-- Lists of builtin methods, functions, filters, and variables.
+- Lists of built-in methods, functions, filters, and variables.
 - Lists of extensions/plugins.
 
 The tester can also identify what other objects, methods and properties can be exposed by focusing on the `self` object. If the `self` object is not available and the documentation does not reveal the technical details, a brute force of the variable name is recommended. Once the object is identified the next step is to loop through the object to identify all the methods, properties and attributes that are accessible through the template engine. This could lead to other kinds of security findings  including privilege escalations, information disclosure about application passwords, API keys, configurations and environment variables, etc.
@@ -115,6 +115,7 @@ The tester can also identify what other objects, methods and properties can be e
 4. [Server Side Template Injection: from detection to Remote shell](https://www.okiok.com/server-side-template-injection-from-detection-to-remote-shell/)
 5. [Extreme Vulnerable Web Application](https://github.com/s4n7h0/xvwa)
 6. [Divine Selorm Tsa: Exploiting server side template injection with tplmap](https://owasp.org/www-pdf-archive/Owasp_SSTI_final.pdf)
+7. [Exploiting SSTI in Thymeleaf](https://www.acunetix.com/blog/web-security-zone/exploiting-ssti-in-thymeleaf/)
 
 ## Tools
 

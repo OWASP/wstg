@@ -1,0 +1,54 @@
+name: Markdown Terminology Lint Check
+
+on:
+  pull_request:
+    branches:
+    - master
+    paths:
+    - '**.md'
+    - '!www/**'
+    - '!pdf/**'
+    - '!.github/**'
+
+jobs:
+  textlint:
+    runs-on: ubuntu-latest
+    env:
+      CI: true
+    steps:
+    - name: Setup Action
+      uses: actions/checkout@v2
+    - name: Setup Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: 13.x
+    - name: Install dependencies
+      run: |
+        npm install -g textlint
+        npm install -g textlint-rule-terminology
+    - name: Changed Files Exporter
+      id: files
+      uses: futuratrepadeira/changed-files@v3.2.1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        pattern: '^.*\.(md)$'
+    - name: Run textlint Check
+      env:
+        FILES: '${{ steps.files.outputs.files_updated }} ${{ steps.files.outputs.files_created }}'
+      run: |
+        touch log.txt
+        # All markdown files, excluding www, pdf, and .github
+        # Use fix flag so that it goes through all files
+        for FILE in $FILES; do echo $FILE | grep -v www | grep -v pdf | grep -v \.github && textlint --fix --rule terminology $FILE | tee -a log.txt; done
+        if grep -q  'Incorrect usage' log.txt ; then exit 1 ; else echo -e \"No broken links found.\"; fi
+    - name: Show Mistakes
+      id: mistakes
+      if: failure()
+      run: |
+        cat log.txt
+    - name: Attach Mistakes
+      if: failure() && github.event_name == 'pull_request'
+      uses: actions/upload-artifact@v1
+      with:
+        name: Terminology Mistakes
+        path: log.txt

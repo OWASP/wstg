@@ -2,11 +2,11 @@
 
 |ID          |
 |------------|
-|WSTG-CLNT-13   |
+|WSTG-CLNT-13|
 
 ## Summary
 
-Cross Site Script Inclusion (XSSI) vulnerability allows sensitive data leakage across-origin or cross-domain boundaries. Sensitive data could include authentication-related data (login states, cookies, auth tokens, session IDs, etc.) or user's personal or sensitive personal data (email addresses, phone numbers, credit card details, social security numbers, etc.). XSSI is a client-side attack similar to Cross Site Request Forgery (CSRF) but has a different purpose. Where CSRF uses the authenticated user context to execute certain state-changing actions inside a victim’s page (e.g. transfer money to the attacker's account, modify privileges, reset password, etc.), XSSI instead uses JavaScript on the client side to leak sensitive data from authenticated sessions.
+Cross Site Script Inclusion (XSSI) vulnerability allows sensitive data leakage across-origin or cross-domain boundaries. Sensitive data could include authentication-related data (login states, cookies, auth tokens, session IDs, etc.) or user's personal or sensitive personal data (email addresses, phone numbers, credit card details, social security numbers, etc.). XSSI is a client-side attack similar to Cross Site Request Forgery (CSRF) but has a different purpose. Where CSRF uses the authenticated user context to execute certain state-changing actions inside a victim’s page (e.g. transfer money to the attacker's account, modify privileges, reset password, etc.), XSSI instead uses JavaScript on the client-side to leak sensitive data from authenticated sessions.
 
 By default, websites are only allowed to access data if they are from the same origin. This is a key application security principle and governed by the same-origin policy (defined by [RFC 6454](https://tools.ietf.org/html/rfc6454)). An origin is defined as the combination of URI scheme (HTTP or HTTPS), host name, and port number. However, this policy is not applicable for HTML `<script>` tag inclusions. This exception is necessary, as without it websites would not be able to consume third party services, perform traffic analysis, or use advertisement platforms, etc.
 
@@ -18,7 +18,7 @@ Older browser's vulnerabilities (IE9/10) allowed data leakage via JavaScript err
 
 ### Collect Data Using Authenticated and Unauthenticated User Sessions
 
-Identify which endpoints are responsible for sending sensitive data, what parameters are required, and identify all relevant dynamically and statically generated JavaScript responses using authenticated user sessions. Pay special attention to sensitive data sent using [JSONP](https://en.wikipedia.org/wiki/JSONP). To find dynamically generated JavaScript responses, generate authenticated and unauthenticated requests, then compare them. If they're different, it means the response is dynamic; otherwise it's static. To simplify this task, a tool such as [Veit Hailperin's Burp proxy plugin](https://github.com/luh2/DetectDynamicJS) can be used. Make sure to check other filetypes in addition to JavaScript; XSSI is not limited to JavaScript files alone.
+Identify which endpoints are responsible for sending sensitive data, what parameters are required, and identify all relevant dynamically and statically generated JavaScript responses using authenticated user sessions. Pay special attention to sensitive data sent using [JSONP](https://en.wikipedia.org/wiki/JSONP). To find dynamically generated JavaScript responses, generate authenticated and unauthenticated requests, then compare them. If they're different, it means the response is dynamic; otherwise it's static. To simplify this task, a tool such as [Veit Hailperin's Burp proxy plugin](https://github.com/luh2/DetectDynamicJS) can be used. Make sure to check other file types in addition to JavaScript; XSSI is not limited to JavaScript files alone.
 
 ### Determine Whether the Sensitive Data Can Be Leaked Using JavaScript
 

@@ -6,144 +6,48 @@
 
 ## Summary
 
-HTTP offers a number of methods that can be used to perform actions on the web server. Many of theses methods are designed to aid developers in deploying and testing HTTP applications. These HTTP methods can be used for nefarious purposes if the web server is misconfigured. Additionally, Cross Site Tracing (XST), a form of cross site scripting using the server's HTTP TRACE method, is examined.
-While GET and POST are by far the most common methods that are used to access information provided by a web server, the Hypertext Transfer Protocol (HTTP) allows several other (and somewhat less known) methods. RFC 2616 (which describes HTTP version 1.1 which is the standard today) defines the following eight methods:
+HTTP offers a number of methods that can be used to perform actions on the web server (the HTTP 1.1 standard refers to them as `methods` but they are also commonly described as `verbs`). While GET and POST are by far the most common methods that are used to access information provided by a web server, HTTP allows several other (and somewhat less known) methods. Some of these can be used for nefarious purposes if the web server is misconfigured.
 
-- HEAD
-- GET
-- POST
-- PUT
-- DELETE
-- TRACE
-- OPTIONS
-- CONNECT
+[RFC 7231 –  Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content](https://tools.ietf.org/html/rfc7231) defines the following valid HTTP request methods, or verbs:
 
-Some of these methods can potentially pose a security risk for a web application, as they allow an attacker to modify the files stored on the web server and, in some scenarios, steal the credentials of legitimate users. More specifically, the methods that should be disabled are the following:
+- [`GET`](https://tools.ietf.org/html/rfc7231#section-4.3.1)
+- [`HEAD`](https://tools.ietf.org/html/rfc7231#section-4.3.2)
+- [`POST`](https://tools.ietf.org/html/rfc7231#section-4.3.3)
+- [`PUT`](https://tools.ietf.org/html/rfc7231#section-4.3.4)
+- [`DELETE`](https://tools.ietf.org/html/rfc7231#section-4.3.5)
+- [`CONNECT`](https://tools.ietf.org/html/rfc7231#section-4.3.6)
+- [`OPTIONS`](https://tools.ietf.org/html/rfc7231#section-4.3.7)
+- [`TRACE`](https://tools.ietf.org/html/rfc7231#section-4.3.8)
 
-- PUT: This method allows a client to upload new files on the web server. An attacker can exploit it by uploading malicious files (e.g.: an asp file that executes commands by invoking cmd.exe), or by simply using the victim's server as a file repository.
-- DELETE: This method allows a client to delete a file on the web server. An attacker can exploit it as a very simple and direct way to deface a web site or to mount a DoS attack.
-- CONNECT: This method could allow a client to use the web server as a proxy.
-- TRACE: This method simply echoes back to the client whatever string has been sent to the server, and is used mainly for debugging purposes. This method, originally assumed harmless, can be used to mount an attack known as Cross Site Tracing, which has been discovered by Jeremiah Grossman (see links at the bottom of the page).
+However, most web applications only need to respond to GET and POST requests, receiving user data in the URL query string or appended to the request respectively. The standard `<a href=""></a>` style links as well as forms defined without a method trigger a GET request; form data submitted via `<form method='POST'></form>` trigger POST requests. JavaScript and AJAX calls may send methods other than GET and POST but should usually not need to do that. Since the other methods are so rarely used, many developers do not know, or fail to take into consideration, how the web server or application framework's implementation of these methods impact the security features of the application.
 
-If an application needs one or more of these methods, such as REST Web Services (which may require PUT or DELETE), it is important to check that their usage is properly limited to trusted users and safe conditions.
+## Test Objectives
 
-### Arbitrary HTTP Methods
-
-Arshan Dabirsiaghi (see links) discovered that many web application frameworks allowed well chosen or arbitrary HTTP methods to bypass an environment level access control check:
-
-- Many frameworks and languages treat “HEAD” as a “GET” request, albeit one without any body in the response. If a security constraint was set on “GET” requests such that only “authenticatedUsers” could access GET requests for a particular servlet or resource, it would be bypassed for the “HEAD” version. This allowed unauthorized blind submission of any privileged GET request.
-
-- Some frameworks allowed arbitrary HTTP methods such as “JEFF” or “CATS” to be used without limitation. These were treated as if a “GET” method was issued, and were found not to be subject to method role based access control checks on a number of languages and frameworks, again allowing unauthorized blind submission of privileged GET requests.
-
-In many cases, code which explicitly checked for a “GET” or “POST” method would be safe.
+- Test supported HTTP methods.
+- Test for access control bypass.
+- Test XST vulnerabilities.
+- Test HTTP method overriding techniques.
 
 ## How to Test
 
 ### Discover the Supported Methods
 
-To perform this test, the tester needs some way to figure out which HTTP methods are supported by the web server that is being examined. The OPTIONS HTTP method provides the tester with the most direct and effective way to do that. RFC 2616 states that, “The OPTIONS method represents a request for information about the communication options available on the request/response chain identified by the Request-URI”.
+To perform this test, the tester needs some way to figure out which HTTP methods are supported by the web server that is being examined. While the `OPTIONS` HTTP method provides a direct way to do that, verify the server's response by issuing requests using different methods. This can be achieved by manual testing or something like the [`http-methods`](https://nmap.org/nsedoc/scripts/http-methods.html) Nmap script.
 
-The testing method is extremely straightforward and we only need to fire up netcat (or telnet):
-
-```bash
-$ nc www.victim.com 80
-OPTIONS / HTTP/1.1
-Host: www.victim.com
-
-HTTP/1.1 200 OK
-Server: Microsoft-IIS/5.0
-Date: Tue, 31 Oct 2006 08:00:29 GMT
-Connection: close
-Allow: GET, HEAD, POST, TRACE, OPTIONS
-Content-Length: 0
-```
-
-As we can see in the example, OPTIONS provides a list of the methods that are supported by the web server, and in this case we can see that TRACE method is enabled. The danger that is posed by this method is illustrated in the following section
-
-The same test can also be executed using nmap and the http-methods NSE script:
-
-```console
-C:\Tools\nmap-6.40>nmap -p 443 --script http-methods localhost
-
-Starting Nmap 6.40 ( http://nmap.org ) at 2015-11-04 11:52 Romance Standard Time
-
-Nmap scan report for localhost (127.0.0.1)
-Host is up (0.0094s latency).
-PORT    STATE SERVICE
-443/tcp open  https
-| http-methods: OPTIONS TRACE GET HEAD POST
-| Potentially risky methods: TRACE
-|_See http://nmap.org/nsedoc/scripts/http-methods.html
-
-Nmap done: 1 IP address (1 host up) scanned in 20.48 seconds
-```
-
-### Test XST Potential
-
-Note: in order to understand the logic and the goals of this attack one must be familiar with [Cross Site Scripting attacks](https://owasp.org/www-community/attacks/xss/).
-
-The TRACE method, while apparently harmless, can be successfully leveraged in some scenarios to steal legitimate users' credentials. This attack technique was discovered by Jeremiah Grossman in 2003, in an attempt to bypass the [HTTPOnly](https://owasp.org/www-community/HttpOnly) tag that Microsoft introduced in Internet Explorer 6 SP1 to protect cookies from being accessed by JavaScript. As a matter of fact, one of the most recurring attack patterns in Cross Site Scripting is to access the document.cookie object and send it to a web server controlled by the attacker so that he or she can hijack the victim's session. Tagging a cookie as httpOnly forbids JavaScript from accessing it, protecting it from being sent to a third party. However, the TRACE method can be used to bypass this protection and access the cookie even in this scenario.
-
-As mentioned before, TRACE simply returns any string that is sent to the web server. In order to verify its presence (or to double-check the results of the OPTIONS request shown above), the tester can proceed as shown in the following example:
+To use the `http-methods` Nmap script to test the endpoint `/index.php` on the server `localhost` using HTTPS, issue the command:
 
 ```bash
-$ nc www.victim.com 80
-TRACE / HTTP/1.1
-Host: www.victim.com
-
-HTTP/1.1 200 OK
-Server: Microsoft-IIS/5.0
-Date: Tue, 31 Oct 2006 08:01:48 GMT
-Connection: close
-Content-Type: message/http
-Content-Length: 39
-
-TRACE / HTTP/1.1
-Host: www.victim.com
+nmap -p 443 --script http-methods --script-args http-methods.url-path='/index.php' localhost
 ```
 
-The response body is exactly a copy of our original request, meaning that the target allows this method. Now, where is the danger lurking? If the tester instructs a browser to issue a TRACE request to the web server, and this browser has a cookie for that domain, the cookie will be automatically included in the request headers, and will therefore be echoed back in the resulting response. At that point, the cookie string will be accessible by JavaScript and it will be finally possible to send it to a third party even when the cookie is tagged as httpOnly.
+When testing an application that has to accept other methods, e.g. a RESTful Web Service, test it thoroughly to make sure that all endpoints accept only the methods that they require.
 
-There are multiple ways to make a browser issue a TRACE request, such as the XMLHTTP ActiveX control in Internet Explorer and XMLDOM in Mozilla and Netscape. However, for security reasons the browser is allowed to start a connection only to the domain where the hostile script resides. This is a mitigating factor, as the attacker needs to combine the TRACE method with another vulnerability in order to mount the attack.
+### Testing for Access Control Bypass
 
-An attacker has two ways to successfully launch a Cross Site Tracing attack:
-
-- Leveraging another server-side vulnerability: the attacker injects the hostile JavaScript snippet that contains the TRACE request in the vulnerable application, as in a normal Cross Site Scripting attack
-- Leveraging a client-side vulnerability: the attacker creates a malicious website that contains the hostile JavaScript snippet and exploits some cross-domain vulnerability of the browser of the victim, in order to make the JavaScript code successfully perform a connection to the site that supports the TRACE method and that originated the cookie that the attacker is trying to steal.
-
-More detailed information, together with code samples, can be found in the original whitepaper written by Jeremiah Grossman.
-
-### Testing for Arbitrary HTTP Methods
-
-Find a page to visit that has a security constraint such that it would normally force a 302 redirect to a log in page or forces a log in directly. The test URL in this example works like this, as do many web applications. However, if a tester obtains a “200” response that is not a log in page, it is possible to bypass authentication and thus authorization.
+Find a page to visit that has a security constraint such that a GET request would normally force a 302 redirect to a log in page or force a log in directly. Issue requests using various methods such as HEAD, POST, PUT etc. as well as arbitrarily made up methods such as BILBAO, FOOBAR, CATS, etc. If the web application responds with a `HTTP/1.1 200 OK` that is not a log in page, it may be possible to bypass authentication or authorization. The following example uses [Nmap's `ncat`](https://nmap.org/ncat/).
 
 ```bash
-$ nc www.example.com 80
-JEFF / HTTP/1.1
-Host: www.example.com
-
-HTTP/1.1 200 OK
-Date: Mon, 18 Aug 2008 22:38:40 GMT
-Server: Apache
-Set-Cookie: PHPSESSID=K53QW...
-```
-
-If the framework or firewall or application does not support the “JEFF” method, it should issue an error page (or preferably a 405 Not Allowed or 501 Not implemented error page). If it services the request, it is vulnerable to this issue.
-
-If the tester feels that the system is vulnerable to this issue, they should issue CSRF-like attacks to exploit the issue more fully:
-
-- FOOBAR /admin/createUser.php?member=myAdmin
-- JEFF /admin/changePw.php?member=myAdmin&passwd=foo123&confirm=foo123
-- CATS /admin/groupEdit.php?group=Admins&member=myAdmin&action=add
-
-With some luck, using the above three commands - modified to suit the application under test and testing requirements - a new user would be created, a password assigned, and made an administrator.
-
-### Testing for HEAD Access Control Bypass
-
-Find a page to visit that has a security constraint such that it would normally force a 302 redirect to a log in page or forces a log in directly. The test URL in this example works like this, as do many web applications. However, if the tester obtains a “200” response that is not a login page, it is possible to bypass authentication and thus authorization.
-
-```bash
-$ nc www.example.com 80
+$ ncat www.example.com 80
 HEAD /admin HTTP/1.1
 Host: www.example.com
 
@@ -162,15 +66,45 @@ Connection: close
 Content-Type: text/html; charset=ISO-8859-1
 ```
 
-If the tester gets a “405 Method not allowed” or “501 Method Unimplemented”, the target (application/framework/language/system/firewall) is working correctly. If a “200” response code comes back, and the response contains no body, it's likely that the application has processed the request without authentication or authorization and further testing is warranted.
+If the system appears vulnerable, issue CSRF-like attacks such as the following to exploit the issue more fully:
 
-If the tester thinks that the system is vulnerable to this issue, they should issue CSRF-like attacks to exploit the issue more fully:
+- `HEAD /admin/createUser.php?member=myAdmin`
+- `PUT /admin/changePw.php?member=myAdmin&passwd=foo123&confirm=foo123`
+- `CATS /admin/groupEdit.php?group=Admins&member=myAdmin&action=add`
 
-- HEAD /admin/createUser.php?member=myAdmin
-- HEAD /admin/changePw.php?member=myAdmin&passwd=foo123&confirm=foo123
-- HEAD /admin/groupEdit.php?group=Admins&member=myAdmin&action=add
+Using the above three commands, modified to suit the application under test and testing requirements, a new user would be created, a password assigned, and the user made an administrator, all using blind request submission.
 
-With some luck, using the above three commands - modified to suit the application under test and testing requirements - a new user would be created, a password assigned, and made an administrator, all using blind request submission.
+### Testing for Cross-Site Tracing Potential
+
+Note: in order to understand the logic and the goals of a cross-site tracing (XST) attack, one must be familiar with [cross-site scripting attacks](https://owasp.org/www-community/attacks/xss/).
+
+The `TRACE` method, intended for testing and debugging, instructs the web server to reflect the received message back to the client. This method, while apparently harmless, can be successfully leveraged in some scenarios to steal legitimate users' credentials. This attack technique was discovered by Jeremiah Grossman in 2003, in an attempt to bypass the [HttpOnly](https://owasp.org/www-community/HttpOnly) attribute that aims to protect cookies from being accessed by JavaScript.  However, the TRACE method can be used to bypass this protection and access the cookie even when this attribute is set.
+
+Test for cross-site tracing potential by issuing a request such as the following:
+
+```bash
+$ ncat www.victim.com 80
+TRACE / HTTP/1.1
+Host: www.victim.com
+Random: Header
+
+HTTP/1.1 200 OK
+Random: Header
+...
+```
+
+The web server returned a 200 and reflected the random header that was set in place. To further exploit this issue:
+
+```bash
+$ ncat www.victim.com 80
+TRACE / HTTP/1.1
+Host: www.victim.com
+Attack: <script>prompt()</script>
+```
+
+The above example works if the response is being reflected in the HTML context.
+
+In older browsers, attacks were pulled using [XHR](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) technology, which leaked the headers when the server reflects them (*e.g.* Cookies, Authorization tokens, etc.) and bypassed security measures such as the [HttpOnly](../06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.md#httponly-attribute) attribute. This attack can be pulled in recent browsers only if the application integrates with technologies similar to Flash.
 
 ### Testing for HTTP Method Overriding
 
@@ -180,10 +114,12 @@ Some web frameworks provide a way to override the actual HTTP method in the requ
 - `X-HTTP-Method-Override`
 - `X-Method-Override`
 
-In order to test this, in the scenarios where restrictive verbs such as PUT or DELETE return a “405 Method not allowed”, replay the same request with the addition of the alternative headers for HTTP method overriding, and observe how the system will respond. The application should respond with a different status code (e.g. 200) in cases where method overriding is supported:
+In order to test this, in the scenarios where restricted verbs such as PUT or DELETE return a “405 Method not allowed”, replay the same request with the addition of the alternative headers for HTTP method overriding, and observe how the system responds. The application should respond with a different status code (*e.g.* 200) in cases where method overriding is supported.
+
+The web server in the following example does not allow the `DELETE` method and blocks it:
 
 ```bash
-$ nc www.example.com 80
+$ ncat www.example.com 80
 DELETE /resource.html HTTP/1.1
 Host: www.example.com
 
@@ -194,8 +130,12 @@ Allow: GET,HEAD,POST,OPTIONS
 Content-Length: 320
 Content-Type: text/html; charset=iso-8859-1
 Vary: Accept-Encoding
+```
 
-$ nc www.example.com 80
+After adding the `X-HTTP-Header`, the server responds to the request with a 200:
+
+```bash
+$ ncat www.example.com 80
 DELETE /resource.html HTTP/1.1
 Host: www.example.com
 X-HTTP-Method: DELETE
@@ -205,18 +145,22 @@ Date: Sat, 04 Apr 2020 19:26:01 GMT
 Server: Apache
 ```
 
+## Remediation
+
+- Ensure that only the required headers are allowed, and that the allowed headers are properly configured.
+- Ensure that no workarounds are implemented to bypass security measures implemented by user-agents, frameworks, or web servers.
+
 ## Tools
 
-- [NetCat](http://nc110.sourceforge.net)
+- [Ncat](https://nmap.org/ncat/)
 - [cURL](https://curl.haxx.se/)
 - [nmap http-methods NSE script](https://nmap.org/nsedoc/scripts/http-methods.html)
+- [w3af plugin htaccess_methods](http://w3af.org/plugins/audit/htaccess_methods)
 
 ## References
 
-### Whitepapers
-
-- [RFC 2616: “Hypertext Transfer Protocol -- HTTP/1.1”](https://tools.ietf.org/html/rfc2616)
 - [RFC 2109](https://tools.ietf.org/html/rfc2109) and [RFC 2965](https://tools.ietf.org/html/rfc2965): “HTTP State Management Mechanism”
-- [Jeremiah Grossman: “Cross Site Tracing (XST)](https://www.cgisecurity.com/whitehat-mirror/WH-WhitePaper_XST_ebook.pdf)
+- [HTACCESS: BILBAO Method Exposed](https://web.archive.org/web/20160616172703/http://www.kernelpanik.org/docs/kernelpanik/bme.eng.pdf)
 - [Amit Klein: “XS(T) attack variants which can, in some cases, eliminate the need for TRACE”](https://www.securityfocus.com/archive/107/308433)
 - [Fortify - Misused HTTP Method Override](https://vulncat.fortify.com/en/detail?id=desc.dynamic.xtended_preview.often_misused_http_method_override)
+- [CAPEC-107: Cross Site Tracing](https://capec.mitre.org/data/definitions/107.html)

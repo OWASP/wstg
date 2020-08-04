@@ -24,7 +24,7 @@
 
 - 4.7.5.7 [Testing for ORM Injection](05.7-Testing_for_ORM_Injection.md)
 
-- 4.7.5.8 [Testing for Client Side](05.8-Testing_for_Client_Side.md)
+- 4.7.5.8 [Testing for Client-side](05.8-Testing_for_Client-side.md)
 
 4.7.6 [Testing for LDAP Injection](06-Testing_for_LDAP_Injection.md)
 
@@ -60,4 +60,4 @@
 
 4.7.17 [Testing for Host Header Injection](17-Testing_for_Host_Header_Injection.md)
 
-4.7.18 [Testing for Server Side Template Injection](18-Testing_for_Server_Side_Template_Injection.md)
+4.7.18 [Testing for Server-side Template Injection](18-Testing_for_Server-side_Template_Injection.md)
