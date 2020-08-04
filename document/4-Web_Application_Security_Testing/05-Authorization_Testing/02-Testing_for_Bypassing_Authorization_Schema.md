@@ -35,7 +35,7 @@ This kind of test focuses on verifying how the Horizontal authorization schema h
 For each role:
 
 1. Register/generate two users.
-2. Generate and keep two different session tokens by authenticating the application (one session token for each user).
+2. Generate and keep two different session tokens by authenticating (one session token for each user).
 3. For every request, change the relevant parameters and the session token from token one to token two and diagnose the responses for each token.
 4. An application will be considered vulnerable if the responses are the same, contain same private data or indicate successful operation on other users' resource or data.
 
