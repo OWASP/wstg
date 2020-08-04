@@ -168,7 +168,7 @@ Host: www.example.com
 userID=fakeuser&role=3&group=grp001
 ```
 
-Further questions would be going into the following direction:
+Further questions or considerations would go in the following direction:
 
 - What happens if a non-administrative user tries to execute that request?
 - Will the user be created?
