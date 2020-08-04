@@ -8,7 +8,7 @@
 
 This kind of test focuses on verifying how the authorization schema has been implemented for each role or privilege to get access to reserved functions and resources.
 
-For every specific role the tester holds during the assessment, for every function and request that the application executes during the post-authentication phase, it is necessary to verify:
+For every specific role the tester holds during the assessment and for every function and request that the application executes during the post-authentication phase, it is necessary to verify:
 
 - Is it possible to access that resource even if the user is not authenticated?
 - Is it possible to access that resource after the log-out?
@@ -16,12 +16,12 @@ For every specific role the tester holds during the assessment, for every functi
 
 Try to access the application as an administrative user and track all the administrative functions.
 
-- Is it possible to access administrative functions also if the tester is logged as a user with standard privileges?
+- Is it possible to access administrative functions if the tester is logged in as a user with standard privileges?
 - Is it possible to use these administrative functions as a user with a different role and for whom that action should be denied?
 
 ## How to Test
 
-In the following the most common approaches to bypassing authorization scheme will be shown and explained. First the horizontal and vertical bypassing approach and some more specific testings, like for Special Request Header Handling.
+In the following are the most common approaches to bypassing authorization schemes will be shown and explained. First the horizontal, and vertical bypass approaches, then some more specific scenarios.
 
 ### Testing for Horizontal Bypassing Authorization Schema
 
@@ -34,7 +34,7 @@ This kind of test focuses on verifying how the Horizontal authorization schema h
 
 For each role:
 
-1. Register/generate two users with the same role.
+1. Register/generate two users.
 2. Generate and keep two different session tokens by authenticating the application (one session token for each user).
 3. For every request, change the relevant parameters and the session token from token one to token two and diagnose the responses for each token.
 4. An application will be considered vulnerable if the responses are the same, contain same private data or indicate successful operation on other users resource or data.
@@ -83,12 +83,12 @@ A vertical authorization bypass is specific to the case that an attacker obtains
 - Access resources that should be accessible only to a higher role user.
 - Operate functions on resources that should be operative only by a user that holds a higher or specific role identity.
 
-#### How to Test
+#### Testing scheme
 
 The process of testing for bypass authorization scheme follows:
 
 1. For each role, register a user.
-2. Generate and keep the session tokens by authenticating to the application (one session token for each role).
+2. Generate and keep two different session tokens by authenticating (one session token for each user).
 3. For every request, change the session token from the original token to another role session token and diagnose the responses for each token.
 4. An application will be considered vulnerable if the responses are the same, contain the same private data, or indicate successful operations on other user resources or data.
 
@@ -176,17 +176,17 @@ Further questions would be going into the following direction:
 
 ### Testing for Access to Resources Assigned to a Different Role
 
-For example analyze an application that uses a shared directory to store temporary PDF files for different users. Suppose that documentABC.pdf should be accessible only by the user test1 with roleA. Verify if user test2 with roleB can access that resource.
+For example analyze an application that uses a shared directory to store temporary PDF files for different users. Suppose that `documentABC.pdf` should be accessible only by the user `test1` with `roleA`. Verify if user `test2` with `roleB` can access that resource.
 
 ### Testing for Special Request Header Handling
 
-Some applications support non-standard headers such as X-Original-URL or X-Rewrite-URL in order to allow overriding the target URL in requests with the one specified in the header value.
+Some applications support non-standard headers such as `X-Original-URL` or `X-Rewrite-URL` in order to allow overriding the target URL in requests with the one specified in the header value.
 
 This behavior can be leveraged in a situation in which the application is behind a component that applies access control restriction based on the request URL.
 
 The kind of access control restriction based on the request URL can be, for example, blocking access from Internet to an administration console exposed on `/console` or `/admin`.
 
-To detect the support for the header X-Original-URL or X-Rewrite-URL, the following steps can be applied.
+To detect the support for the header `X-Original-URL` or `X-Rewrite-URL`, the following steps can be applied.
 
 #### 1. Send a Normal Request without Any X-Original-Url or X-Rewrite-Url Header
 
@@ -216,11 +216,7 @@ X-Rewrite-URL: /donotexist2
 
 If the response for either request contains markers that the resource was not found, this indicates that the application supports the special request headers. These markers may include the HTTP response status code 404, or a "resource not found" message in the response body.
 
-Once the support for the header X-Original-URL or X-Rewrite-URL was validated then the tentative of bypass against the access control restriction can be leveraged by sending the expected request to the application but specifying a URL "allowed" by the front-end component as the main request URL and specifying the real target URL in the X-Original-URL or X-Rewrite-URL header depending on the one supported. If both are supported then try one after the other to verify for which header the bypass is effective.
-
-## References
-
-[OWASP Application Security Verification Standard 3.0.1](https://github.com/OWASP/ASVS/tree/master/3.0.1), V4.1, 4.4, 4.9, 4.16.
+Once the support for the header `X-Original-URL` or `X-Rewrite-URL` was validated then the tentative of bypass against the access control restriction can be leveraged by sending the expected request to the application but specifying a URL "allowed" by the front-end component as the main request URL and specifying the real target URL in the `X-Original-URL` or `X-Rewrite-URL` header depending on the one supported. If both are supported then try one after the other to verify for which header the bypass is effective.
 
 #### 4. Other Headers to Consider
 
@@ -248,10 +244,11 @@ For example: `127.0.0.4:80`, `127.0.0.4:443`, `127.0.0.4:43982`
 ## Tools
 
 - [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org/)
-<<<<<<< HEAD
 - [ZAP extension: Access Control Testing](https://www.zaproxy.org/docs/desktop/addons/access-control-testing/)
 - [Burp extension: AuthMatrix](https://github.com/SecurityInnovation/AuthMatrix/)
 - [Burp extension: Autorize](https://github.com/Quitten/Autorize)
-=======
-- [Port Swigger Burp Suite](https://portswigger.net/burp)
->>>>>>> master
+- [Port Swigger Burp Suite](<https://portswigger.net/burp>
+
+## References
+
+[OWASP Application Security Verification Standard 3.0.1](https://github.com/OWASP/ASVS/tree/master/4.0), V4.1, 4.4, 4.9, 4.16.
