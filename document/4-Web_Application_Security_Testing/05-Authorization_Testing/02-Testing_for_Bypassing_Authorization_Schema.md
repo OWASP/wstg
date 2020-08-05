@@ -74,7 +74,7 @@ Cookie: SessionID=GbcvA1_ATTACKER_SESSION_6fhTscd
 Idpincode=user1
 ```
 
-If the response of the attacker’s request contains the same data (“pincode”:8432) the application is vulnerable. One can follow the same logic and the mentioned steps to replicate this testing approach.
+If the response of the attacker’s request contains the same data `{“pincode”:8432}` the application is vulnerable. One can follow the same logic and the mentioned steps to replicate this testing approach.
 
 ### Testing for Vertical Bypassing Authorization Schema
 
