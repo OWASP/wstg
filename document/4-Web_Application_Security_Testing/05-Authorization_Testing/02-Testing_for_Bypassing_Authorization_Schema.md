@@ -30,7 +30,7 @@ This kind of test focuses on verifying how the Horizontal authorization schema h
 - Is it possible to access resources that should be accessible to a user that holds a different identity with the same role or privilege?
 - Is it possible to operate functions on resources that should be accessible to a user that holds a different identity?
 
-#### How to test
+#### How to Test
 
 For each role:
 
