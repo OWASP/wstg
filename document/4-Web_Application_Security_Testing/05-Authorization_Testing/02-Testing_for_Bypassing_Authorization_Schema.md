@@ -138,7 +138,7 @@ Cookie: SessionID=GbcvA1_CUSTOMER_ATTACKER_SESSION_6fhTscd
 EventID=1000002
 ```
 
-If the response of the attacker’s request contains the same data (`“message”:”Event was deleted”`) the application is vulnerable.
+If the response of the attacker’s request contains the same data `{“message”:”Event was deleted”}` the application is vulnerable.
 
 #### Example 2
 
