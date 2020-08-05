@@ -247,8 +247,8 @@ For example: `127.0.0.4:80`, `127.0.0.4:443`, `127.0.0.4:43982`
 - [ZAP extension: Access Control Testing](https://www.zaproxy.org/docs/desktop/addons/access-control-testing/)
 - [Burp extension: AuthMatrix](https://github.com/SecurityInnovation/AuthMatrix/)
 - [Burp extension: Autorize](https://github.com/Quitten/Autorize)
-- [Port Swigger Burp Suite](<https://portswigger.net/burp>
+- [Port Swigger Burp Suite](https://portswigger.net/burp)
 
 ## References
 
-[OWASP Application Security Verification Standard 3.0.1](https://github.com/OWASP/ASVS/tree/master/4.0), V4.1, 4.4, 4.9, 4.16.
+[OWASP Application Security Verification Standard 4.0.1](https://github.com/OWASP/ASVS/tree/master/4.0), v4.0.1-1, v4.0.1-4, v4.0.1-9, v4.0.1-16
