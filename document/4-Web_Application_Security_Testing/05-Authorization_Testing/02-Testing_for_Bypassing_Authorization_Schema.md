@@ -83,7 +83,7 @@ A vertical authorization bypass is specific to the case that an attacker obtains
 - Access resources that should be accessible only to a higher role user.
 - Operate functions on resources that should be operative only by a user that holds a higher or specific role identity.
 
-#### Testing scheme
+#### Testing Scheme
 
 The process of testing for bypass authorization scheme follows:
 
