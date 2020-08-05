@@ -96,7 +96,7 @@ In the [Tools](#tools) section, there are multiple add-ons for proxies such as Z
 
 #### Example 1
 
-The following table illustrates the system role on banking site. Each role bind with specific permissions for the event menu functionality:
+The following table illustrates the system roles on a banking site. Each role binds with specific permissions for the event menu functionality:
 
 | ROLE | PERMISSION | ADDITIONAL PERMISSION |
 |------|------------|-----------------------|
