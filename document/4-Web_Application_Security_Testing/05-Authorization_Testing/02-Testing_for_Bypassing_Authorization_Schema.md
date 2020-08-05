@@ -39,7 +39,7 @@ For each role:
 3. For every request, change the relevant parameters and the session token from token one to token two and diagnose the responses for each token.
 4. An application will be considered vulnerable if the responses are the same, contain same private data or indicate successful operation on other users' resource or data.
 
-For example, suppose that the 'viewCCpincode.jsp' function is part of every account menu of the application with the same role, and it is possible to access it by requesting the following URL:
+For example, suppose that the `viewCCpincode.jsp` function is part of every account menu of the application with the same role, and it is possible to access it by requesting the following URL:
 
 `https://www.example.com/account/viewCCpincode.jsp`
 
