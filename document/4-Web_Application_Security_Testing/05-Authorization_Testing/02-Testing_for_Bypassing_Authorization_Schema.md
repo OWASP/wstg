@@ -146,7 +146,7 @@ Suppose that the administrator menu is part of the administrator account. The ap
 
 ### Testing for Access to Administrative Functions
 
-For example, suppose that the 'AddUser.jsp' function is part of the administrative menu of the application, and it is possible to access it by requesting the following URL:
+For example, suppose that the `AddUser.jsp` function is part of the administrative menu of the application, and it is possible to access it by requesting the following URL:
 
 `https://www.example.com/admin/addUser.jsp`
 
