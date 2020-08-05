@@ -98,12 +98,12 @@ In the [Tools](#tools) section, there are multiple add-ons for proxies such as Z
 
 The following table illustrates the system roles on a banking site. Each role binds with specific permissions for the event menu functionality:
 
-| ROLE | PERMISSION | ADDITIONAL PERMISSION |
-|------|------------|-----------------------|
-| Administrator | Full Control     | Delete |
-| Manager       | Modify, Add, Read | Add    |
-| Staff         | Read, Modify     | Modify |
-| Customer      | Read Only        |        |
+|      ROLE     |     PERMISSION    | ADDITIONAL PERMISSION |
+|---------------|-------------------|-----------------------|
+| Administrator | Full Control      | Delete                |
+| Manager       | Modify, Add, Read | Add                   |
+| Staff         | Read, Modify      | Modify                |
+| Customer      | Read Only         |                       |
 
 The application will be considered vulnerable if the:
 
