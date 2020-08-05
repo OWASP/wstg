@@ -107,11 +107,7 @@ The application will be considered vulnerable if the:
 2. Staff user could operate manager or administrator functions;
 3. Manager could operate administrator functions.
 
-Suppose that the `deleteEvent.jsp` function is part of the administrator account menu of the application, and it is possible to access it by requesting the following URL:
-
-`https://www.example.com/account/deleteEvent.jsp`
-
-Then, the following HTTP request is generated when calling the `deleteEvent` function:
+Suppose that the `deleteEvent.jsp` function is part of the administrator account menu of the application, and it is possible to access it by requesting the following URL: `https://www.example.com/account/deleteEvent.jsp`. Then, the following HTTP request is generated when calling the `deleteEvent` function:
 
 ```html
 POST /account/deleteEvent.jsp HTTP/1.1
