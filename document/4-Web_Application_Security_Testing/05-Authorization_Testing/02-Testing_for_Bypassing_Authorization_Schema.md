@@ -1,7 +1,7 @@
 # Testing for Bypassing Authorization Schema
 
-|ID            |
-|--------------|
+|ID          |
+|------------|
 |WSTG-ATHZ-02|
 
 ## Summary
