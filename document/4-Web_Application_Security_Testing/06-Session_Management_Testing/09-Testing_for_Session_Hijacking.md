@@ -28,16 +28,17 @@ Specifically, the testing strategy proceeds as follows:
 
 1. Login to `www.target.com` as Alice and reach the page under test;
 2. Find the cookies which satisfy either one of the following cookie leakage conditions:
-    * no HSTS adoption and the Secure attribute is not set and there's partial HSTS adoption i.e the Secure attribute is not set and the Domain attribute is set to a parent domain. Then clear all the other cookies from the browser;
-    * partial HSTS adoption, the Secure attribute is not set and the Domain attribute is set to a parent domain.
-3. Perform the operation under test;
-4. Check: has the operation been performed? If yes, report as insecure;
-5. Clear the cookies from the browser;
-6. Login to `www.target.com` as the attacker and reach the page under test;
-7. Restore in the browser the cookies previously kept at step 2;
-8. Perform again the operation under test;
-9. Clear the cookies from the browser and login to `www.target.com` as Alice;
-10. Check: has the operation been performed? If yes, report as insecure.
+    * The Secure attribute is not set and there's partial HSTS adoption i.e the Secure attribute is not set and the Domain attribute is set to a parent domain.
+    * The Secure attribute is not set and the Domain attribute is set to a parent domain.
+3. Then clear all the other cookies from the browser;
+4. Perform the operation under test;
+5. Check: has the operation been performed? If yes, report as insecure;
+6. Clear the cookies from the browser;
+7. Login to `www.target.com` as the attacker and reach the page under test;
+8. Restore in the browser the cookies previously kept at step 2;
+9. Perform again the operation under test;
+10. Clear the cookies from the browser and login to `www.target.com` as Alice;
+11. Check: has the operation been performed? If yes, report as insecure.
 
 ## References
 
