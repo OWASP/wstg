@@ -1,0 +1,8 @@
+labels:
+  - name: invalid
+    labeled:
+      pr:
+        body: Something is wrong with your PR.
+    unlabeled:
+      issue:
+        body: The PR has been deemed valid.
