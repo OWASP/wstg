@@ -6,7 +6,7 @@
 
 ## Summary
 
-An attacker who gets access to a honest user's cookies can impersonate her by presenting such cookies: this attacker is known as session hijacking. Cookies marked with the HttpOnly attribute are not accessible to JS and cookies marked with the Secure attribute are only sent over HTTPS.
+An attacker who gets access to a honest user's cookies can impersonate her by presenting such cookies: this attacker is known as session hijacking.
 
 Remember that the Secure attribute should be used even when the web application is entirely deployed over HTTPS and the reason is the following one:
 Assume that `www.good.com` is entirely deployed over HTTPS, but does not mark its session cookies as Secure:
@@ -27,7 +27,9 @@ Even when this is not possible, however, security might still be at risk, becaus
 Specifically, the testing strategy proceeds as follows:
 
 1. Login to `www.target.com` as Alice and reach the page under test;
-2. Find the cookies which satisfy the following cookie leakage conditions: no HSTS adoption and the Secure attribute is not set and there's partial HSTS adoption i.e the Secure attribute is not set and the Domain attribute is set to a parent domain. Then clear all the other cookies from the browser;
+2. Find the cookies which satisfy either one of the following cookie leakage conditions:
+    * no HSTS adoption and the Secure attribute is not set and there's partial HSTS adoption i.e the Secure attribute is not set and the Domain attribute is set to a parent domain. Then clear all the other cookies from the browser;
+    * partial HSTS adoption, the Secure attribute is not set and the Domain attribute is set to a parent domain.
 3. Perform the operation under test;
 4. Check: has the operation been performed? If yes, report as insecure;
 5. Clear the cookies from the browser;
