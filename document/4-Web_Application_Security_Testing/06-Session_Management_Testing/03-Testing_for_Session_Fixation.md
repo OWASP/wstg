@@ -16,24 +16,7 @@ Overall, the issue described above occurs in sites where either there is no full
 
 ### Black-Box Testing
 
-We simulate a scenario where a network attacker (i.e., an attacker who has access to the same network as the victim) forces in Alice's browser all the cookies which are not freshly issued after login and do not have integrity against her. After Alice's login, the attacker presents the forced cookies to access Alice's account: if they are enough to act on Alice's behalf, session fixation is possible.
-
-Specifically, the testing strategy proceeds as follows:
-
-1. Login to `www.target.com` as Alice and reach the page under test;
-2. Find the cookies which has not `__Host-` and `__Secure-` prefixes in the name and were not freshly issued after the login process, then clear all the other cookies from the browser;
-3. Perform an operation on Alice's account under test;
-4. Check: has the operation been performed? If yes, report as insecure;
-5. Clear the cookies from the browser;
-6. Login to `www.target.com` as the attacker and reach the page under test;
-7. Restore in the browser the cookies previously kept at step 2;
-8. Perform again the operation under test;
-9. Clear the cookies from the browser and login to `www.target.com` as Alice;
-10. Check: has the operation been performed? If yes, report as insecure.
-
-We recommend using two different machines and/or browsers for Alice and the attacker.
-
-#### Alternative Strategy
+#### Intuition
 
 The first step is to make a request to the site to be tested (_e.g._ `www.example.com`). If the tester requests the following:
 
@@ -91,6 +74,28 @@ HTML data
 As no new cookie has been issued upon a successful authentication the tester knows that it is possible to perform session hijacking.
 
 > The tester can send a valid session identifier to a user (possibly using a social engineering trick), wait for them to authenticate, and subsequently verify that privileges have been assigned to this cookie.
+
+#### Strategy
+
+We simulate a scenario where a network attacker (i.e., an attacker who has access to the same network as the victim) forces in Alice's browser all the cookies which are not freshly issued after login and do not have integrity against her. After Alice's login, the attacker presents the forced cookies to access Alice's account: if they are enough to act on Alice's behalf, session fixation is possible.
+
+Specifically, the testing strategy proceeds as follows:
+
+1. Login to `www.target.com` as Alice and reach the page under test;
+2. Find the cookies which satisfy both the following cookie compromission conditions:
+    * lack of full HSTS adoption;
+    * lack of `Host-` and `Secure-` prefixes in the cookie name;
+3. Clear all the other cookies from the browser;
+4. Perform an operation on Alice's account under test;
+5. Check: has the operation been performed? If yes, report as insecure;
+6. Clear the cookies from the browser;
+7. Login to `www.target.com` as the attacker and reach the page under test;
+8. Restore in the browser the cookies previously kept at step 2;
+9. Perform again the operation under test;
+10. Clear the cookies from the browser and login to `www.target.com` as Alice;
+11. Check: has the operation been performed? If yes, report as insecure.
+
+We recommend using two different machines and/or browsers for Alice and the attacker.
 
 ### Gray-Box Testing
 
