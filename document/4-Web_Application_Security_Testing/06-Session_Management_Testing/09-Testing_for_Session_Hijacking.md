@@ -27,7 +27,7 @@ Even when this is not possible, however, security might still be at risk, becaus
 Specifically, the testing strategy proceeds as follows:
 
 1. Login to `www.target.com` as Alice and reach the page under test;
-2. Find the cookies which satisfy either one of the following cookie leakage conditions:
+2. Find the cookies which satisfy either of the following cookie leakage conditions:
     * no HSTS adoption and the Secure attribute is not set and there's partial HSTS adoption i.e the Secure attribute is not set and the Domain attribute is set to a parent domain.
     * partial HSTS adoption, the Secure attribute is not set and the Domain attribute is set to a parent domain.
 3. Clear all the other cookies from the browser;
