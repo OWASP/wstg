@@ -8,8 +8,8 @@
 
 An attacker who gets access to a honest user's cookies can impersonate her by presenting such cookies: this attacker is known as session hijacking.
 
-Remember that the Secure attribute should be used even when the web application is entirely deployed over HTTPS and the reason is the following one:
-Assume that `www.good.com` is entirely deployed over HTTPS, but does not mark its session cookies as Secure:
+Remember that the `Secure` attribute should be used even when the web application is entirely deployed over HTTPS and the reason is the following one:
+Assume that `www.good.com` is entirely deployed over HTTPS, but does not mark its session cookies as `Secure`:
 
 1. The user sends a request to `www.another-site.com`
 2. The attacker corrupts the corresponding response so that it triggers a request to `www.good.com`
@@ -20,7 +20,7 @@ Assume that `www.good.com` is entirely deployed over HTTPS, but does not mark it
 
 ### Black-Box Testing
 
-The intuition behind the testing strategy for session hijacking is to simulate a scenario where the attacker steals all Alice's cookies she might be exposed to. We assume that the attacker is a network attacker (i.e. an attacker who has access to the same network as the victim), so we could have a cookie leakage in case of either no [HSTS](https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security) adoption and the Secure attribute is not set, or partial HSTS adoption, the Secure attribute is not set and the Domain attribute is set to a parent domain. The attacker may then use these cookies to access Alice's account: if they are enough to act on Alice's behalf, session hijacking is possible.
+The intuition behind the testing strategy for session hijacking is to simulate a scenario where the attacker steals all Alice's cookies she might be exposed to. We assume that the attacker is a network attacker (i.e. an attacker who has access to the same network as the victim), so we could have a cookie leakage in case of either no [HSTS](https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security) adoption and the `Secure` attribute is not set, or partial HSTS adoption, the `Secure` attribute is not set and the Domain attribute is set to a parent domain. The attacker may then use these cookies to access Alice's account: if they are enough to act on Alice's behalf, session hijacking is possible.
 
 Even when this is not possible, however, security might still be at risk, because it might be that not all the cookies were disclosed to the attacker and the attempted operation failed because just a subset of the expected cookies was sent to the website. To account for this case, we also perform a fresh login to the website as the attacker to get a full set of cookies and then restore the cookies stolen from Alice before reattempting the operation, so that all the website cookies (though mixed from two different accounts) are sent as part of a new operation attempt: if the operation succeeds in Alice's account, session hijacking is possible.
 
@@ -28,8 +28,8 @@ Specifically, the testing strategy proceeds as follows:
 
 1. Login to `www.target.com` as Alice and reach the page under test;
 2. Find the cookies which satisfy either of the following cookie leakage conditions:
-    * no HSTS adoption and the Secure attribute is not set and there's partial HSTS adoption i.e the Secure attribute is not set and the Domain attribute is set to a parent domain;
-    * partial HSTS adoption, the Secure attribute is not set and the Domain attribute is set to a parent domain;
+    * no HSTS adoption and the `Secure` attribute is not set and there's partial HSTS adoption i.e the `Secure` attribute is not set and the Domain attribute is set to a parent domain;
+    * partial HSTS adoption, the `Secure` attribute is not set and the Domain attribute is set to a parent domain;
 3. Clear all the other cookies from the browser;
 4. Perform the operation under test;
 5. Check: has the operation been performed? If yes, report as insecure;
