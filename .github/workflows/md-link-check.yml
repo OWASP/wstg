@@ -2,8 +2,6 @@ name: Markdown Link Check
 
 on:
   pull_request_target:
-    branches:
-    - master
     paths:
     - '**.md'
 
