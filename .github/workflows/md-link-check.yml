@@ -58,7 +58,13 @@ jobs:
         path: brokenlinks.txt
     - name: Comment broken links
       if: failure()
-      uses: thollander/actions-comment-pull-request@1.0.0
+      uses: actions/github-script@v2
       with:
-        message: ${{ steps.brokenlinks.outputs.links }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+          github.issues.createComment({
+            issue_number: ${{ github.event.number }},
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: `${{ steps.brokenlinks.outputs.links }}`
+          })
