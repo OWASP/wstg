@@ -35,6 +35,8 @@ jobs:
         touch log err
         for FILE in $FILES; do echo $FILE | grep -q .*\.md\$ && markdown-link-check -c markdown-link-check-config.json $FILE 1>> log 2>> err; done
         if grep -q  "ERROR:" err ; then exit 1 ; else echo -e "No broken links found."; fi
+        echo $(cat log)
+        echo $(cat err)
     - name: Show broken links
       id: brokenlinks
       if: failure()
