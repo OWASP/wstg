@@ -10,6 +10,8 @@ Security testing, by itself, isn't a particularly good stand alone measure of ho
 
 In conjunction with other OWASP projects such as the Code Review Guide, the Development Guide and tools such as [OWASP ZAP](https://www.zaproxy.org/), this is a great start towards building and maintaining secure applications. This Testing Guide will show you how to verify the security of your running application. I highly recommend using these guides as part of your application security initiatives.
 
+[test link](https://janeybird.com)
+
 ## Why OWASP?
 
 Creating a guide like this is a huge undertaking, requiring the expertise of hundreds of people around the world. There are many different ways to test for security flaws and this guide captures the consensus of the leading experts on how to perform this testing quickly, accurately, and efficiently. OWASP gives like minded security folks the ability to work together and form a leading practice approach to a security problem.
