@@ -41,7 +41,7 @@ Opening Dev Tools can be accomplished in a number of ways.
 
 ### Related Testing
 
-* [Testing for Browser Cache Weaknesses](../4-Web_Application_Security_Testing/04-Authentication_Testing/06-Testing_for_Browser_Cache_Weakness.md)
+* [Testing for Browser Cache Weaknesses](../4-Web_Application_Security_Testing/04-Authentication_Testing/06-Testing_for_Browser_Cache_Weaknesses.md)
 
 ### Google Chrome
 
