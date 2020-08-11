@@ -39,6 +39,10 @@ Opening Dev Tools can be accomplished in a number of ways.
 
 ## User-Agent Switching
 
+### Related Testing
+
+* [Testing for Browser Cache Weaknesses](../4-Web_Application_Security_Testing/04-Authentication_Testing/06-Testing_for_Browser_Cache_Weakness.md)
+
 ### Google Chrome
 
 1. Click on triple dot 'kabob' menu on the right side of the Developer Tools pane, select `More tools` then select `Network conditions`.
