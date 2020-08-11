@@ -24,7 +24,7 @@ Here's an example of the HSTS header implementation:
 The use of this header by web applications must be checked to find if the following security issues could be produced:
 
 - Attackers sniffing the network traffic and accessing the information transferred through an unencrypted channel.
-- Attackers exploiting a man in the middle attack because of the problem of accepting certificates that are not trusted.
+- Attackers exploiting a manipulator in the middle attack because of the problem of accepting certificates that are not trusted.
 - Users who mistakenly entered an address in the browser putting HTTP instead of HTTPS, or users who click on a link in a web application which mistakenly indicated the HTTP protocol.
 
 ## How to Test
