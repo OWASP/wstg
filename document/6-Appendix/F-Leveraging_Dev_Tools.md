@@ -66,6 +66,14 @@ Later click on the garbage can `Delete` button to the right of the `general.user
 
 ## Edit/Resend Requests
 
+### Related Testing
+
+* [Authentication Testing](../4-Web_Application_Security_Testing/04-Authentication_Testing/README.md)
+* [Authorization Testing](../4-Web_Application_Security_Testing/05-Authorization_Testing/README.md)
+* [Session Management Testing](../4-Web_Application_Security_Testing/06-Session_Management_Testing/README.md)
+* [Input Validation Testing](../4-Web_Application_Security_Testing/07-Input_Validation_Testing/README.md)
+* [Business Logic Testing](../4-Web_Application_Security_Testing/10-Business_Logic_Testing/README.md)
+
 ### Mozilla Firefox
 
 1. Select the `Network` tab.
@@ -75,6 +83,13 @@ Later click on the garbage can `Delete` button to the right of the `general.user
 5. Right-click on the modified request and select `Open in New Tab`.
 
 ## Cookie Editing
+
+### Related Testing
+
+* [Authentication Testing](../4-Web_Application_Security_Testing/04-Authentication_Testing/README.md)
+* [Authorization Testing](../4-Web_Application_Security_Testing/05-Authorization_Testing/README.md)
+* [Session Management Testing](../4-Web_Application_Security_Testing/06-Session_Management_Testing/README.md)
+* [Testing for Cookie Attributes](../4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.md)
 
 ### Google Chrome
 
@@ -99,6 +114,10 @@ _Figure 6.F-3: Mozilla Firefox Cookie Editing Functionality_
 
 ## Local Storage Editing
 
+### Related Testing
+
+* [Testing Browser Storage](../4-Web_Application_Security_Testing/11-Client-side_Testing/12-Testing_Browser_Storage.md)
+
 ### Google Chrome
 
 1. Click the `Application` tab.
@@ -122,6 +141,12 @@ _Figure 6.F-3: Mozilla Firefox Cookie Editing Functionality_
 
 ## Disable CSS
 
+### Related Testing
+
+* [Testing for CLient-side Resource Manipulation](../4-Web_Application_Security_Testing/11-Client-side_Testing/06-Testing_for_Client-side_Resource_Manipulation.md)
+
+### General
+
 All major browsers support manipulating CSS leveraging the Dev Tools Console and JavaScript functionality:
 
 * To remove all external style-sheets: `$('style,link[rel="stylesheet"]').remove();`
@@ -143,6 +168,10 @@ All major browsers support manipulating CSS leveraging the Dev Tools Console and
 
 ## View HTTP Headers
 
+### Related Testing
+
+* [Information Gathering](../4-Web_Application_Security_Testing/01-Information_Gathering/)
+
 ### Google Chrome
 
 1. On the `Networking` tab in Dev Tools select any URL or request.
@@ -160,6 +189,10 @@ _Figure 6.F-4: Google Chrome Headers View_
 _Figure 6.F-5: Mozilla Firefox Headers View_
 
 ## Screenshots
+
+### Related Testing
+
+* [Reporting](../5-Reporting/README.md)
 
 ### Google Chrome
 
@@ -192,6 +225,12 @@ _Figure 6.F-7: Mozilla Firefox Offline Option_
 
 ## Encoding and Decoding
 
+### Related Testing
+
+* Many (perhaps even most) types of [Web Application Security Testing](../4-Web_Application_Security_Testing/README.md) can benefit from various types of encoding.
+
+### General
+
 All major browsers support encoding and decoding strings in various ways leveraging the Dev Tools Console and JavaScript functionality:
 
 * Base64 encode: `btoa("string-to-encode")`
@@ -202,6 +241,12 @@ All major browsers support encoding and decoding strings in various ways leverag
 * HTML decode: `unescape("string-to-decode")`
 
 ## Responsive Design Mode
+
+### Related Testing
+
+* [Testing for Browser Cache Weaknesses](../4-Web_Application_Security_Testing/04-Authentication_Testing/06-Testing_for_Browser_Cache_Weaknesses.md)
+* [Testing for Weaker Authentication in Alternative Channel](../4-Web_Application_Security_Testing/04-Authentication_Testing/10-Testing_for_Weaker_Authentication_in_Alternative_Channel.md)
+* [Testing for Clickjacking](../4-Web_Application_Security_Testing/11-Client-side_Testing/09-Testing_for_Clickjacking.md)
 
 ### Google Chrome
 
