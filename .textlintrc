@@ -407,6 +407,11 @@
 					"key[/ ]?value",
 					"key-value"
 				],
+				// https://github.com/OWASP/wstg/issues/536
+				[
+					"man-in-the-middle|man in the middle",
+					"manipulator-in-the-middle"
+				],
 				[
 					"two ?steps? authentication",
 					"two-step authentication"
