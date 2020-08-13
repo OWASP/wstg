@@ -138,4 +138,4 @@ Upload the [ZIP bomb](https://github.com/AbhiAgarwal/notes/wiki/Zip-bomb) file t
 
 ## Remediation
 
-While safeguards such as deny listing or allow listing of file extensions, using “Content-Type” from the header, or using a file type recognizer may not always be protections against this type of vulnerability. Every application that accepts files from users must have a mechanism to verify that the uploaded file does not contain malicious code. Uploaded files should never be stored where the users or attackers can directly access them.
+While safeguards such as deny lists or allow lists of file extensions, using `Content-Type` from the header, or using a file type recognizer may not always be protections against this type of vulnerability. Every application that accepts files from users must have a mechanism to verify that the uploaded file does not contain malicious code. Uploaded files should never be stored where the users or attackers can directly access them.
