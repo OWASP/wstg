@@ -181,12 +181,12 @@
 					"redirect"
 				],
 				[
-					"black[- ]?list(ed|ing)?",
-					"deny list$1, or re-write as applicable"
+					"black[- ]?list(?:ed|ing)?",
+					"deny list(s), or re-write as applicable"
 				],
 				[
-					"white[- ]?list(ed|ing)?",
-					"allow list$1, or re-write as applicable"
+					"white[- ]?list(?:ed|ing)?",
+					"allow list(s), or re-write as applicable"
 				],
 
 				// Single word
