@@ -4,14 +4,14 @@ Thank you for considering contributing to the Web Security Testing Guide (WSTG)!
 
 Here are some ways you can make a helpful contribution. The [Open Source Guide for why and how to contribute](https://opensource.guide/how-to-contribute/) is also a good resource. You will need a [GitHub account](https://help.github.com/en/github/getting-started-with-github/signing-up-for-a-new-github-account) in order to help out.
 
-- [Contributing to the Testing Guide](#contributing-to-the-testing-guide)
-  - [Become an Author](#become-an-author)
-  - [Become a Reviewer or Editor](#become-a-reviewer-or-editor)
-    - [Technical Review](#technical-review)
-    - [Editorial Review](#editorial-review)
-  - [How to Open an Issue](#how-to-open-an-issue)
-  - [How to Submit a Pull Request](#how-to-submit-a-pull-request)
-  - [How to Set Up Your Contributor Environment](#how-to-set-up-your-contributor-environment)
+- [Become an Author](#become-an-author)
+- [Become a Reviewer or Editor](#become-a-reviewer-or-editor)
+  - [Technical Review](#technical-review)
+  - [Editorial Review](#editorial-review)
+- [How to Open an Issue](#how-to-open-an-issue)
+- [How to Submit a Pull Request](#how-to-submit-a-pull-request)
+- [Contributing with Codespaces](#contributing-with-codespaces)
+- [How to Set Up Your Contributor Environment](#how-to-set-up-your-contributor-environment)
 
 ## Become an Author
 
@@ -77,6 +77,14 @@ To increase the chances that your PR is merged, please make sure that:
 4. Your code snippets are correct, well-tested, and commented where necessary for understanding.
 
 Once the PR is complete, we'll merge it! At that point, you may like to add yourself to [the project's list of authors, reviewers, or editors](document/1-Frontispiece/README.md).
+
+## Contributing with Codespaces
+
+We've included settings for GitHub Codespaces so you can use a cloud-hosted IDE to contribute to this repository! Our configuration includes Visual Studio Code extensions and `markdownlint` configuration settings that help to keep work consistent across all our amazing contributors.
+
+Codespaces is currently in limited beta. To learn more, see [About Codespaces](https://docs.github.com/en/github/developing-online-with-codespaces/about-codespaces).
+
+If you have access to the beta, get started by [creating a codespace](https://docs.github.com/en/github/developing-online-with-codespaces/creating-a-codespace) for this repository.
 
 ## How to Set Up Your Contributor Environment
 
