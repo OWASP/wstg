@@ -401,7 +401,7 @@ For example, in the case of authentication controls, the following security requ
 - Encrypt passwords using non-reversible encryption such as using a digest (e.g., HASH) and a seed to prevent dictionary attacks.
 - Lock out accounts after reaching a log on failure threshold and enforce password complexity to mitigate risk of brute force password attacks.
 - Display generic error messages upon validation of credentials to mitigate risk of account harvesting or enumeration.
-- Mutually authenticate client and server to prevent non-repudiation and Man In the Middle (MiTM) attacks.
+- Mutually authenticate client and server to prevent non-repudiation and Manipulator In the Middle (MiTM) attacks.
 
 Threat modeling tools such as threat trees and attack libraries can be useful to derive the negative test scenarios. A threat tree will assume a root attack (e.g., attacker might be able to read other users' messages) and identify different exploits of security controls (e.g., data validation fails because of a SQL injection vulnerability) and necessary countermeasures (e.g., implement data validation and parametrized queries) that could be validated to be effective in mitigating such attacks.
 

@@ -579,7 +579,7 @@ Technology specific Testing Guide pages have been created for the following DBMS
 ### Whitepapers
 
 - [Victor Chapela: “Advanced SQL Injection”](http://cs.unh.edu/~it666/reading_list/Web/advanced_sql_injection.pdf)
-- [Chris Anley: “More Advanced SQL Injection”](http://www.encription.co.uk/downloads/more_advanced_sql_injection.pdf)
+- [Chris Anley: “More Advanced SQL Injection”](https://www.cgisecurity.com/lib/more_advanced_sql_injection.pdf)
 - [David Litchfield: “Data-mining with SQL Injection and Inference”](https://dl.packetstormsecurity.net/papers/attack/sqlinference.pdf)
 - [Imperva: “Blinded SQL Injection”](https://www.imperva.com/lg/lgw.asp?pid=369)
 - [Ferruh Mavituna: “SQL Injection Cheat Sheet”](http://ferruh.mavituna.com/sql-injection-cheatsheet-oku/)

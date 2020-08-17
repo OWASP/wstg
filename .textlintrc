@@ -181,12 +181,12 @@
 					"redirect"
 				],
 				[
-					"black[- ]list|blacklist",
-					"deny list"
+					"black[- ]?list(?:ed|ing)?",
+					"deny list(s), or re-write as applicable"
 				],
 				[
-					"white[- ]list|whitelist",
-					"allow list"
+					"white[- ]?list(?:ed|ing)?",
+					"allow list(s), or re-write as applicable"
 				],
 
 				// Single word
@@ -406,6 +406,11 @@
 				[
 					"key[/ ]?value",
 					"key-value"
+				],
+				// https://github.com/OWASP/wstg/issues/536
+				[
+					"man-in-the-middle|man in the middle",
+					"manipulator-in-the-middle"
 				],
 				[
 					"two ?steps? authentication",
