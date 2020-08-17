@@ -16,12 +16,16 @@ For every specific role the tester holds during the assessment and for every fun
 
 Try to access the application as an administrative user and track all the administrative functions.
 
-- Is it possible to access administrative functions if the tester is logged in as a user with standard privileges?
+- Is it possible to access administrative functions if the tester is logged in as a  non-admin user?
 - Is it possible to use these administrative functions as a user with a different role and for whom that action should be denied?
 
 ## How to Test
 
-In the following are the most common approaches to bypassing authorization schemes will be shown and explained. First the horizontal, and vertical bypass approaches, then some more specific scenarios.
+In the following are the most common approaches to bypassing authorization schemes will be shown and explained.
+
+- horizontal bypass approaches
+- vertical bypass approaches
+- environment specific scenarios
 
 ### Testing for Horizontal Bypassing Authorization Schema
 
@@ -39,15 +43,15 @@ For each role:
 3. For every request, change the relevant parameters and the session token from token one to token two and diagnose the responses for each token.
 4. An application will be considered vulnerable if the responses are the same, contain same private data or indicate successful operation on other users' resource or data.
 
-For example, suppose that the `viewCCpincode.jsp` function is part of every account menu of the application with the same role, and it is possible to access it by requesting the following URL: `https://www.example.com/account/viewCCpincode.jsp`. Then, the following HTTP request is generated when calling the `viewCCpincode` function:
+For example, suppose that the `viewSettings` function is part of every account menu of the application with the same role, and it is possible to access it by requesting the following URL: `https://www.example.com/account/viewSettings`. Then, the following HTTP request is generated when calling the `viewSettings` function:
 
 ```html
-POST /account/viewCCpincode.jsp HTTP/1.1
+POST /account/viewSettings HTTP/1.1
 Host: www.example.com
 [other HTTP headers]
 Cookie: SessionID=xh6Tm2DfgRp01AZ03
 
-Idpincode=user1
+UserID=user1
 ```
 
 Valid and legitimate response:
@@ -56,21 +60,23 @@ Valid and legitimate response:
 HTTP1.1 200 OK
 [other HTTP headers]
 
-{“pincode”:8432}
+{“user mail:example@email.com}
+{“user address: Address Example}
 ```
 
 The attacker may try and execute that request with the same `Idpincode` parameter:
 
 ```html
-POST /account/viewCCpincode.jsp HTTP/1.1
+POST /account/viewCCpincode HTTP/1.1
 Host: www.example.com
 [other HTTP headers]
 Cookie: SessionID=GbcvA1_ATTACKER_SESSION_6fhTscd
 
-Idpincode=user1
+UserID=user1
 ```
 
-If the response of the attacker’s request contains the same data `{“pincode”:8432}` the application is vulnerable. One can follow the same logic and the mentioned steps to replicate this testing approach.
+If the response of the attacker’s request contains the same data, as the other user, the application is vulnerable. One can follow the same logic and the mentioned steps to replicate this testing approach.
+It is key for testing, to follow the principle of reconnaissance before the actual testing, in order to allow planned testing schedule.
 
 ### Testing for Vertical Bypassing Authorization Schema
 
@@ -107,10 +113,10 @@ The application will be considered vulnerable if the:
 2. Staff user could operate manager or administrator functions;
 3. Manager could operate administrator functions.
 
-Suppose that the `deleteEvent.jsp` function is part of the administrator account menu of the application, and it is possible to access it by requesting the following URL: `https://www.example.com/account/deleteEvent.jsp`. Then, the following HTTP request is generated when calling the `deleteEvent` function:
+Suppose that the `deleteEvent` function is part of the administrator account menu of the application, and it is possible to access it by requesting the following URL: `https://www.example.com/account/deleteEvent`. Then, the following HTTP request is generated when calling the `deleteEvent` function:
 
 ```html
-POST /account/deleteEvent.jsp HTTP/1.1
+POST /account/deleteEvent HTTP/1.1
 Host: www.example.com
 [other HTTP headers]
 Cookie: SessionID=xh6Tm2DfgRp01AZ03
@@ -130,7 +136,7 @@ HTTP/1.1 200 OK
 The attacker may try and execute the same request:
 
 ```html
-POST /account/deleteEvent.jsp HTTP/1.1
+POST /account/deleteEvent HTTP/1.1
 Host: www.example.com
 [other HTTP headers]
 Cookie: SessionID=GbcvA1_CUSTOMER_ATTACKER_SESSION_6fhTscd
@@ -146,14 +152,14 @@ Suppose that the administrator menu is part of the administrator account. The ap
 
 ### Testing for Access to Administrative Functions
 
-For example, suppose that the `AddUser.jsp` function is part of the administrative menu of the application, and it is possible to access it by requesting the following URL:
+For example, suppose that the `AddUser` function is part of the administrative menu of the application, and it is possible to access it by requesting the following URL:
 
-`https://www.example.com/admin/addUser.jsp`
+`https://www.example.com/admin/addUser`
 
 Then, the following HTTP request is generated when calling the AddUser function:
 
 ```html
-POST /admin/addUser.jsp HTTP/1.1
+POST /admin/addUser HTTP/1.1
 Host: www.example.com
 [...]
 
