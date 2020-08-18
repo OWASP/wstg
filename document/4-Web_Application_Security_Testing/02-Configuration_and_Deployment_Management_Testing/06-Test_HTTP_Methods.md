@@ -42,6 +42,28 @@ nmap -p 443 --script http-methods --script-args http-methods.url-path='/index.ph
 
 When testing an application that has to accept other methods, e.g. a RESTful Web Service, test it thoroughly to make sure that all endpoints accept only the methods that they require.
 
+#### Testing the PUT Method
+
+1. Capture the base request of the target with a web proxy.
+2. Change the request method to `PUT` and add `test.html` file and send the request to the application server.
+
+   ```html
+   PUT /test.html HTTP/1.1
+   Host: testing-website
+
+   <html>
+   HTTP PUT Method is Enabled
+   </html>
+   ```
+
+3. If the server response with 2XX success codes or 3XX redirections and then confirm by `GET` request for `test.html` file. The application is vulnerable.
+
+If the HTTP `PUT` method is not allowed on base URL or request, try other paths in the system.
+
+> NOTE: If you are successful in uploading a web shell you should overwrite it or ensure that the security team of the target are aware and remove the component promptly after your proof-of-concept.
+
+Leveraging the `PUT` method an attacker may be able to place arbitrary and potentially malicious content, into the system which may lead to remote code execution, defacing the site or denial of service.
+
 ### Testing for Access Control Bypass
 
 Find a page to visit that has a security constraint such that a GET request would normally force a 302 redirect to a log in page or force a log in directly. Issue requests using various methods such as HEAD, POST, PUT etc. as well as arbitrarily made up methods such as BILBAO, FOOBAR, CATS, etc. If the web application responds with a `HTTP/1.1 200 OK` that is not a log in page, it may be possible to bypass authentication or authorization. The following example uses [Nmap's `ncat`](https://nmap.org/ncat/).
