@@ -3,9 +3,8 @@
     "dockerFile": "Dockerfile",
     // Set *default* container specific settings.json values on container create.
     "settings": {
-        "terminal.integrated.shell.linux": "/bin/bash"
-
-            "editor.formatOnType": true,
+        "terminal.integrated.shell.linux": "/bin/bash",
+        "editor.formatOnType": true,
         "files.autoSave": "afterDelay",
         "files.autoSaveDelay": 1500,
         "[markdown]": {
