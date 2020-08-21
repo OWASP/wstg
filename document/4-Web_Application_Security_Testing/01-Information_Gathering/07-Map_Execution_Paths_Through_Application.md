@@ -32,6 +32,8 @@ To demonstrate code coverage to the application owner, the tester can start with
 
 Ensuring sufficient code coverage for the application owner is far easier with gray-box and white-box approach to testing. Information solicited by and provided to the tester will ensure the minimum requirements for code coverage are met.
 
+Many modern Dynamic Application Security Testing (DAST) tools facilitate the use of a web server agent or could be paired with a 3rd party agent to monitor web application coverage specifics.
+
 #### Example
 
 ### Automatic Spidering
@@ -41,12 +43,11 @@ The automatic spider is a tool used to automatically discover new resources (URL
 ![Zed Attack Proxy Screen](images/OWASPZAPSP.png)\
 *Figure 4.1.7-1: Zed Attack Proxy Screen*
 
-[ZAP](https://github.com/zaproxy/zaproxy) offers the following automatic spidering features, which can be selected based on the tester's needs:
+[ZAP](https://github.com/zaproxy/zaproxy) offers various automatic spidering options, which can leveraged based on the tester's needs:
 
-- Spider Site - The seed list contains all the existing URIs already found for the selected site.
-- Spider Subtree - The seed list contains all the existing URIs already found and present in the subtree of the selected node.
-- Spider URL - The seed list contains only the URI corresponding to the selected node (in the Site Tree).
-- Spider all in Scope - The seed list contains all the URIs the user has selected as being 'In Scope'.
+- [Spider](https://www.zaproxy.org/docs/desktop/start/features/spider/)
+- [AJAX Spider](https://www.zaproxy.org/docs/desktop/addons/ajax-spider/)
+- [OpenAPI Support](https://www.zaproxy.org/docs/desktop/addons/openapi-support/)
 
 ## Tools
 
@@ -55,7 +56,5 @@ The automatic spider is a tool used to automatically discover new resources (URL
 - [Diagramming software](https://en.wikipedia.org/wiki/List_of_concept-_and_mind-mapping_software)
 
 ## References
-
-### Whitepapers
 
 - [Code Coverage](https://en.wikipedia.org/wiki/Code_coverage)

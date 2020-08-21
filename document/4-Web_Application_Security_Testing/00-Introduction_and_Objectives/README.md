@@ -48,25 +48,25 @@ Testing can be categorized as passive or active:
 
 ### Passive Testing
 
-During passive testing, a tester tries to understand the application's logic and explores the application as a user. Tools can be used for information gathering. For example, an HTTP proxy can be used to observe all the HTTP requests and responses. At the end of this phase, the tester should understand all the access points (*gates*) of the application (e.g., HTTP headers, parameters, and cookies). The [Information Gathering](../01-Information_Gathering/README.md) section explains how to perform passive testing.
+During passive testing, a tester tries to understand the application's logic and explores the application as a user. Tools can be used for information gathering. For example, an HTTP proxy can be used to observe all the HTTP requests and responses. At the end of this phase, the tester should generally understand all the access points and functionality of the system (e.g., HTTP headers, parameters, cookies, APIs, technology usage/patterns, etc). The [Information Gathering](../01-Information_Gathering/README.md) section explains how to perform passive testing.
 
 For example, a tester may find a page at the following URL:
 
-`https://www.example.com/login/Authentic_Form.html`
+`https://www.example.com/login/auth_form`
 
-This may indicate an authentication form where the application requests a username and a password.
+This may indicate an authentication form where the application requests a username and password.
 
-The following parameters represent two access points (gates) to the application:
+The following parameters represent two access points to the application:
 
-`http://www.example.com/Appx.jsp?a=1&b=1`
+`http://www.example.com/appx?a=1&b=1`
 
-In this case, the application shows two gates (parameters a and b). All the gates found in this phase represent a point of testing. A spreadsheet with the directory tree of the application and all the access points may be useful during active testing.
+In this case, the application shows two access points (parameters `a` and `b`). All the input points found in this phase represent a target for testing. Keeping track of the directory or call tree of the application and all the access points may be useful during active testing.
 
 ### Active Testing
 
 During active testing, a tester begins to use the methodologies described in the follow sections.
 
-The set of active tests have been split into 11 sub-categories for a total of 91 controls:
+The set of active tests have been split into 11 categories:
 
 - Information Gathering
 - Configuration and Deployment Management Testing
