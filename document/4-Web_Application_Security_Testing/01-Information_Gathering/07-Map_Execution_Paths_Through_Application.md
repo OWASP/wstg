@@ -32,7 +32,7 @@ To demonstrate code coverage to the application owner, the tester can start with
 
 Ensuring sufficient code coverage for the application owner is far easier with gray-box and white-box approach to testing. Information solicited by and provided to the tester will ensure the minimum requirements for code coverage are met.
 
-Many modern Dynamic Application Security Testing (DAST) tools facilitate the use of a web server agent or could be paired with a 3rd party agent to monitor web application coverage specifics.
+Many modern Dynamic Application Security Testing (DAST) tools facilitate the use of a web server agent or could be paired with a third-party agent to monitor web application coverage specifics.
 
 #### Example
 
