@@ -8,8 +8,6 @@ on:
 jobs:
   link-check:
     runs-on: ubuntu-latest
-    env:
-      CI: true
     steps:
     - name: Setup Action
       uses: actions/checkout@v2

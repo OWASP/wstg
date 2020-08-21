@@ -1,7 +1,7 @@
 name: Markdown Lint Check
 
 on:
-  pull_request:
+  pull_request_target:
     branches:
     - master
     paths:
@@ -10,11 +10,12 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
-    env:
-      CI: true
     steps:
-    - name: Setup Action
+    - name: Checkout
       uses: actions/checkout@v2
+      with:
+        ref: ${{github.event.pull_request.head.ref}}
+        repository: ${{github.event.pull_request.head.repo.full_name}}
     - name: Setup Node
       uses: actions/setup-node@v1
       with:
@@ -22,4 +23,30 @@ jobs:
     - name: Install dependencies
       run: npm install -g markdownlint-cli
     - name: Run linter
-      run: npm test
+      run: markdownlint . --ignore node_modules --ignore www &> lint.txt
+    - name: Show Linting Issues
+      id: lint
+      if: failure()
+      run: |
+        cat lint.txt
+        ISSUES=$(cat lint.txt)
+        echo ::set-output name=ISSUES::**The following issues were identified:** %0A$ISSUES
+    - name: Attach Linting Issues
+      if: failure()
+      uses: actions/upload-artifact@v1
+      with:
+        name: Linting Issues
+        path: lint.txt
+    - name: Comment Linting Issues
+      if: failure()
+      uses: actions/github-script@v2
+      with:
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+          github.issues.createComment({
+            issue_number: ${{ github.event.number }},
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: `${{ steps.lint.outputs.ISSUES }}`
+          })
+

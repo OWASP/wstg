@@ -1,7 +1,7 @@
 name: Markdown Terminology Lint Check
 
 on:
-  pull_request:
+  pull_request_target:
     branches:
     - master
     paths:
@@ -13,11 +13,12 @@ on:
 jobs:
   textlint:
     runs-on: ubuntu-latest
-    env:
-      CI: true
     steps:
-    - name: Setup Action
+    - name: Checkout
       uses: actions/checkout@v2
+      with:
+        ref: ${{github.event.pull_request.head.ref}}
+        repository: ${{github.event.pull_request.head.repo.full_name}}
     - name: Setup Node
       uses: actions/setup-node@v1
       with:
@@ -46,9 +47,23 @@ jobs:
       if: failure()
       run: |
         cat log.txt
+        MISTAKES=$(cat log.txt|grep -v '✔ Fixed'|tr '✔' '✖')
+        echo ::set-output name=MISTAKES::**The following mistakes were identified:** %0A$MISTAKES
     - name: Attach Mistakes
-      if: failure() && github.event_name == 'pull_request'
+      if: failure()
       uses: actions/upload-artifact@v1
       with:
         name: Terminology Mistakes
         path: log.txt
+    - name: Comment Mistakes
+      if: failure()
+      uses: actions/github-script@v2
+      with:
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+          github.issues.createComment({
+            issue_number: ${{ github.event.number }},
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: `${{ steps.mistakes.outputs.MISTAKES }}`
+          })
