@@ -26,7 +26,7 @@ Detecting a reverse proxy in front of the web server needs to be done by the ana
 
 In some cases, even the protection system gives itself away. Here's an example of mod_security self identifying:
 
-![Example mod_security Error Page](images/mod_security.jpg)\
+![Example mod_security Error Page](images/10_mod_security.jpg)\
 *Figure 4.1.10-1: Example mod_security Error Page*
 
 Reverse proxies can also be introduced as proxy-caches to accelerate the performance of back-end application servers. Detecting these proxies can be done based on the server header. They can also be detected by timing requests that should be cached by the server and comparing the time taken to server the first request with subsequent requests.
