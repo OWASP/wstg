@@ -50,15 +50,11 @@ Testing can be categorized as passive or active:
 
 During passive testing, a tester tries to understand the application's logic and explores the application as a user. Tools can be used for information gathering. For example, an HTTP proxy can be used to observe all the HTTP requests and responses. At the end of this phase, the tester should generally understand all the access points and functionality of the system (e.g., HTTP headers, parameters, cookies, APIs, technology usage/patterns, etc). The [Information Gathering](../01-Information_Gathering/README.md) section explains how to perform passive testing.
 
-For example, a tester may find a page at the following URL:
-
-`https://www.example.com/login/auth_form`
+For example, a tester may find a page at the following URL: `https://www.example.com/login/auth_form`
 
 This may indicate an authentication form where the application requests a username and password.
 
-The following parameters represent two access points to the application:
-
-`http://www.example.com/appx?a=1&b=1`
+The following parameters represent two access points to the application: `https://www.example.com/appx?a=1&b=1`
 
 In this case, the application shows two access points (parameters `a` and `b`). All the input points found in this phase represent a target for testing. Keeping track of the directory or call tree of the application and all the access points may be useful during active testing.
 
