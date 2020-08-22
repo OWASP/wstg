@@ -129,7 +129,6 @@ _Figure 6.F-3: Mozilla Firefox Cookie Editing Functionality_
 > Note: Editing `Session Storage` or `Index DB` follows essentially the same steps.
 > Note: Items can be added or deleted via the right-click context menu.
 
-
 ### Mozilla Firefox
 
 1. Click the `Storage` tab.
@@ -139,7 +138,6 @@ _Figure 6.F-3: Mozilla Firefox Cookie Editing Functionality_
 
 > Note: Editing `Session Storage` or `Index DB` follows essentially the same steps.
 > Note: Items can be added or deleted via the right-click context menu.
-
 
 ## Disable CSS
 
