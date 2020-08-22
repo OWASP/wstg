@@ -127,8 +127,8 @@ _Figure 6.F-3: Mozilla Firefox Cookie Editing Functionality_
 5. Double click in the applicable Cell to edit the `Key` or `Value`.
 
 > Note: Editing `Session Storage` or `Index DB` follows essentially the same steps.
-
 > Note: Items can be added or deleted via the right-click context menu.
+
 
 ### Mozilla Firefox
 
@@ -138,8 +138,8 @@ _Figure 6.F-3: Mozilla Firefox Cookie Editing Functionality_
 4. Double click in the applicable Cell to edit the `Key` or `Value`.
 
 > Note: Editing `Session Storage` or `Index DB` follows essentially the same steps.
-
 > Note: Items can be added or deleted via the right-click context menu.
+
 
 ## Disable CSS
 
