@@ -9,3 +9,5 @@ Appendix C. [Fuzz Vectors](C-Fuzz_Vectors.md)
 Appendix D. [Encoded Injection](D-Encoded_Injection.md)
 
 Appendix E. [History](E-History.md)
+
+Appendix F. [Leveraging Dev Tools](F-Leveraging_Dev_Tools.md)
