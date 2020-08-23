@@ -145,7 +145,7 @@ _Figure 6.F-3: Mozilla Firefox Cookie Editing Functionality_
 
 ### Related Testing
 
-- [Testing for CLient-side Resource Manipulation](../4-Web_Application_Security_Testing/11-Client-side_Testing/06-Testing_for_Client-side_Resource_Manipulation.md)
+- [Testing for Client-side Resource Manipulation](../4-Web_Application_Security_Testing/11-Client-side_Testing/06-Testing_for_Client-side_Resource_Manipulation.md)
 
 ### General
 
