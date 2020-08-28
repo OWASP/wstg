@@ -10,13 +10,15 @@ Session fixation is enabled by the insecure practice of preserving the same valu
 
 In the generic exploit of session fixation vulnerabilities, an attacker can obtain a set of session cookies from the target website without authenticating and force them into the victim's browser, using different techniques; if the victim later authenticates at the target, she will be identified by the session cookies chosen by the attacker, who will then become able to impersonate the victim.
 
-Overall, the issue described above occurs in sites where either there is no full [HSTS](https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security) adoption or `__Host-` and `__Secure-` prefixes in the cookie name are missing.
+The issue can be fixed by refreshing the session cookies after the authentication, otherwise the attack can be prevented by ensuring the cookie integrity, i.e. using full [HSTS](https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security) adoption or `__Host-` and `__Secure-` prefixes in the cookie name.
 
 ## How to Test
 
 ### Black-Box Testing
 
 #### Intuition
+
+In this section will be given a general idea of the testing strategy that will be shown in the next section.
 
 The first step is to make a request to the site to be tested (_e.g._ `www.example.com`). If the tester requests the following:
 
@@ -77,6 +79,7 @@ As no new cookie has been issued upon a successful authentication the tester kno
 
 #### Strategy
 
+We assume to have a testing account on the website for the victim, that we call Alice.
 We simulate a scenario where a network attacker (i.e., an attacker who has access to the same network as the victim) forces in Alice's browser all the cookies which are not freshly issued after login and do not have integrity against her. After Alice's login, the attacker presents the forced cookies to access Alice's account: if they are enough to act on Alice's behalf, session fixation is possible.
 
 Specifically, the testing strategy proceeds as follows:
@@ -95,7 +98,7 @@ Specifically, the testing strategy proceeds as follows:
 10. Clear the cookies from the browser and login to `www.target.com` as Alice;
 11. Check: has the operation been performed? If yes, report as insecure.
 
-We recommend using two different machines and/or browsers for Alice and the attacker.
+We recommend using two different machines and/or browsers for Alice and the attacker. This allows to decrease the number of false positives if the web application does fingerprinting to verify an access enabled from a given cookie.
 
 ### Gray-Box Testing
 
@@ -105,7 +108,6 @@ Talk with developers and understand if they have implemented a session token ren
 
 ## Tools
 
-- [JHijack - a numeric session hijacking tool](https://sourceforge.net/projects/jhijack/)
 - [OWASP ZAP](https://www.zaproxy.org)
 
 ## References
