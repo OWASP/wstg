@@ -2,7 +2,6 @@
     "ignorePatterns": [
     {
         "pattern": "^\/"
-
     },
     {
         "pattern": "^https://www.nstalker.com"
@@ -12,6 +11,9 @@
     },
     {
         "pattern": "^https://.*.linkedin.com"
+    },
+    {
+        "pattern": "^https://www.shodan.io"
     }
     ],
     "httpHeaders": [{
