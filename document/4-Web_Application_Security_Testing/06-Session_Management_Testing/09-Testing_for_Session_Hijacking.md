@@ -46,9 +46,9 @@ Specifically, the testing strategy proceeds as follows:
 11. Check: has the operation been performed? If yes, report as insecure.
 
 
-<a name="myfootnote1">1</a>:A secure cookie is only sent to the server when a request is made with the `https:` scheme.
+<a name="myfootnote1">1</a>: A secure cookie is only sent to the server when a request is made with the `https:` scheme.
 
-<a name="myfootnote2">2</a>:We refer to full HSTS adoption when a host activates HSTS for itself and all its sub-domains, and to partial HSTS adoption when a host activates HSTS just for itself.
+<a name="myfootnote2">2</a>: We refer to full HSTS adoption when a host activates HSTS for itself and all its sub-domains, and to partial HSTS adoption when a host activates HSTS just for itself.
 
 ## Tools
 
