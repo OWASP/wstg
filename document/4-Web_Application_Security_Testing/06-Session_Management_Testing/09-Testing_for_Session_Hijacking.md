@@ -23,7 +23,7 @@ For example, assume that `www.good.com` is entirely deployed over HTTPS, but doe
 We assume to have a testing account on the website for the victim, that we call Alice and a testing account on the website for the attacker, that we call Bob.
 The intuition behind the testing strategy for session hijacking is to simulate a scenario where the attacker steals all Alice's cookies she might be exposed to.
 
-We assume that the attacker is a network attacker (i.e. an attacker who has access to the same network as the victim), so we could have a cookie leakage in case of either no [HSTS](https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security) adoption and the `Secure` attribute is not set, or partial HSTS adoption[^2], the `Secure` attribute is not set and the Domain attribute is set to a parent domain. The attacker may then use these cookies to access Alice's account: if they are enough to act on Alice's behalf, session hijacking is possible.
+We assume that the attacker is a network attacker (i.e. an attacker who has access to the same network as the victim), so we could have a cookie leakage in case of either no [HSTS](https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security) adoption and the `Secure` attribute is not set, or partial HSTS adoption<sup>[2](#myfootnote2)</sup>, the `Secure` attribute is not set and the Domain attribute is set to a parent domain. The attacker may then use these cookies to access Alice's account: if they are enough to act on Alice's behalf, session hijacking is possible.
 
 Even when this is not possible, however, security might still be at risk, because it might be that not all the cookies were disclosed to the attacker and the attempted operation failed because just a subset of the expected cookies was sent to the website.
 
@@ -34,7 +34,7 @@ Specifically, the testing strategy proceeds as follows:
 1. Login to `www.target.com` as Alice and reach the page under test;
 2. Find the cookies which satisfy either of the following cookie leakage conditions:
     * no HSTS adoption and the `Secure` attribute is not set and there's
-    * partial HSTS[^2] adoption, the `Secure` attribute is not set and the Domain attribute is set to a parent domain;
+    * partial HSTS<sup>[2](#myfootnote2)</sup> adoption, the `Secure` attribute is not set and the Domain attribute is set to a parent domain;
 3. Clear all the other cookies from the browser;
 4. Perform the operation under test;
 5. Check: has the operation been performed? If yes, report as insecure;
@@ -47,7 +47,8 @@ Specifically, the testing strategy proceeds as follows:
 
 
 <a name="myfootnote1">1</a>:A secure cookie is only sent to the server when a request is made with the `https:` scheme.
-[^2]:We refer to full HSTS adoption when a host activates HSTS for itself and all its sub-domains, and to partial HSTS adoption when a host activates HSTS just for itself.
+
+<a name="myfootnote2">2</a>:We refer to full HSTS adoption when a host activates HSTS for itself and all its sub-domains, and to partial HSTS adoption when a host activates HSTS just for itself.
 
 ## Tools
 
