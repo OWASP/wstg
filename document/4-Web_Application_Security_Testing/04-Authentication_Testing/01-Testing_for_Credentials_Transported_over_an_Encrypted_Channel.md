@@ -6,15 +6,36 @@
 
 ## Summary
 
-Testing for credentials transport means verifying that the user's authentication data are transferred via an encrypted channel to avoid being intercepted by malicious users. The analysis focuses simply on trying to understand if the data travels unencrypted from the web browser to the server, or if the web application takes the appropriate security measures using a protocol like HTTPS. The HTTPS protocol is built on TLS/SSL to encrypt the data that is transmitted and to ensure that user is being sent towards the desired site.
+Testing for credentials transport means verifying that the user's authentication data is transferred via an encrypted channel to avoid being intercepted by malicious users. Web applications use [HTTPS](https://tools.ietf.org/html/rfc2818) to encrypt information in transit for both client to server and server to client communications. When a user or client interacts with a web site, there several ways credentials and other sensitive information can be in transit:
 
-Clearly, the fact that traffic is encrypted does not necessarily mean that it's completely safe. The security also depends on the encryption algorithm used and the robustness of the keys that the application is using, but this particular topic will not be addressed in this section.
+1. A client sends a credential to request login
+2. An authenticated client sends a [session token](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#session-id-properties) to request sensitive information from the web site
+3. The server sends a session token back to the client after a successful login
+4. A client sends a token to the web site if they [forgot their password](https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html)
 
-For a more detailed discussion on testing the safety of TLS/SSL channels refer to the chapter [Testing for Weak SSL TLS Ciphers Insufficient Transport Layer Protection](../09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_SSL_TLS_Ciphers_Insufficient_Transport_Layer_Protection.md). Here, the tester will just try to understand if the data that users put in to web forms in order to log in to a web site, are transmitted using secure protocols that protect them from an attacker.
+Failure to protect any of these credentials with encryption allows an attacker with network sniffing tools to steal the user's account. Therefore any sensitive data should be encrypted in transit.
 
-Nowadays, the most common example of this issue is the log in page of a web application. The tester should verify that user's credentials are transmitted via an encrypted channel. In order to log in to a web site, the user usually has to fill a simple form that transmits the inserted data to the web application with the POST method. What is less obvious is that this data can be passed using the HTTP protocol, which transmits the data in a non-secure, clear text form, or using the HTTPS protocol, which encrypts the data during the transmission. To further complicate things, there is the possibility that the site has the login page accessible via HTTP (making us believe that the transmission is insecure), but then it actually sends data via HTTPS. This test is done to be sure that an attacker cannot retrieve sensitive information by simply sniffing the network with a sniffer tool.
+The fact that traffic is encrypted does not necessarily mean that it's completely safe. The security also depends on the encryption algorithm used and the robustness of the keys that the application is using. See [Testing for Weak SSL TLS Ciphers Insufficient Transport Layer Protection](../09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_SSL_TLS_Ciphers_Insufficient_Transport_Layer_Protection.md) to verify the encrption algorithm is sufficient.
 
 ## How to Test
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### Black-Box Testing
 
