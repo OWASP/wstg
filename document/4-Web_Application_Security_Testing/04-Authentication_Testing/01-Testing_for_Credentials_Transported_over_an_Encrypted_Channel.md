@@ -13,118 +13,74 @@ Testing for credentials transport means verifying that the user's authentication
 3. The server sends a session token back to the client after a successful login
 4. A client sends a token to the web site if they [forgot their password](https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html)
 
-Failure to protect any of these credentials with encryption allows an attacker with network sniffing tools to steal the user's account. Therefore any sensitive data should be encrypted in transit.
+Failure to protect any of these credentials with encryption allows an attacker with network sniffing tools to steal the user's account. The attacker could sniff traffic directly using [https://www.wireshark.org](Wireshark) or similar tools, or they could set up a proxy to capture HTTP requests. Therefore any sensitive data should be encrypted in transit.
 
 The fact that traffic is encrypted does not necessarily mean that it's completely safe. The security also depends on the encryption algorithm used and the robustness of the keys that the application is using. See [Testing for Weak SSL TLS Ciphers Insufficient Transport Layer Protection](../09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_SSL_TLS_Ciphers_Insufficient_Transport_Layer_Protection.md) to verify the encrption algorithm is sufficient.
 
 ## How to Test
 
+To test for credential transport, testers must capture traffic going to and from the client connected to the web application while performing actions that require authentication. To set up to capture traffic, turn on the web browser's [developer tools](https://developer.mozilla.org/en-US/docs/Tools) or use a proxy including [OWASP ZAP](https://owasp.org/www-project-zap/). Verify the capture works properly, and then interact with the web application in areas that require accounts or other credentials. In addition, testers should disable any features that make the web browser favour HTTPS, since some tests require the user to use [forced browsing](https://owasp.org/www-community/attacks/Forced_browsing) to intentionally request HTTP versions of sensitive pages.
 
+In all of the captures from interacting with the application, verify any session tokens, passphrases, password reset codes, or other sensitive data only go to or from the server through HTTPS. The following examples show what capture tools may show if a test passes or fails, where the test application is called `site-undert.test`.
 
+### Account Creation
 
+These are samples for account creation.
 
+A passing test will show HTTPS for the HTTP POST to create an account.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-### Black-Box Testing
-
-In the following examples we will use a web proxy in order to capture packet headers and to inspect them. You can use any web proxy that you prefer.
-
-#### Example 1: Sending Data with POST Method Through HTTP
-
-Suppose that the login page presents a form with fields User, Pass, and the Submit button to authenticate and give access to the application. If we look at the headers of our request with a web proxy, we can get something like this (`http://www.example.com/AuthenticationServlet`):
-
-```html
-POST /AuthenticationServlet HTTP/1.1
-Host: www.example.com
-[...]
-Referer: http://www.example.com/index.jsp
-Cookie: JSESSIONID=LVrRRQQXgwyWpW7QMnS49vtW1yBdqn98CGlkP4jTvVCGdyPkmn3S!
-Content-Type: application/x-www-form-urlencoded
-Content-length: 64
-
-delegated_service=218&User=test&Pass=test&Submit=SUBMIT
+```
+TODO: Create account with credentials in HTTPS POST
 ```
 
-From this example the tester can understand that the POST request sends the data to the page `www.example.com/AuthenticationServlet` using HTTP. So the data is transmitted without encryption and a malicious user could intercept the username and password by simply sniffing the network with a tool like [Wireshark](https://www.wireshark.org).
+Attempt to force browse to the HTTP version of the account creation and create an account, example: `TODO: example forced browse`.
+If the client sends new account credentials over HTTP, it is a test failure:
 
-#### Example 2: Sending Data with POST Method Through HTTPS
-
-Suppose that our web application uses the HTTPS protocol to encrypt the data we are sending (or at least for transmitting sensitive data like credentials). In this case, when logging on to the web application the header of our POST request would be similar to the following (`https://www.example.com:443/cgi-bin/login.cgi`):
-
-```html
-POST /cgi-bin/login.cgi HTTP/1.1
-Host: www.example.com
-[...]
-Referer: https://www.example.com/cgi-bin/login.cgi
-Cookie: language=English;
-Content-Type: application/x-www-form-urlencoded
-Content-length: 50
-
-Command=Login&User=test&Pass=test
+```
+TODO: Create account with credentials in HTTP POST
 ```
 
-We can see that the request is addressed to `www.example.com:443/cgi-bin/login.cgi` using the HTTPS protocol. This ensures that our credentials are sent using an encrypted channel and that the credentials are not readable by a malicious user using a sniffer.
+### Login
 
-#### Example 3: Sending Data with POST Method via HTTPS on a Page Reachable via HTTP
+These are samples for logging in to a site.
 
-Now, imagine having a web page reachable via HTTP and that only data sent from the authentication form are transmitted via HTTPS. This situation occurs, for example, when we are on a portal of a big company that offers various information and services that are publicly available, without identification, but the site also has a private section accessible from the home page when users log in. So when we try to log in, the header of our request will look like the following example (`https://www.example.com:443/login.do`):
+In a passing test, the login request should be HTTPS.
 
-```html
-POST /login.do HTTP/1.1
-Host: www.example.com
-[...]
-Referer: http://www.example.com/homepage.do
-Cookie: SERVTIMSESSIONID=s2JyLkvDJ9ZhX3yr5BJ3DFLkdphH0QNSJ3VQB6pLhjkW6F
-Content-Type: application/x-www-form-urlencoded
-Content-length: 45
+```
+TODO: HTTPS POST for login
+```
+If the server returns cookie information for a session token, the cookie should also include the [secure](https://owasp.org/www-community/controls/SecureFlag) attribute/flag to avoid the client exposing the cookie over unencrpted channels later.
 
-User=test&Pass=test&portal=ExamplePortal
+```
+TODO: HTTPS response with secure cookie
 ```
 
-We can see that our request is addressed to `www.example.com:443/login.do` using HTTPS. But if we have a look at the Referer-header (the page from which we came), it is `www.example.com/homepage.do` and is accessible via simple HTTP. Although we are sending data via HTTPS, this deployment can allow [SSLStrip](https://github.com/moxie0/sslstrip) attacks.
+Attempt to force browse to the HTTP version of the login page. If the user is automatically redirected to the HTTPS version (of either the login page or even just the HTTPS version of the home page of the site), the test is a pass.
 
-> The above mentioned attack is a [Man-in-the-middle](https://en.wikipedia.org/wiki/Man-in-the-middle_attack) attack.
-
-#### Example 4: Sending Data with GET Method Through HTTPS
-
-In this last example, suppose that the application transfers data using the GET method. This method should never be used in a form that transmits sensitive data such as username and password, because the data is displayed in clear text in the URL and this causes a whole set of security issues. For example, the URL that is requested is easily available from the server logs or from your browser history, which makes your sensitive data retrievable for unauthorized persons. So this example is purely demonstrative, but, in reality, it is strongly suggested to use the POST method instead (`https://www.example.com/success.html?user=test&pass=test`).
-
-```html
-GET /success.html HTTP/1.1
-Host: www.example.com
-[...]
-Referer: https://www.example.com/form.html
+```
+TODO: Redirect to HTTPS login or home page
 ```
 
-You can see that the data is transferred in clear text in the URL and not in the body of the request as before. But we must consider that SSL/TLS is a level 5 protocol, a lower level than HTTP, so the whole HTTP packet is still encrypted making the URL unreadable to a malicious user using a sniffer. Nevertheless as stated before, it is not a good practice to use the GET method to send sensitive data to a web application, because the information contained in the URL can be stored in many locations such as proxy and web server logs.
+If a test can submit login credentials over HTTP as shown below, the test is a fail:
 
-### Gray-Box Testing
+```
+TODO: Login submitted over HTTP
+```
 
-Speak with the developers of the web application and try to understand if they are aware of the differences between HTTP and HTTPS protocols and why they should use HTTPS for transmitting sensitive information. Then, check with them if HTTPS is used in every sensitive request, like those in log in pages, to prevent unauthorized users to intercept the data.
+### Accessing Resources while Logged In
 
-## Tools
+After logging in, access items on the site that only authenticated users should be able to see. Verify that all captures when using the web application while logged in only send the session token over HTTPS.
 
-- [OWASP Zed Attack Proxy (ZAP)](https://owasp.org/www-project-zap/)
-- [mitmproxy](https://mitmproxy.org)
-- [Burp Suite](https://portswigger.net/burp)
-- [Wireshark](https://www.wireshark.org/)
-- [TCPDUMP](https://www.tcpdump.org/)
+```
+TODO: Token with HTTPS
+```
 
-## References
+The test fails if the browser submits a session token over HTTP in any part of the web site, even if forced browsing is required to trigger this case.
 
-### Whitepapers
+```
+TODO: Token over HTTP
+```
 
-- [HTTP/1.1: Security Considerations](https://www.w3.org/Protocols/rfc2616/rfc2616-sec15.html)
-- [SSL is not about encryption](https://www.troyhunt.com/ssl-is-not-about-encryption/)
+### Remediation
+
+The best remediation would be to make the entire web site or web application use HTTPS, where the server can redirect requests for HTTP directly to the HTTPS version of the site. API endpoints should also be HTTPS only. Using HTTPS on the whole site prevents attackers from modifying interactions with the web server (including placing JavaScript for advertising or to sniff credentials). Newer software (with good reason) also has a warning or restriction for HTTP traffic. Browsers [mark HTTP based web sites as insecure](https://www.blog.google/products/chrome/milestone-chrome-security-marking-http-not-secure/) and Android applications [need overrides](https://developer.android.com/training/articles/security-config#CleartextTrafficPermitted) to connect to anything via HTTP. If the organization does not already buy certificates for HTTPS, look in to enabling support for [Let's Encrypt](https://letsencrypt.org) on the server.
