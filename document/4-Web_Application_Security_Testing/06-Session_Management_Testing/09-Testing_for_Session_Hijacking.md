@@ -8,7 +8,7 @@
 
 An attacker who gets access to a honest user's cookies can impersonate her by presenting such cookies: this attack is known as session hijacking.
 
-Even when the web application is entirely deployed over HTTPS, the `Secure` attribute [^1] should be used for the session cookies.
+Even when the web application is entirely deployed over HTTPS, the `Secure` attribute <sup>[1](#myfootnote1)</sup> should be used for the session cookies.
 For example, assume that `www.good.com` is entirely deployed over HTTPS, but does not mark its session cookies as `Secure`:
 
 1. The user sends a request to `http://www.another-site.com`
@@ -46,7 +46,7 @@ Specifically, the testing strategy proceeds as follows:
 11. Check: has the operation been performed? If yes, report as insecure.
 
 
-[^1]:A secure cookie is only sent to the server when a request is made with the `https:` scheme.
+<a name="myfootnote1">1</a>:A secure cookie is only sent to the server when a request is made with the `https:` scheme.
 [^2]:We refer to full HSTS adoption when a host activates HSTS for itself and all its sub-domains, and to partial HSTS adoption when a host activates HSTS just for itself.
 
 ## Tools
