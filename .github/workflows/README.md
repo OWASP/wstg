@@ -4,7 +4,7 @@
 
 For building PDFs at release.
 
-- Trigger: Tag applied to repository.
+- Trigger: Tag applied to repository. Manual (`workflow_dispatch`), GitHub web UI.
 - See: `/pdf/` in the root of the repository.
 
 ## `dummy.yml`
