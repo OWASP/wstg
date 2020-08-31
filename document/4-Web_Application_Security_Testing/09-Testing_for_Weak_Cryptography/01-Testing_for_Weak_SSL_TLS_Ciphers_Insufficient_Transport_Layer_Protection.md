@@ -45,13 +45,13 @@ From a cryptographic perspective, there are two main areas that need to be revie
 As well as being cryptographically secure, the certificate must also be considered valid (or trusted). This means that it must:
 
 * Be within the defined validity period.
-  - Any certificates issued after 1st September 2020 must not have a maximum lifespan of more than [398 days](https://blog.mozilla.org/security/2020/07/09/reducing-tls-certificate-lifespans-to-398-days/).
+  * Any certificates issued after 1st September 2020 must not have a maximum lifespan of more than [398 days](https://blog.mozilla.org/security/2020/07/09/reducing-tls-certificate-lifespans-to-398-days/).
 * Be signed by a trusted certificate authority (CA).
-  - This should either be a trusted public CA for externally facing applications, or an internal CA for internal applications.
-  - Don't flag internal applications as having untrusted certificates just because *your* system doesn't trust the CA.
+  * This should either be a trusted public CA for externally facing applications, or an internal CA for internal applications.
+  * Don't flag internal applications as having untrusted certificates just because *your* system doesn't trust the CA.
 * Have a Subject Alternate Name (SAN) that matches the hostname of the system.
-  - The Common Name (CN) field is ignored by modern browsers, which only look at the SAN.
-  - Make sure that you're accessing the system with the correct name (for example, if you access the host by IP then any certificate will be untrusted).
+  * The Common Name (CN) field is ignored by modern browsers, which only look at the SAN.
+  * Make sure that you're accessing the system with the correct name (for example, if you access the host by IP then any certificate will be untrusted).
 
 Some certificates may be issued for wildcard domains (such as `*.example.org`), meaning that they can be valid for multiple hostnames. Although convenient, there are a number of security concerns around this that should be considered. These are discussed in the [OWASP Transport Layer Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html#carefully-consider-the-use-of-wildcard-certificates).
 
@@ -59,35 +59,35 @@ Certificates can also leak information about internal systems or domain names in
 
 ### Implementation Vulnerabilities
 
-- Old versions of software
-- Heartbleed
-- TLS CRIME?
+* Old versions of software
+* Heartbleed
+* TLS CRIME?
 
 ### Client Certificates
 
-- Certificates not tied to individual
-- Certificates from a public CA
-- Generating certs with matching Issuer and CN/SAN
-- Header spoofing
+* Certificates not tied to individual
+* Certificates from a public CA
+* Generating certs with matching Issuer and CN/SAN
+* Header spoofing
 
 ### Application Vulnerabilities
 
-- Sensitive traffic over HTTP (especially cookies)
-- Redirecting from HTTP > HTTPS
-- Mixed active content
-- HSTS
-- Secure flag on cookies
+* Sensitive traffic over HTTP (especially cookies)
+* Redirecting from HTTP > HTTPS
+* Mixed active content
+* HSTS
+* Secure flag on cookies
 
 ## How to Test
 
-- Web browser
-- OpenSSL
-- Main scanning tools (Nessus, Nmap, SSL Labs, sslscan, sslyze, etc)
-- STARTTLS
+* Web browser
+* OpenSSL
+* Main scanning tools (Nessus, Nmap, SSL Labs, sslscan, sslyze, etc)
+* STARTTLS
 
 ## References
 
-- [OWASP Transport Layer Protection Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html)
+* [OWASP Transport Layer Protection Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html)
 
 ---
 
@@ -105,23 +105,23 @@ The large number of available cipher suites and quick progress in cryptanalysis 
 
 At the time of writing these criteria are widely recognized as minimum checklist:
 
-- Renegotiation must be properly configured (e.g. Insecure Renegotiation must be disabled, due to [MiTM attacks](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2009-3555) and Client-initiated Renegotiation must be disabled, due to [Denial of Service vulnerability](https://community.qualys.com/blogs/securitylabs/2011/10/31/tls-renegotiation-and-denial-of-service-attacks)).
-- [Keys must be generated with proper entropy](https://www.ssllabs.com/projects/rating-guide/index.html) (e.g, Weak Key Generated with Debian).
+* Renegotiation must be properly configured (e.g. Insecure Renegotiation must be disabled, due to [MiTM attacks](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2009-3555) and Client-initiated Renegotiation must be disabled, due to [Denial of Service vulnerability](https://community.qualys.com/blogs/securitylabs/2011/10/31/tls-renegotiation-and-denial-of-service-attacks)).
+* [Keys must be generated with proper entropy](https://www.ssllabs.com/projects/rating-guide/index.html) (e.g, Weak Key Generated with Debian).
 
 A more complete checklist includes:
 
-- Secure Renegotiation should be enabled.
-- Server should support [Forward Secrecy](https://community.qualys.com/blogs/securitylabs/2013/06/25/ssl-labs-deploying-forward-secrecy).
+* Secure Renegotiation should be enabled.
+* Server should support [Forward Secrecy](https://community.qualys.com/blogs/securitylabs/2013/06/25/ssl-labs-deploying-forward-secrecy).
 
 The following standards can be used as reference while assessing SSL servers:
 
-- [PCI-DSS](https://www.pcisecuritystandards.org/security_standards/documents.php) requires compliant parties to use “strong cryptography” without precisely defining key lengths and algorithms. Common interpretation, partially based on previous versions of the standard, is that at least 128 bit key cipher, no export strength algorithms and no SSLv2 should be used.
-- [Qualsys SSL Labs Server Rating Guide](https://www.ssllabs.com/projects/rating-guide/index.html), [Deployment best practice](https://www.ssllabs.com/projects/best-practices/index.html), and [SSL Threat Model](https://www.ssllabs.com/projects/ssl-threat-model/index.html) has been proposed to standardize SSL server assessment and configuration. But is less updated than the [SSL Server tool](https://www.ssllabs.com/ssltest/index.html).
-- OWASP has a lot of resources about SSL/TLS Security:
-  - [Transport Layer Protection Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html).
-  - [OWASP Top 10 2017 A3-Sensitive Data Exposure](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure).
-  - [OWASP ASVS - Verification V9](https://github.com/OWASP/ASVS/blob/master/4.0/en/0x17-V9-Communications.md).
-  - [OWASP Application Security FAQ - Cryptography/SSL](https://owasp.org/www-community/OWASP_Application_Security_FAQ#cryptographyssl).
+* [PCI-DSS](https://www.pcisecuritystandards.org/security_standards/documents.php) requires compliant parties to use “strong cryptography” without precisely defining key lengths and algorithms. Common interpretation, partially based on previous versions of the standard, is that at least 128 bit key cipher, no export strength algorithms and no SSLv2 should be used.
+* [Qualsys SSL Labs Server Rating Guide](https://www.ssllabs.com/projects/rating-guide/index.html), [Deployment best practice](https://www.ssllabs.com/projects/best-practices/index.html), and [SSL Threat Model](https://www.ssllabs.com/projects/ssl-threat-model/index.html) has been proposed to standardize SSL server assessment and configuration. But is less updated than the [SSL Server tool](https://www.ssllabs.com/ssltest/index.html).
+* OWASP has a lot of resources about SSL/TLS Security:
+  * [Transport Layer Protection Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html).
+  * [OWASP Top 10 2017 A3-Sensitive Data Exposure](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure).
+  * [OWASP ASVS * Verification V9](https://github.com/OWASP/ASVS/blob/master/4.0/en/0x17-V9-Communications.md).
+  * [OWASP Application Security FAQ * Cryptography/SSL](https://owasp.org/www-community/OWASP_Application_Security_FAQ#cryptographyssl).
 
 Some tools and scanners both free (e.g. [SSLScan](https://sourceforge.net/projects/sslscan/)) and commercial (e.g. [Tenable Nessus](https://www.tenable.com/products/nessus)), can be used to assess SSL/TLS vulnerabilities. But due to evolution of these vulnerabilities a good way to test is to check them manually with [OpenSSL](https://www.openssl.org/) or use the tool’s output as an input for manual evaluation using the references.
 
@@ -137,13 +137,13 @@ The [Surf Jacking attack](https://resources.enablesecurity.com/resources/Surf%20
 
 The following is a scenario of how the attack can take place:
 
-- Victim logs into the secure website at `https://somesecuresite/`.
-- The secure site issues a session cookie as the client logs in.
-- While logged in, the victim opens a new browser window and goes to `http://examplesite/`
-- An attacker sitting on the same network is able to see the clear text traffic to `http://examplesite`.
-- The attacker sends back a `301 Moved Permanently` in response to the clear text traffic to `http://examplesite`. The response contains the header `Location: http://somesecuresite/`, which makes it appear that examplesite is sending the web browser to somesecuresite. Notice that the URL scheme is HTTP not HTTPS.
-- The victim's browser starts a new clear text connection to `http://somesecuresite/` and sends an HTTP request containing the cookie in the HTTP header in clear text
-- The attacker sees this traffic and logs the cookie for later use.
+* Victim logs into the secure website at `https://somesecuresite/`.
+* The secure site issues a session cookie as the client logs in.
+* While logged in, the victim opens a new browser window and goes to `http://examplesite/`
+* An attacker sitting on the same network is able to see the clear text traffic to `http://examplesite`.
+* The attacker sends back a `301 Moved Permanently` in response to the clear text traffic to `http://examplesite`. The response contains the header `Location: http://somesecuresite/`, which makes it appear that examplesite is sending the web browser to somesecuresite. Notice that the URL scheme is HTTP not HTTPS.
+* The victim's browser starts a new clear text connection to `http://somesecuresite/` and sends an HTTP request containing the cookie in the HTTP header in clear text
+* The attacker sees this traffic and logs the cookie for later use.
 
 To test if a website is vulnerable carry out the following tests:
 
@@ -154,7 +154,7 @@ To test if a website is vulnerable carry out the following tests:
 
 Some applications supports both HTTP and HTTPS, either for usability or so users can type both addresses and get to the site. Often users go into an HTTPS website from link or a redirect. Typically personal banking sites have a similar configuration with an iframed log in or a form with action attribute over HTTPS but the page under HTTP.
 
-An attacker in a privileged position - as described in [SSL strip](https://github.com/moxie0/sslstrip) - can intercept traffic when the user is in the HTTP site and manipulate it to get a Manipulator-In-The-Middle attack under HTTPS. An application is vulnerable if it supports both HTTP and HTTPS.
+An attacker in a privileged position * as described in [SSL strip](https://github.com/moxie0/sslstrip) * can intercept traffic when the user is in the HTTP site and manipulate it to get a Manipulator-In-The-Middle attack under HTTPS. An application is vulnerable if it supports both HTTP and HTTPS.
 
 ### Testing via HTTP Proxy
 
