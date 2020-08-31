@@ -6,7 +6,7 @@
 
 ## Summary
 
-**TODO**
+TODO
 
 ## Common Issues
 
@@ -67,20 +67,34 @@ Over the years there have been vulnerabilities in the various TLS implementation
 * [F5 TLS POODLE](https://support.f5.com/csp/article/K15882) (CVE-2014-8730)
 * [Microsoft Schannel Denial of Service](https://docs.microsoft.com/en-us/security-updates/securitybulletins/2014/ms14-066) (MS14-066 / CVE CVE-2014-6321)
 
+### Application Vulnerabilities
+
+As well as the underlying TLS configuration being securely configured, the application also needs to use it in a secure way. Some of these points are addressed elsewhere in the WSTG:
+
+* [Not sending sensitive data over unencrypted channels (WSTG-CRYP-03)](03-Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels.md)
+* [Setting the HTTP Strict-Transport-Security header (WSTG-CONF-07)](../02-Configuration_and_Deployment_Management_Testing/07-Test_HTTP_Strict_Transport_Security.md)
+* [Setting the Secure flag on cookies (WSTG-SESS-02)](../06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.md)
+
+#### Mixed Active Content
+
+Mixed active content is when active resources (such as scripts to CSS) are loaded over unencrypted HTTP and included into a secure (HTTPS) page. This is dangerous because it would allow an attacker to modify these files (as they are sent unencrypted), which could allow them to execute arbitrary code JavaScript in the page. Passive content (such as images) loaded over an insecure connection can also leak information or allow an attacker to deface the page, although it is less likely to lead to a full compromise.
+
+Note that modern browsers will block active content being loaded from insecure sources into secure pages.
+
+#### Redirecting From HTTP to HTTPS
+
+Many sites will accept connections over unencrypted HTTP, and then immediately redirect the user to the secure (HTTPS) version of the site with a `301 Moved Permanently` redirect and then setting the `Strict-Transport-Security` header to instruct the browser to always use HTTPS in future.
+
+However, this if an attacker is able to intercept this initial request, they could redirect the user to a malicious site, or use a tool such as [sslstrip](https://github.com/moxie0/sslstrip) to intercept subsequent requests.
+
+In order to defend against this type of attack, the site must use be added to the [preload list](https://hstspreload.org).
+
 ### Client Certificates
 
 * Certificates not tied to individual
 * Certificates from a public CA
 * Generating certs with matching Issuer and CN/SAN
 * Header spoofing
-
-### Application Vulnerabilities
-
-* Sensitive traffic over HTTP (especially cookies)
-* Redirecting from HTTP > HTTPS
-* Mixed active content
-* HSTS
-* Secure flag on cookies
 
 ## How to Test
 
@@ -158,7 +172,7 @@ To test if a website is vulnerable carry out the following tests:
 
 Some applications supports both HTTP and HTTPS, either for usability or so users can type both addresses and get to the site. Often users go into an HTTPS website from link or a redirect. Typically personal banking sites have a similar configuration with an iframed log in or a form with action attribute over HTTPS but the page under HTTP.
 
-An attacker in a privileged position * as described in [SSL strip](https://github.com/moxie0/sslstrip) * can intercept traffic when the user is in the HTTP site and manipulate it to get a Manipulator-In-The-Middle attack under HTTPS. An application is vulnerable if it supports both HTTP and HTTPS.
+An attacker in a privileged position - as described in [SSL strip](https://github.com/moxie0/sslstrip) - can intercept traffic when the user is in the HTTP site and manipulate it to get a Manipulator-In-The-Middle attack under HTTPS. An application is vulnerable if it supports both HTTP and HTTPS.
 
 ### Testing via HTTP Proxy
 
