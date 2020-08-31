@@ -62,6 +62,7 @@ Certificates can also leak information about internal systems or domain names in
 
 ### Application Vulnerabilities
 
+---
 
 ### Sensitive Data Transmitted in Clear-Text
 
