@@ -12,11 +12,11 @@ HTTP is a clear-text protocol and it is normally secured via an SSL/TLS tunnel, 
 
 Even if high grade ciphers are today supported and normally used, some misconfiguration in the server can be used to force the use of a weak cipher - or at worst no encryption - permitting to an attacker to gain access to the supposed secure communication channel. Other misconfiguration can be used for a Denial of Service attack.
 
-### Common Issues
+## Common Issues
 
 Transport layer security related issues can be broadly split into the following areas:
 
-#### Server Configuration
+### Server Configuration
 
 There are a large number of protocol versions, ciphers and extensions supported by TLS. Many of these are considered to be legacy, and have cryptographic weaknesses, such as those listed below. Note that new weaknesses are likely to be identified over time, so this list may be incomplete.
 
@@ -31,15 +31,17 @@ There are a large number of protocol versions, ciphers and extensions supported 
 * TLS compression (CRIME)
 * Weak DHE keys (LOGJAM)
 
+#### Exploitability
+
 It should be emphasised that while many of these attacks have been demonstrated in a lab environment, they are not generally considered practical to exploit in the real world, as they require a (usually active) man-in-the-middle attack, and significant resources. As such, they are unlikely to be exploited by anyone other than nation states.
 
-#### Digital Certificates
+### Digital Certificates
 
 
-#### Implementation Vulnerabilities
+### Implementation Vulnerabilities
 
 
-#### Application Vulnerabilities
+### Application Vulnerabilities
 
 
 ### Sensitive Data Transmitted in Clear-Text
