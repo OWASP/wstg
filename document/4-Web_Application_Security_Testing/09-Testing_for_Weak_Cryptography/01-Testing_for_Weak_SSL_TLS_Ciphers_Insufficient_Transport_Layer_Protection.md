@@ -37,6 +37,29 @@ It should be emphasised that while many of these attacks have been demonstrated 
 
 ### Digital Certificates
 
+#### Cryptographic Weaknesses
+
+From a cryptographic perspective, there are two main areas that need to be reviewed on a digital certificate:
+
+* The key strength should be *at least* 2048 bits.
+* The signature algorithm should be *at least* SHA-256.
+
+#### Validity
+
+As well as being cryptographically secure, the certificate must also be considered valid (or trusted). This means that it must:
+
+* Be within the defined validity period.
+  - Any certificates issued after 1st September 2020 must not have a maximum lifespan of more than [398 days](https://blog.mozilla.org/security/2020/07/09/reducing-tls-certificate-lifespans-to-398-days/).
+* Be signed by a trusted certificate authority (CA).
+  - This should either be a trusted public CA for externally facing applications, or an internal CA for internal applications.
+  - Don't flag internal applications as having untrusted certificates just because *your* system doesn't trust the CA.
+* Have a Subject Alternate Name (SAN) that matches the hostname of the system.
+  - The Common Name (CN) field is ignored by modern browsers, which only look at the SAN.
+  - Make sure that you're accessing the system with the correct name (for example, if you access the host by IP then any certificate will be untrusted).
+
+Some certificates may be issued for wildcard domains (such as `*.example.org`), meaning that they can be valid for multiple hostnames. Although convenient, there are a number of security concerns around this that should be considered. These are discussed in the [OWASP Transport Layer Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html#carefully-consider-the-use-of-wildcard-certificates).
+
+Certificates can also leak information about internal systems or domain names in the Issuer and SAN fields, which can be useful when trying to build up a picture of the internal network.
 
 ### Implementation Vulnerabilities
 
