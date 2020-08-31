@@ -6,11 +6,7 @@
 
 ## Summary
 
-Sensitive data must be protected when it is transmitted through the network. Such data can include user credentials and credit cards. As a rule of thumb, if data must be protected when it is stored, it must be protected also during transmission.
-
-HTTP is a clear-text protocol and it is normally secured via an SSL/TLS tunnel, resulting in [HTTPS traffic](https://tools.ietf.org/html/rfc8446). The use of this protocol ensures not only confidentiality, but also authentication. Servers are authenticated using digital certificates and it is also possible to use client certificate for mutual authentication.
-
-Even if high grade ciphers are today supported and normally used, some misconfiguration in the server can be used to force the use of a weak cipher - or at worst no encryption - permitting to an attacker to gain access to the supposed secure communication channel. Other misconfiguration can be used for a Denial of Service attack.
+**TODO**
 
 ## Common Issues
 
