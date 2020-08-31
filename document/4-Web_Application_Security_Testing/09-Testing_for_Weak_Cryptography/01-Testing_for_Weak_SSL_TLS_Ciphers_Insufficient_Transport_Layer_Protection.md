@@ -42,7 +42,7 @@ It should be emphasised that while many of these attacks have been demonstrated 
 From a cryptographic perspective, there are two main areas that need to be reviewed on a digital certificate:
 
 * The key strength should be *at least* 2048 bits.
-* The signature algorithm should be *at least* SHA-256.
+* The signature algorithm should be *at least* SHA-256. Legacy algorithms such as MD5 and SHA-1 should not be used.
 
 #### Validity
 
