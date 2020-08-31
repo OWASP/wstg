@@ -14,41 +14,37 @@ Even if high grade ciphers are today supported and normally used, some misconfig
 
 ### Common Issues
 
-A vulnerability occurs if the HTTP protocol is used to [transmit sensitive information](03-Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels.md) (e.g. [credentials transmitted over HTTP](../04-Authentication_Testing/01-Testing_for_Credentials_Transported_over_an_Encrypted_Channel.md)).
+Transport layer security related issues can be broadly split into the following areas:
 
-When the SSL/TLS service is present it is good but it increments the attack surface and the following vulnerabilities exist:
+#### Server Configuration
 
-- SSL/TLS protocols, ciphers, keys and renegotiation must be properly configured.
-- Certificate validity must be ensured.
+There are a large number of protocol versions, ciphers and extensions supported by TLS. Many of these are considered to be legacy, and have cryptographic weaknesses, such as those listed below. Note that new weaknesses are likely to be identified over time, so this list may be incomplete.
 
-Other vulnerabilities linked to this are:
+* SSLv2 (DROWN)
+* SSLv3 (POODLE)
+* TLSv1.0 (BEAST)
+* EXPORT ciphers
+* NULL ciphers
+* Anonymous ciphers
+* RC4 ciphers (NOMORE)
+* CBC mode ciphers (BEAST, Lucky 13)
+* TLS compression (CRIME)
+* Weak DHE keys (LOGJAM)
 
-- Software exposed must be updated due to possibility of [known vulnerabilities](../02-Configuration_and_Deployment_Management_Testing/01-Test_Network_Infrastructure_Configuration.md).
-- Usage of [Secure flag for Session Cookies](../06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.md).
-- Usage of [HTTP Strict Transport Security (HSTS)](../02-Configuration_and_Deployment_Management_Testing/07-Test_HTTP_Strict_Transport_Security.md).
-- The presence of both [HTTP](https://resources.enablesecurity.com/resources/Surf%20Jacking.pdf) and [HTTPS](https://github.com/moxie0/sslstrip), which can be used to intercept traffic.
-- The presence of mixed HTTPS and HTTP content in the same page, which can be used to Leak information.
+It should be emphasised that while many of these attacks have been demonstrated in a lab environment, they are not generally considered practical to exploit in the real world, as they require a (usually active) man-in-the-middle attack, and significant resources. As such, they are unlikely to be exploited by anyone other than nation states.
+
+#### Digital Certificates
+
+
+#### Implementation Vulnerabilities
+
+
+#### Application Vulnerabilities
+
 
 ### Sensitive Data Transmitted in Clear-Text
 
 The application should not transmit sensitive information via unencrypted channels. Typically it is possible to find basic authentication over HTTP, input password or session cookie sent via HTTP and, in general, other information considered by regulations, laws or organization policy.
-
-### Weak SSL/TLS Ciphers/Protocols/Keys
-
-Historically, there have been limitations set in place by the U.S. government to allow cryptosystems to be exported only for key sizes of at most 40 bits, a key length which could be broken and would allow the decryption of communications. Since then cryptographic export regulations have been relaxed the maximum key size is 128 bits.
-
-It is important to check the SSL configuration being used to avoid putting in place cryptographic support which could be easily defeated. To reach this goal SSL-based services should not offer the possibility to choose weak cipher suite. A cipher suite is specified by an encryption protocol (e.g. DES, RC4, AES), the encryption key length (e.g. 40, 56, or 128 bits), and a hash algorithm (e.g. SHA, MD5) used for integrity checking.
-
-Briefly, the key points for the cipher suite determination are the following:
-
-1. The client sends to the server a ClientHello message specifying, among other information, the protocol and the cipher suites that it is able to handle. Note that a client is usually a web browser (most popular SSL client nowadays), but not necessarily, since it can be any SSL-enabled application; the same holds for the server, which needs not to be a web server, though this is the most common case. (See also: [stunnel](https://www.stunnel.org).)
-2. The server responds with a ServerHello message, containing the chosen protocol and cipher suite that will be used for that session (in general the server selects the strongest protocol and cipher suite supported by both the client and server).
-
-It is possible (for example, by means of configuration directives) to specify which cipher suites the server will honor. In this way you may control whether or not conversations with clients will support 40-bit encryption only.
-
-1. The server sends its Certificate message and, if client authentication is required, also sends a CertificateRequest message to the client.
-2. The server sends a ServerHelloDone message and waits for a client response.
-3. Upon receipt of the ServerHelloDone message, the client verifies the validity of the server's digital certificate.
 
 ### TLS/SSL Certificate Validity – Client and Server
 
@@ -78,32 +74,6 @@ Also there are some attacks that can be used to intercept traffic if the web ser
 
 ## How to Test
 
-### Testing for Sensitive Data Transmitted in Clear-Text
-
-Various types of information which must be protected can be also transmitted in clear text. It is possible to check if this information is transmitted over HTTP instead of HTTPS. Please refer to specific tests for full details, for [credentials](../04-Authentication_Testing/01-Testing_for_Credentials_Transported_over_an_Encrypted_Channel.md) and other kind of [data](03-Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels.md).
-
-#### Example 1. Basic Authentication Over HTTP
-
-A typical example is the usage of Basic Authentication over HTTP because with Basic Authentication, after log in, credentials are encoded - and not encrypted - into HTTP Headers.
-
-```bash
-$ curl -kis http://example.com/restricted/
-HTTP/1.1 401 Authorization Required
-Date: Fri, 01 Aug 2013 00:00:00 GMT
-WWW-Authenticate: Basic realm="Restricted Area"
-Accept-Ranges: bytes
-Vary: Accept-Encoding
-Content-Length: 162
-Content-Type: text/html
-
-<html><head><title>401 Authorization Required</title></head>
-<body bgcolor=white>
-<h1>401 Authorization Required</h1>
-
-Invalid login credentials!
-
-</body></html>
-```
 
 ### Testing for Weak SSL/TLS Ciphers/Protocols/Keys Vulnerabilities
 
@@ -111,10 +81,7 @@ The large number of available cipher suites and quick progress in cryptanalysis 
 
 At the time of writing these criteria are widely recognized as minimum checklist:
 
-- Weak ciphers must not be used (e.g. less than [128 bits](https://www.ssllabs.com/projects/best-practices/index.html); no NULL ciphers suite, due to no encryption used; no Anonymous Diffie-Hellmann, due to not provides authentication).
-- Weak protocols must be disabled (e.g. SSLv2 must be disabled, due to known weaknesses in protocol design).
 - Renegotiation must be properly configured (e.g. Insecure Renegotiation must be disabled, due to [MiTM attacks](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2009-3555) and Client-initiated Renegotiation must be disabled, due to [Denial of Service vulnerability](https://community.qualys.com/blogs/securitylabs/2011/10/31/tls-renegotiation-and-denial-of-service-attacks)).
-- No Export (EXP) level cipher suites, due to can be [easily broken](https://www.ssllabs.com/projects/best-practices/index.html).
 - X.509 certificates key length must be strong (e.g. if RSA or DSA is used the key must be at least 1024 bits).
 - X.509 certificates must be signed only with secure hashing algoritms (e.g. not signed using MD5 hash, due to known collision attacks on this hash).
 - [Keys must be generated with proper entropy](https://www.ssllabs.com/projects/rating-guide/index.html) (e.g, Weak Key Generated with Debian).
