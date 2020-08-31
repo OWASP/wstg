@@ -21,7 +21,7 @@ There are a large number of protocol versions, ciphers and extensions supported 
 * TLSv1.0 (BEAST)
 * EXPORT ciphers
 * NULL ciphers
-* Anonymous ciphers
+* Anonymous ciphers (these may be supported on SMTP servers, as discussed in [RFC 7672](https://tools.ietf.org/html/rfc7672#section-8.2)
 * RC4 ciphers (NOMORE)
 * CBC mode ciphers (BEAST, Lucky 13)
 * TLS compression (CRIME)
@@ -59,34 +59,37 @@ Certificates can also leak information about internal systems or domain names in
 
 ### Implementation Vulnerabilities
 
+- Old versions of software
+- Heartbleed
+- TLS CRIME?
+
+### Client Certificates
+
+- Certificates not tied to individual
+- Certificates from a public CA
+- Generating certs with matching Issuer and CN/SAN
+- Header spoofing
 
 ### Application Vulnerabilities
 
+- Sensitive traffic over HTTP (especially cookies)
+- Redirecting from HTTP > HTTPS
+- Mixed active content
+- HSTS
+- Secure flag on cookies
+
+## How to Test
+
+- Web browser
+- OpenSSL
+- Main scanning tools (Nessus, Nmap, SSL Labs, sslscan, sslyze, etc)
+- STARTTLS
+
+## References
+
+- [OWASP Transport Layer Protection Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html)
+
 ---
-
-### Sensitive Data Transmitted in Clear-Text
-
-The application should not transmit sensitive information via unencrypted channels. Typically it is possible to find basic authentication over HTTP, input password or session cookie sent via HTTP and, in general, other information considered by regulations, laws or organization policy.
-
-### TLS/SSL Certificate Validity – Client and Server
-
-When accessing a web application via the HTTPS protocol, a secure channel is established between the client and the server. The identity of one (the server) or both parties (client and server) is then established by means of digital certificates. So, once the cipher suite is determined, the “SSL Handshake” continues with the exchange of the certificates:
-
-1. The server sends its Certificate message and, if client authentication is required, also sends a CertificateRequest message to the client.
-2. The server sends a ServerHelloDone message and waits for a client response.
-3. Upon receipt of the ServerHelloDone message, the client verifies the validity of the server's digital certificate.
-
-In order for the communication to be set up, a number of checks on the certificates must be passed. While discussing SSL and certificate based authentication is beyond the scope of this guide, this section will focus on the main criteria involved in ascertaining certificate validity:
-
-- Checking if the Certificate Authority (CA) is a known one (meaning one considered trusted);
-- Checking that the certificate is currently valid;
-- Checking that the name of the site and the name reported in the certificate match.
-
-Let's examine each check more in detail.
-
-- Each browser comes with a pre-loaded list of trusted CAs, against which the certificate signing CA is compared (this list can be customized and expanded at will). During the initial negotiations with an HTTPS server, if the server certificate relates to a CA unknown to the browser, a warning is usually raised. This happens most often because a web application relies on a certificate signed by a self-established CA. Whether this is to be considered a concern depends on several factors. For example, this may be fine for an Intranet environment (think of corporate web email being provided via HTTPS; here, obviously all users recognize the internal CA as a trusted CA). When a service is provided to the general public via the Internet, however (i.e. when it is important to positively verify the identity of the server we are talking to), it is usually imperative to rely on a trusted CA, one which is recognized by all the user base (and here we stop with our considerations; we won’t delve deeper in the implications of the trust model being used by digital certificates).
-- Certificates have an associated period of validity, therefore they may expire. Again, we are warned by the browser about this. A public service needs a temporally valid certificate; otherwise, it means we are talking with a server whose certificate was issued by someone we trust, but has expired without being renewed.
-- What if the name on the certificate and the name of the server do not match? If this happens, it might sound suspicious. For a number of reasons, this is not so rare to see. A system may host a number of name-based virtual hosts, which share the same IP address and are identified by means of the HTTP 1.1 Host: header information. In this case, since the SSL handshake checks the server certificate before the HTTP request is processed, it is not possible to assign different certificates to each virtual server. Therefore, if the name of the site and the name reported in the certificate do not match, we have a condition which is typically signaled by the browser. To avoid this, IP-based virtual servers must be used. [sslyze](https://github.com/nabla-c0d3/sslyze) and [RFC: TLS Extensions](https://www.ietf.org/rfc/rfc6066.txt) describe techniques to deal with this problem and allow name-based virtual hosts to be correctly referenced.
 
 ### Other Vulnerabilities
 
@@ -96,7 +99,6 @@ Also there are some attacks that can be used to intercept traffic if the web ser
 
 ## How to Test
 
-
 ### Testing for Weak SSL/TLS Ciphers/Protocols/Keys Vulnerabilities
 
 The large number of available cipher suites and quick progress in cryptanalysis makes testing an SSL server a non-trivial task.
@@ -104,17 +106,11 @@ The large number of available cipher suites and quick progress in cryptanalysis 
 At the time of writing these criteria are widely recognized as minimum checklist:
 
 - Renegotiation must be properly configured (e.g. Insecure Renegotiation must be disabled, due to [MiTM attacks](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2009-3555) and Client-initiated Renegotiation must be disabled, due to [Denial of Service vulnerability](https://community.qualys.com/blogs/securitylabs/2011/10/31/tls-renegotiation-and-denial-of-service-attacks)).
-- X.509 certificates key length must be strong (e.g. if RSA or DSA is used the key must be at least 1024 bits).
-- X.509 certificates must be signed only with secure hashing algoritms (e.g. not signed using MD5 hash, due to known collision attacks on this hash).
 - [Keys must be generated with proper entropy](https://www.ssllabs.com/projects/rating-guide/index.html) (e.g, Weak Key Generated with Debian).
 
 A more complete checklist includes:
 
 - Secure Renegotiation should be enabled.
-- MD5 should not be used, due to [known collision attacks](https://link.springer.com/chapter/10.1007/11426639_2).
-- RC4 should not be used, due to [crypto-analytical attacks](https://community.qualys.com/blogs/securitylabs/2013/03/19/rc4-in-tls-is-broken-now-what).
-- Server should be protected from [BEAST Attack](https://community.qualys.com/blogs/securitylabs/2011/10/17/mitigating-the-beast-attack-on-tls).
-- Server should be protected from [CRIME attack](https://community.qualys.com/blogs/securitylabs/2012/09/14/crime-information-leakage-attack-against-ssltls), TLS compression must be disabled.
 - Server should support [Forward Secrecy](https://community.qualys.com/blogs/securitylabs/2013/06/25/ssl-labs-deploying-forward-secrecy).
 
 The following standards can be used as reference while assessing SSL servers:
@@ -130,28 +126,6 @@ The following standards can be used as reference while assessing SSL servers:
 Some tools and scanners both free (e.g. [SSLScan](https://sourceforge.net/projects/sslscan/)) and commercial (e.g. [Tenable Nessus](https://www.tenable.com/products/nessus)), can be used to assess SSL/TLS vulnerabilities. But due to evolution of these vulnerabilities a good way to test is to check them manually with [OpenSSL](https://www.openssl.org/) or use the tool’s output as an input for manual evaluation using the references.
 
 Sometimes the SSL/TLS enabled service is not directly accessible and the tester can access it only via a HTTP proxy using [CONNECT method](https://tools.ietf.org/html/rfc2817). Most of the tools will try to connect to desired tcp port to start SSL/TLS handshake. This will not work since desired port is accessible only via HTTP proxy. The tester can easily circumvent this by using relaying software such as [socat](https://linux.die.net/man/1/socat).
-
-### Testing SSL Certificate Validity – Client and Server
-
-Firstly upgrade the browser because CA certs expire and in every release of the browser these are renewed. Examine the validity of the certificates used by the application. Browsers will issue a warning when encountering expired certificates, certificates issued by untrusted CAs, and certificates which do not match name wise with the site to which they should refer.
-
-By clicking on the padlock that appears in the browser window when visiting an HTTPS site, testers can look at information related to the certificate – including the issuer, period of validity, encryption characteristics, etc. If the application requires a client certificate, that tester has probably installed one to access it. Certificate information is available in the browser by inspecting the relevant certificate(s) in the list of the installed certificates.
-
-These checks must be applied to all visible SSL-wrapped communication channels used by the application. Though this is the usual HTTPS service running on port 443, there may be additional services involved depending on the web application architecture and on deployment issues (an HTTPS administrative port left open, HTTPS services on non-standard ports, etc.). Therefore, apply these checks to all SSL-wrapped ports which have been discovered. For example, the nmap scanner features a scanning mode (enabled by the `–sV` command-line switch) which identifies SSL-wrapped services. The Nessus vulnerability scanner has the capability of performing SSL checks on all SSL/TLS-wrapped services.
-
-#### Example 1. Testing for Certificate Validity (Manually)
-
-Rather than providing a fictitious example, this guide includes an anonymized real-life example to stress how frequently one stumbles on HTTPS sites whose certificates are inaccurate with respect to naming. The following screenshots refer to a regional site of a high-profile IT company.
-
-We are visiting a .it site and the certificate was issued to a .com site. Internet Explorer warns that the name on the certificate does not match the name of the site.
-
-![IE SSL Certificate Validity Warning](images/SSL_Certificate_Validity_Testing_IE_Warning.gif) \
-*Figure 4.9.1-1: Warning issued by Microsoft Internet Explorer*
-
-The message issued by Firefox is different. Firefox complains because it cannot ascertain the identity of the .com site the certificate refers to because it does not know the CA which signed the certificate. In fact, Internet Explorer and Firefox do not come pre-loaded with the same list of CAs. Therefore, the behavior experienced with various browsers may differ.
-
-![FF SSL Certificate Validity Warning](images/SSL_Certificate_Validity_Testing_Firefox_Warning.gif) \
-*Figure 4.9.1-2: Warning issued by Mozilla Firefox*
 
 ### Testing for Other Vulnerabilities
 
@@ -197,25 +171,3 @@ Then the tester can target all other tools to `localhost:9999`:
 `$ openssl s_client -connect localhost:9999`
 
 All connections to `localhost:9999` will be effectively relayed by socat via proxy to `destined.application.lan:443`.
-
-## Configuration Review
-
-### Testing for Weak SSL/TLS Cipher Suites
-
-Check the configuration of the web servers that provide HTTPS services. If the web application provides other SSL/TLS wrapped services, these should be checked as well.
-
-#### Example 1. Windows Server
-
-Check the configuration on a Microsoft Windows Server (2000, 2003 and 2008) using the registry key:
-
-`HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\`
-
-that has some sub-keys including Ciphers, Protocols and KeyExchangeAlgorithms.
-
-#### Example 2. Apache
-
-To check the cipher suites and protocols supported by the Apache2 web server, open the `ssl.conf` file and search for the `SSLCipherSuite`, `SSLProtocol`, `SSLHonorCipherOrder`,`SSLInsecureRenegotiation` and `SSLCompression` directives.
-
-### Testing SSL Certificate Validity – Client and Server Review
-
-Examine the validity of the certificates used by the application at both server and client levels. The usage of certificates is primarily at the web server level, however, there may be additional communication paths protected by SSL (for example, towards the DBMS). Testers should check the application architecture to identify all SSL protected channels.
