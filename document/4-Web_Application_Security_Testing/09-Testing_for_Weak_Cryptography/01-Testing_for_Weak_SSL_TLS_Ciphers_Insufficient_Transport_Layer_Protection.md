@@ -79,7 +79,7 @@ As well as the underlying TLS configuration being securely configured, the appli
 
 Mixed active content is when active resources (such as scripts to CSS) are loaded over unencrypted HTTP and included into a secure (HTTPS) page. This is dangerous because it would allow an attacker to modify these files (as they are sent unencrypted), which could allow them to execute arbitrary code (JavaScript or styles) in the page. Passive content (such as images) loaded over an insecure connection can also leak information or allow an attacker to deface the page, although it is less likely to lead to a full compromise.
 
-Note that modern browsers will block active content being loaded from insecure sources into secure pages.
+> Note: modern browsers will block active content being loaded from insecure sources into secure pages.
 
 #### Redirecting from HTTP to HTTPS
 
