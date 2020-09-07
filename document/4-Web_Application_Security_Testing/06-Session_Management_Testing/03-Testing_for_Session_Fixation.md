@@ -8,7 +8,7 @@
 
 Session fixation is enabled by the insecure practice of preserving the same value of the session cookies before and after authentication. This typically happens when session cookies are used to store state information even before login, e.g., to add items to a shopping cart.
 
-In the generic exploit of session fixation vulnerabilities, an attacker can obtain a set of session cookies from the target website without authenticating and force them into the victim's browser, using different techniques; if the victim later authenticates at the target, she will be identified by the session cookies chosen by the attacker, who will then become able to impersonate the victim.
+In the generic exploit of session fixation vulnerabilities, an attacker can obtain a set of session cookies from the target website without authenticating and force them into the victim's browser, using different techniques; if the victim later authenticates at the target and the cookied are not refreshed, she will be identified by the session cookies chosen by the attacker, who will then become able to impersonate the victim.
 
 The issue can be fixed by refreshing the session cookies after the authentication, otherwise the attack can be prevented by ensuring the cookie integrity, i.e. using full [HSTS](https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security) adoption<sup>[1](#myfootnote1)</sup> or `__Host-` and `__Secure-` prefixes in the cookie name.
 
@@ -18,7 +18,7 @@ The issue can be fixed by refreshing the session cookies after the authenticatio
 
 #### Intuition
 
-In this section will be given a general idea of the testing strategy that will be shown in the next section.
+In this section we give a general idea of the testing strategy that will be shown in the next section.
 
 The first step is to make a request to the site to be tested (_e.g._ `www.example.com`). If the tester requests the following:
 
@@ -73,18 +73,18 @@ HTML data
 ...
 ```
 
-As no new cookie has been issued upon a successful authentication the tester knows that it is possible to perform session hijacking.
+As no new cookie has been issued upon a successful authentication the tester knows that it is possible to perform session hijacking. Unless the integrity of the session cookie is ensured.
 
 > The tester can send a valid session identifier to a user (possibly using a social engineering trick), wait for them to authenticate, and subsequently verify that privileges have been assigned to this cookie.
 
 #### Strategy
 
 We assume to have a testing account on the website for the victim, that we call Alice.
-We simulate a scenario where a network attacker (i.e., an attacker who has access to the same network as the victim) forces in Alice's browser all the cookies which are not freshly issued after login and do not have integrity against her. After Alice's login, the attacker presents the forced cookies to access Alice's account: if they are enough to act on Alice's behalf, session fixation is possible.
+We simulate a scenario where a network attacker (i.e., an attacker who has access to the same network as the victim) forces in Alice's browser all the cookies which are not freshly issued after login and do not have integrity against the attacker. After Alice's login, the attacker presents the forced cookies to access Alice's account: if they are enough to act on Alice's behalf, session fixation is possible.
 
 Specifically, the testing strategy proceeds as follows:
 
-1. Login to `www.target.com` as Alice and reach the page under test;
+1. Login to `www.example.com` as Alice and reach the page under test;
 2. Find the cookies which satisfy both the following cookie compromission conditions:
     * lack of full HSTS adoption;
     * lack of `Host-` and `Secure-` prefixes in the cookie name;
@@ -92,13 +92,13 @@ Specifically, the testing strategy proceeds as follows:
 4. Perform an operation on Alice's account under test;
 5. Check: has the operation been performed? If yes, report as insecure;
 6. Clear the cookies from the browser;
-7. Login to `www.target.com` as the attacker and reach the page under test;
+7. Login to `www.example.com` as the attacker and reach the page under test;
 8. Restore in the browser the cookies previously kept at step 2;
 9. Perform again the operation under test;
-10. Clear the cookies from the browser and login to `www.target.com` as Alice;
+10. Clear the cookies from the browser and login to `www.example.com` as Alice;
 11. Check: has the operation been performed? If yes, report as insecure.
 
-We recommend using two different machines and/or browsers for Alice and the attacker. This allows to decrease the number of false positives if the web application does fingerprinting to verify an access enabled from a given cookie.
+We recommend using two different machines and/or browsers for Alice and the attacker. This allows one to decrease the number of false positives if the web application does fingerprinting to verify an access enabled from a given cookie.
 
 <a name="myfootnote1">1</a>: We refer to full HSTS adoption when a host activates HSTS for itself and all its sub-domains, and to partial HSTS adoption when a host activates HSTS just for itself.
 
