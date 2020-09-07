@@ -14,14 +14,14 @@ Transport layer security related issues can be broadly split into the following 
 
 ### Server Configuration
 
-There are a large number of protocol versions, ciphers and extensions supported by TLS. Many of these are considered to be legacy, and have cryptographic weaknesses, such as those listed below. Note that new weaknesses are likely to be identified over time, so this list may be incomplete.
+There are a large number of protocol versions, ciphers, and extensions supported by TLS. Many of these are considered to be legacy, and have cryptographic weaknesses, such as those listed below. Note that new weaknesses are likely to be identified over time, so this list may be incomplete.
 
 * SSLv2 (DROWN)
 * SSLv3 (POODLE)
 * TLSv1.0 (BEAST)
 * EXPORT ciphers
 * NULL ciphers
-* Anonymous ciphers (these may be supported on SMTP servers, as discussed in [RFC 7672](https://tools.ietf.org/html/rfc7672#section-8.2)
+* Anonymous ciphers (these may be supported on SMTP servers, as discussed in [RFC 7672](https://tools.ietf.org/html/rfc7672#section-8.2))
 * RC4 ciphers (NOMORE)
 * CBC mode ciphers (BEAST, Lucky 13)
 * TLS compression (CRIME)
@@ -55,11 +55,11 @@ As well as being cryptographically secure, the certificate must also be consider
 
 Some certificates may be issued for wildcard domains (such as `*.example.org`), meaning that they can be valid for multiple hostnames. Although convenient, there are a number of security concerns around this that should be considered. These are discussed in the [OWASP Transport Layer Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html#carefully-consider-the-use-of-wildcard-certificates).
 
-Certificates can also leak information about internal systems or domain names in the Issuer and SAN fields, which can be useful when trying to build up a picture of the internal network.
+Certificates can also leak information about internal systems or domain names in the Issuer and SAN fields, which can be useful when trying to build up a picture of the internal network or conduct social engineering activities.
 
 ### Implementation Vulnerabilities
 
-Over the years there have been vulnerabilities in the various TLS implementations. There are too many to list here, but some of the key ones are:
+Over the years there have been vulnerabilities in the various TLS implementations. There are too many to list here, but some of the key examples are:
 
 * [Debian OpenSSL Predictable Random Number Generator](https://www.debian.org/security/2008/dsa-1571) (CVE-2008-0166)
 * [OpenSSL Insecure Renegotiation](https://www.openssl.org/news/secadv/20091111.txt) (CVE-2009-3555)
@@ -69,7 +69,7 @@ Over the years there have been vulnerabilities in the various TLS implementation
 
 ### Application Vulnerabilities
 
-As well as the underlying TLS configuration being securely configured, the application also needs to use it in a secure way. Some of these points are addressed elsewhere in the WSTG:
+As well as the underlying TLS configuration being securely configured, the application also needs to use it in a secure way. Some of these points are addressed elsewhere in this guide:
 
 * [Not sending sensitive data over unencrypted channels (WSTG-CRYP-03)](03-Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels.md)
 * [Setting the HTTP Strict-Transport-Security header (WSTG-CONF-07)](../02-Configuration_and_Deployment_Management_Testing/07-Test_HTTP_Strict_Transport_Security.md)
@@ -77,15 +77,15 @@ As well as the underlying TLS configuration being securely configured, the appli
 
 #### Mixed Active Content
 
-Mixed active content is when active resources (such as scripts to CSS) are loaded over unencrypted HTTP and included into a secure (HTTPS) page. This is dangerous because it would allow an attacker to modify these files (as they are sent unencrypted), which could allow them to execute arbitrary code JavaScript in the page. Passive content (such as images) loaded over an insecure connection can also leak information or allow an attacker to deface the page, although it is less likely to lead to a full compromise.
+Mixed active content is when active resources (such as scripts to CSS) are loaded over unencrypted HTTP and included into a secure (HTTPS) page. This is dangerous because it would allow an attacker to modify these files (as they are sent unencrypted), which could allow them to execute arbitrary code (JavaScript or styles) in the page. Passive content (such as images) loaded over an insecure connection can also leak information or allow an attacker to deface the page, although it is less likely to lead to a full compromise.
 
 Note that modern browsers will block active content being loaded from insecure sources into secure pages.
 
-#### Redirecting From HTTP to HTTPS
+#### Redirecting from HTTP to HTTPS
 
 Many sites will accept connections over unencrypted HTTP, and then immediately redirect the user to the secure (HTTPS) version of the site with a `301 Moved Permanently` redirect and then setting the `Strict-Transport-Security` header to instruct the browser to always use HTTPS in future.
 
-However, this if an attacker is able to intercept this initial request, they could redirect the user to a malicious site, or use a tool such as [sslstrip](https://github.com/moxie0/sslstrip) to intercept subsequent requests.
+However, if an attacker is able to intercept this initial request, they could redirect the user to a malicious site, or use a tool such as [sslstrip](https://github.com/moxie0/sslstrip) to intercept subsequent requests.
 
 In order to defend against this type of attack, the site must use be added to the [preload list](https://hstspreload.org).
 
@@ -100,7 +100,7 @@ In order to defend against this type of attack, the site must use be added to th
 
 * Web browser
 * OpenSSL
-* Main scanning tools (Nessus, Nmap, SSL Labs, sslscan, sslyze, etc)
+* Main scanning tools (Nessus, Nmap, SSL Labs, sslscan, sslyze, O-Saft, etc)
 * STARTTLS
 
 ## References
