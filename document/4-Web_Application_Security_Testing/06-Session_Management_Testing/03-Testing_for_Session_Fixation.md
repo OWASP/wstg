@@ -10,7 +10,7 @@ Session fixation is enabled by the insecure practice of preserving the same valu
 
 In the generic exploit of session fixation vulnerabilities, an attacker can obtain a set of session cookies from the target website without authenticating and force them into the victim's browser, using different techniques; if the victim later authenticates at the target and the cookied are not refreshed, she will be identified by the session cookies chosen by the attacker, who will then become able to impersonate the victim.
 
-The issue can be fixed by refreshing the session cookies after the authentication, otherwise the attack can be prevented by ensuring the cookie integrity, i.e. using full [HSTS](https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security) adoption<sup>[1](#myfootnote1)</sup> or `__Host-` and `__Secure-` prefixes in the cookie name.
+The issue can be fixed by refreshing the session cookies after the authentication, otherwise the attack can be prevented by ensuring the cookie integrity, i.e. using full [HSTS](https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security) adoption<sup>[1](#myfootnote1)</sup> or adding `__Host-` and `__Secure-` prefixes to the cookie name.
 
 ## How to Test
 
@@ -85,22 +85,17 @@ We simulate a scenario where a network attacker (i.e., an attacker who has acces
 Specifically, the testing strategy proceeds as follows:
 
 1. Login to `www.example.com` as Alice and reach the page under test;
-2. Find the cookies which satisfy both the following cookie compromission conditions:
-    * lack of full HSTS adoption;
-    * lack of `Host-` and `Secure-` prefixes in the cookie name;
-3. Clear all the other cookies from the browser;
-4. Perform an operation on Alice's account under test;
-5. Check: has the operation been performed? If yes, report as insecure;
-6. Clear the cookies from the browser;
-7. Login to `www.example.com` as the attacker and reach the page under test;
-8. Restore in the browser the cookies previously kept at step 2;
-9. Perform again the operation under test;
-10. Clear the cookies from the browser and login to `www.example.com` as Alice;
-11. Check: has the operation been performed? If yes, report as insecure.
+2. In case there is not full HSTS adoption, find the cookies which have not `__Host-` and `__Secure-` prefixes in the cookie name and were not freshly issued after the login process, then clear all the other cookies from the browser;
+3. Perform an operation on Alice's account under test;
+4. Check: has the operation been performed? If yes, report as insecure;
+5. Clear the cookies from the browser;
+6. Login to `www.example.com` as the attacker and reach the page under test;
+7. Restore in the browser the cookies previously kept at step 2;
+8. Perform again the operation under test;
+9. Clear the cookies from the browser and login to `www.example.com` as Alice;
+10. Check: has the operation been performed? If yes, report as insecure.
 
 We recommend using two different machines and/or browsers for Alice and the attacker. This allows one to decrease the number of false positives if the web application does fingerprinting to verify an access enabled from a given cookie.
-
-<a name="myfootnote1">1</a>: We refer to full HSTS adoption when a host activates HSTS for itself and all its sub-domains, and to partial HSTS adoption when a host activates HSTS just for itself.
 
 ### Gray-Box Testing
 
@@ -111,6 +106,10 @@ Talk with developers and understand if they have implemented a session token ren
 ## Tools
 
 - [OWASP ZAP](https://www.zaproxy.org)
+
+## Notes
+
+<a name="myfootnote1">1</a>: We refer to full HSTS adoption when a host activates HSTS for itself and all its sub-domains, and to partial HSTS adoption when a host activates HSTS just for itself.
 
 ## References
 
