@@ -77,23 +77,19 @@ If the attacker's response contain the data of the `example_user`, then the appl
 
 ### Testing for Vertical Bypassing Authorization Schema
 
-A vertical authorization bypass is specific to the case that an attacker obtains a role higher than their own. Testing for this bypass focuses on verifying how the vertical authorization schema has been implemented for each role. For every function, page, specific role, and request that the application executes during the post-authentication phase, it is necessary to verify if it is possible to:
+A vertical authorization bypass is specific to the case that an attacker obtains a role higher than their own. Testing for this bypass focuses on verifying how the vertical authorization schema has been implemented for each role. For every function, page, specific role, or request that the application executes, it is necessary to verify if it is possible to:
 
 - Access resources that should be accessible only to a higher role user.
 - Operate functions on resources that should be operative only by a user that holds a higher or specific role identity.
 
-#### Testing Scheme
+For each role:
 
-The process of testing for bypass authorization scheme follows:
-
-1. For each role, register a user.
-2. Generate and keep two different session tokens by authenticating (one session token for each user).
+1. Register a user.
+2. Generate and store two different sessions based on the two different roles.
 3. For every request, change the session token from the original token to another role session token and diagnose the responses for each token.
-4. An application will be considered vulnerable if the responses are the same, contain the same private data, or indicate successful operations on other user resources or data.
+4. An application will be considered vulnerable if the weaker privileged token contains the same data, or indicate successful operations on higher privileged functions.
 
-In the [Tools](#tools) section, there are multiple add-ons for proxies such as ZAP and Burp that enables them to automatically conduct vertical authorization bypasses on a larger scale, coupling them with manual configuration and report reviewing.
-
-#### Example 1
+#### Banking Site Roles Scenario
 
 The following table illustrates the system roles on a banking site. Each role binds with specific permissions for the event menu functionality:
 
@@ -116,7 +112,7 @@ Suppose that the `deleteEvent` function is part of the administrator account men
 POST /account/deleteEvent HTTP/1.1
 Host: www.example.com
 [other HTTP headers]
-Cookie: SessionID=xh6Tm2DfgRp01AZ03
+Cookie: SessionID=ADMINISTRATOR_USER_SESSION
 
 EventID=1000001
 ```
@@ -127,7 +123,7 @@ The valid response:
 HTTP/1.1 200 OK
 [other HTTP headers]
 
-{“message”:”Event was deleted”}
+{"message": "Event was deleted"}
 ```
 
 The attacker may try and execute the same request:
@@ -136,24 +132,26 @@ The attacker may try and execute the same request:
 POST /account/deleteEvent HTTP/1.1
 Host: www.example.com
 [other HTTP headers]
-Cookie: SessionID=GbcvA1_CUSTOMER_ATTACKER_SESSION_6fhTscd
+Cookie: SessionID=CUSTOMER_USER_SESSION
 
 EventID=1000002
 ```
 
-If the response of the attacker’s request contains the same data `{“message”:”Event was deleted”}` the application is vulnerable.
+If the response of the attacker’s request contains the same data `{"message": "Event was deleted"}` the application is vulnerable.
 
-#### Example 2
+#### Administrator Page Access
 
-Suppose that the administrator menu is part of the administrator account. The application will be considered vulnerable if any other role rather than administrator could access the administrator menu. Sometimes, developer perform authorization validation at the GUI level only, and leave the functions without authorization validation, thus potentially resulting in a vulnerability.
+Suppose that the administrator menu is part of the administrator account.
+
+The application will be considered vulnerable if any other role rather than administrator could access the administrator menu. Sometimes, developer perform authorization validation at the GUI level only, and leave the functions without authorization validation, thus potentially resulting in a vulnerability.
 
 ### Testing for Access to Administrative Functions
 
-For example, suppose that the `AddUser` function is part of the administrative menu of the application, and it is possible to access it by requesting the following URL:
+For example, suppose that the `addUser` function is part of the administrative menu of the application, and it is possible to access it by requesting the following URL:
 
 `https://www.example.com/admin/addUser`
 
-Then, the following HTTP request is generated when calling the AddUser function:
+Then, the following HTTP request is generated when calling the `addUser` function:
 
 ```html
 POST /admin/addUser HTTP/1.1
@@ -171,7 +169,9 @@ Further questions or considerations would go in the following direction:
 
 ### Testing for Access to Resources Assigned to a Different Role
 
-For example analyze an application that uses a shared directory to store temporary PDF files for different users. Suppose that `documentABC.pdf` should be accessible only by the user `test1` with `roleA`. Verify if user `test2` with `roleB` can access that resource.
+Various applications setup resource controls based on user roles. Let's take an example CVs uploaded on a careers form to an S3 bucket.
+
+As a normal user, try accessing the location of those files. If you are able to retrieve them, modify them, or delete them, then the application is vulnerable.
 
 ### Testing for Special Request Header Handling
 
