@@ -21,11 +21,8 @@ Try to access the application as an administrative user and track all the admini
 
 ## How to Test
 
-In the following are the most common approaches to bypassing authorization schemes will be shown and explained.
-
-- horizontal bypass approaches
-- vertical bypass approaches
-- environment specific scenarios
+- Access resources and conduct operations horizontally.
+- Access resources and conduct operations vertically.
 
 ### Testing for Horizontal Bypassing Authorization Schema
 
