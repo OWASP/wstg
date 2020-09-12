@@ -10,7 +10,7 @@ Welcome to the official repository for the Open Web Application Security Project
 
 We are currently working on release version 5.0. You can [read the current document here on GitHub](https://github.com/OWASP/wstg/tree/master/document).
 
-For the last stable release, [view the previous version 4.0](https://owasp.org/www-project-web-security-testing-guide/).
+For the last stable release, [check release 4.1](https://github.com/OWASP/wstg/releases/tag/v4.1). Also available [online](https://owasp.org/www-project-web-security-testing-guide/v41/).
 
 - [How To Reference WSTG Scenarios](#how-to-reference-wstg-scenarios)
   - [Linking](#linking)
