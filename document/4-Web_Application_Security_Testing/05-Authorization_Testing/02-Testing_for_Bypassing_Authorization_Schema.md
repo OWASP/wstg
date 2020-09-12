@@ -236,6 +236,10 @@ Often admin panels or administrative related bits of functionality are only acce
 Note: Including a port element along with the address or hostname may also help bypass edge protections such as web application firewalls, etc.
 For example: `127.0.0.4:80`, `127.0.0.4:443`, `127.0.0.4:43982`
 
+## Remediation
+
+Employ the least privilege principles on the users, roles, and resources to ensure that no unauthorized access occurs.
+
 ## Tools
 
 - [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org/)
