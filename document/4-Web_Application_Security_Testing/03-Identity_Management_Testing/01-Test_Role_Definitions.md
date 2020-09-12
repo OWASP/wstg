@@ -6,13 +6,20 @@
 
 ## Summary
 
-It is common in modern enterprises to define system roles to manage users and authorization to system resources. In most system implementations it is expected that at least two roles exist, administrators and regular users. The first representing a role that permits access to privileged and sensitive functionality and information, the second representing a role that permits access to regular business functionality and information. Well developed roles should align with business processes which are supported by the application.
+Applications have several types of functionalities and services, and those require access permissions based on the needs of the user. That user could be:
 
-It is important to remember that cold, hard authorization isn't the only way to manage access to system objects. In more trusted environments where confidentiality is not critical, softer controls such as application workflow and audit logging can support data integrity requirements while not restricting user access to functionality or creating complex role structures that are difficult to manage. Its important to consider the Goldilocks principle when role engineering, in that defining too few, broad roles (thereby exposing access to functionality users don't require) is as bad as too many, tightly tailored roles (thereby restricting access to functionality users do require).
+- an administrator, where they manage the application functionalities.
+- an auditor, where they review the application transactions and provide a detailed report.
+- a support engineer, where they help customers debug and fix issues on their accounts.
+- a customer, where they interact with the application and benefit from its services.
+
+In order to handle these accesses and any other use case for that application, role definitions are setup (more known as [RBAC](https://en.wikipedia.org/wiki/Role-based_access_control)). Based on these roles, the user is capable of accomplishing the required task.
 
 ## Test Objectives
 
-Validate the system roles defined within the application sufficiently define and separate each system and business role to manage appropriate access to system functionality and information.
+- Identify and document roles used by the application.
+- Attempt to bypass, change, or access another role.
+- Review the granularity of the roles and the needs behind the permissions given.
 
 ## How to Test
 
