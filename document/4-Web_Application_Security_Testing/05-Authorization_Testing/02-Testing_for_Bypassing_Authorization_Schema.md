@@ -26,17 +26,15 @@ Try to access the application as an administrative user and track all the admini
 
 ### Testing for Horizontal Bypassing Authorization Schema
 
-This kind of test focuses on verifying how the Horizontal authorization schema has been implemented for each role or privilege to get access rights to data and resources of other users with the same role or privilege. Such elevation or changes should be prevented by the application. For every function, specific role and request that the application executes during the post-authentication phase, it is necessary to verify:
+For every function, specific role, or request that the application executes, it is necessary to verify:
 
 - Is it possible to access resources that should be accessible to a user that holds a different identity with the same role or privilege?
 - Is it possible to operate functions on resources that should be accessible to a user that holds a different identity?
 
-#### How to Test
-
 For each role:
 
-1. Register/generate two users.
-2. Generate and keep two different session tokens by authenticating (one session token for each user).
+1. Register or generate two users with identical privileges.
+2. Generate and keep two different session tokens.
 3. For every request, change the relevant parameters and the session token from token one to token two and diagnose the responses for each token.
 4. An application will be considered vulnerable if the responses are the same, contain same private data or indicate successful operation on other users' resource or data.
 
@@ -46,9 +44,9 @@ For example, suppose that the `viewSettings` function is part of every account m
 POST /account/viewSettings HTTP/1.1
 Host: www.example.com
 [other HTTP headers]
-Cookie: SessionID=xh6Tm2DfgRp01AZ03
+Cookie: SessionID=USER_SESSION
 
-UserID=user1
+username=example_user
 ```
 
 Valid and legitimate response:
@@ -57,23 +55,25 @@ Valid and legitimate response:
 HTTP1.1 200 OK
 [other HTTP headers]
 
-{“user mail:example@email.com}
-{“user address: Address Example}
+{
+  "username": "example_user",
+  "email": "example@email.com",
+  "address": "Example Address"
+}
 ```
 
-The attacker may try and execute that request with the same `Idpincode` parameter:
+The attacker may try and execute that request with the same `username` parameter:
 
 ```html
 POST /account/viewCCpincode HTTP/1.1
 Host: www.example.com
 [other HTTP headers]
-Cookie: SessionID=GbcvA1_ATTACKER_SESSION_6fhTscd
+Cookie: SessionID=ATTACKER_SESSION
 
-UserID=user1
+username=example_user
 ```
 
-If the response of the attacker’s request contains the same data, as the other user, the application is vulnerable. One can follow the same logic and the mentioned steps to replicate this testing approach.
-It is key for testing, to follow the principle of reconnaissance before the actual testing, in order to allow planned testing schedule.
+If the attacker's response contain the data of the `example_user`, then the application is vulnerable for lateral movement attacks, where a user can read or write other user's data.
 
 ### Testing for Vertical Bypassing Authorization Schema
 
