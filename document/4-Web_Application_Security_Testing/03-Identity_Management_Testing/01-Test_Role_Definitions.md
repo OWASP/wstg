@@ -23,28 +23,19 @@ In order to handle these accesses and any other use case for that application, r
 
 ## How to Test
 
-Either with or without the help of the system developers or administrators, develop an role versus permission matrix. The matrix should enumerate all the roles that can be provisioned and explore the permissions that are allowed to be applied to the objects including any constraints. If a matrix is provided with the application it should be validated by the tester, if it doesn't exist, the tester should generate it and determine whether the matrix satisfies the desired access policy for the application.
+### Roles Identification
 
-### Example 1
+The tester should start by identifying the application roles being tested through any of the following methods:
 
-| **ROLE** | **PERMISSION** |  **OBJECT** | **CONSTRAINTS** |
-|----------|----------------|-------------|-----------------|
-| Administrator |  Read | Customer records |
-| Manager | Read | Customer records |  Only records related to business unit |
-|  Staff | Read | Customer records |Only records associated with customers assigned by Manager |
-|Customer | Read | Customer record | Only own record |
+- Application documentation.
+- Guidance by the developers or administrators of the application.
+- Application comments.
+- Fuzz possible roles:
+  - cookie variable (*e.g.* `role=admin`, `isAdmin=True`)
+  - account variable (*e.g.* `Role: manager`)
+  - hidden directories or files (*e.g.* `/admin`, `/mod`, `/backups`)
+  - switching to well known users (*e.g.* admin, backups, etc.)
 
-A real world example of role definitions can be found in the [WordPress roles documentation](https://wordpress.org/support/article/roles-and-capabilities/). WordPress has six default roles ranging from Super Admin to a Subscriber.
-
-### Example 2
-
-Login with admin permission and access pages that only for administrator. Then, login as normal user and try to access those administrator pages URL directly.
-
-1. Login as administrator
-2. Visit admin page. i.e. `http://targetSite/Admin`
-3. Logout
-4. Login as normal user
-5. Visit the admin page URL directly. `http://targetSite/Admin`
 
 ## Tools
 
