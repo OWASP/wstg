@@ -9,8 +9,8 @@
 Testing for credentials transport means verifying that the user's authentication data is transferred via an encrypted channel to avoid being intercepted by malicious users. Web applications use [HTTPS](https://tools.ietf.org/html/rfc2818) to encrypt information in transit for both client to server and server to client communications. When a user or client interacts with a web site, there several ways credentials and other sensitive information can be in transit:
 
 1. A client sends a credential to request login
-2. An authenticated client sends a [session token](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#session-id-properties) to request sensitive information from the web site
-3. The server sends a session token back to the client after a successful login
+2. The server responds to a successful login with a session token
+3. An authenticated client sends a [session token](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#session-id-properties) to request sensitive information from the web site
 4. A client sends a token to the web site if they [forgot their password](https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html)
 
 Failure to protect any of these credentials with encryption allows an attacker with network sniffing tools to steal the user's account. The attacker could sniff traffic directly using [https://www.wireshark.org](Wireshark) or similar tools, or they could set up a proxy to capture HTTP requests. Therefore any sensitive data should be encrypted in transit.
@@ -19,9 +19,9 @@ The fact that traffic is encrypted does not necessarily mean that it's completel
 
 ## How to Test
 
-To test for credential transport, testers must capture traffic going to and from the client connected to the web application while performing actions that require authentication. To set up to capture traffic, turn on the web browser's [developer tools](https://developer.mozilla.org/en-US/docs/Tools) or use a proxy including [OWASP ZAP](https://owasp.org/www-project-zap/). Verify the capture works properly, and then interact with the web application in areas that require accounts or other credentials. In addition, testers should disable any features that make the web browser favour HTTPS, since some tests require the user to use [forced browsing](https://owasp.org/www-community/attacks/Forced_browsing) to intentionally request HTTP versions of sensitive pages.
+To test for credential transport, testers capture traffic while connected to a web application with credentials. They should check for credentials transferred during login and while using the application with a valid session. To set up to capture traffic, testers can turn on the web browser's [developer tools](https://developer.mozilla.org/en-US/docs/Tools) or use a proxy including [OWASP ZAP](https://owasp.org/www-project-zap/). In addition, testers should disable any features that make the web browser favour HTTPS, since some tests require the user to use [forced browsing](https://owasp.org/www-community/attacks/Forced_browsing) to intentionally request HTTP versions of sensitive pages.
 
-In all of the captures from interacting with the application, verify any session tokens, passphrases, password reset codes, or other sensitive data only go to or from the server through HTTPS. The following examples show what capture tools may show if a test passes or fails, where the test application is called `site-undert.test`.
+In all of the captures from interacting with the application, verify any session tokens, passphrases, password reset codes, or other sensitive data only go to or from the server through HTTPS. The following examples show what capture tools may show if a test passes or fails, where the test application is called `site-under.test`.
 
 ### Account Creation
 
