@@ -52,17 +52,14 @@ An administrator shouldn't have full powers on the system and should have a make
 
 ## Tools
 
-While the most thorough and accurate approach to completing this test is to conduct it manually, [spidering tools](https://www.zaproxy.org/docs/desktop/start/features/spider/) are also useful. Log on with each role in turn and spider the application (don't forget to exclude the logout link from the spidering).
+The above mentioned tests can be conducted without the use of any tool, except the one being used to access the system.
+
+To make things easier and more documented, one can use:
+
+- [Burp's Autorize extension](https://github.com/Quitten/Autorize)
+- [ZAP's spider](https://www.zaproxy.org/docs/desktop/start/features/spider/)
 
 ## References
 
 - [Role Engineering for Enterprise Security Management, E Coyne & J Davis, 2007](https://www.bookdepository.co.uk/Role-Engineering-for-Enterprise-Security-Management-Edward-Coyne/9781596932180)
 - [Role engineering and RBAC standards](https://csrc.nist.gov/projects/role-based-access-control#rbac-standard)
-
-## Remediation
-
-Remediation of the issues can take the following forms:
-
-- Role Engineering
-- Mapping of business roles to system roles
-- Separation of Duties
