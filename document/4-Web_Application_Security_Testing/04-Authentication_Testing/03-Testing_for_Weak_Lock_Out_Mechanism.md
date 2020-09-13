@@ -6,15 +6,14 @@
 
 ## Summary
 
-Account lockout mechanisms are used to mitigate brute force password guessing attacks. Accounts are typically locked after 3 to 5 unsuccessful login attempts and can only be unlocked after a predetermined period of time, via a self-service unlock mechanism, or intervention by an administrator. Account lockout mechanisms require a balance between protecting accounts from unauthorized access and protecting users from being denied authorized access.
+Account lockout mechanisms are used to mitigate brute force attacks. Some of the attacks that can be protected by using lockout mechanism:
 
-Note that this test should cover all aspects of authentication where lockout mechanisms would be appropriate, e.g. when the user is presented with security questions during forgotten password mechanisms (see [Testing for Weak security question/answer](08-Testing_for_Weak_Security_Question_Answer.md)).
+- Login password or username guessing attack
+- Code guessing on any 2FA functionality (Security questions as well)
 
-Without a strong lockout mechanism, the application may be susceptible to brute force attacks. After a successful brute force attack, a malicious user could have access to:
+ Account lockout mechanisms require a balance between protecting accounts from unauthorized access and protecting users from being denied authorized access. Accounts are typically locked after 3 to 5 unsuccessful attempts and can only be unlocked after a predetermined period of time, via a self-service unlock mechanism, or intervention by an administrator.
 
-- Confidential information or data: Private sections of a web application could disclose confidential documents, users' profile data, financial information, bank details, users' relationships, etc.
-- Administration panels: These sections are used by webmasters to manage (modify, delete, add) web application content, manage user provisioning, assign different privileges to the users, etc.
-- Opportunities for further attacks: authenticated sections of a web application could contain vulnerabilities that are not present in the public section of the web application and could contain advanced functionality that is not available to public users.
+Despite it being easy to conduct brute force attacks, the result of a successful attack is dangerous as the attacker will have full access on the user account and with it all the functionality and services they have access to.
 
 ## Test Objectives
 
