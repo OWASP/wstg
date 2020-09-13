@@ -34,8 +34,8 @@ For every function, specific role, or request that the application executes, it 
 For each role:
 
 1. Register or generate two users with identical privileges.
-2. Generate and keep two different session tokens.
-3. For every request, change the relevant parameters and the session token from token one to token two and diagnose the responses for each token.
+2. Establish and keep two different sessions active (one for each user).
+3. For every request, change the relevant parameters and the session identifier from token one to token two and diagnose the responses for each token.
 4. An application will be considered vulnerable if the responses are the same, contain same private data or indicate successful operation on other users' resource or data.
 
 For example, suppose that the `viewSettings` function is part of every account menu of the application with the same role, and it is possible to access it by requesting the following URL: `https://www.example.com/account/viewSettings`. Then, the following HTTP request is generated when calling the `viewSettings` function:
@@ -85,9 +85,9 @@ A vertical authorization bypass is specific to the case that an attacker obtains
 For each role:
 
 1. Register a user.
-2. Generate and store two different sessions based on the two different roles.
-3. For every request, change the session token from the original token to another role session token and diagnose the responses for each token.
-4. An application will be considered vulnerable if the weaker privileged token contains the same data, or indicate successful operations on higher privileged functions.
+2. Establish and maintain two different sessions based on the two different roles.
+3. For every request, change the session identifier from the original to another role's session identifier and evaluate the responses for each.
+4. An application will be considered vulnerable if the weaker privileged session contains the same data, or indicate successful operations on higher privileged functions.
 
 #### Banking Site Roles Scenario
 
@@ -143,7 +143,7 @@ If the response of the attacker’s request contains the same data `{"message": 
 
 Suppose that the administrator menu is part of the administrator account.
 
-The application will be considered vulnerable if any other role rather than administrator could access the administrator menu. Sometimes, developer perform authorization validation at the GUI level only, and leave the functions without authorization validation, thus potentially resulting in a vulnerability.
+The application will be considered vulnerable if any role other than administrator could access the administrator menu. Sometimes, developers perform authorization validation at the GUI level only, and leave the functions without authorization validation, thus potentially resulting in a vulnerability.
 
 ### Testing for Access to Administrative Functions
 
@@ -169,7 +169,7 @@ Further questions or considerations would go in the following direction:
 
 ### Testing for Access to Resources Assigned to a Different Role
 
-Various applications setup resource controls based on user roles. Let's take an example CVs uploaded on a careers form to an S3 bucket.
+Various applications setup resource controls based on user roles. Let's take an example resumes or CVs (curriculum vitae) uploaded on a careers form to an S3 bucket.
 
 As a normal user, try accessing the location of those files. If you are able to retrieve them, modify them, or delete them, then the application is vulnerable.
 
@@ -243,10 +243,10 @@ Employ the least privilege principles on the users, roles, and resources to ensu
 ## Tools
 
 - [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org/)
-- [ZAP extension: Access Control Testing](https://www.zaproxy.org/docs/desktop/addons/access-control-testing/)
-- [Burp extension: AuthMatrix](https://github.com/SecurityInnovation/AuthMatrix/)
-- [Burp extension: Autorize](https://github.com/Quitten/Autorize)
+  - [ZAP add-on: Access Control Testing](https://www.zaproxy.org/docs/desktop/addons/access-control-testing/)
 - [Port Swigger Burp Suite](https://portswigger.net/burp)
+  - [Burp extension: AuthMatrix](https://github.com/SecurityInnovation/AuthMatrix/)
+  - [Burp extension: Autorize](https://github.com/Quitten/Autorize)
 
 ## References
 
