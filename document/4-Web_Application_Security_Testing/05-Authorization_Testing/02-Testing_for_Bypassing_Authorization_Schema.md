@@ -8,7 +8,7 @@
 
 This kind of test focuses on verifying how the authorization schema has been implemented for each role or privilege to get access to reserved functions and resources.
 
-For every specific role the tester holds during the assessment, for every function and request that the application executes during the post-authentication phase, it is necessary to verify:
+For every specific role the tester holds during the assessment and for every function and request that the application executes during the post-authentication phase, it is necessary to verify:
 
 - Is it possible to access that resource even if the user is not authenticated?
 - Is it possible to access that resource after the log-out?
@@ -16,32 +16,162 @@ For every specific role the tester holds during the assessment, for every functi
 
 Try to access the application as an administrative user and track all the administrative functions.
 
-- Is it possible to access administrative functions also if the tester is logged as a user with standard privileges?
+- Is it possible to access administrative functions if the tester is logged in as a  non-admin user?
 - Is it possible to use these administrative functions as a user with a different role and for whom that action should be denied?
 
 ## How to Test
 
-### Testing for Access to Administrative Functions
+- Access resources and conduct operations horizontally.
+- Access resources and conduct operations vertically.
 
-For example, suppose that the `AddUser.jsp` function is part of the administrative menu of the application, and it is possible to access it by requesting the following URL:
+### Testing for Horizontal Bypassing Authorization Schema
 
-`https://www.example.com/admin/addUser.jsp`
+For every function, specific role, or request that the application executes, it is necessary to verify:
 
-Then, the following HTTP request is generated when calling the AddUser function:
+- Is it possible to access resources that should be accessible to a user that holds a different identity with the same role or privilege?
+- Is it possible to operate functions on resources that should be accessible to a user that holds a different identity?
+
+For each role:
+
+1. Register or generate two users with identical privileges.
+2. Establish and keep two different sessions active (one for each user).
+3. For every request, change the relevant parameters and the session identifier from token one to token two and diagnose the responses for each token.
+4. An application will be considered vulnerable if the responses are the same, contain same private data or indicate successful operation on other users' resource or data.
+
+For example, suppose that the `viewSettings` function is part of every account menu of the application with the same role, and it is possible to access it by requesting the following URL: `https://www.example.com/account/viewSettings`. Then, the following HTTP request is generated when calling the `viewSettings` function:
 
 ```html
-POST /admin/addUser.jsp HTTP/1.1
+POST /account/viewSettings HTTP/1.1
+Host: www.example.com
+[other HTTP headers]
+Cookie: SessionID=USER_SESSION
+
+username=example_user
+```
+
+Valid and legitimate response:
+
+```html
+HTTP1.1 200 OK
+[other HTTP headers]
+
+{
+  "username": "example_user",
+  "email": "example@email.com",
+  "address": "Example Address"
+}
+```
+
+The attacker may try and execute that request with the same `username` parameter:
+
+```html
+POST /account/viewCCpincode HTTP/1.1
+Host: www.example.com
+[other HTTP headers]
+Cookie: SessionID=ATTACKER_SESSION
+
+username=example_user
+```
+
+If the attacker's response contain the data of the `example_user`, then the application is vulnerable for lateral movement attacks, where a user can read or write other user's data.
+
+### Testing for Vertical Bypassing Authorization Schema
+
+A vertical authorization bypass is specific to the case that an attacker obtains a role higher than their own. Testing for this bypass focuses on verifying how the vertical authorization schema has been implemented for each role. For every function, page, specific role, or request that the application executes, it is necessary to verify if it is possible to:
+
+- Access resources that should be accessible only to a higher role user.
+- Operate functions on resources that should be operative only by a user that holds a higher or specific role identity.
+
+For each role:
+
+1. Register a user.
+2. Establish and maintain two different sessions based on the two different roles.
+3. For every request, change the session identifier from the original to another role's session identifier and evaluate the responses for each.
+4. An application will be considered vulnerable if the weaker privileged session contains the same data, or indicate successful operations on higher privileged functions.
+
+#### Banking Site Roles Scenario
+
+The following table illustrates the system roles on a banking site. Each role binds with specific permissions for the event menu functionality:
+
+|      ROLE     |     PERMISSION    | ADDITIONAL PERMISSION |
+|---------------|-------------------|-----------------------|
+| Administrator | Full Control      | Delete                |
+| Manager       | Modify, Add, Read | Add                   |
+| Staff         | Read, Modify      | Modify                |
+| Customer      | Read Only         |                       |
+
+The application will be considered vulnerable if the:
+
+1. Customer could operate administrator, manager or staff functions;
+2. Staff user could operate manager or administrator functions;
+3. Manager could operate administrator functions.
+
+Suppose that the `deleteEvent` function is part of the administrator account menu of the application, and it is possible to access it by requesting the following URL: `https://www.example.com/account/deleteEvent`. Then, the following HTTP request is generated when calling the `deleteEvent` function:
+
+```html
+POST /account/deleteEvent HTTP/1.1
+Host: www.example.com
+[other HTTP headers]
+Cookie: SessionID=ADMINISTRATOR_USER_SESSION
+
+EventID=1000001
+```
+
+The valid response:
+
+```html
+HTTP/1.1 200 OK
+[other HTTP headers]
+
+{"message": "Event was deleted"}
+```
+
+The attacker may try and execute the same request:
+
+```html
+POST /account/deleteEvent HTTP/1.1
+Host: www.example.com
+[other HTTP headers]
+Cookie: SessionID=CUSTOMER_USER_SESSION
+
+EventID=1000002
+```
+
+If the response of the attacker’s request contains the same data `{"message": "Event was deleted"}` the application is vulnerable.
+
+#### Administrator Page Access
+
+Suppose that the administrator menu is part of the administrator account.
+
+The application will be considered vulnerable if any role other than administrator could access the administrator menu. Sometimes, developers perform authorization validation at the GUI level only, and leave the functions without authorization validation, thus potentially resulting in a vulnerability.
+
+### Testing for Access to Administrative Functions
+
+For example, suppose that the `addUser` function is part of the administrative menu of the application, and it is possible to access it by requesting the following URL:
+
+`https://www.example.com/admin/addUser`
+
+Then, the following HTTP request is generated when calling the `addUser` function:
+
+```html
+POST /admin/addUser HTTP/1.1
 Host: www.example.com
 [...]
 
 userID=fakeuser&role=3&group=grp001
 ```
 
-What happens if a non-administrative user tries to execute that request? Will the user be created? If so, can the new user use their privileges?
+Further questions or considerations would go in the following direction:
+
+- What happens if a non-administrative user tries to execute that request?
+- Will the user be created?
+- If so, can the new user use their privileges?
 
 ### Testing for Access to Resources Assigned to a Different Role
 
-For example analyze an application that uses a shared directory to store temporary PDF files for different users. Suppose that `documentABC.pdf` should be accessible only by the user `test1` with `roleA`. Verify if user `test2` with `roleB` can access that resource.
+Various applications setup resource controls based on user roles. Let's take an example resumes or CVs (curriculum vitae) uploaded on a careers form to an S3 bucket.
+
+As a normal user, try accessing the location of those files. If you are able to retrieve them, modify them, or delete them, then the application is vulnerable.
 
 ### Testing for Special Request Header Handling
 
@@ -106,7 +236,18 @@ Often admin panels or administrative related bits of functionality are only acce
 Note: Including a port element along with the address or hostname may also help bypass edge protections such as web application firewalls, etc.
 For example: `127.0.0.4:80`, `127.0.0.4:443`, `127.0.0.4:43982`
 
+## Remediation
+
+Employ the least privilege principles on the users, roles, and resources to ensure that no unauthorized access occurs.
+
 ## Tools
 
 - [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org/)
+  - [ZAP add-on: Access Control Testing](https://www.zaproxy.org/docs/desktop/addons/access-control-testing/)
 - [Port Swigger Burp Suite](https://portswigger.net/burp)
+  - [Burp extension: AuthMatrix](https://github.com/SecurityInnovation/AuthMatrix/)
+  - [Burp extension: Autorize](https://github.com/Quitten/Autorize)
+
+## References
+
+[OWASP Application Security Verification Standard 4.0.1](https://github.com/OWASP/ASVS/tree/master/4.0), v4.0.1-1, v4.0.1-4, v4.0.1-9, v4.0.1-16
