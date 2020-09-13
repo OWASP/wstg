@@ -17,12 +17,14 @@ Despite it being easy to conduct brute force attacks, the result of a successful
 
 ## Test Objectives
 
-1. Evaluate the account lockout mechanism's ability to mitigate brute force password guessing.
-2. Evaluate the unlock mechanism's resistance to unauthorized account unlocking.
+- Evaluate the account lockout mechanism's ability to mitigate brute force password guessing.
+- Evaluate the unlock mechanism's resistance to unauthorized account unlocking.
 
 ## How to Test
 
-Typically, to test the strength of lockout mechanisms, you will need access to an account that you are willing or can afford to lock. If you have only one account with which you can log on to the web application, perform this test at the end of you test plan to avoid that you cannot continue your testing due to a locked account.
+### Lockout Mechanism
+
+To test the strength of lockout mechanisms, you will need access to an account that you are willing or can afford to lock. If you have only one account with which you can log on to the web application, perform this test at the end of your test plan to avoid losing testing time by being locked out.
 
 To evaluate the account lockout mechanism's ability to mitigate brute force password guessing, attempt an invalid log in by using the incorrect password a number of times, before using the correct password to verify that the account was locked out. An example test may be as follows:
 
@@ -38,9 +40,22 @@ To evaluate the account lockout mechanism's ability to mitigate brute force pass
 
 A CAPTCHA may hinder brute force attacks, but they can come with their own set of weaknesses, and should not replace a lockout mechanism.
 
-To evaluate the unlock mechanism's resistance to unauthorized account unlocking, initiate the unlock mechanism and look for weaknesses. Typical unlock mechanisms may involve secret questions or an emailed unlock link. The unlock link should be a unique one-time link, to stop an attacker from guessing or replaying the link and performing brute force attacks in batches. Secret questions and answers should be strong (see [Testing for Weak Security Question/Answer](08-Testing_for_Weak_Security_Question_Answer.md)).
+Repeat this process to every possible functionality that could require a lockout mechanism.
 
-Note that an unlock mechanism should only be used for unlocking accounts. It is not the same as a password recovery mechanism.
+### Unlock Mechanism
+
+To evaluate the unlock mechanism's resistance to unauthorized account unlocking, initiate the unlock mechanism and look for weaknesses. Typical unlock mechanisms may involve secret questions or an emailed unlock link. The unlock link should be a unique one-time link, to stop an attacker from guessing or replaying the link and performing brute force attacks in batches.
+
+Note that an unlock mechanism should only be used for unlocking accounts. It is not the same as a password recovery mechanism, yet could follow the same security practices.
+
+## Remediation
+
+Apply account unlock mechanisms depending on the risk level. In order from lowest to highest assurance:
+
+1. Time-based lockout and unlock.
+2. Self-service unlock (sends unlock email to registered email address).
+3. Manual administrator unlock.
+4. Manual administrator unlock with positive user identification.
 
 Factors to consider when implementing an account lockout mechanism:
 
@@ -57,13 +72,5 @@ Factors to consider when implementing an account lockout mechanism:
 
 ## References
 
-See the OWASP article on [Brute Force](https://owasp.org/www-community/attacks/Brute_force_attack) Attacks.
-
-## Remediation
-
-Apply account unlock mechanisms depending on the risk level. In order from lowest to highest assurance:
-
-1. Time-based lockout and unlock.
-2. Self-service unlock (sends unlock email to registered email address).
-3. Manual administrator unlock.
-4. Manual administrator unlock with positive user identification.
+- See the OWASP article on [Brute Force](https://owasp.org/www-community/attacks/Brute_force_attack) Attacks.
+- [Forgot Password CS](https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html).
