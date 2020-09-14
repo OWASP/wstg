@@ -43,3 +43,5 @@ else
 ```
 
 The above code contains a source `location.hash` that is controlled by the attacker that can inject directly in the `message` value a JavaScript Code to take the control of the user browser.
+
+[Back to previous section](./)

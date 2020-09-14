@@ -40,3 +40,5 @@ Set the permissions of the files and directories properly so that unauthorized u
 ## References
 
 - [CWE-732: Incorrect Permission Assignment for Critical Resource](https://cwe.mitre.org/data/definitions/732.html)
+
+[Back to previous section](./)

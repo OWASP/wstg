@@ -7,3 +7,5 @@
 4.5.3 [Testing for Privilege Escalation](03-Testing_for_Privilege_Escalation.md)
 
 4.5.4 [Testing for Insecure Direct Object References](04-Testing_for_Insecure_Direct_Object_References.md)
+
+[Back to previous section](../)

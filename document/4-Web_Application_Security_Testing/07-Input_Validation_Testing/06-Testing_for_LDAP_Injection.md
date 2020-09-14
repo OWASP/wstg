@@ -106,3 +106,5 @@ which is correct and always true. This way, the tester will gain logged-in statu
 - [IBM paper: Understanding LDAP](https://www.redbooks.ibm.com/redbooks/pdfs/sg244986.pdf)
 - [RFC 1960: A String Representation of LDAP Search Filters](https://www.ietf.org/rfc/rfc1960.txt)
 - [LDAP injection](https://www.blackhat.com/presentations/bh-europe-08/Alonso-Parada/Whitepaper/bh-eu-08-alonso-parada-WP.pdf)
+
+[Back to previous section](./)

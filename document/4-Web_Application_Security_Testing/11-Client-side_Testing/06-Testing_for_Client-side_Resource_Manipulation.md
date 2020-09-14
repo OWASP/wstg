@@ -87,3 +87,5 @@ The following table shows possible injection points (sink) that should be checke
 | Script          | script                                    | src    |
 
 The most interesting ones are those that allow to an attacker to include client-side code (for example JavaScript) that could lead to XSS vulnerabilities.
+
+[Back to previous section](./)

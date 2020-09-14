@@ -66,3 +66,5 @@ Perform a log out in the tested application. Verify if there is a central portal
 ### Whitepapers
 
 - [Cookie replay attacks in ASP.NET when using forms authentication](https://www.vanstechelman.eu/content/cookie-replay-attacks-in-aspnet-when-using-forms-authentication)
+
+[Back to previous section](./)

@@ -145,3 +145,5 @@ CWE-780 Use of RSA Algorithm without OAEP
 - ISO 18033-3:2015 – Block Ciphers
 
 Tony Hsu - hsiang\_chih\[at\]yahoo.com
+
+[Back to previous section](./)

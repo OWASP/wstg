@@ -21,3 +21,5 @@
 4.2.10 [Test for Subdomain Takeover](10-Test_for_Subdomain_Takeover.md)
 
 4.2.11 [Test Cloud Storage](11-Test_Cloud_Storage.md)
+
+[Back to previous section](../)

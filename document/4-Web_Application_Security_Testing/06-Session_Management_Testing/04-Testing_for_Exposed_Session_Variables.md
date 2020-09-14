@@ -82,3 +82,5 @@ All interaction between the Client and Application should be tested at least aga
 - [RFCs 2109 & 2965 – HTTP State Management Mechanism [D. Kristol, L. Montulli]](https://www.ietf.org/rfc/rfc2965.txt)
 
 - [RFC 2616 – Hypertext Transfer Protocol - HTTP/1.1](https://www.ietf.org/rfc/rfc2616.txt)
+
+[Back to previous section](./)

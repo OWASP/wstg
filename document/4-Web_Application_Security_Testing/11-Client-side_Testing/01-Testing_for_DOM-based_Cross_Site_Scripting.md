@@ -85,3 +85,5 @@ For this reason, automated testing will not detect areas that may be susceptible
 Manual testing should therefore be undertaken and can be done by examining areas in the code where parameters are referred to that may be useful to an attacker. Examples of such areas include places where code is dynamically written to the page and elsewhere where the DOM is modified or even where scripts are directly executed. Further examples are described in this excellent [DOM XSS article by Amit Klein](http://www.webappsec.org/projects/articles/071105.html).
 
 For further OWASP resources on preventing DOM-based XSS, see the [DOM-based XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html).
+
+[Back to previous section](./)

@@ -102,3 +102,5 @@ function callback(e) {
 A more secure approach would be to use the property `innerText` instead of `innerHTML`.
 
 For further OWASP resources regarding web messaging, see [OWASP HTML5 Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/HTML5_Security_Cheat_Sheet.html)
+
+[Back to previous section](./)

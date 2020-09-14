@@ -98,3 +98,5 @@ Cookie Editor is a cookie manager. You can add, delete, edit, search, protect, a
 ### Books
 
 - [The Decision Model: A Business Logic Framework Linking Business and Technology, By Barbara Von Halle, Larry Goldberg, Published by CRC Press, ISBN1420082817 (2010)](https://isbnsearch.org/isbn/1420082817)
+
+[Back to previous section](./)

@@ -81,3 +81,5 @@ Vulnerability scanners, such as Nessus and Nikto check for the existence of well
 - [wget](https://www.gnu.org/software/wget)
 - [curl](https://curl.haxx.se)
 - google for “web mirroring tools”.
+
+[Back to previous section](./)

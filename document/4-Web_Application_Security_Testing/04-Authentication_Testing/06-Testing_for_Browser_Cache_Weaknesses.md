@@ -95,3 +95,5 @@ The methodology for testing is equivalent to the black-box case, as in both scen
 ### Whitepapers
 
 - [Caching in HTTP](https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html)
+
+[Back to previous section](./)

@@ -63,3 +63,5 @@ $(window).bind("hashchange",setMessage)
 ```
 
 It is possible to inject HTML code.
+
+[Back to previous section](./)

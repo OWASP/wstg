@@ -122,3 +122,5 @@ The tester can also identify what other objects, methods and properties can be e
 1. [Tplmap](https://github.com/epinna/tplmap)
 2. [Backslash Powered Scanner Burp Suite extension](https://github.com/PortSwigger/backslash-powered-scanner)
 3. [Template expression test strings/payloads list](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Template%20Injection)
+
+[Back to previous section](./)

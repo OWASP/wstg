@@ -55,3 +55,5 @@ http://www.victim.site/?#javascript:alert(document.cookie)
 ```
 
 When testing for this vulnerability, consider that some characters are treated differently by different browsers. For reference, see [DOM-based XSS](https://owasp.org/www-community/attacks/DOM_Based_XSS).
+
+[Back to previous section](./)

@@ -591,3 +591,5 @@ Technology specific Testing Guide pages have been created for the following DBMS
 ### Documentation on SQL Injection Vulnerabilities in Products
 
 - [Anatomy of the SQL injection in Drupal's database comment filtering system SA-CORE-2015-003](https://www.vanstechelman.eu/content/anatomy-of-the-sql-injection-in-drupals-database-comment-filtering-system-sa-core-2015-003)
+
+[Back to previous section](./)

@@ -21,3 +21,5 @@ Different types of buffer overflow vulnerabilities have different testing method
 ### Code Review
 
 See the [OWASP Code Review Guide](https://wiki.owasp.org/index.php/Category:OWASP_Code_Review_Project) article on how to review code for Buffer Overrun and Overflow vulnerabilities.
+
+[Back to previous section](./)

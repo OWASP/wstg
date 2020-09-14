@@ -176,3 +176,5 @@ When this data is sent as a POST request, the server will happily accept the nam
 - [A Most-Neglected Fact About Cross Site Request Forgery (CSRF)](http://yehg.net/lab/pr0js/view.php/A_Most-Neglected_Fact_About_CSRF.pdf)
 - [Multi-POST CSRF](https://www.lanmaster53.com/2013/07/17/multi-post-csrf/)
 - [SANS Pen Test Webcast: Complete Application pwnage via Multi POST XSRF](https://www.youtube.com/watch?v=EOs5PZiiwug)
+
+[Back to previous section](./)

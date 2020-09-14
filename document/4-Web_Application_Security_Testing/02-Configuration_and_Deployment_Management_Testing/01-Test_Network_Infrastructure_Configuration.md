@@ -60,3 +60,5 @@ Some companies choose not to manage all aspects of their web server applications
 - [1] WebSEAL, also known as Tivoli Authentication Manager, is a reverse proxy from IBM which is part of the Tivoli framework.
 - [2] Such as Symantec's Bugtraq, ISS' X-Force, or NIST's National Vulnerability Database (NVD).
 - [3] There are some GUI-based administration tools for Apache (like NetLoony) but they are not in widespread use yet.
+
+[Back to previous section](./)

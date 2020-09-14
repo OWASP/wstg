@@ -216,3 +216,5 @@ The sensitive data can be leaked with the following JavaScript code:
     <script src="http://victim.com/..../javascript.js"></script>
 ...
 ```
+
+[Back to previous section](./)

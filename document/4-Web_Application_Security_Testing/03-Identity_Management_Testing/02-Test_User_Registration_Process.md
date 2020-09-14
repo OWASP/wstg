@@ -52,3 +52,5 @@ A HTTP proxy can be a useful tool to test this control.
 ## Remediation
 
 Implement identification and verification requirements that correspond to the security requirements of the information the credentials protect.
+
+[Back to previous section](./)

@@ -74,3 +74,5 @@ Factors to consider when implementing an account lockout mechanism:
 
 - See the OWASP article on [Brute Force](https://owasp.org/www-community/attacks/Brute_force_attack) Attacks.
 - [Forgot Password CS](https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html).
+
+[Back to previous section](./)

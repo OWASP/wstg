@@ -15,3 +15,5 @@
 4.6.7 [Testing Session Timeout](07-Testing_Session_Timeout.md)
 
 4.6.8 [Testing for Session Puzzling](08-Testing_for_Session_Puzzling.md)
+
+[Back to previous section](../)

@@ -88,3 +88,5 @@ Construct custom Web Socket requests and handle responses to directly test your 
 - [Jussi-Pekka Erkkilä - WebSocket Security Analysis (PDF)](http://juerkkil.iki.fi/files/writings/websocket2012.pdf)
 - [Robert Koch- On WebSockets in Penetration Testing](http://www.ub.tuwien.ac.at/dipl/2013/AC07815487.pdf)
 - [DigiNinja - OWASP ZAP and Web Sockets](http://www.digininja.org/blog/zap_web_sockets.php)
+
+[Back to previous section](./)

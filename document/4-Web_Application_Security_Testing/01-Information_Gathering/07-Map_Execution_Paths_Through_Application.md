@@ -58,3 +58,5 @@ The automatic spider is a tool used to automatically discover new resources (URL
 ## References
 
 - [Code Coverage](https://en.wikipedia.org/wiki/Code_coverage)
+
+[Back to previous section](./)

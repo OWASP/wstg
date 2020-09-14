@@ -94,3 +94,5 @@ Performing these steps is mostly a matter of using grep to find the right keywor
 - [Header Based Exploitation](https://www.cgisecurity.com/papers/header-based-exploitation.txt)
 - [SSI Injection instead of JavaScript Malware](https://jeremiahgrossman.blogspot.com/2006/08/ssi-injection-instead-of-javascript.html)
 - [IIS: “Notes on Server-Side Includes (SSI) syntax”](https://blogs.iis.net/robert_mcmurray/archive/2010/12/28/iis-notes-on-server-side-includes-ssi-syntax-kb-203064-revisited.aspx)
+
+[Back to previous section](./)

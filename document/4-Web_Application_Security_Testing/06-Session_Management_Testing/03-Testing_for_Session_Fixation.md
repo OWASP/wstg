@@ -98,3 +98,5 @@ Talk with developers and understand if they have implemented a session token ren
 - [Session Fixation](https://owasp.org/www-community/attacks/Session_fixation)
 - [ACROS Security](https://www.acrossecurity.com/papers/session_fixation.pdf)
 - [Chris Shiflett](http://shiflett.org/articles/session-fixation)
+
+[Back to previous section](./)

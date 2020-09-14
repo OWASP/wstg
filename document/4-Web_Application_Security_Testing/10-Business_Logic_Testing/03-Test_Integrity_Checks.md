@@ -75,3 +75,5 @@ All [Input Validation](../07-Input_Validation_Testing/README.md) test cases.
 ## Remediation
 
 The application must be smart enough to check for relational edits and not allow users to submit information directly to the server that is not valid, trusted because it came from a non-editable controls or the user is not authorized to submit through the front end. Additionally, any component that can be edited must have mechanisms in place to prevent unintentional/intentional writing or updating.
+
+[Back to previous section](./)

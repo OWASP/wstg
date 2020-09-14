@@ -113,3 +113,5 @@ To mitigate the risk of subdomain takeover the vulnerable DNS resource record(s)
 4. [Sublist3r - OSINT subdomain enumeration tool](https://github.com/aboul3la/Sublist3r)
 5. [dnsrecon - DNS Enumeration Script](https://github.com/darkoperator/dnsrecon)
 6. [OWASP Amass DNS enumeration](https://github.com/OWASP/Amass)
+
+[Back to previous section](./)

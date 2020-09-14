@@ -64,3 +64,5 @@ An electronic bulletin board system may be designed to ensure that initial posts
 ## Remediation
 
 The application must be self-aware and have checks in place ensuring that the users complete each step in the work flow process in the correct order and prevent attackers from circumventing/skipping/or repeating any steps/processes in the workflow. Test for workflow vulnerabilities involves developing business logic abuse/misuse cases with the goal of successfully completing the business process while not completing the correct steps in the correct order.
+
+[Back to previous section](./)

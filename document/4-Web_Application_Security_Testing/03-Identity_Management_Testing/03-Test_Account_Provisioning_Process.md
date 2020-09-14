@@ -38,3 +38,5 @@ De-provisioning of users requires the administrator to select the users to be de
 ## Tools
 
 While the most thorough and accurate approach to completing this test is to conduct it manually, HTTP proxy tools could be also useful.
+
+[Back to previous section](./)

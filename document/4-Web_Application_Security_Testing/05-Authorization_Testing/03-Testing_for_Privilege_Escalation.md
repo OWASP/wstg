@@ -116,3 +116,5 @@ Weak Session ID has algorithm may be vulnerable to brute Force attack. For examp
 ## Tools
 
 - [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
+
+[Back to previous section](./)

@@ -157,3 +157,5 @@ Acceptance testing tools are used to validate the functionality of web applicati
 - [wget](https://www.gnu.org/software/wget/)
 - [Wget for windows](http://gnuwin32.sourceforge.net/packages/wget.htm)
 - [curl](https://curl.haxx.se/)
+
+[Back to previous section](./)

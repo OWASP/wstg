@@ -7,3 +7,5 @@
 4.9.3 [Testing for Sensitive Information Sent via Unencrypted Channels](03-Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels.md)
 
 4.9.4 [Testing for Weak Encryption](04-Testing_for_Weak_Encryption.md)
+
+[Back to previous section](../)

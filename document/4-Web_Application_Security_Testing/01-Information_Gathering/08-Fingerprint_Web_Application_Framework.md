@@ -257,3 +257,5 @@ While efforts can be made to use different cookie names (through changing config
 
 - [Saumil Shah: “An Introduction to HTTP fingerprinting”](https://web.archive.org/web/20190526182734/https://net-square.com/httprint_paper.html)
 - [Anant Shrivastava : “Web Application Finger Printing”](https://anantshri.info/articles/web_app_finger_printing.html)
+
+[Back to previous section](./)

@@ -270,3 +270,5 @@ _Figure 6.F-9: Mozilla Firefox Responsive Design Mode_
 - [Black Hills Information Security - Webcast: Free Tools! How to Use Developer Tools and JavaScript in Webapp Pentests](https://www.blackhillsinfosec.com/webcast-free-tools-how-to-use-developer-tools-and-javascript-in-webapp-pentests/)
 - [Greg Malcolm - Chrome Developer Tools: Raiding the Armory](https://github.com/gregmalcolm/wacky-wandas-wicked-weapons-frontend/blob/fix-it/README.md)
 - [List of UserAgent Strings](http://user-agent-string.info/list-of-ua)
+
+[Back to previous section](./)

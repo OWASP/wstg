@@ -41,3 +41,5 @@ Strict-Transport-Security: max-age=15768000
 - [OWASP HTTP Strict Transport Security](https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html)
 - [OWASP Appsec Tutorial Series - Episode 4: Strict Transport Security](https://www.youtube.com/watch?v=zEV3HOuM_Vw)
 - [HSTS Specification](https://tools.ietf.org/html/rfc6797)
+
+[Back to previous section](./)

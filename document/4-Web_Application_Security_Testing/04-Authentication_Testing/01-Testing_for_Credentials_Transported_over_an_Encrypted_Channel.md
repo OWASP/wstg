@@ -107,3 +107,5 @@ Speak with the developers of the web application and try to understand if they a
 
 - [HTTP/1.1: Security Considerations](https://www.w3.org/Protocols/rfc2616/rfc2616-sec15.html)
 - [SSL is not about encryption](https://www.troyhunt.com/ssl-is-not-about-encryption/)
+
+[Back to previous section](./)

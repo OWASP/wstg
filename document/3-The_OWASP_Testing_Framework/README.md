@@ -15,3 +15,5 @@
 3.7 [A Typical SDLC Testing Workflow](0-The_Web_Security_Testing_Framework.md#a-typical-sdlc-testing-workflow)
 
 3.8 [Penetration Testing Methodologies](1-Penetration_Testing_Methodologies.md)
+
+[Back to previous section](../)

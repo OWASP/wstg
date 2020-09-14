@@ -170,3 +170,5 @@ The web application and its components should be running under strict permission
 - [OS Commanding](http://projects.webappsec.org/w/page/13246950/OS%20Commanding)
 - [CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')](https://cwe.mitre.org/data/definitions/78.html)
 - [ENV33-C. Do not call system()](https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132)
+
+[Back to previous section](./)

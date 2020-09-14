@@ -75,3 +75,5 @@ The set of active tests have been split into 11 categories:
 - Cryptography
 - Business Logic Testing
 - Client-side Testing
+
+[Back to previous section](./)

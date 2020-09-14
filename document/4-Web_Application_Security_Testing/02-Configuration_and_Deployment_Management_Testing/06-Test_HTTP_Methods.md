@@ -186,3 +186,5 @@ Server: Apache
 - [Amit Klein: “XS(T) attack variants which can, in some cases, eliminate the need for TRACE”](https://www.securityfocus.com/archive/107/308433)
 - [Fortify - Misused HTTP Method Override](https://vulncat.fortify.com/en/detail?id=desc.dynamic.xtended_preview.often_misused_http_method_override)
 - [CAPEC-107: Cross Site Tracing](https://capec.mitre.org/data/definitions/107.html)
+
+[Back to previous section](./)

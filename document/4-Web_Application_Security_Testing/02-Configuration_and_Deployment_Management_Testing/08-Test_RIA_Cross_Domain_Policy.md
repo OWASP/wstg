@@ -95,3 +95,5 @@ UCSD: [Analyzing the Crossdomain Policies of Flash Applications](http://cseweb.u
 - Stefan Esser: [“Poking new holes with Flash Crossdomain Policy Files”](http://www.hardened-php.net/library/poking_new_holes_with_flash_crossdomain_policy_files.html)
 - Jeremiah Grossman: [“Crossdomain.xml Invites Cross-site Mayhem"](http://jeremiahgrossman.blogspot.com/2008/05/crossdomainxml-invites-cross-site.html)
 - Google Doctype: ["Introduction to Flash security"](http://code.google.com/p/doctype-mirror/wiki/ArticleFlashSecurity)
+
+[Back to previous section](./)

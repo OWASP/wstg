@@ -419,3 +419,5 @@ The followings source code keyword may apply to C.
 - [XML Injection](https://www.whitehatsec.com/glossary/content/xml-injection)
 - [Gregory Steuck, “XXE (Xml eXternal Entity) attack”](https://www.securityfocus.com/archive/1/297714)
 - [OWASP XXE Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html)
+
+[Back to previous section](./)

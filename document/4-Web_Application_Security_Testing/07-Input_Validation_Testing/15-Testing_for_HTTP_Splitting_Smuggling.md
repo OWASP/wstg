@@ -130,3 +130,5 @@ Note that HTTP Smuggling does `*not*` exploit any vulnerability in the target we
 - [Amit Klein: “HTTP Request Smuggling - ERRATA (the IIS 48K buffer phenomenon)”](https://www.securityfocus.com/archive/1/411418)
 - [Amit Klein: “HTTP Response Smuggling”](https://www.securityfocus.com/archive/1/425593)
 - [Chaim Linhart, Amit Klein, Ronen Heled, Steve Orrin: “HTTP Request Smuggling”](https://www.cgisecurity.com/lib/http-request-smuggling.pdf)
+
+[Back to previous section](./)

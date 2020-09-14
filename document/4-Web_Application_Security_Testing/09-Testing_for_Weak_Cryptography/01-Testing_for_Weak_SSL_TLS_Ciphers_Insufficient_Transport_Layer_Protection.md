@@ -1240,3 +1240,5 @@ To check the cipher suites and protocols supported by the Apache2 web server, op
 ### Testing SSL Certificate Validity – Client and Server Review
 
 Examine the validity of the certificates used by the application at both server and client levels. The usage of certificates is primarily at the web server level, however, there may be additional communication paths protected by SSL (for example, towards the DBMS). Testers should check the application architecture to identify all SSL protected channels.
+
+[Back to previous section](./)

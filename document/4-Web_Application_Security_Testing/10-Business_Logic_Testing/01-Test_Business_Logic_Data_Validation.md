@@ -64,3 +64,5 @@ All [Input Validation](../07-Input_Validation_Testing/README.md) test cases.
 ## Remediation
 
 The application/system must ensure that only “logically valid” data is accepted at all input and hand off points of the application or system and data is not simply trusted once it has entered the system.
+
+[Back to previous section](./)

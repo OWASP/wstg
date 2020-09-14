@@ -81,3 +81,5 @@ The tester can use many of the tools used for the other test cases.
 ## Remediation
 
 Build inactive defenses against application misuse.
+
+[Back to previous section](./)

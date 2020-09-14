@@ -19,3 +19,5 @@
 4.1.9 [Fingerprint Web Application](09-Fingerprint_Web_Application.md)
 
 4.1.10 [Map Application Architecture](10-Map_Application_Architecture.md)
+
+[Back to previous section](../)

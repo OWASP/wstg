@@ -271,3 +271,5 @@ The following tools may be helpful in working with SWF:
 - [Decompiler – Flare](http://www.nowrap.de/flare.html)
 - [Disassembler – Flasm](http://flasm.sourceforge.net/)
 - [Swfmill – Convert Swf to XML and vice versa](https://www.swfmill.org/)
+
+[Back to previous section](./)

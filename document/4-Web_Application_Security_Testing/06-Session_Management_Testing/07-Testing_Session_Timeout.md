@@ -44,3 +44,5 @@ Note that the most important thing is for the application to invalidate the sess
 ### OWASP Resources
 
 - [Session Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html)
+
+[Back to previous section](./)

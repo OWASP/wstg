@@ -76,3 +76,5 @@ The following steps rely on an entirely gray-box approach. If only some of this 
 ## References
 
 - [CIRT](https://cirt.net/passwords)
+
+[Back to previous section](./)

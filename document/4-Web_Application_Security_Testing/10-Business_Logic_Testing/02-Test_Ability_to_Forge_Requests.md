@@ -64,3 +64,5 @@ Also, if an attacker was able to see through a proxy that the application has a 
 ## Remediation
 
 The application must be smart enough and designed with business logic that will prevent attackers from predicting and manipulating parameters to subvert programmatic or business logic flow, or exploiting hidden/undocumented functionality such as debugging.
+
+[Back to previous section](./)

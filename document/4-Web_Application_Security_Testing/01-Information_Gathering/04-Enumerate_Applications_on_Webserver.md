@@ -197,3 +197,5 @@ Not applicable. The methodology remains the same as listed in black-box testing 
 - [Nmap](https://nmap.org/)
 - [Nessus Vulnerability Scanner](https://www.tenable.com/products/nessus)
 - [Nikto](https://www.cirt.net/nikto2)
+
+[Back to previous section](./)

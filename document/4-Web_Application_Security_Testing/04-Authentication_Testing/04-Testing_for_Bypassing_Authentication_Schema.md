@@ -126,3 +126,5 @@ In PHP, a comparison between a string value and a boolean value (1 - “TRUE”)
 
 - Mark Roxberry: “PHPBB 2.0.13 vulnerability”
 - [David Endler: “Session ID Brute Force Exploitation and Prediction”](https://www.cgisecurity.com/lib/SessionIDs.pdf)
+
+[Back to previous section](./)

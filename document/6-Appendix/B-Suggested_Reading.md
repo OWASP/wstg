@@ -70,3 +70,5 @@
 - [Vicnum](https://sourceforge.net/projects/vicnum/)
 - [WebGoat](https://owasp.org/www-project-webgoat/)
 - [WebMaven (better known as Buggy Bank)](https://www.mavensecurity.com/about/webmaven)
+
+[Back to previous section](./)

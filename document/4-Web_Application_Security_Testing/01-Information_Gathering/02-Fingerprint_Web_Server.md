@@ -183,3 +183,5 @@ While exposed server information is not necessarily in itself a vulnerability, i
 - Obscuring web server information in headers, such as with Apache's [mod_headers module](https://httpd.apache.org/docs/current/mod/mod_headers.html).
 - Using a hardened [reverse proxy server](https://en.wikipedia.org/wiki/Proxy_server#Reverse_proxies) to create an additional layer of security between the web server and the Internet.
 - Ensuring that web servers are kept up-to-date with the latest software and security patches.
+
+[Back to previous section](./)

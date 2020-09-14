@@ -60,3 +60,5 @@ In addition to the previous test it is important to verify:
 ## Remediation
 
 The password change or reset function is a sensitive function and requires some form of protection, such as requiring users to re-authenticate or presenting the user with confirmation screens during the process.
+
+[Back to previous section](./)

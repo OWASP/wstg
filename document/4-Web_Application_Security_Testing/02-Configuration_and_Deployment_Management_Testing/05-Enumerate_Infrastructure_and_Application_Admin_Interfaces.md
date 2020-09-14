@@ -127,3 +127,5 @@ wp-admin/admin-header.php
 - [Default Password list](https://cirt.net/passwords)
 - [FuzzDB can be used to do brute force browsing admin login path](https://github.com/fuzzdb-project/fuzzdb/blob/f801f5c5adc9aa5e54f20d273d213c5ab58826b9/discovery/predictable-filepaths/login-file-locations/Logins.fuzz.txt)
 - [Common admin or debugging parameters](https://github.com/fuzzdb-project/fuzzdb/blob/f801f5c5adc9aa5e54f20d273d213c5ab58826b9/attack/business-logic/CommonDebugParamNames.fuzz.txt)
+
+[Back to previous section](./)

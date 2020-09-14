@@ -202,3 +202,5 @@ The following table summarizes some special variables and functions to look at w
 - [Amit Klein: “Cross-site Scripting Explained”](https://courses.csail.mit.edu/6.857/2009/handouts/css-explained.pdf)
 - [Gunter Ollmann: “HTML Code Injection and Cross-site Scripting”](http://www.technicalinfo.net/papers/CSS.html)
 - [CGISecurity.com: “The Cross Site Scripting FAQ”](https://www.cgisecurity.com/xss-faq.html)
+
+[Back to previous section](./)

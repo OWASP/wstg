@@ -60,3 +60,5 @@ In the above examples the modification of a single parameter is sufficient. Howe
 ## References
 
 [Top 10 2013-A4-Insecure Direct Object References](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_Release_Notes)
+
+[Back to previous section](./)

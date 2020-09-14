@@ -212,3 +212,5 @@ If source code is available (white-box testing), all variables received from use
 - [cgisecurity.com - The Cross Site Scripting FAQ](https://www.cgisecurity.com/xss-faq.html)
 - [G.Ollmann - HTML Code Injection and Cross-site scripting](http://www.technicalinfo.net/papers/CSS.html)
 - [S. Frei, T. Dübendorfer, G. Ollmann, M. May - Understanding the Web browser threat](https://www.techzoom.net/Publications/Insecurity-Iceberg)
+
+[Back to previous section](./)

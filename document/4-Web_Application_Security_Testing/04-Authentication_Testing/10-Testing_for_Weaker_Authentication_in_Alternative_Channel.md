@@ -90,3 +90,5 @@ The test cases for all the other authentication tests should be utilized.
 ## Remediation
 
 Ensure a consistent authentication policy is applied across all channels so that they are equally secure.
+
+[Back to previous section](./)

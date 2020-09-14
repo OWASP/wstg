@@ -76,3 +76,5 @@ The following pages provide examples of CSS injection vulnerabilities:
 - [JavaScript based attacks using `CSSStyleDeclaration` with unescaped input](https://code.google.com/p/domxsswiki/wiki/CssText)
 
 For further OWASP resources on preventing CSS injection, see the [Securing Cascading Style Sheets Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Securing_Cascading_Style_Sheets_Cheat_Sheet.html).
+
+[Back to previous section](./)

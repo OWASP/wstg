@@ -195,3 +195,5 @@ Testing for the flaw is achieved by:
 
 - [phpBB Attachment Mod Directory Traversal HTTP POST Injection](https://seclists.org/vulnwatch/2004/q4/33)
 - [Windows File Pseudonyms: Pwnage and Poetry](https://www.slideshare.net/BaronZor/windows-file-pseudonyms)
+
+[Back to previous section](./)

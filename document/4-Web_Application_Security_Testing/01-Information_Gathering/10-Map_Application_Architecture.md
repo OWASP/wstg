@@ -38,3 +38,5 @@ Application web servers are usually easy to detect. The request for several reso
 Authentication back ends (such as LDAP directories, relational databases, or RADIUS servers) however, are not as easy to detect from an external point of view in an immediate way, since they will be hidden by the application itself.
 
 The use of a back end database can be determined simply by navigating an application. If there is highly dynamic content generated "on the fly" it is probably being extracted from some sort of database by the application itself. Sometimes the way information is requested might give insight to the existence of a database back end. For example, an online shopping application that uses numeric identifiers (`id`) when browsing the different articles in the shop. However, when doing a blind application test, knowledge of the underlying database is usually only available when a vulnerability surfaces in the application, such as poor exception handling or susceptibility to SQL injection.
+
+[Back to previous section](./)

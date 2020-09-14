@@ -44,3 +44,5 @@ The most effective way to detect these vulnerabilities is via a source code revi
 ## Remediation
 
 Session variables should only be used for a single consistent purpose.
+
+[Back to previous section](./)
