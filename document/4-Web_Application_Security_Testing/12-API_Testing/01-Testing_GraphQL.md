@@ -34,14 +34,115 @@ There are a couple of ways to extract that and visualise the output:
 
 The most straight-forward way is to send an HTTP request with the following payload :
 
-```json
-query IntrospectionQuery {       __schema {         queryType { name }         mutationType { name }         subscriptionType { name }         types {           ...FullType         }         directives {           name           description           locations           args {             ...InputValue           }         }       }     }      fragment FullType on __Type {       kind       name       description       fields(includeDeprecated: true) {         name         description         args {           ...InputValue         }         type {           ...TypeRef         }         isDeprecated         deprecationReason       }       inputFields {         ...InputValue       }       interfaces {         ...TypeRef       }       enumValues(includeDeprecated: true) {         name         description         isDeprecated         deprecationReason       }       possibleTypes {         ...TypeRef       }     }      fragment InputValue on __InputValue {       name       description       type { ...TypeRef }       defaultValue     }      fragment TypeRef on __Type {       kind       name       ofType {         kind         name         ofType {           kind           name           ofType {             kind             name             ofType {               kind               name               ofType {                 kind                 name                 ofType {                   kind                   name                   ofType {                     kind                     name                   }                 }               }             }           }         }       }     } 
-```
+~~~~
+query IntrospectionQuery {
+  __schema {
+    queryType {
+      name
+    }
+    mutationType {
+      name
+    }
+    subscriptionType {
+      name
+    }
+    types {
+      ...FullType
+    }
+    directives {
+      name
+      description
+      locations
+      args {
+        ...InputValue
+      }
+    }
+  }
+}
+fragment FullType on __Type {
+  kind
+  name
+  description
+  fields(includeDeprecated: true) {
+    name
+    description
+    args {
+      ...InputValue
+    }
+    type {
+      ...TypeRef
+    }
+    isDeprecated
+    deprecationReason
+  }
+  inputFields {
+    ...InputValue
+  }
+  interfaces {
+    ...TypeRef
+  }
+  enumValues(includeDeprecated: true) {
+    name
+    description
+    isDeprecated
+    deprecationReason
+  }
+  possibleTypes {
+    ...TypeRef
+  }
+}
+fragment InputValue on __InputValue {
+  name
+  description
+  type {
+    ...TypeRef
+  }
+  defaultValue
+}
+fragment TypeRef on __Type {
+  kind
+  name
+  ofType {
+    kind
+    name
+    ofType {
+      kind
+      name
+      ofType {
+        kind
+        name
+        ofType {
+          kind
+          name
+          ofType {
+            kind
+            name
+            ofType {
+              kind
+              name
+              ofType {
+                kind
+                name
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+~~~~
 
 The result will usually be very long, and it will contain the entire scheme of the GraphQL deployment.  
 
 Response:  
-```json
+```
+{css, echo=FALSE}
+.scroll-100 {
+  max-height: 100px;
+  overflow-y: auto;
+  background-color: inherit;
+}
 {
   "data": {
     "__schema": {
