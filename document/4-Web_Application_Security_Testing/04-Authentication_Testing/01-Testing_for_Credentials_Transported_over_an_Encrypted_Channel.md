@@ -27,7 +27,9 @@ In the captured traffic, verify any session passphrases, tokens, password reset 
 
 To test for unencryped account creation, attempt to force browse to the HTTP version of the account creation and create an account, example:
 
-`TODO: example forced browse`.
+```
+http://site-under.test/securityRealm/createAccount
+```
 
 The test passes if even after the forced browsing, the client still sends the new account request through HTTPS:
 
@@ -38,8 +40,19 @@ TODO: Create account with credentials in HTTPS POST
 The test fails if the client sends a new account request with unencryped HTTP:
 
 ```
-TODO: Create account with credentials in HTTP POST
+Request URL:http://site-under.test/securityRealm/createAccount
+Request method:POST
+...
+POST data:
+username=user456
+fullname=User 456
+remember_me=on
+password1=My-Protected-Password-808
+password2=My-Protected-Password-808
+Submit=Create account
+Jenkins-Crumb=8c96276321420cdbe032c6de141ef556cab03d91b25ba60be8fd3d034549cdd3
 ```
+*   This Jeknins user creation form exposed all the new user details (name, full name, and password) in POST data to the HTTP create account page
 
 ### Login
 
@@ -60,8 +73,17 @@ TODO: HTTPS response with secure cookie
 If a test can submit login credentials over HTTP as shown below, the test is a fail:
 
 ```
-TODO: Login submitted over HTTP
+Request URL: http://site-under.test/j_acegi_security_check
+Request method: POST
+...
+POST data:
+
+j_username=userabc
+j_password=My-Protected-Password-452
+from=/
+Submit=Sign in
 ```
+* Note the fetch URL is `http://` and it exposes the plaintext `j_username` and `j_password` through the post data
 
 ### Password Reset, Change Password or Other Account Manipulation
 
@@ -84,8 +106,22 @@ TODO: Token with HTTPS
 The test fails if the browser submits a session token over HTTP in any part of the web site, even if forced browsing is required to trigger this case:
 
 ```
-TODO: Token over HTTP
+Request URL:http://site-under.test/
+Request method:GET
+...
+Request headers:
+
+GET / HTTP/1.1
+Host: site-under.test
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Cookie: language=en; welcomebanner_status=dismiss; cookieconsent_status=dismiss; screenResolution=1920x1200; JSESSIONID.c1e7b45b=node01warjbpki6icgxkn0arjbivo84.node0
+Upgrade-Insecure-Requests: 1
 ```
+*   The get request exposed the session token `JSESSIONID` (from browser to server) in request URL `http://site-under.test/`
 
 ## Remediation
 
