@@ -7,16 +7,16 @@ Contained in this folder is an Excel file which provides the following worksheet
 - _Risk Assessment Calculator_ - a dropdown driven sheet for calculating likelihood and impact scores, and a qualitative overall risk rating.
 - _References_ - provides the lists/sets that the calculator is based upon.
 
-**Note:** The current (Excel) checklist is based on v4 of the OWASP Testing Guide, as content for v5 is still under development.
+**Note:** The current (Excel) checklist is based on v4.1 of the OWASP Testing Guide, as content for v5 is still under development.
 
 ## Direct Link
 
-- [OWASP Testing Checklist (Excel)](https://raw.githubusercontent.com/OWASP/wstg/master/checklist/WSTG-Checklist_v4.0.xlsx)
-- [OWASP Testing Checklist (Markdown)](https://raw.githubusercontent.com/OWASP/wstg/master/checklist/Testing_Checklist.md) (**Note:** this has been updated for v4.1)
+- [OWASP Testing Checklist (Excel)](https://raw.githubusercontent.com/OWASP/wstg/master/checklist/WSTG-Checklist_v4.1.xlsx)
+- [OWASP Testing Checklist (Markdown)](https://raw.githubusercontent.com/OWASP/wstg/master/checklist/Testing_Checklist.md)
 
 ## Excel File Hash
 
-SHA-256: 6ababbbc354c383179c56b0f4d41219694ae0cdbf90edb85506aff340e97dae9
+SHA-256: 30e08ef571b5ff623ddd0ab94406a58a8bf2fce8f484badb7117d0f525b8bc6d
 
 ## Google Sheets Import
 
