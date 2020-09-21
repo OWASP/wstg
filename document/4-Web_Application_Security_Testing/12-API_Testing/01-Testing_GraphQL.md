@@ -224,7 +224,7 @@ Extracting information from the drawing allows you to see you can query the dogs
 * name
 * vertrinary (id)  
 
-There is one downside to using this method, GraphQL Voyager does not display everything that can be done with GraphQL, for example, in the drwaing above the mutations avilable are not listed, so the best way would be to use both  Voyager and one of the methods listed below.
+There is one downside to using this method, GraphQL Voyager does not display everything that can be done with GraphQL, for example, in the drwaing above the mutations avilable are not listed, so the best way would be to use both Voyager and one of the methods listed below.
 
 #### Using the GraphiQL
 
@@ -233,10 +233,10 @@ The best practice is to not allow users to access it on production deployments, 
 
 The GraphiQL has a docs section, which uses the data from the scheme in order to created a documentation of the GraphQL instance that is being used.
 
-![GraphiQL1](images/Graphiql1.png)
-![GraphiQL2](images/Graphiql2.png)
-![GraphiQL3](images/Graphiql3.png)
-![GraphiQL4](images/Graphiql4.png)
+![GraphiQL1](images/GraphiQL1.png)
+![GraphiQL2](images/GraphiQL2.png)
+![GraphiQL3](images/GraphiQL3.png)
+![GraphiQL4](images/GraphiQL4.png)
 
 #### Using GraphQL Playgrounds
 
