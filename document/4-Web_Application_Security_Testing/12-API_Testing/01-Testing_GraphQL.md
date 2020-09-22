@@ -32,7 +32,7 @@ There are a couple of ways to extract that and visualise the output:
 
 #### Using Native GrapQL Introspection
 
-The most straight-forward way is to send an HTTP request with the following payload :
+The most straight-forward way is to send an HTTP request (using a proxy liek Burp) with the following payload :
 
 ~~~~
 query IntrospectionQuery {
@@ -234,15 +234,37 @@ The best practice is to not allow users to access it on production deployments, 
 The GraphiQL has a docs section, which uses the data from the scheme in order to created a documentation of the GraphQL instance that is being used.
 
 ![GraphiQL1](images/GraphiQL1.png)
-![GraphiQL2](images/GraphiQL2.png)
-![GraphiQL3](images/GraphiQL3.png)
-![GraphiQL4](images/GraphiQL4.png)
+<img src=images/GraphiQL2.png width="300" />
+<img src=images/GraphiQL3.png width="300" />
+<img src=images/GraphiQL4.png width="300" />
+
+The documentation contains the data types, mutations, and basiaclly every piece of information you can extract using Introspection.
 
 #### Using GraphQL Playgrounds
 
+GraphQL Playgrounds is a GraphQL client, which can be used to test different queries, as well as dividing GraphQL IDEs into different playgrounds, grouped by theme or by assigning a name to them.  
+Much like GraphiQL Playgrounds can create the documentation for you, without the need to manually sending introspection and processing the response but with one great advantage, it doesn't need GraphiQL interface to be avilable.  
+Another upside for this tool, is that it works just by directing the tool to the GraphQL node via a URL (there is also the option of using it locally with the data file) and then the magic happens without any user interaction.  
+Another advantage of the tool is that it can be used to test for vulnerabilities directly, you don't need to use a proxy to send HTTP requests (Burp for example), and so you can use this tool in order to manually plat with GraphQL and use Burp for other, more advanced payloads.
+
+![Playgrounds1](images/Playgrounds1.png)
+![Playgrounds2](images/Playgrounds2.png)
+
+You can even download the schemes to use in Voygaer.
+
+#### Introspection Conclusion
+
+Introspection is a useful tool which allows users to gain more information about the GraphQL deployment, however, this will also allow mallicious users to gain access to the same information.  
+The best practice is to limit the access to the introspection queries, since, some tools or reqeusts might fail if this feature is disabled altogether.  
+Since GraphQL is usually bridges to the backend APIs of the system, its better to enforce strict access control, which leads to the next topic.
+
+### Access Control
+
+TALK ABOUT ACCESS CONTROL
+
 ## Remediation
 
-Do not make a habit of putting cats in boxes. Keep boxes away from cats as much as possible.
+1. Restrict access to introspection queries.
 
 ## Tools
 
