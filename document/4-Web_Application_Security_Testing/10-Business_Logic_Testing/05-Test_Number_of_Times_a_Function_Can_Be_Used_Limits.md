@@ -1,8 +1,8 @@
 # Test Number of Times a Function Can Be Used Limits
 
-|ID               |
-|-----------------|
-|WSTG-BUSL-05     |
+|ID          |
+|------------|
+|WSTG-BUSL-05|
 
 ## Summary
 
