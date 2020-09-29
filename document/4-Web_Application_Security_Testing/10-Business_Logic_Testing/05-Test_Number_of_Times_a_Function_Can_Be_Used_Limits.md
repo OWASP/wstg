@@ -1,7 +1,7 @@
 # Test Number of Times a Function Can Be Used Limits
 
-|ID               |
-|-----------------|
+|ID          |
+|------------|
 |WSTG-BUSL-05|
 
 ## Summary
@@ -29,8 +29,8 @@ Suppose an eCommerce site allows users to take advantage of any one of many disc
 
 ## References
 
--[InfoPath Forms Services business logic exceeded the maximum limit of operations Rule](http://mpwiki.viacode.com/default.aspx?g=posts&t=115678)
--[Gold Trading Was Temporarily Halted On The CME This Morning](https://www.businessinsider.com/gold-halted-on-cme-for-stop-logic-event-2013-10)
+- [InfoPath Forms Services business logic exceeded the maximum limit of operations Rule](http://mpwiki.viacode.com/default.aspx?g=posts&t=115678)
+- [Gold Trading Was Temporarily Halted On The CME This Morning](https://www.businessinsider.com/gold-halted-on-cme-for-stop-logic-event-2013-10)
 
 ## Remediation
 
