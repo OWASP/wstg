@@ -21,38 +21,7 @@ The fact that traffic is encrypted does not necessarily mean that it's completel
 
 To test for credential transport, capture traffic between a client and web application server that needs credentials. Check for credentials transferred during login and while using the application with a valid session. To set up to capture traffic, turn on the web browser's [developer tools](https://developer.mozilla.org/en-US/docs/Tools) or use a proxy including [OWASP ZAP](https://owasp.org/www-project-zap/). Disable any features or plugins that make the web browser favour HTTPS, since some tests require the user to use [forced browsing](https://owasp.org/www-community/attacks/Forced_browsing) to intentionally request HTTP versions of sensitive pages.
 
-In the captured traffic, verify any session passphrases, tokens, password reset codes, or other sensitive data only go to or from the server through HTTPS. The following examples show captured data that indicate passed or failed tests, where the web application is on a server called `site-under.test`.
-
-### Account Creation
-
-To test for unencryped account creation, attempt to force browse to the HTTP version of the account creation and create an account, example:
-
-```
-http://site-under.test/securityRealm/createAccount
-```
-
-The test passes if even after the forced browsing, the client still sends the new account request through HTTPS:
-
-```
-TODO: Create account with credentials in HTTPS POST
-```
-
-The test fails if the client sends a new account request with unencryped HTTP:
-
-```
-Request URL:http://site-under.test/securityRealm/createAccount
-Request method:POST
-...
-POST data:
-username=user456
-fullname=User 456
-remember_me=on
-password1=My-Protected-Password-808
-password2=My-Protected-Password-808
-Submit=Create account
-Jenkins-Crumb=8c96276321420cdbe032c6de141ef556cab03d91b25ba60be8fd3d034549cdd3
-```
-*   This Jeknins user creation form exposed all the new user details (name, full name, and password) in POST data to the HTTP create account page
+In the captured traffic, verify any session passphrases, tokens, password reset codes, or other sensitive data only go to or from the server through HTTPS. The sensitive data is normally in the request body (POST data) or request headers. The following examples show captured data that indicate passed or failed tests, where the web application is on a server called `site-under.test`.
 
 ### Login
 
@@ -61,14 +30,31 @@ Similar to the account creation test, attempt to log in to a previously created 
 In a passing test, the login request should be HTTPS:
 
 ```
-TODO: HTTPS POST for login
-```
+Request URL: https://site-under.test/j_acegi_security_check
+Request method: POST
+...
+Response headers:
+HTTP/1.1 302 Found
+Server: nginx/1.19.2
+Date: Tue, 29 Sep 2020 00:59:04 GMT
+Transfer-Encoding: chunked
+Connection: keep-alive
+X-Content-Type-Options: nosniff
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Set-Cookie: JSESSIONID.a7731d09=node01ai3by8hip0g71kh3ced41pmqf4.node0; Path=/; Secure; HttpOnly
+ACEGI_SECURITY_HASHED_REMEMBER_ME_COOKIE=dXNlcmFiYzoxNjAyNTUwNzQ0NDU3OjFmNDlmYTZhOGI1YTZkYTYxNDIwYWVmNmM0OTI1OGFhODA3Y2ZmMjg4MDM3YjcwODdmN2I2NjMwOWIyMDU3NTc=; Path=/; Expires=Tue, 13-Oct-2020 00:59:04 GMT; Max-Age=1209600; Secure; HttpOnly
+Location: https://site-under.test/
 
-If the server returns cookie information for a session token, the cookie should also include the [secure](https://owasp.org/www-community/controls/SecureFlag) attribute/flag to avoid the client exposing the cookie over unencrpted channels later.
 
+POST data:
+
+j_username=userabc
+j_password=My-Protected-Password-452
+from=/
+Submit=Sign in
 ```
-TODO: HTTPS response with secure cookie
-```
+* In the login, the credentials are protected due to the HTTPS request URL
+* If the server returns cookie information for a session token, the cookie should also include the [secure](https://owasp.org/www-community/controls/SecureFlag) attribute/flag to avoid the client exposing the cookie over unencrpted channels later. Note the `Secure;` in the response header.
 
 If a test can submit login credentials over HTTP as shown below, the test is a fail:
 
@@ -84,6 +70,75 @@ from=/
 Submit=Sign in
 ```
 * Note the fetch URL is `http://` and it exposes the plaintext `j_username` and `j_password` through the post data
+* In this case, since the test already shows POST data exposing all the credentials, there is no point checking response headers (which would also likely expose a session token or cookie).
+
+### Account Creation
+
+To test for unencryped account creation, attempt to force browse to the HTTP version of the account creation and create an account, example:
+
+```
+http://site-under.test/securityRealm/createAccount
+```
+
+The test passes if even after the forced browsing, the client still sends the new account request through HTTPS:
+
+```
+Request URL:https://site-under.test/securityRealm/createAccount
+Request method:POST
+...
+Response headers:
+
+HTTP/1.1 200 OK
+Server: nginx/1.19.2
+Date: Tue, 29 Sep 2020 01:11:50 GMT
+Content-Type: text/html;charset=utf-8
+Content-Length: 3139
+Connection: keep-alive
+X-Content-Type-Options: nosniff
+Set-Cookie: JSESSIONID.a7731d09=node011yew1ltrsh1x1k3m6g6b44tip8.node0; Path=/; Secure; HttpOnly
+Expires: 0
+Cache-Control: no-cache,no-store,must-revalidate
+X-Hudson-Theme: default
+Referrer-Policy: same-origin
+Cross-Origin-Opener-Policy: same-origin
+X-Hudson: 1.395
+X-Jenkins: 2.257
+X-Jenkins-Session: 4551da08
+X-Hudson-CLI-Port: 50000
+X-Jenkins-CLI-Port: 50000
+X-Jenkins-CLI2-Port: 50000
+X-Frame-Options: sameorigin
+Content-Encoding: gzip
+X-Instance-Identity: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3344ru7RK0jgdpKs3cfrBy2tteYI1laGpbP4fr5zOx2b/1OEvbVioU5UbtfIUHruD9N7jBG+KG4pcWfUiXdLp2skrBYsXBfiwUDA8Wam3wSbJWTmPfSRiIu4dsfIedj0bYX5zJSa6QPLxYolaKtBP4vEnP6lBFqW2vMuzaN6QGReAxM4NKWTijFtpxjchyLQ2o+K5mSEJQIWDIqhv1sKxdM9zkb6pW/rI1deJJMSih66les5kXgbH2fnO7Fz6di88jT1tAHoaXWkPM9X0EbklkHPT9b7RVXziOURXVIPUTU5u+LYGkNavEb+bdPmsD94elD/cf5ZqdGNoOAE5AYS0QIDAQAB
+
+POST data:
+
+username=user456
+fullname=User 456
+password1=My-Protected-Password-808
+password2=My-Protected-Password-808
+Submit=Create account
+Jenkins-Crumb=58e6f084fd29ea4fe570c31f1d89436a0578ef4d282c1bbe03ffac0e8ad8efd6
+```
+*   Similar to a login, most web applications automatically give a session token on a successful account creation. If there is a `Set-Cookie:`, verify it has a `Secure;` attribute as well.
+
+The test fails if the client sends a new account request with unencryped HTTP:
+
+```
+Request URL:http://site-under.test/securityRealm/createAccount
+Request method:POST
+...
+POST data:
+
+username=user456
+fullname=User 456
+password1=My-Protected-Password-808
+password2=My-Protected-Password-808
+Submit=Create account
+Jenkins-Crumb=8c96276321420cdbe032c6de141ef556cab03d91b25ba60be8fd3d034549cdd3
+```
+*   This Jeknins user creation form exposed all the new user details (name, full name, and password) in POST data to the HTTP create account page
+*   
 
 ### Password Reset, Change Password or Other Account Manipulation
 
@@ -100,8 +155,23 @@ After logging in, access all the features of the application, including public f
 The test passes if all interactions send the session token over HTTPS:
 
 ```
-TODO: Token with HTTPS
+Request URL:http://site-under.test/
+Request method:GET
+...
+Request headers:
+
+GET / HTTP/1.1
+Host: site-under.test
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+DNT: 1
+Connection: keep-alive
+Cookie: JSESSIONID.a7731d09=node01ai3by8hip0g71kh3ced41pmqf4.node0; ACEGI_SECURITY_HASHED_REMEMBER_ME_COOKIE=dXNlcmFiYzoxNjAyNTUwNzQ0NDU3OjFmNDlmYTZhOGI1YTZkYTYxNDIwYWVmNmM0OTI1OGFhODA3Y2ZmMjg4MDM3YjcwODdmN2I2NjMwOWIyMDU3NTc=; screenResolution=1920x1200
+Upgrade-Insecure-Requests: 1
 ```
+*   The above sample is a pass because the session token in the cookie is passed via HTTPS
 
 The test fails if the browser submits a session token over HTTP in any part of the web site, even if forced browsing is required to trigger this case:
 
