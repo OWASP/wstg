@@ -29,7 +29,7 @@ There are a large number of protocol versions, ciphers, and extensions supported
 
 #### Exploitability
 
-It should be emphasised that while many of these attacks have been demonstrated in a lab environment, they are not generally considered practical to exploit in the real world, as they require a (usually active) man-in-the-middle attack, and significant resources. As such, they are unlikely to be exploited by anyone other than nation states.
+It should be emphasised that while many of these attacks have been demonstrated in a lab environment, they are not generally considered practical to exploit in the real world, as they require a (usually active) MitM attack, and significant resources. As such, they are unlikely to be exploited by anyone other than nation states.
 
 ### Digital Certificates
 
@@ -98,94 +98,23 @@ In order to defend against this type of attack, the site must use be added to th
 
 ## How to Test
 
-* Web browser
-* OpenSSL
-* Main scanning tools (Nessus, Nmap, SSL Labs, sslscan, sslyze, O-Saft, etc)
-* STARTTLS
+There are a large number of scanning tools that can be used to identify weaknesses in the SSL/TLS configuration of a service, including both dedicated tools and general purpose vulnerability scanners. Some of the more popular ones are:
+
+* [Nmap](https://nmap.org) (various scripts)
+* [OWASP O-Saft](https://owasp.org/www-project-o-saft/)
+* [sslscan](https://github.com/rbsec/sslscan)
+* [sslyze](https://github.com/nabla-c0d3/sslyze)
+* [SSL Labs](https://www.ssllabs.com/ssltest/)
+
+### Manual Testing
+
+It is also possible to carry out most checks manually, using command-line looks such as `openssl s_client` or `gnutls-cli` to connect with specific protocols, ciphers or options.
+
+When testing like this, be aware that the version of OpenSSL or GnuTLS shipped with most modern systems may will not support some outdated and insecure protocols such as SSLv2 or EXPORT ciphers. Make sure that your version does support these before using it for testing, or you'll end up with false negatives.
+
+It can also be possible to performed limited testing using a web browser, as modern browsers will provide details of the protocols and ciphers that are being used in their developer tools. They also provide an easy way to test whether a certificate is considered trusted, by browsing to the service and seeing if you are presented with a certificate warning.
+
 
 ## References
 
 * [OWASP Transport Layer Protection Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html)
-
----
-
-### Other Vulnerabilities
-
-The presence of a new service, listening in a separate tcp port may introduce vulnerabilities such as infrastructure vulnerabilities if the [software is not up to date](../02-Configuration_and_Deployment_Management_Testing/01-Test_Network_Infrastructure_Configuration.md). Furthermore, for the correct protection of data during transmission the Session Cookie must use the [Secure flag](../06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.md) and some directives should be sent to the browser to accept only secure traffic (e.g. [HSTS](../02-Configuration_and_Deployment_Management_Testing/07-Test_HTTP_Strict_Transport_Security.md), CSP).
-
-Also there are some attacks that can be used to intercept traffic if the web server exposes the application on both [HTTP](../02-Configuration_and_Deployment_Management_Testing/07-Test_HTTP_Strict_Transport_Security.md) and [HTTPS](https://resources.enablesecurity.com/resources/Surf%20Jacking.pdf) or in case of mixed HTTP and HTTPS resources in the same page.
-
-## How to Test
-
-### Testing for Weak SSL/TLS Ciphers/Protocols/Keys Vulnerabilities
-
-The large number of available cipher suites and quick progress in cryptanalysis makes testing an SSL server a non-trivial task.
-
-At the time of writing these criteria are widely recognized as minimum checklist:
-
-* Renegotiation must be properly configured (e.g. Insecure Renegotiation must be disabled, due to [MiTM attacks](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2009-3555) and Client-initiated Renegotiation must be disabled, due to [Denial of Service vulnerability](https://community.qualys.com/blogs/securitylabs/2011/10/31/tls-renegotiation-and-denial-of-service-attacks)).
-* [Keys must be generated with proper entropy](https://www.ssllabs.com/projects/rating-guide/index.html) (e.g, Weak Key Generated with Debian).
-
-A more complete checklist includes:
-
-* Secure Renegotiation should be enabled.
-* Server should support [Forward Secrecy](https://community.qualys.com/blogs/securitylabs/2013/06/25/ssl-labs-deploying-forward-secrecy).
-
-The following standards can be used as reference while assessing SSL servers:
-
-* [PCI-DSS](https://www.pcisecuritystandards.org/security_standards/documents.php) requires compliant parties to use “strong cryptography” without precisely defining key lengths and algorithms. Common interpretation, partially based on previous versions of the standard, is that at least 128 bit key cipher, no export strength algorithms and no SSLv2 should be used.
-* [Qualsys SSL Labs Server Rating Guide](https://www.ssllabs.com/projects/rating-guide/index.html), [Deployment best practice](https://www.ssllabs.com/projects/best-practices/index.html), and [SSL Threat Model](https://www.ssllabs.com/projects/ssl-threat-model/index.html) has been proposed to standardize SSL server assessment and configuration. But is less updated than the [SSL Server tool](https://www.ssllabs.com/ssltest/index.html).
-* OWASP has a lot of resources about SSL/TLS Security:
-  * [Transport Layer Protection Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html).
-  * [OWASP Top 10 2017 A3-Sensitive Data Exposure](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure).
-  * [OWASP ASVS * Verification V9](https://github.com/OWASP/ASVS/blob/master/4.0/en/0x17-V9-Communications.md).
-  * [OWASP Application Security FAQ * Cryptography/SSL](https://owasp.org/www-community/OWASP_Application_Security_FAQ#cryptographyssl).
-
-Some tools and scanners both free (e.g. [SSLScan](https://sourceforge.net/projects/sslscan/)) and commercial (e.g. [Tenable Nessus](https://www.tenable.com/products/nessus)), can be used to assess SSL/TLS vulnerabilities. But due to evolution of these vulnerabilities a good way to test is to check them manually with [OpenSSL](https://www.openssl.org/) or use the tool’s output as an input for manual evaluation using the references.
-
-Sometimes the SSL/TLS enabled service is not directly accessible and the tester can access it only via a HTTP proxy using [CONNECT method](https://tools.ietf.org/html/rfc2817). Most of the tools will try to connect to desired tcp port to start SSL/TLS handshake. This will not work since desired port is accessible only via HTTP proxy. The tester can easily circumvent this by using relaying software such as [socat](https://linux.die.net/man/1/socat).
-
-### Testing for Other Vulnerabilities
-
-As mentioned previously, there are other types of vulnerabilities that are not related with the SSL/TLS protocol used, the cipher suites or Certificates. Apart from other vulnerabilities discussed in other parts of this guide, a vulnerability exists when the server provides the website both with the HTTP and HTTPS protocols, and permits an attacker to force a victim into using a non-secure channel instead of a secure one.
-
-#### Surf Jacking
-
-The [Surf Jacking attack](https://resources.enablesecurity.com/resources/Surf%20Jacking.pdf) was first presented by Sandro Gauci and permits to an attacker to hijack an HTTP session even when the victim’s connection is encrypted using SSL or TLS.
-
-The following is a scenario of how the attack can take place:
-
-* Victim logs into the secure website at `https://somesecuresite/`.
-* The secure site issues a session cookie as the client logs in.
-* While logged in, the victim opens a new browser window and goes to `http://examplesite/`
-* An attacker sitting on the same network is able to see the clear text traffic to `http://examplesite`.
-* The attacker sends back a `301 Moved Permanently` in response to the clear text traffic to `http://examplesite`. The response contains the header `Location: http://somesecuresite/`, which makes it appear that examplesite is sending the web browser to somesecuresite. Notice that the URL scheme is HTTP not HTTPS.
-* The victim's browser starts a new clear text connection to `http://somesecuresite/` and sends an HTTP request containing the cookie in the HTTP header in clear text
-* The attacker sees this traffic and logs the cookie for later use.
-
-To test if a website is vulnerable carry out the following tests:
-
-1. Check if website supports both HTTP and HTTPS protocols
-2. Check if cookies do not have the `Secure` flag
-
-#### SSL Strip
-
-Some applications supports both HTTP and HTTPS, either for usability or so users can type both addresses and get to the site. Often users go into an HTTPS website from link or a redirect. Typically personal banking sites have a similar configuration with an iframed log in or a form with action attribute over HTTPS but the page under HTTP.
-
-An attacker in a privileged position - as described in [SSL strip](https://github.com/moxie0/sslstrip) - can intercept traffic when the user is in the HTTP site and manipulate it to get a Manipulator-In-The-Middle attack under HTTPS. An application is vulnerable if it supports both HTTP and HTTPS.
-
-### Testing via HTTP Proxy
-
-Inside corporate environments testers can see services that are not directly accessible and they can access them only via HTTP proxy using the [CONNECT method](https://tools.ietf.org/html/rfc2817). Most of the tools will not work in this scenario because they try to connect to the desired tcp port to start the SSL/TLS handshake. With the help of relaying software such as [socat](https://linux.die.net/man/1/socat) testers can enable those tools for use with services behind an HTTP proxy.
-
-#### Example 1. Testing via HTTP Proxy
-
-To connect to `destined.application.lan:443` via proxy `10.13.37.100:3128` run `socat` as follows:
-
-`$ socat TCP-LISTEN:9999,reuseaddr,fork PROXY:10.13.37.100:destined.application.lan:443,proxyport=3128`
-
-Then the tester can target all other tools to `localhost:9999`:
-
-`$ openssl s_client -connect localhost:9999`
-
-All connections to `localhost:9999` will be effectively relayed by socat via proxy to `destined.application.lan:443`.
