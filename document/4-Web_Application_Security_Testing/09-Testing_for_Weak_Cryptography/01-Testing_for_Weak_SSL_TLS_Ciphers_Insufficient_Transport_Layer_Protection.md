@@ -6,7 +6,9 @@
 
 ## Summary
 
-TODO
+When information is sent between the client and the server, it must be encrypted and protected in order to prevent an attacker from being able to read or modify it. This is most commonly done using HTTPS, which uses the Transport Layer Security (TLS) protocol, a replacement for the older Secure Socket Layer (SSL) protocol. TLS also provides a way for the server to demonstrate to the client that they have connected to the correct server, by presenting a trusted digital certificate.
+
+Over the years there have been a large number of cryptographic weaknesses identified in the SSL and TLS protocols, as well as in the ciphers that they use. Additionally, many of the implementations of these protocols have also had serious vulnerabilities. As such, it is important to test that sites are not only implementing TLS, but that they are doing so in a secure manner.
 
 ## Common Issues
 
@@ -113,7 +115,6 @@ It is also possible to carry out most checks manually, using command-line looks 
 When testing like this, be aware that the version of OpenSSL or GnuTLS shipped with most modern systems may will not support some outdated and insecure protocols such as SSLv2 or EXPORT ciphers. Make sure that your version does support these before using it for testing, or you'll end up with false negatives.
 
 It can also be possible to performed limited testing using a web browser, as modern browsers will provide details of the protocols and ciphers that are being used in their developer tools. They also provide an easy way to test whether a certificate is considered trusted, by browsing to the service and seeing if you are presented with a certificate warning.
-
 
 ## References
 
