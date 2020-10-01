@@ -29,16 +29,13 @@ In the captured traffic, verify any session passphrases, tokens, password reset 
 
 ### Login
 
-Log in using a valid account while forced browsing to the HTTP login page if allowed. Find out the address of the login page and attempt to switch the protocol to HTTP. The URL could look like the following:
+Log in using a valid account while forced browsing to the HTTP login page if allowed. Find out the address of the login page and attempt to switch the protocol to HTTP. The URL could look like the following: `http://site-under.test/login`
 
-```
-http://site-under.test/login
-```
 * If the login page is normally HTTPS, try to force browse by removing the "S"
 
 After attempting the forced browse, log in the the web site normally. In a passing test, the login request should be HTTPS:
 
-```
+```http
 Request URL: https://site-under.test/j_acegi_security_check
 Request method: POST
 ...
@@ -62,12 +59,13 @@ j_password=My-Protected-Password-452
 from=/
 Submit=Sign in
 ```
+
 * In the login, the credentials are encrypted due to the HTTPS request URL
 * If the server returns cookie information for a session token, the cookie should also include the [secure](https://owasp.org/www-community/controls/SecureFlag) attribute/flag to avoid the client exposing the cookie over unencrpted channels later. Look for the `Secure` keyword in the response header.
 
 If a test can submit login credentials over HTTP as shown below, the test is a fail:
 
-```
+```http
 Request URL: http://site-under.test/j_acegi_security_check
 Request method: POST
 ...
@@ -78,20 +76,17 @@ j_password=My-Protected-Password-452
 from=/
 Submit=Sign in
 ```
+
 * The fetch URL is `http://` and it exposes the plaintext `j_username` and `j_password` through the post data
 * In this case, since the test already shows POST data exposing all the credentials, there is no point checking response headers (which would also likely expose a session token or cookie).
 
 ### Account Creation
 
-To test for unencryped account creation, attempt to force browse to the HTTP version of the account creation and create an account, example:
-
-```
-http://site-under.test/securityRealm/createAccount
-```
+To test for unencryped account creation, attempt to force browse to the HTTP version of the account creation and create an account, example: `http://site-under.test/securityRealm/createAccount`
 
 The test passes if even after the forced browsing, the client still sends the new account request through HTTPS:
 
-```
+```http
 Request URL:https://site-under.test/securityRealm/createAccount
 Request method:POST
 ...
@@ -129,10 +124,12 @@ password2=My-Protected-Password-808
 Submit=Create account
 Jenkins-Crumb=58e6f084fd29ea4fe570c31f1d89436a0578ef4d282c1bbe03ffac0e8ad8efd6
 ```
-*   Similar to a login, most web applications automatically give a session token on a successful account creation. If there is a `Set-Cookie:`, verify it has a `Secure;` attribute as well.
+
+* Similar to a login, most web applications automatically give a session token on a successful account creation. If there is a `Set-Cookie:`, verify it has a `Secure;` attribute as well.
 
 The test fails if the client sends a new account request with unencryped HTTP:
-```
+
+```http
 Request URL:http://site-under.test/securityRealm/createAccount
 Request method:POST
 ...
@@ -145,7 +142,8 @@ password2=My-Protected-Password-808
 Submit=Create account
 Jenkins-Crumb=8c96276321420cdbe032c6de141ef556cab03d91b25ba60be8fd3d034549cdd3
 ```
-*   This Jeknins user creation form exposed all the new user details (name, full name, and password) in POST data to the HTTP create account page
+
+* This Jeknins user creation form exposed all the new user details (name, full name, and password) in POST data to the HTTP create account page
 
 ### Password Reset, Change Password or Other Account Manipulation
 
@@ -160,7 +158,8 @@ Similar to login and account creation, if the web application has features that 
 After logging in, access all the features of the application, including public features that do not necessarily require a login to access. Forced browse to the HTTP version of the web site to see if the client leaks credentials.
 
 The test passes if all interactions send the session token over HTTPS similar to the following example:
-```
+
+```http
 Request URL:http://site-under.test/
 Request method:GET
 ...
@@ -177,11 +176,12 @@ Connection: keep-alive
 Cookie: JSESSIONID.a7731d09=node01ai3by8hip0g71kh3ced41pmqf4.node0; ACEGI_SECURITY_HASHED_REMEMBER_ME_COOKIE=dXNlcmFiYzoxNjAyNTUwNzQ0NDU3OjFmNDlmYTZhOGI1YTZkYTYxNDIwYWVmNmM0OTI1OGFhODA3Y2ZmMjg4MDM3YjcwODdmN2I2NjMwOWIyMDU3NTc=; screenResolution=1920x1200
 Upgrade-Insecure-Requests: 1
 ```
-*   The session token in the cookie is encrypted since the request URL is HTTPS
+
+* The session token in the cookie is encrypted since the request URL is HTTPS
 
 The test fails if the browser submits a session token over HTTP in any part of the web site, even if forced browsing is required to trigger this case:
 
-```
+```http
 Request URL:http://site-under.test/
 Request method:GET
 ...
@@ -197,7 +197,8 @@ Connection: keep-alive
 Cookie: language=en; welcomebanner_status=dismiss; cookieconsent_status=dismiss; screenResolution=1920x1200; JSESSIONID.c1e7b45b=node01warjbpki6icgxkn0arjbivo84.node0
 Upgrade-Insecure-Requests: 1
 ```
-*   The get request exposed the session token `JSESSIONID` (from browser to server) in request URL `http://site-under.test/`
+
+* The get request exposed the session token `JSESSIONID` (from browser to server) in request URL `http://site-under.test/`
 
 ## Remediation
 
