@@ -34,7 +34,7 @@ There are a couple of ways to extract that and visualize the output:
 
 The most straight-forward way is to send an HTTP request (using a proxy like Burp) with the following payload :
 
-~~~~ json
+~~~~
 query IntrospectionQuery {
   __schema {
     queryType {
@@ -137,7 +137,7 @@ The result will usually be very long (and hence will be shorted here), and it wi
 
 Response:
 
-``` json
+~~~ json
 {
   "data": {
     "__schema": {
@@ -211,7 +211,7 @@ Response:
           "possibleTypes": null
                 ...
         {
-```
+~~~
 
 Now use GraphQL Voyager to get a better look on the output:
 
@@ -329,7 +329,7 @@ In this example, errors might reflect the input at times, and in case the applic
 
 Payload:
 
-~~~ json
+~~~ 
 query xss  {
   myInfo(veterinaryId:"<script>alert('1')</script>" ,accessToken:"<script>alert('1')</script>") {
     id
