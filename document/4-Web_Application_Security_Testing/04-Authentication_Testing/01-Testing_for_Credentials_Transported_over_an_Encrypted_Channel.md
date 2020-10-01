@@ -19,7 +19,7 @@ The fact that traffic is encrypted does not necessarily mean that it's completel
 
 ## Test Objectives
 
-Assess whether any use case of the web site or application causes the server or the client to send credentials in the clear.
+Assess whether any use case of the web site or application causes the server or the client to exchange credentials without encryption.
 
 ## How to Test
 
@@ -29,9 +29,9 @@ In the captured traffic, verify any session passphrases, tokens, password reset 
 
 ### Login
 
-Log in using a valid account while forced browsing to the HTTP login page if allowed. Find out the address of the login page and attempt to switch the protocol to HTTP. The URL could look like the following: `http://site-under.test/login`
+Log in using a valid account while attempting to force the use of unencrpted HTTP. Find out the address of the login page and attempt to switch the protocol to HTTP. The URL could look like the following: `http://site-under.test/login`
 
-* If the login page is normally HTTPS, try to force browse by removing the "S"
+* If the login page is normally HTTPS, attempt to remove the "S" to see if the login page loads as HTTP
 
 After attempting the forced browse, log in the the web site normally. In a passing test, the login request should be HTTPS:
 
@@ -50,10 +50,8 @@ Expires: Thu, 01 Jan 1970 00:00:00 GMT
 Set-Cookie: JSESSIONID.a7731d09=node01ai3by8hip0g71kh3ced41pmqf4.node0; Path=/; Secure; HttpOnly
 ACEGI_SECURITY_HASHED_REMEMBER_ME_COOKIE=dXNlcmFiYzoxNjAyNTUwNzQ0NDU3OjFmNDlmYTZhOGI1YTZkYTYxNDIwYWVmNmM0OTI1OGFhODA3Y2ZmMjg4MDM3YjcwODdmN2I2NjMwOWIyMDU3NTc=; Path=/; Expires=Tue, 13-Oct-2020 00:59:04 GMT; Max-Age=1209600; Secure; HttpOnly
 Location: https://site-under.test/
-
-
+...
 POST data:
-
 j_username=userabc
 j_password=My-Protected-Password-452
 from=/
@@ -70,7 +68,6 @@ Request URL: http://site-under.test/j_acegi_security_check
 Request method: POST
 ...
 POST data:
-
 j_username=userabc
 j_password=My-Protected-Password-452
 from=/
@@ -91,7 +88,6 @@ Request URL:https://site-under.test/securityRealm/createAccount
 Request method:POST
 ...
 Response headers:
-
 HTTP/1.1 200 OK
 Server: nginx/1.19.2
 Date: Tue, 29 Sep 2020 01:11:50 GMT
@@ -114,9 +110,8 @@ X-Jenkins-CLI2-Port: 50000
 X-Frame-Options: sameorigin
 Content-Encoding: gzip
 X-Instance-Identity: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3344ru7RK0jgdpKs3cfrBy2tteYI1laGpbP4fr5zOx2b/1OEvbVioU5UbtfIUHruD9N7jBG+KG4pcWfUiXdLp2skrBYsXBfiwUDA8Wam3wSbJWTmPfSRiIu4dsfIedj0bYX5zJSa6QPLxYolaKtBP4vEnP6lBFqW2vMuzaN6QGReAxM4NKWTijFtpxjchyLQ2o+K5mSEJQIWDIqhv1sKxdM9zkb6pW/rI1deJJMSih66les5kXgbH2fnO7Fz6di88jT1tAHoaXWkPM9X0EbklkHPT9b7RVXziOURXVIPUTU5u+LYGkNavEb+bdPmsD94elD/cf5ZqdGNoOAE5AYS0QIDAQAB
-
+...
 POST data:
-
 username=user456
 fullname=User 456
 password1=My-Protected-Password-808
@@ -134,7 +129,6 @@ Request URL:http://site-under.test/securityRealm/createAccount
 Request method:POST
 ...
 POST data:
-
 username=user456
 fullname=User 456
 password1=My-Protected-Password-808
@@ -164,7 +158,6 @@ Request URL:http://site-under.test/
 Request method:GET
 ...
 Request headers:
-
 GET / HTTP/1.1
 Host: site-under.test
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0
@@ -186,7 +179,6 @@ Request URL:http://site-under.test/
 Request method:GET
 ...
 Request headers:
-
 GET / HTTP/1.1
 Host: site-under.test
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0
