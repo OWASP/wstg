@@ -190,7 +190,7 @@ As can be seen in the following screenshot the listed file system path points to
 | Application | Keyword                                                                        |
 |-------------|--------------------------------------------------------------------------------|
 | WordPress   | `<meta name="generator" content="WordPress 3.9.2" />`                          |
-| phpBB       | `&lt;body id=“phpbb”`                                                          |
+| phpBB       | `<body id="phpbb"`                                                             |
 | Mediawiki   | `<meta name="generator" content="MediaWiki 1.21.9" />`                         |
 | Joomla      | `<meta name="generator" content="Joomla! - Open Source Content Management" />` |
 | Drupal      | `<meta name="Generator" content="Drupal 7 (http://drupal.org)" />`             |
