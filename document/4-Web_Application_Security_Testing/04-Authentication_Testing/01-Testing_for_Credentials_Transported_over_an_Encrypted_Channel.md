@@ -205,7 +205,7 @@ Upgrade-Insecure-Requests: 1
 
 ## Remediation
 
-Ideally use HTTPS for the whole web site and redirect any HTTP to HTTPS. The site gains the following benefits from using HTTPS for all its features:
+Ideally use HTTPS for the whole web site, use [HSTS](https://tools.ietf.org/html/rfc6797), and redirect any HTTP to HTTPS. The site gains the following benefits from using HTTPS for all its features:
 
 * It prevents attackers from modifying interactions with the web server (including placing JavaScript malware through a [compromised router](https://www.trendmicro.com/vinfo/us/security/news/cybercrime-and-digital-threats/over-200-000-mikrotik-routers-compromised-in-cryptojacking-campaign)).
 * It avoids losing customers to insecure site warnings. New browsers [mark HTTP based web sites as insecure](https://www.blog.google/products/chrome/milestone-chrome-security-marking-http-not-secure/).
