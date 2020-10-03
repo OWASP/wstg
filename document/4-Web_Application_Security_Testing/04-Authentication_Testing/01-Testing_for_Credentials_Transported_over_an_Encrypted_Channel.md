@@ -8,10 +8,10 @@
 
 Testing for credentials transport verifies that web applications encrypt authentication data in transit. This encryption prevents attackers from taking over accounts by [sniffing network traffic](https://owasp.org/www-community/attacks/Man-in-the-middle_attack). Web applications use [HTTPS](https://tools.ietf.org/html/rfc2818) to encrypt information in transit for both client to server and server to client communications. A client can send or receive authentication data during the following interactions:
 
-1. A client sends a credential to request login
-2. The server responds to a successful login with a [session token](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#session-id-properties)
-3. An authenticated client sends a session token to request sensitive information from the web site
-4. A client sends a token to the web site if they [forgot their password](https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html)
+* A client sends a credential to request login
+* The server responds to a successful login with a [session token](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#session-id-properties)
+* An authenticated client sends a session token to request sensitive information from the web site
+* A client sends a token to the web site if they [forgot their password](https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html)
 
 Failure to encrypt any of these credentials in transit can allow attackers with network sniffing tools to view credentials and possibly use them to steal a user's account. The attacker could sniff traffic directly using [Wireshark](https://www.wireshark.org) or similar tools, or they could set up a proxy to capture HTTP requests. Sensitive data should be encrypted in transit to prevent this.
 
