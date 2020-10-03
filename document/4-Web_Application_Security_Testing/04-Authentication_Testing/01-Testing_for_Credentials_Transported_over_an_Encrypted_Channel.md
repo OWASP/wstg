@@ -25,7 +25,7 @@ Assess whether any use case of the web site or application causes the server or 
 
 To test for credential transport, capture traffic between a client and web application server that needs credentials. Check for credentials transferred during login and while using the application with a valid session. To set up for the test:
 
-1. Set up and start a tool to capture traffic, including one of the following:
+1. Set up and start a tool to capture traffic, such as one of the following:
    * The web browser's [developer tools](https://developer.mozilla.org/en-US/docs/Tools)
    * A proxy including [OWASP ZAP](https://owasp.org/www-project-zap/)
 2. Disable any features or plugins that make the web browser favour HTTPS, since some tests require the user to use [forced browsing](https://owasp.org/www-community/attacks/Forced_browsing) to intentionally request HTTP versions of sensitive pages.
@@ -40,11 +40,11 @@ For any message containing this sensitive data, verify the exchange occurred usi
 
 ### Login
 
-Log in using a valid account while attempting to force the use of unencrpted HTTP. Find out the address of the login page and attempt to switch the protocol to HTTP. The URL for the forced browsing could look like the following: `http://site-under.test/login`
+Log in using a valid account while attempting to force the use of unencrypted HTTP. Find the address of the login page and attempt to switch the protocol to HTTP. The URL for the forced browsing could look like the following: `http://site-under.test/login`
 
 * If the login page is normally HTTPS, attempt to remove the "S" to see if the login page loads as HTTP
 
-After attempting the forced browse, log in the the web site. In a passing test, the login request should be HTTPS:
+After attempting the forced browse, log in to the the web site. In a passing test, the login request should be HTTPS:
 
 ```http
 Request URL: https://site-under.test/j_acegi_security_check
@@ -90,7 +90,7 @@ Submit=Sign in
 
 ### Account Creation
 
-To test for unencryped account creation, attempt to force browse to the HTTP version of the account creation and create an account, example: `http://site-under.test/securityRealm/createAccount`
+To test for unencrypted account creation, attempt to force browse to the HTTP version of the account creation and create an account, for example: `http://site-under.test/securityRealm/createAccount`
 
 The test passes if even after the forced browsing, the client still sends the new account request through HTTPS:
 
@@ -133,7 +133,7 @@ Jenkins-Crumb=58e6f084fd29ea4fe570c31f1d89436a0578ef4d282c1bbe03ffac0e8ad8efd6
 
 * Similar to a login, most web applications automatically give a session token on a successful account creation. If there is a `Set-Cookie:`, verify it has a `Secure;` attribute as well.
 
-The test fails if the client sends a new account request with unencryped HTTP:
+The test fails if the client sends a new account request with unencrypted HTTP:
 
 ```http
 Request URL: http://site-under.test/securityRealm/createAccount
@@ -148,7 +148,7 @@ Submit=Create account
 Jenkins-Crumb=8c96276321420cdbe032c6de141ef556cab03d91b25ba60be8fd3d034549cdd3
 ```
 
-* This Jeknins user creation form exposed all the new user details (name, full name, and password) in POST data to the HTTP create account page
+* This Jenkins user creation form exposed all the new user details (name, full name, and password) in POST data to the HTTP create account page
 
 ### Password Reset, Change Password or Other Account Manipulation
 
@@ -158,7 +158,7 @@ Similar to login and account creation, if the web application has features that 
 * Forms that allow users to edit credentials
 * Forms that require the user to authenticate with another provider (for example, payment processing)
 
-### Accessing Resources while Logged In
+Accessing Resources While Logged In
 
 After logging in, access all the features of the application, including public features that do not necessarily require a login to access. Forced browse to the HTTP version of the web site to see if the client leaks credentials.
 
@@ -201,7 +201,7 @@ Cookie: language=en; welcomebanner_status=dismiss; cookieconsent_status=dismiss;
 Upgrade-Insecure-Requests: 1
 ```
 
-* The get request exposed the session token `JSESSIONID` (from browser to server) in request URL `http://site-under.test/`
+* The GET request exposed the session token `JSESSIONID` (from browser to server) in request URL `http://site-under.test/`
 
 ## Remediation
 
