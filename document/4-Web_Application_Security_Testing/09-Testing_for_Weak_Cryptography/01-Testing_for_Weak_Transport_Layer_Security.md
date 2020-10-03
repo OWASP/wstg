@@ -91,13 +91,6 @@ However, if an attacker is able to intercept this initial request, they could re
 
 In order to defend against this type of attack, the site must use be added to the [preload list](https://hstspreload.org).
 
-### Client Certificates
-
-* Certificates not tied to individual
-* Certificates from a public CA
-* Generating certs with matching Issuer and CN/SAN
-* Header spoofing
-
 ## How to Test
 
 There are a large number of scanning tools that can be used to identify weaknesses in the SSL/TLS configuration of a service, including both dedicated tools and general purpose vulnerability scanners. Some of the more popular ones are:
