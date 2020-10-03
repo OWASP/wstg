@@ -15,7 +15,7 @@ Testing for credentials transport verifies that web applications encrypt authent
 
 Failure to encrypt any of these credentials in transit can allow attackers with network sniffing tools to view credentials and possibly use them to steal a user's account. The attacker could sniff traffic directly using [Wireshark](https://www.wireshark.org) or similar tools, or they could set up a proxy to capture HTTP requests. Sensitive data should be encrypted in transit to prevent this.
 
-The fact that traffic is encrypted does not necessarily mean that it's completely safe. The security also depends on the encryption algorithm used and the robustness of the keys that the application is using. See [Testing for Weak SSL TLS Ciphers Insufficient Transport Layer Protection](../09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_SSL_TLS_Ciphers_Insufficient_Transport_Layer_Protection.md) to verify the encrption algorithm is sufficient.
+The fact that traffic is encrypted does not necessarily mean that it's completely safe. The security also depends on the encryption algorithm used and the robustness of the keys that the application is using. See [Testing for Weak SSL TLS Ciphers Insufficient Transport Layer Protection](../09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_SSL_TLS_Ciphers_Insufficient_Transport_Layer_Protection.md) to verify the encryption algorithm is sufficient.
 
 ## Test Objectives
 
@@ -30,7 +30,7 @@ To test for credential transport, capture traffic between a client and web appli
    * A proxy including [OWASP ZAP](https://owasp.org/www-project-zap/)
 2. Disable any features or plugins that make the web browser favour HTTPS, since some tests require the user to use [forced browsing](https://owasp.org/www-community/attacks/Forced_browsing) to intentionally request HTTP versions of sensitive pages.
 
-In the captured traffic, look for sensitive data inluding the following:
+In the captured traffic, look for sensitive data including the following:
 
 * Passphrases or passwords, usually inside a [message body](https://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html)
 * Tokens, usually inside [cookies](https://tools.ietf.org/html/rfc6265#section-4.2)
@@ -44,7 +44,7 @@ Log in using a valid account while attempting to force the use of unencrypted HT
 
 * If the login page is normally HTTPS, attempt to remove the "S" to see if the login page loads as HTTP
 
-After attempting the forced browse, log in to the the web site. In a passing test, the login request should be HTTPS:
+After attempting the forced browse, log in to the web site. In a passing test, the login request should be HTTPS:
 
 ```http
 Request URL: https://site-under.test/j_acegi_security_check
