@@ -70,7 +70,7 @@ Submit=Sign in
 ```
 
 * In the login, the credentials are encrypted due to the HTTPS request URL
-* If the server returns cookie information for a session token, the cookie should also include the [secure](https://owasp.org/www-community/controls/SecureFlag) attribute/flag to avoid the client exposing the cookie over unencrpted channels later. Look for the `Secure` keyword in the response header.
+* If the server returns cookie information for a session token, the cookie should also include the [`Secure` attribute](https://owasp.org/www-community/controls/SecureFlag) to avoid the client exposing the cookie over unencrypted channels later. Look for the `Secure` keyword in the response header.
 
 The test fails if any login transfers a credential over HTTP, similar to the following:
 
