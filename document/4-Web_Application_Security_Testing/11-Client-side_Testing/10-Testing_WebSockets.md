@@ -36,7 +36,7 @@ As with any data originating from untrusted sources, the data should be properly
 
 3. Confidentiality and Integrity.
    - Check that the WebSocket connection is using SSL to transport sensitive information `wss://`.
-   - Check the SSL Implementation for security issues (Valid Certificate, BEAST, CRIME, RC4, etc). Refer to the [Testing for Weak SSL TLS Ciphers Insufficient Transport Layer Protection](../09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_SSL_TLS_Ciphers_Insufficient_Transport_Layer_Protection.md) section of this guide.
+   - Check the SSL Implementation for security issues (Valid Certificate, BEAST, CRIME, RC4, etc). Refer to the [Testing for Weak Transport Layer Security](../09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_Transport_Layer_Security.md) section of this guide.
 
 4. Authentication.
    - WebSockets do not handle authentication, normal black-box authentication tests should be carried out. Refer to the [Authentication Testing](../04-Authentication_Testing/README.md) sections of this guide.
