@@ -10,7 +10,13 @@ When information is sent between the client and the server, it must be encrypted
 
 Over the years there have been a large number of cryptographic weaknesses identified in the SSL and TLS protocols, as well as in the ciphers that they use. Additionally, many of the implementations of these protocols have also had serious vulnerabilities. As such, it is important to test that sites are not only implementing TLS, but that they are doing so in a secure manner.
 
-## Common Issues
+## Test Objectives
+
+- Validate the service configuration.
+- Review the digital certificate's cryptographic strength and validity.
+- Ensure that the TLS security is not bypassable and is properly implemented across the application.
+
+## How to Test
 
 Transport layer security related issues can be broadly split into the following areas:
 
@@ -93,7 +99,7 @@ However, if an attacker is able to intercept this initial request, they could re
 
 In order to defend against this type of attack, the site must use be added to the [preload list](https://hstspreload.org).
 
-## How to Test
+## Automated Testing
 
 There are a large number of scanning tools that can be used to identify weaknesses in the SSL/TLS configuration of a service, including both dedicated tools and general purpose vulnerability scanners. Some of the more popular ones are:
 
