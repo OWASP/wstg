@@ -94,7 +94,7 @@ The following is the list of controls to test during the assessment:
 | 4.8.1 | WSTG-ERRH-01 | Analysis of Error Codes |
 | 4.8.2 | WSTG-ERRH-02 | Analysis of Stack Traces |
 | **4.9** | **WSTG-CRYP** | **Cryptography** |
-| 4.9.1 | WSTG-CRYP-01 | Testing for Weak SSL TLS Ciphers Insufficient Transport Layer Protection |
+| 4.9.1 | WSTG-CRYP-01 | Testing for Weak Transport Layer Security |
 | 4.9.2 | WSTG-CRYP-02 | Testing for Padding Oracle |
 | 4.9.3 | WSTG-CRYP-03 | Testing for Sensitive Information Sent Via Unencrypted Channels |
 | 4.9.4 | WSTG-CRYP-04 | Testing for Weak Encryption |

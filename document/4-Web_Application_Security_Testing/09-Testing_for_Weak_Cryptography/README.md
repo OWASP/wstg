@@ -1,6 +1,6 @@
 # 4.9 Testing for Weak Cryptography
 
-4.9.1 [Testing for Weak SSL TLS Ciphers Insufficient Transport Layer Protection](01-Testing_for_Weak_SSL_TLS_Ciphers_Insufficient_Transport_Layer_Protection.md)
+4.9.1 [Testing for Weak Transport Layer Security](01-Testing_for_Weak_Transport_Layer_Security.md)
 
 4.9.2 [Testing for Padding Oracle](02-Testing_for_Padding_Oracle.md)
 
