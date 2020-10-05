@@ -137,7 +137,7 @@ The following is the list of controls that were tested during the assessment:
 | WSTG-ERRH-01  | Analysis of Error Codes |
 | WSTG-ERRH-02  | Analysis of Stack Traces |
 | **WSTG-CRYP** | **Cryptography** |
-| WSTG-CRYP-01 | Testing for Weak SSL TLS Ciphers Insufficient Transport Layer Protection |
+| WSTG-CRYP-01 | Testing for Weak Transport Layer Security |
 | WSTG-CRYP-02 | Testing for Padding Oracle |
 | WSTG-CRYP-03 | Testing for Sensitive Information Sent Via Unencrypted Channels |
 | WSTG-CRYP-04 | Testing for Weak Encryption |
