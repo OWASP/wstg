@@ -56,5 +56,5 @@ Specifically, the testing strategy proceeds as follows:
 
 ## Tools
 
-- [OWASP ZAP](https://www.zaproxy.org)
-- [JHijack - a numeric session hijacking tool](https://sourceforge.net/projects/jhijack/)
+* [OWASP ZAP](https://www.zaproxy.org)
+* [JHijack - a numeric session hijacking tool](https://sourceforge.net/projects/jhijack/)
