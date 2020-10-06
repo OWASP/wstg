@@ -10,7 +10,10 @@ Session fixation is enabled by the insecure practice of preserving the same valu
 
 In the generic exploit of session fixation vulnerabilities, an attacker can obtain a set of session cookies from the target website without authenticating and force them into the victim's browser, using different techniques; if the victim later authenticates at the target and the cookied are not refreshed, she will be identified by the session cookies chosen by the attacker, who will then become able to impersonate the victim.
 
-The issue can be fixed by refreshing the session cookies after the authentication, otherwise the attack can be prevented by ensuring the cookie integrity, i.e. using full [HSTS](https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security) adoption<sup>[1](#myfootnote1)</sup> or adding `__Host-` and `__Secure-` prefixes to the cookie name.
+The issue can be fixed by refreshing the session cookies after the authentication, otherwise the attack can be prevented by ensuring the cookie integrity, i.e. using full [HSTS](https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security) adoption* or adding `__Host-` and `__Secure-` prefixes to the cookie name.
+
+> * We refer to full HSTS adoption when a host activates HSTS for itself and all its sub-domains, and to partial HSTS adoption when a host activates HSTS just for itself.
+> - Calzavara, S., Rabitti, A., Ragazzo, A., Bugliesi, M.: Testing for Integrity Flaws in Web Sessions.
 
 ## How to Test
 
