@@ -25,8 +25,10 @@ Testing GraphQL nodes is not very different than testing other API technologies.
 
 ### Introspection Queries
 
-A little bit of background:  
-Introspection queries are the way GraphQL lets you ask it what queries it supports. This is a good starting point on the information gathering phase.
+A little bit of background:
+"It's often useful to ask a GraphQL schema for information about what queries it supports. GraphQL allows us to do so using the introspection system!"
+[GraphQL.org-Introspection](https://graphql.org/learn/introspection/)
+Introspection queries are the way GraphQL lets you ask it what queries it supports, which data types are available, and many more details you will need when approaching to test a GraphQL deployment. This is a good starting point on the information gathering phase.
 
 There are a couple of ways to extract that and visualize the output:
 
@@ -245,7 +247,7 @@ The documentation contains the data types, mutations, and basically every piece 
 GraphQL Playgrounds is a GraphQL client, which can be used to test different queries, as well as dividing GraphQL IDEs into different playgrounds, grouped by theme or by assigning a name to them.  
 Much like GraphiQL Playgrounds can create the documentation for you, without the need to manually sending introspection and processing the response but with one great advantage, it doesn't need GraphiQL interface to be available.  
 Another upside for this tool, is that it works just by directing the tool to the GraphQL node via a URL (there is also the option of using it locally with the data file) and then the magic happens without any user interaction.  
-Another advantage of the tool is that it can be used to test for vulnerabilities directly, you don't need to use a proxy to send HTTP requests (Burp for example), and so you can use this tool in order to manually plat with GraphQL and use Burp for other, more advanced payloads.  
+Another advantage of the tool is that it can be used to test for vulnerabilities directly, you don't need to use a proxy to send HTTP requests (Burp for example), and so you can use this tool in order to manually play with GraphQL and use Burp for other, more advanced payloads.  
 Note that in some cases you will need to set the HTTP headers at the bottom, to include session ID or other mechanism of authentication, but this still allows creating multiple "IDEs" with different permissions to verify if there are in fact authorization issues.
 
 ![Playgrounds1](images/Playgrounds1.png)
@@ -380,7 +382,7 @@ Input validation alone will be good, but it will not block everything (there is 
 
 GraphQL exposes a very simple interface, to allow developers use nested queries and nested objects. This ability can also be used in a malicious way, by calling a deep nested query similar to a recursive function, causing a denial of service by using too much CPU.
 
-In the example application, a "dog" has a reference to a vetreniary which also have a reference to a dog. This allows for a deep query which will overload the application:
+In the example application, a "dog" has a reference to a veterinary which also have a reference to a dog. This allows for a deep query which will overload the application:
 
 ~~~
 query dos {
