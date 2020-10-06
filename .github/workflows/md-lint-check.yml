@@ -30,6 +30,9 @@ jobs:
       run: |
         cat lint.txt
         ISSUES=$(cat lint.txt)
+        ISSUES="${ISSUES//'%'/'%25'}"
+        ISSUES="${ISSUES//$'\n'/'%0A'}"
+        ISSUES="${ISSUES//$'\r'/'%0D'}"
         echo ::set-output name=ISSUES::**The following issues were identified:** %0A$ISSUES
     - name: Attach Linting Issues
       if: failure()
