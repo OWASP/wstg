@@ -12,8 +12,8 @@ In the generic exploit of session fixation vulnerabilities, an attacker can obta
 
 The issue can be fixed by refreshing the session cookies after the authentication, otherwise the attack can be prevented by ensuring the cookie integrity, i.e. using full [HSTS](https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security) adoption* or adding `__Host-` and `__Secure-` prefixes to the cookie name.
 
-> * We refer to full HSTS adoption when a host activates HSTS for itself and all its sub-domains, and to partial HSTS adoption when a host activates HSTS just for itself.
-> - Calzavara, S., Rabitti, A., Ragazzo, A., Bugliesi, M.: Testing for Integrity Flaws in Web Sessions.
+> `*` We refer to full HSTS adoption when a host activates HSTS for itself and all its sub-domains, and to partial HSTS adoption when a host activates HSTS just for itself.
+> Ref: Calzavara, S., Rabitti, A., Ragazzo, A., Bugliesi, M.: Testing for Integrity Flaws in Web Sessions.
 
 ## How to Test
 
@@ -108,18 +108,10 @@ Talk with developers and understand if they have implemented a session token ren
 
 ## Tools
 
-- [OWASP ZAP](https://www.zaproxy.org)
-
-## Notes
-
-<a name="myfootnote1">1</a>: We refer to full HSTS adoption when a host activates HSTS for itself and all its sub-domains, and to partial HSTS adoption when a host activates HSTS just for itself.
-
-## References
-
-- Calzavara, S., Rabitti, A., Ragazzo, A., Bugliesi, M.: Testing for Integrity Flaws in Web Sessions.
+* [OWASP ZAP](https://www.zaproxy.org)
 
 ### Whitepapers
 
-- [Session Fixation](https://owasp.org/www-community/attacks/Session_fixation)
-- [ACROS Security](https://www.acrossecurity.com/papers/session_fixation.pdf)
-- [Chris Shiflett](http://shiflett.org/articles/session-fixation)
+* [Session Fixation](https://owasp.org/www-community/attacks/Session_fixation)
+* [ACROS Security](https://www.acrossecurity.com/papers/session_fixation.pdf)
+* [Chris Shiflett](http://shiflett.org/articles/session-fixation)

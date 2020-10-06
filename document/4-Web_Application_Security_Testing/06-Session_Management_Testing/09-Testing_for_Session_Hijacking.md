@@ -8,7 +8,11 @@
 
 An attacker who gets access to a honest user's cookies can impersonate her by presenting such cookies: this attack is known as session hijacking.
 
-Even when the web application is entirely deployed over HTTPS, the `Secure` attribute <sup>[1](#myfootnote1)</sup> should be used for the session cookies.
+Even when the web application is entirely deployed over HTTPS, the `Secure` attribute* should be used for the session cookies.
+
+> `*` A secure cookie is only sent to the server when a request is made with the `https:` scheme.
+> Ref: Calzavara, S., Rabitti, A., Ragazzo, A., Bugliesi, M.: Testing for Integrity Flaws in Web Sessions.
+
 For example, assume that `www.good.com` is entirely deployed over HTTPS, but does not mark its session cookies as `Secure`:
 
 1. The user sends a request to `http://www.another-site.com`
@@ -23,7 +27,10 @@ For example, assume that `www.good.com` is entirely deployed over HTTPS, but doe
 We assume to have a testing account on the website for the victim, that we call Alice and a testing account on the website for the attacker, that we call Bob.
 The intuition behind the testing strategy for session hijacking is to simulate a scenario where Bob steals all Alice's cookies he might be exposed to.
 
-We assume that the attacker is a network attacker (i.e. an attacker who has access to the same network as the victim), so we could have a cookie leakage in case of either no [HSTS](https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security) adoption and the `Secure` attribute is not set, or partial HSTS adoption<sup>[2](#myfootnote2)</sup>, the `Secure` attribute is not set and the Domain attribute is set to a parent domain. The attacker may then use these cookies to access Alice's account: if they are enough to act on Alice's behalf, session hijacking is possible.
+We assume that the attacker is a network attacker (i.e. an attacker who has access to the same network as the victim), so we could have a cookie leakage in case of either no [HSTS](https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security) adoption and the `Secure` attribute is not set, or partial HSTS adoption*, the `Secure` attribute is not set and the Domain attribute is set to a parent domain. The attacker may then use these cookies to access Alice's account: if they are enough to act on Alice's behalf, session hijacking is possible.
+
+> `*` We refer to full HSTS adoption when a host activates HSTS for itself and all its sub-domains, and to partial HSTS adoption when a host activates HSTS just for itself.
+> Ref: Calzavara, S., Rabitti, A., Ragazzo, A., Bugliesi, M.: Testing for Integrity Flaws in Web Sessions.
 
 Even when this is not possible, however, security might still be at risk, because it might be that not all the cookies were disclosed to the attacker and the attempted operation failed because just a subset of the expected cookies was sent to the website.
 
@@ -34,9 +41,7 @@ Specifically, the testing strategy proceeds as follows:
 1. Login to `www.example.com` as Alice and reach the page under test;
 2. Find the cookies which satisfy either of the following conditions:
     * in case there is no HSTS adoption, the `Secure` attribute is not set;
-    * in case there is partial HSTS<sup>[2](#myfootnote2)</sup> adoption, the `Secure` attribute is not set and the Domain attribute is set to a parent domain;
-
-   then, clear all the other cookies from the browser;
+    * in case there is partial HSTS adoption*, the `Secure` attribute is not set and the Domain attribute is set to a parent domain;   then, clear all the other cookies from the browser;
 3. Perform the operation under test;
 4. Check: has the operation been performed? If yes, report as insecure;
 5. Clear the cookies from the browser;
@@ -46,17 +51,10 @@ Specifically, the testing strategy proceeds as follows:
 9. Clear the cookies from the browser and login to `www.example.com` as Alice;
 10. Check: has the operation been performed? If yes, report as insecure.
 
+> `*` We refer to full HSTS adoption when a host activates HSTS for itself and all its sub-domains, and to partial HSTS adoption when a host activates HSTS just for itself.
+> Ref: Calzavara, S., Rabitti, A., Ragazzo, A., Bugliesi, M.: Testing for Integrity Flaws in Web Sessions.
+
 ## Tools
 
 - [OWASP ZAP](https://www.zaproxy.org)
 - [JHijack - a numeric session hijacking tool](https://sourceforge.net/projects/jhijack/)
-
-## Notes
-
-<a name="myfootnote1">1</a>: A secure cookie is only sent to the server when a request is made with the `https:` scheme.
-
-<a name="myfootnote2">2</a>: We refer to full HSTS adoption when a host activates HSTS for itself and all its sub-domains, and to partial HSTS adoption when a host activates HSTS just for itself.
-
-## References
-
-- Calzavara, S., Rabitti, A., Ragazzo, A., Bugliesi, M.: Testing for Integrity Flaws in Web Sessions.
