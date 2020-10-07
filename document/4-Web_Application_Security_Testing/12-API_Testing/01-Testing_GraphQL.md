@@ -13,7 +13,7 @@ Some vectors are unique to GraphQL (Introspection Query for example) and some ar
 
 The guide will use a demo vulnerable application which uses GraphQL for the API access in order to demonstrate vulnerable a GraphQL node.
 
-The guide will be based on a vulnerable GraphQL application [poc-graphql](https://github.com/righettod/poc-graphql), which is run in a docker container which maps localhost:8080/graphql as the vulnerable GraphQL node.
+The guide will be based on a vulnerable GraphQL application [poc-graphql](https://github.com/righettod/poc-graphql), which is run in a docker container which maps localhost:8080/GraphQL as the vulnerable GraphQL node.
 
 ## Test Objectives
 
@@ -222,15 +222,15 @@ Now use GraphQL Voyager to get a better look on the output:
 This tool creates an ERD representation of the GraphQL scheme, allowing you to get a better look into the moving parts of the system you're testing.  
 Extracting information from the drawing allows you to see you can query the dogs table for example. It also shows which properties a "dog" has:
 
-* id
+* ID
 * name
-* veterinary (id)  
+* veterinary (ID)  
 
 There is one downside to using this method, GraphQL Voyager does not display everything that can be done with GraphQL, for example, in the drawing above the mutations available are not listed, so the best way would be to use both Voyager and one of the methods listed below.
 
 #### Using the GraphiQL
 
-Graphiql is a web-based IDE for GraphQL. It is part of the GraphQL project, and it is mainly used for debugging or development purposes.  
+GraphiQL is a web-based IDE for GraphQL. It is part of the GraphQL project, and it is mainly used for debugging or development purposes.  
 The best practice is to not allow users to access it on production deployments, however, if you are testing a staging environment you might have access to it and it can save you some time playing around with introspection queries (although you can, of course, use introspection in the GraphiQL interface).  
 
 The GraphiQL has a docs section, which uses the data from the scheme in order to created a documentation of the GraphQL instance that is being used.
@@ -445,7 +445,7 @@ GraphQL allows to limit the depth a query can contain. In the above example the 
 
 #### Maximum Query Complexity
 
-Query complexity is a metric which calculates how complex the query is, just like calculating complexity in algorithms. The complexity of each field, is set by the user, allowing the user to define some fields as more complex than others. A common practice is to set each field with a complexity score of 1. However, in the following query, `allDogs` sends back a list of dogs, which might be pricier to compute, and as such the complexity should be set higher than 1. For example, if `allDogs` is set to be 5 (if, for example, it is limited to a maximum of 5 dogs) we use addition to add the 5 for `allDogs` and 1 for the id field, giving the query a 6 complexity score.  
+Query complexity is a metric which calculates how complex the query is, just like calculating complexity in algorithms. The complexity of each field, is set by the user, allowing the user to define some fields as more complex than others. A common practice is to set each field with a complexity score of 1. However, in the following query, `allDogs` sends back a list of dogs, which might be pricier to compute, and as such the complexity should be set higher than 1. For example, if `allDogs` is set to be 5 (if, for example, it is limited to a maximum of 5 dogs) we use addition to add the 5 for `allDogs` and 1 for the ID field, giving the query a 6 complexity score.  
 
 ```
 query dos {
