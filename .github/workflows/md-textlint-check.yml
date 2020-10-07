@@ -48,6 +48,9 @@ jobs:
       run: |
         cat log.txt
         MISTAKES=$(cat log.txt|grep -v '✔ Fixed'|tr '✔' '✖')
+        MISTAKES="${MISTAKES//'%'/'%25'}"
+        MISTAKES="${MISTAKES//$'\n'/'%0A'}"
+        MISTAKES="${MISTAKES//$'\r'/'%0D'}"
         echo ::set-output name=MISTAKES::**The following mistakes were identified:** %0A$MISTAKES
     - name: Attach Mistakes
       if: failure()
