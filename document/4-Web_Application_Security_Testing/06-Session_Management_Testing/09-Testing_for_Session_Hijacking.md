@@ -41,7 +41,7 @@ Specifically, the testing strategy proceeds as follows:
 1. Login to `www.example.com` as Alice and reach the page under test;
 2. Find the cookies which satisfy either of the following conditions:
     * in case there is no HSTS adoption, the `Secure` attribute is not set;
-    * in case there is partial HSTS adoption*, the `Secure` attribute is not set and the Domain attribute is set to a parent domain;   then, clear all the other cookies from the browser;
+    * in case there is partial HSTS adoption*, the `Secure` attribute is not set and the Domain attribute is set to a parent domain; then, clear all the other cookies from the browser;
 3. Perform the operation under test;
 4. Check: has the operation been performed? If yes, report as insecure;
 5. Clear the cookies from the browser;
