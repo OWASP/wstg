@@ -36,7 +36,7 @@ There are a couple of ways to extract that and visualize the output:
 
 The most straight-forward way is to send an HTTP request (using a proxy like Burp) with the following payload :
 
-```
+```json
 query IntrospectionQuery {
   __schema {
     queryType {
@@ -139,7 +139,7 @@ The result will usually be very long (and hence will be shorted here), and it wi
 
 Response:
 
-``` json
+```json
 {
   "data": {
     "__schema": {
@@ -285,7 +285,7 @@ The application is vulnerable by design in the `dogs(namePrefix: String, limit: 
 
 The following query extracts information from the CONFIG table within the database:
 
-``` sql
+```sql
 query sqli {
   dogs(namePrefix: "ab%' UNION ALL SELECT 50 AS ID, C.CFGVALUE AS NAME, NULL AS VETERINARY_ID FROM CONFIG C LIMIT ? -- ", limit: 1000) {
     id
@@ -320,7 +320,6 @@ The response to this query is:
 The query contains the secret which signs JWTs in the example application, which is very sensitive information. Please note that in order to know what to look for you will need to collect information and learn about how the application is built as well as how the database tables are organized.  
 Another thing you can do, is use tools like sqlmap to look for injection paths and even automating the extraction of data from the database.
 
-
 #### Cross-Site Scripting (XSS)
 
 Cross-Site scripting occurs when the browser treats data that should be displayed as code that should be executed, creating the opportunity to run malicious code in a user's browser.  
@@ -331,7 +330,7 @@ In this example, errors might reflect the input at times, and in case the applic
 
 Payload:
 
-``` 
+```json
 query xss  {
   myInfo(veterinaryId:"<script>alert('1')</script>" ,accessToken:"<script>alert('1')</script>") {
     id
@@ -342,7 +341,7 @@ query xss  {
 
 Response:
 
-``` json
+```json
 {
   "data": null,
   "errors": [
@@ -384,7 +383,7 @@ GraphQL exposes a very simple interface, to allow developers use nested queries 
 
 In the example application, a "dog" has a reference to a veterinary which also have a reference to a dog. This allows for a deep query which will overload the application:
 
-```
+```json
 query dos {
   allDogs(onlyFree: false, limit: 1000000) {
     id
@@ -447,7 +446,7 @@ GraphQL allows to limit the depth a query can contain. In the above example the 
 
 Query complexity is a metric which calculates how complex the query is, just like calculating complexity in algorithms. The complexity of each field, is set by the user, allowing the user to define some fields as more complex than others. A common practice is to set each field with a complexity score of 1. However, in the following query, `allDogs` sends back a list of dogs, which might be pricier to compute, and as such the complexity should be set higher than 1. For example, if `allDogs` is set to be 5 (if, for example, it is limited to a maximum of 5 dogs) we use addition to add the 5 for `allDogs` and 1 for the ID field, giving the query a 6 complexity score.  
 
-```
+```json
 query dos {
   allDogs(limit:5){  ##complexity 5
     id  ##complexity 1
