@@ -29,6 +29,7 @@ jobs:
       if: failure()
       run: |
         cat lint.txt
+        sed -i 's/```/triple-backtick/g' lint.txt
         ISSUES=$(cat lint.txt)
         ISSUES="${ISSUES//'%'/'%25'}"
         ISSUES="${ISSUES//$'\n'/'%0A'}"
