@@ -236,9 +236,9 @@ The best practice is to not allow users to access it on production deployments, 
 The GraphiQL has a docs section, which uses the data from the scheme in order to created a documentation of the GraphQL instance that is being used.
 
 ![GraphiQL1](images/GraphiQL1.png)
-<img src=images/GraphiQL2.png width="300" />  
-<img src=images/GraphiQL3.png width="300" />  
-<img src=images/GraphiQL4.png width="300" />  
+![GraphiQL2](images/GraphiQL2.png)
+![GraphiQL3](images/GraphiQL3.png)
+![GraphiQL4](images/GraphiQL4.png)
 
 The documentation contains the data types, mutations, and basically every piece of information you can extract using Introspection.
 
