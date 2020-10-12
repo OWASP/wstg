@@ -8,10 +8,10 @@
 
 Testing for credentials transport verifies that web applications encrypt authentication data in transit. This encryption prevents attackers from taking over accounts by [sniffing network traffic](https://owasp.org/www-community/attacks/Man-in-the-middle_attack). Web applications use [HTTPS](https://tools.ietf.org/html/rfc2818) to encrypt information in transit for both client to server and server to client communications. A client can send or receive authentication data during the following interactions:
 
-* A client sends a credential to request login
-* The server responds to a successful login with a [session token](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#session-id-properties)
-* An authenticated client sends a session token to request sensitive information from the web site
-* A client sends a token to the web site if they [forgot their password](https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html)
+- A client sends a credential to request login
+- The server responds to a successful login with a [session token](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#session-id-properties)
+- An authenticated client sends a session token to request sensitive information from the web site
+- A client sends a token to the web site if they [forgot their password](https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html)
 
 Failure to encrypt any of these credentials in transit can allow attackers with network sniffing tools to view credentials and possibly use them to steal a user's account. The attacker could sniff traffic directly using [Wireshark](https://www.wireshark.org) or similar tools, or they could set up a proxy to capture HTTP requests. Sensitive data should be encrypted in transit to prevent this.
 
@@ -26,15 +26,15 @@ Assess whether any use case of the web site or application causes the server or 
 To test for credential transport, capture traffic between a client and web application server that needs credentials. Check for credentials transferred during login and while using the application with a valid session. To set up for the test:
 
 1. Set up and start a tool to capture traffic, such as one of the following:
-   * The web browser's [developer tools](https://developer.mozilla.org/en-US/docs/Tools)
-   * A proxy including [OWASP ZAP](https://owasp.org/www-project-zap/)
+   - The web browser's [developer tools](https://developer.mozilla.org/en-US/docs/Tools)
+   - A proxy including [OWASP ZAP](https://owasp.org/www-project-zap/)
 2. Disable any features or plugins that make the web browser favour HTTPS, since some tests require the user to use [forced browsing](https://owasp.org/www-community/attacks/Forced_browsing) to intentionally request HTTP versions of sensitive pages.
 
 In the captured traffic, look for sensitive data including the following:
 
-* Passphrases or passwords, usually inside a [message body](https://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html)
-* Tokens, usually inside [cookies](https://tools.ietf.org/html/rfc6265#section-4.2)
-* Account or password reset codes
+- Passphrases or passwords, usually inside a [message body](https://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html)
+- Tokens, usually inside [cookies](https://tools.ietf.org/html/rfc6265#section-4.2)
+- Account or password reset codes
 
 For any message containing this sensitive data, verify the exchange occurred using HTTPS (and not HTTP). The following examples show captured data that indicate passed or failed tests, where the web application is on a server called `site-under.test`.
 
@@ -42,7 +42,7 @@ For any message containing this sensitive data, verify the exchange occurred usi
 
 Log in using a valid account while attempting to force the use of unencrypted HTTP. Find the address of the login page and attempt to switch the protocol to HTTP. The URL for the forced browsing could look like the following: `http://site-under.test/login`
 
-* If the login page is normally HTTPS, attempt to remove the "S" to see if the login page loads as HTTP
+- If the login page is normally HTTPS, attempt to remove the "S" to see if the login page loads as HTTP
 
 After attempting the forced browse, log in to the web site. In a passing test, the login request should be HTTPS:
 
@@ -69,8 +69,8 @@ from=/
 Submit=Sign in
 ```
 
-* In the login, the credentials are encrypted due to the HTTPS request URL
-* If the server returns cookie information for a session token, the cookie should also include the [`Secure` attribute](https://owasp.org/www-community/controls/SecureFlag) to avoid the client exposing the cookie over unencrypted channels later. Look for the `Secure` keyword in the response header.
+- In the login, the credentials are encrypted due to the HTTPS request URL
+- If the server returns cookie information for a session token, the cookie should also include the [`Secure` attribute](https://owasp.org/www-community/controls/SecureFlag) to avoid the client exposing the cookie over unencrypted channels later. Look for the `Secure` keyword in the response header.
 
 The test fails if any login transfers a credential over HTTP, similar to the following:
 
@@ -85,8 +85,8 @@ from=/
 Submit=Sign in
 ```
 
-* The fetch URL is `http://` and it exposes the plaintext `j_username` and `j_password` through the post data
-* In this case, since the test already shows POST data exposing all the credentials, there is no point checking response headers (which would also likely expose a session token or cookie).
+- The fetch URL is `http://` and it exposes the plaintext `j_username` and `j_password` through the post data
+- In this case, since the test already shows POST data exposing all the credentials, there is no point checking response headers (which would also likely expose a session token or cookie).
 
 ### Account Creation
 
@@ -131,7 +131,7 @@ Submit=Create account
 Jenkins-Crumb=58e6f084fd29ea4fe570c31f1d89436a0578ef4d282c1bbe03ffac0e8ad8efd6
 ```
 
-* Similar to a login, most web applications automatically give a session token on a successful account creation. If there is a `Set-Cookie:`, verify it has a `Secure;` attribute as well.
+- Similar to a login, most web applications automatically give a session token on a successful account creation. If there is a `Set-Cookie:`, verify it has a `Secure;` attribute as well.
 
 The test fails if the client sends a new account request with unencrypted HTTP:
 
@@ -148,15 +148,15 @@ Submit=Create account
 Jenkins-Crumb=8c96276321420cdbe032c6de141ef556cab03d91b25ba60be8fd3d034549cdd3
 ```
 
-* This Jenkins user creation form exposed all the new user details (name, full name, and password) in POST data to the HTTP create account page
+- This Jenkins user creation form exposed all the new user details (name, full name, and password) in POST data to the HTTP create account page
 
 ### Password Reset, Change Password or Other Account Manipulation
 
 Similar to login and account creation, if the web application has features that allow a user to change an account or call a different service with credentials, verify all of those interactions are HTTPS. The interactions to test include the following:
 
-* Forms that allow users to handle a forgotten password or other credential
-* Forms that allow users to edit credentials
-* Forms that require the user to authenticate with another provider (for example, payment processing)
+- Forms that allow users to handle a forgotten password or other credential
+- Forms that allow users to edit credentials
+- Forms that require the user to authenticate with another provider (for example, payment processing)
 
 Accessing Resources While Logged In
 
@@ -181,7 +181,7 @@ Cookie: JSESSIONID.a7731d09=node01ai3by8hip0g71kh3ced41pmqf4.node0; ACEGI_SECURI
 Upgrade-Insecure-Requests: 1
 ```
 
-* The session token in the cookie is encrypted since the request URL is HTTPS
+- The session token in the cookie is encrypted since the request URL is HTTPS
 
 The test fails if the browser submits a session token over HTTP in any part of the web site, even if forced browsing is required to trigger this case:
 
@@ -201,14 +201,14 @@ Cookie: language=en; welcomebanner_status=dismiss; cookieconsent_status=dismiss;
 Upgrade-Insecure-Requests: 1
 ```
 
-* The GET request exposed the session token `JSESSIONID` (from browser to server) in request URL `http://site-under.test/`
+- The GET request exposed the session token `JSESSIONID` (from browser to server) in request URL `http://site-under.test/`
 
 ## Remediation
 
 Ideally use HTTPS for the whole web site, use [HSTS](https://tools.ietf.org/html/rfc6797), and redirect any HTTP to HTTPS. The site gains the following benefits from using HTTPS for all its features:
 
-* It prevents attackers from modifying interactions with the web server (including placing JavaScript malware through a [compromised router](https://www.trendmicro.com/vinfo/us/security/news/cybercrime-and-digital-threats/over-200-000-mikrotik-routers-compromised-in-cryptojacking-campaign)).
-* It avoids losing customers to insecure site warnings. New browsers [mark HTTP based web sites as insecure](https://www.blog.google/products/chrome/milestone-chrome-security-marking-http-not-secure/).
-* It makes writing certain applications easier. For example, Android APIs [need overrides](https://developer.android.com/training/articles/security-config#CleartextTrafficPermitted) to connect to anything via HTTP.
+- It prevents attackers from modifying interactions with the web server (including placing JavaScript malware through a [compromised router](https://www.trendmicro.com/vinfo/us/security/news/cybercrime-and-digital-threats/over-200-000-mikrotik-routers-compromised-in-cryptojacking-campaign)).
+- It avoids losing customers to insecure site warnings. New browsers [mark HTTP based web sites as insecure](https://www.blog.google/products/chrome/milestone-chrome-security-marking-http-not-secure/).
+- It makes writing certain applications easier. For example, Android APIs [need overrides](https://developer.android.com/training/articles/security-config#CleartextTrafficPermitted) to connect to anything via HTTP.
 
 If it is cumbersome to switch to HTTPS, prioritize HTTPS for sensitive operations first. For the medium term, plan to convert the whole application to HTTPS to avoid losing customers to compromise or the warnings of HTTP being insecure. If the organization does not already buy certificates for HTTPS, look in to [Let's Encrypt](https://letsencrypt.org) or other free certificate authorities on the server.
