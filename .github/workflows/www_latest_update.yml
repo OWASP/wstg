@@ -20,8 +20,8 @@ jobs:
       run: |
         # Git setup
         export GITHUB_USER=wstgbot
-        echo ::set-env name=GITHUB_USER::$GITHUB_USER
-        echo ::set-env name=GITHUB_TOKEN::${{ secrets.wstg_deploy_token }}
+        echo "GITHUB_USER=$GITHUB_USER" >> $GITHUB_ENV
+        echo "GITHUB_TOKEN=${{ secrets.wstg_deploy_token }}" >> $GITHUB_ENV
         git config --global user.email "62450690+wstgbot@users.noreply.github.com"
         git config --global user.name $GITHUB_USER
         # Clone the necessary repos
@@ -31,12 +31,12 @@ jobs:
       run : |
         # Setup some env vars etc for future use
         cd wstg
-        echo ::set-env name=WSTG_BASE::"$(pwd)"
-        echo ::set-env name=SRC_BASE::"OWASP/wstg@"$(git log -1 --format=format:%h)
-        echo ::set-env name=BRANCH_STAMP::"$(date +"%Y%m%d%H%M%S")"
-        echo ::set-env name=SHORT_DATE::"$(date +"%Y-%m-%d")"
+        echo "WSTG_BASE=$(pwd)" >> $GITHUB_ENV
+        echo "SRC_BASE="OWASP/wstg@"$(git log -1 --format=format:%h)" >> $GITHUB_ENV
+        echo "BRANCH_STAMP=$(date +"%Y%m%d%H%M%S")" >> $GITHUB_ENV
+        echo "SHORT_DATE=$(date +"%Y-%m-%d")" >> $GITHUB_ENV
         cd ../www-project-web-security-testing-guide
-        echo ::set-env name=WWW_BASE::"$(pwd)"
+        echo "WWW_BASE=$(pwd)" >> $GITHUB_ENV
     - name: Create Feature Branch
       run: |
         cd $WWW_BASE
