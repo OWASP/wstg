@@ -36,18 +36,18 @@ In the captured traffic, look for sensitive data including the following:
 - Tokens, usually inside [cookies](https://tools.ietf.org/html/rfc6265#section-4.2)
 - Account or password reset codes
 
-For any message containing this sensitive data, verify the exchange occurred using HTTPS (and not HTTP). The following examples show captured data that indicate passed or failed tests, where the web application is on a server called `site-under.test`.
+For any message containing this sensitive data, verify the exchange occurred using HTTPS (and not HTTP). The following examples show captured data that indicate passed or failed tests, where the web application is on a server called `www.example.org`.
 
 ### Login
 
-Log in using a valid account while attempting to force the use of unencrypted HTTP. Find the address of the login page and attempt to switch the protocol to HTTP. The URL for the forced browsing could look like the following: `http://site-under.test/login`
+Log in using a valid account while attempting to force the use of unencrypted HTTP. Find the address of the login page and attempt to switch the protocol to HTTP. The URL for the forced browsing could look like the following: `http://www.example.org/login`
 
 - If the login page is normally HTTPS, attempt to remove the "S" to see if the login page loads as HTTP
 
 After attempting the forced browse, log in to the web site. In a passing test, the login request should be HTTPS:
 
 ```http
-Request URL: https://site-under.test/j_acegi_security_check
+Request URL: https://www.example.org/j_acegi_security_check
 Request method: POST
 ...
 Response headers:
@@ -60,7 +60,7 @@ X-Content-Type-Options: nosniff
 Expires: Thu, 01 Jan 1970 00:00:00 GMT
 Set-Cookie: JSESSIONID.a7731d09=node01ai3by8hip0g71kh3ced41pmqf4.node0; Path=/; Secure; HttpOnly
 ACEGI_SECURITY_HASHED_REMEMBER_ME_COOKIE=dXNlcmFiYzoxNjAyNTUwNzQ0NDU3OjFmNDlmYTZhOGI1YTZkYTYxNDIwYWVmNmM0OTI1OGFhODA3Y2ZmMjg4MDM3YjcwODdmN2I2NjMwOWIyMDU3NTc=; Path=/; Expires=Tue, 13-Oct-2020 00:59:04 GMT; Max-Age=1209600; Secure; HttpOnly
-Location: https://site-under.test/
+Location: https://www.example.org/
 ...
 POST data:
 j_username=userabc
@@ -75,7 +75,7 @@ Submit=Sign in
 The test fails if any login transfers a credential over HTTP, similar to the following:
 
 ```http
-Request URL: http://site-under.test/j_acegi_security_check
+Request URL: http://www.example.org/j_acegi_security_check
 Request method: POST
 ...
 POST data:
@@ -90,12 +90,12 @@ Submit=Sign in
 
 ### Account Creation
 
-To test for unencrypted account creation, attempt to force browse to the HTTP version of the account creation and create an account, for example: `http://site-under.test/securityRealm/createAccount`
+To test for unencrypted account creation, attempt to force browse to the HTTP version of the account creation and create an account, for example: `http://www.example.org/securityRealm/createAccount`
 
 The test passes if even after the forced browsing, the client still sends the new account request through HTTPS:
 
 ```http
-Request URL: https://site-under.test/securityRealm/createAccount
+Request URL: https://www.example.org/securityRealm/createAccount
 Request method: POST
 ...
 Response headers:
@@ -136,7 +136,7 @@ Jenkins-Crumb=58e6f084fd29ea4fe570c31f1d89436a0578ef4d282c1bbe03ffac0e8ad8efd6
 The test fails if the client sends a new account request with unencrypted HTTP:
 
 ```http
-Request URL: http://site-under.test/securityRealm/createAccount
+Request URL: http://www.example.org/securityRealm/createAccount
 Request method: POST
 ...
 POST data:
@@ -165,12 +165,12 @@ After logging in, access all the features of the application, including public f
 The test passes if all interactions send the session token over HTTPS similar to the following example:
 
 ```http
-Request URL:http://site-under.test/
+Request URL:http://www.example.org/
 Request method:GET
 ...
 Request headers:
 GET / HTTP/1.1
-Host: site-under.test
+Host: www.example.org
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
 Accept-Language: en-US,en;q=0.5
@@ -186,12 +186,12 @@ Upgrade-Insecure-Requests: 1
 The test fails if the browser submits a session token over HTTP in any part of the web site, even if forced browsing is required to trigger this case:
 
 ```http
-Request URL:http://site-under.test/
+Request URL:http://www.example.org/
 Request method:GET
 ...
 Request headers:
 GET / HTTP/1.1
-Host: site-under.test
+Host: www.example.org
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
 Accept-Language: en-US,en;q=0.5
@@ -201,7 +201,7 @@ Cookie: language=en; welcomebanner_status=dismiss; cookieconsent_status=dismiss;
 Upgrade-Insecure-Requests: 1
 ```
 
-- The GET request exposed the session token `JSESSIONID` (from browser to server) in request URL `http://site-under.test/`
+- The GET request exposed the session token `JSESSIONID` (from browser to server) in request URL `http://www.example.org/`
 
 ## Remediation
 
