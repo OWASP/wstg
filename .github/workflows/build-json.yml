@@ -12,6 +12,8 @@ jobs:
     name: Create Pull Request
     runs-on: ubuntu-latest
     steps:
+    - name: Setup Action
+      uses: actions/checkout@v2
     - name: Setup Node
       uses: actions/setup-node@v1
       with:
@@ -20,7 +22,7 @@ jobs:
       run: |
         sudo apt update
         sudo apt install moreutils
-    - name: Git Clone and Global Config
+    - name: Git Setup Global Config
       run: |
         # Git setup
         export GITHUB_USER=wstgbot
@@ -28,29 +30,22 @@ jobs:
         echo "GITHUB_TOKEN=${{ secrets.wstg_deploy_token }}" >> $GITHUB_ENV
         git config --global user.email "62450690+wstgbot@users.noreply.github.com"
         git config --global user.name $GITHUB_USER
-        # Clone the repo
-        git clone https://github.com/$GITHUB_USER/wstg.git --depth 1
     - name: Setup Environment Variables
       run : |
         # Setup some env vars etc for future use
-        cd wstg
-        echo "WSTG_BASE=$(pwd)" >> $GITHUB_ENV
         echo "SRC_BASE="OWASP/wstg@"$(git log -1 --format=format:%h)" >> $GITHUB_ENV
         echo "BRANCH_STAMP=$(date +"%Y%m%d%H%M%S")" >> $GITHUB_ENV
         echo "SHORT_DATE=$(date +"%Y-%m-%d")" >> $GITHUB_ENV
     - name: Create Feature Branch
       run: |
-        cd $WSTG_BASE
         # Checkout what will be the new feature branch
         git checkout -b $BRANCH_STAMP
     - name: Run Json Build
-      run: |
-        run: npm run-script jsongen
+      run: npm run-script jsongen
 
     - name: Push Feature Branch and Raise PR
       run: |
-        cd $WSTG_BASE
-        git remote set-url origin https://$GITHUB_USER:${{ secrets.wstg_deploy_token }}@github.com/$GITHUB_USER/wstg.git
+        git remote set-url origin https://$GITHUB_USER:${{ secrets.wstg_deploy_token }}@github.com/OWASP/wstg.git
         git add checklist/Testing-checklist.json
         git commit -m "Publish Latest Json checklist $SHORT_DATE" -m "Updates based on $SRC_BASE"
         git push --set-upstream origin $BRANCH_STAMP
