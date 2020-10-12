@@ -12,7 +12,11 @@ jobs:
     name: Create Pull Request
     runs-on: ubuntu-latest
     steps:
-    - name: Setup
+    - name: Setup Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: Install dependencies 
       run: |
         sudo apt update
         sudo apt install moreutils
