@@ -40,7 +40,7 @@ jobs:
       run: |
         # Checkout what will be the new feature branch
         git checkout -b $BRANCH_STAMP
-    - name: Run Json Build
+    - name: Run JSON Build
       run: npm run-script jsongen
 
     - name: Push Feature Branch and Raise PR
