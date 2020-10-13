@@ -1,4 +1,4 @@
-name: Deploy Latest WSTG Json Checklist
+name: Deploy Latest JSON Checklist
 
 on:
   push:
