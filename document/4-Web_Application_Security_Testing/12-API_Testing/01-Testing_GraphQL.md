@@ -36,7 +36,7 @@ There are a couple of ways to extract that and visualize the output:
 
 The most straight-forward way is to send an HTTP request (using a proxy like Burp) with the following payload :
 
-```json
+```graphql
 query IntrospectionQuery {
   __schema {
     queryType {
@@ -185,33 +185,9 @@ Response:
               "isDeprecated": false,
               "deprecationReason": null
             },
-            {
-              "name": "ENUM",
-              "description": "Indicates this type is an enum. `enumValues` is a valid field.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "INPUT_OBJECT",
-              "description": "Indicates this type is an input object. `inputFields` is a valid field.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "LIST",
-              "description": "Indicates this type is a list. `ofType` is a valid field.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "NON_NULL",
-              "description": "Indicates this type is a non-null. `ofType` is a valid field.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
           ],
           "possibleTypes": null
-                ...
+
         {
 ```
 
@@ -222,9 +198,9 @@ Now use GraphQL Voyager to get a better look on the output:
 This tool creates an ERD representation of the GraphQL scheme, allowing you to get a better look into the moving parts of the system you're testing.  
 Extracting information from the drawing allows you to see you can query the dogs table for example. It also shows which properties a "dog" has:
 
-* ID
-* name
-* veterinary (ID)  
+- ID
+- name
+- veterinary (ID)  
 
 There is one downside to using this method, GraphQL Voyager does not display everything that can be done with GraphQL, for example, in the drawing above the mutations available are not listed, so the best way would be to use both Voyager and one of the methods listed below.
 
@@ -285,7 +261,7 @@ The application is vulnerable by design in the `dogs(namePrefix: String, limit: 
 
 The following query extracts information from the CONFIG table within the database:
 
-```sql
+```graphql
 query sqli {
   dogs(namePrefix: "ab%' UNION ALL SELECT 50 AS ID, C.CFGVALUE AS NAME, NULL AS VETERINARY_ID FROM CONFIG C LIMIT ? -- ", limit: 1000) {
     id
@@ -296,7 +272,7 @@ query sqli {
 
 The response to this query is:
 
-``` json
+```json
 {
   "data": {
     "dogs": [
@@ -330,7 +306,7 @@ In this example, errors might reflect the input at times, and in case the applic
 
 Payload:
 
-```json
+```graphql
 query xss  {
   myInfo(veterinaryId:"<script>alert('1')</script>" ,accessToken:"<script>alert('1')</script>") {
     id
@@ -383,7 +359,7 @@ GraphQL exposes a very simple interface, to allow developers use nested queries 
 
 In the example application, a "dog" has a reference to a veterinary which also have a reference to a dog. This allows for a deep query which will overload the application:
 
-```json
+```graphql
 query dos {
   allDogs(onlyFree: false, limit: 1000000) {
     id
@@ -446,7 +422,7 @@ GraphQL allows to limit the depth a query can contain. In the above example the 
 
 Query complexity is a metric which calculates how complex the query is, just like calculating complexity in algorithms. The complexity of each field, is set by the user, allowing the user to define some fields as more complex than others. A common practice is to set each field with a complexity score of 1. However, in the following query, `allDogs` sends back a list of dogs, which might be pricier to compute, and as such the complexity should be set higher than 1. For example, if `allDogs` is set to be 5 (if, for example, it is limited to a maximum of 5 dogs) we use addition to add the 5 for `allDogs` and 1 for the ID field, giving the query a 6 complexity score.  
 
-```json
+```graphql
 query dos {
   allDogs(limit:5){  ##complexity 5
     id  ##complexity 1
@@ -488,23 +464,23 @@ The remediation for these types of vulnerabilities is both input validation and 
 
 ## Tools
 
-* [GraphQL Playground](https://github.com/prisma-labs/graphql-playground)
-* [sqlmap](https://github.com/sqlmapproject/sqlmap)
+- [GraphQL Playground](https://github.com/prisma-labs/graphql-playground)
+- [sqlmap](https://github.com/sqlmapproject/sqlmap)
 
 ### Burp GraphQL Extensions
 
-* [InQL](https://portswigger.net/bappstore/296e9a0730384be4b2fffef7b4e19b1f)
-* [GraphQL Raider](https://portswigger.net/bappstore/4841f0d78a554ca381c65b26d48207e6)
+- [InQL](https://portswigger.net/bappstore/296e9a0730384be4b2fffef7b4e19b1f)
+- [GraphQL Raider](https://portswigger.net/bappstore/4841f0d78a554ca381c65b26d48207e6)
 
 ### Zap Proxy Extensions
 
-* [GraphQL addon for (OWASP) ZAP](https://www.zaproxy.org/blog/2020-08-28-introducing-the-graphql-add-on-for-zap/)
+- [GraphQL addon for (OWASP) ZAP](https://www.zaproxy.org/blog/2020-08-28-introducing-the-graphql-add-on-for-zap/)
 
 ## References
 
-* [poc-graphql](https://github.com/righettod/poc-graphql)
-* [GraphQL Official Site](https://graphql.org/learn/)
-* [Howtographql - Security](https://www.howtographql.com/advanced/4-security/)
-* [GraphQL Constraint Directive](https://github.com/confuser/graphql-constraint-directive)
-* [User side testing (XSS and other vulnerabilities)](https://github.com/OWASP/wstg/tree/master/document/4-Web_Application_Security_Testing/11-Client-side_Testing)
-* [5 Common GraphQL Security Vulnerabilities](https://carvesystems.com/news/the-5-most-common-graphql-security-vulnerabilities/)
+- [poc-graphql](https://github.com/righettod/poc-graphql)
+- [GraphQL Official Site](https://graphql.org/learn/)
+- [Howtographql - Security](https://www.howtographql.com/advanced/4-security/)
+- [GraphQL Constraint Directive](https://github.com/confuser/graphql-constraint-directive)
+- [User side testing (XSS and other vulnerabilities)](https://github.com/OWASP/wstg/tree/master/document/4-Web_Application_Security_Testing/11-Client-side_Testing)
+- [5 Common GraphQL Security Vulnerabilities](https://carvesystems.com/news/the-5-most-common-graphql-security-vulnerabilities/)
