@@ -47,6 +47,6 @@ jobs:
       run: |
         git remote set-url origin https://$GITHUB_USER:${{ secrets.wstg_deploy_token }}@github.com/OWASP/wstg.git
         git add checklist/Testing-checklist.json
-        git commit -m "Publish Latest Json checklist $SHORT_DATE" -m "Updates based on $SRC_BASE"
+        git commit -m "Publish Latest JSON checklist $SHORT_DATE" -m "Updates based on $SRC_BASE"
         git push --set-upstream origin $BRANCH_STAMP
         hub pull-request --no-edit
