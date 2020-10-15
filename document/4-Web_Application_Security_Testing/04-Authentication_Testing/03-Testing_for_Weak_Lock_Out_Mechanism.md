@@ -49,10 +49,15 @@ A CAPTCHA may hinder brute force attacks, but they can come with their own set o
 To evaluate CAPTCHA effectiveness:
 
 1. Assess CAPTCHA challenges and attempt automating solutions depending on difficulty.
-2. Attempt to submit request without solving CAPTCHA.
+2. Attempt to submit request without solving CAPTCHA via the normal UI mechanism(s).
 3. Attempt to submit request with intentional CAPTCHA challenge failure.
-4. Attempt to submit request without solving CAPTCHA using testing proxy (request submitted directly server-side).
+4. Attempt to submit request without solving CAPTCHA (assuming some default values may be passed by client-side code, etc) while using a testing proxy (request submitted directly server-side).
 5. Attempt to fuzz CAPTCHA data entry points (if present) with common injection payloads or special characters sequences.
+6. Check if the solution to the CAPTCHA might be the alt-text of the image(s), filename(s), or a value in an associated hidden field.
+7. Attempt to re-submit previously identified known good responses.
+8. Check if clearing cookies causes the CAPTCHA to be bypassed (for example if the CAPTCHA is only shown after a number of failures).
+9. If the CAPTCHA is is part of a multi-step process, attempt to simply access or complete a step beyond the CAPTCHA (for example if CAPTCHA is the first step in a login process, try simply submitting the second step [username and password]).
+10. Check for alternative methods that might not have CAPTCHA enforced, such as an API endpoint meant to facilitate mobile app access.
 
 Repeat this process to every possible functionality that could require a lockout mechanism.
 
@@ -86,20 +91,5 @@ Factors to consider when implementing an account lockout mechanism:
 
 ## References
 
-<<<<<<< Upstream, based on upstream/master
 - See the OWASP article on [Brute Force](https://owasp.org/www-community/attacks/Brute_force_attack) Attacks.
 - [Forgot Password CS](https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html).
-=======
-- [OWASP - Brute Force Attacks](https://owasp.org/www-community/attacks/Brute_force_attack)
-- [SecureLayer7 - CAPTCHA Bypass](https://blog.securelayer7.net/owasp-top-10-insufficient-attack-protection-7-captcha-bypass/)
-- [Google - reCAPTCHA docs](https://developers.google.com/recaptcha/docs/v3)
-
-## Remediation
-
-Apply account unlock mechanisms depending on the risk level. In order from lowest to highest assurance:
-
-1. Time-based lockout and unlock.
-2. Self-service unlock (sends unlock email to registered email address).
-3. Manual administrator unlock.
-4. Manual administrator unlock with positive user identification.
->>>>>>> d9fa825 Update document/4-Web_Application_Security_Testing/04-Authentication_Testing/03-Testing_for_Weak_Lock_Out_Mechanism.md
