@@ -38,7 +38,26 @@ To evaluate the account lockout mechanism's ability to mitigate brute force pass
 8. Attempt to log in with the correct password 10 minutes later. The application returns “Your account is locked out.”, thereby showing that the lockout mechanism does not automatically unlock after 10 minutes.
 9. Successfully log in with the correct password 15 minutes later, thereby showing that the lockout mechanism automatically unlocks after a 10 to 15 minute period.
 
-A CAPTCHA may hinder brute force attacks, but they can come with their own set of weaknesses, and should not replace a lockout mechanism.
+A CAPTCHA may hinder brute force attacks, but they can come with their own set of weaknesses, and should not replace a lockout mechanism. A CAPTCHA mechanism may be bypassed if implemented incorrectly. CAPTCHA flaws include:
+
+1. Easily defeated challenge, such as arithimetic or limited question set.
+2. CAPTCHA checks for HTTP response code instead of response success.
+3. CAPTCHA server-side logic defaults to a successful solve.
+4. CAPTCHA challenge result is never validated server-side.
+5. CAPTCHA input field or parameter is manually processed, and is improperly validated or escaped.
+
+To evaluate CAPTCHA effectiveness:
+
+1. Assess CAPTCHA challenges and attempt automating solutions depending on difficulty.
+2. Attempt to submit request without solving CAPTCHA via the normal UI mechanism(s).
+3. Attempt to submit request with intentional CAPTCHA challenge failure.
+4. Attempt to submit request without solving CAPTCHA (assuming some default values may be passed by client-side code, etc) while using a testing proxy (request submitted directly server-side).
+5. Attempt to fuzz CAPTCHA data entry points (if present) with common injection payloads or special characters sequences.
+6. Check if the solution to the CAPTCHA might be the alt-text of the image(s), filename(s), or a value in an associated hidden field.
+7. Attempt to re-submit previously identified known good responses.
+8. Check if clearing cookies causes the CAPTCHA to be bypassed (for example if the CAPTCHA is only shown after a number of failures).
+9. If the CAPTCHA is part of a multi-step process, attempt to simply access or complete a step beyond the CAPTCHA (for example if CAPTCHA is the first step in a login process, try simply submitting the second step [username and password]).
+10. Check for alternative methods that might not have CAPTCHA enforced, such as an API endpoint meant to facilitate mobile app access.
 
 Repeat this process to every possible functionality that could require a lockout mechanism.
 
