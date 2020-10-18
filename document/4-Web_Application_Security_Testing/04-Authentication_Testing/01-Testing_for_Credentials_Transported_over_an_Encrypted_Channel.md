@@ -28,7 +28,7 @@ To test for credential transport, capture traffic between a client and web appli
 1. Set up and start a tool to capture traffic, such as one of the following:
    - The web browser's [developer tools](https://developer.mozilla.org/en-US/docs/Tools)
    - A proxy including [OWASP ZAP](https://owasp.org/www-project-zap/)
-2. Disable any features or plugins that make the web browser favour HTTPS, since some tests require the user to use [forced browsing](https://owasp.org/www-community/attacks/Forced_browsing) to intentionally request HTTP versions of sensitive pages.
+2. Disable any features or plugins that make the web browser favour HTTPS. Some browsers or extensions, such as [HTTPS Everywhere](https://www.eff.org/https-everywhere), will combat [forced browsing](https://owasp.org/www-community/attacks/Forced_browsing) by redirecting HTTP requests to HTTPS.
 
 In the captured traffic, look for sensitive data including the following:
 
@@ -40,11 +40,11 @@ For any message containing this sensitive data, verify the exchange occurred usi
 
 ### Login
 
-Log in using a valid account while attempting to force the use of unencrypted HTTP. Find the address of the login page and attempt to switch the protocol to HTTP. The URL for the forced browsing could look like the following: `http://www.example.org/login`
+Find the address of the login page and attempt to switch the protocol to HTTP. For example, the URL for the forced browsing could look like the following: `http://www.example.org/login`.
 
-- If the login page is normally HTTPS, attempt to remove the "S" to see if the login page loads as HTTP
+If the login page is normally HTTPS, attempt to remove the "S" to see if the login page loads as HTTP.
 
-After attempting the forced browse, log in to the web site. In a passing test, the login request should be HTTPS:
+Log in using a valid account while attempting to force the use of unencrypted HTTP. In a passing test, the login request should be HTTPS:
 
 ```http
 Request URL: https://www.example.org/j_acegi_security_check
@@ -85,7 +85,9 @@ from=/
 Submit=Sign in
 ```
 
-- The fetch URL is `http://` and it exposes the plaintext `j_username` and `j_password` through the post data
+In this failing test example:
+
+- The fetch URL is `http://` and it exposes the plaintext `j_username` and `j_password` through the post data.
 - In this case, since the test already shows POST data exposing all the credentials, there is no point checking response headers (which would also likely expose a session token or cookie).
 
 ### Account Creation
@@ -205,7 +207,7 @@ Upgrade-Insecure-Requests: 1
 
 ## Remediation
 
-Ideally use HTTPS for the whole web site, use [HSTS](https://tools.ietf.org/html/rfc6797), and redirect any HTTP to HTTPS. The site gains the following benefits from using HTTPS for all its features:
+Use HTTPS for the whole web site. Implement [HSTS](https://tools.ietf.org/html/rfc6797) and redirect any HTTP to HTTPS. The site gains the following benefits from using HTTPS for all its features:
 
 - It prevents attackers from modifying interactions with the web server (including placing JavaScript malware through a [compromised router](https://www.trendmicro.com/vinfo/us/security/news/cybercrime-and-digital-threats/over-200-000-mikrotik-routers-compromised-in-cryptojacking-campaign)).
 - It avoids losing customers to insecure site warnings. New browsers [mark HTTP based web sites as insecure](https://www.blog.google/products/chrome/milestone-chrome-security-marking-http-not-secure/).
