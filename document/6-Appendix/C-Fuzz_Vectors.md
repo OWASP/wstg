@@ -1,6 +1,6 @@
 # Fuzz Vectors
 
-The following are fuzzing vectors which can be used with [ZAP](https://www.zaproxy.org), [Burp Suite](https://portswigger.net/burp), or another fuzzer. [Fuzzing](https://owasp.org/www-community/Fuzzing) is the “kitchen sink” approach to testing the responses of an application to parameter manipulation. Generally an analyst looks for error conditions or abnormal behaviors that are generated in an application as a result of fuzzing.
+The following are fuzzing vectors which can be used with [ZAP](https://www.zaproxy.org), [Burp Suite](https://portswigger.net/burp), or another testing tool. [Fuzzing](https://owasp.org/www-community/Fuzzing) is the “kitchen sink” approach to testing the responses of an application to parameter manipulation. Generally, an analyst looks for error conditions or abnormal behaviors that occur in an application as a result of fuzzing.
 
 The following references are provided as input sources for fuzzing and related testing activities.
 
