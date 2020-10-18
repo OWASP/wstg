@@ -71,7 +71,7 @@ The following is the list of controls to test during the assessment:
 | 4.7.5.5 | | MS Access |
 | 4.7.5.6 | | NoSQL |
 | 4.7.5.7 | | ORM |
-| 4.7.5.8 | | Client Side |
+| 4.7.5.8 | | Client-side |
 | 4.7.6 | WSTG-INPV-06 | Testing for LDAP Injection |
 | 4.7.7 | WSTG-INPV-07 | Testing for XML Injection |
 | 4.7.8 | WSTG-INPV-08 | Testing for SSI Injection |
@@ -89,7 +89,7 @@ The following is the list of controls to test during the assessment:
 | 4.7.15 | WSTG-INPV-15 | Testing for HTTP Splitting/Smuggling |
 | 4.7.16 | WSTG-INPV-16 | Testing for HTTP Incoming Requests |
 | 4.7.17 | WSTG-INPV-17 | Testing for Host Header Injection |
-| 4.7.18 | WSTG-INPV-18 | Testing for Server Side Template Injection |
+| 4.7.18 | WSTG-INPV-18 | Testing for Server-side Template Injection |
 | **4.8** | **WSTG-ERRH** |**Error Handling** |
 | 4.8.1 | WSTG-ERRH-01 | Analysis of Error Codes |
 | 4.8.2 | WSTG-ERRH-02 | Analysis of Stack Traces |
@@ -108,13 +108,13 @@ The following is the list of controls to test during the assessment:
 | 4.10.7 | WSTG-BUSL-07 | Test Defenses Against Application Misuse |
 | 4.10.8 | WSTG-BUSL-08 | Test Upload of Unexpected File Types |
 | 4.10.9 | WSTG-BUSL-09 | Test Upload of Malicious Files |
-| **4.11** | **WSTG-CLIENT** | **Client Side Testing** |
+| **4.11** | **WSTG-CLIENT** | **Client-side Testing** |
 | 4.11.1 | WSTG-CLNT-01 | Testing for DOM based Cross Site Scripting |
 | 4.11.2 | WSTG-CLNT-02 | Testing for JavaScript Execution |
 | 4.11.3 | WSTG-CLNT-03 | Testing for HTML Injection |
-| 4.11.4 | WSTG-CLNT-04 | Testing for Client Side URL Redirect |
+| 4.11.4 | WSTG-CLNT-04 | Testing for Client-side URL Redirect |
 | 4.11.5 | WSTG-CLNT-05 | Testing for CSS Injection |
-| 4.11.6 | WSTG-CLNT-06 | Testing for Client Side Resource Manipulation |
+| 4.11.6 | WSTG-CLNT-06 | Testing for Client-side Resource Manipulation |
 | 4.11.7 | WSTG-CLNT-07 | Test Cross Origin Resource Sharing |
 | 4.11.8 | WSTG-CLNT-08 | Testing for Cross Site Flashing |
 | 4.11.9 | WSTG-CLNT-09 | Testing for Clickjacking |
