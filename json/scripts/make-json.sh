@@ -39,7 +39,7 @@ for d in */ ; do
                     fi
                     # Get test ID, test name and reference link from the file
                     tid=`cat $file | grep "|WSTG-.*" | cut -d "|" -f 2`
-                    tname=$(head -n 1 $file)
+                    read -r tname < $file
                     tname=${tname:2}
                     tref=`echo $file | sed 's/.md/.html/'`
                     # Add test ID, test name and reference link from the file
