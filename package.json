@@ -8,8 +8,8 @@
     "markdownlint-cli": "^0.19.0"
   },
   "scripts": {
-    "pdfgen": "bash ./pdf/scripts/make-pdf.sh",
-    "jsongen": "bash ./json/scripts/make-json.sh"
+    "pdfgen": "bash ./.github/pdf/scripts/make-pdf.sh",
+    "jsongen": "bash ./.github/scripts/make-json.sh"
   },
   "repository": {
     "type": "git",

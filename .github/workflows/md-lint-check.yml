@@ -6,7 +6,7 @@ on:
     - master
     paths:
     - '**.md'
-    - '!www/**'
+    - '!.github/**'
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -23,7 +23,7 @@ jobs:
     - name: Install dependencies
       run: npm install -g markdownlint-cli
     - name: Run linter
-      run: markdownlint . --ignore node_modules --ignore www &> lint.txt
+      run: markdownlint . --config .github/configs/.markdownlint.json --ignore node_modules --ignore .github &> lint.txt
     - name: Show Linting Issues
       id: lint
       if: failure()

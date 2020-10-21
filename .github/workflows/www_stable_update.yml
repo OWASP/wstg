@@ -63,16 +63,16 @@ jobs:
       run: |
         cd $WWW_BASE/stable
         # Append front mater
-        for FILE in `find . -type f -name "*.md"`; do cat $WSTG_BASE/www/stable/prepend.txt $FILE | sponge $FILE; done
+        for FILE in `find . -type f -name "*.md"`; do cat $WSTG_BASE/.github/www/stable/prepend.txt $FILE | sponge $FILE; done
         # Duplicate README.md as index.md in case people forcefully browse to directory bases
         find . -type f -name "README.md" -execdir cp -v {} ./index.md \;
         # Copy info.md to all directories (excluding 'images' directories)
-        find . -type d -not -name "images" -execdir cp -v $WSTG_BASE/www/stable/info.md {} \;
+        find . -type d -not -name "images" -execdir cp -v $WSTG_BASE/.github/www/stable/info.md {} \;
     - name: Setup Navigation (Stable)
       run: |
         # Copy the current ToC for manipulation
-        cp $WSTG_BASE/document/README.md $WSTG_BASE/www/stable/.
-        cd $WSTG_BASE/www/stable/
+        cp $WSTG_BASE/document/README.md $WSTG_BASE/.github/www/stable/.
+        cd $WSTG_BASE/.github/www/stable/
         # Create new navigation details from ToC
         # Handle numbered entries
         sed -i -E 's/^#{2,5}\s([0-9.]*\s)\[(.*?)\]\((.*?)\)/- title: '\''\1\2'\''\n  url: \3/g' README.md
@@ -92,18 +92,18 @@ jobs:
       run: |
         cd $WWW_BASE/$VERSION_PATH
         # Append front mater
-        for FILE in `find . -type f -name "*.md"`; do cat $WSTG_BASE/www/$VERSION_PATH/prepend.txt $FILE | sponge $FILE; done
+        for FILE in `find . -type f -name "*.md"`; do cat $WSTG_BASE/.github/www/$VERSION_PATH/prepend.txt $FILE | sponge $FILE; done
         # Duplicate README.md as index.md in case people forcefully browse to directory bases
         find . -type f -name "README.md" -execdir cp -v {} ./index.md \;
         # Copy info.md to all directories (excluding 'images' directories)
-        find . -type d -not -name "images" -execdir cp -v $WSTG_BASE/www/$VERSION_PATH/info.md {} \;
+        find . -type d -not -name "images" -execdir cp -v $WSTG_BASE/.github/www/$VERSION_PATH/info.md {} \;
         # Set stable_version in site config
         yq -I4 w $WWW_BASE/_config.yml stable_version $VERSION_PATH |sponge $WWW_BASE/_config.yml
     - name: Setup Navigation (Versioned)
       run: |
         # Copy the current ToC for manipulation
-        cp $WSTG_BASE/document/README.md $WSTG_BASE/www/$VERSION_PATH/.
-        cd $WSTG_BASE/www/$VERSION_PATH/
+        cp $WSTG_BASE/document/README.md $WSTG_BASE/.github/www/$VERSION_PATH/.
+        cd $WSTG_BASE/.github/www/$VERSION_PATH/
         # Create new navigation details from ToC
         # Handle numbered entries
         sed -i -E 's/^#{2,5}\s([0-9.]*\s)\[(.*?)\]\((.*?)\)/- title: '\''\1\2'\''\n  url: \3/g' README.md
