@@ -68,7 +68,7 @@ Error messages are sometimes the main weakness in mapping out systems, especiall
 
 ## Remediation
 
-For remediation, check out the [proactive controls C10](https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html) and the [error handling cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html).
+For remediation, check out the [proactive controls C10](https://owasp.org/www-project-proactive-controls/v3/en/c10-errors-exceptions) and the [error handling cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html).
 
 ## References
 
