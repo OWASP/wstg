@@ -42,3 +42,18 @@ In order to bring these error messages out, a tester could:
 - Try to request folders that exist and see the server behavior (403s, blank page, or directory listing).
 - Try sending a request that breaks the [HTTP RFC](https://tools.ietf.org/html/rfc7231). One example would be to send a very large path, break the headers format, or change the HTTP version.
   - Even if errors are handled on the application level, breaking the HTTP RFC makes the integrated web server to show itself since it has to handle the request, and developers forget to override these errors.
+
+### Applications
+
+Applications are the most susceptible to let out a wide variety of error messages, which range from stack traces, memory dumps, mishandled exceptions, and generic errors. This happens due to the fact that applications are custom built most of the times and the developers need to observe and handle all possible error cases (or have a global error catching mechanism), and these errors can appear from integrations with other services.
+
+In order to make an application throw these errors, a tester must:
+
+1. Identify possible input points where the application is expecting data.
+2. Analyse the expected input type (strings, integers, JSON, XML, etc.).
+3. Fuzz every input point based on the previous steps to have a more focused test scenario.
+   - Fuzzing every input with all possible injections is not the best solution unless you have unlimited testing time and the application can handle that much input.
+   - Fuzzing with jargon data should be ran for every type as sometimes the interpreters will break outside of the developer's exception handling.
+4. Understand the service responding with the error message and try to make a more refined fuzz list to bring out more juice from that service (it could be a database, a standalone service, etc.).
+
+Error messages are sometimes the main weakness in mapping out systems, especially under a microservice architecture. If services are not properly set to handle errors in a generic and uniform manner, error messages would let a tester identify which service handles which requests, and allows for a more focused attack per service.
