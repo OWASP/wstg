@@ -17,6 +17,14 @@ Errors sometimes rise as:
 
 Most applications present them with error codes (and these codes can be understood from documentation), and they are shown usually as exceptions.
 
+Improper error handling can allow attackers to:
+
+- Understand the APIs being used internally.
+- Map the various services integrating with each other.
+- Gather the versions and types of applications being used.
+- DoS the system by forcing the system into a deadlock or an unhandled exception that sends a panic signal to the engine running it.
+- Controls bypass where a certain exception is not restricted by the logic set around the happy path.
+
 ## Test Objectives
 
 - Identify existent error codes.
@@ -36,7 +44,7 @@ All web apps run on a web server, whether it was an integrated one or a full fle
 
 Web servers have known error messages and formats. If one is not familiar with how they look, searching online for them would provide examples. Another way would be to look into their documentation, or simply setup a server locally and discover the errors by going through the pages that the web server uses.
 
-In order to bring these error messages out, a tester could:
+In order to bring these error messages out, a tester must:
 
 - Search for random files and folders that will not be found (404s).
 - Try to request folders that exist and see the server behavior (403s, blank page, or directory listing).
