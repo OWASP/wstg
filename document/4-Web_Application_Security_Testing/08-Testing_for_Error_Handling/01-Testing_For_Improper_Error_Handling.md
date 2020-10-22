@@ -57,3 +57,15 @@ In order to make an application throw these errors, a tester must:
 4. Understand the service responding with the error message and try to make a more refined fuzz list to bring out more juice from that service (it could be a database, a standalone service, etc.).
 
 Error messages are sometimes the main weakness in mapping out systems, especially under a microservice architecture. If services are not properly set to handle errors in a generic and uniform manner, error messages would let a tester identify which service handles which requests, and allows for a more focused attack per service.
+
+## Remediation
+
+For remediation, check out the [proactive controls C10](https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html) and the [error handling cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html).
+
+## References
+
+- [Proactive Controls C10: Handle All Errors and Exceptions](https://owasp.org/www-project-proactive-controls/v3/en/c10-errors-exceptions)
+- [ASVS v4.1 v7.4: Error handling](https://github.com/OWASP/ASVS/blob/master/4.0/en/0x15-V7-Error-Logging.md#v74-error-handling)
+- [CWE 728 - Improper Error Handling](https://cwe.mitre.org/data/definitions/728.html)
+- [Cheat Sheet Series: Error Handling](https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html)
+  
