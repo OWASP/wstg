@@ -59,6 +59,7 @@ In order to make an application throw these errors, a tester must:
 2. Analyse the expected input type (strings, integers, JSON, XML, etc.).
 3. Fuzz every input point based on the previous steps to have a more focused test scenario.
    - Fuzzing every input with all possible injections is not the best solution unless you have unlimited testing time and the application can handle that much input.
+   - If fuzzing isn't an option, handpick the viable input that have the highest chance to break a certain parser (*e.g.* a closing bracket for a JSON body, a large text where only a couple of characters are expected, CLRF injection with parameters that might be parsed by servers and input validation controls, etc.).
    - Fuzzing with jargon data should be ran for every type as sometimes the interpreters will break outside of the developer's exception handling.
 4. Understand the service responding with the error message and try to make a more refined fuzz list to bring out more juice from that service (it could be a database, a standalone service, etc.).
 
