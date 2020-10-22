@@ -21,3 +21,24 @@ Most applications present them with error codes (and these codes can be understo
 
 - Identify existent error codes.
 - Analyse the different codes returned.
+
+## How to Test
+
+Errors are usually seen as benign as they provide diagnostics data and messages that could help the user understand the problem at hand, or for the developer to debug that error.
+
+By trying to send unexpected data, or forcing the system into certain edge cases and scenarios, the system or application will most of the times give out a bit on what's happening internally, unless the developers turned off all possible errors and return a certain custom message.
+
+### Web Servers
+
+All web apps run on a web server, whether it was an integrated one or a full fledged one. Web apps must handle and parse HTTP requests, and for that a web server is always part of the stack. Some of the most famous web servers are NGINX, Apache, and IIS.
+
+#### Known Error Messages
+
+Web servers have known error messages and formats. If one is not familiar with how they look, searching online for them would provide examples. Another way would be to look into their documentation, or simply setup a server locally and discover the errors by going through the pages that the web server uses.
+
+In order to bring these error messages out, a tester could:
+
+- Search for random files and folders that will not be found (404s).
+- Try to request folders that exist and see the server behavior (403s, blank page, or directory listing).
+- Try sending a request that breaks the [HTTP RFC](https://tools.ietf.org/html/rfc7231). One example would be to send a very large path, break the headers format, or change the HTTP version.
+  - Even if errors are handled on the application level, breaking the HTTP RFC makes the integrated web server to show itself since it has to handle the request, and developers forget to override these errors.
