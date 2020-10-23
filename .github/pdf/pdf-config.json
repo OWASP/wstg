@@ -1,5 +1,5 @@
 {
-  "stylesheet":"pdf/assets/pdf-style.css",
+  "stylesheet":".github/pdf/assets/pdf-style.css",
   "css": "body { margin: 0px; padding:0px; }",
   "body_class": "markdown-body",
   "highlight_style": "default",

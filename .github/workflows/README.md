@@ -5,7 +5,7 @@
 For building PDFs at release.
 
 - Trigger: Tag applied to repository. Manual (`workflow_dispatch`), GitHub web UI.
-- See: `/pdf/` in the root of the repository.
+- See: `/.github/pdf/` in the root of the repository.
 
 ## `dummy.yml`
 
@@ -45,11 +45,11 @@ Comments on issues and PRs that have been inactive for 30 days and reapplies the
 Publishes the latest web content using the @wstgbot account to `OWASP/www-project-web-security-testing-guide`.
 
 - Trigger: Push.
-- See: `/www/latest/` in the root of the repository.
+- See: `/.github/www/latest/` in the root of the repository.
 
 ## `www_stable_update.yml`
 
 Publishes stable and versioned web content using the @wstgbot account to `OWASP/www-project-web-security-testing-guide`.
 
 - Trigger: Tag applied to repository (format `v*`).
-- See: `/www/` in the root of the repository.
+- See: `/.github/www/` in the root of the repository.

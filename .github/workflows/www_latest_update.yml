@@ -52,16 +52,16 @@ jobs:
       run: |
         cd $WWW_BASE/latest
         # Append front mater
-        for FILE in `find . -type f -name "*.md"`; do cat $WSTG_BASE/www/latest/prepend.txt $FILE | sponge $FILE; done
+        for FILE in `find . -type f -name "*.md"`; do cat $WSTG_BASE/.github/www/latest/prepend.txt $FILE | sponge $FILE; done
         # Duplicate README.md as index.md in case people forcefully browse to directory bases
         find . -type f -name "README.md" -execdir cp -v {} ./index.md \;
         # Copy info.md to all directories (excluding 'images' directories)
-        find . -type d -not -name "images" -execdir cp -v $WSTG_BASE/www/latest/info.md {} \;
+        find . -type d -not -name "images" -execdir cp -v $WSTG_BASE/.github/www/latest/info.md {} \;
     - name: Setup Navigation
       run: |
         # Copy the current ToC for manipulation
-        cp $WSTG_BASE/document/README.md $WSTG_BASE/www/latest/.
-        cd $WSTG_BASE/www/latest/
+        cp $WSTG_BASE/document/README.md $WSTG_BASE/.github/www/latest/.
+        cd $WSTG_BASE/.github/www/latest/
         # Create new navigation details from ToC
         # Handle numbered entries
         sed -i -E 's/^#{2,5}\s([0-9.]*\s)\[(.*?)\]\((.*?)\)/- title: '\''\1\2'\''\n  url: \3/g' README.md

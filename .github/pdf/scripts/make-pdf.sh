@@ -15,10 +15,10 @@ mkdir -p build/images
 # Replace path separators "/" with ">>>" in .md files for better splitting in later stages
 find document -name "*.md" | while IFS= read -r FILE; do cp -v "$FILE" build/md/"${FILE//\//>>>}"; done
 find document -name "images"  -exec cp -r {}/. build/images/. ";"
-cp pdf/assets/cover.jpg build/images/book-cover.jpg
-cp pdf/assets/cover-$VERSION.jpg build/images/book-cover-$VERSION.jpg
-cp pdf/assets/back-cover.png build/images/back-cover.png
-cp pdf/assets/second-cover.png build/images/second-cover.png
+cp .github/pdf/assets/cover.jpg build/images/book-cover.jpg
+cp .github/pdf/assets/cover-$VERSION.jpg build/images/book-cover-$VERSION.jpg
+cp .github/pdf/assets/back-cover.png build/images/back-cover.png
+cp .github/pdf/assets/second-cover.png build/images/second-cover.png
 
 # Rename README files by prepending "0-0.0_" to keep them in the correct order
 find build/md -name "*README.md" | while IFS= read -r FILE; do mv -v "$FILE" "${FILE//README/0-0.0_README}"; done
@@ -26,7 +26,7 @@ find build/md -name "*README.md" | while IFS= read -r FILE; do mv -v "$FILE" "${
 # Extract version nuber from version tag
 VERSION_NUMBER=`echo $VERSION | sed 's/v//'`
 # Update build version number in pdf-config
-sed -i "s/{PDF Version}/$VERSION/g" pdf/pdf-config.json
+sed -i "s/{PDF Version}/$VERSION/g" .github/pdf/pdf-config.json
 
 # Create the Markdown file for the front cover pages
 # Create the cover image with versioned image if exists else use the default with version number
@@ -106,12 +106,12 @@ sed 's/\!\[\([^\[]*\)\](\(.*\)).$/<div class="image-center"><img src="\2" alt="\
 sed 's/\*\(Figure [0-9.\-]*\: .*\)\*/<div class="image-name-tag-wrap"><span class="image-name-tag">\1<\/span><\/div>/' >>  build/wstg-doc-$VERSION.md ; done
 
 # Create cover pages by converting Markdown to PDF
-md-to-pdf  --config-file pdf/pdf-config.json  --pdf-options '{"margin":"0mm", "format": "A4"}' build/cover-$VERSION.md
-md-to-pdf  --config-file pdf/pdf-config.json  --pdf-options '{"margin":"0mm", "format": "A4"}' build/second-cover-$VERSION.md
-md-to-pdf  --config-file pdf/pdf-config.json  --pdf-options '{"margin":"0mm", "format": "A4"}' build/back-$VERSION.md
+md-to-pdf  --config-file .github/pdf/pdf-config.json  --pdf-options '{"margin":"0mm", "format": "A4"}' build/cover-$VERSION.md
+md-to-pdf  --config-file .github/pdf/pdf-config.json  --pdf-options '{"margin":"0mm", "format": "A4"}' build/second-cover-$VERSION.md
+md-to-pdf  --config-file .github/pdf/pdf-config.json  --pdf-options '{"margin":"0mm", "format": "A4"}' build/back-$VERSION.md
 
 # Create Document body pages by converting Markdown to PDF
-md-to-pdf  --config-file pdf/pdf-config.json build/wstg-doc-$VERSION.md
+md-to-pdf  --config-file .github/pdf/pdf-config.json build/wstg-doc-$VERSION.md
 
 # Combine Cover page and Document body
 pdftk build/cover-$VERSION.pdf build/second-cover-$VERSION.pdf build/wstg-doc-$VERSION.pdf build/back-$VERSION.pdf cat output build/wstg-com-$VERSION.pdf
@@ -157,7 +157,7 @@ cp -r build/images build/pdf/
 
 # Generate chapter wise PDF files
 for f in build/pdf/*.md ; do
-    md-to-pdf  --config-file pdf/pdf-config.json $f && rm $f;
+    md-to-pdf  --config-file .github/pdf/pdf-config.json $f && rm $f;
 done
 
 
