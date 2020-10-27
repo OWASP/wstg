@@ -11,7 +11,6 @@ Every technology, while having advantages can also expose the application to new
 The purpose of this scenario is to provide some common misconfigurations and attack vectors on applications which utilize GraphQL.  
 Some vectors are unique to GraphQL (Introspection Query for example) and some are not (SQL Injection for example).
 
-
 Examples in this section will be based on a vulnerable GraphQL application [poc-graphql](https://github.com/righettod/poc-graphql), which is run in a docker container which maps `localhost:8080/GraphQL` as the vulnerable GraphQL node.
 
 ## Test Objectives
@@ -24,7 +23,7 @@ Testing GraphQL nodes is not very different than testing other API technologies.
 
 ### Introspection Queries
 
-Introspection queries are the way GraphQL lets you ask what queries are supported, which data types are available, and many more details you will need when approaching a test of a GraphQL deployment. 
+Introspection queries are the way GraphQL lets you ask what queries are supported, which data types are available, and many more details you will need when approaching a test of a GraphQL deployment.  
 
 > "It's often useful to ask a GraphQL schema for information about what queries it supports. GraphQL allows us to do so using the [introspection](https://graphql.org/learn/introspection/) system!"
 There are a couple of ways to extract that and visualize the output:
