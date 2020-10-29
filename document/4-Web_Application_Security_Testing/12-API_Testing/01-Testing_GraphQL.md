@@ -23,7 +23,7 @@ Testing GraphQL nodes is not very different than testing other API technologies.
 
 ### Introspection Queries
 
-Introspection queries are the way GraphQL lets you ask what queries are supported, which data types are available, and many more details you will need when approaching a test of a GraphQL deployment.  
+Introspection queries are the way GraphQL lets you ask what queries are supported, which data types are available, and many more details you will need when approaching a test of a GraphQL deployment.
 
 > "It's often useful to ask a GraphQL schema for information about what queries it supports. GraphQL allows us to do so using the [introspection](https://graphql.org/learn/introspection/) system!"
 There are a couple of ways to extract that and visualize the output:
@@ -131,7 +131,7 @@ fragment TypeRef on __Type {
 }
 ```
 
-The result will usually be very long (and hence has been shortened here), and it will contain the entire schema of the GraphQL deployment.  
+The result will usually be very long (and hence has been shortened here), and it will contain the entire schema of the GraphQL deployment.
 
 Response:
 
@@ -206,7 +206,7 @@ There is one downside to using this method: GraphQL Voyager does not display eve
 #### Using GraphiQL
 
 GraphiQL is a web-based IDE for GraphQL. It is part of the GraphQL project, and it is mainly used for debugging or development purposes.  
-The best practice is to not allow users to access it on production deployments, however, if you are testing a staging environment you might have access to it and it can save you some time playing around with introspection queries (although you can, of course, use introspection in the GraphiQL interface).  
+The best practice is to not allow users to access it on production deployments, however, if you are testing a staging environment you might have access to it and it can save you some time playing around with introspection queries (although you can, of course, use introspection in the GraphiQL interface).
 
 GraphiQL has a docs section, which uses the data from the schema in order to created a documentation of the GraphQL instance that is being used.
 
@@ -234,7 +234,7 @@ Since GraphQL is usually bridges to the backend APIs of the system, its better t
 ### Authorization
 
 Introspection is the first place to look for Authorization problems. As noted, introspection should be restricted since it allows for data extraction and data gathering.  
-The next thing you should check, once you have access to the schema and know what sensitive information there is to extract, is sending queries which will not be blocked due to insufficient privileges. GraphQL does not enforce permissions by default, and so it is up to the application to perform authorization enforcement.  
+The next thing you should check, once you have access to the schema and know what sensitive information there is to extract, is sending queries which will not be blocked due to insufficient privileges. GraphQL does not enforce permissions by default, and so it is up to the application to perform authorization enforcement.
 
 In the earlier examples the output of the introspection query, shows there is a query called `auth`, which seems like a good place to extract sensitive information (API tokens, passwords, etc).
 
