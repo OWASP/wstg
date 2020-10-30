@@ -91,8 +91,7 @@ The following is the list of controls to test during the assessment:
 | 4.7.17 | WSTG-INPV-17 | Testing for Host Header Injection |
 | 4.7.18 | WSTG-INPV-18 | Testing for Server-side Template Injection |
 | **4.8** | **WSTG-ERRH** |**Error Handling** |
-| 4.8.1 | WSTG-ERRH-01 | Analysis of Error Codes |
-| 4.8.2 | WSTG-ERRH-02 | Analysis of Stack Traces |
+| 4.8.1 | WSTG-ERRH-01 | Testing for Improper Error Handling |
 | **4.9** | **WSTG-CRYP** | **Cryptography** |
 | 4.9.1 | WSTG-CRYP-01 | Testing for Weak Transport Layer Security |
 | 4.9.2 | WSTG-CRYP-02 | Testing for Padding Oracle |
