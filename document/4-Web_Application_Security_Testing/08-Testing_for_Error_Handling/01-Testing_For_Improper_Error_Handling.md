@@ -6,7 +6,7 @@
 
 ## Summary
 
-All types of applications (web apps, web servers, databases, etc.) will generate errors for various reasons. A lot of the times, developers ignore handling these errors, or push away the idea that a user will ever try to push an error out (*e.g.* sending a string where an integer is expected). When the developer only consider the happy path, they forget all other possible user-input the code can receive but can't handle.
+All types of applications (web apps, web servers, databases, etc.) will generate errors for various reasons. Developers often ignore handling these errors, or push away the idea that a user will ever try to trigger an error purposefully (*e.g.* sending a string where an integer is expected). When the developer only consider the happy path, they forget all other possible user-input the code can receive but can't handle.
 
 Errors sometimes rise as:
 
@@ -15,20 +15,18 @@ Errors sometimes rise as:
 - input mismatch,
 - and memory dumps.
 
-Most applications present them with error codes (and these codes can be understood from documentation), and they are shown usually as exceptions.
-
 Improper error handling can allow attackers to:
 
 - Understand the APIs being used internally.
-- Map the various services integrating with each other.
+- Map the various services integrating with each other by gaining insight on internal systems and frameworks used, which opens up doors to attack chaining.
 - Gather the versions and types of applications being used.
 - DoS the system by forcing the system into a deadlock or an unhandled exception that sends a panic signal to the engine running it.
 - Controls bypass where a certain exception is not restricted by the logic set around the happy path.
 
 ## Test Objectives
 
-- Identify existent error codes.
-- Analyse the different codes returned.
+- Identify existing error output.
+- Analyze the different output returned.
 
 ## How to Test
 
@@ -42,16 +40,16 @@ All web apps run on a web server, whether it was an integrated one or a full fle
 
 Web servers have known error messages and formats. If one is not familiar with how they look, searching online for them would provide examples. Another way would be to look into their documentation, or simply setup a server locally and discover the errors by going through the pages that the web server uses.
 
-In order to bring these error messages out, a tester must:
+In order to trigger error messages, a tester must:
 
 - Search for random files and folders that will not be found (404s).
 - Try to request folders that exist and see the server behavior (403s, blank page, or directory listing).
 - Try sending a request that breaks the [HTTP RFC](https://tools.ietf.org/html/rfc7231). One example would be to send a very large path, break the headers format, or change the HTTP version.
-  - Even if errors are handled on the application level, breaking the HTTP RFC makes the integrated web server to show itself since it has to handle the request, and developers forget to override these errors.
+  - Even if errors are handled on the application level, breaking the HTTP RFC may make the integrated web server show itself since it has to handle the request, and developers forget to override these errors.
 
 ### Applications
 
-Applications are the most susceptible to let out a wide variety of error messages, which range from stack traces, memory dumps, mishandled exceptions, and generic errors. This happens due to the fact that applications are custom built most of the times and the developers need to observe and handle all possible error cases (or have a global error catching mechanism), and these errors can appear from integrations with other services.
+Applications are the most susceptible to let out a wide variety of error messages, which include: stack traces, memory dumps, mishandled exceptions, and generic errors. This happens due to the fact that applications are custom built most of the time and the developers need to observe and handle all possible error cases (or have a global error catching mechanism), and these errors can appear from integrations with other services.
 
 In order to make an application throw these errors, a tester must:
 
@@ -59,9 +57,9 @@ In order to make an application throw these errors, a tester must:
 2. Analyse the expected input type (strings, integers, JSON, XML, etc.).
 3. Fuzz every input point based on the previous steps to have a more focused test scenario.
    - Fuzzing every input with all possible injections is not the best solution unless you have unlimited testing time and the application can handle that much input.
-   - If fuzzing isn't an option, handpick the viable input that have the highest chance to break a certain parser (*e.g.* a closing bracket for a JSON body, a large text where only a couple of characters are expected, CLRF injection with parameters that might be parsed by servers and input validation controls, etc.).
+   - If fuzzing isn't an option, handpick viable inputs that have the highest chance to break a certain parser (*e.g.* a closing bracket for a JSON body, a large text where only a couple of characters are expected, CLRF injection with parameters that might be parsed by servers and input validation controls, special characters that aren't applicable for file names, etc.).
    - Fuzzing with jargon data should be ran for every type as sometimes the interpreters will break outside of the developer's exception handling.
-4. Understand the service responding with the error message and try to make a more refined fuzz list to bring out more juice from that service (it could be a database, a standalone service, etc.).
+4. Understand the service responding with the error message and try to make a more refined fuzz list to bring out more information or error details from that service (it could be a database, a standalone service, etc.).
 
 Error messages are sometimes the main weakness in mapping out systems, especially under a microservice architecture. If services are not properly set to handle errors in a generic and uniform manner, error messages would let a tester identify which service handles which requests, and allows for a more focused attack per service.
 
@@ -69,7 +67,7 @@ Error messages are sometimes the main weakness in mapping out systems, especiall
 
 ## Remediation
 
-For remediation, check out the [proactive controls C10](https://owasp.org/www-project-proactive-controls/v3/en/c10-errors-exceptions) and the [error handling cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html).
+For remediation, check out the [Proactive Controls C10](https://owasp.org/www-project-proactive-controls/v3/en/c10-errors-exceptions) and the [Error Handling Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html).
 
 ## Playgrounds
 
