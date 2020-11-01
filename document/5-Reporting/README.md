@@ -124,10 +124,7 @@ The following is the list of controls that were tested during the assessment:
 | |Testing for Local File Inclusion |
 | |Testing for Remote File Inclusion |
 | WSTG-INPV-12 | Testing for Command Injection |
-| WSTG-INPV-13 | Testing for Buffer overflow |
-| | Testing for Heap Overflow |
-| | Testing for Stack Overflow |
-| | Testing for Format String |
+| WSTG-INPV-13 | Testing for Format String Injection |
 | WSTG-INPV-14 | Testing for Incubated Vulnerabilities |
 | WSTG-INPV-15 | Testing for HTTP Splitting/Smuggling |
 | WSTG-INPV-16 | Testing for HTTP Incoming Requests |
