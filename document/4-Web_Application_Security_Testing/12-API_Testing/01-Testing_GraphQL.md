@@ -12,7 +12,9 @@ Examples in this section will be based on a vulnerable GraphQL application [poc-
 
 ## Test Objectives
 
-Assess GraphQL's security configuration, as well as other common vulnerabilities which might affect GraphQL deployments.
+- Assess that a secure and production-ready configuration is deployed.
+- Validate all input fields against generic attacks.
+- Ensure that proper access controls are applied.
 
 ## How to Test
 
