@@ -44,13 +44,7 @@
 
 4.7.12 [Testing for Command Injection](12-Testing_for_Command_Injection.md)
 
-4.7.13 [Testing for Buffer Overflow](13-Testing_for_Buffer_Overflow.md)
-
-- 4.7.13.1 [Testing for Heap Overflow](13.1-Testing_for_Heap_Overflow.md)
-
-- 4.7.13.2 [Testing for Stack Overflow](13.2-Testing_for_Stack_Overflow.md)
-
-- 4.7.13.3 [Testing for Format String](13.3-Testing_for_Format_String.md)
+4.7.13 [Testing for Format String Injection](13-Testing_for_Format_String_Injection.md)
 
 4.7.14 [Testing for Incubated Vulnerability](14-Testing_for_Incubated_Vulnerability.md)
 
