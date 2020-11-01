@@ -190,7 +190,8 @@ Response:
 
 A tool such as GraphQL Voyager can be used to get a better understanding of the GraphQL endpoint:
 
-![GraphQL Voyager](images/Voyager.png)
+![GraphQL Voyager](images/Voyager.png)\
+_Figure 12.1-1: GraphQL Voyager_
 
 This tool creates an Entity Relationship Diagram (ERD) representation of the GraphQL schema, allowing you to get a better look into the moving parts of the system you're testing. Extracting information from the drawing allows you to see you can query the dogs table for example. It also shows which properties a "dog" has:
 
@@ -212,8 +213,11 @@ GraphQL Playgrounds is a GraphQL client, which can be used to test different que
 
 > Note that in some cases you will need to set the HTTP headers at the bottom, to include session ID or other mechanism of authentication, but this still allows creating multiple "IDEs" with different permissions to verify if there are in fact authorization issues.
 
-![Playgrounds1](images/Playgrounds1.png)
-![Playgrounds2](images/Playgrounds2.png)
+![Playgrounds1](images/Playgrounds1.png)\
+_Figure 12.1-2: GraphQL Playgrounds High Level API Docs_
+
+![Playgrounds2](images/Playgrounds2.png)\
+_Figure 12.1-3: GraphQL Playgrounds API Schema_
 
 You can even download the schemas to use in Voyager.
 
@@ -227,7 +231,8 @@ Introspection is the first place to look for Authorization problems. As noted, i
 
 In the earlier examples the output of the introspection query, shows there is a query called `auth`, which seems like a good place to extract sensitive information (API tokens, passwords, etc).
 
-![auth1](images/auth1.png)
+![Auth GraphQL Query](images/auth1.png)\
+_Figure 12.1-4: GraphQL Auth Query API_
 
 Testing the authorization implementation varies from deployment to deployment since each schema will have different sensitive information, and hence, different targets to focus on. In this example, every user (even un-authenticated) can gain access to auth tokens of every veterinarian listed in the database. These tokens can be used to perform additional actions the schema allows, such as associating or disassociating a dog from any specified veterinarian (using mutations), while there is no matching of the auth token to the veterinarian which appears in the request. An example would be, to use the token that was extracted (which belongs to Julien), and use it to perform an action as Benoit, who has the number 2 ID.
 
