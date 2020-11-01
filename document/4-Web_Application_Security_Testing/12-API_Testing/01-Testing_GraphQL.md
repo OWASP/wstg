@@ -6,7 +6,7 @@
 
 ## Summary
 
-GraphQL has become very popular in modern APIs. It provides simplicity, and nested objects, which facilitate faster development. Every technology, while having advantages can also expose the application to new attack surfaces. The purpose of this scenario is to provide some common misconfigurations and attack vectors on applications which utilize GraphQL. Some vectors are unique to GraphQL (Introspection Query for example) and some are not (SQL Injection for example).
+GraphQL has become very popular in modern APIs. It provides simplicity, and nested objects, which facilitate faster development. Every technology, while having advantages can also expose the application to new attack surfaces. The purpose of this scenario is to provide some common misconfigurations and attack vectors on applications which utilize GraphQL. Some vectors are unique to GraphQL (*e.g.* [Introspection Query](#introspection-queries)) and some are generic to APIs (*e.g.* [SQL injection](#sql-injection)).
 
 Examples in this section will be based on a vulnerable GraphQL application [poc-graphql](https://github.com/righettod/poc-graphql), which is run in a docker container which maps `localhost:8080/GraphQL` as the vulnerable GraphQL node.
 
@@ -28,7 +28,7 @@ There are a couple of ways to extract that and visualize the output, as follows.
 
 #### Using Native GraphQL Introspection
 
-The most straight-forward way is to send an HTTP request (using a personal proxy) with the following payload, taken from an article on [Medium](https://medium.com/@the.bilal.rizwan/graphql-common-vulnerabilities-how-to-exploit-them-464f9fdce696) :
+The most straight-forward way is to send an HTTP request (using a personal proxy) with the following payload, taken from an article on [Medium](https://medium.com/@the.bilal.rizwan/graphql-common-vulnerabilities-how-to-exploit-them-464f9fdce696):
 
 ```graphql
 query IntrospectionQuery {
@@ -203,13 +203,13 @@ There is one downside to using this method: GraphQL Voyager does not display eve
 
 #### Using GraphiQL
 
-GraphiQL is a web-based IDE for GraphQL. It is part of the GraphQL project, and it is mainly used for debugging or development purposes. The best practice is to not allow users to access it on production deployments, however, if you are testing a staging environment you might have access to it and it can save you some time playing around with introspection queries (although you can, of course, use introspection in the GraphiQL interface).
+[GraphiQL](https://github.com/graphql/graphiql) is a web-based IDE for GraphQL. It is part of the GraphQL project, and it is mainly used for debugging or development purposes. The best practice is to not allow users to access it on production deployments, however, if you are testing a staging environment you might have access to it and it can save you some time playing around with introspection queries (although you can, of course, use introspection in the GraphiQL interface).
 
 GraphiQL has a docs section, which uses the data from the schema in order to created a documentation of the GraphQL instance that is being used. The documentation contains the data types, mutations, and basically every piece of information that can be extracted using Introspection.
 
 #### Using GraphQL Playgrounds
 
-GraphQL Playgrounds is a GraphQL client, which can be used to test different queries, as well as dividing GraphQL IDEs into different playgrounds, grouped by theme or by assigning a name to them. Much like GraphiQL, Playgrounds can create documentation for you, without the need for manually sending introspection queries and processing the response(s) but with one great advantage, it doesn't need GraphiQL interface to be available. Another upside for this tool, is that it works just by directing the tool to the GraphQL node via a URL (there is also the option of using it locally with the data file) and then the magic happens without any user interaction. GraphQL Playgrounds can be used to test for vulnerabilities directly, you don't need to use a personal proxy to send HTTP requests, and so you can use this tool in order to interact and asses GraphQL and use a personal proxy for other, more advanced payloads.  
+[GraphQL Playgrounds](https://github.com/graphql/graphql-playground) is a GraphQL client, which can be used to test different queries, as well as dividing GraphQL IDEs into different playgrounds, grouped by theme or by assigning a name to them. Much like GraphiQL, Playgrounds can create documentation for you, without the need for manually sending introspection queries and processing the response(s) but with one great advantage, it doesn't need GraphiQL interface to be available. Another upside for this tool, is that it works just by directing the tool to the GraphQL node via a URL (there is also the option of using it locally with the data file) and then the magic happens without any user interaction. GraphQL Playgrounds can be used to test for vulnerabilities directly, you don't need to use a personal proxy to send HTTP requests, and so you can use this tool in order to interact and asses GraphQL and use a personal proxy for other, more advanced payloads.
 
 > Note that in some cases you will need to set the HTTP headers at the bottom, to include session ID or other mechanism of authentication, but this still allows creating multiple "IDEs" with different permissions to verify if there are in fact authorization issues.
 
@@ -309,6 +309,10 @@ The response to this query is:
       {
         "id": 2,
         "name": "Abime"
+      },
+      {
+        "id": 3,
+        "name": "..."
       },
       {
         "id": 50,
@@ -449,6 +453,8 @@ GraphQL is a new technology, and some deployments are for transitioning from old
     - Query Complexity based throttling - Limits the total complexity of queries a user can consume.
 - Sending generic error messages - Just like general programing, error messages should be generic without revealing details of the deployment.
 
+For more on remediating GraphQL weaknesses, refer the [GraphQL CS](https://cheatsheetseries.owasp.org/cheatsheets/GraphQL_Cheat_Sheet.html).
+
 ## Tools
 
 - [GraphQL Playground](https://github.com/prisma-labs/graphql-playground)
@@ -466,3 +472,4 @@ GraphQL is a new technology, and some deployments are for transitioning from old
 - [User side testing (XSS and other vulnerabilities)](https://github.com/OWASP/wstg/tree/master/document/4-Web_Application_Security_Testing/11-Client-side_Testing)
 - [5 Common GraphQL Security Vulnerabilities](https://carvesystems.com/news/the-5-most-common-graphql-security-vulnerabilities/)
 - [GraphQL common vulnerabilities and how to exploit them](https://medium.com/@the.bilal.rizwan/graphql-common-vulnerabilities-how-to-exploit-them-464f9fdce696)
+- [GraphQL CS](https://cheatsheetseries.owasp.org/cheatsheets/GraphQL_Cheat_Sheet.html)
