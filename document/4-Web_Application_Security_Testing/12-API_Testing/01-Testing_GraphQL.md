@@ -30,7 +30,7 @@ There are a couple of ways to extract that and visualize the output, as follows.
 
 The most straight-forward way is to send an HTTP request (using a personal proxy) with the following payload, taken from an article on [Medium](https://medium.com/@the.bilal.rizwan/graphql-common-vulnerabilities-how-to-exploit-them-464f9fdce696) :
 
-```json
+```graphql
 query IntrospectionQuery {
   __schema {
     queryType {
@@ -231,7 +231,7 @@ In the earlier examples the output of the introspection query, shows there is a 
 
 Testing the authorization implementation varies from deployment to deployment since each schema will have different sensitive information, and hence, different targets to focus on. In this example, every user (even un-authenticated) can gain access to auth tokens of every veterinarian listed in the database. These tokens can be used to perform additional actions the schema allows, such as associating or disassociating a dog from any specified veterinarian (using mutations), while there is no matching of the auth token to the veterinarian which appears in the request. An example would be, to use the token that was extracted (which belongs to Julien), and use it to perform an action as Benoit, who has the number 2 ID.
 
-```json
+```graphql
 query brokenAccessControl {
   myInfo(accessToken:"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJwb2MiLCJzdWIiOiJKdWxpZW4iLCJpc3MiOiJBdXRoU3lzdGVtIiwiZXhwIjoxNjAzMjkxMDE2fQ.r3r0hRX_t7YLiZ2c2NronQ0eJp8fSs-sOUpLyK844ew", veterinaryId: 2){
     id, name, dogs {
