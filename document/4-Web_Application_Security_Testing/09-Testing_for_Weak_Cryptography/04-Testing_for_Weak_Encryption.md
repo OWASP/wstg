@@ -6,27 +6,30 @@
 
 ## Summary
 
-Incorrect uses of encryption algorithm may result in sensitive data exposure, key leakage, broken authentication, insecure session and spoofing attack. There are some encryption or hash algorithm is known to be weak and not suggested to be used anymore such as MD5 and RC4.
+Incorrect uses of encryption algorithms may result in sensitive data exposure, key leakage, broken authentication, insecure session, and spoofing attacks. There are some encryption or hash algorithms known to be weak and are not suggested for use such as MD5 and RC4.
 
-In addition to the right choices of secure encryption or hash algorithm, the right uses of parameters also mater the security level. For example, ECB (Electronic Code Book) mode is not suggested to be used in asymmetric encryption.
+In addition to the right choices of secure encryption or hash algorithms, the right uses of parameters also matter for the security level. For example, ECB (Electronic Code Book) mode is not suggested for use in asymmetric encryption.
 
-The testing guide is trying to provide a guideline how to identify the weak encryption and hash.
+## Test Objectives
+
+- Provide a guideline for the identification weak encryption or hashing uses and implementations.
 
 ## How to Test
 
 ### Basic Security Checklist
 
-- When the uses of AES128 and AES256, The IV (Initialization Vector) must be random and unpredictable. Refer to [FIPS 140-2, Security Requirements for Cryptographic Modules](https://csrc.nist.gov/publications/detail/fips/140/2/final), section 4.9.1. random number generator tests. For example, in Java, `java.util.Random` is considered a weak random number generator. `java.security.SecureRandom` should be used instead of `java.util.Random`.
-- When uses of RSA in encryption, Optimal Asymmetric Encryption Padding (OAEP) mode is recommended.
+- When using AES128 or AES256, the IV (Initialization Vector) must be random and unpredictable. Refer to [FIPS 140-2, Security Requirements for Cryptographic Modules](https://csrc.nist.gov/publications/detail/fips/140/2/final), section 4.9.1. random number generator tests. For example, in Java, `java.util.Random` is considered a weak random number generator. `java.security.SecureRandom` should be used instead of `java.util.Random`.
+- For asymmetric encryption, use elliptic curve cryptography (ECC) with a secure curve like `Curve25519` preferred.
+  - If ECC can't be used then use RSA encryption with a minimum 2048bit key.
 - When uses of RSA in signature, PSS padding is recommended.
 - Weak hash/encryption algorithms should not be used such MD5, RC4, DES, Blowfish, SHA1. 1024-bit RSA or DSA, 160-bit ECDSA (elliptic curves), 80/112-bit 2TDEA (two key triple DES)
-- Minimum Key length requirement:
+- Minimum Key length requirements:
 
 ```text
 Key exchange: Diffie–Hellman key exchange with minimum 2048 bits
 Message Integrity: HMAC-SHA2
 Message Hash: SHA2 256 bits
-Assymetric encryption: RSA 2048 bits
+Asymmetric encryption: RSA 2048 bits
 Symmetric-key algorithm: AES 128 bits
 Password Hashing: PBKDF2, Scrypt, Bcrypt
 ECDH、ECDSA: 256 bits
@@ -38,11 +41,9 @@ ECDH、ECDSA: 256 bits
 
 ### Source Code Review
 
-- Search for the following keyword to check if any weak encryption algorithm is used.
+- Search for the following keywords to identify use of weak algorithms: `MD4, MD5, RC4, RC2, DES, Blowfish, SHA-1, ECB`
 
-`MD4, MD5, RC4, RC2, DES, Blowfish, SHA-1, ECB`
-
-- For Java implementation, the following API is related to encryption. Review the parameters of the encryption implementation. For example,
+- For Java implementations, the following API is related to encryption. Review the parameters of the encryption implementation. For example,
 
 ```java
 SecretKeyFactory(SecretKeyFactorySpi keyFacSpi, Provider provider, String algorithm)
@@ -50,7 +51,7 @@ SecretKeySpec(byte[] key, int offset, int len, String algorithm)
 Cipher c = Cipher.getInstance("DES/CBC/PKCS5Padding");
 ```
 
-- For RSA encryption, the following padding mode are suggested.
+- For RSA encryption, the following padding modes are suggested.
 
 ```text
 RSA/ECB/OAEPWithSHA-1AndMGF1Padding (2048)
@@ -99,17 +100,17 @@ private static byte[] pbkdf2(char[] password, byte[] salt, int iteration
    }
 ```
 
-- Hard-coded sensitive information
+- Hard-coded sensitive information:
 
 ```text
-User related keywords: name, root, su, superuser, login, username, uid
-Key related keywords: public key, AK, SK, secret Key, private key, passwd, password, pwd, share key, cryto, base64
-Other common senstive keywords: sysadmin, root, privilege, pass, key, code, master, admin, uname, session, joken, Oauth, privatekey
+User related keywords: name, root, su, sudo, admin, superuser, login, username, uid
+Key related keywords: public key, AK, SK, secret key, private key, passwd, password, pwd, share key, shared key, cryto, base64
+Other common sensitive keywords: sysadmin, root, privilege, pass, key, code, master, admin, uname, session, token, Oauth, privatekey, shared secret
 ```
 
 ## Tools
 
-- Vulnerability scanner such as Nessus to scan weak encryption used in protocol such as SNMP, TLS,SSH
+- Vulnerability scanners such as Nessus, NMAP (scripts), or OpenVAS can scan for use or acceptance of weak encryption against protocol such as SNMP, TLS, SSH, SMTP, etc.
 - Use static code analysis tool to do source code review such as klocwork, Fortify, Coverity, CheckMark for the following cases.
 
 ```text
@@ -143,5 +144,3 @@ CWE-780 Use of RSA Algorithm without OAEP
 - ISO 18033-1:2015 – Encryption Algorithms
 - ISO 18033-2:2015 – Asymmetric Ciphers
 - ISO 18033-3:2015 – Block Ciphers
-
-Tony Hsu - hsiang\_chih\[at\]yahoo.com
