@@ -12,7 +12,7 @@ In addition to the right choices of secure encryption or hash algorithms, the ri
 
 ## Test Objectives
 
-To provide a guideline for the identification weak encryption or hashing uses and implementations.
+- Provide a guideline for the identification weak encryption or hashing uses and implementations.
 
 ## How to Test
 
