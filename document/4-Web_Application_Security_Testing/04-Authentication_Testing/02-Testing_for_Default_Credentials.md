@@ -19,6 +19,11 @@ The root cause of this problem can be identified as:
 - Applications with built-in non-removable default accounts with a preset username and password.
 - Applications that do not force the user to change the default credentials after the first log in.
 
+## Test Objectives
+
+- Enumerate the applications for default credentials and validate if they still exist.
+- Review and assess new user accounts and if they are created with any defaults or identifiable patterns.
+
 ## How to Test
 
 ### Testing for Default Credentials of Common Applications

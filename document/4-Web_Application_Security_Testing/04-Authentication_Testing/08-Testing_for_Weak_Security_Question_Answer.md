@@ -28,6 +28,11 @@ The problem with having users to generate their own questions is that it allows 
 - “What is your username?”
 - “My password is S3cur|ty!”
 
+## Test Objectives
+
+- Determine the complexity and how straight-forward the questions are.
+- Assess possible user answers and brute force capabilities.
+
 ## How to Test
 
 ### Testing for Weak Pre-generated Questions
