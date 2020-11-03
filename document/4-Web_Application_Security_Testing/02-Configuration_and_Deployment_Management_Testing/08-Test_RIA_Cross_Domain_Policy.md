@@ -52,6 +52,10 @@ An example of an overly permissive policy file:
 - Defeat CSRF protections.
 - Read data restricted or otherwise protected by cross-origin policies.
 
+## Test Objectives
+
+- Review and validate the policy files.
+
 ## How to Test
 
 ### Testing for RIA Policy Files Weakness

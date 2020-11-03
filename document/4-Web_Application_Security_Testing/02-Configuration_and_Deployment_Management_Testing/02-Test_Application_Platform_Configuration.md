@@ -12,6 +12,12 @@ Configuration review and testing is a critical task in creating and maintaining 
 
 While the typical web and application server installation will contain a lot of functionality (like application examples, documentation, test pages) what is not essential should be removed before deployment to avoid post-install exploitation.
 
+## Test Objectives
+
+- Ensure that defaults and known files have been removed.
+- Validate that no debugging code or extensions are left in the production environments.
+- Review the logging mechanisms set in place for the application.
+
 ## How to Test
 
 ### Black-Box Testing

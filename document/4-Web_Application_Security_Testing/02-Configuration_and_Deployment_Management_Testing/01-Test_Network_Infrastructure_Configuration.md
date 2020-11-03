@@ -24,7 +24,8 @@ After having mapped the different elements that make up the infrastructure (see 
 
 ## Test Objectives
 
-Map the infrastructure supporting the application and understand how it affects the security of the application.
+- Review the applications' configurations set across the network and validate that they are not vulnerable.
+- Validate that used frameworks and systems are secure and not susceptible to known vulnerabilities due to unmaintained software or default settings and credentials.
 
 ## How to Test
 

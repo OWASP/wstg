@@ -10,6 +10,10 @@ When a resource is given a permissions setting that provides access to a wider r
 
 A clear example is an execution file that is executable by unauthorized users. For another example, account information or a token value to access an API - increasingly seen in modern web services or microservices - may be stored in a configuration file whose permissions are set to world-readable from the installation by default. Such sensitive data can be exposed by internal malicious actors of the host or by a remote attacker who compromised the service with other vulnerabilities but obtained only a normal user privilege.
 
+## Test Objectives
+
+- Review and identify any rogue file permissions.
+
 ## How to Test
 
 In Linux, use `ls` command to check the file permissions. Alternatively, `namei` can also be used to recursively list file permissions.

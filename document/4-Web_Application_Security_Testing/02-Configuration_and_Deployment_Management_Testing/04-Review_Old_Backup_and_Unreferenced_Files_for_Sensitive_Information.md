@@ -35,6 +35,10 @@ Old, backup and unreferenced files present various threats to the security of a 
 - Log files may contain sensitive information about the activities of application users, for example sensitive data passed in URL parameters, session IDs, URLs visited (which may disclose additional unreferenced content), etc. Other log files (e.g. ftp logs) may contain sensitive information about the maintenance of the application by system administrators.
 - File system snapshots may contain copies of the code that contain vulnerabilities that have been fixed in more recent versions. For example `/.snapshot/monthly.1/view.php` may contain a directory traversal vulnerability that has been fixed in `/view.php` but can still be exploited by anyone who finds the old version.
 
+## Test Objectives
+
+- Find and analyse unreferenced files that might contain sensitive information.
+
 ## How to Test
 
 ### Black-Box Testing

@@ -27,6 +27,10 @@ The use of this header by web applications must be checked to find if the follow
 - Attackers exploiting a manipulator in the middle attack because of the problem of accepting certificates that are not trusted.
 - Users who mistakenly entered an address in the browser putting HTTP instead of HTTPS, or users who click on a link in a web application which mistakenly indicated the HTTP protocol.
 
+## Test Objectives
+
+- Review the HSTS header and its validity.
+
 ## How to Test
 
 Testing for the presence of HSTS header can be done by checking for the existence of the HSTS header in the server's response in an interception proxy, or by using curl as follows:
