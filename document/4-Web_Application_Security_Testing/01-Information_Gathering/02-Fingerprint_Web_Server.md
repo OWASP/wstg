@@ -12,7 +12,7 @@ Accurately discovering the type of web server that an application runs on can en
 
 ## Test Objectives
 
-Determine the version and type of a running web server to enable further discovery of any known vulnerabilities.
+- Determine the version and type of a running web server to enable further discovery of any known vulnerabilities.
 
 ## How to Test
 

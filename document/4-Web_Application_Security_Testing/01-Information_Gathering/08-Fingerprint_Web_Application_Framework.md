@@ -10,7 +10,7 @@ There is nothing new under the sun, and nearly every web application that one ma
 
 ## Test Objectives
 
-To define type of web components used so as to have a better understanding of the target being assessed.
+- Fingerprint the components being used by the web applications.
 
 ## How to Test
 

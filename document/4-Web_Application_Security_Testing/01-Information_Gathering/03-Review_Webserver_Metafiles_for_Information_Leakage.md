@@ -10,9 +10,8 @@ This section describes how to test various metadata files for information leakag
 
 ## Test Objectives
 
-1. Information leakage of the web application's path(s) or functionality.
-2. Create the list of directories that are to be avoided by Spiders, Robots, or Crawlers.
-3. Identify other information which may benefit testers or attackers.
+- Identify hidden or obfuscated paths and functionality through the analysis of metadata files.
+- Extract and map other additional information that could lead to better understanding of the systems at hand.
 
 ## How to Test
 

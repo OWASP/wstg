@@ -10,6 +10,10 @@ The complexity of interconnected and heterogeneous web infrastructure can includ
 
 To address these problems, it is of utmost importance to perform an in-depth review of configuration and known security issues. Before performing an in-depth review it is necessary to map the network and application architecture. The different elements that make up the infrastructure need to be determined to understand how they interact with a web application and how they affect security.
 
+## Test Objectives
+
+- Generate a map of the application scope at hand based on the research conducted.
+
 ## How to Test
 
 ### Map the Application Architecture

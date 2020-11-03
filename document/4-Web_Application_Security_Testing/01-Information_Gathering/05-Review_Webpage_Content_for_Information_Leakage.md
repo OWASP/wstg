@@ -14,8 +14,8 @@ For large web applications, performance issues are a big concern to programmers.
 
 ## Test Objectives
 
-* Review webpage comments and metadata to better understand the application and to find any information leakage.
-* Identify and gather JavaScript files, review JavaScript code in an application to better understand the application and to find any information leakage.
+* Review webpage comments and metadata to find any information leakage.
+* Gather JavaScript files and review the JS code to better understand the application and to find any information leakage.
 * Identify if source map files or other front-end debug files exist.
 
 ## How to Test
