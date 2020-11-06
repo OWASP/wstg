@@ -11,7 +11,7 @@ This section describes how to test various metadata files for information leakag
 ## Test Objectives
 
 - Identify hidden or obfuscated paths and functionality through the analysis of metadata files.
-- Extract and map other additional information that could lead to better understanding of the systems at hand.
+- Extract and map other information that could lead to better understanding of the systems at hand.
 
 ## How to Test
 
