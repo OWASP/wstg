@@ -12,7 +12,7 @@ To address these problems, it is of utmost importance to perform an in-depth rev
 
 ## Test Objectives
 
-- Generate a map of the application scope at hand based on the research conducted.
+- Generate a map of the application at hand based on the research conducted.
 
 ## How to Test
 

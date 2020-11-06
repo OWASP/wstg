@@ -10,7 +10,7 @@ The most prevalent and most easily administered authentication mechanism is a st
 
 ## Test Objectives
 
-- Determine the resistance of the application against brute force password guessing using available password dictionaries by evaluating the length, complexity, reuse and aging requirements of passwords.
+- Determine the resistance of the application against brute force password guessing using available password dictionaries by evaluating the length, complexity, reuse, and aging requirements of passwords.
 
 ## How to Test
 

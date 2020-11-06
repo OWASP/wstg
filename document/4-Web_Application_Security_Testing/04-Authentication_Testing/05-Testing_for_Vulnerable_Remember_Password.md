@@ -15,7 +15,7 @@ In order to assist users with their credentials, multiple technologies surfaced:
 
 ## Test Objectives
 
-- Validate that the generated session is managed securely and in no way put the user's credentials in danger.
+- Validate that the generated session is managed securely and do not put the user's credentials in danger.
 
 ## How to Test
 
