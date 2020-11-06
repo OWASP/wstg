@@ -26,6 +26,12 @@ Usually the main steps of the attack pattern are the following:
 
 Another pattern of attack consists of overflowing a cookie. Strictly speaking, this attack has a different nature, since here testers are not trying to recreate a perfectly valid cookie. Instead, the goal is to overflow a memory area, thereby interfering with the correct behavior of the application and possibly injecting (and remotely executing) malicious code.
 
+## Test Objectives
+
+- Gather sessions, for the same user and for different ones where possible.
+- Analyze and ensure that enough randomness exists to stop session forging attacks.
+- Modify cookies that are not signed and contain information that can be manipulated.
+
 ## How to Test
 
 ### Black-Box Testing and Examples
