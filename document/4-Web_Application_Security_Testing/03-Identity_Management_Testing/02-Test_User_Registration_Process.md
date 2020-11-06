@@ -10,8 +10,8 @@ Some websites offer a user registration process that automates (or semi-automate
 
 ## Test Objectives
 
-1. Verify that the identity requirements for user registration are aligned with business and security requirements.
-2. Validate the registration process.
+- Verify that the identity requirements for user registration are aligned with business and security requirements.
+- Validate the registration process.
 
 ## How to Test
 

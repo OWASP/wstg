@@ -12,7 +12,7 @@ A known example is where an Amazon S3 bucket is misconfigured, although the othe
 
 ## Test Objectives
 
-Assess whether Cloud Storage Service's access control configuration is properly in place.
+- Assess that the access control configuration for the storage services is properly in place.
 
 ## How to Test
 

@@ -10,7 +10,7 @@ Before commencing security testing, understanding the structure of the applicati
 
 ## Test Objectives
 
-Map the target application and understand the principal workflows.
+- Map the target application and understand the principal workflows.
 
 ## How to Test
 

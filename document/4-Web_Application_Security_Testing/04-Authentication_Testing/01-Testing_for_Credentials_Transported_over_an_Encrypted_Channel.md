@@ -19,7 +19,7 @@ The fact that traffic is encrypted does not necessarily mean that it's completel
 
 ## Test Objectives
 
-Assess whether any use case of the web site or application causes the server or the client to exchange credentials without encryption.
+- Assess whether any use case of the web site or application causes the server or the client to exchange credentials without encryption.
 
 ## How to Test
 

@@ -10,7 +10,7 @@ Enumerating the application and its attack surface is a key precursor before any
 
 ## Test Objectives
 
-Understand how requests are formed and typical responses from the application.
+- Identify possible entry and injection points through request and response analysis.
 
 ## How to Test
 

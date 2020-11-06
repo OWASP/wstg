@@ -10,7 +10,7 @@ The provisioning of accounts presents an opportunity for an attacker to create a
 
 ## Test Objectives
 
-Verify which accounts may provision other accounts and of what type.
+- Verify which accounts may provision other accounts and of what type.
 
 ## How to Test
 

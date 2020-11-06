@@ -10,8 +10,8 @@ The password change and reset function of an application is a self-service passw
 
 ## Test Objectives
 
-1. Determine the resistance of the application to subversion of the account change process allowing someone to change the password of an account.
-2. Determine the resistance of the passwords reset functionality against guessing or bypassing.
+- Determine the resistance of the application to subversion of the account change process allowing someone to change the password of an account.
+- Determine the resistance of the passwords reset functionality against guessing or bypassing.
 
 ## How to Test
 

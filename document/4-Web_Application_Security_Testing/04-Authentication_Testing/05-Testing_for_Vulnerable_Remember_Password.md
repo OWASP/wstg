@@ -13,6 +13,10 @@ In order to assist users with their credentials, multiple technologies surfaced:
 - Applications provide a *remember me* functionality that allows the user to stay authenticated for long periods of time, without asking the user again for their credentials.
 - Password Managers - including browser password managers - that allow the user to store their credentials in a secure manner and later on inject them in user-forms without any user intervention.
 
+## Test Objectives
+
+- Validate that the generated session is managed securely and do not put the user's credentials in danger.
+
 ## How to Test
 
 As these methods provide a better user experience and allow the user to forget all about their credentials, they increase the attack surface area. Some applications:

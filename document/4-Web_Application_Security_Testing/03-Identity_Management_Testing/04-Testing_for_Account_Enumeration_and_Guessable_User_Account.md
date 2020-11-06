@@ -14,6 +14,11 @@ The tester should interact with the authentication mechanism of the application 
 
 In some cases, a message is received that reveals if the provided credentials are wrong because an invalid username or an invalid password was used. Sometimes, testers can enumerate the existing users by sending a username and an empty password.
 
+## Test Objectives
+
+- Review processes that pertain to user identification (*e.g.* registration, login, etc.).
+- Enumerate users where possible through response analysis.
+
 ## How to Test
 
 In black-box testing, the tester knows nothing about the specific application, username, application logic, error messages on log in page, or password recovery facilities. If the application is vulnerable, the tester receives a response message that reveals, directly or indirectly, some information useful for enumerating users.

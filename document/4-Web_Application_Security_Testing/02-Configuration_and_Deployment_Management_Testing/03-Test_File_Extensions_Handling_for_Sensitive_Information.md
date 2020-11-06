@@ -12,6 +12,11 @@ Extension checking is often used to validate files to be uploaded, which can lea
 
 Determining how web servers handle requests corresponding to files having different extensions may help in understanding web server behavior depending on the kind of files that are accessed. For example, it can help to understand which file extensions are returned as text or plain versus those that cause server-side execution. The latter are indicative of technologies, languages or plugins that are used by web servers or application servers, and may provide additional insight on how the web application is engineered. For example, a “.pl” extension is usually associated with server-side Perl support. However, the file extension alone may be deceptive and not fully conclusive. For example, Perl server-side resources might be renamed to conceal the fact that they are indeed Perl related. See the next section on “web server components” for more on identifying server-side technologies and components.
 
+## Test Objectives
+
+- Dirbust sensitive file extensions, or extensions that might contain raw data (*e.g.* scripts, raw data, credentials, etc.).
+- Validate that no system framework bypasses exist on the rules set.
+
 ## How to Test
 
 ### Forced Browsing

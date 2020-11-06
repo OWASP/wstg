@@ -14,6 +14,9 @@
     },
     {
         "pattern": "^https://www.shodan.io"
+    },
+    {
+        "pattern": "^https://developer.android.com"
     }
     ],
     "httpHeaders": [{

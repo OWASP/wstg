@@ -18,6 +18,10 @@ Problems related to the authentication schema can be found at different stages o
 - In the development phase errors can include the incorrect implementation of input validation functionality or not following the security best practices for the specific language.
 - In the application deployment phase, there may be issues during the application setup (installation and configuration activities) due to a lack in required technical skills or due to the lack of good documentation.
 
+## Test Objectives
+
+- Ensure that authentication is applied across all services that require it.
+
 ## How to Test
 
 ### Black-Box Testing

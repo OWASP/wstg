@@ -17,6 +17,10 @@ An application may require an administrator interface to enable a privileged use
 
 In many instances, such interfaces do not have sufficient controls to protect them from unauthorized access. Testing is aimed at discovering these administrator interfaces and accessing functionality intended for the privileged users.
 
+## Test Objectives
+
+- Identify hidden administrator interfaces and functionality.
+
 ## How to Test
 
 ### Black-Box Testing

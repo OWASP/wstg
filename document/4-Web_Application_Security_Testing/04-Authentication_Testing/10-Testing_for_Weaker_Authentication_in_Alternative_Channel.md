@@ -47,6 +47,11 @@ However, a separate mobile-optimized website exists that does not use Transport 
 
 `http://m.example.com/myaccount/`
 
+## Test Objectives
+
+- Identify alternative authentication channels.
+- Assess the security measures used and if any bypasses exists on the alternative channels.
+
 ## How to Test
 
 ### Understand the Primary Mechanism
