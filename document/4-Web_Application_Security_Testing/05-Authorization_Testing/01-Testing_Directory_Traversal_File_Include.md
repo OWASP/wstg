@@ -25,6 +25,11 @@ During an assessment, to discover path traversal and file include flaws, testers
 - (**a**) **Input Vectors Enumeration** (a systematic evaluation of each input vector)
 - (**b**) **Testing Techniques** (a methodical evaluation of each attack technique used by an attacker to exploit the vulnerability)
 
+## Test Objectives
+
+- Identify injection points that pertain to file traversal.
+- Assess bypassing techniques and identify the extent of file traversal.
+
 ## How to Test
 
 ### Black-Box Testing

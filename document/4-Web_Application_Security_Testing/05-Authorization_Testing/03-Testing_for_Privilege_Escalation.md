@@ -14,6 +14,11 @@ The degree of escalation depends on what privileges the attacker is authorized t
 
 Usually, people refer to *vertical escalation* when it is possible to access resources granted to more privileged accounts (e.g., acquiring administrative privileges for the application), and to *horizontal escalation* when it is possible to access resources granted to a similarly configured account (e.g., in an online banking application, accessing information related to a different user).
 
+## Test Objectives
+
+- Identify injection point related to privilege manipulation.
+- Fuzz and try to bypass possible security measures in place.
+
 ## How to Test
 
 ### Testing for Role/Privilege Manipulation
