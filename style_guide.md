@@ -86,6 +86,14 @@ Add links inline. Use words in the sentence to describe them, or include their s
 This project provides a [style guide](style_guide.md). Some style choices are taken from the [Chicago Manual of Style](https://www.chicagomanualofstyle.org/).
 ```
 
+### Inline References
+
+For resources where a link is not available, such as a whitepaper or book, we prefer a conversational in-line reference rather than any academic-styled citation. Work the title of the resource as well as its author into your text. For example:
+
+> There are three possible cases: only the whale exists, only the petunias exist, or both the whale and petunias exist simultaneously. These possibilities are referenced in a series of books entitled *The Hitchhiker's Guide to the Galaxy,* by Douglas Adams.
+
+This format has the advantage of continuing the flow of the article and not inviting readers to jump from paragraph to paragraph, looking for an asterisk, or to another location to find a reference list. It's also easy to read and to maintain since it appears in just one place.
+
 ### Bold, Italic, and Underline
 
 Do not use bold, italic, or underlined text for emphasis.
