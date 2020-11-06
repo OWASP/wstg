@@ -1,9 +1,7 @@
 {
   "default": true,
   "MD024": { "siblings_only": true},
-  "MD026": false,
+  "MD026": { "punctuation" : ".,;:!。，；：!" },
   "line-length": false,
-  "no-duplicate-heading": false,
-  "no-trailing-punctuation": { "punctuation" : ".,;:!。，；：!" },
   "code-block-style": { "style" : "fenced" }
 }
