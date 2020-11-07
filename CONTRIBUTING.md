@@ -83,10 +83,11 @@ Once the PR is complete, we'll merge it! At that point, you may like to add your
 1. [Create an account on GitHub](https://help.github.com/en/github/getting-started-with-github/signing-up-for-a-new-github-account).
 2. Install [Visual Studio Code](https://code.visualstudio.com/) and this [Markdown linter plugin](https://github.com/DavidAnson/vscode-markdownlint#install). We use this linter to help keep the project content consistent and pretty.
 
-    1. Goto "Settings" (the gear icon).
-    2. Expand "Extensions", and find "markdownlint".
-    3. Just below "Markdownlint: config" click the "Edit in Settings.json" link.
-    4. Add the following:
+    1. From the gear icon/menu select "Settings".
+    2. Select the "Workspace" tab.
+    3. Expand "Extensions", and find "markdownlint".
+    4. Just below "Markdownlint: config" click the "Edit in settings.json" link.
+    5. Add the following:
 
     ```json
     "markdownlint.config": {
