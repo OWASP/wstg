@@ -86,7 +86,7 @@ Here are the steps for executing this test:
 3. Login to the website as the victim and reach any page offering a secure function requiring authentication.
 4. Set the cookie jar to the snapshot taken at step 2.
 5. Trigger the secure function identified at step 3.
-6. Observe whether the operation at step 5 been performed successfully. If so, the attack was successful.
+6. Observe whether the operation at step 5 has been performed successfully. If so, the attack was successful.
 7. Clear the cookie jar, login as the attacker and reach the page at step 3.
 8. Write in the cookie jar, one by one, the cookies saved at step 2.
 9. Trigger again the secure function identified at step 3.
