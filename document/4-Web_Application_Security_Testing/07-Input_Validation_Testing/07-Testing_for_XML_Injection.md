@@ -10,6 +10,11 @@ XML Injection testing is when a tester tries to inject an XML doc to the applica
 
 This section describes practical examples of XML Injection. First, an XML style communication will be defined and its working principles explained. Then, the discovery method in which we try to insert XML metacharacters. Once the first step is accomplished, the tester will have some information about the XML structure, so it will be possible to try to inject XML data and tags (Tag Injection).
 
+## Test Objectives
+
+- Identify XML injection points.
+- Assess the types of exploits that can be attained and their severities.
+
 ## How to Test
 
 Let's suppose there is a web application using an XML style communication in order to perform user registration. This is done by creating and adding a new `user>`node in an `xmlDb` file.

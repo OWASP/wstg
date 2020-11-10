@@ -16,6 +16,11 @@ Commonly the attacker's code is written in the JavaScript language, but other sc
 
 One of the primary difficulties in preventing XSS vulnerabilities is proper character encoding. In some cases, the web server or the web application could not be filtering some encodings of characters, so, for example, the web application might filter out `<script>`, but might not filter `%3cscript%3e` which simply includes another encoding of tags.
 
+## Test Objectives
+
+- Identify variables that are reflected in responses.
+- Assess the input they accept and the encoding that gets applied in return.
+
 ## How to Test
 
 ### Black-Box Testing

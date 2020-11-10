@@ -27,13 +27,13 @@ Some examples of attacks using the IMAP/SMTP Injection technique are:
 - Information leaks
 - Relay/SPAM
 
+## Test Objectives
+
+- Identify IMAP/SMTP injection points.
+- Understand the data flow and deployment structure of the client.
+- Assess the command injection severity
+
 ## How to Test
-
-The standard attack patterns are:
-
-- Identifying vulnerable parameters
-- Understanding the data flow and deployment structure of the client
-- IMAP/SMTP command injection
 
 ### Identifying Vulnerable Parameters
 

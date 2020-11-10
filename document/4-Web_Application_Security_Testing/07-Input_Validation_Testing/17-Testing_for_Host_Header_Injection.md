@@ -13,6 +13,11 @@ A web server commonly hosts several web applications on the same IP address, ref
 - perform web cache poisoning
 - manipulate password reset functionality
 
+## Test Objectives
+
+- Assess if the Host header is being parsed dynamically in the application.
+- Bypass security controls that rely on the header.
+
 ## How to Test
 
 Initial testing is as simple as supplying another domain (i.e. `attacker.com`) into the Host header field. It is how the web server processes the header value that dictates the impact. The attack is valid when the web server processes the input to send the request to an attacker-controlled host that resides at the supplied domain, and not to an internal virtual host that resides on the web server.
