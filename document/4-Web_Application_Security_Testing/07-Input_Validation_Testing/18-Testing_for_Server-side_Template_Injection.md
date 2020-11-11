@@ -51,9 +51,9 @@ Hello 49!
 
 ## Test Objectives
 
-- Detect template injection vulnerability points
-- Identify the templating engine
-- Build the exploit
+- Detect template injection vulnerability points.
+- Identify the templating engine.
+- Build the exploit.
 
 ## How to Test
 

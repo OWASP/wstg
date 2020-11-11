@@ -19,7 +19,7 @@ One of the primary difficulties in preventing XSS vulnerabilities is proper char
 ## Test Objectives
 
 - Identify variables that are reflected in responses.
-- Assess the input they accept and the encoding that gets applied in return.
+- Assess the input they accept and the encoding that gets applied on return (if any).
 
 ## How to Test
 

@@ -11,7 +11,7 @@ Insecure Direct Object References allow attackers to bypass authorization and ac
 
 ## Test Objectives
 
-- Identify injection points where object references occur.
+- Identify points where object references may occur.
 - Assess the access control measures and if they're vulnerable to IDOR.
 
 ## How to Test

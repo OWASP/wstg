@@ -30,8 +30,8 @@ Some examples of attacks using the IMAP/SMTP Injection technique are:
 ## Test Objectives
 
 - Identify IMAP/SMTP injection points.
-- Understand the data flow and deployment structure of the client.
-- Assess the command injection severity
+- Understand the data flow and deployment structure of the system.
+- Assess the injection impacts.
 
 ## How to Test
 

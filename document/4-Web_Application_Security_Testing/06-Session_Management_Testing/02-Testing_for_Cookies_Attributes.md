@@ -25,7 +25,7 @@ The means to protect the cookies are:
 
 ## Test Objectives
 
-- Ensure that the proper security configuration is set for the cookies.
+- Ensure that the proper security configuration is set for cookies.
 
 ## How to Test
 

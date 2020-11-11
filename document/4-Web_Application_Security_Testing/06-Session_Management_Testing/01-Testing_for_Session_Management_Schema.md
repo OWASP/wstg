@@ -28,7 +28,7 @@ Another pattern of attack consists of overflowing a cookie. Strictly speaking, t
 
 ## Test Objectives
 
-- Gather sessions, for the same user and for different ones where possible.
+- Gather session tokens, for the same user and for different users where possible.
 - Analyze and ensure that enough randomness exists to stop session forging attacks.
 - Modify cookies that are not signed and contain information that can be manipulated.
 

@@ -33,7 +33,7 @@ Stored XSS is particularly dangerous in application areas where users with high 
 ## Test Objectives
 
 - Identify stored input that is reflected on the client-side.
-- Assess the input they accept and the encoding that gets applied in return.
+- Assess the input they accept and the encoding that gets applied on return (if any).
 
 ## How to Test
 

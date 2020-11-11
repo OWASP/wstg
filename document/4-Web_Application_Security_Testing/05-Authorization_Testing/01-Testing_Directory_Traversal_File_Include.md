@@ -27,8 +27,8 @@ During an assessment, to discover path traversal and file include flaws, testers
 
 ## Test Objectives
 
-- Identify injection points that pertain to file traversal.
-- Assess bypassing techniques and identify the extent of file traversal.
+- Identify injection points that pertain to path traversal.
+- Assess bypassing techniques and identify the extent of path traversal.
 
 ## How to Test
 

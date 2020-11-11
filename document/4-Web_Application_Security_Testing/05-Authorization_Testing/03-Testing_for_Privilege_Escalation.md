@@ -16,8 +16,8 @@ Usually, people refer to *vertical escalation* when it is possible to access res
 
 ## Test Objectives
 
-- Identify injection point related to privilege manipulation.
-- Fuzz and try to bypass possible security measures in place.
+- Identify injection points related to privilege manipulation.
+- Fuzz or otherwise attempt to bypass security measures.
 
 ## How to Test
 
