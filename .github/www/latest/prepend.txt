@@ -5,3 +5,5 @@ title: WSTG - Latest
 tags: WSTG
 
 ---
+
+{% include breadcrumb.html %}
