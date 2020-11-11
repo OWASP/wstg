@@ -22,6 +22,11 @@ The padding oracle attack enables an attacker to decrypt encrypted data without 
 
 A padding oracle attack also enables an attacker to encrypt arbitrary plain texts without knowledge of the used key and cipher. If the application assumes that integrity and authenticity of the decrypted data is given, an attacker could be able to manipulate internal session state and possibly gain higher privileges.
 
+## Test Objectives
+
+- Identify encrypted messages that rely on padding.
+- Attempt to break the padding of the encrypted messages and analyze the returned error messages for further analysis.
+
 ## How to Test
 
 ### Black-Box Testing
