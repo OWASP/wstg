@@ -16,6 +16,11 @@ The first attack exploits a lack of input sanitization which allows an intruder 
 
 In the second attack, the attacker exploits the fact that some specially crafted HTTP messages can be parsed and interpreted in different ways depending on the agent that receives them. HTTP smuggling requires some level of knowledge about the different agents that are handling the HTTP messages (web server, proxy, firewall) and therefore will be included only in the gray-box testing section.
 
+## Test Objectives
+
+- Assess if the application is vulnerable to splitting, identifying what possible attacks are achievable.
+- Assess if the chain of communication is vulnerable to smuggling, identifying what possible attacks are achievable.
+
 ## How to Test
 
 ### Black-Box Testing

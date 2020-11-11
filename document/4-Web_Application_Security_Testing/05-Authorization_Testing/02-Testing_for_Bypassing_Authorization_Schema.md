@@ -19,6 +19,10 @@ Try to access the application as an administrative user and track all the admini
 - Is it possible to access administrative functions if the tester is logged in as a  non-admin user?
 - Is it possible to use these administrative functions as a user with a different role and for whom that action should be denied?
 
+## Test Objectives
+
+- Assess if horizontal or vertical access is possible.
+
 ## How to Test
 
 - Access resources and conduct operations horizontally.

@@ -59,6 +59,11 @@ Given the URL and querystring: `http://example.com/?color=red&color=blue`
 
 (source: [Appsec EU 2009 Carettoni & Paola](https://owasp.org/www-pdf-archive/AppsecEU09_CarettoniDiPaola_v0.8.pdf))
 
+## Test Objectives
+
+- Identify the backend and the parsing method used.
+- Assess injection points and try bypassing input filters using HPP.
+
 ## How to Test
 
 Luckily, because the assignment of HTTP parameters is typically handled via the web application server, and not the application code itself, testing the response to parameter pollution should be standard across all pages and actions. However, as in-depth business logic knowledge is necessary, testing HPP requires manual testing. Automatic tools can only partially assist auditors as they tend to generate too many false positives. In addition, HPP can manifest itself in client-side and server-side components.

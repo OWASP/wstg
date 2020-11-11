@@ -34,6 +34,11 @@ As in every bad input validation situation, problems arise when the user of a we
 
 This is a vulnerability very similar to a classical scripting language injection vulnerability. One mitigation is that the web server needs to be configured to allow SSI. On the other hand, SSI injection vulnerabilities are often simpler to exploit, since SSI directives are easy to understand and, at the same time, quite powerful, e.g., they can output the content of files and execute system commands.
 
+## Test Objectives
+
+- Identify SSI injection points.
+- Assess the severity of the injection.
+
 ## How to Test
 
 ### Black-Box Testing

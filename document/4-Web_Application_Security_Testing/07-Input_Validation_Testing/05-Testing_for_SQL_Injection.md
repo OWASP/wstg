@@ -38,7 +38,8 @@ About the techniques to exploit SQL injection flaws there are five commons techn
 
 ## Test Objectives
 
-SQL Injection testing allows the tester to identify and exploit issues pertaining to query inputs where secure practices are not properly implemented.
+- Identify SQL injection points.
+- Assess the severity of the injection and the level of access that can be achieved through it.
 
 ## How to Test
 

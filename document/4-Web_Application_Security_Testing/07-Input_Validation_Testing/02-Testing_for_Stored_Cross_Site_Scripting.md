@@ -30,6 +30,11 @@ This type of attack can also be exploited with browser exploitation frameworks s
 
 Stored XSS is particularly dangerous in application areas where users with high privileges have access. When the administrator visits the vulnerable page, the attack is automatically executed by their browser. This might expose sensitive information such as session authorization tokens.
 
+## Test Objectives
+
+- Identify stored input that is reflected on the client-side.
+- Assess the input they accept and the encoding that gets applied on return (if any).
+
 ## How to Test
 
 ### Black-Box Testing

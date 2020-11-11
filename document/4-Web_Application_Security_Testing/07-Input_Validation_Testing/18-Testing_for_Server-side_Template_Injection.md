@@ -8,7 +8,7 @@
 
 Web applications commonly use server-side templating technologies (Jinja2, Twig, FreeMaker, etc.) to generate dynamic HTML responses. Server-side Template Injection vulnerabilities (SSTI) occur when user input is embedded in a template in an unsafe manner and results in remote code execution on the server. Any features that support advanced user-supplied markup may be vulnerable to SSTI including wiki-pages, reviews, marketing applications, CMS systems etc. Some template engines employ various mechanisms (eg. sandbox, allow listing, etc.) to protect against SSTI.
 
-## Example - Twig
+### Example - Twig
 
 The following example is an excerpt from the [Extreme Vulnerable Web Application](https://github.com/s4n7h0/xvwa) project.
 
@@ -30,7 +30,7 @@ In the getFilter function the `call_user_func($callback, $name)` is vulnerable t
 ![SSTI XVWA Example](images/SSTI_XVWA.jpeg)\
 *Figure 4.7.18-1: SSTI XVWA Example*
 
-## Example - Flask/Jinja2
+### Example - Flask/Jinja2
 
 The following example uses Flask and Jinja2 templating engine. The `page` function accepts a 'name' parameter from an HTTP GET request and renders an HTML response with the `name` variable content:
 
@@ -49,13 +49,15 @@ $ curl -g 'http://www.target.com/page?name={{7*7}}'
 Hello 49!
 ```
 
+## Test Objectives
+
+- Detect template injection vulnerability points.
+- Identify the templating engine.
+- Build the exploit.
+
 ## How to Test
 
-SSTI vulnerabilities exist either in text or code context. In plaintext context users allowed to use freeform 'text' with direct HTML code. In code context the user input may also be placed within a template statement (eg. in a variable name). In both cases the testing methodology has the following steps:
-
-1. Detect template injection vulnerability points
-2. Identify the templating engine
-3. Build the exploit
+SSTI vulnerabilities exist either in text or code context. In plaintext context users allowed to use freeform 'text' with direct HTML code. In code context the user input may also be placed within a template statement (eg. in a variable name)
 
 ### Identify Template Injection Vulnerability
 
