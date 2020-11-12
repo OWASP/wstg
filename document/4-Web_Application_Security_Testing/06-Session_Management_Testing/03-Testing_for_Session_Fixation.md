@@ -6,22 +6,17 @@
 
 ## Summary
 
-When an application does not renew its session cookie(s) after a successful user authentication, it could be possible to find a session fixation vulnerability and force a user to utilize a cookie known by the attacker. In that case, an attacker could steal the user session (session hijacking).
+Session fixation is enabled by the insecure practice of preserving the same value of the session cookies before and after authentication. This typically happens when session cookies are used to store state information even before login, e.g., to add items to a shopping cart before authenticating for payment.
 
-Session fixation vulnerabilities occur when:
+In the generic exploit of session fixation vulnerabilities, an attacker can obtain a set of session cookies from the target website without first authenticating. The attacker can then force these cookies into the victim's browser using different techniques. If the victim later authenticates at the target website and the cookies are not refreshed upon login, the victim will be identified by the session cookies chosen by the attacker. The attacker is then able to impersonate the victim with these known cookies.
 
-- A web application authenticates a user without first invalidating the existing session ID, thereby continuing to use the session ID already associated with the user.
-- An attacker is able to force a known session ID on a user so that, once the user authenticates, the attacker has access to the authenticated session.
+This issue can be fixed by refreshing the session cookies after the authentication process. Alternatively, the attack can be prevented by ensuring the integrity of session cookies. When considering network attackers, i.e., attackers who control the network used by the victim, use full [HSTS](https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security) or add the`__Host-` / `__Secure-` prefix to the cookie name.
 
-In the generic exploit of session fixation vulnerabilities, an attacker creates a new session on a web application and records the associated session identifier. The attacker then causes the victim to authenticate against the server using the same session identifier, giving the attacker access to the user's account through the active session.
-
-Furthermore, the issue described above is problematic for sites that issue a session identifier over HTTP and then redirect the user to a HTTPS log in form. If the session identifier is not reissued upon authentication, the attacker can eavesdrop and steal the identifier and then use it to hijack the session.
+Full HSTS adoption occurs when a host activates HSTS for itself and all its sub-domains. This is described in a paper called *Testing for Integrity Flaws in Web Sessions* by Stefano Calzavara, Alvise Rabitti, Alessio Ragazzo, and Michele Bugliesi.
 
 ## How to Test
 
-### Black-Box Testing
-
-#### Testing for Session Fixation Vulnerabilities
+In this section we give an explanation of the testing strategy that will be shown in the next section.
 
 The first step is to make a request to the site to be tested (_e.g._ `www.example.com`). If the tester requests the following:
 
@@ -42,9 +37,9 @@ Content-Type: text/html;charset=Cp1254
 Content-Language: en-US
 ```
 
-The application sets a new session identifier JSESSIONID=0000d8eyYq3L0z2fgq10m4v-rt4:-1 for the client.
+The application sets a new session identifier, `JSESSIONID=0000d8eyYq3L0z2fgq10m4v-rt4:-1`, for the client.
 
-Next, if the tester successfully authenticates to the application with the following POST (`https://www.example.com/authentication.php`):
+Next, if the tester successfully authenticates to the application with the following POST to `https://www.example.com/authentication.php`:
 
 ```html
 POST /authentication.php HTTP/1.1
@@ -76,25 +71,42 @@ HTML data
 ...
 ```
 
-As no new cookie has been issued upon a successful authentication the tester knows that it is possible to perform session hijacking.
+As no new cookie has been issued upon a successful authentication, the tester knows that it is possible to perform session hijacking unless the integrity of the session cookie is ensured.
 
-> The tester can send a valid session identifier to a user (possibly using a social engineering trick), wait for them to authenticate, and subsequently verify that privileges have been assigned to this cookie.
+The tester can send a valid session identifier to a user (possibly using a social engineering trick), wait for them to authenticate, and subsequently verify that privileges have been assigned to this cookie.
 
-### Gray-Box Testing
+### Test with Forced Cookies
 
-Talk with developers and understand if they have implemented a session token renew after a user successful authentication.
+This testing strategy is targeted at network attackers, hence it only needs to be applied to sites without full HSTS adoption (sites with full HSTS adoption are secure, since all their cookies have integrity). We assume to have two testing accounts on the website under test, one to act as the victim and one to act as the attacker. We simulate a scenario where the attacker forces in the victim's browser all the cookies which are not freshly issued after login and do not have integrity. After the victim's login, the attacker presents the forced cookies to the website to access the victim's account: if they are enough to act on the victim's behalf, session fixation is possible.
 
-> The application should always first invalidate the existing session ID before authenticating a user, and if the authentication is successful, provide another sessionID.
+Here are the steps for executing this test:
+
+1. Reach the login page of the website.
+2. Save a snapshot of the cookie jar before logging in, excluding cookies which contain the `__Host-` or `__Secure-` prefix in their name.
+3. Login to the website as the victim and reach any page offering a secure function requiring authentication.
+4. Set the cookie jar to the snapshot taken at step 2.
+5. Trigger the secure function identified at step 3.
+6. Observe whether the operation at step 5 has been performed successfully. If so, the attack was successful.
+7. Clear the cookie jar, login as the attacker and reach the page at step 3.
+8. Write in the cookie jar, one by one, the cookies saved at step 2.
+9. Trigger again the secure function identified at step 3.
+10. Clear the cookie jar and login again as the victim.
+11. Observe whether the operation at step 9 has been performed successfully in the victim's account. If so, the attack was successful; otherwise, the site is secure against session fixation.
+
+We recommend using two different machines or browsers for the victim and the attacker. This allows you to decrease the number of false positives if the web application does fingerprinting to verify access enabled from a given cookie. A shorter but less precise variant of the testing strategy only requires one testing account. It follows the same steps, but it halts at step 6.
+
+### Remediation
+
+Implement a session token renewal after a user successfully authenticates.
+
+The application should always first invalidate the existing session ID before authenticating a user, and if the authentication is successful, provide another session ID.
 
 ## Tools
 
-- [JHijack - a numeric session hijacking tool](https://sourceforge.net/projects/jhijack/)
-- [OWASP ZAP](https://www.zaproxy.org)
+* [OWASP ZAP](https://www.zaproxy.org)
 
-## References
+### References
 
-### Whitepapers
-
-- [Session Fixation](https://owasp.org/www-community/attacks/Session_fixation)
-- [ACROS Security](https://www.acrossecurity.com/papers/session_fixation.pdf)
-- [Chris Shiflett](http://shiflett.org/articles/session-fixation)
+* [Session Fixation](https://owasp.org/www-community/attacks/Session_fixation)
+* [ACROS Security](https://www.acrossecurity.com/papers/session_fixation.pdf)
+* [Chris Shiflett](http://shiflett.org/articles/session-fixation)

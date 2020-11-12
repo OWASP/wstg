@@ -28,9 +28,9 @@ For simplicity's sake, consider GET-accessible URLs (though the discussion appli
 
 The GET request could be sent by the user in several different ways:
 
-- Using the web application
-- Typing the URL directly in the browser
-- Following an external link that points to the URL
+* Using the web application
+* Typing the URL directly in the browser
+* Following an external link that points to the URL
 
 These invocations are indistinguishable by the application. In particular, the third may be quite dangerous. There are a number of techniques and vulnerabilities that can disguise the real properties of a link. The link can be embedded in an email message, appear in a malicious website to which the user is lured, or appear in content hosted by a third-party (such as another web site or HTML email) and point to a resource of the application. If the user clicks on the link, since they are already authenticated by the web application on *site*, the browser will issue a GET request to the web application, accompanied by authentication information (the session ID cookie). This results in a valid operation being performed on the web application that the user does not expect; for example, a funds transfer on a web banking application.
 
@@ -50,9 +50,9 @@ When the browser displays this page, it will try to display the specified zero-d
 
 The problem here is a consequence of:
 
-- HTML tags on the page resulting in automatic HTTP request execution (`img` being one of those).
-- The browser having no way to tell that the resource referenced by `img` is not a legitimate image.
-- Image loading that happens regardless of the location of the alleged image source, i.e., the form and the image itself need not be located on the same host or even the same domain.
+* HTML tags on the page resulting in automatic HTTP request execution (`img` being one of those).
+* The browser having no way to tell that the resource referenced by `img` is not a legitimate image.
+* Image loading that happens regardless of the location of the alleged image source, i.e., the form and the image itself need not be located on the same host or even the same domain.
 
 The fact that HTML content unrelated to the web application may refer to components in the application, and the fact that the browser automatically composes a valid request towards the application, allows this kind of attack. There is no way to prohibit this behavior unless it is made impossible for the attacker to interact with application functionality.
 
@@ -122,7 +122,7 @@ In case of POST, the following sample can be used.
 <html>
 <body onload='document.CSRF.submit()'>
 
-<form action='http://tagetWebsite/Authenticate.jsp' method='POST' name='CSRF'>
+<form action='http://targetWebsite/Authenticate.jsp' method='POST' name='CSRF'>
     <input type='hidden' name='name' value='Hacked'>
     <input type='hidden' name='password' value='Hacked'>
 </form>
@@ -159,20 +159,20 @@ When this data is sent as a POST request, the server will happily accept the nam
 
 ## Remediation
 
-- See the [OWASP CSRF Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html) for prevention measures.
+* See the [OWASP CSRF Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html) for prevention measures.
 
 ## Tools
 
-- [OWASP ZAP](https://www.zaproxy.org/)
-- [CSRF Tester](https://wiki.owasp.org/index.php/Category:OWASP_CSRFTester_Project)
-- [Pinata-csrf-tool](https://code.google.com/p/pinata-csrf-tool/)
+* [OWASP ZAP](https://www.zaproxy.org/)
+* [CSRF Tester](https://wiki.owasp.org/index.php/Category:OWASP_CSRFTester_Project)
+* [Pinata-csrf-tool](https://code.google.com/archive/p/pinata-csrf-tool/)
 
 ## References
 
-- [Peter W: “Cross-Site Request Forgeries”](https://web.archive.org/web/20160303230910/http://www.tux.org/~peterw/csrf.txt)
-- [Thomas Schreiber: “Session Riding”](https://web.archive.org/web/20160304001446/http://www.securenet.de/papers/Session_Riding.pdf)
-- [Oldest known post](https://web.archive.org/web/20000622042229/http://www.zope.org/Members/jim/ZopeSecurity/ClientSideTrojan)
-- [Cross-site Request Forgery FAQ](http://www.cgisecurity.com/articles/csrf-faq.shtml)
-- [A Most-Neglected Fact About Cross Site Request Forgery (CSRF)](http://yehg.net/lab/pr0js/view.php/A_Most-Neglected_Fact_About_CSRF.pdf)
-- [Multi-POST CSRF](https://www.lanmaster53.com/2013/07/17/multi-post-csrf/)
-- [SANS Pen Test Webcast: Complete Application pwnage via Multi POST XSRF](https://www.youtube.com/watch?v=EOs5PZiiwug)
+* [Peter W: “Cross-Site Request Forgeries”](https://web.archive.org/web/20160303230910/http://www.tux.org/~peterw/csrf.txt)
+* [Thomas Schreiber: “Session Riding”](https://web.archive.org/web/20160304001446/http://www.securenet.de/papers/Session_Riding.pdf)
+* [Oldest known post](https://web.archive.org/web/20000622042229/http://www.zope.org/Members/jim/ZopeSecurity/ClientSideTrojan)
+* [Cross-site Request Forgery FAQ](http://www.cgisecurity.com/articles/csrf-faq.shtml)
+* [A Most-Neglected Fact About Cross Site Request Forgery (CSRF)](http://yehg.net/lab/pr0js/view.php/A_Most-Neglected_Fact_About_CSRF.pdf)
+* [Multi-POST CSRF](https://www.lanmaster53.com/2013/07/17/multi-post-csrf/)
+* [SANS Pen Test Webcast: Complete Application pwnage via Multi POST XSRF](https://www.youtube.com/watch?v=EOs5PZiiwug)
