@@ -6,26 +6,26 @@
 
 ## Summary
 
-The HTTP Strict Transport Security (HSTS) header is a mechanism that web sites have to communicate to the web browsers that all traffic exchanged with a given domain must always be sent over https, this will help protect the information from being passed over unencrypted requests.
+The HTTP Strict Transport Security (HSTS) feature lets a web application inform the browser through the use of a special response header that it should never establish a connection to the specified domain servers using un-encrypted HTTP. Instead, it should automatically establish all connection requests to access the site through HTTPS. It also prevents users from overriding certificate errors.
 
-Considering the importance of this security measure it is prudent to verify that the web site is using this HTTP header in order to ensure that all the data travels encrypted from the web browser to the server.
-
-The HTTP Strict Transport Security (HSTS) feature lets a web application inform the browser through the use of a special response header that it should never establish a connection to the specified domain servers using unencrypted HTTP. Instead, it should automatically establish all connection requests to access the site through HTTPS.
+Considering the importance of this security measure it is prudent to verify that the web site is using this HTTP header in order to ensure that all the data travels encrypted between the web browser and the server.
 
 The HTTP strict transport security header uses two directives:
 
-- max-age: to indicate the number of seconds that the browser should automatically convert all HTTP requests to HTTPS.
-- includeSubDomains: to indicate that all web application’s sub-domains must use HTTPS.
+- `max-age`: to indicate the number of seconds that the browser should automatically convert all HTTP requests to HTTPS.
+- `includeSubDomains`: to indicate that all related sub-domains must use HTTPS.
+- `preload` Unofficial: to indicate that the domain(s) are on the preload list(s) and that browsers should never connect without HTTPS.
+  - This is supported by all major browsers but is not official part of the specification. (See [hstspreload.org](https://hstspreload.org/) for more information.)
 
 Here's an example of the HSTS header implementation:
 
-`Strict-Transport-Security: max-age=60000; includeSubDomains`
+`Strict-Transport-Security: max-age=31536000; includeSubDomains`
 
 The use of this header by web applications must be checked to find if the following security issues could be produced:
 
-- Attackers sniffing the network traffic and accessing the information transferred through an unencrypted channel.
+- Attackers sniffing the network traffic and accessing the information transferred through an un-encrypted channel.
 - Attackers exploiting a manipulator in the middle attack because of the problem of accepting certificates that are not trusted.
-- Users who mistakenly entered an address in the browser putting HTTP instead of HTTPS, or users who click on a link in a web application which mistakenly indicated the HTTP protocol.
+- Users who mistakenly entered an address in the browser putting HTTP instead of HTTPS, or users who click on a link in a web application which mistakenly indicated use of the HTTP protocol.
 
 ## Test Objectives
 
@@ -33,11 +33,11 @@ The use of this header by web applications must be checked to find if the follow
 
 ## How to Test
 
-Testing for the presence of HSTS header can be done by checking for the existence of the HSTS header in the server's response in an interception proxy, or by using curl as follows:
+The presence of the HSTS header can be confirmed by examining the server's response through an intercepting proxy or by using curl as follows:
 
 ```bash
-$ curl -s -D- https://owasp.org | grep Strict
-Strict-Transport-Security: max-age=15768000
+$ curl -s -D- https://owasp.org | grep -i strict
+Strict-Transport-Security: max-age=31536000
 ```
 
 ## References

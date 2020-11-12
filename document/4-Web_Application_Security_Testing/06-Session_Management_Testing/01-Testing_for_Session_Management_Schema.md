@@ -56,7 +56,7 @@ The first step required to manipulate the cookie is to understand how the applic
 
 Surf the application. Note when cookies are created. Make a list of received cookies, the page that sets them (with the set-cookie directive), the domain for which they are valid, their value, and their characteristics.
 
-- Which parts of the the application generate or modify the cookie?
+- Which parts of the application generate or modify the cookie?
 
 Surfing the application, find which cookies remain constant and which get modified. What events modify the cookie?
 
