@@ -10,7 +10,7 @@
 			],
 			// List of terms
 			"terms": [
-				// Brands
+				// Brands/Products
 				"Airbnb",
 				"Android",
 				"AppleScript",
@@ -21,6 +21,7 @@
 				"Codecov",
 				"CodePen",
 				"CodeSandbox",
+				"curl",
 				"DefinitelyTyped",
 				"EditorConfig",
 				"ESLint",

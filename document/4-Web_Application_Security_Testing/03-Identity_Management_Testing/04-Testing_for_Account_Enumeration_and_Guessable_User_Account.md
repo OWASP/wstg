@@ -150,7 +150,7 @@ Sometimes the usernames are created with a REALM alias and then a sequential num
 - R1001 – user 001 for REALM1
 - R2001 – user 001 for REALM2
 
-In the above sample we can create simple shell scripts that compose user IDs and submit a request with tool like wget to automate a web query to discern valid user IDs. To create a script we can also use Perl and CURL.
+In the above sample we can create simple shell scripts that compose user IDs and submit a request with tool like wget to automate a web query to discern valid user IDs. To create a script we can also use Perl and curl.
 
 Other possibilities are: - user IDs associated with credit card numbers, or in general numbers with a pattern. - user IDs associated with real names, e.g. if Freddie Mercury has a user ID of “fmercury”, then you might guess Roger Taylor to have the user ID of “rtaylor”.
 
@@ -170,7 +170,7 @@ Verify that the application answers in the same manner for every client request 
 ## Tools
 
 - [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
-- [CURL](https://curl.haxx.se/)
+- [curl](https://curl.haxx.se/)
 - [PERL](https://www.perl.org)
 
 ## References
