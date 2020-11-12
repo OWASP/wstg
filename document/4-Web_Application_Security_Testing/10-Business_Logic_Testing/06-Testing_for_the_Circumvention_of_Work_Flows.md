@@ -30,7 +30,7 @@ An electronic bulletin board system may be designed to ensure that initial posts
 ### Generic Testing Method
 
 - Review the project documentation and use exploratory testing looking for methods to skip or go to steps in the application process in a different order from the designed/intended business logic flow.
-- For each method develop a misuse case and try to circumvent or perform an action that is “not acceptable” per the the business logic workflow.
+- For each method develop a misuse case and try to circumvent or perform an action that is “not acceptable” per the business logic workflow.
 
 #### Testing Method 1
 

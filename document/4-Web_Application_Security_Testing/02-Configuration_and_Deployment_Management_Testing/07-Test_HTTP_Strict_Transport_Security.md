@@ -31,7 +31,7 @@ The use of this header by web applications must be checked to find if the follow
 
 ## How to Test
 
-The presence of the the HSTS header can be confirmed by examining the server's response through an intercepting proxy or by using CURL as follows:
+The presence of the HSTS header can be confirmed by examining the server's response through an intercepting proxy or by using CURL as follows:
 
 ```bash
 $ curl -s -D- https://owasp.org | grep Strict
