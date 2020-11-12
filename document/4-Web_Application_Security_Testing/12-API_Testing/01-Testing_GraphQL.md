@@ -190,7 +190,7 @@ Response:
 }
 ```
 
-A tool such as GraphQL Voyager can be used to get a better understanding of the GraphQL endpoint:
+A tool such as [GraphQL Voyager](https://apis.guru/graphql-voyager/) can be used to get a better understanding of the GraphQL endpoint:
 
 ![GraphQL Voyager](images/Voyager.png)\
 _Figure 12.1-1: GraphQL Voyager_
@@ -514,6 +514,7 @@ For more on remediating GraphQL weaknesses, refer the [GraphQL CS](https://cheat
 ## Tools
 
 - [GraphQL Playground](https://github.com/prisma-labs/graphql-playground)
+- [GraphQL Voyager](https://apis.guru/graphql-voyager/)
 - [sqlmap](https://github.com/sqlmapproject/sqlmap)
 - [InQL (Burp Extension)](https://portswigger.net/bappstore/296e9a0730384be4b2fffef7b4e19b1f)
 - [GraphQL Raider (Burp Extension)](https://portswigger.net/bappstore/4841f0d78a554ca381c65b26d48207e6)
