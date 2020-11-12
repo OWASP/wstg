@@ -172,7 +172,7 @@ When this data is sent as a POST request, the server will happily accept the nam
 - [Peter W: “Cross-Site Request Forgeries”](https://web.archive.org/web/20160303230910/http://www.tux.org/~peterw/csrf.txt)
 - [Thomas Schreiber: “Session Riding”](https://web.archive.org/web/20160304001446/http://www.securenet.de/papers/Session_Riding.pdf)
 - [Oldest known post](https://web.archive.org/web/20000622042229/http://www.zope.org/Members/jim/ZopeSecurity/ClientSideTrojan)
-- [Cross-site Request Forgery FAQ](http://www.cgisecurity.com/articles/csrf-faq.shtml)
+- [Cross-site Request Forgery FAQ](https://www.cgisecurity.com/csrf-faq.html)
 - [A Most-Neglected Fact About Cross Site Request Forgery (CSRF)](http://yehg.net/lab/pr0js/view.php/A_Most-Neglected_Fact_About_CSRF.pdf)
 - [Multi-POST CSRF](https://www.lanmaster53.com/2013/07/17/multi-post-csrf/)
 - [SANS Pen Test Webcast: Complete Application pwnage via Multi POST XSRF](https://www.youtube.com/watch?v=EOs5PZiiwug)
