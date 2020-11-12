@@ -84,12 +84,12 @@ The cookie `CAKEPHP` has automatically been set, which gives information about t
 
 ```php
 /**
-* The name of CakePHP's session cookie.
+- The name of CakePHP's session cookie.
 *
-* Note the guidelines for Session names states: "The session name references
-* the session id in cookies and URLs. It should contain only alphanumeric
-* characters."
-* @link http://php.net/session_name
+- Note the guidelines for Session names states: "The session name references
+- the session id in cookies and URLs. It should contain only alphanumeric
+- characters."
+- @link http://php.net/session_name
 */
 Configure::write('Session.cookie', 'CAKEPHP');
 ```

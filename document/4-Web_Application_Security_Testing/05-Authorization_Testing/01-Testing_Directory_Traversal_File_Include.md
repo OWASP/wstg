@@ -123,7 +123,6 @@ There are other OS and application framework specific considerations as well. Fo
   - Double quotes (closed properly) at the end of the path
   - Extraneous current directory markers such as “./” or “.\\”
   - Extraneous parent directory markers with arbitrary items that may or may not exist Examples:
-
     - `file.txt`
     - `file.txt...`
     - `file.txt<spaces>`
