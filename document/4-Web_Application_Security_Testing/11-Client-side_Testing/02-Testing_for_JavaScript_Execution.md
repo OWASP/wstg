@@ -22,6 +22,10 @@ if(rr)
 
 This implies that an attacker could inject JavaScript code simply by submitting the following query string: `www.victim.com/?javascript:alert(1)`.
 
+## Test Objectives
+
+- Identify sinks and possible JavaScript injection points.
+
 ## How to Test
 
 For example, consider the following URL: `http://www.domxss.com/domxss/01_Basics/04_eval.html`

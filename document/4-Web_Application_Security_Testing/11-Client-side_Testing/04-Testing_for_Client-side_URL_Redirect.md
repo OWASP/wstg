@@ -22,6 +22,11 @@ The victim that visits this URL will be automatically redirected to `fake-target
 
 Open redirection could also be used to craft a URL that would bypass the application’s access control checks and forward the attacker to privileged functions that they would normally not be able to access.
 
+## Test Objectives
+
+- Identify injection points that handle URLs or paths.
+- Assess the locations that the system could redirect to.
+
 ## How to Test
 
 When testers manually check for this type of vulnerability, they first identify if there are client-side redirections implemented in the client-side code. These redirections may be implemented, to give a JavaScript example, using the `window.location` object. This can be used to direct the browser to another page by simply assigning a string to it. This is demonstrated in the following snippet:

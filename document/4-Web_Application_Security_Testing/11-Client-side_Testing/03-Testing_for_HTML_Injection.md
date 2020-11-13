@@ -36,6 +36,10 @@ http://vulnerable.site/page.html?user=<img%20src='aaa'%20onerror=alert(1)>
 
 This input will add an image tag to the page that will execute arbitrary JavaScript code inserted by the malicious user in the HTML context.
 
+## Test Objectives
+
+- Identify HTML injection points and assess the severity of the injected content.
+
 ## How to Test
 
 For example, consider at the following URL:
