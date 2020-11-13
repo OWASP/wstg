@@ -51,6 +51,11 @@ input[name=csrf_token][value=^a] {
 
 Other attacks using solicited content such as CSS are highlighted in [Mario Heiderich's talk, "Got Your Nose"](https://www.youtube.com/watch?v=FIQvAaZj_HA) on YouTube.
 
+## Test Objectives
+
+- Identify CSS injection points.
+- Assess the impact of the injection.
+
 ## How to Test
 
 Code should be analyzed to determine if a user is permitted to inject content in the CSS context. Particularly, the way in which the website returns CSS rules on the basis of the inputs should be inspected.

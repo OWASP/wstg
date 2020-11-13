@@ -52,6 +52,11 @@ Since May 2007, three new versions of Flash Player were released by Adobe. Every
 | v9.0 r115      |  No          |   Yes             | Yes    |     Yes        |
 | v9.0 r124      |  No          |   Yes             | Yes    |     Partially  |
 
+## Test Objectives
+
+- Decompile and analyze the application's code.
+- Assess sinks inputs and unsafe method usages.
+
 ## How to Test
 
 Since the first publication of [Testing Flash Applications](http://www.wisec.it/en/Docs/flash_App_testing_Owasp07.pdf), new versions of Flash Player were released in order to mitigate some of the attacks which will be described. Nevertheless, some issues still remain exploitable because they are the result of insecure programming practices.
