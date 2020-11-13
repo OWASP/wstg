@@ -103,10 +103,10 @@ The application should always first invalidate the existing session ID before au
 
 ## Tools
 
-* [OWASP ZAP](https://www.zaproxy.org)
+- [OWASP ZAP](https://www.zaproxy.org)
 
 ### References
 
-* [Session Fixation](https://owasp.org/www-community/attacks/Session_fixation)
-* [ACROS Security](https://www.acrossecurity.com/papers/session_fixation.pdf)
-* [Chris Shiflett](http://shiflett.org/articles/session-fixation)
+- [Session Fixation](https://owasp.org/www-community/attacks/Session_fixation)
+- [ACROS Security](https://www.acrossecurity.com/papers/session_fixation.pdf)
+- [Chris Shiflett](http://shiflett.org/articles/session-fixation)

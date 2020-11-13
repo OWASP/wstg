@@ -36,8 +36,8 @@ Here are the steps for executing this test:
 
 1. Login to the website as the victim and reach any page offering a secure function requiring authentication.
 2. Delete from the cookie jar all the cookies which satisfy any of the following conditions.
-    * in case there is no HSTS adoption: the `Secure` attribute is set.
-    * in case there is partial HSTS adoption: the `Secure` attribute is set or the `Domain` attribute is not set.
+    - in case there is no HSTS adoption: the `Secure` attribute is set.
+    - in case there is partial HSTS adoption: the `Secure` attribute is set or the `Domain` attribute is not set.
 3. Save a snapshot of the cookie jar.
 4. Trigger the secure function identified at step 1.
 5. Observe whether the operation at step 4 has been performed successfully. If so, the attack was successful.
@@ -51,5 +51,5 @@ We recommend using two different machines or browsers for the victim and the att
 
 ## Tools
 
-* [OWASP ZAP](https://www.zaproxy.org)
-* [JHijack - a numeric session hijacking tool](https://sourceforge.net/projects/jhijack/)
+- [OWASP ZAP](https://www.zaproxy.org)
+- [JHijack - a numeric session hijacking tool](https://sourceforge.net/projects/jhijack/)

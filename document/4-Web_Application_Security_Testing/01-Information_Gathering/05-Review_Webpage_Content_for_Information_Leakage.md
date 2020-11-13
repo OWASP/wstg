@@ -14,9 +14,9 @@ For large web applications, performance issues are a big concern to programmers.
 
 ## Test Objectives
 
-* Review webpage comments and metadata to find any information leakage.
-* Gather JavaScript files and review the JS code to better understand the application and to find any information leakage.
-* Identify if source map files or other front-end debug files exist.
+- Review webpage comments and metadata to find any information leakage.
+- Gather JavaScript files and review the JS code to better understand the application and to find any information leakage.
+- Identify if source map files or other front-end debug files exist.
 
 ## How to Test
 
@@ -52,9 +52,9 @@ Check HTML version information for valid version numbers and Data Type Definitio
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 ```
 
-* `strict.dtd` -- default strict DTD
-* `loose.dtd` -- loose DTD
-* `frameset.dtd` -- DTD for frameset documents
+- `strict.dtd` -- default strict DTD
+- `loose.dtd` -- loose DTD
+- `frameset.dtd` -- DTD for frameset documents
 
 Some `META` tags do not provide active attack vectors but instead allow an attacker to profile an application:
 
@@ -152,20 +152,20 @@ When websites load source map files, the front-end source code will become reada
 
 ## Tools
 
-* [Wget](https://www.gnu.org/software/wget/wget.html)
-* Browser “view source” function
-* Eyeballs
-* [Curl](https://curl.haxx.se/)
-* [Burp Suite](https://portswigger.net/burp)
-* [Waybackurls](https://github.com/tomnomnom/waybackurls)
-* [Google Maps API Scanner](https://github.com/ozguralp/gmapsapiscanner/)
+- [Wget](https://www.gnu.org/software/wget/wget.html)
+- Browser “view source” function
+- Eyeballs
+- [Curl](https://curl.haxx.se/)
+- [Burp Suite](https://portswigger.net/burp)
+- [Waybackurls](https://github.com/tomnomnom/waybackurls)
+- [Google Maps API Scanner](https://github.com/ozguralp/gmapsapiscanner/)
 
 ## References
 
-* [KeyHacks](https://github.com/streaak/keyhacks)
+- [KeyHacks](https://github.com/streaak/keyhacks)
 
 ### Whitepapers
 
-* [HTML version 4.01](https://www.w3.org/TR/1999/REC-html401-19991224)
-* [XHTML](https://www.w3.org/TR/2010/REC-xhtml-basic-20101123/)
-* [HTML version 5](https://www.w3.org/TR/html5/)
+- [HTML version 4.01](https://www.w3.org/TR/1999/REC-html401-19991224)
+- [XHTML](https://www.w3.org/TR/2010/REC-xhtml-basic-20101123/)
+- [HTML version 5](https://www.w3.org/TR/html5/)
