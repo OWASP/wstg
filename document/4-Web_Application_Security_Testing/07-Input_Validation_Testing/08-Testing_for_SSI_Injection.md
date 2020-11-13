@@ -6,38 +6,28 @@
 
 ## Summary
 
-Web servers usually give developers the ability to add small pieces of dynamic code inside static HTML pages, without having to deal with full-fledged server-side or client-side languages. This feature is incarnated by the [Server-Side Includes](https://owasp.org/www-community/attacks/Server-Side_Includes_(SSI)_Injection)(SSI). In SSI injection testing, we test if it is possible to inject into the application data that will be interpreted by SSI mechanisms. A successful exploitation of this vulnerability allows an attacker to inject code into HTML pages or even perform remote code execution.
+Web servers usually give developers the ability to add small pieces of dynamic code inside static HTML pages, without having to deal with full-fledged server-side or client-side languages. This feature is provided by [Server-Side Includes](https://owasp.org/www-community/attacks/Server-Side_Includes_(SSI)_Injection)(SSI). 
 
-Server-Side Includes are directives that the web server parses before serving the page to the user. They represent an alternative to writing CGI programs or embedding code using server-side scripting languages, when there's only need to perform very simple tasks. Common SSI implementations provide commands to include external files, to set and print web server CGI environment variables, and to execute external CGI scripts or system commands.
+Server-Side Includes are directives that the web server parses before serving the page to the user. They represent an alternative to writing CGI programs or embedding code using server-side scripting languages, when there's only need to perform very simple tasks. Common SSI implementations provide directives(commands) to include external files, to set and print web server CGI environment variables, and to execute external CGI scripts or system commands.
 
-Putting an SSI directive into a static HTML document is as easy as writing a piece of code like the following:
+When testing for SSI we are injecting SSI directives as user input and if SSI is enabled and there is no user input validation the server will execute the directive. This is very similar to a classical scripting language injection vulnerability, it ocurrs when user input is not properly validated and sanitized. 
 
-`<!--#echo var="DATE_LOCAL" -->`
+SSI can lead to a Remote Command Execution (RCE), however most webservers have the `exec` directive disabled by default.
 
-to print out the current time.
+### Testing examples
+`<!--#echo var=$VAR -->`
 
-`<!--#include virtual="/cgi-bin/counter.pl" -->`
+Returns the value of the variable. [List of SSI include variables](http://www.cheat-sheets.org/sites/ssi.su/#includeVariables)
 
-to include the output of a CGI script.
+`<!--#include virtual=$FILENAME -->`
 
-`<!--#include virtual="/footer.html" -->`
+If the supplied file is a CGI script the directive will include the output of the CGI script. But the directive may also be used to include the content of a file or list files in a directory.
 
-to include the content of a file or list files in a directory.
+`<!--#exec cmd=$OS_COMMAND -->`
 
-`<!--#exec cmd="ls" -->`
+Returns the output of the supplied command.
 
-to include the output of a system command.
-
-Then, if the web server's SSI support is enabled, the server will parse these directives. In the default configuration, usually, most web servers don't allow the use of the `exec` directive to execute system commands.
-
-As in every bad input validation situation, problems arise when the user of a web application is allowed to provide data that makes the application or the web server behave in an unforeseen manner. With regard to SSI injection, the attacker could provide input that, if inserted by the application (or maybe directly by the server) into a dynamically generated page, would be parsed as one or more SSI directives.
-
-This is a vulnerability very similar to a classical scripting language injection vulnerability. One mitigation is that the web server needs to be configured to allow SSI. On the other hand, SSI injection vulnerabilities are often simpler to exploit, since SSI directives are easy to understand and, at the same time, quite powerful, e.g., they can output the content of files and execute system commands.
-
-## Test Objectives
-
-- Identify SSI injection points.
-- Assess the severity of the injection.
+There are more directives and variables which you can find [here](http://www.cheat-sheets.org/sites/ssi.su/#includeVariables)
 
 ## How to Test
 
