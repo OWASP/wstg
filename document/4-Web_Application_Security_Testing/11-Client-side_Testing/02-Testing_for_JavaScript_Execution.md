@@ -24,7 +24,7 @@ This implies that an attacker could inject JavaScript code simply by submitting 
 
 ## Test Objectives
 
-- Identify sinks and possible javascript injection points.
+- Identify sinks and possible JavaScript injection points.
 
 ## How to Test
 
