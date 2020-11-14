@@ -10,7 +10,7 @@ Web servers usually give developers the ability to add small pieces of dynamic c
 
 Server-Side Includes are directives that the web server parses before serving the page to the user. They represent an alternative to writing CGI programs or embedding code using server-side scripting languages, when there's only need to perform very simple tasks. Common SSI implementations provide directives(commands) to include external files, to set and print web server CGI environment variables, and to execute external CGI scripts or system commands.
 
-When testing for SSI we are injecting SSI directives as user input and if SSI is enabled and there is no user input validation the server will execute the directive. This is very similar to a classical scripting language injection vulnerability, it ocurrs when user input is not properly validated and sanitized.
+When testing for SSI we are injecting SSI directives as user input and if SSI are enabled and there is no user input validation the server will execute the directive. This is very similar to a classical scripting language injection vulnerability, it occurs when user input is not properly validated and sanitized.
 
 SSI can lead to a Remote Command Execution (RCE), however most webservers have the `exec` directive disabled by default.
 
