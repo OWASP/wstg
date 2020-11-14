@@ -28,7 +28,7 @@ If the supplied file is a CGI script the directive will include the output of th
 
 Returns the output of the supplied command.
 
-There are more directives and variables which you can find [here](http://www.cheat-sheets.org/sites/ssi.su/#includeVariables)
+There are more directives and variables which you can find [here](http://www.cheat-sheets.org/sites/ssi.su/)
 
 ## How to Test
 
@@ -41,7 +41,7 @@ Another way of verifying that SSI are enabled, is checking for pages with the `.
 The next step is determining all the possible user input vectors and testing if the SSI Injection is exploitable.
 
 To test this we have to find all the pages where user input is allowed. Possible input vectors may also include Headers and Cookies. Determine how the input is stored and used, i.e if the input is returned as an error message or page element and if it was modified in some way.  
- 
+
 Once we have a list of potential injection points, we can check if the input is correctly validated. We need to make sure that we can inject characters used in SSI directives:
 
 `< ! # = / . " - > and [a-zA-Z0-9]`
@@ -68,7 +68,7 @@ User-Agent: <!--#include virtual="/proc/version"-->
 
 If we have access to the application source code, we can quite easily find out:
 
-- If SSI directives are used. If they are, then the web server is going to have SSI support enabled, making SSI injection at least a potential issue to investigate.
+- If SSI directives are used. If they are, then the web server has SSI support enabled, making SSI injection at least a potential issue to investigate.
 - Where user input, cookie content and HTTP headers are handled. The complete list of input vectors is then quickly determined.
 - How the input is handled, what kind of filtering is performed, what characters the application is not letting through, and how many types of encoding are taken into account.
 
@@ -82,10 +82,13 @@ Performing these steps is mostly a matter of using grep to find the right keywor
 
 ## References
 
+- [Nginx SSI module](http://nginx.org/en/docs/http/ngx_http_ssi_module.html)
+- [Apache: “Module mod_include”](https://httpd.apache.org/docs/1.3/mod/mod_include.html)
+- [SSI Include Variables Cheatsheet](http://www.cheat-sheets.org/sites/ssi.su/#includeVariables)
+
 ### Whitepapers
 
 - [Apache Tutorial: “Introduction to Server Side Includes”](https://httpd.apache.org/docs/1.3/howto/ssi.html)
-- [Apache: “Module mod_include”](https://httpd.apache.org/docs/1.3/mod/mod_include.html)
 - [Apache: “Security Tips for Server Configuration”](https://httpd.apache.org/docs/1.3/misc/security_tips.html#ssi)
 - [Header Based Exploitation](https://www.cgisecurity.com/papers/header-based-exploitation.txt)
 - [SSI Injection instead of JavaScript Malware](https://jeremiahgrossman.blogspot.com/2006/08/ssi-injection-instead-of-javascript.html)
