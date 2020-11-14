@@ -199,7 +199,7 @@ This tool creates an Entity Relationship Diagram (ERD) representation of the Gra
 
 - ID
 - name
-- veterinary (ID)  
+- veterinary (ID)
 
 There is one downside to using this method: GraphQL Voyager does not display everything that can be done with GraphQL. For example, the mutations available are not listed in the drawing above. A better strategy would be to use both Voyager and one of the methods listed below.
 
