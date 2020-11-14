@@ -56,13 +56,15 @@ As with any data originating from untrusted sources, the data should be properly
 
 Once we have identified that the application is using WebSockets (as described above) we can use the [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org) to intercept the WebSocket request and responses. ZAP can then be used to replay and fuzz the WebSocket request/responses.
 
-![ZAP WebSockets](images/OWASP_ZAP_WebSockets.png)
+![ZAP WebSockets](images/OWASP_ZAP_WebSockets.png)\
+*Figure 4.11.10-1: ZAP WebSockets*
 
 #### Example 2
 
 Using a WebSocket client (one can be found in the [Tools](#Tools) section below) attempt to connect to the remote WebSocket server. If the connection is allowed the WebSocket server may not be checking the WebSocket handshake's origin header. Attempt to replay requests previously intercepted to verify that cross-domain WebSocket communication is possible.
 
-![WebSocket Client](images/WebSocket_Client.png)
+![WebSocket Client](images/WebSocket_Client.png)\
+*Figure 4.11.10-2: WebSocket Client*
 
 ### Gray-Box Testing
 
