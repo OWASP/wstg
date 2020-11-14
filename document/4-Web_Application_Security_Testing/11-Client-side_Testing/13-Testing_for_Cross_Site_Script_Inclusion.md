@@ -14,6 +14,11 @@ When the browser opens a website with `<script>` tags, the resources are fetched
 
 Older browser's vulnerabilities (IE9/10) allowed data leakage via JavaScript error messages at runtime, but those vulnerabilities have now been patched by vendors and are considered less relevant. By setting the charset attribute of the `<script>` tag, an attacker or tester can enforce UTF-16 encoding, allowing data leakage for other data formats (e.g. JSON) in some cases. For more on these attacks, see [Identifier based XSSI attacks](https://www.mbsd.jp/Whitepaper/xssi.pdf).
 
+## Test Objectives
+
+- Locate sensitive data across the system.
+- Assess the leakage of sensitive data through various techniques.
+
 ## How to Test
 
 ### Collect Data Using Authenticated and Unauthenticated User Sessions
@@ -172,7 +177,8 @@ This vulnerability could be exploited with the following:
 
 When the browser tries to render the CSV content as JavaScript, it fails and leaks the sensitive data:
 
-![JavaScript runtime error message ](images/XSSI1.jpeg)
+![JavaScript runtime error message ](images/XSSI1.jpeg)\
+*Figure 4.11.13-1: JavaScript runtime error message*
 
 ### 5. Sensitive Data Leakage via Prototype Chaining Using `this`
 

@@ -40,6 +40,11 @@ XMLHttpRequest L2 (or XHR L2) introduces the possibility of creating a cross-dom
 
 There are other headers involved like Access-Control-Max-Age that determines the time a preflight request can be cached in the browser, or Access-Control-Expose-Headers that indicates which headers are safe to expose to the API of a CORS API specification, both are response headers specified in the CORS W3C document.
 
+## Test Objectives
+
+- Identify endpoints that implement CORS.
+- Ensure that the CORS configuration is secure or harmless.
+
 ## How to Test
 
 A tool such as [OWASP Zed Attack Proxy Project](https://www.zaproxy.org) can enable testers to intercept HTTP headers, which can reveal how CORS is used. Testers should pay particular attention to the origin header to learn which domains are allowed. Also, manual inspection of the JavaScript is needed to determine whether the code is vulnerable to code injection due to improper handling of user supplied input. Below are some examples:

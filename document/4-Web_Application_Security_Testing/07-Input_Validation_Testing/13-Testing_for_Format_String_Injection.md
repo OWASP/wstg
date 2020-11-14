@@ -10,17 +10,17 @@ A format string is a null-terminated character sequence that also contains conve
 
 The worst case for format strings vulnerabilities occur in languages that don't check arguments and also include a `%n` specifier that writes to memory. These functions, if exploited by an attacker modifying a format string, could cause [information disclosure and code execution](https://www.veracode.com/security/format-string):
 
-* C and C++ [printf](https://en.cppreference.com/w/c/io/fprintf) and similar methods fprintf, sprintf, snprintf
-* Perl [printf](https://perldoc.perl.org/functions/printf.html) and sprintf
+- C and C++ [printf](https://en.cppreference.com/w/c/io/fprintf) and similar methods fprintf, sprintf, snprintf
+- Perl [printf](https://perldoc.perl.org/functions/printf.html) and sprintf
 
 These format string functions cannot write to memory, but attackers can still cause information disclosure by changing format strings to output values the developers did not intend to send:
 
-* Python 2.6 and 2.7 [str.format](https://docs.python.org/2/library/string.html) and Python 3 unicode [str.format](https://docs.python.org/3/library/stdtypes.html#str.format) can be modified by injecting strings that can point to [other variables](https://lucumr.pocoo.org/2016/12/29/careful-with-str-format/) in memory
+- Python 2.6 and 2.7 [str.format](https://docs.python.org/2/library/string.html) and Python 3 unicode [str.format](https://docs.python.org/3/library/stdtypes.html#str.format) can be modified by injecting strings that can point to [other variables](https://lucumr.pocoo.org/2016/12/29/careful-with-str-format/) in memory
 
 The following format string functions can cause runtime errors if the attacker adds conversion specifiers:
 
-* Java [String.format](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#format%28java.util.Locale%2Cjava.lang.String%2Cjava.lang.Object...%29) and [PrintStream.format](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/PrintStream.html#format%2528java.util.Locale%252Cjava.lang.String%252Cjava.lang.Object...%2529)
-* PHP [printf](https://www.php.net/manual/es/function.printf.php)
+- Java [String.format](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#format%28java.util.Locale%2Cjava.lang.String%2Cjava.lang.Object...%29) and [PrintStream.format](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/PrintStream.html#format%2528java.util.Locale%252Cjava.lang.String%252Cjava.lang.Object...%2529)
+- PHP [printf](https://www.php.net/manual/es/function.printf.php)
 
 The code pattern that causes a format string vulnerability is a call to a string format function that contains unsanitized user input. The following example shows how a debug `printf` could make a program vulnerable:
 
@@ -58,9 +58,9 @@ Tests include analysis of the code and injecting conversion specifiers as user i
 
 Static analysis tools can find format string vulnerabilities in either the code or in binaries. Examples of tools include:
 
-* C and C++: [Flawfinder](https://dwheeler.com/flawfinder/)
-* Java: FindSecurityBugs rule [FORMAT_STRING_MANIPULATION](https://find-sec-bugs.github.io/bugs.htm#FORMAT_STRING_MANIPULATION)
-* PHP: String formatter Analyzer in [phpsa](https://github.com/ovr/phpsa/blob/master/docs/05_Analyzers.md#function_string_formater)
+- C and C++: [Flawfinder](https://dwheeler.com/flawfinder/)
+- Java: FindSecurityBugs rule [FORMAT_STRING_MANIPULATION](https://find-sec-bugs.github.io/bugs.htm#FORMAT_STRING_MANIPULATION)
+- PHP: String formatter Analyzer in [phpsa](https://github.com/ovr/phpsa/blob/master/docs/05_Analyzers.md#function_string_formater)
 
 ### Manual Code Inspection
 
@@ -74,7 +74,7 @@ The examples in the following subsections have a URL of this form:
 
 `https://vulnerable_host/userinfo?username=x`
 
-* The user-controlled value is `x` (for the `username` parameter).
+- The user-controlled value is `x` (for the `username` parameter).
 
 #### Manual Injection
 
@@ -105,9 +105,9 @@ alice
 
 The `fuzz.txt` file contains the following:
 
-* A valid input `alice` to verify the application can process a normal input
-* Two strings with C-like conversion specifiers
-* One Python conversion specifier to attempt to read global variables
+- A valid input `alice` to verify the application can process a normal input
+- Two strings with C-like conversion specifiers
+- One Python conversion specifier to attempt to read global variables
 
 To send the fuzzing input file to the web application under test, use the following command:
 

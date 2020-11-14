@@ -20,7 +20,8 @@ Note: While cache is also a form of storage it is covered in a [separate section
 
 ## Test Objectives
 
-Testing should be conducted to determine whether the website is storing sensitive data in client-side storage. The code handling of the storage objects should be examined for possibilities of injection attacks, such as utilizing unvalidated input. JavaScript in particular should be examined to determine if scripts or third party libraries are introducing vulnerabilities.
+- Determine whether the website is storing sensitive data in client-side storage.
+- The code handling of the storage objects should be examined for possibilities of injection attacks, such as utilizing unvalidated input or vulnerable libraries.
 
 ## How to Test
 

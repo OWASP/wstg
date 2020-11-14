@@ -70,6 +70,11 @@ header('Access-Control-Allow-Origin: http://www.victim.com');
 <script>alert(document.cookie);</script>
 ```
 
+## Test Objectives
+
+- Identify sinks with weak input validation.
+- Assess the impact of the resource manipulation.
+
 ## How to Test
 
 To manually check for this type of vulnerability, we must identify whether the application employs inputs without correctly validating them. If so, these inputs are under the control of the user and could be used to specify external resources. Since there are many resources that could be included in the application (such as images, video, objects, css, and iframes), the client-side scripts that handle the associated URLs should be investigated for potential issues.
