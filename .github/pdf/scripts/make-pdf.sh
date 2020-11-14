@@ -103,7 +103,7 @@ sed 's/<h1 id=\"[0-9.]*-\(.*\)\">\(.*\)<\/h1>/<h1 id="\1">\2<\/h1>/' | \
 # Sed section 31: Add design to image  and remove extra '\'
 sed 's/\!\[\([^\[]*\)\](\(.*\)).$/<div class="image-center"><img src="\2" alt="\1"><\/div>/' | \
 # Sed section 32: Add design to image name text
-sed 's/\*\(Figure [0-9.\-]*\: .*\)\*/<div class="image-name-tag-wrap"><span class="image-name-tag">\1<\/span><\/div>/' >>  build/wstg-doc-$VERSION.md ; done
+sed 's/\*\(Figure [0-9.ABCDEF\-]*\: .*\)\*/<div class="image-name-tag-wrap"><span class="image-name-tag">\1<\/span><\/div>/' >>  build/wstg-doc-$VERSION.md ; done
 
 # Create cover pages by converting Markdown to PDF
 md-to-pdf  --config-file .github/pdf/pdf-config.json  --pdf-options '{"margin":"0mm", "format": "A4"}' build/cover-$VERSION.md
@@ -150,7 +150,7 @@ python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*)\"', lambda m: 
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*)\"', lambda m: m.group().lower(), sys.stdin.read()))"  | \
 sed 's/<h1 id=\"[0-9.]*-\(.*\)\">\(.*\)<\/h1>/<h1 id="\1">\2<\/h1>/' | \
 sed 's/\!\[\([^\[]*\)\](\(.*\)).$/<div class="image-center"><img src="\2" alt="\1"><\/div>/' | \
-sed 's/\*\(Figure [0-9.\-]*\: .*\)\*/<div class="image-name-tag-wrap"><span class="image-name-tag">\1<\/span><\/div>/'  >  build/pdf/$x ; done
+sed 's/\*\(Figure [0-9.ABCDEF\-]*\: .*\)\*/<div class="image-name-tag-wrap"><span class="image-name-tag">\1<\/span><\/div>/'  >  build/pdf/$x ; done
 
 # Copy images to the temporary folder to generate chapter wise PDFs
 cp -r build/images build/pdf/
