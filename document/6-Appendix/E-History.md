@@ -11,7 +11,7 @@ The Testing Guide v4 was released in 2014. The Testing guide originated in 2003 
 
 ## Leaders
 
-- Matteo Meucci: OWASP Testing Guide Lead since 2007-2020.
+- Matteo Meucci: OWASP Testing Guide Lead 2007-2020.
 - Andrew Muller: OWASP Testing Guide Lead 2013-2019.
 - Eoin Keary: OWASP Testing Guide Lead 2005-2007.
 - Daniel Cuthbert: OWASP Testing Guide Lead 2003-2005.
