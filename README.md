@@ -64,7 +64,6 @@ You can also join our [Google Group](https://groups.google.com/a/owasp.org/forum
 
 - [Rick Mitchell](https://github.com/kingthorin)
 - [Elie Saad](https://github.com/ThunderSon)
-- [Matteo Meucci](https://github.com/MatOwasp)
 
 ## Core Team
 

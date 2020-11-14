@@ -10,7 +10,7 @@
 
 OWASP thanks the many authors, reviewers, and editors for their hard work in bringing this guide to where it is today. If you have any comments or suggestions on the Testing Guide, please feel free to open an Issue or submit a fix/contribution via Pull Request to our [GitHub repository](https://github.com/OWASP/wstg/).
 
-## Version 4.1
+## Version 4.2
 
 This minor release represents a transitional step between the 2014 release of v4 via the OWASP wiki, and the preparation of v5, currently underway on GitHub.
 
@@ -23,7 +23,6 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 ## Leaders
 
 - Elie Saad
-- Matteo Meucci
 - Rick Mitchell
 
 ## Core Team
