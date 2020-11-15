@@ -25,7 +25,6 @@ jobs:
         sudo apt install moreutils
     - name: Git Setup Global Config
       run: |
-        pwd
         # Git setup
         export GITHUB_USER=wstgbot
         echo "GITHUB_USER=$GITHUB_USER" >> $GITHUB_ENV
@@ -47,6 +46,8 @@ jobs:
     - name: Push Feature Branch and Raise PR
       run: |
         # If there are changes: add, commit, PR
+        pwd
+        git diff-index HEAD --
         if ! git diff-index --quiet HEAD --; then 
           git remote set-url origin https://$GITHUB_USER:${{ secrets.wstg_deploy_token }}@github.com/OWASP/wstg.git
           git add checklist/checklist.json
