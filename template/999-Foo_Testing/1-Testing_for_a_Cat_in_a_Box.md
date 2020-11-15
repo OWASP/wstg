@@ -25,7 +25,7 @@ To test for a cat in a box, use any of the following methods.
 These instructions assume the box is constructed of cardboard. You may need to modify the steps slightly to accommodate other materials.
 
 [![Box](images/box.jpg "An empty box made of corrugated fiberboard")](https://en.wikipedia.org/wiki/Box)\
-_Figure 999.1-1: Image of an Empty Open Cardboard Box_
+*Figure 999.1-1: Image of an Empty Open Cardboard Box*
 
 Use the following steps to open the box.
 
@@ -53,7 +53,7 @@ Attempt to compel a reaction from the possible cat in the box by using any of th
 If no cat reveals itself, it is unlikely there is a cat in the box. However, this test is indefinite. It may be possible to say that there both is and is not a cat in the box.
 
 [![GHZ state](images/ghz-state.svg "An equation for GHZ state in quantum computing")](https://en.wikipedia.org/wiki/Schr%C3%B6dinger%27s_cat)\
-_Figure 999.1-2: Equation for Quantum Computing "Cat State" or GHZ State_
+*Figure 999.1-2: Equation for Quantum Computing "Cat State" or GHZ State*
 
 ### Use a Box Camera
 
