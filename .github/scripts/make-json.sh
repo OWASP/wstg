@@ -2,6 +2,8 @@
 # Script to create the Json checklist file for WSTG
 
 cd document/4-Web_Application_Security_Testing
+pwd
+ls
 
 # Start the json string
 echo "{" > checklist.json
@@ -61,6 +63,7 @@ done
 echo "    }"  >> checklist.json
 # End Json string
 echo "}"  >> checklist.json
+cat checklist.json
 
 # Move generated file to checklist folder
 mv checklist.json ../../checklist/.
