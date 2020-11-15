@@ -61,6 +61,7 @@ done
 echo "    }"  >> checklist.json
 # End Json string
 echo "}"  >> checklist.json
+cat checklist.json
 
 # Move generated file to checklist folder
 mv checklist.json ../../checklist/.
