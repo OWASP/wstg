@@ -53,7 +53,7 @@ ls build/md | sort -n | while read x; do cat build/md/$x | sed -e 's/^# /<div st
 sed 's/\(^#\{2\} \)\(\[\(.*\)\]\(.*\)\(\?\:\n\+\|$\)\)/<h2><a href=\"#\3\">\3<\/a><\/h2>/'  | \
 sed 's/\(^#\{1\} \)\([0-9. ]*\) \(\[\(.*\)\]\(.*\)\(\?\:\n\+\|$\)\)/<h1>\2 <a href=\"#\4\">\4<\/a><\/h1>/'  | \
 sed 's/\(^#\{2\} \)\([0-9. ]*\) \(\[\(.*\)\]\(.*\)\(\?\:\n\+\|$\)\)/<h2>\2 <a href=\"#\4\">\4<\/a><\/h2>/' | \
-sed 's/\(^#\{2\} \)\(Appendix [ABCDE]\.\) \(\[\(.*\)\]\(.*\)\(\?\:\n\+\|$\)\)/<h2>\2 <a href=\"#\4\">\4<\/a><\/h2>/' | \
+sed 's/\(^#\{2\} \)\(Appendix [ABCDEF]\.\) \(\[\(.*\)\]\(.*\)\(\?\:\n\+\|$\)\)/<h2>\2 <a href=\"#\4\">\4<\/a><\/h2>/' | \
 sed 's/\(^#\{3\} \)\([0-9. ]*\) \(\[\(.*\)\]\(.*\)\(\?\:\n\+\|$\)\)/<h3>\2 <a href=\"#\4\">\4<\/a><\/h3>/'| \
 sed 's/\(^#\{4\} \)\([0-9. ]*\) \(\[\(.*\)\]\(.*\)\(\?\:\n\+\|$\)\)/<h4>\2 <a href=\"#\4\">\4<\/a><\/h4>/' | \
 sed 's/\(^#\{5\} \)\([0-9. ]*\) \(\[\(.*\)\]\(.*\)\(\?\:\n\+\|$\)\)/<h5>\2 <a href=\"#\4\">\4<\/a><\/h5>/' | \
@@ -66,7 +66,7 @@ sed 's/\(^#\{5\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h5 id=\"\2\">\2<\/h5>/' | \
 # Sed section 14: Set href for internal links. Remove subsection numbers from href.
 sed 's/\[\([^\[]*\)\]([^\[]*[0-9]\-\([^(]*\.md\))/<a href=\"#\2\">\1<\/a>/g' | \
 # Sed section 15: Set href for Appendix internal links. Remove subsection numbers from href.
-sed 's/\[\([^\[]*\)\]([^\[]*[ABCDE]-\([^(]*\.md\))/<a href=\"#\2\">\1<\/a>/g' | \
+sed 's/\[\([^\[]*\)\]([^\[]*[ABCDEF]-\([^(]*\.md\))/<a href=\"#\2\">\1<\/a>/g' | \
 # Sed section: Workaround to address the bug in duplicate fragment links in 4.1.
 sed 's/\[\([^\n]\+\)\](#tools)/\1/i' |\
 sed 's/\[\([^\n]\+\)\](#references)/\1/i' |\
@@ -103,7 +103,7 @@ sed 's/<h1 id=\"[0-9.]*-\(.*\)\">\(.*\)<\/h1>/<h1 id="\1">\2<\/h1>/' | \
 # Sed section 31: Add design to image  and remove extra '\'
 sed 's/\!\[\([^\[]*\)\](\(.*\)).$/<div class="image-center"><img src="\2" alt="\1"><\/div>/' | \
 # Sed section 32: Add design to image name text
-sed 's/\*\(Figure [0-9.\-]*\: .*\)\*/<div class="image-name-tag-wrap"><span class="image-name-tag">\1<\/span><\/div>/' >>  build/wstg-doc-$VERSION.md ; done
+sed 's/\*\(Figure [0-9.ABCDEF\-]*\: .*\)\*/<div class="image-name-tag-wrap"><span class="image-name-tag">\1<\/span><\/div>/' >>  build/wstg-doc-$VERSION.md ; done
 
 # Create cover pages by converting Markdown to PDF
 md-to-pdf  --config-file .github/pdf/pdf-config.json  --pdf-options '{"margin":"0mm", "format": "A4"}' build/cover-$VERSION.md
@@ -133,7 +133,7 @@ sed 's/\(^#\{3\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h3 id=\"\2\">\2<\/h3>/' | \
 sed 's/\(^#\{4\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h4 id=\"\2\">\2<\/h4>/' | \
 sed 's/\(^#\{5\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h5 id=\"\2\">\2<\/h5>/' | \
 sed 's/\[\([^\[]*\)\]([^\[]*[0-9]\-\([^(]*\.md\))/<a href=\"#\2\">\1<\/a>/g' | \
-sed 's/\[\([^\[]*\)\]([^\[]*[ABCDE]-\([^(]*\.md\))/<a href=\"#\2\">\1<\/a>/g' | \
+sed 's/\[\([^\[]*\)\]([^\[]*[ABCDEF]-\([^(]*\.md\))/<a href=\"#\2\">\1<\/a>/g' | \
 sed 's/\[\([^\n]\+\)\]([^\n]\+.md#\([^\)]\+\))/<a href=\"#\2\">\1<\/a>/' | \
 sed 's/\[\([^\n]\+\)\](#\([^\)]\+\))/<a href=\"#\2\">\1<\/a>/' |\
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().lower(), sys.stdin.read()))"  | \
@@ -150,7 +150,7 @@ python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*)\"', lambda m: 
 python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*)\"', lambda m: m.group().lower(), sys.stdin.read()))"  | \
 sed 's/<h1 id=\"[0-9.]*-\(.*\)\">\(.*\)<\/h1>/<h1 id="\1">\2<\/h1>/' | \
 sed 's/\!\[\([^\[]*\)\](\(.*\)).$/<div class="image-center"><img src="\2" alt="\1"><\/div>/' | \
-sed 's/\*\(Figure [0-9.\-]*\: .*\)\*/<div class="image-name-tag-wrap"><span class="image-name-tag">\1<\/span><\/div>/'  >  build/pdf/$x ; done
+sed 's/\*\(Figure [0-9.ABCDEF\-]*\: .*\)\*/<div class="image-name-tag-wrap"><span class="image-name-tag">\1<\/span><\/div>/'  >  build/pdf/$x ; done
 
 # Copy images to the temporary folder to generate chapter wise PDFs
 cp -r build/images build/pdf/
