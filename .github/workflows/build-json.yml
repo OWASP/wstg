@@ -25,6 +25,7 @@ jobs:
         sudo apt install moreutils
     - name: Git Setup Global Config
       run: |
+        pwd
         # Git setup
         export GITHUB_USER=wstgbot
         echo "GITHUB_USER=$GITHUB_USER" >> $GITHUB_ENV
