@@ -528,7 +528,7 @@ For more on remediating GraphQL weaknesses, refer to the [GraphQL Cheat Sheet](h
 - [sqlmap](https://github.com/sqlmapproject/sqlmap)
 - [InQL (Burp Extension)](https://portswigger.net/bappstore/296e9a0730384be4b2fffef7b4e19b1f)
 - [GraphQL Raider (Burp Extension)](https://portswigger.net/bappstore/4841f0d78a554ca381c65b26d48207e6)
-- [GraphQL (Add-on for OWASP ZAP](https://www.zaproxy.org/blog/2020-08-28-introducing-the-graphql-add-on-for-zap/)
+- [GraphQL (Add-on for OWASP ZAP)](https://www.zaproxy.org/blog/2020-08-28-introducing-the-graphql-add-on-for-zap/)
 
 ## References
 
