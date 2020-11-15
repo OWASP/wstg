@@ -6,6 +6,7 @@ on:
       - master
     paths:
       - 'document/**'
+  workflow_dispatch:
 
 jobs:
   create_pr:
