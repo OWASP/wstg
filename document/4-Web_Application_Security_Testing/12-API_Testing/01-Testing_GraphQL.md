@@ -195,7 +195,7 @@ Response:
 A tool such as [GraphQL Voyager](https://apis.guru/graphql-voyager/) can be used to get a better understanding of the GraphQL endpoint:
 
 ![GraphQL Voyager](images/Voyager.png)\
-_Figure 12.1-1: GraphQL Voyager_
+*Figure 12.1-1: GraphQL Voyager*
 
 This tool creates an Entity Relationship Diagram (ERD) representation of the GraphQL schema, allowing you to get a better look into the moving parts of the system you're testing. Extracting information from the drawing allows you to see you can query the Dog table for example. It also shows which properties a Dog has:
 
@@ -218,10 +218,10 @@ GraphiQL has a documentation section, which uses the data from the schema in ord
 Note that in some cases, you will need to set the HTTP headers at the bottom, to include session ID or other mechanism of authentication. This still allows creating multiple "IDEs" with different permissions to verify if there are in fact authorization issues.
 
 ![Playground1](images/Playground1.png)\
-_Figure 12.1-2: GraphQL Playground High Level API Docs_
+*Figure 12.1-2: GraphQL Playground High Level API Docs*
 
 ![Playground2](images/Playground2.png)\
-_Figure 12.1-3: GraphQL Playground API Schema_
+*Figure 12.1-3: GraphQL Playground API Schema*
 
 You can even download the schemas to use in Voyager.
 
@@ -236,7 +236,7 @@ Introspection is the first place to look for authorization problems. As noted, a
 In the earlier examples, the output of the introspection query shows there is a query called `auth`. This seems like a good place to extract sensitive information such as API tokens, passwords, etc.
 
 ![Auth GraphQL Query](images/auth1.png)\
-_Figure 12.1-4: GraphQL Auth Query API_
+*Figure 12.1-4: GraphQL Auth Query API*
 
 Testing the authorization implementation varies from deployment to deployment since each schema will have different sensitive information, and hence, different targets to focus on.
 
