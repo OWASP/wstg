@@ -1,7 +1,7 @@
 #!/bin/bash
 # Script to create the Json checklist file for WSTG
 
-cd document/4-Web_Application_Security_Testing
+cd /document/4-Web_Application_Security_Testing
 
 # Start the json string
 echo "{" > checklist.json
