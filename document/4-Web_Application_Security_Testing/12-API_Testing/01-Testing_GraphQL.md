@@ -24,7 +24,9 @@ Testing GraphQL nodes is not very different than testing other API technologies.
 
 Introspection queries are the method by which GraphQL lets you ask what queries are supported, which data types are available, and many more details you will need when approaching a test of a GraphQL deployment.
 
-> "It's often useful to ask a GraphQL schema for information about what queries it supports. GraphQL allows us to do so using the [introspection](https://graphql.org/learn/introspection/) system!"
+The [GraphQL website describes Introspection](https://graphql.org/learn/introspection/):
+
+> "It's often useful to ask a GraphQL schema for information about what queries it supports. GraphQL allows us to do so using the introspection system!"
 
 There are a couple of ways to extract this information and visualize the output, as follows.
 
