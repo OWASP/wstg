@@ -46,8 +46,7 @@ jobs:
     - name: Push Feature Branch and Raise PR
       run: |
         # If there are changes: add, commit, PR
-        pwd
-        ls checklist
+        git diff
         if ! git diff-index --quiet HEAD --; then 
           git remote set-url origin https://$GITHUB_USER:${{ secrets.wstg_deploy_token }}@github.com/OWASP/wstg.git
           git add checklist/checklist.json
