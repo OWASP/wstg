@@ -31,7 +31,7 @@ Suppose a precious metals e-commerce site allows users to make purchases with a 
 ## Test Objectives
 
 - Review the project documentation for system functionality that may be impacted by time.
-- Develop and execute the mis-use cases.
+- Develop and execute misuse cases.
 
 ## How to Test
 

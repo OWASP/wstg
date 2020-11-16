@@ -34,8 +34,8 @@ Many systems include logging for auditing and troubleshooting purposes. But, how
 
 - Review the project documentation for components of the system that move, store, or handle data.
 - Determine what type of data is logically acceptable by the component and what types the system should guard against.
-- Determine who should be allowed to modify or read that data in each componenet
-- Attempt to insert, update, or edit delete the data values with invalid data into each component by users that should not be allowed per the business logic workflow.
+- Determine who should be allowed to modify or read that data in each component.
+- Attempt to insert, update, or delete data values used by each component that should not be allowed per the business logic workflow.
 
 ## How to Test
 

@@ -19,7 +19,7 @@ Suppose an eCommerce site allows users to take advantage of any one of many disc
 ## Test Objectives
 
 - Identify functions that must set limits to the times they can be called.
-- Assess if their is a logical limit set on the functions and if it is properly validated.
+- Assess if there is a logical limit set on the functions and if it is properly validated.
 
 ## How to Test
 

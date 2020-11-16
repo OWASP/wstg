@@ -25,7 +25,7 @@ An electronic bulletin board system may be designed to ensure that initial posts
 
 ## Test Objectives
 
-- Review the project documentation for methods to skip or go to steps in the application process in a different order from the intended business logic flow.
+- Review the project documentation for methods to skip or go through steps in the application process in a different order from the intended business logic flow.
 - Develop a misuse case and try to circumvent every logic flow identified.
 
 ## How to Test
