@@ -12,17 +12,17 @@ Vulnerabilities related to the upload of unexpected file types is unique in that
 
 The application may be expecting only certain file types to be uploaded for processing, such as .CSV, .txt files. The application may not validate the uploaded file by extension (for low assurance file validation) or content (high assurance file validation). This may result in unexpected system or database results within the application/system or give attackers additional methods to exploit the application/system..
 
-## Example
+### Example
 
 Suppose a picture sharing application allows users to upload a `.gif` or `.jpg` graphic file to the web site. What if an attacker is able to upload an HTML file with a `<script>` tag in it or PHP file? The system may move the file from a temporary location to the final location where the PHP code can now be executed against the application or system.
 
+## Test Objectives
+
+- Review the project documentation for file types that are rejected by the system.
+- Verify that the unwelcomed file types are rejected and handled safely.
+- Verify that file batch uploads are secure and do not allow any bypass against the set security measures.
+
 ## How to Test
-
-### Generic Testing Method
-
-- Review the project documentation and perform some exploratory testing looking for file types that should be “unsupported” by the application/system.
-- Try to upload these “unsupported” files an verify that it are properly rejected.
-- If multiple files can be uploaded at once, there must be tests in place to verify that each file is properly evaluated.
 
 ### Specific Testing Method
 
