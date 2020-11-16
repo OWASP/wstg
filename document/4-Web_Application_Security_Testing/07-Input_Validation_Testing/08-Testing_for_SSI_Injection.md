@@ -14,6 +14,11 @@ SSI can lead to a Remote Command Execution (RCE), however most webservers have t
 
 This is a vulnerability very similar to a classical scripting language injection vulnerability. One mitigation is that the web server needs to be configured to allow SSI. On the other hand, SSI injection vulnerabilities are often simpler to exploit, since SSI directives are easy to understand and, at the same time, quite powerful, e.g., they can output the content of files and execute system commands.
 
+## Test Objectives
+
+- Identify SSI injection points.
+- Assess the severity of the injection.
+
 ## How to Test
 
 When testing for SSI we are injecting SSI directives as user input and if SSI are enabled and there is no user input validation the server will execute the directive. This is very similar to a classical scripting language injection vulnerability, it occurs when user input is not properly validated and sanitized.
