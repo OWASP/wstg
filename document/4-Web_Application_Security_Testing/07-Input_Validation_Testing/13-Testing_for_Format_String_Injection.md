@@ -48,7 +48,7 @@ In this particular example, if the attacker set their `userName` to have one or 
 
 ## Test Objectives
 
-Assess whether injecting format string conversion specifiers into user-controlled fields causes undesired behaviour from the application.
+- Assess whether injecting format string conversion specifiers into user-controlled fields causes undesired behaviour from the application.
 
 ## How to Test
 

@@ -12,8 +12,8 @@ Most of Web security testing tools (i.e. AppScan, BurpSuite, ZAP) act as HTTP Pr
 
 ## Test Objectives
 
-1. Monitor all incoming and outgoing HTTP requests to the Web Server to inspect any suspicious requests.
-2. Monitor HTTP traffic without changes of end user Browser proxy or client-side application.
+- Monitor all incoming and outgoing HTTP requests to the Web Server to inspect any suspicious requests.
+- Monitor HTTP traffic without changes of end user Browser proxy or client-side application.
 
 ## How to Test
 
