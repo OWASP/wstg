@@ -14,9 +14,7 @@ Once a search engine robot has completed crawling, it commences indexing the web
 
 ## Test Objectives
 
-- Identify what sensitive design and configuration information of the application, system, or organization is exposed:
-  - directly (on the organization's website)
-  - or indirectly (via third-party services).
+- Identify what sensitive design and configuration information of the application, system, or organization is exposed directly (on the organization's website) or indirectly (via third-party services).
 
 ## How to Test
 
