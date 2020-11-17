@@ -67,8 +67,8 @@ for d in */ ; do
                         # Add test ID, test name and reference link from the file
                         echo "                \"name\":\"${tname}\","  >> checklist.json
                         echo "                \"id\":\"${tid}\","  >> checklist.json
-                        echo "                \"Reference\":\"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/$tref\","  >> checklist.json
-                        echo "                \"Objective\":["  >> checklist.json
+                        echo "                \"reference\":\"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/$tref\","  >> checklist.json
+                        echo "                \"objectives\":["  >> checklist.json
                         # Add objective array
                         objcount=0
                         for objective in "${objectives[@]}"
