@@ -39,13 +39,16 @@ for d in */ ; do
                     fi
                     # Get test ID, test name and reference link from the file
                     tid=`cat $file | grep "|WSTG-.*" | cut -d "|" -f 2`
+                    # Get Objective of the test from the file
+                    objective=`awk "/## Test Objectives/{flag=1; next} /## /{flag=0} flag" $file | tr '\n' ' '  `
                     read -r tname < $file
                     tname=${tname:2}
                     tref=`echo $file | sed 's/.md/.html/'`
                     # Add test ID, test name and reference link from the file
                     echo "                \"name\":\"${tname}\","  >> checklist.json
                     echo "                \"id\":\"${tid}\","  >> checklist.json
-                    echo "                \"Reference\":\"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/$tref\""  >> checklist.json
+                    echo "                \"Reference\":\"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/$tref\","  >> checklist.json
+                    echo "                \"Objective\":\"${objective}\""  >> checklist.json
                     echo "                }"  >> checklist.json
                     count=$((count+1))
                 fi
