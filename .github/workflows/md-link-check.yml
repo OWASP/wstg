@@ -5,6 +5,7 @@ on:
     paths:
     - '**.md'
     - '!.github/**'
+  workflow_dispatch:
 
 jobs:
   link-check:
@@ -22,18 +23,28 @@ jobs:
     - name: Install dependencies
       run: npm install -g markdown-link-check
     - name: Changed Files Exporter
+      if: github.event_name == 'pull_request_target'
       id: files
       uses: futuratrepadeira/changed-files@v3.0.1
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-    - name: Run link check
+    - name: PR link check
+      if: success()
       env:
         FILES: '${{ steps.files.outputs.files_updated }} ${{ steps.files.outputs.files_created }}'
       run: |
         echo "The Following files were changed or created:"
         echo $FILES
         touch log err
-        for FILE in $FILES; do echo $FILE | grep -q .*\.md\$ && markdown-link-check -c .github/configs/markdown-link-check-config.json $FILE 1>> log 2>> err; done
+        for FILE in $FILES; do echo $FILE | grep -q .*\.md\$ && markdown-link-check -q -v -c .github/configs/markdown-link-check-config.json $FILE 1>> log 2>> err; done
+        if grep -q  "ERROR:" err ; then exit 1 ; else echo -e "No broken links found."; fi
+        echo $(cat log)
+        echo $(cat err)
+    - name: Repository link check
+      if: github.event_name == 'workflow_dispatch'
+      run: |
+        touch log err
+        find . -name \*.md -exec markdown-link-check -q -v --config .github/configs/markdown-link-check-config.json {} 1>> log 2>> err \;
         if grep -q  "ERROR:" err ; then exit 1 ; else echo -e "No broken links found."; fi
         echo $(cat log)
         echo $(cat err)
