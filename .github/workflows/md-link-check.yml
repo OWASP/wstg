@@ -67,7 +67,7 @@ jobs:
         name: broken-links
         path: brokenlinks.txt
     - name: Comment Broken Links
-      if: failure()
+      if: ${{ failure() && github.event_name == 'pull_request_target' }}
       uses: actions/github-script@v2
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
