@@ -104,7 +104,7 @@ Self-vulnerable applications, i.e. applications that are used both as attack vec
 
 ## Test Objectives
 
-Determine whether it is possible to initiate requests on a user's behalf that are not initiated by the user.
+- Determine whether it is possible to initiate requests on a user's behalf that are not initiated by the user.
 
 ## How to Test
 

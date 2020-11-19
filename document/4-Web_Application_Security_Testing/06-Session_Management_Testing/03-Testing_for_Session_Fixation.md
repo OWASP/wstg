@@ -14,6 +14,11 @@ This issue can be fixed by refreshing the session cookies after the authenticati
 
 Full HSTS adoption occurs when a host activates HSTS for itself and all its sub-domains. This is described in a paper called *Testing for Integrity Flaws in Web Sessions* by Stefano Calzavara, Alvise Rabitti, Alessio Ragazzo, and Michele Bugliesi.
 
+## Test Objectives
+
+- Analyze the authentication mechanism and its flow.
+- Force cookies and assess the impact.
+
 ## How to Test
 
 In this section we give an explanation of the testing strategy that will be shown in the next section.

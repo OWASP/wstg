@@ -18,6 +18,12 @@ Using a personal proxy, it is possible to ascertain the following about each req
 
 Each time Session ID data is passed between the client and the server, the protocol, cache, and privacy directives and body should be examined. Transport security here refers to Session IDs passed in GET or POST requests, message bodies, or other means over valid HTTP requests.
 
+## Test Objectives
+
+- Ensure that proper encryption is implemented.
+- Review the caching configuration.
+- Assess the channel and methods' security.
+
 ## How to Test
 
 ### Testing for Encryption & Reuse of Session Tokens Vulnerabilities

@@ -24,6 +24,11 @@ Users of web browsers often don't mind that an application is still open and jus
 
 The usage of a single sign-on (SSO) system instead of an application-specific authentication scheme often causes the coexistence of multiple sessions which have to be terminated separately. For instance, the termination of the application-specific session does not terminate the session in the SSO system. Navigating back to the SSO portal offers the user the possibility to log back in to the application where the log out was performed just before. On the other side a log out function in a SSO system does not necessarily cause session termination in connected applications.
 
+## Test Objectives
+
+- Assess the logout UI.
+- Analyze the session timeout and if the session is properly killed after logout.
+
 ## How to Test
 
 ### Testing for Log Out User Interface

@@ -14,13 +14,11 @@ Finally, "malicious" means different things to different systems, for example ma
 
 The application may allow the upload of malicious files that include exploits or shellcode without submitting them to malicious file scanning. Malicious files could be detected and stopped at various points of the application architecture such as: IPS/IDS, application server anti-virus software or anti-virus scanning by application as files are uploaded (perhaps offloading the scanning using SCAP).
 
-## Example
+### Example
 
 A common example of this vulnerability is an application such as a blog or forum that allows users to upload images and other media files. While these are considered safe, if an attacker is able to upload executable code (such as a PHP script), this could allow them to execute operating system commands, read and modify information in the filesystem, access the back end database and fully compromise the server.
 
-## How to Test
-
-### Generic Testing Method
+## Test Objectives
 
 - Identify the file upload functionality.
 - Review the project documentation to identify what file types are considered acceptable, and what types would be considered dangerous or malicious.
@@ -28,6 +26,8 @@ A common example of this vulnerability is an application such as a blog or forum
 - Determine how the uploaded files are processed.
 - Obtain or create a set of "malicious" files for testing.
 - Try to upload the "malicious" files to the application and determine whether it is accepted and processed.
+
+## How to Test
 
 ### Malicious File Types
 

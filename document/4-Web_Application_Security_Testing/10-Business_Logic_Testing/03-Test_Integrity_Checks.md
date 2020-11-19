@@ -14,8 +14,6 @@ Business logic integrity check vulnerabilities is unique in that these misuse ca
 
 The application must be smart enough to check for relational edits and not allow users to submit information directly to the server that is not valid, trusted because it came from a non-editable controls or the user is not authorized to submit through the front end. Additionally, system artifacts such as logs must be “protected” from unauthorized read, writing and removal.
 
-## Example
-
 ### Example 1
 
 Imagine an ASP.NET application GUI application that only allows the admin user to change the password for other users in the system. The admin user will see the username and password fields to enter a username and password while other users will not see either field. However, if a non admin user submits information in the username and password field through a proxy they may be able to “trick” the server into believing that the request has come from an admin user and change password of other users.
@@ -32,13 +30,14 @@ Suppose the motor vehicle administration system required an employee initially v
 
 Many systems include logging for auditing and troubleshooting purposes. But, how good/valid is the information in these logs? Can they be manipulated by attackers either intentionally or accidentally having their integrity destroyed?
 
+## Test Objectives
+
+- Review the project documentation for components of the system that move, store, or handle data.
+- Determine what type of data is logically acceptable by the component and what types the system should guard against.
+- Determine who should be allowed to modify or read that data in each component.
+- Attempt to insert, update, or delete data values used by each component that should not be allowed per the business logic workflow.
+
 ## How to Test
-
-### Generic Testing Method
-
-- Review the project documentation and use exploratory testing looking for parts of the application/system (components i.e. For example, input fields, databases or logs) that move, store or handle data/information.
-- For each identified component determine what type of data/information is logically acceptable and what types the application/system should guard against. Also, consider who according to the business logic is allowed to insert, update and delete data/information and in each component.
-- Attempt to insert, update or edit delete the data/information values with invalid data/information into each component (i.e. input, database, or log) by users that should not be allowed per the business logic workflow.
 
 ### Specific Testing Method 1
 

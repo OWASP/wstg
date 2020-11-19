@@ -28,6 +28,11 @@ With the `Domain` attribute set, session cookies can be shared across sub-domain
 
 Full HSTS should be activated on the apex domain to prevent this attack.
 
+## Test Objectives
+
+- Identify vulnerable session cookies.
+- Hijack vulnerable cookies and assess the risk level.
+
 ## How to Test
 
 The testing strategy is targeted at network attackers, hence it only needs to be applied to sites without full HSTS adoption (sites with full HSTS adoption are secure, since their cookies are not communicated over HTTP). We assume to have two testing accounts on the website under test, one to act as the victim and one to act as the attacker. We simulate a scenario where the attacker steals all the cookies which are not protected against disclosure over HTTP, and presents them to the website to access the victim's account. If these cookies are enough to act on the victim's behalf, session hijacking is possible.

@@ -14,8 +14,6 @@ Vulnerabilities related to business data validation is unique in that they are a
 
 The front end and the back end of the application should be verifying and validating that the data it has, is using and is passing along is logically valid. Even if the user provides valid data to an application the business logic may make the application behave differently depending on data or circumstances.
 
-## Examples
-
 ### Example 1
 
 Suppose you manage a multi-tiered e-commerce site that allows users to order carpet. The user selects their carpet, enters the size, makes the payment, and the front end application has verified that all entered information is correct and valid for contact information, size, make and color of the carpet. But, the business logic in the background has two paths, if the carpet is in stock it is directly shipped from your warehouse, but if it is out of stock in your warehouse a call is made to a partner’s system and if they have it in-stock they will ship the order from their warehouse and reimbursed by them. What happens if an attacker is able to continue a valid in-stock transaction and send it as out-of-stock to your partner? What happens if an attacker is able to get in the middle and send messages to the partner warehouse ordering carpet without payment?
@@ -31,6 +29,12 @@ This was a campaign that was proposed by the founder of the website "The Pirate 
 
 This attack was performed by sending very small amounts of money of 1 SEK ($0.13 USD) to the law firm.
 The bank account to which the payments were directed had only 1000 free transfers, after which any transfers have a surcharge for the account holder (2 SEK). After the first thousand Internet transactions every 1 SEK donation to the law firm will actually end up costing it 1 SEK instead.
+
+## Test Objectives
+
+- Identify data injection points.
+- Validate that all checks are occurring on the back end and can't be bypassed.
+- Attempt to break the format of the expected data and analyze how the application is handling it.
 
 ## How to Test
 
