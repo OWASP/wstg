@@ -397,7 +397,8 @@
                 "id":"WSTG-SESS-03",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/06-Session_Management_Testing/03-Testing_for_Session_Fixation.html",
                 "objectives":[
-                    ""
+                    "Analyze the authentication mechanism and its flow.",
+                    "Force cookies and assess the impact."
                   ]
                 }
                 ,{
@@ -405,7 +406,9 @@
                 "id":"WSTG-SESS-04",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/06-Session_Management_Testing/04-Testing_for_Exposed_Session_Variables.html",
                 "objectives":[
-                    ""
+                    "Ensure that proper encryption is implemented.",
+                    "Review the caching configuration.",
+                    "Assess the channel and methods' security."
                   ]
                 }
                 ,{
@@ -413,7 +416,7 @@
                 "id":"WSTG-SESS-05",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/06-Session_Management_Testing/05-Testing_for_Cross_Site_Request_Forgery.html",
                 "objectives":[
-                    "termine whether it is possible to initiate requests on a user's behalf that are not initiated by the user."
+                    "Determine whether it is possible to initiate requests on a user's behalf that are not initiated by the user."
                   ]
                 }
                 ,{
@@ -421,7 +424,8 @@
                 "id":"WSTG-SESS-06",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/06-Session_Management_Testing/06-Testing_for_Logout_Functionality.html",
                 "objectives":[
-                    ""
+                    "Assess the logout UI.",
+                    "Analyze the session timeout and if the session is properly killed after logout."
                   ]
                 }
                 ,{
@@ -429,7 +433,7 @@
                 "id":"WSTG-SESS-07",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/06-Session_Management_Testing/07-Testing_Session_Timeout.html",
                 "objectives":[
-                    ""
+                    "Validate that a hard session timeout exists."
                   ]
                 }
                 ,{
@@ -437,7 +441,8 @@
                 "id":"WSTG-SESS-08",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/06-Session_Management_Testing/08-Testing_for_Session_Puzzling.html",
                 "objectives":[
-                    ""
+                    "Identify all session variables.",
+                    "Break the logical flow of session generation."
                   ]
                 }
                 ,{
@@ -445,7 +450,8 @@
                 "id":"WSTG-SESS-09",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/06-Session_Management_Testing/09-Testing_for_Session_Hijacking.html",
                 "objectives":[
-                    ""
+                    "Identify vulnerable session cookies.",
+                    "Hijack vulnerable cookies and assess the risk level."
                   ]
                 }
             ]
@@ -572,7 +578,7 @@
                 "id":"WSTG-INPV-13",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/07-Input_Validation_Testing/13-Testing_for_Format_String_Injection.html",
                 "objectives":[
-                    "sess whether injecting format string conversion specifiers into user-controlled fields causes undesired behaviour from the application."
+                    "Assess whether injecting format string conversion specifiers into user-controlled fields causes undesired behaviour from the application."
                   ]
                 }
                 ,{
@@ -599,8 +605,8 @@
                 "id":"WSTG-INPV-16",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/07-Input_Validation_Testing/16-Testing_for_HTTP_Incoming_Requests.html",
                 "objectives":[
-                    " Monitor all incoming and outgoing HTTP requests to the Web Server to inspect any suspicious requests.",
-                    " Monitor HTTP traffic without changes of end user Browser proxy or client-side application."
+                    "Monitor all incoming and outgoing HTTP requests to the Web Server to inspect any suspicious requests.",
+                    "Monitor HTTP traffic without changes of end user Browser proxy or client-side application."
                   ]
                 }
                 ,{
@@ -695,7 +701,9 @@
                 "id":"WSTG-BUSL-01",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/10-Business_Logic_Testing/01-Test_Business_Logic_Data_Validation.html",
                 "objectives":[
-                    ""
+                    "Identify data injection points.",
+                    "Validate that all checks are occurring on the back end and can't be bypassed.",
+                    "Attempt to break the format of the expected data and analyze how the application is handling it."
                   ]
                 }
                 ,{
@@ -703,7 +711,8 @@
                 "id":"WSTG-BUSL-02",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/10-Business_Logic_Testing/02-Test_Ability_to_Forge_Requests.html",
                 "objectives":[
-                    ""
+                    "Review the project documentation looking for guessable, predictable, or hidden functionality of fields.",
+                    "Insert logically valid data in order to bypass normal business logic workflow."
                   ]
                 }
                 ,{
@@ -711,7 +720,10 @@
                 "id":"WSTG-BUSL-03",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/10-Business_Logic_Testing/03-Test_Integrity_Checks.html",
                 "objectives":[
-                    ""
+                    "Review the project documentation for components of the system that move, store, or handle data.",
+                    "Determine what type of data is logically acceptable by the component and what types the system should guard against.",
+                    "Determine who should be allowed to modify or read that data in each component.",
+                    "Attempt to insert, update, or delete data values used by each component that should not be allowed per the business logic workflow."
                   ]
                 }
                 ,{
@@ -719,7 +731,8 @@
                 "id":"WSTG-BUSL-04",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/10-Business_Logic_Testing/04-Test_for_Process_Timing.html",
                 "objectives":[
-                    ""
+                    "Review the project documentation for system functionality that may be impacted by time.",
+                    "Develop and execute misuse cases."
                   ]
                 }
                 ,{
@@ -727,7 +740,8 @@
                 "id":"WSTG-BUSL-05",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/10-Business_Logic_Testing/05-Test_Number_of_Times_a_Function_Can_Be_Used_Limits.html",
                 "objectives":[
-                    ""
+                    "Identify functions that must set limits to the times they can be called.",
+                    "Assess if there is a logical limit set on the functions and if it is properly validated."
                   ]
                 }
                 ,{
@@ -735,7 +749,8 @@
                 "id":"WSTG-BUSL-06",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/10-Business_Logic_Testing/06-Testing_for_the_Circumvention_of_Work_Flows.html",
                 "objectives":[
-                    ""
+                    "Review the project documentation for methods to skip or go through steps in the application process in a different order from the intended business logic flow.",
+                    "Develop a misuse case and try to circumvent every logic flow identified."
                   ]
                 }
                 ,{
@@ -743,7 +758,9 @@
                 "id":"WSTG-BUSL-07",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/10-Business_Logic_Testing/07-Test_Defenses_Against_Application_Misuse.html",
                 "objectives":[
-                    ""
+                    "Generate notes from all tests conducted against the system.",
+                    "Review which tests had a different functionality based on aggressive input.",
+                    "Understand the defenses in place and verify if they are enough to protect the system against bypassing techniques."
                   ]
                 }
                 ,{
@@ -751,7 +768,9 @@
                 "id":"WSTG-BUSL-08",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/10-Business_Logic_Testing/08-Test_Upload_of_Unexpected_File_Types.html",
                 "objectives":[
-                    ""
+                    "Review the project documentation for file types that are rejected by the system.",
+                    "Verify that the unwelcomed file types are rejected and handled safely.",
+                    "Verify that file batch uploads are secure and do not allow any bypass against the set security measures."
                   ]
                 }
                 ,{
@@ -759,7 +778,12 @@
                 "id":"WSTG-BUSL-09",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/10-Business_Logic_Testing/09-Test_Upload_of_Malicious_Files.html",
                 "objectives":[
-                    ""
+                    "Identify the file upload functionality.",
+                    "Review the project documentation to identify what file types are considered acceptable, and what types would be considered dangerous or malicious.",
+                    "If documentation is not available then consider what would be appropriate based on the purpose of the application.",
+                    "Determine how the uploaded files are processed.",
+                    "Obtain or create a set of "malicious" files for testing.",
+                    "Try to upload the "malicious" files to the application and determine whether it is accepted and processed."
                   ]
                 }
             ]
