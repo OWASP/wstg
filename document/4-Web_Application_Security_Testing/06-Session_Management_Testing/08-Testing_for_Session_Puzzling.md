@@ -20,6 +20,11 @@ For example, an attacker could use session variable overloading to bypass authen
 
 For example - an authentication bypass attack vector could be executed by accessing a publicly accessible entry point (e.g. a password recovery page) that populates the session with an identical session variable, based on fixed values or on user originating input.
 
+## Test Objectives
+
+- Identify all session variables.
+- Break the logical flow of session generation.
+
 ## How to Test
 
 ### Black-Box Testing

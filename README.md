@@ -40,6 +40,7 @@ First time here? Here are [GitHub's suggestions for first-time contributors](htt
 This project is only possible thanks to the work of many dedicated volunteers. Everyone is encouraged to help in ways large and small. Here are a few ways you can help:
 
 - Read the current content and help us fix any spelling mistakes or grammatical errors.
+- Help with [translation](CONTRIBUTING.md#translation) efforts.
 - Choose an existing issue and submit a pull request to fix it.
 - Open a new issue to report an opportunity for improvement.
 

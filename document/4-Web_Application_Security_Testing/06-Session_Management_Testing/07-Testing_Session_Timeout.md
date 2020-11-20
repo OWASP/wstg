@@ -18,6 +18,10 @@ Both actions must be implemented carefully, in order to avoid introducing weakne
 
 The most common scenario for this kind of attack is a public computer that is used to access some private information (e.g., web mail, online bank account). If the user moves away from the computer without explicitly logging out and the session timeout is not implemented on the application, then an attacker could access to the same account by simply pressing the “back” button of the browser.
 
+## Test Objectives
+
+- Validate that a hard session timeout exists.
+
 ## How to Test
 
 ### Black-Box Testing

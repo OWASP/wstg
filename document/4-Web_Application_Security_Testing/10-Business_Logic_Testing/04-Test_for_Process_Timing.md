@@ -12,8 +12,6 @@ Process timing logic vulnerabilities is unique in that these manual misuse cases
 
 Processing timing may give/leak information on what is being done in the application/system background processes. If an application allows users to guess what the particulate next outcome will be by processing time variations, users will be able to adjust accordingly and change behavior based on the expectation and “game the system”.
 
-## Example
-
 ### Example 1
 
 Video gambling/slot machines may take longer to process a transaction just prior to a large payout. This would allow astute gamblers to gamble minimum amounts until they see the long process time which would then prompt them to bet the maximum.
@@ -21,6 +19,9 @@ Video gambling/slot machines may take longer to process a transaction just prior
 ### Example 2
 
 Many system log on processes ask for the username and password. If you look closely you may be able to see that entering an invalid username and invalid user password takes more time to return an error than entering a valid username and invalid user password. This may allow the attacker to know if they have a valid username and not need to rely on the GUI message.
+
+![Example Control Flow of Login Form](images/Control_Flow_of_Login_Form.jpg)\
+*Figure 4.10.4-1: Example Control Flow of Login Form*
 
 ### Example 3
 
@@ -30,11 +31,18 @@ Most Arenas or travel agencies have ticketing applications that allow users to p
 
 Suppose a precious metals e-commerce site allows users to make purchases with a price quote based on market price at the time they log on. What if an attacker logs on and places an order but does not complete the transaction until later in the day only of the price of the metals goes up? Will the attacker get the initial lower price?
 
+## Test Objectives
+
+- Review the project documentation for system functionality that may be impacted by time.
+- Develop and execute misuse cases.
+
 ## How to Test
 
-- Review the project documentation and use exploratory testing looking for application/system functionality that may be impacted by time. Such as execution time or actions that help users predict a future outcome or allow one to circumvent any part of the business logic or workflow. For example, not completing transactions in an expected time.
+The tester should identify which processes are dependent on time, whether it was a window for a task to be completed, or if it was execution time between two processes that could allow the bypass of certain controls.
 
-- Develop and execute the mis-use cases ensuring that attackers can not gain an advantage based on any timing.
+Following that, it is best to automate the requests that will abuse the above discovered processes, as tools are better fit to analyze the timing and are more precise than manual testing. If this is not possible, manual testing could still be used.
+
+The tester should draw a diagram of how the process flows, the injection points, and prepare the requests before hand to launch them at the vulnerable processes. Once done, close analysis should be done to identify differences in the process execution, and if the process is misbehaving against the agreed upon business logic.
 
 ## Related Test Cases
 

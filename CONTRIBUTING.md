@@ -49,6 +49,12 @@ Grammarians assemble! The WSTG welcomes your improvements in the areas of gramma
 
 Please don't hesitate to make as many changes as you see fit, especially if you notice that existing content does not match the [article template materials](template).
 
+### Translation
+
+You can help translating the Guide via [GitLocalize](https://gitlocalize.com/repo/5220). Login with a linked GitHub account, translate some content, submit for moderator review, they'll submit Pull Requests. In the end the guide will become available in multiple languages.
+
+If you don't see your language listed amongst those accepting translation then simply open a new [issue](https://github.com/OWASP/wstg/issues/new) and the team will be happy to get it setup. Please mention if you're willing to moderate GitLocalize efforts for your language as chances are the core team do not speak your preferred language fluently (if at all).
+
 ## How to Open an Issue
 
 [Create an issue](https://github.com/OWASP/wstg/issues/new/choose) using the appropriate template.
