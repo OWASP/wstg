@@ -33,7 +33,7 @@ First find all the pages where user input is allowed. Possible input vectors may
 
 Once you have a list of potential injection points, you may determine if the input is correctly validated. Ensure it is possible to inject characters used in SSI directives such as `<!#=/."->` and `[a-zA-Z0-9]`
 
-The below example returns the value of the variable. Check the [references](#references) section to better assess the system at hand with every server's documentation.
+The below example returns the value of the variable. The [references](#references) section has helpful links with server-specific documentation to help you better assess a particular system.
 
 ```html
 <!--#echo var="VAR" -->
