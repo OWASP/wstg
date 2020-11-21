@@ -32,17 +32,17 @@ sed -i "s/{PDF Version}/$VERSION/g" .github/pdf/pdf-config.json
 # Create the cover image with versioned image if exists else use the default with version number
 VERSIONED_COVER_IMAGE_FILE=images/book-cover-$VERSION.jpg
 if [[ -f "build/$VERSIONED_COVER_IMAGE_FILE" ]]; then
-    echo "<img src=\"$VERSIONED_COVER_IMAGE_FILE\" style=\"overflow:hidden; margin-bottom:-25px;\" />" > build/cover-$VERSION.md
+    echo "<img src=\"$VERSIONED_COVER_IMAGE_FILE\" />" > build/cover-$VERSION.md
 else
-    echo "<img src=\"images/book-cover.jpg\" style=\"overflow:hidden; margin-bottom:-25px;\" />
+    echo "<img src=\"images/book-cover.jpg\" />
         <h1 style=\"position:fixed; top:61.44%; right:37%; color: #ffffff !important;
                     border:none; font-weight: 500; font-size:33px;
                     font-style: normal;\" >$VERSION_NUMBER</h1>" > build/cover-$VERSION.md
 fi
 
 # Create the Markdown file for the second and last cover pages
-echo "<img src=\"images/second-cover.png\" style=\"overflow:hidden; margin-bottom:-25px;\" />" > build/second-cover-$VERSION.md
-echo "<img src=\"images/back-cover.png\" style=\"overflow:hidden; margin-bottom:-25px;\" />" > build/back-$VERSION.md
+echo "<img src=\"images/second-cover.png\" />" > build/second-cover-$VERSION.md
+echo "<img src=\"images/back-cover.png\"  />" > build/back-$VERSION.md
 
 # Create the single document Markdown file
 # Sed section 1: Add page break after each chapter
@@ -110,6 +110,20 @@ sed 's/\*\(Figure [0-9.ABCDEF\-]*\: .*\)\*/<div class="image-name-tag-wrap"><spa
 md-to-pdf  --config-file .github/pdf/pdf-config.json  --pdf-options '{"margin":"0mm", "format": "A4"}' build/cover-$VERSION.md
 md-to-pdf  --config-file .github/pdf/pdf-config.json  --pdf-options '{"margin":"0mm", "format": "A4"}' build/second-cover-$VERSION.md
 md-to-pdf  --config-file .github/pdf/pdf-config.json  --pdf-options '{"margin":"0mm", "format": "A4"}' build/back-$VERSION.md
+
+# Some PDF files has a blank page at the end due to newlines or box padding.
+# So Remove those last pages if it is less than 13000 bytes
+for f in build/*.pdf; do
+    pdftk $f cat end output lastpage.pdf
+    size=$(du -b lastpage.pdf | cut -f 1)
+    if [ $size -lt "13000" ]; then
+        page_count=$(pdftk $f dump_data | grep NumberOfPages | awk  '{print $2}')
+        page_count=$(( $page_count - 1 ))
+        pdftk A="$f" cat A1-$page_count output tempfile.pdf
+        mv tempfile.pdf $f
+        rm lastpage.pdf
+    fi
+done;
 
 # Create Document body pages by converting Markdown to PDF
 md-to-pdf  --config-file .github/pdf/pdf-config.json build/wstg-doc-$VERSION.md
