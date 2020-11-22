@@ -16,9 +16,7 @@ When testing for SSRF we are trying to trick the server into loading/writing uni
 
 If we have the following request:
 
-`https://example.com/page?page=about.php`,
-
-we can try the following payloads:
+`https://example.com/page?page=about.php`, we can try the following payloads:
 
 Return the content of an external resource like a webshell.
 
