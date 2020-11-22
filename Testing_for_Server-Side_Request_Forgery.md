@@ -38,7 +38,7 @@ Fetch a local file
 All of the payloads above can apply to any type of HTTP request, and could also be injected into header and cookie values as well.
 One important note on SSRF with POST requests is that the SSRF may also manifest in a Blind manner, because the application might not return anything immediately, that data might be used in other functionality such as PDF reports, invoice/order handling, etc. which are visible to employees/staff but not necessarily the end user or tester.
 
-You can find more on Blind SSRF [here](https://portswigger.net/web-security/ssrf/blind), or in the [References section](#references)
+You can find more on Blind SSRF [here](https://portswigger.net/web-security/ssrf/blind), or in the [References section](#references).
 
 ### PDF Generators
 
@@ -65,12 +65,12 @@ Sometimes the application allows input that matches a certain expression, like a
 - Fuzzing
 - Combinations of all of the above
 
-You can find more payloads [here](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Request%20Forgery)
+You can find more payloads [here](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Request%20Forgery).
 
 ## Remediation
 
 Some of the main mitigation techniques include implementing IP filtering and URL filtering. You can find out more on the
-[OWASP Server Side Request Forgery Prevention Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html)
+[OWASP Server Side Request Forgery Prevention Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html).
 
 ## Tools
 
