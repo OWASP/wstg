@@ -7,6 +7,12 @@ Often web applications may have to interact with internal or external resources 
 Some of the main mitigation attacks inlcude IP whitelisting and URL filtering. You can find out more on the
 [OWASP Server Side Request Forgery Prevention Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html)
 
+## Test Objectives
+
+- Identify injection points (External resource calls, API calls)
+- Test if the SSRF is exploitable
+- Asses the severity of the vulnerability
+
 ## How to Test
 
 When testing for SSRF we are trying to trick the server into loading/writing unintended content. The most common test is for local and remote file inclusion, but there is another facet to SSRF, a trust relationship that often arises with server-side request forgery where the application server is able to interact with other back-end systems that are not directly reachable by users. These systems often have non-routable private IP addresses or are restricted to certain hosts. Since they are protected by the network topology, they often lack more sophisticated controls.
