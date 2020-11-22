@@ -2,14 +2,16 @@
 
 ## Summary
 
-Often web applications may have to interact with internal or external resources in order to provide a certain functionality, with the expectation tha only the service providing that functionality will be used, but often such functionality processes user data and if not handled properly it can open the door for certain injection attacks that we call SSRF. A succesfull SSRF attack can grant the attacker access to restricted actions, internal services, internal files within the application or the organization.
+Often web applications may have to interact with internal or external resources in order to provide a certain functionality, with the expectation tha only the service providing that functionality will be used, but often such functionality processes user data and if not handled properly it can open the door for certain injection attacks that we call SSRF. A succesfull SSRF attack can grant the attacker access to restricted actions, internal services, internal files within the application or the organization. In some cases it can even lead to RCE.
 
 Some of the main mitigation attacks inlcude IP whitelisting and URL filtering. You can find out more on the
 [OWASP Server Side Request Forgery Prevention Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html)
 
 ## How to Test
 
-There are different actions that can be performed with SSRF. We will cover the most common ones.
+When testing for SSRF we are trying to trick the server into loading/writing unintended content. The most common test is for local and remote file inclusion, but there is another facet to SSRF, a trust relationship that often arises with server-side request forgery where the application server is able to interact with other back-end systems that are not directly reachable by users. These systems often have non-routable private IP addresses or are restricted to certain hosts. Since they are protected by the network topology, they often lack more sophisticated controls.
+
+Such internal systems often contain sensitive data or functionality.
 
 ### Endpoints Which Fetch External/Internal Resources
 
@@ -55,7 +57,7 @@ page=file:///etc/passwd
 
 ### Endpoints which manipulate data (HTTP Post)
 
-Another type of trust relationship that often arises with server-side request forgery is where the application server is able to interact with other back-end systems that are not directly reachable by users. These systems often have non-routable private IP addresses. Since the back-end systems are normally protected by the network topology, they often have a weaker security posture. In many cases, internal back-end systems contain sensitive functionality that can be accessed without authentication by anyone who is able to interact with the systems. For example if we have the following request:
+If we have the following request:
 
 ```bash
 POST /product/stock HTTP/1.0
@@ -74,32 +76,23 @@ There are some cases where server converts uploaded file to a pdf.Try injecting 
 <iframe src="file:///c:/windows/win.ini" width="400" height=”400">
 ```
 
-### TODO
+### Common filtering bypass
 
-```bash
-POST /product/stock HTTP/1.0
-Content-Type: application/x-www-form-urlencoded
-Content-Length: 118
+Some applications block references to `localhost` and `127.0.0.1`, this can be circumvented by:
 
-stockApi=http://192.168.0.68/admin
-```
+- Using alternative IP representation such as such as 2130706433, 017700000001, or 127.1 which evaluated to 127.0.0.1
+- String obfuscation
+- Registering your own domain that resolves to 127.0.0.1
 
-> Some applications block input containing hostnames like 127.0.0.1 and localhost, or sensitive URLs like /admin. In this situation, you can often circumvent the filter using various techniques:
+Sometimes the application allows input that matches a certain expression, like a domain. That can be circumvented if the URL schema parser is not properly implemented.
 
-- Using an alternative IP representation of 127.0.0.1, such as 2130706433, 017700000001, or 127.1.
-- Registering your own domain name that resolves to 127.0.0.1. You can use spoofed.burpcollaborator.net for this purpose.
-- Obfuscating blocked strings using URL encoding or case variation.
+- Using the `@` character: `https://expected-domain@attacker-domain`
+- URL fragmentation with the `#` character: `https://attacker-domain#expected-domain`
+- URL encoding
+- Fuzzing
+- Combinations of all of the above
 
-> Some applications only allow input that matches, begins with, or contains, a whitelist of permitted values. In this situation, you can sometimes circumvent the filter by exploiting inconsistencies in URL parsing.
-
-The URL specification contains a number of features that are liable to be overlooked when implementing ad hoc parsing and validation of URLs:
-
-- You can embed credentials in a URL before the hostname, using the @ character. For example: <https://expected-host@evil-host>.
-- You can use the # character to indicate a URL fragment. For example: <https://evil-host#expected-host>.
-- You can leverage the DNS naming hierarchy to place required input into a fully-qualified DNS name that you control. For example: <https://expected-host.evil-host>.
-- You can URL-encode characters to confuse the URL-parsing code. This is particularly useful if the code that implements the filter handles URL-encoded characters differently than the code that performs the back-end HTTP request.
-
-- You can use combinations of these techniques together.
+There are already prepared payloads available [here](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Request%20Forgery)
 
 ## Tools
 
