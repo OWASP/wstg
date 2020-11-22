@@ -4,7 +4,7 @@
 
 Often web applications may have to interact with internal or external resources in order to provide a certain functionality, with the expectation tha only the service providing that functionality will be used, but often such functionality processes user data and if not handled properly it can open the door for certain injection attacks that we call SSRF. A successful SSRF attack can grant the attacker access to restricted actions, internal services, internal files within the application or the organization. In some cases it can even lead to RCE.
 
-Some of the main mitigation attacks include IP whitelisting and URL filtering. You can find out more on the
+Some of the main mitigation techniques include IP whitelisting and URL filtering. You can find out more on the
 [OWASP Server Side Request Forgery Prevention Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html)
 
 ## Test Objectives
@@ -18,8 +18,6 @@ Some of the main mitigation attacks include IP whitelisting and URL filtering. Y
 When testing for SSRF we are trying to trick the server into loading/writing unintended content. The most common test is for local and remote file inclusion, but there is another facet to SSRF, a trust relationship that often arises with server-side request forgery where the application server is able to interact with other back-end systems that are not directly reachable by users. These systems often have non-routable private IP addresses or are restricted to certain hosts. Since they are protected by the network topology, they often lack more sophisticated controls.
 
 Such internal systems often contain sensitive data or functionality.
-
-### Endpoints Which Fetch External/Internal Resources
 
 If we have the following request:
 
@@ -61,17 +59,10 @@ Content-Type: application/x-www-form-urlencoded
 page=file:///etc/passwd
 ```
 
-### Endpoints which manipulate data (HTTP Post)
+All of the examples above apply to POST requests, they can also be injected into headers if the header data is used in such a way.
+One important note on SSRF with post requests is that the SSRF might turn into a Blind SSRF, because the application might not return anything, but anyway that data might be used in another functionality like PDF reports for example.
 
-If we have the following request:
-
-```bash
-POST /product/stock HTTP/1.0
-Content-Type: application/x-www-form-urlencoded
-Content-Length: 118
-
-stockApi=http://192.168.0.68/admin
-```
+You can find more on Blind SSRF [here](https://portswigger.net/web-security/ssrf/blind), or in the [References section](#references)
 
 ### PDF Generators
 
@@ -82,7 +73,7 @@ There are some cases where server converts uploaded file to a pdf.Try injecting 
 <iframe src="file:///c:/windows/win.ini" width="400" height=”400">
 ```
 
-### Common filtering bypass
+### Common filter bypass
 
 Some applications block references to `localhost` and `127.0.0.1`, this can be circumvented by:
 
