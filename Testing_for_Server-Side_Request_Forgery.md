@@ -42,7 +42,7 @@ You can find more on Blind SSRF [here](https://portswigger.net/web-security/ssrf
 
 ### PDF Generators
 
-There are some cases where server converts uploaded file to a pdf.Try injecting `<iframe>`, `<img>`, `<base>` or `<script>` elements or CSS url() functions pointing to internal services.
+There are some cases where server converts uploaded file to a pdf.Try injecting `<iframe>`, `<img>`, `<base>` or `<script>` elements or CSS `url()` functions pointing to internal services.
 
 ```html
 <iframe src="file:///etc/passwd" width="400" height="400">
