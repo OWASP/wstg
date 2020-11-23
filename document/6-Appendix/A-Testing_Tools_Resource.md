@@ -97,7 +97,7 @@
 - [Netsparker](https://www.netsparker.com/web-vulnerability-scanner/)
 - [SAINT](https://www.carson-saint.com/)
 - [QualysGuard WAS](https://www.qualys.com/apps/web-app-scanning/)
-- [IndusGuard Web](https://www.indusface.com/products/application-security/web-application-scanning/)
+- [IndusFace WAS](https://www.indusface.com/web-application-scanning.php)
 - [Fortify WebInspect](https://www.microfocus.com/en-us/solutions/application-security)
 
 ### Linux Distrubtions
