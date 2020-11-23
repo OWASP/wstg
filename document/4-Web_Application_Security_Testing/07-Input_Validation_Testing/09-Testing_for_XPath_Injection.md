@@ -47,7 +47,7 @@ An XPath query that returns the account whose username is `gandalf` and the pass
 
 If the application does not properly filter user input, the tester will be able to inject XPath code and interfere with the query result. For instance, the tester could input the following values:
 
-```txt
+```text
 Username: ' or '1' = '1
 Password: ' or '1' = '1
 ```

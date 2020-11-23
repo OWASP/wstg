@@ -31,7 +31,7 @@ Some web applications use part of the user input to generate the values of some 
 
 More specifically, if the parameter 'interface' has the value 'advanced', the application will answer with the following:
 
-```html
+```http
 HTTP/1.1 302 Moved Temporarily
 Date: Sun, 03 Dec 2005 16:22:19 GMT
 Location: http://victim.com/main.jsp?interface=advanced
@@ -46,7 +46,7 @@ Let's say that in the previous example the tester passes the following data as t
 
 The resulting answer from the vulnerable application will therefore be the following:
 
-```html
+```http
 HTTP/1.1 302 Moved Temporarily
 Date: Sun, 03 Dec 2005 16:22:19 GMT
 Location: http://victim.com/main.jsp?interface=advanced
@@ -66,8 +66,8 @@ Alternatively, the attacker could pass to those users a JavaScript snippet that 
 
 The headers that are the most likely candidates for this attack are:
 
-- Location
-- Set-Cookie
+- `Location`
+- `Set-Cookie`
 
 It must be noted that a successful exploitation of this vulnerability in a real world scenario can be quite complex, as several factors must be taken into account:
 

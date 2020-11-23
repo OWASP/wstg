@@ -14,5 +14,4 @@ The following references are provided as input sources for fuzzing and related t
 - [Open Redirect Payloads](https://github.com/cujanovic/Open-Redirect-Payloads)
 - [EdOverflow Bug Bounty Cheat Sheet](https://github.com/EdOverflow/bugbounty-cheatsheet)
 - [Daniel Miessler - SecLists](https://github.com/danielmiessler/SecLists)
-
-- [XssPayloads Twitter Feed](https://mobile.twitter.com/XssPayloads)
+- [XssPayloads Twitter Feed](https://twitter.com/XssPayloads)

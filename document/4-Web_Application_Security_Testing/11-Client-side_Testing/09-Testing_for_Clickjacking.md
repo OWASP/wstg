@@ -64,17 +64,17 @@ Mobile versions of the website are usually smaller and faster than the desktop o
 
 ##### Double Framing
 
-Some frame busting techniques try to break frame by assigning a value to the “parent.location” attribute in the “counter-action” statement.
+Some frame busting techniques try to break frame by assigning a value to the `parent.location` attribute in the “counter-action” statement.
 
 Such actions are, for example:
 
-- self.parent.location = document.location
-- parent.location.href = self.location
-- parent.location = self.location
+- `self.parent.location` = `document.location`
+- `parent.location.href` = `self.location`
+- `parent.location` = `self.location`
 
-This method works well until the target page is framed by a single page. However, if the attacker encloses the target web page in one frame which is nested in another one (a double frame), then trying to access to “parent.location” becomes a security violation in all popular browsers, due to the descendant frame navigation policy. This security violation disables the counter-action navigation.
+This method works well until the target page is framed by a single page. However, if the attacker encloses the target web page in one frame which is nested in another one (a double frame), then trying to access to `parent.location` becomes a security violation in all popular browsers, due to the descendant frame navigation policy. This security violation disables the counter-action navigation.
 
-Target site frame busting code (target site):
+Target site frame busting code (`example.org`):
 
 ```javascript
 if(top.location!=self.locaton) {
@@ -82,16 +82,16 @@ if(top.location!=self.locaton) {
 }
 ```
 
-Attacker’s top frame (fictitious2.html):
+Attacker’s top frame (`fictitious2.html`):
 
 ```html
 <iframe src="fictitious.html">
 ```
 
-Attacker’s fictitious sub-frame (fictitious.html):
+Attacker’s fictitious sub-frame (`fictitious.html`):
 
 ```html
-<iframe src="http://target site">
+<iframe src="http://example.org">
 ```
 
 ##### Disabling JavaScript
@@ -105,7 +105,7 @@ There are three deactivation techniques that can be used with frames:
 Example:
 
 ```html
-<iframe src="http://target site" security="restricted"></iframe>
+<iframe src="http://example.org" security="restricted"></iframe>
 ```
 
 - Sandbox attribute: with HTML5 there is a new attribute called “sandbox”. It enables a set of restrictions on content loaded into the iframe. At this moment this attribute is only compatible with Chrome and Safari.
@@ -113,7 +113,7 @@ Example:
 Example:
 
 ```html
-<iframe src="http://target site" sandbox></iframe>
+<iframe src="http://example.org" sandbox></iframe>
 ```
 
 - Design mode: Paul Stone showed a security issue concerning the “designMode” that can be turned on in the framing page (via document.designMode), disabling JavaScript in top and sub-frame. The design mode is currently implemented in Firefox and IE8.
@@ -132,7 +132,7 @@ The attacker can use this attack by registering an unload event on the top page 
         return " Do you want to leave fictitious.site?";
     }
 </script>
-<iframe src="http://target site">
+<iframe src="http://example.org">
 ```
 
 The previous technique requires the user interaction but, the same result, can be achieved without prompting the user. To do this the attacker have to automatically cancel the incoming navigation request in an onBeforeUnload event handler by repeatedly submitting (for example every millisecond) a navigation request to a web page that responds with a “HTTP/1.1 204 No Content” header.
@@ -165,7 +165,7 @@ Attacker's page:
             }
         }, 1);
 </script>
-<iframe src="http://target site">
+<iframe src="http://example.org">
 ```
 
 ##### XSS Filter
@@ -188,7 +188,7 @@ Example: Target web page frame busting code:
 Attacker code:
 
 ```html
-<iframe src=”http://target site/?param=<script>if”>
+<iframe src=”http://example.org/?param=<script>if”>
 ```
 
 - **Chrome 4.0 XSSAuditor filter**: It has a little different behaviour compared to IE8 XSS filter, in fact with this filter an attacker could deactivate a “script” by passing its code in a request parameter. This enables the framing page to specifically target a single snippet containing the frame busting code, leaving all the other codes intact.
@@ -207,7 +207,7 @@ Example: Target web page frame busting code:
 Attacker code:
 
 ```html
-<iframe src=”http://target site/?param=if(top+!%3D+self)+%7B+top.location%3Dself.location%3B+%7D”>
+<iframe src=”http://example.org/?param=if(top+!%3D+self)+%7B+top.location%3Dself.location%3B+%7D”>
 ```
 
 ##### Redefining Location
@@ -222,7 +222,7 @@ Example:
 <script>
     var location = "xyz";
 </script>
-<iframe src="http://target site"></iframe>
+<iframe src="http://example.org"></iframe>
 ```
 
 - **Redefining location in Safari 4.0.4**: To bust frame busting code with “top.location” it is possible to bind “location” to a function via defineSetter (through window), so that an attempt to read or navigate to the “top.location” will fail.
@@ -233,7 +233,7 @@ Example:
 <script>
     window.defineSetter("location" , function(){});
 </script>
-<iframe src="http://target site"></iframe>
+<iframe src="http://example.org"></iframe>
 ```
 
 #### Server-side protection: X-Frame-Options
@@ -248,9 +248,9 @@ Since the “X-FRAME-OPTIONS” was introduced in 2009, this header is not compa
 
 |Browser            | Lowest version  |
 |-------------------|-----------------|
-| Internet Explorer |  8.0            |
+| Internet Explorer | 8.0            |
 | Firefox (Gecko)   | 3.6.9 (1.9.2.9) |
-| Opera             |  10.50          |
+| Opera             | 10.50          |
 | Safari            | 4.0             |
 | Chrome            | 4.1.249.1042    |
 
@@ -264,7 +264,7 @@ Also in this case, since the `X-FRAME-OPTIONS` has to be implemented in every pa
 
 ### Create a Proof of Concept
 
-Once we have discovered that the site we are testing is vulnerable to clickjacking attack, we can proceed with the development of a `proof of concept` (PoC) to demonstrate the vulnerability. It is important to note that, as mentioned previously, these attacks can be used in conjunction with other forms of attacks (for example CSRF attacks) and could lead to overcome anti-CSRF tokens. In this regard we can imagine that, for example, the target site allows to authenticated and authorized users to make a transfer of money to another account.
+Once we have discovered that the site we are testing is vulnerable to clickjacking attack, we can proceed with the development of a `proof of concept` (PoC) to demonstrate the vulnerability. It is important to note that, as mentioned previously, these attacks can be used in conjunction with other forms of attacks (for example CSRF attacks) and could lead to overcome anti-CSRF tokens. In this regard we can imagine that, for example, the `example.org` website allows to authenticated and authorized users to make a transfer of money to another account.
 
 Suppose that to execute the transfer the developers have planned three steps. In the first step the user fill a form with the destination account and the amount. In the second step, whenever the user submits the form, is presented a summary page asking the user confirmation (like the one presented in the following picture).
 
@@ -306,18 +306,13 @@ In the last step are planned security controls and then, if all is ok, the trans
 ```javascript
 if( (!empty($_SESSION['antiCsrf'])) && (!empty($_POST['antiCsrf'])) )
 {
+    // input logic and sanization checks
 
-    //here we can suppose input sanitization code…
-
-    //check the anti-CSRF token
-    if( ($_SESSION['antiCsrf'] == $_POST['antiCsrf']) )
-    {
+    // check the anti-CSRF token
+    if(($_SESSION['antiCsrf'] == $_POST['antiCsrf']) {
         echo '<p> '. $_POST['amount'] .' &euro; successfully transferred to account: '. $_POST['account'] .' </p>';
     }
-
-}
-else
-{
+} else {
     echo '<p>Transfer KO</p>';
 }
 ```
@@ -399,17 +394,10 @@ With the help of CSS (note the `#clickjacking` block) we can mask and suitably p
 
 The example presented uses only basic clickjacking technique, but with advanced technique is possible to force user filling form with values defined by the attacker.
 
-## Tools
-
 ## References
 
-### OWASP Resources
-
-- [Clickjacking](https://owasp.org/www-community/attacks/Clickjacking)
-
-### Whitepapers
-
-- [Clickjacking](https://en.wikipedia.org/wiki/Clickjacking)
+- [OWASP Clickjacking](https://owasp.org/www-community/attacks/Clickjacking)
+- [Wikipedia Clickjacking](https://en.wikipedia.org/wiki/Clickjacking)
 - [Context Information Security: “Next Generation Clickjacking”](https://www.contextis.com/media/downloads/Context-Clickjacking_white_paper_2010.pdf)
 - [Gustav Rydstedt, Elie Bursztein, Dan Boneh, and Collin Jackson: “Busting Frame Busting: a Study of Clickjacking Vulnerabilities on Popular Sites”](https://seclab.stanford.edu/websec/framebusting/framebust.pdf)
 - [Paul Stone: “Next generation clickjacking”](https://media.blackhat.com/bh-eu-10/presentations/Stone/BlackHat-EU-2010-Stone-Next-Generation-Clickjacking-slides.pdf)

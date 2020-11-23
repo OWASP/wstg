@@ -21,7 +21,7 @@ The objective of this test is to evaluate whether or not the application stores 
 
 ### Browser History
 
-Technically, the **Back** button is a history and not a cache (see [https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html#sec13.13](https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html#sec13.13)). The cache and the history are two different entities. However, they share the same weakness of presenting previously displayed sensitive information.
+Technically, the **Back** button is a history and not a cache (see [Caching in HTTP: History Lists](https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html#sec13.13)). The cache and the history are two different entities. However, they share the same weakness of presenting previously displayed sensitive information.
 
 The first and simplest test consists of entering sensitive information into the application and logging out. Then the tester clicks the **Back** button of the browser to check whether previously displayed sensitive information can be accessed whilst unauthenticated.
 
@@ -46,15 +46,15 @@ These directives are generally robust, although additional flags may be necessar
 
 - `Cache-Control: must-revalidate, max-age=0, s-maxage=0`
 
-```html
-    HTTP/1.1:
-    Cache-Control: no-cache
+```http
+HTTP/1.1:
+Cache-Control: no-cache
 ```
 
 ```html
-    HTTP/1.0:
-    Pragma: no-cache
-    Expires: <past date or illegal value (e.g., 0)>
+HTTP/1.0:
+Pragma: no-cache
+Expires: "past date or illegal value (e.g., 0)"
 ```
 
 For instance, if testers are testing an e-commerce application, they should look for all pages that contain a credit card number or some other financial information, and check that all those pages enforce the `no-cache` directive. If they find pages that contain critical information but that fail to instruct the browser not to cache their content, they know that sensitive information will be stored on the disk, and they can double-check this simply by looking for the page in the browser cache.

@@ -1,7 +1,7 @@
 # Test Ability to Forge Requests
 
-|ID               |
-|-----------------|
+|ID          |
+|------------|
 |WSTG-BUSL-02|
 
 ## Summary
@@ -53,7 +53,8 @@ The application must be smart enough and designed with business logic that will 
 
 ## Tools
 
-[OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org) is an easy to use integrated penetration testing tool for finding vulnerabilities in web applications. It is designed to be used by people with a wide range of security experience and as such is ideal for developers and functional testers who are new to penetration testing. ZAP provides automated scanners as well as a set of tools that allow you to find security vulnerabilities manually.
+- [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
+- [Burp Suite](https://portswigger.net/burp)
 
 ## References
 

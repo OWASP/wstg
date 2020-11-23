@@ -70,11 +70,15 @@ Let’s suppose that the victim is logged on to a firewall web management consol
 
 Let's suppose the firewall web management console has a function that allows an authenticated user to delete a rule specified by its numerical ID, or all the rules in the configuration if the user specifies `*` (a dangerous feature in reality, but one that makes for a more interesting example). The delete page is shown next. Let’s suppose that the form – for the sake of simplicity – issues a GET request. To delete rule number one:
 
-`https://[target]/fwmgt/delete?rule=1`
+```text
+https://[target]/fwmgt/delete?rule=1
+```
 
 To delete all rules:
 
-`https://[target]/fwmgt/delete?rule=*`
+```text
+https://[target]/fwmgt/delete?rule=*
+```
 
 This example is intentionally naive, but shows in a simplified way the dangers of CSRF.
 
@@ -83,7 +87,9 @@ This example is intentionally naive, but shows in a simplified way the dangers o
 
 Using the form pictured in the figure above, entering the value `*` and clicking the Delete button will submit the following GET request:
 
-`https://www.company.example/fwmgt/delete?rule=*`
+```text
+https://www.company.example/fwmgt/delete?rule=*
+```
 
 This would delete all firewall rules.
 
@@ -92,7 +98,9 @@ This would delete all firewall rules.
 
 The user might also have accomplished the same results by manually submitting the URL:
 
-`https://[target]/fwmgt/delete?rule=*`
+```text
+https://[target]/fwmgt/delete?rule=*
+```
 
 Or by following a link pointing, directly or via a redirection, to the above URL. Or, again, by accessing an HTML page with an embedded `img` tag pointing to the same URL.
 
@@ -147,7 +155,7 @@ In case of web applications in which developers are utilizing JSON for browser t
 
 The POST request will be as follow:
 
-```html
+```http
 POST / HTTP/1.1
 Host: victimsite.com
 Content-Type: text/plain

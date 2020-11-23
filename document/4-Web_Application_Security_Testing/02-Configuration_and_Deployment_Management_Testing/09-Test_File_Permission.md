@@ -31,15 +31,15 @@ The files and directories that require file permission testing include but are n
 - Temp files /directory
 - Upload files/directory
 
+## Remediation
+
+Set the permissions of the files and directories properly so that unauthorized users cannot access critical resources unnecessarily.
+
 ## Tools
 
 - [Windows AccessEnum](https://technet.microsoft.com/en-us/sysinternals/accessenum)
 - [Windows AccessChk](https://technet.microsoft.com/en-us/sysinternals/accesschk)
 - [Linux namei](https://linux.die.net/man/1/namei)
-
-## Remediation
-
-Set the permissions of the files and directories properly so that unauthorized users cannot access critical resources unnecessarily.
 
 ## References
 

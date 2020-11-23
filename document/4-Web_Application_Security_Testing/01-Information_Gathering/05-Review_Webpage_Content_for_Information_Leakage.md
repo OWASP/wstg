@@ -28,7 +28,6 @@ Check HTML source code for comments containing sensitive information that can he
 
 ```html
 ...
-
 <div class="table2">
   <div class="col1">1</div><div class="col2">Mary</div>
   <div class="col1">2</div><div class="col2">Peter</div>
@@ -117,7 +116,6 @@ For example, if testers found a Google Map API Key, they can check if this API K
 In some cases, testers may find sensitive routes from JavaScript code, such as links to internal or hidden admin pages.
 
 ```html
-
 <script type="application/json">
 ...
 "runtimeConfig":{"BASE_URL_VOUCHER_API":"https://staging-voucher.victim.net/api", "BASE_BACKOFFICE_API":"https://10.10.10.2/api", "ADMIN_PAGE":"/hidden_administrator"}
@@ -142,9 +140,9 @@ Check source map files for any sensitive information that can help the attacker 
     "/home/sysadmin/cashsystem/src/actions/reportAction.js",
     "/home/sysadmin/cashsystem/src/actions/cashoutAction.js",
     "/home/sysadmin/cashsystem/src/actions/userAction.js",
-    ...
+    "..."
   ],
-  ...
+  "..."
 }
 ```
 

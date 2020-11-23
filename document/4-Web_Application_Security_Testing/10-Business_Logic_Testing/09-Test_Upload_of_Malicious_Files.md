@@ -1,7 +1,7 @@
 # Test Upload of Malicious Files
 
-|ID               |
-|-----------------|
+|ID          |
+|------------|
 |WSTG-BUSL-09|
 
 ## Summary
@@ -24,8 +24,8 @@ A common example of this vulnerability is an application such as a blog or forum
 - Review the project documentation to identify what file types are considered acceptable, and what types would be considered dangerous or malicious.
   - If documentation is not available then consider what would be appropriate based on the purpose of the application.
 - Determine how the uploaded files are processed.
-- Obtain or create a set of "malicious" files for testing.
-- Try to upload the "malicious" files to the application and determine whether it is accepted and processed.
+- Obtain or create a set of malicious files for testing.
+- Try to upload the malicious files to the application and determine whether it is accepted and processed.
 
 ## How to Test
 
@@ -60,7 +60,7 @@ The example below shows a simple PHP based shell, that executes operating system
 ?>
 ```
 
-Once the shell is uploaded (with a random name), you can execute operating system commands by passing them in the "cmd" GET parameter:
+Once the shell is uploaded (with a random name), you can execute operating system commands by passing them in the `cmd` GET parameter:
 
 `https://example.org/7sna8uuorvcx3x4fx.php?cmd=cat+/etc/passwd`
 
@@ -137,14 +137,14 @@ When there is file upload feature supported, the following API/methods are commo
 - [Testing for XML Injection](../07-Input_Validation_Testing/07-Testing_for_XML_Injection.md)
 - [Test Upload of Unexpected File Types](08-Test_Upload_of_Unexpected_File_Types.md)
 
+## Remediation
+
+Fully protecting against malicious file upload can be complex, and the exact steps required will vary depending on the types files that are uploaded, and how the files are processed or parsed on the server. This is discussed more fully in the [File Upload Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html).
+
 ## Tools
 
 - Metasploit's payload generation functionality
 - Intercepting proxy
-
-## Remediation
-
-Fully protecting against malicious file upload can be complex, and the exact steps required will vary depending on the types files that are uploaded, and how the files are processed or parsed on the server. This is discussed more fully in the [File Upload Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html).
 
 ## References
 

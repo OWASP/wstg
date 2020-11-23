@@ -36,7 +36,7 @@ Below are some points of interests for all requests and responses. Within the re
 
 ### Responses
 
-- Identify where new cookies are set (Set-Cookie header), modified, or added to.
+- Identify where new cookies are set (`Set-Cookie` header), modified, or added to.
 - Identify where there are any redirects (3xx HTTP status code), 400 status codes, in particular 403 Forbidden, and 500 internal server errors during normal responses (i.e., unmodified requests).
 - Also note where any interesting headers are used. For example, `Server: BIG-IP` indicates that the site is load balanced. Thus, if a site is load balanced and one server is incorrectly configured, then the tester might have to make multiple requests to access the vulnerable server, depending on the type of load balancing used.
 
@@ -50,7 +50,7 @@ The following are two examples on how to check for application entry points.
 
 This example shows a GET request that would purchase an item from an online shopping application.
 
-```html
+```http
 GET /shoppingApp/buyme.asp?CUSTOMERID=100&ITEM=z101a&PRICE=62.50&IP=x.x.x.x HTTP/1.1
 Host: x.x.x.x
 Cookie: SESSIONID=Z29vZCBqb2IgcGFkYXdhIG15IHVzZXJuYW1lIGlzIGZvbyBhbmQgcGFzc3dvcmQgaXMgYmFy
@@ -62,11 +62,10 @@ Cookie: SESSIONID=Z29vZCBqb2IgcGFkYXdhIG15IHVzZXJuYW1lIGlzIGZvbyBhbmQgcGFzc3dvc
 
 This example shows a POST request that would log you into an application.
 
-```html
+```http
 POST /KevinNotSoGoodApp/authenticate.asp?service=login HTTP/1.1
 Host: x.x.x.x
-Cookie: SESSIONID=dGhpcyBpcyBhIGJhZCBhcHAgdGhhdCBzZXRzIHByZWRpY3RhYmxlIGNvb2tpZXMgYW5kIG1pbmUgaXMgMTIzNA==
-CustomCookie=00my00trusted00ip00is00x.x.x.x00
+Cookie: SESSIONID=dGhpcyBpcyBhIGJhZCBhcHAgdGhhdCBzZXRzIHByZWRpY3RhYmxlIGNvb2tpZXMgYW5kIG1pbmUgaXMgMTIzNA==;CustomCookie=00my00trusted00ip00is00x.x.x.x00
 
 user=admin&pass=pass123&debug=true&fromtrustIP=true
 ```

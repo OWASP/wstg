@@ -25,7 +25,7 @@ In black-box testing, the tester knows nothing about the specific application, u
 
 ### HTTP Response Message
 
-#### Testing for Valid User/Right Password
+#### Testing for Valid Credentials
 
 Record the server answer when you submit a valid user ID and valid password.
 
@@ -40,12 +40,7 @@ Now, the tester should try to insert a valid user ID and a wrong password and re
 > ![Authentication Failed](images/AuthenticationFailed.png)\
 > *Figure 4.3.4-1: Authentication Failed*
 >
-> or something like:
->
-> ![No Configuration Found](images/NoConfFound.jpg)\
-> *Figure 4.3.4-2: No Configuration Found*
->
-> against any message that reveals the existence of user, for instance, message similar to:
+> Unlike any message that reveals the existence of the user like the following:
 >
 > `Login for User foo: invalid password`
 >
@@ -60,17 +55,16 @@ Now, the tester should try to insert an invalid user ID and a wrong password and
 > ![This User is Not Active](images/Userisnotactive.png)\
 > *Figure 4.3.4-3: This User is Not Active*
 >
-> or message like the following one:
+> or a message like the following one:
 >
 > `Login failed for User foo: invalid Account`
 >
 > Generally the application should respond with the same error message and length to the different incorrect requests. If the responses are not the same, the tester should investigate and find out the key that creates a difference between the two responses. For example:
 >
-> - Client request: Valid user/wrong password
-> - Server answer: The password is not correct
->
-> - Client request: Wrong user/wrong password
-> - Server answer:'User not recognized'
+> 1. Client request: Valid user/wrong password
+> 2. Server response: The password is not correct
+> 3. Client request: Wrong user/wrong password
+> 4. Server response: User not recognized
 >
 > The above responses let the client understand that for the first request they have a valid username. So they can interact with the application requesting a set of possible user IDs and observing the answer.
 >
@@ -139,7 +133,7 @@ As well as looking at the content of the responses, the time that the response t
 
 In some cases the user IDs are created with specific policies of administrator or company. For example we can view a user with a user ID created in sequential order:
 
-```html
+```text
 CN000100
 CN000101
 ...
@@ -156,7 +150,7 @@ Other possibilities are: - user IDs associated with credit card numbers, or in g
 
 Again, we can guess a username from the information received from an LDAP query or from Google information gathering, for example, from a specific domain. Google can help to find domain users through specific queries or through a simple shell script or tool.
 
-> by enumerating user accounts, you risk locking out accounts after a predefined number of failed probes (based on application policy). Also, sometimes, your IP address can be banned by dynamic rules on the application firewall or Intrusion Prevention System.
+> By enumerating user accounts, you risk locking out accounts after a predefined number of failed probes (based on application policy). Also, sometimes, your IP address can be banned by dynamic rules on the application firewall or Intrusion Prevention System.
 
 ### Gray-Box Testing
 
@@ -165,7 +159,14 @@ Again, we can guess a username from the information received from an LDAP query 
 Verify that the application answers in the same manner for every client request that produces a failed authentication. For this issue the black-box testing and gray-box testing have the same concept based on the analysis of messages or error codes received from web application.
 
 > The application should answer in the same manner for every failed attempt of authentication.
+>
 > For Example: *Credentials submitted are not valid*
+
+## Remediation
+
+Ensure the application returns consistent generic error messages in response to invalid account name, password or other user credentials entered during the log in process.
+
+Ensure default system accounts and test accounts are deleted prior to releasing the system into production (or exposing it to an untrusted network).
 
 ## Tools
 
@@ -177,9 +178,3 @@ Verify that the application answers in the same manner for every client request 
 
 - [Marco Mella, Sun Java Access & Identity Manager Users enumeration](https://securiteam.com/exploits/5ep0f0uquo/)
 - [Username Enumeration Vulnerabilities](https://www.gnucitizen.org/blog/username-enumeration-vulnerabilities/)
-
-## Remediation
-
-Ensure the application returns consistent generic error messages in response to invalid account name, password or other user credentials entered during the log in process.
-
-Ensure default system accounts and test accounts are deleted prior to releasing the system into production (or exposing it to an untrusted network).

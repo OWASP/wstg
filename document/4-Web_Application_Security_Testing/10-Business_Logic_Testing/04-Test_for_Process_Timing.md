@@ -1,7 +1,7 @@
 # Test for Process Timing
 
-|ID               |
-|-----------------|
+|ID          |
+|------------|
 |WSTG-BUSL-04|
 
 ## Summary

@@ -45,14 +45,14 @@ User input comes in two main forms:
 Here are two examples of how the server may insert data into JavaScript:
 
 ```js
-var data = `“<escaped data from the server>”`;
-var result = someFunction(`“<escaped data from the server>”`);
+var data = "<escaped data from the server>";
+var result = someFunction("<escaped data from the server>");
 ```
 
 Here are two examples of input from client-side JavaScript objects:
 
 ```js
-var data = window.location;`
+var data = window.location;
 var result = someFunction(window.referrer);
 ```
 

@@ -30,7 +30,7 @@ In every portion of the application where a user can create information in the d
 For example:
 The following HTTP POST allows the user that belongs to `grp001` to access order #0001:
 
-```html
+```http
 POST /user/viewOrder.jsp HTTP/1.1
 Host: www.example.com
 ...
@@ -73,14 +73,14 @@ What if the tester modifies the value of the variable `profile` to `SysAdmin`? I
 For example:
 In an environment where the server sends an error message contained as a value in a specific parameter in a set of answer codes, as the following:
 
-```html
+```text
 @0`1`3`3``0`UC`1`Status`OK`SEC`5`1`0`ResultSet`0`PVValid`-1`0`0` Notifications`0`0`3`Command  Manager`0`0`0` StateToolsBar`0`0`0`
 StateExecToolBar`0`0`0`FlagsToolBar`0
 ```
 
 The server gives an implicit trust to the user. It believes that the user will answer with the above message closing the session.
 
-In this condition, verify that it is not possible to escalate privileges by modifying the parameter values. In this particular example, by modifying the `PVValid` value from '-1' to '0' (no error conditions), it may be possible to authenticate as administrator to the server.
+In this condition, verify that it is not possible to escalate privileges by modifying the parameter values. In this particular example, by modifying the `PVValid` value from `-1` to `0` (no error conditions), it may be possible to authenticate as administrator to the server.
 
 #### Manipulation of IP Address
 
@@ -88,7 +88,9 @@ Some websites limit access or count the number of failed login attempts based on
 
 For example:
 
-`X-Forwarded-For: 8.1.1.1`
+```text
+X-Forwarded-For: 8.1.1.1
+```
 
 In this case, if the website uses the value of `X-forwarded-For` as client IP address, tester may change the IP value of the `X-forwarded-For` HTTP header to workaround the IP source identification.
 
@@ -98,7 +100,9 @@ Try to traverse the website and check if some of pages that may miss the authori
 
 For example:
 
-`/../.././userInfo.html`
+```text
+/../.././userInfo.html
+```
 
 ### WhiteBox
 
@@ -106,11 +110,13 @@ If the URL authorization check is only done by partial URL match, then it's like
 
 For example:
 
-`startswith(), endswith(), contains(), indexOf()`
+```text
+startswith(), endswith(), contains(), indexOf()
+```
 
 ### Weak SessionID
 
-Weak Session ID has algorithm may be vulnerable to brute Force attack. For example, one website is using MD5 (Password + UserID) as sessionID. Then, testers may guess or generate the sessionID for other users.
+Weak Session ID has algorithm may be vulnerable to brute Force attack. For example, one website is using `MD5(Password + UserID)` as sessionID. Then, testers may guess or generate the sessionID for other users.
 
 ## References
 

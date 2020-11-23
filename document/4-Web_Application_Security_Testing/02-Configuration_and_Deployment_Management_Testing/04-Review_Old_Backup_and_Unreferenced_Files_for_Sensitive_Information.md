@@ -8,7 +8,7 @@
 
 While most of the files within a web server are directly handled by the server itself, it isn't uncommon to find unreferenced or forgotten files that can be used to obtain important information about the infrastructure or the credentials.
 
-Most common scenarios include the presence of renamed old versions of modified files, inclusion files that are loaded into the language of choice and can be downloaded as source, or even automatic or manual backups in form of compressed archives. Backup files can also be generated automatically by the underlying file system the application is hosted on, a feature usually referred to as “snapshots”.
+Most common scenarios include the presence of renamed old versions of modified files, inclusion files that are loaded into the language of choice and can be downloaded as source, or even automatic or manual backups in form of compressed archives. Backup files can also be generated automatically by the underlying file system the application is hosted on, a feature usually referred to as "snapshots".
 
 All these files may grant the tester access to inner workings, back doors, administrative interfaces, or even credentials to connect to the administrative interface or the database server.
 
@@ -53,7 +53,7 @@ Enumerate all of the application’s pages and functionality. This can be done m
 
 Many web applications leave clues in published content that can lead to the discovery of hidden pages and functionality. These clues often appear in the source code of HTML and JavaScript files. The source code for all published content should be manually reviewed to identify clues about other pages and functionality. For example:
 
-Programmers’ comments and commented-out sections of source code may refer to hidden content:
+Programmers' comments and commented-out sections of source code may refer to hidden content:
 
 ```html
 <!-- <A HREF="uploadfile.jsp">Upload a document to the server</A> -->
@@ -70,10 +70,10 @@ if (adminUser) menu.add (new menuItem ("Maintain users", "/admin/useradmin.jsp")
 HTML pages may contain FORMs that have been hidden by disabling the SUBMIT element:
 
 ```html
-<FORM action="forgotPassword.jsp" method="post">
-    <INPUT type="hidden" name="userID" value="123">
-    <!-- <INPUT type="submit" value="Forgot Password"> -->
-</FORM>
+<form action="forgotPassword.jsp" method="post">
+    <input type="hidden" name="userID" value="123">
+    <!-- <input type="submit" value="Forgot Password"> -->
+</form>
 ```
 
 Another source of clues about unreferenced directories is the `/robots.txt` file used to provide instructions to web robots:
@@ -149,6 +149,23 @@ Example: Windows 8.3 filename expansion `c:\\program files` becomes `C:\\PROGRA\
 
 Performing gray box testing against old and backup files requires examining the files contained in the directories belonging to the set of web directories served by the web server(s) of the web application infrastructure. Theoretically the examination should be performed by hand to be thorough. However, since in most cases copies of files or backup files tend to be created by using the same naming conventions, the search can be easily scripted. For example, editors leave behind backup copies by naming them with a recognizable extension or ending and humans tend to leave behind files with a `.old` or similar predictable extensions. A good strategy is that of periodically scheduling a background job checking for files with extensions likely to identify them as copy or backup files, and performing manual checks as well on a longer time basis.
 
+## Remediation
+
+To guarantee an effective protection strategy, testing should be compounded by a security policy which clearly forbids dangerous practices, such as:
+
+- Editing files in-place on the web server or application server file systems. This is a particular bad habit, since it is likely to unwillingly generate backup files by the editors. It is amazing to see how often this is done, even in large organizations. If you absolutely need to edit files on a production system, do ensure that you don’t leave behind anything which is not explicitly intended, and consider that you are doing it at your own risk.
+- Check carefully any other activity performed on file systems exposed by the web server, such as spot administration activities. For example, if you occasionally need to take a snapshot of a couple of directories (which you should not do on a production system), you may be tempted to zip them first. Be careful not to forget behind those archive files.
+- Appropriate configuration management policies should help not to leave around obsolete and unreferenced files.
+- Applications should be designed not to create (or rely on) files stored under the web directory trees served by the web server. Data files, log files, configuration files, etc. should be stored in directories not accessible by the web server, to counter the possibility of information disclosure (not to mention data modification if web directory permissions allow writing).
+- File system snapshots should not be accessible via the web if the document root is on a file system using this technology. Configure your web server to deny access to such directories, for example under apache a location directive such this should be used:
+
+```xml
+<Location ~ ".snapshot">
+    Order deny,allow
+    Deny from all
+</Location>
+```
+
 ## Tools
 
 Vulnerability assessment tools tend to include checks to spot web directories having standard names (such as “admin”, “test”, “backup”, etc.), and to report any web directory which allows indexing. If you can’t get any directory listing, you should try to check for likely backup extensions. Check for example
@@ -166,20 +183,3 @@ Web spider tools
 - [curl](https://curl.haxx.se)
 
 Some of them are also included in standard Linux distributions. Web development tools usually include facilities to identify broken links and unreferenced files.
-
-## Remediation
-
-To guarantee an effective protection strategy, testing should be compounded by a security policy which clearly forbids dangerous practices, such as:
-
-- Editing files in-place on the web server or application server file systems. This is a particular bad habit, since it is likely to unwillingly generate backup files by the editors. It is amazing to see how often this is done, even in large organizations. If you absolutely need to edit files on a production system, do ensure that you don’t leave behind anything which is not explicitly intended, and consider that you are doing it at your own risk.
-- Check carefully any other activity performed on file systems exposed by the web server, such as spot administration activities. For example, if you occasionally need to take a snapshot of a couple of directories (which you should not do on a production system), you may be tempted to zip them first. Be careful not to forget behind those archive files.
-- Appropriate configuration management policies should help not to leave around obsolete and unreferenced files.
-- Applications should be designed not to create (or rely on) files stored under the web directory trees served by the web server. Data files, log files, configuration files, etc. should be stored in directories not accessible by the web server, to counter the possibility of information disclosure (not to mention data modification if web directory permissions allow writing).
-- File system snapshots should not be accessible via the web if the document root is on a file system using this technology. Configure your web server to deny access to such directories, for example under apache a location directive such this should be used:
-
-```xml
-<Location ~ ".snapshot">
-    Order deny,allow
-    Deny from all
-</Location>
-```

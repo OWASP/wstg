@@ -1,7 +1,7 @@
 # Testing for the Circumvention of Work Flows
 
-|ID               |
-|-----------------|
+|ID          |
+|------------|
 |WSTG-BUSL-06|
 
 ## Summary
@@ -9,6 +9,7 @@
 Workflow vulnerabilities involve any type of vulnerability that allows the attacker to misuse an application/system in a way that will allow them to circumvent (not follow) the designed/intended workflow.
 
 [Definition of a workflow on Wikipedia](https://en.wikipedia.org/wiki/Workflow):
+
 > A workflow consists of a sequence of connected steps where each step follows without delay or gap and ends just before the subsequent step may begin. It is a depiction of a sequence of operations, declared as work of a person or group, an organization of staff, or one or more simple or complex mechanisms. Workflow may be seen as any abstraction of real work.
 
 The application’s business logic must require that the user complete specific steps in the correct/specific order and if the workflow is terminated without correctly completing, all actions and spawned actions are “rolled back” or canceled. Vulnerabilities related to the circumvention of workflows or bypassing the correct business logic workflow are unique in that they are very application/system specific and careful manual misuse cases must be developed using requirements and use cases.
@@ -54,11 +55,11 @@ An electronic bulletin board system may be designed to ensure that initial posts
 - [Test Upload of Unexpected File Types](08-Test_Upload_of_Unexpected_File_Types.md)
 - [Test Upload of Malicious Files](09-Test_Upload_of_Malicious_Files.md)
 
+## Remediation
+
+The application must be self-aware and have checks in place ensuring that the users complete each step in the work flow process in the correct order and prevent attackers from circumventing/skipping/or repeating any steps/processes in the workflow. Test for workflow vulnerabilities involves developing business logic abuse/misuse cases with the goal of successfully completing the business process while not completing the correct steps in the correct order.
+
 ## References
 
 - [OWASP Abuse Case Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Abuse_Case_Cheat_Sheet.html)
 - [CWE-840: Business Logic Errors](https://cwe.mitre.org/data/definitions/840.html)
-
-## Remediation
-
-The application must be self-aware and have checks in place ensuring that the users complete each step in the work flow process in the correct order and prevent attackers from circumventing/skipping/or repeating any steps/processes in the workflow. Test for workflow vulnerabilities involves developing business logic abuse/misuse cases with the goal of successfully completing the business process while not completing the correct steps in the correct order.

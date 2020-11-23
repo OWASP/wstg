@@ -536,7 +536,7 @@ EXEC(@SQLivar)
 
 #### Alternative Expression of 'or 1 = 1'
 
-```text
+```sql
 OR 'SQLi' = 'SQL'+'i'
 OR 'SQLi' &gt; 'S'
 or 20 &gt; 1

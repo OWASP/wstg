@@ -21,13 +21,13 @@ There are some security concerns when using `*` as the domain that we discuss be
 Here is an example of the messaging API in use. To send a message:
 
 ```js
-iframe1.contentWindow.postMessage(“Hello world”,”http://www.example.com”);
+iframe1.contentWindow.postMessage("Hello world","http://www.example.com");
 ```
 
 To receive a message:
 
 ```js
-window.addEventListener(“message”, handler, true);
+window.addEventListener("message", handler, true);
 function handler(event) {
     if(event.origin === 'chat.example.com') {
         /* process message (event.data) */
@@ -68,9 +68,9 @@ In this example, access is needed for every subdomain (www, chat, forums, ...) w
 window.addEventListener(“message”, callback, true);
 
 function callback(e) {
-        </b>if(e.origin.indexOf(".owasp.org")!=-1) {<b>
-            /* process message (e.data) */
-        }
+    if(e.origin.indexOf(".owasp.org")!=-1) {
+        /* process message (e.data) */
+    }
 }
 ```
 

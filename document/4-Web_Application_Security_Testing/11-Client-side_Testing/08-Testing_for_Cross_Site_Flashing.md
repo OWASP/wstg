@@ -28,7 +28,7 @@ SWFs have the capability to navigate the browser. If the SWF takes the destinati
 
 In the Flash case, the malicious URL might look like:
 
-```url
+```text
 http://trusted.example.org/trusted.swf?getURLValue=http://www.evil-spoofing-website.org/phishEndUsers.html
 ```
 
@@ -192,7 +192,7 @@ Then this will mean it's possible to call JavaScript in the same domain where th
 The same is possible when only some part of `getURL` is controlled via DOM injection with Flash JavaScript injection:
 
 ```js
-getUrl('javascript:function('+_root.arg+'))
+getUrl('javascript:function('+_root.arg+')')
 ```
 
 ### Using `asfunction`

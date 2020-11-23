@@ -160,7 +160,7 @@ Similar to login and account creation, if the web application has features that 
 - Forms that allow users to edit credentials
 - Forms that require the user to authenticate with another provider (for example, payment processing)
 
-Accessing Resources While Logged In
+### Accessing Resources While Logged In
 
 After logging in, access all the features of the application, including public features that do not necessarily require a login to access. Forced browse to the HTTP version of the web site to see if the client leaks credentials.
 

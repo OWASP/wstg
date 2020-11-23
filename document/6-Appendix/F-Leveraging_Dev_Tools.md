@@ -35,7 +35,7 @@ Opening Dev Tools can be accomplished in a number of ways.
 | Encoding and Decoding | Y       | Y       | Y       | Y      |
 | Responsive Design Mode| Y       | Y       | Y       | Y      |
 
-`*` Anything that applies to Google Chrome should be applicable to "New" Edge.
+`*` Anything that applies to Google Chrome should be applicable to all Chromium based applications.
 
 ## User-Agent Switching
 

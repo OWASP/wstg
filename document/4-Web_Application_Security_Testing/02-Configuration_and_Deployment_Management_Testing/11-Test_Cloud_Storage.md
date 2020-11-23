@@ -25,11 +25,15 @@ You may use curl for the tests with the following commands and see if unauthoriz
 
 To test the ability to read an object:
 
-`curl -X GET https://<cloud-storage-service>/<object>`
+```bash
+curl -X GET https://<cloud-storage-service>/<object>
+```
 
 To test the ability to upload a file:
 
-`curl -X PUT -d 'test' 'https://<cloud-storage-service>/test.txt'`
+```bash
+curl -X PUT -d 'test' 'https://<cloud-storage-service>/test.txt'
+```
 
 ### Testing for Amazon S3 Bucket Misconfiguration
 
@@ -37,35 +41,47 @@ The Amazon S3 bucket URLs follow one of two formats, either virtual host style o
 
 - Virtual Hosted Style Access
 
-`https://bucket-name.s3.Region.amazonaws.com/key-name`
+```text
+https://bucket-name.s3.Region.amazonaws.com/key-name
+```
 
 In the following example, `my-bucket` is the bucket name, `us-west-2` is the region, and `puppy.png` is the key-name:
 
-`https://my-bucket.s3.us-west-2.amazonaws.com/puppy.png`
+```text
+https://my-bucket.s3.us-west-2.amazonaws.com/puppy.png
+```
 
 - Path-Style Access
 
-`https://s3.Region.amazonaws.com/bucket-name/key-name`
+```text
+https://s3.Region.amazonaws.com/bucket-name/key-name
+```
 
 As above, in the following example, `my-bucket` is the bucket name, `us-west-2` is the region, and `puppy.png` is the key-name:
 
-`https://s3.us-west-2.amazonaws.com/my-bucket/puppy.jpg`
+```text
+https://s3.us-west-2.amazonaws.com/my-bucket/puppy.jpg
+```
 
 For some regions, the legacy global endpoint that does not specify a region-specific endpoint can be used. Its format is also either virtual hosted style or path-style.
 
 - Virtual Hosted Style Access
 
-`https://bucket-name.s3.amazonaws.com`
+```text
+https://bucket-name.s3.amazonaws.com
+```
 
 - Path-Style Access
 
-`https://s3.amazonaws.com/bucket-name`
+```text
+https://s3.amazonaws.com/bucket-name
+```
 
 #### Identify Bucket URL
 
 For black-box testing, S3 URLs can be found in the HTTP messages. The following example shows a bucket URL is sent in the `img` tag in a HTTP response.
 
-```text
+```html
 ...
 <img src="https://my-bucket.s3.us-west-2.amazonaws.com/puppy.png">
 ...
@@ -81,24 +97,28 @@ In addition to testing with curl, you can also test with the AWS Command-line to
 
 The following command lists all the objects of the bucket when it is configured public.
 
-`aws s3 ls s3://<bucket-name>`
+```bash
+aws s3 ls s3://<bucket-name>
+```
 
 ##### Upload
 
 The following is the command to upload a file
 
-`aws s3 cp arbitrary-file s3://bucket-name/path-to-save`
+```bash
+aws s3 cp arbitrary-file s3://bucket-name/path-to-save
+```
 
 This example shows the result when the upload has been successful.
 
-```text
+```bash
 $ aws s3 cp test.txt s3://bucket-name/test.txt
 upload: ./test.txt to s3://bucket-name/test.txt
 ```
 
 This example shows the result when the upload has failed.
 
-```text
+```bash
 $ aws s3 cp test.txt s3://bucket-name/test.txt
 upload failed: ./test2.txt to s3://bucket-name/test2.txt An error occurred (AccessDenied) when calling the PutObject operation: Access Denied
 ```
@@ -107,7 +127,9 @@ upload failed: ./test2.txt to s3://bucket-name/test2.txt An error occurred (Acce
 
 The following is the command to remove an object
 
-`aws s3 rm s3://bucket-name/object-to-remove`
+```bash
+aws s3 rm s3://bucket-name/object-to-remove
+```
 
 ## Tools
 
@@ -116,3 +138,4 @@ The following is the command to remove an object
 ## References
 
 - [Working with Amazon S3 Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html)
+- [flAWS 2](http://flaws2.cloud)

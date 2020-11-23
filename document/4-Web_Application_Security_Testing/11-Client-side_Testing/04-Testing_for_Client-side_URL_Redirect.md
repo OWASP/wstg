@@ -14,7 +14,7 @@ This vulnerability may enable an attacker to successfully launch a phishing scam
 
 Here is an example of a phishing attack URL.
 
-```url
+```text
 http://www.target.site?#redirect=www.fake-target.site
 ```
 
@@ -33,15 +33,16 @@ When testers manually check for this type of vulnerability, they first identify 
 
 ```js
 var redir = location.hash.substring(1);
-if (redir)
+if (redir) {
     window.location='http://'+decodeURIComponent(redir);
+}
 ```
 
 In this example, the script does not perform any validation of the variable `redir` which contains the user-supplied input via the query string. Since no form of encoding is applied, this unvalidated input is passed to the `windows.location` object, creating a URL redirection vulnerability.
 
 This implies that an attacker could redirect the victim to a malicious site simply by submitting the following query string:
 
-```url
+```text
 http://www.victim.site/?#www.malicious.site
 ```
 
@@ -49,13 +50,14 @@ With a slight modification, the above example snippet can be vulnerable to JavaS
 
 ```js
 var redir = location.hash.substring(1);
-if (redir)
+if (redir) {
     window.location=decodeURIComponent(redir);
+}
 ```
 
 This can be exploited by submitting the following query string:
 
-```url
+```text
 http://www.victim.site/?#javascript:alert(document.cookie)
 ```
 

@@ -24,7 +24,6 @@ Suppose an eCommerce site allows users to take advantage of any one of many disc
 ## How to Test
 
 - Review the project documentation and use exploratory testing looking for functions or features in the application or system that should not be executed more that a single time or specified number of times during the business logic workflow.
-
 - For each of the functions and features found that should only be executed a single time or specified number of times during the business logic workflow, develop abuse/misuse cases that may allow a user to execute more than the allowable number of times. For example, can a user navigate back and forth through the pages multiple times executing a function that should only execute once? or can a user load and unload shopping carts allowing for additional discounts.
 
 ## Related Test Cases
@@ -32,11 +31,11 @@ Suppose an eCommerce site allows users to take advantage of any one of many disc
 - [Testing for Account Enumeration and Guessable User Account](../03-Identity_Management_Testing/04-Testing_for_Account_Enumeration_and_Guessable_User_Account.md)
 - [Testing for Weak lock out mechanism](../04-Authentication_Testing/03-Testing_for_Weak_Lock_Out_Mechanism.md)
 
+## Remediation
+
+The application should have checks to ensure that the business logic is being followed and that if a function/action can only be executed a certain number of times, when the limit is reached the user can no longer execute the function. To prevent users from using a function over the appropriate number of times the application may use mechanisms such as cookies to keep count or through sessions not allowing users to access to execute the function additional times.
+
 ## References
 
 - [InfoPath Forms Services business logic exceeded the maximum limit of operations Rule](http://mpwiki.viacode.com/default.aspx?g=posts&t=115678)
 - [Gold Trading Was Temporarily Halted On The CME This Morning](https://www.businessinsider.com/gold-halted-on-cme-for-stop-logic-event-2013-10)
-
-## Remediation
-
-The application should have checks to ensure that the business logic is being followed and that if a function/action can only be executed a certain number of times, when the limit is reached the user can no longer execute the function. To prevent users from using a function over the appropriate number of times the application may use mechanisms such as cookies to keep count or through sessions not allowing users to access to execute the function additional times.
