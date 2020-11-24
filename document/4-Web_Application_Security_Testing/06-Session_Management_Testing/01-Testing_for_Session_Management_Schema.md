@@ -76,7 +76,7 @@ The first stage is to examine the structure and content of a Session ID provided
 
 If the Session ID is clear-text, the structure and pertinent data may be immediately obvious such as `192.168.100.1:owaspuser:password:15:58`.
 
-If part or the entire token appears to be encoded or hashed, it should be compared to various techniques to check for obvious obfuscation. For example the string `192.168.100.1:owaspuser:password:15:58` is represented in Hex, Base64 and as an MD5 hash:
+If part or the entire token appears to be encoded or hashed, it should be compared to various techniques to check for obvious obfuscation. For example the string `192.168.100.1:owaspuser:password:15:58` is represented in Hex, Base64, and as an MD5 hash:
 
 - Hex: `3139322E3136382E3130302E313A6F77617370757365723A70617373776F72643A31353A3538`
 - Base64: `MTkyLjE2OC4xMDAuMTpvd2FzcHVzZXI6cGFzc3dvcmQ6MTU6NTg=`

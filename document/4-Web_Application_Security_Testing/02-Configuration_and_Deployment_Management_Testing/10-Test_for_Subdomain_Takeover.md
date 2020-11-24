@@ -98,7 +98,7 @@ nameserver.expireddomain.com
 
 In this fictious example the tester checks if the domain `expireddomain.com` is active with a domain registrar search. If the domain is available for purchase the subdomain is vulnerable.
 
-The following DNS responses warrant further investigation: `SERVFAIL`|`REFUSED`.
+The following DNS responses warrant further investigation: `SERVFAIL` or `REFUSED`.
 
 ### Gray-Box Testing
 
