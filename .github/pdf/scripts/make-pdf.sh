@@ -64,9 +64,9 @@ sed 's/\(^#\{3\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h3 id=\"\2\">\2<\/h3>/' | \
 sed 's/\(^#\{4\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h4 id=\"\2\">\2<\/h4>/' | \
 sed 's/\(^#\{5\} \) *\([^\n]\+\?\))*\(\?\:\n\+\|$\)/<h5 id=\"\2\">\2<\/h5>/' | \
 # Sed section 14: Set href for Appendix internal links. Remove subsection numbers from href.
-sed '/\[\([^\n]\+\)\](http.*)/! s/\[\([^\[]*\)\]([^\[]*[ABCDEF]-\([^(]*\.md\))/<a href=\"#\2\">\1<\/a>/g' | \
+sed '/[\[^\[\]*](http[^\[]*\.md)/! s/\[\([^\[]*\)\]([^\[]*[ABCDEF]-\([^(]*\.md\))/<a href=\"#\2\">\1<\/a>/g' | \
 # Sed section 15: Set href for internal links. Remove subsection numbers from href.
-sed '/\[\([^\n]\+\)\](http.*)/! s/\[\([^\[]*\)\]([^\[]*[0-9]\-\([^(]*\.md\))/<a href=\"#\2\">\1<\/a>/g' | \
+sed '/[\[^\[\]*](http[^\[]*\.md)/! s/\[\([^\[]*\)\]([^\[]*[0-9]\-\([^(]*\.md\))/<a href=\"#\2\">\1<\/a>/g' | \
 # Sed section: Workaround to address the bug in duplicate fragment links in 4.1.
 sed 's/\[\([^\n]\+\)\](#tools)/\1/i' |\
 sed 's/\[\([^\n]\+\)\](#references)/\1/i' |\
@@ -74,7 +74,7 @@ sed 's/\[\([^\n]\+\)\](#Remediation)/\1/i' |\
 sed 's/\[\([^\n]\+\)\]([^\n]\+.md#remediation)/\1/i' | \
 # Sed section 16: Correct Markdown file links with fragment identifiers. Remove file path and keep fragment identifier alone.
 # Exclude urls start with http (Helps to exclude urls to external markdown files with fragment)
-sed '/\[\([^\n]\+\)\](http.*)/! s/\[\([^\n]\+\)\]([^\n]\+.md#\([^\)]\+\))/<a href=\"#\2\">\1<\/a>/' | \
+sed '/[\[^\[\]*](http[^\[]*\.md#\([^\)]\+\))/! s/\[\([^\n]\+\)\]([^\n]\+.md#\([^\)]\+\))/<a href=\"#\2\">\1<\/a>/' | \
 # Sed section 17: Correct Markdown links with fragment identifiers.
 sed 's/\[\([^\[]\+\)\](#\([^\)]\+\))/<a href=\"#\2\">\1<\/a>/' |\
 # pyhton section 18: convert all chars inside href to lower case
