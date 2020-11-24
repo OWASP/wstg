@@ -73,7 +73,7 @@ All other test cases are relevant.
 
 ## Remediation
 
-Build inactive defenses against application misuse.
+Applications should implement active defenses to fend off attackers and abusers.
 
 ## References
 
