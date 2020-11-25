@@ -67,6 +67,10 @@ Verify that all places where encrypted data from the client, that should only be
 1. The integrity of the cipher text should be verified by a secure mechanism, like HMAC or authenticated cipher operation modes like GCM or CCM.
 2. All error states while decryption and further processing are handled uniformly.
 
+### Example 4
+
+[Visualization of the decryption process](https://erlend.oftedal.no/blog/poet/)
+
 ## Tools
 
 - [Bletchley](https://code.blindspotsecurity.com/trac/bletchley)
@@ -75,13 +79,7 @@ Verify that all places where encrypted data from the client, that should only be
 - [Poracle](https://github.com/iagox86/Poracle)
 - [python-paddingoracle](https://github.com/mwielgoszewski/python-paddingoracle)
 
-### Example 4
-
-- [Visualization of the decryption process](https://erlend.oftedal.no/blog/poet/)
-
 ## References
-
-### Whitepapers
 
 - [Wikepedia - Padding Oracle Attack](https://en.wikipedia.org/wiki/Padding_oracle_attack)
 - [Juliano Rizzo, Thai Duong, "Practical Padding Oracle Attacks"](https://www.usenix.org/event/woot10/tech/full_papers/Rizzo.pdf)

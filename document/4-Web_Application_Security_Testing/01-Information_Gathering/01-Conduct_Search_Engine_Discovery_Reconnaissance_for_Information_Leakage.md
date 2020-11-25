@@ -26,7 +26,7 @@ Use a search engine to search for potentially sensitive information. This may in
 - usernames, passwords, and private keys;
 - third-party, or cloud service configuration files;
 - revealing error message content; and
-- development, test, user acceptance testing (UAT), and staging versions of sites.
+- development, test, User Acceptance Testing (UAT), and staging versions of sites.
 
 ### Search Engines
 
@@ -56,7 +56,9 @@ A search operator is a special keyword or syntax that extends the capabilities o
 
 For example, to find the web content of owasp.org as indexed by a typical search engine, the syntax required is:
 
-`site:owasp.org`
+```text
+site:owasp.org
+```
 
 ![Google Site Operation Search Result Example](images/Google_site_Operator_Search_Results_Example_20200406.png)\
 *Figure 4.1.1-1: Google Site Operation Search Result Example*
@@ -65,9 +67,11 @@ For example, to find the web content of owasp.org as indexed by a typical search
 
 To search for content that has previously been indexed, use the `cache:` operator. This is helpful for viewing content that may have changed since the time it was indexed, or that may no longer be available. Not all search engines provide cached content to search; the most useful source at time of writing is Google.
 
-To view owasp.org as it is cached, the syntax is:
+To view `owasp.org` as it is cached, the syntax is:
 
-`cache:owasp.org`
+```text
+cache:owasp.org
+```
 
 ![Google Cache Operation Search Result Example](images/Google_cache_Operator_Search_Results_Example_20200406.png)\
 *Figure 4.1.1-2: Google Cache Operation Search Result Example*

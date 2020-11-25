@@ -51,7 +51,7 @@ IMAP special parameters that should be used are:
 | Disconnection          | Message body       |
 |                        | Attached files     |
 
-In this example, the “mailbox” parameter is being tested by manipulating all requests with the parameter in:
+In this example, the "mailbox" parameter is being tested by manipulating all requests with the parameter in:
 
 `http://<webmail>/src/read_body.php?mailbox=INBOX&passed_id=46106&startMessage=1`
 
@@ -162,7 +162,7 @@ Let's suppose that in the [Identifying vulnerable parameters](#identifying-vulne
 
 `http://<webmail>/read_email.php?message_id=4791`
 
-Let's suppose also that the outcome of the analysis performed in the stage 2 (“Understanding the data flow and deployment structure of the client”) has identified the command and arguments associated with this parameter as:
+Let's suppose also that the outcome of the analysis performed in the stage 2 ("Understanding the data flow and deployment structure of the client") has identified the command and arguments associated with this parameter as:
 
 `FETCH 4791 BODY[HEADER]`
 
@@ -194,6 +194,6 @@ Footer = V101 FETCH 4791
 
 ### Whitepapers
 
-- [RFC 0821 “Simple Mail Transfer Protocol"](https://tools.ietf.org/html/rfc821)
-- [RFC 3501 “Internet Message Access Protocol - Version 4rev1”](https://tools.ietf.org/html/rfc3501)
-- [Vicente Aguilera Díaz: “MX Injection: Capturing and Exploiting Hidden Mail Servers"](http://www.webappsec.org/projects/articles/121106.pdf)
+- [RFC 0821 "Simple Mail Transfer Protocol"](https://tools.ietf.org/html/rfc821)
+- [RFC 3501 "Internet Message Access Protocol - Version 4rev1"](https://tools.ietf.org/html/rfc3501)
+- [Vicente Aguilera Díaz: "MX Injection: Capturing and Exploiting Hidden Mail Servers"](http://www.webappsec.org/projects/articles/121106.pdf)

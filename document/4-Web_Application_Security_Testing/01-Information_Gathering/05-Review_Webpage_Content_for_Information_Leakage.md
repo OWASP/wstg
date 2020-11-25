@@ -10,7 +10,7 @@ It is very common, and even recommended, for programmers to include detailed com
 
 For modern web apps, the use of client-Side JavaScript for the front-end is becoming more popular. Popular front-end construction technologies use client-side JavaScript like ReactJS, AngularJS, or Vue.  Similar to the comments and metadata in HTML code, many programmers also hardcod sensitive information in JavaScript variables on the front-end. Sensitive information can include (but is not limited to): Private API Keys (*e.g.* an unrestricted Google Map API Key), internal IP addresses, sensitive routes (*e.g.* route to hidden admin pages or functionality), or even credentials. This sensitive information can be leaked from such front-end JavaScript code. A review should be done in order to determine if any sensitive information leaked which could be used by attackers for abuse.
 
-For large web applications, performance issues are a big concern to programmers. Programmers have used different methods to optimize front-end performance, including Syntactically Awesome Style Sheets (SASS), Sassy CSS (SCSS), webpack, etc. Using these technologies, front-end code will sometimes become harder to understand and difficult to debug, and because of it, programmers often deploy source map files for debugging purposes. A “source map” is a special file that connects a minified/uglified version of an asset (CSS or JavaScript) to the original authored version. Programmers are still debating whether or not to bring source map files to the production environment. However, it is undeniable that source map files or files for debugging if released to the production environment will make their source more human-readable. It can make it easier for attackers to find vulnerabilities from the front-end or collect sensitive information from it. JavaScript code review should be done in order to determine if any debug files are exposed from the front-end. Depending on the context and sensitivity of the project, a security expert should decide whether the files should exist in the production environment or not.
+For large web applications, performance issues are a big concern to programmers. Programmers have used different methods to optimize front-end performance, including Syntactically Awesome Style Sheets (SASS), Sassy CSS (SCSS), webpack, etc. Using these technologies, front-end code will sometimes become harder to understand and difficult to debug, and because of it, programmers often deploy source map files for debugging purposes. A "source map" is a special file that connects a minified/uglified version of an asset (CSS or JavaScript) to the original authored version. Programmers are still debating whether or not to bring source map files to the production environment. However, it is undeniable that source map files or files for debugging if released to the production environment will make their source more human-readable. It can make it easier for attackers to find vulnerabilities from the front-end or collect sensitive information from it. JavaScript code review should be done in order to determine if any debug files are exposed from the front-end. Depending on the context and sensitivity of the project, a security expert should decide whether the files should exist in the production environment or not.
 
 ## Test Objectives
 
@@ -28,7 +28,6 @@ Check HTML source code for comments containing sensitive information that can he
 
 ```html
 ...
-
 <div class="table2">
   <div class="col1">1</div><div class="col2">Mary</div>
   <div class="col1">2</div><div class="col2">Peter</div>
@@ -117,7 +116,6 @@ For example, if testers found a Google Map API Key, they can check if this API K
 In some cases, testers may find sensitive routes from JavaScript code, such as links to internal or hidden admin pages.
 
 ```html
-
 <script type="application/json">
 ...
 "runtimeConfig":{"BASE_URL_VOUCHER_API":"https://staging-voucher.victim.net/api", "BASE_BACKOFFICE_API":"https://10.10.10.2/api", "ADMIN_PAGE":"/hidden_administrator"}
@@ -142,9 +140,9 @@ Check source map files for any sensitive information that can help the attacker 
     "/home/sysadmin/cashsystem/src/actions/reportAction.js",
     "/home/sysadmin/cashsystem/src/actions/cashoutAction.js",
     "/home/sysadmin/cashsystem/src/actions/userAction.js",
-    ...
+    "..."
   ],
-  ...
+  "..."
 }
 ```
 
@@ -153,7 +151,7 @@ When websites load source map files, the front-end source code will become reada
 ## Tools
 
 - [Wget](https://www.gnu.org/software/wget/wget.html)
-- Browser “view source” function
+- Browser "view source" function
 - Eyeballs
 - [Curl](https://curl.haxx.se/)
 - [Burp Suite](https://portswigger.net/burp)

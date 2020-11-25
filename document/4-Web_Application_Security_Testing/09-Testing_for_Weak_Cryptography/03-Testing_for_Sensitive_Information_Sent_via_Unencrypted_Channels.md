@@ -6,7 +6,7 @@
 
 ## Summary
 
-Sensitive data must be protected when it is transmitted through the network. If data is transmitted over HTTPS or encrypted in another way the protection mechanism must not have limitations or vulnerabilities, as explained in the broader article "[Testing for Weak Transport Layer Security](01-Testing_for_Weak_Transport_Layer_Security.md)" and in other OWASP documentation:
+Sensitive data must be protected when it is transmitted through the network. If data is transmitted over HTTPS or encrypted in another way the protection mechanism must not have limitations or vulnerabilities, as explained in the broader article [Testing for Weak Transport Layer Security](01-Testing_for_Weak_Transport_Layer_Security.md) and in other OWASP documentation:
 
 - [OWASP Top 10 2017 A3-Sensitive Data Exposure](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure).
 - [OWASP ASVS - Verification V9](https://github.com/OWASP/ASVS/blob/master/4.0/en/0x17-V9-Communications.md).
@@ -72,7 +72,7 @@ Another typical example is authentication forms which transmit user authenticati
 
 The Session ID Cookie must be transmitted over protected channels. If the cookie does not have the [secure flag](../06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.md) set, it is permitted for the application to transmit it unencrypted. Note below the setting of the cookie is done without the Secure flag, and the entire log in process is performed in HTTP and not HTTPS.
 
-```bash
+```http
 https://secure.example.com/login
 
 POST /login HTTP/1.1
@@ -89,8 +89,9 @@ Set-Cookie: JSESSIONID=BD99F321233AF69593EDF52B123B5BDA; expires=Fri, 01-Jan-201
 Location: private/
 Content-Length: 0
 Content-Type: text/html
+```
 
-----------------------------------------------------------
+```http
 http://example.com/private
 
 GET /private HTTP/1.1
@@ -103,7 +104,6 @@ HTTP/1.1 200 OK
 Content-Type: text/html;charset=UTF-8
 Content-Length: 730
 Date: Tue, 25 Dec 2013 00:00:00 GMT
-----------------------------------------------------------
 ```
 
 ### Example 4: Testing Password Sensitive Information in Source Code or Logs

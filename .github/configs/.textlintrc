@@ -259,7 +259,7 @@
 					"mark-up",
 					"markup"
 				],
-				// “mark up” as a verb is OK
+				// "mark up" as a verb is OK
 				[
 					"meta[- ]data",
 					"metadata"

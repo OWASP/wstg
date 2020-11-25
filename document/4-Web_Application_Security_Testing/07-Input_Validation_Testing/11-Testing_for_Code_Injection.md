@@ -8,7 +8,7 @@
 
 This section describes how a tester can check if it is possible to enter code as input on a web page and have it executed by the web server.
 
-In [Code Injection](https://owasp.org/www-community/attacks/Code_Injection) testing, a tester submits input that is processed by the web server as dynamic code or as an included file. These tests can target various server-side scripting engines, e.g.., ASP or PHP. Proper input validation and secure coding practices need to be employed to protect against these attacks.
+In [Code Injection](https://owasp.org/www-community/attacks/Code_Injection) testing, a tester submits input that is processed by the web server as dynamic code or as an included file. These tests can target various server-side scripting engines, e.g., ASP or PHP. Proper input validation and secure coding practices need to be employed to protect against these attacks.
 
 ## Test Objectives
 
@@ -35,18 +35,18 @@ Examine ASP code for user input used in execution functions. Can the user enter 
 
 ```asp
 <%
-If not isEmpty(Request( “Data” ) ) Then
+If not isEmpty(Request( "Data" ) ) Then
 Dim fso, f
 'User input Data is written to a file named data.txt
-Set fso = CreateObject(“Scripting.FileSystemObject”)
-Set f = fso.OpenTextFile(Server.MapPath( “data.txt” ), 8, True)
-f.Write Request(“Data”) & vbCrLf
+Set fso = CreateObject("Scripting.FileSystemObject")
+Set f = fso.OpenTextFile(Server.MapPath( "data.txt" ), 8, True)
+f.Write Request("Data") & vbCrLf
 f.close
 Set f = nothing
 Set fso = Nothing
 
 'Data.txt is executed
-Server.Execute( “data.txt” )
+Server.Execute( "data.txt" )
 
 Else
 %>

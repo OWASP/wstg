@@ -165,9 +165,9 @@ _(Modified version of this [snippet](https://stackoverflow.com/a/17246535/309913
 
 Following the identification any of the above attack vectors, an attack chain can be formed with different types of client-side attacks, such as [DOM based XSS](01-Testing_for_DOM-based_Cross_Site_Scripting.md) attacks.
 
-### Remediation
+## Remediation
 
-- Applications should be storing sensitive data on the server-side, and not on the client-side, in a secured manner following best practices.
+Applications should be storing sensitive data on the server-side, and not on the client-side, in a secured manner following best practices.
 
 ## References
 

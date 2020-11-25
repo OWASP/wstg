@@ -19,7 +19,7 @@ Points 1, 2, and 3 are essential for the vulnerability to be present, while poin
 
 1. Browsers automatically send information used to identify a user session. Suppose *site* is a site hosting a web application, and the user *victim* has just authenticated to *site*. In response, *site* sends *victim* a cookie that identifies requests sent by *victim* as belonging to *victim’s* authenticated session. Once the browser receives the cookie set by *site*, it will automatically send it along with any further requests directed to *site*.
 2. If the application does not make use of session-related information in URLs, then the application URLs, their parameters, and legitimate values may be identified. This may be accomplished by code analysis or by accessing the application and taking note of forms and URLs embedded in the HTML or JavaScript.
-3. "Known by the browser” refers to information such as cookies or HTTP-based authentication information (such as Basic Authentication and not form-based authentication), that are stored by the browser and subsequently present at each request directed towards an application area requesting that authentication. The vulnerabilities discussed next apply to applications that rely entirely on this kind of information to identify a user session.
+3. "Known by the browser" refers to information such as cookies or HTTP-based authentication information (such as Basic Authentication and not form-based authentication), that are stored by the browser and subsequently present at each request directed towards an application area requesting that authentication. The vulnerabilities discussed next apply to applications that rely entirely on this kind of information to identify a user session.
 
 For simplicity's sake, consider GET-accessible URLs (though the discussion applies as well to POST requests). If *victim* has already authenticated themselves, submitting another request causes the cookie to be automatically sent with it. The figure below illustrates the user accessing an application on `www.example.com`.
 
@@ -40,7 +40,7 @@ By using a tag such as `img`, as specified in point 4 above, it is not even nece
 <html>
     <body>
 ...
-<img src=”https://www.company.example/action” width=”0” height=”0”>
+<img src="https://www.company.example/action" width="0" height="0">
 ...
     </body>
 </html>
@@ -59,7 +59,7 @@ The fact that HTML content unrelated to the web application may refer to compone
 In integrated mail/browser environments, simply displaying an email message containing the image reference would result in the execution of the request to the web application with the associated browser cookie. Email messages may reference seemingly valid image URLs such as:
 
 ```html
-<img src=”https://[attacker]/picture.gif” width=”0” height=”0”>
+<img src="https://[attacker]/picture.gif" width="0" height="0">
 ```
 
 In this example, `[attacker]` is a site controlled by the attacker. By utilizing a redirect mechanism, the malicious site may use `http://[attacker]/picture.gif` to direct the victim to `http://[thirdparty]/action` and trigger the `action`.
@@ -70,11 +70,15 @@ Let’s suppose that the victim is logged on to a firewall web management consol
 
 Let's suppose the firewall web management console has a function that allows an authenticated user to delete a rule specified by its numerical ID, or all the rules in the configuration if the user specifies `*` (a dangerous feature in reality, but one that makes for a more interesting example). The delete page is shown next. Let’s suppose that the form – for the sake of simplicity – issues a GET request. To delete rule number one:
 
-`https://[target]/fwmgt/delete?rule=1`
+```text
+https://[target]/fwmgt/delete?rule=1
+```
 
 To delete all rules:
 
-`https://[target]/fwmgt/delete?rule=*`
+```text
+https://[target]/fwmgt/delete?rule=*
+```
 
 This example is intentionally naive, but shows in a simplified way the dangers of CSRF.
 
@@ -83,7 +87,9 @@ This example is intentionally naive, but shows in a simplified way the dangers o
 
 Using the form pictured in the figure above, entering the value `*` and clicking the Delete button will submit the following GET request:
 
-`https://www.company.example/fwmgt/delete?rule=*`
+```text
+https://www.company.example/fwmgt/delete?rule=*
+```
 
 This would delete all firewall rules.
 
@@ -92,7 +98,9 @@ This would delete all firewall rules.
 
 The user might also have accomplished the same results by manually submitting the URL:
 
-`https://[target]/fwmgt/delete?rule=*`
+```text
+https://[target]/fwmgt/delete?rule=*
+```
 
 Or by following a link pointing, directly or via a redirection, to the above URL. Or, again, by accessing an HTML page with an embedded `img` tag pointing to the same URL.
 
@@ -108,7 +116,7 @@ Self-vulnerable applications, i.e. applications that are used both as attack vec
 
 ## How to Test
 
-Audit the application to ascertain if its session management is vulnerable. If session management relies only on client-side values (information available to the browser), then the application is vulnerable. "Client-side values” refers to cookies and HTTP authentication credentials (Basic Authentication and other forms of HTTP authentication; not form-based authentication, which is an application-level authentication).
+Audit the application to ascertain if its session management is vulnerable. If session management relies only on client-side values (information available to the browser), then the application is vulnerable. "Client-side values" refers to cookies and HTTP authentication credentials (Basic Authentication and other forms of HTTP authentication; not form-based authentication, which is an application-level authentication).
 
 Resources accessible via HTTP GET requests are easily vulnerable, though POST requests can be automated via JavaScript and are vulnerable as well; therefore, the use of POST alone is not enough to correct the occurrence of CSRF vulnerabilities.
 
@@ -147,7 +155,7 @@ In case of web applications in which developers are utilizing JSON for browser t
 
 The POST request will be as follow:
 
-```html
+```http
 POST / HTTP/1.1
 Host: victimsite.com
 Content-Type: text/plain
@@ -169,8 +177,8 @@ When this data is sent as a POST request, the server will happily accept the nam
 
 ## References
 
-- [Peter W: “Cross-Site Request Forgeries”](https://web.archive.org/web/20160303230910/http://www.tux.org/~peterw/csrf.txt)
-- [Thomas Schreiber: “Session Riding”](https://web.archive.org/web/20160304001446/http://www.securenet.de/papers/Session_Riding.pdf)
+- [Peter W: "Cross-Site Request Forgeries"](https://web.archive.org/web/20160303230910/http://www.tux.org/~peterw/csrf.txt)
+- [Thomas Schreiber: "Session Riding"](https://web.archive.org/web/20160304001446/http://www.securenet.de/papers/Session_Riding.pdf)
 - [Oldest known post](https://web.archive.org/web/20000622042229/http://www.zope.org/Members/jim/ZopeSecurity/ClientSideTrojan)
 - [Cross-site Request Forgery FAQ](https://www.cgisecurity.com/csrf-faq.html)
 - [A Most-Neglected Fact About Cross Site Request Forgery (CSRF)](http://yehg.net/lab/pr0js/view.php/A_Most-Neglected_Fact_About_CSRF.pdf)

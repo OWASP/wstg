@@ -11,7 +11,7 @@ Account lockout mechanisms are used to mitigate brute force attacks. Some of the
 - Login password or username guessing attack.
 - Code guessing on any 2FA functionality or Security Questions.
 
- Account lockout mechanisms require a balance between protecting accounts from unauthorized access and protecting users from being denied authorized access. Accounts are typically locked after 3 to 5 unsuccessful attempts and can only be unlocked after a predetermined period of time, via a self-service unlock mechanism, or intervention by an administrator.
+Account lockout mechanisms require a balance between protecting accounts from unauthorized access and protecting users from being denied authorized access. Accounts are typically locked after 3 to 5 unsuccessful attempts and can only be unlocked after a predetermined period of time, via a self-service unlock mechanism, or intervention by an administrator.
 
 Despite it being easy to conduct brute force attacks, the result of a successful attack is dangerous as the attacker will have full access on the user account and with it all the functionality and services they have access to.
 
@@ -33,9 +33,9 @@ To evaluate the account lockout mechanism's ability to mitigate brute force pass
 3. Attempt to log in with an incorrect password 4 times.
 4. Successfully log in with the correct password, thereby showing that the lockout mechanism doesn't trigger after 4 incorrect authentication attempts.
 5. Attempt to log in with an incorrect password 5 times.
-6. Attempt to log in with the correct password. The application returns “Your account is locked out.”, thereby confirming that the account is locked out after 5 incorrect authentication attempts.
-7. Attempt to log in with the correct password 5 minutes later. The application returns “Your account is locked out.”, thereby showing that the lockout mechanism does not automatically unlock after 5 minutes.
-8. Attempt to log in with the correct password 10 minutes later. The application returns “Your account is locked out.”, thereby showing that the lockout mechanism does not automatically unlock after 10 minutes.
+6. Attempt to log in with the correct password. The application returns "Your account is locked out.", thereby confirming that the account is locked out after 5 incorrect authentication attempts.
+7. Attempt to log in with the correct password 5 minutes later. The application returns "Your account is locked out.", thereby showing that the lockout mechanism does not automatically unlock after 5 minutes.
+8. Attempt to log in with the correct password 10 minutes later. The application returns "Your account is locked out.", thereby showing that the lockout mechanism does not automatically unlock after 10 minutes.
 9. Successfully log in with the correct password 15 minutes later, thereby showing that the lockout mechanism automatically unlocks after a 10 to 15 minute period.
 
 A CAPTCHA may hinder brute force attacks, but they can come with their own set of weaknesses, and should not replace a lockout mechanism. A CAPTCHA mechanism may be bypassed if implemented incorrectly. CAPTCHA flaws include:
@@ -83,7 +83,7 @@ Factors to consider when implementing an account lockout mechanism:
 3. Is a client-side lockout mechanism being used (e.g., JavaScript)? (If so, disable the client-side code to test.)
 4. Number of unsuccessful log in attempts before lockout. If the lockout threshold is to low then valid users may be locked out too often. If the lockout threshold is to high then the more attempts an attacker can make to brute force the account before it will be locked. Depending on the application's purpose, a range of 5 to 10 unsuccessful attempts is typical lockout threshold.
 5. How will accounts be unlocked?
-    1. Manually by an administrator: this is the most secure lockout method, but may cause inconvenience to users and take up the administrator's “valuable” time.
+    1. Manually by an administrator: this is the most secure lockout method, but may cause inconvenience to users and take up the administrator's "valuable" time.
         1. Note that the administrator should also have a recovery method in case his account gets locked.
         2. This unlock mechanism may lead to a denial-of-service attack if an attacker's goal is to lock the accounts of all users of the web application.
     2. After a period of time: What is the lockout duration? Is this sufficient for the application being protected? E.g. a 5 to 30 minute lockout duration may be a good compromise between mitigating brute force attacks and inconveniencing valid users.

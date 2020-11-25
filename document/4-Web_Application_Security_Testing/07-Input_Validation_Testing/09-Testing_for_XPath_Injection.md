@@ -47,7 +47,7 @@ An XPath query that returns the account whose username is `gandalf` and the pass
 
 If the application does not properly filter user input, the tester will be able to inject XPath code and interfere with the query result. For instance, the tester could input the following values:
 
-```txt
+```text
 Username: ' or '1' = '1
 Password: ' or '1' = '1
 ```
@@ -64,5 +64,5 @@ If there is no knowledge about the XML data internal details and if the applicat
 
 ### Whitepapers
 
-- [Amit Klein: “Blind XPath Injection”](http://dl.packetstormsecurity.net/papers/bypass/Blind_XPath_Injection_20040518.pdf)
+- [Amit Klein: "Blind XPath Injection"](http://dl.packetstormsecurity.net/papers/bypass/Blind_XPath_Injection_20040518.pdf)
 - [XPath 1.0 specifications](https://www.w3.org/TR/1999/REC-xpath-19991116/)

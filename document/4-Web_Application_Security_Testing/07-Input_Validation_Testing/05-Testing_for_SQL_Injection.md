@@ -16,7 +16,7 @@ In general the way web applications construct SQL statements involving SQL synta
 
 In the example above the variable `$id` contains user-supplied data, while the remainder is the SQL static part supplied by the programmer; making the SQL statement dynamic.
 
-Because the way it was constructed, the user can supply crafted input trying to make the original SQL statement execute further actions of the user's choice. The example below illustrates the user-supplied data “10 or 1=1”, changing the logic of the SQL statement, modifying the WHERE clause adding a condition “or 1=1”.
+Because the way it was constructed, the user can supply crafted input trying to make the original SQL statement execute further actions of the user's choice. The example below illustrates the user-supplied data "10 or 1=1", changing the logic of the SQL statement, modifying the WHERE clause adding a condition "or 1=1".
 
 `select title, text from news where id=10 or 1=1`
 
@@ -536,7 +536,7 @@ EXEC(@SQLivar)
 
 #### Alternative Expression of 'or 1 = 1'
 
-```text
+```sql
 OR 'SQLi' = 'SQL'+'i'
 OR 'SQLi' &gt; 'S'
 or 20 &gt; 1
@@ -579,15 +579,15 @@ Technology specific Testing Guide pages have been created for the following DBMS
 
 ### Whitepapers
 
-- [Victor Chapela: “Advanced SQL Injection”](http://cs.unh.edu/~it666/reading_list/Web/advanced_sql_injection.pdf)
-- [Chris Anley: “More Advanced SQL Injection”](https://www.cgisecurity.com/lib/more_advanced_sql_injection.pdf)
-- [David Litchfield: “Data-mining with SQL Injection and Inference”](https://dl.packetstormsecurity.net/papers/attack/sqlinference.pdf)
-- [Imperva: “Blinded SQL Injection”](https://www.imperva.com/lg/lgw.asp?pid=369)
-- [Ferruh Mavituna: “SQL Injection Cheat Sheet”](http://ferruh.mavituna.com/sql-injection-cheatsheet-oku/)
-- [Kevin Spett from SPI Dynamics: “SQL Injection”](https://docs.google.com/file/d/0B5CQOTY4YRQCSWRHNkNaaFMyQTA/edit)
-- [Kevin Spett from SPI Dynamics: “Blind SQL Injection”](https://repo.zenk-security.com/Techniques%20d.attaques%20%20.%20%20Failles/Blind_SQLInjection.pdf)
-- [“ZeQ3uL” (Prathan Phongthiproek) and “Suphot Boonchamnan”: “Beyond SQLi: Obfuscate and Bypass”](https://www.exploit-db.com/papers/17934/)
-- [Adi Kaploun and Eliran Goshen, Check Point Threat Intelligence & Research Team: “The Latest SQL Injection Trends”](http://blog.checkpoint.com/2015/05/07/latest-sql-injection-trends/)
+- [Victor Chapela: "Advanced SQL Injection"](http://cs.unh.edu/~it666/reading_list/Web/advanced_sql_injection.pdf)
+- [Chris Anley: "More Advanced SQL Injection"](https://www.cgisecurity.com/lib/more_advanced_sql_injection.pdf)
+- [David Litchfield: "Data-mining with SQL Injection and Inference"](https://dl.packetstormsecurity.net/papers/attack/sqlinference.pdf)
+- [Imperva: "Blinded SQL Injection"](https://www.imperva.com/lg/lgw.asp?pid=369)
+- [Ferruh Mavituna: "SQL Injection Cheat Sheet"](http://ferruh.mavituna.com/sql-injection-cheatsheet-oku/)
+- [Kevin Spett from SPI Dynamics: "SQL Injection"](https://docs.google.com/file/d/0B5CQOTY4YRQCSWRHNkNaaFMyQTA/edit)
+- [Kevin Spett from SPI Dynamics: "Blind SQL Injection"](https://repo.zenk-security.com/Techniques%20d.attaques%20%20.%20%20Failles/Blind_SQLInjection.pdf)
+- ["ZeQ3uL" (Prathan Phongthiproek) and "Suphot Boonchamnan": "Beyond SQLi: Obfuscate and Bypass"](https://www.exploit-db.com/papers/17934/)
+- [Adi Kaploun and Eliran Goshen, Check Point Threat Intelligence & Research Team: "The Latest SQL Injection Trends"](http://blog.checkpoint.com/2015/05/07/latest-sql-injection-trends/)
 
 ### Documentation on SQL Injection Vulnerabilities in Products
 

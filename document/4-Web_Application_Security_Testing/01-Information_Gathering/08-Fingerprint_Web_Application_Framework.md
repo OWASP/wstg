@@ -137,8 +137,8 @@ URLs may include file extensions, which can also help to identify the web platfo
 
 For example, the OWASP wiki used PHP:
 
-```php
-https://www.owasp.org/index.php?title=Fingerprint_Web_Application_Framework&action=edit&section=4
+```text
+https://wiki.owasp.org/index.php?title=Fingerprint_Web_Application_Framework&action=edit&section=4
 ```
 
 Here are some common web file extensions and associated technologies:
@@ -207,11 +207,15 @@ As can be seen in the following screenshot the listed file system path points to
 
 | Framework         | Keyword                        |
 |-------------------|--------------------------------|
-| Adobe ColdFusion  | `&lt;!-- START headerTags.cfm` |
+| Adobe ColdFusion  | `<!-- START headerTags.cfm` |
 | Microsoft ASP.NET | `__VIEWSTATE`                  |
-| ZK                | `&lt;!-- ZK`                   |
-| Business Catalyst | `&lt;!-- BC_OBNW --&gt;`       |
+| ZK                | `<!-- ZK`                   |
+| Business Catalyst | `<!-- BC_OBNW -->`       |
 | Indexhibit        | `ndxz-studio`                  |
+
+## Remediation
+
+While efforts can be made to use different cookie names (through changing configs), hiding or changing file/directory paths (through rewriting or source code changes), removing known headers, etc. such efforts boil down to "security through obscurity". System owners/admins should recognize that those efforts only slow down the most basic of adversaries. The time/effort may be better used on stakeholder awareness and solution maintenance activities.
 
 ## Tools
 
@@ -247,13 +251,9 @@ Sample output of a plug-in is presented on a screenshot below.
 ![Wappalyzer Output for OWASP Website](images/Owasp-wappalyzer.png)\
 *Figure 4.1.8-9: Wappalyzer Output for OWASP Website*
 
-## Remediation
-
-While efforts can be made to use different cookie names (through changing configs), hiding or changing file/directory paths (through rewriting or source code changes), removing known headers, etc. such efforts boil down to "security through obscurity". System owners/admins should recognize that those efforts only slow down the most basic of adversaries. The time/effort may be better used on stakeholder awareness and solution maintenance activities.
-
 ## References
 
 ### Whitepapers
 
-- [Saumil Shah: “An Introduction to HTTP fingerprinting”](https://web.archive.org/web/20190526182734/https://net-square.com/httprint_paper.html)
-- [Anant Shrivastava : “Web Application Finger Printing”](https://anantshri.info/articles/web_app_finger_printing.html)
+- [Saumil Shah: "An Introduction to HTTP fingerprinting"](https://web.archive.org/web/20190526182734/https://net-square.com/httprint_paper.html)
+- [Anant Shrivastava : "Web Application Finger Printing"](https://anantshri.info/articles/web_app_finger_printing.html)

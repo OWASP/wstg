@@ -1,16 +1,16 @@
 # Test for Process Timing
 
-|ID               |
-|-----------------|
+|ID          |
+|------------|
 |WSTG-BUSL-04|
 
 ## Summary
 
-It is possible that attackers can gather information on an application by monitoring the time it takes to complete a task or give a respond. Additionally, attackers may be able to manipulate and break designed business process flows by simply keeping active sessions open and not submitting their transactions in the “expected” time frame.
+It is possible that attackers can gather information on an application by monitoring the time it takes to complete a task or give a respond. Additionally, attackers may be able to manipulate and break designed business process flows by simply keeping active sessions open and not submitting their transactions in the "expected" time frame.
 
 Process timing logic vulnerabilities is unique in that these manual misuse cases should be created considering execution and transaction timing that are application/system specific.
 
-Processing timing may give/leak information on what is being done in the application/system background processes. If an application allows users to guess what the particulate next outcome will be by processing time variations, users will be able to adjust accordingly and change behavior based on the expectation and “game the system”.
+Processing timing may give/leak information on what is being done in the application/system background processes. If an application allows users to guess what the particulate next outcome will be by processing time variations, users will be able to adjust accordingly and change behavior based on the expectation and "game the system".
 
 ### Example 1
 
@@ -53,4 +53,4 @@ The tester should draw a diagram of how the process flows, the injection points,
 
 Develop applications with processing time in mind. If attackers could possibly gain some type of advantage from knowing the different processing times and results add extra steps or processing so that no matter the results they are provided in the same time frame.
 
-Additionally, the application/system must have mechanism in place to not allow attackers to extend transactions over an “acceptable” amount of time. This may be done by canceling or resetting transactions after a specified amount of time has passed like some ticket vendors are now using.
+Additionally, the application/system must have mechanism in place to not allow attackers to extend transactions over an "acceptable" amount of time. This may be done by canceling or resetting transactions after a specified amount of time has passed like some ticket vendors are now using.

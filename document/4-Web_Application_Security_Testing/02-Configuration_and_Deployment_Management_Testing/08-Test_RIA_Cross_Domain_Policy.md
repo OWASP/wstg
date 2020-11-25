@@ -87,15 +87,12 @@ After retrieving all the policy files, the permissions allowed should be be chec
 
 ## References
 
-### Whitepapers
-
-UCSD: [Analyzing the Crossdomain Policies of Flash Applications](http://cseweb.ucsd.edu/~hovav/dist/crossdomain.pdf)
-
-- Adobe: [“Cross-domain policy file specification”](http://www.adobe.com/devnet/articles/crossdomain_policy_file_spec.html)
-- Adobe: [“Cross-domain policy file usage recommendations for Flash Player”](http://www.adobe.com/devnet/flashplayer/articles/cross_domain_policy.html)
-- Oracle: [“Cross-Domain XML Support”](http://www.oracle.com/technetwork/java/javase/plugin2-142482.html#CROSSDOMAINXML)
-- MSDN: [“Making a Service Available Across Domain Boundaries”](http://msdn.microsoft.com/en-us/library/cc197955(v=vs.95).aspx)
-- MSDN: [“Network Security Access Restrictions in Silverlight”](http://msdn.microsoft.com/en-us/library/cc645032(v=vs.95).aspx)
-- Stefan Esser: [“Poking new holes with Flash Crossdomain Policy Files”](http://www.hardened-php.net/library/poking_new_holes_with_flash_crossdomain_policy_files.html)
-- Jeremiah Grossman: [“Crossdomain.xml Invites Cross-site Mayhem"](http://jeremiahgrossman.blogspot.com/2008/05/crossdomainxml-invites-cross-site.html)
+- Adobe: ["Cross-domain policy file specification"](http://www.adobe.com/devnet/articles/crossdomain_policy_file_spec.html)
+- Adobe: ["Cross-domain policy file usage recommendations for Flash Player"](http://www.adobe.com/devnet/flashplayer/articles/cross_domain_policy.html)
+- Oracle: ["Cross-Domain XML Support"](http://www.oracle.com/technetwork/java/javase/plugin2-142482.html#CROSSDOMAINXML)
+- MSDN: ["Making a Service Available Across Domain Boundaries"](http://msdn.microsoft.com/en-us/library/cc197955(v=vs.95).aspx)
+- MSDN: ["Network Security Access Restrictions in Silverlight"](http://msdn.microsoft.com/en-us/library/cc645032(v=vs.95).aspx)
+- Stefan Esser: ["Poking new holes with Flash Crossdomain Policy Files"](http://www.hardened-php.net/library/poking_new_holes_with_flash_crossdomain_policy_files.html)
+- Jeremiah Grossman: ["Crossdomain.xml Invites Cross-site Mayhem"](http://jeremiahgrossman.blogspot.com/2008/05/crossdomainxml-invites-cross-site.html)
 - Google Doctype: ["Introduction to Flash security"](http://code.google.com/p/doctype-mirror/wiki/ArticleFlashSecurity)
+- UCSD: [Analyzing the Crossdomain Policies of Flash Applications](http://cseweb.ucsd.edu/~hovav/dist/crossdomain.pdf)

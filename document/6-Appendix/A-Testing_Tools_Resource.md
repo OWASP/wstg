@@ -1,6 +1,6 @@
 # Testing Tools Resource
 
-## General Testing
+## General Web Testing
 
 - [OWASP ZAP](https://www.zaproxy.org)
   - The Zed Attack Proxy (ZAP) is an easy to use integrated penetration testing tool for finding vulnerabilities in web applications. It is designed to be used by people with a wide range of security experience and as such is ideal for developers and functional testers who are new to penetration testing.
@@ -11,12 +11,12 @@
   - View HTTP headers of a page and while browsing.
 - [Firefox Tamper Data](https://addons.mozilla.org/en-US/firefox/addon/tamper-data-for-ff-quantum/)
   - Use tamperdata to view and modify HTTP/HTTPS headers and post parameters
-- [Firefox Web Developer Tools](https://addons.mozilla.org/en-US/firefox/addon/web-developer/)
+- [Firefox Web Developer](https://addons.mozilla.org/en-US/firefox/addon/web-developer/)
   - The Web Developer extension adds various web developer tools to the browser.
 - [w3af](https://w3af.org)
   - w3af is a Web Application Attack and Audit Framework. The project’s goal is finding and exploiting web application vulnerabilities.
-- [Web Developer toolbar](https://chrome.google.com/webstore/detail/bfbameneiokkgbdmiekhjnmfkcnldhhm)
-  - The Web Developer extension adds a toolbar button to the browser with various web developer tools. This is the official port of the Web Developer extension for Firefox.
+- [Chrome Web Developer](https://chrome.google.com/webstore/detail/bfbameneiokkgbdmiekhjnmfkcnldhhm)
+  - The Web Developer extension adds a toolbar button to the browser with various web developer tools. This is the official port of the Web Developer extension for Chrome.
 - [HTTP Request Maker](https://chrome.google.com/webstore/detail/kajfghlhfkcocafkcjlajldicbikpgnp?hl=en-US)
   - Request Maker is a tool for penetration testing. With it you can easily capture requests made by web pages, tamper with the URL, headers and POST data and, of course, make new requests
 - [Cookie Editor](https://chrome.google.com/webstore/detail/fngmhnnpilhplaeedifhccceomclgfbg?hl=en-US)
@@ -47,19 +47,22 @@
 - [SSLScan windows](https://github.com/rbsec/sslscan/releases)
 - [SSLLabs](https://www.ssllabs.com/ssltest/)
 
-#### Testing for Brute Force Password
+#### Testing for Brute Force Attacks
 
-- [THC Hydra](https://github.com/vanhauser-thc/thc-hydra)
+##### Password Crackers
+
 - [John the Ripper](https://www.openwall.com/john/)
-- [Medusa](https://github.com/jmk-foofus/medusa)
-- [Ncat](https://nmap.org/ncat/)
-- [HashCat](https://hashcat.net/hashcat/#features-algos)
-- [Password Dictionary](https://crackstation.net/crackstation-wordlist-password-cracking-dictionary.htm)
+- [HashCat](https://hashcat.net/hashcat/)
+
+##### Remote Brute Force
+
+- [Patator](https://github.com/lanjelot/patator)
+- [THC Hydra](https://github.com/vanhauser-thc/thc-hydra)
 
 #### Testing Buffer Overflow
 
 - [OllyDbg](http://www.ollydbg.de)
-  - “A windows based debugger used for analyzing buffer overflow vulnerabilities”
+  - "A windows based debugger used for analyzing buffer overflow vulnerabilities"
 - [Spike](https://www.immunitysec.com/downloads/SPIKE2.9.tgz)
   - A fuzzer framework that can be used to explore vulnerabilities and perform length testing
 - [Brute Force Binary Tester (BFB)](https://sourceforge.net/projects/bfbtester/)
@@ -69,7 +72,7 @@
 
 #### Fuzzer
 
-- [Wfuzz](http://www.darknet.org.uk/2007/07/wfuzz-a-tool-for-bruteforcingfuzzing-web-applications/)
+- [Wfuzz](https://github.com/xmendez/wfuzz)
 
 #### Googling
 
@@ -94,16 +97,15 @@
 - [Netsparker](https://www.netsparker.com/web-vulnerability-scanner/)
 - [SAINT](https://www.carson-saint.com/)
 - [QualysGuard WAS](https://www.qualys.com/apps/web-app-scanning/)
-- [IndusGuard Web](https://www.indusface.com/products/application-security/web-application-scanning/)
+- [IndusFace WAS](https://www.indusface.com/web-application-scanning.php)
 - [Fortify WebInspect](https://www.microfocus.com/en-us/solutions/application-security)
 
-### Linux Distrubtion
+### Linux Distrubtions
 
-- [PenTestBox](https://pentestbox.org/)
+- [Kali](https://www.kali.org/)
+- [Parrot](https://www.parrotsec.org/)
 - [Samurai](https://github.com/SamuraiWTF/samuraiwtf)
 - [Santoku](https://sourceforge.net/projects/santoku/)
-- [ParrotSecurity](https://www.parrotsec.org/)
-- [Kali](https://www.kali.org/)
 - [BlackArch](https://blackarch.org/downloads.html)
 - [PenToo](https://www.pentoo.ch/)
 

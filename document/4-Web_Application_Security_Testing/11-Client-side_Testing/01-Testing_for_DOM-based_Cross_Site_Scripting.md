@@ -24,7 +24,7 @@ document.write("Site is at: " + document.location.href + ".");
 </script>
 ```
 
-An attacker may append `#<script>alert('xss')</script>` to the affected page URL which would, when executed, display the alert box. In this instance, the appended code would not be sent to the server as everything after the `#` character is not treated as part of the query by the browser, but as a fragment. In this example, the code is immediately executed and an alert of “xss” is displayed by the page. Unlike the more common types of cross site scripting ([reflected and stored](https://owasp.org/www-community/attacks/xss/) in which the code is sent to the server and then back to the browser, this is executed directly in the user's browser without server contact.
+An attacker may append `#<script>alert('xss')</script>` to the affected page URL which would, when executed, display the alert box. In this instance, the appended code would not be sent to the server as everything after the `#` character is not treated as part of the query by the browser, but as a fragment. In this example, the code is immediately executed and an alert of "xss" is displayed by the page. Unlike the more common types of cross site scripting ([reflected and stored](https://owasp.org/www-community/attacks/xss/) in which the code is sent to the server and then back to the browser, this is executed directly in the user's browser without server contact.
 
 The [consequences](https://owasp.org/www-community/attacks/xss/) of DOM-based XSS flaws are as wide ranging as those seen in more well known forms of XSS, including cookie retrieval, further malicious script injection, etc., and should therefore be treated with the same severity.
 
@@ -45,14 +45,14 @@ User input comes in two main forms:
 Here are two examples of how the server may insert data into JavaScript:
 
 ```js
-var data = `“<escaped data from the server>”`;
-var result = someFunction(`“<escaped data from the server>”`);
+var data = "<escaped data from the server>";
+var result = someFunction("<escaped data from the server>");
 ```
 
 Here are two examples of input from client-side JavaScript objects:
 
 ```js
-var data = window.location;`
+var data = window.location;
 var result = someFunction(window.referrer);
 ```
 

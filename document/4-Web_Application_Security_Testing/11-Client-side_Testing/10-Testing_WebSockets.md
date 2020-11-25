@@ -35,20 +35,15 @@ As with any data originating from untrusted sources, the data should be properly
    - Inspect the client-side source code for the `ws://` or `wss://` URI scheme.
    - Use Google Chrome's Developer Tools to view the Network WebSocket communication.
    - Use [ZAP's](https://www.zaproxy.org) WebSocket tab.
-
 2. Origin.
    - Using a WebSocket client (one can be found in the [Tools](#Tools) section below) attempt to connect to the remote WebSocket server. If a connection is established the server may not be checking the origin header of the WebSocket handshake.
-
 3. Confidentiality and Integrity.
    - Check that the WebSocket connection is using SSL to transport sensitive information `wss://`.
    - Check the SSL Implementation for security issues (Valid Certificate, BEAST, CRIME, RC4, etc). Refer to the [Testing for Weak Transport Layer Security](../09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_Transport_Layer_Security.md) section of this guide.
-
 4. Authentication.
    - WebSockets do not handle authentication, normal black-box authentication tests should be carried out. Refer to the [Authentication Testing](../04-Authentication_Testing/README.md) sections of this guide.
-
 5. Authorization.
    - WebSockets do not handle authorization, normal black-box authorization tests should be carried out. Refer to the [Authorization Testing](../05-Authorization_Testing/README.md) sections of this guide.
-
 6. Input Sanitization.
    - Use [ZAP's](https://www.zaproxy.org) WebSocket tab to replay and fuzz WebSocket request and responses. Refer to the [Testing for Data Validation](../07-Input_Validation_Testing/README.md) sections of this guide.
 
@@ -73,20 +68,10 @@ Gray-box testing is similar to black-box testing. In gray-box testing, the pen-t
 ## Tools
 
 - [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
-
-ZAP is an easy to use integrated penetration testing tool for finding vulnerabilities in web applications. It is designed to be used by people with a wide range of security experience and as such is ideal for developers and functional testers who are new to penetration testing. ZAP provides automated scanners as well as a set of tools that allow you to find security vulnerabilities manually.
-
 - [WebSocket Client](https://github.com/ethicalhack3r/scripts/blob/master/WebSockets.html)
-
-A WebSocket client that can be used to interact with a WebSocket server.
-
 - [Google Chrome Simple WebSocket Client](https://chrome.google.com/webstore/detail/simple-websocket-client/pfdhoblngboilpfeibdedpjgfnlcodoo?hl=en)
 
-Construct custom Web Socket requests and handle responses to directly test your Web Socket services.
-
 ## References
-
-### Whitepapers
 
 - [HTML5 Rocks - Introducing WebSockets: Bringing Sockets to the Web](https://www.html5rocks.com/en/tutorials/websockets/basics/)
 - [W3C - The WebSocket API](https://html.spec.whatwg.org/multipage/web-sockets.html#network)

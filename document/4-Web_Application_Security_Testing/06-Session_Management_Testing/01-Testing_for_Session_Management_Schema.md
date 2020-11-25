@@ -38,15 +38,15 @@ Another pattern of attack consists of overflowing a cookie. Strictly speaking, t
 
 All interaction between the client and application should be tested at least against the following criteria:
 
-- Are all Set-Cookie directives tagged as Secure?
+- Are all `Set-Cookie` directives tagged as `Secure`?
 - Do any Cookie operations take place over unencrypted transport?
 - Can the Cookie be forced over unencrypted transport?
 - If so, how does the application maintain security?
 - Are any Cookies persistent?
-- What Expires= times are used on persistent cookies, and are they reasonable?
+- What `Expires` times are used on persistent cookies, and are they reasonable?
 - Are cookies that are expected to be transient configured as such?
-- What HTTP/1.1 Cache-Control settings are used to protect Cookies?
-- What HTTP/1.0 Cache-Control settings are used to protect Cookies?
+- What HTTP/1.1 `Cache-Control` settings are used to protect Cookies?
+- What HTTP/1.0 `Cache-Control` settings are used to protect Cookies?
 
 #### Cookie Collection
 
@@ -54,15 +54,15 @@ The first step required to manipulate the cookie is to understand how the applic
 
 - How many cookies are used by the application?
 
-Surf the application. Note when cookies are created. Make a list of received cookies, the page that sets them (with the set-cookie directive), the domain for which they are valid, their value, and their characteristics.
+  Surf the application. Note when cookies are created. Make a list of received cookies, the page that sets them (with the set-cookie directive), the domain for which they are valid, their value, and their characteristics.
 
 - Which parts of the application generate or modify the cookie?
 
-Surfing the application, find which cookies remain constant and which get modified. What events modify the cookie?
+  Surfing the application, find which cookies remain constant and which get modified. What events modify the cookie?
 
 - Which parts of the application require this cookie in order to be accessed and utilized?
 
-Find out which parts of the application need a cookie. Access a page, then try again without the cookie, or with a modified value of it. Try to map which cookies are used where.
+  Find out which parts of the application need a cookie. Access a page, then try again without the cookie, or with a modified value of it. Try to map which cookies are used where.
 
 A spreadsheet mapping each cookie to the corresponding application parts and the related information can be a valuable output of this phase.
 
@@ -74,22 +74,17 @@ The session tokens (Cookie, SessionID or Hidden Field) themselves should be exam
 
 The first stage is to examine the structure and content of a Session ID provided by the application. A common mistake is to include specific data in the Token instead of issuing a generic value and referencing real data server-side.
 
-If the Session ID is clear-text, the structure and pertinent data may be immediately obvious as the following:
+If the Session ID is clear-text, the structure and pertinent data may be immediately obvious such as `192.168.100.1:owaspuser:password:15:58`.
 
-`192.168.100.1:owaspuser:password:15:58`
+If part or the entire token appears to be encoded or hashed, it should be compared to various techniques to check for obvious obfuscation. For example the string `192.168.100.1:owaspuser:password:15:58` is represented in Hex, Base64, and as an MD5 hash:
 
-If part or the entire token appears to be encoded or hashed, it should be compared to various techniques to check for obvious obfuscation. For example the string “192.168.100.1:owaspuser:password:15:58” is represented in Hex, Base64 and as an MD5 hash:
-
-- Hex `3139322E3136382E3130302E313A6F77617370757365723A70617373776F72643A31353A3538`
-
-- Base64  `MTkyLjE2OC4xMDAuMTpvd2FzcHVzZXI6cGFzc3dvcmQ6MTU6NTg=`
-- MD5 `01c2fc4f0a817afd8366689bd29dd40a`
+- Hex: `3139322E3136382E3130302E313A6F77617370757365723A70617373776F72643A31353A3538`
+- Base64: `MTkyLjE2OC4xMDAuMTpvd2FzcHVzZXI6cGFzc3dvcmQ6MTU6NTg=`
+- MD5: `01c2fc4f0a817afd8366689bd29dd40a`
 
 Having identified the type of obfuscation, it may be possible to decode back to the original data. In most cases, however, this is unlikely. Even so, it may be useful to enumerate the encoding in place from the format of the message. Furthermore, if both the format and obfuscation technique can be deduced, automated brute-force attacks could be devised.
 
-Hybrid tokens may include information such as IP address or User ID together with an encoded portion, as the following:
-
-`owaspuser:192.168.100.1:a7656fafe94dae72b1e1487670148412`
+Hybrid tokens may include information such as IP address or User ID together with an encoded portion, such as `owaspuser:192.168.100.1:a7656fafe94dae72b1e1487670148412`.
 
 Having analyzed a single session token, the representative sample should be examined. A simple analysis of the tokens should immediately reveal any obvious patterns. For example, a 32 bit token may include 16 bits of static data and 16 bits of variable data. This may indicate that the first 16 bits represent a fixed attribute of the user – e.g. the username or IP address. If the second 16 bit chunk is incrementing at a regular rate, it may indicate a sequential or even time-based element to the token generation. See examples.
 
@@ -128,11 +123,11 @@ Now that the tester has enumerated the cookies and has a general idea of their u
 These characteristics are summarized below:
 
 1. Unpredictability: a cookie must contain some amount of hard-to-guess data. The harder it is to forge a valid cookie, the harder is to break into legitimate user's session. If an attacker can guess the cookie used in an active session of a legitimate user, they will be able to fully impersonate that user (session hijacking). In order to make a cookie unpredictable, random values or cryptography can be used.
-2. Tamper resistance: a cookie must resist malicious attempts of modification. If the tester receives a cookie like IsAdmin=No, it is trivial to modify it to get administrative rights, unless the application performs a double check (for instance, appending to the cookie an encrypted hash of its value)
+2. Tamper resistance: a cookie must resist malicious attempts of modification. If the tester receives a cookie like `IsAdmin=No`, it is trivial to modify it to get administrative rights, unless the application performs a double check (for instance, appending to the cookie an encrypted hash of its value)
 3. Expiration: a critical cookie must be valid only for an appropriate period of time and must be deleted from the disk or memory afterwards to avoid the risk of being replayed. This does not apply to cookies that store non-critical data that needs to be remembered across sessions (e.g., site look-and-feel).
-4. “Secure” flag: a cookie whose value is critical for the integrity of the session should have this flag enabled in order to allow its transmission only in an encrypted channel to deter eavesdropping.
+4. `Secure` flag: a cookie whose value is critical for the integrity of the session should have this flag enabled in order to allow its transmission only in an encrypted channel to deter eavesdropping.
 
-The approach here is to collect a sufficient number of instances of a cookie and start looking for patterns in their value. The exact meaning of “sufficient” can vary from a handful of samples, if the cookie generation method is very easy to break, to several thousands, if the tester needs to proceed with some mathematical analysis (e.g., chi-squares, attractors. See later for more information).
+The approach here is to collect a sufficient number of instances of a cookie and start looking for patterns in their value. The exact meaning of "sufficient" can vary from a handful of samples, if the cookie generation method is very easy to break, to several thousands, if the tester needs to proceed with some mathematical analysis (e.g., chi-squares, attractors. See later for more information).
 
 It is important to pay particular attention to the workflow of the application, as the state of a session can have a heavy impact on collected cookies. A cookie collected before being authenticated can be very different from a cookie obtained after the authentication.
 
@@ -147,7 +142,9 @@ Examples of checks to be performed at this stage include:
 
 An example of an easy-to-spot structured cookie is the following:
 
-`ID=5a0acfc7ffeb919:CR=1:TM=1120514521:LM=1120514521:S=j3am5KzC4v01ba3q`
+```text
+ID=5a0acfc7ffeb919:CR=1:TM=1120514521:LM=1120514521:S=j3am5KzC4v01ba3q
+```
 
 This example shows 5 different fields, carrying different types of data:
 
@@ -156,9 +153,7 @@ This example shows 5 different fields, carrying different types of data:
 - TM and LM – large integer. (And curiously they hold the same value. Worth to see what happens modifying one of them)
 - S – alphanumeric
 
-Even when no delimiters are used, having enough samples can help. As an example, let's look at the following series:
-
-`0123456789abcdef`
+Even when no delimiters are used, having enough samples can help understand the structure.
 
 #### Brute Force Attacks
 
@@ -176,15 +171,15 @@ If the tester has access to the session management schema implementation, they c
 
 - Random Session Token
 
-The Session ID or Cookie issued to the client should not be easily predictable (don't use linear algorithms based on predictable variables such as the client IP address). The use of cryptographic algorithms with key length of 256 bits is encouraged (like AES).
+  The Session ID or Cookie issued to the client should not be easily predictable (don't use linear algorithms based on predictable variables such as the client IP address). The use of cryptographic algorithms with key length of 256 bits is encouraged (like AES).
 
 - Token length
 
-Session ID will be at least 50 characters length.
+  Session ID will be at least 50 characters length.
 
 - Session Time-out
 
-Session token should have a defined time-out (it depends on the criticality of the application managed data)
+  Session token should have a defined time-out (it depends on the criticality of the application managed data)
 
 - Cookie configuration:
   - non-persistent: only RAM memory
@@ -203,12 +198,12 @@ More information here: [Testing for cookies attributes](02-Testing_for_Cookies_A
 
 ### Whitepapers
 
-- [RFC 2965 “HTTP State Management Mechanism”](https://tools.ietf.org/html/rfc2965)
-- [RFC 1750 “Randomness Recommendations for Security”](https://www.ietf.org/rfc/rfc1750.txt)
-- [Michal Zalewski: “Strange Attractors and TCP/IP Sequence Number Analysis” (2001)](http://lcamtuf.coredump.cx/oldtcp/tcpseq.html)
-- [Michal Zalewski: “Strange Attractors and TCP/IP Sequence Number Analysis - One Year Later” (2002)](http://lcamtuf.coredump.cx/newtcp/)
+- [RFC 2965 "HTTP State Management Mechanism"](https://tools.ietf.org/html/rfc2965)
+- [RFC 1750 "Randomness Recommendations for Security"](https://www.ietf.org/rfc/rfc1750.txt)
+- [Michal Zalewski: "Strange Attractors and TCP/IP Sequence Number Analysis" (2001)](http://lcamtuf.coredump.cx/oldtcp/tcpseq.html)
+- [Michal Zalewski: "Strange Attractors and TCP/IP Sequence Number Analysis - One Year Later" (2002)](http://lcamtuf.coredump.cx/newtcp/)
 - [Correlation Coefficient](http://mathworld.wolfram.com/CorrelationCoefficient.html)
 - [ENT](https://fourmilab.ch/random/)
 - [DMA[2005-0614a] - 'Global Hauri ViRobot Server cookie overflow'](https://seclists.org/lists/fulldisclosure/2005/Jun/0188.html)
-- [Gunter Ollmann: “Web Based Session Management”](http://www.technicalinfo.net)
+- [Gunter Ollmann: "Web Based Session Management"](http://www.technicalinfo.net)
 - [OWASP Code Review Guide](https://wiki.owasp.org/index.php/Category:OWASP_Code_Review_Project)

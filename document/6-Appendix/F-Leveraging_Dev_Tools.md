@@ -35,7 +35,7 @@ Opening Dev Tools can be accomplished in a number of ways.
 | Encoding and Decoding | Y       | Y       | Y       | Y      |
 | Responsive Design Mode| Y       | Y       | Y       | Y      |
 
-`*` Anything that applies to Google Chrome should be applicable to "New" Edge.
+`*` Anything that applies to Google Chrome should be applicable to all Chromium based applications. (Which includes Microsoft rebadging Edge around 2019/2020.)
 
 ## User-Agent Switching
 
@@ -46,7 +46,7 @@ Opening Dev Tools can be accomplished in a number of ways.
 ### Google Chrome
 
 1. Click on triple dot 'kabob' menu on the right side of the Developer Tools pane, select `More tools` then select `Network conditions`.
-2. Un-check the “Select automatically” checkbox.
+2. Un-check the "Select automatically" checkbox.
 3. Select the user agent from dropdown menu or enter a custom user agent
 
 ![User-Agent selection dropdown menu in Google Chrome](images/f_chrome_devtools_ua_switch.png)\

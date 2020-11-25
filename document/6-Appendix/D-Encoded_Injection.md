@@ -14,7 +14,9 @@ Web applications usually employ different types of input filtering mechanisms to
 
 Web browsers need to be aware of the encoding scheme used to coherently display a web page. Ideally, this information should be provided to the browser in the HTTP header (`Content-Type`) field, as shown below:
 
-`Content-Type: text/html; charset=UTF-8`
+```http
+Content-Type: text/html; charset=UTF-8
+```
 
 or through HTML META tag (`META HTTP-EQUIV`), as shown below:
 
@@ -28,9 +30,9 @@ CERT describes it here as follows:
 
 Many web pages leave the character encoding (`charset` parameter in HTTP) undefined. In earlier versions of HTML and HTTP, the character encoding was supposed to default to `ISO-8859-1` if it wasn't defined. In fact, many browsers had a different default, so it was not possible to rely on the default being `ISO-8859-1`. HTML version 4 legitimizes this - if the character encoding isn't specified, any character encoding can be used.
 
-If the web server doesn't specify which character encoding is in use, it can't tell which characters are special. Web pages with unspecified character encoding work most of the time because most character sets assign the same characters to byte values below 128. But which of the values above 128 are special? Some 16-bit `character-encoding` schemes have additional multi-byte representations for special characters such as `<`. Some browsers recognize this alternative encoding and act on it. This is “correct” behavior, but it makes attacks using malicious scripts much harder to prevent. The server simply doesn't know which byte sequences represent the special characters.
+If the web server doesn't specify which character encoding is in use, it can't tell which characters are special. Web pages with unspecified character encoding work most of the time because most character sets assign the same characters to byte values below 128. But which of the values above 128 are special? Some 16-bit `character-encoding` schemes have additional multi-byte representations for special characters such as `<`. Some browsers recognize this alternative encoding and act on it. This is "correct" behavior, but it makes attacks using malicious scripts much harder to prevent. The server simply doesn't know which byte sequences represent the special characters.
 
-Therefore in the event of not receiving the character encoding information from the server, the browser either attempts to `guess` the encoding scheme or reverts to a default scheme. In some cases, the user explicitly sets the default encoding in the browser to a different scheme. Any such mismatch in the encoding scheme used by the web page (server) and the browser may cause the browser to interpret the page in a manner that is unintended or unexpected.
+Therefore in the event of not receiving the character encoding information from the server, the browser either attempts to guess the encoding scheme or reverts to a default scheme. In some cases, the user explicitly sets the default encoding in the browser to a different scheme. Any such mismatch in the encoding scheme used by the web page (server) and the browser may cause the browser to interpret the page in a manner that is unintended or unexpected.
 
 ### Encoded Injections
 
@@ -41,17 +43,19 @@ All the scenarios given below form only a subset of the various ways obfuscation
 Consider a basic input validation filter that protects against injection of single quote character. In this case the following injection would easily bypass this filter:
 
 ``` html
-<SCRIPT>alert(String.fromCharCode(88,83,83))</SCRIPT>
+<script>alert(String.fromCharCode(88,83,83))</script>
 ```
 
 `String.fromCharCode` JavaScript function takes the given Unicode values and returns the corresponding string. This is one of the most basic forms of encoded injections. Another vector that can be used to bypass this filter is:
 
 ``` html
-<IMG SRC=javascript:alert(&quot ;XSS&quot ;)>
+<IMG src="" onerror=javascript:alert(&quot;XSS&quot;)>
 ```
 
+Or by using the respective [HTML character codes](https://www.rapidtables.com/code/text/unicode-characters.html):
+
 ``` html
-<IMG SRC=javascript:alert(&#34 ;XSS&#34 ;)> (Numeric reference)
+<IMG src="" onerror="javascript:alert(&#34;XSS&#34;)">
 ```
 
 The above uses HTML Entities to construct the injection string. HTML Entities encoding is used to display characters that have a special meaning in HTML. For instance, `>` works as a closing bracket for a HTML tag. In order to actually display this character on the web page HTML character entities should be inserted in the page source. The injections mentioned above are one way of encoding. There are numerous other ways in which a string can be encoded (obfuscated) in order to bypass the above filter.

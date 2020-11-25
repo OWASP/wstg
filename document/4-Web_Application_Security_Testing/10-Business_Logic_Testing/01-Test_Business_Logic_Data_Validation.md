@@ -1,7 +1,7 @@
 # Test Business Logic Data Validation
 
-|ID               |
-|-----------------|
+|ID          |
+|------------|
 |WSTG-BUSL-01|
 
 ## Summary
@@ -43,28 +43,27 @@ The bank account to which the payments were directed had only 1000 free transfer
 - Review the project documentation and use exploratory testing looking for data entry points or hand off points between systems or software.
 - Once found try to insert logically invalid data into the application/system.
 Specific Testing Method:
-- Perform front-end GUI Functional Valid testing on the application to ensure that the only “valid” values are accepted.
-- Using an intercepting proxy observe the HTTP POST/GET looking for places that variables such as cost and quality are passed. Specifically, look for “hand-offs” between application/systems that may be possible injection or tamper points.
-- Once variables are found start interrogating the field with logically “invalid” data, such as social security numbers or unique identifiers that do not exist or that do not fit the business logic. This testing verifies that the server functions properly and does not accept logically invalid data.
+- Perform front-end GUI Functional Valid testing on the application to ensure that the only "valid" values are accepted.
+- Using an intercepting proxy observe the HTTP POST/GET looking for places that variables such as cost and quality are passed. Specifically, look for "hand-offs" between application/systems that may be possible injection or tamper points.
+- Once variables are found start interrogating the field with logically "invalid" data, such as social security numbers or unique identifiers that do not exist or that do not fit the business logic. This testing verifies that the server functions properly and does not accept logically invalid data.
 
 ## Related Test Cases
 
-All [Input Validation](../07-Input_Validation_Testing/README.md) test cases.
-
+- All [Input Validation](../07-Input_Validation_Testing/README.md) test cases.
 - [Testing for Account Enumeration and Guessable User Account](../03-Identity_Management_Testing/04-Testing_for_Account_Enumeration_and_Guessable_User_Account.md).
 - [Testing for Bypassing Session Management Schema](../06-Session_Management_Testing/01-Testing_for_Session_Management_Schema.md).
 - [Testing for Exposed Session Variables](../06-Session_Management_Testing/04-Testing_for_Exposed_Session_Variables.md).
 
+## Remediation
+
+The application/system must ensure that only "logically valid" data is accepted at all input and hand off points of the application or system and data is not simply trusted once it has entered the system.
+
 ## Tools
 
-[OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org) is an easy to use integrated penetration testing tool for finding vulnerabilities in web applications. It is designed to be used by people with a wide range of security experience and as such is ideal for developers and functional testers who are new to penetration testing. ZAP provides automated scanners as well as a set of tools that allow you to find security vulnerabilities manually.
+- [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
+- [Burp Suite](https://portswigger.net/burp)
 
 ## References
 
-- [Beginning Microsoft Visual Studio LightSwitch Development](https://books.google.com/books?id=x76L_kaTgdEC&pg=PA280&lpg=PA280&dq=business+logic+example+valid+data+example&source=bl&ots=GOfQ-7f4Hu&sig=4jOejZVligZOrvjBFRAT4-jy8DI&hl=en&sa=X&ei=mydYUt6qEOX54APu7IDgCQ&ved=0CFIQ6AEwBDgK#v=onepage&q=business%20logic%20example%20valid%20data%20example&f=false)
 - [OWASP Proactive Controls (C5) - Validate All Inputs](https://owasp.org/www-project-proactive-controls/v3/en/c5-validate-inputs)
 - [OWASP Cheatsheet Series - Input_Validation_Cheat_Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html)
-
-## Remediation
-
-The application/system must ensure that only “logically valid” data is accepted at all input and hand off points of the application or system and data is not simply trusted once it has entered the system.

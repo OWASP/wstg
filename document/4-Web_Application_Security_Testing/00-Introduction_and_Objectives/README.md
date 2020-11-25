@@ -62,7 +62,7 @@ In this case, the application shows two access points (parameters `a` and `b`). 
 
 During active testing, a tester begins to use the methodologies described in the follow sections.
 
-The set of active tests have been split into 11 categories:
+The set of active tests have been split into 12 categories:
 
 - Information Gathering
 - Configuration and Deployment Management Testing
@@ -75,3 +75,4 @@ The set of active tests have been split into 11 categories:
 - Cryptography
 - Business Logic Testing
 - Client-side Testing
+- API Testing

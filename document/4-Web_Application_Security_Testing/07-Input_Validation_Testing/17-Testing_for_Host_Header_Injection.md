@@ -22,7 +22,7 @@ A web server commonly hosts several web applications on the same IP address, ref
 
 Initial testing is as simple as supplying another domain (i.e. `attacker.com`) into the Host header field. It is how the web server processes the header value that dictates the impact. The attack is valid when the web server processes the input to send the request to an attacker-controlled host that resides at the supplied domain, and not to an internal virtual host that resides on the web server.
 
-```html
+```http
 GET / HTTP/1.1
 Host: www.attacker.com
 [...]
@@ -30,7 +30,7 @@ Host: www.attacker.com
 
 In the simplest case, this may cause a 302 redirect to the supplied domain.
 
-```html
+```http
 HTTP/1.1 302 Found
 [...]
 Location: http://www.attacker.com/login.php
@@ -43,7 +43,7 @@ Alternatively, the web server may send the request to the first virtual host on 
 
 In the event that Host header injection is mitigated by checking for invalid input injected via the Host header, you can supply the value to the `X-Forwarded-Host` header.
 
-```html
+```http
 GET / HTTP/1.1
 Host: www.example.com
 X-Forwarded-Host: www.attacker.com
@@ -64,7 +64,7 @@ Once again, this depends on how the web server processes the header value.
 
 Using this technique, an attacker can manipulate a web-cache to serve poisoned content to anyone who requests it. This relies on the ability to poison the caching proxy run by the application itself, CDNs, or other downstream providers. As a result, the victim will have no control over receiving the malicious content when requesting the vulnerable application.
 
-```html
+```http
 GET / HTTP/1.1
 Host: www.attacker.com
 ...
@@ -82,7 +82,7 @@ The following will be served from the web cache, when a victim visits the vulner
 
 It is common for password reset functionality to include the Host header value when creating password reset links that use a generated secret token. If the application processes an attacker-controlled domain to create a password reset link, the victim may click on the link in the email and allow the attacker to obtain the reset token, thus resetting the victim's password.
 
-```html
+```text
 ... Email snippet ...
 
 Click on the following link to reset your password:

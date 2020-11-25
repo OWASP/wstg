@@ -25,9 +25,12 @@ In this section we give an explanation of the testing strategy that will be show
 
 The first step is to make a request to the site to be tested (_e.g._ `www.example.com`). If the tester requests the following:
 
-`GET www.example.com`
+```http
+GET / HTTP/1.1
+Host: www.example.com
+```
 
-They will obtain the following answer:
+They will obtain the following response:
 
 ```html
 HTTP/1.1 200 OK
@@ -46,7 +49,7 @@ The application sets a new session identifier, `JSESSIONID=0000d8eyYq3L0z2fgq10m
 
 Next, if the tester successfully authenticates to the application with the following POST to `https://www.example.com/authentication.php`:
 
-```html
+```http
 POST /authentication.php HTTP/1.1
 Host: www.example.com
 [...]
@@ -60,7 +63,7 @@ Name=Meucci&wpPassword=secret!&wpLoginattempt=Log+in
 
 The tester observes the following response from the server:
 
-```html
+```http
 HTTP/1.1 200 OK
 Date: Thu, 14 Aug 2008 14:52:58 GMT
 Server: Apache/2.2.2 (Fedora)
@@ -100,7 +103,7 @@ Here are the steps for executing this test:
 
 We recommend using two different machines or browsers for the victim and the attacker. This allows you to decrease the number of false positives if the web application does fingerprinting to verify access enabled from a given cookie. A shorter but less precise variant of the testing strategy only requires one testing account. It follows the same steps, but it halts at step 6.
 
-### Remediation
+## Remediation
 
 Implement a session token renewal after a user successfully authenticates.
 
@@ -110,7 +113,7 @@ The application should always first invalidate the existing session ID before au
 
 - [OWASP ZAP](https://www.zaproxy.org)
 
-### References
+## References
 
 - [Session Fixation](https://owasp.org/www-community/attacks/Session_fixation)
 - [ACROS Security](https://www.acrossecurity.com/papers/session_fixation.pdf)
