@@ -62,7 +62,7 @@
 #### Testing Buffer Overflow
 
 - [OllyDbg](http://www.ollydbg.de)
-  - “A windows based debugger used for analyzing buffer overflow vulnerabilities”
+  - "A windows based debugger used for analyzing buffer overflow vulnerabilities"
 - [Spike](https://www.immunitysec.com/downloads/SPIKE2.9.tgz)
   - A fuzzer framework that can be used to explore vulnerabilities and perform length testing
 - [Brute Force Binary Tester (BFB)](https://sourceforge.net/projects/bfbtester/)

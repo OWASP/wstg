@@ -35,18 +35,18 @@ Examine ASP code for user input used in execution functions. Can the user enter 
 
 ```asp
 <%
-If not isEmpty(Request( “Data” ) ) Then
+If not isEmpty(Request( "Data" ) ) Then
 Dim fso, f
 'User input Data is written to a file named data.txt
-Set fso = CreateObject(“Scripting.FileSystemObject”)
-Set f = fso.OpenTextFile(Server.MapPath( “data.txt” ), 8, True)
-f.Write Request(“Data”) & vbCrLf
+Set fso = CreateObject("Scripting.FileSystemObject")
+Set f = fso.OpenTextFile(Server.MapPath( "data.txt" ), 8, True)
+f.Write Request("Data") & vbCrLf
 f.close
 Set f = nothing
 Set fso = Nothing
 
 'Data.txt is executed
-Server.Execute( “data.txt” )
+Server.Execute( "data.txt" )
 
 Else
 %>

@@ -101,7 +101,7 @@ Example:
 - `http://www.foo.com/account1` - we receive from web server: 403 Forbidden
 - `http://www.foo.com/account2` - we receive from web server: 404 file Not Found
 
-In the first case the user exists, but the tester cannot view the web page, in second case instead the user “account2” does not exist. By collecting this information testers can enumerate the users.
+In the first case the user exists, but the tester cannot view the web page, in second case instead the user "account2" does not exist. By collecting this information testers can enumerate the users.
 
 #### Analyzing Web Page Titles
 
@@ -123,7 +123,7 @@ For example, messages similar to the following:
 
 #### Friendly 404 Error Message
 
-When we request a user within the directory that does not exist, we don't always receive 404 error code. Instead, we may receive “200 ok” with an image, in this case we can assume that when we receive the specific image the user does not exist. This logic can be applied to other web server response; the trick is a good analysis of web server and web application messages.
+When we request a user within the directory that does not exist, we don't always receive 404 error code. Instead, we may receive "200 ok" with an image, in this case we can assume that when we receive the specific image the user does not exist. This logic can be applied to other web server response; the trick is a good analysis of web server and web application messages.
 
 #### Analyzing Response Times
 
@@ -146,7 +146,7 @@ Sometimes the usernames are created with a REALM alias and then a sequential num
 
 In the above sample we can create simple shell scripts that compose user IDs and submit a request with tool like wget to automate a web query to discern valid user IDs. To create a script we can also use Perl and curl.
 
-Other possibilities are: - user IDs associated with credit card numbers, or in general numbers with a pattern. - user IDs associated with real names, e.g. if Freddie Mercury has a user ID of “fmercury”, then you might guess Roger Taylor to have the user ID of “rtaylor”.
+Other possibilities are: - user IDs associated with credit card numbers, or in general numbers with a pattern. - user IDs associated with real names, e.g. if Freddie Mercury has a user ID of "fmercury", then you might guess Roger Taylor to have the user ID of "rtaylor".
 
 Again, we can guess a username from the information received from an LDAP query or from Google information gathering, for example, from a specific domain. Google can help to find domain users through specific queries or through a simple shell script or tool.
 

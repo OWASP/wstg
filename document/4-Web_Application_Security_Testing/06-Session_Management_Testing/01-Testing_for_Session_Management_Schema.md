@@ -127,7 +127,7 @@ These characteristics are summarized below:
 3. Expiration: a critical cookie must be valid only for an appropriate period of time and must be deleted from the disk or memory afterwards to avoid the risk of being replayed. This does not apply to cookies that store non-critical data that needs to be remembered across sessions (e.g., site look-and-feel).
 4. `Secure` flag: a cookie whose value is critical for the integrity of the session should have this flag enabled in order to allow its transmission only in an encrypted channel to deter eavesdropping.
 
-The approach here is to collect a sufficient number of instances of a cookie and start looking for patterns in their value. The exact meaning of “sufficient” can vary from a handful of samples, if the cookie generation method is very easy to break, to several thousands, if the tester needs to proceed with some mathematical analysis (e.g., chi-squares, attractors. See later for more information).
+The approach here is to collect a sufficient number of instances of a cookie and start looking for patterns in their value. The exact meaning of "sufficient" can vary from a handful of samples, if the cookie generation method is very easy to break, to several thousands, if the tester needs to proceed with some mathematical analysis (e.g., chi-squares, attractors. See later for more information).
 
 It is important to pay particular attention to the workflow of the application, as the state of a session can have a heavy impact on collected cookies. A cookie collected before being authenticated can be very different from a cookie obtained after the authentication.
 
@@ -198,12 +198,12 @@ More information here: [Testing for cookies attributes](02-Testing_for_Cookies_A
 
 ### Whitepapers
 
-- [RFC 2965 “HTTP State Management Mechanism”](https://tools.ietf.org/html/rfc2965)
-- [RFC 1750 “Randomness Recommendations for Security”](https://www.ietf.org/rfc/rfc1750.txt)
-- [Michal Zalewski: “Strange Attractors and TCP/IP Sequence Number Analysis” (2001)](http://lcamtuf.coredump.cx/oldtcp/tcpseq.html)
-- [Michal Zalewski: “Strange Attractors and TCP/IP Sequence Number Analysis - One Year Later” (2002)](http://lcamtuf.coredump.cx/newtcp/)
+- [RFC 2965 "HTTP State Management Mechanism"](https://tools.ietf.org/html/rfc2965)
+- [RFC 1750 "Randomness Recommendations for Security"](https://www.ietf.org/rfc/rfc1750.txt)
+- [Michal Zalewski: "Strange Attractors and TCP/IP Sequence Number Analysis" (2001)](http://lcamtuf.coredump.cx/oldtcp/tcpseq.html)
+- [Michal Zalewski: "Strange Attractors and TCP/IP Sequence Number Analysis - One Year Later" (2002)](http://lcamtuf.coredump.cx/newtcp/)
 - [Correlation Coefficient](http://mathworld.wolfram.com/CorrelationCoefficient.html)
 - [ENT](https://fourmilab.ch/random/)
 - [DMA[2005-0614a] - 'Global Hauri ViRobot Server cookie overflow'](https://seclists.org/lists/fulldisclosure/2005/Jun/0188.html)
-- [Gunter Ollmann: “Web Based Session Management”](http://www.technicalinfo.net)
+- [Gunter Ollmann: "Web Based Session Management"](http://www.technicalinfo.net)
 - [OWASP Code Review Guide](https://wiki.owasp.org/index.php/Category:OWASP_Code_Review_Project)

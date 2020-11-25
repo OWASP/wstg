@@ -8,7 +8,7 @@
 
 Many web applications use and manage files as part of their daily operation. Using input validation methods that have not been well designed or deployed, an aggressor could exploit the system in order to read or write files that are not intended to be accessible. In particular situations, it could be possible to execute arbitrary code or system commands.
 
-Traditionally, web servers and web applications implement authentication mechanisms to control access to files and resources. Web servers try to confine users' files inside a “root directory” or “web document root”, which represents a physical directory on the file system. Users have to consider this directory as the base directory into the hierarchical structure of the web application.
+Traditionally, web servers and web applications implement authentication mechanisms to control access to files and resources. Web servers try to confine users' files inside a "root directory" or "web document root", which represents a physical directory on the file system. Users have to consider this directory as the base directory into the hierarchical structure of the web application.
 
 The definition of the privileges is made using Access Control Lists (ACL) which identify which users or groups are supposed to be able to access, modify, or execute a specific file on the server. These mechanisms are designed to prevent malicious users from accessing sensitive files (for example, the common `/etc/passwd` file on a UNIX-like platform) or to avoid the execution of system commands.
 
@@ -171,9 +171,9 @@ Additionally, by reviewing the source code it is possible to analyze the functio
 Consider a web application with these instructions:
 
 ```php
-filename = Request.QueryString(“file”);
-Replace(filename, “/”,”\”);
-Replace(filename, “..\”,””);
+filename = Request.QueryString("file");
+Replace(filename, "/","\");
+Replace(filename, "..\","");
 ```
 
 Testing for the flaw is achieved by:
@@ -191,7 +191,7 @@ file= ..\..\boot.ini
 - [OWASP ZAP](https://www.zaproxy.org/)
 - [Burp Suite](https://portswigger.net)
 - Enconding/Decoding tools
-- [String searcher “grep”](https://www.gnu.org/software/grep/)
+- [String searcher "grep"](https://www.gnu.org/software/grep/)
 - [DirBuster](https://wiki.owasp.org/index.php/Category:OWASP_DirBuster_Project)
 
 ## References

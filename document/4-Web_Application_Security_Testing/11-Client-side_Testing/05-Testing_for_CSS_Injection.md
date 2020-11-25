@@ -76,7 +76,7 @@ The above code contains a source `location.hash`, controlled by the attacker, th
 
 The following pages provide examples of CSS injection vulnerabilities:
 
-- [Password “cracker” via CSS and HTML5](http://html5sec.org/invalid/?length=25)
+- [Password "cracker" via CSS and HTML5](http://html5sec.org/invalid/?length=25)
 - [CSS attribute reading](http://eaea.sirdarckcat.net/cssar/v2/)
 - [JavaScript based attacks using `CSSStyleDeclaration` with unescaped input](https://github.com/wisec/domxsswiki/wiki/CSS-Text-sink)
 

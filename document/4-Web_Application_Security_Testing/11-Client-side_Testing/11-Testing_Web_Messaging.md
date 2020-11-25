@@ -65,7 +65,7 @@ JavaScript code should be analyzed to determine how web messaging is implemented
 In this example, access is needed for every subdomain (www, chat, forums, ...) within the owasp.org domain. The code is trying to accept any domain with `.owasp.org`:
 
 ```js
-window.addEventListener(“message”, callback, true);
+window.addEventListener("message", callback, true);
 
 function callback(e) {
     if(e.origin.indexOf(".owasp.org")!=-1) {
@@ -85,7 +85,7 @@ Unfortunately, this introduces vulnerabilities. An attacker can easily bypass th
 Here is an example of code that lacks an origin check. This is very insecure, as it will accept input from any domain:
 
 ```js
-window.addEventListener(“message”, callback, true);
+window.addEventListener("message", callback, true);
 
 function callback(e) {
         /* process message (e.data) */
@@ -95,7 +95,7 @@ function callback(e) {
 Here is an example with input validation vulnerabilities that may lead to XSS attack:
 
 ```js
-window.addEventListener(“message”, callback, true);
+window.addEventListener("message", callback, true);
 
 function callback(e) {
         if(e.origin === "trusted.domain.com") {
