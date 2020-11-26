@@ -6,7 +6,7 @@
 
 ## Summary
 
-[DOM-based cross-site scripting](https://owasp.org/www-community/attacks/DOM_Based_XSS) is the de-facto name for [XSS](https://owasp.org/www-community/attacks/xss/) bugs that are the result of active browser-side content on a page, typically JavaScript, obtaining user input and then doing something unsafe with it, leading to the execution of injected code. This document only discusses JavaScript bugs which lead to XSS.
+[DOM-based cross-site scripting](https://owasp.org/www-community/attacks/DOM_Based_XSS) is the de-facto name for [XSS](https://owasp.org/www-community/attacks/xss/) bugs that are the result of active browser-side content on a page, typically JavaScript, obtaining user input through a [source](https://github.com/wisec/domxsswiki/wiki/sources) and using it in a [sink](https://github.com/wisec/domxsswiki/wiki/Sinks), leading to the execution of injected code. This document only discusses JavaScript bugs which lead to XSS.
 
 The DOM, or [Document Object Model](https://en.wikipedia.org/wiki/Document_Object_Model), is the structural format used to represent documents in a browser. The DOM enables dynamic scripts such as JavaScript to reference components of the document such as a form field or a session cookie. The DOM is also used by the browser for security - for example to limit scripts on different domains from obtaining session cookies for other domains. A DOM-based XSS vulnerability may occur when active content, such as a JavaScript function, is modified by a specially crafted request such that a DOM element that can be controlled by an attacker.
 
@@ -87,6 +87,13 @@ else
 
 For this reason, automated testing will not detect areas that may be susceptible to DOM-based XSS unless the testing tool can perform additional analysis of the client-side code.
 
-Manual testing should therefore be undertaken and can be done by examining areas in the code where parameters are referred to that may be useful to an attacker. Examples of such areas include places where code is dynamically written to the page and elsewhere where the DOM is modified or even where scripts are directly executed. Further examples are described in this excellent [DOM XSS article by Amit Klein](http://www.webappsec.org/projects/articles/071105.html).
+Manual testing should therefore be undertaken and can be done by examining areas in the code where parameters are referred to that may be useful to an attacker. Examples of such areas include places where code is dynamically written to the page and elsewhere where the DOM is modified or even where scripts are directly executed.
 
-For further OWASP resources on preventing DOM-based XSS, see the [DOM-based XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html).
+## Remediation
+
+For measures to prevent DOM-based XSS, see the [DOM-based XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html).
+
+## References
+
+- [DomXSSWiki](https://github.com/wisec/domxsswiki/wiki/)
+- [DOM XSS article by Amit Klein](http://www.webappsec.org/projects/articles/071105.html)
