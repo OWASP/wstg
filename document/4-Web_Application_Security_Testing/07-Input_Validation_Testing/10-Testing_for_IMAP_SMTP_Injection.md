@@ -69,7 +69,7 @@ The following examples can be used.
 
 `http://<webmail>/src/read_body.php?mailbox=INBOX PARAMETER2&passed_id=46106&startMessage=1`
 
-- Add non standard special characters (i.e.: \\, ', ", @, \#, !, |):
+- Add non standard special characters (i.e.: `\`, `'`, `"`, `@`, `#`, `!`, `|`):
 
 `http://<webmail>/src/read_body.php?mailbox=INBOX"&passed_id=46106&startMessage=1`
 

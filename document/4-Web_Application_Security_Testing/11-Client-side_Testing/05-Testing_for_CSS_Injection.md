@@ -23,8 +23,8 @@ The following JavaScript code shows a possible vulnerable script in which the at
 
 The attacker could target the victim by asking them to visit the following URLs:
 
-- `www.victim.com/\#red;-o-link:'<javascript:alert(1)>';-o-link-source:current;` (Opera \[8,12\])
-- `www.victim.com/\#red;-:expression(alert(URL=1));` (IE 7/8)
+- `www.victim.com/#red;-o-link:'<javascript:alert(1)>';-o-link-source:current;` (Opera \[8,12\])
+- `www.victim.com/#red;-:expression(alert(URL=1));` (IE 7/8)
 
 The same vulnerability may appear in the case of reflected XSS, for example, in the following PHP code:
 
