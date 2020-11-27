@@ -42,7 +42,6 @@ Or:
 
 ```http
 GET https://example.com/page?page=http://127.0.0.1/admin
-
 ```
 
 Use the loopback interface to access content restricted to the host only. This mechanism implies that if you have access to the host, you also have privileges to directly access the `admin` page.
@@ -76,16 +75,16 @@ In some cases, a server may convert uploaded files to PDF format. Try injecting 
 
 Some applications block references to `localhost` and `127.0.0.1`. This can be circumvented by:
 
-- Using alternative IP representation that evaluate to `127.0.01`:
+- Using alternative IP representation that evaluate to `127.0.0.1`:
   - Decimal notation: `2130706433`
   - Octal notation: `017700000001`
   - IP shortening: `127.1`
 - String obfuscation
 - Registering your own domain that resolves to `127.0.0.1`
 
-Sometimes the application allows input that matches a certain expression, like a domain. That can be circumvented if the URL schema parser is not properly implemented.
+Sometimes the application allows input that matches a certain expression, like a domain. That can be circumvented if the URL schema parser is not properly implemented, resulting in attacks similar to [semantic attacks](https://tools.ietf.org/html/rfc3986#section-7.6).
 
-- Using the `@` character: `https://expected-domain@attacker-domain`
+- Using the `@` character to separate between the userinfo and the host: `https://expected-domain@attacker-domain`
 - URL fragmentation with the `#` character: `https://attacker-domain#expected-domain`
 - URL encoding
 - Fuzzing
@@ -108,3 +107,4 @@ SSRF is known to be one of the hardest attacks to defeat without the use of allo
 - [Bugcrowd Webinar: SSRF](https://www.bugcrowd.com/resources/webinars/server-side-request-forgery/)
 - [Hackerone Blog: SSRF](https://www.hackerone.com/blog-How-To-Server-Side-Request-Forgery-SSRF)
 - [Hacker101: SSRF](https://www.hacker101.com/sessions/ssrf.html)
+- [URI Generic Syntax](https://tools.ietf.org/html/rfc3986)
