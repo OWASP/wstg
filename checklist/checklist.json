@@ -628,6 +628,16 @@
                     "Build the exploit."
                   ]
                 }
+                ,{
+                "name":"Testing for Server-Side Request Forgery",
+                "id":"WSTG-INPV-19",
+                "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/07-Input_Validation_Testing/19-Testing_for_Server-Side_Request_Forgery.html",
+                "objectives":[
+                    "Identify SSRF injection points.",
+                    "Test if the injection points are exploitable.",
+                    "Asses the severity of the vulnerability."
+                  ]
+                }
             ]
         }
         ,"Testing for Error Handling": {
