@@ -107,22 +107,12 @@ The following is the list of controls that were tested during the assessment:
 | WSTG-INPV-03 | Testing for HTTP Verb Tampering |
 | WSTG-INPV-04 | Testing for HTTP Parameter pollution |
 | WSTG-INPV-05 | Testing for SQL Injection |
-| | Oracle |
-| | MySQL |
-| | SQL Server |
-| | PostgreSQL |
-| | MS Access |
-| | NoSQL |
-| | ORM |
-| | Client-side |
 | WSTG-INPV-06 | Testing for LDAP Injection |
 | WSTG-INPV-07 | Testing for XML Injection |
 | WSTG-INPV-08 | Testing for SSI Injection |
 | WSTG-INPV-09 | Testing for XPath Injection |
 | WSTG-INPV-10 | IMAP/SMTP Injection |
 | WSTG-INPV-11 | Testing for Code Injection |
-| |Testing for Local File Inclusion |
-| |Testing for Remote File Inclusion |
 | WSTG-INPV-12 | Testing for Command Injection |
 | WSTG-INPV-13 | Testing for Format String Injection |
 | WSTG-INPV-14 | Testing for Incubated Vulnerabilities |

@@ -64,22 +64,12 @@ The following is the list of controls to test during the assessment:
 | 4.7.3 | WSTG-INPV-03 | Testing for HTTP Verb Tampering |
 | 4.7.4 | WSTG-INPV-04 | Testing for HTTP Parameter pollution |
 | 4.7.5 | WSTG-INPV-05 | Testing for SQL Injection |
-| 4.7.5.1 | | Oracle |
-| 4.7.5.2 | | MySQL |
-| 4.7.5.3 | | SQL Server |
-| 4.7.5.4 | | PostgreSQL |
-| 4.7.5.5 | | MS Access |
-| 4.7.5.6 | | NoSQL |
-| 4.7.5.7 | | ORM |
-| 4.7.5.8 | | Client-side |
 | 4.7.6 | WSTG-INPV-06 | Testing for LDAP Injection |
 | 4.7.7 | WSTG-INPV-07 | Testing for XML Injection |
 | 4.7.8 | WSTG-INPV-08 | Testing for SSI Injection |
 | 4.7.9 | WSTG-INPV-09 | Testing for XPath Injection |
 | 4.7.10 | WSTG-INPV-10 | IMAP/SMTP Injection |
 | 4.7.11 | WSTG-INPV-11 | Testing for Code Injection |
-| 4.7.11.1 | |Testing for Local File Inclusion |
-| 4.7.11.2 | |Testing for Remote File Inclusion |
 | 4.7.12 | WSTG-INPV-12 | Testing for Command Injection |
 | 4.7.13 | WSTG-INPV-13 | Testing for Format String Injection |
 | 4.7.14 | WSTG-INPV-14 | Testing for Incubated Vulnerabilities |
