@@ -151,11 +151,8 @@ convert_internal_markdown_href_to_lower_case () {
 # Replace the spaces and _ inside `href` values with hyphen
 # Handles the href with .md extention ( Keeps this .md inside the href to identify internal markdown links)
 replace_space_and_underscore_with_hyphen_in_internal_markdown_href () {
-
-    # Replace space
-    python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().replace(' ', '-'), sys.stdin.read()))" | \
-    # Replace the `_`
-    python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().replace('_', '-'), sys.stdin.read()))"
+    # Replace space and underscore
+    python -c "import re; import sys; print(re.sub(r'href=\"(#[^\"]*\.md)\"', lambda m: m.group().replace(' ', '-').replace('_', '-'), sys.stdin.read()))"
 }
 
 # Remove readme.md and .md extentions from href
@@ -179,9 +176,7 @@ convert_id_to_lower_case () {
 
 # Remove `:`, `,`, `.` inside id values
 remove_special_chars_from_id () {
-    python -c "import re; import sys; print(re.sub(r'id=\"([^\n]+)\"', lambda m: m.group().replace(':', ''), sys.stdin.read()))"  | \
-    python -c "import re; import sys; print(re.sub(r'id=\"([^\n]+)\"', lambda m: m.group().replace('.', ''), sys.stdin.read()))"  | \
-    python -c "import re; import sys; print(re.sub(r'id=\"([^\n]+)\"', lambda m: m.group().replace(',', ''), sys.stdin.read()))"
+    python -c "import re; import sys; print(re.sub(r'id=\"([^\n]+)\"', lambda m: m.group().replace(':', '').replace(':', '').replace('.', '').replace(',', ''), sys.stdin.read()))"
 }
 
 # Replace spaces with hyphen inside href value
@@ -243,7 +238,7 @@ extract_chapter_details_and_page_number_from_pdf () {
         sed 's/build\/pdf\/document/section: /'  | \
         sed 's/\([0-9.]\+\)-\(.*\)\.pdf/\1 \; file: \2 \;/' | \
         sed 's/\([0-9.]\+\)-\(.*\)/\1 \; sectionTitle: \2 \; subsection: /' | \
-        sed 's/\([ABCDE]\)-\(.*\)\.pdf/\1 - \2\;/' | \
+        sed 's/\([ABCDEF]\)-\(.*\)\.pdf/\1 - \2\;/' | \
         sed 's/_/ /g' | \
         tr -d '\n' >> build/chapters.txt;
     done;
