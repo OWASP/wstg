@@ -130,6 +130,7 @@ The following is the list of controls that were tested during the assessment:
 | WSTG-INPV-16 | Testing for HTTP Incoming Requests |
 | WSTG-INPV-17 | Testing for Host Header Injection |
 | WSTG-INPV-18 | Testing for Server-side Template Injection |
+| WSTG-INPV-19 | Testing for Server-Side Request Forgery |
 | **WSTG-ERRH**  |**Error Handling** |
 | WSTG-ERRH-01 | Testing for Improper Error Handling |
 | **WSTG-CRYP** | **Cryptography** |

@@ -87,6 +87,7 @@ The following is the list of controls to test during the assessment:
 | 4.7.16 | WSTG-INPV-16 | Testing for HTTP Incoming Requests |
 | 4.7.17 | WSTG-INPV-17 | Testing for Host Header Injection |
 | 4.7.18 | WSTG-INPV-18 | Testing for Server-side Template Injection |
+| 4.7.19 | WSTG-INPV-19 | Testing for Server-Side Request Forgery |
 | **4.8** | **WSTG-ERRH** |**Error Handling** |
 | 4.8.1 | WSTG-ERRH-01 | Testing for Improper Error Handling |
 | **4.9** | **WSTG-CRYP** | **Cryptography** |
