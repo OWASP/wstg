@@ -172,7 +172,7 @@ All major browsers support manipulating CSS leveraging the Dev Tools Console and
 
 ### Related Testing
 
-- [Information Gathering](../4-Web_Application_Security_Testing/01-Information_Gathering/)
+- [Information Gathering](../4-Web_Application_Security_Testing/01-Information_Gathering/README.md)
 
 ### Google Chrome
 
