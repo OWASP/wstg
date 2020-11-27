@@ -12,7 +12,7 @@ The following is the list of controls to test during the assessment:
 | 4.1.5 | WSTG-INFO-05 | Review Webpage Comments and Metadata for Information Leakage |
 | 4.1.6 | WSTG-INFO-06 | Identify Application Entry Points |
 | 4.1.7 | WSTG-INFO-07 | Map Execution Paths Through Application |
-| 4.1.8 | WSTG-INFO-09 | Fingerprint Web Application Framework |
+| 4.1.8 | WSTG-INFO-08 | Fingerprint Web Application Framework |
 | 4.1.9 | WSTG-INFO-09 | Fingerprint Web Application |
 | 4.1.10 | WSTG-INFO-10 | Map Application Architecture |
 | **4.2** | **WSTG-CONF** | **Configuration and Deploy Management Testing** |
