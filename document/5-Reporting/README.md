@@ -51,6 +51,12 @@ Each finding should be detailed with the following information:
 
 Findings can be delivered in normal format, like the above, it could be delivered in a table format that can formatted in various ways, or any other format that the testers see as fitting to deliver the message in a more comprehensible format.
 
+## 3. Conclusion
+
+State the organization's next steps, specifying the positive and negative findings of the report, and improvements on a big picture, such as "implement unit tests across the organization to set a security baseline".
+
+This should be concise, providing the organization with high level points to go after, risks to consider before going live, etc.
+
 ## Appendix
 
 This section is often used to describe the commercial and open-source tools that were used in conducting the assessment. When custom scripts or code are utilized during the assessment, it should be disclosed in this section or noted as attachment. Customers appreciate when the methodology used by the consultants is included. It gives them an idea of the thoroughness of the assessment and what areas were included.
