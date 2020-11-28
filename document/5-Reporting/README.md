@@ -66,3 +66,13 @@ Multiple appendices can be added, such as:
 - Tools used, scripts, and the relevant generated output.
   - Make sure to clean the output and not just dump it.
 - A checklist of all the tests conducted, such as the [WSTG checklist](https://github.com/OWASP/wstg/tree/master/checklist). These can provided as attachements to the report.
+
+## References
+
+_This is not part of the report. More guidance to writing your reports._
+
+- [SANS: Tips for Creating a Strong Cybersecurity Assessment Report](https://www.sans.org/blog/tips-for-creating-a-strong-cybersecurity-assessment-report/)
+- [SANS: Writing a Penetration Testing Report](https://www.sans.org/reading-room/whitepapers/bestprac/paper/33343)
+- [Infosec Institute: The Art of Writing Penetration Test Reports](https://resources.infosecinstitute.com/topic/writing-penetration-testing-reports/)
+- [Dummies: How to Structure a Pen Test Report](https://www.dummies.com/computers/macs/security/how-to-structure-a-pen-test-report/)
+- [Rhino Security Labs: Four Things Every Penetration Test Report Should Have](https://rhinosecuritylabs.com/penetration-testing/four-things-every-penetration-test-report/)
