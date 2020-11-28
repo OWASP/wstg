@@ -57,6 +57,12 @@ State the organization's next steps, specifying the positive and negative findin
 
 This should be concise, providing the organization with high level points to go after, risks to consider before going live, etc.
 
-## Appendix
+## Appendices
 
-This section is often used to describe the commercial and open-source tools that were used in conducting the assessment. When custom scripts or code are utilized during the assessment, it should be disclosed in this section or noted as attachment. Customers appreciate when the methodology used by the consultants is included. It gives them an idea of the thoroughness of the assessment and what areas were included.
+Multiple appendices can be added, such as:
+
+- Test methodology used.
+- Severity and risk rating explanations.
+- Tools used, scripts, and the relevant generated output.
+  - Make sure to clean the output and not just dump it.
+- A checklist of all the tests conducted, such as the [WSTG checklist](https://github.com/OWASP/wstg/tree/master/checklist). These can provided as attachements to the report.
