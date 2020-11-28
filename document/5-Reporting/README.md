@@ -2,6 +2,8 @@
 
 Performing the technical side of the assessment is only half of the overall assessment process. The final product is the production of a well written and informative report. A report should be easy to understand and should highlight all the risks found during the assessment phase. The report should appeal to both executive management and technical staff.
 
+Note: It is advised to secure the report by using a password or any similar technology as pentest reports are marked as sensitive information.
+
 ## 1. Executive Summary
 
 This is like the elevator pitch of the report, it aims at providing executives with:
