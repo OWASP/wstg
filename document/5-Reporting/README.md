@@ -2,16 +2,35 @@
 
 Performing the technical side of the assessment is only half of the overall assessment process. The final product is the production of a well written and informative report. A report should be easy to understand and should highlight all the risks found during the assessment phase. The report should appeal to both executive management and technical staff.
 
-The report needs to have three major sections. It should be created in a manner that allows each separate section to be printed and given to the appropriate teams, such as the developers or system managers. The recommended sections are outlined below.
-
 ## 1. Executive Summary
 
-The executive summary sums up the overall findings of the assessment and gives business managers and system owners a high level view of the vulnerabilities discovered. The language used should be more suited to people who are not technically aware and should include graphs or other charts which show the risk level. Keep in mind that executives will likely only have time to read this summary and will want two questions answered in plain language:
+This is like the elevator pitch of the report, it aims at providing executives with:
 
-1. *What's wrong?*
-2. *How do I fix it?* You have one page to answer these questions.
+- the run down of the report in a page or two.
+- quick actions and their criticality.
+- the status of their application.
 
-The executive summary should plainly state that the vulnerabilities and their severity is an **input** to their organizational risk management process, not an outcome or remediation. It is safest to explain that tester does not understand the threats faced by the organization or business consequences if the vulnerabilities are exploited. This is the job of the risk professional who calculates risk levels based on this and other information. Risk management will typically be part of the organization's IT Security Governance, Risk and Compliance (GRC) regime and this report will simply provide an input to that process.
+### 1.1 Objective
+
+The purpose of this engagement and the need for it.
+
+### 1.2 Scope
+
+What this test will cover precisely. This is crucial in order to set the boundaries of the engagement.
+
+### 1.3 Timeline
+
+The duration of the engagement.
+
+### 1.4 Summary
+
+The summary should contain, in the best possible form to deliver the message (*e.g.* graphs, tables, lists, etc.):
+
+- Key risks identified by the test.
+- Key recommendations for the organization.
+- State of the application. A concise and direct conclusion that states whether the application is secure or not.
+
+**Note:** The summary should be constructive and meaningful, not full of jargon and destructive takeaways.
 
 ## 2. Test Parameters
 
