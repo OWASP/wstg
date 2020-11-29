@@ -2,10 +2,13 @@
 
 Performing the technical side of the assessment is only half of the overall assessment process. The final product is the production of a well written and informative report. A report should be easy to understand and should highlight all the risks found during the assessment phase. The report should appeal to both executive management and technical staff.
 
+**The quality of the technical testing is completely irrelevant if the client can't understand your findings.**
+
 **Notes:**
 
-- It is advised to secure the report and encrypt it to ensure that only the receiving party is able to use it. 
+- It is advised to secure the report and encrypt it to ensure that only the receiving party is able to use it.
 - This guide provides only suggestions about one possible approach to reporting, and should not be treated as as strict rules that most be followed. When considering any of the recommendations below, always ask yourself: *does this make my report better?*
+- This report is a best fit for consultancy based reports, and could be an overkill for internal or bug bounty reports.
 
 ## 1. Introduction
 
@@ -45,7 +48,7 @@ The duration of the engagement.
 
 ### 1.7 Disclaimer
 
-A disclaimer providing legal protection. The below example should be modified to your use case and shouldn't be used as is.
+**A disclaimer providing legal protection. The below example should be modified to your use case and shouldn't be used as is.**
 
 *This test is a "point in time" assessment and as such the environment could have changed since the test was run. There is no guarantee that all possible security issues have been identified, and that new vulnerabilities may have been discovered since the tests were run. As such, this report serves as a guiding document and not a warranty that the report provides a full representation of the risks threatening the systems at hand.*
 
