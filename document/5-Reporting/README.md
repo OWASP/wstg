@@ -46,8 +46,8 @@ Each finding should be detailed with the following information:
   - Possible values are "User", "Technical", "Hacker".
 - Risk of the vulnerability on the application.
   - Possible values are: "Informational", "Low", "Medium", "High", "Critical".
-  - On certain engagements it is required to have the [CVSS](https://www.first.org/cvss/) score. If not required, sometimes it is good to have, and other times it just adds complexity to the report.
-- A detailed description of what is the vulnerability, how to exploit it, and the damage it can inflict.
+  - On certain engagements it is required to have a [CVSS](https://www.first.org/cvss/) score. If not required, sometimes it is good to have, and other times it just adds complexity to the report.
+- A detailed description of what the vulnerability is, how to exploit it, and the damage that may result from its abuse.
 - A detailed remediation on how to resolve the vulnerability, possible improvements that could help strengthen the posture, and missing security practices.
 - Provide any additional resources that could help the reader to understand the vulnerability, such as an image, a video, a CVE, an external guide, etc.
 
@@ -67,7 +67,7 @@ Multiple appendices can be added, such as:
 - Severity and risk rating explanations.
 - Tools used, scripts, and the relevant generated output.
   - Make sure to clean the output and not just dump it.
-- A checklist of all the tests conducted, such as the [WSTG checklist](https://github.com/OWASP/wstg/tree/master/checklist). These can provided as attachements to the report.
+- A checklist of all the tests conducted, such as the [WSTG checklist](https://github.com/OWASP/wstg/tree/master/checklist). These can be provided as attachments to the report.
 
 ## References
 
