@@ -2,8 +2,8 @@
 
 The following is the list of controls to test during the assessment:
 
-| Test ID     | Test Name                  |
-|--------------|----------------------------|
+| Test ID     | Test Name                  | Status | Notes |
+|--------------|----------------------------|-------|------|
 | **WSTG-INFO** | **Information Gathering** |
 | WSTG-INFO-01 | Conduct Search Engine Discovery and Reconnaissance for Information Leakage |
 | WSTG-INFO-02 | Fingerprint Web Server |
@@ -45,7 +45,7 @@ The following is the list of controls to test during the assessment:
 | WSTG-ATHN-09 | Testing for Weak Password Change or Reset Functionalities |
 | WSTG-ATHN-10 | Testing for Weaker Authentication in Alternative Channel |
 | **WSTG-ATHZ** | **Authorization Testing** |
-| WSTG-ATHZ-01 | Testing Directory Traversal - File Include |
+| WSTG-ATHZ-01 | Testing Directory Traversal File Include |
 | WSTG-ATHZ-02 | Testing for Bypassing Authorization Schema |
 | WSTG-ATHZ-03 | Testing for Privilege Escalation |
 | WSTG-ATHZ-04 | Testing for Insecure Direct Object References |
@@ -56,8 +56,9 @@ The following is the list of controls to test during the assessment:
 | WSTG-SESS-04 | Testing for Exposed Session Variables |
 | WSTG-SESS-05 | Testing for Cross Site Request Forgery |
 | WSTG-SESS-06 | Testing for Logout Functionality |
-| WSTG-SESS-07 | Test Session Timeout |
+| WSTG-SESS-07 | Testing Session Timeout |
 | WSTG-SESS-08 | Testing for Session Puzzling |
+| WSTG-SESS-09 | Testing for Session Hijacking |
 | **WSTG-INPV** |**Input Validation Testing** |
 | WSTG-INPV-01 | Testing for Reflected Cross Site Scripting |
 | WSTG-INPV-02 | Testing for Stored Cross Site Scripting |
@@ -73,13 +74,14 @@ The following is the list of controls to test during the assessment:
 | WSTG-INPV-12 | Testing for Command Injection |
 | WSTG-INPV-13 | Testing for Format String Injection |
 | WSTG-INPV-14 | Testing for Incubated Vulnerabilities |
-| WSTG-INPV-15 | Testing for HTTP Splitting/Smuggling |
+| WSTG-INPV-15 | Testing for HTTP Splitting Smuggling |
 | WSTG-INPV-16 | Testing for HTTP Incoming Requests |
 | WSTG-INPV-17 | Testing for Host Header Injection |
 | WSTG-INPV-18 | Testing for Server-side Template Injection |
 | WSTG-INPV-19 | Testing for Server-Side Request Forgery |
 | **WSTG-ERRH** |**Error Handling** |
 | WSTG-ERRH-01 | Testing for Improper Error Handling |
+| WSTG-ERRH-02 | Testing for Stack Traces |
 | **WSTG-CRYP** | **Cryptography** |
 | WSTG-CRYP-01 | Testing for Weak Transport Layer Security |
 | WSTG-CRYP-02 | Testing for Padding Oracle |
@@ -109,3 +111,5 @@ The following is the list of controls to test during the assessment:
 | WSTG-CLNT-11 | Test Web Messaging |
 | WSTG-CLNT-12 | Test Local Storage |
 | WSTG-CLNT-13 | Testing for Cross Site Script Inclusion |
+| **WSTG-APIT** | **API Testing** |
+| WSTG-APIT-01 | Testing GraphQL |
