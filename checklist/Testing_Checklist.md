@@ -21,7 +21,7 @@ Note: The `Status` column can be set for values similar to "Pass", "Fail", "N/A"
 | WSTG-CONF-01      | Test Network Infrastructure Configuration                                  |        |       |
 | WSTG-CONF-02      | Test Application Platform Configuration                                    |        |       |
 | WSTG-CONF-03      | Test File Extensions Handling for Sensitive Information                    |        |       |
-| WSTG-CONF-04      | Backup and Unreferenced Files for Sensitive Information                    |        |       |
+| WSTG-CONF-04      | Review Old Backup and Unreferenced Files for Sensitive Information         |        |       |
 | WSTG-CONF-05      | Enumerate Infrastructure and Application Admin Interfaces                  |        |       |
 | WSTG-CONF-06      | Test HTTP Methods                                                          |        |       |
 | WSTG-CONF-07      | Test HTTP Strict Transport Security                                        |        |       |
