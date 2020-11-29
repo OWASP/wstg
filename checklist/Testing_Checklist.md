@@ -71,7 +71,7 @@ Note: The `Status` column can be set for values similar to "Pass", "Fail", "N/A"
 | WSTG-INPV-07      | Testing for XML Injection                                                  |        |       |
 | WSTG-INPV-08      | Testing for SSI Injection                                                  |        |       |
 | WSTG-INPV-09      | Testing for XPath Injection                                                |        |       |
-| WSTG-INPV-10      | IMAP/SMTP Injection                                                        |        |       |
+| WSTG-INPV-10      | Testing for IMAP SMTP Injection                                            |        |       |
 | WSTG-INPV-11      | Testing for Code Injection                                                 |        |       |
 | WSTG-INPV-12      | Testing for Command Injection                                              |        |       |
 | WSTG-INPV-13      | Testing for Format String Injection                                        |        |       |
