@@ -59,30 +59,43 @@ This is like the elevator pitch of the report, it aims at providing executives w
 
 **Note:** The summary should be constructive and meaningful, not full of jargon and destructive takeaways. In case graphs are used, make sure they help deliver a message in a clearer way than text would.
 
-## 2. Detailed Findings
+## 3. Findings
 
-This section is aimed at the technical team. It should include all the necessary information to understand the vulnerability, replicate it, and resolve it.
+This section is aimed at the technical team. It should include all the necessary information to understand the vulnerability, replicate it, and resolve it. Logical separation can help improve the readability of the report (*e.g* external access, internal access, etc.)
+
+*If this is a re-test, a subsection could be set with the findings summary of the previous test, the status of the identified vulnerabilities, and any cross-references with the current test.*
+
+### 3.1 Findings Summary
+
+A list of the findings with their risk level. A table can be used for ease of use by both teams.
+
+| Ref. ID |  Title | Risk Level |
+|:------------:|--------|------------|
+| 1 | User Authentication Bypass | High |
+
+### 3.2 Findings Details
 
 Each finding should be detailed with the following information:
 
-- Reference ID, which can be used for communication between parties and for other references across the report.
-- The vulnerability identified in a clear form, such as "Privilege Escalation from Client to Admin".
-- Exploitability, or likelihood. This states the persona that is capable of exploiting said vulnerability based on how easy it is to achieve it, the level of access, and the impact achieved, which is related to the motivation behind an attack.
-  - Possible values are "User", "Technical", "Hacker".
+- Reference ID, which can be used for communication between parties and for cross-references across the report.
+- The vulnerability title, such as "User Authentication Bypass".
+- The likelihood or exploitability of the issue, based on various factors such as:
+  - How easy it is to exploit it.
+  - Whether there is a working exploit code for it.
+  - The level of access required.
+  - Attacker motivation to exploit it.
+- The impact of the vulnerability on the system.
 - Risk of the vulnerability on the application.
   - Possible values are: "Informational", "Low", "Medium", "High", "Critical".
+    - The values set in here should be detailed in an appendix to allow the reader to understand how each score was set.
   - On certain engagements it is required to have a [CVSS](https://www.first.org/cvss/) score. If not required, sometimes it is good to have, and other times it just adds complexity to the report.
-- A detailed description of what the vulnerability is, how to exploit it, and the damage that may result from its abuse.
-- A detailed remediation on how to resolve the vulnerability, possible improvements that could help strengthen the posture, and missing security practices.
-- Provide any additional resources that could help the reader to understand the vulnerability, such as an image, a video, a CVE, an external guide, etc.
+- Detailed description of what the vulnerability is, how to exploit it, and the damage that may result from its abuse. Any sensitive data should be masked (*e.g.* passwords, personal information, credit card details, etc.)
+- Detailed steps on how to remediate the vulnerability, possible improvements that could help strengthen the security posture, and missing security practices.
+- Additional resources that could help the reader to understand the vulnerability, such as an image, a video, a CVE, an external guide, etc.
 
-Findings can be delivered in normal format, like the above, it could be delivered in a table format that can formatted in various ways, or any other format that the testers see as fitting to deliver the message in a more comprehensible format.
+The above can be formatted in the way the tester deems as fitting to deliver their message in the best possible way.
 
-## 3. Conclusion
-
-State the organization's next steps, specifying the positive and negative findings of the report, and improvements on a big picture, such as "implement unit tests across the organization to set a security baseline".
-
-This should be concise, providing the organization with high level points to go after, risks to consider before going live, etc.
+**Note:** Always check if the issue provides enough information for the engineer reading this report and if they can take action based on it. If not, the issue should be better explained.
 
 ## Appendices
 
@@ -90,7 +103,7 @@ Multiple appendices can be added, such as:
 
 - Test methodology used.
 - Severity and risk rating explanations.
-- Tools used, scripts, and the relevant generated output.
+- Relevant output from tools used.
   - Make sure to clean the output and not just dump it.
 - A checklist of all the tests conducted, such as the [WSTG checklist](https://github.com/OWASP/wstg/tree/master/checklist). These can be provided as attachments to the report.
 
