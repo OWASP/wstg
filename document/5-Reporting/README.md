@@ -55,7 +55,6 @@ This is like the elevator pitch of the report, it aims at providing executives w
   - It shouldn't state the technical findings and the technical impact. Only discuss the business impact.
 - The strategic recommendations on how the business can stop the issues from happening again.
   - It shouldn't state technical and specific recommendations, as this concerns the technical team.
-- The status of the application.
 
 **Note:** The summary should be constructive and meaningful, not full of jargon and destructive takeaways. In case graphs are used, make sure they help deliver a message in a clearer way than text would.
 
