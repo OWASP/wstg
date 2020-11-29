@@ -52,7 +52,7 @@ Note: The `Status` column can be set for values similar to "Pass", "Fail", "N/A"
 | WSTG-ATHZ-03      | Testing for Privilege Escalation                                           |        |       |
 | WSTG-ATHZ-04      | Testing for Insecure Direct Object References                              |        |       |
 | **WSTG-SESS**     | **Session Management Testing**                                             |        |       |
-| WSTG-SESS-01      | Testing for Bypassing Session Management Schema                            |        |       |
+| WSTG-SESS-01      | Testing for Session Management Schema                                      |        |       |
 | WSTG-SESS-02      | Testing for Cookies Attributes                                             |        |       |
 | WSTG-SESS-03      | Testing for Session Fixation                                               |        |       |
 | WSTG-SESS-04      | Testing for Exposed Session Variables                                      |        |       |
