@@ -12,7 +12,7 @@ Browsers can store information for purposes of caching and history. Caching is u
 
 ## Test Objectives
 
-- Review if the application stores sensitive information on the client side.
+- Review if the application stores sensitive information on the client-side.
 - Review if access can occur without authorization.
 
 ## How to Test
