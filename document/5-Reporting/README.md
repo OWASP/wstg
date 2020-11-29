@@ -2,37 +2,62 @@
 
 Performing the technical side of the assessment is only half of the overall assessment process. The final product is the production of a well written and informative report. A report should be easy to understand and should highlight all the risks found during the assessment phase. The report should appeal to both executive management and technical staff.
 
-Note: It is advised to secure the report by using a password or any similar technology as pentest reports are marked as sensitive information.
+Note: It is advised to secure the report and encrypt it to ensure that only the receiving party is able to use it.
 
-## 1. Executive Summary
+## 1. Introduction
 
-This is like the elevator pitch of the report, it aims at providing executives with:
+### 1.1 Version Control
 
-- the run down of the report in a page or two.
-- quick actions and their criticality.
-- the status of their application.
+Sets report changes, mostly presented in a table format such as the below.
 
-### 1.1 Objective
+| Version | Description | Date | Author |
+|:-------:|-------------|------|--------|
+| 1.0 | Initial report | DD/MM/YYYY | Foo Bar |
 
-The purpose of this engagement and the need for it.
+### 1.2 Table of Contents
 
-### 1.2 Scope
+A table of contents page for the document.
 
-What this test will cover precisely. This is crucial in order to set the boundaries of the engagement.
+### 1.3 The Team
 
-### 1.3 Timeline
+A list of the team members detailing their expertise and qualifications.
+
+### 1.4 Scope
+
+The boundaries and the needs of the engagement agreed upon with the organization.
+
+### 1.5 Limitations
+
+Limitations can be:
+
+- Areas that were off boundaries that related to the test.
+- Broken functionality.
+- Lack of cooperation.
+- Lack of time.
+- Lack of accesses.
+
+### 1.6 Timeline
 
 The duration of the engagement.
 
-### 1.4 Summary
+### 1.7 Disclaimer
 
-The summary should contain, in the best possible form to deliver the message (*e.g.* graphs, tables, lists, etc.):
+A disclaimer providing legal protection. The below example should be modified to your use case and shouldn't be used as is.
 
-- Key risks identified by the test.
-- Key recommendations for the organization.
-- State of the application. A concise and direct conclusion that states whether the application is secure or not.
+*This test is a "point in time" assessment and as such the environment could have changed since the test was run. There is no guarantee that all possible security issues have been identified, and that new vulnerabilities may have been discovered since the tests were run. Thus, this report serves as a guiding document and not a warranty that the report provides a full representation of the risks threatening the systems at hand.*
 
-**Note:** The summary should be constructive and meaningful, not full of jargon and destructive takeaways.
+## 2. Executive Summary
+
+This is like the elevator pitch of the report, it aims at providing executives with:
+
+- The objective of the test, which contains the need for it and the answers that the organization need to better understand their systems.
+- The key findings in a business context, such as compliance issues, reputational damage, etc.
+  - It shouldn't state the technical findings and the technical impact. Only discuss the business impact.
+- The strategic recommendations on how the business can stop the issues from happening again.
+  - It shouldn't state technical and specific recommendations, as this concerns the technical team.
+- The status of the application.
+
+**Note:** The summary should be constructive and meaningful, not full of jargon and destructive takeaways. In case graphs are used, make sure they help deliver a message in a clearer way than text would.
 
 ## 2. Detailed Findings
 
