@@ -111,7 +111,7 @@ Note: The `Status` column can be set for values similar to "Pass", "Fail", "N/A"
 | WSTG-CLNT-09      | Testing for Clickjacking                                                   |        |       |
 | WSTG-CLNT-10      | Testing WebSockets                                                         |        |       |
 | WSTG-CLNT-11      | Test Web Messaging                                                         |        |       |
-| WSTG-CLNT-12      | Test Local Storage                                                         |        |       |
+| WSTG-CLNT-12      | Test Browser Storage                                                       |        |       |
 | WSTG-CLNT-13      | Testing for Cross Site Script Inclusion                                    |        |       |
 | **WSTG-APIT**     | **API Testing**                                                            |        |       |
 | WSTG-APIT-01      | Testing GraphQL                                                            |        |       |
