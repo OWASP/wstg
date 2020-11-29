@@ -2,7 +2,10 @@
 
 Performing the technical side of the assessment is only half of the overall assessment process. The final product is the production of a well written and informative report. A report should be easy to understand and should highlight all the risks found during the assessment phase. The report should appeal to both executive management and technical staff.
 
-Note: It is advised to secure the report and encrypt it to ensure that only the receiving party is able to use it.
+**Notes:**
+
+- It is advised to secure the report and encrypt it to ensure that only the receiving party is able to use it. 
+- This guide provides only suggestions about one possible approach to reporting, and should not be treated as as strict rules that most be followed. When considering any of the recommendations below, always ask yourself: *does this make my report better?*
 
 ## 1. Introduction
 
@@ -34,7 +37,7 @@ Limitations can be:
 - Broken functionality.
 - Lack of cooperation.
 - Lack of time.
-- Lack of accesses.
+- Lack of access or credentials.
 
 ### 1.6 Timeline
 
@@ -44,7 +47,7 @@ The duration of the engagement.
 
 A disclaimer providing legal protection. The below example should be modified to your use case and shouldn't be used as is.
 
-*This test is a "point in time" assessment and as such the environment could have changed since the test was run. There is no guarantee that all possible security issues have been identified, and that new vulnerabilities may have been discovered since the tests were run. Thus, this report serves as a guiding document and not a warranty that the report provides a full representation of the risks threatening the systems at hand.*
+*This test is a "point in time" assessment and as such the environment could have changed since the test was run. There is no guarantee that all possible security issues have been identified, and that new vulnerabilities may have been discovered since the tests were run. As such, this report serves as a guiding document and not a warranty that the report provides a full representation of the risks threatening the systems at hand.*
 
 ## 2. Executive Summary
 
