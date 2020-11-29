@@ -12,10 +12,8 @@ Browsers can store information for purposes of caching and history. Caching is u
 
 ## Test Objectives
 
-The objective of this test is to evaluate whether or not the application stores sensitive information in client accessible locations or in a manner which does not prevent their access or review outside of an authenticated and authorized session. Specifically, this tests whether sensitive information is stored:
-
-- On disk or in memory, where it might be retrieved after intended use.
-- In such a way that using the **Back** button may allow a user (or attacker) to return to a previously displayed screen.
+- Review if the application stores sensitive information on the client side.
+- Review if access can occur without authorization.
 
 ## How to Test
 
