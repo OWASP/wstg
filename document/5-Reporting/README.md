@@ -117,7 +117,7 @@ Multiple appendices can be added, such as:
 
 ## References
 
-_This is not part of the report. More guidance to writing your reports._
+This section is not part of the suggested report format. The below links provide more guidance to writing your reports.
 
 - [SANS: Tips for Creating a Strong Cybersecurity Assessment Report](https://www.sans.org/blog/tips-for-creating-a-strong-cybersecurity-assessment-report/)
 - [SANS: Writing a Penetration Testing Report](https://www.sans.org/reading-room/whitepapers/bestprac/paper/33343)
