@@ -2,13 +2,15 @@
 
 Performing the technical side of the assessment is only half of the overall assessment process. The final product is the production of a well written and informative report. A report should be easy to understand and should highlight all the risks found during the assessment phase. The report should appeal to both executive management and technical staff.
 
-**The quality of the technical testing is completely irrelevant if the client can't understand your findings.**
+## About this Section
 
-**Notes:**
+This guide provides only suggestions about one possible approach to reporting, and should not be treated as as strict rules that must be followed. When considering any of the recommendations below, always ask yourself whether the recommendation would improve your report.
 
-- It is advised to secure the report and encrypt it to ensure that only the receiving party is able to use it.
-- This guide provides only suggestions about one possible approach to reporting, and should not be treated as as strict rules that most be followed. When considering any of the recommendations below, always ask yourself: *does this make my report better?*
-- This report is a best fit for consultancy based reports, and could be an overkill for internal or bug bounty reports.
+This guide to reporting is a best fit for consultancy-based reports. It may be overkill for internal or bug bounty reports.
+
+Regardless of the audience, it's advisable to secure the report and encrypt it to ensure that only the receiving party is able to use it.
+
+A good report helps your client understand your findings and highlights the quality of your technical testing. The quality of the technical testing is completely irrelevant if the client can't understand your findings.
 
 ## 1. Introduction
 
@@ -36,7 +38,7 @@ The boundaries and the needs of the engagement agreed upon with the organization
 
 Limitations can be:
 
-- Areas that were off boundaries that related to the test.
+- Out-of-bounds areas in relation to testing.
 - Broken functionality.
 - Lack of cooperation.
 - Lack of time.
@@ -48,7 +50,9 @@ The duration of the engagement.
 
 ### 1.7 Disclaimer
 
-**A disclaimer providing legal protection. The below example should be modified to your use case and shouldn't be used as is.**
+You may wish to provide a disclaimer for your service. Always consult a legal professional in order to create a legally-binding document.
+
+The following example is for illustrative purposes only. It should not be used as-is and does not constitute legal advice.
 
 *This test is a "point in time" assessment and as such the environment could have changed since the test was run. There is no guarantee that all possible security issues have been identified, and that new vulnerabilities may have been discovered since the tests were run. As such, this report serves as a guiding document and not a warranty that the report provides a full representation of the risks threatening the systems at hand.*
 
@@ -56,19 +60,19 @@ The duration of the engagement.
 
 This is like the elevator pitch of the report, it aims at providing executives with:
 
-- The objective of the test, which contains the need for it and the answers that the organization need to better understand their systems.
-- The key findings in a business context, such as compliance issues, reputational damage, etc.
-  - It shouldn't state the technical findings and the technical impact. Only discuss the business impact.
-- The strategic recommendations on how the business can stop the issues from happening again.
-  - It shouldn't state technical and specific recommendations, as this concerns the technical team.
+- The objective of the test.
+  - Describe the business need behind the security test.
+  - Describe how the tests helped the organization understand their systems.
+- Key findings in a business context, such as possible compliance issues, reputation damage, etc. Focus on the business impact and leave out technical details for now.
+- The strategic recommendations on how the business can stop the issues from happening again. Describe these in a non-technical context and leave specific technical recommendations out for now.
 
-**Note:** The summary should be constructive and meaningful, not full of jargon and destructive takeaways. In case graphs are used, make sure they help deliver a message in a clearer way than text would.
+The summary should be constructive and meaningful. Avoid jargon and negative speculation. If figures, graphs, or illustrations are used, ensure they help deliver a message in a clearer way than text would.
 
 ## 3. Findings
 
-This section is aimed at the technical team. It should include all the necessary information to understand the vulnerability, replicate it, and resolve it. Logical separation can help improve the readability of the report (*e.g* external access, internal access, etc.)
+This section is aimed at the technical team. It should include all the necessary information to understand the vulnerability, replicate it, and resolve it. Logical separation can help improve the readability of the report. For example, you might have separate sections titled "External Access" and "Internal Access".
 
-*If this is a re-test, a subsection could be set with the findings summary of the previous test, the status of the identified vulnerabilities, and any cross-references with the current test.*
+If this is a re-test, you might create a subsection that summarizes findings of the previous test, the updated status of previously identified vulnerabilities, and any cross-references with the current test.
 
 ### 3.1 Findings Summary
 
@@ -91,16 +95,15 @@ Each finding should be detailed with the following information:
   - Attacker motivation to exploit it.
 - The impact of the vulnerability on the system.
 - Risk of the vulnerability on the application.
-  - Possible values are: "Informational", "Low", "Medium", "High", "Critical".
-    - The values set in here should be detailed in an appendix to allow the reader to understand how each score was set.
+  - Some suggested values are: Informational, Low, Medium, High, and Critical. Ensure that you detail the values you decide to use in an appendix. This allows the reader to understand how each score is determined.
   - On certain engagements it is required to have a [CVSS](https://www.first.org/cvss/) score. If not required, sometimes it is good to have, and other times it just adds complexity to the report.
-- Detailed description of what the vulnerability is, how to exploit it, and the damage that may result from its abuse. Any sensitive data should be masked (*e.g.* passwords, personal information, credit card details, etc.)
+- Detailed description of what the vulnerability is, how to exploit it, and the damage that may result from its exploitation. Any possibly-sensitive data should be masked, for example, passwords, personal information, or credit card details.
 - Detailed steps on how to remediate the vulnerability, possible improvements that could help strengthen the security posture, and missing security practices.
 - Additional resources that could help the reader to understand the vulnerability, such as an image, a video, a CVE, an external guide, etc.
 
-The above can be formatted in the way the tester deems as fitting to deliver their message in the best possible way.
+Format this section in a way that best delivers your message.
 
-**Note:** Always check if the issue provides enough information for the engineer reading this report and if they can take action based on it. If not, the issue should be better explained.
+Always ensure that your descriptions provide enough information for the engineer reading this report to take action based on it. Explain the finding thoroughly and provide as much technical detail as might be necessary to remedy it.
 
 ## Appendices
 
