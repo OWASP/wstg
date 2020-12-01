@@ -6,7 +6,7 @@
 
 ## Summary
 
-Many systems come installed with default credentials. System administrators may forgo changing those credentials. Not changing default credentials introduces security risks. Why? Manufacturers publish those credentials on the Internet. Attackers and tools incorporate these publicly available credentials. Given the opportunity, those tools could exploit default configured systems
+Many systems come installed with default credentials. System administrators may forgo changing those credentials. Not changing default credentials introduces security risks. Why? Manufacturers publish those credentials on the Internet. Attackers and tools incorporate these publicly available credentials. Given the opportunity, those tools could exploit default configured systems.
 
 ## Test Objectives
 
