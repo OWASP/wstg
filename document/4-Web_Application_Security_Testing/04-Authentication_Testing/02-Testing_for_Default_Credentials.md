@@ -6,18 +6,7 @@
 
 ## Summary
 
-Nowadays web applications often make use of popular Open Source or commercial software that can be installed on servers with minimal configuration or customization by the server administrator. Moreover, a lot of hardware appliances (i.e. network routers and database servers) offer web-based configuration or administrative interfaces.
-
-Often these applications, once installed, are not properly configured and the default credentials provided for initial authentication and configuration are never changed. These default credentials are well known by penetration testers and, unfortunately, also by malicious attackers, who can use them to gain access to various types of applications.
-
-Furthermore, in many situations, when a new account is created on an application, a default password (with some standard characteristics) is generated. If this password is predictable and the user does not change it on the first access, this can lead to an attacker gaining unauthorized access to the application.
-
-The root cause of this problem can be identified as:
-
-- Inexperienced IT personnel, who are unaware of the importance of changing default passwords on installed infrastructure components, or leave the password as default for "ease of maintenance".
-- Programmers who leave back doors to easily access and test their application and later forget to remove them.
-- Applications with built-in non-removable default accounts with a preset username and password.
-- Applications that do not force the user to change the default credentials after the first log in.
+Many systems come installed with default credentials. System administrators may forgo changing those credentials. Not changing default credentials introduces security risks. Why? Manufacturers publish those credentials on the Internet. Attackers and tools incorporate these publicly available credentials. Given the opportunity, those tools could exploit default configured systems
 
 ## Test Objectives
 
