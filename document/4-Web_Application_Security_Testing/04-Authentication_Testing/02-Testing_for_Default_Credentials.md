@@ -6,27 +6,25 @@
 
 ## Summary
 
-Many systems come installed with default credentials. System administrators may forgo changing those credentials. Not changing default credentials introduces security risks. 
+Many systems come installed with default credentials. System administrators may forgo changing those credentials. Applications may provision weak default passwords for new users. These realities create security risks.
 
 ## Test Objectives
 
-- Determine if the application uses known default credentials. 
+- Determine if the application uses known default credentials.
 - Determine if new user accounts have been created with known default credentials.
 
 ## How to Test
+
+The below steps show basic strategies to testing for default credentials. Real applications often defend against these common steps so expect to adjust the approach to the given application.
 
 ### Attempt Authentication with Default Credentials
 
 1. [Gather information](../01-Information_Gathering/README.md) on the application.
 1. Research any public lists of default credentials for that application.
-1. Try to authenticate to the application using any of those credentials. 
+1. Try to authenticate to the application using any of those credentials.
 
 
-### Testing for Default Password of New Accounts
-
-It can also occur that when a new account is created in an application the account is assigned a default password. This password could have some standard characteristics making it predictable. If the user does not change it on first usage (this often happens if the user is not forced to change it) or if the user has not yet logged on to the application, this can lead an attacker to gain unauthorized access to the application.
-
-The advice given before about a possible lockout policy and verbose error messages are also applicable here when testing for default passwords.
+### Testing Application's for New User Default Passwords
 
 The following steps can be applied to test for these types of default credentials:
 
