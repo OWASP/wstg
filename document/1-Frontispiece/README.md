@@ -2,17 +2,11 @@
 
 ## Welcome
 
-> Open and collaborative knowledge: that is the OWASP way.
+> As we work towards a largely re-written and re-imagined 5.0 release, this point release brings: Format standardization, objectives for each scenario, merged sections, new scenarios on modern topics (SSRF, GraphQL, etc), and numerous other changes.
 >
-> With V4 we realized a new guide that will be the standard de-facto guide to perform Web Application Penetration Testing.
->
-> — Matteo Meucci
+> — Rick Mitchell
 
 OWASP thanks the many authors, reviewers, and editors for their hard work in bringing this guide to where it is today. If you have any comments or suggestions on the Testing Guide, please feel free to open an Issue or submit a fix/contribution via Pull Request to our [GitHub repository](https://github.com/OWASP/wstg/).
-
-## Version 4.2
-
-This minor release represents a transitional step between the 2014 release of v4 via the OWASP wiki, and the preparation of v5, currently underway on GitHub.
 
 ## Copyright and Licensee
 
