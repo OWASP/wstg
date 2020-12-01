@@ -10,8 +10,8 @@ Many systems come installed with default credentials. System administrators may 
 
 ## Test Objectives
 
-- Enumerate the applications for default credentials and validate if they still exist.
-- Review and assess new user accounts and if they are created with any defaults or identifiable patterns.
+- Determine if the application still uses known default credentials. 
+- Determine if new user accounts have been created with known default credentials.
 
 ## How to Test
 
@@ -64,12 +64,10 @@ The following steps rely on an entirely gray-box approach. If only some of this 
 - Check for configuration files that contain usernames and passwords.
 - Examine the password policy and, if the application generates its own passwords for new users, check the policy in use for this procedure.
 
-## Tools
+## Remediation
 
-- [Burp Intruder](https://portswigger.net/burp)
-- [THC Hydra](https://github.com/vanhauser-thc/thc-hydra)
-- [Nikto 2](https://www.cirt.net/nikto2)
+- Change any system default credentials.
 
 ## References
 
-- [CIRT](https://cirt.net/passwords)
+- [CIRT list of default credentials](https://cirt.net/passwords)
