@@ -11,12 +11,12 @@ Contained in this folder is an Excel file which provides the following worksheet
 
 ## Direct Link
 
-- [OWASP Testing Checklist (Excel)](https://raw.githubusercontent.com/OWASP/wstg/master/checklist/WSTG-Checklist_v4.1.xlsx)
+- [OWASP Testing Checklist (Excel)](https://raw.githubusercontent.com/OWASP/wstg/master/checklist/WSTG-Checklist_v4.2.xlsx)
 - [OWASP Testing Checklist (Markdown)](https://raw.githubusercontent.com/OWASP/wstg/master/checklist/Testing_Checklist.md)
 
 ## Excel File Hash
 
-SHA-256: 30e08ef571b5ff623ddd0ab94406a58a8bf2fce8f484badb7117d0f525b8bc6d
+SHA-256: 1296d9438b0696c9bc033917118d41e0790b5e069d34318262f87da83e0cdb34
 
 ## Google Sheets Import
 
