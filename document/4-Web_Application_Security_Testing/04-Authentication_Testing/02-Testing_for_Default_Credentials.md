@@ -6,7 +6,9 @@
 
 ## Summary
 
-Many systems come installed with default credentials. System administrators may forgo changing those credentials. This reality creates security risks.
+Many systems come installed with default credentials.
+System administrators may forgo changing those credentials.
+This reality creates security risks.
 
 ## Test Objectives
 
@@ -14,7 +16,9 @@ Many systems come installed with default credentials. System administrators may 
 
 ## How to Test
 
-The below steps oversimply the testing landscape. Real applications often defend against these intrusions. So expect to adjust the approach to the given application.
+The below steps oversimply the testing landscape.
+Real applications often defend against these intrusions.
+So expect to adjust the approach to the given application.
 
 1. [Gather information](../01-Information_Gathering/README.md) on the application.
 1. Research any public lists of default credentials for that application.
