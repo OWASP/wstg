@@ -20,7 +20,6 @@ The below steps oversimply the testing landscape. Real applications often defend
 1. Research any public lists of default credentials for that application.
 1. Try to authenticate to the application using any of those credentials.
 
-
 ## Remediation
 
 - Change any system default credentials.
