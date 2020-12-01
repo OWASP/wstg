@@ -72,4 +72,4 @@ In the above examples the modification of a single parameter is sufficient. Howe
 
 ## References
 
-[Top 10 2013-A4-Insecure Direct Object References](https://owasp.org/www-project-top-ten/2017/Release_Notes.html)
+[Top 10 2013-A4-Insecure Direct Object References](https://owasp.org/www-project-top-ten/2017/Release_Notes)
