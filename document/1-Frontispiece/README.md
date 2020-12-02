@@ -2,7 +2,7 @@
 
 ## Welcome
 
-> As we work towards a largely re-written and re-imagined 5.0 release, this point release brings: Format standardization, objectives for each scenario, merged sections, new scenarios on modern topics (SSRF, GraphQL, etc), and numerous other changes.
+> As we focus on incremental improvement, this release introduces numerous updates. We've standardized scenario formats to create a better reading experience, added objectives for each testing scenario, merged sections, and added new scenarios on some modern testing topics.
 >
 > — Rick Mitchell
 
