@@ -2,157 +2,125 @@
 
 Performing the technical side of the assessment is only half of the overall assessment process. The final product is the production of a well written and informative report. A report should be easy to understand and should highlight all the risks found during the assessment phase. The report should appeal to both executive management and technical staff.
 
-The report needs to have three major sections. It should be created in a manner that allows each separate section to be printed and given to the appropriate teams, such as the developers or system managers. The recommended sections are outlined below.
+## About this Section
 
-## 1. Executive Summary
+This guide provides only suggestions about one possible approach to reporting, and should not be treated as as strict rules that must be followed. When considering any of the recommendations below, always ask yourself whether the recommendation would improve your report.
 
-The executive summary sums up the overall findings of the assessment and gives business managers and system owners a high level view of the vulnerabilities discovered. The language used should be more suited to people who are not technically aware and should include graphs or other charts which show the risk level. Keep in mind that executives will likely only have time to read this summary and will want two questions answered in plain language:
+This guide to reporting is a best fit for consultancy-based reports. It may be overkill for internal or bug bounty reports.
 
-1. *What's wrong?*
-2. *How do I fix it?* You have one page to answer these questions.
+Regardless of the audience, it's advisable to secure the report and encrypt it to ensure that only the receiving party is able to use it.
 
-The executive summary should plainly state that the vulnerabilities and their severity is an **input** to their organizational risk management process, not an outcome or remediation. It is safest to explain that tester does not understand the threats faced by the organization or business consequences if the vulnerabilities are exploited. This is the job of the risk professional who calculates risk levels based on this and other information. Risk management will typically be part of the organization's IT Security Governance, Risk and Compliance (GRC) regime and this report will simply provide an input to that process.
+A good report helps your client understand your findings and highlights the quality of your technical testing. The quality of the technical testing is completely irrelevant if the client can't understand your findings.
 
-## 2. Test Parameters
+## 1. Introduction
 
-The Introduction should outline the parameters of the security testing, the findings and remediation. Some suggested section headings include:
+### 1.1 Version Control
 
-**2.1 Project Objective:** This section outlines the project objectives and the expected outcome of the assessment.
+Sets report changes, mostly presented in a table format such as the below.
 
-**2.2 Project Scope:** This section outlines the agreed scope.
+| Version | Description | Date | Author |
+|:-------:|-------------|------|--------|
+| 1.0 | Initial report | DD/MM/YYYY | J. Doe |
 
-**2.3 Project Schedule:** This section outlines when the testing commenced and when it was completed.
+### 1.2 Table of Contents
 
-**2.4 Targets:** This section lists the number of applications or targeted systems.
+A table of contents page for the document.
 
-**2.5 Limitations:** This section outlines every limitation which was faced throughout the assessment. For example, limitations of project-focused tests, limitation in the security testing methods, performance or technical issues that the tester come across during the course of assessment, etc.
+### 1.3 The Team
 
-**2.6 Findings Summary:** This section outlines the vulnerabilities that were discovered during testing.
+A list of the team members detailing their expertise and qualifications.
 
-**2.7 Remediation Summary:** This section outlines the action plan for fixing the vulnerabilities that were discovered during testing.
+### 1.4 Scope
+
+The boundaries and the needs of the engagement agreed upon with the organization.
+
+### 1.5 Limitations
+
+Limitations can be:
+
+- Out-of-bounds areas in relation to testing.
+- Broken functionality.
+- Lack of cooperation.
+- Lack of time.
+- Lack of access or credentials.
+
+### 1.6 Timeline
+
+The duration of the engagement.
+
+### 1.7 Disclaimer
+
+You may wish to provide a disclaimer for your service. Always consult a legal professional in order to create a legally-binding document.
+
+The following example is for illustrative purposes only. It should not be used as-is and does not constitute legal advice.
+
+*This test is a "point in time" assessment and as such the environment could have changed since the test was run. There is no guarantee that all possible security issues have been identified, and that new vulnerabilities may have been discovered since the tests were run. As such, this report serves as a guiding document and not a warranty that the report provides a full representation of the risks threatening the systems at hand.*
+
+## 2. Executive Summary
+
+This is like the elevator pitch of the report, it aims at providing executives with:
+
+- The objective of the test.
+  - Describe the business need behind the security test.
+  - Describe how the tests helped the organization understand their systems.
+- Key findings in a business context, such as possible compliance issues, reputation damage, etc. Focus on the business impact and leave out technical details for now.
+- The strategic recommendations on how the business can stop the issues from happening again. Describe these in a non-technical context and leave specific technical recommendations out for now.
+
+The summary should be constructive and meaningful. Avoid jargon and negative speculation. If figures, graphs, or illustrations are used, ensure they help deliver a message in a clearer way than text would.
 
 ## 3. Findings
 
-The last section of the report includes detailed technical information about the vulnerabilities found and the actions needed to resolve them. This section is aimed at a technical level and should include all the necessary information for the technical teams to understand the issue and resolve it. Each finding should be clear and concise and give the reader of the report a full understanding of the issue at hand.
+This section is aimed at the technical team. It should include all the necessary information to understand the vulnerability, replicate it, and resolve it. Logical separation can help improve the readability of the report. For example, you might have separate sections titled "External Access" and "Internal Access".
 
-The findings section should include:
+If this is a re-test, you might create a subsection that summarizes findings of the previous test, the updated status of previously identified vulnerabilities, and any cross-references with the current test.
 
-- Screenshots and command lines to indicate what tasks were undertaken during the execution of the test case
-- The affected item
-- A technical description of the issue and the affected function or object
-- A section on resolving the issue
-- The severity rating, with vector notation if using [CVSS (Industry standard vulnerability severity and risk rankings)](http://www.first.org/cvss)
+### 3.1 Findings Summary
 
-The following is the list of controls that were tested during the assessment:
+A list of the findings with their risk level. A table can be used for ease of use by both teams.
 
-| Test ID  | Test Description | Findings | Severity | Recommendations |
-| ---------| -----------------| -------- | -------- | --------------- |
-| **WSTG-INFO** | **Information Gathering** |
-| WSTG-INFO-01 | Conduct Search Engine Discovery and Reconnaissance for Information Leakage |
-| WSTG-INFO-02 | Fingerprint Web Server |
-| WSTG-INFO-03 | Review Webserver Metafiles for Information |
-| WSTG-INFO-04 | Enumerate Applications on Webserver |
-| WSTG-INFO-05 | Review Webpage Comments and Metadata for Information Leakage |
-| WSTG-INFO-06 | Identify Application Entry Points |
-| WSTG-INFO-07 | Map Execution Paths Through Application |
-| WSTG-INFO-08 | Fingerprint Web Application Framework |
-| WSTG-INFO-09 | Fingerprint Web Application |
-| WSTG-INFO-10 | Map Application Architecture |
-| **WSTG-CONF** | **Configuration and Deploy Management Testing** |
-| WSTG-CONF-01 | Test Network Infrastructure Configuration |
-| WSTG-CONF-02 | Test Application Platform Configuration |
-| WSTG-CONF-03 | Test File Extensions Handling for Sensitive Information |
-| WSTG-CONF-04 | Backup and Unreferenced Files for Sensitive Information |
-| WSTG-CONF-05 | Enumerate Infrastructure and Application Admin Interfaces |
-| WSTG-CONF-06 | Test HTTP Methods |
-| WSTG-CONF-07 | Test HTTP Strict Transport Security |
-| WSTG-CONF-08 | Test RIA Cross Domain Policy |
-| WSTG-CONF-09 | Test File Permission |
-| WSTG-CONF-10 | Test for Subdomain Takeover |
-| WSTG-CONF-11 | Test Cloud Storage |
-| **WSTG-IDNT** | **Identity Management Testing** |
-| WSTG-IDNT-01 | Test Role Definitions |
-| WSTG-IDNT-02 | Test User Registration Process |
-| WSTG-IDNT-03 | Test Account Provisioning Process |
-| WSTG-IDNT-04 | Testing for Account Enumeration and Guessable User Account |
-| WSTG-IDNT-05 | Testing for Weak or Unenforced Username Policy |
-| **WSTG-ATHN** | **Authentication Testing** |
-| WSTG-ATHN-01 | Testing for Credentials Transported over an Encrypted Channel |
-| WSTG-ATHN-02 | Testing for Default Credentials |
-| WSTG-ATHN-03 | Testing for Weak Lock Out Mechanism |
-| WSTG-ATHN-04 | Testing for Bypassing Authentication Schema |
-| WSTG-ATHN-05 | Testing for Vulnerable Remember Password |
-| WSTG-ATHN-06 | Testing for Browser Cache Weakness |
-| WSTG-ATHN-07 | Testing for Weak Password Policy |
-| WSTG-ATHN-08 | Testing for Weak Security Question Answer |
-| WSTG-ATHN-09 | Testing for Weak Password Change or Reset Functionalities |
-| WSTG-ATHN-10 | Testing for Weaker Authentication in Alternative Channel |
-| **WSTG-ATHZ** | **Authorization Testing** |
-| WSTG-ATHZ-01 | Testing Directory Traversal - File Include |
-| WSTG-ATHZ-02 | Testing for Bypassing Authorization Schema |
-| WSTG-ATHZ-03 | Testing for Privilege Escalation |
-| WSTG-ATHZ-04 | Testing for Insecure Direct Object References |
-| **WSTG-SESS** | **Session Management Testing** |
-| WSTG-SESS-01 | Testing for Bypassing Session Management Schema |
-| WSTG-SESS-02 | Testing for Cookies Attributes |
-| WSTG-SESS-03 | Testing for Session Fixation |
-| WSTG-SESS-04 | Testing for Exposed Session Variables |
-| WSTG-SESS-05 | Testing for Cross Site Request Forgery |
-| WSTG-SESS-06 | Testing for Logout Functionality |
-| WSTG-SESS-07 | Test Session Timeout |
-| WSTG-SESS-08 | Testing for Session Puzzling |
-| **WSTG-INPV** |**Input Validation Testing** |
-| WSTG-INPV-01 | Testing for Reflected Cross Site Scripting |
-| WSTG-INPV-02 | Testing for Stored Cross Site Scripting |
-| WSTG-INPV-03 | Testing for HTTP Verb Tampering |
-| WSTG-INPV-04 | Testing for HTTP Parameter pollution |
-| WSTG-INPV-05 | Testing for SQL Injection |
-| WSTG-INPV-06 | Testing for LDAP Injection |
-| WSTG-INPV-07 | Testing for XML Injection |
-| WSTG-INPV-08 | Testing for SSI Injection |
-| WSTG-INPV-09 | Testing for XPath Injection |
-| WSTG-INPV-10 | IMAP/SMTP Injection |
-| WSTG-INPV-11 | Testing for Code Injection |
-| WSTG-INPV-12 | Testing for Command Injection |
-| WSTG-INPV-13 | Testing for Format String Injection |
-| WSTG-INPV-14 | Testing for Incubated Vulnerabilities |
-| WSTG-INPV-15 | Testing for HTTP Splitting/Smuggling |
-| WSTG-INPV-16 | Testing for HTTP Incoming Requests |
-| WSTG-INPV-17 | Testing for Host Header Injection |
-| WSTG-INPV-18 | Testing for Server-side Template Injection |
-| WSTG-INPV-19 | Testing for Server-Side Request Forgery |
-| **WSTG-ERRH**  |**Error Handling** |
-| WSTG-ERRH-01 | Testing for Improper Error Handling |
-| **WSTG-CRYP** | **Cryptography** |
-| WSTG-CRYP-01 | Testing for Weak Transport Layer Security |
-| WSTG-CRYP-02 | Testing for Padding Oracle |
-| WSTG-CRYP-03 | Testing for Sensitive Information Sent Via Unencrypted Channels |
-| WSTG-CRYP-04 | Testing for Weak Encryption |
-| **WSTG-BUSLOGIC** | **Business Logic Testing** |
-| WSTG-BUSL-01 | Test Business Logic Data Validation |
-| WSTG-BUSL-02 | Test Ability to Forge Requests |
-| WSTG-BUSL-03 | Test Integrity Checks |
-| WSTG-BUSL-04 | Test for Process Timing |
-| WSTG-BUSL-05 | Test Number of Times a Function Can be Used Limits |
-| WSTG-BUSL-06 | Testing for the Circumvention of Work Flows |
-| WSTG-BUSL-07 | Test Defenses Against Application Misuse |
-| WSTG-BUSL-08 | Test Upload of Unexpected File Types |
-| WSTG-BUSL-09 | Test Upload of Malicious Files |
-| **WSTG-CLIENT** | **Client-side Testing** |
-| WSTG-CLNT-01 | Testing for DOM based Cross Site Scripting |
-| WSTG-CLNT-02 | Testing for JavaScript Execution |
-| WSTG-CLNT-03 | Testing for HTML Injection |
-| WSTG-CLNT-04 | Testing for Client-side URL Redirect |
-| WSTG-CLNT-05 | Testing for CSS Injection |
-| WSTG-CLNT-06 | Testing for Client-side Resource Manipulation |
-| WSTG-CLNT-07 | Test Cross Origin Resource Sharing |
-| WSTG-CLNT-08 | Testing for Cross Site Flashing |
-| WSTG-CLNT-09 | Testing for Clickjacking |
-| WSTG-CLNT-10 | Testing WebSockets |
-| WSTG-CLNT-11 | Test Web Messaging |
-| WSTG-CLNT-12 | Test Local Storage |
-| WSTG-CLNT-13 | Testing for Cross Site Script Inclusion |
+| Ref. ID |  Title | Risk Level |
+|:------------:|--------|------------|
+| 1 | User Authentication Bypass | High |
 
-## Appendix
+### 3.2 Findings Details
 
-This section is often used to describe the commercial and open-source tools that were used in conducting the assessment. When custom scripts or code are utilized during the assessment, it should be disclosed in this section or noted as attachment. Customers appreciate when the methodology used by the consultants is included. It gives them an idea of the thoroughness of the assessment and what areas were included.
+Each finding should be detailed with the following information:
+
+- Reference ID, which can be used for communication between parties and for cross-references across the report.
+- The vulnerability title, such as "User Authentication Bypass".
+- The likelihood or exploitability of the issue, based on various factors such as:
+  - How easy it is to exploit.
+  - Whether there is working exploit code for it.
+  - The level of access required.
+  - Attacker motivation to exploit it.
+- The impact of the vulnerability on the system.
+- Risk of the vulnerability on the application.
+  - Some suggested values are: Informational, Low, Medium, High, and Critical. Ensure that you detail the values you decide to use in an appendix. This allows the reader to understand how each score is determined.
+  - On certain engagements it is required to have a [CVSS](https://www.first.org/cvss/) score. If not required, sometimes it is good to have, and other times it just adds complexity to the report.
+- Detailed description of what the vulnerability is, how to exploit it, and the damage that may result from its exploitation. Any possibly-sensitive data should be masked, for example, passwords, personal information, or credit card details.
+- Detailed steps on how to remediate the vulnerability, possible improvements that could help strengthen the security posture, and missing security practices.
+- Additional resources that could help the reader to understand the vulnerability, such as an image, a video, a CVE, an external guide, etc.
+
+Format this section in a way that best delivers your message.
+
+Always ensure that your descriptions provide enough information for the engineer reading this report to take action based on it. Explain the finding thoroughly and provide as much technical detail as might be necessary to remedy it.
+
+## Appendices
+
+Multiple appendices can be added, such as:
+
+- Test methodology used.
+- Severity and risk rating explanations.
+- Relevant output from tools used.
+  - Make sure to clean the output and not just dump it.
+- A checklist of all the tests conducted, such as the [WSTG checklist](https://github.com/OWASP/wstg/tree/master/checklist). These can be provided as attachments to the report.
+
+## References
+
+This section is not part of the suggested report format. The below links provide more guidance to writing your reports.
+
+- [SANS: Tips for Creating a Strong Cybersecurity Assessment Report](https://www.sans.org/blog/tips-for-creating-a-strong-cybersecurity-assessment-report/)
+- [SANS: Writing a Penetration Testing Report](https://www.sans.org/reading-room/whitepapers/bestprac/paper/33343)
+- [Infosec Institute: The Art of Writing Penetration Test Reports](https://resources.infosecinstitute.com/topic/writing-penetration-testing-reports/)
+- [Dummies: How to Structure a Pen Test Report](https://www.dummies.com/computers/macs/security/how-to-structure-a-pen-test-report/)
+- [Rhino Security Labs: Four Things Every Penetration Test Report Should Have](https://rhinosecuritylabs.com/penetration-testing/four-things-every-penetration-test-report/)
