@@ -32,9 +32,9 @@ jobs:
         # Setup some env vars etc for future use
         # Extract version from tag ref
         VERSION_TAG=${GITHUB_REF/refs\/tags\//}
-        echo "VERSION_TAG::$VERSION_TAG" >> $GITHUB_ENV
+        echo "VERSION_TAG=$VERSION_TAG" >> $GITHUB_ENV
         VERSION_PATH=$(echo $VERSION_TAG | tr -d .)
-        echo "VERSION_PATH::$VERSION_PATH" >> $GITHUB_ENV
+        echo "VERSION_PATH=$VERSION_PATH" >> $GITHUB_ENV
         cd wstg
         echo "WSTG_BASE=$(pwd)" >> $GITHUB_ENV
         echo "SRC_BASE="OWASP/wstg@"$(git log -1 --format=format:%h)" >> $GITHUB_ENV
