@@ -20,7 +20,7 @@ Sets report changes, mostly presented in a table format such as the below.
 
 | Version | Description | Date | Author |
 |:-------:|-------------|------|--------|
-| 1.0 | Initial report | DD/MM/YYYY | Foo Bar |
+| 1.0 | Initial report | DD/MM/YYYY | J. Doe |
 
 ### 1.2 Table of Contents
 
@@ -89,8 +89,8 @@ Each finding should be detailed with the following information:
 - Reference ID, which can be used for communication between parties and for cross-references across the report.
 - The vulnerability title, such as "User Authentication Bypass".
 - The likelihood or exploitability of the issue, based on various factors such as:
-  - How easy it is to exploit it.
-  - Whether there is a working exploit code for it.
+  - How easy it is to exploit.
+  - Whether there is working exploit code for it.
   - The level of access required.
   - Attacker motivation to exploit it.
 - The impact of the vulnerability on the system.
