@@ -325,3 +325,8 @@ modules.xml
 .idea/sonarlint
 
 build/
+
+# The project's current use of node is simply wrapping scripts and defining the project. 
+# Lock files should not be added.
+package-lock.json
+yarn.lock
