@@ -14,15 +14,15 @@ The [W3C CORS specification](https://www.w3.org/TR/cors/) mandates that for non 
 
 ### Origin & Access-Control-Allow-Origin
 
-The origin header is always sent by the browser in a CORS request and indicates the origin of the request. The origin header can not be changed from JavaScript however relying on this header for Access Control checks is not a good idea as it may be spoofed outside the browser, so you still need to check that application-level protocols are used to protect sensitive data.
+The Origin request header is always sent by the browser in a CORS request and indicates the origin of the request. The Origin header cannot be changed from JavaScript however relying on this header for Access Control checks is not a good idea as it may be spoofed outside the browser, so you still need to check that application-level protocols are used to protect sensitive data.
 
 Access-Control-Allow-Origin is a response header used by a server to indicate which domains are allowed to read the response. Based on the CORS W3 Specification it is up to the client to determine and enforce the restriction of whether the client has access to the response data based on this header.
 
-From a penetration testing perspective you should look for insecure configurations as for example using a `*` wildcard as value of the Access-Control-Allow-Origin header that means all domains are allowed. Other insecure example is when the server returns back the origin header without any additional checks, what can lead to access of sensitive data. Note that this configuration is very insecure, and is not acceptable in general terms, except in the case of a public API that is intended to be accessible by everyone.
+From a security testing perspective you should look for insecure configurations as for example using a `*` wildcard as value of the Access-Control-Allow-Origin header that means all domains are allowed. Another insecure example is when the server returns back the origin header without any additional checks, which can lead to access of sensitive data. Note that the configuration of allowing cross-origin requests is very insecure and is not acceptable in general terms, except in the case of a public API that is intended to be accessible by everyone.
 
 ### Access-Control-Request-Method & Access-Control-Allow-Method
 
-The Access-Control-Request-Method header is used when a browser performs a preflight OPTIONS request and let the client indicate the request method of the final request. On the other hand, the Access-Control-Allow-Method is a response header used by the server to describe the methods the clients are allowed to use.
+The Access-Control-Request-Method header is used when a browser performs a preflight OPTIONS request and lets the client indicate the request method of the final request. On the other hand, the Access-Control-Allow-Method is a response header used by the server to describe the methods the clients are allowed to use.
 
 ### Access-Control-Request-Headers & Access-Control-Allow-Headers
 
@@ -30,7 +30,12 @@ These two headers are used between the browser and the server to determine which
 
 ### Access-Control-Allow-Credentials
 
-This header as part of a preflight request indicates that the final request can include user credentials.
+This response header allows browsers to read the response when credentials are passed. When the header is sent, the web application must set an origin to the value of the Access-Control-Allow-Origin header. The Access-Control-Allow-Credentials header cannot be used along with the Access-Control-Allow-Origin header whose value is the `*` wildcard like the following:
+
+```http
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+```
 
 ### Input Validation
 
@@ -47,9 +52,65 @@ There are other headers involved like Access-Control-Max-Age that determines the
 
 ## How to Test
 
-A tool such as [ZAP](https://www.zaproxy.org) can enable testers to intercept HTTP headers, which can reveal how CORS is used. Testers should pay particular attention to the origin header to learn which domains are allowed. Also, manual inspection of the JavaScript is needed to determine whether the code is vulnerable to code injection due to improper handling of user supplied input. Below are some examples:
+A tool such as [ZAP](https://www.zaproxy.org) can enable testers to intercept HTTP headers, which can reveal how CORS is used. Testers should pay particular attention to the origin header to learn which domains are allowed. Also, in some cases, manual inspection of the JavaScript is needed to determine whether the code is vulnerable to code injection due to improper handling of user supplied input.
 
-### Example 1: Insecure Response with Wildcard `*` in Access-Control-Allow-Origin
+### CORS Misconfiguration
+
+Setting the wildcard to the Access-Control-Allow-Origin header(that is, _Access-Control-Allow-Origin: *_) is not secure if the response contains sensitive information. Although it cannot be used with the _Access-Control-Allow-Credentials: true_ at the same time, it can be dangerous where the access control is done solely by the firewall rules or the source IP addresses, other than being protected by credentials.
+
+#### Example: the Wildcard Access-Control-Allow-Origin
+
+A tester can check if the _Access-Control-Allow-Origin: *_ exists in the HTTP response messages.
+
+```http
+HTTP/1.1 200 OK
+[...]
+Access-Control-Allow-Origin: *
+Content-Length: 4
+Content-Type: application/xml
+
+[Response Body]
+```
+
+#### Example: Dynamic CORS Policy
+
+A modern web application or API may be implemented to allow cross-origin requests dynamically, generally in order to allow the requests from the sub domains like the following:
+
+```code
+if (preg_match('|\.example.com$|', $_SERVER['SERVER_NAME'])) {
+   header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
+   ...
+}
+```
+
+In this example, all the requests from the subdomains of example.com will be allowed. It must be ensured that the regular expression that is used to match is complete. Otherwise, if it was simply matched with _example.com_(without '$' appended), attackers might be able to bypass the CORS policy by appending their domain to the Origin header.
+
+```http
+GET /test.php HTTP/1.1
+Host: example.com
+[...]
+Origin: http://example.com.attacker.com
+Cookie: <session cookie>
+```
+
+When the request above is sent, if the following response is returned with the Access-Control-Allow-Origin whose value is the same as the attacker's input, the attacker can read the response afterwards and access sensitive information that is only accessible by a victim user.
+
+```http
+HTTP/1.1 200 OK
+[...]
+Access-Control-Allow-Origin: http://example.com.attacker.com
+Access-Control-Allow-Credentials: true
+Content-Length: 4
+Content-Type: application/xml
+
+[Response Body]
+```
+
+### Input Validation Issue: XSS with CORS
+
+The CORS concept can be viewed from a completely different angle. An attacker may allow their CORS policy on purpose to inject code to the target web application.
+
+#### Example 1: Insecure Response with Wildcard `*` in Access-Control-Allow-Origin
 
 Request `http://attacker.bar/test.php` (note the 'origin' header):
 
@@ -74,7 +135,7 @@ Content-Type: application/xml
 [Response Body]
 ```
 
-### Example 2: Input Validation Issue: XSS with CORS
+#### Example 2: Input Validation Issue: XSS with CORS
 
 This code makes a request to the resource passed after the `#` character in the URL, initially used to get resources in the same server.
 
@@ -144,3 +205,8 @@ Content-Type: text/html
 
 Injected Content from attacker.bar <img src="#" onerror="alert('Domain: '+document.domain)">
 ```
+
+## References
+
+- [OWASP HTML5 Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/HTML5_Security_Cheat_Sheet.html#cross-origin-resource-sharing)
+- [MDN Cross-Origin Resources Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
