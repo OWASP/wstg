@@ -63,10 +63,8 @@
 ## Deliberately Insecure Web Applications
 
 - [OWASP Vulnerable Web Applications Directory Project](https://owasp.org/www-project-vulnerable-web-applications-directory/)
-- [BadStore](https://www.vulnhub.com/entry/badstore-123,41)
 - [Damn Vulnerable Web App](http://www.dvwa.co.uk/)
+- [OWASP Juice Shop](https://owasp-juice.shop)
+- [OWASP WebGoat](https://owasp.org/www-project-webgoat/)
+- [Xtreme Vulnerable Web Application](https://github.com/s4n7h0/xvwa)
 - [Mutillidae](https://www.irongeek.com/i.php?page=mutillidae/mutillidae-deliberately-vulnerable-php-owasp-top-10)
-- [Stanford SecuriBench](https://suif.stanford.edu/~livshits/securibench/)
-- [Vicnum](https://sourceforge.net/projects/vicnum/)
-- [WebGoat](https://owasp.org/www-project-webgoat/)
-- [WebMaven (better known as Buggy Bank)](https://www.mavensecurity.com/about/webmaven)
