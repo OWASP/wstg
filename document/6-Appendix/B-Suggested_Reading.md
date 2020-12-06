@@ -63,8 +63,8 @@
 ## Deliberately Insecure Web Applications
 
 - [OWASP Vulnerable Web Applications Directory Project](https://owasp.org/www-project-vulnerable-web-applications-directory/)
-- [Damn Vulnerable Web App](http://www.dvwa.co.uk/)
 - [OWASP Juice Shop](https://owasp-juice.shop)
 - [OWASP WebGoat](https://owasp.org/www-project-webgoat/)
+- [Damn Vulnerable Web App](http://www.dvwa.co.uk/)
 - [Xtreme Vulnerable Web Application](https://github.com/s4n7h0/xvwa)
 - [Mutillidae](https://www.irongeek.com/i.php?page=mutillidae/mutillidae-deliberately-vulnerable-php-owasp-top-10)
