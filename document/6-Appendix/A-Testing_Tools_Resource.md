@@ -38,15 +38,11 @@
 
 - [sqlmap](http://sqlmap.org)
 
-#### Testing Oracle Vulnerabilities
-
-- [Toad for Oracle](https://www.quest.com/toad)
-
 #### Testing SSL
 
 - [OWASP O-Saft](https://owasp.org/www-project-o-saft/)
 - [sslyze](https://github.com/nabla-c0d3/sslyze)
-- [TestSSLServer](https://www.bolet.org/TestSSLServer/)
+- [testssl.sh](https://github.com/drwetter/testssl.sh)
 - [SSLScan](https://github.com/rbsec/sslscan)
 - [SSLLabs](https://www.ssllabs.com/ssltest/)
 
@@ -81,7 +77,7 @@
 
 - [wget](https://www.gnu.org/software/wget/)
 - [wget for windows](http://gnuwin32.sourceforge.net/packages/wget.htm)
-- [curl](https://curl.haxx.se/)
+- [curl](https://curl.haxx.se)
 
 ## Vulnerability Scanners
 
@@ -92,7 +88,6 @@
 
 ### Commercial
 
-- [NGS Typhon](https://www.nccgroup.trust/uk/our-services/cyber-security/technology-solutions/)
 - [HCL AppScan](https://www.hcltechsw.com/products/appscan)
 - [Burpsuite Professional](https://portswigger.net/burp)
 - [Acunetix Web Vulnerability Scanner](https://www.acunetix.com)
@@ -101,53 +96,49 @@
 - [N-Stalker Web Application Security Scanner](https://www.nstalker.com)
 - [SoapUI (Web Service security testing)](https://www.soapui.org/security-testing/getting-started.html)
 - [Netsparker](https://www.netsparker.com/web-vulnerability-scanner/)
-- [SAINT](https://www.carson-saint.com/)
+- [SAINT](https://www.carson-saint.com)
 - [QualysGuard WAS](https://www.qualys.com/apps/web-app-scanning/)
-- [IndusFace WAS](https://www.indusface.com/web-application-scanning.php)
 - [Fortify WebInspect](https://www.microfocus.com/en-us/solutions/application-security)
 
 ## Linux Distributions
 
-- [Kali](https://www.kali.org/)
-- [Parrot](https://www.parrotsec.org/)
+- [Kali](https://www.kali.org)
+- [Parrot](https://www.parrotsec.org)
 - [Samurai](https://github.com/SamuraiWTF/samuraiwtf)
 - [Santoku](https://sourceforge.net/projects/santoku/)
 - [BlackArch](https://blackarch.org/downloads.html)
-- [PenToo](https://www.pentoo.ch/)
+- [PenToo](https://www.pentoo.ch)
 
 ## Source Code Analyzers
 
 ### Open Source / Freeware
 
-- [Spotbugs](https://spotbugs.github.io/)
-- [Find Security Bugs](https://find-sec-bugs.github.io/)
-- [FlawFinder](https://dwheeler.com/flawfinder/)
+- [Spotbugs](https://spotbugs.github.io)
+- [Find Security Bugs](https://find-sec-bugs.github.io)
 - [phpcs-security-audit](https://github.com/squizlabs/PHP_CodeSniffer)
-- [PMD](https://pmd.github.io/)
-- [Microsoft’s FxCop](https://docs.microsoft.com/en-us/visualstudio/code-quality/install-fxcop-analyzers?view=vs-2019)
-- [SonarQube](https://www.sonarqube.org/)
-- [W3af](https://w3af.org/)
+- [PMD](https://pmd.github.io)
+- [Microsoft's .NET Analyzers](https://docs.microsoft.com/en-us/visualstudio/code-quality/install-net-analyzers)
+- [SonarQube](https://www.sonarqube.org)
 
 ### Commercial
 
-- [Checkmarx CxSuite](https://www.checkmarx.com/)
-- [GrammaTech](https://www.grammatech.com/)
-- [ITS4](https://testarmy.com/en/)
-- [ParaSoft](https://www.parasoft.com/)
+- [Checkmarx CxSuite](https://www.checkmarx.com)
+- [GrammaTech](https://www.grammatech.com)
+- [ITS4](https://testarmy.com/en)
+- [ParaSoft](https://www.parasoft.com)
 - [Virtual Forge CodeProfiler for ABAP](https://www.virtualforge.com/de/codeprofiler-for-abap)
-- [Veracode](https://www.veracode.com/)
-- [Peach Fuzzer](https://www.peach.tech/)
-- [Burp Suite](https://portswigger.net/burp/)
+- [Veracode](https://www.veracode.com)
+- [Peach Fuzzer](https://www.peach.tech)
 - [Fortify SCA](https://www.microfocus.com/en-us/solutions/application-security)
 
-## Acceptance Testing Tools
+## Browser Automation Tools
 
-Acceptance testing tools are used to validate the functionality of web applications. Some follow a scripted approach and typically make use of a Unit Testing framework to construct test suites and test cases. Most, if not all, can be adapted to perform security specific tests in addition to functional tests.
+Browser Audomation tools are used to validate the functionality of web applications. Some follow a scripted approach and typically make use of a Unit Testing framework to construct test suites and test cases. Most, if not all, can be adapted to perform security specific tests in addition to functional tests.
 
 ### Open Source Tools
 
 - [HtmlUnit](http://htmlunit.sourceforge.net)
   - A Java and JUnit based framework that uses the Apache HttpClient as the transport.
   - Very robust and configurable and is used as the engine for a number of other testing tools.
-- [Selenium](https://www.seleniumhq.org)
+- [Selenium](https://www.selenium.dev)
   - JavaScript based testing framework, cross-platform and provides a GUI for creating tests.
