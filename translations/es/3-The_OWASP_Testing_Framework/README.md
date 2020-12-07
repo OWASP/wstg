@@ -1,6 +1,6 @@
 # El framework de pruebas de OWASP
 
-3.1 [The Web Security Testing Framework](0-The_Web_Security_Testing_Framework.md)
+3.1 [El marco de pruebas de seguridad web](0-The_Web_Security_Testing_Framework.md)
 
 3.2 [Phase 1 Before Development Begins](0-The_Web_Security_Testing_Framework.md#phase-1-before-development-begins)
 
@@ -14,4 +14,4 @@
 
 3.7 [A Typical SDLC Testing Workflow](0-The_Web_Security_Testing_Framework.md#a-typical-sdlc-testing-workflow)
 
-3.8 [Penetration Testing Methodologies](1-Penetration_Testing_Methodologies.md)
+3.8 [Metodologías de prueba de penetración](1-Penetration_Testing_Methodologies.md)
