@@ -28,25 +28,25 @@ En términos de ejecución de pruebas de seguridad técnica, se recomiendan las 
 El estándar de ejecución de pruebas de penetración (PTES) define las pruebas de penetración en 7 fases. En particular, las Directrices técnicas de PTES brindan sugerencias prácticas sobre procedimientos de prueba y recomendaciones para herramientas de prueba de seguridad.
 
 - Interacciones previas al compromiso
-- Intelligence Gathering
+- La obtención de información
 - Modelado de amenazas
 - Análisis de vulnerabilidad
 - Explotación
-- Post Exploitation
+- Después de la explotación ( o Post-Explotación)
 - Reportando
 
 [Directrices técnicas de PTES](http://www.pentest-standard.org/index.php/PTES_Technical_Guidelines)
 
 ## Guía de pruebas de penetración PCI
 
-Payment Card Industry Data Security Standard (PCI DSS) Requirement 11.3 defines the penetration testing. PCI also defines Penetration Testing Guidance.
+El requisito 11.3 del Estándar de seguridad de datos de la industria de tarjetas de pago (PCI DSS) define las pruebas de penetración. PCI también define la guía de pruebas de penetración.
 
 ### Guía de pruebas de penetración de PCI DSS
 
 La guía de pruebas de penetración de PCI DSS proporciona orientación sobre lo siguiente:
 
 - Componentes de las pruebas de penetración
-- Qualifications of a Penetration Tester
+- Calificaciones de un probador de penetración (o pentester)
 - Metodologías de pruebas de penetración
 - Directrices de notificación y reportes de pruebas de penetración
 
@@ -67,16 +67,16 @@ El requisito de PCI DSS se refiere al requisito 11.3 del Estándar de seguridad 
 
 El Marco de prueba de penetración (PTF) proporciona una guía completa de pruebas de penetración práctica. También enumera los usos de las herramientas de prueba de seguridad en cada categoría de prueba. El área principal de las pruebas de penetración incluye:
 
-- Network Footprinting (Reconnaissance)
+- Huella de red (reconocimiento, o network footprinting)
 - Descubrimiento y sondeo
 - Enumeración
 - Craqueo de contraseñas
 - Evaluación de vulnerabilidad
-- AS/400 Auditing
+- Auditoría AS/400
 - Pruebas específicas de Bluetooth
 - Pruebas específicas de Cisco
 - Pruebas específicas de Citrix
-- Network Backbone
+- Red troncal (o backbone)
 - Pruebas específicas del servidor
 - Seguridad VoIP
 - Penetración inalámbrica
@@ -110,7 +110,7 @@ OSSTMM incluye las siguientes secciones clave:
 - Flujo de trabajo
 - Pruebas de seguridad humana
 - Pruebas de seguridad física
-- Wireless Security Testing
+- Pruebas de seguridad inalámbrica
 - Pruebas de seguridad de telecomunicaciones
 - Pruebas de seguridad de redes de datos
 - Regulaciones de cumplimiento
