@@ -66,12 +66,9 @@ Another  common example is including content from an external source:
 http://example.com/index.php?file=http://www.owasp.org/malicioustxt
 ```
 
-The same can be applied to cookies or any other input vector that is used for dynamic page generation. 
+The same can be applied to cookies or any other input vector that is used for dynamic page generation.
 
-More file inclusion payloads can be found at 
-[PayloadsAllTheThings - File Inclusion](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/File%20Inclusion)
-
-**Tip:** It's a common mistake by developers to not expect every form of encoding and therefore only do validation for basic encoded content. If at first the test string isn't successful, try another encoding scheme.
+More file inclusion payloads can be found at [PayloadsAllTheThings - File Inclusion](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/File%20Inclusion)
 
 It is important to note that different operating systems use different path separators
 
@@ -85,7 +82,8 @@ It is important to note that different operating systems use different path sepa
   - root directory: `<drive letter>:`
   - directory separator: `:`
 
-As with most input validation situations you could bypass common filters by encoding the payload.
+It's a common mistake by developers to not expect every form of encoding and therefore only do validation for basic encoded content. If at first the test string isn't successful, try another encoding scheme.
+
 Common examples of URL and double url encoding:
 
 - `%2e%2e%2f` represents `../`
@@ -96,7 +94,7 @@ Common examples of URL and double url encoding:
 
 You can find more encoding techniques an ready to be used directory traversal payloads at [PayloadsAllTheThings - Directory Traversal](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Directory%20Traversal)
 
-There are other OS and application framework specific considerations as well. For instance, Windows is flexible in its parsing of file paths.
+### Windows specific considerations
 
 - Windows shell: Appending any of the following to paths used in a shell command results in no difference in function:
   - Angle brackets `<` and `>` at the end of the path
@@ -171,6 +169,7 @@ file= ..\..\boot.ini
 ## References
 
 - [PayloadsAllTheThings - Directory Traversal](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Directory%20Traversal)
+- [PayloadsAllTheThings - File Inclusion](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/File%20Inclusion)
 
 ### Whitepapers
 
