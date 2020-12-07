@@ -54,7 +54,7 @@ Here are some examples of the checks to be performed at this stage:
 
 The next stage of testing is analyzing the input validation functions present in the web application. Using the previous example, the dynamic page called `getUserProfile.jsp` loads static information from a file and shows the content to users. An attacker could insert the malicious string `../../../../etc/passwd` to include the password hash file of a Linux/UNIX system. Obviously, this kind of attack is possible only if the validation checkpoint fails; according to the file system privileges, the web application itself must be able to read the file.
 
-To successfully test for this flaw, the tester needs to have knowledge of the system being tested and the location of the files being requested. There is no point requesting `/etc/passwd` from an IIS web server.
+**Note:** To successfully test for this flaw, the tester needs to have knowledge of the system being tested and the location of the files being requested. There is no point requesting `/etc/passwd` from an IIS web server.
 
 ```text
 http://example.com/getUserProfile.jsp?item=../../../../etc/passwd
@@ -87,14 +87,14 @@ It's a common mistake by developers to not expect every form of encoding and the
 Common examples of URL and double url encoding:
 
 - `%2e%2e%2f` represents `../`
-  - `%2e%2e/` represents `../`
-  - `..%2f` represents `../`
-  - `%2e%2e%5c` represents `..\`
-  - `%2e%2e\` represents `..\`
+- `%2e%2e/` represents `../`
+- `..%2f` represents `../`
+- `%2e%2e%5c` represents `..\`
+- `%2e%2e\` represents `..\`
 
 You can find more encoding techniques an ready to be used directory traversal payloads at [PayloadsAllTheThings - Directory Traversal](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Directory%20Traversal)
 
-### Windows specific considerations
+#### Windows specific considerations
 
 - Windows shell: Appending any of the following to paths used in a shell command results in no difference in function:
   - Angle brackets `<` and `>` at the end of the path
