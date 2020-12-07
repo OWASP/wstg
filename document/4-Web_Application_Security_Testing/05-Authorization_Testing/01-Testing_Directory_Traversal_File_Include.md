@@ -60,42 +60,20 @@ To successfully test for this flaw, the tester needs to have knowledge of the sy
 http://example.com/getUserProfile.jsp?item=../../../../etc/passwd
 ```
 
-For the cookies example:
-
-```text
-Cookie: USER=1826cc8f:PSTYLE=../../../../etc/passwd
-```
-
-It's also possible to include files and scripts located on external website:
+Another  common example is including content from an external source:
 
 ```text
 http://example.com/index.php?file=http://www.owasp.org/malicioustxt
 ```
 
-If protocols are accepted as arguments, as in the above example, it's also possible to probe the local filesystem this way:
+The same can be applied to cookies or any other input vector that is used for dynamic page generation. 
 
-```text
-http://example.com/index.php?file=file:///etc/passwd
-```
-
-If protocols are accepted as arguments, as in the above examples, it's also possible to probe the local services and nearby services:
-
-```text
-http://example.com/index.php?file=http://localhost:8080
-http://example.com/index.php?file=http://192.168.0.2:9080
-```
-
-The following example will demonstrate how it is possible to show the source code of a CGI component, without using any path traversal characters.
-
-```text
-http://example.com/main.cgi?home=main.cgi
-```
-
-The component called `main.cgi` is located in the same directory as the normal HTML static files used by the application. In some cases the tester needs to encode the requests using special characters (like the `.` dot, `%00` null, etc.) in order to bypass file extension controls or to prevent script execution.
+More file inclusion payloads can be found at 
+[PayloadsAllTheThings - File Inclusion](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/File%20Inclusion)
 
 **Tip:** It's a common mistake by developers to not expect every form of encoding and therefore only do validation for basic encoded content. If at first the test string isn't successful, try another encoding scheme.
 
-Each operating system uses different characters as path separator:
+It is important to note that different operating systems use different path separators
 
 - Unix-like OS:
   - root directory: `/`
@@ -107,20 +85,16 @@ Each operating system uses different characters as path separator:
   - root directory: `<drive letter>:`
   - directory separator: `:`
 
-We should take in to account the following character encoding mechanisms:
+As with most input validation situations you could bypass common filters by encoding the payload.
+Common examples of URL and double url encoding:
 
-- URL encoding and double URL encoding
-  - `%2e%2e%2f` represents `../`
+- `%2e%2e%2f` represents `../`
   - `%2e%2e/` represents `../`
   - `..%2f` represents `../`
   - `%2e%2e%5c` represents `..\`
   - `%2e%2e\` represents `..\`
-  - `..%5c` represents `..\`
-  - `%252e%252e%255c` represents `..\`
-  - `..%255c` represents `..\` and so on.
-- Unicode/UTF-8 Encoding (it only works in systems that are able to accept overlong UTF-8 sequences)
-  - `..%c0%af` represents `../`
-  - `..%c1%9c` represents `..\`
+
+You can find more encoding techniques an ready to be used directory traversal payloads at [PayloadsAllTheThings - Directory Traversal](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Directory%20Traversal)
 
 There are other OS and application framework specific considerations as well. For instance, Windows is flexible in its parsing of file paths.
 
@@ -195,6 +169,8 @@ file= ..\..\boot.ini
 - [DirBuster](https://wiki.owasp.org/index.php/Category:OWASP_DirBuster_Project)
 
 ## References
+
+- [PayloadsAllTheThings - Directory Traversal](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Directory%20Traversal)
 
 ### Whitepapers
 
