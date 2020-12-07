@@ -2,15 +2,15 @@
 
 ## Visión general
 
-This section describes a typical testing framework that can be developed within an organization. It can be seen as a reference framework comprised of techniques and tasks that are appropriate at various phases of the software development life cycle (SDLC). Companies and project teams can use this model to develop their own testing framework, and to scope testing services from vendors. This framework should not be seen as prescriptive, but as a flexible approach that can be extended and molded to fit an organization's development process and culture.
+Esta sección describe un modelo de framework de pruebas que se puede implementar en una organización. Puede verse como un marco de referencia compuesto por técnicas y tareas que son útiles en varias fases del ciclo de vida del desarrollo de software (SDLC). Las empresas y los equipos de proyectos pueden utilizar este modelo para crear y adaptar su propio marco de prueba, y para determinar el alcance de los servicios de prueba de los proveedores. Este framework (o marco de trabajo) no debe verse como algo inmutable o inflexible, al contrario el modelo inicial debe ampliarse y moldearlo para que se adapte al proceso de desarrollo y la cultura de la organización.
 
 Esta sección tiene como objetivo ayudar a las organizaciones a construir un proceso de prueba estratégico completo, y no está dirigida a consultores o contratistas que tienden a participar en áreas de prueba más tácticas y específicas.
 
-It is critical to understand why building an end-to-end testing framework is crucial to assessing and improving software security. In *Writing Secure Code*, Howard and LeBlanc note that issuing a security bulletin costs Microsoft at least $100,000, and it costs their customers collectively far more than that to implement the security patches. They also note that the US government's [CyberCrime web site](https://www.justice.gov/criminal-ccips) details recent criminal cases and the loss to organizations. Typical losses far exceed USD $100,000.
+Es fundamental comprender por qué la creación de un marco de pruebas de un extremo a otro (o end-to-end) es fundamental para evaluar y mejorar la seguridad del software. En *Writing Secure Code* , Howard y LeBlanc señalan que la emisión de un boletín de seguridad le cuesta a Microsoft al menos 100.000 dólares y, en conjunto, a sus clientes les cuesta mucho más que eso implementar los parches de seguridad. También señalan que el [sitio web CyberCrime](https://www.justice.gov/criminal-ccips) del gobierno de EE. UU. Detalla los casos penales recientes y las pérdidas para las organizaciones. Las pérdidas típicas superan con creces los USD $ 100.000.
 
-With economics like this, it is little wonder why software vendors move from solely performing black-box security testing, which can only be performed on applications that have already been developed, to concentrating on testing in the early cycles of application development, such as during definition, design, and development.
+Con una economía como ésta, no es de extrañar que los vendedores de software pasen de realizar únicamente pruebas de seguridad de caja negra, que sólo pueden realizarse en aplicaciones ya desarrolladas, a concentrarse en las pruebas en los primeros ciclos del desarrollo de aplicaciones, como durante la definición, el diseño y el desarrollo.
 
-Many security practitioners still see security testing in the realm of penetration testing. As discussed in the previous chapter, while penetration testing has a role to play, it is generally inefficient at finding bugs and relies excessively on the skill of the tester. It should only be considered as an implementation technique, or to raise awareness of production issues. To improve the security of applications, the security quality of the software must be improved. That means testing security during the definition, design, development, deployment, and maintenance stages, and not relying on the costly strategy of waiting until code is completely built.
+Muchos profesionales de la seguridad todavía ven las pruebas de seguridad asociadas al ámbito de las pruebas de penetración. Como se discutió en el capítulo anterior, si bien las pruebas de penetración tienen un papel que desempeñar, generalmente son ineficientes para encontrar errores y dependen excesivamente de la habilidad del evaluador. Sólo se debe considerar como una técnica de implementación, o para mejorar el reconocimiento de las problemáticas de producción. Para mejorar la seguridad de las aplicaciones, se debe mejorar la "calidad de la seguridad" en el ciclo de desarrollo del software. Eso significa probar la seguridad durante las etapas de definición, diseño, desarrollo, implementación y mantenimiento, y no depender de la costosa estrategia de esperar hasta que el código esté completamente construido.
 
 As discussed in the introduction of this document, there are many development methodologies, such as the Rational Unified Process, eXtreme and Agile development, and traditional waterfall methodologies. The intent of this guide is to suggest neither a particular development methodology, nor provide specific guidance that adheres to any particular methodology. Instead, we are presenting a generic development model, and the reader should follow it according to their company process.
 
@@ -44,7 +44,7 @@ Before development begins, plan the measurement program. By defining criteria th
 
 Los requisitos de seguridad definen cómo funciona una aplicación desde una perspectiva de seguridad. Es fundamental que se prueben los requisitos de seguridad. En este caso, probar significa probar las suposiciones que se hacen en los requisitos y probar para ver si hay brechas en las definiciones de los requisitos.
 
-For example, if there is a security requirement that states that users must be registered before they can get access to the whitepapers section of a website, does this mean that the user must be registered with the system or should the user be authenticated? Ensure that requirements are as unambiguous as possible.
+Por ejemplo, si existe un requisito de seguridad que establece que los usuarios deben estar registrados antes de que puedan acceder a la sección de documentos técnicos de un sitio web, ¿esto significa que el usuario debe estar registrado en el sistema o debe autenticarse? Asegúrese de que los requisitos no sean ambiguos.
 
 When looking for requirements gaps, consider looking at security mechanisms such as:
 
@@ -77,11 +77,11 @@ Armed with design and architecture reviews and the UML models explaining exactly
 
 ## Phase 3 During Development
 
-Theoretically, development is the implementation of a design. However, in the real world, many design decisions are made during code development. These are often smaller decisions that were either too detailed to be described in the design, or issues where no policy or standard guidance was offered. If the design and architecture were not adequate, the developer will be faced with many decisions. If there were insufficient policies and standards, the developer will be faced with even more decisions.
+En teoría, el desarrollo es la implementación de un diseño. Sin embargo, en el mundo real, muchas decisiones de diseño se toman durante el desarrollo del código. A menudo se trata de decisiones más pequeñas que tenían demasiado detalles para ser descritas en el diseño, o si suceden incidentes para los que no se ofreció ninguna política o guía estándar. Si el diseño y la arquitectura no fueran los adecuados, el desarrollador se enfrentará a muchas decisiones. Si las políticas y estándares son insuficientes, el desarrollador se enfrentará a incluso más decisiones.
 
 ### Phase 3.1 Code Walkthrough
 
-The security team should perform a code walkthrough with the developers, and in some cases, the system architects. A code walkthrough is a high-level look at the code during which the developers can explain the logic and flow of the implemented code. It allows the code review team to obtain a general understanding of the code, and allows the developers to explain why certain things were developed the way they were.
+El equipo de seguridad debe realizar un recorrido de código con los desarrolladores y, en algunos casos, los arquitectos del sistema. Una revisión del tipo Walkthrough, es una mirada de alto nivel al código durante la cual los desarrolladores pueden explicar la lógica y el flujo del código implementado. Entrega al  equipo de revisión una comprensión general del código y permite a los desarrolladores explicar por qué ciertas cosas se desarrollaron de la forma en que se desarrollaron.
 
 The purpose is not to perform a code review, but to understand at a high level the flow, the layout, and the structure of the code that makes up the application.
 
@@ -93,10 +93,10 @@ Static code reviews validate the code against a set of checklists, including:
 
 - Requisitos comerciales de disponibilidad, confidencialidad e integridad;
 - OWASP Guide or Top 10 Checklists for technical exposures (depending on the depth of the review);
-- Specific issues relating to the language or framework in use, such as the Scarlet paper for PHP or [Microsoft Secure Coding checklists for ASP.NET](https://msdn.microsoft.com/en-us/library/ff648269.aspx); and
-- Any industry-specific requirements, such as Sarbanes-Oxley 404, COPPA, ISO/IEC 27002, APRA, HIPAA, Visa Merchant guidelines, or other regulatory regimes.
+- Hallazgos específicos relacionados con el lenguaje o el framework utilizado, como por ejemplo el documento Scarlet para PHP o las [listas de verificación de codificación segura de Microsoft para ASP.NET](https://msdn.microsoft.com/en-us/library/ff648269.aspx) ; y
+- Cualquier requisito específico de la industria, como Sarbanes-Oxley 404, COPPA, ISO/IEC 27002, APRA, HIPAA, pautas de Visa Merchant u otros regímenes regulatorios.
 
-In terms of return on resources invested (mostly time), static code reviews produce far higher quality returns than any other security review method and rely least on the skill of the reviewer. However, they are not a silver bullet and need to be considered carefully within a full-spectrum testing regime.
+En cuanto al rendimiento de los recursos invertidos (principalmente tiempo), las revisiones de códigos estáticos producen rendimientos de calidad mucho más altos que cualquier otro método de revisión de seguridad y dependen menos de la habilidad del revisor. Sin embargo, no son una bala de plata (o solución milagrosa) y deben considerarse cuidadosamente dentro de un régimen de pruebas de espectro más amplio.
 
 Para obtener más detalles sobre las listas de verificación de OWASP, consulte la última edición de [OWASP Top 10](https://owasp.org/www-project-top-ten/) .
 
@@ -128,5 +128,4 @@ After every change has been approved and tested in the QA environment and deploy
 
 The following figure shows a typical SDLC Testing Workflow.
 
-![Typical SDLC Testing Workflow](images/Typical_SDLC_Testing_Workflow.gif)
- *Figure 3-1: Typical SDLC testing workflow*
+![Flujo de trabajo de pruebas SDLC típico](images/Typical_SDLC_Testing_Workflow.gif)<br> *Figure 3-1: Flujo de trabajo de pruebas SDLC típico*
