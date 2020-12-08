@@ -46,6 +46,7 @@
 - [SSLScan](https://sourceforge.net/projects/sslscan/)
 - [SSLScan windows](https://github.com/rbsec/sslscan/releases)
 - [SSLLabs](https://www.ssllabs.com/ssltest/)
+- [testSSL](https://testssl.sh/)
 
 #### Testing for Brute Force Attacks
 
@@ -73,6 +74,8 @@
 #### Fuzzer
 
 - [Wfuzz](https://github.com/xmendez/wfuzz)
+- [Gobuster](https://github.com/OJ/gobuster)
+- [Jdam](https://gitlab.com/michenriksen/jdam)
 
 #### Googling
 
