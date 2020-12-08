@@ -112,31 +112,6 @@ Content-Type: application/xml
 
 The CORS concept can be viewed from a completely different angle. An attacker may allow their CORS policy on purpose to inject code to the target web application.
 
-#### Example 1: Insecure Response with Wildcard `*` in Access-Control-Allow-Origin
-
-Request `http://attacker.bar/test.php` (note the 'origin' header):
-
-```http
-GET /test.php HTTP/1.1
-Host: attacker.bar
-[...]
-Referer: http://example.foo/CORSexample1.html
-Origin: http://example.foo
-Connection: keep-alive
-```
-
-Response (note the 'Access-Control-Allow-Origin' header:)
-
-```http
-HTTP/1.1 200 OK
-[...]
-Access-Control-Allow-Origin: *
-Content-Length: 4
-Content-Type: application/xml
-
-[Response Body]
-```
-
 #### Remote XSS with CORS
 
 This code makes a request to the resource passed after the `#` character in the URL, initially used to get resources in the same server.
