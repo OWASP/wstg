@@ -23,6 +23,8 @@
   - Edit This Cookie is a cookie manager. You can add, delete, edit, search, protect and block cookies
 - [Session Manager](https://chrome.google.com/webstore/detail/session-manager/mghenlmbmjcpehccoangkdpagbcbkdpc)
   - With Session Manager you can quickly save your current browser state and reload it whenever necessary. You can manage multiple sessions, rename or remove them from the session library. Each session remembers the state of the browser at its creation time, i.e the opened tabs and windows.
+- [Wappalyzer](https://www.wappalyzer.com)
+  - An extension for popular browsers (Firefox, Chrome, Edge, Safari) to tdentify web applications technologies and frameworks.
 
 ### Testing for Specific Vulnerabilities
 
@@ -46,6 +48,7 @@
 - [SSLScan](https://sourceforge.net/projects/sslscan/)
 - [SSLScan windows](https://github.com/rbsec/sslscan/releases)
 - [SSLLabs](https://www.ssllabs.com/ssltest/)
+- [testSSL](https://testssl.sh)
 
 #### Testing for Brute Force Attacks
 
@@ -73,6 +76,8 @@
 #### Fuzzer
 
 - [Wfuzz](https://github.com/xmendez/wfuzz)
+- [Gobuster](https://github.com/OJ/gobuster)
+- [Jdam](https://gitlab.com/michenriksen/jdam)
 
 #### Googling
 
