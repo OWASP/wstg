@@ -93,8 +93,6 @@ A database of dorks, such as [Google Hacking Database](https://www.exploit-db.co
 - Files containing passwords
 - Sensitive Online Shopping Info
 
-Databases for other search engines, such as Bing and Shodan, are available from resources such as Bishop Fox's [Google Hacking Diggity Project](https://resources.bishopfox.com/resources/tools/google-hacking-diggity/).
-
 ## Remediation
 
 Carefully consider the sensitivity of design and configuration information before it is posted online.
