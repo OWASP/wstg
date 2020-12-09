@@ -76,9 +76,9 @@ In some cases, a server may convert uploaded files to PDF format. Try injecting 
 Some applications block references to `localhost` and `127.0.0.1`. This can be circumvented by:
 
 - Using alternative IP representation that evaluate to `127.0.0.1`:
-  - Decimal notation: `2130706433`
-  - Octal notation: `017700000001`
-  - IP shortening: `127.1`
+    - Decimal notation: `2130706433`
+    - Octal notation: `017700000001`
+    - IP shortening: `127.1`
 - String obfuscation
 - Registering your own domain that resolves to `127.0.0.1`
 

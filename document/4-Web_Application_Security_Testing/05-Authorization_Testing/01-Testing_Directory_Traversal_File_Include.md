@@ -43,12 +43,12 @@ Here are some examples of the checks to be performed at this stage:
 - Are there request parameters which could be used for file-related operations?
 - Are there unusual file extensions?
 - Are there interesting variable names?
-  - `http://example.com/getUserProfile.jsp?item=ikki.html`
-  - `http://example.com/index.php?file=content`
-  - `http://example.com/main.cgi?home=index.htm`
+    - `http://example.com/getUserProfile.jsp?item=ikki.html`
+    - `http://example.com/index.php?file=content`
+    - `http://example.com/main.cgi?home=index.htm`
 - Is it possible to identify cookies used by the web application for the dynamic generation of pages or templates?
-  - `Cookie: ID=d9ccd3f4f9f18cc1:TM=2166255468:LM=1162655568:S=3cFpqbJgMSSPKVMV:TEMPLATE=flower`
-  - `Cookie: USER=1826cc8f:PSTYLE=GreenDotRed`
+    - `Cookie: ID=d9ccd3f4f9f18cc1:TM=2166255468:LM=1162655568:S=3cFpqbJgMSSPKVMV:TEMPLATE=flower`
+    - `Cookie: USER=1826cc8f:PSTYLE=GreenDotRed`
 
 #### Testing Techniques
 
@@ -73,14 +73,14 @@ More file inclusion payloads can be found at [PayloadsAllTheThings - File Inclus
 It is important to note that different operating systems use different path separators
 
 - Unix-like OS:
-  - root directory: `/`
-  - directory separator: `/`
+    - root directory: `/`
+    - directory separator: `/`
 - Windows OS:
-  - root directory: `<drive letter>:`
-  - directory separator: `\` or `/`
+    - root directory: `<drive letter>:`
+    - directory separator: `\` or `/`
 - Classic macOS:
-  - root directory: `<drive letter>:`
-  - directory separator: `:`
+    - root directory: `<drive letter>:`
+    - directory separator: `:`
 
 It's a common mistake by developers to not expect every form of encoding and therefore only do validation for basic encoded content. If at first the test string isn't successful, try another encoding scheme.
 
@@ -89,26 +89,26 @@ You can find encoding techniques and ready to use directory traversal payloads a
 #### Windows Specific Considerations
 
 - Windows shell: Appending any of the following to paths used in a shell command results in no difference in function:
-  - Angle brackets `<` and `>` at the end of the path
-  - Double quotes (closed properly) at the end of the path
-  - Extraneous current directory markers such as `./` or `.\\`
-  - Extraneous parent directory markers with arbitrary items that may or may not exist:
-    - `file.txt`
-    - `file.txt...`
-    - `file.txt<spaces>`
-    - `file.txt""""`
-    - `file.txt<<<>>><`
-    - `./././file.txt`
-    - `nonexistant/../file.txt`
+    - Angle brackets `<` and `>` at the end of the path
+    - Double quotes (closed properly) at the end of the path
+    - Extraneous current directory markers such as `./` or `.\\`
+    - Extraneous parent directory markers with arbitrary items that may or may not exist:
+        - `file.txt`
+        - `file.txt...`
+        - `file.txt<spaces>`
+        - `file.txt""""`
+        - `file.txt<<<>>><`
+        - `./././file.txt`
+        - `nonexistant/../file.txt`
 - Windows API: The following items are discarded when used in any shell command or API call where a string is taken as a filename:
-  - periods
-  - spaces
+    - periods
+    - spaces
 - Windows UNC Filepaths: Used to reference files on SMB shares. Sometimes, an application can be made to refer to files on a remote UNC filepath. If so, the Windows SMB server may send stored credentials to the attacker, which can be captured and cracked. These may also be used with a self-referential IP address or domain name to evade filters, or used to access files on SMB shares inaccessible to the attacker, but accessible from the web server.
-  - `\\server_or_ip\path\to\file.abc`
-  - `\\?\server_or_ip\path\to\file.abc`
+    - `\\server_or_ip\path\to\file.abc`
+    - `\\?\server_or_ip\path\to\file.abc`
 - Windows NT Device Namespace: Used to refer to the Windows device namespace. Certain references will allow access to file systems using a different path.
-  - May be equivalent to a drive letter such as `c:\`, or even a drive volume without an assigned letter: `\\.\GLOBALROOT\Device\HarddiskVolume1\`
-  - Refers to the first disc drive on the machine: `\\.\CdRom0\`
+    - May be equivalent to a drive letter such as `c:\`, or even a drive volume without an assigned letter: `\\.\GLOBALROOT\Device\HarddiskVolume1\`
+    - Refers to the first disc drive on the machine: `\\.\CdRom0\`
 
 ### Gray-Box Testing
 

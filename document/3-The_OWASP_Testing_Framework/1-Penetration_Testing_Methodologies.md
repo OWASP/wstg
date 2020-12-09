@@ -3,13 +3,13 @@
 ## Summary
 
 - [OWASP Testing Guides](#owasp-testing-guides)
-  - Web Security Testing Guide (WSTG)
-  - Mobile Security Testing Guide (MSTG)
-  - Firmware Security Testing Methodology
+    - Web Security Testing Guide (WSTG)
+    - Mobile Security Testing Guide (MSTG)
+    - Firmware Security Testing Methodology
 - [Penetration Testing Execution Standard](#penetration-testing-execution-standard)
 - [PCI Penetration Testing Guide](#pci-penetration-testing-guide)
-  - [PCI DSS Penetration Testing Guidance](#pci-dss-penetration-testing-guidance)
-  - [PCI DSS Penetration Testing Requirements](#pci-dss-penetration-testing-requirements)
+    - [PCI DSS Penetration Testing Guidance](#pci-dss-penetration-testing-guidance)
+    - [PCI DSS Penetration Testing Requirements](#pci-dss-penetration-testing-requirements)
 - [Penetration Testing Framework](#penetration-testing-framework)
 - [Technical Guide to Information Security Testing and Assessment](#technical-guide-to-information-security-testing-and-assessment)
 - [Open Source Security Testing Methodology Manual](#open-source-security-testing-methodology-manual)

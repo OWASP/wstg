@@ -31,10 +31,10 @@ The tester should start by identifying the application roles being tested throug
 - Guidance by the developers or administrators of the application.
 - Application comments.
 - Fuzz possible roles:
-  - cookie variable (*e.g.* `role=admin`, `isAdmin=True`)
-  - account variable (*e.g.* `Role: manager`)
-  - hidden directories or files (*e.g.* `/admin`, `/mod`, `/backups`)
-  - switching to well known users (*e.g.* `admin`, `backups`, etc.)
+    - cookie variable (*e.g.* `role=admin`, `isAdmin=True`)
+    - account variable (*e.g.* `Role: manager`)
+    - hidden directories or files (*e.g.* `/admin`, `/mod`, `/backups`)
+    - switching to well known users (*e.g.* `admin`, `backups`, etc.)
 
 ### Switching to Available Roles
 

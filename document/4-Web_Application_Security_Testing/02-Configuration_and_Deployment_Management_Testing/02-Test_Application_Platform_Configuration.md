@@ -156,32 +156,32 @@ Log statistics or analysis should not be generated, nor stored, in the same serv
 ## References
 
 - Apache
-  - Apache Security, by Ivan Ristic, O’reilly, March 2005.
-  - [Apache Security Secrets: Revealed (Again), Mark Cox, November 2003](https://awe.com/mark/talks/apachecon2003us.html)
-  - [Apache Security Secrets: Revealed, ApacheCon 2002, Las Vegas, Mark J Cox, October 2002](https://awe.com/mark/talks/apachecon2002us.html)
-  - [Performance Tuning](https://httpd.apache.org/docs/current/misc/perf-tuning.html)
+    - Apache Security, by Ivan Ristic, O’reilly, March 2005.
+    - [Apache Security Secrets: Revealed (Again), Mark Cox, November 2003](https://awe.com/mark/talks/apachecon2003us.html)
+    - [Apache Security Secrets: Revealed, ApacheCon 2002, Las Vegas, Mark J Cox, October 2002](https://awe.com/mark/talks/apachecon2002us.html)
+    - [Performance Tuning](https://httpd.apache.org/docs/current/misc/perf-tuning.html)
 - Lotus Domino
-  - Lotus Security Handbook, William Tworek et al., April 2004, available in the IBM Redbooks collection
-  - Lotus Domino Security, an X-force white-paper, Internet Security Systems, December 2002
-  - Hackproofing Lotus Domino Web Server, David Litchfield, October 2001
+    - Lotus Security Handbook, William Tworek et al., April 2004, available in the IBM Redbooks collection
+    - Lotus Domino Security, an X-force white-paper, Internet Security Systems, December 2002
+    - Hackproofing Lotus Domino Web Server, David Litchfield, October 2001
 - Microsoft IIS
-  - [Security Best Practices for IIS 8](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/jj635855(v=ws.11))
-  - [CIS Microsoft IIS Benchmarks](https://www.cisecurity.org/benchmark/microsoft_iis/)
-  - Securing Your Web Server (Patterns and Practices), Microsoft Corporation, January 2004
-  - IIS Security and Programming Countermeasures, by Jason Coombs
-  - From Blueprint to Fortress: A Guide to Securing IIS 5.0, by John Davis, Microsoft Corporation, June 2001
-  - Secure Internet Information Services 5 Checklist, by Michael Howard, Microsoft Corporation, June 2000
+    - [Security Best Practices for IIS 8](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/jj635855(v=ws.11))
+    - [CIS Microsoft IIS Benchmarks](https://www.cisecurity.org/benchmark/microsoft_iis/)
+    - Securing Your Web Server (Patterns and Practices), Microsoft Corporation, January 2004
+    - IIS Security and Programming Countermeasures, by Jason Coombs
+    - From Blueprint to Fortress: A Guide to Securing IIS 5.0, by John Davis, Microsoft Corporation, June 2001
+    - Secure Internet Information Services 5 Checklist, by Michael Howard, Microsoft Corporation, June 2000
 - Red Hat’s (formerly Netscape’s) iPlanet
-  - Guide to the Secure Configuration and Administration of iPlanet Web Server, Enterprise Edition 4.1, by James M Hayes, The Network Applications Team of the Systems and Network Attack Center (SNAC), NSA, January 2001
+    - Guide to the Secure Configuration and Administration of iPlanet Web Server, Enterprise Edition 4.1, by James M Hayes, The Network Applications Team of the Systems and Network Attack Center (SNAC), NSA, January 2001
 - WebSphere
-  - IBM WebSphere V5.0 Security, WebSphere Handbook Series, by Peter Kovari et al., IBM, December 2002.
-  - IBM WebSphere V4.0 Advanced Edition Security, by Peter Kovari et al., IBM, March 2002.
+    - IBM WebSphere V5.0 Security, WebSphere Handbook Series, by Peter Kovari et al., IBM, December 2002.
+    - IBM WebSphere V4.0 Advanced Edition Security, by Peter Kovari et al., IBM, March 2002.
 - General
-  - [Logging Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html), OWASP
-  - [SP 800-92](https://csrc.nist.gov/publications/detail/sp/800-92/final) Guide to Computer Security Log Management, NIST
-  - [PCI DSS v3.2.1](https://www.pcisecuritystandards.org/document_library) Requirement 10 and PA-DSS v3.2 Requirement 4, PCI Security Standards Council
+    - [Logging Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html), OWASP
+    - [SP 800-92](https://csrc.nist.gov/publications/detail/sp/800-92/final) Guide to Computer Security Log Management, NIST
+    - [PCI DSS v3.2.1](https://www.pcisecuritystandards.org/document_library) Requirement 10 and PA-DSS v3.2 Requirement 4, PCI Security Standards Council
 
 - Generic:
-  - [CERT Security Improvement Modules: Securing Public Web Servers](https://resources.sei.cmu.edu/asset_files/SecurityImprovementModule/2000_006_001_13637.pdf)
+    - [CERT Security Improvement Modules: Securing Public Web Servers](https://resources.sei.cmu.edu/asset_files/SecurityImprovementModule/2000_006_001_13637.pdf)
 
-  - [How To: Use IISLockdown.exe](https://support.microsoft.com/en-us/help/325864/how-to-install-and-use-the-iis-lockdown-wizard)
+    - [How To: Use IISLockdown.exe](https://support.microsoft.com/en-us/help/325864/how-to-install-and-use-the-iis-lockdown-wizard)
