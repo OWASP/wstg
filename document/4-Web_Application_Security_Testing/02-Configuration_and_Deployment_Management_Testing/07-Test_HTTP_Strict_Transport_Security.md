@@ -15,7 +15,7 @@ The HTTP strict transport security header uses two directives:
 - `max-age`: to indicate the number of seconds that the browser should automatically convert all HTTP requests to HTTPS.
 - `includeSubDomains`: to indicate that all related sub-domains must use HTTPS.
 - `preload` Unofficial: to indicate that the domain(s) are on the preload list(s) and that browsers should never connect without HTTPS.
-  - This is supported by all major browsers but is not official part of the specification. (See [hstspreload.org](https://hstspreload.org/) for more information.)
+    - This is supported by all major browsers but is not official part of the specification. (See [hstspreload.org](https://hstspreload.org/) for more information.)
 
 Here's an example of the HSTS header implementation:
 

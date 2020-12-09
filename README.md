@@ -13,7 +13,7 @@ We are currently working on release version 5.0. You can [read the current docum
 For the last stable release, [check release 4.2](https://github.com/OWASP/wstg/releases/tag/v4.2). Also available [online](https://owasp.org/www-project-web-security-testing-guide/v42/).
 
 - [How To Reference WSTG Scenarios](#how-to-reference-wstg-scenarios)
-  - [Linking](#linking)
+    - [Linking](#linking)
 - [Contributions, Feature Requests, and Feedback](#contributions-feature-requests-and-feedback)
 - [Chat With Us](#chat-with-us)
 - [Project Leaders](#project-leaders)

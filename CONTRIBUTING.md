@@ -6,8 +6,8 @@ Here are some ways you can make a helpful contribution. The [Open Source Guide f
 
 - [Become an Author](#become-an-author)
 - [Become a Reviewer or Editor](#become-a-reviewer-or-editor)
-  - [Technical Review](#technical-review)
-  - [Editorial Review](#editorial-review)
+    - [Technical Review](#technical-review)
+    - [Editorial Review](#editorial-review)
 - [How to Open an Issue](#how-to-open-an-issue)
 - [How to Submit a Pull Request](#how-to-submit-a-pull-request)
 - [How to Set Up Your Contributor Environment](#how-to-set-up-your-contributor-environment)
