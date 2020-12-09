@@ -95,15 +95,15 @@ If we suppose that the values of the parameters are sent to the server through t
 
 `http://www.example.com/index.php?username=1'%20or%20'1'%20=%20'1&amp;password=1'%20or%20'1'%20=%20'1`
 
-After a short analysis we notice that the query returns a value (or a set of values) because the condition is always true (OR 1=1). In this way the system has authenticated the user without knowing the username and password.
+After a short analysis we notice that the query returns a value (or a set of values) because the condition is always true (`OR 1=1`). In this way the system has authenticated the user without knowing the username and password.
 
-> In some systems the first row of a user table would be an administrator user. This may be the profile returned in some cases.
+> Note: In some systems the first row of a user table would be an administrator user. This may be the profile returned in some cases.
 
-Another example of query is the following:
+Another example query is the following:
 
 `SELECT * FROM Users WHERE ((Username='$username') AND (Password=MD5('$password')))`
 
-In this case, there are two problems, one due to the use of the parentheses and one due to the use of MD5 hash function. First of all, we resolve the problem of the parentheses. That simply consists of adding a number of closing parentheses until we obtain a corrected query. To resolve the second problem, we try to evade the second condition. We add to our query a final symbol that means that a comment is beginning. In this way, everything that follows such symbol is considered a comment. Every DBMS has its own syntax for comments, however, a common symbol to the greater majority of the databases is `*`. In Oracle the symbol is `--`. This said, the values that we'll use as Username and Password are:
+In this case, there are two problems, one due to the use of the parentheses and one due to the use of MD5 hash function. First of all, we resolve the problem of the parentheses. That simply consists of adding a number of closing parentheses until we obtain a corrected query. To resolve the second problem, we try to evade the second condition. We add to our query a final symbol that means that a comment is beginning. In this way, everything that follows such symbol is considered a comment. Every DBMS has its own syntax for comments, however, a common symbol for the greater majority of databases is `/*`. In Oracle the symbol is `--`. This said, the values that we'll use as Username and Password are:
 
 `$username = 1' or '1' = '1'))/*`
 
@@ -113,19 +113,19 @@ In this way, we'll get the following query:
 
 `SELECT * FROM Users WHERE ((Username='1' or '1' = '1'))/*') AND (Password=MD5('$password')))`
 
-(Due to the inclusion of a comment delimiter in the $username value the password portion of the query will be ignored.)
+(Due to the inclusion of a comment delimiter in the `$username` value the password portion of the query will be ignored.)
 
-The URL request will be:
+The request URL will be:
 
 `http://www.example.com/index.php?username=1'%20or%20'1'%20=%20'1'))/*&amp;password=foo`
 
-This may return a number of values. Sometimes, the authentication code verifies that the number of returned records/results is exactly equal to 1. In the previous examples, this situation would be difficult (in the database there is only one value per user). In order to go around this problem, it is enough to insert a SQL command that imposes a condition that the number of the returned results must be one. (One record returned) In order to reach this goal, we use the operator `LIMIT <num>`, where `<num>` is the number of the results/records that we want to be returned. With respect to the previous example, the value of the fields Username and Password will be modified as follows:
+This may return a number of values. Sometimes, the authentication code verifies that the number of returned records/results is exactly equal to 1. In the previous examples, this situation would be difficult (in the database there is only one value per user). In order to get around this problem, it is enough to insert a SQL command that imposes a condition that the number of the returned results must be one (one record returned). In order to reach this goal, we use the operator `LIMIT <num>`, where `<num>` is the number of the results/records that we want to be returned. With respect to the previous example, the value of the fields Username and Password will be modified as follows:
 
 `$username = 1' or '1' = '1')) LIMIT 1/*`
 
 `$password = foo`
 
-In this way, we create a request like the follow:
+In this way, we create a request like the following:
 
 `http://www.example.com/index.php?username=1'%20or%20'1'%20=%20'1'))%20LIMIT%201/*&amp;password=foo`
 
