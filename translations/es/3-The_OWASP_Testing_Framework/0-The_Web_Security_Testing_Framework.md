@@ -128,4 +128,5 @@ Después de que cada cambio se haya aprobado y verificado en el entorno de QA y 
 
 La siguiente figura muestra un típico flujo de trabajo de pruebas para un SDLC.
 
-![Flujo de trabajo de pruebas SDLC típico](images/Typical_SDLC_Testing_Workflow.gif)<br> *Figure 3-1: Flujo de trabajo de pruebas SDLC típico*
+![Flujo de trabajo de pruebas SDLC típico](images/Typical_SDLC_Testing_Workflow.gif)\
+*Figure 3-1: Flujo de trabajo de pruebas SDLC típico*
