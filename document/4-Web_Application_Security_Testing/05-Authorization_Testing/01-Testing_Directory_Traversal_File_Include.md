@@ -60,7 +60,7 @@ The next stage of testing is analyzing the input validation functions present in
 http://example.com/getUserProfile.jsp?item=../../../../etc/passwd
 ```
 
-Another  common example is including content from an external source:
+Another common example is including content from an external source:
 
 ```text
 http://example.com/index.php?file=http://www.owasp.org/malicioustxt
@@ -84,9 +84,9 @@ It is important to note that different operating systems use different path sepa
 
 It's a common mistake by developers to not expect every form of encoding and therefore only do validation for basic encoded content. If at first the test string isn't successful, try another encoding scheme.
 
-You can find encoding techniques an ready to be used directory traversal payloads at [PayloadsAllTheThings - Directory Traversal](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Directory%20Traversal)
+You can find encoding techniques and ready to use directory traversal payloads at [PayloadsAllTheThings - Directory Traversal](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Directory%20Traversal)
 
-#### Windows specific considerations
+#### Windows Specific Considerations
 
 - Windows shell: Appending any of the following to paths used in a shell command results in no difference in function:
   - Angle brackets `<` and `>` at the end of the path
