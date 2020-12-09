@@ -1,6 +1,7 @@
 {
   "default": true,
   "MD004": { "style": "dash" },
+  "MD007": { "indent": 4 },
   "MD024": { "siblings_only": true},
   "MD026": { "punctuation" : ".,;:!。，；：!" },
   "line-length": false,
