@@ -57,7 +57,7 @@
 
 - [Patator](https://github.com/lanjelot/patator)
 - [THC Hydra](https://github.com/vanhauser-thc/thc-hydra)
-- [Burp Suite Professional (Intruder)](https://portswigger.net/burp/pro)
+- [Burp Suite Community (Intruder)](https://portswigger.net/burp/communitydownload)
 
 #### Fuzzers
 
@@ -81,24 +81,8 @@
 
 ## Vulnerability Scanners
 
-### Open Source
-
 - [w3af](https://w3af.org)
 - [OWASP ZAP](https://www.zaproxy.org)
-
-### Commercial
-
-- [HCL AppScan](https://www.hcltechsw.com/products/appscan)
-- [Burpsuite Professional](https://portswigger.net/burp)
-- [Acunetix Web Vulnerability Scanner](https://www.acunetix.com)
-- [MaxPatrol Security Scanner](https://www.ptsecurity.com/ww-en/products/maxpatrol/)
-- [Parasoft SOAtest (more QA-type tool)](https://www.parasoft.com/products/soatest)
-- [N-Stalker Web Application Security Scanner](https://www.nstalker.com)
-- [SoapUI (Web Service security testing)](https://www.soapui.org/security-testing/getting-started.html)
-- [Netsparker](https://www.netsparker.com/web-vulnerability-scanner/)
-- [SAINT](https://www.carson-saint.com)
-- [QualysGuard WAS](https://www.qualys.com/apps/web-app-scanning/)
-- [Fortify WebInspect](https://www.microfocus.com/en-us/solutions/application-security)
 
 ## Linux Distributions
 
@@ -111,29 +95,16 @@
 
 ## Source Code Analyzers
 
-### Open Source / Freeware
-
 - [Spotbugs](https://spotbugs.github.io)
 - [Find Security Bugs](https://find-sec-bugs.github.io)
 - [phpcs-security-audit](https://github.com/squizlabs/PHP_CodeSniffer)
 - [PMD](https://pmd.github.io)
 - [Microsoft's .NET Analyzers](https://docs.microsoft.com/en-us/visualstudio/code-quality/install-net-analyzers)
-- [SonarQube](https://www.sonarqube.org)
-
-### Commercial
-
-- [Checkmarx CxSuite](https://www.checkmarx.com)
-- [GrammaTech](https://www.grammatech.com)
-- [ITS4](https://testarmy.com/en)
-- [ParaSoft](https://www.parasoft.com)
-- [Virtual Forge CodeProfiler for ABAP](https://www.virtualforge.com/de/codeprofiler-for-abap)
-- [Veracode](https://www.veracode.com)
-- [Peach Fuzzer](https://www.peach.tech)
-- [Fortify SCA](https://www.microfocus.com/en-us/solutions/application-security)
+- [SonarQube Community Edition](https://www.sonarqube.org)
 
 ## Browser Automation Tools
 
-Browser Audomation tools are used to validate the functionality of web applications. Some follow a scripted approach and typically make use of a Unit Testing framework to construct test suites and test cases. Most, if not all, can be adapted to perform security specific tests in addition to functional tests.
+Browser Automation tools are used to validate the functionality of web applications. Some follow a scripted approach and typically make use of a Unit Testing framework to construct test suites and test cases. Most, if not all, can be adapted to perform security specific tests in addition to functional tests.
 
 ### Open Source Tools
 
