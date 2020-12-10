@@ -1,5 +1,11 @@
 # Testing Tools Resource
 
+## Introduction
+
+This appendix is intended to provide a list of common tools that are used for web application testing. It does not aim to be a complete tool reference, and the inclusion of a tool here should not be seen as a specific endorsement of that tool by OWASP.
+
+The list contains only tools that are freely available to download and use (although they may have licenses restricting their use for commercial activity).
+
 ## General Web Testing
 
 ### Web Proxies
@@ -9,6 +15,8 @@
   - ZAP provides automated scanners as well as a set of tools that allow you to find security vulnerabilities manually.
 - [Burp Suite Community Edition](https://portswigger.net/burp/communitydownload)
   - Burp Suite is an intercepting proxy for security testing. It allows intercepting and modifying all HTTP(S) traffic passing in both directions, it can work with custom SSL certificates and non-proxy-aware clients.
+- [Telerik Fiddler](https://www.telerik.com/fiddler)
+ - Fiddler an intercepting web proxy that is primarily aimed at developers rather than penetration testers, but still provides useful functionality. It also hooks directly into the Windows HTTP APIs, allowing it to intercept traffic from some software that doesn't allow custom proxies to be set.
 
 ### Firefox Extensions
 
