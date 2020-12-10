@@ -65,7 +65,7 @@ The list contains only tools that are freely available to download and use (alth
 
 - [Patator](https://github.com/lanjelot/patator)
 - [THC Hydra](https://github.com/vanhauser-thc/thc-hydra)
-- [Burp Suite Community (Intruder)](https://portswigger.net/burp/communitydownload)
+- [Burp Suite Community Edition (Intruder)](https://portswigger.net/burp/communitydownload)
 
 #### Fuzzers
 
