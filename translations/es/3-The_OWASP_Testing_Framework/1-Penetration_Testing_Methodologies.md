@@ -127,6 +127,6 @@ OSSTMM incluye las siguientes secciones clave:
 - [Evaluación de pruebas de seguridad de HIPAA 2012](http://csrc.nist.gov/news_events/hiipaa_june2012/day2/day2-6_kscarfone-rmetzer_security-testing-assessment.pdf)
 - [Marco de prueba de penetración 0.59](http://www.vulnerabilityassessment.co.uk/Penetration%20Test.html)
 - [Guía de pruebas de seguridad móvil de OWASP](https://owasp.org/www-project-mobile-security-testing-guide/)
-- [Directrices de prueba de seguridad para aplicaciones móviles](https://owasp.org/www-pdf-archive/Security_Testing_Guidelines_for_mobile_Apps_-_Florian_Stahl%2BJohannes_Stroeher.pdf)
+- [Directrices de prueba de seguridad para aplicaciones móviles](https://owasp.org/www-pdf-archive/Security_Testing_Guidelines_for_mobile_Apps_-_Florian_Stahl+Johannes_Stroeher.pdf)
 - [Kali Linux](https://www.kali.org/)
 - [Suplemento de información: Requisito 11.3 Prueba de penetración](https://www.pcisecuritystandards.org/pdfs/infosupp_11_3_penetration_testing.pdf)
