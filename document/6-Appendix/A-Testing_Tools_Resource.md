@@ -11,21 +11,21 @@ The list contains only tools that are freely available to download and use (alth
 ### Web Proxies
 
 - [OWASP ZAP](https://www.zaproxy.org)
-  - The Zed Attack Proxy (ZAP) is an easy to use integrated penetration testing tool for finding vulnerabilities in web applications. It is designed to be used by people with a wide range of security experience and as such is ideal for developers and functional testers who are new to penetration testing.
+    - The Zed Attack Proxy (ZAP) is an easy to use integrated penetration testing tool for finding vulnerabilities in web applications. It is designed to be used by people with a wide range of security experience and as such is ideal for developers and functional testers who are new to penetration testing.
   - ZAP provides automated scanners as well as a set of tools that allow you to find security vulnerabilities manually.
 - [Burp Suite Community Edition](https://portswigger.net/burp/communitydownload)
-  - Burp Suite is an intercepting proxy for security testing. It allows intercepting and modifying all HTTP(S) traffic passing in both directions, it can work with custom SSL certificates and non-proxy-aware clients.
+    - Burp Suite is an intercepting proxy for security testing. It allows intercepting and modifying all HTTP(S) traffic passing in both directions, it can work with custom SSL certificates and non-proxy-aware clients.
 - [Telerik Fiddler](https://www.telerik.com/fiddler)
-  - Fiddler an intercepting web proxy that is primarily aimed at developers rather than penetration testers, but still provides useful functionality. It also hooks directly into the Windows HTTP APIs, allowing it to intercept traffic from some software that doesn't allow custom proxies to be set.
+    - Fiddler an intercepting web proxy that is primarily aimed at developers rather than penetration testers, but still provides useful functionality. It also hooks directly into the Windows HTTP APIs, allowing it to intercept traffic from some software that doesn't allow custom proxies to be set.
 
 ### Firefox Extensions
 
 - [Firefox HTTP Header Live](https://addons.mozilla.org/en-US/firefox/addon/http-header-live)
     - View HTTP headers of a page and while browsing.
 - [Firefox Tamper Data](https://addons.mozilla.org/en-US/firefox/addon/tamper-data-for-ff-quantum/)
-  - Use Tamper Data to view and modify HTTP/HTTPS headers and post parameters
+    - Use Tamper Data to view and modify HTTP/HTTPS headers and post parameters
 - [Firefox Web Developer](https://addons.mozilla.org/en-US/firefox/addon/web-developer/)
-  - The Web Developer extension adds various web developer tools to the browser.
+    - The Web Developer extension adds various web developer tools to the browser.
 
 ### Chrome Extensions
 
@@ -34,13 +34,9 @@ The list contains only tools that are freely available to download and use (alth
 - [HTTP Request Maker](https://chrome.google.com/webstore/detail/kajfghlhfkcocafkcjlajldicbikpgnp?hl=en-US)
     - Request Maker is a tool for penetration testing. With it you can easily capture requests made by web pages, tamper with the URL, headers and POST data and, of course, make new requests
 - [Cookie Editor](https://chrome.google.com/webstore/detail/fngmhnnpilhplaeedifhccceomclgfbg?hl=en-US)
-  - Edit This Cookie is a cookie manager. You can add, delete, edit, search, protect and block cookies
+    - Edit This Cookie is a cookie manager. You can add, delete, edit, search, protect and block cookies
 
 ### Testing for Specific Vulnerabilities
-
-#### Testing for DOM-based XSS
-
-- [BlueClosure BC Detect](https://www.blueclosure.com)
 
 #### Testing for SQL Injection
 
@@ -73,7 +69,6 @@ The list contains only tools that are freely available to download and use (alth
 
 #### Google Hacking
 
-- [Google Hacking Diggity Project](https://resources.bishopfox.com/resources/tools/google-hacking-diggity/)
 - [Google Hacking database](https://www.exploit-db.com/google-hacking-database/)
 
 #### Slow HTTP
@@ -117,7 +112,7 @@ Browser Automation tools are used to validate the functionality of web applicati
 ### Open Source Tools
 
 - [HtmlUnit](http://htmlunit.sourceforge.net)
-  - A Java and JUnit based framework that uses the Apache HttpClient as the transport.
-  - Very robust and configurable and is used as the engine for a number of other testing tools.
+    - A Java and JUnit based framework that uses the Apache HttpClient as the transport.
+    - Very robust and configurable and is used as the engine for a number of other testing tools.
 - [Selenium](https://www.selenium.dev)
-  - JavaScript based testing framework, cross-platform and provides a GUI for creating tests.
+    - JavaScript based testing framework, cross-platform and provides a GUI for creating tests.
