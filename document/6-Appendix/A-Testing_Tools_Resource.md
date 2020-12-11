@@ -84,6 +84,7 @@ The list contains only tools that are freely available to download and use (alth
 - [curl](https://curl.haxx.se)
 
 ### Content Discovery
+
 - [Gobuster](https://github.com/OJ/gobuster)
 
 ## Vulnerability Scanners
