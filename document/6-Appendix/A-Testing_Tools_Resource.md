@@ -66,6 +66,7 @@ The list contains only tools that are freely available to download and use (alth
 #### Fuzzers
 
 - [Wfuzz](https://github.com/xmendez/wfuzz)
+- [Jdam](https://gitlab.com/michenriksen/jdam)
 
 #### Google Hacking
 
@@ -81,6 +82,9 @@ The list contains only tools that are freely available to download and use (alth
 - [wget](https://www.gnu.org/software/wget/)
 - [wget for windows](http://gnuwin32.sourceforge.net/packages/wget.htm)
 - [curl](https://curl.haxx.se)
+
+### Content Discovery
+- [Gobuster](https://github.com/OJ/gobuster)
 
 ## Vulnerability Scanners
 
