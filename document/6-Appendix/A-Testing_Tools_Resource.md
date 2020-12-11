@@ -21,7 +21,7 @@ The list contains only tools that are freely available to download and use (alth
 ### Firefox Extensions
 
 - [Firefox HTTP Header Live](https://addons.mozilla.org/en-US/firefox/addon/http-header-live)
-  - View HTTP headers of a page and while browsing.
+    - View HTTP headers of a page and while browsing.
 - [Firefox Tamper Data](https://addons.mozilla.org/en-US/firefox/addon/tamper-data-for-ff-quantum/)
   - Use Tamper Data to view and modify HTTP/HTTPS headers and post parameters
 - [Firefox Web Developer](https://addons.mozilla.org/en-US/firefox/addon/web-developer/)
@@ -30,9 +30,9 @@ The list contains only tools that are freely available to download and use (alth
 ### Chrome Extensions
 
 - [Chrome Web Developer](https://chrome.google.com/webstore/detail/bfbameneiokkgbdmiekhjnmfkcnldhhm)
-  - The Web Developer extension adds a toolbar button to the browser with various web developer tools. This is the official port of the Web Developer extension for Chrome.
+    - The Web Developer extension adds a toolbar button to the browser with various web developer tools. This is the official port of the Web Developer extension for Chrome.
 - [HTTP Request Maker](https://chrome.google.com/webstore/detail/kajfghlhfkcocafkcjlajldicbikpgnp?hl=en-US)
-  - Request Maker is a tool for penetration testing. With it you can easily capture requests made by web pages, tamper with the URL, headers and POST data and, of course, make new requests
+    - Request Maker is a tool for penetration testing. With it you can easily capture requests made by web pages, tamper with the URL, headers and POST data and, of course, make new requests
 - [Cookie Editor](https://chrome.google.com/webstore/detail/fngmhnnpilhplaeedifhccceomclgfbg?hl=en-US)
   - Edit This Cookie is a cookie manager. You can add, delete, edit, search, protect and block cookies
 

@@ -60,13 +60,13 @@ For instance, if testers are testing an e-commerce application, they should look
 The exact location where that information is stored depends on the client operating system and on the browser that has been used. Here are some examples:
 
 - Mozilla Firefox:
-  - Unix/Linux: `~/.cache/mozilla/firefox/`
-  - Windows: `C:\Users\<user_name>\AppData\Local\Mozilla\Firefox\Profiles\<profile-id>\Cache2\`
+    - Unix/Linux: `~/.cache/mozilla/firefox/`
+    - Windows: `C:\Users\<user_name>\AppData\Local\Mozilla\Firefox\Profiles\<profile-id>\Cache2\`
 - Internet Explorer:
-  - `C:\Users\<user_name>\AppData\Local\Microsoft\Windows\INetCache\`
+    - `C:\Users\<user_name>\AppData\Local\Microsoft\Windows\INetCache\`
 - Chrome:
-  - Windows: `C:\Users\<user_name>\AppData\Local\Google\Chrome\User Data\Default\Cache`
-  - Unix/Linux: `~/.cache/google-chrome`
+    - Windows: `C:\Users\<user_name>\AppData\Local\Google\Chrome\User Data\Default\Cache`
+    - Unix/Linux: `~/.cache/google-chrome`
 
 #### Reviewing Cached Information
 

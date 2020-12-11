@@ -182,9 +182,9 @@ If the tester has access to the session management schema implementation, they c
   Session token should have a defined time-out (it depends on the criticality of the application managed data)
 
 - Cookie configuration:
-  - non-persistent: only RAM memory
-  - secure (set only on HTTPS channel): `Set-Cookie: cookie=data; path=/; domain=.aaa.it; secure`
-  - [HTTPOnly](https://owasp.org/www-community/HttpOnly) (not readable by a script): `Set-Cookie: cookie=data; path=/; domain=.aaa.it; HttpOnly`
+    - non-persistent: only RAM memory
+    - secure (set only on HTTPS channel): `Set-Cookie: cookie=data; path=/; domain=.aaa.it; secure`
+    - [HTTPOnly](https://owasp.org/www-community/HttpOnly) (not readable by a script): `Set-Cookie: cookie=data; path=/; domain=.aaa.it; HttpOnly`
 
 More information here: [Testing for cookies attributes](02-Testing_for_Cookies_Attributes.md)
 

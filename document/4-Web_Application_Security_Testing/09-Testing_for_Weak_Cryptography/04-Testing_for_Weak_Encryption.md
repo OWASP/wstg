@@ -20,7 +20,7 @@ In addition to the right choices of secure encryption or hash algorithms, the ri
 
 - When using AES128 or AES256, the IV (Initialization Vector) must be random and unpredictable. Refer to [FIPS 140-2, Security Requirements for Cryptographic Modules](https://csrc.nist.gov/publications/detail/fips/140/2/final), section 4.9.1. random number generator tests. For example, in Java, `java.util.Random` is considered a weak random number generator. `java.security.SecureRandom` should be used instead of `java.util.Random`.
 - For asymmetric encryption, use Elliptic Curve Cryptography (ECC) with a secure curve like `Curve25519` preferred.
-  - If ECC can't be used then use RSA encryption with a minimum 2048bit key.
+    - If ECC can't be used then use RSA encryption with a minimum 2048bit key.
 - When uses of RSA in signature, PSS padding is recommended.
 - Weak hash/encryption algorithms should not be used such MD5, RC4, DES, Blowfish, SHA1. 1024-bit RSA or DSA, 160-bit ECDSA (elliptic curves), 80/112-bit 2TDEA (two key triple DES)
 - Minimum Key length requirements:

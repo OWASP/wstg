@@ -154,7 +154,7 @@ Content-Type: text/html; charset=iso-8859-1
 Vary: Accept-Encoding
 ```
 
-After adding the `X-HTTP-Header`, the server responds to the request with a 200:
+After adding the `X-HTTP-Method` header, the server responds to the request with a 200:
 
 ```bash
 $ ncat www.example.com 80

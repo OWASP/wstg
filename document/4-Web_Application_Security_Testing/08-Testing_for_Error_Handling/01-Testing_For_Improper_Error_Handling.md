@@ -45,7 +45,7 @@ In order to trigger error messages, a tester must:
 - Search for random files and folders that will not be found (404s).
 - Try to request folders that exist and see the server behavior (403s, blank page, or directory listing).
 - Try sending a request that breaks the [HTTP RFC](https://tools.ietf.org/html/rfc7231). One example would be to send a very large path, break the headers format, or change the HTTP version.
-  - Even if errors are handled on the application level, breaking the HTTP RFC may make the integrated web server show itself since it has to handle the request, and developers forget to override these errors.
+    - Even if errors are handled on the application level, breaking the HTTP RFC may make the integrated web server show itself since it has to handle the request, and developers forget to override these errors.
 
 ### Applications
 

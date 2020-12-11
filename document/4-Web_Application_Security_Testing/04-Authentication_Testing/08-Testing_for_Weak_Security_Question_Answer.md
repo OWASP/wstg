@@ -53,14 +53,14 @@ The next step is to assess the strength of the security questions. Could the ans
 
 - Does the application allow the end user to choose the question that needs to be answered? If so, focus on questions which have:
 
-  - A "public" answer; for example, something that could be find with a simple search-engine query.
-  - A factual answer such as a "first school" or other facts which can be looked up.
-  - Few possible answers, such as "what model was your first car". These questions would present the attacker with a short list of possible answers, and based on statistics the attacker could rank answers from most to least likely.
+    - A "public" answer; for example, something that could be find with a simple search-engine query.
+    - A factual answer such as a "first school" or other facts which can be looked up.
+    - Few possible answers, such as "what model was your first car". These questions would present the attacker with a short list of possible answers, and based on statistics the attacker could rank answers from most to least likely.
 
 - Determine how many guesses you have if possible.
-  - Does the password reset allow unlimited attempts?
-  - Is there a lockout period after X incorrect answers? Keep in mind that a lockout system can be a security problem in itself, as it can be exploited by an attacker to launch a Denial of Service against legitimate users.
-  - Pick the appropriate question based on analysis from the above points, and do research to determine the most likely answers.
+    - Does the password reset allow unlimited attempts?
+    - Is there a lockout period after X incorrect answers? Keep in mind that a lockout system can be a security problem in itself, as it can be exploited by an attacker to launch a Denial of Service against legitimate users.
+    - Pick the appropriate question based on analysis from the above points, and do research to determine the most likely answers.
 
 The key to successfully exploiting and bypassing a weak security question scheme is to find a question or set of questions which give the possibility of easily finding the answers. Always look for questions which can give you the greatest statistical chance of guessing the correct answer, if you are completely unsure of any of the answers. In the end, a security question scheme is only as strong as the weakest question.
 
