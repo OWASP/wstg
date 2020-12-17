@@ -153,8 +153,8 @@ Unsafe Methods since version r47 are:
 - `FScrollPane.loadScrollContent()`
 - `LoadVars.load`
 - `LoadVars.send`
-- `XML.load ( 'url' )`
-- `LoadVars.load ( 'url' )`
+- `XML.load( 'url' )`
+- `LoadVars.load( 'url' )`
 - `Sound.loadSound( 'url' , isStreaming );`
 - `NetStream.play( 'url' );`
 - `flash.external.ExternalInterface.call(_root.callback)`
