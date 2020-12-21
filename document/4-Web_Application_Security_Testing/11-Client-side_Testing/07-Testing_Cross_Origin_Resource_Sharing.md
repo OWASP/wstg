@@ -74,7 +74,7 @@ Content-Type: application/xml
 [Response Body]
 ```
 
-If response contains sensitive data, Attacker can steal it by `XMLHttpRequest`. A simple PoC to steal response can be like this:
+If a response contains sensitive data, an attacker can steal it by `XMLHttpRequest`. A simple PoC to steal response can be like this:
 
 ```html
 <html>
