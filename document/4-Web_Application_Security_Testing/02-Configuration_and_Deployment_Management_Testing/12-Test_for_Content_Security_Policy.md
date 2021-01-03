@@ -17,26 +17,26 @@ Content Security Policy supports directives which allow granular control to the 
 
 - **Fetch directives**: determine the allowed sources to trust and load resources from. For example; `img-src`, `script-src`, `object-src`, `style-src` can be used to restrict sources of images, scripts, plugins and style sheets respectively. If `default-src` is configured, directives which are not specified will fall back to default configuration.
 - **Document directives**: identifies the properties of the document to which policies are applied. `base-uri`, `plugin-types` or `sandbox` are allowed directives.
-- **Navigation directives**: determine the locations that document can navigate to. ` navigate-to` directive restricts URLs which can be navigated from the application by any means. `form-action` and `frame-ancestors` can be used to restrict URLs to which form can be submitted and URLs that can embed requested resource.
+- **Navigation directives**: determine the locations that document can navigate to. `navigate-to` directive restricts URLs which can be navigated from the application by any means. `form-action` and `frame-ancestors` can be used to restrict URLs to which form can be submitted and URLs that can embed requested resource.
 - **Reporting directives**: specify the locations to which violations of prevented behavior are to be reported. `report-to` or `report-uri` can be used to configure reporting location.
 
 Below are few examples of content security policy implementation.
 
 1. Restrict scripts to be loaded from same origin and api.example.com, media to loaded from media.example.com and allow to include images from all origins.
 
-```
+```HTTP
 script-src 'self' api.example.com; media-src media.example.com; img-src *
 ```
 
 2. Enforce TLS for loading all resources.
 
-```
+```HTTP
 Content-Security-Policy: default-src https://secure.example.com
 ```
 
 3. Enable violation reporting to URL specified in `report-uri`.
 
-```
+```HTTP
 Content-Security-Policy: default-src 'self'; report-uri http://reportcollector.example.com/collector.cgi
 ```
 
@@ -48,14 +48,14 @@ Google went ahead and set up a guide to adopt a strict CSP based on nonces. Base
 
 Moderate Strict Policy:
 
-```
+```HTTP
 script-src 'nonce-r4nd0m' 'strict-dynamic';
 object-src 'none'; base-uri 'none';
 ```
 
 Locked down Strict Policy:
 
-```
+```HTTP
 script-src 'nonce-r4nd0m';
 object-src 'none'; base-uri 'none';
 ```
