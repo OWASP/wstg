@@ -11,7 +11,7 @@ XML External Entity Injection occurs when an attacker injects XML input containi
 XML external entities are storage units whose defined values are referenced by an URI via a declared system identifier. XML processor dereferences the system identifier to replace occurrences of the named external entity with the contents of the resource.
 
 This vulnerability can be used to conduct a number of attacks including:
-- Disclosing sensitive local files, which may contain sensitive user data or passwords. 
+- Disclosing local files, which may contain sensitive user data or passwords. 
 - Port scanning of internal hosts ("internal" in relation to the users of the web application)
 - Abusing the trusted application to pivot to other internal systems, to disclose internal content via HTTP requests.
 - Remote code execution by abusing XML processor vulnerabilities such as memory corruption or via plugins such as `expect` in PHP.
@@ -60,7 +60,7 @@ An XML processor vulnerable to XXE may expand above request to replace instances
 
 #### Read local files
 
-To test if local files can be read, introduce (or edit) DOCTYPE element to define an entity that references to a local file.
+To test if local files can be read, introduce (or edit) DOCTYPE element to define an entity that references a local file.
 
 ```xml
 <?xml version="1.0"?>
@@ -91,7 +91,7 @@ In many cases, XML processor may expand the tainted XML input but the output is 
 
 ##### Exfiltrating data via Blind XXE
 
-Out-of-band techniques can be leveraged to exfiltrate files in situations were XML processor is processing the injected XML payload but an output is displayed in the server response. 
+Out-of-band techniques can be leveraged to exfiltrate files in situations where the XML processor is processing injected XML payload but an output is not displayed in the server response. 
 
 An external DTD can be hosted in a tester controlled URL location which is reachable by the application.
 
@@ -203,7 +203,7 @@ Ideal mitigation for XXE injection is to disable DTDs completely, to prevent use
 ## Tools
 
 - [XML Injection Fuzz Strings (from wfuzz tool)](https://github.com/xmendez/wfuzz/blob/master/wordlist/Injections/XML.txt)
-- [XXE Fuzz Strings (from Seclists tool)](https://github.com/danielmiessler/SecLists/blob/master/Fuzzing/XXE-Fuzzing.txt)
+- [XXE Fuzz Strings (from Seclists repository)](https://github.com/danielmiessler/SecLists/blob/master/Fuzzing/XXE-Fuzzing.txt)
 
 ## References
 
