@@ -11,11 +11,12 @@ XML External Entity Injection occurs when an attacker injects XML input containi
 XML external entities are storage units whose defined values are referenced by an URI via a declared system identifier. XML processor dereferences the system identifier to replace occurrences of the named external entity with the contents of the resource.
 
 This vulnerability can be used to conduct a number of attacks including:
+
 - Disclosing local files, which may contain sensitive user data or passwords. 
 - Port scanning of internal hosts ("internal" in relation to the users of the web application)
 - Abusing the trusted application to pivot to other internal systems, to disclose internal content via HTTP requests.
 - Remote code execution by abusing XML processor vulnerabilities such as memory corruption or via plugins such as `expect` in PHP.
--  Exfiltrating sensitive information via an attacker-controlled DNS server.
+- Exfiltrating sensitive information via an attacker-controlled DNS server.
 - Denial of service attack via recursive entity expansion. (also referred as 'The Billion Laughs Attack')
 
 ## Test Objectives
@@ -101,6 +102,7 @@ An external DTD can be hosted in a tester controlled URL location which is reach
 %expand;
 %exfil;
 ```
+
 External DTD can be referenced in the request as:
 
 ```xml
@@ -150,6 +152,7 @@ If application allows internal entities to be used whereas external entities are
 #### Filter Bypass
 
 Web application filters can be configured to detect common XXE attack payloads in HTTP request and reject such requests. Weak or poorly configured filters can be evaded using below techniques:
+
 - Some XML implementations support `PUBLIC` keyword which is similar to `SYSTEM` and can be used to create external entities.
 - UTF-8 and UTF-16 encodings can be used to encode the XXE payload to get around web filters.
 - For PHP applications, PHP filters such as `convert.base64-encode` can be used to evade filters , especially if the filter logic is to identify and filter URIs starting with `file:///`.
@@ -211,3 +214,4 @@ Ideal mitigation for XXE injection is to disable DTDs completely, to prevent use
 - [XML external entity - PortSwigger Academy"](https://portswigger.net/web-security/xxe)
 - [Timothy Morgan’s 2014 Paper: XML Schema, DTD, and Entity Attacks - A Compendium of Known Techniques](http://www.vsecurity.com/download/papers/XMLDTDEntityAttacks.pdf)
 - [Gregory Steuck, "XXE (Xml eXternal Entity) attack"](https://www.securityfocus.com/archive/1/297714)
+
