@@ -183,6 +183,19 @@ For instance, considering the previous example regarding `www.owasp.org`, the te
 
 Googling techniques are explained in [Testing: Spiders, Robots, and Crawlers](01-Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage.md).
 
+#### Digital Certificates
+
+If the server accepts connections over HTTPS, then the Command Name (CN) and Subject Alternate Name (SAN) on the certificate may contain one or most hostnames. However, if the webserver does not have a trusted certificate, or wildcards are in use, this may not return the valid information.
+
+The CN and SAN can be obtained by manually inspecting the certificate, or through other tools such as OpenSSL:
+
+```sh
+openssl s_client -connect 93.184.216.34:443 </dev/null 2>/dev/null | openssl x509 -noout -text | grep -E 'DNS:|Subject:'
+
+Subject: C = US, ST = California, L = Los Angeles, O = Internet Corporation for Assigned Names and Numbers, CN = www.example.org
+DNS:www.example.org, DNS:example.com, DNS:example.edu, DNS:example.net, DNS:example.org, DNS:www.example.com, DNS:www.example.edu, DNS:www.example.net
+```
+
 ## Tools
 
 - DNS lookup tools such as `nslookup`, `dig` and similar.
