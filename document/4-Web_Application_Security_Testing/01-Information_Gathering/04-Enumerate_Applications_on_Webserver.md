@@ -162,10 +162,6 @@ Reverse-IP services are similar to DNS inverse queries, with the difference that
 
 [Domain Tools Reverse IP](https://www.domaintools.com/reverse-ip/) (requires free membership)
 
-[Bing](https://bing.com), syntax: `ip:x.x.x.x`
-
-[Webhosting Info](http://whois.webhosting.info/), syntax: `http://whois.webhosting.info/x.x.x.x`
-
 [DNSstuff](https://www.dnsstuff.com/) (multiple services available)
 
 [Net Square](https://web.archive.org/web/20190515092354/http://www.net-square.com/mspawn.html) (multiple queries on domains and IP addresses, requires installation)
