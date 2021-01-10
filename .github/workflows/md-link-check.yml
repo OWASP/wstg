@@ -5,6 +5,7 @@ on:
     paths:
     - '**.md'
     - '!.github/**'
+    - '!translations/**'
   workflow_dispatch:
 
 jobs:
@@ -36,7 +37,7 @@ jobs:
         echo "The Following files were changed or created:"
         echo $FILES
         touch log err
-        for FILE in $FILES; do echo $FILE | grep -q .*\.md\$ && markdown-link-check -q -v -c .github/configs/markdown-link-check-config.json $FILE 1>> log 2>> err; done
+        for FILE in $FILES; do echo $FILE | grep -v translations | grep -q .*\.md\$ && markdown-link-check -q -v -c .github/configs/markdown-link-check-config.json $FILE 1>> log 2>> err; done
         if grep -q  "ERROR:" err ; then exit 1 ; else echo -e "No broken links found."; fi
         echo $(cat log)
         echo $(cat err)
@@ -44,7 +45,7 @@ jobs:
       if: github.event_name == 'workflow_dispatch'
       run: |
         touch log err
-        find . -name \*.md -exec markdown-link-check -q -v --config .github/configs/markdown-link-check-config.json {} 1>> log 2>> err \;
+        find . -path ./translations -prune -o -name \*.md -exec markdown-link-check -q -v --config .github/configs/markdown-link-check-config.json {} 1>> log 2>> err \;
         if grep -q  "ERROR:" err ; then exit 1 ; else echo -e "No broken links found."; fi
         echo $(cat log)
         echo $(cat err)
