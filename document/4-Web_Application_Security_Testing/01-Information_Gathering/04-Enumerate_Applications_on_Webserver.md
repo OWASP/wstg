@@ -181,7 +181,7 @@ Googling techniques are explained in [Testing: Spiders, Robots, and Crawlers](01
 
 #### Digital Certificates
 
-If the server accepts connections over HTTPS, then the Command Name (CN) and Subject Alternate Name (SAN) on the certificate may contain one or most hostnames. However, if the webserver does not have a trusted certificate, or wildcards are in use, this may not return the valid information.
+If the server accepts connections over HTTPS, then the Common Name (CN) and Subject Alternate Name (SAN) on the certificate may contain one or most hostnames. However, if the webserver does not have a trusted certificate, or wildcards are in use, this may not return the valid information.
 
 The CN and SAN can be obtained by manually inspecting the certificate, or through other tools such as OpenSSL:
 
