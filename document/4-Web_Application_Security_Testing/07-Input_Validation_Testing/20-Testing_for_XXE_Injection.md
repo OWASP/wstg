@@ -8,7 +8,7 @@
 
 XML External Entity Injection occurs when an attacker injects XML input containing a reference to an external entity to an application built on a weakly configured XML parser. If the XML parser processes the tainted input to dereference external entities injected by attacker, then the test will yield a positive result.
 
-XML external entities are storage units whose defined values are referenced by an URI via a declared system identifier. XML processor dereferences the system identifier to replace occurrences of the named external entity with the contents of the resource.
+XML external entities are storage units whose defined values are referenced by an URI declared via a system identifier. XML processor dereferences the system identifier to replace occurrences of the named external entity with the contents of the resource.
 
 This vulnerability can be used to conduct a number of attacks including:
 
@@ -22,7 +22,8 @@ This vulnerability can be used to conduct a number of attacks including:
 ## Test Objectives
 
 - Identify XML injection points.
-- Test if entities are accepted from user input and expanded by the XML processor.
+- Test if DTD definitions are accepted from user input and processed by the application.
+- Test if external or internal entities are accepted from user input and expanded by the XML processor.
 
 ## How to Test
 
@@ -43,7 +44,7 @@ Alternatively, certain applications use JSON style communication which could be 
 
 ### Generic Test Cases
 
-To test an application for the presence of a XXE Injection vulnerability, XML entity declaration can be inserted in the request, to test if the introduced entity is expanded by the XML processor.
+To test an application for the presence of XXE Injection vulnerability, XML entity declaration can be inserted in the request, to test if the introduced entity is expanded by the XML processor.
 
 For example, tester can introduce a new XML entity in the user registration request.
 
@@ -136,7 +137,7 @@ External DTD can be referenced in the request as:
 
 #### XML Entity Expansion
 
-If application allows internal entities to be used whereas external entities are blocked; test can be performed to check if the application performs recursive entity expansion. Recursive entity expansion, if performed to a sufficient depth can result in denial of service condition. Test should be done upto a moderate depth of expansion to prevent actual denial of service and to observe time delay in application response.
+If application allows internal entities to be used whereas external entities are blocked; test can be performed to check if application performs recursive entity expansion. Recursive entity expansion, if performed to a sufficient depth can result in denial of service condition. Test should be done upto a moderate depth of expansion to prevent actual denial of service and to observe time delay in application response.
 
 ```xml
 <!DOCTYPE data [
