@@ -24,21 +24,21 @@ Below are few examples of content security policy implementation.
 
 1. Restrict scripts to be loaded from same origin and api.example.com, media to loaded from media.example.com and allow to include images from all origins.
 
-```HTTP
-script-src 'self' api.example.com; media-src media.example.com; img-src *
-```
+   ```HTTP
+   script-src 'self' api.example.com; media-src media.example.com; img-src *
+   ```
 
 2. Enforce TLS for loading all resources.
 
-```HTTP
-Content-Security-Policy: default-src https://secure.example.com
-```
+   ```HTTP
+   Content-Security-Policy: default-src https://secure.example.com
+   ```
 
 3. Enable violation reporting to URL specified in `report-uri`.
 
-```HTTP
-Content-Security-Policy: default-src 'self'; report-uri http://reportcollector.example.com/collector.cgi
-```
+   ```HTTP
+   Content-Security-Policy: default-src 'self'; report-uri http://reportcollector.example.com/collector.cgi
+   ```
 
 ### Strict Policy
 
