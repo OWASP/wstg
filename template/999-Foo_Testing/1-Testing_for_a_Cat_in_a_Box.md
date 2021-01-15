@@ -96,9 +96,18 @@ down_stack.trainable = False
 
 If you observe a cat on the video feed, it is highly likely that there is a cat in the box.
 
+## Related Test Cases
+
+- [Template Explanation](2-Template_Explanation.md)
+
 ## Remediation
 
 Do not make a habit of putting cats in boxes. Keep boxes away from cats as much as possible.
+
+## Tools
+
+- The box
+- A camera
 
 ## References
 
