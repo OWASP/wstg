@@ -17,7 +17,7 @@ As a rule of thumb if data must be protected when it is stored, this data must a
 - Information used in authentication (e.g. Credentials, PINs, Session identifiers, Tokens, Cookies…)
 - Information protected by laws, regulations or specific organizational policy (e.g. Credit Cards, Customers data)
 
-If the application transmits sensitive information via unencrypted channels - e.g. HTTP - it is considered a security risk. Some examples are Basic authentication which sends authentication credentials in plain-text over HTTP, form based authentication credentials sent via HTTP, or plain-text transmission of any other information considered sensitive due to regulations, laws, organizational policy or application business logic.
+If the application transmits sensitive information via unencrypted channels - e.g. HTTP - it is considered a security risk. Attackers can take over accounts by [sniffing network traffic](https://owasp.org/www-community/attacks/Man-in-the-middle_attack). Some examples are Basic authentication which sends authentication credentials in plain-text over HTTP, form based authentication credentials sent via HTTP, or plain-text transmission of any other information considered sensitive due to regulations, laws, organizational policy or application business logic.
 
 Examples for Personal Identifying Information (PII) are:
 
@@ -41,7 +41,7 @@ Various types of information that must be protected, could be transmitted by the
 
 ### Example 1: Basic Authentication over HTTP
 
-A typical example is the usage of Basic Authentication over HTTP. When using Basic Authentication, user credentials are encoded rather than encrypted, and are sent as HTTP headers. In the example below the tester uses [curl](https://curl.haxx.se/) to test for this issue. Note how the application uses Basic authentication, and HTTP rather than HTTPS
+A typical example is the usage of Basic Authentication over HTTP. When using Basic Authentication, user credentials are encoded rather than encrypted, and are sent as HTTP headers. In the example below the tester uses [curl](https://curl.haxx.se/) to test for this issue. Note how the application uses Basic authentication, and HTTP rather than HTTPS.
 
 ```bash
 $ curl -kis http://example.com/restricted/
