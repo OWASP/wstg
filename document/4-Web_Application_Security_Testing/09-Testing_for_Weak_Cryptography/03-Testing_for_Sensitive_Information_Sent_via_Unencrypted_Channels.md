@@ -118,6 +118,16 @@ Checking if logs or source code may contain phone number, email address, ID or a
 
 `grep -r " {2\}[0-9]\{6\} "  ./PathToSearch/`
 
+## Remediation
+
+Use HTTPS for the whole web site. Implement [HSTS](https://tools.ietf.org/html/rfc6797) and redirect any HTTP to HTTPS. The site gains the following benefits from using HTTPS for all its features:
+
+- It prevents attackers from modifying interactions with the web server (including placing JavaScript malware through a [compromised router](https://www.trendmicro.com/vinfo/us/security/news/cybercrime-and-digital-threats/over-200-000-mikrotik-routers-compromised-in-cryptojacking-campaign)).
+- It avoids losing customers to insecure site warnings. New browsers [mark HTTP based web sites as insecure](https://www.blog.google/products/chrome/milestone-chrome-security-marking-http-not-secure/).
+- It makes writing certain applications easier. For example, Android APIs [need overrides](https://developer.android.com/training/articles/security-config#CleartextTrafficPermitted) to connect to anything via HTTP.
+
+If it is cumbersome to switch to HTTPS, prioritize HTTPS for sensitive operations first. For the medium term, plan to convert the whole application to HTTPS to avoid losing customers to compromise or the warnings of HTTP being insecure. If the organization does not already buy certificates for HTTPS, look in to [Let's Encrypt](https://letsencrypt.org) or other free certificate authorities on the server.
+
 ## Tools
 
 - [curl](https://curl.haxx.se/)
