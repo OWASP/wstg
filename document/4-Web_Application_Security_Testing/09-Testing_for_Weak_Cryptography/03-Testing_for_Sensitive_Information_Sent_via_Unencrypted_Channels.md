@@ -108,9 +108,9 @@ Date: Tue, 25 Dec 2013 00:00:00 GMT
 
 ### Example 4: Password Reset, Change Password or Other Account Manipulation over HTTP
 
-Similar to login and account creation, if the web application has features that allow a user to change an account or call a different service with credentials, verify all of those interactions are HTTPS. The interactions to test include the following:
+If the web application has features that allow a user to change an account or call a different service with credentials, verify all of those interactions are HTTPS. The interactions to test include the following:
 
-- Forms that allow users to handle a forgotten password or other credential
+- Forms that allow users to handle a forgotten password or other credentials
 - Forms that allow users to edit credentials
 - Forms that require the user to authenticate with another provider (for example, payment processing)
 
