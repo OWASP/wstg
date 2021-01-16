@@ -126,7 +126,7 @@ Use HTTPS for the whole web site. Implement [HSTS](https://tools.ietf.org/html/r
 - It avoids losing customers to insecure site warnings. New browsers [mark HTTP based web sites as insecure](https://www.blog.google/products/chrome/milestone-chrome-security-marking-http-not-secure/).
 - It makes writing certain applications easier. For example, Android APIs [need overrides](https://developer.android.com/training/articles/security-config#CleartextTrafficPermitted) to connect to anything via HTTP.
 
-If it is cumbersome to switch to HTTPS, prioritize HTTPS for sensitive operations first. For the medium term, plan to convert the whole application to HTTPS to avoid losing customers to compromise or the warnings of HTTP being insecure. If the organization does not already buy certificates for HTTPS, look in to [Let's Encrypt](https://letsencrypt.org) or other free certificate authorities on the server.
+If it is cumbersome to switch to HTTPS, prioritize HTTPS for sensitive operations first. For the medium term, plan to convert the whole application to HTTPS to avoid losing customers to compromise or the warnings of HTTP being insecure. If the organization does not already buy certificates for HTTPS, look into [Let's Encrypt](https://letsencrypt.org) or other free certificate authorities on the server.
 
 ## Tools
 
