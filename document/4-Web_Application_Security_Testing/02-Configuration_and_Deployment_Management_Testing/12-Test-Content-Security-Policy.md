@@ -15,7 +15,7 @@ with other headers, it can also be specified in a `<meta>` tag with the attribut
 `http-equiv=Content-Security-Policy` attribute of an HTML document.
 
 A header named `Content-Security-Policy-Report-Only` can be used to instruct the
-browser to no apply the restrictions but only report if they would have been
+browser to not apply the restrictions but only report if they would have been
 violated. 
 
 ### CSP directives
@@ -59,12 +59,12 @@ unsafe-inline`.
 ## Remediation
 
 Create a content security policy that matches precisely the actions that need to
-be allowed. Using the `report-only` option for a while can help finding out
+be allowed. Using the `report-only` option for a while can help to find out
 which actions need to be allowed. 
 
 ## Related to
 
-The correct usage of a CSP can prevents most injection attacks that are listed in
+The correct usage of a CSP can prevent most injection attacks that are listed in
 [Chapter 4.11 Client-side Testing](../11-Client-side_Testing/README.md)
 
 ## References
