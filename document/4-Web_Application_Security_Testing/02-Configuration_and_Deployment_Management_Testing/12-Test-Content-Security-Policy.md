@@ -64,8 +64,8 @@ which actions need to be allowed.
 
 ## Related to
 
-The correct usage of a CSP can prevent mots injection attacks that are listed in
-[Chapter 4.11 Client-side Testing](../4-Web_Application_Security_Testing/11-Client-side_Testing/README.md)
+The correct usage of a CSP can prevents most injection attacks that are listed in
+[Chapter 4.11 Client-side Testing](../11-Client-side_Testing/README.md)
 
 ## References
 
