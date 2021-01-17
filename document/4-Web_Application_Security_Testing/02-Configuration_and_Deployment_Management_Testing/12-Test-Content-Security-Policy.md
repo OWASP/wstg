@@ -8,7 +8,7 @@
 
 A Content Security Policy (CSP) is a mechanism that instructs the browser to
 disable some potentially dangerous actions. It is used, for example, to reduce the
-risk of cross-site scripting attacks. 
+risk of cross-site scripting attacks.
 
 CSP is usually specified in an HTTP header named `Content-Security-Policy`. As
 with other headers, it can also be specified in a `<meta>` tag with the attribute
@@ -16,12 +16,11 @@ with other headers, it can also be specified in a `<meta>` tag with the attribut
 
 A header named `Content-Security-Policy-Report-Only` can be used to instruct the
 browser to not apply the restrictions but only report if they would have been
-violated. 
+violated.
 
 ### CSP directives
 
-CSP directives are listed in the CSP header, delimited by semicolons. 
-
+CSP directives are listed in the CSP header, delimited by semicolons.
 The various `-src` directives describe which sources are safe for loading
 scripts or other elements of a page. `default-src 'self'` means than any
 element, like scripts, images of fonts, can only be loaded from the same web
@@ -31,16 +30,13 @@ same web server or from the designated site `js.library.com`.
 The `script unsafe-eval` directive allows the usage of the eval function in JavaScript,
 which is potentially dangerous and disallowed by default if a CSP header is
 present. Similarly, `script unsafe-inline` allows the usage of JavaScript inside
-an HTML document (e.g. in `<script>` tags or in attributes like `onclick`). 
-
+an HTML document (e.g. in `<script>` tags or in attributes like `onclick`).
 Hashes and nonces can be used to allow only specific scripts or resources to be
 loaded. Other directives control miscallaneous mechanisms like framing,
-upgrading HTTP and HTTPS and more. 
-
+upgrading HTTP and HTTPS and more.
 ## Test Objectives
 
-Confirm that a CSP has been defined. Verify that it is not overly permissive. 
-
+Confirm that a CSP has been defined. Verify that it is not overly permissive.
 
 ## How to Test
 
@@ -60,8 +56,7 @@ unsafe-inline`.
 
 Create a content security policy that matches precisely the actions that need to
 be allowed. Using the `report-only` option for a while can help to find out
-which actions need to be allowed. 
-
+which actions need to be allowed.
 ## Related to
 
 The correct usage of a CSP can prevent most injection attacks that are listed in
