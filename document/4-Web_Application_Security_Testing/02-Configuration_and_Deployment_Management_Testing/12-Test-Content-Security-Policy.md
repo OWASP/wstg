@@ -34,6 +34,7 @@ an HTML document (e.g. in `<script>` tags or in attributes like `onclick`).
 Hashes and nonces can be used to allow only specific scripts or resources to be
 loaded. Other directives control miscallaneous mechanisms like framing,
 upgrading HTTP and HTTPS and more.
+
 ## Test Objectives
 
 Confirm that a CSP has been defined. Verify that it is not overly permissive.
@@ -57,6 +58,7 @@ unsafe-inline`.
 Create a content security policy that matches precisely the actions that need to
 be allowed. Using the `report-only` option for a while can help to find out
 which actions need to be allowed.
+
 ## Related to
 
 The correct usage of a CSP can prevent most injection attacks that are listed in
