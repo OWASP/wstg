@@ -52,6 +52,7 @@ Given the URL and querystring: `http://example.com/?color=red&color=blue`
   | JSP, Servlet / Jetty  | First occurrence only | color=red |
   | IBM Lotus Domino | Last occurrence only | color=blue |
   | IBM HTTP Server | First occurrence only | color=red |
+  | node.js / express | First occurence only | color=red |
   | mod_perl, libapreq2 / Apache | First occurrence only | color=red |
   | Perl CGI / Apache | First occurrence only | color=red |
   | mod_wsgi (Python) / Apache | First occurrence only | color=red |
