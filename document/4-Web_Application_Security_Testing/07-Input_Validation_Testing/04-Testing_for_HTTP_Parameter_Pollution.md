@@ -45,6 +45,7 @@ Given the URL and querystring: `http://example.com/?color=red&color=blue`
   |--------------------------------|----------------|--------|
   | ASP.NET / IIS | All occurrences concatenated with a comma |  color=red,blue |
   | ASP / IIS     | All occurrences concatenated with a comma | color=red,blue |
+  | .NET 5 / Kestrel | All occurrences concatenated with a comma | color=red,blue |
   | PHP / Apache  | Last occurrence only | color=blue |
   | PHP / Zeus | Last occurrence only | color=blue |
   | JSP, Servlet / Apache Tomcat | First occurrence only | color=red |
