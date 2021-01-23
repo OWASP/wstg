@@ -2,7 +2,7 @@
 
 |ID         |
 |-----------|
-|WSTG-XSS-03|
+|WSTG-XSS-01|
 
 ## Summary
 
