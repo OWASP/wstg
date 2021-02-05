@@ -38,7 +38,7 @@ Let's suppose there is a web application using an XML style communication in ord
 </user>
 ```
 
-Alternatively, certain applications use JSON style communication which could be parsed and converted before processing in a backend XML processor. In such cases, tester should convert JSON data to XML data using an intercepting proxy tool, to confirm if the application uses an XML processor on the backend.
+Alternatively, certain applications use JSON style communication which could be parsed and converted before processing in a back-end XML processor. In such cases, testers should convert JSON data to XML data using an intercepting proxy tool, to confirm if the application uses an XML processor on the back-end.
 
 ### Generic Test Cases
 
