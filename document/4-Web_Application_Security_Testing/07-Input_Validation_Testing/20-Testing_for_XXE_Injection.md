@@ -17,7 +17,7 @@ This vulnerability can be used to conduct a number of attacks including:
 - Abusing the trusted application to pivot to other internal systems, to disclose internal content via HTTP requests.
 - Remote code execution by abusing XML processor vulnerabilities such as memory corruption or via plugins such as `expect` in PHP.
 - Exfiltrating sensitive information via an attacker-controlled DNS server.
-- Denial of service attack via recursive entity expansion. (also referred as 'The Billion Laughs Attack')
+- Denial of service attack via recursive entity expansion (also referred to as 'The Billion Laughs Attack').
 
 ## Test Objectives
 
