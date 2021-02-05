@@ -13,7 +13,7 @@ XML external entities are storage units whose defined values are referenced by a
 This vulnerability can be used to conduct a number of attacks including:
 
 - Disclosing local files, which may contain sensitive user data or passwords.
-- Port scanning of internal hosts ("internal" in relation to the users of the web application)
+- Port scanning of internal hosts ("internal" in relation to the users of the web application).
 - Abusing the trusted application to pivot to other internal systems, to disclose internal content via HTTP requests.
 - Remote code execution by abusing XML processor vulnerabilities such as memory corruption or via plugins such as `expect` in PHP.
 - Exfiltrating sensitive information via an attacker-controlled DNS server.
