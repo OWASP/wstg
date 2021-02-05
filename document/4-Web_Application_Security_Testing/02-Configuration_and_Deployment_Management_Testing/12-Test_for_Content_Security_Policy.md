@@ -10,7 +10,7 @@ Content Security Policy is a declarative allow-list policy enforced through `Con
 
 Content Security Policy can be implemented through one of two methods:
 
-- Content-Security-Policy Header: `Content-Security-Policy: policy`
+- `Content-Security-Policy` response header: `Content-Security-Policy: <policy>`
 - Meta element: `<meta http-equiv="Content-Security-Policy" content="policy">`
 
 Content Security Policy supports directives which allow granular control to the flow of policies.
