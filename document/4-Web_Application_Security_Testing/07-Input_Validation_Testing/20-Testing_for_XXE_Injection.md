@@ -158,7 +158,7 @@ Web application filters can be configured to detect common XXE attack payloads i
 
 ### Source Code Review
 
-The following Java API may be vulnerable to XXE if they are not configured properly.
+The following Java APIs may be vulnerable to XXE if they are not configured properly.
 
 ```text
 javax.xml.parsers.DocumentBuilder
