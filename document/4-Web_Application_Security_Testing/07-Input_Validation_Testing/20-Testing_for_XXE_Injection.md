@@ -152,9 +152,9 @@ If the target allows internal entities to be used whereas external entities are 
 
 Web application filters can be configured to detect common XXE attack payloads in HTTP requests and reject such requests. Weak or poorly configured filters can be evaded using techniques outlined below:
 
-- Some XML implementations support `PUBLIC` keyword which is similar to `SYSTEM` and can be used to create external entities.
-- UTF-8 and UTF-16 encodings can be used to encode the XXE payload to get around web filters.
-- For PHP applications, PHP filters such as `convert.base64-encode` can be used to evade filters , especially if the filter logic is to identify and filter URIs starting with `file:///`.
+- Some XML implementations support the `PUBLIC` keyword which is similar to `SYSTEM` and can be used to create external entities.
+- UTF-8 and UTF-16 encodings can be used to encode the XXE payloads to get around web filters.
+- For PHP applications, PHP filters such as `convert.base64-encode` can be used to evade filters, especially if the filter logic is to identify and filter URIs starting with `file:///`.
 
 ### Source Code Review
 
