@@ -70,9 +70,9 @@ To test for misconfigurations in content security policies look for below insecu
 
 - `unsafe-inline` directive enables inline scripts making the applications susceptible to Cross Site Scripting attacks.
 - `unsafe-eval` directive allows `eval()` to be used in the application.
-- Resources such as scripts can be allowed to be loaded from any origin by the use wildcard (*) source.
-- Framing can be enabled for all origins by the use of wildcard (*) source for `frame-ancestors` directive.
-- Business critical applications require to use a CSP strict policy.
+- Resources such as scripts can be allowed to be loaded from any origin by the use wildcard (`*`) source.
+- Framing can be enabled for all origins by the use of wildcard (`*`) source for `frame-ancestors` directive.
+- Business critical applications should require to use a strict policy.
 
 ## Remediation
 
