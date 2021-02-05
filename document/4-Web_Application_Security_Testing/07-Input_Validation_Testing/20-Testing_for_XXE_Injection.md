@@ -135,7 +135,7 @@ External DTD can be referenced in the request as:
 
 #### XML Entity Expansion
 
-If application allows internal entities to be used whereas external entities are blocked; test can be performed to check if application performs recursive entity expansion. Recursive entity expansion, if performed to a sufficient depth can result in denial of service condition. Test should be done upto a moderate depth of expansion to prevent actual denial of service and to observe time delay in application response.
+If the target allows internal entities to be used whereas external entities are blocked; tests can be performed to check if the application performs recursive entity expansion. Recursive entity expansion, if performed to a sufficient depth can result in a denial of service condition. Tests should be done up to a moderate depth of expansion to prevent actual denial of service and to observe time delays in application response.
 
 ```xml
 <!DOCTYPE data [
