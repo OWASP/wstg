@@ -27,8 +27,6 @@ This vulnerability can be used to conduct a number of attacks including:
 
 ## How to Test
 
-### Black-Box Testing
-
 Let's suppose there is a web application using an XML style communication in order to perform user registration. When a user registers himself by filling an HTML form, the application receives the user's data in a standard `POST` request, for the sake of simplicity, let's consider only the POST request body.
 
 ```xml
