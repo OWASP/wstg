@@ -34,7 +34,7 @@ Let's suppose there is a web application using an XML style communication in ord
 <user>
     <username>John</username>
     <password>Sec$r3P@ss</password>
-    <email>s4tan@hell.com</email>
+    <email>john@example.com</email>
 </user>
 ```
 
