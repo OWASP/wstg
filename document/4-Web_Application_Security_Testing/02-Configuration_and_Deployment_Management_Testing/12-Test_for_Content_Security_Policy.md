@@ -76,7 +76,7 @@ To test for misconfigurations in content security policies look for below insecu
 
 ## Remediation
 
-Configure a strong CSP policy which reduces the attack surface of the application. Developers can verify the strength of content security policy using online tools such as [Google CSP Evaluator](https://csp-evaluator.withgoogle.com/).
+Configure a strong content security policy which reduces the attack surface of the application. Developers can verify the strength of content security policy using online tools such as [Google CSP Evaluator](https://csp-evaluator.withgoogle.com/).
 
 ## Tools
 
