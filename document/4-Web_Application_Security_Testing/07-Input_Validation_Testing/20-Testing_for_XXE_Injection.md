@@ -150,7 +150,7 @@ If the target allows internal entities to be used whereas external entities are 
 
 #### Filter Bypass
 
-Web application filters can be configured to detect common XXE attack payloads in HTTP request and reject such requests. Weak or poorly configured filters can be evaded using below techniques:
+Web application filters can be configured to detect common XXE attack payloads in HTTP requests and reject such requests. Weak or poorly configured filters can be evaded using techniques outlined below:
 
 - Some XML implementations support `PUBLIC` keyword which is similar to `SYSTEM` and can be used to create external entities.
 - UTF-8 and UTF-16 encodings can be used to encode the XXE payload to get around web filters.
