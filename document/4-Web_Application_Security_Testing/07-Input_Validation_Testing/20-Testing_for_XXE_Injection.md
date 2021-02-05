@@ -112,7 +112,7 @@ External DTD can be referenced in the request as:
 
 In certain cases application may expose verbose error messages within the HTTP response, should a malformed XML input be provided. To test error-based xxe, external DTD can be introduced to trigger XML parsing error, so as to display the contents of a local file inside an error message.
 
-An external DTD can be crafted to intentionally trigger an error and the DTD should be hosted in a URL location reachable by the target application.
+An external DTD can be crafted to intentionally trigger an error and the DTD should be hosted in a URL location reachable by the target application. For example:
 
 ```xml
 <!ENTITY % file SYSTEM "file:///etc/passwd">
