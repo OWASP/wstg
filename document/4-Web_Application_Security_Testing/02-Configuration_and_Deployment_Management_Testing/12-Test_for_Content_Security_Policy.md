@@ -66,7 +66,7 @@ Review the Content-Security-Policy header or meta element to identify misconfigu
 
 ## How to Test
 
-To test for misconfigurations in CSP policy look for below insecure configurations by examining `Content-Security-Policy` HTTP response header or CSP meta element in a proxy tool:
+To test for misconfigurations in content security policies look for below insecure configurations by examining `Content-Security-Policy` HTTP response header or CSP meta element in a proxy tool:
 
 - `unsafe-inline` directive enables inline scripts making the applications susceptible to Cross Site Scripting attacks.
 - `unsafe-eval` directive allows eval() to be used in the application.
