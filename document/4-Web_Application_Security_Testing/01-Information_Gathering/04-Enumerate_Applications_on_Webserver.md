@@ -168,9 +168,6 @@ Reverse-IP services are similar to DNS inverse queries, with the difference that
 
 The following example shows the result of a query to one of the above reverse-IP services to `216.48.3.18`, the IP address of www.owasp.org. Three additional non-obvious symbolic names mapping to the same address have been revealed.
 
-![OWASP Whois Info](images/Owasp-Info.jpg)\
-*Figure 4.1.4-1: OWASP Whois Info*
-
 #### Googling
 
 Following information gathering from the previous techniques, testers can rely on search engines to possibly refine and increment their analysis. This may yield evidence of additional symbolic names belonging to the target, or applications accessible via non-obvious URLs.
