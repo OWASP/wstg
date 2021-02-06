@@ -160,13 +160,9 @@ This kind of search is akin to DNS zone transfer, but relies on web-based servic
 
 Reverse-IP services are similar to DNS inverse queries, with the difference that the testers query a web-based application instead of a name server. There are a number of such services available. Since they tend to return partial (and often different) results, it is better to use multiple services to obtain a more comprehensive analysis.
 
-[Domain Tools Reverse IP](https://www.domaintools.com/reverse-ip/) (requires free membership)
-
-[DNSstuff](https://www.dnsstuff.com/) (multiple services available)
-
-[Net Square](https://web.archive.org/web/20190515092354/http://www.net-square.com/mspawn.html) (multiple queries on domains and IP addresses, requires installation)
-
-The following example shows the result of a query to one of the above reverse-IP services to `216.48.3.18`, the IP address of www.owasp.org. Three additional non-obvious symbolic names mapping to the same address have been revealed.
+- [Domain Tools Reverse IP](https://www.domaintools.com/reverse-ip/) (requires free membership)
+- [DNSstuff](https://www.dnsstuff.com/) (multiple services available)
+- [Net Square](https://web.archive.org/web/20190515092354/http://www.net-square.com/mspawn.html) (multiple queries on domains and IP addresses, requires installation)
 
 #### Googling
 
