@@ -138,7 +138,6 @@ Use HTTPS for the whole web site, implement [HSTS](https://tools.ietf.org/html/r
 - [Wireshark](https://www.wireshark.org/)
 - [TCPDUMP](https://www.tcpdump.org/)
 
-
 ## References
 
 - [OWASP Insecure Transport](https://owasp.org/www-community/vulnerabilities/Insecure_Transport)
