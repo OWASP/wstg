@@ -128,13 +128,7 @@ Checking if logs or source code may contain phone number, email address, ID or a
 
 ## Remediation
 
-Use HTTPS for the whole web site. Implement [HSTS](https://tools.ietf.org/html/rfc6797) and redirect any HTTP to HTTPS. The site gains the following benefits from using HTTPS for all its features:
-
-- It prevents attackers from modifying interactions with the web server (including placing JavaScript malware through a [compromised router](https://www.trendmicro.com/vinfo/us/security/news/cybercrime-and-digital-threats/over-200-000-mikrotik-routers-compromised-in-cryptojacking-campaign)).
-- It avoids losing customers to insecure site warnings. New browsers [mark HTTP based web sites as insecure](https://www.blog.google/products/chrome/milestone-chrome-security-marking-http-not-secure/).
-- It makes writing certain applications easier. For example, Android APIs [need overrides](https://developer.android.com/training/articles/security-config#CleartextTrafficPermitted) to connect to anything via HTTP.
-
-If it is cumbersome to switch to HTTPS, prioritize HTTPS for sensitive operations first. For the medium term, plan to convert the whole application to HTTPS to avoid losing customers to compromise or the warnings of HTTP being insecure. If the organization does not already buy certificates for HTTPS, look into [Let's Encrypt](https://letsencrypt.org) or other free certificate authorities on the server.
+Use HTTPS for the whole web site, implement [HSTS](https://tools.ietf.org/html/rfc6797) and redirect any HTTP requests to HTTPS.
 
 ## Tools
 
@@ -143,3 +137,11 @@ If it is cumbersome to switch to HTTPS, prioritize HTTPS for sensitive operation
 - [Identity Finder](https://download.cnet.com/Identity-Finder-Free-Edition/3000-2144_4-10906766.html)
 - [Wireshark](https://www.wireshark.org/)
 - [TCPDUMP](https://www.tcpdump.org/)
+
+
+## References
+
+- [OWASP Insecure Transport](https://owasp.org/www-community/vulnerabilities/Insecure_Transport)
+- [OWASP HTTP Strict Transport Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html)
+- [RFC HTTP Strict Transport Security](https://tools.ietf.org/html/rfc679)
+- [Let's Encrypt](https://letsencrypt.org)
