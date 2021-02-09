@@ -2,7 +2,7 @@
 
 ## Bienvenido
 
-> As we focus on incremental improvement, this release introduces numerous updates. We've standardized scenario formats to create a better reading experience, added objectives for each testing scenario, merged sections, and added new scenarios on some modern testing topics.
+> Mientras nos enfocamos en la mejora incremental, este comunicado presenta numerosas actualizaciones. Hemos estandarizado los formatos de los escenarios para crear una mejor experiencia de lectura, hemos añadido objetivos para cada escenario de prueba, hemos fusionado secciones y hemos añadido nuevos escenarios en algunos temas de prueba modernos.
 >
 > — Rick Mitchell
 
@@ -12,7 +12,7 @@ OWASP agradece a los numerosos autores, revisores y editores por su arduo trabaj
 
 Copyright (c) 2020 Fundación OWASP
 
-This document is released under the [Creative Commons 4.0 License](https://creativecommons.org/licenses/by-sa/4.0/). Please read and understand the license and copyright conditions.
+Este documento se publica bajo la [ Licencia Creative Commons 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Por favor lea y entienda la condiciones de licencia y derechos de autor.
 
 ## Líderes
 
