@@ -128,7 +128,7 @@ Checking if logs or source code may contain phone number, email address, ID or a
 
 ## Remediation
 
-Use HTTPS for the whole web site, implement [HSTS](https://tools.ietf.org/html/rfc6797) and redirect any HTTP requests to HTTPS.
+Use HTTPS for the whole web site and redirect any HTTP requests to HTTPS.
 
 ## Tools
 
