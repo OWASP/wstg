@@ -134,7 +134,6 @@ Use HTTPS for the whole web site and redirect any HTTP requests to HTTPS.
 
 - [curl](https://curl.haxx.se/)
 - [grep](http://man7.org/linux/man-pages/man1/egrep.1.html)
-- [Identity Finder](https://download.cnet.com/Identity-Finder-Free-Edition/3000-2144_4-10906766.html)
 - [Wireshark](https://www.wireshark.org/)
 - [TCPDUMP](https://www.tcpdump.org/)
 
@@ -142,5 +141,4 @@ Use HTTPS for the whole web site and redirect any HTTP requests to HTTPS.
 
 - [OWASP Insecure Transport](https://owasp.org/www-community/vulnerabilities/Insecure_Transport)
 - [OWASP HTTP Strict Transport Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html)
-- [RFC HTTP Strict Transport Security](https://tools.ietf.org/html/rfc679)
 - [Let's Encrypt](https://letsencrypt.org)
