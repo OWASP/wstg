@@ -96,19 +96,25 @@ The following figure shows that with a simple SQL injection attack, it is someti
 
 If an attacker has been able to retrieve the application source code by exploiting a previously discovered vulnerability (e.g., directory traversal), or from a web repository (Open Source Applications), it could be possible to perform refined attacks against the implementation of the authentication process.
 
-In the following example (PHPBB 2.0.13 - Authentication Bypass Vulnerability), at line 5 the unserialize() function parses a user supplied cookie and sets values inside the $row array. At line 10 the user's MD5 password hash stored inside the back end database is compared to the one supplied.
+In the following example (PHPBB 2.0.12 - Authentication Bypass Vulnerability), at line 2 the `unserialize()` function parses a user supplied cookie and sets values inside the `$sessiondata` array. At line 7 the user's MD5 password hash stored inside the back end database is compared to the one supplied.
 
 ```php
-if (isset($HTTP_COOKIE_VARS[$cookiename . '_sid']) {
+if (isset($HTTP_COOKIE_VARS[$cookiename . '_sid'])) {
     $sessiondata = isset($HTTP_COOKIE_VARS[$cookiename . '_data']) ? unserialize(stripslashes($HTTP_COOKIE_VARS[$cookiename . '_data'])) : array();
     $sessionmethod = SESSION_METHOD_COOKIE;
 }
-if(md5($password) == $row['user_password'] && $row['user_active']) {
-    $autologin = (isset($HTTP_POST_VARS['autologin'])) ? TRUE : 0;
+$auto_login_key = $userdata['user_password'];
+// We have to login automagically
+if( $sessiondata['autologinid'] == $auto_login_key )
+{
+    // autologinid matches password
+    $login = 1;
+    $enable_autologin = 1;
 }
+
 ```
 
-In PHP, a comparison between a string value and a boolean value (1 and `TRUE`) is always `TRUE`, so by supplying the following string (the important part is `b:1`) to the `unserialize()` function, it is possible to bypass the authentication control:
+In PHP, a comparison between a string value and a boolean value (1 and `TRUE`) is always `TRUE`, so by supplying the following string (the important part is `b:1`) to the `unserialize()` function, it is possible to bypass the authentication control and log in as administrator, whose `userid` is 2:
 
 ```text
 a:2:{s:11:"autologinid";b:1;s:6:"userid";s:1:"2";}
@@ -123,5 +129,5 @@ a:2:{s:11:"autologinid";b:1;s:6:"userid";s:1:"2";}
 
 ### Whitepapers
 
-- Mark Roxberry: "PHPBB 2.0.13 vulnerability"
+- Mark Roxberry: "PHPBB 2.0.12 vulnerability"
 - [David Endler: "Session ID Brute Force Exploitation and Prediction"](https://www.cgisecurity.com/lib/SessionIDs.pdf)
