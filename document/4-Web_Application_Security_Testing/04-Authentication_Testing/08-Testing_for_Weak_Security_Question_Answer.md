@@ -26,7 +26,7 @@ The problem with having users to generate their own questions is that it allows 
 
 - "What is 1+1?"
 - "What is your username?"
-- "My password is S3cur|ty!"
+- "My password is S3curIty!"
 
 ## Test Objectives
 
