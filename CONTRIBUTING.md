@@ -51,9 +51,11 @@ Please don't hesitate to make as many changes as you see fit, especially if you 
 
 ### Translation
 
-You can help translating the Guide via [GitLocalize](https://gitlocalize.com/repo/5220). Login with a linked GitHub account, translate some content, submit for moderator review, they'll submit Pull Requests. In the end the guide will become available in multiple languages.
+Due to challenges with sync'ing images and removed content, the WSTG is no longer tackling in-bound translation efforts directly.
 
-If you don't see your language listed amongst those accepting translation then simply open a new [issue](https://github.com/OWASP/wstg/issues/new) and the team will be happy to get it setup. Please mention if you're willing to moderate GitLocalize efforts for your language as chances are the core team do not speak your preferred language fluently (if at all).
+At this time we suggest that you start another repository in which to tackle translations of a specific language. Once you're produced a PDF for a given version of the guide we'll be happy to attach it to the appropriate release. Simply [open an issue](https://github.com/OWASP/wstg/issues/new) here asking us to do so.
+
+Also we're willing to list your translation repository, just [let us know](https://github.com/OWASP/wstg/issues/new) where it is.
 
 ## How to Open an Issue
 
