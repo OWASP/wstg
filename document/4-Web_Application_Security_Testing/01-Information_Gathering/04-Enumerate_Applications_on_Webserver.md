@@ -160,20 +160,9 @@ This kind of search is akin to DNS zone transfer, but relies on web-based servic
 
 Reverse-IP services are similar to DNS inverse queries, with the difference that the testers query a web-based application instead of a name server. There are a number of such services available. Since they tend to return partial (and often different) results, it is better to use multiple services to obtain a more comprehensive analysis.
 
-[Domain Tools Reverse IP](https://www.domaintools.com/reverse-ip/) (requires free membership)
-
-[Bing](https://bing.com), syntax: `ip:x.x.x.x`
-
-[Webhosting Info](http://whois.webhosting.info/), syntax: `http://whois.webhosting.info/x.x.x.x`
-
-[DNSstuff](https://www.dnsstuff.com/) (multiple services available)
-
-[Net Square](https://web.archive.org/web/20190515092354/http://www.net-square.com/mspawn.html) (multiple queries on domains and IP addresses, requires installation)
-
-The following example shows the result of a query to one of the above reverse-IP services to `216.48.3.18`, the IP address of www.owasp.org. Three additional non-obvious symbolic names mapping to the same address have been revealed.
-
-![OWASP Whois Info](images/Owasp-Info.jpg)\
-*Figure 4.1.4-1: OWASP Whois Info*
+- [Domain Tools Reverse IP](https://www.domaintools.com/reverse-ip/) (requires free membership)
+- [DNSstuff](https://www.dnsstuff.com/) (multiple services available)
+- [Net Square](https://web.archive.org/web/20190515092354/http://www.net-square.com/mspawn.html) (multiple queries on domains and IP addresses, requires installation)
 
 #### Googling
 
@@ -182,6 +171,19 @@ Following information gathering from the previous techniques, testers can rely o
 For instance, considering the previous example regarding `www.owasp.org`, the tester could query Google and other search engines looking for information (hence, DNS names) related to the newly discovered domains of `webgoat.org`, `webscarab.com`, and `webscarab.net`.
 
 Googling techniques are explained in [Testing: Spiders, Robots, and Crawlers](01-Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage.md).
+
+#### Digital Certificates
+
+If the server accepts connections over HTTPS, then the Common Name (CN) and Subject Alternate Name (SAN) on the certificate may contain one or more hostnames. However, if the webserver does not have a trusted certificate, or wildcards are in use, this may not return any valid information.
+
+The CN and SAN can be obtained by manually inspecting the certificate, or through other tools such as OpenSSL:
+
+```sh
+openssl s_client -connect 93.184.216.34:443 </dev/null 2>/dev/null | openssl x509 -noout -text | grep -E 'DNS:|Subject:'
+
+Subject: C = US, ST = California, L = Los Angeles, O = Internet Corporation for Assigned Names and Numbers, CN = www.example.org
+DNS:www.example.org, DNS:example.com, DNS:example.edu, DNS:example.net, DNS:example.org, DNS:www.example.com, DNS:www.example.edu, DNS:www.example.net
+```
 
 ## Tools
 
