@@ -57,6 +57,8 @@ At this time we suggest that you start another repository in which to tackle tra
 
 Also we're willing to list your translation repository, just [let us know](https://github.com/OWASP/wstg/issues/new) where it is.
 
+- [Portuguese-BR](https://github.com/doverh/wstg-translations-pt)
+
 ## How to Open an Issue
 
 [Create an issue](https://github.com/OWASP/wstg/issues/new/choose) using the appropriate template.
