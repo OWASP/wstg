@@ -17,7 +17,7 @@ As a rule of thumb if data must be protected when it is stored, this data must a
 - Information used in authentication (e.g. Credentials, PINs, Session identifiers, Tokens, Cookies…)
 - Information protected by laws, regulations or specific organizational policy (e.g. Credit Cards, Customers data)
 
-If the application transmits sensitive information via unencrypted channels - e.g. HTTP - it is considered a security risk. Some examples are Basic authentication which sends authentication credentials in plain-text over HTTP, form based authentication credentials sent via HTTP, or plain-text transmission of any other information considered sensitive due to regulations, laws, organizational policy or application business logic.
+If the application transmits sensitive information via unencrypted channels - e.g. HTTP - it is considered a security risk. Attackers can take over accounts by [sniffing network traffic](https://owasp.org/www-community/attacks/Man-in-the-middle_attack). Some examples are Basic authentication which sends authentication credentials in plain-text over HTTP, form based authentication credentials sent via HTTP, or plain-text transmission of any other information considered sensitive due to regulations, laws, organizational policy or application business logic.
 
 Examples for Personal Identifying Information (PII) are:
 
@@ -37,11 +37,11 @@ Examples for Personal Identifying Information (PII) are:
 
 ## How to Test
 
-Various types of information that must be protected, could be transmitted by the application in clear text. It is possible to check if this information is transmitted over HTTP instead of HTTPS, or whether weak ciphers are used. See more information about insecure transmission of credentials [OWASP Top 10 2017 A3-Sensitive Data Exposure](https://owasp.org/www-project-top-ten/2017/A3_2017-Sensitive_Data_Exposure) or [Transport Layer Protection Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html).
+Various types of information that must be protected, could be transmitted by the application in clear text. To check if this information is transmitted over HTTP instead of HTTPS, capture traffic between a client and web application server that needs credentials. For any message containing sensitive data, verify the exchange occurred using HTTPS. See more information about insecure transmission of credentials [OWASP Top 10 2017 A3-Sensitive Data Exposure](https://owasp.org/www-project-top-ten/2017/A3_2017-Sensitive_Data_Exposure) or [Transport Layer Protection Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html).
 
 ### Example 1: Basic Authentication over HTTP
 
-A typical example is the usage of Basic Authentication over HTTP. When using Basic Authentication, user credentials are encoded rather than encrypted, and are sent as HTTP headers. In the example below the tester uses [curl](https://curl.haxx.se/) to test for this issue. Note how the application uses Basic authentication, and HTTP rather than HTTPS
+A typical example is the usage of Basic Authentication over HTTP. When using Basic Authentication, user credentials are encoded rather than encrypted, and are sent as HTTP headers. In the example below the tester uses [curl](https://curl.haxx.se/) to test for this issue. Note how the application uses Basic authentication, and HTTP rather than HTTPS.
 
 ```bash
 $ curl -kis http://example.com/restricted/
@@ -106,7 +106,15 @@ Content-Length: 730
 Date: Tue, 25 Dec 2013 00:00:00 GMT
 ```
 
-### Example 4: Testing Password Sensitive Information in Source Code or Logs
+### Example 4: Password Reset, Change Password or Other Account Manipulation over HTTP
+
+If the web application has features that allow a user to change an account or call a different service with credentials, verify all of those interactions use HTTPS. The interactions to test include the following:
+
+- Forms that allow users to handle a forgotten password or other credentials
+- Forms that allow users to edit credentials
+- Forms that require the user to authenticate with another provider (for example, payment processing)
+
+### Example 5: Testing Password Sensitive Information in Source Code or Logs
 
 Use one of the following techniques to search for senstive information.
 
@@ -118,10 +126,19 @@ Checking if logs or source code may contain phone number, email address, ID or a
 
 `grep -r " {2\}[0-9]\{6\} "  ./PathToSearch/`
 
+## Remediation
+
+Use HTTPS for the whole web site and redirect any HTTP requests to HTTPS.
+
 ## Tools
 
 - [curl](https://curl.haxx.se/)
 - [grep](http://man7.org/linux/man-pages/man1/egrep.1.html)
-- [Identity Finder](https://download.cnet.com/Identity-Finder-Free-Edition/3000-2144_4-10906766.html)
 - [Wireshark](https://www.wireshark.org/)
 - [TCPDUMP](https://www.tcpdump.org/)
+
+## References
+
+- [OWASP Insecure Transport](https://owasp.org/www-community/vulnerabilities/Insecure_Transport)
+- [OWASP HTTP Strict Transport Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html)
+- [Let's Encrypt](https://letsencrypt.org)
