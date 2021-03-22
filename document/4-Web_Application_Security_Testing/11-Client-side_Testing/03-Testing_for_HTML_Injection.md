@@ -36,7 +36,7 @@ http://vulnerable.site/page.html?user=<img%20src='aaa'%20onerror=alert(1)>
 
 This input will add an image tag to the page that will execute arbitrary JavaScript code inserted by the malicious user in the HTML context.
 
-Another potential exploit could be disableing certain filters of a login form such as:
+Another potential exploit could be disabling certain filters of a login form such as:
 ```html
 <form action="/some_page.php">
   <label for="username">Username:</label>
@@ -44,7 +44,7 @@ Another potential exploit could be disableing certain filters of a login form su
   <input type="submit">
 </form>
 ```
-This is also a vulnerable code, required filed can be edited on the client side.
+This is also a vulnerable code, required field can be edited on the client-side.
 
 ## Test Objectives
 
