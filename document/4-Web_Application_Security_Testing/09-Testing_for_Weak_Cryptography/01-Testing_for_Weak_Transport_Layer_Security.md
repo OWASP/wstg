@@ -27,6 +27,7 @@ There are a large number of protocol versions, ciphers, and extensions supported
 - [SSLv2 (DROWN)](https://drownattack.com/)
 - [SSLv3 (POODLE)](https://en.wikipedia.org/wiki/POODLE)
 - [TLSv1.0 (BEAST)](https://www.acunetix.com/blog/web-security-zone/what-is-beast-attack/)
+- [TLSv1.1 (Deprecated by RFC 8996)](https://tools.ietf.org/html/rfc8996)
 - [EXPORT ciphers suites (FREAK)](https://en.wikipedia.org/wiki/FREAK)
 - [NULL ciphers](https://www.rapid7.com/db/vulnerabilities/ssl-null-ciphers) ([they only provide authentication](https://tools.ietf.org/html/rfc4785)).
 - Anonymous ciphers (these may be supported on SMTP servers, as discussed in [RFC 7672](https://tools.ietf.org/html/rfc7672#section-8.2))
