@@ -6,7 +6,7 @@
 
 ## How to Include HTTP Request or Response Blocks
 
-To use examples of HTTP requests and responses in an article, use [raw HTTP messages](https://tools.ietf.org/html/rfc2616) with the `http` markdown code block language:
+To use examples of HTTP requests and responses in an article, use [raw HTTP messages](https://tools.ietf.org/html/rfc2616) with the `http` Markdown code block language:
 
 ```markdown
     ```http
