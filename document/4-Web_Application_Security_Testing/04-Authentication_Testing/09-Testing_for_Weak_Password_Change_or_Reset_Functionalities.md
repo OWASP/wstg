@@ -49,10 +49,10 @@ Key steps:
 - Can link be used multiple times?
 - Does link expire?
 - Is token long and random?
-  - Not md5($email)
-  - JWT - usual concerns
+    - Not md5($email)
+    - JWT - usual concerns
 - Does link contain a user ID?
-  - Can it be tampered?
+    - Can it be tampered?
 - Can you inject a different host header?
 - Is link revealed through referer/analytics scripts?
 - When setting the password, can you specify the user ID?
@@ -65,17 +65,17 @@ Key steps:
 
 - Is provided PIN/code long and random?
 - Is SMS or a phone call considered sufficiently secure?
-  - Number hijacking
-  - May be accessible without a PIN, especially office phone
+    - Number hijacking
+    - May be accessible without a PIN, especially office phone
 
 ### Authenticated Password Changes
 
 - Is the user required to re-authenticate?
-  - If MFA is enabled, do they need to use that?
+    - If MFA is enabled, do they need to use that?
 - Is the password change form vulnerable to CSRF?
-  - Link to CSRF guidance
+    - Link to CSRF guidance
 - Does the submission contain a user ID?
-  - Can it be tampered?
+    - Can it be tampered?
 
 ## References
 
