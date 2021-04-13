@@ -6,61 +6,76 @@
 
 ## Summary
 
-The password change and reset function of an application is a self-service password change or reset mechanism for users. This self-service mechanism allows users to quickly change or reset their password without an administrator intervening. When passwords are changed they are typically changed within the application. When passwords are reset they are either rendered within the application or emailed to the user. This may indicate that the passwords are stored in plain text or in a decryptable format.
+TODO
 
 ## Test Objectives
 
-- Determine the resistance of the application to subversion of the account change process allowing someone to change the password of an account.
-- Determine the resistance of the passwords reset functionality against guessing or bypassing.
+- Determine whether the password change and reset functionality allows accounts to be compromised.
 
 ## How to Test
 
-For both password change and password reset it is important to check:
+### Determine How Password Resets Are Performed
 
-1. if users, other than administrators, can change or reset passwords for accounts other than their own.
-2. if users can manipulate or subvert the password change or reset process to change or reset the password of another user or administrator.
-3. if the password change or reset process is vulnerable to [CSRF](../06-Session_Management_Testing/05-Testing_for_Cross_Site_Request_Forgery.md).
+Key steps:
 
-### Test Password Reset
+- Requests a password reset
+- Prove identity
+- Obtain or set new password
 
-In addition to the previous checks it is important to verify the following:
+### General Concerns
 
-- What information is required to reset the password?
+- Is the password reset process weaker than the authentication process?
+- Does password reset allow MFA bypass?
+- Do the usual password complexity policy apply?
+- Can the process be locked out?
 
-  The first step is to check whether secret questions are required. Sending the password (or a password reset link) to the user email address without first asking for a secret question means relying 100% on the security of that email address, which is not suitable if the application needs a high level of security.
+### Requesting a Password Reset
 
-  On the other hand, if secret questions are used, the next step is to assess their strength. This specific test is discussed in detail in the [Testing for Weak security question/answer](08-Testing_for_Weak_Security_Question_Answer.md) paragraph of this guide.
+- Does the reset process allow enumeration?
+- Is there a CAPTCHA or other rate limiting?
+- Are there multiple processes (webapp vs mobile)
+- What information does the user provide (username, email address, etc)
 
-- How are reset passwords communicated to the user?
+### Email - New Password Sent
 
-  The most insecure scenario here is if the password reset tool shows you the password; this gives the attacker the ability to log into the account, and unless the application provides information about the last log in the victim would not know that their account has been compromised.
+- Password emailed in cleartext (bad)
+- DoS vector (locks out legitimate user)
+- Is used forced to change password on initial login?
+- Is password securely generated?
+- Is existing password sent (implies encryption or plain text password)
 
-  A less insecure scenario is if the password reset tool forces the user to immediately change their password. While not as stealthy as the first case, it allows the attacker to gain access and locks the real user out.
+### Email - Link Sent
 
-  The best security is achieved if the password reset is done via an email to the address the user initially registered with, or some other email address; this forces the attacker to not only guess at which email account the password reset was sent to (unless the application show this information) but also to compromise that email account in order to obtain the temporary password or the password reset link.
+- Can link be used multiple times?
+- Does link expire?
+- Is token long and random?
+  - Not md5($email)
+  - JWT - usual concerns
+- Does link contain a user ID?
+  - Can it be tampered?
+- Can you inject a different host header?
+- Is link revealed through referer/analytics scripts?
+- When setting the password, can you specify the user ID?
 
-- Are reset passwords generated randomly?
+### Security Questions
 
-  The most insecure scenario here is if the application sends or visualizes the old password in clear text because this means that passwords are not stored in a hashed form, which is a security issue in itself.
+- See existing guidance
 
-  The best security is achieved if passwords are randomly generated with a secure algorithm that cannot be derived.
+### SMS or Phone Call
 
-- Is the reset password functionality requesting confirmation before changing the password?
+- Is provided PIN/code long and random?
+- Is SMS or a phone call considered sufficiently secure?
+  - Number hijacking
+  - May be accessible without a PIN, especially office phone
 
-  To limit denial-of-service attacks the application should email a link to the user with a random token, and only if the user visits the link then the reset procedure is completed. This ensures that the current password will still be valid until the reset has been confirmed.
+### Authenticated Password Changes
 
-### Test Password Change
-
-In addition to the previous test it is important to verify:
-
-- Is the old password requested to complete the change?
-
-  The most insecure scenario here is if the application permits the change of the password without requesting the current password. Indeed if an attacker is able to take control of a valid session they could easily change the victim's password.
-  See also [Testing for Weak password policy](07-Testing_for_Weak_Password_Policy.md) paragraph of this guide.
-
-## Remediation
-
-The password change or reset function is a sensitive function and requires some form of protection, such as requiring users to re-authenticate or presenting the user with confirmation screens during the process.
+- Is the user required to re-authenticate?
+  - If MFA is enabled, do they need to use that?
+- Is the password change form vulnerable to CSRF?
+  - Link to CSRF guidance
+- Does the submission contain a user ID?
+  - Can it be tampered?
 
 ## References
 
