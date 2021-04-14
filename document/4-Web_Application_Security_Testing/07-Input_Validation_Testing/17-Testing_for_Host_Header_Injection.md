@@ -82,12 +82,31 @@ The following will be served from the web cache, when a victim visits the vulner
 
 It is common for password reset functionality to include the Host header value when creating password reset links that use a generated secret token. If the application processes an attacker-controlled domain to create a password reset link, the victim may click on the link in the email and allow the attacker to obtain the reset token, thus resetting the victim's password.
 
+The example below shows a password reset link that is generated in PHP using the value of `$_SERVER['HTTP_HOST']`, which is set based on the contents of the HTTP Host header:
+
+```php
+$reset_url = "https://" . $_SERVER['HTTP_HOST'] . "/reset.php?token=" .$token;
+send_reset_email($email,$rset_url);
+```
+
+By making a HTTP request to the password reset page with a tampered Host header, we can modify where the URL points:
+
+```http
+POST /request_password_reset.php HTTP/1.1
+Host: www.attacker.com
+[...]
+
+email=user@example.org
+```
+
+The specified domain ("www.attacker.com") will then be used in the reset link, which is email to the user. As soon as they click this link, the attacker can steal the token and compromise their account.
+
 ```text
 ... Email snippet ...
 
 Click on the following link to reset your password:
 
-http://www.attacker.com/index.php?module=Login&action=resetPassword&token=<SECRET_TOKEN>
+https://www.attacker.com/reset.php?token=12345
 
 ... Email snippet ...
 ```
