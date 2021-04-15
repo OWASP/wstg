@@ -74,6 +74,7 @@ TODO
 - [John the Ripper](https://github.com/openwall/john)
 - [jwt2john](https://github.com/Sjord/jwtcrack)
 - [jwt-cracker](https://github.com/brendan-rius/c-jwt-cracker)
+- [JSON Web Tokens Burp Extension](https://portswigger.net/bappstore/f923cbf91698420890354c1d8958fee6)
 
 ## References
 
