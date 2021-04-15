@@ -20,6 +20,7 @@
 ### Overview
 
 - What a JWT is
+    - Three b64 encoded parters (header, body, signature)
 - Common usage scenarios
 
 ### Analyse the Contents
@@ -44,13 +45,21 @@
 - HMAC uses a secret key
 - Convert JWT into crackable format
 - Try and crack key
+    - jwt2john
+    - May need custom compiled john for long JWT (`SALT_LIMBS`)
+    - jwtcrack
 
 ### HMAC vs RSA Confusion
 
 - Obtain public key
-    - Public key may be in `/.well-known/jwks.json`
-    - Obtain public key from TLS cert (shouldn't be re-used, but may be)
+    - May be in `/.well-known/jwks.json`
+    - Can be obtained from TLS cert (shouldn't be re-used, but may be)
 - Use public key as a secret to calculate a HMAC
+
+### Attacker Provided RSA Key
+
+- JSON Web Signature (JWS) allows embedding of public key in the header
+- Sign with our own private key and see if server trusts it
 
 ## Related Test Cases
 
@@ -63,7 +72,7 @@ TODO
 ## Tools
 
 - [John the Ripper](https://github.com/openwall/john)
-- [jw2john](https://github.com/Sjord/jwtcrack)
+- [jwt2john](https://github.com/Sjord/jwtcrack)
 - [jwt-cracker](https://github.com/brendan-rius/c-jwt-cracker)
 
 ## References
