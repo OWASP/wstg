@@ -6,7 +6,7 @@
 
 ## Summary
 
-- JWTs are cryptographically signed JSON tokens
+- JSON Web Tokens (JWTs) are cryptographically signed JSON tokens
 - Commonly used to authenticate on APIs
 - Lots of bad implementations and opportunities for things to go wrong
 
