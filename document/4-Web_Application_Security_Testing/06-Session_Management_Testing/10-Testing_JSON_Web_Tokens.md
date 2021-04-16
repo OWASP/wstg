@@ -25,8 +25,25 @@
 
 ### Analyse the Contents
 
+#### Header
+
+- Header includes the algorithm
+    - Algorithms have type (RS/PS/HS/ES) and strength in bits
+    - Table of common algorithms
+    - Ideally should be `HSxxx` (for HMAC) or `ESxxx` for public key
+    - `RSxxx` and `PSxxx` are acceptable
+    - Other algorithms may also be used, especially for encryption tokens
+
+#### Body
+
 - JWTs are not usually encrypted
-- May expose sensitive information
+- Some standard fields (table)
+    - iss = Issuer
+    - iat = Issued At
+    - nbf = Not Before
+    - exp = Expiration Time
+- Can also include custom data
+    - May expose sensitive information
 
 ### Review Usage
 
