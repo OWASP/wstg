@@ -1,4 +1,4 @@
-# Testing JSON Web Tokens (JWTs)
+# Testing JSON Web Tokens
 
 |ID          |
 |------------|
