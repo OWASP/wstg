@@ -22,6 +22,8 @@ The list contains only tools that are freely available to download and use (alth
 
 - [Firefox HTTP Header Live](https://addons.mozilla.org/en-US/firefox/addon/http-header-live)
     - View HTTP headers of a page and while browsing.
+- [Firefox Multi-Account Containers](https://addons.mozilla.org/en-GB/firefox/addon/multi-account-containers/)
+    - Create multiple containers, each of which have their own isolated cookies and sessions. Useful for testing access control between different users.
 - [Firefox Tamper Data](https://addons.mozilla.org/en-US/firefox/addon/tamper-data-for-ff-quantum/)
     - Use Tamper Data to view and modify HTTP/HTTPS headers and post parameters
 - [Firefox Web Developer](https://addons.mozilla.org/en-US/firefox/addon/web-developer/)
