@@ -31,8 +31,8 @@
     - Algorithms have type (RS/PS/HS/ES) and strength in bits
     - Table of common algorithms
     - Ideally should be `HSxxx` (for HMAC) or `ESxxx` for public key
-    - `RSxxx` and `PSxxx` are acceptable
-    - Other algorithms may also be used, especially for encryption tokens
+    - RSA (`RSxxx` and `PSxxx`) is legacy, but still acceptable
+    - [Other algorithms](https://www.iana.org/assignments/jose/jose.xhtml#web-signature-encryption-algorithms) may also be used, especially for encryption tokens
 
 #### Body
 
