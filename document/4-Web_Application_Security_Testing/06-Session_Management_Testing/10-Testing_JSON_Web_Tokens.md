@@ -54,8 +54,17 @@
 
 ### Signature Verification
 
-- Signature may not be verified at all (`jwt.decode()` vs `jwt.verify()`)
-- `none` or `NoNe` algorithms may be allowed
+One of the most serious vulnerabilities encountered with JWTs is when the application fails to validate that the signature is correct. This usually occurs when a developer uses a function such as the NodeJS `jwt.deode()` function, which simply decodes the body of the JWT, rather than `jwt.verify()`, which verifies the signature before decoding the JWT.
+
+This can be easily tested for by modifying the body of the JWT without changing anything in the header or signature, submitting it in a request to see if the application accepts it.
+
+#### The None Algorithm
+
+As well as the public key and HMAC-based algorithms, the JWT specification also defines a signature algorithm called `none`. As the name suggests, this means that there is no signature for the JWT, allowing it to be modified.
+
+This can be tested by modifying the signature algorithm (`alg`) in the JWT header to `none`, and resubmitting the JWT.
+
+Some implementation try and avoid this by blacklisting the use of the `none` algorithm. If this is done in a case-insensitive way, it may be possible to bypass by specifying an algorithm such as `NoNe`.
 
 ### Weak HMAC Keys
 
