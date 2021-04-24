@@ -59,12 +59,17 @@
 
 ### Weak HMAC Keys
 
-- HMAC uses a secret key
-- Convert JWT into crackable format
-- Try and crack key
-    - jwt2john
-    - May need custom compiled john for long JWT (`SALT_LIMBS`)
-    - jwtcrack
+If the JWT is signed using a HMAC-based algorithm (such as HS256), the security of the signature is entirely reliant on the strength of the secret key used in the HMAC.
+
+If the application is using off-the-shelf or open source software, the first step should be go investigate the code, and see whether there is default HMAC signing key that is used.
+
+If there isn't a default, then it may be possible to crack guess or brute-force they key. The simplest way to do this is to use the [crackjwt.py](https://github.com/Sjord/jwtcrack) script, which simply requires the JWT and a dictionary file.
+
+A more powerful option is to convert convert the JWT into a format that can be used by [John the Ripper](https://github.com/openwall/john) using the [jwt2john.py](https://github.com/Sjord/jwtcrack/blob/master/jwt2john.py) script. John can then be used to carry out much more advanced attacks against the key.
+
+If the JWT is large, it may exceed the maximum size supported by John. This can be worked around by increasing the value of the `SALT_LIMBS` variable in `/src/hmacSHA256_fmt_plug.c` (or the equivalent file for other HMAC formats) and recompiling John.
+
+If this key can be obtained, then it is possible to create and sign arbitrary JWTs, which usually results in a complete compromise of the application.
 
 ### HMAC vs RSA Confusion
 
