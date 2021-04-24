@@ -80,12 +80,23 @@ If the JWT is large, it may exceed the maximum size supported by John. This can 
 
 If this key can be obtained, then it is possible to create and sign arbitrary JWTs, which usually results in a complete compromise of the application.
 
-### HMAC vs RSA Confusion
+### HMAC vs Public Key Confusion
 
-- Obtain public key
-    - May be in `/.well-known/jwks.json`
-    - Can be obtained from TLS cert (shouldn't be re-used, but may be)
-- Use public key as a secret to calculate a HMAC
+If the application uses JWTs with public key based signatures, but does not check that the algorithm is correct, this can potentially exploit this in a signature type confusion attack. In order for this to be successful, the following conditions need to be met:
+
+- The application must use public key (i.e, `RSxxx` or `ESxxx`) to verify the JWT signature.
+- The application must not check which algorithm is actually used.
+- The public key used to verify the JWT must be available to the attacker.
+
+The main way that an attacker would be able to obtain the public key is if the application re-uses the same key for both signing JWTs and as part of the TLS certificate. This key can be downloaded from the server using a command such as the following:
+
+```sh
+openssl s_client -connect example.org:443 | openssl x509 -pubkey -noout
+```
+
+Alternatively, the key may be available from a public file on the site at a common location such as `/.well-known/jwks.json`.
+
+In order to test this, modify the contents of the JWT, and then use the previously obtained public key to sign the JWT using the `HS256` algorithm. This is often difficult to perform when testing from a black-box perspective, because the format of the key must be identical to the one used by the server, so issues such as whitespace or CRLF encoding may result in the keys not matching.
 
 ### Attacker Provided RSA Key
 
