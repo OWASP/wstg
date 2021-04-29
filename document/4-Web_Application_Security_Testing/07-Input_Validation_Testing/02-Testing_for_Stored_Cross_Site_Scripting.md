@@ -189,7 +189,7 @@ The following table summarizes some special variables and functions to look at w
 - [Burp Proxy](https://portswigger.net/burp/) is an interactive HTTP/S proxy server for attacking and testing web applications.
 - [XSS Assistant](https://www.greasespot.net/) Greasemonkey script that allow users to easily test any web application for cross-site-scripting flaws.
 - [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org) is an interactive HTTP/S proxy server for attacking and testing web applications with a built-in scanner.
-- [XSS Hunter Portable](https://github.com/mandatoryprogrammer/xsshunter) XSS Hunter find all kinds of cross-site scripting vulnerabilities, including the often-missed blind XSS.
+- [XSS Hunter Portable](https://github.com/mandatoryprogrammer/xsshunter) XSS Hunter finds all kinds of cross-site scripting vulnerabilities, including the often-missed blind XSS.
 
 ## References
 
