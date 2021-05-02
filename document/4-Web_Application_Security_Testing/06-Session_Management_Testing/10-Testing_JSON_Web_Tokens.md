@@ -155,7 +155,7 @@ There are a variety of scripts that can be used to do this, such as [jwk-node-jo
 - Use a strong HMAC key or a unique private key to sign them.
 - Ensure that there is no sensitive information exposed in the payload.
 - Ensure that JWTs are securely stored and transmitted.
-- See the [OWASP JSON Web Tokens Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html)
+- See the [OWASP JSON Web Tokens Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html).
 
 ## Tools
 
