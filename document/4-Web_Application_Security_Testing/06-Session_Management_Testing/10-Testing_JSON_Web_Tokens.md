@@ -19,31 +19,66 @@
 
 ### Overview
 
-- What a JWT is
-    - Three b64 encoded parters (header, body, signature)
-- Common usage scenarios
+JWTs are are made up of three components:
+
+- The header
+- The payload (or body)
+- The signature
+
+Each component is Base64 encoded, and they are separated by periods (`.`). Note that the Base64 encoding used in a JWT strips out the equals signs (`=`), so you may need to add these back in to decode the sections.
+
+JWTs are used to share cryptographically signed claims between systems. They are frequently used as authentication tokens, particularly on REST APIs.
 
 ### Analyse the Contents
 
 #### Header
 
-- Header includes the algorithm
-    - Algorithms have type (RS/PS/HS/ES) and strength in bits
-    - Table of common algorithms
-    - Ideally should be `HSxxx` (for HMAC) or `ESxxx` for public key
-    - RSA (`RSxxx` and `PSxxx`) is legacy, but still acceptable
-    - [Other algorithms](https://www.iana.org/assignments/jose/jose.xhtml#web-signature-encryption-algorithms) may also be used, especially for encryption tokens
+The header of a defines the type of the token (typically `JWT`), and the algorithm used for the signature. A example decoded header is shown below:
 
-#### Body
+```json
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+```
 
-- JWTs are not usually encrypted
-- Some standard fields (table)
-    - iss = Issuer
-    - iat = Issued At
-    - nbf = Not Before
-    - exp = Expiration Time
-- Can also include custom data
-    - May expose sensitive information
+There are three main types of algorithms that are used to calculate the signatures:
+
+| Algorithm | Description |
+|--------------|----------------|
+| HSxxx | HMAC using a secret key and SHA-xxx |
+| RSxxx and PSxxx | Public key signature using RSA |
+| ESxxx | Public key signature using ECDSA |
+
+There are also a wide range of [other algorithms](https://www.iana.org/assignments/jose/jose.xhtml#web-signature-encryption-algorithms) which may be used for encrypted tokens (JWEs), although these are less common.s
+
+#### Payload
+
+The payload of the JWT contains the actual data. An example payload is shown below:
+
+```json
+{
+  "username": "admininistrator",
+  "is_admin": true,
+  "iat": 1516239022,
+  "exp": 1516242622
+}
+```
+
+The payload is it not usually encrypted, so review it to determine whether there is any sensitive of potentially inappropriate data included within it.
+
+This JWT includes the username and administrative status of the user, as well as two standard claims (`iat` and `exp`). These claims are defined in [RFC 5719](https://tools.ietf.org/html/rfc7519#section-4.1), a brief summary of them is given in the table below:
+
+| Claim | Full Name | Description |
+|---------|-------------|-------------|
+| `iss` | Issuer | The identity of the party who issued the token. |
+| `iat` | Issued At | The Unix timestamp of when the token was issued. |
+| `nbf` | Not Before | The Unix timestamp of earliest date that the token can be used. |
+| `exp` | Expires | The Unix timestamp of when the token expires. |
+
+#### Signature
+
+The signature is calculated using the algorithm defined in the JWT header, and then Base64 encoded and appened to the token. Modifying any part of the JWT should cause the signature to be invalid, and the token to be rejected by the server.
 
 ### Review Usage
 
