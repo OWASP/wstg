@@ -151,7 +151,11 @@ There are a variety of scripts that can be used to do this, such as [jwk-node-jo
 
 ## Remediation
 
-TODO
+- Use a secure and up to date library to handle JWTs.
+- Use a strong HMAC key or a unique private key to sign them.
+- Ensure that there is no sensitive information exposed in the payload.
+- Ensure that JWTs are securely stored and transmitted.
+- See the [OWASP JSON Web Tokens Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html)
 
 ## Tools
 
@@ -164,3 +168,4 @@ TODO
 ## References
 
 - [RFC 7519 JSON Web Token (JWT)](https://tools.ietf.org/html/rfc7519)
+- [OWASP JSON Web Token Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html)
