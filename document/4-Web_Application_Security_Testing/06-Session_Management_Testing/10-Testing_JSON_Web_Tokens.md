@@ -139,10 +139,11 @@ Alternatively, the key may be available from a public file on the site at a comm
 
 In order to test this, modify the contents of the JWT, and then use the previously obtained public key to sign the JWT using the `HS256` algorithm. This is often difficult to perform when testing without access to the source code or implementation deatils, because the format of the key must be identical to the one used by the server, so issues such as emptyspace or CRLF encoding may result in the keys not matching.
 
-### Attacker Provided RSA Key
+### Attacker Provided Public Key
 
-- JSON Web Signature (JWS) allows embedding of public key in the header
-- Sign with our own private key and see if server trusts it
+The JSON Web Signature (JWS) standard allows the key used to sign the token to be embedded in the header. If the library used to validate the token supports this, and doesn't check the key against a list of approved keys, this allows an attacker to sign an JWT with an arbitrary key that they provide.
+
+There are a variety of scripts that can be used to do this, such as [jwk-node-jose.py](https://github.com/zi0Black/POC-CVE-2018-0114) or [jwt_tool](https://github.com/ticarpi/jwt_tool).
 
 ## Related Test Cases
 
