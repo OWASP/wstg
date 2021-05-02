@@ -99,7 +99,7 @@ As well as the public key and HMAC-based algorithms, the JWT specification also 
 
 This can be tested by modifying the signature algorithm (`alg`) in the JWT header to `none`, and resubmitting the JWT.
 
-Some implementation try and avoid this by blacklisting the use of the `none` algorithm. If this is done in a case-insensitive way, it may be possible to bypass by specifying an algorithm such as `NoNe`.
+Some implementation try and avoid this by explicitly blocking the use of the `none` algorithm. If this is done in a case-insensitive way, it may be possible to bypass by specifying an algorithm such as `NoNe`.
 
 ### Weak HMAC Keys
 
@@ -131,7 +131,7 @@ openssl s_client -connect example.org:443 | openssl x509 -pubkey -noout
 
 Alternatively, the key may be available from a public file on the site at a common location such as `/.well-known/jwks.json`.
 
-In order to test this, modify the contents of the JWT, and then use the previously obtained public key to sign the JWT using the `HS256` algorithm. This is often difficult to perform when testing from a black-box perspective, because the format of the key must be identical to the one used by the server, so issues such as whitespace or CRLF encoding may result in the keys not matching.
+In order to test this, modify the contents of the JWT, and then use the previously obtained public key to sign the JWT using the `HS256` algorithm. This is often difficult to perform when testing without access to the source code or implementation deatils, because the format of the key must be identical to the one used by the server, so issues such as emptyspace or CRLF encoding may result in the keys not matching.
 
 ### Attacker Provided RSA Key
 
