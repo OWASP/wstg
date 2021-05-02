@@ -43,10 +43,10 @@ The header of a defines the type of the token (typically `JWT`), and the algorit
 There are three main types of algorithms that are used to calculate the signatures:
 
 | Algorithm | Description |
-|--------------|----------------|
-| HSxxx | HMAC using a secret key and SHA-xxx |
-| RSxxx and PSxxx | Public key signature using RSA |
-| ESxxx | Public key signature using ECDSA |
+|-----------|-------------|
+| HSxxx | HMAC using a secret key and SHA-xxx. |
+| RSxxx and PSxxx | Public key signature using RSA. |
+| ESxxx | Public key signature using ECDSA. |
 
 There are also a wide range of [other algorithms](https://www.iana.org/assignments/jose/jose.xhtml#web-signature-encryption-algorithms) which may be used for encrypted tokens (JWEs), although these are less common.s
 
@@ -68,7 +68,7 @@ The payload is it not usually encrypted, so review it to determine whether there
 This JWT includes the username and administrative status of the user, as well as two standard claims (`iat` and `exp`). These claims are defined in [RFC 5719](https://tools.ietf.org/html/rfc7519#section-4.1), a brief summary of them is given in the table below:
 
 | Claim | Full Name | Description |
-|---------|-------------|-------------|
+|-------|-----------|-------------|
 | `iss` | Issuer | The identity of the party who issued the token. |
 | `iat` | Issued At | The Unix timestamp of when the token was issued. |
 | `nbf` | Not Before | The Unix timestamp of earliest date that the token can be used. |
