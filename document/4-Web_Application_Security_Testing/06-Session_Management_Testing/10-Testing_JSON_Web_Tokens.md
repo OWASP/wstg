@@ -82,10 +82,16 @@ The signature is calculated using the algorithm defined in the JWT header, and t
 
 ### Review Usage
 
-- How is JWT sent?
-- How is JWT stored?
-- Does JWT expire?
-- Can JWT be invalidated?
+As well as being cryptographically secure itself, the JWT also needs to be stored and sent in a secure manner. This should include checks that:
+
+- It is always [sent over encrypted (HTTPS) connections](../09-Testing_for_Weak_Cryptography/03-Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels.md).
+- If it is stored in a cookie, then it should be [marked with appropriate attributes](../06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.md).
+- If it is stored in the browser storage, it should [use the sessionStorage rather than localStorage](../11-Client-side_Testing/12-Testing_Browser_Storage.md).
+
+The validity of the JWT should also be reviewed, based on the `iat`, `nbf` and `exp` claims, to determine that:
+
+- The JWT has a reasonable lifespan for the application.
+- Expired tokens are rejected by the application.
 
 ### Signature Verification
 
