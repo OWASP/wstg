@@ -147,7 +147,9 @@ There are a variety of scripts that can be used to do this, such as [jwk-node-jo
 
 ## Related Test Cases
 
-TODO
+- [Testing for Sensitive Information Sent via Unencrypted Channels](../09-Testing_for_Weak_Cryptography/03-Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels.md).
+- [Testing for Cookie Attributes](../06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.md).
+- [Testing Browser Storage](../11-Client-side_Testing/12-Testing_Browser_Storage.md).
 
 ## Remediation
 
