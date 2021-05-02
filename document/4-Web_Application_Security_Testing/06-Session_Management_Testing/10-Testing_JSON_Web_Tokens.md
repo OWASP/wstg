@@ -6,9 +6,9 @@
 
 ## Summary
 
-- JSON Web Tokens (JWTs) are cryptographically signed JSON tokens
-- Commonly used to authenticate on APIs
-- Lots of bad implementations and opportunities for things to go wrong
+JSON Web Tokens (JWTs) are cryptographically signed JSON tokens, intended to share claims between systems. They are are frequently used as authentication or session tokens, particularly on REST APIs.
+
+JWTs are a common source of vulnerabilities, both in how they are in implemented in applications, and in the underlying libraries. As they are used for authentication, a vulnerability can easily result in a complete compromise of the application.
 
 ## Test Objectives
 
@@ -26,8 +26,6 @@ JWTs are are made up of three components:
 - The signature
 
 Each component is Base64 encoded, and they are separated by periods (`.`). Note that the Base64 encoding used in a JWT strips out the equals signs (`=`), so you may need to add these back in to decode the sections.
-
-JWTs are used to share cryptographically signed claims between systems. They are frequently used as authentication tokens, particularly on REST APIs.
 
 ### Analyse the Contents
 
