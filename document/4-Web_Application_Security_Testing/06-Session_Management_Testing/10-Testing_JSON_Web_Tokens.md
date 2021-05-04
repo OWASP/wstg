@@ -105,7 +105,7 @@ Some implementation try and avoid this by explicitly blocking the use of the `no
 
 This can be tested by modifying the signature algorithm (`alg`) in the JWT header to `NoNe`, as shown in the example below:
 
-```
+```json
 {
         "alg": "NoNe",
         "typ": "JWT"
@@ -114,7 +114,7 @@ This can be tested by modifying the signature algorithm (`alg`) in the JWT heade
 
 The header and payload are then re-encoded with Base64, and the signature is removed (leaving the trailing period). Using the header above, and the payload listed in the [payload](#payload) section, this would give the following JWT:
 
-```
+```txt
 eyJhbGciOiAiTm9OZSIsICJ0eXAiOiAiSldUIn0.eyJ1c2VybmFtZSI6ImFkbWluaW5pc3RyYXRvciIsImlzX2FkbWluIjp0cnVlLCJpYXQiOjE1MTYyMzkwMjIsImV4cCI6MTUxNjI0MjYyMn0.
 ```
 
