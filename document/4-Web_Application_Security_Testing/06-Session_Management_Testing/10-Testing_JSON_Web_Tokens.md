@@ -93,7 +93,7 @@ The validity of the JWT should also be reviewed, based on the `iat`, `nbf` and `
 
 ### Signature Verification
 
-One of the most serious vulnerabilities encountered with JWTs is when the application fails to validate that the signature is correct. This usually occurs when a developer uses a function such as the NodeJS `jwt.deode()` function, which simply decodes the body of the JWT, rather than `jwt.verify()`, which verifies the signature before decoding the JWT.
+One of the most serious vulnerabilities encountered with JWTs is when the application fails to validate that the signature is correct. This usually occurs when a developer uses a function such as the NodeJS `jwt.decode()` function, which simply decodes the body of the JWT, rather than `jwt.verify()`, which verifies the signature before decoding the JWT.
 
 This can be easily tested for by modifying the body of the JWT without changing anything in the header or signature, submitting it in a request to see if the application accepts it.
 
