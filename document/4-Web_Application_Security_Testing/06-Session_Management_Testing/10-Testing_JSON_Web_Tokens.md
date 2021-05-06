@@ -84,7 +84,6 @@ As well as being cryptographically secure itself, the JWT also needs to be store
 
 - It is always [sent over encrypted (HTTPS) connections](../09-Testing_for_Weak_Cryptography/03-Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels.md).
 - If it is stored in a cookie, then it should be [marked with appropriate attributes](../06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.md).
-- If it is stored in the browser storage, it should [use the sessionStorage rather than localStorage](../11-Client-side_Testing/12-Testing_Browser_Storage.md).
 
 The validity of the JWT should also be reviewed, based on the `iat`, `nbf` and `exp` claims, to determine that:
 
@@ -193,5 +192,6 @@ There are a variety of scripts that can be used to do this, such as [jwk-node-jo
 
 ## References
 
+- [RFC 7515 JSON Web Signature (JWS)](https://tools.ietf.org/html/rfc7515)
 - [RFC 7519 JSON Web Token (JWT)](https://tools.ietf.org/html/rfc7519)
 - [OWASP JSON Web Token Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html)
