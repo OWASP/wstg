@@ -15,7 +15,7 @@ To use examples of HTTP requests and responses in an article, use [raw HTTP mess
 ```
 
 - Try to keep the blocks small.
-- Use ellipsis `...` to show that the message is truncated if it helps the clarity of the article.
+- Use brackets and ellipsis `[...]` to show that the message is truncated if it helps the clarity of the article.
 
 The following section is a sample article snippet with HTTP messages and a description of the formatting.
 
@@ -38,7 +38,7 @@ HTTP/1.1 200
     <head>
         <meta charset="UTF-8" />
         <title>Apache Tomcat/10.0.4
-...
+[...]
 ```
 
 In this result, the response identifies the server as Tomcat 10.0.4.
@@ -48,5 +48,5 @@ In this result, the response identifies the server as Tomcat 10.0.4.
 - The HTTP request and response have text describing them to the reader before the request and response.
 - The GET request has the smallest amount of headers to have the desired response from the server.
     - For example, there is no `User-Agent:` as it is not needed for the "test case".
-- The article uses ellipsis `...` to cut out unnecessary parts of the response.
+- The article uses brackets and ellipsis `[...]` to cut out unnecessary parts of the response.
     - Unnecessary response content for this sample include the `Content-Type:` header and the rest of the HTML in the body.
