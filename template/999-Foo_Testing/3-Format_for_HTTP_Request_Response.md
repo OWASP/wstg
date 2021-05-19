@@ -32,7 +32,7 @@ Check if the response shows information about the server:
 
 ```http
 HTTP/1.1 200
-...
+[...]
 <!DOCTYPE html>
 <html lang="en">
     <head>
