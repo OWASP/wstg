@@ -20,7 +20,7 @@ As this functionality provides a direct route to compromise the user's account, 
 
 The first step is to gather information about what mechanisms are available to allow the user to reset their password on the application. If there are multiple interfaces on the same site (such as a web interface, mobile application and API) then these should all be reviewed, in case they provide different functionality.
 
-Once this has been established, determine what information is required in order for a user to initiate a password reset. This is often the username or email address (both of which are easily guessable), but it could also be an internally generated user ID, which would be harder to obtain.
+Once this has been established, determine what information is required in order for a user to initiate a password reset. This can be the username or email address (both of which may be obtained from public information), but it could also be an internally-generated user ID.
 
 ### General Concerns
 
@@ -28,7 +28,7 @@ Regardless of the specific methods used to reset passwords, there are a number o
 
 - Is the password reset process weaker than the authentication process?
 
-  The password reset process provides an alternative mechanism to access a user's account, and so should be at least as secure as the usual authentication process. However, it can often provide an easier way to compromise the account, especially if it uses weaker authentication factors such as security questions.
+  The password reset process provides an alternative mechanism to access a user's account, and so should be at least as secure as the usual authentication process. However, it can provide an easier way to compromise the account, especially if it uses weaker authentication factors such as security questions.
 
   Additionally, the password reset process often bypasses the requirement to use Multi-Factor Authentication (MFA), which can substantially reduce the security of the application.
 
@@ -36,7 +36,7 @@ Regardless of the specific methods used to reset passwords, there are a number o
 
   As with any authentication mechanism, the password reset process should have protection against automated or brute-force attacks. There are a variety of different methods that can be used to achieve this, such as rate limiting or the use of CAPTCHA. These are particularly important on functionality that triggers external actions (such as sending an email or SMS), or when the user is entering a password reset token.
 
-  It is also possible to protect against these attacks by "locking out" the account from the password reset process. However, this would prevent a legitimate user from being able to reset their password and regain access to their account, effectively resulting in a denial of service.
+  It is also possible to protect against brute-force attacks by locking out the account from the password reset process after a certain number of consecutive attempts. This could also prevent a legitimate user from being able to reset their password and regain access to their account, however.
 
 - Is it vulnerable to common attacks?
 
@@ -55,17 +55,17 @@ In this model, the user is sent a new password via email once they have proved t
 
 Where this approach is used, the following areas should be reviewed:
 
-- Is used forced to change password on initial login?
+- Is the user forced to change the password on initial login?
 
   The new password is sent over unencrypted email, and may sit in the user's inbox indefinitely if they don't delete the email. As such, the user should be required to change the password as soon as they log in for the first time.
 
-- Is password securely generated?
+- Is the password securely generated?
 
-  The password should be generated using a Cryptographically Secure Pseudo-Random Number Generator (CSPRNG), and should be sufficiently long to prevent password guessing or brute-force attacks. Ideally, it should be generated using a secure passphrase-style approach (i.e, combining multiple words), rather than a string of random characters.
+  The password should be generated using a Cryptographically Secure Pseudo-Random Number Generator (CSPRNG), and should be sufficiently long to prevent password guessing or brute-force attacks. For a secure user-friendly experience, it should be generated using a secure passphrase-style approach (i.e, combining multiple words), rather than a string of random characters.
 
 - Is the user's existing password sent to them?
 
-  Rather than generating a new password for the user, some applications will send the user their existing password. This is a very bad approach, as it exposes their current password over unencrypted email. Additionally, if the site is able to recover the existing password, this implies that passwords are either stored using reversible encryption, or (more likely) unencrypted, both of which represent a serious security weakness.
+  Rather than generating a new password for the user, some applications will send the user their existing password. This is a very insecure approach, as it exposes their current password over unencrypted email. Additionally, if the site is able to recover the existing password, this implies that passwords are either stored using reversible encryption, or (more likely) in unencrypted plain text, both of which represent a serious security weakness.
 
 - Are the emails sent from a domain with anti-spoofing protection?
 
@@ -79,7 +79,7 @@ Where this approach is used, the following areas should be reviewed:
 
 ### Email - Link Sent
 
-In this model, the user is sent a link via email which contains token. They can then click this link, and are prompted to enter a new password on the site. This is the most common approach used for password reset, but is more complex to implement than the previously discussed approach. The key areas to test are:
+In this model, the user is emailed a link that contains a token. They can then click this link, and are prompted to enter a new password on the site. This is the most common approach used for password reset, but is more complex to implement than the previously discussed approach. The key areas to test are:
 
 - Does the link use HTTPS?
 
@@ -89,15 +89,15 @@ In this model, the user is sent a link via email which contains token. They can 
 
   Links should expire after they are used, otherwise they provide a persistent backdoor for the account.
 
-- Does the link expire?
+- Does the link expire if it remains unused?
 
   Links should be time limited. Exactly how long is appropriate will depend on the site, but it should rarely be more than an hour.
 
-- Is token sufficiently long and random?
+- Is the token sufficiently long and random?
 
   The security of the process is entirely reliant on an attacker not being able to guess or brute-force a token. As such the tokens should be generated with a Cryptographically Secure Pseudo-Random Number Generator (CSPRNG), and should be sufficiently long to effectively impossible to guess (at least 128 bits / 32 hex characters).
 
-  Tokens should never be generated based on known values (such as doing something like `md5($email)`), or a GUIDs (as they may use insecure PRNG functions, or may not even be random depending on the type).
+  Tokens should never be generated based on known values, such as by taking the MD5 hash of the user's email with `md5($email)`, or using GUIDs which may use insecure PRNG functions, or may not even be random depending on the type.
 
   An alternative approach to random tokens is to use a cryptographically signed token such as a JWT. In this case, the usual JWT checks should be carried out (is the signature verified, can the "nONe" algorithm be used, can the HMAC key be brute-forced, etc). See the [Testing for APIs](../../../Testing_for_APIs.md) guide for further information.
 
@@ -109,7 +109,7 @@ In this model, the user is sent a link via email which contains token. They can 
 
   If the application trusts the value of the `Host` header and uses this to generate the password reset link, it may be possible to steal tokens by injecting a modified `Host` header into the request. See the [Testing for Host Header Injection](../07-Input_Validation_Testing/17-Testing_for_Host_Header_Injection.md) guide for further information.
 
-- Is the link revealed exposed to third parties?
+- Is the link exposed to third parties?
 
   If the page that the user is taken to includes content from other parties (such as loading scripts from other domains), then the reset token in the URL may be exposed in the HTTP `Referer` header sent in these requests. The `Referrer-Policy` HTTP header can be used to protect against this, so check if one is defined for the page.
 
@@ -139,9 +139,9 @@ Rather than sending a token in an email, an alternative approach is to send it v
 
   Tokens should be invalidated after they are used, otherwise they provide a persistent backdoor for the account.
 
-- Does the token expire?
+- Does the token expire if it remains unused?
 
-  As the tokens are more susceptible to brute-force attacks, a shorter expiration time should be implemented to limit the window available for an attacker to carry out an attack.
+  As the shorter tokens are more susceptible to brute-force attacks, a shorter expiration time should be implemented to limit the window available for an attacker to carry out an attack.
 
 - Are appropriate rate limiting and restrictions in place?
 

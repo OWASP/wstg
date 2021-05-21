@@ -99,7 +99,7 @@ Host: www.attacker.com
 email=user@example.org
 ```
 
-The specified domain ("www.attacker.com") will then be used in the reset link, which is email to the user. As soon as they click this link, the attacker can steal the token and compromise their account.
+The specified domain ("www.attacker.com") will then be used in the reset link, which is emailed to the user. When the user clicks this link, the attacker can steal the token and compromise their account.
 
 ```text
 ... Email snippet ...
