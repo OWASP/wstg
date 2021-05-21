@@ -131,7 +131,7 @@ Rather than sending a token in an email, an alternative approach is to send it v
 
 - Is the token sufficiently long and random?
 
-  Tokens sent this way are typically shorted, as they are intended to be manually typed by the user, rather than being embedded in a link. It's fairly common for applications to use six numeric digits, which only provides ~20 bits of security (feasible for an online brute-force attack), rather than the 128+ bits that would be present in an emailed token.
+  Tokens sent this way are typically shorted, as they are intended to be manually typed by the user, rather than being embedded in a link. It's fairly common for applications to use six numeric digits, which only provides ~20 bits of security (feasible for an online brute-force attack), rather than the typically longer email token.
 
   This makes it much more important that the password reset functionality is protected against brute-force attacks.
 
