@@ -30,7 +30,7 @@ Regardless of the specific methods used to reset passwords, there are a number o
 
   The password reset process provides an alternative mechanism to access a user's account, and so should be at least as secure as the usual authentication process. However, it can provide an easier way to compromise the account, especially if it uses weaker authentication factors such as security questions.
 
-  Additionally, the password reset process often bypasses the requirement to use Multi-Factor Authentication (MFA), which can substantially reduce the security of the application.
+  Additionally, the password reset process may bypass the requirement to use Multi-Factor Authentication (MFA), which can substantially reduce the security of the application.
 
 - Is there rate limiting or other protection against automated attacks?
 
