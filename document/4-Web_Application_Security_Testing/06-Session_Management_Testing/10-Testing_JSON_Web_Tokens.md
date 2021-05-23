@@ -2,7 +2,7 @@
 
 |ID          |
 |------------|
-|WSTG-SESS-010|
+|WSTG-SESS-10|
 
 ## Summary
 
