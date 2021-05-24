@@ -95,7 +95,7 @@ In this model, the user is emailed a link that contains a token. They can then c
 
 - Is the token sufficiently long and random?
 
-  The security of the process is entirely reliant on an attacker not being able to guess or brute-force a token. As such the tokens should be generated with a Cryptographically Secure Pseudo-Random Number Generator (CSPRNG), and should be sufficiently long to effectively impossible to guess (at least 128 bits / 32 hex characters).
+  The security of the process is entirely reliant on an attacker not being able to guess or brute-force a token. The tokens should be generated with a Cryptographically Secure Pseudo-Random Number Generator (CSPRNG), and should be sufficiently long that it is impractical for an attacker to guess or brute-force. At least 128 bits (or 32 hex characters) is a sufficient minimum to make such an online attack impractical.
 
   Tokens should never be generated based on known values, such as by taking the MD5 hash of the user's email with `md5($email)`, or using GUIDs which may use insecure PRNG functions, or may not even be random depending on the type.
 
