@@ -71,71 +71,15 @@ Step 2: Exploit bugs- as know how to list endpoints and examine endpoints with H
 ### Specific Testing – (Token-Based) Authentication
 
 Token-based authentication is implemented by sending a signed token (verified by the server) with each HTTP request.
-The most commonly used token format is the JSON Web Token (JWT), defined in [RFC7519](https://tools.ietf.org/html/rfc7519).
-A JWT may encode the complete session state as a JSON object.
-Therefore, the server doesn't have to store any session data or authentication information.
 
-Example 1:
-
-JWT consist of three Base64-encoded parts separated by dots. The following example shows a Base64-encoded JSON Web Token:
-
-`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyMzQ1Njc4OTAiLCJuYW1lIjoiQWxpY2UiLCJpc0FkbWluIjoiRmFsc2UifQ.DERSXICJKao4Q4Cbao3FuPJWQy8CVAcwc84rLEeeQeQ`
-
-The header typically consists of two parts: the token type, which is JWT, and the hashing algorithm being used to compute the signature. In the example above, the header decodes as follows:
-
-```json
-{ "alg": "HS256", "typ": "JWT"}
-```
-
-The second part of the token is the payload, which contains so-called claims. Claims are statements about an entity (typically, the user) and additional metadata.
-For example:
-
-```json
-{ "id": "1234567890", "name": "Alice", "isAdmin": "False"}
-```
-
-The signature is created by applying the algorithm specified in the JWT header to the encoded header, encoded payload, and a secret value. For example, when using the HMAC SHA256 algorithm the signature is created in the following way:
-
-```c#
-HMACSHA256(base64UrlEncode(header) + "." + base64UrlEncode(payload), secret)
-```
-
-Step 1: Login with valid credentials. With ZAProxy or BurpSuite, we can retrieve JWT token.
-
-Step 2: Access the [JWT Debugger](https://jwt.io/#debugger) and then Decode the Base64-encoded JWT and find out what kind of data it transmits and whether that data is encrypted.
-Verify that no sensitive data, such as personal identifiable information, is embedded in the JWT.
-If, for some reason, the architecture requires transmission of such information in the token, make sure that payload encryption is being applied.
-
-Step 3: Cracking the signing key. Token signatures are created via a private key on the server.
-After you obtain a JWT, choose a tool for brute forcing the secret key offline.
-
-Step 4: Analyze the decoded value, try to tamper parameter like “id” or “isAdmin” in above example to another value that lead to Insecure Direct Object References Attack or Privilege escalation attack.
-
-Step 5: Modify the alg attribute in the token header, then delete HS256 , set it to ‘none’ , and use an empty signature (e.g., signature = ""). Use this token and replay it in a request.
-Some libraries treat tokens signed with the none algorithm as a valid token with a verified signature.
-This allows attackers to create their own "signed" tokens.
-
-Step 6: Perform a couple of operations that require authentication inside the application.
-
-Step 7: Log out or change password of concurrent working user.
-
-Step 8: Resend one of the operations from step 6 with an interception proxy (Burp Repeater, for example). This will send to the server a request with the session ID or token that was invalidated in step 7.
-
-### Specific Testing – Brute Forcing Weak Secrets Used for JWT
-
-Step 1: Clone the repository [JWT Cracker](https://github.com/brendan-rius/c-jwt-cracker)
-
-Step 2: Navigate to cloned repository and compile the source code using 'make'
-
-Step 3: Run `./jwtcrack <JWT>`
-
-In case of weak secret value, this will bruteforce the secret.
+The most commonly used token format is the JSON Web Token (JWT), defined in [RFC7519](https://tools.ietf.org/html/rfc7519). The [Testing JSON Web Tokens](/document/4-Web_Application_Security_Testing/06-Session_Management_Testing/10-Testing_JSON_Web_Tokens.md) guide contains further details on how to test JWTs.
 
 ## Related Test Cases
 
 - [IDOR](https://github.com/OWASP/wstg/blob/master/document/4-Web_Application_Security_Testing/05-Authorization_Testing/04-Testing_for_Insecure_Direct_Object_References.md)
 - [Privilege escalation](https://github.com/OWASP/wstg/blob/master/document/4-Web_Application_Security_Testing/05-Authorization_Testing/03-Testing_for_Privilege_Escalation.md)
 - All [Session Management](https://github.com/OWASP/wstg/tree/master/document/4-Web_Application_Security_Testing/06-Session_Management_Testing) test cases
+- [Testing JSON Web Tokens](/document/4-Web_Application_Security_Testing/06-Session_Management_Testing/10-Testing_JSON_Web_Tokens.md)
 
 ## Tools
 

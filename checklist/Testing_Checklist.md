@@ -61,6 +61,7 @@ Note: The `Status` column can be set for values similar to "Pass", "Fail", "N/A"
 | WSTG-SESS-07      | Testing Session Timeout                                                    |        |       |
 | WSTG-SESS-08      | Testing for Session Puzzling                                               |        |       |
 | WSTG-SESS-09      | Testing for Session Hijacking                                              |        |       |
+| WSTG-SESS-10      | Testing JSON Web Tokens                                                    |        |       |
 | **WSTG-INPV**     | **Input Validation Testing**                                               |        |       |
 | WSTG-INPV-01      | Testing for Reflected Cross Site Scripting                                 |        |       |
 | WSTG-INPV-02      | Testing for Stored Cross Site Scripting                                    |        |       |
