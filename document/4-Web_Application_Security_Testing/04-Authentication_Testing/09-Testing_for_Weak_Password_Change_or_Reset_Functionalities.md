@@ -69,7 +69,7 @@ Where this approach is used, the following areas should be reviewed:
 
 - Are the emails sent from a domain with anti-spoofing protection?
 
-  The domain should implement SPF, DKIM and DMARC to prevent attackers from spoofing emails from it, which could be used as part of a social engineering attack.
+  The domain should implement SPF, DKIM, and DMARC to prevent attackers from spoofing emails from it, which could be used as part of a social engineering attack.
 
 - Is email considered sufficiently secure?
 
