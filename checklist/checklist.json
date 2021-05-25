@@ -315,8 +315,7 @@
                 "id":"WSTG-ATHN-09",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/04-Authentication_Testing/09-Testing_for_Weak_Password_Change_or_Reset_Functionalities.html",
                 "objectives":[
-                    "Determine the resistance of the application to subversion of the account change process allowing someone to change the password of an account.",
-                    "Determine the resistance of the passwords reset functionality against guessing or bypassing."
+                    "Determine whether the password change and reset functionality allows accounts to be compromised."
                   ]
                 }
                 ,{
