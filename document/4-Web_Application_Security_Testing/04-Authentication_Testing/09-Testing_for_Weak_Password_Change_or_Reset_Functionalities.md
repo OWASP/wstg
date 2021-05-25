@@ -99,7 +99,7 @@ In this model, the user is emailed a link that contains a token. They can then c
 
   Tokens should never be generated based on known values, such as by taking the MD5 hash of the user's email with `md5($email)`, or using GUIDs which may use insecure PRNG functions, or may not even be random depending on the type.
 
-  An alternative approach to random tokens is to use a cryptographically signed token such as a JWT. In this case, the usual JWT checks should be carried out (is the signature verified, can the "nONe" algorithm be used, can the HMAC key be brute-forced, etc). See the [Testing JSON Web Tokens](../../06-Session_Management_Testing/10-Testing_JSON_Web_Tokens.md) guide for further information.
+  An alternative approach to random tokens is to use a cryptographically signed token such as a JWT. In this case, the usual JWT checks should be carried out (is the signature verified, can the "nONe" algorithm be used, can the HMAC key be brute-forced, etc). See the [Testing JSON Web Tokens](../06-Session_Management_Testing/10-Testing_JSON_Web_Tokens.md) guide for further information.
 
 - Does the link contain a user ID?
 
