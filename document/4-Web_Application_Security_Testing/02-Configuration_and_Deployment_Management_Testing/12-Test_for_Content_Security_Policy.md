@@ -62,7 +62,7 @@ object-src 'none'; base-uri 'none';
 
 ## Test Objectives
 
-Review the Content-Security-Policy header or meta element to identify misconfigurations.
+- Review the Content-Security-Policy header or meta element to identify misconfigurations.
 
 ## How to Test
 
