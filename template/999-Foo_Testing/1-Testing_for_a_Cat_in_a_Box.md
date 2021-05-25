@@ -96,9 +96,25 @@ down_stack.trainable = False
 
 If you observe a cat on the video feed, it is highly likely that there is a cat in the box.
 
+## Capture Output Including a Cat
+
+Here is some appropriately abbreviated capture output that includes a cat.
+
+```http
+ HTTP/1.1 200
+ [...]
+ <!DOCTYPE html>
+ <html lang="en">
+     <head>
+         <meta charset="UTF-8" />
+         <title>Apache Tomcat/10.0.4
+ [...]
+ ```
+
 ## Related Test Cases
 
 - [Template Explanation](2-Template_Explanation.md)
+- [Formatting for HTTP Requests and Responses](3-Format_for_HTTP_Request_Response.md)
 
 ## Remediation
 
