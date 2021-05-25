@@ -10,7 +10,7 @@ Content Security Policy (CSP) is a declarative allow-list policy enforced throug
 
 CSP can be implemented through one of two methods:
 
-- `Content-Security-Policy` response header: `Content-Security-Policy: <policy>`
+- CSP response header: `Content-Security-Policy: <policy>`
 - Meta element: `<meta http-equiv="Content-Security-Policy" content="<policy>">`
 
 Content Security Policy supports directives which allow granular control to the flow of policies.
