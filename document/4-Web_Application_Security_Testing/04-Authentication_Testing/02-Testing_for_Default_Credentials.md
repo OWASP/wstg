@@ -25,14 +25,14 @@ Once the software has been identified, try to find whether it uses default passw
 
 - Searching for "SOFTWARE default password".
 - Reviewing the manual or vendor documentation.
-- Checking common default password databases, such as [CIRT.net](https://cirt.net/passwords).
+- Checking common default password databases, such as [CIRT.net](https://cirt.net/passwords) or [SecLists Default Passwords](https://github.com/danielmiessler/SecLists/tree/master/Passwords/Default-Credentials).
 - Inspecting the application source code (if available).
 - Installing the application of a virtual machine and inspecting it.
 - Inspecting the physical hardware for stickers (often present on network devices).
 
 If a default password can't be found, try common options such as:
 
-- "admin", "password", "12345" or other [common default passwords](https://github.com/nixawk/fuzzdb/blob/master/bruteforce/passwds/default_devices_users%2Bpasswords.txt)
+- "admin", "password", "12345" or other [common default passwords](https://github.com/nixawk/fuzzdb/blob/master/bruteforce/passwds/default_devices_users%2Bpasswords.txt).
 - An empty or blank password.
 - The serial number of MAC address of the device.
 
@@ -43,14 +43,14 @@ If the username is unknown, there are various options for enumerating users, dis
 When staff within an organisation manually create passwords for new accounts, they may do so in a predictable way. This can often be:
 
 - A single common password such as "Password1".
-- Organisation specific details, such as the the organisation name or address.
+- Organisation specific details, such as the organisation name or address.
 - Passwords that follow a simple pattern, such as "Monday123" if account is created on a Monday.
 
 These type so of passwords are often difficult to identify from a black-box perspective, unless they can successfully be guessed or brute-forced. However, they are easy to identify when performing grey-box or white-box testing.
 
 ### Testing for Application Generated Default Passwords
 
-If the application automatically generates passwords for new user accounts, these may also be predictable. In order to test these, create multiple accounts on the application and compare the passwords that are given for them.
+If the application automatically generates passwords for new user accounts, these may also be predictable. In order to test these, create multiple accounts on the application with similar details at the same time, and compare the passwords that are given for them.
 
 The passwords may be based on:
 
@@ -63,10 +63,11 @@ This type of issue of often difficult to identify from a black-box perspective.
 
 ## Tools
 
-- [Burp Intruder](https://portswigger.net/burp)
+- [Burp Intruder](https://portswigger.net/burp/documentation/desktop/tools/intruder)
 - [THC Hydra](https://github.com/vanhauser-thc/thc-hydra)
 - [Nikto 2](https://www.cirt.net/nikto2)
 
 ## References
 
 - [CIRT](https://cirt.net/passwords)
+- [SecLists Default Passwords](https://github.com/danielmiessler/SecLists/tree/master/Passwords/Default-Credentials)
