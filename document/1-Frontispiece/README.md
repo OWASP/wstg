@@ -36,6 +36,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Manh Pham Tien
 - Mark Clayton
 - Or Asaf
+- Phu Nguyen (Tony)
 - rbsec
 - Rick Mitchell
 - Rishu Ranjan
@@ -44,7 +45,6 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Stefano Calzavara
 - Tal Argoni
 - Victoria Drake
-- Phu Nguyen (Tony)
 
 ## Graphic Designers
 
