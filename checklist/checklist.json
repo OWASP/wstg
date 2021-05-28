@@ -187,6 +187,14 @@
                     "Assess that the access control configuration for the storage services is properly in place."
                   ]
                 }
+                ,{
+                "name":"Testing for Content Security Policy",
+                "id":"WSTG-CONF-12",
+                "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/12-Test_for_Content_Security_Policy.html",
+                "objectives":[
+                    "Review the Content-Security-Policy header or meta element to identify misconfigurations."
+                  ]
+                }
             ]
         }
         ,"Identity Management Testing": {
