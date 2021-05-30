@@ -29,6 +29,7 @@ Note: The `Status` column can be set for values similar to "Pass", "Fail", "N/A"
 | WSTG-CONF-09      | Test File Permission                                                       |        |       |
 | WSTG-CONF-10      | Test for Subdomain Takeover                                                |        |       |
 | WSTG-CONF-11      | Test Cloud Storage                                                         |        |       |
+| WSTG-CONF-12      | Testing for Content Security Policy                                        |        |       |
 | **WSTG-IDNT**     | **Identity Management Testing**                                            |        |       |
 | WSTG-IDNT-01      | Test Role Definitions                                                      |        |       |
 | WSTG-IDNT-02      | Test User Registration Process                                             |        |       |
