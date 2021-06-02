@@ -16,7 +16,7 @@ Content Security Policy supports directives which allow granular control to the 
 
 ## How to Test
 
-To test for misconfigurations in CSPs look for insecure configurations by examining `Content-Security-Policy` HTTP response header or CSP `meta` element in a proxy tool:
+To test for misconfigurations in CSPs, look for insecure configurations by examining `Content-Security-Policy` HTTP response header or CSP `meta` element in a proxy tool:
 
 - `unsafe-inline` directive enables inline scripts or styles making the applications susceptible to XSS attacks.
 - `unsafe-eval` directive allows `eval()` to be used in the application.
