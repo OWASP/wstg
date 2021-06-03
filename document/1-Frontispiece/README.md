@@ -57,6 +57,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 
 - Abhi M Balakrishnan
 - Asharaf Ali
+- Cheryl Hughey
 - Elie Saad
 - Eoin Murphy
 - Francisco Bustos
