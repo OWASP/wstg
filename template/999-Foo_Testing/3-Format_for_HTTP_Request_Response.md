@@ -43,10 +43,10 @@ HTTP/1.1 200
 
 In this result, the response identifies the server as Tomcat 10.0.4.
 
-## Example Explaination
+## Example Explanation
 
 - The HTTP request and response have text describing them to the reader before the request and response.
 - The GET request has the smallest amount of headers to have the desired response from the server.
     - For example, there is no `User-Agent:` as it is not needed for the "test case".
 - The article uses brackets and ellipsis `[...]` to cut out unnecessary parts of the response.
-    - Unnecessary response content for this sample include the `Content-Type:` header and the rest of the HTML in the body.
+    - Unnecessary response content for this sample includes the `Content-Type:` header and the rest of the HTML in the body.
