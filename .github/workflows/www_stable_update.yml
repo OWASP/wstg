@@ -38,7 +38,7 @@ jobs:
         cd wstg
         echo "WSTG_BASE=$(pwd)" >> $GITHUB_ENV
         echo "SRC_BASE="OWASP/wstg@"$(git log -1 --format=format:%h)" >> $GITHUB_ENV
-        echo "BRANCH_STAMP=$(date +"%Y%m%d%H%M%S")" >> $GITHUB_ENV
+        echo "BRANCH=stable-update" >> $GITHUB_ENV
         echo "SHORT_DATE=$(date +"%Y-%m-%d")" >> $GITHUB_ENV
         cd ../www-project-web-security-testing-guide
         echo "WWW_BASE=$(pwd)" >> $GITHUB_ENV
@@ -49,7 +49,7 @@ jobs:
         cd $WWW_BASE
         git remote add origin https://github.com/$GITHUB_USER/www-project-web-security-testing-guide.git
         # Checkout what will be the new feature branch
-        git checkout -b $BRANCH_STAMP
+        git checkout -b $BRANCH
         # Remove old 'stable' content
         rm -rf stable
         mkdir stable
@@ -125,5 +125,5 @@ jobs:
         git remote set-url origin https://$GITHUB_USER:${{ secrets.wstg_deploy_token }}@github.com/$GITHUB_USER/www-project-web-security-testing-guide.git
         git add .
         git commit -m "Publish Stable and $VERSION_TAG - $SHORT_DATE" -m "Updates based on $SRC_BASE $VERSION_TAG"
-        git push --set-upstream origin $BRANCH_STAMP
+        git push --set-upstream origin $BRANCH --force
         hub pull-request --no-edit
