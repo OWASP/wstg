@@ -46,7 +46,7 @@ The Attack Surface Detector (ASD) tool investigates the source code and uncovers
 
 The Attack Surface Detector is available as a plugin to both ZAP and Burp Suite, and a command-line tool is also available. The command-line tool exports the attack surface as a JSON output, which can then be used by the ZAP and Burp Suite plugin. This is helpful for cases where the source code is not provided to the penetration tester directly. For example, the penetration tester can get the json output file from a customer who does not want to provide the source code itself.
 
-##### How to Use
+#### How to Use
 
 The CLI jar file is available for download from [https://github.com/secdec/attack-surface-detector-cli/releases](https://github.com/secdec/attack-surface-detector-cli/releases).
 
