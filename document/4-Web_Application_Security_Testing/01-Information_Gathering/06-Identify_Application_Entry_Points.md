@@ -40,6 +40,71 @@ Below are some points of interests for all requests and responses. Within the re
 - Identify where there are any redirects (3xx HTTP status code), 400 status codes, in particular 403 Forbidden, and 500 internal server errors during normal responses (i.e., unmodified requests).
 - Also note where any interesting headers are used. For example, `Server: BIG-IP` indicates that the site is load balanced. Thus, if a site is load balanced and one server is incorrectly configured, then the tester might have to make multiple requests to access the vulnerable server, depending on the type of load balancing used.
 
+### OWASP Attack Surface Detector
+
+The Attack Surface Detector (ASD) tool investigates the source code and uncovers the endpoints of a web application, the parameters these endpoints accept, and the data type of those parameters. This includes the unlinked endpoints a spider will not be able to find, or optional parameters totally unused in client-side code. It also has the capability to calculate the changes in attack surface between two versions of an application.
+
+The Attack Surface Detector is available as a plugin to both ZAP and Burp Suite, and a command-line tool is also available. The command-line tool exports the attack surface as a JSON output, which can then be used by the ZAP and Burp Suite plugin. This is helpful for cases where the source code is not provided to the penetration tester directly. For example, the penetration tester can get the json output file from a customer who does not want to provide the source code itself.
+
+##### How to Use
+
+The CLI jar file is available for download from [https://github.com/secdec/attack-surface-detector-cli/releases](https://github.com/secdec/attack-surface-detector-cli/releases).
+
+You can run the following command for ASD to identify endpoints from the source code of the target web application.
+
+`java -jar attack-surface-detector-cli-1.3.5.jar <source-code-path> [flags]`
+
+Here is an example of running the command against [OWASP RailsGoat](https://github.com/OWASP/railsgoat).
+
+```text
+$ java -jar attack-surface-detector-cli-1.3.5.jar railsgoat/
+Beginning endpoint detection for '<...>/railsgoat' with 1 framework types
+Using framework=RAILS
+[0] GET: /login (0 variants): PARAMETERS={url=name=url, paramType=QUERY_STRING, dataType=STRING}; FILE=/app/controllers/sessions_contro
+ller.rb (lines '6'-'9')
+[1] GET: /logout (0 variants): PARAMETERS={}; FILE=/app/controllers/sessions_controller.rb (lines '33'-'37')
+[2] POST: /forgot_password (0 variants): PARAMETERS={email=name=email, paramType=QUERY_STRING, dataType=STRING}; FILE=/app/controllers/
+password_resets_controller.rb (lines '29'-'38')
+[3] GET: /password_resets (0 variants): PARAMETERS={token=name=token, paramType=QUERY_STRING, dataType=STRING}; FILE=/app/controllers/p
+assword_resets_controller.rb (lines '19'-'27')
+[4] POST: /password_resets (0 variants): PARAMETERS={password=name=password, paramType=QUERY_STRING, dataType=STRING, user=name=user, paramType=QUERY_STRING, dataType=STRING, confirm_password=name=confirm_password, paramType=QUERY_STRING, dataType=STRING}; FILE=/app/controllers/password_resets_controller.rb (lines '5'-'17')
+[5] GET: /sessions/new (0 variants): PARAMETERS={url=name=url, paramType=QUERY_STRING, dataType=STRING}; FILE=/app/controllers/sessions_controller.rb (lines '6'-'9')
+[6] POST: /sessions (0 variants): PARAMETERS={password=name=password, paramType=QUERY_STRING, dataType=STRING, user_id=name=user_id, paramType=SESSION, dataType=STRING, remember_me=name=remember_me, paramType=QUERY_STRING, dataType=STRING, url=name=url, paramType=QUERY_STRING, dataType=STRING, email=name=email, paramType=QUERY_STRING, dataType=STRING}; FILE=/app/controllers/sessions_controller.rb (lines '11'-'31')
+[7] DELETE: /sessions/{id} (0 variants): PARAMETERS={}; FILE=/app/controllers/sessions_controller.rb (lines '33'-'37')
+[8] GET: /users (0 variants): PARAMETERS={}; FILE=/app/controllers/api/v1/users_controller.rb (lines '9'-'11')
+[9] GET: /users/{id} (0 variants): PARAMETERS={}; FILE=/app/controllers/api/v1/users_controller.rb (lines '13'-'15')
+... snipped ...
+[38] GET: /api/v1/mobile/{id} (0 variants): PARAMETERS={id=name=id, paramType=QUERY_STRING, dataType=STRING, class=name=class, paramType=QUERY_STRING, dataType=STRING}; FILE=/app/controllers/api/v1/mobile_controller.rb (lines '8'-'13')
+[39] GET: / (0 variants): PARAMETERS={url=name=url, paramType=QUERY_STRING, dataType=STRING}; FILE=/app/controllers/sessions_controller.rb (lines '6'-'9')
+Generated 40 distinct endpoints with 0 variants for a total of 40 endpoints
+Successfully validated serialization for these endpoints
+0 endpoints were missing code start line
+0 endpoints were missing code end line
+0 endpoints had the same code start and end line
+Generated 36 distinct parameters
+Generated 36 total parameters
+- 36/36 have their data type
+- 0/36 have a list of accepted values
+- 36/36 have their parameter type
+--- QUERY_STRING: 35
+--- SESSION: 1
+Finished endpoint detection for '<...>/railsgoat'
+----------
+-- DONE --
+0 projects had duplicate endpoints
+Generated 40 distinct endpoints
+Generated 40 total endpoints
+Generated 36 distinct parameters
+Generated 36 total parameters
+1/1 projects had endpoints generated
+To enable logging include the -debug argument
+```
+
+You can also generate a JSON output file using the `-json` flag, which can be used by the plugin to both ZAP and Burp Suite. See the following links for more details.
+
+- [Home of ASD Plugin for OWASP ZAP](https://github.com/secdec/attack-surface-detector-zap/wiki)
+- [Home of ASD Plugin for PortSwigger Burp](https://github.com/secdec/attack-surface-detector-burp/wiki)
+
 ### Black-Box Testing
 
 #### Testing for Application Entry Points
@@ -81,3 +146,4 @@ user=admin&pass=pass123&debug=true&fromtrustIP=true
 ## References
 
 - [RFC 2616 – Hypertext Transfer Protocol – HTTP 1.1](https://tools.ietf.org/html/rfc2616)
+- [OWASP Attack Surface Detector](https://owasp.org/www-project-attack-surface-detector/)
