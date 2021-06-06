@@ -23,7 +23,7 @@ The first step to identifying default passwords is to identify the software that
 
 Once the software has been identified, try to find whether it uses default passwords, and if so, what they are. This should include:
 
-- Searching for "SOFTWARE default password".
+- Searching for "[SOFTWARE] default password".
 - Reviewing the manual or vendor documentation.
 - Checking common default password databases, such as [CIRT.net](https://cirt.net/passwords) or [SecLists Default Passwords](https://github.com/danielmiessler/SecLists/tree/master/Passwords/Default-Credentials).
 - Inspecting the application source code (if available).
