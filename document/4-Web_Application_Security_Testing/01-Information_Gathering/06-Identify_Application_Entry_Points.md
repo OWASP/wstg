@@ -105,9 +105,7 @@ You can also generate a JSON output file using the `-json` flag, which can be us
 - [Home of ASD Plugin for OWASP ZAP](https://github.com/secdec/attack-surface-detector-zap/wiki)
 - [Home of ASD Plugin for PortSwigger Burp](https://github.com/secdec/attack-surface-detector-burp/wiki)
 
-### Black-Box Testing
-
-#### Testing for Application Entry Points
+### Testing for Application Entry Points
 
 The following are two examples on how to check for application entry points.
 
@@ -121,21 +119,27 @@ Host: x.x.x.x
 Cookie: SESSIONID=Z29vZCBqb2IgcGFkYXdhIG15IHVzZXJuYW1lIGlzIGZvbyBhbmQgcGFzc3dvcmQgaXMgYmFy
 ```
 
-> Here the tester would note all the parameters of the request such as CUSTOMERID, ITEM, PRICE, IP, and the Cookie (which could just be encoded parameters or used for session state).
+> All the parameters of the request such as CUSTOMERID, ITEM, PRICE, IP, and the Cookie, which could just be encoded parameters or parameters used for session state.
 
 #### Example 2
 
 This example shows a POST request that would log you into an application.
 
 ```http
-POST /KevinNotSoGoodApp/authenticate.asp?service=login HTTP/1.1
+POST /example/authenticate.asp?service=login HTTP/1.1
 Host: x.x.x.x
 Cookie: SESSIONID=dGhpcyBpcyBhIGJhZCBhcHAgdGhhdCBzZXRzIHByZWRpY3RhYmxlIGNvb2tpZXMgYW5kIG1pbmUgaXMgMTIzNA==;CustomCookie=00my00trusted00ip00is00x.x.x.x00
 
 user=admin&pass=pass123&debug=true&fromtrustIP=true
 ```
 
-> In this example the tester would note all the parameters as they have before, however the majority of the parameters are passed in the body of the request and not in the URL. Additionally, note that there is a custom HTTP header (`CustomCookie`) being used.
+It can be noted that the parameters are sent in several locations:
+
+1. In the query string: `service`
+2. In the Cookie header: `SESSIONID`, `CustomCookie`
+3. In the request body: `user`, `pass`, `debug`, `fromtrustIP`
+
+Having a variety of injection locations provide the attacker with chaining possibilities that could improve the chances of finding a bug in the handling code.
 
 ## Tools
 
