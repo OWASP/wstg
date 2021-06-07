@@ -26,12 +26,6 @@ The trade off as to what method is used and to what degree each method is used s
 
 To demonstrate code coverage to the application owner, the tester can start with a spreadsheet and document all the links discovered by spidering the application (either manually or automatically). Then the tester can look more closely at decision points in the application and investigate how many significant code paths are discovered. These should then be documented in the spreadsheet with URLs, prose and screenshot descriptions of the paths discovered.
 
-### Code Review
-
-Ensuring sufficient code coverage for the application owner is far easier with gray-box and white-box approach to testing. Information solicited by and provided to the tester will ensure the minimum requirements for code coverage are met.
-
-Many modern Dynamic Application Security Testing (DAST) tools facilitate the use of a web server agent or could be paired with a third-party agent to monitor web application coverage specifics.
-
 ### Automatic Spidering
 
 The automatic spider is a tool used to automatically discover new resources (URLs) on a particular website. It begins with a list of URLs to visit, called the seeds, which depends on how the Spider is started. While there are a lot of Spidering tools, the following example uses the [Zed Attack Proxy (ZAP)](https://github.com/zaproxy/zaproxy):

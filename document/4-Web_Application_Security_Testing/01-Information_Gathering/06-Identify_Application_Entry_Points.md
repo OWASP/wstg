@@ -40,49 +40,13 @@ Below are some points of interests for all requests and responses. Within the re
 - Identify where there are any redirects (3xx HTTP status code), 400 status codes, in particular 403 Forbidden, and 500 internal server errors during normal responses (i.e., unmodified requests).
 - Also note where any interesting headers are used. For example, `Server: BIG-IP` indicates that the site is load balanced. Thus, if a site is load balanced and one server is incorrectly configured, then the tester might have to make multiple requests to access the vulnerable server, depending on the type of load balancing used.
 
-### Black-Box Testing
-
-#### Testing for Application Entry Points
-
-The following are two examples on how to check for application entry points.
-
-#### Example 1
-
-This example shows a GET request that would purchase an item from an online shopping application.
-
-```http
-GET /shoppingApp/buyme.asp?CUSTOMERID=100&ITEM=z101a&PRICE=62.50&IP=x.x.x.x HTTP/1.1
-Host: x.x.x.x
-Cookie: SESSIONID=Z29vZCBqb2IgcGFkYXdhIG15IHVzZXJuYW1lIGlzIGZvbyBhbmQgcGFzc3dvcmQgaXMgYmFy
-```
-
-> Here the tester would note all the parameters of the request such as CUSTOMERID, ITEM, PRICE, IP, and the Cookie (which could just be encoded parameters or used for session state).
-
-#### Example 2
-
-This example shows a POST request that would log you into an application.
-
-```http
-POST /KevinNotSoGoodApp/authenticate.asp?service=login HTTP/1.1
-Host: x.x.x.x
-Cookie: SESSIONID=dGhpcyBpcyBhIGJhZCBhcHAgdGhhdCBzZXRzIHByZWRpY3RhYmxlIGNvb2tpZXMgYW5kIG1pbmUgaXMgMTIzNA==;CustomCookie=00my00trusted00ip00is00x.x.x.x00
-
-user=admin&pass=pass123&debug=true&fromtrustIP=true
-```
-
-> In this example the tester would note all the parameters as they have before, however the majority of the parameters are passed in the body of the request and not in the URL. Additionally, note that there is a custom HTTP header (`CustomCookie`) being used.
-
-### Gray-Box Testing
-
-Testing for application entry points via a gray-box methodology would consist of everything already identified above with one addition. In cases where there are external sources from which the application receives data and processes it (such as SNMP traps, syslog messages, SMTP, or SOAP messages from other servers) a meeting with the application developers could identify any functions that would accept or expect user input and how they are formatted. For example, the developer could help in understanding how to formulate a correct SOAP request that the application would accept and where the web service resides (if the web service or any other function hasn't already been identified during the black-box testing).
-
-#### OWASP Attack Surface Detector
+### OWASP Attack Surface Detector
 
 The Attack Surface Detector (ASD) tool investigates the source code and uncovers the endpoints of a web application, the parameters these endpoints accept, and the data type of those parameters. This includes the unlinked endpoints a spider will not be able to find, or optional parameters totally unused in client-side code. It also has the capability to calculate the changes in attack surface between two versions of an application.
 
 The Attack Surface Detector is available as a plugin to both ZAP and Burp Suite, and a command-line tool is also available. The command-line tool exports the attack surface as a JSON output, which can then be used by the ZAP and Burp Suite plugin. This is helpful for cases where the source code is not provided to the penetration tester directly. For example, the penetration tester can get the json output file from a customer who does not want to provide the source code itself.
 
-##### How to Use
+#### How to Use
 
 The CLI jar file is available for download from [https://github.com/secdec/attack-surface-detector-cli/releases](https://github.com/secdec/attack-surface-detector-cli/releases).
 
@@ -140,6 +104,42 @@ You can also generate a JSON output file using the `-json` flag, which can be us
 
 - [Home of ASD Plugin for OWASP ZAP](https://github.com/secdec/attack-surface-detector-zap/wiki)
 - [Home of ASD Plugin for PortSwigger Burp](https://github.com/secdec/attack-surface-detector-burp/wiki)
+
+### Testing for Application Entry Points
+
+The following are two examples on how to check for application entry points.
+
+#### Example 1
+
+This example shows a GET request that would purchase an item from an online shopping application.
+
+```http
+GET /shoppingApp/buyme.asp?CUSTOMERID=100&ITEM=z101a&PRICE=62.50&IP=x.x.x.x HTTP/1.1
+Host: x.x.x.x
+Cookie: SESSIONID=Z29vZCBqb2IgcGFkYXdhIG15IHVzZXJuYW1lIGlzIGZvbyBhbmQgcGFzc3dvcmQgaXMgYmFy
+```
+
+> All the parameters of the request such as CUSTOMERID, ITEM, PRICE, IP, and the Cookie, which could just be encoded parameters or parameters used for session state.
+
+#### Example 2
+
+This example shows a POST request that would log you into an application.
+
+```http
+POST /example/authenticate.asp?service=login HTTP/1.1
+Host: x.x.x.x
+Cookie: SESSIONID=dGhpcyBpcyBhIGJhZCBhcHAgdGhhdCBzZXRzIHByZWRpY3RhYmxlIGNvb2tpZXMgYW5kIG1pbmUgaXMgMTIzNA==;CustomCookie=00my00trusted00ip00is00x.x.x.x00
+
+user=admin&pass=pass123&debug=true&fromtrustIP=true
+```
+
+It can be noted that the parameters are sent in several locations:
+
+1. In the query string: `service`
+2. In the Cookie header: `SESSIONID`, `CustomCookie`
+3. In the request body: `user`, `pass`, `debug`, `fromtrustIP`
+
+Having a variety of injection locations provide the attacker with chaining possibilities that could improve the chances of finding a bug in the handling code.
 
 ## Tools
 
