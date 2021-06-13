@@ -12,14 +12,14 @@ In this case there is a Mass Assignment vulnerability.
 
 Examples for sensitive properties:
 
-* **Permission-related properties**: should only be set by privileged users (e.g. `is_admin`, `role`, `approved`).
-* **Process-dependent properties**: should only be set internally, after a process is completed (e.g. `balance`, `status`, `email_verified`)
-* **Internal properties**: should only be set internally by the application (e.g. `created_at`, `updated_at`)
+- **Permission-related properties**: should only be set by privileged users (e.g. `is_admin`, `role`, `approved`).
+- **Process-dependent properties**: should only be set internally, after a process is completed (e.g. `balance`, `status`, `email_verified`)
+- **Internal properties**: should only be set internally by the application (e.g. `created_at`, `updated_at`)
 
 ## Test Objectives
 
-* Identify requests that modify objects
-* Assess if it is possible to modify fields never intended to be modified from outside
+- Identify requests that modify objects
+- Assess if it is possible to modify fields never intended to be modified from outside
 
 ## How to Test
 
@@ -91,16 +91,16 @@ One of the most simple indicator for potential mass assignments is the presence 
 ```
 
 Then try to add an input related to a non-exiting attribute (e.g. `user[nonexistingattribute]`) and analyze the response.
-If the application does not implement any control (e.g. whitelist of allowed fields) it is likely that it will respond with an error (e.g. 500) due to the fact that the application does not find the attribute associated to the object. More interestingly, sometimes those errors allow to discover the attribute names and value data type needed to exploit the issue, without access to the source code.
+If the application does not implement any control (e.g. white-list of allowed fields) it is likely that it will respond with an error (e.g. 500) due to the fact that the application does not find the attribute associated to the object. More interestingly, sometimes those errors allow to discover the attribute names and value data type needed to exploit the issue, without access to the source code.
 
 #### Identify Sensitive Fields
 
 Since in black-box testing the tester does not have visibility on the source code, it is necessary to find other ways in order to gather information about the attributes associated to the objects.
 Analyze the responses received by the back end, in particular pay attention to:
 
-* HTML page source code
-* custom JavaScript code
-* API responses
+- HTML page source code
+- custom JavaScript code
+- API responses
 
 For example, very often, it is possible to exploit handlers that returns detail about an object in order to gather clues on the associated fields.
 Suppose for example an handler that returns the profile of the user (e.g.  `GET /profile`), this may include further attributes related to the user (in this example the `isAdmin` attribute looks particularly interesting).
@@ -114,13 +114,13 @@ Then try to exploit handlers that allow to modify or create user adding the `isA
 Another approach is to use wordlists in order to try to enumerate all the potential attributes. The enumeration can then be automated (e.g. via wfuzz, Burp Intruder etc.).
 A small example of common interesting attribute names are the following:
 
-* `is_admin`
-* `is_administrator`
-* `isAdmin`
-* `isAdministrator`
-* `admin`
-* `administrator`
-* `role`
+- `is_admin`
+- `is_administrator`
+- `isAdmin`
+- `isAdministrator`
+- `admin`
+- `administrator`
+- `role`
 
 #### Check Impact
 
@@ -138,31 +138,31 @@ Access to the db schema or to the source code allows also to easily identify sen
 
 Spring MVC allows to automatically bind user input into object. Identify the controllers that handle dispositive requests (e.g. find the occurences of `@RequestMapping`) then verify if controls are in place (both on the controller or on the involved models). Limitations on the exploitation of the mass assignment can be, for example, in the form of:
 
-* list of bindlable fields (whitelist) via `setAllowedFields` method of the `DataBinder` class (e.g. `binder.setAllowedFields(["username","password","email"])`)
-* list of non-bindlable fields (blacklist) via `setDisallowedFields` method of the `DataBinder` class (e.g. `binder.setDisallowedFields(["isAdmin"])`)
+- list of bindlable fields (white-list) via `setAllowedFields` method of the `DataBinder` class (e.g. `binder.setAllowedFields(["username","password","email"])`)
+- list of non-bindlable fields (black-list) via `setDisallowedFields` method of the `DataBinder` class (e.g. `binder.setDisallowedFields(["isAdmin"])`)
 
 It is also advisable to pay attention to the use of the `@ModelAttribute` annotation that allows to specify a different name/key.
 
 #### PHP
 
-Laravel Eloquent ORM provides a `create` method which allows to automatically assign attributes. However, latest versions of Eloquent ORM provide a default protection against mass assignment vulnerabilities requiring to explicitly specify attributes that can be assigned automatically (whitelist approach), through the `$fillable` array, or attributes that have to be protected (blacklist approach), trough the `$guarded` array. Therefore by analyzing the models (classes that extend the `Model` class) it is possible to identify which attributes are allowed or denied and therefore point out potential vulnerabilities.
+Laravel Eloquent ORM provides a `create` method which allows to automatically assign attributes. However, latest versions of Eloquent ORM provide a default protection against mass assignment vulnerabilities requiring to explicitly specify attributes that can be assigned automatically (white-list approach), through the `$fillable` array, or attributes that have to be protected (black-list approach), trough the `$guarded` array. Therefore by analyzing the models (classes that extend the `Model` class) it is possible to identify which attributes are allowed or denied and therefore point out potential vulnerabilities.
 
 #### .NET
 
 Model binding in ASP.NET automatically bind user inputs to object properties. This also works with complex types and it will automatically convert the input data to the properties if the properties' names match with the input.
 Identify the controllers then verify if controls are in place (both inside the controller or in the involved models). Limitations on the exploitation of the mass assignment can be, for example, in the form of:
 
-* fields declared as `ReadOnly`
-* list of bindlable fields (whitelist) via `Bind` attribute (e.g. `[Bind(Include = "FirstName, LastName")] Student std`), via `includeProperties` (e.g. `includeProperties: new[] { "FirstName, LastName" }`) or through `TryUpdateModel`
-* list of non-bindlable fields (blacklist) via `Bind` attribute (e.g. `[Bind(Exclude = "Status")] Student std`) or via `excludeProperties` (e.g. `excludeProperties: new[] { "Status" }`)
+- fields declared as `ReadOnly`
+- list of bindlable fields (white-list) via `Bind` attribute (e.g. `[Bind(Include = "FirstName, LastName")] Student std`), via `includeProperties` (e.g. `includeProperties: new[] { "FirstName, LastName" }`) or through `TryUpdateModel`
+- list of non-bindlable fields (black-list) via `Bind` attribute (e.g. `[Bind(Exclude = "Status")] Student std`) or via `excludeProperties` (e.g. `excludeProperties: new[] { "Status" }`)
 
 ## Remediation
 
-Use build-in features, provided by frameworks, to define bindable and non-bindable fields. An approach based on whitelist, in which only the properties that should be updated by the user are explicitly defined, is preferable.
+Use build-in features, provided by frameworks, to define bindable and non-bindable fields. An approach based on white-list, in which only the properties that should be updated by the user are explicitly defined, is preferable.
 An architectural approach to prevent the issue is to use the *Data Transfer Object* (DTO) pattern in order to avoid direct binding. The DTO should include only the fields that are meant to be editable by the user.
 
 ## References
 
-* [OWASP: API Security](https://github.com/OWASP/API-Security/blob/master/2019/en/src/0xa6-mass-assignment.md)
-* [OWASP: Cheat Sheet Series](https://cheatsheetseries.owasp.org/cheatsheets/Mass_Assignment_Cheat_Sheet.html)
-* [CWE-915: Improperly Controlled Modification of Dynamically-Determined Object Attributes](https://cwe.mitre.org/data/definitions/915.html)
+- [OWASP: API Security](https://github.com/OWASP/API-Security/blob/master/2019/en/src/0xa6-mass-assignment.md)
+- [OWASP: Cheat Sheet Series](https://cheatsheetseries.owasp.org/cheatsheets/Mass_Assignment_Cheat_Sheet.html)
+- [CWE-915: Improperly Controlled Modification of Dynamically-Determined Object Attributes](https://cwe.mitre.org/data/definitions/915.html)
