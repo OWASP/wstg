@@ -72,8 +72,8 @@ jobs:
         sed -i '1d' README.md
         # Find the anchor links (URL fragments) and lowercase them
         sed -i -E 's/\.md#(.*)$/\.md#\L\1/g' README.md
-        # Switch .md references to .html
-        sed -i 's/.md/.html/g' README.md
+        # Switch .md references to no extension
+        sed -i 's/.md//g' README.md
         # Add the leadin and add the generated yaml
         cat prepend.nav > latest.yaml && cat README.md >> latest.yaml
         # Copy the navigation yaml to _data
