@@ -54,8 +54,6 @@ jobs:
         cd $WWW_BASE/latest
         # Append front mater
         for FILE in `find . -type f -name "*.md"`; do cat $WSTG_BASE/.github/www/latest/prepend.txt $FILE | sponge $FILE; done
-        # Duplicate README.md as index.md in case people forcefully browse to directory bases
-        find . -type f -name "README.md" -execdir cp -v {} ./index.md \;
         # Copy info.md to all directories (excluding 'images' directories)
         find . -type d -not -name "images" -execdir cp -v $WSTG_BASE/.github/www/latest/info.md {} \;
     - name: Setup Navigation
@@ -73,11 +71,13 @@ jobs:
         # Find the anchor links (URL fragments) and lowercase them
         sed -i -E 's/\.md#(.*)$/\.md#\L\1/g' README.md
         # Switch .md references to no extension
-        sed -i 's/.md//g' README.md
+        sed -i 's/\.md//g' README.md
         # Add the leadin and add the generated yaml
         cat prepend.nav > latest.yaml && cat README.md >> latest.yaml
         # Copy the navigation yaml to _data
         cp latest.yaml $WWW_BASE/_data/.
+        # Duplicate README.md as index.md in case people forcefully browse to directory bases
+        find . -type f -name "README.md" -execdir cp -v {} ./index.md \;
     - name: Push Feature Branch and Raise PR
       run: |
         cd $WWW_BASE
