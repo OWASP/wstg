@@ -54,6 +54,8 @@ jobs:
         cd $WWW_BASE/latest
         # Append front mater
         for FILE in `find . -type f -name "*.md"`; do cat $WSTG_BASE/.github/www/latest/prepend.txt $FILE | sponge $FILE; done
+        # Duplicate README.md as index.md in case people forcefully browse to directory bases
+        find . -type f -name "README.md" -execdir cp -v {} ./index.md \;
         # Copy info.md to all directories (excluding 'images' directories)
         find . -type d -not -name "images" -execdir cp -v $WSTG_BASE/.github/www/latest/info.md {} \;
     - name: Setup Navigation
@@ -76,8 +78,6 @@ jobs:
         cat prepend.nav > latest.yaml && cat README.md >> latest.yaml
         # Copy the navigation yaml to _data
         cp latest.yaml $WWW_BASE/_data/.
-        # Duplicate README.md as index.md in case people forcefully browse to directory bases
-        find . -type f -name "README.md" -execdir cp -v {} ./index.md \;
     - name: Push Feature Branch and Raise PR
       run: |
         cd $WWW_BASE
