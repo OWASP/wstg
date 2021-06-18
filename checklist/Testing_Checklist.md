@@ -37,7 +37,7 @@ Note: The `Status` column can be set for values similar to "Pass", "Fail", "N/A"
 | WSTG-IDNT-04      | Testing for Account Enumeration and Guessable User Account                 |        |       |
 | WSTG-IDNT-05      | Testing for Weak or Unenforced Username Policy                             |        |       |
 | **WSTG-ATHN**     | **Authentication Testing**                                                 |        |       |
-| WSTG-ATHN-01      | Testing for Credentials Transported Over an Encrypted Channel              |        |       |
+| WSTG-ATHN-01      | Testing for Credentials Transported over an Encrypted Channel              |        |       |
 | WSTG-ATHN-02      | Testing for Default Credentials                                            |        |       |
 | WSTG-ATHN-03      | Testing for Weak Lock Out Mechanism                                        |        |       |
 | WSTG-ATHN-04      | Testing for Bypassing Authentication Schema                                |        |       |

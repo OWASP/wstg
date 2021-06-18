@@ -57,7 +57,7 @@ If no cat reveals itself, it is unlikely there is a cat in the box. However, thi
 
 ### Use a Box Camera
 
-Set up a wireless camera inside the box to continuously monitor for cats inside. This test requires the following steps:
+Set up a wireless camera inside the box to continuously monitor for cats inside. This test requires the following steps.
 
 #### 1. Acquire a Camera
 
