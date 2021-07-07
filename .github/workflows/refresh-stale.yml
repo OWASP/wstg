@@ -17,5 +17,5 @@ jobs:
         stale-pr-label: 'help wanted'
         exempt-pr-labels: 'help wanted,blocked'
         remove-stale-when-updated: false
-        days-before-stale: 30
+        days-before-stale: 90
         days-before-close: -1
