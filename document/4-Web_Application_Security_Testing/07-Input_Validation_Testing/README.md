@@ -40,8 +40,6 @@
 
 - 4.7.11.1 [Testing for File Inclusion](11.1-Testing_for_File_Inclusion.md)
 
-- 4.7.11.2 [Testing for Remote File Inclusion](11.2-Testing_for_Remote_File_Inclusion.md)
-
 4.7.12 [Testing for Command Injection](12-Testing_for_Command_Injection.md)
 
 4.7.13 [Testing for Format String Injection](13-Testing_for_Format_String_Injection.md)
