@@ -24,7 +24,7 @@ Opening Dev Tools can be accomplished in a number of ways.
 | Functionality         | Chrome* | Firefox | Edge/IE | Safari |
 |-----------------------|:-------:|:-------:|:-------:|:------:|
 | User-Agent Switching  | Y       | Y       | Y       | Y      |
-| Edit/Resend Requests  | N       | Y       | N       | N      |
+| Edit/Resend Requests  | Y       | Y       | N       | N      |
 | Cookie Editing        | Y       | Y       | Y       | N      |
 | Local Storage Editing | Y       | Y       | Y       | N      |
 | Disable CSS           | Y       | Y       | Y       | Y      |
