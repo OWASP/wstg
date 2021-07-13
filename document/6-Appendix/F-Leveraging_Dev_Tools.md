@@ -82,6 +82,14 @@ Later click on the garbage can `Delete` button to the right of the `general.user
 4. Make desired modifications and click on the `Send` button.
 5. Right-click on the modified request and select `Open in New Tab`.
 
+### Google Chrome
+
+1. Select the `Network` tab.
+2. Perform any action in the web application.
+3. Right-click on the HTTP request from the list and select `Copy > Copy as fetch`.
+4. Paste the provided JavaScript code into the `Console` tab.
+5. Make any required modifications, and then hit enter to send the request.
+
 ## Cookie Editing
 
 ### Related Testing
