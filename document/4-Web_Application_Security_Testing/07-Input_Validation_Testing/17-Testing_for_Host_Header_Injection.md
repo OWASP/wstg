@@ -115,4 +115,4 @@ https://www.attacker.com/reset.php?token=12345
 
 - [What is a Host Header Attack?](https://www.acunetix.com/blog/articles/automated-detection-of-host-header-attacks/)
 - [Host Header Attack](https://www.briskinfosec.com/blogs/blogsdetail/Host-Header-Attack)
-- [Practical HTTP Host Header Attacks](https://www.skeletonscribe.net/2013/05/practical-http-host-header-attacks.html)
+- [HTTP Host header attacks](https://portswigger.net/web-security/host-header)
