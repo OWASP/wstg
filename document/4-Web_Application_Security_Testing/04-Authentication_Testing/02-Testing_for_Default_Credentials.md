@@ -34,7 +34,7 @@ If a default password can't be found, try common options such as:
 
 - "admin", "password", "12345", or other [common default passwords](https://github.com/nixawk/fuzzdb/blob/master/bruteforce/passwds/default_devices_users%2Bpasswords.txt).
 - An empty or blank password.
-- The serial number of MAC address of the device.
+- The serial number or MAC address of the device.
 
 If the username is unknown, there are various options for enumerating users, discussed in the [Testing for Account Enumeration](../03-Identity_Management_Testing/04-Testing_for_Account_Enumeration_and_Guessable_User_Account.md) guide. Alternatively, try common options such as "admin", "root", or "system".
 
