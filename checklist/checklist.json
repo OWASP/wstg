@@ -263,8 +263,8 @@
                 "id":"WSTG-ATHN-02",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/04-Authentication_Testing/02-Testing_for_Default_Credentials.html",
                 "objectives":[
-                    "Enumerate the applications for default credentials and validate if they still exist.",
-                    "Review and assess new user accounts and if they are created with any defaults or identifiable patterns."
+                    "Determine whether the application has any user accounts with default passwords.",
+                    "Review whether new user accounts are created with weak or predictable passwords."
                   ]
                 }
                 ,{
