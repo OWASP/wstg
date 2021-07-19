@@ -66,6 +66,7 @@ This type of issue of often difficult to identify from a black-box perspective.
 - [Burp Intruder](https://portswigger.net/burp/documentation/desktop/tools/intruder)
 - [THC Hydra](https://github.com/vanhauser-thc/thc-hydra)
 - [Nikto 2](https://www.cirt.net/nikto2)
+- [Pass Station](https://github.com/sec-it/pass-station)
 
 ## References
 
