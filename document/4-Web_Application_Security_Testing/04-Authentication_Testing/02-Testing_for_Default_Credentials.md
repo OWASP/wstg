@@ -25,7 +25,7 @@ Once the software has been identified, try to find whether it uses default passw
 
 - Searching for "[SOFTWARE] default password".
 - Reviewing the manual or vendor documentation.
-- Checking common default password databases, such as [CIRT.net](https://cirt.net/passwords) or [SecLists Default Passwords](https://github.com/danielmiessler/SecLists/tree/master/Passwords/Default-Credentials).
+- Checking common default password databases, such as [CIRT.net](https://cirt.net/passwords), [SecLists Default Passwords](https://github.com/danielmiessler/SecLists/tree/master/Passwords/Default-Credentials) or [DefaultCreds-cheat-sheet](https://github.com/ihebski/DefaultCreds-cheat-sheet/blob/main/DefaultCreds-Cheat-Sheet.csv).
 - Inspecting the application source code (if available).
 - Installing the application on a virtual machine and inspecting it.
 - Inspecting the physical hardware for stickers (often present on network devices).
@@ -71,3 +71,4 @@ This type of issue of often difficult to identify from a black-box perspective.
 
 - [CIRT](https://cirt.net/passwords)
 - [SecLists Default Passwords](https://github.com/danielmiessler/SecLists/tree/master/Passwords/Default-Credentials)
+- [DefaultCreds-cheat-sheet](https://github.com/ihebski/DefaultCreds-cheat-sheet/blob/main/DefaultCreds-Cheat-Sheet.csv)
