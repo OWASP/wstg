@@ -57,3 +57,5 @@
 4.7.18 [Testing for Server-side Template Injection](18-Testing_for_Server-side_Template_Injection.md)
 
 4.7.19 [Testing for Server-Side Request Forgery](19-Testing_for_Server-Side_Request_Forgery.md)
+
+4.7.20 [Testing for Self DOM Based Cross Site Scripting](20-Testing_for_Self_DOM_Based_Cross_Site_Scripting.md)

@@ -83,6 +83,7 @@ Note: The `Status` column can be set for values similar to "Pass", "Fail", "N/A"
 | WSTG-INPV-17      | Testing for Host Header Injection                                          |        |       |
 | WSTG-INPV-18      | Testing for Server-Side Template Injection                                 |        |       |
 | WSTG-INPV-19      | Testing for Server-Side Request Forgery                                    |        |       |
+| WSTG-INPV-20      | Testing for Self DOM-Based Cross Site Scripting                            |        |       |
 | **WSTG-ERRH**     | **Error Handling**                                                         |        |       |
 | WSTG-ERRH-01      | Testing for Improper Error Handling                                        |        |       |
 | WSTG-ERRH-02      | Testing for Stack Traces                                                   |        |       |
