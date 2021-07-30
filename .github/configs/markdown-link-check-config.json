@@ -1,23 +1,26 @@
 {
     "ignorePatterns": [
-    {
-        "pattern": "^\/"
-    },
-    {
-        "pattern": "^https://www.nstalker.com"
-    },
-    {
-        "pattern": "^https://www.kali.org"
-    },
-    {
-        "pattern": "^https://.*.linkedin.com"
-    },
-    {
-        "pattern": "^https://www.shodan.io"
-    },
-    {
-        "pattern": "^https://developer.android.com"
-    }
+        {
+            "pattern": "^\/"
+        },
+        {
+            "pattern": "^https://www.nstalker.com"
+        },
+        {
+            "pattern": "^https://www.kali.org"
+        },
+        {
+            "pattern": "^https://.*.linkedin.com"
+        },
+        {
+            "pattern": "^https://www.shodan.io"
+        },
+        {
+            "pattern": "^https://developer.android.com"
+        },
+        {
+            "pattern": "^https://github.com"
+        }
     ],
     "httpHeaders": [{
         "urls": [
