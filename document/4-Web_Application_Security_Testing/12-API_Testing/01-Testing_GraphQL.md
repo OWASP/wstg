@@ -203,8 +203,6 @@ This tool creates an Entity Relationship Diagram (ERD) representation of the Gra
 - name
 - veterinary (ID)
 
-There is one downside to using this method: GraphQL Voyager does not display everything that can be done with GraphQL. For example, the mutations available are not listed in the drawing above. A better strategy would be to use both Voyager and one of the methods listed below.
-
 #### Using GraphiQL
 
 [GraphiQL](https://github.com/graphql/graphiql) is a web-based IDE for GraphQL. It is part of the GraphQL project, and it is mainly used for debugging or development purposes. The best practice is to not allow users to access it on production deployments. If you are testing a staging environment, you might have access to it and can thus save some time when working with introspection queries (although you can, of course, use introspection in the GraphiQL interface).
