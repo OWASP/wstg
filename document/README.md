@@ -224,8 +224,6 @@
 
 #### 4.7.19 [Testing for Server-Side Request Forgery](4-Web_Application_Security_Testing/07-Input_Validation_Testing/19-Testing_for_Server-Side_Request_Forgery.md)
 
-#### 4.7.20 [Testing for Self DOM Based Cross-Site Scripting](4-Web_Application_Security_Testing/07-Input_Validation_Testing/20-Testing_for_Self_DOM_Based_Cross_Site_Scripting.md)
-
 ### 4.8 [Testing for Error Handling](4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/README.md)
 
 #### 4.8.1 [Testing for Improper Error Handling](4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/01-Testing_For_Improper_Error_Handling.md)
@@ -267,6 +265,8 @@
 ### 4.11 [Client-side Testing](4-Web_Application_Security_Testing/11-Client-side_Testing/README.md)
 
 #### 4.11.1 [Testing for DOM-Based Cross Site Scripting](4-Web_Application_Security_Testing/11-Client-side_Testing/01-Testing_for_DOM-based_Cross_Site_Scripting.md)
+
+##### 4.11.1.1 [Testing for Self DOM Based Cross-Site Scripting](4-Web_Application_Security_Testing/11-Client-side_Testing/01.1-Testing_for_Self_DOM_Based_Cross_Site_Scripting.md)
 
 #### 4.11.2 [Testing for JavaScript Execution](4-Web_Application_Security_Testing/11-Client-side_Testing/02-Testing_for_JavaScript_Execution.md)
 

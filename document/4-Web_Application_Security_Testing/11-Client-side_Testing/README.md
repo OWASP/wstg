@@ -2,6 +2,8 @@
 
 4.11.1 [Testing for DOM-Based Cross Site Scripting](01-Testing_for_DOM-based_Cross_Site_Scripting.md)
 
+- 4.11.1.1 [Testing for Self DOM Based Cross Site Scripting](01.1-Testing_for_Self_DOM_Based_Cross_Site_Scripting.md)
+
 4.11.2 [Testing for JavaScript Execution](02-Testing_for_JavaScript_Execution.md)
 
 4.11.3 [Testing for HTML Injection](03-Testing_for_HTML_Injection.md)
