@@ -204,9 +204,7 @@
 
 #### 4.7.11 [Testing for Code Injection](4-Web_Application_Security_Testing/07-Input_Validation_Testing/11-Testing_for_Code_Injection.md)
 
-##### 4.7.11.1 [Testing for Local File Inclusion](4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.1-Testing_for_Local_File_Inclusion.md)
-
-##### 4.7.11.2 [Testing for Remote File Inclusion](4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.2-Testing_for_Remote_File_Inclusion.md)
+##### 4.7.11.1 [Testing for File Inclusion](4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.1-Testing_for_File_Inclusion.md)
 
 #### 4.7.12 [Testing for Command Injection](4-Web_Application_Security_Testing/07-Input_Validation_Testing/12-Testing_for_Command_Injection.md)
 
