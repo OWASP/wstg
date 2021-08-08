@@ -23,7 +23,7 @@ Examples for sensitive properties:
 
 ## How to Test
 
-Following a classic example that can help to better understand the issue.
+The following is a classic example that can help to illustrate the issue.
 
 Suppose a Java web application with a `User` object similar to the following:
 
@@ -81,15 +81,15 @@ The user is then created with the `isAdmin` property set to `true`, giving them 
 
 #### Detect Handlers
 
-In order to determine which part of the application is vulnerable to mass assignment, enumerate all parts of the application that accept content from the user and can potentially be mapped with a model. This includes all HTTP requests (most likely GET, POST and PUT) that appear allowing create or update operations on the back end.
-One of the most simple indicator for potential mass assignments is the presence of bracket syntax for input parameter names, as for example:
+In order to determine which part of the application is vulnerable to mass assignment, enumerate all parts of the application that accept content from the user and can potentially be mapped with a model. This includes all HTTP requests (most likely GET, POST, and PUT) that appear to allow create or update operations on the back end.
+One of the most simple indicators for potential mass assignments is the presence of bracket syntax for input parameter names, as for example:
 
 ```html
 <input name="user[name]" type="text">
 ```
 
-Then try to add an input related to a non-exiting attribute (e.g. `user[nonexistingattribute]`) and analyze the response.
-If the application does not implement any control (e.g. list of allowed fields) it is likely that it will respond with an error (e.g. 500) due to the fact that the application does not find the attribute associated to the object. More interestingly, sometimes those errors allow to discover the attribute names and value data type needed to exploit the issue, without access to the source code.
+When such patterns are encountered try to add an input related to a non-exiting attribute (e.g. `user[nonexistingattribute]`) and analyze the response/behavior.
+If the application does not implement any control (e.g. list of allowed fields) it is likely that it will respond with an error (e.g. 500) due to the fact that the application does not find the attribute associated to the object. More interestingly, those errors sometimes facilitate discovery of attribute names and value data types needed to exploit the issue, without access to the source code.
 
 #### Identify Sensitive Fields
 
@@ -100,16 +100,16 @@ Analyze the responses received by the back end, in particular pay attention to:
 - Custom JavaScript code
 - API responses
 
-For example, very often, it is possible to exploit handlers that returns detail about an object in order to gather clues on the associated fields.
-Suppose for example an handler that returns the profile of the user (e.g.  `GET /profile`), this may include further attributes related to the user (in this example the `isAdmin` attribute looks particularly interesting).
+For example, very often, it is possible to exploit handlers that return details about an object in order to gather clues on the associated fields.
+Suppose for example a handler that returns the profile of the user (e.g.  `GET /profile`), this may include further attributes related to the user (in this example the `isAdmin` attribute looks particularly interesting).
 
 ```json
 {"_id":12345,"username":"bob","age":38,"email":"bob@domain.test","isAdmin":false}
 ```
 
-Then try to exploit handlers that allow to modify or create user adding the `isAdmin` attribute configured to `true`.
+Then try to exploit handlers that allow the modification or creation of users, adding the `isAdmin` attribute configured to `true`.
 
-Another approach is to use wordlists in order to try to enumerate all the potential attributes. The enumeration can then be automated (e.g. via wfuzz, Burp Intruder etc.). The sqlmap tool includes a [common-columns.txt](https://github.com/sqlmapproject/sqlmap/blob/master/data/txt/common-columns.txt) wordlist that can be useful to identify potential sensitive attributes.
+Another approach is to use wordlists in order to try to enumerate all the potential attributes. The enumeration can then be automated (e.g. via wfuzz, Burp Intruder, ZAP fuzzer, etc.). The sqlmap tool includes a [common-columns.txt](https://github.com/sqlmapproject/sqlmap/blob/master/data/txt/common-columns.txt) wordlist that can be useful to identify potential sensitive attributes.
 A small example of common interesting attribute names are the following:
 
 - `is_admin`
@@ -131,7 +131,7 @@ For example, the modification of the `id` of an object can lead to application D
 
 When the analysis is performed with a gray-box testing approach, it is possible to follow the same methodology to verify the issue. However, the greater knowledge on the application allows to more easily identify frameworks and handlers subject to mass assignment vulnerability.
 In particular, when the source code is available, it is possible to search the input vectors more easily and accurately. During a source code review, use simple tools (such as the grep command) to search for one or more common patterns within the application code.
-Access to the db schema or to the source code allows also to easily identify sensitive fields.
+Access to the DB schema or to the source code allows also to easily identify sensitive fields.
 
 #### Java
 
