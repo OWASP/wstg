@@ -222,6 +222,8 @@
 
 #### 4.7.19 [Testing for Server-Side Request Forgery](4-Web_Application_Security_Testing/07-Input_Validation_Testing/19-Testing_for_Server-Side_Request_Forgery.md)
 
+#### 4.7.20 [Testing for Mass Assignment](4-Web_Application_Security_Testing/07-Input_Validation_Testing/20-Testing_for_Mass_Assignment.md)
+
 ### 4.8 [Testing for Error Handling](4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/README.md)
 
 #### 4.8.1 [Testing for Improper Error Handling](4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/01-Testing_For_Improper_Error_Handling.md)
