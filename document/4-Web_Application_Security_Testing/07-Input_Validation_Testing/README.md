@@ -55,3 +55,5 @@
 4.7.18 [Testing for Server-side Template Injection](18-Testing_for_Server-side_Template_Injection.md)
 
 4.7.19 [Testing for Server-Side Request Forgery](19-Testing_for_Server-Side_Request_Forgery.md)
+
+4.7.20 [Testing for Mass Assignment](20-Testing_for_Mass_Assignment.md)
