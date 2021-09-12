@@ -60,10 +60,10 @@ Web authentication types are based on:
 
 ### Generic Testing Method
 
-Step 1: List endpoint and make different request method: Login with user and then using a spider tool to list the endpoints of this role.
-To examine the endpoints, need to make different request methods and then observe how the API behaves.
+Step 1: List endpoint and make different request method: Login with user profile and use a spider tool to list the endpoints of this role.
+To examine the endpoints, you will need to make different request methods and observe how the API behaves.
 
-Step 2: Exploit bugs- as know how to list endpoints and examine endpoints with HTTP methods at step 1, we will find some way to exploit bugs as some testing strategies below:
+Step 2: Exploit bugs - As know how to list endpoints and examine endpoints with HTTP methods at step 1, we will find some way to exploit bug. Some testing strategies are below:
 
 - IDOR testing
 - Privilege escalation

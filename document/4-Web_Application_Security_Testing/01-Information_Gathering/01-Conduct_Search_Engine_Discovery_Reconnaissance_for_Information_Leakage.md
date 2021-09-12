@@ -6,7 +6,7 @@
 
 ## Summary
 
-In order for search engines to work, computer programs (or `robots`) regularly fetch data (referred to as [crawling](https://en.wikipedia.org/wiki/Web_crawler) from billions of pages on the web. These programs find web content and functionality by following links from other pages, or by looking at sitemaps. If a website uses a special file called `robots.txt` to list pages that it does not want search engines to fetch, then the pages listed there will be ignored. This is a basic overview - Google offers a more in-depth explanation of [how a search engine works](https://support.google.com/webmasters/answer/70897?hl=en).
+In order for search engines to work, computer programs (or `robots`) regularly fetch data (referred to as [crawling](https://en.wikipedia.org/wiki/Web_crawler)) from billions of pages on the web. These programs find web content and functionality by following links from other pages, or by looking at sitemaps. If a website uses a special file called `robots.txt` to list pages that it does not want search engines to fetch, then the pages listed there will be ignored. This is a basic overview - Google offers a more in-depth explanation of [how a search engine works](https://support.google.com/webmasters/answer/70897?hl=en).
 
 Testers can use search engines to perform reconnaissance on websites and web applications. There are direct and indirect elements to search engine discovery and reconnaissance: direct methods relate to searching the indexes and the associated content from caches, while indirect methods relate to learning sensitive design and configuration information by searching forums, newsgroups, and tendering websites.
 

@@ -13,6 +13,7 @@
 *.yaml text
 *.json text
 *.sh text
+*.nav text
 
 *.pdf binary
 *.png binary

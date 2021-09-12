@@ -61,7 +61,7 @@ The PCI DSS requirement refer to Payment Card Industry Data Security Standard (P
 - Application-layer testing
 - Network-layer tests for network and OS
 
-[PCI DSS Penetration Test Guidance](https://www.pcisecuritystandards.org/documents/Penetration_Testing_Guidance_March_2015.pdf)
+[PCI DSS Penetration Test Guidance](https://www.pcisecuritystandards.org/documents/Penetration-Testing-Guidance-v1_1.pdf)
 
 ## Penetration Testing Framework
 

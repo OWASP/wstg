@@ -24,7 +24,7 @@ Opening Dev Tools can be accomplished in a number of ways.
 | Functionality         | Chrome* | Firefox | Edge/IE | Safari |
 |-----------------------|:-------:|:-------:|:-------:|:------:|
 | User-Agent Switching  | Y       | Y       | Y       | Y      |
-| Edit/Resend Requests  | N       | Y       | N       | N      |
+| Edit/Resend Requests  | Y       | Y       | N       | N      |
 | Cookie Editing        | Y       | Y       | Y       | N      |
 | Local Storage Editing | Y       | Y       | Y       | N      |
 | Disable CSS           | Y       | Y       | Y       | Y      |
@@ -81,6 +81,14 @@ Later click on the garbage can `Delete` button to the right of the `general.user
 3. Right-click on the HTTP request from the list and select `Edit and Resend`.
 4. Make desired modifications and click on the `Send` button.
 5. Right-click on the modified request and select `Open in New Tab`.
+
+### Google Chrome
+
+1. Select the `Network` tab.
+2. Perform any action in the web application.
+3. Right-click on the HTTP request from the list and select `Copy > Copy as fetch`.
+4. Paste the provided JavaScript code into the `Console` tab.
+5. Make any required modifications, and then hit enter to send the request.
 
 ## Cookie Editing
 
