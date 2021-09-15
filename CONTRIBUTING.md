@@ -53,7 +53,7 @@ Please don't hesitate to make as many changes as you see fit, especially if you 
 
 Due to challenges with sync'ing images and removed content, the WSTG is no longer tackling in-bound translation efforts directly.
 
-At this time we suggest that you start another repository in which to tackle translations of a specific language. Once you're produced a PDF for a given version of the guide we'll be happy to attach it to the appropriate release. Simply [open an issue](https://github.com/OWASP/wstg/issues/new) here asking us to do so.
+At this time we suggest that you start another repository in which to tackle translations of a specific language. Once you've produced a PDF for a given version of the guide we'll be happy to attach it to the appropriate release. Simply [open an issue](https://github.com/OWASP/wstg/issues/new) here asking us to do so.
 
 Also we're willing to list your translation repository, just [let us know](https://github.com/OWASP/wstg/issues/new) where it is.
 
