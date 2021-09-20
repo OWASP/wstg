@@ -183,5 +183,3 @@ Log statistics or analysis should not be generated, nor stored, in the same serv
 
 - Generic:
     - [CERT Security Improvement Modules: Securing Public Web Servers](https://resources.sei.cmu.edu/asset_files/SecurityImprovementModule/2000_006_001_13637.pdf)
-
-    - [How To: Use IISLockdown.exe](https://support.microsoft.com/en-us/help/325864/how-to-install-and-use-the-iis-lockdown-wizard)

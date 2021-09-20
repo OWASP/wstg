@@ -271,7 +271,6 @@ Since the release of Flash Player 9.0.124.0, XSS is no longer exploitable, but G
 
 The following tools may be helpful in working with SWF:
 
-- [Adobe SWF Investigator](https://labs.adobe.com/technologies/swfinvestigator/)
 - [OWASP SWFIntruder](https://wiki.owasp.org/index.php/Category:SWFIntruder)
 - [Decompiler – Flare](http://www.nowrap.de/flare.html)
 - [Disassembler – Flasm](http://flasm.sourceforge.net/)

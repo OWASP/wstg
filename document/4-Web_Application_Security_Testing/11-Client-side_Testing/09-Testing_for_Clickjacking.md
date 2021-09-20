@@ -398,6 +398,4 @@ The example presented uses only basic clickjacking technique, but with advanced 
 
 - [OWASP Clickjacking](https://owasp.org/www-community/attacks/Clickjacking)
 - [Wikipedia Clickjacking](https://en.wikipedia.org/wiki/Clickjacking)
-- [Context Information Security: "Next Generation Clickjacking"](https://www.contextis.com/media/downloads/Context-Clickjacking_white_paper_2010.pdf)
 - [Gustav Rydstedt, Elie Bursztein, Dan Boneh, and Collin Jackson: "Busting Frame Busting: a Study of Clickjacking Vulnerabilities on Popular Sites"](https://seclab.stanford.edu/websec/framebusting/framebust.pdf)
-- [Paul Stone: "Next generation clickjacking"](https://media.blackhat.com/bh-eu-10/presentations/Stone/BlackHat-EU-2010-Stone-Next-Generation-Clickjacking-slides.pdf)

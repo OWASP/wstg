@@ -44,7 +44,6 @@
 - [McAfee Foundstone Publications](https://www.mcafee.com/enterprise/en-us/search.html?q=Foundstone)
 - [McAfee Free Tools](https://www.mcafee.com/enterprise/en-us/downloads/free-tools.html)
 - [OASIS Web Application Security (WAS) TC](https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=was)
-- [Open Source Software Testing Tools](https://www.opensourcetesting.org/category/security/)
 - [SANS Internet Storm Center (ISC)](https://isc.sans.edu/)
 - [The Open Web Application Application Security Project (OWASP)](https://owasp.org)
 - [Pentestmonkey - Pen Testing Cheat Sheets](http://pentestmonkey.net/cheat-sheet)
