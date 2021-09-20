@@ -8,10 +8,11 @@
 
 A web server commonly hosts several web applications on the same IP address, referring to each application via the virtual host. In an incoming HTTP request, web servers often dispatch the request to the target virtual host based on the value supplied in the Host header. Without proper validation of the header value, the attacker can supply invalid input to cause the web server to:
 
-- dispatch requests to the first virtual host on the list
-- cause a redirect to an attacker-controlled domain
-- perform web cache poisoning
-- manipulate password reset functionality
+- Dispatch requests to the first virtual host on the list.
+- Perform a redirect to an attacker-controlled domain.
+- Perform web cache poisoning.
+- Manipulate password reset functionality.
+- Allow access to virtual hosts that were not intended to be externally accessible.
 
 ## Test Objectives
 
@@ -47,15 +48,15 @@ In the event that Host header injection is mitigated by checking for invalid inp
 GET / HTTP/1.1
 Host: www.example.com
 X-Forwarded-Host: www.attacker.com
-...
+[...]
 ```
 
 Potentially producing client-side output such as:
 
 ```html
-...
+[...]
 <link src="http://www.attacker.com/link" />
-...
+[...]
 ```
 
 Once again, this depends on how the web server processes the header value.
@@ -67,15 +68,15 @@ Using this technique, an attacker can manipulate a web-cache to serve poisoned c
 ```http
 GET / HTTP/1.1
 Host: www.attacker.com
-...
+[...]
 ```
 
 The following will be served from the web cache, when a victim visits the vulnerable application.
 
 ```html
-...
+[...]
 <link src="http://www.attacker.com/link" />
-...
+[...]
 ```
 
 ### Password Reset Poisoning
@@ -110,6 +111,18 @@ https://www.attacker.com/reset.php?token=12345
 
 ... Email snippet ...
 ```
+
+### Accessing Private Virtual Hosts
+
+In some cases a server may have virtual hosts that are not intended to be externally accessible. This is most common with a [split-horizon](https://en.wikipedia.org/wiki/Split-horizon_DNS) DNS setup (where internal and external DNS servers return different records for the same domain).
+
+For example, an organisation may have a single internal webserver, which hosts both their public website (on "www.example.org") and their internal Intranet (on "intranet.example.org", but that record only exists on the internal DNS server). Although it would not be possible to browse directly to "intranet.example.org" from outside the network (as the domain would not resolve), it may be possible to access to Intranet by making a request from outside with the following `Host` header:
+
+```http
+Host: intranet.example.org
+```
+
+This could also be achieved by adding an entry for for the domain to your hosts file, or by overriding DNS resolution in your testing tool.
 
 ## References
 
