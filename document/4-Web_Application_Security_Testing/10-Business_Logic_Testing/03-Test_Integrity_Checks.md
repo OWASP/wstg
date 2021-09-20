@@ -74,4 +74,3 @@ The application should follow strict access controls on how data and artifacts c
 - [On Rules and Integrity Constraints in Database Systems](https://www.comp.nus.edu.sg/~lingtw/papers/IST92.teopk.pdf)
 - [Use referential integrity to enforce basic business rules in Oracle](https://www.techrepublic.com/article/use-referential-integrity-to-enforce-basic-business-rules-in-oracle/)
 - [Maximizing Business Logic Reuse with Reactive Logic](https://dzone.com/articles/maximizing-business-logic)
-- [Tamper Evidence Logging](http://tamperevident.cs.rice.edu/Logging.html)
