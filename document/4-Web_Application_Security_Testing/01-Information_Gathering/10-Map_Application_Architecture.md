@@ -35,13 +35,13 @@ Simple applications may run on a single server, which can be identified using th
 
 - Azure Functions
 
-```
+```http
 Server: Kestrel - Not a guarantee
 ```
 
 - AWS Lambdas
 
-```
+```http
 X-Amz-Invocation-Type
 X-Amz-Log-Type
 X-Amz-Client-Context
@@ -56,9 +56,9 @@ X-Amz-Client-Context
 - Usually present in complex applications (although may not be directly queried)
 - SQL error messages (XREF SQL Injection)
 - Guess based on language
-  - .NET -> SQL Server
-  - APEX -> Oracle
-  - PHP -> MySQL or PostgreSQL
+    - .NET -> SQL Server
+    - APEX -> Oracle
+    - PHP -> MySQL or PostgreSQL
 
 #### Authentication
 
@@ -106,7 +106,6 @@ Most web servers will be protected by a packet filtering or stateful inspection 
 If the majority of the ports are shown as "closed" (i.e, they return a `RST` packet in response to the initial `SYN` packet) then this suggests that the server may not be protected by a firewall. If the ports are shown as "filtered" (i.e, no response is received when sending a `SYN` packet to an unused port) then a firewall is most likely to be in place.
 
 Additionally, if inappropriate services are exposed to the world (such as SMTP, IMAP, MySQL, etc), this suggests that either there is not firewall in place, or that the firewall is badly configured.
-
 
 #### Network Intrusion Detection and Prevention System
 
