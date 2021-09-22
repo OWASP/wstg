@@ -118,9 +118,6 @@ Additionally, if inappropriate services are exposed to the world (such as SMTP, 
 - Error pages/messages may reveal
 - Add test params: `index.php?madeup=<script>alert(1)</script>`
 
-![Example mod_security Error Page](images/10_mod_security.jpg)\
-*Figure 4.1.10-1: Example mod_security Error Page*
-
 #### Cloud Web Application Firewall (WAF)
 
 - Detect from DNS
