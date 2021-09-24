@@ -92,10 +92,25 @@ Another element that can be detected is network load balancers. Typically, these
 
 #### Content Delivery Network (CDN)
 
-- Detecting via DNS
-- Usually caches content
-- May include IPS/WAF functionality
-- Identifying backend servers
+A Content Delivery Network (CDN) is a geographically distributed set of caching proxy servers, designed to improve website performance to to provide additional resilience for a website.
+
+It is typically configured by pointing the publicly facing domain to the CDN's servers, and then configuring the CDN to connect to the correct back end servers (sometimes known as the "origin").
+
+The easiest way to detect a CDN is to perform a WHOIS lookup for the IP addresses that the domain resolves to. If they belong to a CDN company (such as Akami, Cloudflare or Fastly - see [Wikipedia](https://en.wikipedia.org/wiki/Content_delivery_network#Notable_content_delivery_service_providers) for a more complete list) then it's like that a CDN is in use.
+
+When testing a site behind a CDN, you should bear in mind the following points:
+
+- The IPs and servers belong to the CDN provider, and are likely to be out of scope for infrastructure testing.
+- Many CDNs also include features like bot detection, rate limiting and web application firewalls.
+- CDNs usually cache content, so any changes made to the back end website may not appear immediately.
+
+If the site is behind a CDN, then it can be useful to identify the back end servers. If they don't have proper access control enforced, then you may be able to bypass the CDN (and any protections it offers) by directly accessing the back end servers. There are a variety of different methods that may allow you to identify the back end system:
+
+- Emails sent by the application may come direct from the back end server, which could reveal it's IP address.
+- DNS grinding, zone transfers or certificate transparency lists for domain may reveal it on a subdomain.
+- Scanning the IP ranges known to be used by the company may find the back end server.
+- Exploiting [Server-Side Request Forgery (SSRF)](../07-Input_Validation_Testing/19-Testing_for_Server-Side_Request_Forgery.md) may reveal the IP address.
+- Detailed error messages from the application may expose IP addresses or hostnames.
 
 ### Security Components
 
