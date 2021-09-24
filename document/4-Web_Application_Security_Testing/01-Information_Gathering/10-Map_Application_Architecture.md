@@ -124,8 +124,9 @@ Additionally, if inappropriate services are exposed to the world (such as SMTP, 
 
 #### Network Intrusion Detection and Prevention System
 
-- Blocks traffic at network level (port scanning)
-- How to bypass
+An Network Intrusion Detection System (IPS) detects suspicious or malicious network-level activity (such as port or vulnerability scanning) and raises alerts. An Intrusion Prevention System (IPS) is similar, but also takes action to prevent the activity - usually by blocking the source IP address.
+
+An IPS can usually be detected by running automated scanning tools (such as a port scanner) against the target, and seeing if the source IP is blocked. However, many application-level tools may not be detected by an IPS (especially if it doesn't decrypt TLS).
 
 #### Local Web Application Firewall (WAF)
 
