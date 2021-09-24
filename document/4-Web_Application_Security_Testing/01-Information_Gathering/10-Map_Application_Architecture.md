@@ -94,7 +94,7 @@ Load balancers can be difficult to detect, but can sometimes be identified by ma
 
 - Inconsistent system times.
 - Different internal IP addresses or hostnames in detailed error messages.
-- Different addresses returned from [Server-Side Request Forgery (SSRF)](../07-Input_Validation_Testing/19-Testing_for_Server-Side_Request_Forgery)
+- Different addresses returned from [Server-Side Request Forgery (SSRF)](../07-Input_Validation_Testing/19-Testing_for_Server-Side_Request_Forgery.md).
 
 They may also be indicated by the presence of specific cookies (for example, F5 BIG-IP load balancers will create a cookie called `BIGipServer`.
 
