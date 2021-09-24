@@ -128,13 +128,16 @@ An Network Intrusion Detection System (IPS) detects suspicious or malicious netw
 
 An IPS can usually be detected by running automated scanning tools (such as a port scanner) against the target, and seeing if the source IP is blocked. However, many application-level tools may not be detected by an IPS (especially if it doesn't decrypt TLS).
 
-#### Local Web Application Firewall (WAF)
+#### Web Application Firewall (WAF)
 
-- Error pages/messages may reveal
-- Add test params: `index.php?madeup=<script>alert(1)</script>`
+A Web Application Firewall (WAF) inspects the contents of HTTP requests and blocks and that appear to be suspicious or malicious. They are usually based on a set of known bad signatures and regular expressions, such as the [OWASP Core Rule Set](https://owasp.org/www-project-modsecurity-core-rule-set/).  WAFs can be effective at protecting against some types of attacks (such as SQL injection or cross-site scripting), but are less effective against other types (such as access control or business logic related issues).
 
-#### Cloud Web Application Firewall (WAF)
+A WAF can be deployed in multiple locations, including:
 
-- Detect from DNS
-- Similar functionality to local WAF, but hosted in cloud
-- How to detect backend server addresses
+- On the web server itself.
+- On a separate virtual machine or hardware appliance.
+- In the cloud in front of the back end server.
+
+Because a WAF blocks malicious requests, it can be detected by adding common attack strings to parameters and observing whether or not they are blocked. For example, try adding a parameter called `foo` with a value such as `' UNION SELECT 1` or `><script>alert(1)</script>`. If these requests are blocked then it suggests that there may be a WAF in place. Additionally, the contents of the block pages may provide information about the specific technology that is in use.
+
+If the WAF is cloud-based WAF is in use, then it may be possible to bypass it by directly accessing the back end server, using the same methods discussed in the [Content Delivery Network](#content-delivery-network-cdn) section.
