@@ -88,7 +88,15 @@ Reverse proxies can also be introduced as proxy-caches to accelerate the perform
 
 #### Load Balancer
 
-Another element that can be detected is network load balancers. Typically, these systems will balance a given TCP/IP port to multiple servers based on different algorithms (round-robin, web server load, number of requests, etc.). Thus, the detection of this architecture element needs to be done by examining multiple requests and comparing results to determine if the requests are going to the same or different web servers. For example, based on the Date header if the server clocks are not synchronized. In some cases, the network load balance process might inject new information in the headers that will make it stand out distinctly, like the `BIGipServer` prefixed cookie introduced by F5 BIG-IP load balancers.
+A load balancer sits in front of multiple back end servers and allocates requests between them in order to provide greater redundancy and processing capacity for the application.
+
+Load balancers can be difficult to detect, but can sometimes be identified by making multiple requests and examining the responses for differences, such as:
+
+- Inconsistent system times.
+- Different internal IP addresses or hostnames in detailed error messages.
+- Different addresses returned from [Server-Side Request Forgery (SSRF)](../07-Input_Validation_Testing/19-Testing_for_Server-Side_Request_Forgery)
+
+They may also be indicated by the presence of specific cookies (for example, F5 BIG-IP load balancers will create a cookie called `BIGipServer`.
 
 #### Content Delivery Network (CDN)
 
