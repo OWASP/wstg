@@ -53,12 +53,19 @@ X-Amz-Client-Context
 
 #### Database
 
-- Usually present in complex applications (although may not be directly queried)
-- SQL error messages (XREF SQL Injection)
-- Guess based on language
-    - .NET -> SQL Server
-    - APEX -> Oracle
-    - PHP -> MySQL or PostgreSQL
+Most non-trivial web applications use some kind of database to store dynamic content. In some cases it's possible to determine the database, although it usually relies on other issues in the application. This can often be done by:
+
+- Port scanning the server and looking for any open ports associated with specific databases.
+- Triggering SQL (or NoSQL) related error messages (or finding existing errors from a [search engine](../01-Information_Gathering/01-Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage.md).
+
+Where it's not possible to conclusively determine the database, it's often possible to make an educated guess based on other aspects of the application:
+
+- Windows, IIS and ASP.NET often uses SQL server.
+- Embedded systems often use SQLite.
+- PHP often uses MySQL or PostgreSQL.
+- APEX often uses Oracle.
+
+These are not hard rules, but can certainly give you a reasonable starting point if no better information is available.
 
 #### Authentication
 
