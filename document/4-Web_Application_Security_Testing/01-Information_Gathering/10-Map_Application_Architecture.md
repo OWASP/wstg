@@ -69,8 +69,20 @@ These are not hard rules, but can certainly give you a reasonable starting point
 
 #### Authentication
 
-- LDAP domain might be displayed on login page. LDAP injection might work.
-- SAML/SSO is obvious from login process
+Most applications have some form of authentication for users. There are multiple authentication back ends that can be used, such as:
+
+- Web server configuration (including `.htaccess` files) or hard-coding passwords in scripts.
+    - Usually shows up as HTTP Basic authentication, indicated by a pop-up in the browser and a `WWW-Authenticate: Basic` HTTP header..
+- Local user accounts in a database.
+    - Usually integrated into a form or API endpoint on the application.
+- An existing central authentication source such as Active Directory or an LDAP server.
+    - May use NTLM authentication, indicated by a `WWW-Authenticate: NTLM` HTTP header.
+    - May be integrated into the web application in a form.
+    - May require the username to be entered in the "DOMAIN\username" format, or may give a dropdown of available domains.
+- Single Sign-On (SSO) with either an internal or external provider.
+    - Typically uses OAuth, OpenID Connect or SAML.
+
+Applications may provide multiple options for the user to authenticate (such as registering a local account, or using their existing Facebook account), and may use different mechanisms for normal users and administrators.
 
 #### Third Party Services and APIs
 
