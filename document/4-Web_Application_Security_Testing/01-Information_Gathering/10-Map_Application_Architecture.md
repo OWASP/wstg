@@ -75,16 +75,18 @@ X-Amz-Client-Context
 
 #### Reverse Proxy
 
-- Nginx is almost always used as a reverse proxy
-- Redis as cache
-- Multiple sites on same IP (although could be vhosts)
-- Multiple languages/frameworks in use
-- Mismatch between headers (ASP.NET + Nginx)
-- Different folders/paths/files may go to different servers
+A reverse proxy sits in front of one or more back end servers and redirects requests to the appropriate destination. They can implement various functionality, such as:
 
-Detecting a reverse proxy in front of the web server can be done by analysis of the web server banner, which might directly disclose the existence of a reverse proxy. It can also be determined by obtaining the answers given by the web server to requests and comparing them to the expected answers. For example, some reverse proxies act as Intrusion Prevention Systems (IPS) by blocking known attacks targeted at the web server. If the web server is known to answer with a 404 message to a request that targets an unavailable page and returns a different error message for some common web attacks like those done by vulnerability scanners, it might be an indication of a reverse proxy (or an application-level firewall) which is filtering the requests and returning a different error page than the one expected. Another example: if the web server returns a set of available HTTP methods (including TRACE) but the expected methods return errors then there is probably something in between blocking them.
+- Acting as a [load balancer](#load-balancer) or [web application firewall](#web-application-firewall-waf).
+- Allowing multiple applications to be hosted on a single IP address or domain (in subfolders).
+- Implementing IP filtering or other restrictions.
+- Caching content from the back end to improve performance.
 
-Reverse proxies can also be introduced as proxy-caches to accelerate the performance of back-end application servers. Detecting these proxies can be done based on the server header. They can also be detected by timing requests that should be cached by the server and comparing the time taken to server the first request with subsequent requests.
+It is not always possible to detect a reverse proxy (especially if there is only a application behind it), but you can often sometimes identify it by:
+
+- A mismatch between the front end server and the back end application (such as a `Server: nginx` header with an ASP.NET application).
+- Duplicate headers (especially the `Server` header).
+- Multiple applications hosted on the same IP address or domain (especially if they use different languages).
 
 #### Load Balancer
 
