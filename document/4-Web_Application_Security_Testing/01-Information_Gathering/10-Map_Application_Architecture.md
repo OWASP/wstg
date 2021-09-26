@@ -72,7 +72,7 @@ These are not hard rules, but can certainly give you a reasonable starting point
 Most applications have some form of authentication for users. There are multiple authentication back ends that can be used, such as:
 
 - Web server configuration (including `.htaccess` files) or hard-coding passwords in scripts.
-    - Usually shows up as HTTP Basic authentication, indicated by a pop-up in the browser and a `WWW-Authenticate: Basic` HTTP header..
+    - Usually shows up as HTTP Basic authentication, indicated by a pop-up in the browser and a `WWW-Authenticate: Basic` HTTP header.
 - Local user accounts in a database.
     - Usually integrated into a form or API endpoint on the application.
 - An existing central authentication source such as Active Directory or an LDAP server.
@@ -86,9 +86,16 @@ Applications may provide multiple options for the user to authenticate (such as 
 
 #### Third Party Services and APIs
 
-- Embedded content (videos, maps, etc)
-- Iframes
-- Third party APIs (may expose keys)
+Almost all web applications include third party resources that are loaded or interacted with by the client. These can include:
+
+- Active content (such as scripts, style sheets, fonts and iframes).
+- Passive content (such as images and videos).
+- External APIs.
+- Social media buttons.
+- Advertising networks.
+- Payment gateways.
+
+These resources are requested directly by the user's browser, so can easily be identified using the developer tools, or an intercepting proxy. While it is important to identify them (as they can impact the security of the application), remember that *they are usually out of scope for testing*, as they belong to third parties.
 
 ### Network Components
 
