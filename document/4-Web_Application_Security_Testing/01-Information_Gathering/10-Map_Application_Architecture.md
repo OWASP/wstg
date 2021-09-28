@@ -27,19 +27,18 @@ Simple applications may run on a single server, which can be identified using th
 
 #### Platform-as-a-Service (PaaS)
 
-- Azure App Services
-*.azurewebsites.net - although may have custom domain
-- Infrastructure testing unlikely to be successful + out of scope
+In a Platform-as-a-Service (PaaS) model, the web server and underlying infrastructure are managed by the service provider, and the customer is only responsible for the application that this deployed on them. From a testing perspective, there are two main differences:
+
+- The application owner has no access to the underlying infrastructure, so will be unable to directly remediate any issues.
+- Infrastructure testing is likely to be out of scope for any engagements.
+
+In some cases it is possible to identify the use of PaaS, as the application may use a specific domain name (for example, applications deployed on Azure App Services will have a `*.azurewebsites.net` domain - although they may also use custom domains). However, in other cases it is difficult to determine whether PaaS is in use.
 
 #### Serverless
 
-- Azure Functions
+In a Serverless model, the developers provide code which is directly run on a hosting platform as individual functions, rather than as an traditional larger web application deployed in a webroot. This makes it well suited to microservice-based architectures. As with a PaaS environment, infrastructure testing is likely to be out of scope.
 
-```http
-Server: Kestrel - Not a guarantee
-```
-
-- AWS Lambdas
+In some cases the use of Serverless code may be indicated by the presence of specific HTTP headers. For example, AWS Lambda functions will typically return the following headers:
 
 ```http
 X-Amz-Invocation-Type
@@ -47,9 +46,20 @@ X-Amz-Log-Type
 X-Amz-Client-Context
 ```
 
+Azure Functions are less obvious. They typically return the `Server: Kestrel` header - but this on its own is not enough to be confident that it is an Azure App function, rather than some other code running on Kestrel.
+
+#### Microservices
+
+In a microservice-based architecture, the application API is made up of multiple discrete services, rather than running as a monolithic application. The services themselves often run inside containers (usually with Kubernetes), and can use a variety of different operating systems and languages. Although they are typically behind a single API gateway and domain, the use of multiple languages (often indicated in detailed error messages) can suggest that microservices are in use.
+
 #### Static Storage
 
-- AWS S3 buckets and Azure Storage accounts
+Many applications store static content on dedicated storage platforms, rather than hosting it directly on the main web server. The two most common platforms are Amazon's S3 Buckets, and Azure's Storage Accounts, and can be easily identified by the domain names:
+
+- Amazon S3 Buckets are either `BUCKET.s3.amazonaws.com` or `s3.REGION.amazonaws.com/BUCKET`
+- Azure Storage Accounts are `ACCOUNT.blob.core.windows.net`
+
+These storage accounts can often exposes sensitive files, as discussed in the [Testing Cloud Storage Guide](../02-Configuration_and_Deployment_Management_Testing/11-Test_Cloud_Storage.md)
 
 #### Database
 
