@@ -6,18 +6,19 @@
 
 ## Summary
 
-The complexity of interconnected and heterogeneous web infrastructure can include hundreds of web applications and makes configuration management and review a fundamental step in testing and deploying every single application. In fact it takes only a single vulnerability to undermine the security of the entire infrastructure, and even small and seemingly unimportant problems may evolve into severe risks for another application in the same infrastructure.
+In order to effectively test an application, and to be able to provide meaningful recommendations on how to address any of the issues identified, it is important to understand what you are actually testing. Additionally, it can in determining whether specific components should be considered out of scope for testing.
 
-To address these problems, it is of utmost importance to perform an in-depth review of configuration and known security issues. Before performing an in-depth review it is necessary to map the network and application architecture. The different elements that make up the infrastructure need to be determined to understand how they interact with a web application and how they affect security.
+Modern web application can vary significantly in complexity, from a simple script running on a single server to a highly complex application spread across dozens of different systems, languages and components. There may also be additional network-level components such as firewalls or intrusion protection systems that can have a significant impact on testing.
 
 ## Test Objectives
 
-- Generate a map of the application at hand based on the research conducted.
+- Understand the architecture of the application and the technologies in use.
 
 ## How to Test
 
-- Various common components listed below with steps on how to identify them
-- Note that a single device/system may provide functionality from multiple areas (such as a combined reverse proxy/firewall/IPS/WAF)
+When testing from a black box perspective, it is important to try and build up a clear picture of how the application works, and which technologies and components are in place. In some cases it is it possible to test for specific components (such as a web application firewall), while others can be identified by inspecting the behaviour of the application.
+
+The sections below provide a high-level overview of common architectural components, along with details of how they can be identified.
 
 ### Application Components
 
