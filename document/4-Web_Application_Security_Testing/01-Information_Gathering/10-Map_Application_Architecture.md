@@ -99,8 +99,8 @@ Applications may provide multiple options for the user to authenticate (such as 
 
 Almost all web applications include third party resources that are loaded or interacted with by the client. These can include:
 
-- Active content (such as scripts, style sheets, fonts and iframes).
-- Passive content (such as images and videos).
+- [Active content](https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content#mixed_active_content) (such as scripts, style sheets, fonts and iframes).
+- [Passive content](https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content#mixed_passivedisplay_content) (such as images and videos).
 - External APIs.
 - Social media buttons.
 - Advertising networks.
