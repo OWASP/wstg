@@ -122,7 +122,7 @@ A reverse proxy sits in front of one or more back end servers and redirects requ
 It is not always possible to detect a reverse proxy (especially if there is only a application behind it), but you can often sometimes identify it by:
 
 - A mismatch between the front end server and the back end application (such as a `Server: nginx` header with an ASP.NET application).
-    - This can sometimes lead to [request smuggling vulnerabilities](../07-Input_Validation_Testing/15-Testing_for_HTTP_Splitting_Smuggling.md).
+    - This can sometimes lead to [request smuggling vulnerabilities](https://portswigger.net/web-security/request-smuggling).
 - Duplicate headers (especially the `Server` header).
 - Multiple applications hosted on the same IP address or domain (especially if they use different languages).
 
