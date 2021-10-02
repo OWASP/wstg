@@ -69,9 +69,9 @@ Most non-trivial web applications use some kind of database to store dynamic con
 - Port scanning the server and looking for any open ports associated with specific databases.
 - Triggering SQL (or NoSQL) related error messages (or finding existing errors from a [search engine](../01-Information_Gathering/01-Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage.md).
 
-Where it's not possible to conclusively determine the database, it's often possible to make an educated guess based on other aspects of the application:
+Where it's not possible to conclusively determine the database, you can often make an educated guess based on other aspects of the application:
 
-- Windows, IIS and ASP.NET often uses SQL server.
+- Windows, IIS and ASP.NET often uses Microsoft SQL server.
 - Embedded systems often use SQLite.
 - PHP often uses MySQL or PostgreSQL.
 - APEX often uses Oracle.
@@ -122,6 +122,7 @@ A reverse proxy sits in front of one or more back end servers and redirects requ
 It is not always possible to detect a reverse proxy (especially if there is only a application behind it), but you can often sometimes identify it by:
 
 - A mismatch between the front end server and the back end application (such as a `Server: nginx` header with an ASP.NET application).
+    - This can sometimes lead to [request smuggling vulnerabilities](../07-Input_Validation_Testing/15-Testing_for_HTTP_Splitting_Smuggling.md).
 - Duplicate headers (especially the `Server` header).
 - Multiple applications hosted on the same IP address or domain (especially if they use different languages).
 
@@ -143,7 +144,7 @@ A Content Delivery Network (CDN) is a geographically distributed set of caching 
 
 It is typically configured by pointing the publicly facing domain to the CDN's servers, and then configuring the CDN to connect to the correct back end servers (sometimes known as the "origin").
 
-The easiest way to detect a CDN is to perform a WHOIS lookup for the IP addresses that the domain resolves to. If they belong to a CDN company (such as Akami, Cloudflare or Fastly - see [Wikipedia](https://en.wikipedia.org/wiki/Content_delivery_network#Notable_content_delivery_service_providers) for a more complete list) then it's like that a CDN is in use.
+The easiest way to detect a CDN is to perform a WHOIS lookup for the IP addresses that the domain resolves to. If they belong to a CDN company (such as Akamai, Cloudflare or Fastly - see [Wikipedia](https://en.wikipedia.org/wiki/Content_delivery_network#Notable_content_delivery_service_providers) for a more complete list) then it's like that a CDN is in use.
 
 When testing a site behind a CDN, you should bear in mind the following points:
 
@@ -171,13 +172,13 @@ Additionally, if inappropriate services are exposed to the world (such as SMTP, 
 
 #### Network Intrusion Detection and Prevention System
 
-An Network Intrusion Detection System (IPS) detects suspicious or malicious network-level activity (such as port or vulnerability scanning) and raises alerts. An Intrusion Prevention System (IPS) is similar, but also takes action to prevent the activity - usually by blocking the source IP address.
+A network Intrusion Detection System (IDS) detects suspicious or malicious network-level activity (such as port or vulnerability scanning) and raises alerts. An Intrusion Prevention System (IPS) is similar, but also takes action to prevent the activity - usually by blocking the source IP address.
 
 An IPS can usually be detected by running automated scanning tools (such as a port scanner) against the target, and seeing if the source IP is blocked. However, many application-level tools may not be detected by an IPS (especially if it doesn't decrypt TLS).
 
 #### Web Application Firewall (WAF)
 
-A Web Application Firewall (WAF) inspects the contents of HTTP requests and blocks and that appear to be suspicious or malicious. They are usually based on a set of known bad signatures and regular expressions, such as the [OWASP Core Rule Set](https://owasp.org/www-project-modsecurity-core-rule-set/).  WAFs can be effective at protecting against some types of attacks (such as SQL injection or cross-site scripting), but are less effective against other types (such as access control or business logic related issues).
+A Web Application Firewall (WAF) inspects the contents of HTTP requests and blocks ones that appear to be suspicious or malicious, or dynamically apply other controls such as CAPTCHA or rate limiting. They are usually based on a set of known bad signatures and regular expressions, such as the [OWASP Core Rule Set](https://owasp.org/www-project-modsecurity-core-rule-set/).  WAFs can be effective at protecting against some types of attacks (such as SQL injection or cross-site scripting), but are less effective against other types (such as access control or business logic related issues).
 
 A WAF can be deployed in multiple locations, including:
 
@@ -185,6 +186,6 @@ A WAF can be deployed in multiple locations, including:
 - On a separate virtual machine or hardware appliance.
 - In the cloud in front of the back end server.
 
-Because a WAF blocks malicious requests, it can be detected by adding common attack strings to parameters and observing whether or not they are blocked. For example, try adding a parameter called `foo` with a value such as `' UNION SELECT 1` or `><script>alert(1)</script>`. If these requests are blocked then it suggests that there may be a WAF in place. Additionally, the contents of the block pages may provide information about the specific technology that is in use.
+Because a WAF blocks malicious requests, it can be detected by adding common attack strings to parameters and observing whether or not they are blocked. For example, try adding a parameter called `foo` with a value such as `' UNION SELECT 1` or `><script>alert(1)</script>`. If these requests are blocked then it suggests that there may be a WAF in place. Additionally, the contents of the block pages may provide information about the specific technology that is in use. Finally, some WAFs may add cookies or HTTP headers to responses that can reveal their presence.
 
 If the WAF is cloud-based WAF is in use, then it may be possible to bypass it by directly accessing the back end server, using the same methods discussed in the [Content Delivery Network](#content-delivery-network-cdn) section.
