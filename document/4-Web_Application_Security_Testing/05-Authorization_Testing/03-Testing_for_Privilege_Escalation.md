@@ -25,6 +25,20 @@ Usually, people refer to *vertical escalation* when it is possible to access res
 
 In every portion of the application where a user can create information in the database (e.g., making a payment, adding a contact, or sending a message), can receive information (statement of account, order details, etc.), or delete information (drop users, messages, etc.), it is necessary to record that functionality. The tester should try to access such functions as another user in order to verify if it is possible to access a function that should not be permitted by the user's role/privilege (but might be permitted as another user).
 
+### Testing for Vertical Bypassing Authorization Schema
+
+A vertical authorization bypass is specific to the case that an attacker obtains a role higher than their own. Testing for this bypass focuses on verifying how the vertical authorization schema has been implemented for each role. For every function, page, specific role, or request that the application executes, it is necessary to verify if it is possible to:
+
+- Access resources that should be accessible only to a higher role user.
+- Operate functions on resources that should be operative only by a user that holds a higher or specific role identity.
+
+For each role:
+
+1. Register a user.
+2. Establish and maintain two different sessions based on the two different roles.
+3. For every request, change the session identifier from the original to another role's session identifier and evaluate the responses for each.
+4. An application will be considered vulnerable if the weaker privileged session contains the same data, or indicate successful operations on higher privileged functions.
+
 #### Manipulation of User Group
 
 For example:

@@ -79,20 +79,6 @@ username=example_user
 
 If the attacker's response contain the data of the `example_user`, then the application is vulnerable for lateral movement attacks, where a user can read or write other user's data.
 
-### Testing for Vertical Bypassing Authorization Schema
-
-A vertical authorization bypass is specific to the case that an attacker obtains a role higher than their own. Testing for this bypass focuses on verifying how the vertical authorization schema has been implemented for each role. For every function, page, specific role, or request that the application executes, it is necessary to verify if it is possible to:
-
-- Access resources that should be accessible only to a higher role user.
-- Operate functions on resources that should be operative only by a user that holds a higher or specific role identity.
-
-For each role:
-
-1. Register a user.
-2. Establish and maintain two different sessions based on the two different roles.
-3. For every request, change the session identifier from the original to another role's session identifier and evaluate the responses for each.
-4. An application will be considered vulnerable if the weaker privileged session contains the same data, or indicate successful operations on higher privileged functions.
-
 #### Banking Site Roles Scenario
 
 The following table illustrates the system roles on a banking site. Each role binds with specific permissions for the event menu functionality:
