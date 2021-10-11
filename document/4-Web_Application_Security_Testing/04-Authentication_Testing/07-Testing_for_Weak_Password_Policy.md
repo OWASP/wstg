@@ -22,7 +22,7 @@ The most prevalent and most easily administered authentication mechanism is a st
 5. How different must the next password be from the last password?
 6. Is the user prevented from using his username or other account information (such as first or last name) in the password?
 7. What are the minimum and maximum password lengths that can be set, and are they appropriate for the sensitivity of the account and application?
-8. Is it possible set common passwords such as `Password1` or `123456`?
+8. Is it possible to set common passwords such as `Password1` or `123456`?
 
 ## Remediation
 
