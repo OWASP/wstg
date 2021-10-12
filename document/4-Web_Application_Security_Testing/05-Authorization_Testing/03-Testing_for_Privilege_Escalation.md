@@ -25,12 +25,6 @@ Usually, people refer to *vertical escalation* when it is possible to access res
 
 In every portion of the application where a user can create information in the database (e.g., making a payment, adding a contact, or sending a message), can receive information (statement of account, order details, etc.), or delete information (drop users, messages, etc.), it is necessary to record that functionality. The tester should try to access such functions as another user in order to verify if it is possible to access a function that should not be permitted by the user's role/privilege (but might be permitted as another user).
 
-#### Administrator Page Access
-
-Suppose that the administrator menu is part of the administrator account.
-
-The application will be considered vulnerable if any role other than administrator could access the administrator menu. Sometimes, developers perform authorization validation at the GUI level only, and leave the functions without authorization validation, thus potentially resulting in a vulnerability.
-
 #### Manipulation of User Group
 
 For example:
@@ -163,6 +157,12 @@ EventID=1000002
 ```
 
 If the response of the attacker’s request contains the same data `{"message": "Event was deleted"}` the application is vulnerable.
+
+#### Administrator Page Access
+
+Suppose that the administrator menu is part of the administrator account.
+
+The application will be considered vulnerable if any role other than administrator could access the administrator menu. Sometimes, developers perform authorization validation at the GUI level only, and leave the functions without authorization validation, thus potentially resulting in a vulnerability.
 
 ### URL Traversal
 
