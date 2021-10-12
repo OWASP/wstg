@@ -94,6 +94,76 @@ X-Forwarded-For: 8.1.1.1
 
 In this case, if the website uses the value of `X-forwarded-For` as client IP address, tester may change the IP value of the `X-forwarded-For` HTTP header to workaround the IP source identification.
 
+### Testing for Vertical Bypassing Authorization Schema
+
+A vertical authorization bypass is specific to the case that an attacker obtains a role higher than their own. Testing for this bypass focuses on verifying how the vertical authorization schema has been implemented for each role. For every function, page, specific role, or request that the application executes, it is necessary to verify if it is possible to:
+
+- Access resources that should be accessible only to a higher role user.
+- Operate functions on resources that should be operative only by a user that holds a higher or specific role identity.
+
+For each role:
+
+1. Register a user.
+2. Establish and maintain two different sessions based on the two different roles.
+3. For every request, change the session identifier from the original to another role's session identifier and evaluate the responses for each.
+4. An application will be considered vulnerable if the weaker privileged session contains the same data, or indicate successful operations on higher privileged functions.
+
+#### Banking Site Roles Scenario
+
+The following table illustrates the system roles on a banking site. Each role binds with specific permissions for the event menu functionality:
+
+|      ROLE     |     PERMISSION    | ADDITIONAL PERMISSION |
+|---------------|-------------------|-----------------------|
+| Administrator | Full Control      | Delete                |
+| Manager       | Modify, Add, Read | Add                   |
+| Staff         | Read, Modify      | Modify                |
+| Customer      | Read Only         |                       |
+
+The application will be considered vulnerable if the:
+
+1. Customer could operate administrator, manager or staff functions;
+2. Staff user could operate manager or administrator functions;
+3. Manager could operate administrator functions.
+
+Suppose that the `deleteEvent` function is part of the administrator account menu of the application, and it is possible to access it by requesting the following URL: `https://www.example.com/account/deleteEvent`. Then, the following HTTP request is generated when calling the `deleteEvent` function:
+
+```http
+POST /account/deleteEvent HTTP/1.1
+Host: www.example.com
+[other HTTP headers]
+Cookie: SessionID=ADMINISTRATOR_USER_SESSION
+
+EventID=1000001
+```
+
+The valid response:
+
+```http
+HTTP/1.1 200 OK
+[other HTTP headers]
+
+{"message": "Event was deleted"}
+```
+
+The attacker may try and execute the same request:
+
+```http
+POST /account/deleteEvent HTTP/1.1
+Host: www.example.com
+[other HTTP headers]
+Cookie: SessionID=CUSTOMER_USER_SESSION
+
+EventID=1000002
+```
+
+If the response of the attacker’s request contains the same data `{"message": "Event was deleted"}` the application is vulnerable.
+
+#### Administrator Page Access
+
+Suppose that the administrator menu is part of the administrator account.
+
+The application will be considered vulnerable if any role other than administrator could access the administrator menu. Sometimes, developers perform authorization validation at the GUI level only, and leave the functions without authorization validation, thus potentially resulting in a vulnerability.
+
 ### URL Traversal
 
 Try to traverse the website and check if some of pages that may miss the authorization check.
