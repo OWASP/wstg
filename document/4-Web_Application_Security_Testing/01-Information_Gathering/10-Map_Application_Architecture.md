@@ -6,9 +6,9 @@
 
 ## Summary
 
-In order to effectively test an application, and to be able to provide meaningful recommendations on how to address any of the issues identified, it is important to understand what you are actually testing. Additionally, it can in determining whether specific components should be considered out of scope for testing.
+In order to effectively test an application, and to be able to provide meaningful recommendations on how to address any of the issues identified, it is important to understand what you are actually testing. Additionally, it can help determine whether specific components should be considered out of scope for testing.
 
-Modern web application can vary significantly in complexity, from a simple script running on a single server to a highly complex application spread across dozens of different systems, languages and components. There may also be additional network-level components such as firewalls or intrusion protection systems that can have a significant impact on testing.
+Modern web applications can vary significantly in complexity, from a simple script running on a single server to a highly complex application spread across dozens of different systems, languages and components. There may also be additional network-level components such as firewalls or intrusion protection systems that can have a significant impact on testing.
 
 ## Test Objectives
 
@@ -16,7 +16,7 @@ Modern web application can vary significantly in complexity, from a simple scrip
 
 ## How to Test
 
-When testing from a black box perspective, it is important to try and build up a clear picture of how the application works, and which technologies and components are in place. In some cases it is it possible to test for specific components (such as a web application firewall), while others can be identified by inspecting the behaviour of the application.
+When testing from a black box perspective, it is important to try and build up a clear picture of how the application works, and which technologies and components are in place. In some cases it is possible to test for specific components (such as a web application firewall), while others can be identified by inspecting the behaviour of the application.
 
 The sections below provide a high-level overview of common architectural components, along with details of how they can be identified.
 
@@ -99,7 +99,7 @@ Applications may provide multiple options for the user to authenticate (such as 
 
 Almost all web applications include third party resources that are loaded or interacted with by the client. These can include:
 
-- [Active content](https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content#mixed_active_content) (such as scripts, style sheets, fonts and iframes).
+- [Active content](https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content#mixed_active_content) (such as scripts, style sheets, fonts, and iframes).
 - [Passive content](https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content#mixed_passivedisplay_content) (such as images and videos).
 - External APIs.
 - Social media buttons.
@@ -149,7 +149,7 @@ The easiest way to detect a CDN is to perform a WHOIS lookup for the IP addresse
 When testing a site behind a CDN, you should bear in mind the following points:
 
 - The IPs and servers belong to the CDN provider, and are likely to be out of scope for infrastructure testing.
-- Many CDNs also include features like bot detection, rate limiting and web application firewalls.
+- Many CDNs also include features like bot detection, rate limiting, and web application firewalls.
 - CDNs usually cache content, so any changes made to the back end website may not appear immediately.
 
 If the site is behind a CDN, then it can be useful to identify the back end servers. If they don't have proper access control enforced, then you may be able to bypass the CDN (and any protections it offers) by directly accessing the back end servers. There are a variety of different methods that may allow you to identify the back end system:
@@ -178,7 +178,7 @@ An IPS can usually be detected by running automated scanning tools (such as a po
 
 #### Web Application Firewall (WAF)
 
-A Web Application Firewall (WAF) inspects the contents of HTTP requests and blocks ones that appear to be suspicious or malicious, or dynamically apply other controls such as CAPTCHA or rate limiting. They are usually based on a set of known bad signatures and regular expressions, such as the [OWASP Core Rule Set](https://owasp.org/www-project-modsecurity-core-rule-set/).  WAFs can be effective at protecting against some types of attacks (such as SQL injection or cross-site scripting), but are less effective against other types (such as access control or business logic related issues).
+A Web Application Firewall (WAF) inspects the contents of HTTP requests and blocks those that appear to be suspicious or malicious, or dynamically apply other controls such as CAPTCHA or rate limiting. They are usually based on a set of known bad signatures and regular expressions, such as the [OWASP Core Rule Set](https://owasp.org/www-project-modsecurity-core-rule-set/).  WAFs can be effective at protecting against some types of attacks (such as SQL injection or cross-site scripting), but are less effective against other types (such as access control or business logic related issues).
 
 A WAF can be deployed in multiple locations, including:
 
@@ -188,4 +188,4 @@ A WAF can be deployed in multiple locations, including:
 
 Because a WAF blocks malicious requests, it can be detected by adding common attack strings to parameters and observing whether or not they are blocked. For example, try adding a parameter called `foo` with a value such as `' UNION SELECT 1` or `><script>alert(1)</script>`. If these requests are blocked then it suggests that there may be a WAF in place. Additionally, the contents of the block pages may provide information about the specific technology that is in use. Finally, some WAFs may add cookies or HTTP headers to responses that can reveal their presence.
 
-If the WAF is cloud-based WAF is in use, then it may be possible to bypass it by directly accessing the back end server, using the same methods discussed in the [Content Delivery Network](#content-delivery-network-cdn) section.
+If a cloud-based WAF is in use, then it may be possible to bypass it by directly accessing the back end server, using the same methods discussed in the [Content Delivery Network](#content-delivery-network-cdn) section.
