@@ -24,7 +24,7 @@ The sections below provide a high-level overview of common architectural compone
 
 #### Web Server
 
-Simple applications may run on a single server, which can be identified using the steps discussed in [Fingerprint Web Server](02-Fingerprint_Web_Server.md) section of the guide.
+Simple applications may run on a single server, which can be identified using the steps discussed in the [Fingerprint Web Server](02-Fingerprint_Web_Server.md) section of the guide.
 
 #### Platform-as-a-Service (PaaS)
 
@@ -60,7 +60,7 @@ Many applications store static content on dedicated storage platforms, rather th
 - Amazon S3 Buckets are either `BUCKET.s3.amazonaws.com` or `s3.REGION.amazonaws.com/BUCKET`
 - Azure Storage Accounts are `ACCOUNT.blob.core.windows.net`
 
-These storage accounts can often exposes sensitive files, as discussed in the [Testing Cloud Storage Guide](../02-Configuration_and_Deployment_Management_Testing/11-Test_Cloud_Storage.md)
+These storage accounts can often exposes sensitive files, as discussed in the [Testing Cloud Storage Guide](../02-Configuration_and_Deployment_Management_Testing/11-Test_Cloud_Storage.md) section.
 
 #### Database
 
@@ -71,7 +71,7 @@ Most non-trivial web applications use some kind of database to store dynamic con
 
 Where it's not possible to conclusively determine the database, you can often make an educated guess based on other aspects of the application:
 
-- Windows, IIS and ASP.NET often uses Microsoft SQL server.
+- Windows, IIS and ASP.NET often use Microsoft SQL server.
 - Embedded systems often use SQLite.
 - PHP often uses MySQL or PostgreSQL.
 - APEX often uses Oracle.
@@ -91,7 +91,7 @@ Most applications have some form of authentication for users. There are multiple
     - May be integrated into the web application in a form.
     - May require the username to be entered in the "DOMAIN\username" format, or may give a dropdown of available domains.
 - Single Sign-On (SSO) with either an internal or external provider.
-    - Typically uses OAuth, OpenID Connect or SAML.
+    - Typically uses OAuth, OpenID Connect, or SAML.
 
 Applications may provide multiple options for the user to authenticate (such as registering a local account, or using their existing Facebook account), and may use different mechanisms for normal users and administrators.
 
