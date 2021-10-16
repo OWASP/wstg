@@ -6,7 +6,7 @@
 
 ## Summary
 
-[OAuth2.0](https://oauth.net/2/) is an authorization framework used in web-enabled applications and APIs it will be referred to as just OAuth.
+[OAuth2.0](https://oauth.net/2/) is an authorization framework used in web-enabled applications and APIs it will be referred to as OAuth.
 It enables a third-party application to obtain limited access to an HTTP service, either on behalf of a resource owner by orchestrating an approval interaction
 between the resource owner and the HTTP service, or by allowing the third-party application to obtain access on its own behalf.
 
@@ -30,11 +30,11 @@ Since OAuth's responsebillity is it to delegate access rights across several ser
 
 OAuth has five different entities that are part of an OAuth exchange.
 
-- Ressource Owner (user)
-- User Agent (browser, native app)
-- Client (the application which requests access to a Ressource on behalf of the Ressource Owner)
-- Authorization Server (a server which holds authorization information and grants the access)
-- Ressource Server (an application that serves content accessed by the client)
+- Ressource Owner, the entity who grants access to a ressource
+- User Agent, browser, native app
+- Client, the application which requests access to a ressource on behalf of the Ressource Owner
+- Authorization Server, a server which holds authorization information and grants the access
+- Ressource Server, an application that serves content accessed by the client
 
 Based on the applications abillity to keep a secret in secret it seperates clients into two distinct types:
 
@@ -48,56 +48,80 @@ In order to understand the attack surface it is crucial to determine which OAuth
 
 These are the most common OAuth Grant Types:
 
-- Authorization Code
-- Consent
-- Proof Key for Code Exchange (PKCE)
-- Client Credentials
-- Device Code
-- Refresh Token
-
-Authorization Code Grant is commonly used in conjuction with the PKCE Grant. It is the recommended Grant Type in most situations.
+- Authorization Code, commonly used with confidential client
+- Proof Key for Code Exchange (PKCE), commonly used with public clients in conjunction with Authorization Code
+- Consent, Requiered for the approval of third party clients
+- Client Credentials, used for machine to machine communication
+- Device Code, used for devices with limited input capabilitied
 
 ### Testing for improper Grant Type
 
-Depending on the architecture of the web app that is tested, different grant types should be used.
+Depending on the architecture of the application, different grant types should be used. 
+
+> **NOTE**:  
+> The Ressource Owner Password Credential Grant (ROPCG) is deprecated and poses a security risk.  
 
 #### How to test
 
-The grant type is part of the authorization request URL. It is present in the `response_type` query parameter
+It is generally possible to identify the grant type as it is part of the token exchange in the parameter `grant_type`. Following example shows the Authorization Code Grant + PKCE. PKCE can be identified by the `code_verifier` parameter.
 
 ```http
-GET /auth/realms/example/protocol/openid-connect/auth?client_id=app-angular2&redirect_uri=http%3A%2F%client.example.com%2Fapp-angular2%2F&state=19abbae7-79cb-4e82-8ea1-897d98251f4e&response_mode=fragment&response_type=code&scope=openid&nonce=636db683-18ba-4c92-a56f-a7f7ccd772ce HTTP/1.1
+POST /oauth/token HTTP/2
 Host: idp.exemple.com
 [...]
+
+{
+    "client_id":"ZXhhbXBsZQ",
+    "code_verifier":"fuV-R1Yyxs-1rSk7XInhp5NXGj0PJucD0q5J5VF_qWp",
+    "grant_type":"authorization_code",
+    "code":"ZqQcutj6aOe_TBfzOGJewgZsu99kgbrbW24zz-8QUpu86",
+    "redirect_uri":"http://client.example.com
+    }
 ```
 
 #### Public Clients
 
-The proper grant for public clients is the code-grant with the PKCE extension.
-The authorization request for Code Flow + PKCE should contain `response_type=code` and `code_challenge=sha256(xyz)`.
+Recommended for public client is the code-grant with the PKCE extension.
+An authorization request for Code Flow + PKCE should contain `response_type=code` and `code_challenge=sha256(xyz)`.
+
+```http
+GET /authorize?redirect_uri=http%3A%2F%2Flocalhost%3A4200&client_id=ZXhhbXBsZQ&scope=openid%20profile%20email&response_type=code&response_mode=query&state=ZXhhbXBsZQ%3D%3D&nonce=ZXhhbXBsZQ%3D%3D&code_challenge=eNJJZHGTgeaB-RV61cQCesIdnCOQ_Pv5tENQ9xBnKh4&code_challenge_method=S256& HTTP/2
+Host: idp.example.com
+[...]
+```
 
 Improper grant types for public client:
 
 - Code Grant without the PKCE extension
-- Direct Access Grant
-- Refresh Token (if the user agent can securly store the token) see. %%TODO Insert ref. to Session Storage%%
+- Client Credentials
+- Ressource Owner Password Credential Grant
 
 #### Confidential Clients
 
-Most of the time the code-grant with the PKCE extension can also be used for confidential clients.
+The code-grant is recommended for confidential client and the PKCE extension may be used as well.
 
-- Direct Access Grant
+Improper grant types for confidential client:
+
+- Ressource Owner Password Credential Grant
+
+##### Machine to Machine
+
+Machine to Machine clients generally should be able to keep a secret and therefore may be confidentials clients. No user interaction can happen and they may relie solely on the client secret with the Client Credentials grant.
+
+If you already know the client secret it is possible to obtain a token.
+
+```bash
+λ curl --request POST \
+  --url https://alcastronic.eu.auth0.com/oauth/token \
+  --header 'content-type: application/json' \
+  --data '{"client_id":"ZXhhbXBsZQ","client_secret":"THE_CLIENT_SECRET","audience":"https://idp.example.com/","grant_type":"client_credentials"}' --proxy http://localhost:8080/ -k
+```
 
 #### Restricted User Agent
 
 Some clients have a user agent with limited capabilities. Those include Smart TVs and other devices with similar restricted input capabilities.
+
 For such devices the `Device Grant` flow is appropiate.
-
-#### Machine to Machine
-
-Such clients may make use of the bearer only grant type. Since machine to nachine communication is per-definition invisible to a user-agent
-it is generally not possible to test without a Machine in the middle setup.
-%%TODO%%
 
 ### Cross Site Request Forgery
 
@@ -110,7 +134,7 @@ Targets:
 
 #### Consent Page
 
-The consent page is displayed to a user to verify that this user consensts in the client accessing the ressource on the users behalf. Attacking the consent page with a CSRF migth grant an aritrary client access to a ressource on behalf of the user.
+The consent page is displayed to a user to verify that this user consensts in the client accessing the ressource on the users behalf. Attacking the consent page with a CSRF migth grant an arbitrary client access to a ressource on behalf of the user.
 
 ### Clickjacking
 
