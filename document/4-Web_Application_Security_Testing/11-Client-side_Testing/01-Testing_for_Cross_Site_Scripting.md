@@ -38,4 +38,5 @@ The [OWASP Testing Guide](https://owasp.org/www-project-web-security-testing-gui
 ## References
 
 ### OWASP Resources
-* [Cross Site Scripting (XSS)](https://owasp.org/www-community/attacks/xss/)
+
+- [Cross Site Scripting (XSS)](https://owasp.org/www-community/attacks/xss/)
