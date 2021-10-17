@@ -130,11 +130,30 @@ CSRF attacks are described in [CSRF](xxx.md) there are few targets in OAuth that
 Targets:
 
 - Consent Page
-- Code Flow
+- Authorization Code Flow
 
 #### Consent Page
 
 The consent page is displayed to a user to verify that this user consensts in the client accessing the ressource on the users behalf. Attacking the consent page with a CSRF migth grant an arbitrary client access to a ressource on behalf of the user.
+
+1. Client generates a state parameter and sends it with the consent request.
+2. User Agent displays the consent page
+3. Ressource Owner grant's access to the client
+4. The consent is sent to the IdP together with the acknowledged scopes
+
+To prevent CSRF attacks OAuth leaverages the `state` parameter as an anti CSRF token. Use a tool like OWASP ZAP to test if the state parameter is properly validated.
+
+```http
+POST /u/consent?state=Tampered_State HTTP/2
+Host: idp.example.com
+[...]
+
+state=Tampered_State&audience=https%3A%2F%2Fidp.example.com%2Fuserinfo&scope%5B%5D=profile&scope%5B%5D=email&action=accept
+```
+
+#### Authorization Code Flow
+
+CSRF with authorization code flow.
 
 ### Clickjacking
 
@@ -152,9 +171,7 @@ TODO
 
 - Use only once
 
-### Client Impersonating Resource Owner
 
-- public clients (csrf)
 
 ### Credential Leakage via Referer Header
 
