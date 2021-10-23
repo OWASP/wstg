@@ -6,11 +6,11 @@
 
 ## Summary
 
-[OAuth2.0](https://oauth.net/2/) is an authorization framework used in web-enabled applications and APIs it will be referred to as OAuth.
+[OAuth2.0](https://oauth.net/2/) is an authorization delegation framework used in web-enabled applications and APIs it will be referred to as OAuth.
 It enables a third-party application to obtain limited access to an HTTP service, either on behalf of a resource owner by orchestrating an approval interaction
 between the resource owner and the HTTP service, or by allowing the third-party application to obtain access on its own behalf.
 
-Authorization information is typically being proofed using a bearer token that if presented to a service should tell the service which access rights may be assigned to the request. Therefore the JWT checks in WSTG-SESS-10 also apply to the Testing for OAuth weaknesses chapter. The usage of Bearer Token with OAuth is described in rfc6750.
+Authorization information is typically being proofed using a access token that if presented to a service should tell the service which access rights may be assigned to the request. Therefore the JWT checks in WSTG-SESS-10 also apply to the Testing for OAuth weaknesses chapter. The usage of Bearer Token with OAuth is described in rfc6750.
 
 OAuth itself can be used for authentication but it is generally not recommended to implement your own way of doing so. Instead authentication should be implemented with the OpenID Connect standard.
 
@@ -28,7 +28,7 @@ Since OAuth's responsebillity is it to delegate access rights across several ser
 
 ### Overview
 
-OAuth has five different entities that are part of an OAuth exchange.
+OAuth has five different roles that are part of an OAuth exchange.
 
 - Ressource Owner, the entity who grants access to a ressource
 - User Agent, browser, native app
@@ -44,7 +44,7 @@ Based on the applications abillity to keep a secret in secret it seperates clien
 Confidential Clients are typically applications with server side code that are able to prevent anyone from acessing the secret.
 Public Clients in contrast are unable to keep the secret secret, an example for a Public Client would be a SPA which has all the code present on the User Agent
 
-In order to understand the attack surface it is crucial to determine which OAuth Grant Type is used for the application you are testing against.
+In order to understand the attack surface better it is crucial to determine which OAuth Grant Type is used for the application you are testing against.
 
 These are the most common OAuth Grant Types:
 
@@ -56,10 +56,10 @@ These are the most common OAuth Grant Types:
 
 ### Testing for improper Grant Type
 
-Depending on the architecture of the application, different grant types should be used. 
+Depending on the architecture of the application, different grant types should be used.
 
 > **NOTE**:  
-> The Ressource Owner Password Credential Grant (ROPCG) is deprecated and poses a security risk.  
+> The Ressource Owner Password Credentials Grant ([ROPC](https://www.youtube.com/watch?v=qMtYaDmhnHU)) is deprecated and should only be used for migration purposes.  
 
 #### How to test
 
@@ -90,10 +90,13 @@ Host: idp.example.com
 [...]
 ```
 
+Further the token exchange should contain the  grant type `authorization_code` and a `code_verifier`.
+
 Improper grant types for public client:
 
 - Code Grant without the PKCE extension
 - Client Credentials
+- Implicit flow
 - Ressource Owner Password Credential Grant
 
 #### Confidential Clients
@@ -103,6 +106,8 @@ The code-grant is recommended for confidential client and the PKCE extension may
 Improper grant types for confidential client:
 
 - Ressource Owner Password Credential Grant
+- Implicit flow
+- Client Credentials (Except for Machine to Machine)
 
 ##### Machine to Machine
 
@@ -112,7 +117,7 @@ If you already know the client secret it is possible to obtain a token.
 
 ```bash
 λ curl --request POST \
-  --url https://alcastronic.eu.auth0.com/oauth/token \
+  --url https://idp.example.com/oauth/token \
   --header 'content-type: application/json' \
   --data '{"client_id":"ZXhhbXBsZQ","client_secret":"THE_CLIENT_SECRET","audience":"https://idp.example.com/","grant_type":"client_credentials"}' --proxy http://localhost:8080/ -k
 ```
@@ -123,41 +128,8 @@ Some clients have a user agent with limited capabilities. Those include Smart TV
 
 For such devices the `Device Grant` flow is appropiate.
 
-### Cross Site Request Forgery
 
-CSRF attacks are described in [CSRF](xxx.md) there are few targets in OAuth that can be attacked with CSRF.
 
-Targets:
-
-- Consent Page
-- Authorization Code Flow
-
-#### Consent Page
-
-The consent page is displayed to a user to verify that this user consensts in the client accessing the ressource on the users behalf. Attacking the consent page with a CSRF migth grant an arbitrary client access to a ressource on behalf of the user.
-
-1. Client generates a state parameter and sends it with the consent request.
-2. User Agent displays the consent page
-3. Ressource Owner grant's access to the client
-4. The consent is sent to the IdP together with the acknowledged scopes
-
-To prevent CSRF attacks OAuth leaverages the `state` parameter as an anti CSRF token. Use a tool like OWASP ZAP to test if the state parameter is properly validated.
-
-```http
-POST /u/consent?state=Tampered_State HTTP/2
-Host: idp.example.com
-[...]
-
-state=Tampered_State&audience=https%3A%2F%2Fidp.example.com%2Fuserinfo&scope%5B%5D=profile&scope%5B%5D=email&action=accept
-```
-
-#### Authorization Code Flow
-
-CSRF with authorization code flow.
-
-### Clickjacking
-
-When the consent page is prone to clickjacking and the attacker is in posession of the clientId (for public clients) and additionally the client secret for confidential client, the attacker can forge the users consent and gain access to the users account information throug a rogue client.
 
 ### Mix-Up Attacks
 
@@ -171,8 +143,6 @@ TODO
 
 - Use only once
 
-
-
 ### Credential Leakage via Referer Header
 
 TODO
@@ -183,20 +153,20 @@ TODO
 
 ## Related Test Cases
 
-- [CORS](xxx.md)
-- [CSRF](xxx.md)
-- [Open Redirect](xxx.md)
-- [JWT](xxx.md)
-- [Clickjacking](xxx.md)
+- [Testing for Cross Site Request Forgery](../06-Session_Management_Testing/05-Testing_for_Cross_Site_Request_Forgery.md)
+- [Testing for Client-side URL Redirect](../11-Client-side_Testing/04-Testing_for_Client-side_URL_Redirect.md)
+- [Testing JSON Web Tokens](../06-Session_Management_Testing/10-Testing_JSON_Web_Tokens.md)
+- [Testing Cross Origin Resource Sharing](../11-Client-side_Testing/07-Testing_Cross_Origin_Resource_Sharing.md)
 
 ## Remediation
 
-Do not make a habit of putting cats in boxes. Keep boxes away from cats as much as possible.
+%%TODO%%
 
 ## Tools
 
-- BurpSuite
-- OWASP ZAP
+- [BurpSuite](https://portswigger.net/burp/releases)
+  - [EsPReSSO](https://github.com/portswigger/espresso)
+- [OWASP ZAP](https://www.zaproxy.org/)
 
 ## References
 
