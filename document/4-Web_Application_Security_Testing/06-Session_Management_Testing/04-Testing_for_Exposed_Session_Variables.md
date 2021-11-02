@@ -75,7 +75,7 @@ All interaction between the Client and Application should be tested at least aga
 
 - How are Session IDs transferred? e.g., GET, POST, Form Field (including hidden fields)
 - Are Session IDs always sent over encrypted transport by default?
-- Is it possible to manipulate the application to send Session IDs unencrypted? e.g., by changing HTTP to HTTPS?
+- Is it possible to manipulate the application to send Session IDs unencrypted? e.g., by changing HTTPS to HTTP?
 - What cache-control directives are applied to requests/responses passing Session IDs?
 - Are these directives always present? If not, where are the exceptions?
 - Are GET requests incorporating the Session ID used?
