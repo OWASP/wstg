@@ -10,7 +10,7 @@ Modern web applications are very often based on frameworks. Many of these web ap
 This feature can be sometimes exploited to access fields that were never intended to be modified from outside leading to privilege escalation, data tampering, bypass of security mechanisms, and more.
 In this case there is a Mass Assignment vulnerability.
 
-Examples for sensitive properties:
+Examples of sensitive properties:
 
 - **Permission-related properties**: should only be set by privileged users (e.g. `is_admin`, `role`, `approved`).
 - **Process-dependent properties**: should only be set internally, after a process is completed (e.g. `balance`, `status`, `email_verified`)
