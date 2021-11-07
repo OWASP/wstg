@@ -54,6 +54,7 @@ object-src 'none'; base-uri 'none';
 
 - [Google CSP Evaluator](https://csp-evaluator.withgoogle.com/)
 - [CSP Auditor - Burp Suite Extension](https://portswigger.net/bappstore/35237408a06043e9945a11016fcbac18)
+- [CSP Generator Chrome](https://chrome.google.com/webstore/detail/content-security-policy-c/ahlnecfloencbkpfnpljbojmjkfgnmdc) / [Firefox](https://addons.mozilla.org/en-US/firefox/addon/csp-generator/)
 
 ## References
 
