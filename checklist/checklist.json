@@ -653,6 +653,15 @@
                     "Asses the severity of the vulnerability."
                   ]
                 }
+                ,{
+                "name":"Testing for Mass Assignment",
+                "id":"WSTG-INPV-20",
+                "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/07-Input_Validation_Testing/20-Testing_for_Mass_Assignment.html",
+                "objectives":[
+                    "Identify requests that modify objects",
+                    "Assess if it is possible to modify fields never intended to be modified from outside"
+                  ]
+                }
             ]
         }
         ,"Testing for Error Handling": {
