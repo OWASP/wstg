@@ -144,7 +144,7 @@ It is also advisable to pay attention to the use of the `@ModelAttribute` annota
 
 #### PHP
 
-Laravel Eloquent ORM provides a `create` method which allows to automatically assign attributes. However, latest versions of Eloquent ORM provide a default protection against mass assignment vulnerabilities requiring to explicitly specify allowed attributes that can be assigned automatically, through the `$fillable` array, or attributes that have to be protected (non-bindable), trough the `$guarded` array. Therefore by analyzing the models (classes that extend the `Model` class) it is possible to identify which attributes are allowed or denied and therefore point out potential vulnerabilities.
+Laravel Eloquent ORM provides a `create` method which allows automatic assignment of attributes. However, the latest versions of Eloquent ORM provide default protection against mass assignment vulnerabilities requiring to explicitly specify allowed attributes that can be assigned automatically, through the `$fillable` array, or attributes that have to be protected (non-bindable), trough the `$guarded` array. Therefore by analyzing the models (classes that extend the `Model` class) it is possible to identify which attributes are allowed or denied and therefore point out potential vulnerabilities.
 
 #### .NET
 
