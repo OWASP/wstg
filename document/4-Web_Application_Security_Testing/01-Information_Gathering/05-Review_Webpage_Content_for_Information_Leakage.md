@@ -148,7 +148,7 @@ When websites load source map files, the front-end source code will become reada
 
 ### Identify Redirect Responses which Leak Information
 
-Although redirect responses are not generally expected to contain any significant web content there is no assurance that they cannot contain content. So, while series 300 (redirect) responses often contain "redirecting to `https://example.com/`" type content they may also leak content. 
+Although redirect responses are not generally expected to contain any significant web content there is no assurance that they cannot contain content. So, while series 300 (redirect) responses often contain "redirecting to `https://example.com/`" type content they may also leak content.
 
 Consider a situation in which a redirect response is the result of an authentication or authorization check, if that check fails the server may respond redirecting the user back to a "safe" or "default" page, yet the redirect response itself may still contain content which isn't shown in the browser but is indeed transmitted to the client. This can be seen either leveraging browser developer tools or via a personal proxy (such as ZAP, Burp, Fiddler, or Charles).
 
