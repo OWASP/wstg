@@ -9,6 +9,10 @@ on:
     - '!.github/**'
     - '!translations/**'
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   textlint:
     runs-on: ubuntu-latest
@@ -42,30 +46,28 @@ jobs:
         for FILE in $FILES; do echo $FILE | grep -v \.github | grep -v translations && textlint --config .github/configs/.textlintrc --fix --rule terminology $FILE | tee -a log.txt; done
         if grep -q  'Incorrect usage' log.txt ; then exit 1 ; else echo -e \"No terminology issues found.\"; fi
     - name: Show Mistakes
-      id: mistakes
       if: failure()
       run: |
         cat log.txt
-        MISTAKES=$(cat log.txt|grep -v '✔ Fixed'|tr '✔' '✖')
-        MISTAKES="${MISTAKES//'%'/'%25'}"
-        MISTAKES="${MISTAKES//$'\n'/'%0A'}"
-        MISTAKES="${MISTAKES//$'\r'/'%0D'}"
-        echo ::set-output name=MISTAKES::**The following mistakes were identified:** %0A$MISTAKES
+        cat log.txt | grep -v '✔ Fixed' | tr '✔' '✖' >mistakes.txt
     - name: Attach Mistakes
       if: failure()
       uses: actions/upload-artifact@v1
       with:
         name: Terminology Mistakes
-        path: log.txt
+        path: mistakes.txt
     - name: Comment Mistakes
       if: failure()
       uses: actions/github-script@v2
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
+          const fs = require("fs");
+          const mistakesPath = `${process.env.GITHUB_WORKSPACE}/mistakes.txt`;
+          const mistakesString = fs.readFileSync(mistakesPath).toString().trimEnd();
           github.issues.createComment({
             issue_number: ${{ github.event.number }},
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: `${{ steps.mistakes.outputs.MISTAKES }}`
+            body: `**The following mistakes were identified:** \n${mistakesString}`
           })

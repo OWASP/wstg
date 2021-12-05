@@ -7,6 +7,11 @@ on:
     paths:
     - '**.md'
     - '!.github/**'
+
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -25,16 +30,10 @@ jobs:
     - name: Run linter
       run: markdownlint . --config .github/configs/.markdownlint.json --ignore node_modules --ignore .github &> lint.txt
     - name: Show Linting Issues
-      id: lint
       if: failure()
       run: |
         cat lint.txt
         sed -i 's/```/triple-backtick/g' lint.txt
-        ISSUES=$(cat lint.txt)
-        ISSUES="${ISSUES//'%'/'%25'}"
-        ISSUES="${ISSUES//$'\n'/'%0A'}"
-        ISSUES="${ISSUES//$'\r'/'%0D'}"
-        echo ::set-output name=ISSUES::**The following issues were identified:** %0A$ISSUES
     - name: Attach Linting Issues
       if: failure()
       uses: actions/upload-artifact@v1
@@ -47,10 +46,13 @@ jobs:
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
+          const fs = require("fs");
+          const lintPath = `${process.env.GITHUB_WORKSPACE}/lint.txt`;
+          const lintString = fs.readFileSync(lintPath).toString().trimEnd();
           github.issues.createComment({
             issue_number: ${{ github.event.number }},
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: `${{ steps.lint.outputs.ISSUES }}`
+            body: `**The following issues were identified:** \n${lintString}`
           })
 
