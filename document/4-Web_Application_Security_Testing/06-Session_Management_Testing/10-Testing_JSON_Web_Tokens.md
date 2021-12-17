@@ -100,13 +100,11 @@ This can be easily tested for by modifying the body of the JWT without changing 
 
 As well as the public key and HMAC-based algorithms, the JWT specification also defines a signature algorithm called `none`. As the name suggests, this means that there is no signature for the JWT, allowing it to be modified.
 
-Some implementation try and avoid this by explicitly blocking the use of the `none` algorithm. If this is done in a case-insensitive way, it may be possible to bypass by specifying an algorithm such as `NoNe`.
-
-This can be tested by modifying the signature algorithm (`alg`) in the JWT header to `NoNe`, as shown in the example below:
+This can be tested by modifying the signature algorithm (`alg`) in the JWT header to `none`, as shown in the example below:
 
 ```json
 {
-        "alg": "NoNe",
+        "alg": "none",
         "typ": "JWT"
 }
 ```
@@ -114,8 +112,10 @@ This can be tested by modifying the signature algorithm (`alg`) in the JWT heade
 The header and payload are then re-encoded with Base64, and the signature is removed (leaving the trailing period). Using the header above, and the payload listed in the [payload](#payload) section, this would give the following JWT:
 
 ```txt
-eyJhbGciOiAiTm9OZSIsICJ0eXAiOiAiSldUIn0.eyJ1c2VybmFtZSI6ImFkbWluaW5pc3RyYXRvciIsImlzX2FkbWluIjp0cnVlLCJpYXQiOjE1MTYyMzkwMjIsImV4cCI6MTUxNjI0MjYyMn0.
+eyJhbGciOiAibm9uZSIsICJ0eXAiOiAiSldUIn0K.eyJ1c2VybmFtZSI6ImFkbWluaW5pc3RyYXRvciIsImlzX2FkbWluIjp0cnVlLCJpYXQiOjE1MTYyMzkwMjIsImV4cCI6MTUxNjI0MjYyMn0.
 ```
+
+Some implementation try and avoid this by explicitly blocking the use of the `none` algorithm. If this is done in a case-insensitive way, it may be possible to bypass by specifying an algorithm such as `NoNe`.
 
 ### Weak HMAC Keys
 
