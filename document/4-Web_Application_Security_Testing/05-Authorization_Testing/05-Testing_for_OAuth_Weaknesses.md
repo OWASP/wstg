@@ -10,7 +10,7 @@
 It enables a third-party application to obtain limited access to an HTTP service, either on behalf of a resource owner by orchestrating an approval interaction
 between the resource owner and the HTTP service, or by allowing the third-party application to obtain access on its own behalf.
 
-Authorization information is typically being proofed using a access token that if presented to a service should tell the service which access rights may be assigned to the request. Therefore the JWT checks in WSTG-SESS-10 also apply to the Testing for OAuth weaknesses chapter. The usage of Bearer Token with OAuth is described in rfc6750.
+Authorization information is typically being proofed using a access token that if presented to a service should tell the service which access rights may be assigned to the request. Access token may be opaque tokens but very often they are JWTs,therefore the JWT checks in [Testing JSON Web Tokens](../06-Session_Management_Testing/10-Testing_JSON_Web_Tokens.md) also apply to the Testing for OAuth weaknesses chapter. The usage of Bearer Token with OAuth is described in rfc6750.
 
 OAuth itself can be used for authentication but it is generally not recommended to implement your own way of doing so. Instead authentication should be implemented with the OpenID Connect standard.
 
@@ -67,7 +67,7 @@ For public clients it is generally possible to identify the grant type as it is 
 
 ```http
 POST /oauth/token HTTP/2
-Host: idp.exemple.com
+Host: idp.example.com
 [...]
 
 {
@@ -75,7 +75,7 @@ Host: idp.exemple.com
     "code_verifier":"fuV-R1Yyxs-1rSk7XInhp5NXGj0PJucD0q5J5VF_qWp",
     "grant_type":"authorization_code",
     "code":"ZqQcutj6aOe_TBfzOGJewgZsu99kgbrbW24zz-8QUpu86",
-    "redirect_uri":"http://client.example.com
+    "redirect_uri":"http://client.example.com"
     }
 ```
 
@@ -151,20 +151,16 @@ Make use of a HTTP Interception proxy such as OWASP ZAP and intercept the OAuth 
 
 - Step through the authorization process and identify any credentials being present in the URL.
 - If any external resources are included in a page involved with the OAuth flow analyse request made to them as
-  credentials could be leaked in the referrer header
-
-### Access Token Injection
-
-TODO
+  credentials could be leaked in the referrer header.
 
 ## Related Test Cases
 
-TODO
+- [Testing JSON Web Tokens](../06-Session_Management_Testing/10-Testing_JSON_Web_Tokens.md)
 
 ## Remediation
 
 - When implementing OAuth always consider the used technology wether it is a server side application that can keep a secret or a client side application which can't.
-- In almost any case use the Authorization Code Flow + PKCE. Exceptions are M2M flows. 
+- In almost any case use the Authorization Code Flow + PKCE. Exceptions of that are M2M flows.
 - Use Post parameters or Header values to transport secrets.
 - When no other possibility exists, legacy applications that can not be migrated for example, implement additional
   security headers like a `Referrer-Policy` policy.
