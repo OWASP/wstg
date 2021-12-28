@@ -71,7 +71,7 @@ Host: idp.example.com
 [...]
 
 {
-    "client_id":"ZXhhbXBsZQ",
+    "client_id":"example-client",
     "code_verifier":"fuV-R1Yyxs-1rSk7XInhp5NXGj0PJucD0q5J5VF_qWp",
     "grant_type":"authorization_code",
     "code":"ZqQcutj6aOe_TBfzOGJewgZsu99kgbrbW24zz-8QUpu86",
@@ -88,7 +88,7 @@ If presented with a confidential client, the authorization request might give aw
 Following is an example for Authorization Code Flow + PKCE
 
 ```http
-GET /authorize?redirect_uri=http%3A%2F%2Flocalhost%3A4200&client_id=ZXhhbXBsZQ&scope=openid%20profile%20email&response_type=code&response_mode=query&state=ZXhhbXBsZQ%3D%3D&nonce=ZXhhbXBsZQ%3D%3D&code_challenge=eNJJZHGTgeaB-RV61cQCesIdnCOQ_Pv5tENQ9xBnKh4&code_challenge_method=S256& HTTP/2
+GET /authorize?redirect_uri=http%3A%2F%2Flocalhost%3A4200&client_id=example-client&scope=openid%20profile%20email&response_type=code&response_mode=query&state=ZXhhbXBsZQ%3D%3D&nonce=ZXhhbXBsZQ%3D%3D&code_challenge=eNJJZHGTgeaB-RV61cQCesIdnCOQ_Pv5tENQ9xBnKh4&code_challenge_method=S256& HTTP/2
 Host: idp.example.com
 [...]
 ```
