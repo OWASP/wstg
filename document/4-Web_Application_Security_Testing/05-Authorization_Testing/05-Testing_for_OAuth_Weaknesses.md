@@ -67,7 +67,7 @@ For public clients it is generally possible to identify the grant type as it is 
 
 ```http
 POST /oauth/token HTTP/2
-Host: idp.example.com
+Host: as.example.com
 [...]
 
 {
@@ -88,8 +88,8 @@ If presented with a confidential client, the authorization request might give aw
 Following is an example for Authorization Code Flow + PKCE
 
 ```http
-GET /authorize?redirect_uri=http%3A%2F%2Flocalhost%3A4200&client_id=example-client&scope=openid%20profile%20email&response_type=code&response_mode=query&state=ZXhhbXBsZQ%3D%3D&nonce=ZXhhbXBsZQ%3D%3D&code_challenge=eNJJZHGTgeaB-RV61cQCesIdnCOQ_Pv5tENQ9xBnKh4&code_challenge_method=S256& HTTP/2
-Host: idp.example.com
+GET /authorize?redirect_uri=http%3A%2F%2Fexample%2F&client_id=example-client&scope=openid%20profile%20email&response_type=code&response_mode=query&state=example&nonce=example&code_challenge=example&code_challenge_method=S256& HTTP/2
+Host: as.example.com
 [...]
 ```
 
@@ -125,9 +125,9 @@ If you already know the client id and secret it is possible to obtain a token wi
 
 ```bash
 λ curl --request POST \
-  --url https://idp.example.com/oauth/token \
+  --url https://as.example.com/oauth/token \
   --header 'content-type: application/json' \
-  --data '{"client_id":"example-client","client_secret":"THE_CLIENT_SECRET","audience":"https://idp.example.com/","grant_type":"client_credentials"}' --proxy http://localhost:8080/ -k
+  --data '{"client_id":"example-client","client_secret":"THE_CLIENT_SECRET","audience":"https://as.example.com/","grant_type":"client_credentials"}' --proxy http://localhost:8080/ -k
 ```
 
 ### Credential Leakage via Referrer Header
