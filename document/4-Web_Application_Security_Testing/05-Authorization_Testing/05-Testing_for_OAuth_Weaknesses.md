@@ -98,7 +98,7 @@ Host: as.example.com
 Recommended for public client is the code-grant with the PKCE extension.
 An authorization request for Authorization Code Flow + PKCE should contain `response_type=code` and `code_challenge=sha256(xyz)`.
 
-Further the token exchange should contain the  grant type `authorization_code` and a `code_verifier`.
+Further the token exchange should contain the grant type `authorization_code` and a `code_verifier`.
 
 Improper grant types for public client:
 
@@ -135,7 +135,7 @@ If you already know the client id and secret it is possible to obtain a token wi
 OAuth transports, dependent on the flow, several types of credentials in the URL.
 The following tokens can be considered as credentials.
 
-- authorization token
+- access token
 - refresh token
 - authorization code
 - PKCE code challenge / code verifier
