@@ -52,7 +52,7 @@ Successful contributors appear on [the project's list of authors, reviewers, or 
 
 We're easy to find on Slack:
 
-1. Join the OWASP Group Slack with this [invitation link](https://owasp-slack.herokuapp.com/).
+1. Join the OWASP Group Slack with this [invitation link](https://owasp.org/slack/invite).
 2. Join this project's [channel, #testing-guide](https://app.slack.com/client/T04T40NHX/CJ2QDHLRJ).
 
 Feel free to ask questions, suggest ideas, or share your best recipes.
