@@ -71,12 +71,12 @@ Host: as.example.com
 [...]
 
 {
-    "client_id":"example-client",
-    "code_verifier":"fuV-R1Yyxs-1rSk7XInhp5NXGj0PJucD0q5J5VF_qWp",
-    "grant_type":"authorization_code",
-    "code":"ZqQcutj6aOe_TBfzOGJewgZsu99kgbrbW24zz-8QUpu86",
-    "redirect_uri":"http://client.example.com"
-    }
+  "client_id":"example-client",
+  "code_verifier":"example",
+  "grant_type":"authorization_code",
+  "code":"example",
+  "redirect_uri":"http://client.example.com"
+}
 ```
 
 If presented with a confidential client, the authorization request might give away some hints on the grant type that is being used. The following URL parameters indicate the used flow as well.
@@ -88,7 +88,16 @@ If presented with a confidential client, the authorization request might give aw
 Following is an example for Authorization Code Flow + PKCE
 
 ```http
-GET /authorize?redirect_uri=http%3A%2F%2Fexample%2F&client_id=example-client&scope=openid%20profile%20email&response_type=code&response_mode=query&state=example&nonce=example&code_challenge=example&code_challenge_method=S256& HTTP/2
+GET /authorize
+    ?redirect_uri=http%3A%2F%2Fclient.example.com%2F
+    &client_id=example-client
+    &scope=openid%20profile%20email
+    &response_type=code
+    &response_mode=query
+    &state=example
+    &nonce=example
+    &code_challenge=example
+    &code_challenge_method=S256 HTTP/2
 Host: as.example.com
 [...]
 ```
