@@ -58,7 +58,7 @@ Depending on the architecture of the application, different grant types should b
 The following list shows two [OAuth Grant Types](https://oauth.net/2/grant-types/) that are still part of the OAuth 2.0 but are kept only to allow migration to newer Grant Types.
 They are deprecated in [OAuth 2.1](https://oauth.net/2.1/) for security reasons.
 
-- [Resource Owner Password Credentials Grant](https://www.youtube.com/watch?v=qMtYaDmhnHU) (ROPC)) is deprecated and should only be used for migration purposes.  
+- [Resource Owner Password Credentials Grant](https://www.youtube.com/watch?v=qMtYaDmhnHU) (ROPC) is deprecated and should only be used for migration purposes.  
 - [Implicit Flow](https://oauth.net/2/grant-types/implicit/) was designed to work around the lack of cross site request possibilities in browsers which is now solved with CORS.
 
 #### How to test
@@ -175,7 +175,7 @@ Make use of an HTTP Interception proxy such as OWASP ZAP and intercept the OAuth
 - If any external resources are included in a page involved with the OAuth flow analyze request made to them as
   credentials could be leaked in the referrer header.
 
-After stepping through the oAuth flow and using the application for a while few requests are captured in the request history of an HTTP interception proxy. Search for the Referer Header (`Referer: https://idp.example.com/`) containing the IdP and Client URL in the request history.
+After stepping through the oAuth flow and using the application for a while few requests are captured in the request history of an HTTP interception proxy. Search for the Referer Header (`Referer: https://idp.example.com/`) containing the AS and Client URL in the request history.
 
 ## Related Test Cases
 
