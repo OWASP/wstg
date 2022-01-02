@@ -53,7 +53,7 @@ These are the most common OAuth Grant Types:
 
 ### Testing for improper Grant Type
 
-Depending on the architecture of the application, different grant types should be used. 
+Depending on the architecture of the application, different grant types should be used.  
 
 The following list shows two [OAuth Grant Types](https://oauth.net/2/grant-types/) that are still part of the OAuth 2.0 but are kept only to allow migration to newer Grant Types.
 They are deprecated in [OAuth 2.1](https://oauth.net/2.1/) for security reasons.
@@ -192,7 +192,7 @@ After stepping through the oAuth flow and using the application for a while few 
 ## Tools
 
 - [BurpSuite](https://portswigger.net/burp/releases)
-  - [EsPReSSO](https://github.com/portswigger/espresso)
+- [EsPReSSO](https://github.com/portswigger/espresso)
 - [OWASP ZAP](https://www.zaproxy.org/)
 
 ## References
