@@ -67,7 +67,7 @@ For public clients it is generally possible to identify the grant type in the re
 The Following example shows the Authorization Code Grant + PKCE which can be identified by the `code_verifier` parameter.
 
 ```http
-POST /oauth/token HTTP/2
+POST /oauth/token HTTP/1.1
 Host: as.example.com
 [...]
 
@@ -110,7 +110,7 @@ GET /authorize
     &state=example
     &nonce=example
     &code_challenge=example
-    &code_challenge_method=S256 HTTP/2
+    &code_challenge_method=S256 HTTP/1.1
 Host: as.example.com
 [...]
 ```
