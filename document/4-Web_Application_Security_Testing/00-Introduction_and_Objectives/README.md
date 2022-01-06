@@ -60,7 +60,7 @@ In this case, the application shows two access points (parameters `a` and `b`). 
 
 ### Active Testing
 
-During active testing, a tester begins to use the methodologies described in the follow sections.
+During active testing, a tester begins to use the methodologies described in the following sections.
 
 The set of active tests have been split into 12 categories:
 
