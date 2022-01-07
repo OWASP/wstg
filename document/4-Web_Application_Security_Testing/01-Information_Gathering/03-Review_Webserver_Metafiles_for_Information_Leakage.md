@@ -184,7 +184,7 @@ Google is built by a large team of engineers, designers, researchers, robots, an
 
 There are other RFCs and Internet drafts which suggest standardized uses of files within the `.well-known/` directory. Lists of which can be found [here](https://en.wikipedia.org/wiki/List_of_/.well-known/_services_offered_by_webservers) or [here](https://www.iana.org/assignments/well-known-uris/well-known-uris.xhtml).
 
-It would be fairly simple for a tester to review the RFC/drafts are create a list to be supplied to a crawler or fuzzer, in order to verify the existence or content of such files.
+It would be fairly simple for a tester to review the RFC/drafts ard create a list to be supplied to a crawler or fuzzer, in order to verify the existence or content of such files.
 
 ## Tools
 
