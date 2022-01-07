@@ -170,7 +170,7 @@ Policy: https://www.linkedin.com/help/linkedin/answer/62924
 
 ### Humans TXT
 
-`humans.txt` is an initiative for knowing the people behind a website. It takes the form of a text file that contains information about the different people who have contributed to building the website. See [humanstxt](http://humanstxt.org/) for more info. This file often (though not always) contains information for career or job sites/paths.
+`humans.txt` is an initiative for knowing the people behind a website. It takes the form of a text file that contains information about the different people who have contributed to building the website. See `http://humanstxt.org` \(note: this site is offline occationally\) for more info. This file often (though not always) contains information for career or job sites/paths.
 
 The following example was retrieved from Google 2020 May 05:
 
@@ -184,7 +184,7 @@ Google is built by a large team of engineers, designers, researchers, robots, an
 
 There are other RFCs and Internet drafts which suggest standardized uses of files within the `.well-known/` directory. Lists of which can be found [here](https://en.wikipedia.org/wiki/List_of_/.well-known/_services_offered_by_webservers) or [here](https://www.iana.org/assignments/well-known-uris/well-known-uris.xhtml).
 
-It would be fairly simple for a tester to review the RFC/drafts ard create a list to be supplied to a crawler or fuzzer, in order to verify the existence or content of such files.
+It would be fairly simple for a tester to review the RFC/drafts and create a list to be supplied to a crawler or fuzzer, in order to verify the existence or content of such files.
 
 ## Tools
 
