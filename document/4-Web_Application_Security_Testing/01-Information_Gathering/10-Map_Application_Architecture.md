@@ -140,7 +140,7 @@ They may also be indicated by the presence of specific cookies (for example, F5 
 
 #### Content Delivery Network (CDN)
 
-A Content Delivery Network (CDN) is a geographically distributed set of caching proxy servers, designed to improve website performance to to provide additional resilience for a website.
+A Content Delivery Network (CDN) is a geographically distributed set of caching proxy servers, designed to improve website performance to provide additional resilience for a website.
 
 It is typically configured by pointing the publicly facing domain to the CDN's servers, and then configuring the CDN to connect to the correct back end servers (sometimes known as the "origin").
 
