@@ -26,7 +26,7 @@ Use a search engine to search for potentially sensitive information. This may in
 - usernames, passwords, and private keys;
 - third-party, or cloud service configuration files;
 - revealing error message content; and
-- development, test, User Acceptance Testing (UAT), and staging versions of sites.
+- non-public applications (development, test, User Acceptance Testing (UAT), and staging versions of sites).
 
 ### Search Engines
 
