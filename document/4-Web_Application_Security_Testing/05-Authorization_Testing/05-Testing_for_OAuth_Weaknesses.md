@@ -6,65 +6,65 @@
 
 ## Summary
 
-[OAuth2.0](https://oauth.net/2/) is an authorization delegation framework used in web-enabled applications and APIs it will be referred to as OAuth.
-It enables a third-party application to obtain limited access to an HTTP service, either on behalf of a resource owner by orchestrating an approval interaction
-between the resource owner and the HTTP service, or by allowing the third-party application to obtain access on its own behalf.
+[OAuth2.0](https://oauth.net/2/) is an authorization delegation framework used in web-enabled applications and APIs. Throughout this document it will be referred to as OAuth.
 
-Authorization information is typically being proofed using an access token that if presented to a service should tell the service which access rights may be assigned to the request. Access token may be opaque tokens but very often they are JWTs, therefore the JWT checks in [Testing JSON Web Tokens](../06-Session_Management_Testing/10-Testing_JSON_Web_Tokens.md) also apply to the Testing for OAuth weaknesses chapter. The usage of Bearer Token with OAuth is described in rfc6750.
+OAuth enables a third-party application to obtain limited access to an HTTP service, either on behalf of a resource owner by orchestrating an approval interaction between the resource owner and the HTTP service, or by allowing the third-party application to obtain access on its own behalf.
 
-OAuth itself can be used for authentication, but it is generally not recommended implementing your own way of doing so. Instead, authentication should be implemented with the OpenID Connect standard.
+Authorization information is typically proofed using an access token that, if presented to a service, should tell the service which access rights may be assigned to the request. Access tokens may be opaque tokens called bearer tokens, but very often they are JSON Web Tokens (JWT). The JWT checks in [Testing JSON Web Tokens](../06-Session_Management_Testing/10-Testing_JSON_Web_Tokens.md) are also relevant to testing for OAuth weaknesses. The usage of bearer tokens with OAuth is described in [RFC6750](https://datatracker.ietf.org/doc/html/rfc6750).
 
-Since OAuth's responsibility is it to delegate access rights across several services, successful attacks may lead to account takeover, unauthorized resource access and the elevation of privileges.
+OAuth itself can be used for authentication, but implementing your own authentication is generally unwise. Instead, authentication should be implemented with the OpenID Connect standard.
+
+Since OAuth's responsibility is it to delegate access rights across several services, successful attacks may lead to account takeover, unauthorized resource access, and the elevation of privileges in regards to those services.
+
+There are five different roles that are part of an OAuth exchange. In no particular order:
+
+1. Resource Owner: the entity who grants access to a resource.
+2. User Agent: the browser or native app.
+3. Client: the application that is requesting access to a resource on behalf of the Resource Owner.
+4. Authorization Server: the server that holds authorization information and grants the access.
+5. Resource Server: the application that serves the content accessed by the client.
+
+Clients may be confidential or public.
+
+Confidential clients are typically applications with server-side code that are able to prevent anyone from accessing the secret.
+
+Public clients, in contrast, are unable to prevent access to the secret. An example of a public client would be a single-page application that has all the code present on the user agent.
 
 ## Test Objectives
 
-- Are the clients confidential or public
-- Determine which OAuth flow is used
+Determine if deprecated or vulnerable OAuth methods are in use.
 
 ## How to Test
 
+To test OAuth, two things must first be accomplished:
+
+- Assess whether the clients are confidential or public.
+- Determine which OAuth flow is used.
+
 ### Overview
 
-OAuth has five different roles that are part of an OAuth exchange.
+In order to better understand the attack surface, it is crucial to determine which OAuth grant type is used for the application you are testing. The grant type determines the method by which the the application receives an access token.
 
-- Resource Owner, the entity who grants access to a resource
-- User Agent, browser, native app
-- Client, the application which requests access to a resource on behalf of the Resource Owner
-- Authorization Server, a server which holds authorization information and grants the access
-- Resource Server, an application that serves content accessed by the client
+These are the most common OAuth grant types:
 
-Based on the applications ability to keep a secret in secret it separates clients into two distinct types:
-
-- Confidential
-- Public
-
-Confidential Clients are typically applications with server side code that are able to prevent anyone from accessing the secret.
-Public Clients in contrast are unable to keep the secret in secret. An example for a Public Client would be an SPA which has all the code present on the User Agent
-
-In order to understand the attack surface better it is crucial to determine which OAuth Grant Type is used for the application you are testing against.
-
-These are the most common OAuth Grant Types:
-
-- Authorization Code, commonly used with confidential client
-- Proof Key for Code Exchange (PKCE), commonly used with public clients in conjunction with Authorization Code
+- Authorization Code: commonly used with confidential clients.
+- Proof Key for Code Exchange (PKCE): commonly used with public clients in conjunction with Authorization Code.
 - Consent, Required for the approval of third party clients
-- Client Credentials, used for machine to machine communication
-- Device Code, used for devices with limited input capabilities
+- Client Credentials: used for machine to machine communication
+- Device Code: used for devices with limited input capabilities
 
-### Testing for improper Grant Type
+### Testing for Deprecated Grant Type
 
-Depending on the architecture of the application, different grant types should be used.  
+The following two [OAuth grant types](https://oauth.net/2/grant-types/) are still part of the OAuth 2.0 specification, but are kept only to allow migration to newer grant types.
 
-The following list shows two [OAuth Grant Types](https://oauth.net/2/grant-types/) that are still part of the OAuth 2.0 but are kept only to allow migration to newer Grant Types.
 They are deprecated in [OAuth 2.1](https://oauth.net/2.1/) for security reasons.
 
-- [Resource Owner Password Credentials Grant](https://www.youtube.com/watch?v=qMtYaDmhnHU) (ROPC) is deprecated and should only be used for migration purposes.  
-- [Implicit Flow](https://oauth.net/2/grant-types/implicit/) was designed to work around the lack of cross site request possibilities in browsers which is now solved with CORS.
+- [Resource Owner Password Credential (ROPC)](https://datatracker.ietf.org/doc/html/rfc6749#section-1.3.3) grant: a long-lived token method used between trusted resource owner and client, now deprecated. This should only be used for migration purposes.  
+- [Implicit Flow](https://oauth.net/2/grant-types/implicit/): designed to work around the lack of cross-site request possibilities in browsers. This issue is now solved with Cross-Origin Resource Sharing (CORS).
 
-#### How to test
+For public clients, it is generally possible to identify the grant type in the request to the token endpoint. It is indicated in the token exchange with the parameter `grant_type`.
 
-For public clients it is generally possible to identify the grant type in the request to the token endpoint. It is indicated in the token exchange with the parameter `grant_type`.
-The Following example shows the Authorization Code Grant + PKCE which can be identified by the `code_verifier` parameter.
+The following example shows the Authorization Code grant with PKCE.
 
 ```http
 POST /oauth/token HTTP/1.1
@@ -80,25 +80,21 @@ Host: as.example.com
 }
 ```
 
-The different values for the grant_type parameter and which Grant Type they indicate
+The values for the `grant_type` parameter and the grant type they indicate are:
 
-- grant_type `password` indicates Resource Owner Password Credential Grant
-- grant_type `client_credentials` indicates the Client Credential Grant
-- grant_type `authorization_code` indicates the Authorization Code Grant.
+- `password`: indicates the ROPC grant.
+- `client_credentials`: indicates the Client Credential grant.
+- `authorization_code`: indicates the Authorization Code grant.
 
-```text
-Note: The implicit flow is not indicated in the grant_type since the token is  
-presented in the response to the authorization request.
-```
+The Implicit Flow type is not indicated by the `grant_type` parameter since the token is presented in the response to the authorization request. Below is an example.
 
-The authorization request indicates on the grant types, implicit flow and authorization code flow (with PKCE).
-The following URL parameters indicate the used flow.
+The following URL parameters indicate the OAuth flow being used:
 
-- `response_type=token` indicates Implicit Flow
-- `response_type=code` indicates Authorization Code flow
-- `code_challenge=sha256(xyz)` indicates the PKCE extension
+- `response_type=token`: indicates Implicit Flow.
+- `response_type=code`: indicates Authorization Code flow.
+- `code_challenge=sha256(xyz)`: indicates the PKCE extension.
 
-Following is an example authorization request for Authorization Code Flow + PKCE
+The following is an example authorization request for Authorization Code flow with PKCE:
 
 ```http
 GET /authorize
@@ -117,33 +113,32 @@ Host: as.example.com
 
 #### Public Clients
 
-Recommended for public client is the code-grant with the PKCE extension.
-An authorization request for Authorization Code Flow + PKCE should contain `response_type=code` and `code_challenge=sha256(xyz)`.
+The Authorization Code grant with PKCE extension is recommended for public clients. An authorization request for Authorization Code flow with PKCE should contain `response_type=code` and `code_challenge=sha256(xyz)`.
 
-Further the token exchange should contain the grant type `authorization_code` and a `code_verifier`.
+The token exchange should contain the grant type `authorization_code` and a `code_verifier`.
 
-Improper grant types for public client:
+Improper grant types for public clients are:
 
-- Code Grant without the PKCE extension
+- Authorization Code grant without the PKCE extension
 - Client Credentials
-- Implicit flow
-- Resource Owner Password Credential Grant
+- Implicit Flow
+- ROPC
 
 #### Confidential Clients
 
-The code-grant is recommended for confidential client and the PKCE extension may be used as well.
+The Authorization Code grant is recommended for confidential clients. The PKCE extension may be used as well.
 
-Improper grant types for confidential client:
+Improper grant types for confidential clients are:
 
-- Resource Owner Password Credential Grant
-- Implicit flow
-- Client Credentials (Except for Machine to Machine)
+- Client Credentials (Except for machine-to-machine -- see below)
+- Implicit Flow
+- ROPC
 
-##### Machine to Machine
+##### Machine-to-Machine
 
-Machine to Machine clients generally should be able to keep a secret and therefore may be confidential clients. No user interaction can happen and they may rely solely on the client secret with the Client Credentials grant.
+In situations where no user interaction occurs and the clients are only confidential clients, the Client Credentials grant may be used ([RFC6749 4.4](https://datatracker.ietf.org/doc/html/rfc6749#section-4.4)).
 
-If you already know the client id and secret it is possible to obtain a token with the `client_credentials` grant type.
+If you know the `client_id` and `client_secret`, it is possible to obtain a token by passing the `client_credentials` grant type.
 
 ```bash
 λ curl --request POST \
@@ -154,28 +149,27 @@ If you already know the client id and secret it is possible to obtain a token wi
 
 ### Credential Leakage via Referrer Header
 
-OAuth transports, dependent on the flow, several types of credentials in the URL.
-The following tokens can be considered as credentials.
+Depending on the flow, OAuth transports several types of credentials in as URL parameters.
+
+The following tokens can be considered to be leaked credentials:
 
 - access token
 - refresh token
 - authorization code
 - PKCE code challenge / code verifier
 
-Due to how OAuth works, the authorization `code` as well as the `code_challenge` and `code_verifier` may be part of the URL.
-Therefore, it is even more relevant to ensure those are not sent in the Referer Header.
+Due to how OAuth works, the authorization `code` as well as the `code_challenge` and `code_verifier` may be part of the URL. Therefore, it is even more relevant to ensure those are not sent in the referrer header.
 
-The implicit grant transports the authorization token as part of the URL which may lead to leakage of the authorization token in the referrer and other places like log files and proxies.
+Implicit Flow transports the authorization token as part of the URL. This may lead to leakage of the authorization token in the referrer header and in other places such as log files and proxies.
 
-#### How to test
+#### How to Test
 
-Make use of an HTTP Interception proxy such as OWASP ZAP and intercept the OAuth traffic.
+Make use of an HTTP interception proxy such as OWASP ZAP and intercept the OAuth traffic.
 
-- Step through the authorization process and identify any credentials being present in the URL.
-- If any external resources are included in a page involved with the OAuth flow analyze request made to them as
-  credentials could be leaked in the referrer header.
+- Step through the authorization process and identify any credentials present in the URL.
+- If any external resources are included in a page involved with the OAuth flow, analyze the request made to them. Credentials could be leaked in the referrer header.
 
-After stepping through the oAuth flow and using the application for a while few requests are captured in the request history of an HTTP interception proxy. Search for the Referer Header (`Referer: https://idp.example.com/`) containing the AS and Client URL in the request history.
+After stepping through the OAuth flow and using the application, a few requests are captured in the request history of an HTTP interception proxy. Search for the HTTP referrer header (e.g. `Referer: https://idp.example.com/`) containing the authorization server and client URL in the request history.
 
 ## Related Test Cases
 
@@ -183,11 +177,10 @@ After stepping through the oAuth flow and using the application for a while few 
 
 ## Remediation
 
-- When implementing OAuth always consider the used technology whether it is a server side application that can keep a secret or a client side application which can't.
-- In almost any case use the Authorization Code Flow + PKCE. Exceptions to that are machine to machine flows.
-- Use Post parameters or Header values to transport secrets.
-- When no other possibility exists, legacy applications that can not be migrated for example, implement additional
-  security headers like a `Referrer-Policy` policy.
+- When implementing OAuth, always consider the technology used and whether the application is a server-side application that can avoid revealing secrets, or a client side application that cannot.
+- In almost any case, use the Authorization Code flow with PKCE. One exception may be machine-to-machine flows.
+- Use POST parameters or header values to transport secrets.
+- When no other possibilities exists (for example, in legacy applications that can not be migrated), implement additional security headers such as a `Referrer-Policy`.
 
 ## Tools
 
