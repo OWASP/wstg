@@ -14,15 +14,15 @@ Authorization information is typically proofed using an access token that, if pr
 
 OAuth itself can be used for authentication, but implementing your own authentication is generally unwise. Instead, authentication should be implemented with the OpenID Connect standard.
 
-Since OAuth's responsibility is it to delegate access rights across several services, successful attacks may lead to account takeover, unauthorized resource access, and the elevation of privileges in regards to those services.
+Since OAuth's responsibility is to delegate access rights across several services, successful attacks may lead to account takeover, unauthorized resource access, and the elevation of privileges in regards to those services.
 
 There are five different roles that are part of an OAuth exchange. In no particular order:
 
-1. Resource Owner: the entity who grants access to a resource.
-2. User Agent: the browser or native app.
-3. Client: the application that is requesting access to a resource on behalf of the Resource Owner.
-4. Authorization Server: the server that holds authorization information and grants the access.
-5. Resource Server: the application that serves the content accessed by the client.
+1. Resource Owner: The entity who grants access to a resource.
+2. User Agent: The browser or native app.
+3. Client: The application that is requesting access to a resource on behalf of the Resource Owner.
+4. Authorization Server: The server that holds authorization information and grants the access.
+5. Resource Server: The application that serves the content accessed by the client.
 
 Clients may be confidential or public.
 
@@ -47,11 +47,11 @@ In order to better understand the attack surface, it is crucial to determine whi
 
 These are the most common OAuth grant types:
 
-- Authorization Code: commonly used with confidential clients.
-- Proof Key for Code Exchange (PKCE): commonly used with public clients in conjunction with Authorization Code.
-- Consent, Required for the approval of third party clients
-- Client Credentials: used for machine to machine communication
-- Device Code: used for devices with limited input capabilities
+- Authorization Code: Commonly used with confidential clients.
+- Proof Key for Code Exchange (PKCE): Commonly used with public clients in conjunction with Authorization Code.
+- Consent, Required for the approval of third party clients.
+- Client Credentials: Used for machine to machine communication.
+- Device Code: Used for devices with limited input capabilities.
 
 ### Testing for Deprecated Grant Type
 
@@ -59,8 +59,8 @@ The following two [OAuth grant types](https://oauth.net/2/grant-types/) are stil
 
 They are deprecated in [OAuth 2.1](https://oauth.net/2.1/) for security reasons.
 
-- [Resource Owner Password Credential (ROPC)](https://datatracker.ietf.org/doc/html/rfc6749#section-1.3.3) grant: a long-lived token method used between trusted resource owner and client, now deprecated. This should only be used for migration purposes.  
-- [Implicit Flow](https://oauth.net/2/grant-types/implicit/): designed to work around the lack of cross-site request possibilities in browsers. This issue is now solved with Cross-Origin Resource Sharing (CORS).
+- [Resource Owner Password Credential (ROPC)](https://datatracker.ietf.org/doc/html/rfc6749#section-1.3.3) grant: A long-lived token method used between trusted resource owner and client, now deprecated. This should only be used for migration purposes.
+- [Implicit Flow](https://oauth.net/2/grant-types/implicit/): Designed to work around the lack of cross-site request possibilities in browsers. This issue is now solved with Cross-Origin Resource Sharing (CORS).
 
 For public clients, it is generally possible to identify the grant type in the request to the token endpoint. It is indicated in the token exchange with the parameter `grant_type`.
 
@@ -82,17 +82,17 @@ Host: as.example.com
 
 The values for the `grant_type` parameter and the grant type they indicate are:
 
-- `password`: indicates the ROPC grant.
-- `client_credentials`: indicates the Client Credential grant.
-- `authorization_code`: indicates the Authorization Code grant.
+- `password`: Indicates the ROPC grant.
+- `client_credentials`: Indicates the Client Credential grant.
+- `authorization_code`: Indicates the Authorization Code grant.
 
 The Implicit Flow type is not indicated by the `grant_type` parameter since the token is presented in the response to the authorization request. Below is an example.
 
 The following URL parameters indicate the OAuth flow being used:
 
-- `response_type=token`: indicates Implicit Flow.
-- `response_type=code`: indicates Authorization Code flow.
-- `code_challenge=sha256(xyz)`: indicates the PKCE extension.
+- `response_type=token`: Indicates Implicit Flow.
+- `response_type=code`: Indicates Authorization Code flow.
+- `code_challenge=sha256(xyz)`: Indicates the PKCE extension.
 
 The following is an example authorization request for Authorization Code flow with PKCE:
 
@@ -141,7 +141,7 @@ In situations where no user interaction occurs and the clients are only confiden
 If you know the `client_id` and `client_secret`, it is possible to obtain a token by passing the `client_credentials` grant type.
 
 ```bash
-λ curl --request POST \
+$ curl --request POST \
   --url https://as.example.com/oauth/token \
   --header 'content-type: application/json' \
   --data '{"client_id":"example-client","client_secret":"THE_CLIENT_SECRET","audience":"https://as.example.com/","grant_type":"client_credentials"}' --proxy http://localhost:8080/ -k
@@ -158,18 +158,18 @@ The following tokens can be considered to be leaked credentials:
 - authorization code
 - PKCE code challenge / code verifier
 
-Due to how OAuth works, the authorization `code` as well as the `code_challenge` and `code_verifier` may be part of the URL. Therefore, it is even more relevant to ensure those are not sent in the referrer header.
+Due to how OAuth works, the authorization `code` as well as the `code_challenge`, and `code_verifier` may be part of the URL. Therefore, it is even more relevant to ensure those are not sent in the referrer header.
 
 Implicit Flow transports the authorization token as part of the URL. This may lead to leakage of the authorization token in the referrer header and in other places such as log files and proxies.
 
 #### How to Test
 
-Make use of an HTTP interception proxy such as OWASP ZAP and intercept the OAuth traffic.
+Make use of an HTTP intercepting proxy such as OWASP ZAP and intercept the OAuth traffic.
 
 - Step through the authorization process and identify any credentials present in the URL.
 - If any external resources are included in a page involved with the OAuth flow, analyze the request made to them. Credentials could be leaked in the referrer header.
 
-After stepping through the OAuth flow and using the application, a few requests are captured in the request history of an HTTP interception proxy. Search for the HTTP referrer header (e.g. `Referer: https://idp.example.com/`) containing the authorization server and client URL in the request history.
+After stepping through the OAuth flow and using the application, a few requests are captured in the request history of an HTTP intercepting proxy. Search for the HTTP referrer header (e.g. `Referer: https://idp.example.com/`) containing the authorization server and client URL in the request history.
 
 ## Related Test Cases
 
