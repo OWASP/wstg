@@ -375,6 +375,14 @@
                     "Assess the access control measures and if they're vulnerable to IDOR."
                   ]
                 }
+                ,{
+                "name":"Testing for OAuth Weaknesses",
+                "id":"WSTG-ATHZ-05",
+                "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/05-Authorization_Testing/05-Testing_for_OAuth_Weaknesses.html",
+                "objectives":[
+                    "Determine if deprecated or vulnerable OAuth methods are in use."
+                  ]
+                }
             ]
         }
         ,"Session Management Testing": {
