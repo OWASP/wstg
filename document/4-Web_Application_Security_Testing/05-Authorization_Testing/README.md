@@ -10,6 +10,6 @@
 
 4.5.5 [Testing for OAuth Weaknesses](05-Testing_for_OAuth_Weaknesses.md)
 
-4.5.5.1 [Testing for OAuth Authorization Server Weaknesses](05.1-Testing_for_OAuth_AS_Weaknesses.md)
+4.5.5.1 [Testing for OAuth Authorization Server Weaknesses](05.1-Testing_for_OAuth_Authorization_Server_Weaknesses.md)
 
 4.5.5.2 [Testing for OAuth Client Weaknesses](05.2-Testing_for_OAuth_Client_Weaknesses.md)

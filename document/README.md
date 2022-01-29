@@ -142,6 +142,12 @@
 
 #### 4.5.4 [Testing for Insecure Direct Object References](4-Web_Application_Security_Testing/05-Authorization_Testing/04-Testing_for_Insecure_Direct_Object_References.md)
 
+#### 4.5.5 [Testing for OAuth Weaknesses](4-Web_Application_Security_Testing/05-Authorization_Testing/05-Testing_for_OAuth_Weaknesses.md)
+
+##### 4.5.5.1 [Testing for OAuth Authorization Server Weaknesses](4-Web_Application_Security_Testing/05-Authorization_Testing/05.1-Testing_for_OAuth_Authorization_Server_Weaknesses.md)
+
+##### 4.5.5.2 [Testing for OAuth Client Weaknesses](4-Web_Application_Security_Testing/05-Authorization_Testing/05.2-Testing_for_OAuth_Client_Weaknesses.md)
+
 ### 4.6 [Session Management Testing](4-Web_Application_Security_Testing/06-Session_Management_Testing/README.md)
 
 #### 4.6.1 [Testing for Session Management Schema](4-Web_Application_Security_Testing/06-Session_Management_Testing/01-Testing_for_Session_Management_Schema.md)
