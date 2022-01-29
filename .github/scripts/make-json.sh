@@ -63,7 +63,7 @@ for d in */ ; do
                         # Get test name and reference link from the file
                         read -r tname < $file
                         tname=${tname:2}
-                        tref=`echo $file | sed 's/.md/.html/'`
+                        tref=`echo $file | sed 's/.md//'`
                         # Add test ID, test name and reference link from the file
                         echo "                \"name\":\"${tname}\","  >> checklist.json
                         echo "                \"id\":\"${tid}\","  >> checklist.json
