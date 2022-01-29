@@ -32,7 +32,7 @@ Public clients, in contrast, are unable to prevent access to the secret. An exam
 
 ## Test Objectives
 
-Determine if deprecated or vulnerable OAuth methods are in use.
+- Determine if deprecated or vulnerable OAuth methods are in use.
 
 ## How to Test
 
