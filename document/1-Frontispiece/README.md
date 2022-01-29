@@ -29,6 +29,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Aaron Williams
 - Alessia Michela Di Campi
 - Elie Saad
+- Felix Sieges
 - Ismael Goncalves
 - Janos Zold
 - Jeremy Bonghwan Choi
