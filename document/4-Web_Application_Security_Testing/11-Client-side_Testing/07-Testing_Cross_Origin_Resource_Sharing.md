@@ -1,8 +1,8 @@
 # Testing Cross Origin Resource Sharing
 
-|ID          |
-|------------|
-|WSTG-CLNT-07|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-CLNT-07|316-272|
 
 ## Summary
 

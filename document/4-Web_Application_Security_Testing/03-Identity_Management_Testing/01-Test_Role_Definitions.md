@@ -1,8 +1,8 @@
 # Test Role Definitions
 
-|ID          |
-|------------|
-|WSTG-IDNT-01|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-IDNT-01|817-808, 368-633|
 
 ## Summary
 

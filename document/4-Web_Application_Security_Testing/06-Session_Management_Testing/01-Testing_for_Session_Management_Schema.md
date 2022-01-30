@@ -1,8 +1,8 @@
 # Testing for Session Management Schema
 
-|ID          |
-|------------|
-|WSTG-SESS-01|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-SESS-01|582-541, 618-403, 727-043, 704-530, 551-054|
 
 ## Summary
 

@@ -1,8 +1,8 @@
 # Review Old Backup and Unreferenced Files for Sensitive Information
 
-|ID          |
-|------------|
-|WSTG-CONF-04|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-CONF-04|462-245|
 
 ## Summary
 

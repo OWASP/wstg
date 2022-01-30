@@ -1,8 +1,8 @@
 # Testing for Logout Functionality
 
-|ID          |
-|------------|
-|WSTG-SESS-06|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-SESS-06|673-736, 238-346, 457-165|
 
 ## Summary
 

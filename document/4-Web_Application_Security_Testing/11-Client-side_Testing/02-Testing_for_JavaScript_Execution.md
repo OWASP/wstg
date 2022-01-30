@@ -1,8 +1,8 @@
 # Testing for JavaScript Execution
 
-|ID          |
-|------------|
-|WSTG-CLNT-02|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-CLNT-02|387-848, 317-743|
 
 ## Summary
 

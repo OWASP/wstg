@@ -1,8 +1,8 @@
 # Testing for XML Injection
 
-|ID          |
-|------------|
-|WSTG-INPV-07|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-INPV-07|611-051, 764-507, 134-207|
 
 ## Summary
 

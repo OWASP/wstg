@@ -1,8 +1,8 @@
 # Testing for SQL Injection
 
-|ID          |
-|------------|
-|WSTG-INPV-05|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-INPV-05|064-808, 732-873|
 
 ## Summary
 

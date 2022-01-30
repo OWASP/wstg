@@ -1,8 +1,8 @@
 # Testing for XPath Injection
 
-|ID          |
-|------------|
-|WSTG-INPV-09|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-INPV-09|134-207|
 
 ## Summary
 

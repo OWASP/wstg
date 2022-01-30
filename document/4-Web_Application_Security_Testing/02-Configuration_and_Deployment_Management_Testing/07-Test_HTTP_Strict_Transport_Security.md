@@ -1,8 +1,8 @@
 # Test HTTP Strict Transport Security
 
-|ID          |
-|------------|
-|WSTG-CONF-07|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-CONF-07|036-147|
 
 ## Summary
 

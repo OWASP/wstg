@@ -1,8 +1,8 @@
 # Testing for DOM-Based Cross Site Scripting
 
-|ID          |
-|------------|
-|WSTG-CLNT-01|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-CLNT-01|607-671, 257-668, 065-388|
 
 ## Summary
 

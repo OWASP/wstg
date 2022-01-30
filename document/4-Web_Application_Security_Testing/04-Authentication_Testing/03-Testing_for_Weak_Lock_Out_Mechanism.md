@@ -1,8 +1,8 @@
 # Testing for Weak Lock Out Mechanism
 
-|ID          |
-|------------|
-|WSTG-ATHN-03|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-ATHN-03|802-056|
 
 ## Summary
 

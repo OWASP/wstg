@@ -1,8 +1,8 @@
 # Testing Browser Storage
 
-|ID          |
-|------------|
-|WSTG-CLNT-12|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-CLNT-12|046-257, 617-524, 455-358|
 
 ## Summary
 

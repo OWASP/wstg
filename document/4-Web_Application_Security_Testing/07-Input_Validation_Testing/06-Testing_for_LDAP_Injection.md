@@ -1,8 +1,8 @@
 # Testing for LDAP Injection
 
-|ID          |
-|------------|
-|WSTG-INPV-06|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-INPV-06|531-558|
 
 ## Summary
 

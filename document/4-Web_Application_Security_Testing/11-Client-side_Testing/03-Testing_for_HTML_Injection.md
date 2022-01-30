@@ -1,8 +1,8 @@
 # Testing for HTML Injection
 
-|ID          |
-|------------|
-|WSTG-CLNT-03|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-CLNT-03|542-445|
 
 ## Summary
 

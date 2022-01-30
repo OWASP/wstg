@@ -1,8 +1,8 @@
 # Testing for Cookies Attributes
 
-|ID          |
-|------------|
-|WSTG-SESS-02|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-SESS-02|232-034, 804-220, 342-055, 688-081, 705-182, 455-358|
 
 ## Summary
 

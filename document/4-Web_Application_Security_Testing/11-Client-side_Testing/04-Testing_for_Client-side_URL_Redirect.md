@@ -1,8 +1,8 @@
 # Testing for Client-side URL Redirect
 
-|ID          |
-|------------|
-|WSTG-CLNT-04|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-CLNT-04|232-217|
 
 ## Summary
 

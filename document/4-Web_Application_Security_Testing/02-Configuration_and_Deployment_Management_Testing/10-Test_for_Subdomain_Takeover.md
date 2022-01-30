@@ -1,8 +1,8 @@
 # Test for Subdomain Takeover
 
-|ID          |
-|------------|
-|WSTG-CONF-10|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-CONF-10|336-512|
 
 ## Summary
 

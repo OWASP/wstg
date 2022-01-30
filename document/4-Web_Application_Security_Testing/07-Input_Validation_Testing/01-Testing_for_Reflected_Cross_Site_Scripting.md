@@ -1,8 +1,8 @@
 # Testing for Reflected Cross Site Scripting
 
-|ID          |
-|------------|
-|WSTG-INPV-01|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-INPV-01|366-835, 257-668, 065-388|
 
 ## Summary
 

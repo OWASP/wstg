@@ -1,8 +1,8 @@
 # Testing for HTTP Parameter Pollution
 
-|ID          |
-|------------|
-|WSTG-INPV-04|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-INPV-04|743-237|
 
 ## Summary
 

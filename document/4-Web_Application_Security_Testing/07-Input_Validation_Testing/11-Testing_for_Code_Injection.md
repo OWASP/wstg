@@ -1,8 +1,8 @@
 # Testing for Code Injection
 
-|ID          |
-|------------|
-|WSTG-INPV-11|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-INPV-11|547-283, 657-084|
 
 ## Summary
 

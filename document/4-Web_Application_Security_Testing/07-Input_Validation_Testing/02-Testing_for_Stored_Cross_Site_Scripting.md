@@ -1,8 +1,8 @@
 # Testing for Stored Cross Site Scripting
 
-|ID          |
-|------------|
-|WSTG-INPV-02|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-INPV-02|257-668, 065-388|
 
 ## Summary
 
