@@ -124,7 +124,7 @@ CWE-330: Use of Insufficiently Random Values
 CWE-347: Improper Verification of Cryptographic Signature
 CWE-354: Improper Validation of Integrity Check Value
 CWE-547: Use of Hard-coded, Security-relevant Constants
-CWE-780 Use of RSA Algorithm without OAEP
+CWE-780: Use of RSA Algorithm without OAEP
 ```
 
 ## References
