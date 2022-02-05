@@ -1,8 +1,8 @@
 # Test File Extensions Handling for Sensitive Information
 
-|ID          |
-|------------|
-|WSTG-CONF-03|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-CONF-03|615-744|
 
 ## Summary
 

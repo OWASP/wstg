@@ -1,8 +1,8 @@
 # Test Application Platform Configuration
 
-|ID          |
-|------------|
-|WSTG-CONF-02|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-CONF-02|067-050, 240-274, 555-048|
 
 ## Summary
 

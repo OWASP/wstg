@@ -1,8 +1,8 @@
 # Testing for Clickjacking
 
-|ID          |
-|------------|
-|WSTG-CLNT-09|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-CLNT-09|480-071|
 
 ## Summary
 

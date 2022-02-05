@@ -1,8 +1,8 @@
 # Testing for Command Injection
 
-|ID          |
-|------------|
-|WSTG-INPV-12|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-INPV-12|683-722, 857-718|
 
 ## Summary
 

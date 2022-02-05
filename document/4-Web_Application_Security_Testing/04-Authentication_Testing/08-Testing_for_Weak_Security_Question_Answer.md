@@ -1,8 +1,8 @@
 # Testing for Weak Security Question Answer
 
-|ID          |
-|------------|
-|WSTG-ATHN-08|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-ATHN-08|772-358|
 
 ## Summary
 

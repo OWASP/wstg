@@ -1,8 +1,8 @@
 # Testing for Insecure Direct Object References
 
-|ID          |
-|------------|
-|WSTG-ATHZ-04|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-ATHZ-04|304-667|
 
 ## Summary
 

@@ -1,8 +1,8 @@
 # Testing Directory Traversal File Include
 
-|ID          |
-|------------|
-|WSTG-ATHZ-01|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-ATHZ-01|675-168, 737-086, 742-056|
 
 ## Summary
 

@@ -1,8 +1,8 @@
 # Testing for CSS Injection
 
-|ID          |
-|------------|
-|WSTG-CLNT-05|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-CLNT-05|646-462|
 
 ## Summary
 

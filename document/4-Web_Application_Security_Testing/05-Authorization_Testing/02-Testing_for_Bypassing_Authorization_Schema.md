@@ -1,8 +1,8 @@
 # Testing for Bypassing Authorization Schema
 
-|ID          |
-|------------|
-|WSTG-ATHZ-02|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-ATHZ-02|650-560, 152-725, 524-603|
 
 ## Summary
 

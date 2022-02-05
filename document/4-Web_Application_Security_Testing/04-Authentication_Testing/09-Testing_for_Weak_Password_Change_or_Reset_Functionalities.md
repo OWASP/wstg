@@ -1,8 +1,8 @@
 # Testing for Weak Password Change or Reset Functionalities
 
-|ID          |
-|------------|
-|WSTG-ATHN-09|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-ATHN-09|581-525|
 
 ## Summary
 

@@ -1,5 +1,9 @@
 # Encoded Injection
 
+|ID |CRE ID|
+|---|------|
+|WSTG-APPENDIX-D|533-516, 620-101|
+
 ## Background
 
 Character encoding is the process of mapping characters, numbers and other symbols to a standard format. Typically, this is done to create a message ready for transmission between sender and receiver. It is, in simple terms, the conversion of characters (belonging to different languages like English, Chinese, Greek or any other known language) into bytes. An example of a widely used character encoding scheme is the American Standard Code for Information Interchange (ASCII) that initially used 7-bit codes. More recent examples of encoding schemes would be the Unicode `UTF-8` and `UTF-16` computing industry standards.

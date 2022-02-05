@@ -1,8 +1,8 @@
 # Testing for Default Credentials
 
-|ID          |
-|------------|
-|WSTG-ATHN-02|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-ATHN-02|235-658|
 
 ## Summary
 

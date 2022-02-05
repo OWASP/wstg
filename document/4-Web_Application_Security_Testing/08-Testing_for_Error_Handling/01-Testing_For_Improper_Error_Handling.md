@@ -1,8 +1,8 @@
 # Testing for Improper Error Handling
 
-|ID          |
-|------------|
-|WSTG-ERRH-01|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-ERRH-01|166-151, 743-110|
 
 ## Summary
 

@@ -1,8 +1,8 @@
 # Testing Session Timeout
 
-|ID          |
-|------------|
-|WSTG-SESS-07|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-SESS-07|065-782|
 
 ## Summary
 

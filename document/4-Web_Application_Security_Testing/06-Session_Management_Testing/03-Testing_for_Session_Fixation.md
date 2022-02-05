@@ -1,8 +1,8 @@
 # Testing for Session Fixation
 
-|ID          |
-|------------|
-|WSTG-SESS-03|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-SESS-03|002-630|
 
 ## Summary
 

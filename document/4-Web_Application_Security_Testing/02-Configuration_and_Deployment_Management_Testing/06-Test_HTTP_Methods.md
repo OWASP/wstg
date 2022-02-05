@@ -1,8 +1,8 @@
 # Test HTTP Methods
 
-|ID          |
-|------------|
-|WSTG-CONF-06|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-CONF-06|483-715|
 
 ## Summary
 

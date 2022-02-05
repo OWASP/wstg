@@ -1,8 +1,8 @@
 # Testing for Browser Cache Weaknesses
 
-|ID          |
-|------------|
-|WSTG-ATHN-06|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-ATHN-06|473-758|
 
 ## Summary
 

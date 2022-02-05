@@ -1,8 +1,8 @@
 # Testing for Exposed Session Variables
 
-|ID          |
-|------------|
-|WSTG-SESS-04|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-SESS-04|333-888, 402-133|
 
 ## Summary
 

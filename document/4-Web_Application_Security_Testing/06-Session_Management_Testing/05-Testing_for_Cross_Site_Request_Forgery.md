@@ -1,8 +1,8 @@
 # Testing for Cross Site Request Forgery
 
-|ID          |
-|------------|
-|WSTG-SESS-05|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-SESS-05|060-472, 464-084|
 
 ## Summary
 

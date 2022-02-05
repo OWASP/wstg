@@ -1,8 +1,8 @@
 # Testing for Privilege Escalation
 
-|ID          |
-|------------|
-|WSTG-ATHZ-03|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-ATHZ-03|713-683|
 
 ## Summary
 

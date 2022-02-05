@@ -1,8 +1,8 @@
 # Testing for Weak Transport Layer Security
 
-|ID          |
-|------------|
-|WSTG-CRYP-01|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-CRYP-01|248-646, 745-045, 767-701|
 
 ## Summary
 

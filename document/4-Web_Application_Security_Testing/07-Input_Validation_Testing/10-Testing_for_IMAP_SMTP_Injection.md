@@ -1,8 +1,8 @@
 # Testing for IMAP SMTP Injection
 
-|ID          |
-|------------|
-|WSTG-INPV-10|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-INPV-10|881-434|
 
 ## Summary
 

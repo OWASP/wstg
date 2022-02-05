@@ -1,8 +1,8 @@
 # Testing for Server-side Template Injection
 
-|ID          |
-|------------|
-|WSTG-INPV-18|
+|ID          |CRE ID |
+|------------|-------|
+|WSTG-INPV-18|422-005|
 
 ## Summary
 
