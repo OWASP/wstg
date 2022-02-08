@@ -23,7 +23,7 @@ Full HSTS adoption occurs when a host activates HSTS for itself and all its sub-
 
 In this section we give an explanation of the testing strategy that will be shown in the next section.
 
-The first step is to make a request to the site to be tested (_e.g._ `www.example.com`). If the tester requests the following:
+The first step is to make a request to the site to be tested (*e.g.* `www.example.com`). If the tester requests the following:
 
 ```http
 GET / HTTP/1.1
