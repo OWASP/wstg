@@ -386,7 +386,7 @@ Response:
 
 GraphQL exposes a very simple interface to allow developers to use nested queries and nested objects. This ability can also be used in a malicious way, by calling a deep nested query similar to a recursive function and causing a denial of service by using up CPU, memory, or other compute resources.
 
-Looking back at _Figure 12.1-1_, you can see that it is possible to create a loop where a Dog object contains a Veterinary object. There could be an endless amount of nested objects.
+Looking back at *Figure 12.1-1*, you can see that it is possible to create a loop where a Dog object contains a Veterinary object. There could be an endless amount of nested objects.
 
 This allows for a deep query which has the potential to overload the application:
 
