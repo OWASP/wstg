@@ -25,7 +25,6 @@ However, most web applications only need to respond to GET and POST requests, re
 
 - Enumerate supported HTTP methods.
 - Test for access control bypass.
-- Test XST vulnerabilities.
 - Test HTTP method overriding techniques.
 
 ## How to Test
@@ -96,38 +95,6 @@ If the system appears vulnerable, issue CSRF-like attacks such as the following 
 
 Using the above three commands, modified to suit the application under test and testing requirements, a new user would be created, a password assigned, and the user made an administrator, all using blind request submission.
 
-### Testing for Cross-Site Tracing Potential
-
-Note: in order to understand the logic and the goals of a cross-site tracing (XST) attack, one must be familiar with [cross-site scripting attacks](https://owasp.org/www-community/attacks/xss/).
-
-The `TRACE` method, intended for testing and debugging, instructs the web server to reflect the received message back to the client. This method, while apparently harmless, can be successfully leveraged in some scenarios to steal legitimate users' credentials. This attack technique was discovered by Jeremiah Grossman in 2003, in an attempt to bypass the [HttpOnly](https://owasp.org/www-community/HttpOnly) attribute that aims to protect cookies from being accessed by JavaScript.  However, the TRACE method can be used to bypass this protection and access the cookie even when this attribute is set.
-
-Test for cross-site tracing potential by issuing a request such as the following:
-
-```bash
-$ ncat www.victim.com 80
-TRACE / HTTP/1.1
-Host: www.victim.com
-Random: Header
-
-HTTP/1.1 200 OK
-Random: Header
-...
-```
-
-The web server returned a 200 and reflected the random header that was set in place. To further exploit this issue:
-
-```bash
-$ ncat www.victim.com 80
-TRACE / HTTP/1.1
-Host: www.victim.com
-Attack: <script>prompt()</script>
-```
-
-The above example works if the response is being reflected in the HTML context.
-
-In older browsers, attacks were pulled using [XHR](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) technology, which leaked the headers when the server reflects them (*e.g.* Cookies, Authorization tokens, etc.) and bypassed security measures such as the [HttpOnly](../06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.md#httponly-attribute) attribute. This attack can be pulled in recent browsers only if the application integrates with technologies similar to Flash.
-
 ### Testing for HTTP Method Overriding
 
 Some web frameworks provide a way to override the actual HTTP method in the request by emulating the missing HTTP verbs passing some custom header in the requests. The main purpose of this is to circumvent some middleware (e.g. proxy, firewall) limitation where methods allowed usually do not encompass verbs such as `PUT` or `DELETE`. The following alternative headers could be used to do such verb tunneling:
@@ -169,7 +136,7 @@ Server: Apache
 
 ## Remediation
 
-- Ensure that only the required headers are allowed, and that the allowed headers are properly configured.
+- Ensure that only the required methods are allowed, and that the allowed methods are properly configured.
 - Ensure that no workarounds are implemented to bypass security measures implemented by user-agents, frameworks, or web servers.
 
 ## Tools
@@ -177,12 +144,9 @@ Server: Apache
 - [Ncat](https://nmap.org/ncat/)
 - [cURL](https://curl.haxx.se/)
 - [nmap http-methods NSE script](https://nmap.org/nsedoc/scripts/http-methods.html)
-- [w3af plugin htaccess_methods](http://w3af.org/plugins/audit/htaccess_methods)
 
 ## References
 
 - [RFC 2109](https://tools.ietf.org/html/rfc2109) and [RFC 2965](https://tools.ietf.org/html/rfc2965): "HTTP State Management Mechanism"
 - [HTACCESS: BILBAO Method Exposed](https://web.archive.org/web/20160616172703/http://www.kernelpanik.org/docs/kernelpanik/bme.eng.pdf)
-- [Amit Klein: "XS(T) attack variants which can, in some cases, eliminate the need for TRACE"](https://www.securityfocus.com/archive/107/308433)
 - [Fortify - Misused HTTP Method Override](https://vulncat.fortify.com/en/detail?id=desc.dynamic.xtended_preview.often_misused_http_method_override)
-- [CAPEC-107: Cross Site Tracing](https://capec.mitre.org/data/definitions/107.html)
