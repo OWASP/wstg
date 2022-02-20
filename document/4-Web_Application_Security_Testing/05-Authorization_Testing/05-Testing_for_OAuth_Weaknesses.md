@@ -6,61 +6,43 @@
 
 ## Summary
 
-[OAuth2.0](https://oauth.net/2/) is an authorization delegation framework used in web-enabled applications and APIs. Throughout this document it will be referred to as OAuth.
+[OAuth2.0](https://oauth.net/2/) (hereinafter referred to as OAuth) is an authorization framework that allows a client to access resources on the behalf of its user.
 
-OAuth enables a third-party application to obtain limited access to an HTTP service, either on behalf of a resource owner by orchestrating an approval interaction between the resource owner and the HTTP service, or by allowing the third-party application to obtain access on its own behalf.
+In order to do that, OAuth heavily relies on tokens to communicate between the different entities, each entity having a different [role](https://datatracker.ietf.org/doc/html/rfc6749#section-1.1):
 
-Authorization information is typically proofed using an access token that, if presented to a service, should tell the service which access rights may be assigned to the request. Access tokens may be opaque tokens called bearer tokens, but very often they are JSON Web Tokens (JWT). The JWT checks in [Testing JSON Web Tokens](../06-Session_Management_Testing/10-Testing_JSON_Web_Tokens.md) are also relevant to testing for OAuth weaknesses. The usage of bearer tokens with OAuth is described in [RFC6750](https://datatracker.ietf.org/doc/html/rfc6750).
+- **Resource Owner:** The entity who grants access to a resource, the owner, and in most cases is the user themselves
+- **Client:** The application that is requesting access to a resource on behalf of the Resource Owner. These clients come in two [types](https://datatracker.ietf.org/doc/html/rfc6749#section-2.1):
+  - **Public:** clients that can't protect a secret (*e.g.* front-end focused applications, such as SPAs, mobile applications, etc.)
+  - **Confidential:** clients that are able to securely authenticate with the authorization server by keeping their registered secrets safe (*e.g.* back-end services)
+- **Authorization Server (AS):** The server that holds authorization information and grants the access
+- **Resource Server:** The application that serves the content accessed by the client
 
-OAuth itself can be used for authentication, but implementing your own authentication is generally unwise. Instead, authentication should be implemented with the OpenID Connect standard.
+Since OAuth's responsibility is to delegate access rights by the owner to the client, attackers find this layer really fruitful, and bad implementations lead to unauthorized access the users' resources and information.
 
-Since OAuth's responsibility is to delegate access rights across several services, successful attacks may lead to account takeover, unauthorized resource access, and the elevation of privileges in regards to those services.
+In order to provide this access to a client application, OAuth relies on several [authorization grant](https://datatracker.ietf.org/doc/html/rfc6749#section-1.3) types to generate an access token:
 
-There are five different roles that are part of an OAuth exchange. In no particular order:
+- [Authorization Code](https://datatracker.ietf.org/doc/html/rfc6749#section-1.3.1): used by both confidential and public clients to exchange an authorization code for an access token, but recommended only for confidential clients
+- [Proof Key for Code Exchange (PKCE)](https://datatracker.ietf.org/doc/html/rfc7636): this grant builds on top of the Authorization Code grant, while providing stronger security for it to be used by public clients, and improving the posture of confidential ones
+- [Client Credentials](https://datatracker.ietf.org/doc/html/rfc6749#section-1.3.4): used for machine to machine communication, where the "user" here is the machine requesting access to its own resources from the Resource Server
+- [Device Code](https://datatracker.ietf.org/doc/html/rfc8628): Used for devices with limited input capabilities.
+- [Refresh Token](https://datatracker.ietf.org/doc/html/rfc6749#section-1.5): tokens provided by the AS to allow clients to refresh users' access tokens once they become invalid or expire. This grant type is used in conjunction with one other grant type.
 
-1. Resource Owner: The entity who grants access to a resource.
-2. User Agent: The browser or native app.
-3. Client: The application that is requesting access to a resource on behalf of the Resource Owner.
-4. Authorization Server: The server that holds authorization information and grants the access.
-5. Resource Server: The application that serves the content accessed by the client.
+Two flows will be deprecated in the release of [OAuth2.1](https://oauth.net/2.1/), and their usage is not recommended:
 
-Clients may be confidential or public.
+- [Implicit Flow](https://datatracker.ietf.org/doc/html/rfc6749#section-1.3.2): PKCE's secure implementation obseletes this flow. Prior to PKCE, the implicit flow was used by client-side applications such as [SPAs](https://en.wikipedia.org/wiki/Single-page_application) since [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) relaxed the [SOP](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy) for websites to inter-communicate. For more information on why the implicit grant is not recommended, review this [section](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics#section-2.1.2).
+- [Resource Owner Password Credentials](https://datatracker.ietf.org/doc/html/rfc6749#section-1.3.3): for information on why this flow is not recommended, review this [section](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics#section-2.4).
 
-Confidential clients are typically applications with server-side code that are able to prevent anyone from accessing the secret.
-
-Public clients, in contrast, are unable to prevent access to the secret. An example of a public client would be a single-page application that has all the code present on the user agent.
+*Note: the above information was set to a limit since this topic expands into several ones, as can be seen with the amount of inline references. The reader should delve further into the references to gain full understanding of the protocols in play.*
 
 ## Test Objectives
 
-- Determine if deprecated or vulnerable OAuth methods are in use.
+- Determine if OAuth2 implementation is vulnerable or using a deprecated or custom implementation.
 
 ## How to Test
 
-To test OAuth, two things must first be accomplished:
-
-- Assess whether the clients are confidential or public.
-- Determine which OAuth flow is used.
-
-### Overview
-
-In order to better understand the attack surface, it is crucial to determine which OAuth grant type is used for the application you are testing. The grant type determines the method by which the the application receives an access token.
-
-These are the most common OAuth grant types:
-
-- Authorization Code: Commonly used with confidential clients.
-- Proof Key for Code Exchange (PKCE): Commonly used with public clients in conjunction with Authorization Code.
-- Consent, Required for the approval of third party clients.
-- Client Credentials: Used for machine to machine communication.
-- Device Code: Used for devices with limited input capabilities.
-
 ### Testing for Deprecated Grant Type
 
-The following two [OAuth grant types](https://oauth.net/2/grant-types/) are still part of the OAuth 2.0 specification, but are kept only to allow migration to newer grant types.
-
-They are deprecated in [OAuth 2.1](https://oauth.net/2.1/) for security reasons.
-
-- [Resource Owner Password Credential (ROPC)](https://datatracker.ietf.org/doc/html/rfc6749#section-1.3.3) grant: A long-lived token method used between trusted resource owner and client, now deprecated. This should only be used for migration purposes.
-- [Implicit Flow](https://oauth.net/2/grant-types/implicit/): Designed to work around the lack of cross-site request possibilities in browsers. This issue is now solved with Cross-Origin Resource Sharing (CORS).
+Deprecated grant types were obsoleted for security and functionality reasons. Identifying if they're being used allows us to quickly review if they're susceptible to any of the threats pertaining to their usage. Some might be out of scope to the attacker, such as the way a client might be using the users' credentials. This should be documented and raised to the internal engineering teams.
 
 For public clients, it is generally possible to identify the grant type in the request to the token endpoint. It is indicated in the token exchange with the parameter `grant_type`.
 
