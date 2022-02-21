@@ -27,10 +27,12 @@ In order to provide this access to a client application, OAuth relies on several
 - [Device Code](https://datatracker.ietf.org/doc/html/rfc8628): Used for devices with limited input capabilities.
 - [Refresh Token](https://datatracker.ietf.org/doc/html/rfc6749#section-1.5): tokens provided by the AS to allow clients to refresh users' access tokens once they become invalid or expire. This grant type is used in conjunction with one other grant type.
 
-Two flows will be deprecated in the release of [OAuth2.1](https://oauth.net/2.1/), and their usage is not recommended:
+Two flows will be deprecated in the release of [OAuth2.1](https://oauth.net/2.1/), and their usage is not recommended for OAuth flows:
 
-- [Implicit Flow](https://datatracker.ietf.org/doc/html/rfc6749#section-1.3.2): PKCE's secure implementation obseletes this flow. Prior to PKCE, the implicit flow was used by client-side applications such as [SPAs](https://en.wikipedia.org/wiki/Single-page_application) since [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) relaxed the [SOP](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy) for websites to inter-communicate. For more information on why the implicit grant is not recommended, review this [section](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics#section-2.1.2).
+- [Implicit Flow*](https://datatracker.ietf.org/doc/html/rfc6749#section-1.3.2): PKCE's secure implementation obseletes this flow. Prior to PKCE, the implicit flow was used by client-side applications such as [SPAs](https://en.wikipedia.org/wiki/Single-page_application) since [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) relaxed the [SOP](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy) for websites to inter-communicate. For more information on why the implicit grant is not recommended, review this [section](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics#section-2.1.2).
 - [Resource Owner Password Credentials](https://datatracker.ietf.org/doc/html/rfc6749#section-1.3.3): for information on why this flow is not recommended, review this [section](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics#section-2.4).
+
+*: The implicit flow in OAuth only is deprecated, yet is still a viable solution within Open ID Connect (OIDC) to retrieve `id_tokens`. Be careful to understand how the implicit flow is being used, which can be identified if only the `/authorization` endpoint, without relying on `/token` endpoint in any way. Not all implicit flow implementations are "bad".
 
 *Note: the above information was set to a limit since this topic expands into several ones, as can be seen with the amount of inline references. The reader should delve further into the references to gain full understanding of the protocols in play.*
 
