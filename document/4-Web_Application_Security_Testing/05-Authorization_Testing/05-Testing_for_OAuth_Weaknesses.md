@@ -42,11 +42,11 @@ Two flows will be deprecated in the release of [OAuth2.1](https://oauth.net/2.1/
 
 ## How to Test
 
-### Testing for Deprecated Grant Type
+### Testing for Deprecated Grant Types
 
 Deprecated grant types were obsoleted for security and functionality reasons. Identifying if they're being used allows us to quickly review if they're susceptible to any of the threats pertaining to their usage. Some might be out of scope to the attacker, such as the way a client might be using the users' credentials. This should be documented and raised to the internal engineering teams.
 
-For public clients, it is generally possible to identify the grant type in the request to the token endpoint. It is indicated in the token exchange with the parameter `grant_type`.
+For public clients, it is generally possible to identify the grant type in the request to the `/token` endpoint. It is indicated in the token exchange with the parameter `grant_type`.
 
 The following example shows the Authorization Code grant with PKCE.
 
@@ -70,26 +70,35 @@ The values for the `grant_type` parameter and the grant type they indicate are:
 - `client_credentials`: Indicates the Client Credential grant.
 - `authorization_code`: Indicates the Authorization Code grant.
 
-The Implicit Flow type is not indicated by the `grant_type` parameter since the token is presented in the response to the authorization request. Below is an example.
+The Implicit Flow type is not indicated by the `grant_type` parameter since the token is presented in the response to the `/authorization` endpoint request, and instead can be identified through the `response_type`. Below is an example.
+
+```http
+GET /authorize
+  ?client_id=<some_client_id>
+  &response_type=token 
+  &redirect_uri=https%3A%2F%2Fclient.example.com%2F
+  &scope=openid%20profile%20email
+  &state=<random_state>
+```
 
 The following URL parameters indicate the OAuth flow being used:
 
-- `response_type=token`: Indicates Implicit Flow.
-- `response_type=code`: Indicates Authorization Code flow.
-- `code_challenge=sha256(xyz)`: Indicates the PKCE extension.
+- `response_type=token`: Indicates Implicit Flow, as the client is directly requesting from the AS to return a token.
+- `response_type=code`: Indicates Authorization Code flow, as the client is requesting from the AS to return a code, that will be exchanged afterwards with a token.
+- `code_challenge=sha256(xyz)`: Indicates the PKCE extension, as no other flow uses this parameter.
 
 The following is an example authorization request for Authorization Code flow with PKCE:
 
 ```http
 GET /authorize
-    ?redirect_uri=http%3A%2F%2Fclient.example.com%2F
-    &client_id=example-client
+    ?redirect_uri=https%3A%2F%2Fclient.example.com%2F
+    &client_id=<some_client_id>
     &scope=openid%20profile%20email
     &response_type=code
     &response_mode=query
-    &state=example
-    &nonce=example
-    &code_challenge=example
+    &state=<random_state>
+    &nonce=<random_nonce>
+    &code_challenge=<random_code_challenge>
     &code_challenge_method=S256 HTTP/1.1
 Host: as.example.com
 [...]
