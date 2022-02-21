@@ -129,7 +129,7 @@ Improper grant types for confidential clients are:
 
 ##### Machine-to-Machine
 
-In situations where no user interaction occurs and the clients are only confidential clients, the Client Credentials grant may be used ([RFC6749 4.4](https://datatracker.ietf.org/doc/html/rfc6749#section-4.4)).
+In situations where no user interaction occurs and the clients are only confidential clients, the Client Credentials grant may be used.
 
 If you know the `client_id` and `client_secret`, it is possible to obtain a token by passing the `client_credentials` grant type.
 
@@ -137,10 +137,10 @@ If you know the `client_id` and `client_secret`, it is possible to obtain a toke
 $ curl --request POST \
   --url https://as.example.com/oauth/token \
   --header 'content-type: application/json' \
-  --data '{"client_id":"example-client","client_secret":"THE_CLIENT_SECRET","audience":"https://as.example.com/","grant_type":"client_credentials"}' --proxy http://localhost:8080/ -k
+  --data '{"client_id":"example-client","client_secret":"THE_CLIENT_SECRET","grant_type":"client_credentials"}' --proxy http://localhost:8080/ -k
 ```
 
-### Credential Leakage via Referrer Header
+### Credential Leakage
 
 Depending on the flow, OAuth transports several types of credentials in as URL parameters.
 
@@ -151,18 +151,18 @@ The following tokens can be considered to be leaked credentials:
 - authorization code
 - PKCE code challenge / code verifier
 
-Due to how OAuth works, the authorization `code` as well as the `code_challenge`, and `code_verifier` may be part of the URL. Therefore, it is even more relevant to ensure those are not sent in the referrer header.
+Due to how OAuth works, the authorization `code` as well as the `code_challenge`, and `code_verifier` may be part of the URL. The implicit flow transports the authorization token as part of the URL if the `response_mode` is not set to [`form_post`](https://openid.net/specs/oauth-v2-form-post-response-mode-1_0.html). This may lead to leakage of the requested token or code in the referrer header, in log files, and proxies due to these parameters being passed either in the query or the fragment.
 
-Implicit Flow transports the authorization token as part of the URL. This may lead to leakage of the authorization token in the referrer header and in other places such as log files and proxies.
+The risk that's carried by the implicit flow leaking the tokens is far higher than leaking the `code` or any other `code_*` parameters, as they are bound to specific clients and are harder to abuse in case of leakage.
 
-#### How to Test
-
-Make use of an HTTP intercepting proxy such as OWASP ZAP and intercept the OAuth traffic.
+In order to test this scenario, ,ake use of an HTTP intercepting proxy such as OWASP ZAP and intercept the OAuth traffic.
 
 - Step through the authorization process and identify any credentials present in the URL.
 - If any external resources are included in a page involved with the OAuth flow, analyze the request made to them. Credentials could be leaked in the referrer header.
 
 After stepping through the OAuth flow and using the application, a few requests are captured in the request history of an HTTP intercepting proxy. Search for the HTTP referrer header (e.g. `Referer: https://idp.example.com/`) containing the authorization server and client URL in the request history.
+
+Reviewing the HTML meta tags, or the [Referrer-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy) could help assess if any credential leakage is happening through the referrer header.
 
 ## Related Test Cases
 
