@@ -142,7 +142,6 @@
                 "objectives":[
                     "Enumerate supported HTTP methods.",
                     "Test for access control bypass.",
-                    "Test XST vulnerabilities.",
                     "Test HTTP method overriding techniques."
                   ]
                 }
