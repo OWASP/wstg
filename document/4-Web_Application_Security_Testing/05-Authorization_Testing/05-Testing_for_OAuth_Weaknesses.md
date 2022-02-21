@@ -12,8 +12,8 @@ In order to do that, OAuth heavily relies on tokens to communicate between the d
 
 - **Resource Owner:** The entity who grants access to a resource, the owner, and in most cases is the user themselves
 - **Client:** The application that is requesting access to a resource on behalf of the Resource Owner. These clients come in two [types](https://datatracker.ietf.org/doc/html/rfc6749#section-2.1):
-  - **Public:** clients that can't protect a secret (*e.g.* front-end focused applications, such as SPAs, mobile applications, etc.)
-  - **Confidential:** clients that are able to securely authenticate with the authorization server by keeping their registered secrets safe (*e.g.* back-end services)
+    - **Public:** clients that can't protect a secret (*e.g.* front-end focused applications, such as SPAs, mobile applications, etc.)
+    - **Confidential:** clients that are able to securely authenticate with the authorization server by keeping their registered secrets safe (*e.g.* back-end services)
 - **Authorization Server (AS):** The server that holds authorization information and grants the access
 - **Resource Server:** The application that serves the content accessed by the client
 
