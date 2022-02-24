@@ -6,18 +6,20 @@
 
 ## Summary
 
-HTTP offers a number of methods that can be used to perform actions on the web server (the HTTP 1.1 standard refers to them as `methods` but they are also commonly described as `verbs`). While GET and POST are by far the most common methods that are used to access information provided by a web server, HTTP allows several other (and somewhat less known) methods. Some of these can be used for nefarious purposes if the web server is misconfigured.
+HTTP offers a number of methods (or verbs) that can be used to perform actions on the web server. While GET and POST are by far the most common methods that are used to access information provided by a web server, there are a variety of other methods that may also be supported, and can sometimes be exploited by attackers.
 
-[RFC 7231 –  Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content](https://tools.ietf.org/html/rfc7231) defines the following valid HTTP request methods, or verbs:
+[RFC 7231](https://tools.ietf.org/html/rfc7231) defines the following valid HTTP request methods, or verbs. Several of these verbs have bee re-used for different purposes in [RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer) applications, listed in the table below.
 
-- [`GET`](https://tools.ietf.org/html/rfc7231#section-4.3.1)
-- [`HEAD`](https://tools.ietf.org/html/rfc7231#section-4.3.2)
-- [`POST`](https://tools.ietf.org/html/rfc7231#section-4.3.3)
-- [`PUT`](https://tools.ietf.org/html/rfc7231#section-4.3.4)
-- [`DELETE`](https://tools.ietf.org/html/rfc7231#section-4.3.5)
-- [`CONNECT`](https://tools.ietf.org/html/rfc7231#section-4.3.6)
-- [`OPTIONS`](https://tools.ietf.org/html/rfc7231#section-4.3.7)
-- [`TRACE`](https://tools.ietf.org/html/rfc7231#section-4.3.8)
+| Method | Original Purpose | RESTful Purpose |
+|--------|------------------|-----------------|
+| [`GET`](https://tools.ietf.org/html/rfc7231#section-4.3.1) | Request a file. | Request an object.|
+| [`HEAD`](https://tools.ietf.org/html/rfc7231#section-4.3.2) | Request a file, but only return the HTTP headers. | |
+| [`POST`](https://tools.ietf.org/html/rfc7231#section-4.3.3) | Submit data. | |
+| [`PUT`](https://tools.ietf.org/html/rfc7231#section-4.3.4) | Upload a file. | Create an object. 
+| [`DELETE`](https://tools.ietf.org/html/rfc7231#section-4.3.5) | Delete a file | Delete an object. |
+| [`CONNECT`](https://tools.ietf.org/html/rfc7231#section-4.3.6) | Establish a connection to another system. | |
+| [`OPTIONS`](https://tools.ietf.org/html/rfc7231#section-4.3.7) | List supported HTTP methods. | Perform a [CORS Preflight](https://developer.mozilla.org/en-US/docs/Glossary/Preflight_request) request.
+| [`TRACE`](https://tools.ietf.org/html/rfc7231#section-4.3.8) | Echo the HTTP request for debug purposes. | | 
 
 ## Test Objectives
 
@@ -29,37 +31,108 @@ HTTP offers a number of methods that can be used to perform actions on the web s
 
 ### Discover the Supported Methods
 
-To perform this test, the tester needs some way to figure out which HTTP methods are supported by the web server that is being examined. While the `OPTIONS` HTTP method provides a direct way to do that, verify the server's response by issuing requests using different methods. This can be achieved by manual testing or something like the [`http-methods`](https://nmap.org/nsedoc/scripts/http-methods.html) Nmap script.
+To perform this test, the tester needs some way to identify which HTTP methods are supported by the web server that is being examined. The simplest way to do this is to make an `OPTIONS` request to the server:
 
-To use the `http-methods` Nmap script to test the endpoint `/index.php` on the server `localhost` using HTTPS, issue the command:
+```http
+OPTIONS / HTTP/1.1
+Host: example.org
+```
+The server should then response with a list of supported methods:
 
-```bash
-nmap -p 443 --script http-methods --script-args http-methods.url-path='/index.php' localhost
+```http
+HTTP/1.1 200 OK
+Allow: OPTIONS, GET, HEAD, POST
 ```
 
-When testing an application that has to accept other methods, e.g. a RESTful Web Service, test it thoroughly to make sure that all endpoints accept only the methods that they require.
+However, some servers may not respond to `OPTIONS` requests, or may return inaccurate information. Additionally, servers may support different methods for different paths - so just because a method is not supported for the root `/` directory, this doesn't necessarily mean that it won't be supported elsewhere.
 
-#### Testing the PUT Method
+An alternatively way to test for supported methods is to simply make a request with that method type, and examine the server response. If the method is not permitted, the server should return a `405 Method Not Allowed` status.
 
-1. Capture the base request of the target with a web proxy.
-2. Change the request method to `PUT` and add `test.html` file and send the request to the application server.
+Note that some servers treat unknown methods as equivalent to `GET`, so they may response to arbitrary methods, such as the request shown below. This can occasionally be useful to evade a web application firewall, or any other filtering that blocks specific methods.
 
-   ```html
-   PUT /test.html HTTP/1.1
-   Host: testing-website
+```http
+FOO / HTTP/1.1
+Host: example.org
+```
 
-   <html>
-   HTTP PUT Method is Enabled
-   </html>
-   ```
+Requests with arbitrary methods can also be made using cURL with the `-X` option:
 
-3. If the server response with 2XX success codes or 3XX redirections and then confirm by `GET` request for `test.html` file. The application is vulnerable.
+```bash
+curl -X FOO https://example.org
+```
 
-If the HTTP `PUT` method is not allowed on base URL or request, try other paths in the system.
+There are also a variety of automated tools that can attempt to determine supported methods, such as the [`http-methods`](https://nmap.org/nsedoc/scripts/http-methods.html) Nmap script. However, these tools may not test for dangerous methods (such as `PUT` or `DELETE`), or may unintentionally cause changes to the web server if this methods are supported. As such, they should be used with care.
 
-> NOTE: If you are successful in uploading a web shell you should overwrite it or ensure that the security team of the target are aware and remove the component promptly after your proof-of-concept.
+### PUT and DELETE
 
-Leveraging the `PUT` method an attacker may be able to place arbitrary and potentially malicious content, into the system which may lead to remote code execution, defacing the site or denial of service.
+The `PUT` and `DELETE` methods can have different effects, depending on whether they are being interpreted by the web server or by the application running on it.
+
+#### Legacy Web Servers
+
+Some legacy web servers allowed the use of the `PUT` method to create files on the server. For example, if the server is configured to allow this, the request below would create a file on the server called `test.html` with the contents `<script>alert(1)</script>`.
+
+```http
+PUT /test.html HTTP/1.1
+Host: example.org
+Content-Length: 25
+
+<script>alert(1)</script>
+```
+
+Similar requests can also be made with cURL:
+
+```bash
+curl https://example.org --upload-file test.html
+```
+
+This allows an attacker to upload arbitrary files to the webserver, which could potential result in a full system compromise if they are allowed to upload executable code such as PHP files. However, this configuration is extremely rare, and is unlikely to be seen on any modern systems.
+
+Similarly, the `DELETE` method can be used to delete files from the webserver. Note that this is a **destructive action**, so care should be taken when testing this method.
+
+```http
+DELETE /test.html HTTP/1.1
+Host: example.org
+```
+
+Or with cURL
+
+```bash
+curl http://example.org/test.html -X DELETE
+```
+
+#### RESTful APIs
+
+By contrast, the `PUT` and `DELETE` methods are commonly used by modern RESTful applications to create and delete objects. For example, the API request below could be use to create a widget called "mywidget" with a value of 10:
+
+```http
+PUT /api/widgets/mywidget HTTP/1.1
+Host: example.org
+Content-Length: 34
+
+{"value":"10"}
+```
+
+A similar requests with the DELETE method could be used to delete an object.
+
+```http
+DELETE /api/widgets/mywidget HTTP/1.1
+Host: example.org
+```
+
+Although it may be reported by automated scanning tools, the presence of these methods on a RESTful API **is not a security issue**. However, this functionality may have other vulnerabilities (such as weak access control), should be thoroughly tested.
+
+### TRACE
+
+The `TRACE` method causes the server to echo back the contents of the request. This lead to a vulnerability called Cross-Site Tracing (XST) being published in [2003](https://www.cgisecurity.com/whitehat-mirror/WH-WhitePaper_XST_ebook.pdf) (PDF), which could be used to access cookies that had the `HttpOnly` flag set. The `TRACE` method has been blocked in all browsers and plugins for many years, and as such this issue is no longer exploitable. However, it may still be flagged by automated scanning tools, and the `TRACE` method being enabled on a web server suggests that is has not been properly hardened.
+
+### CONNECT
+
+The `CONNECT` method causes the web server to open a TCP connection to another system, and then to pass traffic from the client through to that system. This could allow an attacker to proxy traffic through the server, in order to hide their source address, access internal systems or access services that are bound to localhost. An example of a CONNECT request is shown below:
+
+```http
+CONNECT 192.168.0.1:443 HTTP/1.1
+Host: example.org
+```
 
 ### Testing for Access Control Bypass
 
@@ -95,7 +168,7 @@ Using the above three commands, modified to suit the application under test and 
 
 ### Testing for HTTP Method Overriding
 
-Some web frameworks provide a way to override the actual HTTP method in the request by emulating the missing HTTP verbs passing some custom header in the requests. The main purpose of this is to circumvent some middleware (e.g. proxy, firewall) limitation where methods allowed usually do not encompass verbs such as `PUT` or `DELETE`. The following alternative headers could be used to do such verb tunneling:
+Some web frameworks provide a way to override the actual HTTP method in the request by emulating the missing HTTP verbs passing some custom header in the requests. The main purpose of this is to circumvent a middleware application (such as a proxy or web application firewall) which blocks specific methods. The following alternative HTTP headers could be used to do such verb tunneling:
 
 - `X-HTTP-Method`
 - `X-HTTP-Method-Override`
@@ -105,31 +178,23 @@ In order to test this, in the scenarios where restricted verbs such as PUT or DE
 
 The web server in the following example does not allow the `DELETE` method and blocks it:
 
-```bash
-$ ncat www.example.com 80
+```http
 DELETE /resource.html HTTP/1.1
 Host: www.example.com
 
 HTTP/1.1 405 Method Not Allowed
-Date: Sat, 04 Apr 2020 18:26:53 GMT
-Server: Apache
-Allow: GET,HEAD,POST,OPTIONS
-Content-Length: 320
-Content-Type: text/html; charset=iso-8859-1
-Vary: Accept-Encoding
+[...]
 ```
 
 After adding the `X-HTTP-Method` header, the server responds to the request with a 200:
 
-```bash
-$ ncat www.example.com 80
-DELETE /resource.html HTTP/1.1
+```http
+GET /resource.html HTTP/1.1
 Host: www.example.com
 X-HTTP-Method: DELETE
 
 HTTP/1.1 200 OK
-Date: Sat, 04 Apr 2020 19:26:01 GMT
-Server: Apache
+[...]
 ```
 
 ## Remediation
@@ -141,10 +206,10 @@ Server: Apache
 
 - [Ncat](https://nmap.org/ncat/)
 - [cURL](https://curl.haxx.se/)
-- [nmap http-methods NSE script](https://nmap.org/nsedoc/scripts/http-methods.html)
+- [Nmap http-methods NSE script](https://nmap.org/nsedoc/scripts/http-methods.html)
 
 ## References
 
-- [RFC 2109](https://tools.ietf.org/html/rfc2109) and [RFC 2965](https://tools.ietf.org/html/rfc2965): "HTTP State Management Mechanism"
+- [RFC 7231 - Hypertext Transfer Protocol (HTTP/1.1)](https://tools.ietf.org/html/rfc7231)
 - [HTACCESS: BILBAO Method Exposed](https://web.archive.org/web/20160616172703/http://www.kernelpanik.org/docs/kernelpanik/bme.eng.pdf)
 - [Fortify - Misused HTTP Method Override](https://vulncat.fortify.com/en/detail?id=desc.dynamic.xtended_preview.often_misused_http_method_override)
