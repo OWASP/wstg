@@ -48,7 +48,7 @@ Allow: OPTIONS, GET, HEAD, POST
 
 However, some servers may not respond to `OPTIONS` requests, or may return inaccurate information. Additionally, servers may support different methods for different paths - so just because a method is not supported for the root `/` directory, this doesn't necessarily mean that it won't be supported elsewhere.
 
-An alternative way to test for supported methods is to simply make a request with that method type, and examine the server response. If the method is not permitted, the server should return a `405 Method Not Allowed` status.
+An more reliable way to test for supported methods is to simply make a request with that method type, and examine the server response. If the method is not permitted, the server should return a `405 Method Not Allowed` status.
 
 Note that some servers treat unknown methods as equivalent to `GET`, so they may respond to arbitrary methods, such as the request shown below. This can occasionally be useful to evade a web application firewall, or any other filtering that blocks specific methods.
 
@@ -63,7 +63,7 @@ Requests with arbitrary methods can also be made using cURL with the `-X` option
 curl -X FOO https://example.org
 ```
 
-There are also a variety of automated tools that can attempt to determine supported methods, such as the [`http-methods`](https://nmap.org/nsedoc/scripts/http-methods.html) Nmap script. However, these tools may not test for dangerous methods (such as `PUT` or `DELETE`), or may unintentionally cause changes to the web server if these methods are supported. As such, they should be used with care.
+There are also a variety of automated tools that can attempt to determine supported methods, such as the [`http-methods`](https://nmap.org/nsedoc/scripts/http-methods.html) Nmap script. However, these tools may not test for dangerous methods (i.e, methods that may cause changes such as `PUT` or `DELETE`), or may unintentionally cause changes to the web server if these methods are supported. As such, they should be used with care.
 
 ### PUT and DELETE
 
@@ -96,7 +96,7 @@ DELETE /test.html HTTP/1.1
 Host: example.org
 ```
 
-Or with cURL
+Or with cURL:
 
 ```bash
 curl http://example.org/test.html -X DELETE
@@ -123,7 +123,7 @@ DELETE /api/users/foo HTTP/1.1
 Host: example.org
 ```
 
-Although it may be reported by automated scanning tools, the presence of these methods on a RESTful API **is not a security issue**. However, this functionality may have other vulnerabilities (such as weak access control), should be thoroughly tested.
+Although it may be reported by automated scanning tools, the presence of these methods on a RESTful API **is not a security issue**. However, this functionality may have other vulnerabilities (such as weak access control), and should be thoroughly tested.
 
 ### TRACE
 
@@ -171,11 +171,11 @@ Host: example.org
 }
 ```
 
-As with the `PUT` method, this functionality may have access control weaknesses or other vulnerabilities. Additionally, applications may not performed the same level of input validation when modifying an object as they do when creating one. This could potentially allow malicious values to be injected (such as in a stored cross-site scripting attack), or could allow broken or invalid objects that may result in business logic related issues.
+As with the `PUT` method, this functionality may have access control weaknesses or other vulnerabilities. Additionally, applications may not perform the same level of input validation when modifying an object as they do when creating one. This could potentially allow malicious values to be injected (such as in a stored cross-site scripting attack), or could allow broken or invalid objects that may result in business logic related issues.
 
 ### Testing for Access Control Bypass
 
-If a page on the application redirects users to a login page with a `302` code when they try and access it direct, it may be possible to bypass this by making a request with a different HTTP method, such as `HEAD`, `POST` or even a made up method such as `FOO`. If the web application responds with a `HTTP/1.1 200 OK` rather than the expected `HTTP/1.1 302 Found` then it may be possible to bypass the authentication or authorization. The example below shows how a `HEAD` request may result in a page setting administrative cookies, rather than redirecting the user to a login page:
+If a page on the application redirects users to a login page with a `302` code when they attempt and access it directly, it may be possible to bypass this by making a request with a different HTTP method, such as `HEAD`, `POST` or even a made up method such as `FOO`. If the web application responds with a `HTTP/1.1 200 OK` rather than the expected `HTTP/1.1 302 Found` then it may be possible to bypass the authentication or authorization. The example below shows how a `HEAD` request may result in a page setting administrative cookies, rather than redirecting the user to a login page:
 
 ```http
 HEAD /admin/ HTTP/1.1
