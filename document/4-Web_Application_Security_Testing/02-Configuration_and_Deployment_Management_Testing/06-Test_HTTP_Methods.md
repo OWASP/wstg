@@ -8,18 +8,19 @@
 
 HTTP offers a number of methods (or verbs) that can be used to perform actions on the web server. While GET and POST are by far the most common methods that are used to access information provided by a web server, there are a variety of other methods that may also be supported, and can sometimes be exploited by attackers.
 
-[RFC 7231](https://tools.ietf.org/html/rfc7231) defines the following valid HTTP request methods, or verbs. Several of these verbs have bee re-used for different purposes in [RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer) applications, listed in the table below.
+[RFC 7231](https://datatracker.ietf.org/doc/html/rfc7231) defines the main valid HTTP request methods (or verbs), although additional methods have been added in other RFCs, such as [RFC 5789](https://datatracker.ietf.org/doc/html/rfc5789). Several of these verbs have bee re-used for different purposes in [RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer) applications, listed in the table below.
 
 | Method | Original Purpose | RESTful Purpose |
 |--------|------------------|-----------------|
-| [`GET`](https://tools.ietf.org/html/rfc7231#section-4.3.1) | Request a file. | Request an object.|
-| [`HEAD`](https://tools.ietf.org/html/rfc7231#section-4.3.2) | Request a file, but only return the HTTP headers. | |
-| [`POST`](https://tools.ietf.org/html/rfc7231#section-4.3.3) | Submit data. | |
-| [`PUT`](https://tools.ietf.org/html/rfc7231#section-4.3.4) | Upload a file. | Create an object. 
-| [`DELETE`](https://tools.ietf.org/html/rfc7231#section-4.3.5) | Delete a file | Delete an object. |
-| [`CONNECT`](https://tools.ietf.org/html/rfc7231#section-4.3.6) | Establish a connection to another system. | |
-| [`OPTIONS`](https://tools.ietf.org/html/rfc7231#section-4.3.7) | List supported HTTP methods. | Perform a [CORS Preflight](https://developer.mozilla.org/en-US/docs/Glossary/Preflight_request) request.
-| [`TRACE`](https://tools.ietf.org/html/rfc7231#section-4.3.8) | Echo the HTTP request for debug purposes. | | 
+| [`GET`](https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.1) | Request a file. | Request an object.|
+| [`HEAD`](https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.2) | Request a file, but only return the HTTP headers. | |
+| [`POST`](https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.3) | Submit data. | |
+| [`PUT`](https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.4) | Upload a file. | Create an object. 
+| [`DELETE`](https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.5) | Delete a file | Delete an object. |
+| [`CONNECT`](https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.6) | Establish a connection to another system. | |
+| [`OPTIONS`](https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.7) | List supported HTTP methods. | Perform a [CORS Preflight](https://developer.mozilla.org/en-US/docs/Glossary/Preflight_request) request.
+| [`TRACE`](https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.8) | Echo the HTTP request for debug purposes. | |
+| [`PATCH`](https://datatracker.ietf.org/doc/html/rfc5789#section-2) |  | Modify an object. |
 
 ## Test Objectives
 
@@ -102,20 +103,22 @@ curl http://example.org/test.html -X DELETE
 
 #### RESTful APIs
 
-By contrast, the `PUT` and `DELETE` methods are commonly used by modern RESTful applications to create and delete objects. For example, the API request below could be used to create a widget called "mywidget" with a value of 10:
+By contrast, the `PUT` and `DELETE` methods are commonly used by modern RESTful applications to create and delete objects. For example, the API request below could be used to create a user called "foo" with a role of "user":
 
 ```http
-PUT /api/widgets/mywidget HTTP/1.1
+PUT /api/users/foo HTTP/1.1
 Host: example.org
 Content-Length: 34
 
-{"value":"10"}
+{
+    "role": "user"
+}
 ```
 
 A similar request with the DELETE method could be used to delete an object.
 
 ```http
-DELETE /api/widgets/mywidget HTTP/1.1
+DELETE /api/users/foo HTTP/1.1
 Host: example.org
 ```
 
@@ -133,6 +136,41 @@ The `CONNECT` method causes the web server to open a TCP connection to another s
 CONNECT 192.168.0.1:443 HTTP/1.1
 Host: example.org
 ```
+
+### PATCH
+
+The `PATCH` method is defined in [RFC 5789](https://datatracker.ietf.org/doc/html/rfc5789), and is used to provide instructions for how an object should be modified. The RFC itself does not define what format these instructions should be in, but various methods are defined in other standards, such as the [RFC 6902 - JavaScript Object Notation (JSON) Patch](https://datatracker.ietf.org/doc/html/rfc6902).
+
+For example, if we have an user called "foo" with the following properties:
+
+```json
+{
+    "role": "user",
+    "email": "foo@example.org"
+}
+```
+
+The following JSON PATCH request could be used to change the role of this user "admin", without modifying the email address:
+
+```http
+PATCH /api/users/foo HTTP/1.1
+Host: example.org
+
+{ "op": "replace", "path": "/role", "value": "admin" }
+```
+
+Although the RFC states that it should include instructions for how the object should be modified, the `PATCH` method is commonly (mis)used to include the changed content instead, as shown below. Much like the previous request, this would change the "role" value to "admin" without modifying the rest of the object. This is in contrast to the `PUT` method, which would overwrite the entire object (and thus result in an object with no "email" attribute).
+
+```http
+PATCH /api/users/foo HTTP/1.1
+Host: example.org
+
+{
+    "role": "admin"
+}
+```
+
+As with the `PUT` method, this functionality may have access control weaknesses or other vulnerabilities. Additionally, applications may not performed the same level of input validation when modifying an object as they do when creating one. This could potentially allow malicious values to be injected (such as in a stored cross-site scripting attack), or could allow broken or invalid objects that may result in business logic related issues.
 
 ### Testing for Access Control Bypass
 
@@ -210,6 +248,7 @@ HTTP/1.1 200 OK
 
 ## References
 
-- [RFC 7231 - Hypertext Transfer Protocol (HTTP/1.1)](https://tools.ietf.org/html/rfc7231)
+- [RFC 7231 - Hypertext Transfer Protocol (HTTP/1.1)](https://datatracker.ietf.org/doc/html/rfc7231)
+- [RFC 5789 - PATCH Method for HTTP](https://datatracker.ietf.org/doc/html/rfc5789)
 - [HTACCESS: BILBAO Method Exposed](https://web.archive.org/web/20160616172703/http://www.kernelpanik.org/docs/kernelpanik/bme.eng.pdf)
 - [Fortify - Misused HTTP Method Override](https://vulncat.fortify.com/en/detail?id=desc.dynamic.xtended_preview.often_misused_http_method_override)
