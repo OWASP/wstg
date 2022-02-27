@@ -547,6 +547,14 @@ OR 'SQLi' = N'SQLi'
 1 && 1 = 1
 ```
 
+### SQL Wildcard Injection
+
+Most SQL dialects support both single-character wildcards (usually "`?`" or "`_`") and multi-character wildcards (usually "`%`" or "`*`"), which can be used in queries with the `LIKE` operator. Even when appropriate controls (such as parameters or prepared statements) are used to protect against SQL injection attacks, it may be possible to inject wildcards into queries.
+
+For example, if a web application allows users to enter a discount code as part of the checkout process, and it checks whether this code exists in the database using a query such as `SELECT * FROM discount_codes WHERE code LIKE ':code'`, then entering a value of `%` would match all of the discount codes.
+
+This technique could also be used to determine exact discount codes through increasingly specific queries, such as `a%`, `b%`, `ba%`, etc).
+
 ## Remediation
 
 - To secure the application from SQL injection vulnerabilities, refer to the [SQL Injection Prevention CheatSheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html).
