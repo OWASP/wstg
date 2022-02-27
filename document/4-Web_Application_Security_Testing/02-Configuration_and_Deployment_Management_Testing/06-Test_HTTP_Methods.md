@@ -175,52 +175,54 @@ As with the `PUT` method, this functionality may have access control weaknesses 
 
 ### Testing for Access Control Bypass
 
-Find a page to visit that has a security constraint such that a GET request would normally force a 302 redirect to a log in page or force a log in directly. Issue requests using various methods such as HEAD, POST, PUT etc. as well as arbitrarily made up methods such as BILBAO, FOOBAR, CATS, etc. If the web application responds with a `HTTP/1.1 200 OK` that is not a log in page, it may be possible to bypass authentication or authorization. The following example uses [Nmap's `ncat`](https://nmap.org/ncat/).
+If a page on the application redirects users to a login page with a `302` code when they try and access it direct, it may be possible to bypass this by making a request with a different HTTP method, such as `HEAD`, `POST` or even a made up method such as `FOO`. If the web application responds with a `HTTP/1.1 200 OK` rather than the expected `HTTP/1.1 302 Found` then it may be possible to bypass the authentication or authorization. The example below shows how a `HEAD` request may result in a page setting administrative cookies, rather than redirecting the user to a login page:
 
-```bash
-$ ncat www.example.com 80
-HEAD /admin HTTP/1.1
-Host: www.example.com
-
-HTTP/1.1 200 OK
-Date: Mon, 18 Aug 2008 22:44:11 GMT
-Server: Apache
-Set-Cookie: PHPSESSID=pKi...; path=/; HttpOnly
-Expires: Thu, 19 Nov 1981 08:52:00 GMT
-Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
-Pragma: no-cache
-Set-Cookie: adminOnlyCookie1=...; expires=Tue, 18-Aug-2009 22:44:31 GMT; domain=www.example.com
-Set-Cookie: adminOnlyCookie2=...; expires=Mon, 18-Aug-2008 22:54:31 GMT; domain=www.example.com
-Set-Cookie: adminOnlyCookie3=...; expires=Sun, 19-Aug-2007 22:44:30 GMT; domain=www.example.com
-Content-Language: EN
-Connection: close
-Content-Type: text/html; charset=ISO-8859-1
+```http
+HEAD /admin/ HTTP/1.1
+Host: example.org
 ```
 
-If the system appears vulnerable, issue CSRF-like attacks such as the following to exploit the issue more fully:
+```http
+HTTP/1.1 200 OK
+[...]
+Set-Cookie: adminSessionCookie=[...];
+```
 
-- `HEAD /admin/createUser.php?member=myAdmin`
-- `PUT /admin/changePw.php?member=myAdmin&passwd=foo123&confirm=foo123`
-- `CATS /admin/groupEdit.php?group=Admins&member=myAdmin&action=add`
+Alternatively, it may be possible make direct requests to pages that cause actions, such as:
 
-Using the above three commands, modified to suit the application under test and testing requirements, a new user would be created, a password assigned, and the user made an administrator, all using blind request submission.
+```http
+HEAD /admin/createUser.php?username=foo&password=bar&role=admin HTTP/1.1
+Host: example.org
+```
+
+Or:
+
+```http
+FOO /admin/createUser.php
+Host: example.org
+Content-Length: 36
+
+username=foo&password=bar&role=admin
+```
 
 ### Testing for HTTP Method Overriding
 
-Some web frameworks provide a way to override the actual HTTP method in the request by emulating the missing HTTP verbs passing some custom header in the requests. The main purpose of this is to circumvent a middleware application (such as a proxy or web application firewall) which blocks specific methods. The following alternative HTTP headers could be used to do such verb tunneling:
+Some web frameworks provide a way to override the actual HTTP method in the request by emulating the missing HTTP verbs passing some custom header in the requests. The main purpose of this is to circumvent a middleware application (such as a proxy or web application firewall) which blocks specific methods. The following alternative HTTP headers could potentially be used:
 
 - `X-HTTP-Method`
 - `X-HTTP-Method-Override`
 - `X-Method-Override`
 
-In order to test this, in the scenarios where restricted verbs such as PUT or DELETE return a "405 Method not allowed", replay the same request with the addition of the alternative headers for HTTP method overriding, and observe how the system responds. The application should respond with a different status code (*e.g.* 200) in cases where method overriding is supported.
+In order to test this, in the scenarios where restricted verbs such as `PUT` or `DELETE` return a `405 Method not allowed`, replay the same request with the addition of the alternative headers for HTTP method overriding, and observe how the system responds. The application should respond with a different status code (*e.g.* `200 OK`) in cases where method overriding is supported.
 
 The web server in the following example does not allow the `DELETE` method and blocks it:
 
 ```http
 DELETE /resource.html HTTP/1.1
-Host: www.example.com
+Host: example.org
+```
 
+```http
 HTTP/1.1 405 Method Not Allowed
 [...]
 ```
@@ -229,9 +231,11 @@ After adding the `X-HTTP-Method` header, the server responds to the request with
 
 ```http
 GET /resource.html HTTP/1.1
-Host: www.example.com
+Host: example.org
 X-HTTP-Method: DELETE
+```
 
+```http
 HTTP/1.1 200 OK
 [...]
 ```
