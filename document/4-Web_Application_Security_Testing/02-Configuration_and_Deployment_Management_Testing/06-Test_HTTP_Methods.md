@@ -188,7 +188,7 @@ HTTP/1.1 200 OK
 Set-Cookie: adminSessionCookie=[...];
 ```
 
-Alternatively, it may be possible make direct requests to pages that cause actions, such as:
+Alternatively, it may be possible to make direct requests to pages that cause actions, such as:
 
 ```http
 HEAD /admin/createUser.php?username=foo&password=bar&role=admin HTTP/1.1
