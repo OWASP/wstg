@@ -17,6 +17,7 @@ TODO
 ### Quantity Tampering
 
 - Can you add negative numbers of items to to your basket?
+    - If the total has to be positive, can you add some negative values to reduce it?
 - Can you add non-integer numbers of items?
 - If quality values are from a dropdown, can you tamper to use other ones?
 
@@ -25,6 +26,8 @@ TODO
 #### On the Application
 
 - Editing HTML forms/intercepting on application
+- If there are multiple types of items, do they follow the same rules?
+    - For example, can a negative donation be added to the checkout process to reduce the total?
 
 #### On the Payment Gateway
 
@@ -53,6 +56,7 @@ TODO
 - Can you guess (TEST, SORRY, SORRY10, etc) or brute-force discount codes?
 - Can you use wildcards (`%`, `*`)?
 - Can you apply multiple discount codes?
+- Are codes exposed it hidden `<input>` fields or HTML comments?
 
 ### Breaking Payment Flows
 
