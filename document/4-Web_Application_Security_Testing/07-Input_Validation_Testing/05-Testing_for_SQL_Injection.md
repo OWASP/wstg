@@ -553,7 +553,7 @@ Most SQL dialects support both single-character wildcards (usually "`?`" or "`_`
 
 For example, if a web application allows users to enter a discount code as part of the checkout process, and it checks whether this code exists in the database using a query such as `SELECT * FROM discount_codes WHERE code LIKE ':code'`, then entering a value of `%` would match all of the discount codes.
 
-This technique could also be used to determine exact discount codes through increasingly specific queries, such as `a%`, `b%`, `ba%`, etc).
+This technique could also be used to determine exact discount codes through increasingly specific queries (such as `a%`, `b%`, `ba%`, etc).
 
 ## Remediation
 
