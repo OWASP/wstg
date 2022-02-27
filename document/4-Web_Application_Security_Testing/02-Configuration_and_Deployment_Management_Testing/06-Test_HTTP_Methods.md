@@ -46,9 +46,9 @@ Allow: OPTIONS, GET, HEAD, POST
 
 However, some servers may not respond to `OPTIONS` requests, or may return inaccurate information. Additionally, servers may support different methods for different paths - so just because a method is not supported for the root `/` directory, this doesn't necessarily mean that it won't be supported elsewhere.
 
-An alternatively way to test for supported methods is to simply make a request with that method type, and examine the server response. If the method is not permitted, the server should return a `405 Method Not Allowed` status.
+An alternative way to test for supported methods is to simply make a request with that method type, and examine the server response. If the method is not permitted, the server should return a `405 Method Not Allowed` status.
 
-Note that some servers treat unknown methods as equivalent to `GET`, so they may response to arbitrary methods, such as the request shown below. This can occasionally be useful to evade a web application firewall, or any other filtering that blocks specific methods.
+Note that some servers treat unknown methods as equivalent to `GET`, so they may respond to arbitrary methods, such as the request shown below. This can occasionally be useful to evade a web application firewall, or any other filtering that blocks specific methods.
 
 ```http
 FOO / HTTP/1.1
@@ -61,7 +61,7 @@ Requests with arbitrary methods can also be made using cURL with the `-X` option
 curl -X FOO https://example.org
 ```
 
-There are also a variety of automated tools that can attempt to determine supported methods, such as the [`http-methods`](https://nmap.org/nsedoc/scripts/http-methods.html) Nmap script. However, these tools may not test for dangerous methods (such as `PUT` or `DELETE`), or may unintentionally cause changes to the web server if this methods are supported. As such, they should be used with care.
+There are also a variety of automated tools that can attempt to determine supported methods, such as the [`http-methods`](https://nmap.org/nsedoc/scripts/http-methods.html) Nmap script. However, these tools may not test for dangerous methods (such as `PUT` or `DELETE`), or may unintentionally cause changes to the web server if these methods are supported. As such, they should be used with care.
 
 ### PUT and DELETE
 
@@ -85,7 +85,7 @@ Similar requests can also be made with cURL:
 curl https://example.org --upload-file test.html
 ```
 
-This allows an attacker to upload arbitrary files to the webserver, which could potential result in a full system compromise if they are allowed to upload executable code such as PHP files. However, this configuration is extremely rare, and is unlikely to be seen on any modern systems.
+This allows an attacker to upload arbitrary files to the webserver, which could potentially result in a full system compromise if they are allowed to upload executable code such as PHP files. However, this configuration is extremely rare, and is unlikely to be seen on any modern systems.
 
 Similarly, the `DELETE` method can be used to delete files from the webserver. Note that this is a **destructive action**, so care should be taken when testing this method.
 
@@ -102,7 +102,7 @@ curl http://example.org/test.html -X DELETE
 
 #### RESTful APIs
 
-By contrast, the `PUT` and `DELETE` methods are commonly used by modern RESTful applications to create and delete objects. For example, the API request below could be use to create a widget called "mywidget" with a value of 10:
+By contrast, the `PUT` and `DELETE` methods are commonly used by modern RESTful applications to create and delete objects. For example, the API request below could be used to create a widget called "mywidget" with a value of 10:
 
 ```http
 PUT /api/widgets/mywidget HTTP/1.1
@@ -112,7 +112,7 @@ Content-Length: 34
 {"value":"10"}
 ```
 
-A similar requests with the DELETE method could be used to delete an object.
+A similar request with the DELETE method could be used to delete an object.
 
 ```http
 DELETE /api/widgets/mywidget HTTP/1.1
@@ -123,11 +123,11 @@ Although it may be reported by automated scanning tools, the presence of these m
 
 ### TRACE
 
-The `TRACE` method causes the server to echo back the contents of the request. This lead to a vulnerability called Cross-Site Tracing (XST) being published in [2003](https://www.cgisecurity.com/whitehat-mirror/WH-WhitePaper_XST_ebook.pdf) (PDF), which could be used to access cookies that had the `HttpOnly` flag set. The `TRACE` method has been blocked in all browsers and plugins for many years, and as such this issue is no longer exploitable. However, it may still be flagged by automated scanning tools, and the `TRACE` method being enabled on a web server suggests that is has not been properly hardened.
+The `TRACE` method (or Microsoft's equivalent `TRACK` method) causes the server to echo back the contents of the request. This lead to a vulnerability called Cross-Site Tracing (XST) being published in [2003](https://www.cgisecurity.com/whitehat-mirror/WH-WhitePaper_XST_ebook.pdf) (PDF), which could be used to access cookies that had the `HttpOnly` flag set. The `TRACE` method has been blocked in all browsers and plugins for many years, and as such this issue is no longer exploitable. However, it may still be flagged by automated scanning tools, and the `TRACE` method being enabled on a web server suggests that is has not been properly hardened.
 
 ### CONNECT
 
-The `CONNECT` method causes the web server to open a TCP connection to another system, and then to pass traffic from the client through to that system. This could allow an attacker to proxy traffic through the server, in order to hide their source address, access internal systems or access services that are bound to localhost. An example of a CONNECT request is shown below:
+The `CONNECT` method causes the web server to open a TCP connection to another system, and then to pass traffic from the client through to that system. This could allow an attacker to proxy traffic through the server, in order to hide their source address, access internal systems or access services that are bound to localhost. An example of a `CONNECT` request is shown below:
 
 ```http
 CONNECT 192.168.0.1:443 HTTP/1.1
