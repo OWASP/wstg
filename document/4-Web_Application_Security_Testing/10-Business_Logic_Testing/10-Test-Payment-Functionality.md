@@ -83,6 +83,8 @@ If you can obtain this secret, you can then tamper the transaction details, and 
 
 ### Breaking Payment Flows
 
+- Modifying details during process (items, address, etc)
+- Modifying details after checkout is completed
 - Many payment flows include redirection:
     - Checkout on application
     - Redirected to third-party to make payment
