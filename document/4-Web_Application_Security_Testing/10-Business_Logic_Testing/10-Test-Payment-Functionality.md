@@ -137,7 +137,7 @@ If the application supports discount codes, then there are various checks that s
 - Is there any brute-force protection?
 - Can multiple discount codes be applied at once?
 - Can discount codes be applied multiple times?
-- Can you [inject wildcard characters](07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#sql-wildcard-injection) such as `%` or `*`?
+- Can you [inject wildcard characters](../07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#sql-wildcard-injection) such as `%` or `*`?
 - Are discount codes exposed in the HTML source, in or hidden `<input>` fields anywhere on the application?
 
 In addition to these, the usual vulnerabilities such as SQL injection should be tested for.
