@@ -16,23 +16,71 @@ TODO
 
 ### Quantity Tampering
 
-- Can you add negative numbers of items to to your basket?
-    - If the total has to be positive, can you add some negative values to reduce it?
-- Can you add non-integer numbers of items?
-- If quality values are from a dropdown, can you tamper to use other ones?
+Most e-commerce websites allow users to add items to a basket before they start the checkout process. This basket should keep track of which items that have been added, and the item of each item. The quality should normally be a positive integer, but if the website does not properly validate this then it may be possible to a decimal quantity of an item (e.g, 0.1) or a negative quantity (e.g, -1). Depending on the backend processing, adding negative quantities of an item may result in a negative value, reducing the overall cost of the basket.
+
+There are usually multiple ways to modify the contents, of the basket that should be tested, such as:
+
+- Adding a negative quantity of an item.
+- Repeatedly removing items until the quantity is negative.
+- Updating the quantity to a negative value.
+
+Some sites may also provide a drop-down menu of valid quantities (such as items that must be bought in packs of 10), and it may be possible to tamper these requests to add other numbers of items.
+
+If the full basket details are passed to the payment gateway (rather than simply passing a total value), it may also be possible to tamper the values at that stage.
 
 ### Price Tampering
 
 #### On the Application
 
-- Editing HTML forms/intercepting on application
-- If there are multiple types of items, do they follow the same rules?
-    - For example, can a negative donation be added to the checkout process to reduce the total?
+When adding an item to the basket, the application should only include the item and a quantity, such as the example request below:
+
+```http
+POST /api/basket/add HTTP/1.1
+Host: example.org
+
+item_id=1&quantity=5
+```
+
+However, in some cases the application may also include the price, meaning that it may be possible to tamper it:
+
+```http
+POST /api/basket/add HTTP/1.1
+Host: example.org
+
+item_id=1&quantity=5&price=2.00
+```
+
+Different types of items may have different validation rules, so eac type needs to be separately testing. For example, some applications allow users to add an optional donation to charity as part of their purchase, and this donation can usually be an arbitrary amount. If this amount is not validated, it may be possible to add a negative donation amount, which would then reduce the total value of the basket.
 
 #### On the Payment Gateway
 
-- Editing HTML or intercepting on transfer to payment gateway
-- Negative transactions may be processed as a refund
+If the checkout process is performed on an external payment gateway, then it may be possible to tamper with the prices between the application and the gateway.
+
+For example, the transfer to the gateway may be performed using a cross-domain POST to the gateway, as shown in the HTML example below (note that the card details are not included - the user will be prompted for them on the payment gateway):
+
+```html
+<form action="https://example.org/process_payment" method="POST">
+    <input type="hidden" id="merchant_id" value="123" />
+    <input type="hidden" id="basket_id" value="456" />
+    <input type="hidden" id="item_id" value="1" />
+    <input type="hidden" id="item_quantity" value="5" />
+    <input type="hidden" id="item_total" value="20.00" />
+    <input type="hidden" id="shipping_total" value="2.00" />
+    <input type="hidden" id="basket_total" value="22.00" />
+    <input type="hidden" id="currency" value="GBP" />
+    <input type="submit" id="submit" value="submit" />
+</form>
+```
+
+By modifying the HTML form or intercepting the POST request, it may be possible to modify the prices of items, and to effectively purchase them for less. Note that many payment gateway will reject a transaction with a value of zero, to a total of 0.01 is more likely to succeed. However, some payment gateways may accept negative values, which could be used to steal money from the application. Where there are multiple values (such as item prices, a shipping cost and the total basket cost), all of these should be tested.
+
+If the payment gateway uses an iframe instead, it may be possible to perform a similar type of attack by modifying the IFRAME URL:
+
+```html
+<iframe src="https://example.org/payment_iframe?merchant_id=123&basket_total=22.00" />
+```
+
+Note that the payment gateway is usually run by a third-party, and as such may not be included in the scope of testing. This means that while price tampering may be acceptable, other types of attacks (such as SQL injection) should not be performed without explicit written approval).
 
 #### Encrypted Transaction Details
 
@@ -68,7 +116,7 @@ If you can obtain this secret, you can then tamper the transaction details, and 
 
 #### Currency Tampering
 
-- If you can't tamper price, can you change the currency (pay $10 when it should be £10)
+If it's not possible to tamper with the actual prices, it may be possible to change the currency that is used, especially where applications support multiple currencies. For example, the application may validate that the price is 10, but if you can change the currency so that you pay 10 USD rather than 10 GBP, this would allow you to purchase items more cheaply.
 
 #### Time Delayed Requests
 
