@@ -120,7 +120,14 @@ If it's not possible to tamper with the actual prices, it may be possible to cha
 
 #### Time Delayed Requests
 
-- If the value of an item changes (such as on a currency exchange), can you "freeze" a request and pay with old value?
+If the value of items on the site changes over time (for example on a currency exchange), then it may be possible to buy or sell at an old price by intercepting requests using a local proxy and delaying them. In order for this to be exploitable, the price would need to either be included in the request, or linked to something in the request (such as session or transaction ID). The example below shows how this could potentially be exploited on a application that allows users to buy and sell gold:
+
+- View the current price of gold on the website.
+- Initiate a buy request for 1oz of gold.
+- Intercept the request.
+- Wait one minutes to check the price of gold again:
+    - If it increases, allow the transaction to complete, and buy the gold for less than it's current value.
+    - If it decreases, drop the request request.
 
 ### Discount Codes
 
