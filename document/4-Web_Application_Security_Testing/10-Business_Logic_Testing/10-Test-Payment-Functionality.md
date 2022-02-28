@@ -131,10 +131,16 @@ If the value of items on the site changes over time (for example on a currency e
 
 ### Discount Codes
 
-- Can you guess (TEST, SORRY, SORRY10, etc) or brute-force discount codes?
-- Can you use wildcards (`%`, `*`)?
-- Can you apply multiple discount codes?
-- Are codes exposed it hidden `<input>` fields or HTML comments?
+If the application supports discount codes, then there are various checks that should be carried out:
+
+- Are the codes easily guessable (TEST, TEST10, SORRY, SORRY10, company details, etc)?
+- Is there any brute-force protection?
+- Can multiple discount codes be applied at once?
+- Can discount codes be applied multiple times?
+- Can you [inject wildcard characters](07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#sql-wildcard-injection) such as `%` or `*`?
+- Are discount codes exposed in the HTML source, in or hidden `<input>` fields anywhere on the application?
+
+In addition to these, the usual vulnerabilities such as SQL injection should be tested for.
 
 ### Breaking Payment Flows
 
