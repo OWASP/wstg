@@ -144,15 +144,23 @@ In addition to these, the usual vulnerabilities such as SQL injection should be 
 
 ### Breaking Payment Flows
 
-- Modifying details during process (items, address, etc)
-- Modifying details after checkout is completed
-- Many payment flows include redirection:
-    - Checkout on application
-    - Redirected to third-party to make payment
-    - Redirected back to `success.php` or `fail.php` depending on status
-- Can you get redirected, then force-browse to success page?
-- Can you make multiple requests to success page?
-- Does success page include an ID? IDOR
+If the checkout or payment process on an application involves multiple stages (such as adding items to a basket, entering discount codes, entering shipping details and entering billing information), then it may be possible to cause unintended behaviour by performing these steps outside of the expected sequence. For example, you could try:
+
+- Modifying the shipping address after the billing details have been entered to reduce shipping costs.
+- Removing items after entering shipping details, to avoid a minimum basket value.
+- Modifying the contents of the basket after applying a discount code.
+- Modifying the contents of a basket after completing the checkout process
+
+It may also be possible to skip the entire payment process for the transaction. For example, if the application redirects to a third-party payment gateway, the payment flow may be:
+
+- The user enters details on the application.
+- The user is redirected to the third-party payment gateway.
+- The user enters their card details.
+    - If the payment is successful, they are redirected to `success.php` on the application.
+    - If the payment is unsuccessful, they are redirected to `failure.php` on teh application
+- The application updates its order database, and processes the order if it was successful.
+
+Depending on whether the application actually validates that the payment on the gateway was successful, it may be possible to force-browse to the `success.php` page (possibly including a transaction ID if one is required), which would cause the website to process the order as though the payment was successful. Additionally, it may be possible to make repeated requests to the `success.php` page to cause an order to be processed multiple times.
 
 ### Exploiting Transaction Processing Fees
 
