@@ -164,10 +164,9 @@ Depending on whether the application actually validates that the payment on the 
 
 ### Exploiting Transaction Processing Fees
 
-- Merchants have to pay fees for every transaction processed
-    - Usually fixed fee + percentage
-- Very small transaction ($0.01) usually cost merchant money to receive
-- Check minimum transaction values
+Merchants normally have to pay fees for every transaction processed, which are typically made up of a small fixed fee, and a percentage of the total value. This means that receiving very small payments (such as $0.01) may result in teh merchant actually losing money, as the transaction processing fees are greater than the total value of the transaction.
+
+This issue is rarely exploitable on e-commerce sites (as the price of the cheapest item is usually high enough). However, if the website allows cusotmers to make payments with arbitrary amounts (such as donations), check that it enforces a sensible minimum value.
 
 ### Testing Logistics
 
