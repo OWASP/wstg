@@ -25,7 +25,7 @@
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/01-Information_Gathering/03-Review_Webserver_Metafiles_for_Information_Leakage",
                 "objectives":[
                     "Identify hidden or obfuscated paths and functionality through the analysis of metadata files.",
-                    "Extract and map other information that could lead to better understanding of the systems at hand."
+                    "Extract and map other information that could lead to a better understanding of the systems at hand."
                   ]
                 }
                 ,{
@@ -33,7 +33,7 @@
                 "id":"WSTG-INFO-04",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/01-Information_Gathering/04-Enumerate_Applications_on_Webserver",
                 "objectives":[
-                    "Enumerate the applications within scope that exist on a web server."
+                    "Enumerate the applications within the scope that exist on a web server."
                   ]
                 }
                 ,{
