@@ -19,7 +19,7 @@ To address these issues, it is necessary to perform web application discovery.
 
 ## Test Objectives
 
-- Enumerate the applications within scope that exist on a web server.
+- Enumerate the applications within the scope that exist on a web server.
 
 ## How to Test
 
