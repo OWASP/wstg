@@ -176,5 +176,5 @@ Ensure default system accounts and test accounts are deleted prior to releasing 
 
 ## References
 
-- [Marco Mella, Sun Java Access & Identity Manager Users enumeration](https://securiteam.com/exploits/5ep0f0uquo/)
+- [Marco Mella, Sun Java Access & Identity Manager Users enumeration](https://www.exploit-db.com/exploits/32762)
 - [Username Enumeration Vulnerabilities](https://www.gnucitizen.org/blog/username-enumeration-vulnerabilities/)
