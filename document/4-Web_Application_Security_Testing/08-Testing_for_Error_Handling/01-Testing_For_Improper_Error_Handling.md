@@ -71,7 +71,7 @@ For remediation, check out the [Proactive Controls C10](https://owasp.org/www-pr
 
 ## Playgrounds
 
-- [Juice Shop - Error Handling](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/security-misconfiguration.html#provoke-an-error-that-is-neither-very-gracefully-nor-consistently-handled)
+- [Juice Shop - Error Handling](https://pwning.owasp-juice.shop/part2/security-misconfiguration.html#provoke-an-error-that-is-neither-very-gracefully-nor-consistently-handled)
 
 ## References
 
@@ -80,4 +80,3 @@ For remediation, check out the [Proactive Controls C10](https://owasp.org/www-pr
 - [ASVS v4.1 v7.4: Error handling](https://github.com/OWASP/ASVS/blob/master/4.0/en/0x15-V7-Error-Logging.md#v74-error-handling)
 - [CWE 728 - Improper Error Handling](https://cwe.mitre.org/data/definitions/728.html)
 - [Cheat Sheet Series: Error Handling](https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html)
-  
