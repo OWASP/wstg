@@ -69,10 +69,6 @@ Error messages are sometimes the main weakness in mapping out systems, especiall
 
 For remediation, check out the [Proactive Controls C10](https://owasp.org/www-project-proactive-controls/v3/en/c10-errors-exceptions) and the [Error Handling Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html).
 
-## Playgrounds
-
-- [Juice Shop - Error Handling](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/security-misconfiguration.html#provoke-an-error-that-is-neither-very-gracefully-nor-consistently-handled)
-
 ## References
 
 - [WSTG: Appendix C - Fuzz Vectors](../../6-Appendix/C-Fuzz_Vectors.md)
