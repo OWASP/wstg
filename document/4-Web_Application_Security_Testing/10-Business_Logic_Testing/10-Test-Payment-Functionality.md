@@ -82,7 +82,9 @@ Different types of items may have different validation rules, so each type needs
 
 If the checkout process is performed on an third-party payment gateway, then it may be possible to tamper with the prices between the application and the gateway.
 
-The transfer to the gateway may be performed using a cross-domain POST to the gateway, as shown in the HTML example below (note that the card details are not included - the user will be prompted for them on the payment gateway):
+The transfer to the gateway may be performed using a cross-domain POST to the gateway, as shown in the HTML example below.
+
+> Note: The card details are not included in this request - the user will be prompted for them on the payment gateway:
 
 ```html
 <form action="https://example.org/process_payment" method="POST">
@@ -106,7 +108,7 @@ If the payment gateway uses an IFRAME instead, it may be possible to perform a s
 <iframe src="https://example.org/payment_iframe?merchant_id=123&basket_total=22.00" />
 ```
 
-Note that the payment gateway is usually run by a third-party, and as such may not be included in the scope of testing. This means that while price tampering may be acceptable, other types of attacks (such as SQL injection) should not be performed without explicit written approval).
+> Note: Payment gateways are usually run by a third-parties, and as such may not be included in the scope of testing. This means that while price tampering may be acceptable, other types of attacks (such as SQL injection) should not be performed without explicit written approval).
 
 #### Encrypted Transaction Details
 
