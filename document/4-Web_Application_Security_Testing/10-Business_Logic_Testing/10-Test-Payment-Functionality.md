@@ -217,7 +217,8 @@ Testing payment functionality on applications can introduce additional complexit
 
 ## Remediation
 
-- Use a redirect or IFRAME for the payment gateway wherever possible.
+- Avoid storing, transmitting or processing card details wherever possible.
+    - Use a redirect or IFRAME for the payment gateway.
 - Review payment gateway documentation and use all available security features (such as encryption and secure hashes).
 - Handle all pricing related information on server-side:
     - The only things included in client-side requests should be item IDs and quantities.
