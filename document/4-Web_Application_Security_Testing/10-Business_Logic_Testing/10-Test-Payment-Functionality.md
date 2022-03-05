@@ -14,6 +14,30 @@ TODO
 
 ## How to Test
 
+### Payment Gateway Integration Methods
+
+There are several different ways that applications can integrate payment functionality, and the testing approach will vary depending on which one is used. The most common methods are:
+
+- Redirecting the user to a third-party payment gateway.
+- Loading a third-party payment gateway in an IFRAME in the page.
+- Having a HTML form that makes a cross-domain POST request to a third-party payment gateway.
+- Accepting the card details directly, and then making a POST from the application backend to the payment gateway's API.
+
+### PCI DSS
+
+The Payment Card Industry Data Security Standard (PCI DSS) is a standard that organisations are required to follow in order process debit and card payments. A full discussion of this standard is outside of the scope of this guidance (and of most penetration tests) - but it's useful for testers to understand a few key points.
+
+The most common misconception about PCI DSS is that it only applies to systems that store cardholder data (i.e, debit or credit card details). This is incorrect: it applies to any system that "stores, processes or transmits" this information. Exactly which requirements need to be followed depends on how which of the payment gateway integration methods are used. The [Visa Processing E-Commerce Payments guidance](https://www.visa.co.uk/dam/VCOM/regional/ve/unitedkingdom/PDF/risk/processing-e-commerce-payments-guide-73-17337.pdf) provides further details on this, but as a brief summary:
+
+| Integration Method | Self Assessment Questionnaire (SAQ) |
+|--------------------|-------------------------------------|
+| Redirect | [SAQ A](https://www.pcisecuritystandards.org/documents/PCI-DSS-v3_2_1-SAQ-A.pdf) |
+| IFRAME | [SAQ A](https://www.pcisecuritystandards.org/documents/PCI-DSS-v3_2_1-SAQ-A.pdf) |
+| Cross-domain POST | [SAQ A-EP](https://www.pcisecuritystandards.org/documents/PCI-DSS-v3_2-SAQ-A_EP-rev1_1.pdf) |
+| Backend API | [SAQ D](https://www.pcisecuritystandards.org/documents/PCI-DSS-v3_2_1-SAQ-D_Merchant.pdf) |
+
+As well as the differences in the attack surface and risk profile of each approach, there is also a significant different in the number of requirements between SAQ A (22 requirements) and SAQ D (329 requirements) that the organisation needs to meet. As such, it's worth highlighting applications that are not using an redirect or IFRAME, as they are represent increased technical and compliance risks.
+
 ### Quantity Tampering
 
 Most e-commerce websites allow users to add items to a basket before they start the checkout process. This basket should keep track of which items that have been added, and the item of each item. The quality should normally be a positive integer, but if the website does not properly validate this then it may be possible to a decimal quantity of an item (e.g, 0.1) or a negative quantity (e.g, -1). Depending on the backend processing, adding negative quantities of an item may result in a negative value, reducing the overall cost of the basket.
@@ -174,17 +198,6 @@ This issue is rarely exploitable on e-commerce sites (as the price of the cheape
 - Get client to cancel and refund (processing fees?)
 - If testing in dev/staging, get test payment cards
 - Keep careful track of any transactions made
-
-### PCI DSS
-
-- Standard that covers card payments
-- Any application taking payments should be compliant
-- Requirements depend on how payments are made (see [Visa Guidance](https://www.visa.co.uk/dam/VCOM/regional/ve/unitedkingdom/PDF/risk/processing-e-commerce-payments-guide-73-17337.pdf)):
-    - SAQ A: redirect or IFRAME
-    - SAQ A-EP: cross-domain POST
-    - SAQ D: cardholder data touches server
-- SAQ A is best choice, should flag clients not doing that
-- Flag if cardholder data is stored and can be viewed/retrieved
 
 ### Test Payment Cards
 
