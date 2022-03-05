@@ -217,11 +217,12 @@ Testing payment functionality on applications can introduce additional complexit
 
 ## Remediation
 
-- Use a redirect or IFRAME wherever possible.
-- Handle all payment information on server-side:
-    - Only things client-side should be item ID and quantity
-- Review payment gateway documentation and use all available security features
-- Ensure that application payment flow is robust
+- Use a redirect or IFRAME for the payment gateway wherever possible.
+- Review payment gateway documentation and use all available security features (such as encryption and secure hashes).
+- Handle all pricing related information on server-side:
+    - The only things included in client-side requests should be item IDs and quantities.
+- Implement appropriate input validation and business logic constraints (such as checking for negative item numbers or values).
+- Ensure that application payment flow is robust and that steps can't be performed out of sequence.
 
 ## Tools
 
