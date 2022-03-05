@@ -184,7 +184,7 @@ In addition to these, the usual vulnerabilities such as SQL injection should be 
 
 ### Breaking Payment Flows
 
-If the checkout or payment process on an application involves multiple stages (such as adding items to a basket, entering discount codes, entering shipping details, and entering billing information), then it may be possible to cause unintended behaviour by performing these steps outside of the expected sequence. For example, you could try:
+If the checkout or payment process on an application involves multiple stages (such as adding items to a basket, entering discount codes, entering shipping details, and entering billing information), then it may be possible to cause unintended behavior by performing these steps outside of the expected sequence. For example, you could try:
 
 - Modifying the shipping address after the billing details have been entered to reduce shipping costs.
 - Removing items after entering shipping details, to avoid a minimum basket value.
