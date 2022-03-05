@@ -54,6 +54,15 @@ Some sites may also provide a drop-down menu of valid quantities (such as items 
 
 If the full basket details are passed to the payment gateway (rather than simply passing a total value), it may also be possible to tamper the values at that stage.
 
+Finally, if the application is vulnerable to [HTTP parameter pollution](../07-Input_Validation_Testing/04-Testing_for_HTTP_Parameter_Pollution.md) then it may be possible to cause unexpected behavior by passing a parameter multiple times, such as:
+
+```http
+POST /api/basket/add
+Host: example.org
+
+item_id=1&quantity=5&quantity=4
+```
+
 ### Price Tampering
 
 #### On the Application
@@ -221,6 +230,7 @@ Testing payment functionality on applications can introduce additional complexit
 
 ## Related Test Cases
 
+- [Testing for HTTP Parameter Pollution](../07-Input_Validation_Testing/04-Testing_for_HTTP_Parameter_Pollution.md)
 - [Testing for SQL Injection](../07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md)
 - [Testing for the Circumvention of Work Flows](06-Testing_for_the_Circumvention_of_Work_Flows.md)
 
