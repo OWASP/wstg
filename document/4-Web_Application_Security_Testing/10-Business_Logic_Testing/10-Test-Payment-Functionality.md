@@ -6,7 +6,7 @@
 
 ## Summary
 
-TODO
+Many applications implement payment functionality, including e-commerce sites, subscriptions, donations and currency exchanges. The security of this functionality is critical, as vulnerabilities could allow attackers to steal from the website, make fraudulent purchases, or even to steal payment card details from other users. These issue could result in not such reputational damage to the organisation, but also significant financial losses, both from direct losses and fines from industry regulators.
 
 ## Test Objectives
 
@@ -27,7 +27,7 @@ There are several different ways that applications can integrate payment functio
 
 ### PCI DSS
 
-The Payment Card Industry Data Security Standard (PCI DSS) is a standard that organisations are required to follow in order process debit and card payments. A full discussion of this standard is outside of the scope of this guidance (and of most penetration tests) - but it's useful for testers to understand a few key points.
+The Payment Card Industry Data Security Standard (PCI DSS) is a standard that organisations are required to follow in order process debit and card payments (although it's important to note that it is not a law). A full discussion of this standard is outside of the scope of this guidance (and of most penetration tests) - but it's useful for testers to understand a few key points.
 
 The most common misconception about PCI DSS is that it only applies to systems that store cardholder data (i.e, debit or credit card details). This is incorrect: it applies to any system that "stores, processes or transmits" this information. Exactly which requirements need to be followed depends on how which of the payment gateway integration methods are used. The [Visa Processing E-Commerce Payments guidance](https://www.visa.co.uk/dam/VCOM/regional/ve/unitedkingdom/PDF/risk/processing-e-commerce-payments-guide-73-17337.pdf) provides further details on this, but as a brief summary:
 
@@ -154,6 +154,8 @@ If the value of items on the site changes over time (for example on a currency e
 - Wait one minutes to check the price of gold again:
     - If it increases, allow the transaction to complete, and buy the gold for less than it's current value.
     - If it decreases, drop the request request.
+
+If the website allows the user to make payments using cryptocurrencies (which are usually far more volatile than FIAT currencies), it may be possible to exploit this by fixing obtained a fixed price in that cryptocurrency, and then waiting to see if the value rises or falls compared to the relevant FIAT currency.
 
 ### Discount Codes
 
