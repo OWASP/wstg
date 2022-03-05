@@ -202,10 +202,10 @@ Most payment gateways have a set of defined test card details, which can be used
 
 Examples of these test details for various payment gateways are listed below:
 
-- [Adyen](https://docs.adyen.com/development-resources/test-cards/test-card-numbers)
-- [Globalpay](https://developer.globalpay.com/resources/test-card-numbers)
-- [Stripe](https://stripe.com/docs/testing)
-- [Worldpay](http://support.worldpay.com/support/kb/bg/testandgolive/tgl5103.html)
+- [Adyen - Test Card Numbers](https://docs.adyen.com/development-resources/test-cards/test-card-numbers)
+- [Globalpay - Test Cards](https://developer.globalpay.com/resources/test-card-numbers)
+- [Stripe - Basic Test Card Numbers](https://stripe.com/docs/testing#cards)
+- [Worldpay - Test Card Numbers](http://support.worldpay.com/support/kb/bg/testandgolive/tgl5103.html)
 
 ### Testing Logistics
 
