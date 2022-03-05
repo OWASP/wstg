@@ -10,7 +10,9 @@ TODO
 
 ## Test Objectives
 
-- TODO
+- Determine whether the business logic for the e-commerce functionality is robust.
+- Understand how the payment functionality works.
+- Determine whether the payment functionality is secure.
 
 ## How to Test
 
