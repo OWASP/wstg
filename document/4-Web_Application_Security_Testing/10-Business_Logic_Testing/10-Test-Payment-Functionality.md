@@ -217,7 +217,8 @@ Testing payment functionality on applications can introduce additional complexit
 
 ## Related Test Cases
 
-- TODO
+- [Testing for SQL Injection](../07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md)
+- [Testing for the Circumvention of Work Flows](06-Testing_for_the_Circumvention_of_Work_Flows.md)
 
 ## Remediation
 
