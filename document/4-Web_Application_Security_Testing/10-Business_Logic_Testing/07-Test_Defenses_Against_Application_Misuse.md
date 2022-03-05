@@ -77,7 +77,7 @@ Applications should implement active defenses to fend off attackers and abusers.
 
 ## References
 
-- [Resilient Software](https://buildsecurityin.us-cert.gov/swa/resilient.html), Software Assurance, US Department Homeland Security
+- [Software Assurance](https://www.cisa.gov/uscert/sites/default/files/publications/infosheet_SoftwareAssurance.pdf), US Department Homeland Security
 - [IR 7684](https://csrc.nist.gov/publications/detail/nistir/7864/final) Common Misuse Scoring System (CMSS), NIST
 - [Common Attack Pattern Enumeration and Classification](https://capec.mitre.org/) (CAPEC), The Mitre Corporation
 - [OWASP AppSensor Project](https://owasp.org/www-project-appsensor/)
