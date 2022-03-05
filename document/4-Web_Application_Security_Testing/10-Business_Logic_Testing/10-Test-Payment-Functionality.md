@@ -192,20 +192,23 @@ Merchants normally have to pay fees for every transaction processed, which are t
 
 This issue is rarely exploitable on e-commerce sites (as the price of the cheapest item is usually high enough). However, if the website allows cusotmers to make payments with arbitrary amounts (such as donations), check that it enforces a sensible minimum value.
 
+### Test Payment Cards
+
+Most payment gateways have a set of defined test card details, which can be used by developers during testing and debugging. These should only be usable on dev or sandbox versions of the gateways, but may be accepted on live sites if they have been misconfigured.
+
+Examples of these test details for various payment gateways are listed below:
+
+- [Adyen](https://docs.adyen.com/development-resources/test-cards/test-card-numbers)
+- [Globalpay](https://developer.globalpay.com/resources/test-card-numbers)
+- [Stripe](https://stripe.com/docs/testing)
+- [Worldpay](http://support.worldpay.com/support/kb/bg/testandgolive/tgl5103.html)
+
 ### Testing Logistics
 
 - If testing in live, may result in real transactions
 - Get client to cancel and refund (processing fees?)
 - If testing in dev/staging, get test payment cards
 - Keep careful track of any transactions made
-
-### Test Payment Cards
-
-- Most payment gateways have test cards - can these be used?
-    - [Adyen](https://docs.adyen.com/development-resources/test-cards/test-card-numbers)
-    - [Globalpay](https://developer.globalpay.com/resources/test-card-numbers)
-    - [Stripe](https://stripe.com/docs/testing)
-    - [Worldpay](http://support.worldpay.com/support/kb/bg/testandgolive/tgl5103.html)
 
 ## Related Test Cases
 
