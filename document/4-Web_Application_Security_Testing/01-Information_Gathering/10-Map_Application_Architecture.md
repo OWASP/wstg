@@ -16,7 +16,7 @@ Modern web applications can vary significantly in complexity, from a simple scri
 
 ## How to Test
 
-When testing from a black box perspective, it is important to try and build up a clear picture of how the application works, and which technologies and components are in place. In some cases it is possible to test for specific components (such as a web application firewall), while others can be identified by inspecting the behaviour of the application.
+When testing from a black box perspective, it is important to try and build up a clear picture of how the application works, and which technologies and components are in place. In some cases it is possible to test for specific components (such as a web application firewall), while others can be identified by inspecting the behavior of the application.
 
 The sections below provide a high-level overview of common architectural components, along with details of how they can be identified.
 

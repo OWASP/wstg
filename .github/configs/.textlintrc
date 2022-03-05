@@ -34,6 +34,7 @@
 				"jQuery",
 				"LinkedIn",
 				"Lodash",
+				"Nmap",
 				"MacBook",
 				"Markdown",
 				"OpenType",
@@ -129,6 +130,10 @@
 					"backward compatible"
 				],
 				[
+					"behaviour(s)?",
+					"behavior$1"
+				],
+				[
 					"build system(s)?",
 					"build tool$1"
 				],
@@ -159,6 +164,10 @@
 				[
 					"his or her",
 					"their"
+				],
+				[
+					"organisation(s|'s)?",
+					"organization$1"
 				],
 				[
 					"repo\\b",
