@@ -34,12 +34,6 @@ Checks Markdown files for spelling style and typo issues.
 - Trigger: Pull Requests.
 - Config File: `.textlintrc`
 
-## `refresh-stale`
-
-Comments on issues and PRs that have been inactive for 30 days and reapplies the "help wanted" label.
-
-- Trigger: Schedule, midnight daily.
-
 ## `www_latest_update.yml`
 
 Publishes the latest web content using the @wstgbot account to `OWASP/www-project-web-security-testing-guide`.
