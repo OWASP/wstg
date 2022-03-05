@@ -205,10 +205,11 @@ Examples of these test details for various payment gateways are listed below:
 
 ### Testing Logistics
 
-- If testing in live, may result in real transactions
-- Get client to cancel and refund (processing fees?)
-- If testing in dev/staging, get test payment cards
-- Keep careful track of any transactions made
+Testing payment functionality on applications can introduce additional complexity, especially if a live site is being tested. Areas that need to be considered include:
+
+- Obtaining test card payment details for the application.
+- Keeping a record of any orders that are made so that they can be cancelled and refunded.
+- Not placing orders that can't be cancelled, or that will cause other actions (such as goods being immediately dispatched from a warehouse).
 
 ## Related Test Cases
 
@@ -228,4 +229,5 @@ Examples of these test details for various payment gateways are listed below:
 
 ## References
 
-- TODO
+- [Payment Card Industry Data Security Standard (PCI DSS)](https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf)
+- [Visa Processing E-Commerce Payments guidance](https://www.visa.co.uk/dam/VCOM/regional/ve/unitedkingdom/PDF/risk/processing-e-commerce-payments-guide-73-17337.pdf)
