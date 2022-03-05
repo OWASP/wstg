@@ -21,13 +21,13 @@ Many applications implement payment functionality, including e-commerce sites, s
 There are several different ways that applications can integrate payment functionality, and the testing approach will vary depending on which one is used. The most common methods are:
 
 - Redirecting the user to a third-party payment gateway.
-- Loading a third-party payment gateway in an IFRAME in the page.
+- Loading a third-party payment gateway in an IFRAME on the application.
 - Having a HTML form that makes a cross-domain POST request to a third-party payment gateway.
 - Accepting the card details directly, and then making a POST from the application backend to the payment gateway's API.
 
 ### PCI DSS
 
-The Payment Card Industry Data Security Standard (PCI DSS) is a standard that organisations are required to follow in order process debit and card payments (although it's important to note that it is not a law). A full discussion of this standard is outside of the scope of this guidance (and of most penetration tests) - but it's useful for testers to understand a few key points.
+The Payment Card Industry Data Security Standard (PCI DSS) is a standard that organisations are required to follow in order process debit and card payments (although it's important to note that it is not a law). A full discussion of this standard is outside of the scope of this guide (and of most penetration tests) - but it's useful for testers to understand a few key points.
 
 The most common misconception about PCI DSS is that it only applies to systems that store cardholder data (i.e, debit or credit card details). This is incorrect: it applies to any system that "stores, processes or transmits" this information. Exactly which requirements need to be followed depends on how which of the payment gateway integration methods are used. The [Visa Processing E-Commerce Payments guidance](https://www.visa.co.uk/dam/VCOM/regional/ve/unitedkingdom/PDF/risk/processing-e-commerce-payments-guide-73-17337.pdf) provides further details on this, but as a brief summary:
 
@@ -42,7 +42,7 @@ As well as the differences in the attack surface and risk profile of each approa
 
 ### Quantity Tampering
 
-Most e-commerce websites allow users to add items to a basket before they start the checkout process. This basket should keep track of which items that have been added, and the item of each item. The quality should normally be a positive integer, but if the website does not properly validate this then it may be possible to a decimal quantity of an item (e.g, 0.1) or a negative quantity (e.g, -1). Depending on the backend processing, adding negative quantities of an item may result in a negative value, reducing the overall cost of the basket.
+Most e-commerce websites allow users to add items to a basket before they start the checkout process. This basket should keep track of which items that have been added, and the quantity of each item. The quantity should normally be a positive integer, but if the website does not properly validate this then it may be possible to a decimal quantity of an item (such as `0.1`) or a negative quantity (such as `-1`). Depending on the backend processing, adding negative quantities of an item may result in a negative value, reducing the overall cost of the basket.
 
 There are usually multiple ways to modify the contents, of the basket that should be tested, such as:
 
@@ -50,7 +50,7 @@ There are usually multiple ways to modify the contents, of the basket that shoul
 - Repeatedly removing items until the quantity is negative.
 - Updating the quantity to a negative value.
 
-Some sites may also provide a drop-down menu of valid quantities (such as items that must be bought in packs of 10), and it may be possible to tamper these requests to add other numbers of items.
+Some sites may also provide a drop-down menu of valid quantities (such as items that must be bought in packs of 10), and it may be possible to tamper these requests to add other quantities of items.
 
 If the full basket details are passed to the payment gateway (rather than simply passing a total value), it may also be possible to tamper the values at that stage.
 
@@ -76,11 +76,11 @@ Host: example.org
 item_id=1&quantity=5&price=2.00
 ```
 
-Different types of items may have different validation rules, so eac type needs to be separately testing. For example, some applications allow users to add an optional donation to charity as part of their purchase, and this donation can usually be an arbitrary amount. If this amount is not validated, it may be possible to add a negative donation amount, which would then reduce the total value of the basket.
+Different types of items may have different validation rules, so each type needs to be separately tested. Some applications also allow users to add an optional donation to charity as part of their purchase, and this donation can usually be an arbitrary amount. If this amount is not validated, it may be possible to add a negative donation amount, which would then reduce the total value of the basket.
 
 #### On the Payment Gateway
 
-If the checkout process is performed on an external payment gateway, then it may be possible to tamper with the prices between the application and the gateway.
+If the checkout process is performed on an third-party payment gateway, then it may be possible to tamper with the prices between the application and the gateway.
 
 For example, the transfer to the gateway may be performed using a cross-domain POST to the gateway, as shown in the HTML example below (note that the card details are not included - the user will be prompted for them on the payment gateway):
 
@@ -98,9 +98,9 @@ For example, the transfer to the gateway may be performed using a cross-domain P
 </form>
 ```
 
-By modifying the HTML form or intercepting the POST request, it may be possible to modify the prices of items, and to effectively purchase them for less. Note that many payment gateway will reject a transaction with a value of zero, to a total of 0.01 is more likely to succeed. However, some payment gateways may accept negative values, which could be used to steal money from the application. Where there are multiple values (such as item prices, a shipping cost and the total basket cost), all of these should be tested.
+By modifying the HTML form or intercepting the POST request, it may be possible to modify the prices of items, and to effectively purchase them for less. Note that many payment gateway will reject a transaction with a value of zero, to a total of 0.01 is more likely to succeed. However, some payment gateways may accept negative values (used to process refunds). Where there are multiple values (such as item prices, a shipping cost and the total basket cost), all of these should be tested.
 
-If the payment gateway uses an iframe instead, it may be possible to perform a similar type of attack by modifying the IFRAME URL:
+If the payment gateway uses an IFRAME instead, it may be possible to perform a similar type of attack by modifying the IFRAME URL:
 
 ```html
 <iframe src="https://example.org/payment_iframe?merchant_id=123&basket_total=22.00" />
@@ -112,7 +112,7 @@ Note that the payment gateway is usually run by a third-party, and as such may n
 
 In order to prevent the transaction being tampered with, some payment gateways will encrypt the details of the request that is made to them. For example, [Paypal](https://developer.paypal.com/api/nvp-soap/paypal-payments-standard/integration-guide/encryptedwebpayments/#link-usingewptoprotectmanuallycreatedpaymentbuttons) do this using public key cryptography.
 
-The first thing to try is making an unencrypted request, as some payment gateways allow insecure transactions unless a specific configuration option has been set.
+The first thing to try is making an unencrypted request, as some payment gateways allow insecure transactions unless they have been specifically configured to reject them.
 
 If this doesn't work, then you need to find the public key that is used to encrypt the transaction details, which could be exposed in a backup of the application, or if you can find a directory traversal vulnerability.
 
@@ -126,7 +126,7 @@ Once you have this key, you can then try and create an encrypted request (based 
 
 #### Secure Hashes
 
-Other payment gateway use a secure hash (or HMAC) of the transaction details to prevent tampering. The exact details of how this is done will vary between providers (for example, [Adyen](https://docs.adyen.com/online-payments/classic-integrations/hosted-payment-pages/hmac-signature-calculation) use HMAC-SHA256), but it will normally include the details of the transaction and a secret value. For example, a hash may be calculated as:
+Other payment gateway use a secure hash (or a HMAC) of the transaction details to prevent tampering. The exact details of how this is done will vary between providers (for example, [Adyen](https://docs.adyen.com/online-payments/classic-integrations/hosted-payment-pages/hmac-signature-calculation) use HMAC-SHA256), but it will normally include the details of the transaction and a secret value. For example, a hash may be calculated as:
 
 ```php
 $secure_hash = md5($merchant_id . $transaction_id . $items . $total_value . $secret)
@@ -136,7 +136,7 @@ This value is then added to the POST request that is sent to the payment gateway
 
 The first thing to try is removing the secure hash, as some payment gateways allow insecure transactions unless a specific configuration option has been set.
 
-The POST request should contain all of the values required to calculate this hash, other than the secret key. As such, if you know how the hash is calculated (which should be included in the payment gateway's documentation), then you can attempt to brute-force the secret. Alternatively, if the website is running an off-the-shelf application, there may be a default secret in the configuration files or source code. Alternatively, if you can find a backup of the website, or otherwise gain access to the configuration files, you may be able to find the secret there.
+The POST request should contain all of the values required to calculate this hash, other than the secret key. This means that if you know how the hash is calculated (which should be included in the payment gateway's documentation), then you can attempt to brute-force the secret. Alternatively, if the website is running an off-the-shelf application, there may be a default secret in the configuration files or source code. Finally, if you can find a backup of the website, or otherwise gain access to the configuration files, you may be able to find the secret there.
 
 If you can obtain this secret, you can then tamper the transaction details, and then generate your own secure hash which will be accepted by the payment gateway.
 
@@ -150,18 +150,18 @@ If the value of items on the site changes over time (for example on a currency e
 
 - View the current price of gold on the website.
 - Initiate a buy request for 1oz of gold.
-- Intercept the request.
+- Intercept and freeze the request.
 - Wait one minutes to check the price of gold again:
     - If it increases, allow the transaction to complete, and buy the gold for less than it's current value.
     - If it decreases, drop the request request.
 
-If the website allows the user to make payments using cryptocurrencies (which are usually far more volatile than FIAT currencies), it may be possible to exploit this by fixing obtained a fixed price in that cryptocurrency, and then waiting to see if the value rises or falls compared to the relevant FIAT currency.
+If the website allows the user to make payments using cryptocurrencies (which are usually far more volatile than FIAT currencies), it may be possible to exploit this by obtaining a fixed price in that cryptocurrency, and then waiting to see if the value rises or falls compared to the relevant FIAT currency.
 
 ### Discount Codes
 
 If the application supports discount codes, then there are various checks that should be carried out:
 
-- Are the codes easily guessable (TEST, TEST10, SORRY, SORRY10, company details, etc)?
+- Are the codes easily guessable (TEST, TEST10, SORRY, SORRY10, company name, etc)?
 - Is there any brute-force protection?
 - Can multiple discount codes be applied at once?
 - Can discount codes be applied multiple times?
@@ -185,20 +185,20 @@ It may also be possible to skip the entire payment process for the transaction. 
 - The user is redirected to the third-party payment gateway.
 - The user enters their card details.
     - If the payment is successful, they are redirected to `success.php` on the application.
-    - If the payment is unsuccessful, they are redirected to `failure.php` on teh application
+    - If the payment is unsuccessful, they are redirected to `failure.php` on the application
 - The application updates its order database, and processes the order if it was successful.
 
 Depending on whether the application actually validates that the payment on the gateway was successful, it may be possible to force-browse to the `success.php` page (possibly including a transaction ID if one is required), which would cause the website to process the order as though the payment was successful. Additionally, it may be possible to make repeated requests to the `success.php` page to cause an order to be processed multiple times.
 
 ### Exploiting Transaction Processing Fees
 
-Merchants normally have to pay fees for every transaction processed, which are typically made up of a small fixed fee, and a percentage of the total value. This means that receiving very small payments (such as $0.01) may result in teh merchant actually losing money, as the transaction processing fees are greater than the total value of the transaction.
+Merchants normally have to pay fees for every transaction processed, which are typically made up of a small fixed fee, and a percentage of the total value. This means that receiving very small payments (such as $0.01) may result in the merchant actually losing money, as the transaction processing fees are greater than the total value of the transaction.
 
-This issue is rarely exploitable on e-commerce sites (as the price of the cheapest item is usually high enough). However, if the website allows cusotmers to make payments with arbitrary amounts (such as donations), check that it enforces a sensible minimum value.
+This issue is rarely exploitable on e-commerce sites, as the price of the cheapest item is usually high enough to prevent it. However, if the website allows customers to make payments with arbitrary amounts (such as donations), check that it enforces a sensible minimum value.
 
 ### Test Payment Cards
 
-Most payment gateways have a set of defined test card details, which can be used by developers during testing and debugging. These should only be usable on dev or sandbox versions of the gateways, but may be accepted on live sites if they have been misconfigured.
+Most payment gateways have a set of defined test card details, which can be used by developers during testing and debugging. These should only be usable on development or sandbox versions of the gateways, but may be accepted on live sites if they have been misconfigured.
 
 Examples of these test details for various payment gateways are listed below:
 
@@ -212,6 +212,7 @@ Examples of these test details for various payment gateways are listed below:
 Testing payment functionality on applications can introduce additional complexity, especially if a live site is being tested. Areas that need to be considered include:
 
 - Obtaining test card payment details for the application.
+    - If these are not available, then it may be possible to obtain a pre-paid card or an alternative.
 - Keeping a record of any orders that are made so that they can be cancelled and refunded.
 - Not placing orders that can't be cancelled, or that will cause other actions (such as goods being immediately dispatched from a warehouse).
 
