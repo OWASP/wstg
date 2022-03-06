@@ -64,6 +64,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - frozensolid
 - Hsiang-Chih Hsu
 - Jeremy Bonghwan Choi
+- Jinson Varghese Behanan
 - Lukasz Lubczynski
 - Miguel Arevalo
 - Najam Ul Saqib
