@@ -154,7 +154,7 @@ Fully protecting against malicious file upload can be complex, and the exact ste
 - [Overview of Malicious File Upload Attacks](http://securitymecca.com/article/overview-of-malicious-file-upload-attacks/)
 - [8 Basic Rules to Implement Secure File Uploads](https://software-security.sans.org/blog/2009/12/28/8-basic-rules-to-implement-secure-file-uploads)
 - [Stop people uploading malicious PHP files via forms](https://stackoverflow.com/questions/602539/stop-people-uploading-malicious-php-files-via-forms)
-- [How to Tell if a File is Malicious](https://www.techsupportalert.com/content/how-tell-if-file-malicious.htm)
+- [How to Tell if a File is Malicious or Not](https://blog.imunify360.com/file-system-friend-or-foe-how-to-tell-if-a-file-is-good-or-bad)
 - [CWE-434: Unrestricted Upload of File with Dangerous Type](https://cwe.mitre.org/data/definitions/434.html)
 - [Implementing Secure File Upload](https://infosecauditor.wordpress.com/tag/malicious-file-upload/)
 - [Metasploit Generating Payloads](https://www.offensive-security.com/metasploit-unleashed/Generating_Payloads)
