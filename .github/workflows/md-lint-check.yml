@@ -22,9 +22,9 @@ jobs:
         ref: ${{github.event.pull_request.head.ref}}
         repository: ${{github.event.pull_request.head.repo.full_name}}
     - name: Setup Node
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v2
       with:
-        node-version: 12.x
+        node-version: '16'
     - name: Install dependencies
       run: npm install -g markdownlint-cli
     - name: Run linter
