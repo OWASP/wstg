@@ -57,7 +57,7 @@ FOO / HTTP/1.1
 Host: example.org
 ```
 
-Requests with arbitrary methods can also be made using cURL with the `-X` option:
+Requests with arbitrary methods can also be made using curl with the `-X` option:
 
 ```bash
 curl -X FOO https://example.org
