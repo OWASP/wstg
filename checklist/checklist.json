@@ -379,7 +379,7 @@
                 "id":"WSTG-ATHZ-05",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/05-Authorization_Testing/05-Testing_for_OAuth_Weaknesses",
                 "objectives":[
-                    "Determine if deprecated or vulnerable OAuth methods are in use."
+                    "Determine if OAuth2 implementation is vulnerable or using a deprecated or custom implementation."
                   ]
                 }
             ]
