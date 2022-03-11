@@ -379,7 +379,7 @@
                 "id":"WSTG-ATHZ-05",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/05-Authorization_Testing/05-Testing_for_OAuth_Weaknesses",
                 "objectives":[
-                    "Determine if deprecated or vulnerable OAuth methods are in use."
+                    "Determine if OAuth2 implementation is vulnerable or using a deprecated or custom implementation."
                   ]
                 }
             ]
@@ -825,6 +825,16 @@
                     "Determine how the uploaded files are processed.",
                     "Obtain or create a set of malicious files for testing.",
                     "Try to upload the malicious files to the application and determine whether it is accepted and processed."
+                  ]
+                }
+                ,{
+                "name":"Test Payment Functionality",
+                "id":"WSTG-BUSL-10",
+                "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/10-Business_Logic_Testing/10-Test-Payment-Functionality",
+                "objectives":[
+                    "Determine whether the business logic for the e-commerce functionality is robust.",
+                    "Understand how the payment functionality works.",
+                    "Determine whether the payment functionality is secure."
                   ]
                 }
             ]
