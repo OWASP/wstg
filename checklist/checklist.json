@@ -827,6 +827,16 @@
                     "Try to upload the malicious files to the application and determine whether it is accepted and processed."
                   ]
                 }
+                ,{
+                "name":"Test Payment Functionality",
+                "id":"WSTG-BUSL-10",
+                "reference":"https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/10-Business_Logic_Testing/10-Test-Payment-Functionality",
+                "objectives":[
+                    "Determine whether the business logic for the e-commerce functionality is robust.",
+                    "Understand how the payment functionality works.",
+                    "Determine whether the payment functionality is secure."
+                  ]
+                }
             ]
         }
         ,"Client-side Testing": {
