@@ -180,7 +180,7 @@ For lists in a sentence, use serial or [Oxford commas](https://www.grammarly.com
 
 The following are frequently misused words and how to correct them.
 
-`#### *and/or*
+#### *and/or*
 
 While sometimes used in legal documents, *and/or* leads to ambiguity and confusion in technical writing. Instead, use *or*, which in the English language includes *and*. For example:
 
