@@ -258,6 +258,33 @@ After the successful information gathering, depending on the application, it may
 
 `http://www.example.com/product.php?id=99999 UNION SELECT 1,1,null--`
 
+#### Hidden Union Exploitation Technique
+
+It’s best when you can exploit a SQL injection with the Union technique. Because you can retrieve the result of your query in one request.  
+But most of the SQL injections in the wild are blind. Yet, you can turn some of them into union-based injections. One way to identify them is when the `ORDER BY` technique works but you end up with a blind injection.  
+The reason you can’t use the usual Union techniques is the complexity of the original query. In the Union technique, you comment the rest of the query after your `UNION` payload. It's fine for normal queries, but in more complicated queries it can be problematic. If the first part of the query depends on the second part of it, commenting the rest of it breaks the original query.
+
+Here’s a simple query to show the scenario:  
+`SELECT t2.id, (SELECT name FROM table1 WHERE __INJECTION__) AS name FROM table2 AS t2`  
+In this query, `t2.id` depends on `table2 AS t2`.  
+The original query breaks when you comment the rest of the query after your payload:  
+`) As name from table2 as t2`  
+
+But it is still possible to use the Union technique here.  
+At first, you need to know the structure of the original query. Then you should build your payload based on that.  
+For example in the above query, you need to define `t2` in your payload again, after commenting the rest of the query.  
+
+You can retrieve the original query using the default DBMS tables:
+
+| DBMS                 | Table                          |
+|----------------------|--------------------------------|
+| MySQL                | INFORMATION_SCHEMA.PROCESSLIST |
+| PostgreSQL           | pg_stat_activity               |
+| Microsoft SQL Server | sys.dm_exec_cached_plans       |
+| Oracle               | V$SQL                          |
+
+For other scenarios and more details refer to the original article: [Healing Blind Injections](https://medium.com/@Rend_/healing-blind-injections-df30b9e0e06f)
+
 #### Boolean Exploitation Technique
 
 The Boolean exploitation technique is very useful when the tester finds a [Blind SQL Injection](https://owasp.org/www-community/attacks/Blind_SQL_Injection) situation, in which nothing is known on the outcome of an operation. For example, this behavior happens in cases where the programmer has created a custom error page that does not reveal anything on the structure of the query or on the database. (The page does not return a SQL error, it may just return a HTTP 500, 404, or redirect).
