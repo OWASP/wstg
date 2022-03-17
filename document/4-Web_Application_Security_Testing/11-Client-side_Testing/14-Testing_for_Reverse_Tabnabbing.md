@@ -16,7 +16,7 @@ Links opened via the window.open JavaScript function is also vulnerable to this 
 
 Imagine a web application where users are allowed to insert a URL in their profile. If the application is vulnerable to reverse tabnabbing, a malicious user will be able to provide a link to a page that has the following code:
 
-```
+```html
 <html>
  <body>
   <script>
