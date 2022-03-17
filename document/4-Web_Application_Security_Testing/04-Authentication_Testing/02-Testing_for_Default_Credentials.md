@@ -38,12 +38,12 @@ If a default password can't be found, try common options such as:
 
 If the username is unknown, there are various options for enumerating users, discussed in the [Testing for Account Enumeration](../03-Identity_Management_Testing/04-Testing_for_Account_Enumeration_and_Guessable_User_Account.md) guide. Alternatively, try common options such as "admin", "root", or "system".
 
-### Testing for Organisation Default Passwords
+### Testing for Organization Default Passwords
 
-When staff within an organisation manually create passwords for new accounts, they may do so in a predictable way. This can often be:
+When staff within an organization manually create passwords for new accounts, they may do so in a predictable way. This can often be:
 
 - A single common password such as "Password1".
-- Organisation specific details, such as the organisation name or address.
+- Organization specific details, such as the organization name or address.
 - Passwords that follow a simple pattern, such as "Monday123" if account is created on a Monday.
 
 These types of passwords are often difficult to identify from a black-box perspective, unless they can successfully be guessed or brute-forced. However, they are easy to identify when performing grey-box or white-box testing.
