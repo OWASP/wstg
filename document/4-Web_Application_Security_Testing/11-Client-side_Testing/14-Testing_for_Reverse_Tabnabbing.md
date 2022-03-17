@@ -6,11 +6,13 @@
 
 ## Summary
 
-Reverse Tabnabbing is an attack which can be used to redirect users to phishing pages. This usually becomes possible due to the `target` attribute of the `<a>` tag being set to `_blank` which causes the link to be opened in a new tab. When the attribute `rel='noopener noreferrer'` is not used in the same `<a>` tag, the newly opened page can influence the original page and redirect it to a domain controlled by the attacker.
+[Reverse Tabnabbing](https://owasp.org/www-community/attacks/Reverse_Tabnabbing) is an attack which can be used to redirect users to phishing pages. This usually becomes possible due to the `target` attribute of the `<a>` tag being set to `_blank` which causes the link to be opened in a new tab. When the attribute `rel='noopener noreferrer'` is not used in the same `<a>` tag, the newly opened page can influence the original page and redirect it to a domain controlled by the attacker.
 
-Since the user was on the original domain when the new tab opened, it is less likely for them to notice that the page has changed, especially if the phishing page is identical to the original domain. Any credentials entered on the attacker-controlled domain will thus end up in the attacker's possession.
+Since the user was on the original domain when the new tab opened, they are less likely to notice that the page has changed, especially if the phishing page is identical to the original domain. Any credentials entered on the attacker-controlled domain will thus end up in the attacker's possession.
 
-Links opened via the window.open JavaScript function is also vulnerable to this attack.
+Links opened via the `window.open` JavaScript function are also vulnerable to this attack.
+
+_NOTE: This is a legacy issue that does not affect modern browsers. Older versions of popular browsers (For example, versions prior to Google Chrome 88) as well as Internet Explorer are vulnerable to this attack._
 
 ### Example
 
@@ -20,27 +22,27 @@ Imagine a web application where users are allowed to insert a URL in their profi
 <html>
  <body>
   <script>
-    window.opener.location = "https://evil.com";
+    window.opener.location = "https://example.org";
   </script>
 <b>Error loading...</b>
  </body>
 </html>
 ```
 
-Clicking on the link will open up a new tab while the original tab will redirect to evil.com. Suppose evil.com looks similar to the vulnerable web application, the user is less likely to notice the change and is more likely to trustingly share sensitive information as and when required on the page.
+Clicking on the link will open up a new tab while the original tab will redirect to "example.org". Suppose "example.org" looks similar to the vulnerable web application, the user is less likely to notice the change and is more likely to enter sensitive information on the page.
 
 ## How to Test
 
-- Check the source code of the application to see if links with `target="_blank"` is using the `noopener` and `noreferrer` keywords in the `rel` attribute. If not, it is likely that the application is vulnerable to reverse tabnabbing.
+- Check the HTML source of the application to see if links with `target="_blank"` are using the `noopener` and `noreferrer` keywords in the `rel` attribute. If not, it is likely that the application is vulnerable to reverse tabnabbing.
 - Check for areas where an attacker can insert links, i.e. control the `href` argument of an `<a>` tag. Try to insert a link to a page which has the source code given in the above example, and see if the original domain redirects. This test can be done in IE if other browsers don't work.
 
 ## Remediation
 
-It would be recommended to avoid using the `target` attribute. If it cannot be avoided, make sure to also use the attribute `rel='noopener noreferrer'`.
+Remediation steps are documented in the [HTML5 Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/HTML5_Security_Cheat_Sheet.html#tabnabbing).
 
 ## References
 
-- [Reverse Tabnabbing - OWASP](https://owasp.org/www-community/attacks/Reverse_Tabnabbing)
 - [The target="_blank" vulnerability by example](https://dev.to/ben/the-targetblank-vulnerability-by-example)
 - [About rel=noopener](https://mathiasbynens.github.io/rel-noopener/)
 - [Target=”_blank” — the most underestimated vulnerability ever](https://medium.com/@jitbit/target-blank-the-most-underestimated-vulnerability-ever-96e328301f4c)
+- [Reverse tabnabbing vulnerability affects IBM Business Automation Workflow and IBM Business Process Manager](https://www.ibm.com/support/pages/security-bulletin-reverse-tabnabbing-vulnerability-affects-ibm-business-automation-workflow-and-ibm-business-process-manager-bpm-cve-2020-4490-0)
