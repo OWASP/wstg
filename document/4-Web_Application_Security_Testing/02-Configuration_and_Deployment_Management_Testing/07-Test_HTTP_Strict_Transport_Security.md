@@ -45,3 +45,5 @@ Strict-Transport-Security: max-age=31536000
 - [OWASP HTTP Strict Transport Security](https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html)
 - [OWASP Appsec Tutorial Series - Episode 4: Strict Transport Security](https://www.youtube.com/watch?v=zEV3HOuM_Vw)
 - [HSTS Specification](https://tools.ietf.org/html/rfc6797)
+- [Enable HTTP Strict Transport Security In Apache](https://https.cio.gov/hsts/)
+- [Enable HTTP Strict Transport Security In Nginx](https://www.nginx.com/blog/http-strict-transport-security-hsts-and-nginx/)
