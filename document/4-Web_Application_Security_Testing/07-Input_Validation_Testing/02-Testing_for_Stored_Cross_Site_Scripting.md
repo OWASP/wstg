@@ -85,7 +85,7 @@ This involves testing the input validation and filtering controls of the applica
 
 Ensure the input is submitted through the application. This normally involves disabling JavaScript if client-side security controls are implemented or modifying the HTTP request with a web proxy. It is also important to test the same injection with both HTTP GET and POST requests. The above injection results in a popup window containing the cookie values.
 
-> ![Stored XSS Exxample](images/Stored_xss_example.jpg)\
+> ![Stored XSS Example](images/Stored_xss_example.jpg)\
 > *Figure 4.7.2-2: Stored Input Example*
 >
 > The HTML code following the injection:
@@ -151,7 +151,7 @@ Also consider that Internet Explorer does not handle MIME types in the same way 
 
 ### Blind Cross-site Scripting
 
-Blind Cross-site Scripting is a form of stored XSS. It generally occurs when the attacker’s payload is saved on the server/infrstructure and later reflected back to the victim from the backend application. For example in feedback forms, an attacker can submit the malicious payload using the form, and once the backend user/admin of the application views the attacker’s submission via the backend application, the attacker’s payload will get executed. Blind Cross-site Scripting is hard to confirm in the real-world scenario but one of the best tools for this is [XSS Hunter](https://xsshunter.com/).
+Blind Cross-site Scripting is a form of stored XSS. It generally occurs when the attacker’s payload is saved on the server/infrastructure and later reflected back to the victim from the backend application. For example in feedback forms, an attacker can submit the malicious payload using the form, and once the backend user/admin of the application views the attacker’s submission via the backend application, the attacker’s payload will get executed. Blind Cross-site Scripting is hard to confirm in the real-world scenario but one of the best tools for this is [XSS Hunter](https://xsshunter.com/).
 
 > Note: Testers should carefully consider the privacy implications of using public or third party services while performing security tests. (See #tools.)
 
