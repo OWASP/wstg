@@ -116,7 +116,7 @@ If the web application has features that allow a user to change an account or ca
 
 ### Example 5: Testing Password Sensitive Information in Source Code or Logs
 
-Use one of the following techniques to search for senstive information.
+Use one of the following techniques to search for sensitive information.
 
 Checking if password or encyrption key is hardcoded in the source code or configuration files.
 
