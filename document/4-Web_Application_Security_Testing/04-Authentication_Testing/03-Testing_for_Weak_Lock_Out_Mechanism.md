@@ -40,7 +40,7 @@ To evaluate the account lockout mechanism's ability to mitigate brute force pass
 
 A CAPTCHA may hinder brute force attacks, but they can come with their own set of weaknesses, and should not replace a lockout mechanism. A CAPTCHA mechanism may be bypassed if implemented incorrectly. CAPTCHA flaws include:
 
-1. Easily defeated challenge, such as arithimetic or limited question set.
+1. Easily defeated challenge, such as arithmetic or limited question set.
 2. CAPTCHA checks for HTTP response code instead of response success.
 3. CAPTCHA server-side logic defaults to a successful solve.
 4. CAPTCHA challenge result is never validated server-side.
