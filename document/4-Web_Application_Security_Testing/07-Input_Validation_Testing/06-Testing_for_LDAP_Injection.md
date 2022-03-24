@@ -42,8 +42,8 @@ A successful exploitation of an LDAP injection vulnerability could allow the tes
 
 - Access unauthorized content
 - Evade application restrictions
-- Gather unauthorized informations
-- Add or modify Objects inside LDAP tree structure.
+- Gather unauthorized information
+- Add or modify Objects inside LDAP tree structure
 
 ## Test Objectives
 
