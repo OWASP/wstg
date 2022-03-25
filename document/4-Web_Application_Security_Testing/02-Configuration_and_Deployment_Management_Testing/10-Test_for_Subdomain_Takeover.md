@@ -11,7 +11,7 @@ A successful exploitation of this kind of vulnerability allows an adversary to c
 1. The victim's external DNS server subdomain record is configured to point to a non-existing or non-active resource/external service/endpoint. The proliferation of XaaS (Anything as a Service) products and public cloud services offer a lot of potential targets to consider.
 2. The service provider hosting the resource/external service/endpoint does not handle subdomain ownership verification properly.
 
-If the subdomain takeover is successful a wide variety of attacks are possible (serving malicious content, phising, stealing user session cookies, credentials, etc.). This vulnerability could be exploited for a wide variety of DNS resource records including: `A`, `CNAME`, `MX`, `NS`, `TXT` etc. In terms of the attack severity an `NS` subdomain takeover (although less likely) has the highest impact because a successful attack could result in full control over the whole DNS zone and  the victim's domain.
+If the subdomain takeover is successful, a wide variety of attacks are possible (serving malicious content, phishing, stealing user session cookies, credentials, etc.). This vulnerability could be exploited for a wide variety of DNS resource records including: `A`, `CNAME`, `MX`, `NS`, `TXT` etc. In terms of the attack severity an `NS` subdomain takeover (although less likely) has the highest impact because a successful attack could result in full control over the whole DNS zone and  the victim's domain.
 
 ### GitHub
 
@@ -106,7 +106,7 @@ The tester has the DNS zone file available which means DNS enumeration is not ne
 
 ## Remediation
 
-To mitigate the risk of subdomain takeover the vulnerable DNS resource record(s) should be removed from the DNS zone. Continous monitoring and periodic checks are recommended as best practice.
+To mitigate the risk of subdomain takeover the vulnerable DNS resource record(s) should be removed from the DNS zone. Continuous monitoring and periodic checks are recommended as best practice.
 
 ## Tools
 
