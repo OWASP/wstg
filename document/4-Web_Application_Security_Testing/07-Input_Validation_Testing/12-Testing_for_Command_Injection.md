@@ -104,7 +104,7 @@ If the application doesn't validate the request, we can obtain the following res
 
 In this case, we have successfully performed an OS injection attack.
 
-## Special Characters for Comand Injection
+## Special Characters for Command Injection
 
 The following special character can be used for command injection such as `|` `;` `&` `$` `>` `<` `'` `!`
 
