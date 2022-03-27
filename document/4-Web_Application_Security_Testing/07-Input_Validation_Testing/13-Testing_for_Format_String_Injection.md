@@ -113,7 +113,7 @@ To send the fuzzing input file to the web application under test, use the follow
 
 `wfuzz -c -z file,fuzz.txt,urlencode https://vulnerable_host/userinfo?username=FUZZ`
 
-In the above call, the `urlencode` argument enables the approprate escaping for the strings and `FUZZ` (with the capital letters) tells the tool where to introduce the inputs.
+In the above call, the `urlencode` argument enables the appropriate escaping for the strings and `FUZZ` (with the capital letters) tells the tool where to introduce the inputs.
 
 An example output is as follows
 
