@@ -269,7 +269,7 @@ All major browsers support encoding and decoding strings in various ways leverag
 
 1. Click the `Responsive Design Mode` button or press `ctrl` + `shift` + `m`.
 
-![Responsive Design Mode in Mozilla Firefo](images/f_firefox_responsive_design_mode.png)\
+![Responsive Design Mode in Mozilla Firefox](images/f_firefox_responsive_design_mode.png)\
 *Figure 6.F-9: Mozilla Firefox Responsive Design Mode*
 
 ## References
