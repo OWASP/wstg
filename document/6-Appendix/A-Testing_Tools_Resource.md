@@ -111,7 +111,6 @@ The list contains only tools that are freely available to download and use (alth
 - [Samurai](https://github.com/SamuraiWTF/samuraiwtf)
 - [Santoku](https://sourceforge.net/projects/santoku/)
 - [BlackArch](https://blackarch.org/downloads.html)
-- [PenToo](https://www.pentoo.ch)
 
 ## Source Code Analyzers
 
