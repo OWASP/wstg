@@ -76,7 +76,7 @@ Over the years there have been vulnerabilities in the various TLS implementation
 - [OpenSSL Insecure Renegotiation](https://www.openssl.org/news/secadv/20091111.txt) (CVE-2009-3555)
 - [OpenSSL Heartbleed](https://heartbleed.com) (CVE-2014-0160)
 - [F5 TLS POODLE](https://support.f5.com/csp/article/K15882) (CVE-2014-8730)
-- [Microsoft Schannel Denial of Service](https://docs.microsoft.com/en-us/security-updates/securitybulletins/2014/ms14-066) (MS14-066 / CVE CVE-2014-6321)
+- [Microsoft Schannel Denial of Service](https://docs.microsoft.com/en-us/security-updates/securitybulletins/2014/ms14-066) (MS14-066 / CVE-2014-6321)
 
 ### Application Vulnerabilities
 
