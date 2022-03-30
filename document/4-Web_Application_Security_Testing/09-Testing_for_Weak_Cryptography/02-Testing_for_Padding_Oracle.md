@@ -81,5 +81,5 @@ Verify that all places where encrypted data from the client, that should only be
 
 ## References
 
-- [Wikepedia - Padding Oracle Attack](https://en.wikipedia.org/wiki/Padding_oracle_attack)
+- [Wikipedia - Padding Oracle Attack](https://en.wikipedia.org/wiki/Padding_oracle_attack)
 - [Juliano Rizzo, Thai Duong, "Practical Padding Oracle Attacks"](https://www.usenix.org/event/woot10/tech/full_papers/Rizzo.pdf)
