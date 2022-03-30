@@ -72,7 +72,7 @@ Unlike [session cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cooki
 
 #### SameSite Attribute
 
-The [`SameSite`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#SameSite_cookies) attribute is used to assert that a cookie ought not to be sent along with cross-site requests. This feature allows the server to mitigate the risk of cross-orgin information leakage. In some cases, it is used too as a risk reduction (or defense in depth mechanism) strategy to prevent [cross-site request forgery](05-Testing_for_Cross_Site_Request_Forgery.md) attacks. This attribute can be configured in three different modes:
+The [`SameSite`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#SameSite_cookies) attribute is used to assert that a cookie ought not to be sent along with cross-site requests. This feature allows the server to mitigate the risk of cross-origin information leakage. In some cases, it is used too as a risk reduction (or defense in depth mechanism) strategy to prevent [cross-site request forgery](05-Testing_for_Cross_Site_Request_Forgery.md) attacks. This attribute can be configured in three different modes:
 
 - `Strict`
 - `Lax`
