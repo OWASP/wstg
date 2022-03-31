@@ -28,7 +28,7 @@ Examples for Personal Identifying Information (PII) are:
 - Medical insurance information
 - Student information
 - Credit and debit card numbers
-- Drivers license and State ID information
+- Driver's license and State ID information
 
 ## Test Objectives
 
@@ -118,7 +118,7 @@ If the web application has features that allow a user to change an account or ca
 
 Use one of the following techniques to search for sensitive information.
 
-Checking if password or encyrption key is hardcoded in the source code or configuration files.
+Checking if password or encryption key is hardcoded in the source code or configuration files.
 
 `grep -r –E "Pass | password | pwd |user | guest| admin | encry | key | decrypt | sharekey " ./PathToSearch/`
 
