@@ -135,7 +135,7 @@ Access to the DB schema or to the source code allows also to easily identify sen
 
 #### Java
 
-Spring MVC allows to automatically bind user input into object. Identify the controllers that handle state-changing requests (e.g. find the occurences of `@RequestMapping`) then verify if controls are in place (both on the controller or on the involved models). Limitations on the exploitation of the mass assignment can be, for example, in the form of:
+Spring MVC allows to automatically bind user input into object. Identify the controllers that handle state-changing requests (e.g. find the occurrences of `@RequestMapping`) then verify if controls are in place (both on the controller or on the involved models). Limitations on the exploitation of the mass assignment can be, for example, in the form of:
 
 - list of bindlable fields via `setAllowedFields` method of the `DataBinder` class (e.g. `binder.setAllowedFields(["username","password","email"])`)
 - list of non-bindlable fields via `setDisallowedFields` method of the `DataBinder` class (e.g. `binder.setDisallowedFields(["isAdmin"])`)
