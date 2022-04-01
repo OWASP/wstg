@@ -155,7 +155,7 @@ Due to how OAuth works, the authorization `code` as well as the `code_challenge`
 
 The risk that's carried by the implicit flow leaking the tokens is far higher than leaking the `code` or any other `code_*` parameters, as they are bound to specific clients and are harder to abuse in case of leakage.
 
-In order to test this scenario, ,ake use of an HTTP intercepting proxy such as OWASP ZAP and intercept the OAuth traffic.
+In order to test this scenario, make use of an HTTP intercepting proxy such as OWASP ZAP and intercept the OAuth traffic.
 
 - Step through the authorization process and identify any credentials present in the URL.
 - If any external resources are included in a page involved with the OAuth flow, analyze the request made to them. Credentials could be leaked in the referrer header.
