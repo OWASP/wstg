@@ -491,7 +491,7 @@ Char() function can be used to replace English char. For example, char(114,111,1
 
 `' UNION SELECT password FROM Users WHERE name='root'--`
 
-To apply the Char(), the SQL injeciton statement will be
+To apply the Char(), the SQL injection statement will be
 
 `' UNION SELECT password FROM Users WHERE name=char(114,111,111,116)--`
 
