@@ -41,7 +41,7 @@ Server: nginx/1.0.14
 X-Powered-By: Mono
 ```
 
-From the `X-Powered-By` field, we understand that the web application framework is likely to be `Mono`. However, although this approach is simple and quick, this methodology doesn't work in 100% of cases. It is possible to easily disable `X-Powered-By` header by a proper configuration. There are also several techniques that allow a web site to obfuscate HTTP headers (see an example in the [Remediation](#Remediation) section). In the example above we can also note a specific version of `nginx` is being used to serve the content.
+From the `X-Powered-By` field, we understand that the web application framework is likely to be `Mono`. However, although this approach is simple and quick, this methodology doesn't work in 100% of cases. It is possible to easily disable `X-Powered-By` header by a proper configuration. There are also several techniques that allow a web site to obfuscate HTTP headers (see an example in the [Remediation](#remediation) section). In the example above we can also note a specific version of `nginx` is being used to serve the content.
 
 So in the same example the tester could either miss the `X-Powered-By` header or obtain an answer like the following:
 
@@ -80,7 +80,7 @@ Consider the following HTTP-request:
 ![Cakephp HTTP Request](images/Cakephp_cookie.png)\
 *Figure 4.1.8-7: Cakephp HTTP Request*
 
-The cookie `CAKEPHP` has automatically been set, which gives information about the framework being used. A list of common cookie names is presented in [Cookies](#Cookies) section. Limitations still exist in relying on this identification mechanism - it is possible to change the name of cookies. For example, for the selected `CakePHP` framework this could be done via the following configuration (excerpt from `core.php`):
+The cookie `CAKEPHP` has automatically been set, which gives information about the framework being used. A list of common cookie names is presented in [Cookies](#cookies) section. Limitations still exist in relying on this identification mechanism - it is possible to change the name of cookies. For example, for the selected `CakePHP` framework this could be done via the following configuration (excerpt from `core.php`):
 
 ```php
 /**
@@ -244,7 +244,7 @@ Sample output is presented on a screenshot below:
 
 Website: [https://www.wappalyzer.com/](https://www.wappalyzer.com/)
 
-Wapplyzer is available in multiple usage models, the most popular of which is likely the Firefox/Chrome extensions. They work only on regular expression matching and doesn't need anything other than the page to be loaded in browser. It works completely at the browser level and gives results in the form of icons. Although sometimes it has false positives, this is very handy to have notion of what technologies were used to construct a target website immediately after browsing a page.
+Wappalyzer is available in multiple usage models, the most popular of which is likely the Firefox/Chrome extensions. They work only on regular expression matching and doesn't need anything other than the page to be loaded in browser. It works completely at the browser level and gives results in the form of icons. Although sometimes it has false positives, this is very handy to have notion of what technologies were used to construct a target website immediately after browsing a page.
 
 Sample output of a plug-in is presented on a screenshot below.
 
