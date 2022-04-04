@@ -71,7 +71,7 @@ To decompile a SWF file with flare just type:
 
 This results in a new file called hello.flr.
 
-Decompilation helps testers because it allows for white-box testing of the Flash applications. A quick web search can lead you to various disassmeblers and flash security tools.
+Decompilation helps testers because it allows for white-box testing of the Flash applications. A quick web search can lead you to various disassemblers and flash security tools.
 
 ### Undefined Variables FlashVars
 
