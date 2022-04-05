@@ -56,7 +56,7 @@ Methods to protect a web page from clickjacking can be divided into a few main m
 
 The most common client-side method, that has been developed to protect a web page from clickjacking, is called Frame Busting and it consists of a script in each page that should not be framed. The aim of this technique is to prevent a site from functioning when it is loaded inside a frame.
 
-The structure of frame busting code typically consists of a "conditional statement" and a "counter-action" statement. For this type of protection, there are some work arounds that fall under the name of "Bust frame busting". Some of this techniques are browser-specific while others work across browsers.
+The structure of frame busting code typically consists of a "conditional statement" and a "counter-action" statement. For this type of protection, there are some workarounds that fall under the name of "Bust frame busting". Some of this techniques are browser-specific while others work across browsers.
 
 ##### Mobile Website Version
 
