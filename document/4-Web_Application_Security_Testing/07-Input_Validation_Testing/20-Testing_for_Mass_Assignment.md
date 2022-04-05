@@ -137,8 +137,8 @@ Access to the DB schema or to the source code allows also to easily identify sen
 
 Spring MVC allows to automatically bind user input into object. Identify the controllers that handle state-changing requests (e.g. find the occurrences of `@RequestMapping`) then verify if controls are in place (both on the controller or on the involved models). Limitations on the exploitation of the mass assignment can be, for example, in the form of:
 
-- list of bindlable fields via `setAllowedFields` method of the `DataBinder` class (e.g. `binder.setAllowedFields(["username","password","email"])`)
-- list of non-bindlable fields via `setDisallowedFields` method of the `DataBinder` class (e.g. `binder.setDisallowedFields(["isAdmin"])`)
+- list of bindable fields via `setAllowedFields` method of the `DataBinder` class (e.g. `binder.setAllowedFields(["username","password","email"])`)
+- list of non-bindable fields via `setDisallowedFields` method of the `DataBinder` class (e.g. `binder.setDisallowedFields(["isAdmin"])`)
 
 It is also advisable to pay attention to the use of the `@ModelAttribute` annotation that allows to specify a different name/key.
 
@@ -152,8 +152,8 @@ Model binding in ASP.NET automatically bind user inputs to object properties. Th
 Identify the controllers then verify if controls are in place (both inside the controller or in the involved models). Limitations on the exploitation of the mass assignment can be, for example, in the form of:
 
 - fields declared as `ReadOnly`
-- list of bindlable fields via `Bind` attribute (e.g. `[Bind(Include = "FirstName, LastName")] Student std`), via `includeProperties` (e.g. `includeProperties: new[] { "FirstName, LastName" }`) or through `TryUpdateModel`
-- list of non-bindlable fields via `Bind` attribute (e.g. `[Bind(Exclude = "Status")] Student std`) or via `excludeProperties` (e.g. `excludeProperties: new[] { "Status" }`)
+- list of bindable fields via `Bind` attribute (e.g. `[Bind(Include = "FirstName, LastName")] Student std`), via `includeProperties` (e.g. `includeProperties: new[] { "FirstName, LastName" }`) or through `TryUpdateModel`
+- list of non-bindable fields via `Bind` attribute (e.g. `[Bind(Exclude = "Status")] Student std`) or via `excludeProperties` (e.g. `excludeProperties: new[] { "Status" }`)
 
 ## Remediation
 
