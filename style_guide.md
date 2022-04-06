@@ -235,7 +235,7 @@ The Latin phrase *et cetera* translates to "and the rest." It is abbreviated and
 
 In technical writing, the use of *etc* is problematic. It assumes that the reader knows what you're talking about, and they may not. Violet is one of the colors of the rainbow, but the example above does not explicitly tell you if violet is a color that WSTG authors like.
 
-It is better to be explicit and thorough than to make assumptions of the reader. Only use to avoid completing a list that was given in full earlier in the document.
+It is better to be explicit and thorough than to make assumptions of the reader. Only use *etc* to avoid completing a list that was given in full earlier in the document.
 
 #### *...* (ellipsis)
 
