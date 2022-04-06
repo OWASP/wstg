@@ -154,7 +154,7 @@ This process is similar to the previous one, but relies on inverse (PTR) DNS rec
 
 #### Web-based DNS Searches
 
-This kind of search is akin to DNS zone transfer, but relies on web-based services that enable name-based searches on DNS. One such service is the [Netcraft Search DNS](https://searchdns.netcraft.com/?host) service.  The tester may query for a list of names belonging to your domain of choice, such as `example.com`. Then they will check whether the names they obtained are pertinent to the target they are examining.
+This kind of search is akin to DNS zone transfer, but relies on web-based services that enable name-based searches on DNS. One such service is the [Netcraft Search DNS](https://searchdns.netcraft.com/?host) service. The tester may query for a list of names belonging to your domain of choice, such as `example.com`. Then they will check whether the names they obtained are pertinent to the target they are examining.
 
 #### Reverse-IP Services
 
