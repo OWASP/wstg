@@ -221,7 +221,7 @@ As adverbs, use the hyphenated *white-box*, *black-box*, and *grey-box*. Do not 
 
 These are letters.
 
-The abbreviation *i.e* refers to the Latin `id est`, which means "in other words." The abbreviation *eg* is for `exempli gratia`, translating to "for example." To use these in a sentence:
+The abbreviation *ie* refers to the Latin `id est`, which means "in other words." The abbreviation *eg* is for `exempli gratia`, translating to "for example." To use these in a sentence:
 
 > Write using proper English, i.e. correct spelling and grammar. Use common words over uncommon ones, e.g. "learn" instead of "glean."
 
