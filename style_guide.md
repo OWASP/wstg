@@ -178,7 +178,7 @@ For lists in a sentence, use serial or [Oxford commas](https://www.grammarly.com
 
 ### Use Correct Words
 
-The following are frequently misused words and how to correct them.
+The following section covers some frequently misused words and instructions on how to correctly use them.
 
 #### *and/or*
 
@@ -221,7 +221,7 @@ As adverbs, use the hyphenated *white-box*, *black-box*, and *grey-box*. Do not 
 
 These are letters.
 
-The abbreviation  refers to the Latin `id est`, which means "in other words." The abbreviation  is for `exempli gratia`, translating to "for example." To use these in a sentence:
+The abbreviation *ie* refers to the Latin `id est`, which means "in other words." The abbreviation *eg* is for `exempli gratia`, translating to "for example." To use these in a sentence:
 
 > Write using proper English, i.e. correct spelling and grammar. Use common words over uncommon ones, e.g. "learn" instead of "glean."
 
@@ -229,13 +229,13 @@ The abbreviation  refers to the Latin `id est`, which means "in other words." Th
 
 These are also letters.
 
-The Latin phrase *et cetera* translates to "and the rest." It is abbreviated  and typically placed at the end of a list that seems redundant to complete:
+The Latin phrase *et cetera* translates to "and the rest." It is abbreviated and typically placed at the end of a list that seems redundant to complete:
 
 > WSTG authors like rainbow colors, such as red, yellow, green, etc.
 
-In technical writing, the use of  is problematic. It assumes the reader knows what you're talking about, and they may not. Violet is one of the colors of the rainbow, but the example above does not explicitly tell you if violet is a color that WSTG authors like.
+In technical writing, the use of *etc* is problematic. It assumes that the reader knows what you're talking about, and they may not. Violet is one of the colors of the rainbow, but the example above does not explicitly tell you if violet is a color that WSTG authors like.
 
-It is better to be explicit and thorough than to make assumptions of the reader. Only use  to avoid completing a list that was given in full earlier in the document.
+It is better to be explicit and thorough than to make assumptions of the reader. Only use to avoid completing a list that was given in full earlier in the document.
 
 #### *...* (ellipsis)
 
@@ -251,4 +251,4 @@ All other uses of ellipsis, such as to indicate an unfinished thought, are not.
 
 While this is a word, it is likely not the word you are looking for. The word *ex* has particular meaning in the fields of finance and commerce, and may refer to a person if you are discussing your past relationships. None of these topics should appear in the WSTG.
 
-The abbreviation  may be used to mean "example" by lazy writers. Please don't be lazy, and write *example* instead.
+The abbreviation may be used to mean "example" by lazy writers. Please don't be lazy, and write *example* instead.
