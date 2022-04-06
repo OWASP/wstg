@@ -178,7 +178,7 @@ For lists in a sentence, use serial or [Oxford commas](https://www.grammarly.com
 
 ### Use Correct Words
 
-The following are frequently misused words. Here's how to correct them.
+The following section covers some frequently misused words and instructions on how to correctly use them.
 
 #### *and/or*
 
