@@ -107,7 +107,7 @@ The main goal in this step is to identify to gain further control on the server 
 - Lists of built-in methods, functions, filters, and variables.
 - Lists of extensions/plugins.
 
-The tester can also identify what other objects, methods and properties can be exposed by focusing on the `self` object. If the `self` object is not available and the documentation does not reveal the technical details, a brute force of the variable name is recommended. Once the object is identified the next step is to loop through the object to identify all the methods, properties and attributes that are accessible through the template engine. This could lead to other kinds of security findings  including privilege escalations, information disclosure about application passwords, API keys, configurations and environment variables, etc.
+The tester can also identify what other objects, methods and properties can be exposed by focusing on the `self` object. If the `self` object is not available and the documentation does not reveal the technical details, a brute force of the variable name is recommended. Once the object is identified the next step is to loop through the object to identify all the methods, properties and attributes that are accessible through the template engine. This could lead to other kinds of security findings including privilege escalations, information disclosure about application passwords, API keys, configurations and environment variables, etc.
 
 ## Tools
 
