@@ -16,7 +16,7 @@ For every specific role the tester holds during the assessment and for every fun
 
 Try to access the application as an administrative user and track all the administrative functions.
 
-- Is it possible to access administrative functions if the tester is logged in as a  non-admin user?
+- Is it possible to access administrative functions if the tester is logged in as a non-admin user?
 - Is it possible to use these administrative functions as a user with a different role and for whom that action should be denied?
 
 ## Test Objectives
