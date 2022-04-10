@@ -33,6 +33,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Ismael Goncalves
 - Janos Zold
 - Jeremy Bonghwan Choi
+- Jinson Varghese Behanan
 - Joel Espunya
 - Manh Pham Tien
 - Mark Clayton
