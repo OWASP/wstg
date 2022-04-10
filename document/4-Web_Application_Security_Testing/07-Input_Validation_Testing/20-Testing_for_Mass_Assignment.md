@@ -101,7 +101,7 @@ Analyze the responses received by the back end, in particular pay attention to:
 - API responses
 
 For example, very often, it is possible to exploit handlers that return details about an object in order to gather clues on the associated fields.
-Suppose for example a handler that returns the profile of the user (e.g.  `GET /profile`), this may include further attributes related to the user (in this example the `isAdmin` attribute looks particularly interesting).
+Suppose for example a handler that returns the profile of the user (e.g. `GET /profile`), this may include further attributes related to the user (in this example the `isAdmin` attribute looks particularly interesting).
 
 ```json
 {"_id":12345,"username":"bob","age":38,"email":"bob@domain.test","isAdmin":false}
