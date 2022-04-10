@@ -298,6 +298,8 @@
 
 #### 4.11.13 [Testing for Cross Site Script Inclusion](4-Web_Application_Security_Testing/11-Client-side_Testing/13-Testing_for_Cross_Site_Script_Inclusion.md)
 
+#### 4.11.14 [Testing for Reverse Tabnabbing](4-Web_Application_Security_Testing/11-Client-side_Testing/14-Testing_for_Reverse_Tabnabbing.md)
+
 ### 4.12 [API Testing](4-Web_Application_Security_Testing/12-API_Testing/README.md)
 
 #### 4.12.1 [Testing GraphQL](4-Web_Application_Security_Testing/12-API_Testing/01-Testing_GraphQL.md)
