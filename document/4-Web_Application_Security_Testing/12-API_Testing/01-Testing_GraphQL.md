@@ -293,7 +293,7 @@ GraphQL also has scalars, which are usually used for custom data types that do n
 
 #### SQL Injection
 
-The example application is vulnerable by design in the query `dogs(namePrefix: String, limit: Int = 500): [Dog!]`  since the parameter `namePrefix` is concatenated in the SQL query. Concatenating user input is a common malpractice of applications that can expose them to SQL injection.
+The example application is vulnerable by design in the query `dogs(namePrefix: String, limit: Int = 500): [Dog!]` since the parameter `namePrefix` is concatenated in the SQL query. Concatenating user input is a common malpractice of applications that can expose them to SQL injection.
 
 The following query extracts information from the `CONFIG` table within the database:
 
