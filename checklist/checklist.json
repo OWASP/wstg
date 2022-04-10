@@ -957,6 +957,14 @@
                     "Assess the leakage of sensitive data through various techniques."
                   ]
                 }
+                ,{
+                "name":"Testing for Reverse Tabnabbing",
+                "id":"WSTG-CLNT-14",
+                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/14-Testing_for_Reverse_Tabnabbing",
+                "objectives":[
+                    ""
+                  ]
+                }
             ]
         }
         ,"API Testing": {
