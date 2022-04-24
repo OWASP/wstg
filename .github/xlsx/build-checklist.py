@@ -104,7 +104,7 @@ for categoryKey in checklist['categories']:
     insert_empty(sheet)
 
 # Replicates conditional formatting
-cf = sheet.conditional_formatting._cf_rules.keys()[0]
+cf = list(sheet.conditional_formatting._cf_rules.keys())[0]
 rules = sheet.conditional_formatting._cf_rules[cf]
 cf_range = "B4:F"+str(sheet.max_row)
 for rule in rules:
