@@ -117,6 +117,20 @@ eyJhbGciOiAibm9uZSIsICJ0eXAiOiAiSldUIn0K.eyJ1c2VybmFtZSI6ImFkbWluaW5pc3RyYXRvciI
 
 Some implementation try and avoid this by explicitly blocking the use of the `none` algorithm. If this is done in a case-insensitive way, it may be possible to bypass by specifying an algorithm such as `NoNe`.
 
+#### ECDSA "Psychic Signatures"
+
+A vulnerability was identified in Java version 15 to 18 where they did not correctly validate ECDSA signatures in some circumstances ([CVE-2022-21449](https://neilmadden.blog/2022/04/19/psychic-signatures-in-java/), known as "psychic signatures"). If one of these vulnerable version is used parse a JWT using the `ES256` algorithm, this can be used to completely bypass the signature verification by tampering the body and then replacing the signature with the following value:
+
+```txt
+MAYCAQACAQA
+```
+
+Resulting in a JWT which looks something like this:
+
+```txt
+eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6InRydWUifQ.MAYCAQACAQA
+```
+
 ### Weak HMAC Keys
 
 If the JWT is signed using a HMAC-based algorithm (such as HS256), the security of the signature is entirely reliant on the strength of the secret key used in the HMAC.
