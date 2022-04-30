@@ -115,11 +115,11 @@ The header and payload are then re-encoded with Base64, and the signature is rem
 eyJhbGciOiAibm9uZSIsICJ0eXAiOiAiSldUIn0K.eyJ1c2VybmFtZSI6ImFkbWluaW5pc3RyYXRvciIsImlzX2FkbWluIjp0cnVlLCJpYXQiOjE1MTYyMzkwMjIsImV4cCI6MTUxNjI0MjYyMn0.
 ```
 
-Some implementation try and avoid this by explicitly blocking the use of the `none` algorithm. If this is done in a case-insensitive way, it may be possible to bypass by specifying an algorithm such as `NoNe`.
+Some implementations try and avoid this by explicitly blocking the use of the `none` algorithm. If this is done in a case-insensitive way, it may be possible to bypass by specifying an algorithm such as `NoNe`.
 
 #### ECDSA "Psychic Signatures"
 
-A vulnerability was identified in Java version 15 to 18 where they did not correctly validate ECDSA signatures in some circumstances ([CVE-2022-21449](https://neilmadden.blog/2022/04/19/psychic-signatures-in-java/), known as "psychic signatures"). If one of these vulnerable version is used parse a JWT using the `ES256` algorithm, this can be used to completely bypass the signature verification by tampering the body and then replacing the signature with the following value:
+A vulnerability was identified in Java version 15 to 18 where they did not correctly validate ECDSA signatures in some circumstances ([CVE-2022-21449](https://neilmadden.blog/2022/04/19/psychic-signatures-in-java/), known as "psychic signatures"). If one of these vulnerable version is used to parse a JWT using the `ES256` algorithm, this can be used to completely bypass the signature verification by tampering the body and then replacing the signature with the following value:
 
 ```txt
 MAYCAQACAQA
