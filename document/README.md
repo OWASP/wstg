@@ -306,9 +306,9 @@
 
 ## 5. [Reporting](5-Reporting/README.md)
 
-### 5.1 [Reporting Structure](5-Reporting/0-Reporting_Structure.md)
+### 5.1 [Reporting Structure](5-Reporting/01-Reporting_Structure.md)
 
-### 5.2 [Naming Schemes](5-Reporting/1-Naming_Schemes.md)
+### 5.2 [Naming Schemes](5-Reporting/02-Naming_Schemes.md)
 
 ## Appendix A. [Testing Tools Resource](6-Appendix/A-Testing_Tools_Resource.md)
 
