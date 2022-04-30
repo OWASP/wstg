@@ -117,5 +117,5 @@ The definition for each component is:
 - [packageurl-dotnet](https://github.com/package-url/packageurl-dotnet)
 - [packageurl-java](https://github.com/package-url/packageurl-java), [package-url-java](https://github.com/sonatype/package-url-java)
 - [packageurl-python](https://github.com/package-url/packageurl-python)
-- [packageurl-rust](https://github.com/package-url/packageurl-rs)
+- [packageurl-rust](https://github.com/package-url/packageurl.rs)
 - [packageurl-js](https://github.com/package-url/packageurl-js)
