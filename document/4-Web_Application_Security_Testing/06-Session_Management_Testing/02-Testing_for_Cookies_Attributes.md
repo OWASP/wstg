@@ -101,7 +101,7 @@ The [`__Host-`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#Cookie
   1. The cookie must be set with the [`Secure` attribute](#secure-attribute).
   2. The cookie must be set from a URI considered secure by the user agent.
   3. Sent only to the host who set the cookie and MUST NOT include any [`Domain` attribute](#domain-attribute).
-  4. The cookie must be set with the [`Path` attribute](#path-attribute) with a value of `/` so it would be sent to every request to the host.
+  4. The cookie must be set with the [`Path` attribute](#path-attribute) with a value of `/` so it would be sent with every request to the host.
 
 For this reason, the cookie `Set-Cookie: __Host-SID=12345; Secure; Path=/` would be accepted while any of the following ones would always be rejected:
 `Set-Cookie: __Host-SID=12345`
