@@ -19,14 +19,37 @@ Each `SWID` tag is represented as a standardized XML format. A `SWID` tag is com
 - _ACME Roadrunner Service Pack 1_ patch created by the ACME Corporation for the already installed product identified with the `@tagId`: _com.acme.rms-ce-v4-1-5-0_:
 
 ```xml
-<SoftwareIdentity xmlns="http://standards.iso.org/iso/19770/-2/2015/schema.xsd" name="ACME Roadrunner Service Pack 1" tagId="com.acme.rms-ce-sp1-v1-0-0" patch="true" version="1.0.0"><Entity name="The ACME Corporation" regid="acme.com" role="tagCreator softwareCreator"/><Link rel="patches" href="swid:com.acme.rms-ce-v4-1-5-0"> ...</SoftwareIdentity>
+<SoftwareIdentity
+                  xmlns="http://standards.iso.org/iso/19770/-2/2015/schema.xsd"
+                  name="ACME Roadrunner Service Pack 1"
+                  tagId="com.acme.rms-ce-sp1-v1-0-0"
+                  patch="true"
+                  version="1.0.0">
+  <Entity
+          name="The ACME Corporation"
+          regid="acme.com"
+          role="tagCreator softwareCreator"/>
+  <Link
+        rel="patches"
+        href="swid:com.acme.rms-ce-v4-1-5-0">
+    ...
+</SoftwareIdentity>
 ```
 
 - Red Hat Enterprise Linux version 8 for x86-64 architecture:
 
 ```xml
 <SoftwareIdentity
-xmlns="http://standards.iso.org/iso/19770/-2/2015/schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://standards.iso.org/iso/19770/-2/2015/schema.xsd http://standards.iso.org/iso/19770/-2/2015-current/schema.xsd" xml:lang="en-US" name="Red Hat Enterprise Linux" tagId="com.redhat.RHEL-8-x86_64" tagVersion="1" version="8" versionScheme="multipartnumeric" media="(OS:linux)">
+                  xmlns="http://standards.iso.org/iso/19770/-2/2015/schema.xsd"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://standards.iso.org/iso/19770/-2/2015/schema.xsd"
+                  xml:lang="en-US"
+                  name="Red Hat Enterprise Linux"
+                  tagId="com.redhat.RHEL-8-x86_64"
+                  tagVersion="1"
+                  version="8"
+                  versionScheme="multipartnumeric"
+                  media="(OS:linux)">
 ```
 
 ## Common Platform Enumeration
