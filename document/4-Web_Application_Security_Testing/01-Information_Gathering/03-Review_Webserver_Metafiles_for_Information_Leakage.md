@@ -170,7 +170,7 @@ Policy: https://www.linkedin.com/help/linkedin/answer/62924
 
 ### Humans TXT
 
-`humans.txt` is an initiative for knowing the people behind a website. It takes the form of a text file that contains information about the different people who have contributed to building the website. See [humanstxt](http://humanstxt.org/) for more info. This file often (though not always) contains information for career or job sites/paths.
+`humans.txt` is an initiative for knowing the people behind a website. It takes the form of a text file that contains information about the different people who have contributed to building the website. This file often (though not always) contains information for career or job sites/paths.
 
 The following example was retrieved from Google 2020 May 05:
 
