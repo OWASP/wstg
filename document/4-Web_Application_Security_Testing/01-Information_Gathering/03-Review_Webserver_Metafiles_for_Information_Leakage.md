@@ -143,7 +143,7 @@ Exploring from there a tester may wish to retrieve the gmail sitemap `https://ww
 
 ### Security TXT
 
-`security.txt` is a [proposed standard](https://securitytxt.org/) which allows websites to define security policies and contact details. There are multiple reasons this might be of interest in testing scenarios, including but not limited to:
+[security.txt](https://securitytxt.org) was ratified by the IETF as [RFC 9116 - A File Format to Aid in Security Vulnerability Disclosure](https://www.rfc-editor.org/rfc/rfc9116.html) which allows websites to define security policies and contact details. There are multiple reasons this might be of interest in testing scenarios, including but not limited to:
 
 - Identifying further paths or resources to include in discovery/analysis.
 - Open Source intelligence gathering.
