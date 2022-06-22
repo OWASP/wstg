@@ -150,10 +150,12 @@ Exploring from there a tester may wish to retrieve the gmail sitemap `https://ww
 - Finding information on Bug Bounties, etc.
 - Social Engineering.
 
-The file may be present either in the root of the webserver or in the `.well-known/` directory. Ex:
+The location of the file is specified by its `Canonical:` field and can have values such as the root of the webserver or in the `.well-known/` directory. Ex:
 
 - `https://example.com/security.txt`
 - `https://example.com/.well-known/security.txt`
+
+If the [URI used to retrieve that file is not listed within any canonical fields, then the contents of the file SHOULD NOT be trusted.](https://www.rfc-editor.org/rfc/rfc9116.html#name-canonical)
 
 Here is a real world example retrieved from LinkedIn 2020 May 05:
 
