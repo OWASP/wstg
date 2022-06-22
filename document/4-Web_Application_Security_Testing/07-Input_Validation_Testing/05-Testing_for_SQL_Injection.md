@@ -456,7 +456,7 @@ steps to automate the wrokflow:
 
 **Example:**  
 Consider the third scenario discussed above.  
-we assume the DMBS is `mysql` and the first and second queries return only one column.
+We assume the DMBS is `mysql` and the first and second queries return only one column.
 This can be your payload for extracting the version of the database:
 
 ```text
