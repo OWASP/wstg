@@ -448,7 +448,7 @@ You can retrieve the original query using the default DBMS tables:
 **Automation**  
 steps to automate the wrokflow:
 
-1. Extract the original query using `SQLMap` and the blind injection.
+1. Extract the original query using `SQLMap` and blind injection.
 2. Build a base payload according to the original query and achieve union-based injection.
 3. Automate the exploitation of the union-based injection by one of these options:  
     - Specifying a *custom injection point marker* (`*`)
