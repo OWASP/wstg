@@ -264,7 +264,7 @@ It’s best when you can exploit a SQL injection with the [union technique](#uni
 But most of the SQL injections in the wild are blind. Yet, you can turn some of them into union-based injections.
 
 **Identification**  
-Two ways to identify these SQL injections:
+Either of the following methods can be used to identify these SQL injections:
 
 1. The vulnerable query returns data, but the injection is blind.
 2. The `ORDER BY` technique works, but you can't achieve a union-based injection.
