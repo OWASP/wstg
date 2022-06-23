@@ -446,7 +446,7 @@ You can retrieve the original query using the default DBMS tables:
 | Oracle               | V$SQL                          |
 
 **Automation**  
-steps to automate the wrokflow:
+Steps to automate the workflow:
 
 1. Extract the original query using `SQLMap` and blind injection.
 2. Build a base payload according to the original query and achieve union-based injection.
