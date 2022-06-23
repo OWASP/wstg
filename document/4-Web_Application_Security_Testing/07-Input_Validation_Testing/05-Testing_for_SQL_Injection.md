@@ -312,7 +312,7 @@ GROUP BY
   s1.user_id
 ```
 
-- *Problem:* You break the query when you comment the rest of the original query after your injected payload. because some aliases or variables become `undefined`.  
+- *Problem:* You break the query when you comment the rest of the original query after your injected payload, because some aliases or variables become `undefined`.  
 - *Solution:* You need to put appropriate keywords or aliases at the beginning of your payload. this way the first part of the original query stays valid.
 
 **Scenario 3**  
