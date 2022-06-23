@@ -121,7 +121,7 @@ a:2:{s:11:"autologinid";b:1;s:6:"userid";s:1:"2";}  // original value: a:2:{s:11
 Let's disassemble what we did in this string:
 
 1. `autologinid` is now a boolean set to `true`: this can be seen by replacing the MD5 value of the password hash (`s:32:"8b8e9715d12e4ca12c4c3eb4865aaf6a"`) with `b:1`
-2. `userid` is now set to the admin id: this can be seen in the last piece of the string, where we replaced our regular user id (`s:4:"1337"`) with `s:1:"2"`
+2. `userid` is now set to the admin id: this can be seen in the last piece of the string, where we replaced our regular user ID (`s:4:"1337"`) with `s:1:"2"`
 
 ## Tools
 
