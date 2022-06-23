@@ -474,7 +474,7 @@ Automation:
 - *custom injection point marker* (`*`):
 
   ```text
-  sqlmap -u "http://sub.domain.tld/search?query=abcd'AND 1=2 UNION SELECT \"*\"-- -"
+  sqlmap -u "http://example.org/search?query=abcd'AND 1=2 UNION SELECT \"*\"-- -"
   ```
 
 - `--prefix` and `--suffix` flags:
