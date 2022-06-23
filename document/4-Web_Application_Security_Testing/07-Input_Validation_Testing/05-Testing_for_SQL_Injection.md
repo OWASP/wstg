@@ -480,7 +480,7 @@ Automation:
 - `--prefix` and `--suffix` flags:
 
   ```text
-  sqlmap -u "http://sub.domain.tld/search?query=abcd" --prefix="'AND 1=2 UNION SELECT \"" --suffix="\"-- -"
+  sqlmap -u "http://example.org/search?query=abcd" --prefix="'AND 1=2 UNION SELECT \"" --suffix="\"-- -"
   ```
 
 #### Boolean Exploitation Technique
