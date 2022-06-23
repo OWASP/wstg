@@ -798,7 +798,6 @@ For generic input validation security, refer to the [Input Validation CheatSheet
 
 - [Top 10 2017-A1-Injection](https://owasp.org/www-project-top-ten/2017/A1_2017-Injection)
 - [SQL Injection](https://owasp.org/www-community/attacks/SQL_Injection)
-- [Healing blind injections](https://medium.com/@Rend_/healing-blind-injections-df30b9e0e06f)
 
 Technology specific Testing Guide pages have been created for the following DBMSs:
 
