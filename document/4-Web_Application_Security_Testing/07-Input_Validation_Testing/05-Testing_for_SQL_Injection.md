@@ -260,7 +260,7 @@ After the successful information gathering, depending on the application, it may
 
 #### Hidden Union Exploitation Technique
 
-It’s best when you can exploit a SQL injection with the Union Technique. Because you can retrieve the result of your query in one request.  
+It’s best when you can exploit a SQL injection with the [union technique](#union-exploitation-technique), because you can retrieve the result of your query in one request.  
 But most of the SQL injections in the wild are blind. Yet, you can turn some of them into union-based injections.
 
 **Identification**  
