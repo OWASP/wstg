@@ -150,7 +150,7 @@ Exploring from there a tester may wish to retrieve the gmail sitemap `https://ww
 - Finding information on Bug Bounties, etc.
 - Social Engineering.
 
-The file may be present in the `.well-known/` directory Ex: `https://example.com/.well-known/security.txt`
+The file must be present in the `.well-known/` directory Ex: `https://example.com/.well-known/security.txt`
 
 Here is a real world example retrieved from LinkedIn 2020 May 05:
 
