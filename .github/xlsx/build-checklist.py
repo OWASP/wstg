@@ -1,4 +1,5 @@
 import re
+import sys
 import json
 import hashlib
 from math import ceil
@@ -6,9 +7,16 @@ from copy import copy
 from openpyxl import load_workbook
 from collections import OrderedDict
 
-workbook = load_workbook(filename="Checklist_Template.xlsx")
+checklist_template = '.github/xlsx/Checklist_Template.xlsx'
+workbook = load_workbook(filename=checklist_template)
 
 sheet = workbook.active
+
+def set_version():
+    if (len( sys.argv ) > 1):
+        return str(sys.argv[1])+" "
+    else:
+        return ""
 
 def sha256file(file):
     filename = file
@@ -42,13 +50,16 @@ def copy_row(sheet, rowFrom, rowTo):
         copy_cell(cellFrom, cellTo)
     sheet.row_dimensions[rowTo].height = sheet.row_dimensions[rowFrom].height
 
+def set_sheet_title(sheet, version):
+    sheet.cell(row=1, column=2).value =  str(sheet.cell(row=1, column=2).value.replace('{version}', version))
+
 def insert_new_header(sheet, title):
     row_template_offset = 3
     col_title_offset = 2
     # sheet.insert_rows(1)
     row = sheet.max_row + 1
     # copy_row(sheet, row_template_offset - 1, row - 1)
-    copy_row(sheet, row_template_offset, row)    
+    copy_row(sheet, row_template_offset, row)
     sheet.cell(row=row, column=col_title_offset, value=title)
 
 def insert_new_item(sheet, id, name, link, objective):
@@ -64,7 +75,7 @@ def insert_new_item(sheet, id, name, link, objective):
 
     # Adjust height
     max_lines = max(
-        lines_of_text(name, 40), 
+        lines_of_text(name, 40),
         lines_of_text(objective, 60))
 
     # Set values
@@ -81,10 +92,16 @@ def insert_empty(sheet):
     copy_row(sheet, row_template_offset, row)
 
 # Load Checklist
-checklist_json_path = '../../checklist/checklist.json'
-checklist_readme_path = '../../checklist/README.md'
-checklist_output_file = '../../checklist/WSTG-Checklist_v4.2.xlsx'
+checklist_json_path = 'checklist/checklist.json'
+checklist_readme_path = 'checklist/README.md'
+checklist_output_file = 'checklist/checklist.xlsx'
 checklist = json.load(open(checklist_json_path), object_pairs_hook=OrderedDict)
+
+# Set Version
+version = set_version()
+
+# Set Sheet Title
+set_sheet_title(sheet, version)
 
 for categoryKey in checklist['categories']:
     print("Generate category: " + categoryKey)
@@ -100,7 +117,6 @@ for categoryKey in checklist['categories']:
             name=item['name'],
             link=item['reference'],
             objective=objective)
-    
     insert_empty(sheet)
 
 # Replicates conditional formatting

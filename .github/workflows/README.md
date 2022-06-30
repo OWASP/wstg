@@ -1,5 +1,12 @@
 # Workflows Documentation
 
+## `build-checklists.yml`
+
+For building checklists and Create a PR with changes made in the master.
+
+- Trigger: Push, Only when files inside document directory is changed. Manual (`workflow_dispatch`), GitHub web UI.
+- See: `/.github/xlsx/` in the root of the repository for XLSX build.
+
 ## `build-pdf.yml`
 
 For building PDFs at release.
