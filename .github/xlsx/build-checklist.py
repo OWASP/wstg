@@ -7,7 +7,7 @@ from copy import copy
 from openpyxl import load_workbook
 from collections import OrderedDict
 
-checklist_template = '.github/xlsx/Checklist_Template.xlsx'
+checklist_template = '.github/xlsx/checklist-template.xlsx'
 workbook = load_workbook(filename=checklist_template)
 
 sheet = workbook.active
