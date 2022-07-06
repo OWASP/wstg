@@ -66,3 +66,4 @@ object-src 'none'; base-uri 'none';
 - [Content-Security-Policy](https://content-security-policy.com/)
 - [Google CSP Evaluator](https://csp-evaluator.withgoogle.com/)
 - [CSP A Successful Mess Between Hardening And Mitigation](https://speakerdeck.com/lweichselbaum/csp-a-successful-mess-between-hardening-and-mitigation)
+- [The unsafe-hashes Source List Keyword](https://content-security-policy.com/unsafe-hashes/)
