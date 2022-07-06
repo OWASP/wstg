@@ -20,6 +20,7 @@ To test for misconfigurations in CSPs, look for insecure configurations by exami
 
 - `unsafe-inline` directive enables inline scripts or styles making the applications susceptible to XSS attacks.
 - `unsafe-eval` directive allows `eval()` to be used in the application.
+- `unsafe-hashes` directive allows use of inline scripts/styles, assuming they match the specified hashes.
 - Resources such as scripts can be allowed to be loaded from any origin by the use wildcard (`*`) source.
     - Also consider wildcards based on partial matches, such as: `https://*` or `*.cdn.com`.
     - Consider whether allow listed sources provide JSONP endpoints which might be used to bypass CSP or same-origin-policy.
@@ -65,3 +66,4 @@ object-src 'none'; base-uri 'none';
 - [Content-Security-Policy](https://content-security-policy.com/)
 - [Google CSP Evaluator](https://csp-evaluator.withgoogle.com/)
 - [CSP A Successful Mess Between Hardening And Mitigation](https://speakerdeck.com/lweichselbaum/csp-a-successful-mess-between-hardening-and-mitigation)
+- [The unsafe-hashes Source List Keyword](https://content-security-policy.com/unsafe-hashes/)
