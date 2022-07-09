@@ -26,10 +26,10 @@ Note: These instructions are based on use of Mozilla Firefox (72.0.1) on Win 10,
 
 1. Visit this page :+1:
 2. In another tab create a new [Google sheet](https://sheets.new).
-3. Copy the "Direct Link" listed above.
-4. In your Google sheet select "File > Import" from the main menu.
-5. In the "Import file" dialog select the "Upload" tab.
-6. Click "Select a file from your device".
-7. In the "File Upload" dialog, paste the previously copied URL (from step 3) into the "File name" field, click the "Open" button.
-8. Wait a few seconds and a "Import file" dialog should be displayed (choose your "Import location", likely "Replace spreadsheet"), then click the "import data" button.
+3. Copy the `Direct Link` listed above.
+4. In your Google sheet select `File > Import` from the main menu.
+5. In the `Import file` dialog select the `Upload` tab.
+6. Click `Select a file from your device`.
+7. In the `File Upload` dialog, paste the previously copied URL (from step 3) into the `File name` field, click the `Open` button.
+8. Wait a few seconds and a `Import file` dialog should be displayed (choose your `Import location`, likely `Replace spreadsheet`), then click the `import data` button.
 9. You should now have a fully populated and functional Web Security Testing Guide Checklist Google sheet, with the four tabs as mentioned above.
