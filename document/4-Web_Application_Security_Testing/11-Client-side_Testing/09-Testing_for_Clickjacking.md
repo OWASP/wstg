@@ -262,6 +262,26 @@ Web proxies are known for adding and stripping headers. In the case in which a w
 
 Also in this case, since the `X-FRAME-OPTIONS` has to be implemented in every page of the website, the developers may have not protected the mobile version of the website.
 
+#### Server-side Protection: Using frame-ancestors directive of Content Security Policy (CSP)
+
+The frame-ancestors directive in the HTTP Content-Security-Policy (CSP) specifies the acceptable parents that may embed a page using the ` <frame>`, `<iframe>`, `<object>`, `<embed>`, or `<applet>` tags.
+
+
+Also frame-ancestors allows a site to authorize multiple domains using the normal Content Security Policy semantics.
+
+##### Browser Compatibility
+
+The frame-ancestors directive was added to CSP Version 2. This means that browser support for frame-ancestors existed since 2015 in Chrome and Firefox, Safari 10+ or Edge 15+.
+
+The frame-ancestors CSP directive is not supported at all in Internet Explorer, would need to use the Edge browser instead.
+
+|Browser            | Lowest version  |
+|-------------------|-----------------|
+| Firefox (Gecko)   | 15              |
+| Opera             | 26              |
+| Safari            | 10              |
+| Chrome            | 40              |
+
 ### Create a Proof of Concept
 
 Once we have discovered that the site we are testing is vulnerable to clickjacking attack, we can proceed with the development of a `proof of concept` (PoC) to demonstrate the vulnerability. It is important to note that, as mentioned previously, these attacks can be used in conjunction with other forms of attacks (for example CSRF attacks) and could lead to overcome anti-CSRF tokens. In this regard we can imagine that, for example, the `example.org` website allows to authenticated and authorized users to make a transfer of money to another account.
