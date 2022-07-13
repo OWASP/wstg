@@ -264,7 +264,7 @@ Also in this case, since the `X-FRAME-OPTIONS` has to be implemented in every pa
 
 #### Server-side Protection: Using frame-ancestors directive of Content Security Policy (CSP)
 
-The frame-ancestors directive in the HTTP Content-Security-Policy (CSP) specifies the acceptable parents that may embed a page using the ` <frame>`, `<iframe>`, `<object>`, `<embed>`, or `<applet>` tags.
+The frame-ancestors directive in the HTTP Content-Security-Policy (CSP) specifies the acceptable parents that may embed a page using the `<frame>`, `<iframe>`, `<object>`, `<embed>`, or `<applet>` tags.
 
 
 Also frame-ancestors allows a site to authorize multiple domains using the normal Content Security Policy semantics.
