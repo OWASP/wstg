@@ -318,7 +318,7 @@ $form = '
 </form>';
 ```
 
-In the last step are planned security controls and then, if all is ok, the transfer is done. In the following listing a snippet of code of the last step is presented:
+In the last step are planned security controls and then, if all is OK, the transfer is done. In the following listing a snippet of code of the last step is presented:
 
 > Note: in this example, for simplicity, there is no input sanitization, but it has no relevance to block this type of attack
 
