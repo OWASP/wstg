@@ -111,7 +111,8 @@ for categoryKey in checklist['categories']:
 
     for item in category['tests']:
         separator = "- "
-        objective = separator + ("\n"+separator).join(item['objectives'])
+        emptyObjective = item['objectives'][0] == ""
+        objective = "N/A" if emptyObjective else separator + ("\n"+separator).join(item['objectives'])
         insert_new_item(sheet,
             id=item['id'],
             name=item['name'],
