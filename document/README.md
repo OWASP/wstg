@@ -268,7 +268,7 @@
 
 #### 4.10.9 [Test Upload of Malicious Files](4-Web_Application_Security_Testing/10-Business_Logic_Testing/09-Test_Upload_of_Malicious_Files.md)
 
-#### 4.10.9 [Test Payment Functionality](4-Web_Application_Security_Testing/10-Business_Logic_Testing/10-Test-Payment-Functionality.md)
+#### 4.10.10 [Test Payment Functionality](4-Web_Application_Security_Testing/10-Business_Logic_Testing/10-Test-Payment-Functionality.md)
 
 ### 4.11 [Client-side Testing](4-Web_Application_Security_Testing/11-Client-side_Testing/README.md)
 
