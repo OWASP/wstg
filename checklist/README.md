@@ -16,7 +16,7 @@ Contained in this folder is an Excel file which provides the following worksheet
 
 ## Excel File Hash
 
-SHA-256: 03d487cf4ef975973f1246c01937de8d5cf22f32c6ffdf44493f6b7dc01963eb
+SHA-256: 4028dd97239010451c06b16f00ae9d49f0b6d60747758ba944127ccfdb1166d4
 
 ## Google Sheets Import
 
@@ -26,10 +26,10 @@ Note: These instructions are based on use of Mozilla Firefox (72.0.1) on Win 10,
 
 1. Visit this page :+1:
 2. In another tab create a new [Google sheet](https://sheets.new).
-3. Copy the "Direct Link" listed above.
-4. In your Google sheet select "File > Import" from the main menu.
-5. In the "Import file" dialog select the "Upload" tab.
-6. Click "Select a file from your device".
-7. In the "File Upload" dialog, paste the previously copied URL (from step 3) into the "File name" field, click the "Open" button.
-8. Wait a few seconds and a "Import file" dialog should be displayed (choose your "Import location", likely "Replace spreadsheet"), then click the "import data" button.
+3. Copy the `Direct Link` listed above.
+4. In your Google sheet select `File > Import` from the main menu.
+5. In the `Import file` dialog select the `Upload` tab.
+6. Click `Select a file from your device`.
+7. In the `File Upload` dialog, paste the previously copied URL (from step 3) into the `File name` field, click the `Open` button.
+8. Wait a few seconds and an `Import file` dialog should be displayed (choose your `Import location`, likely `Replace spreadsheet`), then click the `import data` button.
 9. You should now have a fully populated and functional Web Security Testing Guide Checklist Google sheet, with the four tabs as mentioned above.
