@@ -274,7 +274,7 @@ The frame-ancestors directive was added to CSP Version 2. This means that browse
 
 The frame-ancestors CSP directive is not supported at all in Internet Explorer, would need to use the Edge browser instead.
 
-|Browser            | Lowest version  |
+|Browser            | Lowest Version  |
 |-------------------|-----------------|
 | Firefox (Gecko)   | 15              |
 | Opera             | 26              |
