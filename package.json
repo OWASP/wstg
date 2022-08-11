@@ -9,8 +9,8 @@
   },
   "scripts": {
     "pdfgen": "bash ./.github/pdf/scripts/make-pdf.sh",
-    "jsongen": "bash ./.github/scripts/make-json.sh",
-    "xlsxgen": "python ./.github/xlsx/build-checklist.py"
+    "jsongen": "bash ./.github/json/scripts/make-json.sh",
+    "xlsxgen": "python ./.github/xlsx/scripts/build-checklist.py"
   },
   "repository": {
     "type": "git",

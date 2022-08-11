@@ -11,8 +11,8 @@ Contained in this folder is an Excel file which provides the following worksheet
 
 ## Direct Link
 
-- [OWASP Testing Checklist (Excel)](https://raw.githubusercontent.com/OWASP/wstg/master/checklist/WSTG-Checklist_v4.2.xlsx)
-- [OWASP Testing Checklist (Markdown)](https://raw.githubusercontent.com/OWASP/wstg/master/checklist/checklist.md)
+- [OWASP Testing Checklist (Excel)](https://raw.githubusercontent.com/OWASP/wstg/master/checklists/checklist.xlsx)
+- [OWASP Testing Checklist (Markdown)](https://raw.githubusercontent.com/OWASP/wstg/master/checklists/checklist.md)
 
 ## Excel File Hash
 
