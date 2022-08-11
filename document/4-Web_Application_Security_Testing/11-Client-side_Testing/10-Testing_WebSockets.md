@@ -36,7 +36,7 @@ As with any data originating from untrusted sources, the data should be properly
    - Use Google Chrome's Developer Tools to view the Network WebSocket communication.
    - Use [ZAP's](https://www.zaproxy.org) WebSocket tab.
 2. Origin.
-   - Using a WebSocket client (one can be found in the [Tools](#Tools) section below) attempt to connect to the remote WebSocket server. If a connection is established the server may not be checking the origin header of the WebSocket handshake.
+   - Using a WebSocket client (one can be found in the Tools section below) attempt to connect to the remote WebSocket server. If a connection is established the server may not be checking the origin header of the WebSocket handshake.
 3. Confidentiality and Integrity.
    - Check that the WebSocket connection is using SSL to transport sensitive information `wss://`.
    - Check the SSL Implementation for security issues (Valid Certificate, BEAST, CRIME, RC4, etc). Refer to the [Testing for Weak Transport Layer Security](../09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_Transport_Layer_Security.md) section of this guide.
@@ -56,7 +56,7 @@ Once we have identified that the application is using WebSockets (as described a
 
 #### Example 2
 
-Using a WebSocket client (one can be found in the [Tools](#Tools) section below) attempt to connect to the remote WebSocket server. If the connection is allowed the WebSocket server may not be checking the WebSocket handshake's origin header. Attempt to replay requests previously intercepted to verify that cross-domain WebSocket communication is possible.
+Using a WebSocket client (one can be found in the Tools section below) attempt to connect to the remote WebSocket server. If the connection is allowed the WebSocket server may not be checking the WebSocket handshake's origin header. Attempt to replay requests previously intercepted to verify that cross-domain WebSocket communication is possible.
 
 ![WebSocket Client](images/WebSocket_Client.png)\
 *Figure 4.11.10-2: WebSocket Client*
