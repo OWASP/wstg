@@ -92,9 +92,9 @@ def insert_empty(sheet):
     copy_row(sheet, row_template_offset, row)
 
 # Load Checklist
-checklist_json_path = 'checklist/checklist.json'
-checklist_readme_path = 'checklist/README.md'
-checklist_output_file = 'checklist/checklist.xlsx'
+checklist_json_path = 'checklists/checklist.json'
+checklist_readme_path = 'checklists/README.md'
+checklist_output_file = 'checklists/checklist.xlsx'
 checklist = json.load(open(checklist_json_path), object_pairs_hook=OrderedDict)
 
 # Set Version
