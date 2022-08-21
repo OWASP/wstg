@@ -39,10 +39,7 @@ Do not limit testing to just one search engine provider, as different search eng
 - [DuckDuckGo](https://duckduckgo.com/), a privacy-focused search engine that compiles results from many different [sources](https://help.duckduckgo.com/results/sources/). Supports [search syntax](https://help.duckduckgo.com/duckduckgo-help-pages/results/syntax/).
 - [Google](https://www.google.com/), which offers the world's [most popular](https://en.wikipedia.org/wiki/Web_search_engine#Market_share) search engine, and uses a ranking system to attempt to return the most relevant results. Supports [search operators](https://support.google.com/websearch/answer/2466433).
 - [Internet Archive Wayback Machine](https://archive.org/web/), "building a digital library of Internet sites and other cultural artifacts in digital form."
-- [Startpage](https://www.startpage.com/), a search engine that uses Google's results without collecting personal information through trackers and logs. Supports [search operators](https://support.startpage.com/index.php?/Knowledgebase/Article/View/989/0/advanced-search-which-search-operators-are-supported-by-startpagecom).
 - [Shodan](https://www.shodan.io/), a service for searching Internet-connected devices and services. Usage options include a limited free plan as well as paid subscription plans.
-
-Both DuckDuckGo and Startpage offer some increased privacy to users by not utilizing trackers or keeping logs. This can provide reduced information leakage about the tester.
 
 ### Search Operators
 

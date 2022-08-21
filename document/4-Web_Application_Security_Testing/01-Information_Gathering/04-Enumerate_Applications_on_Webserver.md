@@ -160,7 +160,7 @@ This kind of search is akin to DNS zone transfer, but relies on web-based servic
 
 Reverse-IP services are similar to DNS inverse queries, with the difference that the testers query a web-based application instead of a name server. There are a number of such services available. Since they tend to return partial (and often different) results, it is better to use multiple services to obtain a more comprehensive analysis.
 
-- [Domain Tools Reverse IP](https://www.domaintools.com/reverse-ip/) (requires free membership)
+- [MxToolbox Reverse IP](https://mxtoolbox.com/ReverseLookup.aspx)
 - [DNSstuff](https://www.dnsstuff.com/) (multiple services available)
 - [Net Square](https://web.archive.org/web/20190515092354/http://www.net-square.com/mspawn.html) (multiple queries on domains and IP addresses, requires installation)
 
@@ -188,7 +188,7 @@ DNS:www.example.org, DNS:example.com, DNS:example.edu, DNS:example.net, DNS:exam
 ## Tools
 
 - DNS lookup tools such as `nslookup`, `dig` and similar.
-- Search engines (Google, Bing and other major search engines).
+- Search engines (Google, Bing, and other major search engines).
 - Specialized DNS-related web-based search service: see text.
 - [Nmap](https://nmap.org/)
 - [Nessus Vulnerability Scanner](https://www.tenable.com/products/nessus)
