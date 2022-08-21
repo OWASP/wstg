@@ -49,7 +49,7 @@ A search operator is a special keyword or syntax that extends the capabilities o
 - `inurl:` will only return results that include the keyword in the URL.
 - `intitle:` will only return results that have the keyword in the page title.
 - `intext:` or `inbody:` will only search for the keyword in the body of pages.
-- `filetype:` will match only a specific filetype, i.e. png, or php.
+- `filetype:` will match only a specific file type, i.e. `.png`, or `.php`.
 
 For example, to find the web content of owasp.org as indexed by a typical search engine, the syntax required is:
 
