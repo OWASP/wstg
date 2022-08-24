@@ -32,7 +32,7 @@ jobs:
         npm install -g textlint-rule-terminology
     - name: Changed Files Exporter
       id: files
-      uses: futuratrepadeira/changed-files@v3.2.1
+      uses: umani/changed-files@v3.3.0
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         pattern: '^.*\.(md)$'
