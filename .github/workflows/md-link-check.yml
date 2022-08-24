@@ -30,7 +30,7 @@ jobs:
     - name: Changed Files Exporter
       if: github.event_name == 'pull_request_target'
       id: files
-      uses: futuratrepadeira/changed-files@v3.0.1
+      uses: umani/changed-files@v3.3.0
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
     - name: PR link check
