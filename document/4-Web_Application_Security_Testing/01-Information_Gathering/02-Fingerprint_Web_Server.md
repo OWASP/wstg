@@ -20,7 +20,7 @@ Techniques used for web server fingerprinting include [banner grabbing](https://
 
 ### Banner Grabbing
 
-A banner grab is performed by sending an HTTP request to the web server and examining its [response header](https://developer.mozilla.org/en-US/docs/Glossary/Response_header). This can be accomplished using a variety of tools, including `telnet` for HTTP requests, or `openssl` for requests over SSL.
+A banner grab is performed by sending an HTTP request to the web server and examining its [response header](https://developer.mozilla.org/en-US/docs/Glossary/Response_header). This can be accomplished using a variety of tools, including `telnet` for HTTP requests, or `openssl` for requests over TLS/SSL.
 
 For example, here is the response to a request from an Apache server.
 
