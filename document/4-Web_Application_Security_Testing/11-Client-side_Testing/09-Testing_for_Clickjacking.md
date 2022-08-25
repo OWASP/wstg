@@ -100,14 +100,6 @@ Since these type of client-side protections relies on JavaScript frame busting c
 
 There are three deactivation techniques that can be used with frames:
 
-- Restricted frames with Internet Explorer: Starting from Internet Explorer 6, a frame can have the "security" attribute that, if it is set to the value "restricted", ensures that JavaScript code, ActiveX controls, and re-directs to other sites do not work in the frame.
-
-Example:
-
-```html
-<iframe src="http://example.org" security="restricted"></iframe>
-```
-
 - Sandbox attribute: with HTML5 there is a new attribute called "sandbox". It enables a set of restrictions on content loaded into the iframe. At this moment this attribute is only compatible with Chrome and Safari.
 
 Example:
@@ -116,7 +108,7 @@ Example:
 <iframe src="http://example.org" sandbox></iframe>
 ```
 
-- Design mode: Paul Stone showed a security issue concerning the "designMode" that can be turned on in the framing page (via document.designMode), disabling JavaScript in top and sub-frame. The design mode is currently implemented in Firefox and IE8.
+- Design mode: Paul Stone showed a security issue concerning the "designMode" that can be turned on in the framing page (via document.designMode), disabling JavaScript in top and sub-frame.
 
 ##### OnBeforeUnload Event
 
@@ -212,9 +204,9 @@ Attacker code:
 
 ##### Redefining Location
 
-For several browser the "document.location" variable is an immutable attribute. However, for some version of Internet Explorer and Safari, it is possible to redefine this attribute. This fact can be exploited to evade frame busting code.
+For several browsers the `document.location` variable is an immutable attribute. However, for some version of Internet Explorer and Safari, it is possible to redefine this attribute. This fact can be exploited to evade frame busting code.
 
-- **Redefining location in IE7 and IE8**: it is possible to redefine "location" as it is illustrated in the following example. By defining "location" as a variable, any code that tries to read or to navigate by assigning "top.location" will fail due to a security violation and so the frame busting code is suspended.
+- **Redefining location in IE7 and IE8**: it is possible to redefine `location` as it is illustrated in the following example. By defining `location` as a variable, any code that tries to read or to navigate by assigning `top.location` will fail due to a security violation and so the frame busting code is suspended.
 
 Example:
 
@@ -225,7 +217,7 @@ Example:
 <iframe src="http://example.org"></iframe>
 ```
 
-- **Redefining location in Safari 4.0.4**: To bust frame busting code with "top.location" it is possible to bind "location" to a function via defineSetter (through window), so that an attempt to read or navigate to the "top.location" will fail.
+- **Redefining location in Safari 4.0.4**: To bust frame busting code with `top.location` it is possible to bind `location` to a function via `defineSetter` (through window), so that an attempt to read or navigate to the `top.location` will fail.
 
 Example:
 
@@ -238,25 +230,13 @@ Example:
 
 #### Server-side Protection: X-Frame-Options
 
-An alternative approach to client-side frame busting code was implemented by Microsoft and it consists of an header based defense. This new "X-FRAME-OPTIONS" header is sent from the server on HTTP responses and is used to mark web pages that shouldn't be framed. This header can take the values DENY, SAMEORIGIN, ALLOW-FROM origin, or non-standard ALLOWALL. Recommended value is DENY.
+An alternative approach to client-side frame busting code consists of an header based defense. The `X-FRAME-OPTIONS` header is sent from the server on HTTP responses and is used to mark web pages that shouldn't be framed. This header can take the values `DENY`, `SAMEORIGIN`, `ALLOW-FROM` origin, or non-standard `ALLOWALL`. The recommended value is `DENY`.
 
-The "X-FRAME-OPTIONS" is a very good solution, and was adopted by major browser, but also for this technique there are some limitations that could lead in any case to exploit the clickjacking vulnerability.
-
-##### Browser Compatibility
-
-Since the "X-FRAME-OPTIONS" was introduced in 2009, this header is not compatible with old browser. So every user that doesn't have an updated browser could be victim of clickjacking attack.
-
-|Browser            | Lowest version  |
-|-------------------|-----------------|
-| Internet Explorer | 8.0            |
-| Firefox (Gecko)   | 3.6.9 (1.9.2.9) |
-| Opera             | 10.50          |
-| Safari            | 4.0             |
-| Chrome            | 4.1.249.1042    |
+The `X-FRAME-OPTIONS` header is a very good solution, and was adopted by all major browsers, but also for this technique there are some limitations that could lead in any case to exploit the clickjacking vulnerability.
 
 ##### Proxies
 
-Web proxies are known for adding and stripping headers. In the case in which a web proxy strips the "X-FRAME-OPTIONS" header then the site loses its framing protection.
+Web proxies are known for adding and stripping headers. In the case in which a web proxy strips the `X-FRAME-OPTIONS` header then the site loses its framing protection.
 
 ##### Mobile Website Version
 
@@ -264,26 +244,13 @@ Also in this case, since the `X-FRAME-OPTIONS` has to be implemented in every pa
 
 #### Server-side Protection: Using frame-ancestors directive of Content Security Policy (CSP)
 
-The frame-ancestors directive in the HTTP Content-Security-Policy (CSP) specifies the acceptable parents that may embed a page using the `<frame>`, `<iframe>`, `<object>`, `<embed>`, or `<applet>` tags.
+The `frame-ancestors` directive in the HTTP Content-Security-Policy (CSP) specifies the acceptable parents that may embed a page using the `<frame>`, `<iframe>`, `<object>`, `<embed>`, or `<applet>` tags.
 
-Also frame-ancestors allows a site to authorize multiple domains using the normal Content Security Policy semantics.
-
-##### Browser Compatibility
-
-The frame-ancestors directive was added to CSP Version 2. This means that browser support for frame-ancestors existed since 2015 in Chrome and Firefox, Safari 10+ or Edge 15+.
-
-The frame-ancestors CSP directive is not supported at all in Internet Explorer, would need to use the Edge browser instead.
-
-|Browser            | Lowest Version  |
-|-------------------|-----------------|
-| Firefox (Gecko)   | 15              |
-| Opera             | 26              |
-| Safari            | 10              |
-| Chrome            | 40              |
+Also `frame-ancestors` allows a site to authorize multiple domains using the normal Content Security Policy semantics.
 
 ### Create a Proof of Concept
 
-Once we have discovered that the site we are testing is vulnerable to clickjacking attack, we can proceed with the development of a `proof of concept` (PoC) to demonstrate the vulnerability. It is important to note that, as mentioned previously, these attacks can be used in conjunction with other forms of attacks (for example CSRF attacks) and could lead to overcome anti-CSRF tokens. In this regard we can imagine that, for example, the `example.org` website allows to authenticated and authorized users to make a transfer of money to another account.
+Once we have discovered that the site we are testing is vulnerable to clickjacking attack, we can proceed with the development of a "proof of concept" (PoC) to demonstrate the vulnerability. It is important to note that, as mentioned previously, these attacks can be used in conjunction with other forms of attacks (for example CSRF attacks) and could lead to overcome anti-CSRF tokens. In this regard we can imagine that, for example, the `example.org` website allows to authenticated and authorized users to make a transfer of money to another account.
 
 Suppose that to execute the transfer the developers have planned three steps. In the first step the user fill a form with the destination account and the amount. In the second step, whenever the user submits the form, is presented a summary page asking the user confirmation (like the one presented in the following picture).
 
