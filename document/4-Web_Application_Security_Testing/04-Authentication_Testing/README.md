@@ -19,3 +19,5 @@
 4.4.9 [Testing for Weak Password Change or Reset Functionalities](09-Testing_for_Weak_Password_Change_or_Reset_Functionalities.md)
 
 4.4.10 [Testing for Weaker Authentication in Alternative Channel](10-Testing_for_Weaker_Authentication_in_Alternative_Channel.md)
+
+4.4.11 [Testing Multi-Factor Authentication](11-Testing_Multi-Factor_Authentication.md)
