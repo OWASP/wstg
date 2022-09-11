@@ -188,8 +188,8 @@
 					"spread syntax"
 				],
 				[
-					"re-direct",
-					"redirect"
+					"re-direct(ing|ed)?",
+					"redirect$1"
 				],
 				[
 					"black[- ]?list(?:ed|ing)?",

@@ -14,7 +14,7 @@ The list contains only tools that are freely available to download and use (alth
     - The Zed Attack Proxy (ZAP) is an easy to use integrated penetration testing tool for finding vulnerabilities in web applications. It is designed to be used by people with a wide range of security experience and as such is ideal for developers and functional testers who are new to penetration testing.
     - ZAP provides automated scanners as well as a set of tools that allow you to find security vulnerabilities manually.
 - [Burp Suite Community Edition](https://portswigger.net/burp/communitydownload)
-    - Burp Suite is an intercepting proxy for security testing. It allows intercepting and modifying all HTTP(S) traffic passing in both directions, it can work with custom SSL certificates and non-proxy-aware clients.
+    - Burp Suite is an intercepting proxy for security testing. It allows intercepting and modifying all HTTP(S) traffic passing in both directions, it can work with custom TLS certificates and non-proxy-aware clients.
 - [Telerik Fiddler](https://www.telerik.com/fiddler)
     - Fiddler an intercepting web proxy that is primarily aimed at developers rather than penetration testers, but still provides useful functionality. It also hooks directly into the Windows HTTP APIs, allowing it to intercept traffic from some software that doesn't allow custom proxies to be set.
 
@@ -44,7 +44,7 @@ The list contains only tools that are freely available to download and use (alth
 
 - [sqlmap](http://sqlmap.org)
 
-#### Testing SSL
+#### Testing TLS
 
 - [OWASP O-Saft](https://owasp.org/www-project-o-saft/)
 - [sslyze](https://github.com/nabla-c0d3/sslyze)

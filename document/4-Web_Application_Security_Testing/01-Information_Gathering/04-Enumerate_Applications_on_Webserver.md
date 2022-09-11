@@ -31,7 +31,7 @@ There are three factors influencing how many applications are related to a given
 
 1. **Different Base URL**
 
-    The obvious entry point for a web application is `www.example.com`, i.e., with this shorthand notation we think of the web application originating at `http://www.example.com/` (the same applies for https). However, even though this is the most common situation, there is nothing forcing the application to start at `/`.
+    The obvious entry point for a web application is `www.example.com`, i.e., with this shorthand notation we think of the web application originating at `http://www.example.com/` (the same applies for HTTPS). However, even though this is the most common situation, there is nothing forcing the application to start at `/`.
 
     For example, the same symbolic name may be associated to three web applications such as: `http://www.example.com/url1` `http://www.example.com/url2` `http://www.example.com/url3`
 
@@ -39,7 +39,7 @@ There are three factors influencing how many applications are related to a given
 
 2. **Non-standard Ports**
 
-    While web applications usually live on port 80 (http) and 443 (https), there is nothing magic about these port numbers. In fact, web applications may be associated with arbitrary TCP ports, and can be referenced by specifying the port number as follows: `http[s]://www.example.com:port/`. For example, `http://www.example.com:20000/`.
+    While web applications usually live on port 80 (HTTP) and 443 (HTTPS), there is nothing magic about these port numbers. In fact, web applications may be associated with arbitrary TCP ports, and can be referenced by specifying the port number as follows: `http[s]://www.example.com:port/`. For example, `http://www.example.com:20000/`.
 
 3. **Virtual Hosts**
 
@@ -65,7 +65,7 @@ For example, the following command will look up, with a TCP connect scan, all op
 
 `nmap –Pn –sT –sV –p0-65535 192.168.1.100`
 
-It is sufficient to examine the output and look for http or the indication of SSL-wrapped services (which should be probed to confirm that they are https). For example, the output of the previous command could look like:
+It is sufficient to examine the output and look for HTTP or the indication of TLS-wrapped services (which should be probed to confirm that they are HTTPS). For example, the output of the previous command could look like:
 
 ```bash
 Interesting ports on 192.168.1.100:
@@ -86,7 +86,7 @@ From this example, one see that:
 - There is an Apache HTTP server running on port 80.
 - It looks like there is an HTTPS server on port 443 (but this needs to be confirmed, for example, by visiting `https://192.168.1.100` with a browser).
 - On port 901 there is a Samba SWAT web interface.
-- The service on port 1241 is not HTTPS, but is the SSL-wrapped Nessus daemon.
+- The service on port 1241 is not HTTPS, but is the TLS-wrapped Nessus daemon.
 - Port 3690 features an unspecified service (Nmap gives back its *fingerprint* - here omitted for clarity - together with instructions to submit it for incorporation in the Nmap fingerprint database, provided you know which service it represents).
 - Another unspecified service on port 8000; this might possibly be HTTP, since it is not uncommon to find HTTP servers on this port. Let's examine this issue:
 
@@ -112,7 +112,7 @@ This confirms that in fact it is an HTTP server. Alternatively, testers could ha
 
 - Apache Tomcat running on port 8080.
 
-The same task may be performed by vulnerability scanners, but first check that the scanner of choice is able to identify HTTP[S] services running on non-standard ports. For example, Nessus is capable of identifying them on arbitrary ports (provided it is instructed to scan all the ports), and will provide, with respect to Nmap, a number of tests on known web server vulnerabilities, as well as on the SSL configuration of HTTPS services. As hinted before, Nessus is also able to spot popular applications or web interfaces which could otherwise go unnoticed (for example, a Tomcat administrative interface).
+The same task may be performed by vulnerability scanners, but first check that the scanner of choice is able to identify HTTP[S] services running on non-standard ports. For example, Nessus is capable of identifying them on arbitrary ports (provided it is instructed to scan all the ports), and will provide, with respect to Nmap, a number of tests on known web server vulnerabilities, as well as on the TLS/SSL configuration of HTTPS services. As hinted before, Nessus is also able to spot popular applications or web interfaces which could otherwise go unnoticed (for example, a Tomcat administrative interface).
 
 ### Approaches to Address Issue 3 - Virtual Hosts
 
@@ -160,7 +160,7 @@ This kind of search is akin to DNS zone transfer, but relies on web-based servic
 
 Reverse-IP services are similar to DNS inverse queries, with the difference that the testers query a web-based application instead of a name server. There are a number of such services available. Since they tend to return partial (and often different) results, it is better to use multiple services to obtain a more comprehensive analysis.
 
-- [Domain Tools Reverse IP](https://www.domaintools.com/reverse-ip/) (requires free membership)
+- [MxToolbox Reverse IP](https://mxtoolbox.com/ReverseLookup.aspx)
 - [DNSstuff](https://www.dnsstuff.com/) (multiple services available)
 - [Net Square](https://web.archive.org/web/20190515092354/http://www.net-square.com/mspawn.html) (multiple queries on domains and IP addresses, requires installation)
 
@@ -188,7 +188,7 @@ DNS:www.example.org, DNS:example.com, DNS:example.edu, DNS:example.net, DNS:exam
 ## Tools
 
 - DNS lookup tools such as `nslookup`, `dig` and similar.
-- Search engines (Google, Bing and other major search engines).
+- Search engines (Google, Bing, and other major search engines).
 - Specialized DNS-related web-based search service: see text.
 - [Nmap](https://nmap.org/)
 - [Nessus Vulnerability Scanner](https://www.tenable.com/products/nessus)
