@@ -38,6 +38,7 @@ Due to the complexity of implementing biometrics in a browser-based environment,
 The first step for testing MFA is to identify all of the authentication functionality in the application, which may include:
 
 - The main login page.
+- Security critical functionality (such as disabling MFA or changing a password).
 - Federated login providers.
 - API endpoints (from both the main web interface and mobile apps)
 - Alternative (non-HTTP) protocols.
@@ -53,6 +54,8 @@ In some cases, there may also be intentional MFA bypasses implemented, such as n
 - When  is a specific HTTP header is set.
 - For a specific hard-coded account (such as a "root" or "breakglass" account).
 
+Where an application supports both local and federated logins, it may be possible to bypass the MFA if there is not strong separation between these two types of accounts. For example, if a user registers a local account and configures MFA for it, but does not have MFA configured on their account on the federated login provider, it may be possible to an attacker to re-register a federated account on the target application with the same email address by compromising the user's account on the federated login provider. 
+
 Finally, if the MFA is implemented on a different system to the main application (such as on a reverse proxy, in order to protect a legacy application that does not natively support MFA), then it may be possible to bypass it by connecting directly to the backend application server.
 
 ### Check MFA Management
@@ -62,8 +65,6 @@ The functionality used to manage MFA from inside the users account should be tes
 - Is the user required to re-authenticate to remove or change MFA settings?
 - Is the MFA management functionality vulnerable to [cross-site request forgery](../06-Session_Management_Testing/05-Testing_for_Cross_Site_Request_Forgery.md)?
 - Can other users' MFA setting be modified through [IDOR vulnerabilities](../05-Authorization_Testing/04-Testing_for_Insecure_Direct_Object_References.md)?
-
-There are also several business-logic related areas that should be reviewed, which will depend on the context and requirements of the application:
 
 ### Check MFA Recovery Options
 
@@ -77,7 +78,7 @@ Some applications will provide the user with a list of recovery or backup codes 
 - They are securely generated.
 - They can only be used once.
 - Brute-force protection is in place (such as account lockout).
-- The user is notified when a code is used.
+- The user is notified (via email, SMS, etc) when a code is used.
 
 #### MFA Reset Process
 
