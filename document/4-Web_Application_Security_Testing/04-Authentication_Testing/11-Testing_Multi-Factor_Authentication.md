@@ -54,7 +54,7 @@ In some cases, there may also be intentional MFA bypasses implemented, such as n
 - When  is a specific HTTP header is set.
 - For a specific hard-coded account (such as a "root" or "breakglass" account).
 
-Where an application supports both local and federated logins, it may be possible to bypass the MFA if there is not strong separation between these two types of accounts. For example, if a user registers a local account and configures MFA for it, but does not have MFA configured on their account on the federated login provider, it may be possible to an attacker to re-register a federated account on the target application with the same email address by compromising the user's account on the federated login provider. 
+Where an application supports both local and federated logins, it may be possible to bypass the MFA if there is not strong separation between these two types of accounts. For example, if a user registers a local account and configures MFA for it, but does not have MFA configured on their account on the federated login provider, it may be possible to an attacker to re-register a federated account on the target application with the same email address by compromising the user's account on the federated login provider.
 
 Finally, if the MFA is implemented on a different system to the main application (such as on a reverse proxy, in order to protect a legacy application that does not natively support MFA), then it may be possible to bypass it by connecting directly to the backend application server.
 
