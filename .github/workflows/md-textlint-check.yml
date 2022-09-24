@@ -7,7 +7,6 @@ on:
     paths:
     - '**.md'
     - '!.github/**'
-    - '!translations/**'
 
 permissions:
   contents: read
@@ -32,7 +31,8 @@ jobs:
         npm install -g textlint-rule-terminology
     - name: Changed Files Exporter
       id: files
-      uses: umani/changed-files@b4ef6fe532b9b5022be2489df114ba28146aea14
+      # This uses the SHA for 4.0.0 - https://github.com/umani/changed-files/releases/tag/v4.0.0
+      uses: umani/changed-files@96d5fd702a6479d573287ef07381ad59acc390ed
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         pattern: '^.*\.(md)$'
@@ -41,9 +41,9 @@ jobs:
         FILES: '${{ steps.files.outputs.files_updated }} ${{ steps.files.outputs.files_created }}'
       run: |
         touch log.txt
-        # All markdown files, excluding .github and translations
+        # All markdown files, excluding .github
         # Use fix flag so that it goes through all files
-        for FILE in $FILES; do echo $FILE | grep -v \.github | grep -v translations && textlint --config .github/configs/.textlintrc --fix --rule terminology $FILE | tee -a log.txt; done
+        for FILE in $FILES; do echo $FILE | grep -v \.github && textlint --config .github/configs/.textlintrc --fix --rule terminology $FILE | tee -a log.txt; done
         if grep -q  'Incorrect usage' log.txt ; then exit 1 ; else echo -e \"No terminology issues found.\"; fi
     - name: Show Mistakes
       if: failure()
