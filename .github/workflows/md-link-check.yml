@@ -5,7 +5,6 @@ on:
     paths:
     - '**.md'
     - '!.github/**'
-    - '!translations/**'
   workflow_dispatch:
 
 permissions:
@@ -30,7 +29,8 @@ jobs:
     - name: Changed Files Exporter
       if: github.event_name == 'pull_request_target'
       id: files
-      uses: umani/changed-files@b4ef6fe532b9b5022be2489df114ba28146aea14
+      # This uses the SHA for 4.0.0 - https://github.com/umani/changed-files/releases/tag/v4.0.0
+      uses: umani/changed-files@96d5fd702a6479d573287ef07381ad59acc390ed
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
     - name: PR link check
@@ -41,7 +41,7 @@ jobs:
         echo "The Following files were changed or created:"
         echo $FILES
         touch log err
-        for FILE in $FILES; do echo $FILE | grep -v translations | grep -q .*\.md\$ && markdown-link-check -q -v -c .github/configs/markdown-link-check-config.json $FILE 1>> log 2>> err; done
+        for FILE in $FILES; do echo $FILE | grep -q .*\.md\$ && markdown-link-check -q -v -c .github/configs/markdown-link-check-config.json $FILE 1>> log 2>> err; done
         if grep -q  "ERROR:" err ; then exit 1 ; else echo -e "No broken links found."; fi
         echo $(cat log)
         echo $(cat err)
@@ -49,7 +49,7 @@ jobs:
       if: github.event_name == 'workflow_dispatch'
       run: |
         touch log err
-        find . -path ./translations -prune -o -name \*.md -exec markdown-link-check -q -v --config .github/configs/markdown-link-check-config.json {} 1>> log 2>> err \;
+        find . -name \*.md -exec markdown-link-check -q -v --config .github/configs/markdown-link-check-config.json {} 1>> log 2>> err \;
         if grep -q  "ERROR:" err ; then exit 1 ; else echo -e "No broken links found."; fi
         echo $(cat log)
         echo $(cat err)
