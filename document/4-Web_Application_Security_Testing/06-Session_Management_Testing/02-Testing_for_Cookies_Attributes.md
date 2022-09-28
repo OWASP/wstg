@@ -72,15 +72,7 @@ Unlike [session cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cooki
 
 #### SameSite Attribute
 
-The
-[`SameSite`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#SameSite_cookies)
-attribute can be used to assert whether a cookie should be sent along with
-cross-site requests. This feature allows the server to mitigate the risk of
-cross-origin information leakage. In some cases, it is used too as a risk
-reduction (or defense in depth mechanism) strategy to prevent [cross-site
-request forgery](05-Testing_for_Cross_Site_Request_Forgery.md) attacks.
-
-This attribute can be configured in three different modes:
+The [`SameSite`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#SameSite_cookies) attribute can be used to assert whether a cookie should be sent along with cross-site requests. This feature allows the server to mitigate the risk of cross-origin information leakage. In some cases, it is used too as a risk reduction (or defense in depth mechanism) strategy to prevent [cross-site request forgery](05-Testing_for_Cross_Site_Request_Forgery.md) attacks. This attribute can be configured in three different modes:
 
 - `Strict`
 - `Lax`
@@ -96,10 +88,7 @@ The `Lax` value is less restrictive than `Strict`. The cookie will be sent if th
 
 ##### None Value
 
-The `None` value specifies that the browser will send the cookie in all
-contexts, including cross-site requests (the normal behavior before the
-implementation of `SameSite`). If `Samesite=None` is set, the `Secure` attribute
-should also be set, _e.g._ `SameSite=None; Secure`.
+The `None` value specifies that the browser will send the cookie in all contexts, including cross-site requests (the normal behavior before the implementation of `SameSite`). If `Samesite=None` is set, the `Secure` attribute should also be set, _e.g._ `SameSite=None; Secure`.
 
 ### Cookie Prefixes
 
