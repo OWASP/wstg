@@ -88,7 +88,7 @@ The `Lax` value is less restrictive than `Strict`. The cookie will be sent if th
 
 ##### None Value
 
-The `None` value specifies that the browser will send the cookie in all contexts, including cross-site requests (the normal behavior before the implementation of `SameSite`). If `Samesite=None` is set, the `Secure` attribute should also be set, _e.g._ `SameSite=None; Secure`.
+The `None` value specifies that the browser will send the cookie in all contexts, including cross-site requests (the normal behavior before the implementation of `SameSite`). If `Samesite=None` is set, then the Secure attribute must be set, otherwise modern browsers will ignore the SameSite attribute, _e.g._ `SameSite=None; Secure`.
 
 ### Cookie Prefixes
 
