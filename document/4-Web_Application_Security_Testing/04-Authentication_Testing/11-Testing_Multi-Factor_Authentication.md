@@ -185,7 +185,7 @@ Client Certificate Types: RSA sign, DSA sign, ECDSA sign
 
 If there are no restrictions, then it may be possible to authenticate using a certificate from a different CA. If there are restrictions by they are badly implemented, it may be possible to create a local CA with the correct name ("Example Org Root Certificate Authority" in the example above), and to use this to sign client certificates.
 
-If a valid certificate can be obtained, then it should also be verified that the certificate can only be used for the user that it is issued for (i.e, that you can't use a certificate issued to Alice to authenticate on Bob's account). Additionally, expired certificates should not be accepted by the application.
+If a valid certificate can be obtained, then it should also be verified that the certificate can only be used for the user that it is issued for (i.e, that you can't use a certificate issued to Alice to authenticate on Bob's account). Additionally, certificates should be checked to ensure that they have are not expired, and have no been revoked.
 
 ## Related Test Cases
 
