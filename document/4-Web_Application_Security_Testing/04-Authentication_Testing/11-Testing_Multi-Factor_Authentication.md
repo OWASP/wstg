@@ -40,7 +40,7 @@ The first step for testing MFA is to identify all of the authentication function
 - The main login page.
 - Security critical functionality (such as disabling MFA or changing a password).
 - Federated login providers.
-- API endpoints (from both the main web interface and mobile apps)
+- API endpoints (from both the main web interface and mobile apps).
 - Alternative (non-HTTP) protocols.
 - Test or debug functionality.
 
