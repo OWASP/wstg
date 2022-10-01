@@ -161,7 +161,7 @@ Properly evaluating the security of this requires the scope of testing to be exp
 
 One of the factors that is sometimes used with MFA is location ("somewhere you are"), although whether this constitutes a proper authentication factor is debatable. In the context of a web application, this typically means restricting access to specific IP addresses, or not prompting the user for a second factor as long as they are connecting from a specific trusted IP address. A common scenario for this would be to authenticate users with just their password when connecting from the office IP ranges, but requiring an OTP code when they connect from elsewhere.
 
-Depending on the implementation, it may be possible for a user to spoof a trusted IP address by setting the `X-Forwarded-For` header, which could allow them to bypass this check. Note that if the application does not correctly sanitise the contents of this header, it may also be possible to carry out attack such  as SQL injection here. If the application supports IPv6, then this should also be checked to ensure that appropriate restrictions are applied to those connections.
+Depending on the implementation, it may be possible for a user to spoof a trusted IP address by setting the `X-Forwarded-For` header, which could allow them to bypass this check. Note that if the application does not correctly sanitize the contents of this header, it may also be possible to carry out attack such as SQL injection here. If the application supports IPv6, then this should also be checked to ensure that appropriate restrictions are applied to those connections.
 
 Additionally, the trusted IP addresses should be reviewed to ensure that they do not present any weaknesses, such as if they include:
 
