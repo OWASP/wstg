@@ -25,7 +25,7 @@ MFA means that *at least* two of the following factors are required to authentic
 | Factor | Examples |
 |--------|----------|
 | Something You Know | Passwords, PINs and security questions. |
-| Something You Have | Hardware or software tokens, certificates, email, SMS and phone calls. |
+| Something You Have | Hardware or software tokens, certificates, email, SMS, and phone calls. |
 | Something You Are | Fingerprints, facial recognition, iris scans and handprint scans. |
 | Location | Source IP ranges and geolocation |
 
