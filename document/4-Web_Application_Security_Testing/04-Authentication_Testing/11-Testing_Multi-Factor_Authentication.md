@@ -31,7 +31,7 @@ MFA means that *at least* two of the following factors are required to authentic
 
 Note that requiring multiple examples of a single factor (such as needing both a password and a PIN) **does not constitute MFA**, although it may provide some security benefits over a simple password.
 
-Due to the complexity of implementing biometrics in a browser-based environment, "Something You Are" is rarely used for web applications. The most common second factor is "Something You Have".
+Due to the complexity of implementing biometrics in a browser-based environment, "Something You Are" is rarely used for web applications, although it is starting to be adopted using standards such as WebAuthn. The most common second factor is "Something You Have".
 
 ### Check for MFA Bypasses
 
@@ -51,7 +51,7 @@ If the authentication is done in multiple steps then it may be possible to bypas
 In some cases, there may also be intentional MFA bypasses implemented, such as not requiring MFA:
 
 - From specific IP addresses (which may be spoofable using the `X-Forwarded-For` HTTP header).
-- When  is a specific HTTP header is set.
+- When a specific HTTP header is set (such as a non-standard header like `X-Debug`).
 - For a specific hard-coded account (such as a "root" or "breakglass" account).
 
 Where an application supports both local and federated logins, it may be possible to bypass the MFA if there is not strong separation between these two types of accounts. For example, if a user registers a local account and configures MFA for it, but does not have MFA configured on their account on the federated login provider, it may be possible to an attacker to re-register a federated account on the target application with the same email address by compromising the user's account on the federated login provider.
