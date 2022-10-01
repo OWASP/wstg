@@ -60,7 +60,7 @@ Finally, if the MFA is implemented on a different system to the main application
 
 ### Check MFA Management
 
-The functionality used to manage MFA from inside the users account should be tested for vulnerabilities, including:
+The functionality used to manage MFA from inside the user's account should be tested for vulnerabilities, including:
 
 - Is the user required to re-authenticate to remove or change MFA settings?
 - Is the MFA management functionality vulnerable to [cross-site request forgery](../06-Session_Management_Testing/05-Testing_for_Cross_Site_Request_Forgery.md)?
