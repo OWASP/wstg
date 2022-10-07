@@ -8,8 +8,8 @@ Before doing any stuff, you first need to be good at reconnaissance. Reconnaisan
 
 ### Tools for recon and subdomain enumeration
 
-- [Amass](https://github.com/OWASP/Amass) 
-- [ReEngine](https://github.com/yogeshojha/rengine) 
+- [Amass](https://github.com/OWASP/Amass)
+- [ReEngine](https://github.com/yogeshojha/rengine)
 - [SubDomainizer](https://github.com/nsonaniya2010/SubDomainizer)
 
 ## Step 2 (Directory/File/Endpoints discovery)
@@ -18,10 +18,10 @@ After finding the subdomain of the program you are targeting. You need to look f
 
 ### Tools for File/Endpoint discovery
 
-- [GoBuster](https://github.com/OJ/gobuster) 
-- [KiteRunner](https://github.com/assetnote/kiterunner) 
-- [DirSearch](https://github.com/maurosoria/dirsearch) 
-- [OWASP ZAP(GUI)](https://owasp.org/www-project-zap/) 
+- [GoBuster](https://github.com/OJ/gobuster)
+- [KiteRunner](https://github.com/assetnote/kiterunner)
+- [DirSearch](https://github.com/maurosoria/dirsearch)
+- [OWASP ZAP(GUI)](https://owasp.org/www-project-zap/)
 - [Recon(directory,port scanning)](https://github.com/maheshbasnet089/recon)
 
 ## Step 3 (Vulnerabilty Test)
@@ -30,7 +30,7 @@ All the endpoints and file you gathered after performing step 2 should be tested
 
 ### How to perform vulnerabilty test
 
-Try to look for form field,if the site doesnot handle input properly,you can use it to your advantage by performing attack like [XSS(cross site scripting)](https://medium.com/@maheshbasnet/cross-site-scripting-or-xss-13f49fed6cc5). If the website is fetching some sort of data like image from outsource , you can try for SSRF(server site request forgery). If there is the userId or profileId in the URL you can lookout for IDOR vulnerabilty. 
+Try to look for form field, if the site doesnot handle input properly, you can use it to your advantage by performing attack like [XSS(cross site scripting)](https://medium.com/@maheshbasnet/cross-site-scripting-or-xss-13f49fed6cc5). If the website is fetching some sort of data like image from outsource, you can try for SSRF(server site request forgery). If there is the userId or profileId in the URL you can lookout for IDOR vulnerabilty. 
 
 Similary if there is redirect,nextTo,open,next params in the URL, lookout for open redirect vulnerabilty. If you don't see any csrf token in the request header,you can try to lookout for CSRF(cross site request forgery). If the site is accepting xml file type upload like pdf,docx,pptx you can lookout for XXE vulnerabilty. Other vulnerabilty like SQL injection can be also lookout for if the site uses SQL databases in contrast if it uses mongodb database lookout for [mongo injection](https://medium.com/@maheshbasnet/mongo-injection-sql-injection-a8b76cd8b193). Beside these other vulnerabilty like race around condition (especially in transaction doing website) and Insecure deserialization can be looked out.
 
@@ -45,7 +45,7 @@ If you are tired to doing vulnerabilty assessment and looking out for vulnerabil
 
 ## Step 4 (Report Writing)
 
-If you found any vulnerabilty by performing step 3. You need to report those vulnerabilty to the respective program company to earn your bounty(money). While writing report,you need to think that the report checkers knows nothing about the technology or they is 10 years kid.So write the report in so understandable and explainable way that the non technical person can understand it .
+If you found any vulnerabilty by performing step 3. You need to report those vulnerabilty to the respective program company to earn your bounty(money). While writing report, you need to think that the report checkers knows nothing about the technology or they is 10 years kid.So write the report in so understandable and explainable way that the non technical person can understand it .
 
 ## Resources and Books
 
@@ -61,7 +61,7 @@ Google is the first thing to think about while thinking about resource. It conta
 https://github.com/OWASP/wstg
 https://github.com/swisskyrepo/PayloadsAllTheThings
 https://github.com/danielmiessler/SecLists
-https://github.com/payloadbox/xss-payload-listf
+https://github.com/payloadbox/xss-payload-list
 
 ### Person to checkout for
 
