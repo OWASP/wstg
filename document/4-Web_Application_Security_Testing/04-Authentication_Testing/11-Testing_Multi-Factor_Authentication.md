@@ -6,7 +6,7 @@
 
 ## Summary
 
-Many applications implement multi-factor authentication (MFA) as an additional layer of security to protect the login process. This is also known as two-factor authentication (2FA) or two-step verification (2SV). MFA means asking the user to provide *at least* two different [authentication factors](#types-of-mfa) when logging in.
+Many applications implement multi-factor authentication (MFA) as an additional layer of security to protect the login process. This is also known as two-factor authentication (2FA) or two-step verification (2SV) - although these are not striclty the same thing. MFA means asking the user to provide *at least* two different [authentication factors](#types-of-mfa) when logging in.
 
 MFA adds additional complexity to both the authentication functionality, and also to other security-related areas (such as credential management and password recovery), meaning that it is critical for it to be implemented in a correct and robust manner.
 
@@ -29,7 +29,7 @@ MFA means that *at least* two of the following factors are required to authentic
 | Something You Are | Fingerprints, facial recognition, iris scans, handprint scans and behavioural factors. |
 | Location | Source IP ranges, and geolocation. |
 
-Note that requiring multiple examples of a single factor (such as needing both a password and a PIN) **does not constitute MFA**, although it may provide some security benefits over a simple password.
+Note that requiring multiple examples of a single factor (such as needing both a password and a PIN) **does not constitute MFA**, although it may provide some security benefits over a simple password, and may be considered two-step verification (2SV).
 
 Due to the complexity of implementing biometrics in a browser-based environment, "Something You Are" is rarely used for web applications, although it is starting to be adopted using standards such as WebAuthn. The most common second factor is "Something You Have".
 
