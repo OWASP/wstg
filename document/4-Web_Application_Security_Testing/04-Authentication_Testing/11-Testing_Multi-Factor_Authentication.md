@@ -117,6 +117,7 @@ Depending on the type of OTPs used, there are also some other specific checks th
 - How long are OTPs valid for?
     - Are multiple OTPs valid at once?
 - Can they be used more than once?
+- Are they tied to the correct user account or is it possible to authenticate with them on other accounts?
 
 #### HOTP and TOTP
 
@@ -157,7 +158,7 @@ Properly evaluating the security of this requires the scope of testing to be exp
 
 - Does the notification provide sufficient context (IP addresses, location, etc) for the user to make an informed decision about whether to approve or deny it?
 - Is there any kind of challenge and response mechanism (such as providing a code on the website that the user needs to enter into the app - often called "number matching" or "number challenge")?
-- Is there any rate limiting or mechanisms to prevent the user from being spammed with notifications?
+- Is there any rate limiting or mechanisms to prevent the user from being spammed with notifications in that hope that they will just blindly accept one?
 
 ### IP Address and Location Filtering
 
