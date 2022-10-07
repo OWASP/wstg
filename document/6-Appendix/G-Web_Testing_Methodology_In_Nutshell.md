@@ -1,10 +1,10 @@
 # Web Testing Methodology In Nutshell
 
-This appendix tries to summarizes all the methodology to follow duing web security testing. Besides methodology,it provides you with the tools to use while testing for web security , people to watch out,resources to read,books to read. This appendix can also act as a roadmap for a beginner web security enthusiast.Also,as a refresh guide for professionals.
+This appendix tries to summarizes all the methodology to follow duing web security testing. Besides methodology,it provides you with the tools to use while testing for web security, people to watch out, resources to read, books to read. This appendix can also act as a roadmap for a beginner web security enthusiast.Also,as a refresh guide for professionals.
 
 ## Step 1 (Reconnaissance)
 
-Before doing any stuff , you first need to be good at reconnaissance.Reconnaisance is the process of gathering as much as information you can about the target program. Here, the term program can be interchangably regarded as target website.Reconnaisance step is all about gathering information by different automated tools or manually.Unlike in pentesting , in bug bounty recon most involves of finding subdomain owned by the program.
+Before doing any stuff, you first need to be good at reconnaissance. Reconnaisance is the process of gathering as much as information you can about the target program. Here, the term program can be interchangably regarded as target website. Reconnaisance step is all about gathering information by different automated tools or manually. Unlike in pentesting, in bug bounty recon most involves of finding subdomain owned by the program.
 
 ### Tools for recon and subdomain enumeration
 
@@ -14,7 +14,7 @@ Before doing any stuff , you first need to be good at reconnaissance.Reconnaisan
 
 ## Step 2 (Directory/File/Endpoints discovery)
 
-After finding the subdomain of the program you are targeting. You need to look for all the endpoints on that website , all the hidden files and folder in the particular website. You can do those thinigs manually but it takes a lot of time and effort. To do that automatically, there are many automated tools availabe some of the popular tools are enlisted below.
+After finding the subdomain of the program you are targeting. You need to look for all the endpoints on that website, all the hidden files and folder in the particular website. You can do those thinigs manually but it takes a lot of time and effort. To do that automatically, there are many automated tools availabe some of the popular tools are enlisted below.
 
 ### Tools for File/Endpoint discovery
 
@@ -26,13 +26,13 @@ After finding the subdomain of the program you are targeting. You need to look f
 
 ## Step 3 (Vulnerabilty Test)
 
-All the endpoints and file you gathered after performing step 2 should be tested for vulnerabilty.In case of the folder and file path,you can perform path traversal, directory traversal attack. For the endpoint which is forbidden you can try to bypass that 403 forbidden by using many technique. Some endpoints may have information disclosure. Information disclosure is the process of leaking of data/information of the user of the website. Those information can be juicy for bruteforcing so keep note about it.You should intercept your traffic by using [Burpsuite](https://portswigger.net/burp/documentation/desktop/getting-started) to be more clear on what attack to perform next.
+All the endpoints and file you gathered after performing step 2 should be tested for vulnerabilty. In case of the folder and file path,you can perform path traversal, directory traversal attack. For the endpoint which is forbidden you can try to bypass that 403 forbidden by using many technique. Some endpoints may have information disclosure. Information disclosure is the process of leaking of data/information of the user of the website. Those information can be juicy for bruteforcing so keep note about it. You should intercept your traffic by using [Burpsuite](https://portswigger.net/burp/documentation/desktop/getting-started) to be more clear on what attack to perform next.
 
 ### How to perform vulnerabilty test
 
 Try to look for form field,if the site doesnot handle input properly,you can use it to your advantage by performing attack like [XSS(cross site scripting)](https://medium.com/@maheshbasnet/cross-site-scripting-or-xss-13f49fed6cc5). If the website is fetching some sort of data like image from outsource , you can try for SSRF(server site request forgery). If there is the userId or profileId in the URL you can lookout for IDOR vulnerabilty. 
 
-Similary if there is redirect,nextTo,open,next params in the URL, lookout for open redirect vulnerabilty. If you don't see any csrf token in the request header,you can try to lookout for CSRF(cross site request forgery).If the site is accepting xml file type upload like pdf,docx,pptx you can lookout for XXE vulnerabilty. Other vulnerabilty like SQL injection can be also lookout for if the site uses SQL databases in contrast if it uses mongodb database lookout for [mongo injection](https://medium.com/@maheshbasnet/mongo-injection-sql-injection-a8b76cd8b193).Beside these other vulnerabilty like race around condition (especially in transaction doing website) and Insecure deserialization can be looked out.
+Similary if there is redirect,nextTo,open,next params in the URL, lookout for open redirect vulnerabilty. If you don't see any csrf token in the request header,you can try to lookout for CSRF(cross site request forgery). If the site is accepting xml file type upload like pdf,docx,pptx you can lookout for XXE vulnerabilty. Other vulnerabilty like SQL injection can be also lookout for if the site uses SQL databases in contrast if it uses mongodb database lookout for [mongo injection](https://medium.com/@maheshbasnet/mongo-injection-sql-injection-a8b76cd8b193). Beside these other vulnerabilty like race around condition (especially in transaction doing website) and Insecure deserialization can be looked out.
 
 ## Step 4 (Fuzzing)
 
@@ -71,5 +71,5 @@ https://github.com/jhaddix
 
 ## Note
 
-I clearly want to state that,not everyone follows the same steps like above. Everyone have got different taste. It isn't have to have follow sort of things.According to the condition and circumstances you can create your own methodology which will favor you.
+I clearly want to state that,not everyone follows the same steps like above. Everyone have got different taste. It isn't have to have follow sort of things. According to the condition and circumstances you can create your own methodology which will favor you.
 Some too don't consider to use linux at all for web security testing.Linux is not have to have thing too. But it have got many tools already built-in by default and bash which can automate your task,and saves time. If you have got burpsuite installed on system despise of OS, you are 90% ready for testing website at a go.
