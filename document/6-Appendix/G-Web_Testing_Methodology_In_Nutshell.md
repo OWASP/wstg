@@ -30,7 +30,7 @@ All the endpoints and file you gathered after performing step 2 should be tested
 
 ### How to perform vulnerabilty test
 
-Try to look for form field, if the site does not handle input properly, you can use it to your advantage by performing attack like [XSS(cross site scripting)](https://medium.com/@maheshbasnet/cross-site-scripting-or-xss-13f49fed6cc5). If the website is fetching some sort of data like image from outsource, you can try for SSRF(server site request forgery). If there is the userId or profileId in the URL you can lookout for IDOR vulnerabilty. 
+Try to look for form field, if the site does not handle input properly, you can use it to your advantage by performing attack like [XSS(cross site scripting)](https://medium.com/@maheshbasnet/cross-site-scripting-or-xss-13f49fed6cc5). If the website is fetching some sort of data like image from outsource, you can try for SSRF(server site request forgery). If there is the userId or profileId in the URL you can lookout for IDOR vulnerabilty.
 
 Similary if there is redirect,nextTo,open,next params in the URL, lookout for open redirect vulnerabilty. If you don't see any csrf token in the request header,you can try to lookout for CSRF(cross site request forgery). If the site is accepting xml file type upload like pdf,docx,pptx you can lookout for XXE vulnerabilty. Other vulnerabilty like SQL injection can be also lookout for if the site uses SQL databases in contrast if it uses mongodb database lookout for [mongo injection](https://medium.com/@maheshbasnet/mongo-injection-sql-injection-a8b76cd8b193). Beside these other vulnerabilty like race around condition (especially in transaction doing website) and Insecure deserialization can be looked out.
 
