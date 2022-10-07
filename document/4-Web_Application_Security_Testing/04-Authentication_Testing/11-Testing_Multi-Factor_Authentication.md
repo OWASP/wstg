@@ -25,9 +25,11 @@ MFA means that *at least* two of the following factors are required to authentic
 | Factor | Examples |
 |--------|----------|
 | Something You Know | Passwords, PINs and security questions. |
-| Something You Have | Hardware or software tokens, certificates, email, SMS, and phone calls. |
+| Something You Have | Hardware or software tokens, certificates, email*, SMS, and phone calls. |
 | Something You Are | Fingerprints, facial recognition, iris scans, handprint scans and behavioural factors. |
 | Location | Source IP ranges, and geolocation. |
+
+\* Email only really constitutes "something you have" if the email account itself is protected with MFA. As such, it should be considered weaker than other alternatives such as certificates or TOTP, and may not be accepted as MFA under some definitions.
 
 Note that requiring multiple examples of a single factor (such as needing both a password and a PIN) **does not constitute MFA**, although it may provide some security benefits over a simple password, and may be considered two-step verification (2SV).
 
