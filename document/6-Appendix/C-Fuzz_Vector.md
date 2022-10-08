@@ -59,4 +59,3 @@ In the above section , we have seen why we need a wordlist. Just wordlist is not
 - [Daniel Miessler - SecLists](https://github.com/danielmiessler/SecLists)
 - [XssPayloads Twitter Feed](https://twitter.com/XssPayloads)
 - [XssPayloads List](https://github.com/payloadbox/xss-payload-list)
-
