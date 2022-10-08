@@ -15,31 +15,38 @@ There are hundreds of tools available at the market for doing fuzzing thing. But
 ### [Wfuzz](https://github.com/xmendez/wfuzz)
 
 Wfuzz is the most popular fuzzing tool in the present days. Wfuzz works by replacing the wordlist value to the place where there is placeholder FUZZ. To understand it more cleary, lets see an example.
+
 ```bash
 $ wfuzz -w userIds.txt https://example.com/view_photo?userId=FUZZ
 ```
+
 In the above command, userIds.txt is the worldlist file containing all the numberic Id values. Here,we are telling wfuzz to fuzz the request to the <https://example.com/view_photo?userId=FUZZ>,note that FUZZ word in the URL, it will act as a placeholder for wfuzz to put wordlist value on. All the numberic Id's value of the userIds.txt file will be inserted into that FUZZ keyword place replacing FUZZ keyword.
 
 ### Ffuf
 
 Ffuf is the next web fuzzing tool written in Go language which is very fast and recursive in nature. It works same as a Wfuzz but in contrast it is recursive.Ffuf also works by replacing the placeholdre FUZZ with worldlist values.To understand it more clearly lets see an example.
+
 ```bash
 $ ffuf -w userIds.txt -u https://example.com/view_photo?userId=FUZZ
 ```
+
 Here -w  is the flag for wordlist and -u is the flag for URL.The rest of the working mechanism is same as the wfuzz. It replaces FUZZ word with userIds.txt values.
 
 ### GoBuster
 
 GoBuster is another fuzzing written in Go language which is most used to fuzzing URIs,
-directory,DNS subdomains,AWS S3 bucket,Virtual host names and supports concurrency.To understand it more properly, lets seen an example.
+directory,DNS subdomains,AWS S3 bucket,Virtual host-names and supports concurrency.To understand it more properly, lets seen an example.
+
 ```bash
 $ gobuster dir -w endpoints.txt -u https://example.com
 ```
-In the above command dir speciefies we are fuzzing directory, -u is the flag for url and -w is the flag for wordlist where endpoints.txt is the worldlist file for doing fuzzing.The command runs concurrent request to the endpoint to find available directories.
+
+In the above command dir speciefies we are fuzzing directory, -u is the flag for URL and -w is the flag for wordlist where endpoints.txt is the worldlist file for doing fuzzing.The command runs concurrent request to the endpoint to find available directories.
 
 ### Wordlists and refrences 
 
 In the above section , we have seen why we need a wordlist. Just wordlist is not enough,the worlist must great for you fuzzing condition. If you don't find any wordlists that matches your condition then you can create your own wordlist.Some of the popular wordlist and refrences are provided below.
+
 - [Cross-site scripting (XSS) cheat sheet](https://portswigger.net/web-security/cross-site-scripting/cheat-sheet)
 - [AwesomeXSS](https://github.com/s0md3v/AwesomeXSS)
 - [Payloads All The Things](https://github.com/swisskyrepo/PayloadsAllTheThings)
