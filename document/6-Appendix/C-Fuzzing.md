@@ -17,25 +17,25 @@ There are hundreds of tools available at the market for doing fuzzing thing. But
 Wfuzz is the most popular fuzzing tool in the present days. Wfuzz works by replacing the wordlist value to the place where there is placeholder FUZZ. To understand it more cleary, lets see an example.
 
 ```bash
-$ wfuzz -w userIds.txt https://example.com/view_photo?userId=FUZZ
+$ wfuzz -w userIDs.txt https://example.com/view_photo?userId=FUZZ
 ```
 
-In the above command, userIds.txt is the worldlist file containing all the numberic Id values. Here,we are telling wfuzz to fuzz the request to the <https://example.com/view_photo?userId=FUZZ>,note that FUZZ word in the URL, it will act as a placeholder for wfuzz to put wordlist value on. All the numberic Id's value of the userIds.txt file will be inserted into that FUZZ keyword place replacing FUZZ keyword.
+In the above command, userIds.txt is the worldlist file containing all the numberic ID values. Here,we are telling wfuzz to fuzz the request to the example URL,note that FUZZ word in the URL, it will act as a placeholder for wfuzz to put wordlist value on. All the numberic Id's value of the userIDs.txt file will be inserted into that FUZZ keyword place replacing FUZZ keyword.
 
 ### Ffuf
 
 Ffuf is the next web fuzzing tool written in Go language which is very fast and recursive in nature. It works same as a Wfuzz but in contrast it is recursive.Ffuf also works by replacing the placeholdre FUZZ with worldlist values.To understand it more clearly lets see an example.
 
 ```bash
-$ ffuf -w userIds.txt -u https://example.com/view_photo?userId=FUZZ
+$ ffuf -w userIDs.txt -u https://example.com/view_photo?userId=FUZZ
 ```
 
-Here -w  is the flag for wordlist and -u is the flag for URL.The rest of the working mechanism is same as the wfuzz. It replaces FUZZ word with userIds.txt values.
+Here -w  is the flag for wordlist and -u is the flag for URL.The rest of the working mechanism is same as the wfuzz. It replaces FUZZ word with userIDs.txt values.
 
 ### GoBuster
 
 GoBuster is another fuzzing written in Go language which is most used to fuzzing URIs,
-directory,DNS subdomains,AWS S3 bucket,Virtual host-names and supports concurrency.To understand it more properly, lets seen an example.
+directory,DNS subdomains,AWS S3 bucket,Virtual hostnames and supports concurrency.To understand it more properly, lets seen an example.
 
 ```bash
 $ gobuster dir -w endpoints.txt -u https://example.com
