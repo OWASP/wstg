@@ -22,7 +22,7 @@ wfuzz -w userIDs.txt https://example.com/view_photo?userId=FUZZ
 
 In the above command, userIds.txt is the worldlist file containing all the numberic ID values. Here,we are telling wfuzz to fuzz the request to the example URL,note that FUZZ word in the URL, it will act as a placeholder for wfuzz to put wordlist value on. All the numberic IDs value of the userIDs.txt file will be inserted into that FUZZ keyword place replacing FUZZ keyword.
 
-### Ffuf
+### [Ffuf](https://github.com/ffuf/ffuf)
 
 Ffuf is the next web fuzzing tool written in Go language which is very fast and recursive in nature. It works same as a Wfuzz but in contrast it is recursive.Ffuf also works by replacing the placeholdre FUZZ with worldlist values.To understand it more clearly lets see an example.
 
@@ -32,7 +32,7 @@ ffuf -w userIDs.txt -u https://example.com/view_photo?userId=FUZZ
 
 Here -w  is the flag for wordlist and -u is the flag for URL.The rest of the working mechanism is same as the wfuzz. It replaces FUZZ word with userIDs.txt values.
 
-### GoBuster
+### [GoBuster](https://github.com/OJ/gobuster)
 
 GoBuster is another fuzzing written in Go language which is most used to fuzzing URIs,
 directory,DNS subdomains,AWS S3 bucket,Virtual hostnames and supports concurrency.To understand it more properly, lets seen an example.
@@ -58,3 +58,5 @@ In the above section , we have seen why we need a wordlist. Just wordlist is not
 - [EdOverflow Bug Bounty Cheat Sheet](https://github.com/EdOverflow/bugbounty-cheatsheet)
 - [Daniel Miessler - SecLists](https://github.com/danielmiessler/SecLists)
 - [XssPayloads Twitter Feed](https://twitter.com/XssPayloads)
+- [XssPayloads List](https://github.com/payloadbox/xss-payload-list)
+
