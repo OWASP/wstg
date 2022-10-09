@@ -2,8 +2,7 @@
 
 ## Introduction
 
-Fuzzing is the process or technique of sending a number of request to the target website in a certain interval of time. In other words, it is also similar to bruteforcing. Fuzzing is a process which can be achieved using tools like Wfuzz, ffuf, and so on. You need to provide the tool with the target url, parameter, endpoint, etc and some sort of inputs. Then the fuzzing tool crafts requests and send them to the target one after another. After the fuzzing has finished, the responses, timing, and status codes need to be analyzed for vulnerabilities.
-
+Fuzzing is the process or technique of sending a number of request to the target website in a certain interval of time. In other words, it is also similar to bruteforcing. Fuzzing is a process which can be achieved using tools like Wfuzz, ffuf, and so on. You need to provide the tool with the target URL, parameter, endpoint, etc and some sort of inputs. Then the fuzzing tool crafts requests and send them to the target one after another. After the fuzzing has finished, the responses, timing, and status codes need to be analyzed for vulnerabilities.
 
 ## Why fuzzing?
 
@@ -20,6 +19,7 @@ There are hundreds of tools available in the industry for doing fuzzing. But som
 ```bash
 wfuzz -w userIDs.txt https://example.com/view_photo?userId=FUZZ
 ```
+
 In the above command, `userIds.txt` is a worldlist file containing numeric ID values. Here,we are telling wfuzz to fuzz the request to the example URL. Note that `FUZZ` word in the URL, it will act as a placeholder for wfuzz to replace with values from the wordlist. All the numeric IDs value of the `userIDs.txt` file will be inserted replacing `FUZZ` keyword.
 
 ### Ffuf
@@ -31,7 +31,6 @@ ffuf -w userIDs.txt -u https://example.com/view_photo?userId=FUZZ
 ```
 
 Here the `-w` is the flag for wordlist and `-u` is the flag for the target URL. The rest of the working mechanism is the same as the Wfuzz. It replaces the `FUZZ` placeholder with `userIDs.txt` values.
-
 
 ### GoBuster
 
