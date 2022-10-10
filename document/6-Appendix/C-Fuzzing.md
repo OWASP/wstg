@@ -40,7 +40,7 @@ Here the `-w` is the flag for wordlist and `-u` is the flag for the target URL. 
 gobuster dir -w endpoints.txt -u https://example.com
 ```
 
-In the above command `dir` specifies we are fuzzing a directory, `-u` is the flag for URL and `-w` is the flag for wordlist where `endpoints.txt` is the worldlist file payloads will be taken from. The command runs concurrent request to the endpoint to find available directories.
+In the above command `dir` specifies we are fuzzing a directory, `-u` is the flag for URL and `-w` is the flag for wordlist where `endpoints.txt` is the worldlist file payloads will be taken from. The command runs concurrent requests to the endpoint to find available directories.
 
 ### Wordlists and References
 
