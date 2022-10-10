@@ -20,7 +20,7 @@ There are hundreds of tools available in the industry for doing fuzzing. But som
 wfuzz -w userIDs.txt https://example.com/view_photo?userId=FUZZ
 ```
 
-In the above command, `userIds.txt` is a worldlist file containing numeric ID values. Here,we are telling wfuzz to fuzz the request to the example URL. Note that `FUZZ` word in the URL, it will act as a placeholder for wfuzz to replace with values from the wordlist. All the numeric IDs value of the `userIDs.txt` file will be inserted replacing `FUZZ` keyword.
+In the above command, `userIds.txt` is a worldlist file containing numeric ID values. Here,we are telling wfuzz to fuzz the request to the example URL. Note that `FUZZ` word in the URL, it will act as a placeholder for wfuzz to replace with values from the wordlist. All the numeric IDs value of the `userIDs.txt` file will be inserted replacing the `FUZZ` keyword.
 
 ### Ffuf
 
