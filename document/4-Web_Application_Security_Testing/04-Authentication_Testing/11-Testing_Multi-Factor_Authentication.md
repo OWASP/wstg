@@ -115,11 +115,11 @@ Depending on the type of OTPs used, there are also some other specific checks th
 
 - How are OTPs sent to user (email, SMS, phone, etc)
     - Is there rate limiting to prevent SMS/phone spam costing money?
-- How strong are OTPs (keyspace)?
+- How strong are OTPs (length and keyspace)?
 - How long are OTPs valid for?
-    - Are multiple OTPs valid at once?
-- Can they be used more than once?
-- Are they tied to the correct user account or is it possible to authenticate with them on other accounts?
+- Are multiple OTPs valid at once?
+- Can the OTPs be used more than once?
+- Are the OTPs tied to the correct user account or is it possible to authenticate with them on other accounts?
 
 #### HOTP and TOTP
 
