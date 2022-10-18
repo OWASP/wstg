@@ -6,7 +6,7 @@
 
 ## Summary
 
-Many applications implement multi-factor authentication (MFA) as an additional layer of security to protect the login process. This is also known as two-factor authentication (2FA) or two-step verification (2SV) - although these are not striclty the same thing. MFA means asking the user to provide *at least* two different [authentication factors](#types-of-mfa) when logging in.
+Many applications implement Multi-Factor Authentication (MFA) as an additional layer of security to protect the login process. This is also known as two-factor authentication (2FA) or two-step verification (2SV) - although these are not striclty the same thing. MFA means asking the user to provide *at least* two different [authentication factors](#types-of-mfa) when logging in.
 
 MFA adds additional complexity to both the authentication functionality, and also to other security-related areas (such as credential management and password recovery), meaning that it is critical for it to be implemented in a correct and robust manner.
 
@@ -56,7 +56,7 @@ In some cases, there may also be intentional MFA bypasses implemented, such as n
 - When a specific HTTP header is set (such as a non-standard header like `X-Debug`).
 - For a specific hard-coded account (such as a "root" or "breakglass" account).
 
-Where an application supports both local and federated logins, it may be possible to bypass the MFA if there is not strong separation between these two types of accounts. For example, if a user registers a local account and configures MFA for it, but does not have MFA configured on their account on the federated login provider, it may be possible to an attacker to re-register a federated account on the target application with the same email address by compromising the user's account on the federated login provider.
+Where an application supports both local and federated logins, it may be possible to bypass the MFA if there is not strong separation between these two types of accounts. For example, if a user registers a local account and configures MFA for it, but does not have MFA configured on their account on the federated login provider, it may be possible for an attacker to re-register (or link) a federated account on the target application with the same email address by compromising the user's account on the federated login provider.
 
 Finally, if the MFA is implemented on a different system to the main application (such as on a reverse proxy, in order to protect a legacy application that does not natively support MFA), then it may be possible to bypass it by connecting directly to the backend application server, as discussed in the guide on how to [map the application architecture](../01-Information_Gathering/10-Map_Application_Architecture.md#content-delivery-network-cdn).
 
@@ -86,7 +86,7 @@ See the ["Backup Codes" section in the Forgotten Password Cheat Sheet](https://c
 
 #### MFA Reset Process
 
-If the application implements an MFA reset process, this should be tested in the same way that the [password reset process](09-Testing_for_Weak_Password_Change_or_Reset_Functionalities.md) is tested. It is important that this process is *at least* as strong as the MFA implementation for the application
+If the application implements an MFA reset process, this should be tested in the same way that the [password reset process](09-Testing_for_Weak_Password_Change_or_Reset_Functionalities.md) is tested. It is important that this process is *at least* as strong as the MFA implementation for the application.
 
 #### Alternative Authentication
 
@@ -104,7 +104,7 @@ The most common form of of MFA is the one of One-Time Passwords (OTPs), which ar
 | SMS | Sends a code via SMS. |
 | Phone | Sends a code via a voice call to a phone number. |
 
-The OTP is typically entered after the user has provided their username an password. There are various checks that should be performed, including:
+The OTP is typically entered after the user has provided their username and password. There are various checks that should be performed, including:
 
 - Is the account locked out after multiple failed MFA attempts?
 - Is the user's IP address blocked after multiple failed MFA attempts across different accounts?
@@ -188,9 +188,9 @@ C = US, ST = Example, L = Example, O = Example Org, CN = Example Org Root Certif
 Client Certificate Types: RSA sign, DSA sign, ECDSA sign
 ```
 
-If there are no restrictions, then it may be possible to authenticate using a certificate from a different CA. If there are restrictions by they are badly implemented, it may be possible to create a local CA with the correct name ("Example Org Root Certificate Authority" in the example above), and to use this to sign client certificates.
+If there are no restrictions, then it may be possible to authenticate using a certificate from a different CA. If there are restrictions but they are badly implemented, it may be possible to create a local CA with the correct name ("Example Org Root Certificate Authority" in the example above), and to use this new CA to sign client certificates.
 
-If a valid certificate can be obtained, then it should also be verified that the certificate can only be used for the user that it is issued for (i.e, that you can't use a certificate issued to Alice to authenticate on Bob's account). Additionally, certificates should be checked to ensure that they have are not expired, and have no been revoked.
+If a valid certificate can be obtained, then it should also be verified that the certificate can only be used for the user that it is issued for (i.e, that you can't use a certificate issued to Alice to authenticate on Bob's account). Additionally, certificates should be checked to ensure that they have neither expired nor been revoked
 
 ## Related Test Cases
 
