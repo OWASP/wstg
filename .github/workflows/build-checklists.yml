@@ -89,5 +89,5 @@ jobs:
         GDRIVESETTINGSSFILE: ${{ secrets.GDRIVESETTINGSSFILE }}
     - name: Publish XLSX file to Google Drive
       run: |
-        npm run-script xlsxgen --  ${{ secrets.GDRIVEFILEID }}  ${{ github.event.inputs.version }}
+        npm run-script publishxlsx --  ${{ secrets.GDRIVEFILEID }}  ${{ github.event.inputs.version }}
 
