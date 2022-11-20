@@ -43,7 +43,7 @@ jobs:
         python-version: "3.10"
     - name: Install Dependencies
       run: |
-        pip install openpyxl
+        pip install openpyxl pydrive
     - name: Run XLSX Build
       if: env.CHANGED == 'true'
       run: npm run-script xlsxgen
@@ -79,3 +79,15 @@ jobs:
           git push --set-upstream origin $BRANCH_STAMP
           hub pull-request --no-edit
         fi
+    - name: Set XLSXPublishing Secrets
+      run: |
+        echo "$GDRIVECREDSFILE" | base64 -d > credentials.json
+        echo "$GDRIVESETTINGSSFILE" | base64 -d > settings.yaml
+      shell: bash
+      env:
+        GDRIVECREDSFILE: ${{ secrets.GDRIVECREDSFILE }}
+        GDRIVESETTINGSSFILE: ${{ secrets.GDRIVESETTINGSSFILE }}
+    - name: Publish XLSX file to Google Drive
+      run: |
+        npm run-script xlsxgen --  ${{ secrets.GDRIVEFILEID }}  ${{ github.event.inputs.version }}
+
