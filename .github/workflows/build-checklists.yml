@@ -82,11 +82,11 @@ jobs:
     - name: Set XLSXPublishing Secrets
       run: |
         echo "$GDRIVECREDSFILE" | base64 -d > credentials.json
-        echo "$GDRIVESETTINGSSFILE" | base64 -d > settings.yaml
+        echo "$GDRIVESETTINGSFILE" | base64 -d > settings.yaml
       shell: bash
       env:
         GDRIVECREDSFILE: ${{ secrets.GDRIVECREDSFILE }}
-        GDRIVESETTINGSSFILE: ${{ secrets.GDRIVESETTINGSSFILE }}
+        GDRIVESETTINGSFILE: ${{ secrets.GDRIVESETTINGSFILE }}
     - name: Publish XLSX file to Google Drive
       run: |
         npm run-script publishxlsx --  ${{ secrets.GDRIVEFILEID }}  ${{ github.event.inputs.version }}
