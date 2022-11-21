@@ -18,18 +18,10 @@ Contained in this folder is an Excel file which provides the following worksheet
 
 SHA-256: 153e6d19750ce6c02ff4a6b6c30d0e6ac0d3f08a4b8c97eb885902b7328c734f
 
-## Google Sheets Import
+## Google Sheets Template
 
-The following instructions can be used to import the Checklist spreadsheet directly into a new Google sheet without having to save the doc locally first.
+The following instructions can be used to copy the Checklist spreadsheet template directly into a new Google sheet without having to save the doc locally first.
 
-Note: These instructions are based on use of Mozilla Firefox (72.0.1) on Win 10, and Google sheets on 2020-01-12. Minor procedural differences may be necessary for other browsers, OSes, or future iterations of Google sheets.
-
-1. Visit this page :+1:
-2. In another tab create a new [Google sheet](https://sheets.new).
-3. Copy the `Direct Link` listed above.
-4. In your Google sheet select `File > Import` from the main menu.
-5. In the `Import file` dialog select the `Upload` tab.
-6. Click `Select a file from your device`.
-7. In the `File Upload` dialog, paste the previously copied URL (from step 3) into the `File name` field, click the `Open` button.
-8. Wait a few seconds and an `Import file` dialog should be displayed (choose your `Import location`, likely `Replace spreadsheet`), then click the `import data` button.
-9. You should now have a fully populated and functional Web Security Testing Guide Checklist Google sheet, with the four tabs as mentioned above.
+1. Go to this [Google Spreadsheet template](https://docs.google.com/spreadsheets/d/1csiYqA3DXhpz69K2JCLKN4H-kzkRFlFi/copy?copyCollaborators=false&copyComments=false&title=WSTG+Checklist)
+2. Click `Make a copy` button. This will create a new checklist in your logged in Google Drive.
+3. You should now have a fully populated and functional Web Security Testing Guide Checklist in a Google sheet, with the four tabs as mentioned above.
