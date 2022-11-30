@@ -78,5 +78,5 @@ You can also join our [Google Group](https://groups.google.com/a/owasp.org/forum
 - [Russian](https://github.com/andrettv/WSTG/tree/master/WSTG-ru)
 
 ---
- 
+
 Open Web Application Security Project and OWASP are registered trademarks of the OWASP Foundation, Inc.
