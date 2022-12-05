@@ -19,13 +19,13 @@ jobs:
       CI: true
     steps:
     - name: Setup Action
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: Setup Node
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
       with:
-        node-version: 14.x
+        node-version: 16.x
     - name: SetUp python
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v4
       with:
         python-version: '3.x'
     - name: Install dependencies
@@ -37,7 +37,7 @@ jobs:
     - name: Get Tag Version
       if: github.event_name == 'push'
       id: vars
-      run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
+      run: echo "{tag}={$(echo ${GITHUB_REF:10})}" >> $GITHUB_OUTPUT
     - name: Run Push Build
       if: github.event_name == 'push'
       run: npm run-script  pdfgen -- ${{ steps.vars.outputs.tag }}
@@ -68,7 +68,7 @@ jobs:
         asset_content_type: application/pdf
     - name: Attach PDF
       if: github.event_name == 'workflow_dispatch'
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v3
       with:
         name: wstg-${{ github.event.inputs.version }}.pdf
         path: ./build/wstg-${{ github.event.inputs.version }}.pdf
