@@ -8,7 +8,7 @@
 
 HTTP offers a number of methods (or verbs) that can be used to perform actions on the web server. While GET and POST are by far the most common methods that are used to access information provided by a web server, there are a variety of other methods that may also be supported, and can sometimes be exploited by attackers.
 
-[RFC 7231](https://datatracker.ietf.org/doc/html/rfc7231) defines the main valid HTTP request methods (or verbs), although additional methods have been added in other RFCs, such as [RFC 5789](https://datatracker.ietf.org/doc/html/rfc5789). Several of these verbs have bee re-used for different purposes in [RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer) applications, listed in the table below.
+[RFC 7231](https://datatracker.ietf.org/doc/html/rfc7231) defines the main valid HTTP request methods (or verbs), although additional methods have been added in other RFCs, such as [RFC 5789](https://datatracker.ietf.org/doc/html/rfc5789). Several of these verbs have been re-used for different purposes in [RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer) applications, listed in the table below.
 
 | Method | Original Purpose | RESTful Purpose |
 |--------|------------------|-----------------|
