@@ -7,12 +7,13 @@ For building checklists and Create a PR with changes made in the master.
 - Trigger: Push, Only when files inside document directory is changed. Manual (`workflow_dispatch`), GitHub web UI.
 - See: `/.github/xlsx/` in the root of the repository for XLSX build.
 
-## `build-pdf.yml`
+## `build-ebooks.yml`
 
-For building PDFs at release.
+For building PDF and EPUB e-Books at release.
 
 - Trigger: Tag applied to repository. Manual (`workflow_dispatch`), GitHub web UI.
-- See: `/.github/pdf/` in the root of the repository.
+- See: `/.github/pdf/` in the root of the repository for PDF build specific configurations.
+- See: `/.github/epub/` in the root of the repository for EPUB build specific configurations.
 
 ## `dummy.yml`
 
