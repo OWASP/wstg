@@ -16,12 +16,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Setup Action
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         ref: ${{github.event.pull_request.head.ref}}
         repository: ${{github.event.pull_request.head.repo.full_name}}
     - name: Setup Node
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
         node-version: '16'
     - name: Install dependencies
@@ -61,13 +61,13 @@ jobs:
         rm -f err log
     - name: Upload list of broken links
       if: failure()
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v3
       with:
         name: broken-links
         path: brokenlinks.txt
     - name: Comment Broken Links
       if: ${{ failure() && github.event_name == 'pull_request_target' }}
-      uses: actions/github-script@v2
+      uses: actions/github-script@v6
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
