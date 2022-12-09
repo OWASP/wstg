@@ -194,6 +194,41 @@
 	padding: 0
 }
 
+/* -------------------------------*/
+
+.arrowbox {
+	padding: 0;
+	margin: 0;
+	padding-right: 5.5px;
+	display: inline-block;
+	position: relative;
+  }
+  .arrowbox li {
+	list-style-type: none;
+	display: inline-block;
+	height: 30px;
+	line-height: 30px;
+	min-width: 20px;
+	padding: 0 20px;
+	background: #0366d6;
+	font-size: 16px;
+	text-align: center;
+	position: relative;
+	cursor: pointer;
+	color: #fff;
+  }
+  
+  .arrowbox li.first {
+	border-radius: 0 0 0 50px;
+	border-right: 1px solid #fff;
+  }
+  .arrowbox li.second {
+	border-radius: 0 50px 0 0;
+	border-left: 1px solid #fff;
+  }
+
+
+/* -------------------------------*/
 
 .markdown-body p {
 	margin-top: 0;
@@ -397,11 +432,11 @@
 }
 
 .markdown-body h1 {
-	padding-bottom: 1em;
-	margin:.8em 0;
+	padding-bottom: .5em;
 	font-size: 2em;
 	border-bottom: 1px solid #eaecef;
 	font-weight: 200;
+	margin: 0;
 }
 
 .markdown-body h2 {

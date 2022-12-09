@@ -14,7 +14,8 @@
     "headerTemplate": "<style>section { margin: 0 15mm; padding:25px 0px 5px 0px; width:100%; font-family: 'system-ui'; font-size: 8px; font-weight: 300; font-style: bold; color:#004391; border-bottom: 1px solid #7DC6E9;}</style><section> <span class=\"pageNumber\" style=\"background-color:#D4F2FD; font-size: 7px; border: 1px solid #D4F2FD; border-radius:50px; padding:5px; color:#0080BD; position:absolute; margin-left:-12.5mm; margin-top:-8mm;\"></span> Web Security Testing Guide {PDF Version}</section>",
     "footerTemplate":"<section style=\"display:none;\"></section>",
     "printBackground":true,
-    "preferCSSPageSize":true
+    "preferCSSPageSize":true,
+    "timeout": "60000"
   },
   "stylesheet_encoding": "utf-8"
 }
