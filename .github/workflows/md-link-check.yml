@@ -74,7 +74,7 @@ jobs:
           const fs = require("fs");
           const brokenLinksPath = `${process.env.GITHUB_WORKSPACE}/brokenlinks.txt`;
           const brokenLinksString = fs.readFileSync(brokenLinksPath).toString().trimEnd();
-          github.issues.createComment({
+          github.rest.issues.createComment({
             issue_number: ${{ github.event.number }},
             owner: context.repo.owner,
             repo: context.repo.repo,

@@ -49,7 +49,7 @@ jobs:
           const fs = require("fs");
           const lintPath = `${process.env.GITHUB_WORKSPACE}/lint.txt`;
           const lintString = fs.readFileSync(lintPath).toString().trimEnd();
-          github.issues.createComment({
+          github.rest.issues.createComment({
             issue_number: ${{ github.event.number }},
             owner: context.repo.owner,
             repo: context.repo.repo,
