@@ -76,6 +76,7 @@ You can also join our [Google Group](https://groups.google.com/a/owasp.org/forum
 
 - [Portuguese-BR](https://github.com/doverh/wstg-translations-pt)
 - [Russian](https://github.com/andrettv/WSTG/tree/master/WSTG-ru)
+- [French](https://github.com/clallier94/wstg-translation-fr)
 
 ---
 
