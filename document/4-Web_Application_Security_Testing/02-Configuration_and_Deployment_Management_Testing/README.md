@@ -23,3 +23,5 @@
 4.2.11 [Test Cloud Storage](11-Test_Cloud_Storage.md)
 
 4.2.12 [Test for Content Security Policy](12-Test_for_Content_Security_Policy.md)
+
+4.2.13 [Test for Path Confusion](13-Test_for_Path_Confusion.md)
