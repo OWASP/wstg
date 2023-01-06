@@ -32,7 +32,7 @@ Examine the application routing configuration, Most of the time, developers use 
 
 In this example, in the `urls.py` file of a Django framework application, we see an example of Path Confusion. The developer did not use the correct regular expression resulting in a vulnerability:
 
-```text
+```python
     from django.urls import re_path
     from . import views
 
