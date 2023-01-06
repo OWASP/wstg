@@ -14,7 +14,7 @@ As a result, to prevent other attacks, this incorrect configuration should be ev
 
 ## Test Objectives
 
-- Make sure application paths are configured correctly
+- Make sure application paths are configured correctly.
 
 ## How To Test
 
