@@ -28,7 +28,7 @@ In black-box testing of this topic, the tester must replace all existing paths w
 
 ### White-Box Testing
 
-In the white box testing, examine the application routing file, Most of the time, developers use regular expression in application routing.
+Examine the application routing configuration, Most of the time, developers use regular expressions in application routing.
 
 In this example, in the urls.py file in the Django framework, I will show you an example of Path Confusion that the developer did not use the correct regular expression and there is an incorrect configuration:
 
