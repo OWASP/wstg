@@ -52,9 +52,9 @@ If the path `https://example.com/dashboard/none.js` is also opened by the user i
 
 ## Remediation
 
- - Refrain from classify/handling cached based on file extension or path (leverage content-type).
- - Ensure the caching mechanism(s) adhere to cache-control headers specified by your application.
- - Implement RFC compliant File Not Found handling and redirects.
+- Refrain from classify/handling cached based on file extension or path (leverage content-type).
+- Ensure the caching mechanism(s) adhere to cache-control headers specified by your application.
+- Implement RFC compliant File Not Found handling and redirects.
 
 ## References
 
