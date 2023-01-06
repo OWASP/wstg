@@ -29,7 +29,6 @@ jobs:
       run: |
         sudo apt update
         sudo apt install moreutils
-    - name: |
         npm run-script jsongen
         git update-index -q --refresh
         if ! git diff-index --quiet HEAD --; then
@@ -79,7 +78,7 @@ jobs:
           git push --set-upstream origin $BRANCH_STAMP
           hub pull-request --no-edit
         fi
-    - name: Set XLSXPublishing Secrets
+    - name: Set XLSX Publishing Secrets
       run: |
         echo "$GDRIVECREDSFILE" | base64 -d > credentials.json
         echo "$GDRIVESETTINGSFILE" | base64 -d > settings.yaml
