@@ -20,7 +20,7 @@ As a result, to prevent other attacks, this configuration should be evaluated by
 
 ### Black-Box Testing
 
-In black box testing this issue, the tester should replace all the existing paths with the paths that do not exist, and then examine the behavior and status code of the evaluated program.
+In a black-box testing scenario, the tester should replace all the existing paths with paths that do not exist, and then examine the behavior and status code of the target.
 
 For example, there is a path in the application that is a dashboard and shows the amount of the user's account balance (money, game credits, etc).
 
