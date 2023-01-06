@@ -29,12 +29,13 @@ jobs:
       run: |
         sudo apt update
         sudo apt install moreutils
+    - name: Generate JSON Checklist
+      run: |
         npm run-script jsongen
         git update-index -q --refresh
         if ! git diff-index --quiet HEAD --; then
           echo "CHANGED=true" >> $GITHUB_ENV
         fi
-      run: npm run-script jsongen
     - name: Setup Python
       if: env.CHANGED == 'true'
       uses: actions/setup-python@v4
