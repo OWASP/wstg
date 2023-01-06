@@ -56,7 +56,6 @@ If the path `https://example.com/dashboard/none.js` is also opened by the user i
  - Ensure the caching mechanism(s) adhere to cache-control headers specified by your application.
  - Implement RFC compliant File Not Found handling and redirects.
 
-
 ## References
 
 - [Bypassing Web Cache Poisoning Countermeasures](https://portswigger.net/research/bypassing-web-cache-poisoning-countermeasures)
