@@ -24,7 +24,7 @@ In a black-box testing scenario, the tester should replace all the existing path
 
 For example, there is a path in the application that is a dashboard and shows the amount of the user's account balance (money, game credits, etc).
 
-In black-box testing of this topic, the tester must replace all existing paths with non-existent ones, and then examine the behavior and status code of the evaluated application. Example: There is a path in the application that is a dashboard and shows the amount of the user's balance if the path mentioned in this way is ```https://example.com/user/dashboard```, the tester should test the different modes that the developer may have considered for this path, for Web Cache Deception vulnerability if the tester of this path ```https:// example.com/user/dashboard/non.js``` Dashboard information is visible, and the target uses CDN, the Web Cache Deception attack is applicable.
+Assume the path is `https://example.com/user/dashboard`, the tester should test the different modes that the developer may have considered for this path. For Web Cache Deception vulnerabilities the analyst should consider a path such as `https:// example.com/user/dashboard/non.js` if dashboard information is visible, and the target uses a CDN (or other web cache), then Web Cache Deception attacks are likely applicable.
 
 ### White-Box Testing
 
