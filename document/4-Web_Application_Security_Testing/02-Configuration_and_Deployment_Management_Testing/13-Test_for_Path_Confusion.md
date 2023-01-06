@@ -45,15 +45,13 @@ In this example, in the `urls.py` file of a Django framework application, we see
 
 If the path `https://example.com/dashboard/none.js` is also opened by the user in the browser, the user dashboard information can be displayed, and if the target uses a CDN or web cache, a Web Cache Deception attack can be implemented.
 
+## Tools
+
+- [OWASP Zed Attack Proxy](https://www.zaproxy.org)
+- [Burp Suite](https://portswigger.net/burp)
+
 ## References
 
 - [Bypassing Web Cache Poisoning Countermeasures](https://portswigger.net/research/bypassing-web-cache-poisoning-countermeasures)
 - [Path confusion: Web cache deception threatens user information online](https://portswigger.net/daily-swig/path-confusion-web-cache-deception-threatens-user-information-online)
-
-## Tools
-
-- [OWASP Zed Attack Proxy](https://www.zaproxy.org)
-
-## Whitepaper
-
-[Web Cache Deception Attack](https://omergil.blogspot.com/2017/02/web-cache-deception-attack.html)
+- [Web Cache Deception Attack](https://omergil.blogspot.com/2017/02/web-cache-deception-attack.html)
