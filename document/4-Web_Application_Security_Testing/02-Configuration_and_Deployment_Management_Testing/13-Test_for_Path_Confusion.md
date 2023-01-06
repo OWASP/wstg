@@ -43,7 +43,7 @@ In this example, in the urls.py file in the Django framework, I will show you an
     ]
 ```
 
-In the above example, if the path ```https://example.com/dashboard/none.js``` is also opened by the user in the browser, the user dashboard information can be displayed, and if the target uses a CDN, the Web Cache Deception attack can be implemented.
+If the path `https://example.com/dashboard/none.js` is also opened by the user in the browser, the user dashboard information can be displayed, and if the target uses a CDN or web cache, a Web Cache Deception attack can be implemented.
 
 ## References
 
