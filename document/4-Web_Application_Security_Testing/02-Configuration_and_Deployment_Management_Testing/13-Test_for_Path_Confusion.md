@@ -30,7 +30,7 @@ Assume the path is `https://example.com/user/dashboard`, the tester should test 
 
 Examine the application routing configuration, Most of the time, developers use regular expressions in application routing.
 
-In this example, in the urls.py file in the Django framework, I will show you an example of Path Confusion that the developer did not use the correct regular expression and there is an incorrect configuration:
+In this example, in the `urls.py` file of a Django framework application, we see an example of Path Confusion. The developer did not use the correct regular expression resulting in a vulnerability:
 
 ```text
     from django.urls import re_path
