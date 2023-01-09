@@ -39,7 +39,7 @@ There are three factors influencing how many applications are related to a given
 
 2. **Non-standard Ports**
 
-    While web applications usually live on port 80 (HTTP) and 443 (HTTPS), there is nothing magic about these port numbers. In fact, web applications may be associated with arbitrary TCP ports, and can be referenced by specifying the port number as follows: `http[s]://www.example.com:port/`. For example, `http://www.example.com:20000/`.
+    While web applications usually live on port 80 (HTTP) and 443 (HTTPS), there is nothing magical about these port numbers. In fact, web applications may be associated with arbitrary TCP ports, and can be referenced by specifying the port number as follows: `http[s]://www.example.com:port/`. For example, `http://www.example.com:20000/`.
 
 3. **Virtual Hosts**
 
