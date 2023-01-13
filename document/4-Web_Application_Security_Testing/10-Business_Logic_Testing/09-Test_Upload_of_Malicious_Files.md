@@ -117,6 +117,7 @@ These are discussed further in the [Testing for XML Injection](../07-Input_Valid
 
 Many other file formats also have specific security concerns that need to be taken into account, such as:
 
+- Image files must check for maximum pixel/frame size.
 - CSV files may allow [CSV injection attacks](https://owasp.org/www-community/attacks/CSV_Injection).
 - Office files may contain malicious macros or PowerShell code.
 - PDFs may contain malicious JavaScript.
