@@ -12,7 +12,7 @@ Vulnerabilities related to the uploading of malicious files is unique in that th
 
 Finally, "malicious" means different things to different systems, for example malicious files that may exploit SQL server vulnerabilities may not be considered as "malicious" in an environment using a NoSQL data store.
 
-The application may allow the upload of malicious files that include exploits or shellcode without submitting them to malicious file scanning. Malicious files could be detected and stopped at various points of the application architecture such as: IPS/IDS, application server anti-virus software or anti-virus scanning by application as files are uploaded (perhaps offloading the scanning using SCAP).
+The application may allow the upload of malicious files that include exploits or shellcode without submitting them to malicious file scanning. Malicious files could be detected and stopped at various points of the application architecture such as: Intrusion Detection/Prevention System, application server anti-virus software or anti-virus scanning by application as files are uploaded (perhaps offloading the scanning using SCAP).
 
 ### Example
 
@@ -73,7 +73,7 @@ If the filtering is performed on the server-side, then various techniques can be
 - Change the value of `Content-Type` as `image/jpeg` in HTTP request.
 - Change the extensions to a less common extension, such as `file.php5`, `file.shtml`, `file.asa`, `file.jsp`, `file.jspx`, `file.aspx`, `file.asp`, `file.phtml`, `file.cshtml`
 - Change the capitalisation of the extension, such as `file.PhP` or `file.AspX`
-- If the request includes multiple file names, change them to different values.
+- If the request includes multiple filenames, change them to different values.
 - Using special trailing characters such as spaces, dots or null characters such as `file.asp...`, `file.php;jpg`, `file.asp%00.jpg`, `1.jpg%00.php`
 - In badly configured versions of nginx, uploading a file as `test.jpg/x.php` may allow it to be executed as `x.php`.
 
@@ -117,6 +117,7 @@ These are discussed further in the [Testing for XML Injection](../07-Input_Valid
 
 Many other file formats also have specific security concerns that need to be taken into account, such as:
 
+- Image files must be checked for maximum pixel/frame size.
 - CSV files may allow [CSV injection attacks](https://owasp.org/www-community/attacks/CSV_Injection).
 - Office files may contain malicious macros or PowerShell code.
 - PDFs may contain malicious JavaScript.
