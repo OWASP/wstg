@@ -22,7 +22,7 @@ A common example of this vulnerability is an application such as a blog or forum
 
 - Identify the file upload functionality.
 - Review the project documentation to identify what file types are considered acceptable, and what types would be considered dangerous or malicious.
-    - If documentation is not available then consider what would be appropriate based on the purpose of the application.
+  - If documentation is not available then consider what would be appropriate based on the purpose of the application.
 - Determine how the uploaded files are processed.
 - Obtain or create a set of malicious files for testing.
 - Try to upload the malicious files to the application and determine whether it is accepted and processed.
@@ -117,6 +117,7 @@ These are discussed further in the [Testing for XML Injection](../07-Input_Valid
 
 Many other file formats also have specific security concerns that need to be taken into account, such as:
 
+- Image files must be checked for maximum pixel/frame size.
 - CSV files may allow [CSV injection attacks](https://owasp.org/www-community/attacks/CSV_Injection).
 - Office files may contain malicious macros or PowerShell code.
 - PDFs may contain malicious JavaScript.
