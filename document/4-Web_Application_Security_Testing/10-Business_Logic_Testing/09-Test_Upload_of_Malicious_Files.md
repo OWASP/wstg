@@ -73,7 +73,7 @@ If the filtering is performed on the server-side, then various techniques can be
 - Change the value of `Content-Type` as `image/jpeg` in HTTP request.
 - Change the extensions to a less common extension, such as `file.php5`, `file.shtml`, `file.asa`, `file.jsp`, `file.jspx`, `file.aspx`, `file.asp`, `file.phtml`, `file.cshtml`
 - Change the capitalisation of the extension, such as `file.PhP` or `file.AspX`
-- If the request includes multiple file names, change them to different values.
+- If the request includes multiple filenames, change them to different values.
 - Using special trailing characters such as spaces, dots or null characters such as `file.asp...`, `file.php;jpg`, `file.asp%00.jpg`, `1.jpg%00.php`
 - In badly configured versions of nginx, uploading a file as `test.jpg/x.php` may allow it to be executed as `x.php`.
 
