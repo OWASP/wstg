@@ -344,7 +344,7 @@
                 }
                 ,{
                 "name":"Testing Multi-Factor Authentication (MFA)",
-                "id":"WSTG-AUTH-11",
+                "id":"WSTG-ATHN-11",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/11-Testing_Multi-Factor_Authentication",
                 "objectives":[
                     "Identify the type of MFA used by the application.",
