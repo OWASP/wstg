@@ -91,14 +91,14 @@ While it is tempting to think that a security scanner or application firewall wi
 
 Security professionals have come to realize the fallacy of the patch-and-penetrate model that was pervasive in information security during the 1990’s. The patch-and-penetrate model involves fixing a reported bug, but without proper investigation of the root cause. This model is usually associated with the window of vulnerability, also referred to as window of exposure, shown in the figure below. The evolution of vulnerabilities in common software used worldwide has shown the ineffectiveness of this model. For more information about windows of exposure, see [Schneier on Security](https://www.schneier.com/crypto-gram/archives/2000/0915.html).
 
-Vulnerability studies such as [Symantec's internet Security Threat Report](https://www.symantec.com/security-center/threat-report) have shown that with the reaction time of attackers worldwide, the typical window of vulnerability does not provide enough time for patch installation, since the time between a vulnerability being uncovered and an automated attack against it being developed and released is decreasing every year.
+Vulnerability studies such as [Symantec's Security Threat Report](https://www.symantec.com/security-center/threat-report) have shown that with the reaction time of attackers worldwide, the typical window of vulnerability does not provide enough time for patch installation, since the time between a vulnerability being uncovered and an automated attack against it being developed and released is decreasing every year.
 
 There are several incorrect assumptions in the patch-and-penetrate model. Many users believe that patches interfere with normal operations or might break existing applications. It is also incorrect to assume that all users are aware of newly released patches. Consequently not all users of a product will apply patches, either because they think patching may interfere with how the software works, or because they lack knowledge about the existence of the patch.
 
 ![Window of Vulnerability](images/WindowExposure.png)\
 *Figure 2-2: Window of Vulnerability*
 
-It is essential to build security into the Software Development lifecycle (SDLC) to prevent reoccurring security problems within an application. Developers can build security into the SDLC by developing standards, policies, and guidelines that fit and work within the development methodology. Threat modeling and other techniques should be used to help assign appropriate resources to those parts of a system that are most at risk.
+It is essential to build security into the Software Development Lifecycle (SDLC) to prevent reoccurring security problems within an application. Developers can build security into the SDLC by developing standards, policies, and guidelines that fit and work within the development methodology. Threat modeling and other techniques should be used to help assign appropriate resources to those parts of a system that are most at risk.
 
 ### The SDLC is King
 
