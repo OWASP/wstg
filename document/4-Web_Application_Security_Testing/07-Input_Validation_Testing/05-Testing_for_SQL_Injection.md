@@ -20,6 +20,8 @@ Because the way it was constructed, the user can supply crafted input trying to 
 
 `select title, text from news where id=10 or 1=1`
 
+> **_NOTE:_**  Take care when injecting the condition OR 1=1 into a SQL query. Although this may be harmless in the initial context you're injecting into, it's common for applications to use data from a single request in multiple different queries. If your condition reaches an UPDATE or DELETE statement, for example, this can result in an accidental loss of data.
+
 SQL Injection attacks can be divided into the following three classes:
 
 - Inband: data is extracted using the same channel that is used to inject the SQL code. This is the most straightforward kind of attack, in which the retrieved data is presented directly in the application web page.
@@ -91,7 +93,9 @@ The query will be:
 
 `SELECT * FROM Users WHERE Username='1' OR '1' = '1' AND Password='1' OR '1' = '1'`
 
-If we suppose that the values of the parameters are sent to the server through the GET method, and if the domain of the vulnerable web site is www.example.com, the request that we'll carry out will be:
+> **_NOTE:_**  Take care when injecting the condition OR 1=1 into a SQL query. Although this may be harmless in the initial context you're injecting into, it's common for applications to use data from a single request in multiple different queries. If your condition reaches an UPDATE or DELETE statement, for example, this can result in an accidental loss of data.
+
+If we suppose that the values of the parameters are sent to the server through the GET method, and if the domain of the vulnerable site is www.example.com, the request that we'll carry out will be:
 
 `http://www.example.com/index.php?username=1'%20or%20'1'%20=%20'1&amp;password=1'%20or%20'1'%20=%20'1`
 
@@ -169,11 +173,11 @@ This way is possible to execute many queries in a row and independent of the fir
 
 Even though the SQL language is a standard, every DBMS has its peculiarity and differs from each other in many aspects like special commands, functions to retrieve data such as users names and databases, features, comments line etc.
 
-When the testers move to a more advanced SQL injection exploitation they need to know what the back end database is.
+When the testers move to a more advanced SQL injection exploitation they need to know what the backend database is.
 
 #### Errors Returned by the Application
 
-The first way to find out what back end database is used is by observing the error returned by the application. The following are some examples of error messages:
+The first way to find out what backend database is used is by observing the error returned by the application. The following are some examples of error messages:
 
 MySql:
 
@@ -183,7 +187,7 @@ that corresponds to your MySQL server version for the
 right syntax to use near '\'' at line 1
 ```
 
-One complete UNION SELECT with version() can also help to know the back end database.
+One complete UNION SELECT with version() can also help to know the backend database.
 
 `SELECT id, name FROM users WHERE id=1 UNION SELECT 1, version() limit 1,1`
 
