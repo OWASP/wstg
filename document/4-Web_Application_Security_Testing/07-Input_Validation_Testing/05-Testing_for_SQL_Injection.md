@@ -20,6 +20,8 @@ Because the way it was constructed, the user can supply crafted input trying to 
 
 `select title, text from news where id=10 or 1=1`
 
+> **_NOTE:_**  Take care when injecting the condition OR 1=1 into a SQL query. Although this may be harmless in the initial context you're injecting into, it's common for applications to use data from a single request in multiple different queries. If your condition reaches an UPDATE or DELETE statement, for example, this can result in an accidental loss of data.
+
 SQL Injection attacks can be divided into the following three classes:
 
 - Inband: data is extracted using the same channel that is used to inject the SQL code. This is the most straightforward kind of attack, in which the retrieved data is presented directly in the application web page.
@@ -90,6 +92,8 @@ A similar query is generally used from the web application in order to authentic
 The query will be:
 
 `SELECT * FROM Users WHERE Username='1' OR '1' = '1' AND Password='1' OR '1' = '1'`
+
+> **_NOTE:_**  Take care when injecting the condition OR 1=1 into a SQL query. Although this may be harmless in the initial context you're injecting into, it's common for applications to use data from a single request in multiple different queries. If your condition reaches an UPDATE or DELETE statement, for example, this can result in an accidental loss of data.
 
 If we suppose that the values of the parameters are sent to the server through the GET method, and if the domain of the vulnerable web site is www.example.com, the request that we'll carry out will be:
 
