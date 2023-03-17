@@ -242,7 +242,7 @@ In order to achieve this, the tester can use `ORDER BY` clause followed by a num
 
 `http://www.example.com/product.php?id=10 ORDER BY 10--`
 
-If the query executes with success, the tester can assume, in this example, that there are 10 or more columns in the `SELECT` statement. If the query fails, then there must be fewer than 10 columns returned by the query. If there is an error message available, it would probably be:
+If the query executes with success, the tester can assume in this example that there are 10 or more columns in the `SELECT` statement. If the query fails, then there must be fewer than 10 columns returned by the query. If there is an error message available, it would probably be:
 
 `Unknown column '10' in 'order clause'`
 
