@@ -222,7 +222,7 @@ If there is no error message or a custom error message, the tester can try to in
 
 #### Union Exploitation Technique
 
-The UNION operator is used in SQL injections to join a query, purposely forged by the tester, to the original query. The result of the forged query will be joined to the result of the original query, allowing the tester to obtain the values of columns of other tables. Suppose for our examples that the query executed from the server is the following:
+The UNION operator is used in SQL injections to join a query, purposely forged by the tester, to the original query. The result of the forged query will be joined to the result of the original query, allowing the tester to obtain the values of columns of other tables. Suppose, for our example, that the query executed from the server is the following:
 
 `SELECT Name, Phone, Address FROM Users WHERE Id=$id`
 
@@ -236,13 +236,13 @@ We will have the following query:
 
 Which will join the result of the original query with all the credit card numbers in the CreditCardTable table. The keyword `ALL` is necessary to get around queries that use the keyword `DISTINCT`. Moreover, we notice that beyond the credit card numbers, we have selected two other values. These two values are necessary because the two queries must have an equal number of parameters/columns in order to avoid a syntax error.
 
-The first detail a tester needs to exploit the SQL injection vulnerability using such technique is to find the right numbers of columns in the SELECT statement.
+The first detail a tester needs to find in order to exploit the SQL injection vulnerability using this technique is the right numbers of columns in the SELECT statement.
 
-In order to achieve this the tester can use `ORDER BY` clause followed by a number indicating the numeration of database’s column selected:
+In order to achieve this, the tester can use `ORDER BY` clause followed by a number indicating the numeration of database’s column selected:
 
 `http://www.example.com/product.php?id=10 ORDER BY 10--`
 
-If the query executes with success the tester can assume, in this example, there are 10 or more columns in the `SELECT` statement. If the query fails then there must be fewer than 10 columns returned by the query. If there is an error message available, it would probably be:
+If the query executes with success, the tester can assume, in this example, that there are 10 or more columns in the `SELECT` statement. If the query fails, then there must be fewer than 10 columns returned by the query. If there is an error message available, it would probably be:
 
 `Unknown column '10' in 'order clause'`
 
@@ -258,7 +258,7 @@ If the query executes with success, the first column can be an integer. Then the
 
 `http://www.example.com/product.php?id=10 UNION SELECT 1,1,null--`
 
-After the successful information gathering, depending on the application, it may only show the tester the first result, because the application treats only the first line of the result set. In this case, it is possible to use a `LIMIT` clause or the tester can set an invalid value, making only the second query valid (supposing there is no entry in the database which ID is 99999):
+After the successful information gathering, depending on the application, it may only show the tester the first result, because the application treats only the first line of the result set. In this case, it is possible to use a `LIMIT` clause or the tester can set an invalid value, making only the second query valid (supposing there is no entry in the database which has an ID equaling 99999):
 
 `http://www.example.com/product.php?id=99999 UNION SELECT 1,1,null--`
 
@@ -266,15 +266,15 @@ After the successful information gathering, depending on the application, it may
 
 The Boolean exploitation technique is very useful when the tester finds a [Blind SQL Injection](https://owasp.org/www-community/attacks/Blind_SQL_Injection) situation, in which nothing is known on the outcome of an operation. For example, this behavior happens in cases where the programmer has created a custom error page that does not reveal anything on the structure of the query or on the database. (The page does not return a SQL error, it may just return a HTTP 500, 404, or redirect).
 
-By using inference methods, it is possible to avoid this obstacle and thus to succeed in recovering the values of some desired fields. This method consists of carrying out a series of boolean queries against the server, observing the answers and finally deducing the meaning of such answers. We consider, as always, the www.example.com domain and we suppose that it contains a parameter named `id` vulnerable to SQL injection. This means that carrying out the following request:
+By using inference methods, it is possible to avoid this obstacle and thus succeed in recovering the values of some desired fields. This method consists of carrying out a series of boolean queries against the server, observing the answers and finally deducing the meaning of such answers. We consider, as always, the www.example.com domain and we suppose that it contains a parameter named `id` vulnerable to SQL injection. This means that when carrying out the following request:
 
 `http://www.example.com/index.php?id=1'`
 
-We will get one page with a custom message error which is due to a syntactic error in the query. We suppose that the query executed on the server is:
+We will get one page with a custom error message which is due to a syntactic error in the query. We suppose that the query executed on the server is:
 
 `SELECT field1, field2, field3 FROM Users WHERE Id='$Id'`
 
-Which is exploitable through the methods seen previously. What we want to obtain is the values of the username field. The tests that we will execute will allow us to obtain the value of the username field, extracting such value character by character. This is possible through the use of some standard functions, present in practically every database. For our examples, we will use the following pseudo-functions:
+Which is exploitable through the methods seen previously. What we want to obtain is the values of the username field. The tests that we will execute will allow us to obtain the value of the username field, extracting such value character by character. This is possible through the use of some standard functions, present in practically every database. For our example, we will use the following pseudo-functions:
 
 - SUBSTRING (text, start, length): returns a substring starting from the position "start" of text and of length "length". If "start" is greater than the length of text, the function returns a null value.
 
@@ -290,7 +290,7 @@ That creates the following query (from now on, we will call it "inferential quer
 
 `SELECT field1, field2, field3 FROM Users WHERE Id='1' AND ASCII(SUBSTRING(username,1,1))=97 AND '1'='1'`
 
-The previous example returns a result if and only if the first character of the field username is equal to the ASCII value 97. If we get a false value, then we increase the index of the ASCII table from 97 to 98 and we repeat the request. If instead we obtain a true value, we set to zero the index of the ASCII table and we analyze the next character, modifying the parameters of the SUBSTRING function. The problem is to understand in which way we can distinguish tests returning a true value from those that return false. To do this, we create a query that always returns false. This is possible by using the following value for `Id`:
+The previous example returns a result if and only if the first character of the field username is equal to the ASCII value 97. If we get a false value, then we increase the index of the ASCII table from 97 to 98 and we repeat the request. If instead we obtain a true value, we set the index of the ASCII table to zero and we analyze the next character, modifying the parameters of the SUBSTRING function. The problem is to understand in which way we can distinguish tests returning a true value from those that return false. To do this, we create a query that always returns false. This is possible by using the following value for `Id`:
 
 `$Id=1' AND '1' = '2`
 
@@ -298,9 +298,9 @@ Which will create the following query:
 
 `SELECT field1, field2, field3 FROM Users WHERE Id='1' AND '1' = '2'`
 
-The obtained response from the server (that is HTML code) will be the false value for our tests. This is enough to verify whether the value obtained from the execution of the inferential query is equal to the value obtained with the test executed before. Sometimes, this method does not work. If the server returns two different pages as a result of two identical consecutive web requests, we will not be able to discriminate the true value from the false value. In these particular cases, it is necessary to use particular filters that allow us to eliminate the code that changes between the two requests and to obtain a template. Later on, for every inferential request executed, we will extract the relative template from the response using the same function, and we will perform a control between the two templates in order to decide the result of the test.
+The obtained response from the server (that is HTML code) will be the false value for our tests. This is enough to verify whether the value obtained from the execution of the inferential query is equal to the value obtained with the test executed before. Sometimes, this method does not work. If the server returns two different pages as a result of two identical consecutive web requests, we will not be able to discriminate the true value from the false value. In these particular cases, it is necessary to use particular filters that allow us to eliminate the code that changes between the two requests and obtain a template. Later on, for every inferential request executed, we will extract the relative template from the response using the same function, and we will perform a control between the two templates in order to decide the result of the test.
 
-In the previous discussion, we haven't dealt with the problem of determining the termination condition for our tests, i.e., when we should end the inference procedure. A techniques to do this uses one characteristic of the SUBSTRING function and the LENGTH function. When the test compares the current character with the ASCII code 0 (i.e., the value null) and the test returns the value true, then either we are done with the inference procedure (we have scanned the whole string), or the value we have analyzed contains the null character.
+In the previous discussion, we haven't dealt with the problem of determining the termination condition for our tests, i.e. when we should end the inference procedure. A technique to do this uses one characteristic of the SUBSTRING function and the LENGTH function. When the test compares the current character with the ASCII code 0 (i.e. the value null) and the test returns the value true, then either we are done with the inference procedure (we have scanned the whole string), or the value we have analyzed contains the null character.
 
 We will insert the following value for the field `Id`:
 
