@@ -258,7 +258,7 @@ If the query executes with success, the first column can be an integer. Then the
 
 `http://www.example.com/product.php?id=10 UNION SELECT 1,1,null--`
 
-After the successful information gathering, depending on the application, it may only show the tester the first result, because the application treats only the first line of the result set. In this case, it is possible to use a `LIMIT` clause or the tester can set an invalid value, making only the second query valid (supposing there is no entry in the database which has an ID equaling 99999):
+After the successful information gathering, depending on the application, it may only show the tester the first result, because the application treats only the first line of the result set. In this case, it is possible to use a `LIMIT` clause or the tester can set an invalid value, making only the second query valid (supposing there is no entry in the database which has an ID that equals 99999):
 
 `http://www.example.com/product.php?id=99999 UNION SELECT 1,1,null--`
 
