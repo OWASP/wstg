@@ -6,7 +6,7 @@
 
 ## Summary
 
-Many applications' business processes allow for the upload and manipulation of data that is submitted via files. But the business process must check the files and only allow certain "approved" file types. Deciding what files are "approved" is determined by the business logic and is application/system specific. The risk is that by allowing users to upload files, attackers may submit an unexpected file type that could be executed and adversely impact the application or system through attacks that may deface the web site, perform remote commands, browse the system files, browse the local resources, attack other servers, or exploit the local vulnerabilities, just to name a few.
+Many applications' business processes allow for the upload and manipulation of data that is submitted via files. But the business process must check the files and only allow certain "approved" file types. Deciding what files are "approved" is determined by the business logic and is application/system specific. The risk is that by allowing users to upload files, attackers may submit an unexpected file type that could be executed and adversely impact the application or system through attacks that may deface the site, perform remote commands, browse the system files, browse the local resources, attack other servers, or exploit the local vulnerabilities, just to name a few.
 
 Vulnerabilities related to the upload of unexpected file types is unique in that the upload should quickly reject a file if it does not have a specific extension. Additionally, this is different from uploading malicious files in that in most cases an incorrect file format may not by it self be inherently "malicious" but may be detrimental to the saved data. For example if an application accepts Windows Excel files, if a similar database file is uploaded it may be read but data extracted my be moved to incorrect locations.
 
@@ -14,7 +14,7 @@ The application may be expecting only certain file types to be uploaded for proc
 
 ### Example
 
-Suppose a picture sharing application allows users to upload a `.gif` or `.jpg` graphic file to the web site. What if an attacker is able to upload an HTML file with a `<script>` tag in it or PHP file? The system may move the file from a temporary location to the final location where the PHP code can now be executed against the application or system.
+Suppose a picture sharing application allows users to upload a `.gif` or `.jpg` graphic file to the site. What if an attacker is able to upload an HTML file with a `<script>` tag in it or PHP file? The system may move the file from a temporary location to the final location where the PHP code can now be executed against the application or system.
 
 ## Test Objectives
 
@@ -30,9 +30,9 @@ Suppose a picture sharing application allows users to upload a `.gif` or `.jpg` 
 - Prepare a library of files that are "not approved" for upload that may contain files such as: jsp, exe, or HTML files containing script.
 - In the application navigate to the file submission or upload mechanism.
 - Submit the "not approved" file for upload and verify that they are properly prevented from uploading
-- Check if the website only does file type checks in client-side JavaScript
-- Check if the website only checks the file type by "Content-Type" in HTTP request.
-- Check if the website only checks the file type by the file extension.
+- Check if the site only does file type checks in client-side JavaScript
+- Check if the site only checks the file type by "Content-Type" in HTTP request.
+- Check if the site only checks the file type by the file extension.
 - Check if other uploaded files can be accessed directly by specified URL.
 - Check if the uploaded file can include code or script injection.
 - Check if there is any file path checking for uploaded files. Especially, hackers may compress files with specified path in ZIP so that the extracted files can be uploaded to intended path after uploading and unzipping.
