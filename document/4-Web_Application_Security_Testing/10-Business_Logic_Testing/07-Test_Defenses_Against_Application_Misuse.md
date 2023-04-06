@@ -54,7 +54,7 @@ Localized security controls are not sufficient. There are often no defenses agai
 - Bypassing presentation layer input validation
 - Multiple access control errors
 - Additional, duplicated or missing parameter names
-- Multiple input validation or business logic verification failures with values that cannot be the result user mistakes or typos
+- Multiple input validation or business logic verification failures with values that cannot be the result of user mistakes or typos
 - Structured data (e.g. JSON, XML) of an invalid format is received
 - Blatant cross-site scripting or SQL injection payloads are received
 - Utilizing the application faster than would be possible without automation tools
