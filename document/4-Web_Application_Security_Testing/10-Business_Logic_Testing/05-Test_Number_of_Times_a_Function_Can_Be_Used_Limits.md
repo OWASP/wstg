@@ -33,7 +33,7 @@ Suppose an eCommerce site allows users to take advantage of any one of many disc
 
 ## Remediation
 
-The application should set hard controls to prevent limit abuse. This can be achieved by setting a coupon to be no longer valid on the database level, to set a counter limit per user on the back end or database level, as all users should be identified through a session, whichever is better to the business requirement.
+The application should set hard controls to prevent limit abuse. This can be achieved by setting a coupon to be no longer valid on the database level, to set a counter limit per user on the backend or database level, as all users should be identified through a session, whichever is better to the business requirement.
 
 ## References
 

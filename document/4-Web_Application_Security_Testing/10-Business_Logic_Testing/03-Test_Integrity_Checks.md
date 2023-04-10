@@ -12,7 +12,7 @@ Additionally, the application must not depend on non-editable controls, drop-dow
 
 Business logic integrity check vulnerabilities are unique in that these misuse cases are application specific and if users are able to make changes, one should only be able to write or update/edit specific artifacts at specific times as per the business process logic.
 
-The application must be smart enough to check for relational edits and not allow users to submit information directly to the server that is not valid, trusted because it came from a non-editable controls or the user is not authorized to submit through the front end. Additionally, system artifacts such as logs must be "protected" from unauthorized read, writing and removal.
+The application must be smart enough to check for relational edits and not allow users to submit information directly to the server that is not valid, trusted because it came from a non-editable controls or the user is not authorized to submit through the frontend. Additionally, system artifacts such as logs must be "protected" from unauthorized read, writing and removal.
 
 ### Example 1
 
@@ -24,7 +24,7 @@ Most web applications have dropdown lists making it easy for the user to quickly
 
 ### Example 3
 
-Suppose the motor vehicle administration system required an employee initially verify each citizens' documentation and information when they issue an identification or driver's license. At this point the business process has created data with a high level of integrity as the integrity of submitted data is checked by the employees. Now suppose the application is moved to the Internet so employees can log on for full service or citizens can log on for a reduced self-service application to update certain information. At this point an attacker may be able to use an intercepting proxy to add or update data that they should not have access to and they could destroy the integrity of the data by stating that the citizen was not married but supplying data for a spouse’s name. This type of inserting or updating of unverified data destroys the data integrity and might have been prevented if the business process logic was followed.
+Suppose the motor vehicle administration system required an employee initially verify each citizens' documentation and information when they issue an identification or driver's license. At this point the business process has created data with a high level of integrity as the integrity of submitted data is checked by the employees. Now suppose the application is moved to the internet so employees can log on for full service or citizens can log on for a reduced self-service application to update certain information. At this point an attacker may be able to use an intercepting proxy to add or update data that they should not have access to and they could destroy the integrity of the data by stating that the citizen was not married but supplying data for a spouse’s name. This type of inserting or updating of unverified data destroys the data integrity and might have been prevented if the business process logic was followed.
 
 ### Example 4
 

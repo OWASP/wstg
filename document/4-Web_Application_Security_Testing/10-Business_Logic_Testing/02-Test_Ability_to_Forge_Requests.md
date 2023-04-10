@@ -6,7 +6,7 @@
 
 ## Summary
 
-Forging requests is a method that attackers use to circumvent the front end GUI application to directly submit information for back end processing. The goal of the attacker is to send HTTP POST/GET requests through an intercepting proxy with data values that are not supported, guarded against or expected by the application's business logic. Some examples of forged requests include exploiting guessable or predictable parameters or exposing "hidden" features and functionality such as enabling debugging or presenting special screens or windows that are very useful during development but may leak information or bypass the business logic.
+Forging requests is a method that attackers use to circumvent the frontend GUI application to directly submit information for backend processing. The goal of the attacker is to send HTTP POST/GET requests through an intercepting proxy with data values that are not supported, guarded against or expected by the application's business logic. Some examples of forged requests include exploiting guessable or predictable parameters or exposing "hidden" features and functionality such as enabling debugging or presenting special screens or windows that are very useful during development but may leak information or bypass the business logic.
 
 Vulnerabilities related to the ability to forge requests are unique to each application and different from business logic data validation in that it's focus is on breaking the business logic workflow.
 
