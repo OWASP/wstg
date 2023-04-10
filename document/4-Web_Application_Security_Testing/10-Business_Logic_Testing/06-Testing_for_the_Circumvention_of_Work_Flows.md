@@ -18,11 +18,11 @@ The applications business process must have checks to ensure that the user's tra
 
 ### Example 1
 
-Many of us receive so type of "club/loyalty points" for purchases from grocery stores and gas stations. Suppose a user was able to start a transaction linked to their account and then after points have been added to their club/loyalty account cancel out of the transaction or remove items from their "basket" and tender. In this case the system either should not apply points/credits to the account until it is tendered or points/credits should be "rolled back" if the point/credit increment does not match the final tender. With this in mind, an attacker may start transactions and cancel them to build their point levels without actually buy anything.
+Many of us receive some type of "club/loyalty points" for purchases from grocery stores and gas stations. Suppose a user was able to start a transaction linked to their account and then after points have been added to their club/loyalty account cancel out of the transaction or remove items from their "basket" and tender. In this case the system either should not apply points/credits to the account until it is tendered or points/credits should be "rolled back" if the point/credit increment does not match the final tender. With this in mind, an attacker may start transactions and cancel them to build their point levels without actually buying anything.
 
 ### Example 2
 
-An electronic bulletin board system may be designed to ensure that initial posts do not contain profanity based on a list that the post is compared against. If a word on a deny list is found in the user entered text the submission is not posted. But, once a submission is posted the submitter can access, edit, and change the submission contents to include words included on the profanity/deny list since on edit the posting is never compared again. Keeping this in mind, attackers may open an initial blank or minimal discussion then add in whatever they like as an update.
+An electronic bulletin board system may be designed to ensure that initial posts do not contain profanity based on a list that the post is compared against. If a word on a deny list is found in the user entered text the submission is not posted. But, once a submission is posted the submitter can access, edit, and change the submission contents to include words included in the profanity/deny list since on edit the posting is never compared again. Keeping this in mind, attackers may open an initial blank or minimal discussion then add in whatever they like as an update.
 
 ## Test Objectives
 
@@ -34,7 +34,7 @@ An electronic bulletin board system may be designed to ensure that initial posts
 ### Testing Method 1
 
 - Start a transaction going through the application past the points that triggers credits/points to the users account.
-- Cancel out of the transaction or reduce the final tender so that the point values should be decreased and check the points/ credit system to ensure that the proper points/credits were recorded.
+- Cancel out of the transaction or reduce the final tender so that the point values should be decreased and check the points/credit system to ensure that the proper points/credits were recorded.
 
 ### Testing Method 2
 

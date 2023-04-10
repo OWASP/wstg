@@ -38,7 +38,7 @@ The most common misconception about PCI DSS is that it only applies to systems t
 | Cross-domain POST | [SAQ A-EP](https://www.pcisecuritystandards.org/documents/PCI-DSS-v3_2-SAQ-A_EP-rev1_1.pdf) |
 | Backend API | [SAQ D](https://www.pcisecuritystandards.org/documents/PCI-DSS-v3_2_1-SAQ-D_Merchant.pdf) |
 
-As well as the differences in the attack surface and risk profile of each approach, there is also a significant difference in the number of requirements between SAQ A (22 requirements) and SAQ D (329 requirements) that the organization needs to meet. As such, it's worth highlighting applications that are not using an redirect or IFRAME, as they are represent increased technical and compliance risks.
+In addition to the differences in the attack surface and risk profile of each approach, there is also a significant difference in the number of requirements between SAQ A (22 requirements) and SAQ D (329 requirements) that the organization needs to meet. As such, it's worth highlighting applications that are not using an redirect or IFRAME, as they represent increased technical and compliance risks.
 
 ### Quantity Tampering
 
@@ -89,7 +89,7 @@ Different types of items may have different validation rules, so each type needs
 
 #### On the Payment Gateway
 
-If the checkout process is performed on an third-party payment gateway, then it may be possible to tamper with the prices between the application and the gateway.
+If the checkout process is performed on a third-party payment gateway, then it may be possible to tamper with the prices between the application and the gateway.
 
 The transfer to the gateway may be performed using a cross-domain POST to the gateway, as shown in the HTML example below.
 
@@ -121,7 +121,7 @@ If the payment gateway uses an IFRAME instead, it may be possible to perform a s
 
 #### Encrypted Transaction Details
 
-In order to prevent the transaction being tampered with, some payment gateways will encrypt the details of the request that is made to them. For example, [Paypal](https://developer.paypal.com/api/nvp-soap/paypal-payments-standard/integration-guide/encryptedwebpayments/#link-usingewptoprotectmanuallycreatedpaymentbuttons) do this using public key cryptography.
+In order to prevent the transaction being tampered with, some payment gateways will encrypt the details of the request that is made to them. For example, [Paypal](https://developer.paypal.com/api/nvp-soap/paypal-payments-standard/integration-guide/encryptedwebpayments/#link-usingewptoprotectmanuallycreatedpaymentbuttons) does this using public key cryptography.
 
 The first thing to try is making an unencrypted request, as some payment gateways allow insecure transactions unless they have been specifically configured to reject them.
 
@@ -137,7 +137,7 @@ Once you have this key, you can then try and create an encrypted request (based 
 
 #### Secure Hashes
 
-Other payment gateways use a secure hash (or a HMAC) of the transaction details to prevent tampering. The exact details of how this is done will vary between providers (for example, [Adyen](https://docs.adyen.com/online-payments/classic-integrations/hosted-payment-pages/hmac-signature-calculation) use HMAC-SHA256), but it will normally include the details of the transaction and a secret value. For example, a hash may be calculated as:
+Other payment gateways use a secure hash (or a HMAC) of the transaction details to prevent tampering. The exact details of how this is done will vary between providers (for example, [Adyen](https://docs.adyen.com/online-payments/classic-integrations/hosted-payment-pages/hmac-signature-calculation) uses HMAC-SHA256), but it will normally include the details of the transaction and a secret value. For example, a hash may be calculated as:
 
 ```php
 $secure_hash = md5($merchant_id . $transaction_id . $items . $total_value . $secret)

@@ -8,7 +8,7 @@
 
 Many of the problems that applications are solving require limits to the number of times a function can be used or action can be executed. Applications must be "smart enough" to not allow the user to exceed their limit on the use of these functions since in many cases each time the function is used the user may gain some type of benefit that must be accounted for to properly compensate the owner. For example: an eCommerce site may only allow a users apply a discount once per transaction, or some applications may be on a subscription plan and only allow users to download three complete documents monthly.
 
-Vulnerabilities related to testing for the function limits are application specific and misuse cases must be created that strive to exercise parts of the application/functions/ or actions more than the allowable number of times.
+Vulnerabilities related to testing for the function limits are application specific and misuse cases must be created that strive to exercise parts of the application/functions/actions more than the allowable number of times.
 
 Attackers may be able to circumvent the business logic and execute a function more times than "allowable" exploiting the application for personal gain.
 

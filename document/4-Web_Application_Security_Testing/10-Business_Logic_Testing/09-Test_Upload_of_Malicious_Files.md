@@ -95,7 +95,7 @@ If the application extracts archives (such as Zip files), then it may be possibl
 
 #### Zip Bombs
 
-A [Zip bomb](https://en.wikipedia.org/wiki/Zip_bomb) (more generally known as a decompression bomb) is an archive file that contains a large volume of data. It's intended to cause a denial of service by exhausting the disk space or memory of the target system that tries to extract the archive. Note that although the Zip format is the most example of this, other formats are also affected, including gzip (which is frequently used to compress data in transit).
+A [Zip bomb](https://en.wikipedia.org/wiki/Zip_bomb) (more generally known as a decompression bomb) is an archive file that contains a large volume of data. It's intended to cause a denial of service by exhausting the disk space or memory of the target system that tries to extract the archive. Note that although the Zip format is the most used example for this, other formats are also affected, including gzip (which is frequently used to compress data in transit).
 
 At its simplest level, a Zip bomb can be created by compressing a large file consisting of a single character. The example below shows how to create a 1MB file that will decompress to 1GB:
 
@@ -140,7 +140,7 @@ When there is file upload feature supported, the following API/methods are commo
 
 ## Remediation
 
-Fully protecting against malicious file upload can be complex, and the exact steps required will vary depending on the types files that are uploaded, and how the files are processed or parsed on the server. This is discussed more fully in the [File Upload Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html).
+Fully protecting against malicious file upload can be complex, and the exact steps required will vary depending on the types of files that are uploaded, and how the files are processed or parsed on the server. This is discussed more fully in the [File Upload Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html).
 
 ## Tools
 
