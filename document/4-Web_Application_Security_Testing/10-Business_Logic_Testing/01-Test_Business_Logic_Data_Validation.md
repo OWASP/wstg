@@ -6,13 +6,13 @@
 
 ## Summary
 
-The application must ensure that only logically valid data can be entered at the frontend as well as directly to the server-side of an application of system. Only verifying data on the client/frontend may leave applications vulnerable to server injections through proxies or at handoffs with other systems. This is different from simply performing Boundary Value Analysis (BVA) in that it is more difficult and in most cases cannot be simply verified at the entry point, but usually requires checking some other system.
+The application must ensure that only logically valid data can be entered at the frontend as well as directly to the server-side of an application or system. Only verifying data on the client/frontend may leave applications vulnerable to server injections through proxies or at handoffs with other systems. This is different from simply performing Boundary Value Analysis (BVA) in that it is more difficult and in most cases cannot be simply verified at the entry point, but usually requires checking some other system.
 
-For example: An application may ask for your Social Security Number. In BVA, the application should check formats and semantics (is the value 9 digits long, not negative and not all 0's) for the data entered, but there are logic considerations also. SSNs are grouped and categorized. Is this person on a death file? Are they from a certain part of the country?
+For example: An application may ask for your Social Security Number. In BVA, the application should check formats and semantics (is the value 9 digits long, not negative, and not all 0's) for the data entered, but there are logic considerations also. SSNs are grouped and categorized. Is this person on a death file? Are they from a certain part of the country?
 
 Vulnerabilities related to business data validation is unique in that they are application specific and different from the vulnerabilities related to forging requests in that they are more concerned about logical data as opposed to simply breaking the business logic workflow.
 
-The frontend and the backend of the application should be verifying and validating that the data it has, is using and is passing along is logically valid. Even if the user provides valid data to an application the business logic may make the application behave differently depending on data or circumstances.
+The frontend and the backend of the application should be verifying and validating that the data it has, is using, and is passing along is logically valid. Even if the user provides valid data to an application the business logic may make the application behave differently depending on data or circumstances.
 
 ### Example 1
 
@@ -40,7 +40,7 @@ The bank account to which the payments were directed had only 1000 free transfer
 
 ### Generic Test Method
 
-- Review the project documentation and use exploratory testing looking for data entry points or hand off points between systems or software. look
+- Review the project documentation and use exploratory testing looking for data entry points or hand off points between systems or software.
 - Once found try to insert logically invalid data into the application/system.
 Specific Testing Method:
 - Perform frontend GUI Functional Valid testing on the application to ensure that the only "valid" values are accepted.

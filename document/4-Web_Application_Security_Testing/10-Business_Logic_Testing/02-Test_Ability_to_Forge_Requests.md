@@ -6,9 +6,9 @@
 
 ## Summary
 
-Forging requests is a method that attackers use to circumvent the frontend GUI application to directly submit information for backend processing. The goal of the attacker is to send HTTP POST/GET requests through an intercepting proxy with data values that are not supported, guarded against or expected by the application's business logic. Some examples of forged requests include exploiting guessable or predictable parameters or exposing "hidden" features and functionality such as enabling debugging or presenting special screens or windows that are very useful during development but may leak information or bypass the business logic.
+Forging requests is a method that attackers use to circumvent the frontend GUI application to directly submit information for backend processing. The goal of the attacker is to send HTTP POST/GET requests through an intercepting proxy with data values that are not supported, guarded against, or expected by the application's business logic. Some examples of forged requests include exploiting guessable or predictable parameters or exposing "hidden" features and functionality such as enabling debugging or presenting special screens or windows that are very useful during development but may leak information or bypass the business logic.
 
-Vulnerabilities related to the ability to forge requests are unique to each application and different from business logic data validation in that it's focus is on breaking the business logic workflow.
+Vulnerabilities related to the ability to forge requests are unique to each application and different from business logic data validation in that its focus is on breaking the business logic workflow.
 
 Applications should have logic checks in place to prevent the system from accepting forged requests that may allow attackers the opportunity to exploit the business logic, process, or flow of the application. Request forgery is nothing new; the attacker uses an intercepting proxy to send HTTP POST/GET requests to the application. Through request forgeries attackers may be able to circumvent the business logic or process by finding, predicting and manipulating parameters to make the application think a process or task has or has not taken place.
 
@@ -20,7 +20,7 @@ Suppose an e-commerce theater site allows users to select their ticket, apply a 
 
 ### Example 2
 
-Suppose an online video game pays out tokens for points scored for finding pirate's treasure, pirates and for each level completed. These tokens can later be exchanged for prizes. Additionally each level's points have a multiplier value equal to the level. If an attacker was able to see through a proxy that the application has a hidden field used during development and testing to quickly get to the highest levels of the game they could quickly get to the highest levels and accumulate unearned points quickly.
+Suppose an online video game pays out tokens for points scored for finding pirate's treasure, pirates, and for each level completed. These tokens can later be exchanged for prizes. Additionally each level's points have a multiplier value equal to the level. If an attacker was able to see through a proxy that the application has a hidden field used during development and testing to quickly get to the highest levels of the game they could quickly get to the highest levels and accumulate unearned points quickly.
 
 Also, if an attacker was able to see through a proxy that the application has a hidden field used during development and testing to enable a log that indicated where other online players, or hidden treasures were in relation to the attacker, they would then be able to quickly go to these locations and score points.
 

@@ -79,7 +79,7 @@ To view and modify HTTP/HTTPS headers, post parameters, and observe the DOM of t
 
 - [How to Prevent Business Flaws Vulnerabilities in Web Applications, Marco Morana](http://www.slideshare.net/marco_morana/issa-louisville-2010morana)
 
-### Useful sites
+### Useful Sites
 
 - [Abuse of Functionality](http://projects.webappsec.org/w/page/13246913/Abuse-of-Functionality)
 - [Business logic](https://en.wikipedia.org/wiki/Business_logic)
