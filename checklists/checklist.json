@@ -761,7 +761,7 @@
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/10-Business_Logic_Testing/01-Test_Business_Logic_Data_Validation",
                 "objectives":[
                     "Identify data injection points.",
-                    "Validate that all checks are occurring on the back end and can't be bypassed.",
+                    "Validate that all checks are occurring on the backend and can't be bypassed.",
                     "Attempt to break the format of the expected data and analyze how the application is handling it."
                   ]
                 }
