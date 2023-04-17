@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Fuzzing is the process or technique of sending a number of request to the target website in a certain interval of time. In other words, it is also similar to bruteforcing. Fuzzing is a process which can be achieved using tools like Wfuzz, ffuf, and so on. You need to provide the tool with the target URL, parameter, endpoint, etc and some sort of inputs. Then the fuzzing tool crafts requests and sends them to the target one after another. After the fuzzing has finished, the responses, timing, and status codes need to be analyzed for vulnerabilities.
+Fuzzing is the process or technique of sending a number of request to the target site in a certain interval of time. In other words, it is also similar to bruteforcing. Fuzzing is a process which can be achieved using tools like Wfuzz, ffuf, and so on. You need to provide the tool with the target URL, parameter, endpoint, etc and some sort of inputs. Then the fuzzing tool crafts requests and sends them to the target one after another. After the fuzzing has finished, the responses, timing, and status codes need to be analyzed for vulnerabilities.
 
 ## Why fuzzing?
 
