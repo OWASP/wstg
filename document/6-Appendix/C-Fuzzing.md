@@ -42,6 +42,12 @@ gobuster dir -w endpoints.txt -u https://example.com
 
 In the above command `dir` specifies we are fuzzing a directory, `-u` is the flag for URL and `-w` is the flag for wordlist where `endpoints.txt` is the worldlist file payloads will be taken from. The command runs concurrent requests to the endpoint to find available directories.
 
+### Zap
+
+[Zap](https://owasp.org/www-project-zap) is a web application security scanner that can be used to find vulnerabilities and weaknesses in web applications. While GoBuster can help with content discovery, ZAP can help with identifying security flaws and other issues.
+
+One of the key features of ZAP is its ability to perform both passive and active scans. Passive scans involve observing the traffic between the user and the web application, while active scans involve sending test payloads to the web application to identify vulnerabilities.
+
 ### Wordlists and References
 
 In the examples above we have seen why we need a wordlist. Just wordlists are not enough, the worlist must great for your fuzzing scenario. If you don't find any wordlists that match the necessary scenario then consider generating your own wordlist. Some popular wordlists and references are provided below.
