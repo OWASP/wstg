@@ -172,7 +172,7 @@ As stated earlier, web server fingerprinting is often included as a functionalit
 
 Here are some commonly-used scan tools that include web server fingerprinting functionality.
 
-- [Netcraft](https://toolbar.netcraft.com/site_report), an online tool that scans websites for information, including web server details.
+- [Netcraft](https://toolbar.netcraft.com/site_report), an online tool that scans sites for information, including web server details.
 - [Nikto](https://github.com/sullo/nikto), an Open Source command-line scanning tool.
 - [Nmap](https://nmap.org/), an Open Source command-line tool that also has a GUI, [Zenmap](https://nmap.org/zenmap/).
 
@@ -181,5 +181,5 @@ Here are some commonly-used scan tools that include web server fingerprinting fu
 While exposed server information is not necessarily in itself a vulnerability, it is information that can assist attackers in exploiting other vulnerabilities that may exist. Exposed server information can also lead attackers to find version-specific server vulnerabilities that can be used to exploit unpatched servers. For this reason it is recommended that some precautions be taken. These actions include:
 
 - Obscuring web server information in headers, such as with Apache's [mod_headers module](https://httpd.apache.org/docs/current/mod/mod_headers.html).
-- Using a hardened [reverse proxy server](https://en.wikipedia.org/wiki/Proxy_server#Reverse_proxies) to create an additional layer of security between the web server and the Internet.
+- Using a hardened [reverse proxy server](https://en.wikipedia.org/wiki/Proxy_server#Reverse_proxies) to create an additional layer of security between the web server and the internet.
 - Ensuring that web servers are kept up-to-date with the latest software and security patches.
