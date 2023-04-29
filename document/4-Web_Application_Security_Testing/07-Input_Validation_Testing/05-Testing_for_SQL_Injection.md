@@ -296,7 +296,7 @@ WHERE
 ```
 
 - _Problem:_ If you inject a `UNION` payload, it doesn't affect the returned data. Because you are modifying the `WHERE` section. In fact, you are not appending a `UNION` query to the original query.  
-- _Solution:_ You need to know the query which gets executed in the back end. Then, create your payload based on that. It means closing open parentheses or adding proper keywords if needed.
+- _Solution:_ You need to know the query which gets executed in the backend. Then, create your payload based on that. It means closing open parentheses or adding proper keywords if needed.
 
 **Scenario 2**  
 The vulnerable query contains aliases or variable declarations.
@@ -348,7 +348,7 @@ $result1 = odbc_exec($conn, $query2);
 ```
 
 - _Problem:_ You can add a `UNION` payload to the first query but it won't affect the returned data.  
-- _solution:_ You need to inject in the second query. So the input to the second query should not get sanitized. Then, you need to make the first query return no data. Now append a `UNION` query that returns the payload you want to inject in the _second query_.  
+- _solution:_ You need to inject in the second query. So the input to the second query should not get sanitized. Then, you need to make the first query return no data. Now append a `UNION` query that returns the payload you want to inject in the _second query_.
   
   **Example:**  
   The base of the payload (what you inject in the first query):
