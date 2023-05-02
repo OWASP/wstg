@@ -6,7 +6,7 @@
 
 ## Summary
 
-One of the core components of any web-based application is the mechanism by which it controls and maintains the state for a user interacting with it. To avoid continuous authentication for each page of a website or service, web applications implement various mechanisms to store and validate credentials for a pre-determined timespan. These mechanisms are known as Session Management.
+One of the core components of any web-based application is the mechanism by which it controls and maintains the state for a user interacting with it. To avoid continuous authentication for each page of a site or service, web applications implement various mechanisms to store and validate credentials for a pre-determined timespan. These mechanisms are known as Session Management.
 
 In this test, the tester wants to check that cookies and other session tokens are created in a secure and unpredictable way. An attacker who is able to predict and forge a weak cookie can easily hijack the sessions of legitimate users.
 
@@ -76,7 +76,7 @@ The first stage is to examine the structure and content of a Session ID provided
 
 If the Session ID is clear-text, the structure and pertinent data may be immediately obvious such as `192.168.100.1:owaspuser:password:15:58`.
 
-If part or the entire token appears to be encoded or hashed, it should be compared to various techniques to check for obvious obfuscation. For example the string `192.168.100.1:owaspuser:password:15:58` is represented in Hex, Base64, and as an MD5 hash:
+If part or the entire token appears to be encoded or hashed, it should be compared to various techniques to check for obvious obfuscation. For example the string `192.168.100.1:owaspuser:password:15:58` is represented in hex, base64, and as an MD5 hash:
 
 - Hex: `3139322E3136382E3130302E313A6F77617370757365723A70617373776F72643A31353A3538`
 - Base64: `MTkyLjE2OC4xMDAuMTpvd2FzcHVzZXI6cGFzc3dvcmQ6MTU6NTg=`
@@ -204,6 +204,6 @@ More information here: [Testing for cookies attributes](02-Testing_for_Cookies_A
 - [Michal Zalewski: "Strange Attractors and TCP/IP Sequence Number Analysis - One Year Later" (2002)](http://lcamtuf.coredump.cx/newtcp/)
 - [Correlation Coefficient](http://mathworld.wolfram.com/CorrelationCoefficient.html)
 - [ENT](https://fourmilab.ch/random/)
-- [DMA[2005-0614a] - 'Global Hauri ViRobot Server cookie overflow'](https://seclists.org/lists/fulldisclosure/2005/Jun/0188.html)
+- [DMA 2005-0614a - Global Hauri ViRobot Server cookie overflow](https://seclists.org/lists/fulldisclosure/2005/Jun/0188.html)
 - [Gunter Ollmann: "Web Based Session Management"](http://www.technicalinfo.net)
 - [OWASP Code Review Guide](https://wiki.owasp.org/index.php/Category:OWASP_Code_Review_Project)
