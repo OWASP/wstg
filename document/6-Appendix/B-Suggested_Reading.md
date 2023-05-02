@@ -37,7 +37,7 @@
 - Web Security Testing Cookbook: Systematic Techniques to Find Problems Fast, by Paco Hope, Ben Walther, published by O’Reilly, ISBN 0596514832 (2008)
 - Writing Secure Code, by Mike Howard and David LeBlanc, published by Microsoft Press, ISBN 0735617228 (2004)
 
-## Useful Websites
+## Useful Sites
 
 - [Build Security In](https://www.us-cert.gov/bsi)
 - [CERT Secure Coding Standards](https://wiki.sei.cmu.edu/confluence/display/seccode/SEI+CERT+Coding+Standards)
@@ -53,7 +53,7 @@
 - [Web Application Security Consortium](http://www.webappsec.org/projects/)
 - [Web Application Security Scanner List](http://projects.webappsec.org/w/page/13246988/Web%20Application%20Security%20Scanner%20List)
 - [Web Security – Articles](https://www.acunetix.com/blog/category/web-security-zone/)
-- [Testing Client Side Security issues](http://www.domxss.com/domxss/)
+- [Testing Client-Side Security issues](http://www.domxss.com/domxss/)
 
 ## Videos
 
