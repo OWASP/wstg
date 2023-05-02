@@ -204,6 +204,6 @@ More information here: [Testing for cookies attributes](02-Testing_for_Cookies_A
 - [Michal Zalewski: "Strange Attractors and TCP/IP Sequence Number Analysis - One Year Later" (2002)](http://lcamtuf.coredump.cx/newtcp/)
 - [Correlation Coefficient](http://mathworld.wolfram.com/CorrelationCoefficient.html)
 - [ENT](https://fourmilab.ch/random/)
-- [DMA[2005-0614a] - 'Global Hauri ViRobot Server cookie overflow'](https://seclists.org/lists/fulldisclosure/2005/Jun/0188.html)
+- [DMA[2005-0614a] - Global Hauri ViRobot Server cookie overflow](https://seclists.org/lists/fulldisclosure/2005/Jun/0188.html)
 - [Gunter Ollmann: "Web Based Session Management"](http://www.technicalinfo.net)
 - [OWASP Code Review Guide](https://wiki.owasp.org/index.php/Category:OWASP_Code_Review_Project)

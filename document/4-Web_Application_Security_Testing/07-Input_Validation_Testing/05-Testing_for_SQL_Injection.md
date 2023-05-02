@@ -95,7 +95,7 @@ The query will be:
 
 > **_NOTE:_**  Take care when injecting the condition OR 1=1 into a SQL query. Although this may be harmless in the initial context you're injecting into, it's common for applications to use data from a single request in multiple different queries. If your condition reaches an UPDATE or DELETE statement, for example, this can result in an accidental loss of data.
 
-If we suppose that the values of the parameters are sent to the server through the GET method, and if the domain of the vulnerable site is www.example.com, the request that we'll carry out will be:
+If we suppose that the values of the parameters are sent to the server through the GET method, and if the domain of the vulnerable site is `www.example.com`, the request that we'll carry out will be:
 
 `http://www.example.com/index.php?username=1'%20or%20'1'%20=%20'1&amp;password=1'%20or%20'1'%20=%20'1`
 
@@ -491,7 +491,7 @@ Automation:
 
 The Boolean exploitation technique is very useful when the tester finds a [Blind SQL Injection](https://owasp.org/www-community/attacks/Blind_SQL_Injection) situation, in which nothing is known on the outcome of an operation. For example, this behavior happens in cases where the programmer has created a custom error page that does not reveal anything on the structure of the query or on the database. (The page does not return a SQL error, it may just return a HTTP 500, 404, or redirect).
 
-By using inference methods, it is possible to avoid this obstacle and thus succeed in recovering the values of some desired fields. This method consists of carrying out a series of boolean queries against the server, observing the answers and finally deducing the meaning of such answers. We consider, as always, the www.example.com domain and we suppose that it contains a parameter named `id` vulnerable to SQL injection. This means that when carrying out the following request:
+By using inference methods, it is possible to avoid this obstacle and thus succeed in recovering the values of some desired fields. This method consists of carrying out a series of boolean queries against the server, observing the answers and finally deducing the meaning of such answers. We consider, as always, the `www.example.com` domain and we suppose that it contains a parameter named `id` vulnerable to SQL injection. This means that when carrying out the following request:
 
 `http://www.example.com/index.php?id=1'`
 
