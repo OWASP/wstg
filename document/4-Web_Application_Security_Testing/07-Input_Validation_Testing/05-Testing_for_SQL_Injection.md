@@ -295,8 +295,8 @@ WHERE
   );                      --/
 ```
 
-- *Problem:* If you inject a `UNION` payload, it doesn't affect the returned data. Because you are modifying the `WHERE` section. In fact, you are not appending a `UNION` query to the original query.  
-- *Solution:* You need to know the query which gets executed in the back end. Then, create your payload based on that. It means closing open parentheses or adding proper keywords if needed.
+- _Problem:_ If you inject a `UNION` payload, it doesn't affect the returned data. Because you are modifying the `WHERE` section. In fact, you are not appending a `UNION` query to the original query.  
+- _Solution:_ You need to know the query which gets executed in the backend. Then, create your payload based on that. It means closing open parentheses or adding proper keywords if needed.
 
 **Scenario 2**  
 The vulnerable query contains aliases or variable declarations.
@@ -316,8 +316,8 @@ GROUP BY
   s1.user_id
 ```
 
-- *Problem:* You break the query when you comment the rest of the original query after your injected payload, because some aliases or variables become `undefined`.  
-- *Solution:* You need to put appropriate keywords or aliases at the beginning of your payload. this way the first part of the original query stays valid.
+- _Problem:_ You break the query when you comment the rest of the original query after your injected payload, because some aliases or variables become `undefined`.  
+- _Solution:_ You need to put appropriate keywords or aliases at the beginning of your payload. this way the first part of the original query stays valid.
 
 **Scenario 3**  
 The result of the vulnerable query is being used in a second query. The second query returns the data, not the first one.
@@ -347,8 +347,8 @@ $result1 = odbc_exec($conn, $query2);
 ?>
 ```
 
-- *Problem:* You can add a `UNION` payload to the first query but it won't affect the returned data.  
-- *solution:* You need to inject in the second query. So the input to the second query should not get sanitized. Then, you need to make the first query return no data. Now append a `UNION` query that returns the payload you want to inject in the *second query*.  
+- _Problem:_ You can add a `UNION` payload to the first query but it won't affect the returned data.  
+- _solution:_ You need to inject in the second query. So the input to the second query should not get sanitized. Then, you need to make the first query return no data. Now append a `UNION` query that returns the payload you want to inject in the _second query_.
   
   **Example:**  
   The base of the payload (what you inject in the first query):
@@ -357,7 +357,7 @@ $result1 = odbc_exec($conn, $query2);
   ' AND 1 = 2 UNION SELECT "PAYLOAD" -- -
   ```
 
-  The `PAYLOAD` is what you want to inject in the *second query*:
+  The `PAYLOAD` is what you want to inject in the _second query_:
   
   ```text
   ' AND 1=2 UNION SELECT ...
@@ -434,8 +434,8 @@ $result2 = odbc_exec($conn, $query2);
 ?>
 ```
 
-- *Problem:* Appending a `UNION` query to the first (or second) query doesn't break it, but it may break the other one.  
-- *Solution:* It depends on the code structure of the application. But the first step is to know the original query. Most of the time, these injections are time-based. Also, the time-based payload gets injected in several queries which can be problematic.  
+- _Problem:_ Appending a `UNION` query to the first (or second) query doesn't break it, but it may break the other one.  
+- _Solution:_ It depends on the code structure of the application. But the first step is to know the original query. Most of the time, these injections are time-based. Also, the time-based payload gets injected in several queries which can be problematic.  
   For example, if you use `SQLMap`, this situation confuses the tool and the output gets messed up. Because the delays will not be as expected.  
 
 **Extracting Original Query**  
@@ -455,7 +455,7 @@ Steps to automate the workflow:
 1. Extract the original query using `SQLMap` and blind injection.
 2. Build a base payload according to the original query and achieve union-based injection.
 3. Automate the exploitation of the union-based injection by one of these options:  
-    - Specifying a *custom injection point marker* (`*`)
+    - Specifying a _custom injection point marker_ (`*`)
     - Using `--prefix` and `--suffix` flags.
 
 **Example:**  
@@ -475,7 +475,7 @@ http://example.org/search?query=abcd'+AND+1=2+UNION+SELECT+"+'AND 1=2+UNION+SELE
 
 Automation:  
 
-- *custom injection point marker* (`*`):
+- _custom injection point marker_ (`*`):
 
   ```text
   sqlmap -u "http://example.org/search?query=abcd'AND 1=2 UNION SELECT \"*\"-- -"
