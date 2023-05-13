@@ -133,7 +133,7 @@ owasp.org name server ns1.secure.net.
 owasp.org name server ns2.secure.net.
 ```
 
-A zone transfer may now be requested to the name servers for domain `example.com`. If the tester is lucky, they will get back a list of the DNS entries for this domain. This will include the obvious `www.example.com` and the not-so-obvious `helpdesk.example.com` and `webmail.example.com` (and possibly others). Check all names returned by the zone transfer and consider all of those which are related to the target being evaluated.
+A zone transfer can now be requested to the name servers for the domain `example.com`. If the tester is fortunate, they may receive a list of the DNS entries for this domain in response. This will include the obvious `www.example.com` and the not-so-obvious `helpdesk.example.com` and `webmail.example.com` (and possibly others). Check all names returned by the zone transfer and consider all of those which are related to the target being evaluated.
 
 Trying to request a zone transfer for `owasp.org` from one of its name servers:
 
