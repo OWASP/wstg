@@ -61,7 +61,7 @@ Another option is to probe for URLs which might be likely candidates for non-pub
 
 It is easy to check for the existence of web applications on non-standard ports. A port scanner such as Nmap is capable of performing service recognition by means of the `-sV` option, and will identify http[s] services on arbitrary ports. What is required is a full scan of the whole 64k TCP port address space.
 
-For example, the following command will look up, with a TCP connect scan, all open ports on IP `192.168.1.100` and will try to determine what services are bound to them (only *essential* switches are shown – Nmap features a broad set of options, whose discussion is out of scope):
+For example, the following command will look up, with a TCP connect scan, all the open ports on IP `192.168.1.100` and will try to determine what services are bound to them (only *essential* switches are shown – Nmap features a broad set of options, whose discussion is out of scope):
 
 `nmap –Pn –sT –sV –p0-65535 192.168.1.100`
 
@@ -133,7 +133,7 @@ owasp.org name server ns1.secure.net.
 owasp.org name server ns2.secure.net.
 ```
 
-A zone transfer can now be requested to the name servers for the domain `example.com`. If the tester is fortunate, they may receive a list of the DNS entries for this domain in response. This will include the obvious `www.example.com` and the not-so-obvious `helpdesk.example.com` and `webmail.example.com` (and possibly others). Check all names returned by the zone transfer and consider all of those which are related to the target being evaluated.
+A zone transfer can now be requested to the name servers for the domain `example.com`. If the tester is fortunate, they may receive a list of the DNS entries for this domain in response. This will include the obvious `www.example.com` and the not-so-obvious `helpdesk.example.com` and `webmail.example.com` (and possibly others). Check all the names returned by the zone transfer and consider all of those which are related to the target being evaluated.
 
 Trying to request a zone transfer for `owasp.org` from one of its name servers:
 
@@ -154,7 +154,7 @@ This process is similar to the previous one, but relies on inverse (PTR) DNS rec
 
 #### Web-based DNS Searches
 
-This kind of search is akin to DNS zone transfer, but relies on web-based services that enable name-based searches on DNS. One such service is the [Netcraft Search DNS](https://searchdns.netcraft.com/?host) service. The tester may query for a list of names belonging to your domain of choice, such as `example.com`. Then, they will check whether the names they obtained are pertinent to the target they are examining.
+This kind of search is akin to DNS zone transfer, but relies on web-based services that enable name-based searches on DNS. One such service is the [Netcraft Search DNS](https://searchdns.netcraft.com/?host) service. The tester may query for a list of names belonging to your domain of choice, such as `example.com`. They will then check whether the names they obtained are pertinent to the target they are examining.
 
 #### Reverse-IP Services
 
