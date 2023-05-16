@@ -100,6 +100,7 @@ The list contains only tools that are freely available to download and use (alth
 - [OWASP ZAP](https://www.zaproxy.org)
 - [Nikto](https://cirt.net/Nikto2)
 - [Nuclei](https://nuclei.projectdiscovery.io/)
+- [Akto API Security Testing](https://www.akto.io/)
 
 ## Exploitation Frameworks
 
