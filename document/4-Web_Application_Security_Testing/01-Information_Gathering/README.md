@@ -8,7 +8,7 @@
 
 4.1.4 [Enumerate Applications on Webserver](04-Enumerate_Applications_on_Webserver.md)
 
-4.1.5 [Review Webpage Content for Information Leakage](05-Review_Webpage_Content_for_Information_Leakage.md)
+4.1.5 [Review Web Page Content for Information Leakage](05-Review_Web_Page_Content_for_Information_Leakage.md)
 
 4.1.6 [Identify Application Entry Points](06-Identify_Application_Entry_Points.md)
 

@@ -60,7 +60,7 @@
 
 #### 4.1.4 [Enumerate Applications on Webserver](4-Web_Application_Security_Testing/01-Information_Gathering/04-Enumerate_Applications_on_Webserver.md)
 
-#### 4.1.5 [Review Webpage Content for Information Leakage](4-Web_Application_Security_Testing/01-Information_Gathering/05-Review_Webpage_Content_for_Information_Leakage.md)
+#### 4.1.5 [Review Web Page Content for Information Leakage](4-Web_Application_Security_Testing/01-Information_Gathering/05-Review_Web_Page_Content_for_Information_Leakage.md)
 
 #### 4.1.6 [Identify Application Entry Points](4-Web_Application_Security_Testing/01-Information_Gathering/06-Identify_Application_Entry_Points.md)
 
@@ -320,7 +320,7 @@
 
 ## Appendix B. [Suggested Reading](6-Appendix/B-Suggested_Reading.md)
 
-## Appendix C. [Fuzz Vectors](6-Appendix/C-Fuzz_Vectors.md)
+## Appendix C. [Fuzzing](C-Fuzzing.md)
 
 ## Appendix D. [Encoded Injection](6-Appendix/D-Encoded_Injection.md)
 
