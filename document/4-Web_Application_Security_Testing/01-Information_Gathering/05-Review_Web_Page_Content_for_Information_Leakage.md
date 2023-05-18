@@ -79,7 +79,7 @@ Although most web servers manage search engine indexing via the `robots.txt` fil
 <META name="robots" content="none">
 ```
 
-The [Platform for Internet Content Selection (PICS)](https://www.w3.org/PICS/) and [Protocol for Web Description Resources (POWDER)](https://www.w3.org/2007/powder/) provide infrastructure for associating metadata with Internet content.
+The [Platform for Internet Content Selection (PICS)](https://www.w3.org/PICS/) and [Protocol for Web Description Resources (POWDER)](https://www.w3.org/2007/powder/) provide infrastructure for associating metadata with internet content.
 
 ### Identifying JavaScript Code and Gathering JavaScript Files
 
