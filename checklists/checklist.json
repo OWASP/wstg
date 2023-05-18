@@ -37,13 +37,13 @@
                   ]
                 }
                 ,{
-                "name":"Review Webpage Content for Information Leakage",
+                "name":"Review Web Page Content for Information Leakage",
                 "id":"WSTG-INFO-05",
-                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/01-Information_Gathering/05-Review_Webpage_Content_for_Information_Leakage",
+                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/01-Information_Gathering/05-Review_Web_Page_Content_for_Information_Leakage",
                 "objectives":[
-                    "Review webpage comments, metadata, and redirect bodies to find any information leakage.",
+                    "Review web page comments, metadata, and redirect bodies to find any information leakage.",
                     "Gather JavaScript files and review the JS code to better understand the application and to find any information leakage.",
-                    "Identify if source map files or other front-end debug files exist."
+                    "Identify if source map files or other frontend debug files exist."
                   ]
                 }
                 ,{
