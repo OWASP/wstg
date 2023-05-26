@@ -208,13 +208,13 @@ To develop a threat model, we recommend taking a simple approach that follows th
 The output from a threat model itself can vary but is typically a collection of lists and diagrams.
 Various Open Source projects and commercial products support application threat modeling methodologies
 that can be used as a reference for testing applications for potential security flaws in the design of the application.
-It may be worth considering the OWASP threat modeling tool projects,
+It may be worth considering using one of the OWASP threat modeling tool projects,
 Pythonic Threat Modeling ([pytm](https://owasp.org/www-project-pytm/))
 and [Threat Dragon](https://owasp.org/www-project-threat-dragon/),
-which provide complementary ways of creating threat models.
+which provide differing but equally valid ways of creating threat models.
 
-There is no right or wrong way to develop threat models and perform information risk assessments on applications,
-so choose the tools and processes that fit with how your organisation and development teams work.
+There is no right or wrong way to develop threat models and perform information risk assessments on applications;
+be flexible and select the tools and processes that will fit with how a particular organisation or development team works.
 
 ### Advantages
 
