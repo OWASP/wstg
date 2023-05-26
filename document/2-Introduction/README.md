@@ -214,7 +214,7 @@ and [Threat Dragon](https://owasp.org/www-project-threat-dragon/),
 which provide differing but equally valid ways of creating threat models.
 
 There is no right or wrong way to develop threat models and perform information risk assessments on applications;
-be flexible and select the tools and processes that will fit with how a particular organisation or development team works.
+be flexible and select the tools and processes that will fit with how a particular organization or development team works.
 
 ### Advantages
 
