@@ -36,7 +36,7 @@ An automatic spider is a tool that is used to discover new resources (URLs) on a
 [ZAP](https://github.com/zaproxy/zaproxy) offers various automatic spidering options, which can be leveraged based on the tester's needs:
 
 - [Spider](https://www.zaproxy.org/docs/desktop/start/features/spider/)
-- [AJAX Spider](https://www.zaproxy.org/docs/desktop/addons/ajax-spider/)
+- [Ajax Spider](https://www.zaproxy.org/docs/desktop/addons/ajax-spider/)
 - [OpenAPI Support](https://www.zaproxy.org/docs/desktop/addons/openapi-support/)
 
 ## Tools
