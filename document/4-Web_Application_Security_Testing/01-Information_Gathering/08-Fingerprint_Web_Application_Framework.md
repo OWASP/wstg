@@ -41,7 +41,7 @@ Server: nginx/1.0.14
 X-Powered-By: Mono
 ```
 
-From the `X-Powered-By` field, we understand that the web application framework is likely to be `Mono`. However, although this approach is simple and quick, this methodology doesn't work in all cases. It is possible to easily disable `X-Powered-By` header by a proper configuration. There are also several techniques that allow a web site to obfuscate HTTP headers (see an example in the [Remediation](#remediation) section). In the example above, we can also note that a specific version of `nginx` is being used to serve the content.
+From the `X-Powered-By` field, we understand that the web application framework is likely to be `Mono`. However, although this approach is simple and quick, this methodology doesn't work in all cases. It is possible to easily disable `X-Powered-By` header by a proper configuration. There are also several techniques that allow a site to obfuscate HTTP headers (see an example in the [Remediation](#remediation) section). In the example above, we can also note that a specific version of `nginx` is being used to serve the content.
 
 In the same example, the tester could either miss the `X-Powered-By` header or obtain an answer like the following:
 
@@ -244,12 +244,12 @@ Sample output is presented on a screenshot below:
 
 Website: [https://www.wappalyzer.com/](https://www.wappalyzer.com/)
 
-Wappalyzer is available in multiple usage models, the most popular of which is likely the Firefox/Chrome extensions. They work solely on regular expression matching and don't need anything beyond the page being loaded in a browser. It works completely at the browser level and gives results in the form of icons. Although sometimes it has false positives, this is very handy to have notion of what technologies were used to construct a target website immediately after browsing a page.
+Wappalyzer is available in multiple usage models, the most popular of which is likely the Firefox/Chrome extensions. They work solely on regular expression matching and don't need anything beyond the page being loaded in a browser. It works completely at the browser level and gives results in the form of icons. Although sometimes it has false positives, this is very handy to have notion of what technologies were used to construct a target site immediately after browsing a page.
 
 Sample output of a plug-in is presented on a screenshot below.
 
 ![Wappalyzer Output for OWASP Website](images/Owasp-wappalyzer.png)\
-*Figure 4.1.8-9: Wappalyzer Output for OWASP Website*
+*Figure 4.1.8-9: Wappalyzer Output for OWASP site*
 
 ## References
 
