@@ -244,7 +244,7 @@ Sample output is presented on a screenshot below:
 
 Website: [https://www.wappalyzer.com/](https://www.wappalyzer.com/)
 
-Wappalyzer is available in multiple usage models, the most popular of which is likely the Firefox/Chrome extensions. They work solely on regular expression matching and don't need anything beyond the page being loaded in a browser. It works completely at the browser level and gives results in the form of icons. Although sometimes it has false positives, this is very handy to have notion of what technologies were used to construct a target site immediately after browsing a page.
+Wappalyzer is available in multiple usage models, the most popular of which is likely the Firefox/Chrome extensions. They work largely on regular expression matching and don't need anything beyond the page being loaded in a browser. It works completely at the browser level and gives results in the form of icons. Although sometimes it has false positives, this is very handy to have notion of what technologies were used to construct a target site immediately after browsing a page.
 
 Sample output of a plug-in is presented on a screenshot below.
 
