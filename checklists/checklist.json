@@ -67,7 +67,7 @@
                 "id":"WSTG-INFO-08",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/01-Information_Gathering/08-Fingerprint_Web_Application_Framework",
                 "objectives":[
-                    "Fingerprint the components being used by the web applications."
+                    "Fingerprint the components used by the web applications."
                   ]
                 }
                 ,{
