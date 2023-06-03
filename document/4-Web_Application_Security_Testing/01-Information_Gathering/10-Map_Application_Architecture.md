@@ -6,7 +6,7 @@
 
 ## Summary
 
-In order to effectively test an application, and to be able to provide meaningful recommendations on how to address any of the issues identified, it is important to understand what you are actually testing. Additionally, it can help determine whether specific components should be considered out of scope for testing.
+In order to effectively test an application, and to be able to provide meaningful recommendations on how to address any of the issues identified, it is important to understand what one is actually testing. Additionally, it could be helpful to determine whether specific components should be considered out-of-scope for testing.
 
 Modern web applications can vary significantly in complexity, from a simple script running on a single server to a highly complex application spread across dozens of different systems, languages and components. There may also be additional network-level components such as firewalls or intrusion protection systems that can have a significant impact on testing.
 
@@ -16,9 +16,9 @@ Modern web applications can vary significantly in complexity, from a simple scri
 
 ## How to Test
 
-When testing from a black box perspective, it is important to try and build up a clear picture of how the application works, and which technologies and components are in place. In some cases it is possible to test for specific components (such as a web application firewall), while others can be identified by inspecting the behavior of the application.
+When testing from a black box perspective, it is important to try and build a clear picture of how the application works, and which technologies and components are in place. In some cases, it is possible to test for specific components such as a web application firewall, while other components can be identified by inspecting the behavior of the application.
 
-The sections below provide a high-level overview of common architectural components, along with details of how they can be identified.
+The sections below provide a high-level overview of common architectural components, along with details on how they can be identified.
 
 ### Application Components
 
@@ -28,18 +28,18 @@ Simple applications may run on a single server, which can be identified using th
 
 #### Platform-as-a-Service (PaaS)
 
-In a Platform-as-a-Service (PaaS) model, the web server and underlying infrastructure are managed by the service provider, and the customer is only responsible for the application that this deployed on them. From a testing perspective, there are two main differences:
+In a Platform-as-a-Service (PaaS) model, the web server and underlying infrastructure are managed by the service provider, and the customer is only responsible for the application that is deployed on them. From a testing perspective, there are two main differences:
 
-- The application owner has no access to the underlying infrastructure, so will be unable to directly remediate any issues.
-- Infrastructure testing is likely to be out of scope for any engagements.
+- The application owner has no access to the underlying infrastructure, which means they will be unable to directly remediate any issues.
+- Infrastructure testing is likely to be out-of-scope for any engagements.
 
-In some cases it is possible to identify the use of PaaS, as the application may use a specific domain name (for example, applications deployed on Azure App Services will have a `*.azurewebsites.net` domain - although they may also use custom domains). However, in other cases it is difficult to determine whether PaaS is in use.
+In some cases, it is possible to identify the use of PaaS, as the application may use a specific domain name (for example, applications deployed on Azure App Services will have a `*.azurewebsites.net` domain - although they may also use custom domains). In other cases, it is difficult to determine whether PaaS is in use.
 
 #### Serverless
 
-In a Serverless model, the developers provide code which is directly run on a hosting platform as individual functions, rather than as an traditional larger web application deployed in a webroot. This makes it well suited to microservice-based architectures. As with a PaaS environment, infrastructure testing is likely to be out of scope.
+In a Serverless model, the developers provide code which is directly run on a hosting platform as individual functions, rather than running a traditional larger web application deployed in a webroot. This makes it well suited for microservice-based architecture. As with a PaaS environment, infrastructure testing is likely to be out-of-scope.
 
-In some cases the use of Serverless code may be indicated by the presence of specific HTTP headers. For example, AWS Lambda functions will typically return the following headers:
+In some cases, the use of Serverless code may be indicated by the presence of specific HTTP headers. For example, AWS Lambda functions will typically return the following headers:
 
 ```http
 X-Amz-Invocation-Type
@@ -47,18 +47,18 @@ X-Amz-Log-Type
 X-Amz-Client-Context
 ```
 
-Azure Functions are less obvious. They typically return the `Server: Kestrel` header - but this on its own is not enough to be confident that it is an Azure App function, rather than some other code running on Kestrel.
+Azure Functions are less obvious. They typically return the `Server: Kestrel` header - but this on its own is not enough to determine that it is an Azure App function, as it could be some other code running on Kestrel.
 
 #### Microservices
 
-In a microservice-based architecture, the application API is made up of multiple discrete services, rather than running as a monolithic application. The services themselves often run inside containers (usually with Kubernetes), and can use a variety of different operating systems and languages. Although they are typically behind a single API gateway and domain, the use of multiple languages (often indicated in detailed error messages) can suggest that microservices are in use.
+In a microservice-based architecture, the application API is made up of multiple discrete services, instead of being run as a monolithic application. The services themselves often run inside containers (usually with Kubernetes), and can use a variety of different operating systems and languages. Although they are typically behind a single API gateway and domain, the use of multiple languages (often indicated in detailed error messages) can suggest that microservices are in use.
 
 #### Static Storage
 
 Many applications store static content on dedicated storage platforms, rather than hosting it directly on the main web server. The two most common platforms are Amazon's S3 Buckets, and Azure's Storage Accounts, and can be easily identified by the domain names:
 
-- Amazon S3 Buckets are either `BUCKET.s3.amazonaws.com` or `s3.REGION.amazonaws.com/BUCKET`
-- Azure Storage Accounts are `ACCOUNT.blob.core.windows.net`
+- `BUCKET.s3.amazonaws.com` or `s3.REGION.amazonaws.com/BUCKET` for Amazon S3 Buckets
+- `ACCOUNT.blob.core.windows.net` for Azure Storage Accounts
 
 These storage accounts can often expose sensitive files, as discussed in the [Testing Cloud Storage Guide](../02-Configuration_and_Deployment_Management_Testing/11-Test_Cloud_Storage.md) section.
 
