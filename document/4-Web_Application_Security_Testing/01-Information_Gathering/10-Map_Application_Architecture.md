@@ -69,7 +69,7 @@ Most non-trivial web applications use some kind of database to store dynamic con
 - Port scanning the server and looking for any open ports associated with specific databases
 - Triggering SQL (or NoSQL) related error messages (or finding existing errors from a [search engine](../01-Information_Gathering/01-Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage.md)
 
-When it's not possible to conclusively determine the database, one can often make an educated guess based on other aspects of the application:
+When it's not possible to conclusively determine the database, the tester can often make an educated guess based on other aspects of the application:
 
 - Windows, IIS and ASP.NET often use Microsoft SQL server
 - Embedded systems often use SQLite
@@ -117,7 +117,7 @@ A reverse proxy sits in front of one or more backend servers and redirects reque
 - Acting as a [load balancer](#load-balancer) or [web application firewall](#web-application-firewall-waf)
 - Allowing multiple applications to be hosted on a single IP address or domain (in subfolders)
 - Implementing IP filtering or other restrictions
-- Caching content from the back end to improve performance
+- Caching content from the backend to improve performance
 
 It is not always possible to detect a reverse proxy (especially if there is only a single application behind it), but you can sometimes identify it by:
 
@@ -140,7 +140,7 @@ They may also be indicated by the presence of specific cookies (for example, F5 
 
 #### Content Delivery Network (CDN)
 
-A Content Delivery Network (CDN) is a geographically distributed set of caching proxy servers designed to improve website performance.
+A Content Delivery Network (CDN) is a geographically distributed set of caching proxy servers designed to improve site performance.
 
 It is typically configured by pointing the publicly facing domain to the CDN's servers, and then configuring the CDN to connect to the correct backend servers (sometimes known as the "origin").
 
@@ -154,7 +154,7 @@ When testing a site behind a CDN, you should bear in mind the following points:
 
 If the site is behind a CDN, it could be useful to identify the backend servers. If proper access control is not enforced, the tester may be able to bypass the CDN (and any protections it offers) by directly accessing the backend servers. There are a variety of different methods that may allow one to identify the backend system:
 
-- Emails sent by the application may come direct from the back end server, which could reveal it's IP address
+- Emails sent by the application may come direct from the backend server, which could reveal it's IP address
 - DNS grinding, zone transfers or certificate transparency lists for a domain may reveal it on a subdomain
 - Scanning the IP ranges known to be used by the company may help identify the backend server
 - Exploiting [Server-Side Request Forgery (SSRF)](../07-Input_Validation_Testing/19-Testing_for_Server-Side_Request_Forgery.md) may reveal the IP address
@@ -188,4 +188,4 @@ A WAF can be deployed in multiple locations, including:
 
 Because a WAF blocks malicious requests, it can be detected by adding common attack strings to parameters and observing whether or not they are blocked. For example, try adding a parameter called `foo` with a value such as `' UNION SELECT 1` or `><script>alert(1)</script>`. If these requests are blocked, it is likely that there may be a WAF in place. Additionally, the contents of the block pages may provide information about the specific technology that is in use. Finally, some WAFs may add cookies or HTTP headers to responses that can reveal their presence.
 
-If a cloud-based WAF is in use, then it may be possible to bypass it by directly accessing the back end server, using the same methods discussed in the [Content Delivery Network](#content-delivery-network-cdn) section.
+If a cloud-based WAF is in use, then it may be possible to bypass it by directly accessing the backend server, using the same methods discussed in the [Content Delivery Network](#content-delivery-network-cdn) section.
