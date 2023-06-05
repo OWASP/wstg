@@ -148,14 +148,14 @@ The easiest way to detect a CDN is to perform a WHOIS lookup for the IP addresse
 
 When testing a site behind a CDN, you should bear in mind the following points:
 
-- The IPs and servers belong to the CDN provider, and are likely to be out-of-scope for infrastructure testing
-- Many CDNs also include features like bot detection, rate limiting, and web application firewalls
+- The IP addresses and servers belong to the CDN provider, and are likely to be out-of-scope for infrastructure testing
+- Many CDNs also include features such as bot detection, rate limiting, and web application firewalls
 - CDNs usually cache content. Therefore, changes made in the backend may not appear immediately on the site.
 
-If the site is behind a CDN, it could be useful to identify the backend servers. If they don't have proper access control enforced, the tester may then be able to bypass the CDN (and any protections it offers) by directly accessing the backend servers. There are a variety of different methods that may allow one to identify the backend system:
+If the site is behind a CDN, it could be useful to identify the backend servers. If proper access control is not enforced, the tester may be able to bypass the CDN (and any protections it offers) by directly accessing the backend servers. There are a variety of different methods that may allow one to identify the backend system:
 
 - Emails sent by the application may come direct from the back end server, which could reveal it's IP address
-- DNS grinding, zone transfers or certificate transparency lists for domain may reveal it on a subdomain
+- DNS grinding, zone transfers or certificate transparency lists for a domain may reveal it on a subdomain
 - Scanning the IP ranges known to be used by the company may help identify the backend server
 - Exploiting [Server-Side Request Forgery (SSRF)](../07-Input_Validation_Testing/19-Testing_for_Server-Side_Request_Forgery.md) may reveal the IP address
 - Detailed error messages from the application may expose IP addresses or hostnames
@@ -172,7 +172,7 @@ Additionally, if inappropriate services are exposed to the world (such as SMTP, 
 
 #### Network Intrusion Detection and Prevention System
 
-A network Intrusion Detection System (IDS) detects suspicious or malicious network-level activity (such as port or vulnerability scanning) and raises alerts. An Intrusion Prevention System (IPS) is similar, but also takes action to prevent the activity - usually by blocking the source IP address.
+A network Intrusion Detection System (IDS) is designed to detect suspicious or malicious network-level activity, such as port or vulnerability scanning, and raise alerts. An Intrusion Prevention System (IPS) functions similarly, but also takes action to prevent the activity, usually by blocking the source IP address.
 
 An IPS can usually be detected by running automated scanning tools (such as a port scanner) against the target, and seeing if the source IP is blocked. However, many application-level tools may not be detected by an IPS (especially if it doesn't decrypt TLS).
 
