@@ -46,7 +46,7 @@ jobs:
         npm run-script  epubgen -- ${{ steps.vars.outputs.tag }}
     - name: Run Workflow Build
       if: github.event_name == 'workflow_dispatch'
-      run:
+      run: |
         npm run-script  pdfgen -- ${{ github.event.inputs.version }}
         npm run-script  epubgen -- ${{ github.event.inputs.version }}
     - name: Create Release
