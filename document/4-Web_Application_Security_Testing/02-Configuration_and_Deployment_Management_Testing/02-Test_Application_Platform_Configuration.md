@@ -8,9 +8,9 @@
 
 Proper configuration of the single elements that make up an application architecture is important in order to prevent mistakes that might compromise the security of the whole architecture.
 
-Reviewing and testing configurations are critical tasks in creating and maintaining an architecture. This is because many different systems are usually provided with generic configurations that might not be suited to the task they will perform on the specific site they're installed on.
+Reviewing and testing configurations are critical tasks in creating and maintaining an architecture. This is because various systems often come with generic configurations, which may not align well with the tasks they're supposed to perform on the specific sites where they're installed.
 
-While the typical web and application server installation will contain a lot of functionality (like application examples, documentation, test pages) what is not essential should be removed before deployment to avoid post-install exploitation.
+While the typical web and application server installation will contain a lot of functionality (like application examples, documentation, test pages), what is not essential should be removed before deployment to avoid post-install exploitation.
 
 ## Test Objectives
 
@@ -24,19 +24,19 @@ While the typical web and application server installation will contain a lot of 
 
 #### Sample and Known Files and Directories
 
-In a default installation, many web servers and application servers provide sample applications and files for the benefit of the developer, in order to test if the server is working properly right after installation. However, many default web server applications have been later known to be vulnerable. This was the case, for example, for CVE-1999-0449 (Denial of Service in IIS when the Exair sample site had been installed), CAN-2002-1744 (Directory traversal vulnerability in CodeBrws.asp in Microsoft IIS 5.0), CAN-2002-1630 (Use of sendmail.jsp in Oracle 9iAS), or CAN-2003-1172 (Directory traversal in the view-source sample in Apache’s Cocoon).
+In a default installation, many web servers and application servers provide sample applications and files for the benefit of the developer, in order to test if the server is working properly right after installation. However, many default web server applications have later been known to be vulnerable. This was the case, for example, for CVE-1999-0449 (Denial of Service in IIS when the Exair sample site had been installed), CAN-2002-1744 (Directory traversal vulnerability in CodeBrws.asp in Microsoft IIS 5.0), CAN-2002-1630 (Use of sendmail.jsp in Oracle 9iAS), or CAN-2003-1172 (Directory traversal in the view-source sample in Apache’s Cocoon).
 
-CGI scanners, which include a detailed list of known files and directory samples provided by different web or application servers, might be a fast way to determine if these files are present. However, the only way to be really sure is to do a full review of the contents of the web server or application server and determine of whether they are related to the application itself or not.
+CGI scanners, which include a detailed list of known files and directory samples provided by different web or application servers, might be a fast way to determine if these files are present. However, the only way to be really sure is to do a full review of the contents of the web server or application server, and determine whether they are related to the application itself or not.
 
 #### Comment Review
 
-It is very common for programmers to add comments when developing large web-based applications. However, comments included inline in HTML code might reveal internal information that should not be available to an attacker. Sometimes, even source code is commented out since a functionality is no longer required, but this comment is leaked out to the HTML pages returned to the users unintentionally.
+It is very common for programmers to add comments when developing large web-based applications. However, comments included inline in HTML code might reveal internal information that should not be available to an attacker. Sometimes, a part of the source code is commented out when a functionality is no longer required, but this comment is unintentionally leaked out to the HTML pages returned to the users.
 
-Comment review should be done in order to determine if any information is being leaked through comments. This review can only be thoroughly done through an analysis of the web server static and dynamic content and through file searches. It can be useful to browse the site either in an automatic or guided fashion and store all the content retrieved. This retrieved content can then be searched in order to analyse any HTML comments available in the code.
+Comment review should be done in order to determine if any information is being leaked through comments. This review can only be thoroughly done through an analysis of the web server's static and dynamic content, and through file searches. It can be useful to browse the site in an automatic or guided fashion, and store all the retrieved content. This retrieved content can then be searched in order to analyse any HTML comments available in the code.
 
 #### System Configuration
 
-Various tools, documents, or checklists can be used to give IT and security professionals a detailed assessment of target systems' conformance to various configuration baselines or benchmarks. Such tools include (but are not limited to):
+Various tools, documents, or checklists can be used to give IT and security professionals a detailed assessment of the target systems' conformance to various configuration baselines or benchmarks. Such tools include, but are not limited to, the following:
 
 - [CIS-CAT Lite](https://www.cisecurity.org/blog/introducing-cis-cat-lite/)
 - [Microsoft's Attack Surface Analyzer](https://github.com/microsoft/AttackSurfaceAnalyzer)
@@ -81,7 +81,7 @@ In both cases (server and application logs) several issues should be tested and 
 
 ##### Sensitive Information in Logs
 
-Some applications might, for example, use GET requests to forward form data which will be seen in the server logs. This means that server logs might contain sensitive information (such as usernames as passwords, or bank account details). This sensitive information can be misused by an attacker if they obtained the logs, for example, through administrative interfaces or known web server vulnerabilities or misconfiguration (like the well-known `server-status` misconfiguration in Apache-based HTTP servers).
+Some applications might, for example, use GET requests to forward form data which can be seen in the server logs. This means that server logs might contain sensitive information (such as usernames and passwords, or bank account details). This sensitive information can be misused by an attacker if they obtained the logs, for example, through administrative interfaces or known web server vulnerabilities or misconfiguration (like the well-known `server-status` misconfiguration in Apache-based HTTP servers).
 
 Event logs will often contain data that is useful to an attacker (information leakage) or can be used directly in exploits:
 
@@ -112,13 +112,13 @@ A wider list of sensitive information is:
 
 #### Log Location
 
-Typically servers will generate local logs of their actions and errors, consuming the disk of the system the server is running on. However, if the server is compromised its logs can be wiped out by the intruder to clean up all the traces of its attack and methods. If this were to happen the system administrator would have no knowledge of how the attack occurred or where the attack source was located. Actually, most attacker tool kits include a "log zapper" that is capable of cleaning up any logs that hold given information (like the IP address of the attacker) and are routinely used in attacker’s system-level root kits.
+Typically servers will generate local logs of their actions and errors, consuming the disk of the system the server is running on. However, if the server is compromised, its logs can be wiped out by the intruder to clean up all the traces of its attack and methods. If this were to happen the system administrator would have no knowledge of how the attack occurred or where the attack source was located. Actually, most attacker tool kits include a "log zapper" that is capable of cleaning up any logs that hold given information (like the IP address of the attacker) and are routinely used in attacker’s system-level root kits.
 
 Therefore, it is wise to keep logs in a separate location and not on the web server itself. This also makes it easier to aggregate logs from different sources that refer to the same application (such as those of a web server farm) and it also makes it easier to do log analysis (which can be CPU intensive) without affecting the server itself.
 
 #### Log Storage
 
-Improper storage of logs can introduce a Denial of Service condition. Any attacker with sufficient resources could be able to produce a sufficient number of requests that would fill up the allocated space to log files, if they are not specifically prevented from doing so. However, if the server is not properly configured, the log files will be stored in the same disk partition as the one used for the operating system software or the application itself. This means that if the disk becomes filled, the operating system or the application might fail due to the inability to write on the disk.
+Improper storage of logs can introduce a Denial of Service condition. Any attacker with sufficient resources might be able to produce a sufficient number of requests that would fill up the allocated space to log files, if they are not specifically prevented from doing so. However, if the server is not properly configured, the log files will be stored in the same disk partition as the one used for the operating system software or the application itself. This means that if the disk becomes filled, the operating system or the application might fail due to the inability to write on the disk.
 
 Typically in UNIX systems logs will be located in /var (although some server installations might reside in /opt or /usr/local) and it is important to make sure that the directories in which logs are stored are in a separate partition. In some cases, and in order to prevent the system logs from being affected, the log directory of the server software itself (such as /var/log/apache in the Apache web server) should be stored in a dedicated partition.
 
@@ -140,18 +140,18 @@ Some servers might rotate logs when they reach a given size. If this happens, it
 
 #### Log Access Control
 
-Event log information should never be visible to end users. Even web administrators should not have access to such logs as it breaches separation of duty controls. Ensure that any access control schema that is used to protect access to raw logs and any applications providing capabilities to view or search the logs is not linked with access control schemas for other application user roles. Neither should any log data be viewable by unauthenticated users.
+Event log information should never be visible to end users. Even web administrators should not have access to such logs as it breaches separation of duty controls. Ensure that any access control schema that is used to protect access to raw logs, and any application providing capabilities to view or search the logs are not linked with access control schemas for other application user roles. Neither should any log data be visible to unauthenticated users.
 
 #### Log Review
 
 Reviewing logs can be used not only for extracting usage statistics of files in web servers (which is typically what most log-based applications focus on) but also for determining if attacks are occurring on the web server.
 
-In order to analyze web server attacks the error log files of the server need to be analyzed. Review should concentrate on:
+In order to analyze web server attacks, the error log files of the server need to be analyzed. Review should concentrate on:
 
 - 40x (not found) error messages. A large amount of these from the same source might be indicative of a CGI scanner tool being used against the web server
 - 50x (server error) messages. These can be an indication of an attacker abusing parts of the application which fail unexpectedly. For example, the first phases of a SQL injection attack will produce these error message when the SQL query is not properly constructed and its execution fails on the back end database.
 
-Log statistics or analysis should not be generated, nor stored, in the same server that produces the logs. Otherwise, an attacker might, through a web server vulnerability or improper configuration, gain access to them and retrieve similar information as would be disclosed by log files themselves.
+Log statistics or analysis should not be generated or stored in the same server that produces the logs. Otherwise, an attacker might, through a web server vulnerability or improper configuration, gain access to them and retrieve similar information as would be disclosed by log files themselves.
 
 ## References
 
