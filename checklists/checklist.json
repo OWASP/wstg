@@ -105,7 +105,7 @@
                 "id":"WSTG-CONF-02",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/02-Test_Application_Platform_Configuration",
                 "objectives":[
-                    "Ensure that defaults and known files have been removed.",
+                    "Ensure that default and known files have been removed.",
                     "Validate that no debugging code or extensions are left in the production environments.",
                     "Review the logging mechanisms set in place for the application."
                   ]
