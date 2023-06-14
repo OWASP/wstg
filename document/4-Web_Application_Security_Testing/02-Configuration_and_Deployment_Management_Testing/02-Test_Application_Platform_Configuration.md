@@ -62,7 +62,7 @@ It is impossible to generically say how a server should be configured, however, 
 - Do not grant Write access to the identity that the Web server uses to access the shared `applicationHost.config`. This identity should have only Read access.
 - Use a separate identity to publish applicationHost.config to the share. Do not use this identity for configuring access to the shared configuration on the Web servers.
 - Use a strong password when exporting the encryption keys for use with shared -configuration.
-- Maintain restricted access to the share containing the shared configuration and encryption keys. If this share is compromised, an attacker will be able to read and write any IIS configuration for your Web servers, redirect traffic from your Web site to malicious sources, and in some cases gain control of all web servers by loading arbitrary code into IIS worker processes.
+- Maintain restricted access to the share containing the shared configuration and encryption keys. If this share is compromised, an attacker will be able to read and write any IIS configuration for your Web servers, redirect traffic from your site to malicious sources, and in some cases gain control of all web servers by loading arbitrary code into IIS worker processes.
 - Consider protecting this share with firewall rules and IPsec policies to allow only the member web servers to connect.
 
 #### Logging
@@ -93,7 +93,7 @@ Event logs will often contain data that is useful to an attacker (information le
 - Less sensitive personal data (e.g. email addresses, postal addresses and telephone numbers associated with named individuals)
 - Business data
 
-Also, in some jurisdictions, storing some sensitive information in log files, such as personal data, might oblige the enterprise to apply the data protection laws that they would apply to their back-end databases to log files too. And failure to do so, even unknowingly, might carry penalties under the data protection laws that apply.
+Also, in some jurisdictions, storing some sensitive information in log files, such as personal data, might oblige the enterprise to apply the data protection laws that they would apply to their backend databases to log files too. And failure to do so, even unknowingly, might carry penalties under the data protection laws that apply.
 
 A wider list of sensitive information is:
 
@@ -149,7 +149,7 @@ Reviewing logs can be used not only for extracting usage statistics of files in 
 In order to analyze web server attacks, the error log files of the server need to be analyzed. Review should concentrate on:
 
 - 40x (not found) error messages. A large amount of these from the same source might be indicative of a CGI scanner tool being used against the web server
-- 50x (server error) messages. These can be an indication of an attacker abusing parts of the application which fail unexpectedly. For example, the first phases of a SQL injection attack will produce these error message when the SQL query is not properly constructed and its execution fails on the back end database.
+- 50x (server error) messages. These can be an indication of an attacker abusing parts of the application which fail unexpectedly. For example, the first phases of a SQL injection attack will produce these error message when the SQL query is not properly constructed and its execution fails on the backend database.
 
 Log statistics or analysis should not be generated or stored in the same server that produces the logs. Otherwise, an attacker might, through a web server vulnerability or improper configuration, gain access to them and retrieve similar information as would be disclosed by log files themselves.
 
@@ -170,7 +170,7 @@ Log statistics or analysis should not be generated or stored in the same server 
     - Securing Your Web Server (Patterns and Practices), Microsoft Corporation, January 2004
     - IIS Security and Programming Countermeasures, by Jason Coombs
     - From Blueprint to Fortress: A Guide to Securing IIS 5.0, by John Davis, Microsoft Corporation, June 2001
-    - Secure Internet Information Services 5 Checklist, by Michael Howard, Microsoft Corporation, June 2000
+    - Secure IIS 5 Checklist, by Michael Howard, Microsoft Corporation, June 2000
 - Red Hat’s (formerly Netscape’s) iPlanet
     - Guide to the Secure Configuration and Administration of iPlanet Web Server, Enterprise Edition 4.1, by James M Hayes, The Network Applications Team of the Systems and Network Attack Center (SNAC), NSA, January 2001
 - WebSphere
