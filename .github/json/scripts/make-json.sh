@@ -102,5 +102,5 @@ echo "    }"  >> checklist.json
 echo "}"  >> checklist.json
 cat checklist.json
 
-# Move generated file to checklist folder
-mv checklist.json ../../checklist/.
+# Move generated file to checklists folder
+mv checklist.json ../../checklists/.

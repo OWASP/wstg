@@ -49,7 +49,7 @@ The [`Domain`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#Scope_o
 
 Note that only hosts that belong to the specified domain can set a cookie for that domain. Additionally, the `domain` attribute cannot be a top level domain (such as `.gov` or `.com`) to prevent servers from setting arbitrary cookies for another domain (such as setting a cookie for `owasp.org`). If the domain attribute is not set, then the hostname of the server that generated the cookie is used as the default value of the `domain`.
 
-For example, if a cookie is set by an application at `app.mydomain.com` with no domain attribute set, then the cookie would be resubmitted for all subsequent requests for `app.mydomain.com` and its subdomains (such as `hacker.app.mydomain.com`), but not to `otherapp.mydomain.com`. If a developer wanted to loosen this restriction, then he could set the `domain` attribute to `mydomain.com`. In this case the cookie would be sent to all requests for `app.mydomain.com` and `mydomain.com` subdomains, such as `hacker.app.mydomain.com`, and even `bank.mydomain.com`. If there was a vulnerable server on a subdomain (for example, `otherapp.mydomain.com`) and the `domain` attribute has been set too loosely (for example, `mydomain.com`), then the vulnerable server could be used to harvest cookies (such as session tokens) across the full scope of `mydomain.com`.
+For example, if a cookie is set by an application at `app.mydomain.com` with no domain attribute set, then the cookie would be resubmitted for all subsequent requests for `app.mydomain.com`, but not its subdomains (such as `hacker.app.mydomain.com`), or to `otherapp.mydomain.com`. (However, older versions of Edge/IE behave differently, and _do_ send these cookies to subdomains.) If a developer wanted to loosen this restriction, then they could set the `domain` attribute to `mydomain.com`. In this case the cookie would be sent to all requests for `app.mydomain.com` and `mydomain.com` subdomains, such as `hacker.app.mydomain.com`, and even `bank.mydomain.com`. If there was a vulnerable server on a subdomain (for example, `otherapp.mydomain.com`) and the `domain` attribute has been set too loosely (for example, `mydomain.com`), then the vulnerable server could be used to harvest cookies (such as session tokens) across the full scope of `mydomain.com`.
 
 #### Path Attribute
 
@@ -72,7 +72,7 @@ Unlike [session cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cooki
 
 #### SameSite Attribute
 
-The [`SameSite`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#SameSite_cookies) attribute is used to assert that a cookie ought not to be sent along with cross-site requests. This feature allows the server to mitigate the risk of cross-origin information leakage. In some cases, it is used too as a risk reduction (or defense in depth mechanism) strategy to prevent [cross-site request forgery](05-Testing_for_Cross_Site_Request_Forgery.md) attacks. This attribute can be configured in three different modes:
+The [`SameSite`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#SameSite_cookies) attribute can be used to assert whether a cookie should be sent along with cross-site requests. This feature allows the server to mitigate the risk of cross-origin information leakage. In some cases, it is used too as a risk reduction (or defense in depth mechanism) strategy to prevent [cross-site request forgery](05-Testing_for_Cross_Site_Request_Forgery.md) attacks. This attribute can be configured in three different modes:
 
 - `Strict`
 - `Lax`
@@ -88,7 +88,7 @@ The `Lax` value is less restrictive than `Strict`. The cookie will be sent if th
 
 ##### None Value
 
-The `None` value specifies that the browser will send the cookie on cross-site requests (the normal behavior before the implementation of `SameSite`) only if the `Secure` attribute is also used, _e.g._ `SameSite=None; Secure`. It is a recommended value, instead of not specifying any `SameSite` value, as it forces the use of the [`secure` attribute](#secure-attribute).
+The `None` value specifies that the browser will send the cookie in all contexts, including cross-site requests (the normal behavior before the implementation of `SameSite`). If `Samesite=None` is set, then the Secure attribute must be set, otherwise modern browsers will ignore the SameSite attribute, _e.g._ `SameSite=None; Secure`.
 
 ### Cookie Prefixes
 
@@ -144,3 +144,4 @@ Putting all this together, we can define the most secure cookie attribute config
 - [Same-Site Cookies - draft-ietf-httpbis-cookie-same-site-00](https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site-00)
 - [The important "expires" attribute of Set-Cookie](https://seckb.yehg.net/2012/02/important-expires-attribute-of-set.html)
 - [HttpOnly Session ID in URL and Page Body](https://seckb.yehg.net/2012/06/httponly-session-id-in-url-and-page.html)
+- [Internet Explorer Cookie Internals (FAQ)](https://learn.microsoft.com/en-gb/archive/blogs/ieinternals/internet-explorer-cookie-internals-faq)

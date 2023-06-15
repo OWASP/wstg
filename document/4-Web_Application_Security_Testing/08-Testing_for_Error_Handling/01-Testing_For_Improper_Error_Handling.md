@@ -57,7 +57,7 @@ In order to make an application throw these errors, a tester must:
 2. Analyse the expected input type (strings, integers, JSON, XML, etc.).
 3. Fuzz every input point based on the previous steps to have a more focused test scenario.
    - Fuzzing every input with all possible injections is not the best solution unless you have unlimited testing time and the application can handle that much input.
-   - If fuzzing isn't an option, handpick viable inputs that have the highest chance to break a certain parser (*e.g.* a closing bracket for a JSON body, a large text where only a couple of characters are expected, CLRF injection with parameters that might be parsed by servers and input validation controls, special characters that aren't applicable for file names, etc.).
+   - If fuzzing isn't an option, handpick viable inputs that have the highest chance to break a certain parser (*e.g.* a closing bracket for a JSON body, a large text where only a couple of characters are expected, CLRF injection with parameters that might be parsed by servers and input validation controls, special characters that aren't applicable for filenames, etc.).
    - Fuzzing with jargon data should be ran for every type as sometimes the interpreters will break outside of the developer's exception handling.
 4. Understand the service responding with the error message and try to make a more refined fuzz list to bring out more information or error details from that service (it could be a database, a standalone service, etc.).
 
@@ -75,7 +75,7 @@ For remediation, check out the [Proactive Controls C10](https://owasp.org/www-pr
 
 ## References
 
-- [WSTG: Appendix C - Fuzz Vectors](../../6-Appendix/C-Fuzz_Vectors.md)
+- [WSTG: Appendix C - Fuzzing](../../6-Appendix/C-Fuzzing.md)
 - [Proactive Controls C10: Handle All Errors and Exceptions](https://owasp.org/www-project-proactive-controls/v3/en/c10-errors-exceptions)
 - [ASVS v4.1 v7.4: Error handling](https://github.com/OWASP/ASVS/blob/master/4.0/en/0x15-V7-Error-Logging.md#v74-error-handling)
 - [CWE 728 - Improper Error Handling](https://cwe.mitre.org/data/definitions/728.html)

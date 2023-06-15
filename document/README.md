@@ -60,7 +60,7 @@
 
 #### 4.1.4 [Enumerate Applications on Webserver](4-Web_Application_Security_Testing/01-Information_Gathering/04-Enumerate_Applications_on_Webserver.md)
 
-#### 4.1.5 [Review Webpage Content for Information Leakage](4-Web_Application_Security_Testing/01-Information_Gathering/05-Review_Webpage_Content_for_Information_Leakage.md)
+#### 4.1.5 [Review Web Page Content for Information Leakage](4-Web_Application_Security_Testing/01-Information_Gathering/05-Review_Web_Page_Content_for_Information_Leakage.md)
 
 #### 4.1.6 [Identify Application Entry Points](4-Web_Application_Security_Testing/01-Information_Gathering/06-Identify_Application_Entry_Points.md)
 
@@ -98,6 +98,8 @@
 
 #### 4.2.12 [Test for Content Security Policy](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/12-Test_for_Content_Security_Policy.md)
 
+#### 4.2.13 [Test for Path Confusion](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/13-Test_for_Path_Confusion.md)
+
 ### 4.3 [Identity Management Testing](4-Web_Application_Security_Testing/03-Identity_Management_Testing/README.md)
 
 #### 4.3.1 [Test Role Definitions](4-Web_Application_Security_Testing/03-Identity_Management_Testing/01-Test_Role_Definitions.md)
@@ -131,6 +133,8 @@
 #### 4.4.9 [Testing for Weak Password Change or Reset Functionalities](4-Web_Application_Security_Testing/04-Authentication_Testing/09-Testing_for_Weak_Password_Change_or_Reset_Functionalities.md)
 
 #### 4.4.10 [Testing for Weaker Authentication in Alternative Channel](4-Web_Application_Security_Testing/04-Authentication_Testing/10-Testing_for_Weaker_Authentication_in_Alternative_Channel.md)
+
+#### 4.4.11 [Testing Multi-Factor Authentication](4-Web_Application_Security_Testing/04-Authentication_Testing/11-Testing_Multi-Factor_Authentication.md)
 
 ### 4.5 [Authorization Testing](4-Web_Application_Security_Testing/05-Authorization_Testing/README.md)
 
@@ -316,7 +320,7 @@
 
 ## Appendix B. [Suggested Reading](6-Appendix/B-Suggested_Reading.md)
 
-## Appendix C. [Fuzz Vectors](6-Appendix/C-Fuzz_Vectors.md)
+## Appendix C. [Fuzzing](6-Appendix/C-Fuzzing.md)
 
 ## Appendix D. [Encoded Injection](6-Appendix/D-Encoded_Injection.md)
 

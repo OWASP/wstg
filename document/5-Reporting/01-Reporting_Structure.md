@@ -113,7 +113,7 @@ Multiple appendices can be added, such as:
 - Severity and risk rating explanations.
 - Relevant output from tools used.
     - Make sure to clean the output and not just dump it.
-- A checklist of all the tests conducted, such as the [WSTG checklist](https://github.com/OWASP/wstg/tree/master/checklist). These can be provided as attachments to the report.
+- A checklist of all the tests conducted, such as the [WSTG checklists](https://github.com/OWASP/wstg/tree/master/checklists). These can be provided as attachments to the report.
 
 ## References
 

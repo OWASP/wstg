@@ -6,11 +6,11 @@
 
 ## Summary
 
-There is nothing new under the sun, and nearly every web application that one may think of developing has already been developed. With the vast number of free and Open Source software projects that are actively developed and deployed around the world, it is very likely that an application security test will face a target that is entirely or partly dependent on these well known applications or frameworks (e.g. WordPress, phpBB, Mediawiki, etc). Knowing the web application components that are being tested significantly helps in the testing process and will also drastically reduce the effort required during the test. These well known web applications have known HTML headers, cookies, and directory structures that can be enumerated to identify the application. Most of the web frameworks have several markers in those locations which help an attacker or tester to recognize them. This is basically what all automatic tools do, they look for a marker from a predefined location and then compare it to the database of known signatures. For better accuracy several markers are usually used.
+It wouldn't be a stretch to say that almost every conceivable idea for a web application has already been put into development. With the vast number of free and open-source software projects that are actively developed and deployed globally, it is very likely that an application security test will encounter a target that is entirely or partly dependent on these well-known applications or frameworks (e.g. WordPress, phpBB, Mediawiki, etc). Knowing the web application components that are being tested helps the testing process significantly and will also drastically reduce the effort required during the test. These well-known web applications have specific HTML headers, cookies, and directory structures that can be enumerated to identify the application. Most web frameworks have several markers in these locations, which can assist an attacker or tester in recognizing them. This is basically what all automatic tools do, they look for a marker from a predefined location and then compare it to the database of known signatures. For better accuracy, several markers are usually used.
 
 ## Test Objectives
 
-- Fingerprint the components being used by the web applications.
+- Fingerprint the components used by the web applications.
 
 ## How to Test
 
@@ -41,9 +41,9 @@ Server: nginx/1.0.14
 X-Powered-By: Mono
 ```
 
-From the `X-Powered-By` field, we understand that the web application framework is likely to be `Mono`. However, although this approach is simple and quick, this methodology doesn't work in 100% of cases. It is possible to easily disable `X-Powered-By` header by a proper configuration. There are also several techniques that allow a web site to obfuscate HTTP headers (see an example in the [Remediation](#remediation) section). In the example above we can also note a specific version of `nginx` is being used to serve the content.
+From the `X-Powered-By` field, we understand that the web application framework is likely to be `Mono`. However, although this approach is simple and quick, this methodology doesn't work in all cases. It is possible to easily disable `X-Powered-By` header by a proper configuration. There are also several techniques that allow a site to obfuscate HTTP headers (see an example in the [Remediation](#remediation) section). In the example above, we can also note that a specific version of `nginx` is being used to serve the content.
 
-So in the same example the tester could either miss the `X-Powered-By` header or obtain an answer like the following:
+In the same example, the tester could either miss the `X-Powered-By` header or obtain an answer like the following:
 
 ```html
 HTTP/1.1 200 OK
@@ -75,7 +75,7 @@ X-Generator: Swiftlet
 
 Another similar and somewhat more reliable way to determine the current web framework are framework-specific cookies.
 
-Consider the following HTTP-request:
+Consider the following HTTP request:
 
 ![Cakephp HTTP Request](images/Cakephp_cookie.png)\
 *Figure 4.1.8-7: Cakephp HTTP Request*
@@ -94,27 +94,27 @@ The cookie `CAKEPHP` has automatically been set, which gives information about t
 Configure::write('Session.cookie', 'CAKEPHP');
 ```
 
-However, these changes are less likely to be made than changes to the `X-Powered-By` header, so this approach to identification can be considered as more reliable.
+However, these changes are less likely to be made than changes to the `X-Powered-By` header, making this approach to identification more reliable.
 
 #### HTML Source Code
 
-This technique is based on finding certain patterns in the HTML page source code. Often one can find a lot of information which helps a tester to recognize a specific component. One of the common markers are HTML comments that directly lead to framework disclosure. More often certain framework-specific paths can be found, i.e. links to framework-specific CSS or JS folders. Finally, specific script variables might also point to a certain framework.
+This technique is based on finding certain patterns in the HTML page source code. Often one can find a lot of information which helps a tester to recognize a specific component. One of the common markers is HTML comments that directly lead to framework disclosure. More often, certain framework-specific paths can be found, i.e. links to framework-specific CSS or JS folders. Finally, specific script variables might also point to a certain framework.
 
-From the screenshot below one can easily learn the used framework and its version by the mentioned markers. The comment, specific paths and script variables can all help an attacker to quickly determine an instance of ZK framework.
+From the screenshot below, one can easily determine the framework in use and its version by the mentioned markers. The comment, specific paths and script variables can all help an attacker to quickly determine an instance of ZK framework.
 
 ![ZK Framework Sample](images/Zk_html_source.png)\
 *Figure 4.1.8-2: ZK Framework HTML Source Sample*
 
-Frequently such information is positioned in the `<head>` section of HTTP responses, in `<meta>` tags, or at the end of the page. Nevertheless, entire responses should be analyzed since it can be useful for other purposes such as inspection of other useful comments and hidden fields. Sometimes, web developers do not care much about hiding information about the frameworks or components used. It is still possible to stumble upon something like this at the bottom of the page:
+Frequently such information is positioned in the `<head>` section of HTTP responses, in `<meta>` tags, or at the end of the page. Nevertheless, entire responses should be analyzed since it can be useful for other purposes such as inspection of other useful comments and hidden fields. Sometimes, web developers may not sufficiently obscure the information about the frameworks or components used. It is still possible to stumble upon something like this at the bottom of the page:
 
 ![Banshee Bottom Page](images/Banshee_bottom_page.png)\
 *Figure 4.1.8-3: Banshee Bottom Page*
 
 ### Specific Files and Folders
 
-There is another approach which greatly helps an attacker or tester to identify applications or components with high accuracy. Every web component has its own specific file and folder structure on the server. It has been noted that one can see the specific path from the HTML page source but sometimes they are not explicitly presented there and still reside on the server.
+There is another approach which greatly helps an attacker or tester to identify applications or components with high accuracy. Every web application component has its specific file and folder structure on the server. It has been noted that one can see the specific path from the HTML page source but sometimes they are not explicitly presented there and may still reside on the server.
 
-In order to uncover them a technique known as forced browsing or "dirbusting" is used. Dirbusting is brute forcing a target with known folder and filenames and monitoring HTTP-responses to enumerate server content. This information can be used both for finding default files and attacking them, and for fingerprinting the web application. Dirbusting can be done in several ways, the example below shows a successful dirbusting attack against a WordPress-powered target with the help of defined list and intruder functionality of Burp Suite.
+In order to uncover them, a technique known as forced browsing or "dirbusting" is used. Dirbusting is brute forcing a target with known folder and filenames and monitoring HTTP-responses to enumerate server content. This information can be used both for finding default files and attacking them, and for fingerprinting the web application. Dirbusting can be done in several ways, the example below shows a successful dirbusting attack against a WordPress-powered target with the help of defined list and intruder functionality of Burp Suite.
 
 ![Dirbusting with Burp](images/Wordpress_dirbusting.png)\
 *Figure 4.1.8-4: Dirbusting with Burp*
@@ -129,11 +129,11 @@ Tip: before starting with dirbusting, check the `robots.txt` file first. Sometim
 ![Robots Info Disclosure](images/Robots-info-disclosure.png)\
 *Figure 4.1.8-6: Robots Info Disclosure*
 
-Specific files and folders are different for each specific application. If the identified application or component is Open Source there may be value in setting up a temporary installation during penetration tests in order to gain a better understanding of what infrastructure or functionality is presented, and what files might be left on the server. However, several good file lists already exist; one good example is [FuzzDB wordlists of predictable files/folders](https://github.com/fuzzdb-project/fuzzdb).
+Specific files and folders are different for each specific application. If the identified application or component is Open Source there may be value in setting up a temporary installation during penetration tests in order to gain a better understanding of what infrastructure or functionality is presented, and what files might be left on the server. However, several useful file lists already exist; one notable example is the [FuzzDB wordlists of predictable files/folders](https://github.com/fuzzdb-project/fuzzdb).
 
 #### File Extensions
 
-URLs may include file extensions, which can also help to identify the web platform or technology.
+URLs may include file extensions that can also help identify the web platform or technology.
 
 For example, the OWASP wiki used PHP:
 
@@ -149,7 +149,7 @@ Here are some common web file extensions and associated technologies:
 
 #### Error Messages
 
-As can be seen in the following screenshot the listed file system path points to use of WordPress (`wp-content`). Also testers should be aware that WordPress is PHP based (`functions.php`).
+As can be seen in the following screenshot the listed file system path points to use of WordPress (`wp-content`). Also, testers should be aware that WordPress is PHP-based (`functions.php`).
 
 ![WordPress Parse error](images/wp-syntaxerror.png)\
 *Figure 4.1.8-7: WordPress Parse Error*
@@ -215,7 +215,7 @@ As can be seen in the following screenshot the listed file system path points to
 
 ## Remediation
 
-While efforts can be made to use different cookie names (through changing configs), hiding or changing file/directory paths (through rewriting or source code changes), removing known headers, etc. such efforts boil down to "security through obscurity". System owners/admins should recognize that those efforts only slow down the most basic of adversaries. The time/effort may be better used on stakeholder awareness and solution maintenance activities.
+While efforts can be made to use different cookie names (through changing configs), hiding or changing file/directory paths (through rewriting or source code changes), removing known headers, etc., such efforts boil down to "security through obscurity". System owners/administrators should recognize that such efforts only slow down the most rudimentary adversaries. The time and effort might be better spent on increasing stakeholder awareness and maintaining solutions.
 
 ## Tools
 
@@ -225,7 +225,7 @@ A list of general and well-known tools is presented below. There are also a lot 
 
 Website: [https://github.com/urbanadventurer/WhatWeb](https://github.com/urbanadventurer/WhatWeb)
 
-Currently one of the best fingerprinting tools on the market. Included in a default [Kali Linux](https://www.kali.org/) build. Language: Ruby Matches for fingerprinting are made with:
+WhatWeb is one of the best open source fingerprinting tools currently available on the market and is included in the default [Kali Linux](https://www.kali.org/) build. Language: Ruby Matches for fingerprinting are made with:
 
 - Text strings (case sensitive)
 - Regular expressions
@@ -244,12 +244,12 @@ Sample output is presented on a screenshot below:
 
 Website: [https://www.wappalyzer.com/](https://www.wappalyzer.com/)
 
-Wappalyzer is available in multiple usage models, the most popular of which is likely the Firefox/Chrome extensions. They work only on regular expression matching and doesn't need anything other than the page to be loaded in browser. It works completely at the browser level and gives results in the form of icons. Although sometimes it has false positives, this is very handy to have notion of what technologies were used to construct a target website immediately after browsing a page.
+Wappalyzer is available in multiple usage models, the most popular of which is likely the Firefox/Chrome extensions. They work largely on regular expression matching and don't need anything beyond the page being loaded in a browser. It works completely at the browser level and gives results in the form of icons. Although sometimes it has false positives, this is very handy to have notion of what technologies were used to construct a target site immediately after browsing a page.
 
 Sample output of a plug-in is presented on a screenshot below.
 
 ![Wappalyzer Output for OWASP Website](images/Owasp-wappalyzer.png)\
-*Figure 4.1.8-9: Wappalyzer Output for OWASP Website*
+*Figure 4.1.8-9: Wappalyzer Output for OWASP site*
 
 ## References
 

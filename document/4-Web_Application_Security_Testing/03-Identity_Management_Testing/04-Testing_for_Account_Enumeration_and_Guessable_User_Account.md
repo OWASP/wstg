@@ -78,7 +78,7 @@ Testers can enumerate users in several ways, such as:
 
 Some web application release a specific error code or message that we can analyze.
 
-#### Analyzing URLs and URLs Re-directions
+#### Analyzing URLs and URL Redirections
 
 For example:
 
@@ -123,7 +123,7 @@ For example, messages similar to the following:
 
 #### Friendly 404 Error Message
 
-When we request a user within the directory that does not exist, we don't always receive 404 error code. Instead, we may receive "200 ok" with an image, in this case we can assume that when we receive the specific image the user does not exist. This logic can be applied to other web server response; the trick is a good analysis of web server and web application messages.
+When we request a user within the directory that does not exist, we don't always receive 404 error code. Instead, we may receive "200 OK" with an image, in this case we can assume that when we receive the specific image the user does not exist. This logic can be applied to other web server response; the trick is a good analysis of web server and web application messages.
 
 #### Analyzing Response Times
 

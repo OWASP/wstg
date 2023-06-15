@@ -3,14 +3,18 @@
   "version": "1.0.1",
   "description": "[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/OWASP/wstg/issues) [![OWASP Flagship](https://img.shields.io/badge/owasp-flagship-brightgreen.svg)](https://www.owasp.org/index.php/OWASP_Project_Inventory#tab=Flagship_Projects)",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "puppeteer": "^19.2.2"
+  },
   "devDependencies": {
     "markdownlint-cli": "^0.31.1"
   },
   "scripts": {
     "pdfgen": "bash ./.github/pdf/scripts/make-pdf.sh",
-    "jsongen": "bash ./.github/scripts/make-json.sh",
-    "xlsxgen": "python ./.github/xlsx/build-checklist.py"
+    "jsongen": "bash ./.github/json/scripts/make-json.sh",
+    "xlsxgen": "python ./.github/xlsx/scripts/build-checklist.py",
+    "publishxlsx" :"python ./.github/xlsx/scripts/upload-to-google-drive.py",
+    "epubgen": "bash ./.github/epub/scripts/make-epub.sh"
   },
   "repository": {
     "type": "git",

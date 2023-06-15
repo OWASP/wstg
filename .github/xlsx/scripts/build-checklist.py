@@ -7,7 +7,7 @@ from copy import copy
 from openpyxl import load_workbook
 from collections import OrderedDict
 
-checklist_template = '.github/xlsx/checklist-template.xlsx'
+checklist_template = '.github/xlsx/assets/checklist-template.xlsx'
 workbook = load_workbook(filename=checklist_template)
 
 sheet = workbook.active
@@ -92,9 +92,9 @@ def insert_empty(sheet):
     copy_row(sheet, row_template_offset, row)
 
 # Load Checklist
-checklist_json_path = 'checklist/checklist.json'
-checklist_readme_path = 'checklist/README.md'
-checklist_output_file = 'checklist/checklist.xlsx'
+checklist_json_path = 'checklists/checklist.json'
+checklist_readme_path = 'checklists/README.md'
+checklist_output_file = 'checklists/checklist.xlsx'
 checklist = json.load(open(checklist_json_path), object_pairs_hook=OrderedDict)
 
 # Set Version

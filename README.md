@@ -18,6 +18,7 @@ For the last stable release, [check release 4.2](https://github.com/OWASP/wstg/r
 - [Chat With Us](#chat-with-us)
 - [Project Leaders](#project-leaders)
 - [Core Team](#core-team)
+- [Translations](#translations)
 
 ## How To Reference WSTG Scenarios
 
@@ -70,5 +71,14 @@ You can also join our [Google Group](https://groups.google.com/a/owasp.org/forum
 
 - [Rejah Rehim](https://github.com/rejahrehim)
 - [Victoria Drake](https://github.com/victoriadrake)
+
+## Translations
+
+- [Portuguese-BR](https://github.com/doverh/wstg-translations-pt)
+- [Russian](https://github.com/andrettv/WSTG/tree/master/WSTG-ru)
+- [French](https://github.com/clallier94/wstg-translation-fr)
+- [Persian (Farsi)](https://github.com/whoismh11/owasp-wstg-fa)
+
+---
 
 Open Web Application Security Project and OWASP are registered trademarks of the OWASP Foundation, Inc.

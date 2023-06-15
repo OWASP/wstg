@@ -18,27 +18,37 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Setup Action
-      uses: actions/checkout@v2
-    - name: Setup Node
-      uses: actions/setup-node@v1
+      uses: actions/checkout@v3
       with:
-        node-version: 14.x
+        persist-credentials: false
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16.x
     - name: Install Dependencies
       run: |
         sudo apt update
         sudo apt install moreutils
-    - name: Run JSON Build
-      run: npm run-script jsongen
+    - name: Generate JSON Checklist
+      run: |
+        npm run-script jsongen
+        git update-index -q --refresh
+        if ! git diff-index --quiet HEAD --; then
+          echo "CHANGED=true" >> $GITHUB_ENV
+        fi
     - name: Setup Python
+      if: env.CHANGED == 'true'
       uses: actions/setup-python@v4
       with:
         python-version: "3.10"
     - name: Install Dependencies
       run: |
-        pip install openpyxl
+        pip install openpyxl pydrive
     - name: Run XLSX Build
+      if: env.CHANGED == 'true'
       run: npm run-script xlsxgen
     - name: Git Setup Global Config
+      if: env.CHANGED == 'true'
       run: |
         # Git setup
         export GITHUB_USER=wstgbot
@@ -47,22 +57,37 @@ jobs:
         git config --global user.email "62450690+wstgbot@users.noreply.github.com"
         git config --global user.name $GITHUB_USER
     - name: Setup Environment Variables
+      if: env.CHANGED == 'true'
       run : |
         # Setup some env vars etc for future use
         echo "SRC_BASE="OWASP/wstg@"$(git log -1 --format=format:%h)" >> $GITHUB_ENV
         echo "BRANCH_STAMP=$(date +"%Y%m%d%H%M%S")" >> $GITHUB_ENV
         echo "SHORT_DATE=$(date +"%Y-%m-%d")" >> $GITHUB_ENV
     - name: Create Feature Branch
+      if: env.CHANGED == 'true'
       run: |
         # Checkout what will be the new feature branch
         git checkout -b $BRANCH_STAMP
     - name: Push Feature Branch and Raise PR
+      if: env.CHANGED == 'true'
       run: |
         # If there are changes: add, commit, PR
-        git add checklist/
+        git add checklists/
         if ! git diff-index --quiet HEAD --; then
           git remote set-url origin https://$GITHUB_USER:${{ secrets.wstg_deploy_token }}@github.com/OWASP/wstg.git
           git commit -m "Publish Latest checklists $SHORT_DATE" -m "Updates based on $SRC_BASE"
           git push --set-upstream origin $BRANCH_STAMP
           hub pull-request --no-edit
         fi
+    - name: Set XLSX Publishing Secrets
+      run: |
+        echo "$GDRIVECREDSFILE" | base64 -d > credentials.json
+        echo "$GDRIVESETTINGSFILE" | base64 -d > settings.yaml
+      shell: bash
+      env:
+        GDRIVECREDSFILE: ${{ secrets.GDRIVECREDSFILE }}
+        GDRIVESETTINGSFILE: ${{ secrets.GDRIVESETTINGSFILE }}
+    - name: Publish XLSX file to Google Drive
+      run: |
+        npm run-script publishxlsx --  ${{ secrets.GDRIVEFILEID }}  ${{ github.event.inputs.version }}
+

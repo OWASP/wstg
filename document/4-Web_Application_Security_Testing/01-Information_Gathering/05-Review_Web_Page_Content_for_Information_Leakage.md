@@ -1,4 +1,4 @@
-# Review Webpage Content for Information Leakage
+# Review Web Page Content for Information Leakage
 
 |ID          |
 |------------|
@@ -6,21 +6,21 @@
 
 ## Summary
 
-It is very common, and even recommended, for programmers to include detailed comments and metadata on their source code. However, comments and metadata included into the HTML code might reveal internal information that should not be available to potential attackers. Comments and metadata review should be done in order to determine if any information is being leaked. Additionally some applications may leak information in the body of redirect responses.
+It is very common, and even recommended, for programmers to include detailed comments and metadata on their source code. However, comments and metadata included in the HTML code might reveal internal information that should not be available to potential attackers. Comments and metadata review should be done in order to determine if any information is being leaked. Additionally some applications may leak information in the body of redirect responses.
 
-For modern web apps, the use of client-Side JavaScript for the front-end is becoming more popular. Popular front-end construction technologies use client-side JavaScript like ReactJS, AngularJS, or Vue. Similar to the comments and metadata in HTML code, many programmers also hardcode sensitive information in JavaScript variables on the front-end. Sensitive information can include (but is not limited to): Private API Keys (*e.g.* an unrestricted Google Map API Key), internal IP addresses, sensitive routes (*e.g.* route to hidden admin pages or functionality), or even credentials. This sensitive information can be leaked from such front-end JavaScript code. A review should be done in order to determine if any sensitive information leaked which could be used by attackers for abuse.
+For modern web apps, the use of client-side JavaScript for the frontend is becoming more popular. Popular frontend construction technologies use client-side JavaScript like ReactJS, AngularJS, or Vue. Similar to the comments and metadata in HTML code, many programmers also hardcode sensitive information in JavaScript variables on the frontend. Sensitive information can include (but is not limited to): Private API Keys (*e.g.* an unrestricted Google Map API Key), internal IP addresses, sensitive routes (*e.g.* route to hidden admin pages or functionality), or even credentials. This sensitive information can be leaked from such frontend JavaScript code. A review should be done in order to determine if any sensitive information leaked which could be used by attackers for abuse.
 
-For large web applications, performance issues are a big concern to programmers. Programmers have used different methods to optimize front-end performance, including Syntactically Awesome Style Sheets (SASS), Sassy CSS (SCSS), webpack, etc. Using these technologies, front-end code will sometimes become harder to understand and difficult to debug, and because of it, programmers often deploy source map files for debugging purposes. A "source map" is a special file that connects a minified/uglified version of an asset (CSS or JavaScript) to the original authored version. Programmers are still debating whether or not to bring source map files to the production environment. However, it is undeniable that source map files or files for debugging if released to the production environment will make their source more human-readable. It can make it easier for attackers to find vulnerabilities from the front-end or collect sensitive information from it. JavaScript code review should be done in order to determine if any debug files are exposed from the front-end. Depending on the context and sensitivity of the project, a security expert should decide whether the files should exist in the production environment or not.
+For large web applications, performance issues are a big concern to programmers. Programmers have used different methods to optimize frontend performance, including Syntactically Awesome Style Sheets (Sass), Sassy CSS (SCSS), webpack, etc. Using these technologies, frontend code will sometimes become harder to understand and difficult to debug, and because of it, programmers often deploy source map files for debugging purposes. A "source map" is a special file that connects a minified/uglified version of an asset (CSS or JavaScript) to the original authored version. Programmers are still debating whether or not to bring source map files to the production environment. However, it is undeniable that source map files or files for debugging if released to the production environment will make their source more human-readable. It can make it easier for attackers to find vulnerabilities from the frontend or collect sensitive information from it. JavaScript code review should be done in order to determine if any debug files are exposed from the frontend. Depending on the context and sensitivity of the project, a security expert should decide whether the files should exist in the production environment or not.
 
 ## Test Objectives
 
-- Review webpage comments, metadata, and redirect bodies to find any information leakage.
+- Review web page comments, metadata, and redirect bodies to find any information leakage.
 - Gather JavaScript files and review the JS code to better understand the application and to find any information leakage.
-- Identify if source map files or other front-end debug files exist.
+- Identify if source map files or other frontend debug files exist.
 
 ## How to Test
 
-### Review Webpage Comments and Metadata
+### Review Web Page Comments and Metadata
 
 HTML comments are often used by the developers to include debugging information about the application. Sometimes, they forget about the comments and they leave them in production environments. Testers should look for HTML comments which start with `<!--`.
 
@@ -79,18 +79,18 @@ Although most web servers manage search engine indexing via the `robots.txt` fil
 <META name="robots" content="none">
 ```
 
-The [Platform for Internet Content Selection (PICS)](https://www.w3.org/PICS/) and [Protocol for Web Description Resources (POWDER)](https://www.w3.org/2007/powder/) provide infrastructure for associating metadata with Internet content.
+The [Platform for Internet Content Selection (PICS)](https://www.w3.org/PICS/) and [Protocol for Web Description Resources (POWDER)](https://www.w3.org/2007/powder/) provide infrastructure for associating metadata with internet content.
 
 ### Identifying JavaScript Code and Gathering JavaScript Files
 
-Programmers often hardcode sensitive information with JavaScript variables on the front-end. Testers should check HTML source code and look for JavaScript code between `<script>` and `</script>` tags. Testers should also identify external JavaScript files to review the code (JavaScript files have the file extension `.js` and name of the JavaScript file usually put in the `src` (source) attribute of a `<script>` tag).
+Programmers often hardcode sensitive information with JavaScript variables on the frontend. Testers should check HTML source code and look for JavaScript code between `<script>` and `</script>` tags. Testers should also identify external JavaScript files to review the code (JavaScript files have the file extension `.js` and name of the JavaScript file usually put in the `src` (source) attribute of a `<script>` tag).
 
 Check JavaScript code for any sensitive information leaks which could be used by attackers to further abuse or manipulate the system. Look for values such as: API keys, internal IP addresses, sensitive routes, or credentials. For example:
 
 ```javascript
 const myS3Credentials = {
   accessKeyId: config('AWSS3AccessKeyID'),
-  secretAcccessKey: config('AWSS3SecretAccessKey'),
+  secretAccessKey: config('AWSS3SecretAccessKey'),
 };
 ```
 
@@ -102,7 +102,7 @@ var conString = "tcp://postgres:1234@localhost/postgres";
 
 When an API Key is found, testers can check if the API Key restrictions are set per service or by IP, HTTP referrer, application, SDK, etc.
 
-For example, if testers found a Google Map API Key, they can check if this API Key is restricted by IP or restricted only per the Google Map APIs. If the Google API Key is restricted only per the Google Map APIs, attackers can still use that API Key to query unrestricted Google Map APIs and the application owner must pay for that.
+For example, if testers find a Google Map API Key, they can check if this API Key is restricted by IP or restricted only per the Google Map APIs. If the Google API Key is restricted only per the Google Map APIs, attackers can still use that API Key to query unrestricted Google Map APIs and the application owner must pay for that.
 
 ```html
 
@@ -144,7 +144,7 @@ Check source map files for any sensitive information that can help the attacker 
 }
 ```
 
-When websites load source map files, the front-end source code will become readable and easier to debug.
+When sites load source map files, the frontend source code will become readable and easier to debug.
 
 ### Identify Redirect Responses which Leak Information
 

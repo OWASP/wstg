@@ -123,7 +123,7 @@
 				"JavaScript",
 				// http://stackoverflow.com/questions/1151338/id-or-id-on-user-interface
 				[
-					"id['’]?s",
+					"id['’]s",
 					"IDs"
 				],
 				[
@@ -188,8 +188,8 @@
 					"spread syntax"
 				],
 				[
-					"re-direct",
-					"redirect"
+					"re-direct(ing|ed)?",
+					"redirect$1"
 				],
 				[
 					"black[- ]?list(?:ed|ing)?",

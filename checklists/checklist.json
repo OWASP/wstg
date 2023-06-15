@@ -8,7 +8,7 @@
                 "id":"WSTG-INFO-01",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/01-Information_Gathering/01-Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage",
                 "objectives":[
-                    "Identify what sensitive design and configuration information of the application, system, or organization is exposed directly (on the organization's website) or indirectly (via third-party services)."
+                    "Identify what sensitive design and configuration information of the application, system, or organization is exposed directly (on the organization's site) or indirectly (via third-party services)."
                   ]
                 }
                 ,{
@@ -37,13 +37,13 @@
                   ]
                 }
                 ,{
-                "name":"Review Webpage Content for Information Leakage",
+                "name":"Review Web Page Content for Information Leakage",
                 "id":"WSTG-INFO-05",
-                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/01-Information_Gathering/05-Review_Webpage_Content_for_Information_Leakage",
+                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/01-Information_Gathering/05-Review_Web_Page_Content_for_Information_Leakage",
                 "objectives":[
-                    "Review webpage comments, metadata, and redirect bodies to find any information leakage.",
+                    "Review web page comments, metadata, and redirect bodies to find any information leakage.",
                     "Gather JavaScript files and review the JS code to better understand the application and to find any information leakage.",
-                    "Identify if source map files or other front-end debug files exist."
+                    "Identify if source map files or other frontend debug files exist."
                   ]
                 }
                 ,{
@@ -67,7 +67,7 @@
                 "id":"WSTG-INFO-08",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/01-Information_Gathering/08-Fingerprint_Web_Application_Framework",
                 "objectives":[
-                    "Fingerprint the components being used by the web applications."
+                    "Fingerprint the components used by the web applications."
                   ]
                 }
                 ,{
@@ -105,7 +105,7 @@
                 "id":"WSTG-CONF-02",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/02-Test_Application_Platform_Configuration",
                 "objectives":[
-                    "Ensure that defaults and known files have been removed.",
+                    "Ensure that default and known files have been removed.",
                     "Validate that no debugging code or extensions are left in the production environments.",
                     "Review the logging mechanisms set in place for the application."
                   ]
@@ -158,7 +158,7 @@
                 "id":"WSTG-CONF-08",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/08-Test_RIA_Cross_Domain_Policy",
                 "objectives":[
-                    "Review and validate the policy files."
+                    ""
                   ]
                 }
                 ,{
@@ -192,6 +192,14 @@
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/12-Test_for_Content_Security_Policy",
                 "objectives":[
                     "Review the Content-Security-Policy header or meta element to identify misconfigurations."
+                  ]
+                }
+                ,{
+                "name":"Test Path Confusion",
+                "id":"WSTG-CONF-13",
+                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/13-Test_for_Path_Confusion",
+                "objectives":[
+                    "Make sure application paths are configured correctly."
                   ]
                 }
             ]
@@ -332,6 +340,16 @@
                 "objectives":[
                     "Identify alternative authentication channels.",
                     "Assess the security measures used and if any bypasses exists on the alternative channels."
+                  ]
+                }
+                ,{
+                "name":"Testing Multi-Factor Authentication (MFA)",
+                "id":"WSTG-ATHN-11",
+                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/11-Testing_Multi-Factor_Authentication",
+                "objectives":[
+                    "Identify the type of MFA used by the application.",
+                    "Determine whether the MFA implementation is robust and secure.",
+                    "Attempt to bypass the MFA."
                   ]
                 }
             ]
@@ -743,7 +761,7 @@
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/10-Business_Logic_Testing/01-Test_Business_Logic_Data_Validation",
                 "objectives":[
                     "Identify data injection points.",
-                    "Validate that all checks are occurring on the back end and can't be bypassed.",
+                    "Validate that all checks are occurring on the backend and can't be bypassed.",
                     "Attempt to break the format of the expected data and analyze how the application is handling it."
                   ]
                 }

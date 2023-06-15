@@ -5,7 +5,7 @@
 - [The Economic Impacts of Inadequate Infrastructure for Software Testing](https://www.nist.gov/system/files/documents/director/planning/report02-3.pdf)
 - [Improving Web Application Security: Threats and Countermeasures](https://www.microsoft.com/en-ca/download/details.aspx?id=1330)
 - [NIST Publications](https://csrc.nist.gov/publications/sp)
-- [Software Assurance: An Overview of Current Practices](https://safecode.org/wp-content/uploads/2018/01/SAFECode_BestPractices0208.pdf)
+- [Fundamental Practices for Secure Software Development](https://safecode.org/wp-content/uploads/2018/03/SAFECode_Fundamental_Practices_for_Secure_Software_Development_March_2018.pdf)
 - [The OWASP Guide Project](https://wiki.owasp.org/index.php/OWASP_Guide_Project)
 - [Use Cases: Just the FAQs and Answers](https://www.ibm.com/developerworks/rational/library/content/RationalEdge/jan03/UseCaseFAQS_TheRationalEdge_Jan2003.pdf)
 
@@ -37,7 +37,7 @@
 - Web Security Testing Cookbook: Systematic Techniques to Find Problems Fast, by Paco Hope, Ben Walther, published by O’Reilly, ISBN 0596514832 (2008)
 - Writing Secure Code, by Mike Howard and David LeBlanc, published by Microsoft Press, ISBN 0735617228 (2004)
 
-## Useful Websites
+## Useful Sites
 
 - [Build Security In](https://www.us-cert.gov/bsi)
 - [CERT Secure Coding Standards](https://wiki.sei.cmu.edu/confluence/display/seccode/SEI+CERT+Coding+Standards)
@@ -53,7 +53,7 @@
 - [Web Application Security Consortium](http://www.webappsec.org/projects/)
 - [Web Application Security Scanner List](http://projects.webappsec.org/w/page/13246988/Web%20Application%20Security%20Scanner%20List)
 - [Web Security – Articles](https://www.acunetix.com/blog/category/web-security-zone/)
-- [Testing Client Side Security issues](http://www.domxss.com/domxss/)
+- [Testing Client-Side Security issues](http://www.domxss.com/domxss/)
 
 ## Videos
 
