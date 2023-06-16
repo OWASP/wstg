@@ -6,7 +6,7 @@
 
 ## Summary
 
-Web servers commonly use file extensions to determine which technologies, languages, and plugins must be used to fulfill the web requests. While this behavior is consistent with RFCs and Web Standards, using standard file extensions provides the penetration tester useful information about the underlying technologies used in a web appliance and greatly simplifies the task of determining the attack scenario to be used on particular technologies. In addition, mis-configuration of web servers could easily reveal confidential information about access credentials.
+Web servers commonly use file extensions to determine which technologies, languages, and plugins must be used to fulfill web requests. While this behavior is consistent with RFCs and Web Standards, using standard file extensions provides the penetration tester useful information about the underlying technologies used in a web appliance and greatly simplifies the task of determining the attack scenario to be used on particular technologies. In addition, mis-configuration of web servers could easily reveal confidential information about access credentials.
 
 File extension checks are often done to validate files before uploading them to the server. Unrestricted file uploads can lead to unforeseen results because the content may not be what is expected, or due to unexpected OS filename handling.
 
