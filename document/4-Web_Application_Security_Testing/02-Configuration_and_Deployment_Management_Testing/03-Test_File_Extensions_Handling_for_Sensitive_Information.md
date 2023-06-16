@@ -8,14 +8,14 @@
 
 Web servers commonly use file extensions to determine which technologies, languages, and plugins must be used to fulfill the web requests. While this behavior is consistent with RFCs and Web Standards, using standard file extensions provides the penetration tester useful information about the underlying technologies used in a web appliance and greatly simplifies the task of determining the attack scenario to be used on particular technologies. In addition, mis-configuration of web servers could easily reveal confidential information about access credentials.
 
-Extension checking is often used to validate files to be uploaded, which can lead to unexpected results because the content is not what is expected, or because of unexpected OS filename handling.
+File extension checks are often done to validate files before uploading them to the server. Unrestricted file uploads can lead to unforeseen results because the content may not be what is expected, or due to unexpected OS filename handling.
 
 Understanding how web servers handle requests for files with different extensions can clarify server behavior based on the types of files accessed. For example, it can help to understand which file extensions are returned as text or plain versus those that cause server-side execution. The latter are indicative of technologies, languages, or plugins used by web servers or application servers. This information may provide additional insight into how the web application is engineered. For example, while a ".pl" extension is usually associated with server-side Perl support, the file extension alone can be deceptive and not fully conclusive. For example, server-side resources written in Perl might be renamed to conceal the usage of Perl. See the next section on "web server components" for more on identifying server-side technologies and components.
 
 ## Test Objectives
 
-- Brute force sensitive file extensions, or extensions that might contain raw data (*e.g.* scripts, raw data, credentials, etc.)
-- Validate that no system framework bypass exist on the rules set
+- Brute force sensitive file extensions that might contain raw data such as scripts, credentials, etc.
+- Validate that no system framework bypasses exist for the rules that have been set
 
 ## How to Test
 
@@ -36,7 +36,7 @@ The tester has identified the existence of a file named `connection.inc`. Trying
 ?>
 ```
 
-The tester determines the existence of a MySQL DBMS back end, and the (weak) credentials used by the web application to access it.
+The tester determines the existence of a MySQL DBMS back end and the weak credentials used by the web application to access it.
 
 The following file extensions should never be returned by a web server, as they pertain to files that could contain sensitive information or files that have no valid reason to be served.
 
@@ -80,4 +80,4 @@ Vulnerability scanners, such as Nessus and Nikto, check for the existence of wel
 
 - [wget](https://www.gnu.org/software/wget)
 - [curl](https://curl.haxx.se)
-- Google for "web mirroring tools".
+- Perform a Google search for "web mirroring tools"
