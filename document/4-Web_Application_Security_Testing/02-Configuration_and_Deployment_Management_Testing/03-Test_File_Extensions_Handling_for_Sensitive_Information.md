@@ -21,7 +21,7 @@ Understanding how web servers handle requests for files with different extension
 
 ### Forced Browsing
 
-Submit requests with different file extensions and verify how they are handled. The verification should be on a per web directory basis. Verify directories that allow script execution. Web server directories can be identified by scanning tools which look for the presence of well-known directories. Additionally, mirroring the website structure helps testers reconstruct the directory tree served by the application.
+Submit requests with different file extensions and verify how they are handled. The verification should be on a per web directory basis. Verify directories that allow script execution. Web server directories can be identified by scanning tools which look for the presence of well-known directories. Additionally, mirroring the site structure helps testers reconstruct the directory tree served by the application.
 
 If the web application architecture is load-balanced, it is important to assess all of the web servers. The ease of this task depends on the configuration of the balancing infrastructure. In an infrastructure with redundant components, there may be slight variations in the configuration of individual web or application servers. This may happen if the web architecture employs heterogeneous technologies (think of a set of IIS and Apache web servers in a load-balancing configuration, which may introduce slight asymmetric behavior between them, and possibly different vulnerabilities).
 
@@ -36,7 +36,7 @@ The tester has identified the existence of a file named `connection.inc`. Trying
 ?>
 ```
 
-The tester determines the existence of a MySQL DBMS back end and the weak credentials used by the web application to access it.
+The tester determines the existence of a MySQL DBMS backend and the weak credentials used by the web application to access it.
 
 The following file extensions should never be returned by a web server, as they pertain to files that could contain sensitive information or files that have no valid reason to be served.
 
@@ -76,7 +76,7 @@ If the web application relies on a load-balanced, heterogeneous infrastructure, 
 
 ## Tools
 
-Vulnerability scanners, such as Nessus and Nikto, check for the existence of well-known web directories. They may allow the tester to download the web site structure, which is helpful when trying to determine the configuration of web directories and how individual file extensions are served. Other tools that can be used for this purpose include:
+Vulnerability scanners, such as Nessus and Nikto, check for the existence of well-known web directories. They may allow the tester to download the site structure, which is helpful when trying to determine the configuration of web directories and how individual file extensions are served. Other tools that can be used for this purpose include:
 
 - [wget](https://www.gnu.org/software/wget)
 - [curl](https://curl.haxx.se)
