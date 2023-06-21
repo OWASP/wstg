@@ -108,7 +108,7 @@ Depending upon the server, GET may be replaced with HEAD for faster results. The
 
 The basic guessing attack should be run against the webroot, and also against all directories that have been identified through other enumeration techniques. More advanced/effective guessing attacks can be performed as follows:
 
-- Identify the file extensions in use within known areas of the application (e.g. jsp, aspx, html), and use a basic wordlist appended with each of these extensions (or use a longer list of common extensions if resources permit).
+- Identify the file extensions in use within known areas of the application (e.g. JSP, ASPX, HTML), and use a basic wordlist appended with each of these extensions (or use a longer list of common extensions if resources permit).
 - For each file identified through other enumeration techniques, create a custom wordlist derived from that filename. Get a list of common file extensions (including ~, bak, txt, src, dev, old, inc, orig, copy, tmp, swp, etc.) and use each extension before, after, and instead of, the extension of the actual filename.
 
 Note: Windows file copying operations generate filenames prefixed with "Copy of " or localized versions of this phrase, hence they do not change file extensions. While "Copy of " files typically do not disclose source code when accessed, they might yield valuable information in case they cause errors when invoked.
@@ -125,11 +125,11 @@ Numerous vulnerabilities have been found in individual web servers which allow a
 
 #### Use of Publicly Available Information
 
-Pages and functionality in Internet-facing web applications that are not referenced from within the application itself may be referenced from other public domain sources. There are various sources of these references:
+Pages and functionality in internet-facing web applications that are not referenced from within the application itself may be referenced from other public domain sources. There are various sources of these references:
 
-- Pages that used to be referenced may still appear in the archives of Internet search engines. For example, `1998results.asp` may no longer be linked from a company’s website, but may remain on the server and in search engine databases. This old script may contain vulnerabilities that could be used to compromise the entire site. The `site:` Google search operator may be used to run a query only against the domain of choice, such as in: `site:www.example.com`. Using search engines in this way has led to a broad array of techniques which you may find useful, and are described in the `Google Hacking` section of this Guide. Check it to hone your testing skills via Google. Backup files are not likely to be referenced by any other files and therefore may have not been indexed by Google, but if they lie in browsable directories the search engine might know about them.
+- Pages that used to be referenced may still appear in the archives of internet search engines. For example, `1998results.asp` may no longer be linked from a company’s site, but may remain on the server and in search engine databases. This old script may contain vulnerabilities that could be used to compromise the entire site. The `site:` Google search operator may be used to run a query only against the domain of choice, such as in: `site:www.example.com`. Using search engines in this way has led to a broad array of techniques which you may find useful, and are described in the `Google Hacking` section of this Guide. Check it to hone your testing skills via Google. Backup files are not likely to be referenced by any other files and therefore may have not been indexed by Google, but if they lie in browsable directories the search engine might know about them.
 - In addition, Google and Yahoo keep cached versions of pages found by their robots. Even if `1998results.asp` has been removed from the target server, a version of its output may still be stored by these search engines. The cached version may contain references to, or clues about, additional hidden content that still remains on the server.
-- Content that is not referenced from within a target application may be linked to by third-party websites. For example, an application which processes online payments on behalf of third-party traders may contain a variety of bespoke functionality which can (normally) only be found by following links within the web sites of its customers.
+- Content that is not referenced from within a target application may be linked to by third-party sites. For example, an application which processes online payments on behalf of third-party traders may contain a variety of bespoke functionality which can (normally) only be found by following links within the sites of its customers.
 
 #### Filename Filter Bypass
 
@@ -178,7 +178,7 @@ Web spider tools
 - [wget](https://www.gnu.org/software/wget/)
 - [Wget for Windows](http://www.interlog.com/~tcharron/wgetwin.html)
 - [Sam Spade](https://web.archive.org/web/20090926061558/http://preview.samspade.org/ssw/download.html)
-- [Spike proxy includes a web site crawler function](https://www.spikeproxy.com/)
+- [Spike proxy includes a site crawler function](https://www.spikeproxy.com/)
 - [Xenu](http://home.snafu.de/tilman/xenulink.html)
 - [curl](https://curl.haxx.se)
 
