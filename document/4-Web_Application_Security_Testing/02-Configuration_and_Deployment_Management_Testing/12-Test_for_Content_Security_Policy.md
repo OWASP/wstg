@@ -18,13 +18,13 @@ Content Security Policy supports directives which allow granular control to the 
 
 To test for misconfigurations in CSPs, look for insecure configurations by examining the `Content-Security-Policy` HTTP response header or CSP `meta` element in a proxy tool:
 
-- `unsafe-inline` directive enables inline scripts or styles making the applications susceptible to XSS attacks.
-- `unsafe-eval` directive allows `eval()` to be used in the application.
+- `unsafe-inline` directive enables inline scripts or styles, making the applications susceptible to [XSS](../07-Input_Validation_Testing/01-Testing_for_Reflected_Cross_Site_Scripting.md) attacks.
+- `unsafe-eval` directive allows `eval()` to be used in the application and is susceptible to common bypass techniques such as data URL injection.
 - `unsafe-hashes` directive allows use of inline scripts/styles, assuming they match the specified hashes.
 - Resources such as scripts can be allowed to be loaded from any origin by the use wildcard (`*`) source.
     - Also consider wildcards based on partial matches, such as: `https://*` or `*.cdn.com`.
     - Consider whether allow listed sources provide JSONP endpoints which might be used to bypass CSP or same-origin-policy.
-- Framing can be enabled for all origins by the use of wildcard (`*`) source for `frame-ancestors` directive.
+- Framing can be enabled for all origins by the use of the wildcard (`*`) source for the `frame-ancestors` directive. If the `frame-ancestors` directive is not defined in the Content-Security-Policy header it may make applications vulnerable to [clickjacking](../11-Client-side_Testing/09-Testing_for_Clickjacking.md) attacks.
 - Business critical applications should require to use a strict policy.
 
 ## Remediation
@@ -50,6 +50,10 @@ Locked down Strict Policy:
 script-src 'nonce-r4nd0m';
 object-src 'none'; base-uri 'none';
 ```
+
+- `script-src` directive is used to restrict the sources from which scripts can be loaded and executed.
+- `object-src` directive is used to restrict the sources from which objects can be loaded and executed.
+- `base-uri` directive specifies the base URL for resolving relative URLs in the page. Without this directive, the page becomes vulnerable to HTML base tag injection attacks.
 
 ## Tools
 
