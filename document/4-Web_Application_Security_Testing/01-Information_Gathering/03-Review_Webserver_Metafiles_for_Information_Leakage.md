@@ -168,6 +168,16 @@ Canonical: https://www.linkedin.com/.well-known/security.txt
 Policy: https://www.linkedin.com/help/linkedin/answer/62924
 ```
 
+OpenPGP Public Keys contain some metadata that can provide information about the key itself. Here are some common metadata elements that can be extracted from an OpenPGP Public Key:
+
+- **Key ID**: The Key ID is a short identifier derived from the public key material. It helps identify the key and is often displayed as an eight-character hexadecimal value.
+- **Key Fingerprint**: The Key Fingerprint is a longer and more unique identifier derived from the key material. It is often displayed as a 40-character hexadecimal value. Key fingerprints are commonly used to verify the integrity and authenticity of a public key.
+- **Key Algorithm**: The Key Algorithm represents the cryptographic algorithm used by the public key. OpenPGP supports various algorithms such as RSA, DSA, and ECC (Elliptic Curve Cryptography).
+- **Key Size**: The Key Size refers to the length or size of the cryptographic key in bits. It indicates the strength of the key and determines the level of security provided by the key.
+- **Key Creation Date**: The Key Creation Date indicates when the key was generated or created.
+- **Key Expiration Date**: OpenPGP Public Keys can have an expiration date set, after which they are considered invalid. The Key Expiration Date specifies when the key is no longer valid.
+- **User IDs**: Public keys can have one or more associated User IDs that identify the owner or entity associated with the key. User IDs typically include information such as the name, email address, and optional comments of the key owner.
+
 ### Humans TXT
 
 `humans.txt` is an initiative for knowing the people behind a site. It takes the form of a text file that contains information about the different people who have contributed to building the site. This file often (but not always) contains information related to career or job sites/paths.
