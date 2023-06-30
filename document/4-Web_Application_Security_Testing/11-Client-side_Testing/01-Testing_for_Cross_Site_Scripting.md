@@ -100,7 +100,7 @@ Input Validation: Perform strict input validation on all user-supplied input. Ac
 
 Output Encoding: Encode all user-supplied input that is rendered within HTML, JavaScript, or URL contexts. Use proper encoding mechanisms specific to the context, such as HTML entity encoding, JavaScript escaping, or URL encoding.
 
-Content Security Policy (CSP): Implement a strong CSP to restrict the execution of scripts from external sources and enforce a whitelist of trusted sources for content.
+Content Security Policy (CSP): Implement a strong CSP to restrict the execution of scripts from external sources and enforce a allow list(s) of trusted sources for content.
 
 HTTP Only Cookies: Set the "HttpOnly" flag for session cookies to prevent access from client-side scripts, reducing the risk of session theft via XSS.
 
