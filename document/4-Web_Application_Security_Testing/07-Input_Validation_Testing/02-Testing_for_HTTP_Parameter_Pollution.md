@@ -20,7 +20,7 @@ In 2009, immediately after the publication of the first research on HTTP Paramet
 
 One of these flaws, affecting *ModSecurity SQL Injection Core Rules*, represents a perfect example of the impedance mismatch between applications and filters. The ModSecurity filter would correctly apply a deny list for the following string: `select 1,2,3 from table`, thus blocking this example URL from being processed by the web server: `/index.aspx?page=select 1,2,3 from table`. However, by exploiting the concatenation of multiple HTTP parameters, an attacker could cause the application server to concatenate the string after the ModSecurity filter already accepted the input. As an example, the URL `/index.aspx?page=select 1&page=2,3` from table would not trigger the ModSecurity filter, yet the application layer would concatenate the input back into the full malicious string.
 
-Another HPP vulnerability turned out to affect *Apple Cups*, the well-known printing system used by many UNIX systems. Exploiting HPP, an attacker could easily trigger a Cross-Site Scripting vulnerability using the following URL: `http://127.0.0.1:631/admin/?kerberos=onmouseover=alert(1)&kerberos`. The application validation checkpoint could be bypassed by adding an extra `kerberos` argument having a valid string (e.g. empty string). As the validation checkpoint would only consider the second occurrence, the first `kerberos` parameter was not properly sanitized before being used to generate dynamic HTML content. Successful exploitation would result in JavaScript code execution under the context of the hosting web site.
+Another HPP vulnerability turned out to affect *Apple Cups*, the well-known printing system used by many UNIX systems. Exploiting HPP, an attacker could easily trigger a Cross-Site Scripting vulnerability using the following URL: `http://127.0.0.1:631/admin/?kerberos=onmouseover=alert(1)&kerberos`. The application validation checkpoint could be bypassed by adding an extra `kerberos` argument having a valid string (e.g. empty string). As the validation checkpoint would only consider the second occurrence, the first `kerberos` parameter was not properly sanitized before being used to generate dynamic HTML content. Successful exploitation would result in JavaScript code execution under the context of the hosting site.
 
 ### Authentication Bypass
 
@@ -54,7 +54,7 @@ Given the URL and querystring: `http://example.com/?color=red&color=blue`
   | JSP, Servlet / Jetty  | First occurrence only | color=red |
   | IBM Lotus Domino | Last occurrence only | color=blue |
   | IBM HTTP Server | First occurrence only | color=red |
-  | node.js / express | First occurrence only | color=red |
+  | Node.js / express | First occurrence only | color=red |
   | mod_perl, libapreq2 / Apache | First occurrence only | color=red |
   | Perl CGI / Apache | First occurrence only | color=red |
   | mod_wsgi (Python) / Apache | First occurrence only | color=red |
