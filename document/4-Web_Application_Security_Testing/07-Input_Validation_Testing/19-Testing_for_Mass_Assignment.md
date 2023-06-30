@@ -81,7 +81,7 @@ The user is then created with the `isAdmin` property set to `true`, giving them 
 
 #### Detect Handlers
 
-In order to determine which part of the application is vulnerable to mass assignment, enumerate all parts of the application that accept content from the user and can potentially be mapped with a model. This includes all HTTP requests (most likely GET, POST, and PUT) that appear to allow create or update operations on the back end.
+In order to determine which part of the application is vulnerable to mass assignment, enumerate all parts of the application that accept content from the user and can potentially be mapped with a model. This includes all HTTP requests (most likely GET, POST, and PUT) that appear to allow create or update operations on the backend.
 One of the most simple indicators for potential mass assignments is the presence of bracket syntax for input parameter names, as for example:
 
 ```html
