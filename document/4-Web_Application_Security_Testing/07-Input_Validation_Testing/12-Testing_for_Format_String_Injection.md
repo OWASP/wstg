@@ -82,7 +82,7 @@ Testers can perform a manual test using a web browser or other web API debugging
 
 `https://vulnerable_host/userinfo?username=%25s%25s%25s%25n`
 
-If the web site is vulnerable, the browser or tool should receive an error, which may include a timeout or an HTTP return code 500.
+If the site is vulnerable, the browser or tool should receive an error, which may include a timeout or an HTTP return code 500.
 
 The Java code returns the error
 
