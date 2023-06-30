@@ -36,7 +36,7 @@ Example:
 
 ### Example
 
-Consider the case of an application that contains a set of documents that you can browse from the Internet. If you fire up a personal proxy (such as ZAP or Burp Suite), you can obtain a POST HTTP like the following (`http://www.example.com/public/doc`):
+Consider the case of an application that contains a set of documents that you can browse from the internet. If you fire up a personal proxy (such as ZAP or Burp Suite), you can obtain a POST HTTP like the following (`http://www.example.com/public/doc`):
 
 ```txt
 POST /public/doc HTTP/1.1
