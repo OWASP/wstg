@@ -19,14 +19,17 @@ DOM-based XSS: The vulnerability arises from insecure handling of client-side Ja
 An XSS attack occurs when an attacker can inject untrusted data into a web application, which is then included in a response that is sent to other users. This untrusted data can be included in various contexts within an HTML document, including:
 
 HTML tags: If user-supplied input is inserted without proper encoding into HTML tags, it can lead to script execution. For example:
+
 ```js
 <script>alert('XSS');</script>
 ```
+
 HTML attributes: If user-supplied input is included in HTML attributes without proper encoding, it can be exploited to execute scripts. For example:
 
 ```js
 <img src="x" onerror="alert('XSS')">
 ```
+
 JavaScript code: If user-supplied input is directly inserted into JavaScript code without proper escaping or validation, it can lead to script execution. For example, 
 
 ```js
@@ -57,6 +60,7 @@ The first step in XSS testing is to identify all user-supplied input fields or p
 Once the input fields or parameters are identified, the following techniques can be employed to detect XSS vulnerabilities:
 
 HTML Injection: Inject HTML tags and check if they are rendered as part of the web page. For example: 
+
 ```js
 <script>alert('XSS');</script>
 ```
@@ -72,6 +76,7 @@ Attribute Injection: Inject special characters or event handlers into HTML attri
 If the injected content is rendered without proper encoding, the browser will interpret it as part of the attribute value, leading to script execution.
 
 JavaScript Injection: Inject JavaScript code into areas of the application where it is expected to be executed. This includes JavaScript code within `<script>` tags, inline event handlers, or within JavaScript variables. For example: 
+
 ```js
 ');alert('XSS');//
 ````
