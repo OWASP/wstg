@@ -94,7 +94,7 @@ If the application does not implement any control (e.g. list of allowed fields) 
 #### Identify Sensitive Fields
 
 Since in black-box testing the tester does not have visibility on the source code, it is necessary to find other ways in order to gather information about the attributes associated to the objects.
-Analyze the responses received by the back end, in particular pay attention to:
+Analyze the responses received by the backend, in particular pay attention to:
 
 - HTML page source code
 - Custom JavaScript code
