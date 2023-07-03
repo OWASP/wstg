@@ -152,6 +152,27 @@ Again, we can guess a username from the information received from an LDAP query 
 
 > By enumerating user accounts, you risk locking out accounts after a predefined number of failed probes (based on application policy). Also, sometimes, your IP address can be banned by dynamic rules on the application firewall or Intrusion Prevention System.
 
+### Testing Staff Impersonation: Unregistered Usernames
+
+Ensure that unregistered users are unable to select reserved usernames (e.g., admin, administrator, moderate) during the registration process. Additionally, verify that users cannot edit their current username to one of these reserved usernames on the profile editing page.
+
+If the web application has features that allow a user to access the web application's registration and profile editing functionality, the interactions to test include the following:
+
+- Registration Process:
+
+    - Access the registration page as an unregistered user and fill in the registration form, entering one of the reserved usernames (e.g., admin, administrator, moderate), submit the registration form, and then verify the response.
+    - The registration process should reject the form submission and display an error message indicating that the selected username is not available for registration.
+
+- Profile Editing Page:
+
+    - Log in to the web application using valid credentials and navigate to the profile editing page. Attempt to change the current username to one of the reserved usernames (e.g., admin, administrator, moderate) and save the changes to verify the response.
+    - The profile editing process should reject the username change request and display an error message indicating that the selected username is not available.
+
+- Test for Variants and Similarities:
+
+    - Repeat the above steps for different variations and similarities of the reserved usernames (e.g., Admin, ADMIN, Administrator) and perform tests with different combinations of uppercase and lowercase letters to ensure case insensitivity is handled correctly.
+    - The web application should treat these variants and similarities as identical to the reserved usernames, rejecting their selection or modification.
+
 ### Gray-Box Testing
 
 #### Testing for Authentication Error Messages
