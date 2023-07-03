@@ -20,35 +20,27 @@ An XSS attack occurs when an attacker can inject untrusted data into a web appli
 
 HTML tags: If user-supplied input is inserted without proper encoding into HTML tags, it can lead to script execution. For example:
 
-
 ```js
 <script>alert('XSS');</script>
 ```
 
-
 HTML attributes: If user-supplied input is included in HTML attributes without proper encoding, it can be exploited to execute scripts. For example:
-
 
 ```js
 <img src="x" onerror="alert('XSS')">
 ```
 
-
 JavaScript code: If user-supplied input is directly inserted into JavaScript code without proper escaping or validation, it can lead to script execution. For example:
-
 
 ```js
 var userInput = '<%= userInput %>';
 ```
 
-
 URLs: If user-supplied input is included in URLs without proper encoding, it can result in script execution. For example:
-
 
 ```js
 https://example.com/search?q=<script>alert('XSS');</script>
 ```
-
 
 XSS vulnerabilities can have severe consequences, ranging from stealing sensitive user information to performing actions on behalf of the user, such as modifying account settings or making unauthorized transactions.
 
@@ -68,41 +60,33 @@ Once the input fields or parameters are identified, the following techniques can
 
 HTML Injection: Inject HTML tags and check if they are rendered as part of the web page. For example: 
 
-
 ```js
 <script>alert('XSS');</script>
 ```
-
 
 If the injected HTML tags are not properly sanitized, they will be interpreted and executed by the browser.
 
 Attribute Injection: Inject special characters or event handlers into HTML attributes and check if they are executed. For example: 
 
-
 ```js
 "><img src=x onerror=alert('XSS')>
 ```
-
 
 If the injected content is rendered without proper encoding, the browser will interpret it as part of the attribute value, leading to script execution.
 
 JavaScript Injection: Inject JavaScript code into areas of the application where it is expected to be executed. This includes JavaScript code within `<script>` tags, inline event handlers, or within JavaScript variables. For example: 
 
-
 ```js
 ');alert('XSS');//
 ````
-
 
 If the injected JavaScript code is not properly escaped or validated, it will be executed by the browser.
 
 URL Injection: Inject script payloads into URLs and check if they are executed. For example: 
 
-
 ```js
 https://example.com/search?q=<script>alert('XSS');</script>
 ```
-
 
 If the injected script is not properly encoded, it will be interpreted as part of the URL and executed by the browser.
 
