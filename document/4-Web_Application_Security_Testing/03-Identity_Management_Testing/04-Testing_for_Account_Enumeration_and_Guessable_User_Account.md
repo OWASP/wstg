@@ -152,7 +152,7 @@ Again, we can guess a username from the information received from an LDAP query 
 
 > By enumerating user accounts, you risk locking out accounts after a predefined number of failed probes (based on application policy). Also, sometimes, your IP address can be banned by dynamic rules on the application firewall or Intrusion Prevention System.
 
-### Testing Staff Impersonation: Unregistered Usernames
+### Testing Staff Impersonation
 
 Ensure that unregistered users are unable to select reserved usernames (e.g., admin, administrator, moderate) during the registration process. Additionally, verify that users cannot edit their current username to one of these reserved usernames on the profile editing page.
 
