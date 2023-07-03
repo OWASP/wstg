@@ -154,7 +154,7 @@ Again, we can guess a username from the information received from an LDAP query 
 
 ### Testing Staff Impersonation
 
-Ensure that unregistered users are unable to select reserved usernames (e.g., admin, administrator, moderate) during the registration process. Additionally, verify that users cannot edit their current username to one of these reserved usernames on the profile editing page.
+Ensure that unregistered users are unable to select reserved usernames (e.g., admin, administrator, moderator) during the registration process. Additionally, verify that users cannot edit their current username to one of these reserved usernames on the profile editing page.
 
 If the web application has features that allow a user to access the web application's registration and profile editing functionality, the interactions to test include the following:
 
