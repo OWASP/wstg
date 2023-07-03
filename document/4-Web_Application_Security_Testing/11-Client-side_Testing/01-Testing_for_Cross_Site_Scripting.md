@@ -58,7 +58,7 @@ The first step in XSS testing is to identify all user-supplied input fields or p
 
 Once the input fields or parameters are identified, the following techniques can be employed to detect XSS vulnerabilities:
 
-HTML Injection: Inject HTML tags and check if they are rendered as part of the web page. For example: 
+HTML Injection: Inject HTML tags and check if they are rendered as part of the web page. For example:
 
 ```js
 <script>alert('XSS');</script>
@@ -66,7 +66,7 @@ HTML Injection: Inject HTML tags and check if they are rendered as part of the w
 
 If the injected HTML tags are not properly sanitized, they will be interpreted and executed by the browser.
 
-Attribute Injection: Inject special characters or event handlers into HTML attributes and check if they are executed. For example: 
+Attribute Injection: Inject special characters or event handlers into HTML attributes and check if they are executed. For example:
 
 ```js
 "><img src=x onerror=alert('XSS')>
@@ -74,7 +74,7 @@ Attribute Injection: Inject special characters or event handlers into HTML attri
 
 If the injected content is rendered without proper encoding, the browser will interpret it as part of the attribute value, leading to script execution.
 
-JavaScript Injection: Inject JavaScript code into areas of the application where it is expected to be executed. This includes JavaScript code within `<script>` tags, inline event handlers, or within JavaScript variables. For example: 
+JavaScript Injection: Inject JavaScript code into areas of the application where it is expected to be executed. This includes JavaScript code within `<script>` tags, inline event handlers, or within JavaScript variables. For example:
 
 ```js
 ');alert('XSS');//
@@ -82,7 +82,7 @@ JavaScript Injection: Inject JavaScript code into areas of the application where
 
 If the injected JavaScript code is not properly escaped or validated, it will be executed by the browser.
 
-URL Injection: Inject script payloads into URLs and check if they are executed. For example: 
+URL Injection: Inject script payloads into URLs and check if they are executed. For example:
 
 ```js
 https://example.com/search?q=<script>alert('XSS');</script>
