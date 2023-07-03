@@ -158,20 +158,15 @@ Ensure that unregistered users are unable to select reserved usernames (e.g., ad
 
 If the web application has features that allow a user to access the web application's registration and profile editing functionality, the interactions to test include the following:
 
-- Registration Process:
-
-    - Access the registration page as an unregistered user and fill in the registration form, entering one of the reserved usernames (e.g., admin, administrator, moderate), submit the registration form, and then verify the response.
+- Registration process:
+    - Access the registration page as an unregistered user and fill in the registration form, entering one of the reserved usernames (e.g., admin, administrator, moderator), submit the registration form, and then verify the response.
     - The registration process should reject the form submission and display an error message indicating that the selected username is not available for registration.
-
-- Profile Editing Page:
-
-    - Log in to the web application using valid credentials and navigate to the profile editing page. Attempt to change the current username to one of the reserved usernames (e.g., admin, administrator, moderate) and save the changes to verify the response.
+- Profile editing page:
+    - Log into the web application using valid credentials and navigate to the profile editing page. Attempt to change the current username to one of the reserved usernames (e.g., admin, administrator, moderator) and save the changes to verify the behavior.
     - The profile editing process should reject the username change request and display an error message indicating that the selected username is not available.
-
-- Test for Variants and Similarities:
-
-    - Repeat the above steps for different variations and similarities of the reserved usernames (e.g., Admin, ADMIN, Administrator) and perform tests with different combinations of uppercase and lowercase letters to ensure case insensitivity is handled correctly.
-    - The web application should treat these variants and similarities as identical to the reserved usernames, rejecting their selection or modification.
+- Test for variants and similarities:
+    - Repeat the above steps for different variations of the reserved usernames (e.g., Admin, ADMIN, Administrator) and perform tests with different combinations of uppercase and lowercase letters to ensure case insensitivity is handled correctly.
+    - The web application should treat these variants as identical to the reserved usernames, rejecting their selection or modification.
 
 ### Gray-Box Testing
 
