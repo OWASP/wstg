@@ -24,9 +24,9 @@ HTTP offers a number of methods (or verbs) that can be used to perform actions o
 
 ## Test Objectives
 
-- Enumerate supported HTTP methods
-- Test for access control bypass
-- Test HTTP method overriding techniques
+- Enumerate supported HTTP methods.
+- Test for access control bypass.
+- Test HTTP method overriding techniques.
 
 ## How to Test
 
