@@ -89,7 +89,7 @@ curl https://example.org --upload-file test.html
 
 This allows an attacker to upload arbitrary files to the webserver, which could potentially result in a full system compromise if they are allowed to upload executable code such as PHP files. However, this configuration is extremely rare, and is unlikely to be seen on modern systems.
 
-Similarly, the `DELETE` method can be used to delete files from the webserver. Please note that this is a destructive action; therefore, extreme care should be exercised when testing this method.
+Similarly, the `DELETE` method can be used to delete files from the webserver. Please note that this is a **destructive action**; therefore, extreme care should be exercised when testing this method.
 
 ```http
 DELETE /test.html HTTP/1.1
