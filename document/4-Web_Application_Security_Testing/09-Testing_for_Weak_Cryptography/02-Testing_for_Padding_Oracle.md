@@ -38,9 +38,9 @@ First the possible input points for padding oracles must be identified. Generall
 
 #### Example 2
 
-`Dg6W8OiWMIdVokIDH15T/A==` results after Base64 decoding in `0e 0e 96 f0 e8 96 30 87 55 a2 42 03 1f 5e 53 fc`. This seems to be random and 16 byte long.
+`Dg6W8OiWMIdVokIDH15T/A==` results after base64 decoding in `0e 0e 96 f0 e8 96 30 87 55 a2 42 03 1f 5e 53 fc`. This seems to be random and 16 byte long.
 
-If such an input value candidate is identified, the behavior of the application to bit-wise tampering of the encrypted value should be verified. Normally this Base64 encoded value will include the initialization vector (IV) prepended to the cipher text. Given a plaintext *`p`* and a cipher with a block size *`n`*, the number of blocks will be *`b = ceil( length(b) / n)`*. The length of the encrypted string will be *`y=(b+1)*n`* due to the initialization vector. To verify the presence of the oracle, decode the string, flip the last bit of the second-to-last block *`b-1`* (the least significant bit of the byte at *`y-n-1`*), re-encode and send. Next, decode the original string, flip the last bit of the block *`b-2`* (the least significant bit of the byte at *`y-2*n-1`*), re-encode and send.
+If such an input value candidate is identified, the behavior of the application to bit-wise tampering of the encrypted value should be verified. Normally this base64 encoded value will include the initialization vector (IV) prepended to the cipher text. Given a plaintext *`p`* and a cipher with a block size *`n`*, the number of blocks will be *`b = ceil( length(p) / n)`*. The length of the encrypted string will be *`y=(b+1)*n`* due to the initialization vector. To verify the presence of the oracle, decode the string, flip the last bit of the second-to-last block *`b-1`* (the least significant bit of the byte at *`y-n-1`*), re-encode and send. Next, decode the original string, flip the last bit of the block *`b-2`* (the least significant bit of the byte at *`y-2*n-1`*), re-encode and send.
 
 If it is known that the encrypted string is a single block (the IV is stored on the server or the application is using a bad practice hardcoded IV), several bit flips must be performed in turn. An alternative approach could be to prepend a random block, and flip bits in order to make the last byte of the added block take all possible values (0 to 255).
 
@@ -75,7 +75,6 @@ Verify that all places where encrypted data from the client, that should only be
 
 - [Bletchley](https://code.blindspotsecurity.com/trac/bletchley)
 - [PadBuster](https://github.com/GDSSecurity/PadBuster)
-- [Padding Oracle Exploitation Tool (POET)](http://netifera.com/research/)
 - [Poracle](https://github.com/iagox86/Poracle)
 - [python-paddingoracle](https://github.com/mwielgoszewski/python-paddingoracle)
 
