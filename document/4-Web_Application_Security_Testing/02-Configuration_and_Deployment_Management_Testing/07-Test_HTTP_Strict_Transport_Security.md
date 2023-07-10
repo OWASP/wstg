@@ -24,7 +24,7 @@ Here's an example of the HSTS header implementation:
 The use of this header by web applications must be checked to ascertain whether it may lead to the following security issues:
 
 - Attackers intercepting and accessing the information transferred over an unencrypted network channel.
-- Attackers carrying out man-in-the-middle attacks by exploiting the acceptance of untrusted certificates.
+- Attackers carrying out manipulator in the middle attacks by exploiting the acceptance of untrusted certificates.
 - Users who mistakenly enter an address in the browser using HTTP instead of HTTPS, or users who click on a link in a web application that incorrectly uses the HTTP protocol.
 
 ## Test Objectives
@@ -34,7 +34,7 @@ The use of this header by web applications must be checked to ascertain whether 
 ## How to Test
 
 - Confirm the presence of the HSTS header by examining the server's response through an intercepting proxy.
-- Use curl as follows: 
+- Use curl as follows:
 
 ```bash
 $ curl -s -D- https://owasp.org | grep -i strict
