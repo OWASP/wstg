@@ -10,7 +10,7 @@ The HTTP Strict Transport Security (HSTS) feature enables a web server to inform
 
 Considering the importance of this security measure, it is prudent to verify that the site is using this HTTP header in order to ensure that all the data travels encrypted between the web browser and the server.
 
-The HTTP strict transport security header uses two specific directives:
+The HTTP strict transport security header uses three specific directives:
 
 - `max-age`: to indicate the number of seconds that the browser should automatically convert all HTTP requests to HTTPS.
 - `includeSubDomains`: to indicate that all related sub-domains must use HTTPS.
@@ -21,10 +21,10 @@ Here's an example of the HSTS header implementation:
 
 `Strict-Transport-Security: max-age=31536000; includeSubDomains`
 
-The use of this header by web applications must be checked to ascertain whether it may lead to the following security issues:
+The presence of this header must be checked, as its absence could lead to security issues such as:
 
 - Attackers intercepting and accessing the information transferred over an unencrypted network channel.
-- Attackers carrying out manipulator in the middle attacks by exploiting the acceptance of untrusted certificates.
+- Attackers carrying out man-in-the-middle (MITM) attacks by taking advantage of users who accept untrusted certificates.
 - Users who mistakenly enter an address in the browser using HTTP instead of HTTPS, or users who click on a link in a web application that incorrectly uses the HTTP protocol.
 
 ## Test Objectives
@@ -37,7 +37,7 @@ The use of this header by web applications must be checked to ascertain whether 
 - Use curl as follows:
 
 ```bash
-$ curl -s -D- https://owasp.org | grep -i strict
+$ curl -s -D- https://owasp.org | grep -i strict-transport-security:
 Strict-Transport-Security: max-age=31536000
 ```
 
