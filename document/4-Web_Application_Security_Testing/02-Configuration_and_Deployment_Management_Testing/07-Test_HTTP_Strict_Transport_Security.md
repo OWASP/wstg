@@ -24,7 +24,7 @@ Here's an example of the HSTS header implementation:
 The presence of this header must be checked, as its absence could lead to security issues such as:
 
 - Attackers intercepting and accessing the information transferred over an unencrypted network channel.
-- Attackers carrying out man-in-the-middle (MITM) attacks by taking advantage of users who accept untrusted certificates.
+- Attackers carrying out manipulator-in-the-middle (MITM) attacks by taking advantage of users who accept untrusted certificates.
 - Users who mistakenly enter an address in the browser using HTTP instead of HTTPS, or users who click on a link in a web application that incorrectly uses the HTTP protocol.
 
 ## Test Objectives
