@@ -32,23 +32,23 @@ HTTP offers a number of methods (or verbs) that can be used to perform actions o
 
 ### Discover the Supported Methods
 
-To perform this test, the tester needs some way to identify which HTTP methods are supported by the web server that is being examined. The simplest way to do this is to make an `OPTIONS` request to the server:
+To perform this test, the tester needs a way to identify which HTTP methods are supported by the web server that is being examined. The simplest way to do this is to make an `OPTIONS` request to the server:
 
 ```http
 OPTIONS / HTTP/1.1
 Host: example.org
 ```
 
-The server should then response with a list of supported methods:
+The server should then respond with a list of supported methods:
 
 ```http
 HTTP/1.1 200 OK
 Allow: OPTIONS, GET, HEAD, POST
 ```
 
-However, some servers may not respond to `OPTIONS` requests, or may return inaccurate information. Additionally, servers may support different methods for different paths - so just because a method is not supported for the root `/` directory, this doesn't necessarily mean that it won't be supported elsewhere.
+However, not all servers may respond to OPTIONS requests, and some may even return inaccurate information. It's also worth noting that servers may support different methods for different paths. This means that even if a method is not supported for the root / directory, it does not necessarily indicate that the same method won't be supported elsewhere.
 
-An more reliable way to test for supported methods is to simply make a request with that method type, and examine the server response. If the method is not permitted, the server should return a `405 Method Not Allowed` status.
+A more reliable way to test for supported methods is to simply make a request with that method type, and examine the server response. If the method is not permitted, the server should return a `405 Method Not Allowed` status.
 
 Note that some servers treat unknown methods as equivalent to `GET`, so they may respond to arbitrary methods, such as the request shown below. This can occasionally be useful to evade a web application firewall, or any other filtering that blocks specific methods.
 
@@ -63,7 +63,7 @@ Requests with arbitrary methods can also be made using curl with the `-X` option
 curl -X FOO https://example.org
 ```
 
-There are also a variety of automated tools that can attempt to determine supported methods, such as the [`http-methods`](https://nmap.org/nsedoc/scripts/http-methods.html) Nmap script. However, these tools may not test for dangerous methods (i.e, methods that may cause changes such as `PUT` or `DELETE`), or may unintentionally cause changes to the web server if these methods are supported. As such, they should be used with care.
+There are also a variety of automated tools that can attempt to determine supported methods, such as the [`http-methods`](https://nmap.org/nsedoc/scripts/http-methods.html) Nmap script. However, these tools may not test for dangerous methods (i.e., methods that may cause changes such as `PUT` or `DELETE`), or may unintentionally cause changes to the web server if these methods are supported. As such, they should be used with care.
 
 ### PUT and DELETE
 
@@ -87,9 +87,9 @@ Similar requests can also be made with cURL:
 curl https://example.org --upload-file test.html
 ```
 
-This allows an attacker to upload arbitrary files to the webserver, which could potentially result in a full system compromise if they are allowed to upload executable code such as PHP files. However, this configuration is extremely rare, and is unlikely to be seen on any modern systems.
+This allows an attacker to upload arbitrary files to the webserver, which could potentially result in a full system compromise if they are allowed to upload executable code such as PHP files. However, this configuration is extremely rare, and is unlikely to be seen on modern systems.
 
-Similarly, the `DELETE` method can be used to delete files from the webserver. Note that this is a **destructive action**, so care should be taken when testing this method.
+Similarly, the `DELETE` method can be used to delete files from the webserver. Please note that this is a **destructive action**; therefore, extreme care should be exercised when testing this method.
 
 ```http
 DELETE /test.html HTTP/1.1
@@ -127,11 +127,11 @@ Although it may be reported by automated scanning tools, the presence of these m
 
 ### TRACE
 
-The `TRACE` method (or Microsoft's equivalent `TRACK` method) causes the server to echo back the contents of the request. This lead to a vulnerability called Cross-Site Tracing (XST) being published in [2003](https://www.cgisecurity.com/whitehat-mirror/WH-WhitePaper_XST_ebook.pdf) (PDF), which could be used to access cookies that had the `HttpOnly` flag set. The `TRACE` method has been blocked in all browsers and plugins for many years, and as such this issue is no longer exploitable. However, it may still be flagged by automated scanning tools, and the `TRACE` method being enabled on a web server suggests that is has not been properly hardened.
+The `TRACE` method (or Microsoft's equivalent `TRACK` method) causes the server to echo back the contents of the request. This led to a vulnerability called Cross-Site Tracing (XST) to be published in [2003](https://www.cgisecurity.com/whitehat-mirror/WH-WhitePaper_XST_ebook.pdf) (PDF), which could be used to access cookies that had the `HttpOnly` flag set. The `TRACE` method has been blocked in all browsers and plugins for many years; as such, this issue is no longer exploitable. However, it may still be flagged by automated scanning tools, and the `TRACE` method being enabled on a web server suggests that is has not been properly hardened.
 
 ### CONNECT
 
-The `CONNECT` method causes the web server to open a TCP connection to another system, and then to pass traffic from the client through to that system. This could allow an attacker to proxy traffic through the server, in order to hide their source address, access internal systems or access services that are bound to localhost. An example of a `CONNECT` request is shown below:
+The `CONNECT` method causes the web server to open a TCP connection to another system, and then pass traffic from the client to that system. This could allow an attacker to proxy traffic through the server, in order to hide their source address, access internal systems or access services that are bound to localhost. An example of a `CONNECT` request is shown below:
 
 ```http
 CONNECT 192.168.0.1:443 HTTP/1.1
@@ -140,9 +140,9 @@ Host: example.org
 
 ### PATCH
 
-The `PATCH` method is defined in [RFC 5789](https://datatracker.ietf.org/doc/html/rfc5789), and is used to provide instructions for how an object should be modified. The RFC itself does not define what format these instructions should be in, but various methods are defined in other standards, such as the [RFC 6902 - JavaScript Object Notation (JSON) Patch](https://datatracker.ietf.org/doc/html/rfc6902).
+The `PATCH` method is defined in [RFC 5789](https://datatracker.ietf.org/doc/html/rfc5789), and is used to provide instructions on how an object should be modified. The RFC itself does not define what format these instructions should be in, but various methods are defined in other standards, such as the [RFC 6902 - JavaScript Object Notation (JSON) Patch](https://datatracker.ietf.org/doc/html/rfc6902).
 
-For example, if we have an user called "foo" with the following properties:
+For example, if we have a user called "foo" with the following properties:
 
 ```json
 {
@@ -151,7 +151,7 @@ For example, if we have an user called "foo" with the following properties:
 }
 ```
 
-The following JSON PATCH request could be used to change the role of this user "admin", without modifying the email address:
+The following JSON PATCH request could be used to change the role of this user to "admin", without modifying the email address:
 
 ```http
 PATCH /api/users/foo HTTP/1.1
@@ -160,7 +160,7 @@ Host: example.org
 { "op": "replace", "path": "/role", "value": "admin" }
 ```
 
-Although the RFC states that it should include instructions for how the object should be modified, the `PATCH` method is commonly (mis)used to include the changed content instead, as shown below. Much like the previous request, this would change the "role" value to "admin" without modifying the rest of the object. This is in contrast to the `PUT` method, which would overwrite the entire object (and thus result in an object with no "email" attribute).
+Although the RFC states that it should include instructions for how the object should be modified, the `PATCH` method is commonly (mis)used to include the changed content instead, as shown below. Much like the previous request, this would change the "role" value to "admin" without modifying the rest of the object. This is in contrast to the `PUT` method, which would overwrite the entire object, and thus result in an object with no "email" attribute.
 
 ```http
 PATCH /api/users/foo HTTP/1.1
@@ -175,7 +175,7 @@ As with the `PUT` method, this functionality may have access control weaknesses 
 
 ### Testing for Access Control Bypass
 
-If a page on the application redirects users to a login page with a `302` code when they attempt and access it directly, it may be possible to bypass this by making a request with a different HTTP method, such as `HEAD`, `POST` or even a made up method such as `FOO`. If the web application responds with a `HTTP/1.1 200 OK` rather than the expected `HTTP/1.1 302 Found` then it may be possible to bypass the authentication or authorization. The example below shows how a `HEAD` request may result in a page setting administrative cookies, rather than redirecting the user to a login page:
+If a page on the application redirects users to a login page with a 302 code when they attempt to access it directly, it may be possible to bypass this by making a request with a different HTTP method, such as `HEAD`, `POST` or even a made up method such as `FOO`. If the web application responds with a `HTTP/1.1 200 OK` rather than the expected `HTTP/1.1 302 Found`, it may then be possible to bypass the authentication or authorization. The example below shows how a `HEAD` request may result in a page setting administrative cookies, rather than redirecting the user to a login page:
 
 ```http
 HEAD /admin/ HTTP/1.1
@@ -207,13 +207,13 @@ username=foo&password=bar&role=admin
 
 ### Testing for HTTP Method Overriding
 
-Some web frameworks provide a way to override the actual HTTP method in the request by emulating the missing HTTP verbs passing some custom header in the requests. The main purpose of this is to circumvent a middleware application (such as a proxy or web application firewall) which blocks specific methods. The following alternative HTTP headers could potentially be used:
+Some web frameworks provide a way to override the actual HTTP method in the request. They achieve this by emulating the missing HTTP verbs and passing some custom headers in the requests. The main purpose of this is to circumvent a middleware application (such as a proxy or web application firewall) which blocks specific methods. The following alternative HTTP headers could potentially be used:
 
 - `X-HTTP-Method`
 - `X-HTTP-Method-Override`
 - `X-Method-Override`
 
-In order to test this, in the scenarios where restricted verbs such as `PUT` or `DELETE` return a `405 Method not allowed`, replay the same request with the addition of the alternative headers for HTTP method overriding, and observe how the system responds. The application should respond with a different status code (*e.g.* `200 OK`) in cases where method overriding is supported.
+To test this, consider scenarios where restricted verbs like `PUT` or `DELETE` return a `405 Method not allowed`. In such cases, replay the same request, but add the alternative headers for HTTP method overriding. Then, observe the system's response. The application should respond with a different status code (*e.g.* `200 OK`) in cases where method overriding is supported.
 
 The web server in the following example does not allow the `DELETE` method and blocks it:
 
@@ -242,7 +242,7 @@ HTTP/1.1 200 OK
 
 ## Remediation
 
-- Ensure that only the required methods are allowed, and that the allowed methods are properly configured.
+- Ensure that only the required methods are allowed and that these methods are properly configured.
 - Ensure that no workarounds are implemented to bypass security measures implemented by user-agents, frameworks, or web servers.
 
 ## Tools
