@@ -243,9 +243,10 @@ All major browsers support manipulating CSS leveraging the Dev Tools Console and
 
 All major browsers support encoding and decoding strings in various ways leveraging the Dev Tools Console and JavaScript functionality:
 
-- Base64 encode: `btoa("string-to-encode")` & Base64 decode: `atob("string-to-decode")` - built-in JavaScript functions that is used to encode a string to Base64 and decode a string from Base64.
-- URL encode: `encodeURIComponent("string-to-encode")` & URL decode: `decodeURIComponent("string-to-decode")` - functions encodes and decodes user-supplied input that will be used as a part of a URL and it encodes all characters that have special meanings in a URL, including reserved characters.
-- URL encode: `encodeURI()` & URL decode: `decodeURI()` - functions used to encode and decode a complete URI such as query parameters, path segments, or fragments, including special characters, but excluding the reserved characters such as `:/?#[]@!$'()*+,;=` which have special meanings in a URL.
+- base64 encode: `btoa("string-to-encode")` & base64 decode: `atob("string-to-decode")` - built-in JavaScript functions that are used to encode a string to base64 and decode a string from base64.
+- URL encode: `encodeURIComponent("string-to-encode")` & URL decode: `decodeURIComponent("string-to-decode")` - It encodes and decodes user-supplied input that will be used as a part of a URL, and it encodes all characters that have special meanings in a URL, including reserved characters.
+- URL encode: `encodeURI()` and URL decode: `decodeURI()` - functions used to encode and decode a complete URI, such as query parameters, path segments, or fragments, including special characters but excluding reserved characters such as `:/?#[]@!$'()*+,;=`, which have special meanings in a URL.
+
 ## Responsive Design Mode
 
 ### Related Testing
