@@ -152,7 +152,7 @@ file= ..\..\boot.ini
 
 - [DotDotPwn - The Directory Traversal Fuzzer](https://github.com/wireghoul/dotdotpwn)
 - [Path Traversal Fuzz Strings (from WFuzz Tool)](https://github.com/xmendez/wfuzz/blob/master/wordlist/Injections/Traversal.txt)
-- [OWASP ZAP](https://www.zaproxy.org/)
+- [ZAP](https://www.zaproxy.org/)
 - [Burp Suite](https://portswigger.net)
 - Encoding/Decoding tools
 - [String searcher "grep"](https://www.gnu.org/software/grep/)

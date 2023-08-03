@@ -124,7 +124,7 @@ In particular, pay attention to responses having HPP vectors within `data`, `src
 
 ## Tools
 
-- [OWASP ZAP Passive/Active Scanners](https://www.zaproxy.org)
+- [ZAP Passive/Active Scanners](https://www.zaproxy.org)
 
 ## References
 

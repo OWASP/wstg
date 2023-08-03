@@ -111,7 +111,7 @@ The application should always first invalidate the existing session ID before au
 
 ## Tools
 
-- [OWASP ZAP](https://www.zaproxy.org)
+- [ZAP](https://www.zaproxy.org)
 
 ## References
 

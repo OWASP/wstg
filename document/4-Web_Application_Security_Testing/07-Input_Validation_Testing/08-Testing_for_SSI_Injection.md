@@ -65,7 +65,7 @@ User-Agent: <!--#include virtual="/proc/version"-->
 ## Tools
 
 - [Web Proxy Burp Suite](https://portswigger.net/burp/communitydownload)
-- [OWASP ZAP](https://www.zaproxy.org/)
+- [ZAP](https://www.zaproxy.org/)
 - [String searcher: grep](https://www.gnu.org/software/grep)
 
 ## References

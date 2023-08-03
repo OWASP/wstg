@@ -171,7 +171,7 @@ When this data is sent as a POST request, the server will happily accept the nam
 
 ## Tools
 
-- [OWASP ZAP](https://www.zaproxy.org/)
+- [ZAP](https://www.zaproxy.org/)
 - [CSRF Tester](https://wiki.owasp.org/index.php/Category:OWASP_CSRFTester_Project)
 - [Pinata-csrf-tool](https://code.google.com/archive/p/pinata-csrf-tool/)
 

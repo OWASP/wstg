@@ -83,7 +83,7 @@ The most commonly used token format is the JSON Web Token (JWT), defined in [RFC
 
 ## Tools
 
-- ZAProxy
+- ZAP
 - Burp suite
 
 ## References
