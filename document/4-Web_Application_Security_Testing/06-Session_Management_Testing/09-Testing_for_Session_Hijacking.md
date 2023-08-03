@@ -19,7 +19,7 @@ Alternatively, session hijacking can be prevented by banning use of HTTP using [
 
 Full HSTS adoption is described in a paper called *Testing for Integrity Flaws in Web Sessions* by Stefano Calzavara, Alvise Rabitti, Alessio Ragazzo, and Michele Bugliesi. Full HSTS adoption occurs when a host activates HSTS for itself and all its sub-domains. Partial HSTS adoption is when a host activates HSTS just for itself.
 
-With the `Domain` attribute set, session cookies can be shared across sub-domains. Use of HTTP with sub-domains should be avoided to prevent the disclosure of unencrypted cookies sent over HTTP. To exemplify this security flaw, assume that the website `example.com` activates HSTS without the `includeSubDomains` option. The website issues session cookies with the `Domain` attribute set to `example.com`. The following attack is possible:
+With the `Domain` attribute set, session cookies can be shared across sub-domains. Use of HTTP with sub-domains should be avoided to prevent the disclosure of unencrypted cookies sent over HTTP. To exemplify this security flaw, assume that the site `example.com` activates HSTS without the `includeSubDomains` option. The site issues session cookies with the `Domain` attribute set to `example.com`. The following attack is possible:
 
 1. The victim sends a request to `http://another-site.com`.
 2. The attacker corrupts the corresponding response so that it triggers a request to `http://fake.example.com`.
@@ -35,11 +35,11 @@ Full HSTS should be activated on the apex domain to prevent this attack.
 
 ## How to Test
 
-The testing strategy is targeted at network attackers, hence it only needs to be applied to sites without full HSTS adoption (sites with full HSTS adoption are secure, since their cookies are not communicated over HTTP). We assume to have two testing accounts on the website under test, one to act as the victim and one to act as the attacker. We simulate a scenario where the attacker steals all the cookies which are not protected against disclosure over HTTP, and presents them to the website to access the victim's account. If these cookies are enough to act on the victim's behalf, session hijacking is possible.
+The testing strategy is targeted at network attackers, hence it only needs to be applied to sites without full HSTS adoption (sites with full HSTS adoption are secure, since their cookies are not communicated over HTTP). We assume to have two testing accounts on the site under test, one to act as the victim and one to act as the attacker. We simulate a scenario where the attacker steals all the cookies which are not protected against disclosure over HTTP, and presents them to the site to access the victim's account. If these cookies are enough to act on the victim's behalf, session hijacking is possible.
 
 Here are the steps for executing this test:
 
-1. Login to the website as the victim and reach any page offering a secure function requiring authentication.
+1. Login to the site as the victim and reach any page offering a secure function requiring authentication.
 2. Delete from the cookie jar all the cookies which satisfy any of the following conditions.
     - in case there is no HSTS adoption: the `Secure` attribute is set.
     - in case there is partial HSTS adoption: the `Secure` attribute is set or the `Domain` attribute is not set.
