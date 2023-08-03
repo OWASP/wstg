@@ -100,6 +100,7 @@ The list contains only tools that are freely available to download and use (alth
 - [ZAP](https://www.zaproxy.org)
 - [Nikto](https://cirt.net/Nikto2)
 - [Nuclei](https://nuclei.projectdiscovery.io/)
+- [SecOps Solution](https://secopsolution.com)
 
 ## Exploitation Frameworks
 
