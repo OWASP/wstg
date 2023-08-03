@@ -10,7 +10,7 @@ The list contains only tools that are freely available to download and use (alth
 
 ### Web Proxies
 
-- [OWASP ZAP](https://www.zaproxy.org)
+- [ZAP](https://www.zaproxy.org)
     - The Zed Attack Proxy (ZAP) is an easy to use integrated penetration testing tool for finding vulnerabilities in web applications. It is designed to be used by people with a wide range of security experience and as such is ideal for developers and functional testers who are new to penetration testing.
     - ZAP provides automated scanners as well as a set of tools that allow you to find security vulnerabilities manually.
 - [Burp Suite Community Edition](https://portswigger.net/burp/communitydownload)
@@ -61,7 +61,7 @@ The list contains only tools that are freely available to download and use (alth
 
 ##### Remote Brute Force
 
-- [OWASP ZAP](https://www.zaproxy.org)
+- [ZAP](https://www.zaproxy.org)
 - [Patator](https://github.com/lanjelot/patator)
 - [THC Hydra](https://github.com/vanhauser-thc/thc-hydra)
 - [Burp Suite Community Edition (Intruder)](https://portswigger.net/burp/communitydownload)
@@ -97,7 +97,7 @@ The list contains only tools that are freely available to download and use (alth
 
 ## Vulnerability Scanners
 
-- [OWASP ZAP](https://www.zaproxy.org)
+- [ZAP](https://www.zaproxy.org)
 - [Nikto](https://cirt.net/Nikto2)
 - [Nuclei](https://nuclei.projectdiscovery.io/)
 
