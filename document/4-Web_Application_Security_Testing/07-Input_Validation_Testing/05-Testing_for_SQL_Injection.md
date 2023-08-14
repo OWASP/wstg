@@ -698,7 +698,7 @@ Adding SQL inline comments can also help the SQL statement to be valid and bypas
 
 `' UNION SELECT password FROM Users WHERE name='admin'--`
 
-Adding SQL inline comments will be.
+Adding SQL inline comments will be
 
 `'/**/UNION/**/SELECT/**/password/**/FROM/**/Users/**/WHERE/**/name/**/LIKE/**/'admin'--`
 
