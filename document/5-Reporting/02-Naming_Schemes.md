@@ -86,7 +86,7 @@ Defined as a Dictionary of registered values provided by `NVD`. Each `CPE` code 
 ### Examples
 
 - Microsoft Internet Explorer 8.0.6001 Beta (any edition): `wfn:[part="a",vendor="microsoft",product="internet_explorer", version="8\.0\.6001",update="beta",edition=ANY]` which binds to the following URL: `cpe:/a:microsoft:internet_explorer:8.0.6001:beta`.
-- Foo\Bar Big$Money Manager 2010 Special Edition for iPod Touch 80GB: `wfn:[part="a",vendor="foo\\bar",product="big\$money_manager_2010", sw_edition="special",target_sw="ipod_touch",target_hw="80gb"]`, which binds to the following URL: `cpe:/a:foo%5cbar:big%24money_manager_2010:::~~special~ipod_touch~80gb~`.
+- Foo\Bar Big$Money Manager 2010 Special Edition for iPod Touch 80GB: `wfn:[part="a",vendor="foo\\bar",product="big\$money_manager_2010", sw_edition="special",target_sw="ipod_touch",target_hw="80gb"]`, which binds to the following URL:`cpe:/a:foo%5cbar:big%24money_manager_2010:::~~special~ipod_touch~80gb~`.
 
 ## Package URL
 
@@ -127,7 +127,7 @@ The definition for each component is:
 
 ## References
 
-- [NISTIR 8060 - Guidelines for the Creation of Interoperable Software Identification (SWID) Tags (pdf)](https://nvlpubs.nist.gov/nistpubs/ir/2016/NIST.IR.8060.pdf)
+- [NISTIR 8060 - Guidelines for the Creation of Interoperable Software Identification (SWID) Tags (PDF)](https://nvlpubs.nist.gov/nistpubs/ir/2016/NIST.IR.8060.pdf)
 - [NISTIR 8085 - Forming Common Platform Enumeration (CPE) Names from Software Identification (SWID) Tags](https://csrc.nist.gov/CSRC/media/Publications/nistir/8085/draft/documents/nistir_8085_draft.pdf)
 - [ISO/IEC 19770-2:2015 - Information technology— Software asset management—Part2:Software identification tag](https://www.iso.org/standard/65666.html)
 - [Official Common Platform Enumeration (CPE) Dictionary](https://nvd.nist.gov/products/cpe)

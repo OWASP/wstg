@@ -8,7 +8,7 @@
 
 When a resource is given a permissions setting that provides access to a wider range of actors than required, it could lead to the exposure of sensitive information, or the modification of that resource by unintended parties. This is especially dangerous when the resource is related to program configuration, execution, or sensitive user data.
 
-A clear example is an execution file that is executable by unauthorized users. For another example, account information or a token value to access an API - increasingly seen in modern web services or microservices - may be stored in a configuration file whose permissions are set to world-readable from the installation by default. Such sensitive data can be exposed by internal malicious actors of the host or by a remote attacker who compromised the service with other vulnerabilities but obtained only a normal user privilege.
+A clear example would be an executable file that can be run by unauthorized users. For another example, consider account information or a token value used to access an API. These are increasingly seen in modern web services and microservices, and may be stored in a configuration file that has world-readable permissions by default upon installation. Such sensitive data could be exposed either by malicious internal actors within the host system or by remote attackers. The latter may have compromised the service through other vulnerabilities, while gaining only normal user privileges.
 
 ## Test Objectives
 
@@ -20,20 +20,20 @@ In Linux, use `ls` command to check the file permissions. Alternatively, `namei`
 
 `$ namei -l /PathToCheck/`
 
-The files and directories that require file permission testing include but are not limited to:
+The files and directories that require file permission testing can include, but are not limited to, the following:
 
 - Web files/directory
 - Configuration files/directory
-- Sensitive files (encrypted data, password, key)/directory
-- Log files (security logs, operation logs, admin logs)/directory
-- Executables (scripts, EXE, JAR, class, PHP, ASP)/directory
+- Sensitive files(encrypted data, password, key)/directory
+- Log files(security logs, operation logs, admin logs)/directory
+- Executables(scripts, EXE, JAR, class, PHP, ASP)/directory
 - Database files/directory
-- Temp files /directory
+- Temp files/directory
 - Upload files/directory
 
 ## Remediation
 
-Set the permissions of the files and directories properly so that unauthorized users cannot access critical resources unnecessarily.
+Set the permissions of the files and directories properly so that unauthorized users cannot access critical resources.
 
 ## Tools
 
