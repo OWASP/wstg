@@ -86,7 +86,7 @@ Defined as a Dictionary of registered values provided by `NVD`. Each `CPE` code 
 ### Examples
 
 - Microsoft Internet Explorer 8.0.6001 Beta (any edition): `wfn:[part="a",vendor="microsoft",product="internet_explorer", version="8\.0\.6001",update="beta",edition=ANY]` which binds to the following URL: `cpe:/a:microsoft:internet_explorer:8.0.6001:beta`.
-- Foo\Bar Big$Money Manager 2010 Special Edition for iPod Touch 80GB: `wfn:[part="a",vendor="foo\\bar",product="big\$money_manager_2010", sw_edition="special",target_sw="ipod_touch",target_hw="80gb"]`, which binds to the following URL: `cpe:/a:foo%5cbar:big%24money_manager_2010:::~~special~ipod_touch~80gb~`.
+- Foo\Bar Big$Money Manager 2010 Special Edition for iPod Touch 80GB: `wfn:[part="a",vendor="foo\\bar",product="big\$money_manager_2010", sw_edition="special",target_sw="ipod_touch",target_hw="80gb"]`, which binds to the following URL:`cpe:/a:foo%5cbar:big%24money_manager_2010:::~~special~ipod_touch~80gb~`.
 
 ## Package URL
 
