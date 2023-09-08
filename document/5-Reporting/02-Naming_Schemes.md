@@ -127,7 +127,7 @@ The definition for each component is:
 
 ## References
 
-- [NISTIR 8060 - Guidelines for the Creation of Interoperable Software Identification (SWID) Tags (pdf)](https://nvlpubs.nist.gov/nistpubs/ir/2016/NIST.IR.8060.pdf)
+- [NISTIR 8060 - Guidelines for the Creation of Interoperable Software Identification (SWID) Tags (PDF)](https://nvlpubs.nist.gov/nistpubs/ir/2016/NIST.IR.8060.pdf)
 - [NISTIR 8085 - Forming Common Platform Enumeration (CPE) Names from Software Identification (SWID) Tags](https://csrc.nist.gov/CSRC/media/Publications/nistir/8085/draft/documents/nistir_8085_draft.pdf)
 - [ISO/IEC 19770-2:2015 - Information technology— Software asset management—Part2:Software identification tag](https://www.iso.org/standard/65666.html)
 - [Official Common Platform Enumeration (CPE) Dictionary](https://nvd.nist.gov/products/cpe)
