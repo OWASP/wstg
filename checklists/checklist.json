@@ -175,7 +175,7 @@
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/10-Test_for_Subdomain_Takeover",
                 "objectives":[
                     "Enumerate all possible domains (previous and current).",
-                    "Identify forgotten or misconfigured domains."
+                    "Identify any forgotten or misconfigured domains."
                   ]
                 }
                 ,{
