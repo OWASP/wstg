@@ -25,7 +25,7 @@ JWTs are are made up of three components:
 - The payload (or body)
 - The signature
 
-Each component is Base64 encoded, and they are separated by periods (`.`). Note that the Base64 encoding used in a JWT strips out the equals signs (`=`), so you may need to add these back in to decode the sections.
+Each component is base64 encoded, and they are separated by periods (`.`). Note that the base64 encoding used in a JWT strips out the equals signs (`=`), so you may need to add these back in to decode the sections.
 
 ### Analyse the Contents
 
@@ -56,7 +56,7 @@ The payload of the JWT contains the actual data. An example payload is shown bel
 
 ```json
 {
-  "username": "admininistrator",
+  "username": "administrator",
   "is_admin": true,
   "iat": 1516239022,
   "exp": 1516242622
@@ -76,7 +76,7 @@ This JWT includes the username and administrative status of the user, as well as
 
 #### Signature
 
-The signature is calculated using the algorithm defined in the JWT header, and then Base64 encoded and appended to the token. Modifying any part of the JWT should cause the signature to be invalid, and the token to be rejected by the server.
+The signature is calculated using the algorithm defined in the JWT header, and then base64 encoded and appended to the token. Modifying any part of the JWT should cause the signature to be invalid, and the token to be rejected by the server.
 
 ### Review Usage
 
@@ -109,7 +109,7 @@ This can be tested by modifying the signature algorithm (`alg`) in the JWT heade
 }
 ```
 
-The header and payload are then re-encoded with Base64, and the signature is removed (leaving the trailing period). Using the header above, and the payload listed in the [payload](#payload) section, this would give the following JWT:
+The header and payload are then re-encoded with base64, and the signature is removed (leaving the trailing period). Using the header above, and the payload listed in the [payload](#payload) section, this would give the following JWT:
 
 ```txt
 eyJhbGciOiAibm9uZSIsICJ0eXAiOiAiSldUIn0K.eyJ1c2VybmFtZSI6ImFkbWluaW5pc3RyYXRvciIsImlzX2FkbWluIjp0cnVlLCJpYXQiOjE1MTYyMzkwMjIsImV4cCI6MTUxNjI0MjYyMn0.
@@ -153,7 +153,7 @@ If the application uses JWTs with public key based signatures, but does not chec
 2. The application must not check which algorithm the JWT is actually using for the signature.
 3. The public key used to verify the JWT must be available to the attacker.
 
-If all of these conditions are true, then an attacker can use the public key to sign the JWT using a HMAC based algorithm (such as `HS256`). For example, the [Node.JS jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) library uses the same function for both public key and HMAC based tokens, as shown in the example below:
+If all of these conditions are true, then an attacker can use the public key to sign the JWT using a HMAC based algorithm (such as `HS256`). For example, the [Node.js jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) library uses the same function for both public key and HMAC based tokens, as shown in the example below:
 
 ```javascript
 // Verify a JWT signed using RS256
