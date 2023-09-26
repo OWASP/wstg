@@ -56,7 +56,7 @@ The payload of the JWT contains the actual data. An example payload is shown bel
 
 ```json
 {
-  "username": "admininistrator",
+  "username": "administrator",
   "is_admin": true,
   "iat": 1516239022,
   "exp": 1516242622
