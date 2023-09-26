@@ -6,7 +6,7 @@
 
 ## Summary
 
-Cloud storage services allow web applications and services to store and access objects in the storage service. Improper access control configuration, however, may result in sensitive information exposure, data tampering, or unauthorized access.
+Cloud storage services allow web applications and services to store and access objects in the storage service. Improper access control configuration, however, may lead to the exposure of sensitive information, data tampering, or unauthorized access.
 
 A known example is where an Amazon S3 bucket is misconfigured, although the other cloud storage services may also be exposed to similar risks. By default, all S3 buckets are private and can be accessed only by users who are explicitly granted access. Users can grant public access not only to the bucket itself but also to individual objects stored within that bucket. This may lead to an unauthorized user being able to upload new files, modify or read stored files.
 
@@ -34,6 +34,8 @@ To test the ability to upload a file:
 ```bash
 curl -X PUT -d 'test' 'https://<cloud-storage-service>/test.txt'
 ```
+
+In the above command, it is recommended to replace the single quotes (') with double quotes (") when running the command on a Windows machine.
 
 ### Testing for Amazon S3 Bucket Misconfiguration
 
@@ -138,4 +140,5 @@ aws s3 rm s3://bucket-name/object-to-remove
 ## References
 
 - [Working with Amazon S3 Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html)
-- [flAWS 2](http://flaws2.cloud)
+- [flAWS 2 - Learn AWS Security](http://flaws2.cloud)
+- [curl Tutorial](https://curl.se/docs/manual.html)
