@@ -93,7 +93,7 @@ For gray-box testing, you can obtain bucket URLs from Amazon's web interface, do
 
 #### Testing with AWS-CLI
 
-In addition to testing with curl, you can also test with the AWS Command Line Interface (AWS CLI) tool. In this case `s3://` URI scheme is used.
+In addition to testing with curl, you can also test with the AWS command-line tool. In this case `s3://` URI scheme is used.
 
 ##### List
 
