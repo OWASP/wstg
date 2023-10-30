@@ -126,4 +126,4 @@ jobs:
         git add .
         git commit -m "Publish Stable and $VERSION_TAG - $SHORT_DATE" -m "Updates based on $SRC_BASE $VERSION_TAG"
         git push --set-upstream origin $BRANCH --force
-        hub pull-request --no-edit
+        gh pr create -R OWASP/www-project-web-security-testing-guide --fill

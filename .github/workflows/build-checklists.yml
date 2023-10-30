@@ -77,7 +77,7 @@ jobs:
           git remote set-url origin https://$GITHUB_USER:${{ secrets.wstg_deploy_token }}@github.com/OWASP/wstg.git
           git commit -m "Publish Latest checklists $SHORT_DATE" -m "Updates based on $SRC_BASE"
           git push --set-upstream origin $BRANCH_STAMP
-          hub pull-request --no-edit
+          gh pr create -R OWASP/wstg --fill
         fi
     - name: Set XLSX Publishing Secrets
       run: |

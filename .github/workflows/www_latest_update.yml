@@ -86,5 +86,5 @@ jobs:
           git remote set-url origin https://$GITHUB_USER:${{ secrets.wstg_deploy_token }}@github.com/$GITHUB_USER/www-project-web-security-testing-guide.git
           git commit -m "Publish Latest $SHORT_DATE" -m "Updates based on $SRC_BASE"
           git push --set-upstream origin $BRANCH --force
-          hub pull-request --no-edit
+          gh pr create -R OWASP/www-project-web-security-testing-guide --fill
         fi
