@@ -86,7 +86,7 @@ The methodology for testing is equivalent to the black-box case, as in both scen
 
 ## Tools
 
-- [OWASP Zed Attack Proxy](https://www.zaproxy.org)
+- [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
 
 ## References
 

