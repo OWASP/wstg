@@ -1,0 +1,63 @@
+| ID          |
+|-------------|
+| WSTG-SESS-11|
+
+## Summary
+
+A secure application must effectively manage simultaneous sessions for individual user accounts, especially in high-risk areas like an admin panel containing sensitive Personally Identifiable Information (PII) data. This test case aims to verify the application's ability to handle multiple active sessions for a single user.
+
+
+### Explanation
+
+This test assesses the application's capability to handle multiple concurrent sessions for a single user account. Adequate session management is crucial, particularly in areas involving sensitive data. By examining how the application manages multiple active sessions, this test identifies potential vulnerabilities that could result in unauthorized access or compromise of sensitive information.
+
+## Test Objectives
+
+- Evaluate the application's session management by assessing the handling of multiple active sessions for a single user account.
+
+## Testing Procedure
+
+1. **Generate Valid Session:**
+   - Submit valid credentials (username and password) to create a session.
+   - Example HTTP Request:
+
+     ```http
+     POST /login HTTP/1.1
+     Host: www.example.com
+     Content-Length: 32
+
+     username=admin&password=admin123
+     ```
+
+   - Example Response:
+
+     ```http
+     HTTP/1.1 200 OK
+     Set-Cookie: SESSIONID=0add0d8eyYq3HIUy09hhus; Path=/; Secure
+     Connection: Keep-Alive
+     Content-Type: text/html; charset=UTF-8
+     Content-Language: en-US
+     ```
+
+   - Store the generated authentication token or cookie.
+
+2. **Test for Generating Active Sessions:**
+   - Attempt to create multiple authentication cookies by submitting login requests (e.g., one hundred times).
+
+3. **Test for Validating Active Sessions:**
+   - Try accessing the application using the initial session token (e.g., `SESSIONID=0add0d8eyYq3HIUy09hhus`).
+   - If successful authentication occurs with the first generated token, consider it a potential issue indicating inadequate session management.
+
+## Remediation
+
+The application should monitor and limit the number of active sessions per user account. If the maximum allowed sessions are surpassed, the system must invalidate previous sessions to maintain security. Implementing additional solutions can further mitigate this vulnerability:
+
+   1. **User Notification:** Notify users after each successful login to raise awareness of active sessions.
+   2. **Session Management Page:** Create a dedicated page to display and allow termination of active sessions for enhanced user control.
+
+## Recommended Tools
+
+### Intercepting Proxy Tools
+
+- [OWASP Zed Attack Proxy Project](https://www.zaproxy.org)
+- [Burp Suite Web Proxy](https://portswigger.net)
