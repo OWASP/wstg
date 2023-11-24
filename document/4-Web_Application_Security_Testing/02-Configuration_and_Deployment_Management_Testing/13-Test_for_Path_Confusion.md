@@ -47,7 +47,7 @@ If the path `https://example.com/dashboard/none.js` is also opened by the user i
 
 ## Tools
 
-- [OWASP Zed Attack Proxy](https://www.zaproxy.org)
+- [Zed Attack Proxy](https://www.zaproxy.org)
 - [Burp Suite](https://portswigger.net/burp)
 
 ## Remediation

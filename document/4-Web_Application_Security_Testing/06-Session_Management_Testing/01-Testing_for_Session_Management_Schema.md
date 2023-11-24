@@ -190,7 +190,7 @@ More information here: [Testing for cookies attributes](02-Testing_for_Cookies_A
 
 ## Tools
 
-- [OWASP Zed Attack Proxy Project (ZAP)](https://www.zaproxy.org) - features a session token analysis mechanism.
+- [Zed Attack Proxy Project (ZAP)](https://www.zaproxy.org) - features a session token analysis mechanism.
 - [Burp Sequencer](https://portswigger.net/burp/documentation/desktop/tools/sequencer)
 - [YEHG's JHijack](https://github.com/yehgdotnet/JHijack)
 

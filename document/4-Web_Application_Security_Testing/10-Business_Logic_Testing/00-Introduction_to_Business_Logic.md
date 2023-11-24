@@ -42,7 +42,7 @@ When installing addons you should always be diligent in considering the permissi
 
 To Observe the Request and Response Blocks of HTTP Traffic
 
-- [OWASP Zed Attack Proxy](https://www.zaproxy.org)
+- [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
 - [Burp Proxy](https://portswigger.net/burp)
 
 ### Web Browser Plug-ins
