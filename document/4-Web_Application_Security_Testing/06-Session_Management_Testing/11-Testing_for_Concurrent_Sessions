@@ -12,7 +12,7 @@ It is important to understand the security requirements of concurrent sessions i
 
 - Evaluate the application's session management by assessing the handling of multiple active sessions for a single user account.
 
-## Testing Procedure
+## How to Test
 
 1. **Generate Valid Session:**
    - Submit valid credentials (username and password) to create a session.
@@ -31,9 +31,6 @@ It is important to understand the security requirements of concurrent sessions i
      ```http
      HTTP/1.1 200 OK
      Set-Cookie: SESSIONID=0add0d8eyYq3HIUy09hhus; Path=/; Secure
-     Connection: Keep-Alive
-     Content-Type: text/html; charset=UTF-8
-     Content-Language: en-US
      ```
 
    - Store the generated authentication token or cookie.
@@ -44,6 +41,8 @@ It is important to understand the security requirements of concurrent sessions i
 3. **Test for Validating Active Sessions:**
    - Try accessing the application using the initial session token (e.g., `SESSIONID=0add0d8eyYq3HIUy09hhus`).
    - If successful authentication occurs with the first generated token, consider it a potential issue indicating inadequate session management.
+
+Note: Utilizing private browsing mode or multi-account containers might be beneficial for conducting these tests, as they can provide separate environments for testing session management without interference from existing sessions or cookies stored in the browser.
 
 ## Remediation
 
