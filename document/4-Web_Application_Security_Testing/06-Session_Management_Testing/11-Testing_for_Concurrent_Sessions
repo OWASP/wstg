@@ -4,12 +4,9 @@
 
 ## Summary
 
-A secure application must effectively manage simultaneous sessions for individual user accounts, especially in high-risk areas like an admin panel containing sensitive Personally Identifiable Information (PII) data. This test case aims to verify the application's ability to handle multiple active sessions for a single user.
+Concurrent sessions are a common aspect of web applications that enable multiple simultaneous user interactions. This test case aims to verify the application’s ability to handle multiple active sessions for a single user, which is crucial to ensure effective management of concurrent user sessions, particularly within sensitive areas such as admin panels containing Personally Identifiable Information (PII) data, personal user accounts, or APIs reliant on third-party services to enrich user-provided data, and to align concurrent sessions with an application’s security needs.
 
-
-### Explanation
-
-This test assesses the application's capability to handle multiple concurrent sessions for a single user account. Adequate session management is crucial, particularly in areas involving sensitive data. By examining how the application manages multiple active sessions, this test identifies potential vulnerabilities that could result in unauthorized access or compromise of sensitive information.
+It is important to understand the security requirements of concurrent sessions in an application to determine whether concurrent sessions are a desirable or intended feature. While allowing concurrent sessions is not inherently negative and is intentionally permitted in numerous applications, it is crucial to ensure that the application’s functionality is effectively aligned with its security measures concerning concurrent sessions. If concurrent sessions are intended, it is vital to ensure additional security controls, such as managing active sessions, terminating sessions, and potential new session notifications. Conversely, if concurrent sessions are not intended or planned within the application, it is crucial to validate existing checks for session management vulnerabilities.
 
 ## Test Objectives
 
