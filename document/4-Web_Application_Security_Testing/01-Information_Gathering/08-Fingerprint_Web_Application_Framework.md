@@ -80,7 +80,7 @@ Consider the following HTTP request:
 ![Cakephp HTTP Request](images/Cakephp_cookie.png)\
 *Figure 4.1.8-7: Cakephp HTTP Request*
 
-The cookie `CAKEPHP` has automatically been set, which gives information about the framework being used. A list of common cookie names is presented in [Cookies](#cookies) section. Limitations still exist in relying on this identification mechanism - it is possible to change the name of cookies. For example, for the selected `CakePHP` framework this could be done via the following configuration (excerpt from `core.php`):
+The cookie `CAKEPHP` has automatically been set, which gives information about the framework being used. A list of common cookie names is presented in [Cookies](#cookies-1) section. Limitations still exist in relying on this identification mechanism - it is possible to change the name of cookies. For example, for the selected `CakePHP` framework this could be done via the following configuration (excerpt from `core.php`):
 
 ```php
 /**
