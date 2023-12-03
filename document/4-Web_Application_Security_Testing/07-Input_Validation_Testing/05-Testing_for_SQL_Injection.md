@@ -181,7 +181,7 @@ The first way to find out what backend database is used is by observing the erro
 
 MySql:
 
-```HTML
+```html
 You have an error in your SQL syntax; check the manual
 that corresponds to your MySQL server version for the
 right syntax to use near '\'' at line 1
@@ -197,7 +197,7 @@ Oracle:
 
 MS SQL Server:
 
-```HTML
+```html
 Microsoft SQL Native Client error ‘80040e14’
 Unclosed quotation mark after the character string
 
@@ -206,7 +206,7 @@ SELECT id, name FROM users WHERE id=1 UNION SELECT 1, @@version limit 1, 1
 
 PostgreSQL:
 
-```HTML
+```html
 Query failed: ERROR: syntax error at or near
 "’" at character 56 in /www/site/test.php on line 121.
 ```
@@ -611,7 +611,7 @@ When using dynamic SQL within a stored procedure, the application must properly 
 
 Consider the following SQL Server Stored Procedure:
 
-```SQL
+```sql
 Create procedure user_login @username varchar(20), @passwd varchar(20)
 As
 Declare @sqlstring varchar(250)
@@ -624,7 +624,7 @@ Go
 
 User input:
 
-```SQL
+```sql
 anyusername or 1=1'
 anypassword
 ```
@@ -635,7 +635,7 @@ This procedure does not sanitize the input, therefore allowing the return value 
 
 Consider the following SQL Server Stored Procedure:
 
-```SQL
+```sql
 Create
 procedure get_report @columnamelist varchar(7900)
 As
@@ -648,7 +648,7 @@ Go
 
 User input:
 
-```SQL
+```sql
 1 from users; update users set password = 'password'; select *
 ```
 
@@ -666,7 +666,7 @@ The techniques are used to bypass defenses such as Web application firewalls (WA
 
 Dropping space or adding spaces that won't affect the SQL statement. For example
 
-```SQL
+```sql
 or 'a'='a'
 
 or 'a'  =    'a'
@@ -674,7 +674,7 @@ or 'a'  =    'a'
 
 Adding special characters like a new line or tab that won't change the SQL statement execution. For example,
 
-```SQL
+```sql
 or
 'a'=
         'a'
@@ -758,14 +758,14 @@ For example, the SQL injection statement below
 
 Define the SQL statement into the variable `SQLivar`
 
-```SQL
+```sql
 ; declare @SQLivar nvarchar(80); set @myvar = N'UNI' + N'ON' + N' SELECT' + N'password');
 EXEC(@SQLivar)
 ```
 
 #### Alternative Expression of 'or 1 = 1'
 
-```SQL
+```sql
 OR 'SQLi' = 'SQL'+'i'
 OR 'SQLi' &gt; 'S'
 or 20 &gt; 1
