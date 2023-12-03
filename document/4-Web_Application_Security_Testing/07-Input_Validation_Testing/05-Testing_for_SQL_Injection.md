@@ -797,6 +797,7 @@ For generic input validation security, refer to the [Input Validation CheatSheet
 - [sqlbftools](http://packetstormsecurity.org/files/43795/sqlbftools-1.2.tar.gz.html)
 - [Bernardo Damele A. G.: sqlmap, automatic SQL injection tool](http://sqlmap.org/)
 - [Muhaimin Dzulfakar: MySqloit, MySql Injection takeover tool](https://github.com/dtrip/mysqloit)
+- [SQL Injection - PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/SQL%20Injection)
 
 ## References
 
