@@ -6,7 +6,7 @@
 
 ## Summary
 
-SQL injection testing checks if it is possible to inject data into an application/website so that it executes a user-controlled SQL query in the database. Testers find a SQL injection vulnerability if the application uses user input to create SQL queries without proper input validation. Successful exploitation of this class of vulnerability allows an unauthorized user to access or manipulate data in the database,  which if you didn't know already is quite bad.
+SQL injection testing checks if it is possible to inject data into an application/site so that it executes a user-controlled SQL query in the database. Testers find a SQL injection vulnerability if the application uses user input to create SQL queries without proper input validation. Successful exploitation of this class of vulnerability allows an unauthorized user to access or manipulate data in the database,  which if you didn't know already is quite bad.
 
 An [SQL injection](https://owasp.org/www-community/attacks/SQL_Injection) attack consists of insertion or "injection" of either a partial or complete SQL query via the data input or transmitted from the client (browser) to the web application. A successful SQL injection attack can read sensitive data from the database, modify database data (insert/update/delete), execute administration operations on the database (such as shutdown the DBMS), recover the content of a given file existing on the DBMS file system or write files into the file system, and, in some cases, issue commands to the operating system. SQL injection attacks are a type of injection attack, in which SQL commands are injected into data-plane input to affect the execution of predefined SQL commands.
 
@@ -827,9 +827,12 @@ Technology-specific Testing Guide pages have been created for the following DBMS
 - [Adi Kaploun and Eliran Goshen, Check Point Threat Intelligence & Research Team: "The Latest SQL Injection Trends"](http://blog.checkpoint.com/2015/05/07/latest-sql-injection-trends/)
 
 ## [List Of Known SQL Injections](https://pastebin.com/raw/g3NFwpVG)
-### Disclaimer:
+
+### Disclaimer
+
 - We are not liable for any cyber crimes committed using this educational info
-- Please remember that this is for use in educational purposes and pentester use 
+- Please remember that this is for use in educational purposes and pentester use
+
 ### Documentation on SQL Injection Vulnerabilities in Products
 
 - [Anatomy of the SQL injection in Drupal's database comment filtering system SA-CORE-2015-003](https://www.vanstechelman.eu/content/anatomy-of-the-sql-injection-in-drupals-database-comment-filtering-system-sa-core-2015-003)
