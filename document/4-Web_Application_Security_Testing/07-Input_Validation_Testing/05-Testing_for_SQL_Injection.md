@@ -827,13 +827,6 @@ Technology-specific Testing Guide pages have been created for the following DBMS
 - ["ZeQ3uL" (Prathan Phongthiproek) and "Suphot Boonchamnan": "Beyond SQLi: Obfuscate and Bypass"](https://www.exploit-db.com/papers/17934/)
 - [Adi Kaploun and Eliran Goshen, Check Point Threat Intelligence & Research Team: "The Latest SQL Injection Trends"](http://blog.checkpoint.com/2015/05/07/latest-sql-injection-trends/)
 
-## [List Of Known SQL Injections](https://pastebin.com/raw/g3NFwpVG)
-
-### Disclaimer
-
-- We are not liable for any cyber crimes committed using this educational info
-- Please remember that this is for use in educational purposes and pentester use
-
 ### Documentation on SQL Injection Vulnerabilities in Products
 
 - [Anatomy of the SQL injection in Drupal's database comment filtering system SA-CORE-2015-003](https://www.vanstechelman.eu/content/anatomy-of-the-sql-injection-in-drupals-database-comment-filtering-system-sa-core-2015-003)
