@@ -171,7 +171,7 @@ This way is possible to execute many queries in a row and independent of the fir
 
 ### Fingerprinting the Database
 
-Even though the SQL language is a standard, every DBMS has its peculiarity and differs from each other in many aspects like special commands, and functions to retrieve data such as user's names and databases, features, comments lines, etc.
+Even though the SQL language is a standard, every DBMS has its peculiarity and differs from each other in many aspects like special commands, and functions to retrieve data such as users' names and databases, features, comments lines, etc.
 
 When the testers move to a more advanced SQL injection exploitation they need to know what the backend database is.
 
