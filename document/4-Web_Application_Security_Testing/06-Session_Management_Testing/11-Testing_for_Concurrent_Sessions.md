@@ -55,7 +55,7 @@ Also, there are additional test cases that extend the scope of the testing metho
 
 - Test Multiple sessions from the same IP.
 - Test Multiple sessions from different IPs.
-- Test Multiple sessions from locations that are unlikely or impossible to be visited by the same user in a short period of time (e.g., one session created in a specific country, followed by another session generated five minutes later from a different distant country).
+- Test Multiple sessions from locations that are unlikely or impossible to be visited by the same user in a short period of time (e.g., one session created in a specific country, followed by another session generated five minutes later from a different country).
 
 ## Remediation
 
