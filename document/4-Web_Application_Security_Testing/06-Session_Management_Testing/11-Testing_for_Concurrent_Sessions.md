@@ -9,6 +9,7 @@ Concurrent sessions are a common aspect of web applications that enable multiple
 Understanding the security needs for concurrent sessions in an application is key to assessing whether enabling concurrent sessions aligns with the intended features. Allowing concurrent sessions isn't inherently detrimental and is intentionally permitted in many applications. However, it is crucial to ensure that the application’s functionality is effectively aligned with its security measures concerning concurrent sessions. If concurrent sessions are intended, it is vital to ensure additional security controls, such as managing active sessions, terminating sessions, and potential new session notifications. Conversely, if concurrent sessions are not intended or planned within the application, it is crucial to validate existing checks for session management vulnerabilities.
 
 To recognize that concurrent sessions are essential, you should consider the following factors:
+
 - Understanding the application's nature, particularly situations where users might require simultaneous access from different locations or devices.
 - Identifying critical operations, such as financial transactions that require secure access.
 - Handling sensitive data like Personally Identifiable Information (PII), indicating the necessity for secure interactions.
@@ -51,6 +52,7 @@ To recognize that concurrent sessions are essential, you should consider the fol
    - If successful authentication occurs with the first generated token, consider it a potential issue indicating inadequate session management.
 
 Also, there are additional test cases that extend the scope of the testing methodology to include scenarios involving multiple sessions originating from various IPs and locations. These test cases aid in identifying potential vulnerabilities or irregularities in session handling related to geographical or network-based factors:
+
 - Test Multiple sessions from the same IP.
 - Test Multiple sessions from different IPs.
 - Test Multiple sessions from locations that are unlikely or impossible to be visited by the same user in a short period of time (e.g., one session created in a specific country, followed by another session generated five minutes later from a different distant country).
@@ -70,3 +72,4 @@ The application should monitor and limit the number of active sessions per user 
 
 - [OWASP Zed Attack Proxy Project](https://www.zaproxy.org)
 - [Burp Suite Web Proxy](https://portswigger.net)
+
