@@ -1,8 +1,8 @@
 # Testing for Concurrent Sessions
 
-| ID          |
-|-------------|
-| WSTG-SESS-11|
+|ID          |
+|------------|
+|WSTG-SESS-11|
 
 ## Summary
 
@@ -74,4 +74,3 @@ The application should monitor and limit the number of active sessions per user 
 
 - [OWASP Zed Attack Proxy Project](https://www.zaproxy.org)
 - [Burp Suite Web Proxy](https://portswigger.net)
-
