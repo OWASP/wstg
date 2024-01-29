@@ -72,5 +72,5 @@ The application should monitor and limit the number of active sessions per user 
 
 ### Intercepting Proxy Tools
 
-- [OWASP Zed Attack Proxy Project](https://www.zaproxy.org)
+- [Zed Attack Proxy](https://www.zaproxy.org)
 - [Burp Suite Web Proxy](https://portswigger.net)
