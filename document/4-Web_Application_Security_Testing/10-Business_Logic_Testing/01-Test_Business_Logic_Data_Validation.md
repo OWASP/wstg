@@ -60,7 +60,7 @@ The application/system must ensure that only "logically valid" data is accepted 
 
 ## Tools
 
-- [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
+- [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
 - [Burp Suite](https://portswigger.net/burp)
 
 ## References

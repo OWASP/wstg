@@ -49,7 +49,7 @@ As with any data originating from untrusted sources, the data should be properly
 
 #### Example 1
 
-Once we have identified that the application is using WebSockets (as described above) we can use the [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org) to intercept the WebSocket request and responses. ZAP can then be used to replay and fuzz the WebSocket request/responses.
+Once we have identified that the application is using WebSockets (as described above) we can use the [Zed Attack Proxy (ZAP)](https://www.zaproxy.org) to intercept the WebSocket request and responses. ZAP can then be used to replay and fuzz the WebSocket request/responses.
 
 ![ZAP WebSockets](images/OWASP_ZAP_WebSockets.png)\
 *Figure 4.11.10-1: ZAP WebSockets*
@@ -67,7 +67,7 @@ Gray-box testing is similar to black-box testing. In gray-box testing, the pen-t
 
 ## Tools
 
-- [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
+- [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
 - [WebSocket Client](https://github.com/ethicalhack3r/scripts/blob/master/WebSockets.html)
 - [Google Chrome Simple WebSocket Client](https://chrome.google.com/webstore/detail/simple-websocket-client/pfdhoblngboilpfeibdedpjgfnlcodoo?hl=en)
 

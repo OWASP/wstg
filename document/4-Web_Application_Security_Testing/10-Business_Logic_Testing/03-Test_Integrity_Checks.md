@@ -65,7 +65,7 @@ The application should follow strict access controls on how data and artifacts c
 ## Tools
 
 - Various system/application tools such as editors and file manipulation tools.
-- [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
+- [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
 - [Burp Suite](https://portswigger.net/burp)
 
 ## References

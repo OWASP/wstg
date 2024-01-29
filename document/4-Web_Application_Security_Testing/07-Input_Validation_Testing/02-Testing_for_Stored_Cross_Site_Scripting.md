@@ -8,7 +8,7 @@
 
 Stored [Cross-site Scripting (XSS)](https://owasp.org/www-community/attacks/xss/) is the most dangerous type of Cross Site Scripting. Web applications that allow users to store data are potentially exposed to this type of attack. This chapter illustrates examples of stored cross site scripting injection and related exploitation scenarios.
 
-Stored XSS occurs when a web application gathers input from a user which might be malicious, and then stores that input in a data store for later use. The input that is stored is not correctly filtered. As a consequence, the malicious data will appear to be part of the web site and run within the user’s browser under the privileges of the web application. Since this vulnerability typically involves at least two requests to the application, this may also called second-order XSS.
+Stored XSS occurs when a web application gathers input from a user which might be malicious, and then stores that input in a data store for later use. The input that is stored is not correctly filtered. As a consequence, the malicious data will appear to be part of the site and run within the user’s browser under the privileges of the web application. Since this vulnerability typically involves at least two requests to the application, this may also called second-order XSS.
 
 This vulnerability can be used to conduct a number of browser-based attacks including:
 
@@ -43,7 +43,7 @@ The process for identifying stored XSS vulnerabilities is similar to the process
 
 #### Input Forms
 
-The first step is to identify all points where user input is stored into the back-end and then displayed by the application. Typical examples of stored user input can be found in:
+The first step is to identify all points where user input is stored into the backend and then displayed by the application. Typical examples of stored user input can be found in:
 
 - User/Profiles page: the application allows the user to edit/change profile details such as first name, last name, nickname, avatar, picture, address, etc.
 - Shopping cart: the application allows the user to store items into the shopping cart which can then be reviewed later
@@ -159,12 +159,12 @@ Blind Cross-site Scripting is a form of stored XSS. It generally occurs when the
 
 Gray-box testing is similar to black-box testing. In gray-box testing, the pen-tester has partial knowledge of the application. In this case, information regarding user input, input validation controls, and data storage might be known by the pen-tester.
 
-Depending on the information available, it is normally recommended that testers check how user input is processed by the application and then stored into the back-end system. The following steps are recommended:
+Depending on the information available, it is normally recommended that testers check how user input is processed by the application and then stored into the backend system. The following steps are recommended:
 
-- Use front-end application and enter input with special/invalid characters
+- Use frontend application and enter input with special/invalid characters
 - Analyze application response(s)
 - Identify presence of input validation controls
-- Access back-end system and check if input is stored and how it is stored
+- Access backend system and check if input is stored and how it is stored
 - Analyze source code and understand how stored input is rendered by the application
 
 If source code is available (as in white-box testing), all variables used in input forms should be analyzed. In particular, programming languages such as PHP, ASP, and JSP make use of predefined variables/functions to store input from HTTP GET and POST requests.
@@ -188,7 +188,7 @@ The following table summarizes some special variables and functions to look at w
 - [XSS-Proxy](http://xss-proxy.sourceforge.net/) is an advanced Cross-Site-Scripting (XSS) attack tool.
 - [Burp Proxy](https://portswigger.net/burp/) is an interactive HTTP/S proxy server for attacking and testing web applications.
 - [XSS Assistant](https://www.greasespot.net/) Greasemonkey script that allow users to easily test any web application for cross-site-scripting flaws.
-- [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org) is an interactive HTTP/S proxy server for attacking and testing web applications with a built-in scanner.
+- [Zed Attack Proxy (ZAP)](https://www.zaproxy.org) is an interactive HTTP/S proxy server for attacking and testing web applications with a built-in scanner.
 - [XSS Hunter Portable](https://github.com/mandatoryprogrammer/xsshunter) XSS Hunter finds all kinds of cross-site scripting vulnerabilities, including the often-missed blind XSS.
 
 ## References

@@ -186,7 +186,7 @@ Ensure default system accounts and test accounts are deleted prior to releasing 
 
 ## Tools
 
-- [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
+- [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
 - [curl](https://curl.haxx.se/)
 - [PERL](https://www.perl.org)
 

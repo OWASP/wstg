@@ -143,7 +143,7 @@ Having a variety of injection locations provides the attacker with chaining poss
 
 ## Tools
 
-- [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org/)
+- [Zed Attack Proxy (ZAP)](https://www.zaproxy.org/)
 - [Burp Suite](https://www.portswigger.net/burp/)
 - [Fiddler](https://www.telerik.com/fiddler)
 
