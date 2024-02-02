@@ -509,11 +509,11 @@ Which is exploitable through the methods seen previously. What we want to obtain
 
 Through such functions, we will execute our tests on the first character and, when we have discovered the value, we will pass it to the second and so on, until we will have discovered the entire value. The tests will take advantage of the function SUBSTRING, to select only one character at a time (selecting a single character means imposing the length parameter to 1), and the function ASCII, to obtain the ASCII value, so that we can do numerical comparison. The results of the comparison will be done with all the values of the ASCII table until the right value is found. As an example, we will use the following value for `Id`:
 
-`$Id=1' AND ASCII(SUBSTRING(username,1,1))=97 AND '1'='1`
+`$Id=1' OR ASCII(SUBSTRING(username,1,1))=97 AND '1'='1`
 
 That creates the following query (from now on, we will call it "inferential query"):
 
-`SELECT field1, field2, field3 FROM Users WHERE Id='1' AND ASCII(SUBSTRING(username,1,1))=97 AND '1'='1'`
+`SELECT field1, field2, field3 FROM Users WHERE Id='1' OR ASCII(SUBSTRING(username,1,1))=97 AND '1'='1'`
 
 The previous example returns a result if and only if the first character of the field username is equal to the ASCII value 97. If we get a false value, then we increase the index of the ASCII table from 97 to 98 and we repeat the request. If instead we obtain a true value, we set the index of the ASCII table to zero and we analyze the next character, modifying the parameters of the SUBSTRING function. The problem is to understand in which way we can distinguish tests returning a true value from those that return false. To do this, we create a query that always returns false. This is possible by using the following value for `Id`:
 
@@ -529,11 +529,11 @@ In the previous discussion, we haven't dealt with the problem of determining the
 
 We will insert the following value for the field `Id`:
 
-`$Id=1' AND LENGTH(username)=N AND '1' = '1`
+`$Id=1' OR LENGTH(username)=N AND '1' = '1`
 
 Where N is the number of characters that we have analyzed up to now (not counting the null value). The query will be:
 
-`SELECT field1, field2, field3 FROM Users WHERE Id='1' AND LENGTH(username)=N AND '1' = '1'`
+`SELECT field1, field2, field3 FROM Users WHERE Id='1' OR LENGTH(username)=N AND '1' = '1'`
 
 The query returns either true or false. If we obtain true, then we have completed the inference and, therefore, we know the value of the parameter. If we obtain false, this means that the null character is present in the value of the parameter, and we must continue to analyze the next parameter until we find another null value.
 
