@@ -175,8 +175,8 @@ The following table summarizes some special variables and functions to look at w
 |----------------|-------------------|------------------|
 | `$_GET` - HTTP GET variables  | `Request.QueryString` - HTTP GET | `doGet`, `doPost` servlets - HTTP GET and POST |
 | `$_POST` - HTTP POST variables| `Request.Form` - HTTP POST | `request.getParameter` - HTTP GET/POST variables |
-| `$_REQUEST` – HTTP POST, GET and COOKIE variables | `Server.CreateObject` - used to upload files |
-| `$_FILES` - HTTP File Upload variables |
+| `$_REQUEST` – HTTP POST, GET and COOKIE variables | `Server.CreateObject` - used to upload files | |
+| `$_FILES` - HTTP File Upload variables | | |
 
 **Note**: The table above is only a summary of the most important parameters but, all user input parameters should be investigated.
 
