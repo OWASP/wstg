@@ -494,6 +494,14 @@
                     "Determine whether the JWTs can be tampered with or modified."
                   ]
                 }
+                ,{
+                "name":"Testing for Concurrent Sessions",
+                "id":"WSTG-SESS-11",
+                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/11-Testing_for_Concurrent_Sessions",
+                "objectives":[
+                    "Evaluate the application's session management by assessing the handling of multiple active sessions for a single user account."
+                  ]
+                }
             ]
         }
         ,"Input Validation Testing": {
