@@ -17,7 +17,7 @@ The following steps need to be taken to test the configuration management infras
 - The different elements that make up the infrastructure need to be determined in order to understand how they interact with a web application and how they affect its security.
 - All the elements of the infrastructure need to be reviewed in order to make sure that they don't contain any known vulnerabilities.
 - A review needs to be made of the administrative tools used to maintain all the different elements.
-- The authentication systems need to reviewed in order to assure that they serve the needs of the application and that they cannot be manipulated by external users to leverage access.
+- The authentication systems need to be reviewed in order to assure that they serve the needs of the application and that they cannot be manipulated by external users to leverage access.
 - A list of defined ports which are required for the application should be maintained and kept under change control.
 
 After having mapped the different elements that make up the infrastructure (see [Map Network and Application Architecture](../01-Information_Gathering/10-Map_Application_Architecture.md)), it is possible to review the configuration of each element founded and test for any known vulnerabilities.
