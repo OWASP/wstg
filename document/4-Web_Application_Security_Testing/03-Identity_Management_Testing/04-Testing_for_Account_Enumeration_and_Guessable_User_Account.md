@@ -127,7 +127,7 @@ When we request a user within the directory that does not exist, we don't always
 
 #### Analyzing Response Times
 
-As well as looking at the content of the responses, the time that the response take should also be considered. Particularly where the request causes an interaction with an external service (such as sending a forgotten password email), this can add several hundred milliseconds to the response, which can be used to determine whether the requested user is valid.
+As well as looking at the content of the responses, the time that the response takes should also be considered. Particularly where the request causes an interaction with an external service (such as sending a forgotten password email), this can add several hundred milliseconds to the response, which can be used to determine whether the requested user is valid.
 
 ### Guessing Users
 
