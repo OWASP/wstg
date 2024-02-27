@@ -186,7 +186,7 @@ startswith(), endswith(), contains(), indexOf()
 
 ### Weak SessionID
 
-Weak Session ID has algorithm may be vulnerable to brute Force attack. For example, one site is using `MD5(Password + UserID)` as sessionID. Then, testers may guess or generate the sessionID for other users.
+Weak Session ID has algorithm may be vulnerable to brute force attack. For example, one site is using `MD5(Password + UserID)` as sessionID. Then, testers may guess or generate the sessionID for other users.
 
 ## References
 
