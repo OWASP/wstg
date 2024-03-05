@@ -110,7 +110,7 @@ Crafting a full exploit from a parameter pollution weakness is beyond the scope 
 
 ### Client-Side HPP
 
-Similarly to server-side HPP, manual testing is the only reliable technique to audit web applications in order to detect parameter pollution vulnerabilities affecting client-side components. While in the server-side variant the attacker leverages a vulnerable web application to access protected data or to perform actions that either not permitted or not supposed to be executed, client-side attacks aim at subverting client-side components and technologies.
+Similarly to server-side HPP, manual testing is the only reliable technique to audit web applications in order to detect parameter pollution vulnerabilities affecting client-side components. While in the server-side variant the attacker leverages a vulnerable web application to access protected data or to perform actions that are either not permitted or not supposed to be executed, client-side attacks aim at subverting client-side components and technologies.
 
 To test for HPP client-side vulnerabilities, identify any form or action that allows user input and shows a result of that input back to the user. A search page is ideal, but a login box might not work (as it might not show an invalid username back to the user).
 
