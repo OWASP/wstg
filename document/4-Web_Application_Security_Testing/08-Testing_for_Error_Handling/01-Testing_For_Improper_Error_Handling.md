@@ -71,7 +71,7 @@ For remediation, check out the [Proactive Controls C10](https://owasp.org/www-pr
 
 ## Playgrounds
 
-- [Juice Shop - Error Handling](https://pwning.owasp-juice.shop/companion-guide/latest/part2/configuration.html#provoke-an-error-that-is-neither-very-gracefully-nor-consistently-handled)
+- [Juice Shop - Error Handling](https://pwning.owasp-juice.shop/companion-guide/latest/part2/security-misconfiguration.html#provoke-an-error-that-is-neither-very-gracefully-nor-consistently-handled)
 
 ## References
 
