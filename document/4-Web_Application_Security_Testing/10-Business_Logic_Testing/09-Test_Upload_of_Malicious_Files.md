@@ -75,7 +75,7 @@ If the filtering is performed on the server-side, then various techniques can be
 - Change the capitalisation of the extension, such as `file.PhP` or `file.AspX`
 - If the request includes multiple filenames, change them to different values.
 - Using special trailing characters such as spaces, dots or null characters such as `file.asp...`, `file.php;jpg`, `file.asp%00.jpg`, `1.jpg%00.php`
-- In badly configured versions of nginx, uploading a file as `test.jpg/x.php` may allow it to be executed as `x.php`.
+- In badly configured versions of Nginx, uploading a file as `test.jpg/x.php` may allow it to be executed as `x.php`.
 
 ### Malicious File Contents
 
@@ -126,7 +126,7 @@ Additional testing techniques:
 
 #### ZIP Bombs
 
-A [ZIP bomb](https://en.wikipedia.org/wiki/ZIP_bomb) (more generally known as a decompression bomb) is an archive file that contains a large volume of data. It's intended to cause a denial of service by exhausting the disk space or memory of the target system that tries to extract the archive. Note that although the ZIP format is the most used example for this, other formats are also affected, including gZIP (which is frequently used to compress data in transit).
+A [ZIP bomb](https://en.wikipedia.org/wiki/zip_bomb) (more generally known as a decompression bomb) is an archive file that contains a large volume of data. It's intended to cause a denial of service by exhausting the disk space or memory of the target system that tries to extract the archive. Note that although the ZIP format is the most used example for this, other formats are also affected, including gZIP (which is frequently used to compress data in transit).
 
 At its simplest level, a ZIP bomb can be created by compressing a large file consisting of a single character. The example below shows how to create a 1MB file that will decompress to 1GB:
 
@@ -134,7 +134,7 @@ At its simplest level, a ZIP bomb can be created by compressing a large file con
 dd if=/dev/zero bs=1M count=1024 | ZIP -9 > bomb.ZIP
 ```
 
-There are a number of methods that can be used to achieve much higher compression ratios, including multiple levels of compression, [abusing the ZIP format](https://www.bamsoftware.com/hacks/ZIPbomb/) and [quines](https://research.swtch.com/ZIP) (which are archives that contain a copy of themselves, causing infinite recursion).
+There are a number of methods that can be used to achieve much higher compression ratios, including multiple levels of compression, [abusing the ZIP format](https://www.bamsoftware.com/hacks/zipbomb/) and [quines](https://research.swtch.com/zip) (which are archives that contain a copy of themselves, causing infinite recursion).
 
 A successful ZIP bomb attack will result in a denial of service, and can also lead to increased costs if an auto-scaling cloud platform is used. **Do not carry out this kind of attack unless you have considered these risks and have written approval to do so.**
 
