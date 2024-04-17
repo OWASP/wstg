@@ -22,7 +22,7 @@ A common example of this vulnerability is an application such as a blog or forum
 
 - Identify the file upload functionality.
 - Review the project documentation to identify what file types are considered acceptable, and what types would be considered dangerous or malicious.
-    - If documentation is not available then consider what would be appropriate based on the purpose of the application.
+- If documentation is not available then consider what would be appropriate based on the purpose of the application.
 - Determine how the uploaded files are processed.
 - Obtain or create a set of malicious files for testing.
 - Try to upload the malicious files to the application and determine whether it is accepted and processed.
@@ -83,38 +83,36 @@ Once the file type has been validated, it is important to also ensure that the c
 
 #### Malware
 
-Applications should generally scan uploaded files with anti-malware software to ensure that they do not contain anything malicious. The easiest way to test for this is using the [EICAR test file](https://www.eicar.org/?page_id=3950), which is an safe file that is flagged as malicious by all anti-malware software.
+Applications should generally scan uploaded files with anti-malware software to ensure that they do not contain anything malicious. The easiest way to test for this is using the [EICAR test file](https://www.eicar.org/download-anti-malware-testfile/), which is an safe file that is flagged as malicious by all anti-malware software.
 
 Depending on the type of application, it may be necessary to test for other dangerous file types, such as Office documents containing malicious macros. Tools such as the [Metasploit Framework](https://github.com/rapid7/metasploit-framework) and the [Social Engineer Toolkit (SET)](https://github.com/trustedsec/social-engineer-toolkit) can be used to generate malicious files for various formats.
 
-When this file is uploaded, it should be detected and quarantined or deleted by the application. Depending on how the application processes the file, it may not be obvious whether this has taken place.
+When this file is uploaded, it should be detected and quarantined or deleted by the  application. Depending on how the application processes the file, it may not be obvious whether this has taken place.
 
 #### Archive Directory Traversal
 
-If the application extracts archives (such as Zip files), then it may be possible to write to unintended locations using directory traversal. This can be exploited by uploading a malicious zip file that contains paths that traverse the file system using sequences such as `..\..\..\..\shell.php`. This technique is discussed further in the [snyk advisory](https://snyk.io/research/zip-slip-vulnerability).
+If the application extracts archives (such as ZIP files), then it may be possible to write to unintended locations using directory traversal. This can be exploited by uploading a malicious ZIP file that contains paths that traverse the file system using sequences such as `..\..\..\..\shell.php`. This technique is discussed further in the [snyk advisory](https://snyk.io/research/ZIP-slip-vulnerability).
 
 A test against Archive Directory Traversal should include two parts:
- 
-1. A malicious archive that breaks out of the target directory when extracted. For example, a compressed file contains two files: a “notinfected.sh” file, that is extracted into the target directory, and a “infected.sh” file, that attempts to navigate to the directory tree to hit the root folder and adds a file into the tmp directory. A malicious path could contain many levels of "../" (i.e. ../../../../../../../../tmp/infected.sh) to stand a better chance of reaching the root directory.  
 
-2. A functionality is required to extract compressed files, either using your own code or a library. Vulnerability exists when the extraction functionality don’t validate file paths in the archive. An example of a vulnerable code in Java can be seen below. 
+1. A malicious archive that breaks out of the target directory when extracted. For example, a compressed file contains two files: a “notinfected.sh” file, that is extracted into the target directory, and a “infected.sh” file, that attempts to navigate to the directory tree to hit the root folder and adds a file into the tmp directory. A malicious path could contain many levels of "../" (i.e. ../../../../../../../../tmp/infected.sh) to stand a better chance of reaching the root directory.2. A functionality is required to extract compressed files, either using your own code or a library. Vulnerability exists when the extraction functionality don’t validate file paths in the archive. An example of a vulnerable code in Java can be seen below.
 
 ```java
-1: Enumeration<ZipEntry>entries=​​zip​.g​etEntries(); 
+1: Enumeration<ZIPEntry>entries=​​ZIP​.g​etEntries(); 
 2: while(entries​.h​asMoreElements()){
-3:      ZipEntry e ​=​entries.nextElement();
+3:      ZIPEntry e ​=​entries.nextElement();
 4:      File f = new File(destinationDir, e.getName());
-5:      InputStream input =​​zip​.g​etInputStream(e);
+5:      InputStream input =​​ZIP​.g​etInputStream(e);
 6:      IOUtils​.c​opy(input, write(f));
 7: }
 ```
 
 Additional testing techniques:
 
-- Upload a malicious zip file and try to remote access this file when upload is completed.  [Watch it in action here](https://www.youtube.com/watch?v=l1MT5lr4p9o)
+- Upload a malicious ZIP file and try to remote access this file when upload is completed.  [Watch it in action here](https://www.youtube.com/watch?v=l1MT5lr4p9o)
 - In the pipeline:  Include a unit test that uploads an infected compressed file against the extraction method.
-- Validate that libraries being used by the application have been (patched for this vulnerability)[https://github.com/snyk/zip-slip-vulnerability#affected-libraries]
-- Review implementation of upload methods in the application looking for vulnerable code. 
+- Validate that libraries being used by the application have been [patched for this vulnerability](https://github.com/snyk/ZIP-slip-vulnerability#affected-libraries)
+- Review implementation of upload methods in the application looking for vulnerable code.
 - Vulnerability in the Java code above could be prevented by including a test that throws an exception:
 
 ```java
@@ -126,19 +124,19 @@ Additional testing techniques:
 6: }
 ```
 
-#### Zip Bombs
+#### ZIP Bombs
 
-A [Zip bomb](https://en.wikipedia.org/wiki/Zip_bomb) (more generally known as a decompression bomb) is an archive file that contains a large volume of data. It's intended to cause a denial of service by exhausting the disk space or memory of the target system that tries to extract the archive. Note that although the Zip format is the most used example for this, other formats are also affected, including gzip (which is frequently used to compress data in transit).
+A [ZIP bomb](https://en.wikipedia.org/wiki/ZIP_bomb) (more generally known as a decompression bomb) is an archive file that contains a large volume of data. It's intended to cause a denial of service by exhausting the disk space or memory of the target system that tries to extract the archive. Note that although the ZIP format is the most used example for this, other formats are also affected, including gZIP (which is frequently used to compress data in transit).
 
-At its simplest level, a Zip bomb can be created by compressing a large file consisting of a single character. The example below shows how to create a 1MB file that will decompress to 1GB:
+At its simplest level, a ZIP bomb can be created by compressing a large file consisting of a single character. The example below shows how to create a 1MB file that will decompress to 1GB:
 
 ```bash
-dd if=/dev/zero bs=1M count=1024 | zip -9 > bomb.zip
+dd if=/dev/zero bs=1M count=1024 | ZIP -9 > bomb.ZIP
 ```
 
-There are a number of methods that can be used to achieve much higher compression ratios, including multiple levels of compression, [abusing the Zip format](https://www.bamsoftware.com/hacks/zipbomb/) and [quines](https://research.swtch.com/zip) (which are archives that contain a copy of themselves, causing infinite recursion).
+There are a number of methods that can be used to achieve much higher compression ratios, including multiple levels of compression, [abusing the ZIP format](https://www.bamsoftware.com/hacks/ZIPbomb/) and [quines](https://research.swtch.com/ZIP) (which are archives that contain a copy of themselves, causing infinite recursion).
 
-A successful Zip bomb attack will result in a denial of service, and can also lead to increased costs if an auto-scaling cloud platform is used. **Do not carry out this kind of attack unless you have considered these risks and have written approval to do so.**
+A successful ZIP bomb attack will result in a denial of service, and can also lead to increased costs if an auto-scaling cloud platform is used. **Do not carry out this kind of attack unless you have considered these risks and have written approval to do so.**
 
 #### XML Files
 
@@ -191,4 +189,4 @@ Fully protecting against malicious file upload can be complex, and the exact ste
 - [CWE-434: Unrestricted Upload of File with Dangerous Type](https://cwe.mitre.org/data/definitions/434.html)
 - [Implementing Secure File Upload](https://infosecauditor.wordpress.com/tag/malicious-file-upload/)
 - [Metasploit Generating Payloads](https://www.offensive-security.com/metasploit-unleashed/Generating_Payloads)
-- [Zip Slip](https://res.cloudinary.com/snyk/image/upload/v1528192501/zip-slip-vulnerability/technical-whitepaper.pdf)
+- [ZIP Slip](https://res.cloudinary.com/snyk/image/upload/v1528192501/ZIP-slip-vulnerability/technical-whitepaper.pdf)
