@@ -93,6 +93,39 @@ When this file is uploaded, it should be detected and quarantined or deleted by 
 
 If the application extracts archives (such as Zip files), then it may be possible to write to unintended locations using directory traversal. This can be exploited by uploading a malicious zip file that contains paths that traverse the file system using sequences such as `..\..\..\..\shell.php`. This technique is discussed further in the [snyk advisory](https://snyk.io/research/zip-slip-vulnerability).
 
+A test against Archive Directory Traversal should include two parts:
+ 
+1. A malicious archive that breaks out of the target directory when extracted. For example, a compressed file contains two files: a “notinfected.sh” file, that is extracted into the target directory, and a “infected.sh” file, that attempts to navigate to the directory tree to hit the root folder and adds a file into the tmp directory. A malicious path could contain many levels of "../" (i.e. ../../../../../../../../tmp/infected.sh) to stand a better chance of reaching the root directory.  
+
+2. A functionality is required to extract compressed files, either using your own code or a library. Vulnerability exists when the extraction functionality don’t validate file paths in the archive. An example of a vulnerable code in Java can be seen below. 
+
+```java
+1: Enumeration<ZipEntry>entries=​​zip​.g​etEntries(); 
+2: while(entries​.h​asMoreElements()){
+3:      ZipEntry e ​=​entries.nextElement();
+4:      File f = new File(destinationDir, e.getName());
+5:      InputStream input =​​zip​.g​etInputStream(e);
+6:      IOUtils​.c​opy(input, write(f));
+7: }
+```
+
+Additional testing techniques:
+
+- Upload a malicious zip file and try to remote access this file when upload is completed.  [Watch it in action here](https://www.youtube.com/watch?v=l1MT5lr4p9o)
+- In the pipeline:  Include a unit test that uploads an infected compressed file against the extraction method.
+- Validate that libraries being used by the application have been (patched for this vulnerability)[https://github.com/snyk/zip-slip-vulnerability#affected-libraries]
+- Review implementation of upload methods in the application looking for vulnerable code. 
+- Vulnerability in the Java code above could be prevented by including a test that throws an exception:
+
+```java
+1: StringcanonicalDestinationDirPath=destinationDir.getCanonicalPath();
+2: Filedestinationfile=newFile(destinationDir,e.getName());
+3: StringcanonicalDestinationFile=destinationfile.getCanonicalPath();
+4: if(!canonicalDestinationFile.startsWith(canonicalDestinationDirPath+File.separator)){
+5:   throw new ArchiverException("Entry is outside of the target dir: " + e.getName()); 
+6: }
+```
+
 #### Zip Bombs
 
 A [Zip bomb](https://en.wikipedia.org/wiki/Zip_bomb) (more generally known as a decompression bomb) is an archive file that contains a large volume of data. It's intended to cause a denial of service by exhausting the disk space or memory of the target system that tries to extract the archive. Note that although the Zip format is the most used example for this, other formats are also affected, including gzip (which is frequently used to compress data in transit).
@@ -158,3 +191,4 @@ Fully protecting against malicious file upload can be complex, and the exact ste
 - [CWE-434: Unrestricted Upload of File with Dangerous Type](https://cwe.mitre.org/data/definitions/434.html)
 - [Implementing Secure File Upload](https://infosecauditor.wordpress.com/tag/malicious-file-upload/)
 - [Metasploit Generating Payloads](https://www.offensive-security.com/metasploit-unleashed/Generating_Payloads)
+- [Zip Slip](https://res.cloudinary.com/snyk/image/upload/v1528192501/zip-slip-vulnerability/technical-whitepaper.pdf)
