@@ -22,7 +22,7 @@ A common example of this vulnerability is an application such as a blog or forum
 
 - Identify the file upload functionality.
 - Review the project documentation to identify what file types are considered acceptable, and what types would be considered dangerous or malicious.
-- If documentation is not available then consider what would be appropriate based on the purpose of the application.
+  - If documentation is not available then consider what would be appropriate based on the purpose of the application.
 - Determine how the uploaded files are processed.
 - Obtain or create a set of malicious files for testing.
 - Try to upload the malicious files to the application and determine whether it is accepted and processed.
@@ -91,37 +91,37 @@ When this file is uploaded, it should be detected and quarantined or deleted by 
 
 #### Archive Directory Traversal
 
-If the application extracts archives (such as ZIP files), then it may be possible to write to unintended locations using directory traversal. This can be exploited by uploading a malicious ZIP file that contains paths that traverse the file system using sequences such as `..\..\..\..\shell.php`. This technique is discussed further in the [snyk advisory](https://snyk.io/research/ZIP-slip-vulnerability).
+If the application extracts archives (such as ZIP files), then it may be possible to write to unintended locations using directory traversal. This can be exploited by uploading a malicious ZIP file that contains paths that traverse the file system using sequences such as `..\..\..\..\shell.php`. This technique is discussed further in the [snyk advisory](https://snyk.io/research/zip-slip-vulnerability).
 
 A test against Archive Directory Traversal should include two parts:
 
-1. A malicious archive, that extracted breaks out of the target directory. A compressed file could contains two files: a “notinfected.sh” file, extracted into the target directory, and a “infected.sh” file, that attempts to navigate to the directory tree to hit the root folder - adding a file into the tmp directory. A malicious path could contain many levels of "../" (i.e. ../../../../../../../../tmp/infected.sh) to stand a better chance of reaching the root directory.
-2. A functionality, that is required to extract compressed files, either using custom code or a library. Archive Directory Traversal vulnerability exists when the extraction functionality don’t validate file paths in the archive. The example below shows a vulnerable implementation in Java:
+1. A malicious archive, that extracted breaks out of the target directory. A compressed file could contains two files: a 'notinfected.sh' file, extracted into the target directory, and a 'infected.sh' file, that attempts to navigate to the directory tree to hit the root folder - adding a file into the tmp directory. A malicious path could contain many levels of '../' (i.e. ../../../../../../../../tmp/infected.sh) to stand a better chance of reaching the root directory.
+2. A functionality, that is required to extract compressed files, either using custom code or a library. Archive Directory Traversal vulnerabilities exists when the extraction functionality doesn’t validate file paths in the archive. The example below shows a vulnerable implementation in Java:
 
 ```java
-1: Enumeration<ZipEntry>entries=​​zip​.g​etEntries(); 
-2: while(entries​.h​asMoreElements()){
-3:      ZipEntry e ​=​entries.nextElement();
-4:      File f = new File(destinationDir, e.getName());
-5:      InputStream input =zip​.g​etInputStream(e);
-6:      IOUtils​.c​opy(input, write(f));
-7: }
+    Enumeration<ZipEntry>entries=​​zip​.g​etEntries(); 
+        while(entries​.h​asMoreElements()){
+            ZipEntry e ​=​entries.nextElement();
+            File f = new File(destinationDir, e.getName());
+            InputStream input =zip​.g​etInputStream(e);
+            IOUtils​.c​opy(input, write(f));
+        }
 ```
 
 Additional testing techniques:
 
 - Upload a malicious ZIP file and try to remote access this file when upload is completed.  [Watch it in action here](https://www.youtube.com/watch?v=l1MT5lr4p9o)
-- Include a unit test to upload an infected compressed file on the extraction method.
-- Validate that libraries being used have been [patched for this vulnerability.](https://github.com/snyk/ZIP-slip-vulnerability#affected-libraries)
+- Include a unit test to upload an infected compressed file then execute the extraction method.
+- Validate that libraries being used have been [patched for this vulnerability.](https://github.com/snyk/zip-slip-vulnerability#affected-libraries)
 - Include a validation that throws an exception when vulnerabilities is included, like in the example below:
 
 ```java
-1: StringcanonicalDestinationDirPath=destinationDir.getCanonicalPath();
-2: Filedestinationfile=newFile(destinationDir,e.getName());
-3: StringcanonicalDestinationFile=destinationfile.getCanonicalPath();
-4: if(!canonicalDestinationFile.startsWith(canonicalDestinationDirPath+File.separator)){
-5:   throw new ArchiverException("Entry is outside of the target dir: " + e.getName()); 
-6: }
+    StringcanonicalDestinationDirPath=destinationDir.getCanonicalPath();
+    Filedestinationfile=newFile(destinationDir,e.getName());
+    StringcanonicalDestinationFile=destinationfile.getCanonicalPath();
+    if(!canonicalDestinationFile.startsWith(canonicalDestinationDirPath+File.separator)){
+        throw new ArchiverException("Entry is outside of the target dir: " + e.getName()); 
+    }
 ```
 
 #### ZIP Bombs
@@ -189,4 +189,4 @@ Fully protecting against malicious file upload can be complex, and the exact ste
 - [CWE-434: Unrestricted Upload of File with Dangerous Type](https://cwe.mitre.org/data/definitions/434.html)
 - [Implementing Secure File Upload](https://infosecauditor.wordpress.com/tag/malicious-file-upload/)
 - [Metasploit Generating Payloads](https://www.offensive-security.com/metasploit-unleashed/Generating_Payloads)
-- [ZIP Slip](https://res.cloudinary.com/snyk/image/upload/v1528192501/ZIP-slip-vulnerability/technical-whitepaper.pdf)
+- [Zip Slip](https://res.cloudinary.com/snyk/image/upload/v1528192501/zip-slip-vulnerability/technical-whitepaper.pdf)
