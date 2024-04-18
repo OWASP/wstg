@@ -95,8 +95,8 @@ If the application extracts archives (such as ZIP files), then it may be possibl
 
 A test against Archive Directory Traversal should include two parts:
 
-1. A malicious archive, that extracted breaks out of the target directory. A compressed file could contains two files: a 'notinfected.sh' file, extracted into the target directory, and a 'infected.sh' file, that attempts to navigate to the directory tree to hit the root folder - adding a file into the tmp directory. A malicious path could contain many levels of '../' (i.e. ../../../../../../../../tmp/infected.sh) to stand a better chance of reaching the root directory.
-2. A functionality, that is required to extract compressed files, either using custom code or a library. Archive Directory Traversal vulnerabilities exists when the extraction functionality doesn’t validate file paths in the archive. The example below shows a vulnerable implementation in Java:
+1. A malicious archive that breaks out of the target directory when extracted. This malicious archive can contain two files: a 'notinfected.sh' file, extracted into the target directory, and also an 'infected.sh' file, that intends to navigate your way to the root folder and infect the tmp directory. A malicious path can contain many levels of '../' (i.e. ../../../../../../../../tmp/infected.sh) to stand a better chance of reaching the root directory.
+2. A functionality, that is required to extract compressed files, either using custom code or a library. Archive Directory Traversal vulnerabilities exist when the extraction functionality doesn’t validate file paths in the archive. The example below shows a vulnerable implementation in Java:
 
 ```java
     Enumeration<ZipEntry>entries=​​zip​.g​etEntries(); 
