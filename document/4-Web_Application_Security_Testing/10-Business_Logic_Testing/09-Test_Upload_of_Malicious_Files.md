@@ -87,7 +87,7 @@ Applications should generally scan uploaded files with anti-malware software to 
 
 Depending on the type of application, it may be necessary to test for other dangerous file types, such as Office documents containing malicious macros. Tools such as the [Metasploit Framework](https://github.com/rapid7/metasploit-framework) and the [Social Engineer Toolkit (SET)](https://github.com/trustedsec/social-engineer-toolkit) can be used to generate malicious files for various formats.
 
-When this file is uploaded, it should be detected and quarantined or deleted by the  application. Depending on how the application processes the file, it may not be obvious whether this has taken place.
+When this file is uploaded, it should be detected and quarantined or deleted by the application. Depending on how the application processes the file, it may not be obvious whether this has taken place.
 
 #### Archive Directory Traversal
 
@@ -95,7 +95,7 @@ If the application extracts archives (such as ZIP files), then it may be possibl
 
 A test against Archive Directory Traversal should include two parts:
 
-1. A malicious archive that breaks out of the target directory when extracted. This malicious archive can contain two files: a 'notinfected.sh' file, extracted into the target directory, and also an 'infected.sh' file, that intends to navigate your way to the root folder and infect the tmp directory. A malicious path can contain many levels of '../' (i.e. ../../../../../../../../tmp/infected.sh) to stand a better chance of reaching the root directory.
+1. A malicious archive that breaks out of the target directory when extracted. This malicious archive can contain two files: a 'notinfected.sh' file, extracted into the target directory, and also an 'infected.sh' file, that attempts to navigate up the directory tree to hit the root folder - adding a file into the tmp directory. A malicious path can contain many levels of '../' (i.e. ../../../../../../../../tmp/infected.sh) to stand a better chance of reaching the root directory.
 2. A functionality, that is required to extract compressed files, either using custom code or a library. Archive Directory Traversal vulnerabilities exist when the extraction functionality doesn’t validate file paths in the archive. The example below shows a vulnerable implementation in Java:
 
 ```java
