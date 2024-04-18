@@ -95,14 +95,15 @@ If the application extracts archives (such as ZIP files), then it may be possibl
 
 A test against Archive Directory Traversal should include two parts:
 
-1. A malicious archive that breaks out of the target directory when extracted. For example, a compressed file contains two files: a “notinfected.sh” file, that is extracted into the target directory, and a “infected.sh” file, that attempts to navigate to the directory tree to hit the root folder and adds a file into the tmp directory. A malicious path could contain many levels of "../" (i.e. ../../../../../../../../tmp/infected.sh) to stand a better chance of reaching the root directory.2. A functionality is required to extract compressed files, either using your own code or a library. Vulnerability exists when the extraction functionality don’t validate file paths in the archive. An example of a vulnerable code in Java can be seen below.
+1. A malicious archive, that extracted breaks out of the target directory. A compressed file could contains two files: a “notinfected.sh” file, extracted into the target directory, and a “infected.sh” file, that attempts to navigate to the directory tree to hit the root folder - adding a file into the tmp directory. A malicious path could contain many levels of "../" (i.e. ../../../../../../../../tmp/infected.sh) to stand a better chance of reaching the root directory.
+2. A functionality, that is required to extract compressed files, either using custom code or a library. Archive Directory Traversal vulnerability exists when the extraction functionality don’t validate file paths in the archive. The example below shows a vulnerable implementation in Java:
 
 ```java
-1: Enumeration<ZIPEntry>entries=​​ZIP​.g​etEntries(); 
+1: Enumeration<ZipEntry>entries=​​zip​.g​etEntries(); 
 2: while(entries​.h​asMoreElements()){
-3:      ZIPEntry e ​=​entries.nextElement();
+3:      ZipEntry e ​=​entries.nextElement();
 4:      File f = new File(destinationDir, e.getName());
-5:      InputStream input =​​ZIP​.g​etInputStream(e);
+5:      InputStream input =zip​.g​etInputStream(e);
 6:      IOUtils​.c​opy(input, write(f));
 7: }
 ```
@@ -110,10 +111,9 @@ A test against Archive Directory Traversal should include two parts:
 Additional testing techniques:
 
 - Upload a malicious ZIP file and try to remote access this file when upload is completed.  [Watch it in action here](https://www.youtube.com/watch?v=l1MT5lr4p9o)
-- In the pipeline:  Include a unit test that uploads an infected compressed file against the extraction method.
-- Validate that libraries being used by the application have been [patched for this vulnerability](https://github.com/snyk/ZIP-slip-vulnerability#affected-libraries)
-- Review implementation of upload methods in the application looking for vulnerable code.
-- Vulnerability in the Java code above could be prevented by including a test that throws an exception:
+- Include a unit test to upload an infected compressed file on the extraction method.
+- Validate that libraries being used have been [patched for this vulnerability.](https://github.com/snyk/ZIP-slip-vulnerability#affected-libraries)
+- Include a validation that throws an exception when vulnerabilities is included, like in the example below:
 
 ```java
 1: StringcanonicalDestinationDirPath=destinationDir.getCanonicalPath();
@@ -126,12 +126,12 @@ Additional testing techniques:
 
 #### ZIP Bombs
 
-A [ZIP bomb](https://en.wikipedia.org/wiki/zip_bomb) (more generally known as a decompression bomb) is an archive file that contains a large volume of data. It's intended to cause a denial of service by exhausting the disk space or memory of the target system that tries to extract the archive. Note that although the ZIP format is the most used example for this, other formats are also affected, including gZIP (which is frequently used to compress data in transit).
+A [ZIP bomb](https://en.wikipedia.org/wiki/zip_bomb) (more generally known as a decompression bomb) is an archive file that contains a large volume of data. It's intended to cause a denial of service by exhausting the disk space or memory of the target system that tries to extract the archive. Note that although the ZIP format is the most used example for this, other formats are also affected, including gzip (which is frequently used to compress data in transit).
 
 At its simplest level, a ZIP bomb can be created by compressing a large file consisting of a single character. The example below shows how to create a 1MB file that will decompress to 1GB:
 
 ```bash
-dd if=/dev/zero bs=1M count=1024 | ZIP -9 > bomb.ZIP
+dd if=/dev/zero bs=1M count=1024 | zip -9 > bomb.zip
 ```
 
 There are a number of methods that can be used to achieve much higher compression ratios, including multiple levels of compression, [abusing the ZIP format](https://www.bamsoftware.com/hacks/zipbomb/) and [quines](https://research.swtch.com/zip) (which are archives that contain a copy of themselves, causing infinite recursion).
