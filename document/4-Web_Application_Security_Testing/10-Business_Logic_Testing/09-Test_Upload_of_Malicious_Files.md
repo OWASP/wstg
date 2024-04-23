@@ -112,7 +112,7 @@ Additional testing techniques:
 
 - Upload a malicious ZIP file and try to remote access this file when upload is completed.
     1. Open a new terminal and create a new folder:
-        'mkdir <zip_folder>'
+        `mkdir <zip_folder>`
     2. Create a base file:
         'touch base.txt'
     3. Open this file, add a simple note and save it.
