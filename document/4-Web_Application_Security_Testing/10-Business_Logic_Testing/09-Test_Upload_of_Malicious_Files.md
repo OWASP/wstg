@@ -95,34 +95,40 @@ If the application extracts archives (such as ZIP files), then it may be possibl
 
 A test against Archive Directory Traversal should include two parts:
 
-1. A malicious archive that breaks out of the target directory when extracted. This malicious archive can contain two files: a 'notinfected.sh' file, extracted into the target directory, and also an 'infected.sh' file, that attempts to navigate up the directory tree to hit the root folder - adding a file into the tmp directory. A malicious path can contain many levels of '../' (i.e. ../../../../../../../../tmp/infected.sh) to stand a better chance of reaching the root directory.
+1. A malicious archive that breaks out of the target directory when extracted. This malicious archive can contain two files: a 'base' file, extracted into the target directory, and also an 'traversed' file, that attempts to navigate up the directory tree to hit the root folder - adding a file into the tmp directory. A malicious path can contain many levels of '../' (i.e. ../../../../../../../../tmp/traversed) to stand a better chance of reaching the root directory.
 2. A functionality, that is required to extract compressed files, either using custom code or a library. Archive Directory Traversal vulnerabilities exist when the extraction functionality doesn’t validate file paths in the archive. The example below shows a vulnerable implementation in Java:
 
 ```java
     Enumeration<ZipEntry>entries=​​zip​.g​etEntries(); 
         while(entries​.h​asMoreElements()){
-            ZipEntry e ​=​entries.nextElement();
+            ZipEntry e ​= ​entries.nextElement();
             File f = new File(destinationDir, e.getName());
-            InputStream input =zip​.g​etInputStream(e);
+            InputStream input = zip​.g​etInputStream(e);
             IOUtils​.c​opy(input, write(f));
         }
 ```
 
 Additional testing techniques:
 
-- Upload a malicious ZIP file and try to remote access this file when upload is completed.  [Watch it in action here](https://www.youtube.com/watch?v=l1MT5lr4p9o)
+- Upload a malicious ZIP file and try to remote access this file when upload is completed.
+    1. Open a new terminal and create a new folder:
+        mkdir ZipFiles
+    2. Create a base file:
+        touch base.txt
+    3. Open this file, add a simple note and save it.
+    4. Create a traversed file that matches a local or remote directory:
+        touch ../../../../../../../../tmp/traversed
+    5. Open this file and a message to echo (executing this file should echo this message):
+        echo "Your message here"
+    6. Create the zip file:
+        zip -r <zip file name> <directory name>
+    7. Validate files compressed
+        jar -tvf <zip file name>
+    8. Load this zip file in the target application.
+    9. Verify that the two files are located within different folders on the web server after the archive has been extracted.
+
 - Include a unit test to upload an infected compressed file then execute the extraction method.
 - Validate that libraries being used have been [patched for this vulnerability.](https://github.com/snyk/zip-slip-vulnerability#affected-libraries)
-- Include a validation that throws an exception when vulnerabilities is included, like in the example below:
-
-```java
-    StringcanonicalDestinationDirPath=destinationDir.getCanonicalPath();
-    Filedestinationfile=newFile(destinationDir,e.getName());
-    StringcanonicalDestinationFile=destinationfile.getCanonicalPath();
-    if(!canonicalDestinationFile.startsWith(canonicalDestinationDirPath+File.separator)){
-        throw new ArchiverException("Entry is outside of the target dir: " + e.getName()); 
-    }
-```
 
 #### ZIP Bombs
 
@@ -189,4 +195,3 @@ Fully protecting against malicious file upload can be complex, and the exact ste
 - [CWE-434: Unrestricted Upload of File with Dangerous Type](https://cwe.mitre.org/data/definitions/434.html)
 - [Implementing Secure File Upload](https://infosecauditor.wordpress.com/tag/malicious-file-upload/)
 - [Metasploit Generating Payloads](https://www.offensive-security.com/metasploit-unleashed/Generating_Payloads)
-- [ZIP Slip](https://res.cloudinary.com/snyk/image/upload/v1528192501/zip-slip-vulnerability/technical-whitepaper.pdf)
