@@ -123,7 +123,7 @@ Additional testing techniques:
     6. Create the ZIP file:
         'zip -r <zip_filename> <directoty_name>'
     7. Validate files compressed
-        'jar -tvf <zip_filename>'
+        `jar -tvf <zip_filename>`
     8. Load this ZIP file in the target application.
     9. Verify that the two files are located within different folders on the web server after the archive has been extracted.
 
