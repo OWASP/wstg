@@ -99,7 +99,7 @@ A test against Archive Directory Traversal should include two parts:
 2. A functionality, that is required to extract compressed files, either using custom code or a library. Archive Directory Traversal vulnerabilities exist when the extraction functionality doesn’t validate file paths in the archive. The example below shows a vulnerable implementation in Java:
 
 ```java
-    Enumeration<ZipEntry>entries=​​zip​.g​etEntries(); 
+    Enumeration<ZipEntry> entries =​ ​zip​.g​etEntries(); 
         while(entries​.h​asMoreElements()){
             ZipEntry e ​= ​entries.nextElement();
             File f = new File(destinationDir, e.getName());
