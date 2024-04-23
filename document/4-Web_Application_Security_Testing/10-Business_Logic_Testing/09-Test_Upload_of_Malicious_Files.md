@@ -22,7 +22,7 @@ A common example of this vulnerability is an application such as a blog or forum
 
 - Identify the file upload functionality.
 - Review the project documentation to identify what file types are considered acceptable, and what types would be considered dangerous or malicious.
-    - If documentation is not available then consider what would be appropriate based on the purpose of the application.
+  - If documentation is not available then consider what would be appropriate based on the purpose of the application.
 - Determine how the uploaded files are processed.
 - Obtain or create a set of malicious files for testing.
 - Try to upload the malicious files to the application and determine whether it is accepted and processed.
@@ -112,18 +112,18 @@ Additional testing techniques:
 
 - Upload a malicious ZIP file and try to remote access this file when upload is completed.
     1. Open a new terminal and create a new folder:
-        mkdir ZipFiles
+        'mkdir <zip folder>'
     2. Create a base file:
-        touch base.txt
+        'touch base.txt'
     3. Open this file, add a simple note and save it.
     4. Create a traversed file that matches a local or remote directory:
-        touch ../../../../../../../../tmp/traversed
+        'touch ../../../../../../../../tmp/traversed'
     5. Open this file and a message to echo (executing this file should echo this message):
         echo 'Your message here'
     6. Create the ZIP file:
-        ZIP -r 'ZIP filename' 'directory name
+        'zip -r <zip filename> <directory name>'
     7. Validate files compressed
-        jar -tvf 'ZIP filename'
+        'jar -tvf <zip filename>'
     8. Load this ZIP file in the target application.
     9. Verify that the two files are located within different folders on the web server after the archive has been extracted.
 
