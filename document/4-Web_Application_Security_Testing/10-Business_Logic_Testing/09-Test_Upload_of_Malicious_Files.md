@@ -117,7 +117,7 @@ Additional testing techniques:
         `touch base.txt`
     3. Open this file, add a simple note and save it.
     4. Create a traversed file that matches a local or remote directory:
-        'touch ../../../../../../../../tmp/traversed'
+        `touch ../../../../../../../../tmp/traversed`
     5. Open this file and a message to echo (executing this file should echo this message):
         echo 'Your message here'
     6. Create the ZIP file:
