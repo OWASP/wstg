@@ -119,11 +119,11 @@ Additional testing techniques:
     4. Create a traversed file that matches a local or remote directory:
         touch ../../../../../../../../tmp/traversed
     5. Open this file and a message to echo (executing this file should echo this message):
-        echo "Your message here"
+        echo 'Your message here'
     6. Create the zip file:
-        zip -r <zip file name> <directory name>
+        zip -r 'zip file name' 'directory name
     7. Validate files compressed
-        jar -tvf <zip file name>
+        jar -tvf 'zip file name'
     8. Load this zip file in the target application.
     9. Verify that the two files are located within different folders on the web server after the archive has been extracted.
 
