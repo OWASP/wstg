@@ -119,7 +119,7 @@ Additional testing techniques:
     4. Create a traversed file that matches a local or remote directory:
         `touch ../../../../../../../../tmp/traversed`
     5. Open this file and a message to echo (executing this file should echo this message):
-        echo 'Your message here'
+        `echo 'Your message here'`
     6. Create the ZIP file:
         `zip -r <zip_filename> <directoty_name>`
     7. Validate files compressed
