@@ -121,7 +121,7 @@ Additional testing techniques:
     5. Open this file and a message to echo (executing this file should echo this message):
         echo 'Your message here'
     6. Create the ZIP file:
-        'zip -r <zip_filename> <directoty_name>'
+        `zip -r <zip_filename> <directoty_name>`
     7. Validate files compressed
         `jar -tvf <zip_filename>`
     8. Load this ZIP file in the target application.
