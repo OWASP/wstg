@@ -114,7 +114,7 @@ Additional testing techniques:
     1. Open a new terminal and create a new folder:
         `mkdir <zip_folder>`
     2. Create a base file:
-        'touch base.txt'
+        `touch base.txt`
     3. Open this file, add a simple note and save it.
     4. Create a traversed file that matches a local or remote directory:
         'touch ../../../../../../../../tmp/traversed'
