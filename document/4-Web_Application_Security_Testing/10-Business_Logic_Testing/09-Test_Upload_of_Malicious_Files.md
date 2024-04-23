@@ -120,11 +120,11 @@ Additional testing techniques:
         touch ../../../../../../../../tmp/traversed
     5. Open this file and a message to echo (executing this file should echo this message):
         echo 'Your message here'
-    6. Create the zip file:
-        zip -r 'zip file name' 'directory name
+    6. Create the ZIP file:
+        ZIP -r 'ZIP filename' 'directory name
     7. Validate files compressed
-        jar -tvf 'zip file name'
-    8. Load this zip file in the target application.
+        jar -tvf 'ZIP filename'
+    8. Load this ZIP file in the target application.
     9. Verify that the two files are located within different folders on the web server after the archive has been extracted.
 
 - Include a unit test to upload an infected compressed file then execute the extraction method.
