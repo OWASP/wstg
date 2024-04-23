@@ -112,7 +112,7 @@ Additional testing techniques:
 
 - Upload a malicious ZIP file and try to remote access this file when upload is completed.
     1. Open a new terminal and create a new folder:
-        'mkdir <zip folder>'
+        'mkdir <zip_folder>'
     2. Create a base file:
         'touch base.txt'
     3. Open this file, add a simple note and save it.
@@ -121,9 +121,9 @@ Additional testing techniques:
     5. Open this file and a message to echo (executing this file should echo this message):
         echo 'Your message here'
     6. Create the ZIP file:
-        'zip -r <zip filename> <directory name>'
+        'ZIP -r <zip_filename> <directoty_name>'
     7. Validate files compressed
-        'jar -tvf <zip filename>'
+        'jar -tvf <zip_filename>'
     8. Load this ZIP file in the target application.
     9. Verify that the two files are located within different folders on the web server after the archive has been extracted.
 
