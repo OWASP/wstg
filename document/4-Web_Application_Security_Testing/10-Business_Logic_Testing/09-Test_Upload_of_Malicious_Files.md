@@ -111,22 +111,21 @@ A test against Archive Directory Traversal should include two parts:
 Additional testing techniques:
 
 - Upload a malicious ZIP file and try to remote access this file when upload is completed.
-    1. Open a new terminal and create a new folder:
-        `mkdir <zip_folder>`
+    1. Open a new terminal and create tree structure:
+    Note: more or less levels of directories are required depending on how far you need to traverse.
+        `~$ mkdir -p a/b/c`
     2. Create a base file:
-        `touch base.txt`
-    3. Open this file, add a simple note and save it.
-    4. Create a traversed file that matches a local or remote directory:
-        `touch ../../../../../../../../tmp/traversed`
-    5. Open this file and a message to echo (executing this file should echo this message):
-        `echo 'Your message here'`
-    6. Create the ZIP file:
-        `zip -r <zip_filename> <directoty_name>`
-    7. Validate files compressed
-        `jar -tvf <zip_filename>`
-    8. Load this ZIP file in the target application.
-    9. Verify that the two files are located within different folders on the web server after the archive has been extracted.
-
+        `~$ echo base > a/b/c/base`
+    3. Create a traversed file:
+        `~$ echo traversed > traversed`
+    4. Validate your tree structure:
+        `~$ tree`
+    5. Navigate to abc root directory:
+        `~$ cd a/b/c`
+    6. Compress files:
+    `~$ zip test.zip base ../../../traversed`
+    7.Verify compressed files content:
+    `~$ nzip -l test.zip`
 - Include a unit test to upload an infected compressed file then execute the extraction method.
 - Validate that libraries being used have been [patched for this vulnerability.](https://github.com/snyk/zip-slip-vulnerability#affected-libraries)
 
