@@ -126,8 +126,6 @@ cd a/b/c
 zip test.zip base ../../../traversed
 # Verify compressed files content
 nzip -l test.zip
-- Include a unit test to upload an infected compressed file then execute the extraction method.
-- Validate that libraries being used have been [patched for this vulnerability.](https://github.com/snyk/zip-slip-vulnerability#affected-libraries)
 
 #### ZIP Bombs
 
