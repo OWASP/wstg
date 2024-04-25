@@ -111,22 +111,21 @@ while(entries​.h​asMoreElements()){
 
 Follow the steps below to create a ZIP file that can abuse the vulnerable code above once its uploaded to the web server:
 
-- Upload a malicious ZIP file and try to remote access this file when upload is completed.
-    1. Open a new terminal and create tree structure:
-    Note: more or less levels of directories are required depending on how far you need to traverse.
-        `~$ mkdir -p a/b/c`
-    2. Create a base file:
-        `~$ echo base > a/b/c/base`
-    3. Create a traversed file:
-        `~$ echo traversed > traversed`
-    4. Validate your tree structure:
-        `~$ tree`
-    5. Navigate to abc root directory:
-        `~$ cd a/b/c`
-    6. Compress files:
-    `~$ zip test.zip base ../../../traversed`
-    7.Verify compressed files content:
-    `~$ nzip -l test.zip`
+```bash
+# Open a new terminal and create a tree structure
+# (more directory levels might be required based on the system being targeted)
+mkdir -p a/b/c
+# Create a base file
+echo 'base' > a/b/c/base
+# Create a traversed file
+echo 'traversed' > traversed
+# You can double check the tree structure using `tree` at this stage
+# Navigate to a/b/c root directory
+cd a/b/c
+# Compress the files
+zip test.zip base ../../../traversed
+# Verify compressed files content
+nzip -l test.zip
 - Include a unit test to upload an infected compressed file then execute the extraction method.
 - Validate that libraries being used have been [patched for this vulnerability.](https://github.com/snyk/zip-slip-vulnerability#affected-libraries)
 
