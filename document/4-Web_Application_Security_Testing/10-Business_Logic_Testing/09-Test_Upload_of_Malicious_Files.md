@@ -109,7 +109,7 @@ while(entries​.h​asMoreElements()){
 }
 ```
 
-Additional testing techniques:
+Follow the steps below to create a ZIP file that can abuse the vulnerable code above once its uploaded to the web server:
 
 - Upload a malicious ZIP file and try to remote access this file when upload is completed.
     1. Open a new terminal and create tree structure:
