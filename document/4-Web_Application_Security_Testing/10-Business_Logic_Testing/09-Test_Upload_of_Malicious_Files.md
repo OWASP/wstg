@@ -95,7 +95,7 @@ If the application extracts archives (such as ZIP files), then it may be possibl
 
 A test against Archive Directory Traversal should include two parts:
 
-1. A malicious archive that breaks out of the target directory when extracted. This malicious archive can contain two files: a 'base' file, extracted into the target directory, and also an 'traversed' file, that attempts to navigate up the directory tree to hit the root folder - adding a file into the tmp directory. A malicious path can contain many levels of '../' (i.e. ../../../../../../../../tmp/traversed) to stand a better chance of reaching the root directory.
+1. A malicious archive that breaks out of the target directory when extracted. This malicious archive should contain two files: a `base` file, extracted into the target directory, and a `traversed` file that attempts to navigate up the directory tree to hit the root folder - adding a file into the `tmp` directory. A malicious path will contain many levels of `../` (*i.e.* `../../../../../../../../tmp/traversed`) to stand a better chance of reaching the root directory. Once the attack is successful, the tester can find `/tmp/traversed` to be created on the webserver through the ZIP slip attack.
 2. A functionality, that is required to extract compressed files, either using custom code or a library. Archive Directory Traversal vulnerabilities exist when the extraction functionality doesn’t validate file paths in the archive. The example below shows a vulnerable implementation in Java:
 
 ```java
