@@ -125,7 +125,8 @@ cd a/b/c
 # Compress the files
 zip test.zip base ../../../traversed
 # Verify compressed files content
-nzip -l test.zip
+unzip -l test.zip
+```
 
 #### ZIP Bombs
 
