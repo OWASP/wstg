@@ -25,7 +25,6 @@ The power of this method is that the actions performed by the victim are origina
 ## Test Objectives
 
 - Assess application vulnerability to clickjacking attacks.
-- Understand additional security measures in place.
 
 ## How to Test
 
@@ -33,7 +32,7 @@ As mentioned above, this type of attack is often designed to allow an attacker t
 
 ### Load target website on a HTML interpreter usign html iframe tag
 
-Sites that do not protected against Frame Busting are vulnerable to this attack. If the `http://www.target.site` page is successfully loaded into a frame, then the site is vulnerable to Clickjacking. An example of HTML code to create this testing web page is displayed in the following snippet:
+Sites that do not protected against frame busting are vulnerable to clickjacking attack. If the `http://www.target.site` page is successfully loaded into a frame, then the site is vulnerable to Clickjacking. An example of HTML code to create this testing web page is displayed in the following snippet:
 
 ```html
 <html>
@@ -46,13 +45,15 @@ Sites that do not protected against Frame Busting are vulnerable to this attack.
 </html>
 ```
 
-### Test webpage against disabled javascript
+### Test application against disabled javascript
 
-Since these type of client-side protections relies on JavaScript frame busting code, if the victim has JavaScript disabled or it is possible for an attacker to disable JavaScript code, the web page will not have any protection mechanism against clickjacking.
+Since these types of client-side protections relies on JavaScript frame busting code, if the victim has JavaScript disabled or it is possible for an attacker to disable JavaScript code, the web page will not have any protection mechanism against clickjacking.
 
 There are few deactivation techniques that can be used with frames. More in depth techniques can be found on the [Clickjacking Defense Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Clickjacking_Defense_Cheat_Sheet.html).
 
-- Sandbox attribute: with HTML5 there is a new attribute called "sandbox". It enables a set of restrictions on content loaded into the iframe. At this moment this attribute is only compatible with Chrome and Safari.
+### Sandbox attribute
+
+With HTML5 a new attribute called "sandbox" is availanle. It enables a set of restrictions on content loaded into the iframe. At this moment this attribute is only compatible with Chrome and Safari.
 
 Example:
 
@@ -60,10 +61,10 @@ Example:
 <iframe src="http://example.org" sandbox></iframe>
 ```
 
-### Test application Compatibility and Acessibility Mode
+### Test application on compatibility and acessibility mode
 
-Mobile versions of the website are usually smaller and faster than the desktop ones, and they have to be less complex than the main application. Mobile variants have often less protection since there is the wrong assumption that an attacker could not attack an application by the smart phone. This is fundamentally wrong, because an attacker can fake the real origin given by a web browser, such that a non-mobile victim may be able to visit an application made for mobile users. From this assumption follows that in some cases it is not necessary to use techniques to evade frame busting when there are unprotected alternatives, which allow the use of same attack vectors.
-Site running on acessibility mode should also be tested against clickjacking since site framming could be affected.
+Mobile versions of the website are usually smaller and faster than the desktop ones, and they have to be less complex than the main application. Mobile variants have often less protection. However, an attacker can fake the real origin given by a web browser, and a non-mobile victim may be able to visit an application made for mobile users. This scenario could allow the attacker to exploit a mobile version of the website.
+Site running on acessibility mode should also be tested against clickjacking, because site framming could be affected.
 
 ### OnBeforeUnload Event
 
