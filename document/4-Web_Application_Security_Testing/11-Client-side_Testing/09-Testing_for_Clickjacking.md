@@ -34,7 +34,7 @@ As mentioned above, this type of attack is often designed to allow an attacker t
 
 Sites that do not protected against frame busting are vulnerable to clickjacking attack. If the `http://www.target.site` web page is successfully loaded into a frame, then the site is vulnerable to Clickjacking. An example of HTML code to create this testing web page is displayed in the following snippet:
 
-    ```html
+```html
     <html>
         <head>
             <title>Clickjack test web page</title>
@@ -43,7 +43,7 @@ Sites that do not protected against frame busting are vulnerable to clickjacking
             <iframe src="http://www.target.site" width="400" height="400"></iframe>
         </body>
     </html>
-    ```
+```
 
 ### Test application against disabled JavaScript
 
@@ -112,9 +112,7 @@ The HTTP Content-Security-Policy (CSP) response header allows web page administr
 - Once you click on the file, more information will come up. Look for a 200 OK response code.
 - Scroll down to the Response Header Section. Content-Security-Policy section indicates level of protecting adopted.
 
-Alternatively view the web page source to find Content-Security-Policy in a meta tag.
-
-WSTG has a detailed information on [Test for Content Security Policy](../02-Configuration_and_Deployment_Management_Testing/12-Test_for_Content_Security_Policy.md)
+Alternatively view the web page source to find Content-Security-Policy in a meta tag. WSTG has a detailed information on [Test for Content Security Policy](../02-Configuration_and_Deployment_Management_Testing/12-Test_for_Content_Security_Policy.md)
 
 ##### Proxies
 
