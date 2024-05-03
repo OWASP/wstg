@@ -34,16 +34,16 @@ As mentioned above, this type of attack is often designed to allow an attacker t
 
 Sites that do not protected against frame busting are vulnerable to clickjacking attack. If the `http://www.target.site` page is successfully loaded into a frame, then the site is vulnerable to Clickjacking. An example of HTML code to create this testing web page is displayed in the following snippet:
 
-```html
-<html>
-    <head>
-        <title>Clickjack test page</title>
-    </head>
-    <body>
-        <iframe src="http://www.target.site" width="400" height="400"></iframe>
-    </body>
-</html>
-```
+    ```html
+    <html>
+        <head>
+            <title>Clickjack test page</title>
+        </head>
+        <body>
+            <iframe src="http://www.target.site" width="400" height="400"></iframe>
+        </body>
+    </html>
+    ```
 
 ### Test application against disabled javascript
 
@@ -68,95 +68,11 @@ Site running on acessibility mode should also be tested against clickjacking, be
 
 ### OnBeforeUnload Event
 
-The `onBeforeUnload` event could be used to evade frame busting code. This event is called when the frame busting code wants to destroy the iframe by loading the URL in the whole web page and not only in the iframe. The handler function returns a string that is prompted to the user asking confirm if he wants to leave the page. When this string is displayed to the user is likely to cancel the navigation, defeating target's frame busting attempt.
-
-The attacker can use this attack by registering an unload event on the top page using the following example code:
-
-```html
-<h1>www.fictitious.site</h1>
-<script>
-    window.onbeforeunload = function()
-    {
-        return " Do you want to leave fictitious.site?";
-    }
-</script>
-<iframe src="http://example.org">
-```
-
-The previous technique requires the user interaction but, the same result, can be achieved without prompting the user. To do this the attacker have to automatically cancel the incoming navigation request in an onBeforeUnload event handler by repeatedly submitting (for example every millisecond) a navigation request to a web page that responds with a "HTTP/1.1 204 No Content" header.
-
-Since with this response the browser will do nothing, the resulting of this operation is the flushing of the request pipeline, rendering the original frame busting attempt futile.
-
-Following an example code:
-
-204 page:
-
-```php
-<?php
-    header("HTTP/1.1 204 No Content");
-?>
-```
-
-Attacker's page:
-
-```html
-<script>
-    var prevent_bust = 0;
-    window.onbeforeunload = function() {
-        prevent_bust++;
-    };
-    setInterval(
-        function() {
-            if (prevent_bust > 0) {
-                prevent_bust -= 2;
-                window.top.location = "http://attacker.site/204.php";
-            }
-        }, 1);
-</script>
-<iframe src="http://example.org">
-```
+[DUplicated from OWASP Cheat Sheets]
 
 #### XSS Filter
 
-Starting from Google Chrome 4.0 and from IE8 there were introduced XSS filters to protect users from reflected XSS attacks. Nava and Lindsay have observed that these kind of filters can be used to deactivate frame busting code by faking it as malicious code.
-
-- **IE8 XSS filter**: this filter has visibility into all parameters of each request and response flowing through the web browser and it compares them to a set of regular expressions in order to look for reflected XSS attempts. When the filter identifies a possible XSS attacks; it disables all inline scripts within the page, including frame busting scripts (the same thing could be done with external scripts). For this reason an attacker could induce a false positive by inserting the beginning of the frame busting script into a request's parameters.
-
-Example: Target web page frame busting code:
-
-```html
-<script>
-    if ( top != self )
-    {
-        top.location=self.location;
-    }
-</script>
-```
-
-Attacker code:
-
-```html
-<iframe src="http://example.org/?param=<script>if">
-```
-
-- **Chrome 4.0 XSSAuditor filter**: It has a little different behavior compared to IE8 XSS filter, in fact with this filter an attacker could deactivate a "script" by passing its code in a request parameter. This enables the framing page to specifically target a single snippet containing the frame busting code, leaving all the other codes intact.
-
-Example: Target web page frame busting code:
-
-```html
-<script>
-    if ( top != self )
-    {
-        top.location=self.location;
-    }
-</script>
-```
-
-Attacker code:
-
-```html
-<iframe src="http://example.org/?param=if(top+!%3D+self)+%7B+top.location%3Dself.location%3B+%7D">
-```
+[Duplicated from OWASP Cheat Sheets]
 
 #### Redefining Location
 
@@ -193,11 +109,20 @@ Such actions are, for example:
 
 This method works well until the target page is framed by a single page. However, if the attacker encloses the target web page in one frame which is nested in another one (a double frame), then trying to access to `parent.location` becomes a security violation in all popular browsers, due to the descendant frame navigation policy. This security violation disables the counter-action navigation.
 
-#### Server-side Protection: X-Frame-Options
+### Server-side Protection: Using frame-ancestors directive of Content Security Policy (CSP)
 
-An alternative approach to client-side frame busting code consists of an header based defense. The `X-FRAME-OPTIONS` header is sent from the server on HTTP responses and is used to mark web pages that shouldn't be framed. This header can take the values `DENY`, `SAMEORIGIN`, `ALLOW-FROM` origin, or non-standard `ALLOWALL`. The recommended value is `DENY`.
+The HTTP Content-Security-Policy (CSP) response header allows website administrators to control resources the user agent is allowed to load for a given page. The `frame-ancestors` directive in the HTTP CSP specifies the acceptable parents that may embed a page using the `<frame>`, `<iframe>`, `<object>`, `<embed>`, or `<applet>` tags.
 
-The `X-FRAME-OPTIONS` header is a very good solution, and was adopted by all major browsers, but also for this technique there are some limitations that could lead in any case to exploit the clickjacking vulnerability.
+#### Testing Content Security Policy Response Header
+
+- Using a browser, open developer tools and access the target website. Navigate to the Network tab.
+- Look for the request that loads the page. It should have the same domain as the website - usually be the first item on the Network tab.
+- Once you click on the file, more information will come up. Look for a 200 OK response code.
+- Scroll down to the Response Header Section. Content-Security-Policy section indicates level of protecting adopted.
+
+Alternatively view the page source to find Content-Security-Policy in a meta tag.
+
+WSTG has a detailed information on [Test for Content Security Policy](12-Test_for_Content_Security_Policy.md)
 
 ##### Proxies
 
@@ -206,12 +131,6 @@ Web proxies are known for adding and stripping headers. In the case in which a w
 ##### Mobile Website Version
 
 Also in this case, since the `X-FRAME-OPTIONS` has to be implemented in every page of the website, the developers may have not protected the mobile version of the website.
-
-#### Server-side Protection: Using frame-ancestors directive of Content Security Policy (CSP)
-
-The `frame-ancestors` directive in the HTTP Content-Security-Policy (CSP) specifies the acceptable parents that may embed a page using the `<frame>`, `<iframe>`, `<object>`, `<embed>`, or `<applet>` tags.
-
-Also `frame-ancestors` allows a site to authorize multiple domains using the normal Content Security Policy semantics.
 
 ### Remediation
 
