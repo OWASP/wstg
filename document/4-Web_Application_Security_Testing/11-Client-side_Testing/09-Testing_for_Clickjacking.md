@@ -30,7 +30,7 @@ The power of this method is that the actions performed by the victim are origina
 
 As mentioned above, this type of attack is often designed to allow an attacker to induce users’ actions on the target site, even if anti-CSRF tokens are being used.
 
-### Load target web page on a HTML interpreter usign HTML iframe tag
+### Load Target Web Page on a HTML Interpreter Usign HTML iframe Tag
 
 Sites that do not protected against frame busting are vulnerable to clickjacking attack. If the `http://www.target.site` web page is successfully loaded into a frame, then the site is vulnerable to Clickjacking. An example of HTML code to create this testing web page is displayed in the following snippet:
 
@@ -45,15 +45,15 @@ Sites that do not protected against frame busting are vulnerable to clickjacking
     </html>
 ```
 
-### Test application against disabled JavaScript
+### Test Application against Disabled JavaScript
 
 Since these types of client-side protections relies on JavaScript frame busting code, if the victim has JavaScript disabled or it is possible for an attacker to disable JavaScript code, the web page will not have any protection mechanism against clickjacking.
 
 There are few deactivation techniques that can be used with frames. More in depth techniques can be found on the [Clickjacking Defense Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Clickjacking_Defense_Cheat_Sheet.html).
 
-### Sandbox attribute
+### Sandbox Attribute
 
-With HTML5 a new attribute called "sandbox" is availanle. It enables a set of restrictions on content loaded into the iframe. At this moment this attribute is only compatible with Chrome and Safari.
+With HTML5 a new attribute called "sandbox" is available. It enables a set of restrictions on content loaded into the iframe.
 
 Example:
 
@@ -61,10 +61,10 @@ Example:
 <iframe src="http://example.org" sandbox></iframe>
 ```
 
-### Test application on compatibility and acessibility mode
+### Test Application on Compatibility and Accessibility Mode
 
-Mobile versions of the web page are usually smaller and faster than the desktop ones, and they have to be less complex than the main application. Mobile variants have often less protection. However, an attacker can fake the real origin given by a web browser, and a non-mobile victim may be able to visit an application made for mobile users. This scenario could allow the attacker to exploit a mobile version of the web page.
-Site running on acessibility mode should also be tested against clickjacking, because site framming could be affected.
+Mobile versions of the web page are usually smaller and faster than the desktop ones, and they have to be less complex than the main application. Mobile variants often have less protection. However, an attacker can fake the real origin given by a web browser, and a non-mobile victim may be able to visit an application made for mobile users. This scenario could allow the attacker to exploit a mobile version of the web page.
+Applications running on acessibility mode should also be tested against clickjacking, because site framming could be affected.
 
 #### Redefining Location
 
@@ -101,7 +101,7 @@ Such actions are, for example:
 
 This method works well until the target web page is framed by a single page. However, if the attacker encloses the target web page in one frame which is nested in another one (a double frame), then trying to access to `parent.location` becomes a security violation in all popular browsers, due to the descendant frame navigation policy. This security violation disables the counter-action navigation.
 
-### Server-side Protection: Using frame-ancestors directive of Content Security Policy (CSP)
+### Server-Side Protection: Using Frame-Ancestors Directive of Content Security Policy
 
 The HTTP Content-Security-Policy (CSP) response header allows web page administrators to control resources the user agent is allowed to load for a given web page. The `frame-ancestors` directive in the HTTP CSP specifies the acceptable parents that may embed a web page using the `<frame>`, `<iframe>`, `<object>`, `<embed>`, or `<applet>` tags.
 
@@ -112,21 +112,21 @@ The HTTP Content-Security-Policy (CSP) response header allows web page administr
 - Once you click on the file, more information will come up. Look for a 200 OK response code.
 - Scroll down to the Response Header Section. Content-Security-Policy section indicates level of protecting adopted.
 
-Alternatively view the web page source to find Content-Security-Policy in a meta tag. WSTG has a detailed information on [Test for Content Security Policy](../02-Configuration_and_Deployment_Management_Testing/12-Test_for_Content_Security_Policy.md)
+Alternatively view the web page source to find Content-Security-Policy in a meta tag. WSTG has a detailed information on [Test for Content Security Policy.](../02-Configuration_and_Deployment_Management_Testing/12-Test_for_Content_Security_Policy.md)
 
 ##### Proxies
 
 Web proxies are known for adding and stripping headers. In the case in which a web proxy strips the `X-FRAME-OPTIONS` header then the site loses its framing protection.
 
-##### Mobile web page Version
+##### Mobile Version of the Application
 
-Also in this case, since the `X-FRAME-OPTIONS` has to be implemented in every web page of the web page, the developers may have not protected the mobile version of the web page.
+In this case, because the `X-FRAME-OPTIONS` HTTP header has to be implemented in every page of the application, developers may have not protected every single page on the mobile version.
 
 ### Remediation
 
 - For measures to prevent Clickjacking, see the [Clickjacking Defense Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Clickjacking_Defense_Cheat_Sheet.html).
 - For interactive labs on Clickjacking visit [Port Swigger Web Page](https://portswigger.net/web-security/clickjacking)
-- For additional resources on ClickJacking visit the [Owasp community](https://owasp.org/www-community/attacks/Clickjacking)
+- For additional resources on ClickJacking visit the [OWASP community](https://owasp.org/www-community/attacks/Clickjacking)
 
 ## References
 
