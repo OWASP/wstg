@@ -112,7 +112,7 @@ The HTTP Content-Security-Policy (CSP) response header allows web page administr
 - Once you click on the file, more information will come up. Look for a 200 OK response code.
 - Scroll down to the Response Header Section. Content-Security-Policy section indicates level of protecting adopted.
 
-Alternatively view the web page source to find Content-Security-Policy in a meta tag. WSTG has a detailed information on [Test for Content Security Policy.](../02-Configuration_and_Deployment_Management_Testing/12-Test_for_Content_Security_Policy.md)
+Alternatively view the web page source to find Content-Security-Policy in a meta tag. WSTG has a detailed information on [Test for Content Security Policy](../02-Configuration_and_Deployment_Management_Testing/12-Test_for_Content_Security_Policy.md).
 
 ##### Proxies
 
