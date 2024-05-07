@@ -66,41 +66,6 @@ Example:
 Mobile versions of the web page are usually smaller and faster than the desktop ones, and they have to be less complex than the main application. Mobile variants often have less protection. However, an attacker can fake the real origin given by a web browser, and a non-mobile victim may be able to visit an application made for mobile users. This scenario could allow the attacker to exploit a mobile version of the web page.
 Applications running on acessibility mode should also be tested against clickjacking, because site framming could be affected.
 
-#### Redefining Location
-
-For several browsers the `document.location` variable is an immutable attribute. However, for some version of Internet Explorer and Safari, it is possible to redefine this attribute. This fact can be exploited to evade frame busting code.
-
-- **Redefining location in IE7 and IE8**: it is possible to redefine `location` as it is illustrated in the following example. By defining `location` as a variable, any code that tries to read or to navigate by assigning `top.location` will fail due to a security violation and so the frame busting code is suspended.
-
-Example:
-
-```html
-<script>
-    var location = "xyz";
-</script>
-<iframe src="http://example.org"></iframe>
-```
-
-- **Redefining location in Safari 4.0.4**: To bust frame busting code with `top.location` it is possible to bind `location` to a function via `defineSetter` (through window), so that an attempt to read or navigate to the `top.location` will fail.
-
-Example:
-
-```html
-<script>
-    window.defineSetter("location" , function(){});
-</script>
-<iframe src="http://example.org"></iframe>
-```
-
-Some frame busting action try to break frame by assigning a value to the `parent.location` attribute in the "counter-action" statement.
-Such actions are, for example:
-
-- `self.parent.location` = `document.location`
-- `parent.location.href` = `self.location`
-- `parent.location` = `self.location`
-
-This method works well until the target web page is framed by a single page. However, if the attacker encloses the target web page in one frame which is nested in another one (a double frame), then trying to access to `parent.location` becomes a security violation in all popular browsers, due to the descendant frame navigation policy. This security violation disables the counter-action navigation.
-
 ### Server-Side Protection: Using Frame-Ancestors Directive of Content Security Policy
 
 The HTTP Content-Security-Policy (CSP) response header allows web page administrators to control resources the user agent is allowed to load for a given web page. The `frame-ancestors` directive in the HTTP CSP specifies the acceptable parents that may embed a web page using the `<frame>`, `<iframe>`, `<object>`, `<embed>`, or `<applet>` tags.
