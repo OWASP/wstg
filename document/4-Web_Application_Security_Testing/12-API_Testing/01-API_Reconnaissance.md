@@ -20,6 +20,13 @@ Regardless of the visibility of the API, searching for API documentation can fin
 So how can we find these gems of information?
 
 ## Dork the Google
+Using Google Docking commands such as `site` and `inurl`we can tailor a search for common API keywords that the google indexer may have found. 
+
+For example:
+> site:"mytargetsite.com" inurl:"/api"
+
+Other keywords can include "v1", "api", "graphql". Wordlists are helpfull here for a comprehensive list of common words used in APIs.
+
 
 ## Look Back, Way Back
 
