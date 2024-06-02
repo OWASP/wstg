@@ -20,12 +20,12 @@ Before we stampede to REST based Web APIs we need to be aware of the full scope 
 4. gRPC (gRPC Remote Procedure Calls).
 5. WebSockets APIs.
 
-
-## REST (Representational State Transfer) APIs.
+ 
+## REST (Representational State Transfer) APIs 
 
 ### History
- 
-Due to their simplicity, scalability, and compatibility with the existing web infrastructure REST based APIs have become the most common API architecture on the internet at the time of this writing. REST based APIs did not immediately manifest, but rather have a long path from research to adoption. 
+  
+Due to their simplicity, scalability, and compatibility with the existing web infrastructure REST based APIs have become the most common API architecture on the internet at the time of this writing. REST based APIs did not immediately manifest, but rather have a long path from research to adoption.  
 
 In 1994 Roy Fielding, one of the principal authors of the HTTP specification, began his work on REST as part of his doctoral dissertation at the University of California, Irvine. By 2000, he published his dissertation, [Architectural Styles and the Design of Network-based Software Architectures](https://ics.uci.edu/~fielding/pubs/dissertation/top.htm), where he introduced and defined REST as an architectural style. REST was designed to take advantage of the existing features of HTTP, emphasizing scalability, stateless interactions, and a uniform interface.
 
@@ -79,13 +79,13 @@ REST APIs use standard HTTP methods to perform operations on resources following
 
 REST relies on headers to support communication of additional information within the request or response.
 
-* Content-Type: Indicates the media type of the resource (e.g., application/json).
-* Authorization: Contains credentials for authentication (e.g., tokens).
-* Accept: Specifies the media types that are acceptable for the response.
+* Content-Type: Indicates the media type of the resource (e.g., application/json). 
+* Authorization: Contains credentials for authentication (e.g., tokens). 
+* Accept: Specifies the media types that are acceptable for the response. 
 
 #### The Status Codes
 
-REST APIs use the response status code of HTTP response message to notify the client about their request’s result. 
+REST APIs use the response status code of HTTP response message to notify the client about their request’s result.  
 
 | Response Code | Response Message      | Description   |
 |---------------|-----------------------|--------------------------------------------------------------------------------------------------------|
