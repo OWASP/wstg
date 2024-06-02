@@ -1,18 +1,14 @@
 # API Testing Overview
 
-|ID          |
-|------------|
-|WSTG-APIT-00|
-
 ## Web API Introduction
 
 A Web API (Application Programming Interface) facilitates communication and data exchange between different software systems over a network or the Internet. Web APIs enable different applications to interact with each other in a standardized and efficient manner, allowing them to leverage each other's functionalities and data. 
 
-The adoption of different technologies such as cloud computing, microservice architectures, and single page applications have all contributed to the adoption of APIs as an architectural movement.
+The adoption of different technologies such as cloud computing, microservice architectures, and single page applications have all contributed to the adoption of APIs as an architectural movement. 
 
-And as with every introduction of new concepts follows the flaws, vulnerabilities, and the need for testing. Otherwise, poorly secured APIs may provide an unrestricted direct path to sensitive data.
+And as with every introduction of new concepts follows the flaws, vulnerabilities, and the need for testing. Otherwise, poorly secured APIs may provide an unrestricted direct path to sensitive data. 
 
-This chapter attempts to guide the security researcher in the concepts neccessary for testing. This section in particular investigates the different API technologies and their history as a backgrounder.
+This chapter attempts to guide the security researcher in the concepts neccessary for testing. This section in particular investigates the different API technologies and their history as a backgrounder. 
 
 ## Which API Technology?
 
@@ -28,8 +24,8 @@ Before we stampede to REST based Web APIs we need to be aware of the full scope 
 ## REST (Representational State Transfer) APIs.
 
 ### History
-
-Due to their simplicity, scalability, and compatibility with the existing web infrastructure REST based APIs have become the most common API architecture on the Internet at the time of this writing. REST based APIs did not immediately manifest, but rather have a long path from research to adoption.
+ 
+Due to their simplicity, scalability, and compatibility with the existing web infrastructure REST based APIs have become the most common API architecture on the Internet at the time of this writing. REST based APIs did not immediately manifest, but rather have a long path from research to adoption. 
 
 In 1994 Roy Fielding, one of the principal authors of the HTTP specification, began his work on REST as part of his doctoral dissertation at the University of California, Irvine. By 2000, he published his dissertation, [Architectural Styles and the Design of Network-based Software Architectures](https://ics.uci.edu/~fielding/pubs/dissertation/top.htm), where he introduced and defined REST as an architectural style. REST was designed to take advantage of the existing features of HTTP, emphasizing scalability, stateless interactions, and a uniform interface.
 
@@ -89,8 +85,9 @@ REST relies on headers to support communication of additional information within
 
 #### The Status Codes
 
-REST APIs use the response status code of HTTP response message to notify the client about their request’s result.
-| Response Code | Response Message      | Description                                                                                            |
+REST APIs use the response status code of HTTP response message to notify the client about their request’s result. 
+
+| Response Code | Response Message      | Description   |
 |---------------|-----------------------|--------------------------------------------------------------------------------------------------------|
 | 200           | OK                    | Success while processing client's request                                                              |
 | 201           | Created               | New resource created                                                                                   |
@@ -103,4 +100,3 @@ REST APIs use the response status code of HTTP response message to notify the cl
 | 404           | Not Found             | Resource doesn't exist or incorrect based on the request                                               |
 | 405           | Method Not Allowed    | Invalid method or unknown method used                                                                  |
 | 500           | Internal Server Error | Server failed to process request due to an internal error        
-
