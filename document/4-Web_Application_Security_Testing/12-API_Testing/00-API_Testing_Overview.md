@@ -20,8 +20,7 @@ Before we stampede to REST based Web APIs we need to be aware of the full scope 
 4. gRPC (gRPC Remote Procedure Calls).
 5. WebSockets APIs.
 
- 
-## REST (Representational State Transfer) APIs 
+## REST (Representational State Transfer) APIs
 
 ### History
   
@@ -79,9 +78,11 @@ REST APIs use standard HTTP methods to perform operations on resources following
 
 REST relies on headers to support communication of additional information within the request or response.
 
-* Content-Type: Indicates the media type of the resource (e.g., application/json). 
-* Authorization: Contains credentials for authentication (e.g., tokens). 
-* Accept: Specifies the media types that are acceptable for the response. 
+- Content-Type: Indicates the media type of the resource (e.g., application/json).
+
+- Authorization: Contains credentials for authentication (e.g., tokens).
+
+- Accept: Specifies the media types that are acceptable for the response.
 
 #### The Status Codes
 
