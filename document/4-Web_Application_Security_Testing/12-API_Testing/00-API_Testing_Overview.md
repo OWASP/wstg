@@ -5,6 +5,7 @@
 |WSTG-APIT-00|
 
 ## Web API Introduction
+
 A Web API (Application Programming Interface) facilitates communication and data exchange between different software systems over a network or the Internet. Web APIs enable different applications to interact with each other in a standardized and efficient manner, allowing them to leverage each other's functionalities and data. 
 
 The adoption of different technologies such as cloud computing, microservice architectures, and single page applications have all contributed to the adoption of APIs as an architectural movement.
@@ -14,6 +15,7 @@ And as with every introduction of new concepts follows the flaws, vulnerabilitie
 This chapter attempts to guide the security researcher in the concepts neccessary for testing. This section in particular investigates the different API technologies and their history as a backgrounder.
 
 ## Which API Technology?
+
 Before we stampede to REST based Web APIs we need to be aware of the full scope of the problem space that the security researcher may encounter. These include:
 
 1. REST (Representational State Transfer) APIs.
@@ -24,7 +26,9 @@ Before we stampede to REST based Web APIs we need to be aware of the full scope 
 
 
 ## REST (Representational State Transfer) APIs.
+
 ### History
+
 Due to their simplicity, scalability, and compatibility with the existing web infrastructure REST based APIs have become the most common API architecture on the Internet at the time of this writing. REST based APIs did not immediately manifest, but rather have a long path from research to adoption.
 
 In 1994 Roy Fielding, one of the principal authors of the HTTP specification, began his work on REST as part of his doctoral dissertation at the University of California, Irvine. By 2000, he published his dissertation, [Architectural Styles and the Design of Network-based Software Architectures](https://ics.uci.edu/~fielding/pubs/dissertation/top.htm), where he introduced and defined REST as an architectural style. REST was designed to take advantage of the existing features of HTTP, emphasizing scalability, stateless interactions, and a uniform interface.
@@ -34,9 +38,11 @@ In the 2010s REST became the de facto standard for web APIs due to its simplicit
 By the 2020s modern developments evolved REST with technologies such as GraphQL. In addition, the OpenAPI specification (OAS), which evolved from Swagger, became a widely adopted standard for describing REST APIs, enabling better integration and automation.
 
 ### What is REST?
+
 REST is a set of rules and conventions for interacting with web resources. The key components of URI, HTTP Methods, Headers, and Status Codes support the principles of REST.
 
 #### The URI
+
 REST APIs use URIs (Uniform Resource Identifiers) to access resources and is therefore a crucial element of a REST Architecture.  A URI is a string of characters that uniquely identifies a particular resource. URIs are used extensively on the internet to locate and interact with resources, such as web pages, files, and services.
 
 A URI consists of several components, each serving a specific purpose. The generic URI syntax as defined in [RFC3986](https://tools.ietf.org/html/rfc3986) as below:
@@ -60,7 +66,8 @@ The **query** provides additional parameters for the resource. It starts with a 
 
 The **fragment** indicates a specific part of the resource, such as a section within a web page. It starts with a #.
 
-### The HTTP Methods
+#### The HTTP Methods
+
 REST APIs use standard HTTP methods to perform operations on resources following the [HTTP Request Methods](https://tools.ietf.org/html/rfc7231#section-4) defined in [RFC7231](https://tools.ietf.org/html/rfc7231). These methods map to CRUD, the four basic functions of persistent storage in computer science. CRUD stands for Create, Read, Update, and Delete, which are the four operations that can be performed on data.  
 
 | Methods | Description                                   |
@@ -72,14 +79,16 @@ REST APIs use standard HTTP methods to perform operations on resources following
 | HEAD    | Get metadata associated with resource’s state |
 | OPTIONS | List available methods                        |
 
-### The Headers
+#### The Headers
+
 REST relies on headers to support communication of additional information within the request or response.
 
 * Content-Type: Indicates the media type of the resource (e.g., application/json).
 * Authorization: Contains credentials for authentication (e.g., tokens).
 * Accept: Specifies the media types that are acceptable for the response.
 
-### The Status Codes
+#### The Status Codes
+
 REST APIs use the response status code of HTTP response message to notify the client about their request’s result.
 | Response Code | Response Message      | Description                                                                                            |
 |---------------|-----------------------|--------------------------------------------------------------------------------------------------------|
