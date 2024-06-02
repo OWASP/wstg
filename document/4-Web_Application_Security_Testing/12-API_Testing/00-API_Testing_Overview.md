@@ -45,7 +45,7 @@ A URI consists of several components, each serving a specific purpose. The gener
 
 > URI = scheme "://" authority "/" path [ "?" query ] [ "#" fragment ]
 
-For REST the **scheme**, is typically `http` or `https` but generically indicates the protocol or method used to access the resource. Common schemes include http, https, ftp, mailto, file, etc.
+For REST the **scheme**, is typically `HTTP` or `HTTPS` but generically indicates the protocol or method used to access the resource. Other common schemes include ftp, mailto, file, etc.
 
 The **authority** ispecifies the domain name or IP address of the server where the resource resides, and may include a port number. It may also include userinfo as a subcomponent.
 
