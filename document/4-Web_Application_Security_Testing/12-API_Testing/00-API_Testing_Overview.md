@@ -76,13 +76,11 @@ REST APIs use standard HTTP methods to perform operations on resources following
 
 #### The Headers
 
-REST relies on headers to support communication of additional information within the request or response.
+REST relies on headers to support communication of additional information within the request or response. Such as:
 
-- Content-Type: Indicates the media type of the resource (e.g., application/json).
-
-- Authorization: Contains credentials for authentication (e.g., tokens).
-
-- Accept: Specifies the media types that are acceptable for the response.
+- `Content-Type`: Indicates the media type of the resource (e.g. `application/json`).
+- `Authorization`: Contains credentials for authentication (e.g. tokens).
+- `Accept`: Specifies the media types that are acceptable for the response.
 
 #### The Status Codes
 
