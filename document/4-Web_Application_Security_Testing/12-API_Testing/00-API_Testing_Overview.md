@@ -98,4 +98,4 @@ Application APIs that conform to REST principles use the response status code of
 | 402           | Forbidden             | Client is forbidden to access the resource                                                             |
 | 404           | Not Found             | Resource doesn't exist or incorrect based on the request                                               |
 | 405           | Method Not Allowed    | Invalid method or unknown method used                                                                  |
-| 500           | Internal Server Error | Server failed to process request due to an internal error        |
+| 500           | Internal Server Error | Server failed to process request due to an internal error                                              |
