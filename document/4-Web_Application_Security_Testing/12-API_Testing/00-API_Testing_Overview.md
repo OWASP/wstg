@@ -82,7 +82,7 @@ REST relies on headers to support communication of additional information within
 - `Authorization`: Contains credentials for authentication (e.g. tokens).
 - `Accept`: Specifies the media types that are acceptable for the response.
 
-#### The Status Codes
+#### Status Codes
 
 REST APIs use the response status code of HTTP response message to notify the client about their request’s result.  
 
