@@ -36,7 +36,7 @@ By the 2020s modern developments evolved REST with technologies such as GraphQL.
 
 REST is a set of rules and conventions for interacting with web resources. The key components of URI, HTTP Methods, Headers, and Status Codes support the principles of REST.
 
-#### The URI
+#### URI
 
 REST APIs use URIs (Uniform Resource Identifiers) to access resources and is therefore a crucial element of a REST Architecture.  A URI is a string of characters that uniquely identifies a particular resource. URIs are used extensively on the internet to locate and interact with resources, such as web pages, files, and services.
 
