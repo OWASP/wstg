@@ -30,7 +30,7 @@ In 1994 Roy Fielding, one of the principal authors of the HTTP specification, be
 
 In the 2010s REST became the de facto standard for web APIs due to its simplicity and compatibility with the web's underlying architecture. The widespread use of RESTful APIs was driven by the growth of mobile applications, cloud computing, and microservices architecture. The development of tools and frameworks like Swagger/OpenAPI, RAML, and API Blueprint facilitated the design, documentation, and testing of REST APIs.
 
-By the 2020s modern developments evolved REST with technologies such as GraphQL. In addition, the OpenAPI specification (OAS), which evolved from Swagger, became a widely adopted standard for describing REST APIs, enabling better integration and automation.
+By the 2020s modern developments evolved REST with technologies such as GraphQL. In addition, the OpenAPI/Swagger specification became a widely adopted standard for describing REST APIs, enabling better integration and automation.
 
 ### What is REST?
 
@@ -84,7 +84,7 @@ REST relies on headers to support communication of additional information within
 
 #### Status Codes
 
-REST APIs use the response status code of HTTP response message to notify the client about their request’s result.  
+Application APIs that conform to REST principles use the response status code of HTTP response message to notify the client about their request’s result.  
 
 | Response Code | Response Message      | Description   |
 |---------------|-----------------------|--------------------------------------------------------------------------------------------------------|
