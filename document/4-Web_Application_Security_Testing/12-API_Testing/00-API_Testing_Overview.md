@@ -48,14 +48,14 @@ For REST the **scheme**, is typically `HTTP` or `HTTPS` but generically indicate
 
 The **authority** ispecifies the domain name or IP address of the server where the resource resides, and may include a port number. It may also include userinfo as a subcomponent.
 
-The **path** specifies the specific location of the resource on the server. We are interested in the path of URI as the relationship between user and resources. For example, `https://api.test.xyz/admin/testing/report`, this shows report of testing, there is relationship between user admin and their reports.
+The **path** specifies the specific location of the resource on the server. We are interested in the path of URI as the relationship between user and resources. For example, `https://api.example.com/admin/testing/report`, this shows report of testing, there is relationship between user admin and their reports.
 
 The path of any URI will define REST API resource model, resources are separated by a forward slash and based on Top-Down design.
 For example:
 
-- `https://api.test.xyz/admin/testing/report`
-- `https://api.test.xyz/admin/testing/`
-- `https://api.test.xyz/admin/`
+- `https://api.example.com/admin/testing/report`
+- `https://api.example.com/admin/testing/`
+- `https://api.example.com/admin/`
 
 The **query** provides additional parameters for the resource. It starts with a `?` and consists of key-value pairs separated by `&`.
 
