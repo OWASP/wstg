@@ -28,7 +28,7 @@ Due to their simplicity, scalability, and compatibility with the existing web in
 
 In 1994 Roy Fielding, one of the principal authors of the HTTP specification, began his work on REST as part of his doctoral dissertation at the University of California, Irvine. By 2000, he published his dissertation, [Architectural Styles and the Design of Network-based Software Architectures](https://ics.uci.edu/~fielding/pubs/dissertation/top.htm), where he introduced and defined REST as an architectural style. REST was designed to take advantage of the existing features of HTTP, emphasizing scalability, stateless interactions, and a uniform interface.
 
-In the 2010s REST became the de facto standard for web APIs due to its simplicity and compatibility with the web's underlying architecture. The widespread use of RESTful APIs was driven by the growth of mobile applications, cloud computing, and microservices architecture. The development of tools and frameworks like Swagger (now OpenAPI), RAML, and API Blueprint facilitated the design, documentation, and testing of REST APIs.
+In the 2010s REST became the de facto standard for web APIs due to its simplicity and compatibility with the web's underlying architecture. The widespread use of RESTful APIs was driven by the growth of mobile applications, cloud computing, and microservices architecture. The development of tools and frameworks like Swagger/OpenAPI, RAML, and API Blueprint facilitated the design, documentation, and testing of REST APIs.
 
 By the 2020s modern developments evolved REST with technologies such as GraphQL. In addition, the OpenAPI specification (OAS), which evolved from Swagger, became a widely adopted standard for describing REST APIs, enabling better integration and automation.
 
