@@ -63,7 +63,7 @@ The **fragment** indicates a specific part of the resource, such as a section wi
 
 #### The HTTP Methods
 
-REST APIs use standard HTTP methods to perform operations on resources following the [HTTP Request Methods](https://tools.ietf.org/html/rfc7231#section-4) defined in [RFC7231](https://tools.ietf.org/html/rfc7231). These methods map to CRUD, the four basic functions of persistent storage in computer science. CRUD stands for Create, Read, Update, and Delete, which are the four operations that can be performed on data.  
+REST APIs use standard HTTP methods to perform operations on resources following the [HTTP Request Methods](https://tools.ietf.org/html/rfc7231#section-4) defined in [RFC7231](https://tools.ietf.org/html/rfc7231). These methods map to CRUD, the four basic functions of persistent storage in computer science. CRUD stands for Create, Read, Update, and Delete; which are the four operations that can be performed on data.  
 
 | Methods | Description                                   |
 |---------|-----------------------------------------------|
