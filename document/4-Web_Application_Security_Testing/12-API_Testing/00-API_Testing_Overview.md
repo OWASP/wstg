@@ -61,7 +61,7 @@ The **query** provides additional parameters for the resource. It starts with a 
 
 The **fragment** indicates a specific part of the resource, such as a section within a web page. It starts with a `#`. It's worth noting that fragment identifiers are only processed client-side and not "sent" to the server.
 
-#### The HTTP Methods
+#### HTTP Methods
 
 REST APIs use standard HTTP methods to perform operations on resources following the [HTTP Request Methods](https://tools.ietf.org/html/rfc7231#section-4) defined in [RFC7231](https://tools.ietf.org/html/rfc7231). These methods map to CRUD, the four basic functions of persistent storage in computer science. CRUD stands for Create, Read, Update, and Delete; which are the four operations that can be performed on data.  
 
@@ -74,7 +74,7 @@ REST APIs use standard HTTP methods to perform operations on resources following
 | HEAD    | Get metadata associated with resource’s state |
 | OPTIONS | List available methods                        |
 
-#### The Headers
+#### Headers
 
 REST relies on headers to support communication of additional information within the request or response. Such as:
 
