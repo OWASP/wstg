@@ -8,7 +8,7 @@ The adoption of different technologies such as cloud computing, microservice arc
 
 As with every introduction of new concepts follows the flaws, vulnerabilities, and the need for testing. Otherwise, poorly secured APIs may provide an unrestricted direct path to sensitive data.
 
-This chapter attempts to guide the security researcher in the concepts neccessary for testing. This section in particular investigates the different API technologies and their history as a backgrounder.  
+This chapter attempts to guide the security researcher in the concepts necessary for testing. This section in particular investigates the different API technologies and their history as a backgrounder.  
 
 ## Which API Technology?
 
