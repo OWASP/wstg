@@ -6,7 +6,7 @@ A Web API (Application Programming Interface) facilitates communication and data
 
 The adoption of different technologies such as cloud computing, microservice architectures, and single page applications have all contributed to the adoption of APIs as an architectural movement.  
 
-And as with every introduction of new concepts follows the flaws, vulnerabilities, and the need for testing. Otherwise, poorly secured APIs may provide an unrestricted direct path to sensitive data.  
+As with every introduction of new concepts follows the flaws, vulnerabilities, and the need for testing. Otherwise, poorly secured APIs may provide an unrestricted direct path to sensitive data.
 
 This chapter attempts to guide the security researcher in the concepts neccessary for testing. This section in particular investigates the different API technologies and their history as a backgrounder.  
 
