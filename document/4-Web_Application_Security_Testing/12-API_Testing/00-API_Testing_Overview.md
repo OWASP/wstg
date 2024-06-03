@@ -59,7 +59,7 @@ For example:
 
 The **query** provides additional parameters for the resource. It starts with a `?` and consists of key-value pairs separated by `&`.
 
-The **fragment** indicates a specific part of the resource, such as a section within a web page. It starts with a #.
+The **fragment** indicates a specific part of the resource, such as a section within a web page. It starts with a `#`. It's worth noting that fragment identifiers are only processed client side and not "sent" to the server.
 
 #### The HTTP Methods
 
