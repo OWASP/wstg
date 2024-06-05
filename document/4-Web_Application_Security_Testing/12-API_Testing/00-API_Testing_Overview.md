@@ -2,13 +2,13 @@
 
 ## Web API Introduction
 
-A Web Application Programming Interface (API) facilitates communication and data exchange between different software systems over a network or the internet. Web APIs enable different applications to interact with each other in a standardized and efficient manner, allowing them to leverage each other's functionalities and data. 
+A Web Application Programming Interface (API) facilitates communication and data exchange between different software systems over a network or the internet. Web APIs enable different applications to interact with each other in a standardized and efficient manner, allowing them to leverage each other's functionalities and data.
 
-The adoption of different technologies such as cloud computing, microservice architectures, and single page applications have all contributed to the adoption of APIs as an architectural movement. 
+The adoption of different technologies such as cloud computing, microservice architectures, and single page applications have all contributed to the adoption of APIs as an architectural movement.
 
 As with the introduction of any new concepts, there can be flaws and vulnerabilities that necessitate testing. Otherwise, poorly secured APIs may provide an unrestricted direct path to sensitive data.
 
-This chapter attempts to guide the security researcher in the concepts necessary for testing APIs. This section in particular investigates the different API technologies and their history. 
+This chapter attempts to guide the security researcher in the concepts necessary for testing APIs. This section in particular investigates the different API technologies and their history.
 
 ## Which API Technology?
 
@@ -28,7 +28,7 @@ REST is a set of rules and conventions for interacting with web resources. The k
 
 ### History
   
-Due to their simplicity, scalability, and compatibility with existing web infrastructure, REST based APIs have become the most common API architecture on the internet at the time of this writing. REST based APIs did not immediately manifest, but rather have a long path from research to adoption. 
+Due to their simplicity, scalability, and compatibility with existing web infrastructure, REST based APIs have become the most common API architecture on the internet at the time of this writing. REST based APIs did not immediately manifest, but rather have a long path from research to adoption.
 
 In 1994 Roy Fielding, one of the principal authors of the HTTP specification, began his work on REST as part of his doctoral dissertation at the University of California, Irvine. By 2000, he published his dissertation, [Architectural Styles and the Design of Network-based Software Architectures](https://ics.uci.edu/~fielding/pubs/dissertation/top.htm), where he introduced and defined REST as an architectural style. REST was designed to take advantage of the existing features of HTTP, emphasizing scalability, stateless interactions, and a uniform interface.
 
