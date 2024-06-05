@@ -2,29 +2,33 @@
 
 ## Web API Introduction
 
-A Web API (Application Programming Interface) facilitates communication and data exchange between different software systems over a network or the internet. Web APIs enable different applications to interact with each other in a standardized and efficient manner, allowing them to leverage each other's functionalities and data.  
+A Web Application Programming Interface (API) facilitates communication and data exchange between different software systems over a network or the internet. Web APIs enable different applications to interact with each other in a standardized and efficient manner, allowing them to leverage each other's functionalities and data. 
 
-The adoption of different technologies such as cloud computing, microservice architectures, and single page applications have all contributed to the adoption of APIs as an architectural movement.  
+The adoption of different technologies such as cloud computing, microservice architectures, and single page applications have all contributed to the adoption of APIs as an architectural movement. 
 
-As with every introduction of new concepts follows the flaws, vulnerabilities, and the need for testing. Otherwise, poorly secured APIs may provide an unrestricted direct path to sensitive data.
+As with the introduction of any new concepts, there can be flaws and vulnerabilities that necessitate testing. Otherwise, poorly secured APIs may provide an unrestricted direct path to sensitive data.
 
-This chapter attempts to guide the security researcher in the concepts necessary for testing. This section in particular investigates the different API technologies and their history as a backgrounder.  
+This chapter attempts to guide the security researcher in the concepts necessary for testing APIs. This section in particular investigates the different API technologies and their history. 
 
 ## Which API Technology?
 
-Before we stampede to REST based Web APIs we need to be aware of the full scope of the problem space that the security researcher may encounter. These include:
+Before we make assumptions about the type of API we are testing, it can be helpful to be aware of the full scope of the problem space that the security researcher may encounter. These include:
 
-1. REST (Representational State Transfer) APIs.
-2. SOAP (Simple Object Access Protocol) APIs.
-3. GraphQL APIs.
-4. gRPC (gRPC Remote Procedure Calls).
-5. WebSockets APIs.
+1. Representational State Transfer (REST) APIs
+2. Simple Object Access Protocol (SOAP) APIs
+3. GraphQL APIs
+4. gRPC Remote Procedure Calls (gRPC)
+5. WebSockets APIs
 
 ## REST (Representational State Transfer) APIs
 
+### What is REST?
+
+REST is a set of rules and conventions for interacting with web resources. The key components of URI, HTTP Methods, Headers, and Status Codes support the principles of REST.
+
 ### History
   
-Due to their simplicity, scalability, and compatibility with the existing web infrastructure REST based APIs have become the most common API architecture on the internet at the time of this writing. REST based APIs did not immediately manifest, but rather have a long path from research to adoption.  
+Due to their simplicity, scalability, and compatibility with existing web infrastructure, REST based APIs have become the most common API architecture on the internet at the time of this writing. REST based APIs did not immediately manifest, but rather have a long path from research to adoption. 
 
 In 1994 Roy Fielding, one of the principal authors of the HTTP specification, began his work on REST as part of his doctoral dissertation at the University of California, Irvine. By 2000, he published his dissertation, [Architectural Styles and the Design of Network-based Software Architectures](https://ics.uci.edu/~fielding/pubs/dissertation/top.htm), where he introduced and defined REST as an architectural style. REST was designed to take advantage of the existing features of HTTP, emphasizing scalability, stateless interactions, and a uniform interface.
 
@@ -32,25 +36,22 @@ In the 2010s REST became the de facto standard for web APIs due to its simplicit
 
 By the 2020s modern developments evolved REST with technologies such as GraphQL. In addition, the OpenAPI/Swagger specification became a widely adopted standard for describing REST APIs, enabling better integration and automation.
 
-### What is REST?
+### Uniform Resource Identifiers
 
-REST is a set of rules and conventions for interacting with web resources. The key components of URI, HTTP Methods, Headers, and Status Codes support the principles of REST.
+REST APIs use Uniform Resource Identifiers (URIs) to access resources. URIs are a crucial element of a REST Architecture. A URI is a string of characters that uniquely identifies a particular resource. URIs are used extensively on the internet to locate and interact with resources, such as web pages, files, and services.
 
-#### URI
+A URI consists of several components, each serving a specific purpose. The generic URI syntax as defined in [RFC3986](https://tools.ietf.org/html/rfc3986) is below:
 
-REST APIs use URIs (Uniform Resource Identifiers) to access resources and is therefore a crucial element of a REST Architecture.  A URI is a string of characters that uniquely identifies a particular resource. URIs are used extensively on the internet to locate and interact with resources, such as web pages, files, and services.
+> `URI = scheme "://" authority "/" path [ "?" query ] [ "#" fragment ]`
 
-A URI consists of several components, each serving a specific purpose. The generic URI syntax as defined in [RFC3986](https://tools.ietf.org/html/rfc3986) as below:
+For REST, the **scheme** is typically `HTTP` or `HTTPS` but generically indicates the protocol or method used to access the resource. Other common schemes include `ftp`, `mailto`, and `file`.
 
-> URI = scheme "://" authority "/" path [ "?" query ] [ "#" fragment ]
+The **authority** specifies the domain name or IP address of the server where the resource resides, and may include a port number. It may also include userinfo as a subcomponent.
 
-For REST the **scheme**, is typically `HTTP` or `HTTPS` but generically indicates the protocol or method used to access the resource. Other common schemes include ftp, mailto, file, etc.
+The **path** specifies the specific location of the resource on the server. We are interested in the path of URI as the relationship between user and resources. For example, `https://api.example.com/admin/testing/report` may show a test report. There is relationship between the user admin and their reports.
 
-The **authority** ispecifies the domain name or IP address of the server where the resource resides, and may include a port number. It may also include userinfo as a subcomponent.
+The path of any URI will define a REST API resource model. Resources are separated by a forward slash and based on Top-Down design.
 
-The **path** specifies the specific location of the resource on the server. We are interested in the path of URI as the relationship between user and resources. For example, `https://api.example.com/admin/testing/report`, this shows report of testing, there is relationship between user admin and their reports.
-
-The path of any URI will define REST API resource model, resources are separated by a forward slash and based on Top-Down design.
 For example:
 
 - `https://api.example.com/admin/testing/report`
@@ -59,11 +60,13 @@ For example:
 
 The **query** provides additional parameters for the resource. It starts with a `?` and consists of key-value pairs separated by `&`.
 
-The **fragment** indicates a specific part of the resource, such as a section within a web page. It starts with a `#`. It's worth noting that fragment identifiers are only processed client-side and not "sent" to the server.
+The **fragment** indicates a specific part of the resource, such as a section within a web page. It starts with a `#`. It's worth noting that fragment identifiers are only processed client-side and not sent to the server.
 
-#### HTTP Methods
+### HTTP Methods
 
-REST APIs use standard HTTP methods to perform operations on resources following the [HTTP Request Methods](https://tools.ietf.org/html/rfc7231#section-4) defined in [RFC7231](https://tools.ietf.org/html/rfc7231). These methods map to CRUD, the four basic functions of persistent storage in computer science. CRUD stands for Create, Read, Update, and Delete; which are the four operations that can be performed on data.  
+REST APIs use standard HTTP methods to perform operations on resources following the [HTTP Request Methods](https://tools.ietf.org/html/rfc7231#section-4) defined in [RFC7231](https://tools.ietf.org/html/rfc7231). These methods map to CRUD, the four basic functions of persistent storage in computer science. CRUD stands for Create, Read, Update, and Delete, which are the four operations that can be performed on data.
+
+HTTP Request Methods are:
 
 | Methods | Description                                   |
 |---------|-----------------------------------------------|
@@ -76,7 +79,7 @@ REST APIs use standard HTTP methods to perform operations on resources following
 
 #### Headers
 
-REST relies on headers to support communication of additional information within the request or response. Such as:
+REST relies on headers to support communication of additional information within the request or response. These include:
 
 - `Content-Type`: Indicates the media type of the resource (e.g. `application/json`).
 - `Authorization`: Contains credentials for authentication (e.g. tokens).
@@ -84,7 +87,7 @@ REST relies on headers to support communication of additional information within
 
 #### Status Codes
 
-Application APIs that conform to REST principles use the response status code of HTTP response message to notify the client about their request’s result.  
+Application APIs that conform to REST principles use the response status code of an HTTP response message to notify the client about their request’s result.
 
 | Response Code | Response Message      | Description   |
 |---------------|-----------------------|--------------------------------------------------------------------------------------------------------|
