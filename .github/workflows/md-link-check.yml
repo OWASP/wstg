@@ -23,14 +23,13 @@ jobs:
     - name: Setup Node
       uses: actions/setup-node@v4
       with:
-        node-version: '16'
+        node-version: '20'
     - name: Install dependencies
       run: npm install -g markdown-link-check@3.11.0
     - name: Changed Files Exporter
       if: github.event_name == 'pull_request_target'
       id: files
-      # This uses the SHA for 4.0.1 - https://github.com/umani/changed-files/releases/tag/v4.0.1
-      uses: umani/changed-files@0239328a3a6268aad16af7c3e4efc78e32d6c0f0
+      uses: umani/changed-files@v4.2.0
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
     - name: PR link check
@@ -67,7 +66,7 @@ jobs:
         path: brokenlinks.txt
     - name: Comment Broken Links
       if: ${{ failure() && github.event_name == 'pull_request_target' }}
-      uses: actions/github-script@v6
+      uses: actions/github-script@v7
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
