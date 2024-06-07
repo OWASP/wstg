@@ -159,3 +159,12 @@ All three of FFUF, DirBuster, and GoBuster are designed to discover hidden paths
 
 Each can be used to perform brute-force discovery of endpoints using API specific wordlists.
 
+## References
+
+### OWASP Resources
+
+- [REST Assessment Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/REST_Assessment_Cheat_Sheet.html)
+
+### Books
+
+- Corey J. Ball - "Hacking APIs : breaking web application programming interfaces", No Starch, 2022 - ISBN-13: 978-1-7185-0244-4
