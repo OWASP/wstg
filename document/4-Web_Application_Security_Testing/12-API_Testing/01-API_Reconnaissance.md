@@ -8,27 +8,37 @@
 
 Reconnaissance is an important step in any pentesting engagement. This includes API pentesting. Reconnaissance significantly enhances the effectiveness of the testing process by gathering information about the API and developing an understanding of the target. This phase not only increases the likelihood of discovering critical security issues but also ensures a comprehensive evaluation of the API’s security posture.
 
-## API Types
+### API Types
 
 APIs can be public or private.
 
-### Public APIs
+#### Public APIs
 
-Public APIs typically have their details published in a Swagger/OpenAI document. Gaining access to this document is important to understand the attack surface. Equally important is finding older versions of this document that might show depricated but still functional code that may have security vulnerabilities.
+Public APIs typically have their details published in a Swagger/OpenAPI document. Gaining access to this document is important to understand the attack surface. Equally important is finding older versions of this document that might show depricated but still functional code that may have security vulnerabilities.
 
 Keep in mind that this document, however well intentioned, may not be accurate, and also may not dislose the complete API.
 
 Public APIs may also be documented on shared libraries or directories of APIs.
 
-### Private APIs
+#### Private APIs
 
 The visibility of private APIs depends on who the intended consumer is. An API can be private, but only accessible to subscribed clients (also known as `partners`) or only accessible to internal clients, such as other departments within the same company. Finding private APIs using reconnaissance techniques is also important. These APIs can be discovered using a number of techniques which we will discuss below.
 
-## Find the Documentation
+## Test Objectives
+
+- find all API endpoints supported by the back end server code, documented or undocumented
+- find all parameters for each endpoint supported by the back end server, documented or undocumented
+- find `interesting` data related to APIs in HTML and JavaScript sent to client
+
+## How to Test
+
+### Find the Documentation
 
 In both public and private cases, the API documentation will be useful based on its level of the quality and accurracy. Public API documentaton is typically shared with everyone whereas private API documentation is only shared with the intended client. However, in both cases finding documentation, accidentally leaked or otherwise will be helpfull in your investigation.
 
-Regardless of the visibility of the API, searching for API documentation can find older, not-yet-published, or accidentally leaked API documentation. This documentation will be very helpfull in understanding the how the attack surface the API exposes.
+Regardless of the visibility of the API, searching for API documentation can find older, not-yet-published, or accidentally leaked API documentation. This documentation will be very helpfull in understanding what the attack surface the API exposes.
+
+### Looking in Well Known Places
 
 If documentation is not readily apparent, then you can actively search the target for documentation based on a few obvious names or paths. These include:
 
@@ -39,7 +49,17 @@ If documentation is not readily apparent, then you can actively search the targe
 - /openapi.json
 - /.well-known/schema-discovery
 
+#### Robots.txt
+
+The `robots.txt` file is a text file that website owners create to instruct web crawlers (such as search engine bots) on how to crawl and index their site. It is part of the Robots Exclusion Protocol (REP), which regulates how bots interact with websites.
+
+This file may provide additional clues to path structure or api endpoints.
+
+### GitDorking
+
 If the application uses GitHub we can also search any of their repositories (also known as `GitDorking`), or the personal GitHub accounts of the target's employees.
+
+### API Directories
 
 Alternatives sources of API documentation can incluide API Directories:
 
@@ -50,11 +70,11 @@ Alternatives sources of API documentation can incluide API Directories:
 - [PublicAPIs](https://publicapis.dev/) and [PublicAPIs](https://publicapis.io/)
 - [Postman API Network](https://www.postman.com/explore)
 
-## Browsing the Application
+### Browsing and Spidering the Application
 
-Even if you have the API documentation browsing the application is a good idea. Documentation can be outdated, inaccurate, or be incomplete.
+Even if you have the API documentation browsing the application is a good idea. Documentation can be outdated, inaccurate, or incomplete.
 
-Browsing the application with an intercepting proxy such as ZAP or Burp Suite records endpoints for later inspection. In addition, using their built-in spidering functionality can help generate a comprehensive list of endpoints. In the spidered urls look for links with obvious API URL naming schemes. These include:
+Browsing the application with an intercepting proxy such as ZAP or Burp Suite records endpoints for later inspection. In addition, using their built-in spidering functionality, intercepting proxies can help generate a comprehensive list of endpoints. From the spidered urls look for links with obvious API URL naming schemes. These include:
 
 - <https://example.com/api/v1> (or v2 etc)
 - <https://example.com/graphql>
@@ -63,11 +83,11 @@ Or subdomains the the applications my consume:
 
 - api.example.com/api/v1
 
-It is important the the pentester attempts to exercise as much functionality in the application as possible. This is not only to have a comprehensive view of the endpoints but also to avoid issues with lazy loadingand code splitting.
+It is important that the pentester attempts to exercise as much functionality in the application as possible. This is not only to generate a comprehensive list of endpoints but also to avoid issues with lazy loading and code splitting.
 
-Once completed, the endpoint information obtained from comprehensive browsing and spidering of the application can help the pentester compose API documentation of the target using other tools such as Postman.
+Once completed, the endpoint information obtained from browsing and spidering of the application can help the pentester compose API documentation of the target using other tools such as Postman.
 
-## Dork the Google
+### Google Dorking
 
 Using passive reconnaissance techniques such as Google Dorking with parameters such as `site` and `inurl`allows us to tailor a search for common API keywords that the google indexer may have found.
 
@@ -80,13 +100,13 @@ We can extend the Google Dorking to include subdomains of the target.
 
 Wordlists are helpfull here for a comprehensive list of common words used in APIs.
 
-## Look Back, Way Back
+### Look Back, Way Back
 
-Published and private APIs change over time. But deprecated or older version may still be operational either on purpose or by misconfiguration. These should also be tested as there is a good chance that they will contain vulnerabilities that newer versions have fixed. In addition, changes to APIs show newer features which may be lest robust and therefore a good candidate for testing.
+Published and private APIs change over time. But deprecated or older version may still be operational either on purpose or by misconfiguration. These should also be tested as there is a good chance that they will contain vulnerabilities that newer versions have fixed. In addition, changes to APIs show newer features which may be less robust and therefore a good candidate for testing.
 
-To discover older version we can use the `Way back machine` to help find older endpoints. Tools like TomNomNom's [WayBackUrls](https://github.com/tomnomnom/waybackurls) that fetches all the URLs that the Wayback Machine knows about for a domain can be helpful.
+To discover older version we can use the `Way back machine` to help find older endpoints. Tools like TomNomNom's [WayBackUrls](https://github.com/tomnomnom/waybackurls) that fetches all the URLs that the Wayback Machine knows about for a domain can be helpfull.
 
-## The Client Side Application
+### The Client Side Application
 
 An excellent source of API and other information is the HTML and JavaScript that the server sends to the client. Sometimes, the client application leaks sensitive information including APIs and secrets.
 
@@ -94,19 +114,19 @@ There are a variety of tools that we can use to help us extract sensitive inform
 
 Rexex is more straightforward by searching JS or HTML content for known patterns. However, this approach can miss content not explicitly identified in the regex. Given the structure of some JS this approach can miss a lot. ASTs on the other hand are tree-like structures that represent the syntax of source code. Each node in the tree corresponds to a part of the code. For JavaScript, an AST breaks the code into basic components, allowing tools and compilers to understand and modify the code easily.
 
-### General Tools
+#### General Tools
 
 1. [Uproot](https://github.com/0xDexter0us/uproot-JS). A BurpSuite plugin that saves any encountered JS files to disk. This helps extract the files for any analysis by command line tools.
 2. [OpenAPI Support](https://www.zaproxy.org/docs/desktop/addons/openapi-support/). This ZAP add-on allows you to spider and import OpenAPI (Swagger) definitions, versions 1.2, 2.0, and 3.0.
 3. [OpenAPI Parser](https://github.com/aress31/openapi-parser). A BurpSuite plugin that parses OpenAPI documents into Burp Suite for automating OpenAPI-based APIs security assessments.
 
-### Regex Tools
+#### Regex Tools
 
 1. [JSParser](https://github.com/nahamsec/JSParser). A python 2.7 script using Tornado and JSBeautifier to parse relative URLs from JavaScript files.
 2. [JSMiner](https://github.com/PortSwigger/js-miner). A BurpSuite plugin tries to find interesting stuff inside static files; mainly JavaScript and JSON files. This tool scans "passively" while crawling the application.
 3. [JSpector](https://github.com/hisxo/JSpector). A BurpSuite plugin that passively crawls JavaScript files and automatically creates issues with URLs, endpoints and dangerous methods found on the JS files.
 
-### AST Tools
+#### AST Tools
 
 1. [JSLuice](https://github.com/BishopFox/jsluice).  A command line tool that extracts URLs, paths, secrets, and other interesting data from JavaScript source code.
 
@@ -115,10 +135,27 @@ Rexex is more straightforward by searching JS or HTML content for known patterns
 1. [Attack Surface Detector](https://github.com/secdec/attack-surface-detector-burp). A BurpSuite plugin that uses static code analyses to identify web app endpoints by parsing routes and identifying parameters.
 2. [Param Miner](https://github.com/portswigger/param-miner). A BurpSuite plug-in that identifies hidden, unlinked parameters.
 
-## Active Fuzzing
+### Active Fuzzing
 
 Active Fuzzing involves using tools with wordlists and filtering requests results to bruteforce endpoint discovery.
 
-### Kiterunner
+#### Kiterunner
 
-### FFUF
+[KiteRunner](https://github.com/assetnote/kiterunner) is a tool that performs traditional content discovery and bruteforcing routes/endpoints in modern applications and APIs.
+
+```console
+kr [scan|brute] <input> [flags]
+```
+
+To scan a target for APIs using a wordlist we can:
+
+```console
+kr scan https://example.com/api  -w /usr/share/wordlists/apis/routes-large.kite --fail-status-codes 404,403
+```
+
+#### FFUF/DirBuster/GoBuster
+
+All three of FFUF, DirBuster, and GoBuster are designed to discover hidden paths and files on web servers through brute-forcing techniques. All threeuse customizable wordlists to generate requests to the target web server, attempting to identify valid directories and files. All three support multi-threaded or highly efficient processing to speed up the brute-forcing process.
+
+Each can be used to perform brute-force discovery of endpoints using API specific wordlists.
+
