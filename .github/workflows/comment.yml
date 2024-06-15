@@ -1,0 +1,37 @@
+name: Comment
+
+on:
+  workflow_run:
+    workflows: ['Markdown Link Check', 'Markdown Lint Check', 'Markdown Terminology Lint Check']
+    types:
+      - completed
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: artifact
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: ${{ github.event.workflow_run.id }}
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            let fs = require('fs');
+            const issue_number = Number(fs.readFileSync('./pr_number'));
+            const artifactString = fs.readFileSync('./artifact.txt').toString().trimEnd();
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue_number,
+              body: `${artifactString}`
+            });

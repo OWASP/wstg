@@ -1,7 +1,7 @@
 name: Markdown Terminology Lint Check
 
 on:
-  pull_request_target:
+  pull_request:
     branches:
     - master
     paths:
@@ -27,6 +27,10 @@ jobs:
       with:
         repository: OWASP/wstg
         path: base
+    - name: Save PR number
+      env:
+        PR_NUMBER: ${{ github.event.number }}
+      run: echo $PR_NUMBER > pr_number
     - name: Setup Node
       uses: actions/setup-node@v4
       with:
@@ -55,24 +59,18 @@ jobs:
       run: |
         cat log.txt
         cat log.txt | grep -v '✔ Fixed' | tr '✔' '✖' >mistakes.txt
-    - name: Attach Mistakes
+    - name: Create artifact for comment
       if: failure()
-      uses: actions/upload-artifact@v3
-      with:
-        name: Terminology Mistakes
-        path: mistakes.txt
-    - name: Comment Mistakes
+      run: |
+        echo "**The following mistakes were identified:**" > artifact.txt
+        # Copy to generic name for commenting
+        cat mistakes.txt | tee -a artifact.txt
+    - name: Upload list of mistakes
       if: failure()
-      uses: actions/github-script@v7
+      uses: actions/upload-artifact@v4
       with:
-        github-token: ${{secrets.GITHUB_TOKEN}}
-        script: |
-          const fs = require("fs");
-          const mistakesPath = `${process.env.GITHUB_WORKSPACE}/mistakes.txt`;
-          const mistakesString = fs.readFileSync(mistakesPath).toString().trimEnd();
-          github.rest.issues.createComment({
-            issue_number: ${{ github.event.number }},
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: `**The following mistakes were identified:** \n${mistakesString}`
-          })
+        name: artifact
+        path: |
+          artifact.txt
+          pr_number
+
