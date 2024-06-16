@@ -6,7 +6,7 @@
 
 ## Summary
 
-Reconnaissance is an important step in any pentesting engagement. This includes API pentesting. Reconnaissance significantly enhances the effectiveness of the testing process by gathering information about the API and developing an understanding of the target. This phase not only increases the likelihood of discovering critical security issues but also ensures a comprehensive evaluation of the API’s security posture.
+Reconnaissance is an important step in any pentesting engagement. This includes API pentesting. Reconnaissance significantly enhances the effectiveness of the testing process by gathering information about the API and developing an understanding of the target. This phase not only increases the likelihood of discovering critical security issues but also ensures a comprehensive evaluation of the APIs security posture.
 
 ### API Types
 
@@ -74,7 +74,7 @@ Alternatives sources of API documentation can incluide API Directories:
 
 Even if you have the API documentation browsing the application is a good idea. Documentation can be outdated, inaccurate, or incomplete.
 
-Browsing the application with an intercepting proxy such as ZAP or Burp Suite records endpoints for later inspection. In addition, using their built-in spidering functionality, intercepting proxies can help generate a comprehensive list of endpoints. From the spidered urls look for links with obvious API URL naming schemes. These include:
+Browsing the application with an intercepting proxy such as ZAP or Burp Suite records endpoints for later inspection. In addition, using their built-in spidering functionality, intercepting proxies can help generate a comprehensive list of endpoints. From the spidered URLs look for links with obvious API URL naming schemes. These include:
 
 ```markdown
 - <https://example.com/api/v1> (or v2 etc)
