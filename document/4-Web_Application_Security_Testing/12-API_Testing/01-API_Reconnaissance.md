@@ -97,9 +97,7 @@ Using passive reconnaissance techniques such as Google Dorking with parameters s
 
 For example:
 
-```markdown
-> site:"mytargetsite.com" inurl:"/api"
-```
+`site:"mytargetsite.com" inurl:"/api"`
 
 Other keywords can include `"v1"`, `"api"`, `"graphql"`.
 
