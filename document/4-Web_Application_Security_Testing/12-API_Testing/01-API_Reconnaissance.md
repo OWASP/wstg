@@ -81,9 +81,7 @@ Browsing the application with an intercepting proxy such as ZAP or Burp Suite re
 
 Or subdomains the the applications my consume:
 
-```markdown
-- <https://api.example.com/api/v1>>
-```
+- `https://api.example.com/api/v1`
 
 It is important that the pentester attempts to exercise as much functionality in the application as possible. This is not only to generate a comprehensive list of endpoints but also to avoid issues with lazy loading and code splitting.
 
