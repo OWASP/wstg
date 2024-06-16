@@ -107,5 +107,5 @@ Application APIs that conform to REST principles use the response status code of
 
 1. [OWASP REST Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html)
 2. [OWASP REST Assessment Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/REST_Assessment_Cheat_Sheet.html)
-3. [OWASP API Security Project](https://owasp.org/www-project-api-security/) 
+3. [OWASP API Security Project](https://owasp.org/www-project-api-security/)
 4. [OWASP API Security Tools](https://owasp.org/www-community/api_security_tools)
