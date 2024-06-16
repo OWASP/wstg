@@ -26,8 +26,8 @@ The visibility of private APIs depends on who the intended consumer is. An API c
 
 ## Test Objectives
 
-- find all API endpoints supported by the back end server code, documented or undocumented
-- find all parameters for each endpoint supported by the back end server, documented or undocumented
+- find all API endpoints supported by the backend server code, documented or undocumented
+- find all parameters for each endpoint supported by the backend server, documented or undocumented
 - find `interesting` data related to APIs in HTML and JavaScript sent to client
 
 ## How to Test
@@ -51,9 +51,9 @@ If documentation is not readily apparent, then you can actively search the targe
 
 #### Robots.txt
 
-The `robots.txt` file is a text file that website owners create to instruct web crawlers (such as search engine bots) on how to crawl and index their site. It is part of the Robots Exclusion Protocol (REP), which regulates how bots interact with websites.
+The `robots.txt` file is a text file that site owners create to instruct web crawlers (such as search engine bots) on how to crawl and index their site. It is part of the Robots Exclusion Protocol (REP), which regulates how bots interact with sites.
 
-This file may provide additional clues to path structure or api endpoints.
+This file may provide additional clues to path structure or API endpoints.
 
 ### GitDorking
 
@@ -65,7 +65,7 @@ Alternatives sources of API documentation can incluide API Directories:
 
 - GitHub in general and
 - [GitHub Public APIs Repository](https://github.com/public-apis/public-apis)
-- [APIs.guru](apis.guru)
+- [APIs.guru](https://apis.guru)
 - [RapidAPI](https://rapidapi.com/)
 - [PublicAPIs](https://publicapis.dev/) and [PublicAPIs](https://publicapis.io/)
 - [Postman API Network](https://www.postman.com/explore)
@@ -96,9 +96,12 @@ Once completed, the endpoint information obtained from browsing and spidering of
 Using passive reconnaissance techniques such as Google Dorking with parameters such as `site` and `inurl`allows us to tailor a search for common API keywords that the google indexer may have found.
 
 For example:
-> site:"mytargetsite.com" inurl:"/api"
 
-Other keywords can include "v1", "api", "graphql".
+```markdown
+> site:"mytargetsite.com" inurl:"/api"
+```
+
+Other keywords can include `"v1"`, `"api"`, `"graphql"`.
 
 We can extend the Google Dorking to include subdomains of the target.
 
@@ -110,21 +113,21 @@ Published and private APIs change over time. But deprecated or older version may
 
 To discover older version we can use the `Way back machine` to help find older endpoints. Tools like TomNomNom's [WayBackUrls](https://github.com/tomnomnom/waybackurls) that fetches all the URLs that the Wayback Machine knows about for a domain can be helpfull.
 
-### The Client Side Application
+### The Client-Side Application
 
 An excellent source of API and other information is the HTML and JavaScript that the server sends to the client. Sometimes, the client application leaks sensitive information including APIs and secrets.
 
-There are a variety of tools that we can use to help us extract sensitive information from JavaScript transmitted to the browser. These tools typically are based on one of two approachs, Regex or AbstractSyntaxTrees (AST). And then there are generalized tools that help us organizer or manage JS files for investigation by AST and Regex tools.
+There are a variety of tools that we can use to help us extract sensitive information from JavaScript transmitted to the browser. These tools typically are based on one of two approachs, Regular Expression or AbstractSyntaxTrees (AST). And then there are generalized tools that help us organizer or manage JS files for investigation by AST and Regular Expression tools.
 
-Rexex is more straightforward by searching JS or HTML content for known patterns. However, this approach can miss content not explicitly identified in the regex. Given the structure of some JS this approach can miss a lot. ASTs on the other hand are tree-like structures that represent the syntax of source code. Each node in the tree corresponds to a part of the code. For JavaScript, an AST breaks the code into basic components, allowing tools and compilers to understand and modify the code easily.
+Rexex is more straightforward by searching JS or HTML content for known patterns. However, this approach can miss content not explicitly identified in the Regular Expression. Given the structure of some JS this approach can miss a lot. ASTs on the other hand are tree-like structures that represent the syntax of source code. Each node in the tree corresponds to a part of the code. For JavaScript, an AST breaks the code into basic components, allowing tools and compilers to understand and modify the code easily.
 
 #### General Tools
 
-1. [Uproot](https://github.com/0xDexter0us/uproot-JS). A BurpSuite plugin that saves any encountered JS files to disk. This helps extract the files for any analysis by command line tools.
+1. [Uproot](https://github.com/0xDexter0us/uproot-JS). A BurpSuite plugin that saves any encountered JS files to disk. This helps extract the files for any analysis by command-line tools.
 2. [OpenAPI Support](https://www.zaproxy.org/docs/desktop/addons/openapi-support/). This ZAP add-on allows you to spider and import OpenAPI (Swagger) definitions, versions 1.2, 2.0, and 3.0.
 3. [OpenAPI Parser](https://github.com/aress31/openapi-parser). A BurpSuite plugin that parses OpenAPI documents into Burp Suite for automating OpenAPI-based APIs security assessments.
 
-#### Regex Tools
+#### Regular Expression Tools
 
 1. [JSParser](https://github.com/nahamsec/JSParser). A python 2.7 script using Tornado and JSBeautifier to parse relative URLs from JavaScript files.
 2. [JSMiner](https://github.com/PortSwigger/js-miner). A BurpSuite plugin tries to find interesting stuff inside static files; mainly JavaScript and JSON files. This tool scans "passively" while crawling the application.
@@ -132,7 +135,7 @@ Rexex is more straightforward by searching JS or HTML content for known patterns
 
 #### AST Tools
 
-1. [JSLuice](https://github.com/BishopFox/jsluice).  A command line tool that extracts URLs, paths, secrets, and other interesting data from JavaScript source code.
+1. [JSLuice](https://github.com/BishopFox/jsluice).  A command-line tool that extracts URLs, paths, secrets, and other interesting data from JavaScript source code.
 
 ### Other Recon Tools
 
