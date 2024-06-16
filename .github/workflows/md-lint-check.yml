@@ -1,7 +1,7 @@
 name: Markdown Lint Check
 
 on:
-  pull_request_target:
+  pull_request:
     branches:
     - master
     paths:
@@ -10,7 +10,6 @@ on:
 
 permissions:
   contents: read
-  pull-requests: write
 
 jobs:
   lint:
@@ -21,10 +20,14 @@ jobs:
       with:
         ref: ${{github.event.pull_request.head.ref}}
         repository: ${{github.event.pull_request.head.repo.full_name}}
+    - name: Save PR number
+      env:
+        PR_NUMBER: ${{ github.event.number }}
+      run: echo $PR_NUMBER > pr_number
     - name: Setup Node
       uses: actions/setup-node@v4
       with:
-        node-version: '16'
+        node-version: '20'
     - name: Install dependencies
       run: npm install -g markdownlint-cli
     - name: Run linter
@@ -34,25 +37,18 @@ jobs:
       run: |
         cat lint.txt
         sed -i 's/```/triple-backtick/g' lint.txt
-    - name: Attach Linting Issues
+    - name: Create artifact for comment
       if: failure()
-      uses: actions/upload-artifact@v3
-      with:
-        name: Linting Issues
-        path: lint.txt
-    - name: Comment Linting Issues
+      run: |
+        echo "**The following issues were identified:**" > artifact.txt
+        # Copy to generic name for commenting
+        cat lint.txt | tee -a artifact.txt
+    - name: Upload list of issues
       if: failure()
-      uses: actions/github-script@v7
+      uses: actions/upload-artifact@v4
       with:
-        github-token: ${{secrets.GITHUB_TOKEN}}
-        script: |
-          const fs = require("fs");
-          const lintPath = `${process.env.GITHUB_WORKSPACE}/lint.txt`;
-          const lintString = fs.readFileSync(lintPath).toString().trimEnd();
-          github.rest.issues.createComment({
-            issue_number: ${{ github.event.number }},
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: `**The following issues were identified:** \n${lintString}`
-          })
+        name: artifact
+        path: |
+          artifact.txt
+          pr_number
 

@@ -1,7 +1,7 @@
 name: Markdown Terminology Lint Check
 
 on:
-  pull_request_target:
+  pull_request:
     branches:
     - master
     paths:
@@ -16,23 +16,32 @@ jobs:
   textlint:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
+    - name: Checkout PR
       uses: actions/checkout@v4
       with:
         ref: ${{github.event.pull_request.head.ref}}
         repository: ${{github.event.pull_request.head.repo.full_name}}
+        path: pr
+    - name: Checkout Base
+      uses: actions/checkout@v4
+      with:
+        repository: OWASP/wstg
+        path: base
+    - name: Save PR number
+      env:
+        PR_NUMBER: ${{ github.event.number }}
+      run: echo $PR_NUMBER > pr_number
     - name: Setup Node
       uses: actions/setup-node@v4
       with:
-        node-version: '16'
+        node-version: '20'
     - name: Install dependencies
       run: |
         npm install -g textlint
         npm install -g textlint-rule-terminology
     - name: Changed Files Exporter
       id: files
-      # This uses the SHA for 4.0.1 - https://github.com/umani/changed-files/releases/tag/v4.0.1
-      uses: umani/changed-files@0239328a3a6268aad16af7c3e4efc78e32d6c0f0
+      uses: umani/changed-files@v4.2.0
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         pattern: '^.*\.(md)$'
@@ -43,31 +52,25 @@ jobs:
         touch log.txt
         # All markdown files, excluding .github
         # Use fix flag so that it goes through all files
-        for FILE in $FILES; do echo $FILE | grep -v \.github && textlint --config .github/configs/.textlintrc --fix --rule terminology $FILE | tee -a log.txt; done
+        for FILE in $FILES; do echo 'pr/'"$FILE" | grep -v \.github && textlint --config base/.github/configs/.textlintrc --fix --rule terminology 'pr/'"$FILE" | tee -a log.txt; done
         if grep -q  'Incorrect usage' log.txt ; then exit 1 ; else echo -e \"No terminology issues found.\"; fi
     - name: Show Mistakes
       if: failure()
       run: |
         cat log.txt
         cat log.txt | grep -v '✔ Fixed' | tr '✔' '✖' >mistakes.txt
-    - name: Attach Mistakes
+    - name: Create artifact for comment
       if: failure()
-      uses: actions/upload-artifact@v3
-      with:
-        name: Terminology Mistakes
-        path: mistakes.txt
-    - name: Comment Mistakes
+      run: |
+        echo "**The following mistakes were identified:**" > artifact.txt
+        # Copy to generic name for commenting
+        cat mistakes.txt | tee -a artifact.txt
+    - name: Upload list of mistakes
       if: failure()
-      uses: actions/github-script@v7
+      uses: actions/upload-artifact@v4
       with:
-        github-token: ${{secrets.GITHUB_TOKEN}}
-        script: |
-          const fs = require("fs");
-          const mistakesPath = `${process.env.GITHUB_WORKSPACE}/mistakes.txt`;
-          const mistakesString = fs.readFileSync(mistakesPath).toString().trimEnd();
-          github.rest.issues.createComment({
-            issue_number: ${{ github.event.number }},
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: `**The following mistakes were identified:** \n${mistakesString}`
-          })
+        name: artifact
+        path: |
+          artifact.txt
+          pr_number
+
