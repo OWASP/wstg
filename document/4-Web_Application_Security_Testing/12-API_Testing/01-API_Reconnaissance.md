@@ -76,10 +76,8 @@ Even if you have the API documentation browsing the application is a good idea. 
 
 Browsing the application with an intercepting proxy such as ZAP or Burp Suite records endpoints for later inspection. In addition, using their built-in spidering functionality, intercepting proxies can help generate a comprehensive list of endpoints. From the spidered URLs look for links with obvious API URL naming schemes. These include:
 
-```markdown
-- <https://example.com/api/v1> (or v2 etc)
-- <https://example.com/graphql>
-```
+- `https://example.com/api/v1` (or v2 etc)
+- `https://example.com/graphql`
 
 Or subdomains the the applications my consume:
 
