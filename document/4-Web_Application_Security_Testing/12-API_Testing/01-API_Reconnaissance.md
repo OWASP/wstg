@@ -105,13 +105,19 @@ Wordlists are helpfull here for a comprehensive list of common words used in API
 
 Published and private APIs change over time. But deprecated or older version may still be operational either on purpose or by misconfiguration. These should also be tested as there is a good chance that they will contain vulnerabilities that newer versions have fixed. In addition, changes to APIs show newer features which may be less robust and therefore a good candidate for testing.
 
-To discover older version we can use the `Way back machine` to help find older endpoints. Tools like TomNomNom's [WayBackUrls](https://github.com/tomnomnom/waybackurls) that fetches all the URLs that the Wayback Machine knows about for a domain can be helpfull.
+To discover older version we can use the `Way back machine` to help find older endpoints. Tools like TomNomNom's [WayBackUrls](https://github.com/tomnomnom/waybackurls) that fetches all the URLs that the Wayback Machine knows about for a domain can be helpfull. A list of these tools can include:
+
+- [WayBackUrls](https://github.com/tomnomnom/waybackurls). Fetch all the URLs that the Wayback Machine knows about for a domain.
+- [waymore](https://github.com/xnl-h4ck3r/waymore). Find way more from the Wayback Machine, Common Crawl, Alien Vault OTX, URLScan & VirusTotal.
+- [gau](https://github.com/lc/gau). Fetch known URLs from AlienVault's Open Threat Exchange, the Wayback Machine, and Common Crawl.
+- [xnLinkFinder](https://github.com/xnl-h4ck3r/xnLinkFinder). A python tool used to discover endpoints, potential parameters, and a target specific wordlist for a given target
+- [Gap](https://github.com/xnl-h4ck3r/GAP-Burp-Extension). Burp Extension to find potential endpoints, parameters, and generate a custom target wordlist
 
 ### The Client-Side Application
 
 An excellent source of API and other information is the HTML and JavaScript that the server sends to the client. Sometimes, the client application leaks sensitive information including APIs and secrets.
 
-There are a variety of tools that we can use to help us extract sensitive information from JavaScript transmitted to the browser. These tools typically are based on one of two approachs, Regular Expression or AbstractSyntaxTrees (AST). And then there are generalized tools that help us organizer or manage JS files for investigation by AST and Regular Expression tools.
+There are a variety of tools that we can use to help us extract sensitive information from JavaScript transmitted to the browser. These tools are typically based on one of two approachs, Regular Expression or Abstract Syntax Trees (AST). And then there are generalized tools that help us organize or manage JS files for investigation by AST and Regular Expression tools.
 
 Rexex is more straightforward by searching JS or HTML content for known patterns. However, this approach can miss content not explicitly identified in the Regular Expression. Given the structure of some JS this approach can miss a lot. ASTs on the other hand are tree-like structures that represent the syntax of source code. Each node in the tree corresponds to a part of the code. For JavaScript, an AST breaks the code into basic components, allowing tools and compilers to understand and modify the code easily.
 
@@ -126,6 +132,7 @@ Rexex is more straightforward by searching JS or HTML content for known patterns
 1. [JSParser](https://github.com/nahamsec/JSParser). A python 2.7 script using Tornado and JSBeautifier to parse relative URLs from JavaScript files.
 2. [JSMiner](https://github.com/PortSwigger/js-miner). A BurpSuite plugin tries to find interesting stuff inside static files; mainly JavaScript and JSON files. This tool scans "passively" while crawling the application.
 3. [JSpector](https://github.com/hisxo/JSpector). A BurpSuite plugin that passively crawls JavaScript files and automatically creates issues with URLs, endpoints and dangerous methods found on the JS files.
+4. [Link Finder](https://github.com/GerbenJavado/LinkFinder). A python script that finds endpoints in JavaScript files.
 
 #### AST Tools
 
