@@ -19,7 +19,7 @@ JWTs are a common source of vulnerabilities, both in how they are in implemented
 
 ### Overview
 
-JWTs are are made up of three components:
+JWTs are made up of three components:
 
 - The header
 - The payload (or body)
