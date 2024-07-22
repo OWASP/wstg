@@ -8,6 +8,8 @@
 
 Reconnaissance is an important step in any pentesting engagement. This includes API pentesting. Reconnaissance significantly enhances the effectiveness of the testing process by gathering information about the API and developing an understanding of the target. This phase not only increases the likelihood of discovering critical security issues but also ensures a comprehensive evaluation of the APIs security posture.
 
+The  OWASP Web Application Security Testing Guide has a section on `Information Gathering` which can apply when auditing APIs. However there are some differences. As security researchers, we often focus on specific areas and searching this guide for the sections that apply are time consuming. To ensure the researcher has a single location to focus on APIs this section concentrates on those that apply to the APIs and provide references to supporting content in the information.
+
 ### API Types
 
 APIs can be public or private.
@@ -38,6 +40,17 @@ In both public and private cases, the API documentation will be useful based on 
 
 Regardless of the visibility of the API, searching for API documentation can find older, not-yet-published, or accidentally leaked API documentation. This documentation will be very helpfull in understanding what the attack surface the API exposes.
 
+### API Directories
+
+Alternatives sources of API documentation can incluide API Directories:
+
+- GitHub in general and
+- [GitHub Public APIs Repository](https://github.com/public-apis/public-apis)
+- [APIs.guru](https://apis.guru)
+- [RapidAPI](https://rapidapi.com/)
+- [PublicAPIs](https://publicapis.dev/) and [PublicAPIs](https://publicapis.io/)
+- [Postman API Network](https://www.postman.com/explore)
+
 ### Looking in Well Known Places
 
 If documentation is not readily apparent, then you can actively search the target for documentation based on a few obvious names or paths. These include:
@@ -49,26 +62,17 @@ If documentation is not readily apparent, then you can actively search the targe
 - /openapi.json
 - /.well-known/schema-discovery
 
-#### Robots.txt
+### Robots.txt
 
 The `robots.txt` file is a text file that site owners create to instruct web crawlers (such as search engine bots) on how to crawl and index their site. It is part of the Robots Exclusion Protocol (REP), which regulates how bots interact with sites.
 
 This file may provide additional clues to path structure or API endpoints.
 
+The Information Gather section refers to robots.txt in several cases including WSTG-INFO-01, WSTG-INFO-03, WSTG-INFO-05, and WSTG-INFO-08.
+
 ### GitDorking
 
-If the application uses GitHub we can also search any of their repositories (also known as `GitDorking`), or the personal GitHub accounts of the target's employees.
-
-### API Directories
-
-Alternatives sources of API documentation can incluide API Directories:
-
-- GitHub in general and
-- [GitHub Public APIs Repository](https://github.com/public-apis/public-apis)
-- [APIs.guru](https://apis.guru)
-- [RapidAPI](https://rapidapi.com/)
-- [PublicAPIs](https://publicapis.dev/) and [PublicAPIs](https://publicapis.io/)
-- [Postman API Network](https://www.postman.com/explore)
+If the application uses GitHub, GitLab, or other public facing Git based repositories then we can also search for any clues or sensitive content (also known as `GitDorking`). This information can include passwords, API keys, configuration files, and other confidential data that developers may accidentally or inadvertently commit to their repositories. Organizations can accidentally share sensitive code, sample, or test code that may provide clue to implementations. The personal GitHub accounts of the target's employees may also accidentally release information that can provide clues.
 
 ### Browsing and Spidering the Application
 
@@ -89,11 +93,13 @@ Once completed, the endpoint information obtained from browsing and spidering of
 
 ### Google Dorking
 
-Using passive reconnaissance techniques such as Google Dorking with parameters such as `site` and `inurl`allows us to tailor a search for common API keywords that the google indexer may have found.
+Using passive reconnaissance techniques such as Google Dorking with parameters such as `site` and `inurl`allows us to tailor a search for common API keywords that the google indexer may have found. Review WSTG-INFO-01 (Conduct Search Engine Discovery Reconnaissance for Information Leakage) for additional information.
 
-For example:
+For API  example:
 
 `site:"mytargetsite.com" inurl:"/api"`
+
+`inurl:apikey filetype:env`
 
 Other keywords can include `"v1"`, `"api"`, `"graphql"`.
 
@@ -111,14 +117,13 @@ To discover older version we can use the `Way back machine` to help find older e
 - [waymore](https://github.com/xnl-h4ck3r/waymore). Find way more from the Wayback Machine, Common Crawl, Alien Vault OTX, URLScan & VirusTotal.
 - [gau](https://github.com/lc/gau). Fetch known URLs from AlienVault's Open Threat Exchange, the Wayback Machine, and Common Crawl.
 
-
 ### The Client-Side Application
 
-An excellent source of API and other information is the HTML and JavaScript that the server sends to the client. Sometimes, the client application leaks sensitive information including APIs and secrets.
+An excellent source of API and other information is the HTML and JavaScript that the server sends to the client. Sometimes, the client application leaks sensitive information including APIs and secrets. The section WSTG-INFO-05 has some general information for reviewing web site contents for leakage. Here we will expand to focus on reviewing the JavaScript content for API related secrets.
 
 There are a variety of tools that we can use to help us extract sensitive information from JavaScript transmitted to the browser. These tools are typically based on one of two approachs, Regular Expression or Abstract Syntax Trees (AST). And then there are generalized tools that help us organize or manage JS files for investigation by AST and Regular Expression tools.
 
-Rexex is more straightforward by searching JS or HTML content for known patterns. However, this approach can miss content not explicitly identified in the Regular Expression. Given the structure of some JS this approach can miss a lot. ASTs on the other hand are tree-like structures that represent the syntax of source code. Each node in the tree corresponds to a part of the code. For JavaScript, an AST breaks the code into basic components, allowing tools and compilers to understand and modify the code easily.
+Regex is more straightforward by searching JS or HTML content for known patterns. However, this approach can miss content not explicitly identified in the Regular Expression. Given the structure of some JS this approach can miss a lot. ASTs on the other hand are tree-like structures that represent the syntax of source code. Each node in the tree corresponds to a part of the code. For JavaScript, an AST breaks the code into basic components, allowing tools and compilers to understand and modify the code easily.
 
 #### General Tools
 
@@ -142,7 +147,7 @@ Rexex is more straightforward by searching JS or HTML content for known patterns
 1. [Attack Surface Detector](https://github.com/secdec/attack-surface-detector-burp). A BurpSuite plugin that uses static code analyses to identify web app endpoints by parsing routes and identifying parameters.
 2. [Param Miner](https://github.com/portswigger/param-miner). A BurpSuite plug-in that identifies hidden, unlinked parameters.
 3. [xnLinkFinder](https://github.com/xnl-h4ck3r/xnLinkFinder). A python tool used to discover endpoints, potential parameters, and a target specific wordlist for a given target
-4. [Gap](https://github.com/xnl-h4ck3r/GAP-Burp-Extension). Burp Extension to find potential endpoints, parameters, and generate a custom target wordlist
+4. [GAP](https://github.com/xnl-h4ck3r/GAP-Burp-Extension). Burp Extension to find potential endpoints, parameters, and generate a custom target wordlist
 
 ### Active Fuzzing
 
@@ -166,14 +171,20 @@ kr scan https://example.com/api  -w /usr/share/wordlists/apis/routes-large.kite 
 
 All three of FFUF, DirBuster, and GoBuster are designed to discover hidden paths and files on web servers through brute-forcing techniques. All threeuse customizable wordlists to generate requests to the target web server, attempting to identify valid directories and files. All three support multi-threaded or highly efficient processing to speed up the brute-forcing process.
 
-Each can be used to perform brute-force discovery of endpoints using API specific wordlists.
+Each can be used to perform brute-force discovery of endpoints using API specific wordlists. Some common wordlist files for APIs can include, [SecLists](https://github.com/danielmiessler/SecLists) in the Discovery/Web-Content/api section, [GraphQL Wordlist](https://github.com/Escape-Technologies/graphql-wordlist), and [Assetnote](https://wordlists.assetnote.io/).
+
+GoBuster Example:
+
+`gobuster dir -u <target url> -w <wordlist file>`
 
 ## References
 
 ### OWASP Resources
 
 - [REST Assessment Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/REST_Assessment_Cheat_Sheet.html)
+- OWASP Web Security Testing Guide - Information Gathering
 
 ### Books
 
 - Corey J. Ball - "Hacking APIs : breaking web application programming interfaces", No Starch, 2022 - ISBN-13: 978-1-7185-0244-4
+- Confidence Staveley - "API Security for White Hat Hackers, Packt, 2024 - ISBN 978-1-80056-080-2  
