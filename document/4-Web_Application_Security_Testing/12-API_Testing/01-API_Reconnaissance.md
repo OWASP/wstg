@@ -164,7 +164,7 @@ kr [scan|brute] <input> [flags]
 To scan a target for APIs using a wordlist we can:
 
 ```console
-kr scan https://example.com/api  -w /usr/share/wordlists/apis/routes-large.kite --fail-status-codes 404,403
+kr scan https://example.com/api -w /usr/share/wordlists/apis/routes-large.kite --fail-status-codes 404,403
 ```
 
 #### FFUF/DirBuster/GoBuster
