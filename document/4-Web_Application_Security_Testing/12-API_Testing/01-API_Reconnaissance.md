@@ -169,7 +169,7 @@ kr scan https://example.com/api -w /usr/share/wordlists/apis/routes-large.kite -
 
 #### FFUF/DirBuster/GoBuster
 
-All three of FFUF, DirBuster, and GoBuster are designed to discover hidden paths and files on web servers through brute-forcing techniques. All threeuse customizable wordlists to generate requests to the target web server, attempting to identify valid directories and files. All three support multi-threaded or highly efficient processing to speed up the brute-forcing process.
+All three of FFUF, DirBuster, and GoBuster are designed to discover hidden paths and files on web servers through brute-forcing techniques. All three use customizable wordlists to generate requests to the target web server, attempting to identify valid directories and files. All three support multi-threaded or highly efficient processing to speed up the brute-forcing process.
 
 Each can be used to perform brute-force discovery of endpoints using API specific wordlists. Some common wordlist files for APIs can include, [SecLists](https://github.com/danielmiessler/SecLists) in the Discovery/Web-Content/api section, [GraphQL Wordlist](https://github.com/Escape-Technologies/graphql-wordlist), and [Assetnote](https://wordlists.assetnote.io/).
 
