@@ -95,7 +95,7 @@ Once completed, the endpoint information obtained from browsing and spidering of
 
 Using passive reconnaissance techniques such as Google Dorking with parameters such as `site` and `inurl`allows us to tailor a search for common API keywords that the google indexer may have found. Review WSTG-INFO-01 (Conduct Search Engine Discovery Reconnaissance for Information Leakage) for additional information.
 
-For API  example:
+Here are a few API specific examples:
 
 `site:"mytargetsite.com" inurl:"/api"`
 
@@ -111,7 +111,7 @@ Wordlists are helpfull here for a comprehensive list of common words used in API
 
 Published and private APIs change over time. But deprecated or older version may still be operational either on purpose or by misconfiguration. These should also be tested as there is a good chance that they will contain vulnerabilities that newer versions have fixed. In addition, changes to APIs show newer features which may be less robust and therefore a good candidate for testing.
 
-To discover older version we can use the `Way back machine` to help find older endpoints. Tools like TomNomNom's [WayBackUrls](https://github.com/tomnomnom/waybackurls) that fetches all the URLs that the Wayback Machine knows about for a domain can be helpfull. A list of these tools can include:
+To discover older version we can use the `Wayback machine` to help find older endpoints. A helpful tool know as TomNomNom's [WayBackUrls](https://github.com/tomnomnom/waybackurls) fetches all the URLs that the Wayback Machine knows about for a domain.
 
 - [WayBackUrls](https://github.com/tomnomnom/waybackurls). Fetch all the URLs that the Wayback Machine knows about for a domain.
 - [waymore](https://github.com/xnl-h4ck3r/waymore). Find way more from the Wayback Machine, Common Crawl, Alien Vault OTX, URLScan & VirusTotal.
@@ -145,7 +145,7 @@ Regex is more straightforward by searching JS or HTML content for known patterns
 ### Other Recon Tools
 
 1. [Attack Surface Detector](https://github.com/secdec/attack-surface-detector-burp). A BurpSuite plugin that uses static code analyses to identify web app endpoints by parsing routes and identifying parameters.
-2. [Param Miner](https://github.com/portswigger/param-miner). A BurpSuite plug-in that identifies hidden, unlinked parameters.
+2. [Param Miner](https://github.com/portswigger/param-miner). A BurpSuite plugin that identifies hidden, unlinked parameters.
 3. [xnLinkFinder](https://github.com/xnl-h4ck3r/xnLinkFinder). A python tool used to discover endpoints, potential parameters, and a target specific wordlist for a given target.
 4. [GAP](https://github.com/xnl-h4ck3r/GAP-Burp-Extension). Burp Extension to find potential endpoints, parameters, and generate a custom target wordlist.
 
