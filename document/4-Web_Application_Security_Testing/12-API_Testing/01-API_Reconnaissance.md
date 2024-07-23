@@ -182,7 +182,6 @@ GoBuster Example:
 ### OWASP Resources
 
 - [REST Assessment Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/REST_Assessment_Cheat_Sheet.html)
-- OWASP Web Security Testing Guide - Information Gathering
 
 ### Books
 
