@@ -64,7 +64,7 @@ If documentation is not readily apparent, then you can actively search the targe
 
 ### Robots.txt
 
-The `robots.txt` file is a text file that site owners create to instruct web crawlers (such as search engine bots) on how to crawl and index their site. It is part of the Robots Exclusion Protocol (REP), which regulates how bots interact with sites.
+`robots.txt` is a text file that site owners create to instruct web crawlers (such as search engine bots) on how to crawl and index their site. It is part of the Robots Exclusion Protocol (REP), which regulates how bots interact with sites.
 
 This file may provide additional clues to path structure or API endpoints.
 
