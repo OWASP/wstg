@@ -68,7 +68,7 @@ If documentation is not readily apparent, then you can actively search the targe
 
 This file may provide additional clues to path structure or API endpoints.
 
-The Information Gather section refers to robots.txt in several cases including WSTG-INFO-01, WSTG-INFO-03, WSTG-INFO-05, and WSTG-INFO-08.
+The [Information Gathering](../01-Information_Gathering/README.md) section refers to robots.txt in several cases including WSTG-INFO-01, WSTG-INFO-03, WSTG-INFO-05, and WSTG-INFO-08.
 
 ### GitDorking
 
