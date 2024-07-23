@@ -44,7 +44,7 @@ Regardless of the visibility of the API, searching for API documentation can fin
 
 Alternatives sources of API documentation can incluide API Directories:
 
-- GitHub in general and
+- GitHub in general
 - [GitHub Public APIs Repository](https://github.com/public-apis/public-apis)
 - [APIs.guru](https://apis.guru)
 - [RapidAPI](https://rapidapi.com/)
