@@ -6,7 +6,7 @@
 
 ## Summary
 
-Reconnaissance is an important step in any pentesting engagement. This includes API pentesting. Reconnaissance significantly enhances the effectiveness of the testing process by gathering information about the API and developing an understanding of the target. This phase not only increases the likelihood of discovering critical security issues but also ensures a comprehensive evaluation of the APIs security posture.
+Reconnaissance is an important step in any pentesting engagement. This includes API pentesting. Reconnaissance significantly enhances the effectiveness of the testing process by gathering information about the API and developing an understanding of the target. This phase not only increases the likelihood of discovering critical security issues but also ensures a comprehensive evaluation of the APIs' security posture.
 
 This guide has a section on [Information Gathering](../01-Information_Gathering/README.md) which can apply when auditing APIs. However, there are some differences. As security researchers, we often focus on specific areas and searching this guide for the sections that apply can be time consuming. To ensure the researcher has a single location to focus on APIs this section concentrates on those items that apply to APIs and provides references to supporting content elsewhere in the guide.
 
@@ -83,7 +83,7 @@ Browsing the application with an intercepting proxy such as ZAP or Burp Suite re
 - `https://example.com/api/v1` (or v2 etc)
 - `https://example.com/graphql`
 
-Or subdomains the the applications my consume:
+Or subdomains the the applications may consume or depend upon:
 
 - `https://api.example.com/api/v1`
 
