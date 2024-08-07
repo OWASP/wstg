@@ -93,7 +93,7 @@ Once completed, the endpoint information obtained from browsing and spidering of
 
 ### Google Dorking
 
-Using passive reconnaissance techniques such as Google Dorking with directives such as `site` and `inurl` allows us to tailor a search for common API keywords that the Google indexer may have found. Review [Conduct Search Engine Discovery Reconnaissance for Information Leakage](../[01-Information_Gathering/01-Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage.md) for additional information.
+Using passive reconnaissance techniques such as Google Dorking with directives such as `site` and `inurl` allows us to tailor a search for common API keywords that the Google indexer may have found. Review [Conduct Search Engine Discovery Reconnaissance for Information Leakage](../01-Information_Gathering/01-Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage.md) for additional information.
 
 Here are a few API specific examples:
 
