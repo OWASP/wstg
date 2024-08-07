@@ -111,7 +111,7 @@ Wordlists are helpful here for a comprehensive list of common words used in APIs
 
 In general APIs change over time. But deprecated or older version may still be operational either on purpose or by misconfiguration. These should also be tested as there is a good chance that they will contain vulnerabilities that newer versions have fixed. In addition, changes to APIs show newer features which may be less robust and therefore a good candidate for testing.
 
-To discover older version we can use the `Wayback machine` to help find older endpoints. A helpful tool know as TomNomNom's [WayBackUrls](https://github.com/tomnomnom/waybackurls) fetches all the URLs that the Wayback Machine knows about for a domain.
+To discover older versions we can use the `Wayback machine` to help find older endpoints. A helpful tool know as TomNomNom's [WayBackUrls](https://github.com/tomnomnom/waybackurls) fetches all the URLs that the Wayback Machine knows about for a domain.
 
 - [WayBackUrls](https://github.com/tomnomnom/waybackurls). Fetch all the URLs that the Wayback Machine knows about for a domain.
 - [waymore](https://github.com/xnl-h4ck3r/waymore). Find way more from the Wayback Machine, Common Crawl, Alien Vault OTX, URLScan & VirusTotal.
