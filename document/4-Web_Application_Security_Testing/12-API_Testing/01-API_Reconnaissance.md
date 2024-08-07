@@ -42,7 +42,7 @@ Regardless of the visibility of the API, searching for API documentation can fin
 
 ### API Directories
 
-Alternatives sources of API documentation can incluide API Directories:
+Alternatives sources of API documentation can incluide API Directories, such as:
 
 - GitHub in general
 - [GitHub Public APIs Repository](https://github.com/public-apis/public-apis)
