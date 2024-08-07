@@ -28,9 +28,9 @@ The visibility of private APIs depends on who the intended consumer is. An API c
 
 ## Test Objectives
 
-- find all API endpoints supported by the backend server code, documented or undocumented
-- find all parameters for each endpoint supported by the backend server, documented or undocumented
-- find `interesting` data related to APIs in HTML and JavaScript sent to client
+- Find all API endpoints supported by the backend server code, documented or undocumented.
+- Find all parameters for each endpoint supported by the backend server, documented or undocumented.
+- Discover interesting data related to APIs in HTML and JavaScript sent to clients.
 
 ## How to Test
 
