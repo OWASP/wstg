@@ -140,7 +140,7 @@ Regex is more straightforward by searching JS or HTML content for known patterns
 
 #### AST Tools
 
-1. [JSLuice](https://github.com/BishopFox/jsluice).  A command-line tool that extracts URLs, paths, secrets, and other interesting data from JavaScript source code.
+1. [JSLuice](https://github.com/BishopFox/jsluice). A command-line tool that extracts URLs, paths, secrets, and other interesting data from JavaScript source code.
 
 ### Other Recon Tools
 
