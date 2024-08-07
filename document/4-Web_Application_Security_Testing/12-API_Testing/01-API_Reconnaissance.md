@@ -119,7 +119,7 @@ To discover older versions we can use the `Wayback machine` to help find older e
 
 ### The Client-Side Application
 
-An excellent source of API and other information is the HTML and JavaScript that the server sends to the client. Sometimes, the client application leaks sensitive information including APIs and secrets. The section WSTG-INFO-05 has some general information for reviewing web site contents for leakage. Here we will expand to focus on reviewing the JavaScript content for API related secrets.
+An excellent source of API and other information is the HTML and JavaScript that the server sends to the client. Sometimes, the client application leaks sensitive information including APIs and secrets. The [Review Web Page Content for Information Leakage](../01-Information_Gathering/05-Review_Web_Page_Content_for_Information_Leakage.md) section has some general information for reviewing web content for leakage. Here we will expand to focus on reviewing the JavaScript content for API related secrets.
 
 There are a variety of tools that we can use to help us extract sensitive information from JavaScript transmitted to the browser. These tools are typically based on one of two approachs, Regular Expression or Abstract Syntax Trees (AST). And then there are generalized tools that help us organize or manage JS files for investigation by AST and Regular Expression tools.
 
