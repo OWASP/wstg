@@ -72,7 +72,7 @@ The [Information Gathering](../01-Information_Gathering/README.md) section refer
 
 ### GitDorking
 
-If the application uses GitHub, GitLab, or other public facing Git based repositories then we can also search for any clues or sensitive content (also known as `GitDorking`). This information can include passwords, API keys, configuration files, and other confidential data that developers may accidentally or inadvertently commit to their repositories. Organizations can accidentally share sensitive code, sample, or test code that may provide clue to implementations. The personal GitHub accounts of the target's employees may also accidentally release information that can provide clues.
+If the application uses GitHub, GitLab, or other public facing Git based repositories then we can also search for any clues or sensitive content (also known as `GitDorking`). This information can include passwords, API keys, configuration files, and other confidential data that developers may accidentally or inadvertently commit to their repositories. Organizations can accidentally share sensitive code, sample, or test code that may provide clues to implementation details. The personal GitHub accounts of the target's employees may also accidentally release information that can provide clues.
 
 ### Browsing and Spidering the Application
 
