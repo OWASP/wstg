@@ -8,7 +8,7 @@
 
 Reconnaissance is an important step in any pentesting engagement. This includes API pentesting. Reconnaissance significantly enhances the effectiveness of the testing process by gathering information about the API and developing an understanding of the target. This phase not only increases the likelihood of discovering critical security issues but also ensures a comprehensive evaluation of the APIs security posture.
 
-This guide has a section on [Information Gathering](../01-Information_Gathering/README.md) which can apply when auditing APIs. However, there are some differences. As security researchers, we often focus on specific areas and searching this guide for the sections that apply are time consuming. To ensure the researcher has a single location to focus on APIs this section concentrates on those that apply to APIs and provide references to supporting content elsewhere in the guide.
+This guide has a section on [Information Gathering](../01-Information_Gathering/README.md) which can apply when auditing APIs. However, there are some differences. As security researchers, we often focus on specific areas and searching this guide for the sections that apply can be time consuming. To ensure the researcher has a single location to focus on APIs this section concentrates on those items that apply to APIs and provides references to supporting content elsewhere in the guide.
 
 ### API Types
 
