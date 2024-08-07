@@ -105,7 +105,7 @@ Other keywords can include `"v1"`, `"api"`, `"graphql"`.
 
 We can extend the Google Dorking to include subdomains of the target.
 
-Wordlists are helpfull here for a comprehensive list of common words used in APIs.
+Wordlists are helpful here for a comprehensive list of common words used in APIs.
 
 ### Look Back, Way Back
 
