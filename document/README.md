@@ -312,7 +312,9 @@
 
 #### 4.12.0 [API Testing Overview](4-Web_Application_Security_Testing/12-API_Testing/00-API_Testing_Overview.md)
 
-#### 4.12.1 [Testing GraphQL](4-Web_Application_Security_Testing/12-API_Testing/01-Testing_GraphQL.md)
+#### 4.12.1 [API Reconnaissance](4-Web_Application_Security_Testing/12-API_Testing/01-API_Reconnaissance.md)
+
+#### 4.12.99 [Testing GraphQL](4-Web_Application_Security_Testing/12-API_Testing/99-Testing_GraphQL.md)
 
 ## 5. [Reporting](5-Reporting/README.md)
 
