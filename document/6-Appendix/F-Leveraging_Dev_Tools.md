@@ -15,25 +15,24 @@ Opening Dev Tools can be accomplished in a number of ways.
 5. Via the web page right-click context menu and then selecting `Inspect Element` in Mozilla Firefox.
 6. Via the triple dot 'kabob' menu in Google Chrome then selecting `More Tools` and then `Developer Tools`.
 7. Via the triple line 'hamburger' (or 'pancake') menu in Mozilla Firefox then selecting `Web Developer` and then `Toggle Tools`.
-8. Via the gear icon settings menu in Edge/IE then selecting `Developer Tools`.
 
 > NOTE: The majority of the instructions below assume that Dev Tools is already open or active.
 
 ## Capabilities
 
-| Functionality         | Chrome* | Firefox | Edge/IE | Safari |
-|-----------------------|:-------:|:-------:|:-------:|:------:|
-| User-Agent Switching  | Y       | Y       | Y       | Y      |
-| Edit/Resend Requests  | Y       | Y       | N       | N      |
-| Cookie Editing        | Y       | Y       | Y       | N      |
-| Local Storage Editing | Y       | Y       | Y       | N      |
-| Disable CSS           | Y       | Y       | Y       | Y      |
-| Disable JavaScript    | Y       | Y       | N       | Y      |
-| View HTTP Headers     | Y       | Y       | Y       | Y      |
-| Screenshots           | Y       | Y       | Y       | N      |
-| Offline Mode          | Y       | Y       | N       | N      |
-| Encoding and Decoding | Y       | Y       | Y       | Y      |
-| Responsive Design Mode| Y       | Y       | Y       | Y      |
+| Functionality         | Chrome* | Firefox | Safari |
+|-----------------------|:-------:|:-------:|:------:|
+| User-Agent Switching  | Y       | Y       | Y      |
+| Edit/Resend Requests  | Y       | Y       | N      |
+| Cookie Editing        | Y       | Y       | N      |
+| Local Storage Editing | Y       | Y       | N      |
+| Disable CSS           | Y       | Y       | Y      |
+| Disable JavaScript    | Y       | Y       | Y      |
+| View HTTP Headers     | Y       | Y       | Y      |
+| Screenshots           | Y       | Y       | N      |
+| Offline Mode          | Y       | Y       | N      |
+| Encoding and Decoding | Y       | Y       | Y      |
+| Responsive Design Mode| Y       | Y       | Y      |
 
 `*` Anything that applies to Google Chrome should be applicable to all Chromium based applications. (Which includes Microsoft rebadging Edge around 2019/2020.)
 
