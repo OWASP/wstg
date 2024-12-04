@@ -52,7 +52,7 @@ jobs:
     - name: Create Release
       if: github.event_name == 'push'
       id: create_release
-      uses: ncipollo/release-action@v1.14.0
+      uses: ncipollo/release-action@6c75be85e571768fa31b40abf38de58ba0397db5 # v1.13.0
       with:
         name: Release ${{ steps.vars.outputs.tag }}
         artifacts: "./build/wstg-${{ steps.vars.outputs.tag }}.pdf, ./build/wstg-${{ steps.vars.outputs.tag }}.epub"
