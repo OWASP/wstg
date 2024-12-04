@@ -41,7 +41,7 @@ jobs:
         npm install -g textlint-rule-terminology
     - name: Changed Files Exporter
       id: files
-      uses: umani/changed-files@v4.2.0
+      uses: umani/changed-files@d7f842d11479940a6036e3aacc6d35523e6ba978 # v4.1.0
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         pattern: '^.*\.(md)$'
