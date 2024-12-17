@@ -14,7 +14,7 @@ RESTful web services (often called simply REST) are a light weight variant of We
     - In headers.
 - Structured parameters and responses using JSON or XML in a parameter values, request body or response body. Those are required to communicate machine useful information.
 - Custom authentication and session management, often utilizing custom security tokens: this is needed as machine to machine communication does not allow for login sequences.
-- Lack of formal documentation. A [proposed standard for describing RESTful web services called WADL](http://www.w3.org/Submission/wadl/) was submitted by Sun Microsystems but was never officially adapted.
+- Lack of formal documentation. A [proposed standard for describing RESTful web services called WADL](https://www.w3.org/Submission/wadl/) was submitted by Sun Microsystems but was never officially adapted.
 
 ## The challenge of security testing RESTful web services
 
@@ -45,12 +45,12 @@ Analyze collected requests to determine the attack surface:
 - Look for non-standard parameters:
     - Look for abnormal HTTP headers - those would many times be header based parameters.
     - Determine if a URL segment has a repeating pattern across URLs. Such patterns can include a date, a number or an ID like string and indicate that the URL segment is a URL embedded parameter.
-        - For example: `http://server/srv/2013-10-21/use.php`
+        - For example: `https://server/srv/2013-10-21/use.php`
     - Look for structured parameter values - those may be JSON, XML or a non-standard structure.
     - If the last element of a URL does not have an extension, it may be a parameter. This is especially true if the application technology normally uses extensions or if a previous segment does have an extension.
-        - For example: `http://server/svc/Grid.asmx/GetRelatedListItems`
+        - For example: `https://server/svc/Grid.asmx/GetRelatedListItems`
     - Look for highly varying URL segments - a single URL segment that has many values may be parameter and not a physical directory.
-        - For example if the URL `http://server/src/XXXX/page` repeats with hundreds of value for `XXXX`, chances `XXXX` is a parameter.
+        - For example if the URL `https://server/src/XXXX/page` repeats with hundreds of value for `XXXX`, chances `XXXX` is a parameter.
 
 Verify non-standard parameters: in some cases (but not all), setting the value of a URL segment suspected of being a parameter to a value expected to be invalid can help determine if it is a path elements of a parameter. If a path element, the web server will return a *404* message, while for an invalid value to a parameter the answer would be an application level message as the value is legal at the web server level.
 
@@ -65,4 +65,4 @@ Lastly, when [fuzzing](https://owasp.org/www-community/Fuzzing), don't forget to
 ## Related Resources
 
 - [REST Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html) - the other side of this cheat sheet
-- [RESTful services, web security blind spot](https://xiom.com/2016/10/31/restful-services-web-security-blind-spot/) - a presentation (including video) elaborating on most of the topics on this cheat sheet.
+- [RESTful services, web security blind spot](https://www.youtube.com/watch?v=pWq4qGLAZHI) - avideo presentation elaborating on most of the topics on this cheat sheet.

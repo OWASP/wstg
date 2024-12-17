@@ -43,7 +43,7 @@ If a web application implements access control only on the log in page, the auth
 Another problem related to authentication design is when the application verifies a successful log in on the basis of a fixed value parameters. A user could modify these parameters to gain access to the protected areas without providing valid credentials. In the example below, the "authenticated" parameter is changed to a value of "yes", which allows the user to gain access. In this example, the parameter is in the URL, but a proxy could also be used to modify the parameter, especially when the parameters are sent as form elements in a POST request or when the parameters are stored in a cookie.
 
 ```html
-http://www.site.com/page.asp?authenticated=no
+https://www.site.com/page.asp?authenticated=no
 
 raven@blackbox /home $nc www.site.com 80
 GET /page.asp?authenticated=yes HTTP/1.0

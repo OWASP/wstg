@@ -27,7 +27,7 @@ Below are several typical scenarios for this vulnerability and the methods to te
 Sample request:
 
 ```text
-http://foo.bar/somepage?invoice=12345
+https://foo.bar/somepage?invoice=12345
 ```
 
 In this case, the value of the *invoice* parameter is used as an index in an invoices table in the database. The application takes the value of this parameter and uses it in a query to the database. The application then returns the invoice information to the user.
@@ -39,7 +39,7 @@ Since the value of *invoice* goes directly into the query, by modifying the valu
 Sample request:
 
 ```text
-http://foo.bar/changepassword?user=someuser
+https://foo.bar/changepassword?user=someuser
 ```
 
 In this case, the value of the `user` parameter is used to tell the application for which user it should change the password. In many cases this step will be a part of a wizard, or a multi-step operation. In the first step the application will get a request stating for which user's password is to be changed, and in the next step the user will provide a new password (without asking for the current one).
@@ -51,7 +51,7 @@ The `user` parameter is used to directly reference the object of the user for wh
 Sample request:
 
 ```text
-http://foo.bar/showImage?img=img00011
+https://foo.bar/showImage?img=img00011
 ```
 
 In this case, the value of the `file` parameter is used to tell the application what file the user intends to retrieve. By providing the name or identifier of a different file (for example file=image00012.jpg) the attacker will be able to retrieve objects belonging to other users.
@@ -63,7 +63,7 @@ To test for this case, the tester should obtain a reference the user is not supp
 Sample request:
 
 ```text
-http://foo.bar/accessPage?menuitem=12
+https://foo.bar/accessPage?menuitem=12
 ```
 
 In this case, the value of the `menuitem` parameter is used to tell the application which menu item (and therefore which application functionality) the user is attempting to access. Assume the user is supposed to be restricted and therefore has links available only to access to menu items 1, 2 and 3. By modifying the value of `menuitem` parameter it is possible to bypass authorization and access additional application functionality. To test for this case the tester identifies a location where application functionality is determined by reference to a menu item, maps the values of menu items the given test user can access, and then attempts other menu items.

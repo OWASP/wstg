@@ -96,4 +96,3 @@ For measures to prevent DOM-based XSS, see the [DOM-based XSS Prevention Cheat S
 ## References
 
 - [DomXSSWiki](https://github.com/wisec/domxsswiki/wiki/)
-- [DOM XSS article by Amit Klein](http://www.webappsec.org/projects/articles/071105.html)

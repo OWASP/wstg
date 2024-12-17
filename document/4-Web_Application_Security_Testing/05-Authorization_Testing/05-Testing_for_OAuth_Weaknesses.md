@@ -60,7 +60,7 @@ Host: as.example.com
   "code_verifier":"example",
   "grant_type":"authorization_code",
   "code":"example",
-  "redirect_uri":"http://client.example.com"
+  "redirect_uri":"https://client.example.com"
 }
 ```
 
@@ -137,7 +137,7 @@ If you know the `client_id` and `client_secret`, it is possible to obtain a toke
 $ curl --request POST \
   --url https://as.example.com/oauth/token \
   --header 'content-type: application/json' \
-  --data '{"client_id":"<some_client_id>","client_secret":"<some_client_secret>","grant_type":"client_credentials"}' --proxy http://localhost:8080/ -k
+  --data '{"client_id":"<some_client_id>","client_secret":"<some_client_secret>","grant_type":"client_credentials"}' --proxy https://localhost:8080/ -k
 ```
 
 ### Credential Leakage

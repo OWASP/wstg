@@ -70,7 +70,7 @@ User-Agent: <!--#include virtual="/proc/version"-->
 
 ## References
 
-- [Nginx SSI module](http://nginx.org/en/docs/http/ngx_http_ssi_module.html)
+- [Nginx SSI module](https://nginx.org/en/docs/http/ngx_http_ssi_module.html)
 - [Apache: Module mod_include](https://httpd.apache.org/docs/current/mod/mod_include.html)
 - [IIS: Server-Side Includes directives](https://docs.microsoft.com/en-us/previous-versions/iis/6.0-sdk/ms525185%28v=vs.90%29)
 - [Apache Tutorial: Introduction to Server-Side Includes](https://httpd.apache.org/docs/current/howto/ssi.html)

@@ -99,7 +99,7 @@ Host: example.org
 Or with cURL:
 
 ```bash
-curl http://example.org/test.html -X DELETE
+curl https://example.org/test.html -X DELETE
 ```
 
 #### RESTful APIs
@@ -255,6 +255,6 @@ HTTP/1.1 200 OK
 
 - [RFC 7231 - Hypertext Transfer Protocol (HTTP/1.1)](https://datatracker.ietf.org/doc/html/rfc7231)
 - [RFC 5789 - PATCH Method for HTTP](https://datatracker.ietf.org/doc/html/rfc5789)
-- [HTACCESS: BILBAO Method Exposed](https://web.archive.org/web/20160616172703/http://www.kernelpanik.org/docs/kernelpanik/bme.eng.pdf)
+- [HTACCESS: BILBAO Method Exposed](https://web.archive.org/web/20160616172703/https://www.kernelpanik.org/docs/kernelpanik/bme.eng.pdf)
 - [Fortify - Misused HTTP Method Override](https://vulncat.fortify.com/en/detail?id=desc.dynamic.xtended_preview.often_misused_http_method_override)
 - [Mozilla Developer Network - Safe HTTP Methods](https://developer.mozilla.org/en-US/docs/Glossary/Safe/HTTP)

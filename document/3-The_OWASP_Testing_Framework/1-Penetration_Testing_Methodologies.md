@@ -122,7 +122,7 @@ OSSTMM includes the following key sections:
 
 - [PCI Data Security Standard - Penetration TestingGuidance](https://www.pcisecuritystandards.org/documents/Penetration-Testing-Guidance-v1_1.pdf)
 - [PTES Standard](http://www.pentest-standard.org/index.php/Main_Page)
-- [Open Source Security Testing Methodology Manual (OSSTMM)](http://www.isecom.org/research/osstmm.html)
+- [Open Source Security Testing Methodology Manual (OSSTMM)](https://www.isecom.org/research.html#content5-9d)
 - [Technical Guide to Information Security Testing and Assessment NIST SP 800-115](https://csrc.nist.gov/publications/detail/sp/800-115/final)
 - [HIPAA Security Testing Guidance](https://www.hhs.gov/hipaa/for-professionals/security/guidance/cybersecurity/index.html)
 - [Penetration Testing Framework 0.59](http://www.vulnerabilityassessment.co.uk/Penetration%20Test.html)

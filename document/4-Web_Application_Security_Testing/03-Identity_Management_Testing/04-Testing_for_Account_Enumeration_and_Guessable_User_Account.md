@@ -82,8 +82,8 @@ Some web application release a specific error code or message that we can analyz
 
 For example:
 
-- `http://www.foo.com/err.jsp?User=baduser&Error=0`
-- `http://www.foo.com/err.jsp?User=gooduser&Error=2`
+- `https://www.foo.com/err.jsp?User=baduser&Error=0`
+- `https://www.foo.com/err.jsp?User=gooduser&Error=2`
 
 As is seen above, when a tester provides a user ID and password to the web application, they see a message indication that an error has occurred in the URL. In the first case they have provided a bad user ID and bad password. In the second, a good user ID and a bad password, so they can identify a valid user ID.
 
@@ -98,8 +98,8 @@ Some of the common errors received from web servers are:
 
 Example:
 
-- `http://www.foo.com/account1` - we receive from web server: 403 Forbidden
-- `http://www.foo.com/account2` - we receive from web server: 404 file Not Found
+- `https://www.foo.com/account1` - we receive from web server: 403 Forbidden
+- `https://www.foo.com/account2` - we receive from web server: 404 file Not Found
 
 In the first case the user exists, but the tester cannot view the web page, in second case instead the user "account2" does not exist. By collecting this information testers can enumerate the users.
 

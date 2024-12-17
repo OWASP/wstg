@@ -42,7 +42,7 @@ The list contains only tools that are freely available to download and use (alth
 
 #### Testing for SQL Injection
 
-- [sqlmap](http://sqlmap.org)
+- [sqlmap](s://sqlmap.org)
 
 #### Testing TLS
 
@@ -84,7 +84,7 @@ The list contains only tools that are freely available to download and use (alth
 ### Site Mirroring
 
 - [wget](https://www.gnu.org/software/wget/)
-- [wget for windows](http://gnuwin32.sourceforge.net/packages/wget.htm)
+- [wget for windows](https://gnuwin32.sourceforge.net/packages/wget.htm)
 - [curl](https://curl.haxx.se)
 
 ### Content Discovery
@@ -130,7 +130,7 @@ Browser Automation tools are used to validate the functionality of web applicati
 
 ### Open Source Tools
 
-- [HtmlUnit](http://htmlunit.sourceforge.net)
+- [HtmlUnit](https://htmlunit.sourceforge.net)
     - A Java and JUnit based framework that uses the Apache HttpClient as the transport.
     - Very robust and configurable and is used as the engine for a number of other testing tools.
 - [Selenium](https://www.selenium.dev)

@@ -45,7 +45,7 @@ def page():
 This code snippet is vulnerable to XSS but it is also vulnerable to SSTI. Using the following as a payload in the `name` parameter:
 
 ```bash
-$ curl -g 'http://www.target.com/page?name={{7*7}}'
+$ curl -g 'https://www.target.com/page?name={{7*7}}'
 Hello 49!
 ```
 

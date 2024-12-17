@@ -50,7 +50,7 @@ Web spiders/robots/crawlers can [intentionally ignore](https://blog.isc2.org/isc
 The `robots.txt` file is retrieved from the web root directory of the web server. For example, to retrieve the `robots.txt` from `www.google.com` using `wget` or `curl`:
 
 ```bash
-$ curl -O -Ss http://www.google.com/robots.txt && head -n5 robots.txt
+$ curl -O -Ss https://www.google.com/robots.txt && head -n5 robots.txt
 User-agent: *
 Disallow: /search
 Allow: /search/about
@@ -117,7 +117,7 @@ $ wget --no-verbose https://www.google.com/sitemap.xml && head -n8 sitemap.xml
 2020-05-05 12:23:30 URL:https://www.google.com/sitemap.xml [2049] -> "sitemap.xml" [1]
 
 <?xml version="1.0" encoding="UTF-8"?>
-<sitemapindex xmlns="http://www.google.com/schemas/sitemap/0.84">
+<sitemapindex xmlns="https://www.google.com/schemas/sitemap/0.84">
   <sitemap>
     <loc>https://www.google.com/gmail/sitemap.xml</loc>
   </sitemap>
@@ -131,7 +131,7 @@ Exploring from there a tester may wish to retrieve the gmail sitemap `https://ww
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="https://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.google.com/intl/am/gmail/about/</loc>
     <xhtml:link href="https://www.google.com/gmail/about/" hreflang="x-default" rel="alternate"/>

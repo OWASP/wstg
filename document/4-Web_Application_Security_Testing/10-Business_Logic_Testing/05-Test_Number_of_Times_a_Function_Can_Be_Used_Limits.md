@@ -37,5 +37,4 @@ The application should set hard controls to prevent limit abuse. This can be ach
 
 ## References
 
-- [InfoPath Forms Services business logic exceeded the maximum limit of operations Rule](http://mpwiki.viacode.com/default.aspx?g=posts&t=115678)
 - [Gold Trading Was Temporarily Halted On The CME This Morning](https://www.businessinsider.com/gold-halted-on-cme-for-stop-logic-event-2013-10)

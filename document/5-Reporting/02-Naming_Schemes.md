@@ -20,7 +20,7 @@ Each `SWID` tag is represented as a standardized XML format. A `SWID` tag is com
 
 ```xml
 <SoftwareIdentity
-                  xmlns="http://standards.iso.org/iso/19770/-2/2015/schema.xsd"
+                  xmlns="https://standards.iso.org/iso/19770/-2/2015/schema.xsd"
                   name="ACME Roadrunner Service Pack 1"
                   tagId="com.acme.rms-ce-sp1-v1-0-0"
                   patch="true"
@@ -40,9 +40,9 @@ Each `SWID` tag is represented as a standardized XML format. A `SWID` tag is com
 
 ```xml
 <SoftwareIdentity
-                  xmlns="http://standards.iso.org/iso/19770/-2/2015/schema.xsd"
-                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                  xsi:schemaLocation="http://standards.iso.org/iso/19770/-2/2015/schema.xsd"
+                  xmlns="https://standards.iso.org/iso/19770/-2/2015/schema.xsd"
+                  xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="https://standards.iso.org/iso/19770/-2/2015/schema.xsd"
                   xml:lang="en-US"
                   name="Red Hat Enterprise Linux"
                   tagId="com.redhat.RHEL-8-x86_64"

@@ -62,7 +62,7 @@ In integrated mail/browser environments, simply displaying an email message cont
 <img src="https://[attacker]/picture.gif" width="0" height="0">
 ```
 
-In this example, `[attacker]` is a site controlled by the attacker. By utilizing a redirect mechanism, the malicious site may use `http://[attacker]/picture.gif` to direct the victim to `http://[thirdparty]/action` and trigger the `action`.
+In this example, `[attacker]` is a site controlled by the attacker. By utilizing a redirect mechanism, the malicious site may use `https://[attacker]/picture.gif` to direct the victim to `https://[thirdparty]/action` and trigger the `action`.
 
 Cookies are not the only example involved in this kind of vulnerability. Web applications whose session information is entirely supplied by the browser are vulnerable too. This includes applications relying on HTTP authentication mechanisms alone, since the authentication information is known by the browser and is sent automatically upon each request. This does not include form-based authentication, which occurs just once and generates some form of session-related information, usually a cookie.
 
@@ -130,7 +130,7 @@ In case of POST, the following sample can be used.
 <html>
 <body onload='document.CSRF.submit()'>
 
-<form action='http://targetWebsite/Authenticate.jsp' method='POST' name='CSRF'>
+<form action='https://targetWebsite/Authenticate.jsp' method='POST' name='CSRF'>
     <input type='hidden' name='name' value='Hacked'>
     <input type='hidden' name='password' value='Hacked'>
 </form>
@@ -145,7 +145,7 @@ In case of web applications in which developers are utilizing JSON for browser t
 <html>
  <body>
   <script>history.pushState('', '', '/')</script>
-   <form action='http://victimsite.com' method='POST' enctype='text/plain'>
+   <form action='https://victimsite.com' method='POST' enctype='text/plain'>
      <input type='hidden' name='{"name":"hacked","password":"hacked","padding":"'value='something"}' />
      <input type='submit' value='Submit request' />
    </form>
@@ -178,9 +178,9 @@ When this data is sent as a POST request, the server will happily accept the nam
 ## References
 
 - [Peter W: "Cross-Site Request Forgeries"](https://web.archive.org/web/20160303230910/http://www.tux.org/~peterw/csrf.txt)
-- [Thomas Schreiber: "Session Riding"](https://web.archive.org/web/20160304001446/http://www.securenet.de/papers/Session_Riding.pdf)
-- [Oldest known post](https://web.archive.org/web/20000622042229/http://www.zope.org/Members/jim/ZopeSecurity/ClientSideTrojan)
+- [Thomas Schreiber: "Session Riding"](https://web.archive.org/web/20160304001446/https://www.securenet.de/papers/Session_Riding.pdf)
+- [Oldest known post](https://web.archive.org/web/20000622042229/https://www.zope.org/Members/jim/ZopeSecurity/ClientSideTrojan)
 - [Cross-site Request Forgery FAQ](https://www.cgisecurity.com/csrf-faq.html)
-- [A Most-Neglected Fact About Cross Site Request Forgery (CSRF)](http://yehg.net/lab/pr0js/view.php/A_Most-Neglected_Fact_About_CSRF.pdf)
+- [A Most-Neglected Fact About Cross Site Request Forgery (CSRF)](https://yehg.net/lab/pr0js/view.php/A_Most-Neglected_Fact_About_CSRF.pdf)
 - [Multi-POST CSRF](https://www.lanmaster53.com/2013/07/17/multi-post-csrf/)
 - [SANS Pen Test Webcast: Complete Application pwnage via Multi POST XSRF](https://www.youtube.com/watch?v=EOs5PZiiwug)
