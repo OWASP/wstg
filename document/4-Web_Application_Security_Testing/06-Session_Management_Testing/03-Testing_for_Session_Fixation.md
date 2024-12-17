@@ -53,7 +53,7 @@ Next, if the tester successfully authenticates to the application with the follo
 POST /authentication.php HTTP/1.1
 Host: www.example.com
 [...]
-Referer: http://www.example.com
+Referer: https://www.example.com
 Cookie: JSESSIONID=0000d8eyYq3L0z2fgq10m4v-rt4:-1
 Content-Type: application/x-www-form-urlencoded
 Content-length: 57
@@ -117,4 +117,4 @@ The application should always first invalidate the existing session ID before au
 
 - [Session Fixation](https://owasp.org/www-community/attacks/Session_fixation)
 - [ACROS Security](https://www.acrossecurity.com/papers/session_fixation.pdf)
-- [Chris Shiflett](http://shiflett.org/articles/session-fixation)
+- [Chris Shiflett](https://shiflett.org/articles/session-fixation)

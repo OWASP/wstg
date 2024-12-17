@@ -48,7 +48,7 @@ The tester may even find something like this:
 Check HTML version information for valid version numbers and Data Type Definition (DTD) URLs
 
 ```html
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "https://www.w3.org/TR/html4/strict.dtd">
 ```
 
 - `strict.dtd` -- default strict DTD

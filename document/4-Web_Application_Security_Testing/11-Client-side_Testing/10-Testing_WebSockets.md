@@ -76,6 +76,6 @@ Gray-box testing is similar to black-box testing. In gray-box testing, the pen-t
 - [HTML5 Rocks - Introducing WebSockets: Bringing Sockets to the Web](https://www.html5rocks.com/en/tutorials/websockets/basics/)
 - [W3C - The WebSocket API](https://html.spec.whatwg.org/multipage/web-sockets.html#network)
 - [IETF - The WebSocket Protocol](https://tools.ietf.org/html/rfc6455)
-- [Christian Schneider - Cross-Site WebSocket Hijacking (CSWSH)](http://www.christian-schneider.net/CrossSiteWebSocketHijacking.html)
-- [Robert Koch- On WebSockets in Penetration Testing](http://www.ub.tuwien.ac.at/dipl/2013/AC07815487.pdf)
-- [DigiNinja - ZAP and Web Sockets](http://www.digininja.org/blog/zap_web_sockets.php)
+- [Christian Schneider - Cross-Site WebSocket Hijacking (CSWSH)](https://www.christian-schneider.net/blog/cross-site-websocket-hijacking/)
+- [Robert Koch- On WebSockets in Penetration Testing](https://repositum.tuwien.at/retrieve/21955)
+- [DigiNinja - ZAP and Web Sockets](https://digi.ninja/blog/zap_web_sockets.php

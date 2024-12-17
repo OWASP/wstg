@@ -20,7 +20,7 @@ In 2009, immediately after the publication of the first research on HTTP Paramet
 
 One of these flaws, affecting *ModSecurity SQL Injection Core Rules*, represents a perfect example of the impedance mismatch between applications and filters. The ModSecurity filter would correctly apply a deny list for the following string: `select 1,2,3 from table`, thus blocking this example URL from being processed by the web server: `/index.aspx?page=select 1,2,3 from table`. However, by exploiting the concatenation of multiple HTTP parameters, an attacker could cause the application server to concatenate the string after the ModSecurity filter already accepted the input. As an example, the URL `/index.aspx?page=select 1&page=2,3` from table would not trigger the ModSecurity filter, yet the application layer would concatenate the input back into the full malicious string.
 
-Another HPP vulnerability turned out to affect *Apple Cups*, the well-known printing system used by many UNIX systems. Exploiting HPP, an attacker could easily trigger a Cross-Site Scripting vulnerability using the following URL: `http://127.0.0.1:631/admin/?kerberos=onmouseover=alert(1)&kerberos`. The application validation checkpoint could be bypassed by adding an extra `kerberos` argument having a valid string (e.g. empty string). As the validation checkpoint would only consider the second occurrence, the first `kerberos` parameter was not properly sanitized before being used to generate dynamic HTML content. Successful exploitation would result in JavaScript code execution under the context of the hosting site.
+Another HPP vulnerability turned out to affect *Apple Cups*, the well-known printing system used by many UNIX systems. Exploiting HPP, an attacker could easily trigger a Cross-Site Scripting vulnerability using the following URL: `https://127.0.0.1:631/admin/?kerberos=onmouseover=alert(1)&kerberos`. The application validation checkpoint could be bypassed by adding an extra `kerberos` argument having a valid string (e.g. empty string). As the validation checkpoint would only consider the second occurrence, the first `kerberos` parameter was not properly sanitized before being used to generate dynamic HTML content. Successful exploitation would result in JavaScript code execution under the context of the hosting site.
 
 ### Authentication Bypass
 
@@ -39,7 +39,7 @@ The flaw resided in the authentication mechanism used by the web application, as
 
 The following table illustrates how different web technologies behave in presence of multiple occurrences of the same HTTP parameter.
 
-Given the URL and querystring: `http://example.com/?color=red&color=blue`
+Given the URL and querystring: `https://example.com/?color=red&color=blue`
 
   | Web Application Server Backend | Parsing Result | Example |
   |--------------------------------|----------------|--------|
@@ -78,19 +78,19 @@ To test for HPP vulnerabilities, identify any form or action that allows user-su
 For example: if testing the `search_string` parameter in the query string, the request URL would include that parameter name and value:
 
 ```text
-http://example.com/?search_string=kittens
+https://example.com/?search_string=kittens
 ```
 
 The particular parameter might be hidden among several other parameters, but the approach is the same; leave the other parameters in place and append the duplicate:
 
 ```text
-http://example.com/?mode=guest&search_string=kittens&num_results=100
+https://example.com/?mode=guest&search_string=kittens&num_results=100
 ```
 
 Append the same parameter with a different value:
 
 ```text
-http://example.com/?mode=guest&search_string=kittens&num_results=100&search_string=puppies
+https://example.com/?mode=guest&search_string=kittens&num_results=100&search_string=puppies
 ```
 
 and submit the new request.
@@ -134,4 +134,4 @@ In particular, pay attention to responses having HPP vectors within `data`, `src
 - [Client-side HTTP Parameter Pollution Example (Yahoo! Classic Mail flaw) - Stefano di Paola](https://blog.mindedsecurity.com/2009/05/client-side-http-parameter-pollution.html)
 - [How to Detect HTTP Parameter Pollution Attacks - Chrysostomos Daniel](https://www.acunetix.com/blog/whitepaper-http-parameter-pollution/)
 - [CAPEC-460: HTTP Parameter Pollution (HPP) - Evgeny Lebanidze](https://capec.mitre.org/data/definitions/460.html)
-- [Automated Discovery of Parameter Pollution Vulnerabilities in Web Applications - Marco Balduzzi, Carmen Torrano Gimenez, Davide Balzarotti, Engin Kirda](http://s3.eurecom.fr/docs/ndss11_hpp.pdf)
+- [Automated Discovery of Parameter Pollution Vulnerabilities in Web Applications - Marco Balduzzi, Carmen Torrano Gimenez, Davide Balzarotti, Engin Kirda](https://s3.eurecom.fr/docs/ndss11_hpp.pdf)

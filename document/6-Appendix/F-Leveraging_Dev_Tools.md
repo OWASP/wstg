@@ -273,4 +273,4 @@ All major browsers support encoding and decoding strings in various ways leverag
 - [Web App Security Testing with Browsers](https://getmantra.com/web-app-security-testing-with-browsers/)
 - [Black Hills Information Security - Webcast: Free Tools! How to Use Developer Tools and JavaScript in Webapp Pentests](https://www.blackhillsinfosec.com/webcast-free-tools-how-to-use-developer-tools-and-javascript-in-webapp-pentests/)
 - [Greg Malcolm - Chrome Developer Tools: Raiding the Armory](https://github.com/gregmalcolm/wacky-wandas-wicked-weapons-frontend/blob/fix-it/README.md)
-- [List of UserAgent Strings](http://user-agent-string.info/list-of-ua)
+- [List of UserAgent Strings](https://techblog.willshouse.com/2012/01/03/most-common-user-agents/)

@@ -122,7 +122,7 @@
 				// Words and phrases
 				"ID",
 				"JavaScript",
-				// http://stackoverflow.com/questions/1151338/id-or-id-on-user-interface
+				// https://stackoverflow.com/questions/1151338/id-or-id-on-user-interface
 				[
 					"id['’]s",
 					"IDs"

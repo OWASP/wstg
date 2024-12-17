@@ -176,10 +176,8 @@ Vulnerability assessment tools tend to include checks to spot web directories ha
 Web spider tools
 
 - [wget](https://www.gnu.org/software/wget/)
-- [Wget for Windows](http://www.interlog.com/~tcharron/wgetwin.html)
-- [Sam Spade](https://web.archive.org/web/20090926061558/http://preview.samspade.org/ssw/download.html)
 - [Spike proxy includes a site crawler function](https://www.spikeproxy.com/)
-- [Xenu](http://home.snafu.de/tilman/xenulink.html)
+- [Xenu](https://home.snafu.de/tilman/xenulink.html)
 - [curl](https://curl.haxx.se)
 
 Some of them are also included in standard Linux distributions. Web development tools usually include facilities to identify broken links and unreferenced files.

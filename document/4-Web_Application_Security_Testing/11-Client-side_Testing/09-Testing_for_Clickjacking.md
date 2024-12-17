@@ -32,15 +32,15 @@ As mentioned above, this type of attack is often designed to allow an attacker t
 
 ### Load Target Web Page on a HTML Interpreter Using HTML iframe Tag
 
-Sites that do not protected against frame busting are vulnerable to clickjacking attack. If the `http://www.target.site` web page is successfully loaded into a frame, then the site is vulnerable to Clickjacking. An example of HTML code to create this testing web page is displayed in the following snippet:
+Sites that do not protected against frame busting are vulnerable to clickjacking attack. If the `https://www.target.site` web page is successfully loaded into a frame, then the site is vulnerable to Clickjacking. An example of HTML code to create this testing web page is displayed in the following snippet:
 
-```html
+```htmls
     <html>
         <head>
             <title>Clickjack test web page</title>
         </head>
         <body>
-            <iframe src="http://www.target.site" width="400" height="400"></iframe>
+            <iframe src="https://www.target.site" width="400" height="400"></iframe>
         </body>
     </html>
 ```
@@ -58,7 +58,7 @@ With HTML5 a new attribute called "sandbox" is available. It enables a set of re
 Example:
 
 ```html
-<iframe src="http://example.org" sandbox></iframe>
+<iframe src="https://example.org" sandbox></iframe>
 ```
 
 ### Test Application on Compatibility and Accessibility Mode

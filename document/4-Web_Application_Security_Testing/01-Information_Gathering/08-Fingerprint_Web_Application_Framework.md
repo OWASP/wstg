@@ -89,7 +89,7 @@ The cookie `CAKEPHP` has automatically been set, which gives information about t
 * Note the guidelines for Session names states: "The session name references
 * the session id in cookies and URLs. It should contain only alphanumeric
 * characters."
-* @link http://php.net/session_name
+* @link https://php.net/session_name
 */
 Configure::write('Session.cookie', 'CAKEPHP');
 ```
@@ -193,8 +193,8 @@ As can be seen in the following screenshot the listed file system path points to
 | phpBB       | `<body id="phpbb"`                                                             |
 | Mediawiki   | `<meta name="generator" content="MediaWiki 1.21.9" />`                         |
 | Joomla      | `<meta name="generator" content="Joomla! - Open Source Content Management" />` |
-| Drupal      | `<meta name="Generator" content="Drupal 7 (http://drupal.org)" />`             |
-| DotNetNuke  | `DNN Platform - [http://www.dnnsoftware.com](http://www.dnnsoftware.com)`      |
+| Drupal      | `<meta name="Generator" content="Drupal 7 (https://drupal.org)" />`             |
+| DotNetNuke  | `DNN Platform - [https://www.dnnsoftware.com](https://www.dnnsoftware.com)`      |
 
 #### General Markers
 
