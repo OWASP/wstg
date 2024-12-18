@@ -8,7 +8,7 @@
 
 The most prevalent and most easily administered authentication mechanism is a static password. The password represents the keys to the kingdom, but is often subverted by users in the name of usability. In each of the recent high profile hacks that have revealed user credentials, it is lamented that most common passwords are still: `123456`, `password` and `qwerty`.
 
-Additionally, applications may utilize alternative credentials that are treated the same as a password, but are considerably weaker, such as a birthdate or a social security number. In some scenarios, these more easily guessed credentials may act as the only user supplied value for authentication.
+Additionally, applications may utilize alternative credentials that are treated the same as a password, but are considerably weaker, such as a birthdates, social security numbers, PINs, or security questions. In some scenarios, these more easily guessed credentials may act as the only user supplied value for authentication.
 
 ## Test Objectives
 
