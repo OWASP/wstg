@@ -1,4 +1,4 @@
-# Testing for Weak Password Policy
+# Testing for Weak Authentication Methods
 
 |ID          |
 |------------|
@@ -7,6 +7,8 @@
 ## Summary
 
 The most prevalent and most easily administered authentication mechanism is a static password. The password represents the keys to the kingdom, but is often subverted by users in the name of usability. In each of the recent high profile hacks that have revealed user credentials, it is lamented that most common passwords are still: `123456`, `password` and `qwerty`.
+
+Additionally, applications may utilize alternative credentials that are treated the same as a password, but are considerably weaker, such as a birthdates, social security numbers, PINs, or security questions. In some scenarios, these more easily guessed credentials may act as the only user supplied value for authentication.
 
 ## Test Objectives
 
@@ -23,6 +25,7 @@ The most prevalent and most easily administered authentication mechanism is a st
 6. Is the user prevented from using his username or other account information (such as first or last name) in the password?
 7. What are the minimum and maximum password lengths that can be set, and are they appropriate for the sensitivity of the account and application?
 8. Is it possible to set common passwords such as `Password1` or `123456`?
+9. Is the credential chosen for the user by the application, such as a social security number or a birthdate? Is the credential that's utilized in lieu of a standard password easily obtainable, predictable, or susceptible to brute-force attacks?
 
 ## Remediation
 

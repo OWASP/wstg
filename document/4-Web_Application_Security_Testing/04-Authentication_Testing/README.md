@@ -12,7 +12,7 @@
 
 4.4.6 [Testing for Browser Cache Weaknesses](06-Testing_for_Browser_Cache_Weaknesses.md)
 
-4.4.7 [Testing for Weak Password Policy](07-Testing_for_Weak_Password_Policy.md)
+4.4.7 [Testing for Weak Authentication Methods](07-Testing_for_Weak_Authentication_Methods.md)
 
 4.4.8 [Testing for Weak Security Question Answer](08-Testing_for_Weak_Security_Question_Answer.md)
 

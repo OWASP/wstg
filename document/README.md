@@ -126,7 +126,7 @@
 
 #### 4.4.6 [Testing for Browser Cache Weaknesses](4-Web_Application_Security_Testing/04-Authentication_Testing/06-Testing_for_Browser_Cache_Weaknesses.md)
 
-#### 4.4.7 [Testing for Weak Password Policy](4-Web_Application_Security_Testing/04-Authentication_Testing/07-Testing_for_Weak_Password_Policy.md)
+#### 4.4.7 [Testing for Weak Authentication Methods](4-Web_Application_Security_Testing/04-Authentication_Testing/07-Testing_for_Weak_Authentication_Methods.md)
 
 #### 4.4.8 [Testing for Weak Security Question Answer](4-Web_Application_Security_Testing/04-Authentication_Testing/08-Testing_for_Weak_Security_Question_Answer.md)
 
