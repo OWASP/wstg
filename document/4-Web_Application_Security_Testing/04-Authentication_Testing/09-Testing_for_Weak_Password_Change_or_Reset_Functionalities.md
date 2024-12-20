@@ -181,7 +181,7 @@ Once the user has proved their identity (either through a password reset link, a
 
 - Is a strong and effective password policy applied?
 
-  The password policy should be consistent across the registration, password change, and password reset functionality. See the [Testing for Weak Password Policy](07-Testing_for_Weak_Password_Policy.md) guide for further information.
+  The password policy should be consistent across the registration, password change, and password reset functionality. See the [Testing for Weak Authentication Methods](07-Testing_for_Weak_Authentication_Methods.md) guide for further information.
 
 ## References
 
