@@ -623,7 +623,7 @@
                 }
                 ,{
                 "name":"Testing for Format String Injection",
-                "id":"WSTG-INPV-13",
+                "id":"WSTG-INPV-14",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/13-Testing_for_Format_String_Injection",
                 "objectives":[
                     "Assess whether injecting format string conversion specifiers into user-controlled fields causes undesired behavior from the application."
@@ -631,7 +631,7 @@
                 }
                 ,{
                 "name":"Testing for Incubated Vulnerability",
-                "id":"WSTG-INPV-14",
+                "id":"WSTG-INPV-15",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/14-Testing_for_Incubated_Vulnerability",
                 "objectives":[
                     "Identify injections that are stored and require a recall step to the stored injection.",
@@ -641,7 +641,7 @@
                 }
                 ,{
                 "name":"Testing for HTTP Splitting Smuggling",
-                "id":"WSTG-INPV-15",
+                "id":"WSTG-INPV-16",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/15-Testing_for_HTTP_Splitting_Smuggling",
                 "objectives":[
                     "Assess if the application is vulnerable to splitting, identifying what possible attacks are achievable.",
@@ -650,7 +650,7 @@
                 }
                 ,{
                 "name":"Testing for HTTP Incoming Requests",
-                "id":"WSTG-INPV-16",
+                "id":"WSTG-INPV-17",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/16-Testing_for_HTTP_Incoming_Requests",
                 "objectives":[
                     "Monitor all incoming and outgoing HTTP requests to the Web Server to inspect any suspicious requests.",
@@ -659,7 +659,7 @@
                 }
                 ,{
                 "name":"Testing for Host Header Injection",
-                "id":"WSTG-INPV-17",
+                "id":"WSTG-INPV-18",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/17-Testing_for_Host_Header_Injection",
                 "objectives":[
                     "Assess if the Host header is being parsed dynamically in the application.",
@@ -668,7 +668,7 @@
                 }
                 ,{
                 "name":"Testing for Server-side Template Injection",
-                "id":"WSTG-INPV-18",
+                "id":"WSTG-INPV-19",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/18-Testing_for_Server-side_Template_Injection",
                 "objectives":[
                     "Detect template injection vulnerability points.",
@@ -678,7 +678,7 @@
                 }
                 ,{
                 "name":"Testing for Server-Side Request Forgery",
-                "id":"WSTG-INPV-19",
+                "id":"WSTG-INPV-20",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/19-Testing_for_Server-Side_Request_Forgery",
                 "objectives":[
                     "Identify SSRF injection points.",
@@ -688,7 +688,7 @@
                 }
                 ,{
                 "name":"Testing for Mass Assignment",
-                "id":"WSTG-INPV-20",
+                "id":"WSTG-INPV-21",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/20-Testing_for_Mass_Assignment",
                 "objectives":[
                     "Identify requests that modify objects",
