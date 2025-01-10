@@ -61,6 +61,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Asharaf Ali
 - Elie Saad
 - Eoin Murphy
+- Evan Read (alp1n3-eth)
 - Francisco Bustos
 - frozensolid
 - Hsiang-Chih Hsu
