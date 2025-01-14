@@ -44,7 +44,7 @@ In the above command `dir` specifies we are fuzzing a directory, `-u` is the fla
 
 ### ZAP
 
-[ZAP](https://owasp.org/www-project-zap) is a web application security scanner that can be used to find vulnerabilities and weaknesses in web applications. It also includes a [Fuzzer](https://www.zaproxy.org/docs/desktop/addons/fuzzer/).
+[ZAP](https://www.zaproxy.org) is a web application security scanner that can be used to find vulnerabilities and weaknesses in web applications. It also includes a [Fuzzer](https://www.zaproxy.org/docs/desktop/addons/fuzzer/).
 
 One of the key features of ZAP is its ability to perform both passive and active scans. Passive scans involve observing the traffic between the user and the web application, while active scans involve sending test payloads to the web application to identify vulnerabilities.
 
