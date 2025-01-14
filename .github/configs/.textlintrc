@@ -513,6 +513,10 @@
 					"localized"
 				],
 				[
+					"otehr(s)?",
+					"other$1"
+				],
+				[
 					"pacakge(s)?",
 					"package$1"
 				],
@@ -560,6 +564,10 @@
 					"utilising",
 					"utilizing"
 				]
+				[
+					"worldlist(s)?",
+					"wordlist$1"
+				],
 			]
 		}
 	}
