@@ -1,12 +1,3 @@
----
-layout: col-document
-title: WSTG - Latest
-tags: WSTG
----
-
-{% include breadcrumb.html %}
-# Test Other HTTP Security Header Misconfigurations
-
 |ID          |
 |------------|
 |WSTG-CONF-14|
