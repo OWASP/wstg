@@ -55,7 +55,7 @@ X-Permitted-Cross-Domain-Policies
 Referrer-Policy
 ```
 
-2. Verify if strict directives are enforced or not, here is an example of overpermissive security headers.
+2. Verify if strict directives are enforced or not. Here is an example of overpermissive security headers.
 
 ```
 Access-Control-Allow-Origin: *
