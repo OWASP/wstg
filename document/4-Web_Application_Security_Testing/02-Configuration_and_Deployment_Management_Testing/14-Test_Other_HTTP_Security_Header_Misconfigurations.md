@@ -32,7 +32,7 @@ Security headers play a vital role in protecting web applications from a wide ra
 
 To inspect the security headers used by an application, different methods can be applied:
 
-- Use an intercepting proxy such as **Burp Suite** or **OWASP ZAP** to analyze server responses.
+- Use an intercepting proxy such as **Burp Suite** or **ZAP** to analyze server responses.
 - Run the following curl command to retrieve HTTP response headers:
   
 ```bash
