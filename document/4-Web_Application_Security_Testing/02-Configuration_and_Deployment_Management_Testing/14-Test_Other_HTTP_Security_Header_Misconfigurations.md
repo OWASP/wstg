@@ -1,3 +1,5 @@
+# Test Other HTTP Security Header Misconfigurations
+
 |ID          |
 |------------|
 |WSTG-CONF-14|
