@@ -102,7 +102,7 @@ To ensure security headers are correctly positioned:
 ## Tools
 
 - [Mozilla Observatory](https://observatory.mozilla.org/)
-- [OWASP ZAP](https://www.zaproxy.org/)
+- [ZAP](https://www.zaproxy.org/)
 - [Burp Suite](https://portswigger.net/burp)
 - Browser Developer Tools (Chrome, Firefox, Edge)
 
