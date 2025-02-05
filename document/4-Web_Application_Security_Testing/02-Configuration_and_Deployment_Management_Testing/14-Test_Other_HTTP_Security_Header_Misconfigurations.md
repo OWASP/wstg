@@ -57,7 +57,7 @@ Referrer-Policy
 
 2. Verify if strict directives are enforced or not. Here is an example of overpermissive security headers.
 
-```
+```http
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Credentials: true
 X-Permitted-Cross-Domain-Policies: all
