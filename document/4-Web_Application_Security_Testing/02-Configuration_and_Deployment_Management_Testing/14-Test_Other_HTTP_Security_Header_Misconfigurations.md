@@ -49,10 +49,10 @@ To evaluate overly permissive security headers, consider the following methods, 
 1. Identify the headers that could allow excessive access, such as:
   
 ```
-  Access-Control-Allow-Origin
-  Access-Control-Allow-Credentials
-  X-Permitted-Cross-Domain-Policies
-  Referrer-Policy
+Access-Control-Allow-Origin
+Access-Control-Allow-Credentials
+X-Permitted-Cross-Domain-Policies
+Referrer-Policy
 ```
 
 2. Verify if strict directives are enforced or not, here is an example of overpermissive security headers.
