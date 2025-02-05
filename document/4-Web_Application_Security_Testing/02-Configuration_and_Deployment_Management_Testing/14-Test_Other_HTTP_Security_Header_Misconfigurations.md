@@ -36,7 +36,7 @@ To inspect the security headers used by an application, different methods can be
 - Run the following curl command to retrieve HTTP response headers:
   
 ```bash
-  curl -I https://example.com
+curl -I https://example.com
 ```
 
 - Utilize browser developer tools to check server responses:
