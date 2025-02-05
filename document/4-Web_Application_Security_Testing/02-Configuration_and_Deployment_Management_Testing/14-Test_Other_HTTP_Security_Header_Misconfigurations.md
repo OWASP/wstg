@@ -109,7 +109,7 @@ To ensure security headers are correctly positioned:
 ## References
 
 - [OWASP Secure Headers Project](https://owasp.org/www-project-secure-headers/)
-- [RFC 6797 - HTTP Strict Transport Security (HSTS)](https://datatracker.ietf.org/doc/html/rfc6797)
 - [Mozilla Developer Network: Security Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers)
+- [RFC 6797 - HTTP Strict Transport Security (HSTS)](https://datatracker.ietf.org/doc/html/rfc6797)
 - [Google Web Security Guidelines](https://web.dev/security-headers/)
 - [HPKP is No More](https://scotthelme.co.uk/hpkp-is-no-more/)
