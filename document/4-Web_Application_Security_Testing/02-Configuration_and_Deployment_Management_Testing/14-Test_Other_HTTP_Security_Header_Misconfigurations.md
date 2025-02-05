@@ -86,7 +86,7 @@ To detect duplicate or deprecated headers, perform the following:
 
 ### Confirm Proper Placement of Security Headers 
 
-Similar to the ```Secure``` flag in cookies, some HTTP security headers are only effective under specific conditions. For instance, certain headers must be delivered over HTTPS; sending them over HTTP renders them ineffective.
+Similar to the `Secure` flag in cookies, some HTTP security headers are only effective under specific conditions. For instance, certain headers must be delivered over HTTPS; sending them over HTTP renders them ineffective.
 
 To ensure security headers are correctly positioned:
 
