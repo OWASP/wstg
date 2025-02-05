@@ -81,7 +81,7 @@ To verify the directives make sure you search the header name on the [Mozilla De
 To detect duplicate or deprecated headers, perform the following:
 
 - Look for multiple occurrences of the same security header with conflicting values.
-- Be aware of obsolete headers such as HPKP or header directives such as, ALLOW-FROM in X-Frame-Options, which is no longer supported by modern browsers. Again, you can verify the deprecation status of headers on Mozilla's website: [X-Frame-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options). 
+- Be aware of obsolete headers such as HPKP or header directives such as, ALLOW-FROM in X-Frame-Options, which is no longer supported by modern browsers. Again, you can verify the deprecation status of headers on Mozilla's website for example: [X-Frame-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options). 
 - Ensure deprecated headers are removed or replaced with modern equivalents.
 
 ### Confirm Proper Placement of Security Headers 
