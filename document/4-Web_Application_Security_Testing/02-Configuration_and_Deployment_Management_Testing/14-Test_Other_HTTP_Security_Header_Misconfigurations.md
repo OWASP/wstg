@@ -58,10 +58,10 @@ Referrer-Policy
 2. Verify if strict directives are enforced or not, here is an example of overpermissive security headers.
 
 ```
-  Access-Control-Allow-Origin: *
-  Access-Control-Allow-Credentials: true
-  X-Permitted-Cross-Domain-Policies: all
-  Referrer-Policy: unsafe-url
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+X-Permitted-Cross-Domain-Policies: all
+Referrer-Policy: unsafe-url
 ```
 
 And here is an example of its strict directive (secure) equivalents:
