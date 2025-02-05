@@ -72,7 +72,7 @@ And here is an example of its strict directive (secure) equivalents:
   Referrer-Policy: no-referrer
 ```
 
-To verify the directives make sure you search the header name on the  [Mozilla Developer Network: Security Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers) website as this will give you a proper overview of secure and insecure directives for each header.
+To verify the directives make sure you search the header name on the [Mozilla Developer Network: Security Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers) website as this will give you a proper overview of secure and insecure directives for each header.
 
 3. Finally, ensure that the strict directives are implemented but keep in mind that sometimes strict directives can break normal functionality so always check that it works with your application.
 
