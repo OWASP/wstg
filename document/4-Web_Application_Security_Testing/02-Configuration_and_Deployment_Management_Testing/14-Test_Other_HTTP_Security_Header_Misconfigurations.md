@@ -66,7 +66,7 @@ Referrer-Policy: unsafe-url
 
 And here is an example of its strict directive (secure) equivalents:
 
-```
+```http
   Access-Control-Allow-Origin: {theallowedoriginurl}
   X-Permitted-Cross-Domain-Policies: none
   Referrer-Policy: no-referrer
