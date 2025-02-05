@@ -67,9 +67,9 @@ Referrer-Policy: unsafe-url
 And here is an example of its strict directive (secure) equivalents:
 
 ```http
-  Access-Control-Allow-Origin: {theallowedoriginurl}
-  X-Permitted-Cross-Domain-Policies: none
-  Referrer-Policy: no-referrer
+Access-Control-Allow-Origin: {theallowedoriginurl}
+X-Permitted-Cross-Domain-Policies: none
+Referrer-Policy: no-referrer
 ```
 
 To verify the directives make sure you search the header name on the [Mozilla Developer Network: Security Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers) website as this will give you a proper overview of secure and insecure directives for each header.
