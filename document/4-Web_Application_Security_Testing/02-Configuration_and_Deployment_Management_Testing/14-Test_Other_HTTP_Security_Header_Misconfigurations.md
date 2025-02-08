@@ -8,6 +8,12 @@
 
 Security headers play a vital role in protecting web applications from a wide range of attacks, including Cross-Site Scripting (XSS), Clickjacking, and data injection attacks. These headers instruct the browser on how to handle security-related aspects of a website’s communication, reducing exposure to known attack vectors. However, misconfigurations can lead to vulnerabilities, weakening the intended security protections or rendering the existing security protections ineffective. This section outlines common security header misconfigurations, their risks, and how to properly test for them.
 
+## Test Objectives
+
+- Identify security headers that are improperly configured.
+- Assess the impact of misconfigured security headers.
+- Validate correct implementation of required security headers.
+
 ### Common Security Header Misconfigurations:
 - **Security Header with an Empty Value**: Headers present but lacking a value may be ignored by browsers, making them ineffective.
 - **Security Header with an Invalid Value or Name (Typos)**: Incorrect header names or misspellings result in headers not being recognized or enforced.
@@ -21,12 +27,6 @@ Security headers play a vital role in protecting web applications from a wide ra
 - **Reduced Effectiveness**: If headers are misconfigured, they may not provide the intended protection, allowing exploits such as XSS, Clickjacking, or CORS-related attacks.
 - **Breakage of Security Measures**: Duplicate headers may lead to unexpected behavior, with some browsers completley ignoring the HTTP security headers because of this.
 - **Legacy and Deprecated Headers**: Using obsolete security headers can introduce new attack vectors instead of securing the application.
-
-## Test Objectives
-
-- Identify security headers that are improperly configured.
-- Assess the impact of misconfigured security headers.
-- Validate correct implementation of required security headers.
 
 ## How to Test
 
