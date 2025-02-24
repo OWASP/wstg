@@ -16,26 +16,13 @@ Security headers play a vital role in protecting web applications from a wide ra
 
 ## Common Security Header Misconfigurations
 
-- **Security Header with an Empty Value:**  
-  Headers that are present but lack a value may be ignored by browsers, making them ineffective.
-
-- **Security Header with an Invalid Value or Name (Typos):**  
-  Incorrect header names or misspellings result in headers not being recognized or enforced.
-
-- **Overpermissive Security Headers:**  
-  Headers configured too broadly (e.g., using wildcard characters `*` or overly permissive directives) can leak information or allow access to resources beyond the intended scope.
-
-- **Duplicate Security Headers:**  
-  Multiple occurrences of the same header with conflicting values can lead to unpredictable browser behavior, potentially disabling the security measures entirely.
-
-- **Legacy or Deprecated Headers:**  
-  Inclusion of obsolete headers (e.g., HPKP) or directives (e.g., `ALLOW-FROM` in X-Frame-Options) that are no longer supported by modern browsers may create unnecessary risks.
-
-- **Invalid Placement of Security Headers:**  
-  Some headers are only effective under specific conditions. For example, headers like HSTS must be delivered over HTTPS; if sent over HTTP, they become ineffective.
-
-- **META Tag Handling Mistakes:**  
-  In cases where security policies such as Content-Security-Policy (CSP) are enforced via both HTTP headers and META tags (using `http-equiv`), there is a risk that the META tag value might override or conflict with the secure logic defined in the HTTP header. This can lead to a scenario where an insecure policy inadvertently takes precedence, weakening the overall security posture.
+- **Security Header with an Empty Value:** Headers that are present but lack a value may be ignored by browsers, making them ineffective.
+- **Security Header with an Invalid Value or Name (Typos):** Incorrect header names or misspellings result in headers not being recognized or enforced.
+- **Overpermissive Security Headers:** Headers configured too broadly (e.g., using wildcard characters `*` or overly permissive directives) can leak information or allow access to resources beyond the intended scope.
+- **Duplicate Security Headers:** Multiple occurrences of the same header with conflicting values can lead to unpredictable browser behavior, potentially disabling the security measures entirely.
+- **Legacy or Deprecated Headers:** Inclusion of obsolete headers (e.g., HPKP) or directives (e.g., `ALLOW-FROM` in X-Frame-Options) that are no longer supported by modern browsers may create unnecessary risks.
+- **Invalid Placement of Security Headers:** Some headers are only effective under specific conditions. For example, headers like HSTS must be delivered over HTTPS; if sent over HTTP, they become ineffective.
+- **META Tag Handling Mistakes:** In cases where security policies such as Content-Security-Policy (CSP) are enforced via both HTTP headers and META tags (using `http-equiv`), there is a risk that the META tag value might override or conflict with the secure logic defined in the HTTP header. This can lead to a scenario where an insecure policy inadvertently takes precedence, weakening the overall security posture.
 
 ## Risks of Misconfigured Security Headers
 
