@@ -1,105 +1,145 @@
 # Test Other HTTP Security Header Misconfigurations
 
-|ID          |
-|------------|
-|WSTG-CONF-14|
+| ID          |
+|-------------|
+| WSTG-CONF-14 |
 
 ## Summary
 
-Security headers play a vital role in protecting web applications from a wide range of attacks, including Cross-Site Scripting (XSS), Clickjacking, and data injection attacks. These headers instruct the browser on how to handle security-related aspects of a website’s communication, reducing exposure to known attack vectors. However, misconfigurations can lead to vulnerabilities, weakening the intended security protections or rendering the existing security protections ineffective. This section outlines common security header misconfigurations, their risks, and how to properly test for them.
+Security headers play a vital role in protecting web applications from a wide range of attacks, including Cross-Site Scripting (XSS), Clickjacking, and data injection attacks. These headers instruct the browser on how to handle security-related aspects of a website’s communication, reducing exposure to known attack vectors. However, misconfigurations can lead to vulnerabilities, weakening the intended security protections or rendering them ineffective. This section outlines common security header misconfigurations, their risks, and how to properly test for them.
 
 ## Test Objectives
 
-- Identify security headers that are improperly configured.
-- Assess the impact of misconfigured security headers.
-- Validate correct implementation of required security headers.
+- **Identify improperly configured security headers.**
+- **Assess the impact of misconfigured security headers.**
+- **Validate the correct implementation of required security headers.**
 
-### Common Security Header Misconfigurations:
-- **Security Header with an Empty Value**: Headers present but lacking a value may be ignored by browsers, making them ineffective.
-- **Security Header with an Invalid Value or Name (Typos)**: Incorrect header names or misspellings result in headers not being recognized or enforced.
-- **Overpermissive Security Headers**: Overpermissive headers can leak information or allow access to resources beyond the intended scope.
-- **Duplicate Security Headers**: Conflicting definitions of the same header can lead to unpredictable browser behavior and potentially disable security measures.
-- **Legacy Security Headers**: The inclusion of obsolete headers, can create unnecessary risks instead of improving security.
-- **Invalid Placement of Security Headers**: Certain headers must be delivered over specific conditions or protocols; using these headers when the right conditions are not met renders them ineffective.
+## Common Security Header Misconfigurations
+
+- **Security Header with an Empty Value:**  
+  Headers that are present but lack a value may be ignored by browsers, making them ineffective.
+
+- **Security Header with an Invalid Value or Name (Typos):**  
+  Incorrect header names or misspellings result in headers not being recognized or enforced.
+
+- **Overpermissive Security Headers:**  
+  Headers configured too broadly (e.g., using wildcard characters `*` or overly permissive directives) can leak information or allow access to resources beyond the intended scope.
+
+- **Duplicate Security Headers:**  
+  Multiple occurrences of the same header with conflicting values can lead to unpredictable browser behavior, potentially disabling the security measures entirely.
+
+- **Legacy or Deprecated Headers:**  
+  Inclusion of obsolete headers (e.g., HPKP) or directives (e.g., `ALLOW-FROM` in X-Frame-Options) that are no longer supported by modern browsers may create unnecessary risks.
+
+- **Invalid Placement of Security Headers:**  
+  Some headers are only effective under specific conditions. For example, headers like HSTS must be delivered over HTTPS; if sent over HTTP, they become ineffective.
+
+- **META Tag Handling Mistakes:**  
+  In cases where security policies such as Content-Security-Policy (CSP) are enforced via both HTTP headers and META tags (using `http-equiv`), there is a risk that the META tag value might override or conflict with the secure logic defined in the HTTP header. This can lead to a scenario where an insecure policy inadvertently takes precedence, weakening the overall security posture.
 
 ## Risks of Misconfigured Security Headers
 
-- **Reduced Effectiveness**: If headers are misconfigured, they may not provide the intended protection, allowing exploits such as XSS, Clickjacking, or CORS-related attacks.
-- **Breakage of Security Measures**: Duplicate headers may lead to unexpected behavior, with some browsers completley ignoring the HTTP security headers because of this.
-- **Legacy and Deprecated Headers**: Using obsolete security headers can introduce new attack vectors instead of securing the application.
+- **Reduced Effectiveness:**  
+  Misconfigured headers might not provide the intended protection, leaving the application vulnerable to attacks such as XSS, Clickjacking, or CORS-related exploits.
+
+- **Breakage of Security Measures:**  
+  Duplicate headers or conflicting directives can result in browsers ignoring the HTTP security headers entirely, thereby disabling the intended protections.
+
+- **Introduction of New Attack Vectors:**  
+  The use of legacy or deprecated headers may introduce risks rather than mitigate them if modern browsers no longer support the intended security measures.
 
 ## How to Test
 
 ### Fetch and Review HTTP Security Headers
 
-To inspect the security headers used by an application, different methods can be applied:
+To inspect the security headers used by an application, employ the following methods:
 
-- Use an intercepting proxy such as **Burp Suite** or **ZAP** to analyze server responses.
-- Run the following curl command to retrieve HTTP response headers:
+- **Intercepting Proxies:**  
+  Use tools such as **Burp Suite** or **curl** to analyze server responses.
+
+- **Command Line Tools:**  
+  Execute a curl command to retrieve HTTP response headers:
+  ```bash
+  curl -I https://example.com
   
-```bash
-curl -I https://example.com
-```
+  Sometimes the web application will redirect to a new page, in order to follow redirect use the following command:
+  curl -L -I https://example.com
 
-- Utilize browser developer tools to check server responses:
-  - Open developer tools (F12) → Navigate to the **Network** tab → Select a request → View the **Headers** section.
+  Some Firewalls may block curl's default User-Agent and some TLS/SSL errors will also prevent it from returning the correct information, in thise case you could try to use the following command:
+
+  curl -I -L --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36" https://example.com
+  ```
+
+- **Browser Developer Tools:**  
+  Open developer tools (F12), navigate to the **Network** tab, select a request, and view the **Headers** section.
 
 ### Check for Overly Permissive Security Headers
 
-To evaluate overly permissive security headers, consider the following methods, especially when wildcard characters (*) are used or when certain security headers are configured too broadly:
+1. **Identify Risky Headers:**  
+   Look for headers that could allow excessive access, such as:
+   ```
+   Access-Control-Allow-Origin
+   Access-Control-Allow-Credentials
+   X-Permitted-Cross-Domain-Policies
+   Referrer-Policy
+   ```
 
-1. Identify the headers that could allow excessive access, such as:
-  
-```
-Access-Control-Allow-Origin
-Access-Control-Allow-Credentials
-X-Permitted-Cross-Domain-Policies
-Referrer-Policy
-```
+2. **Evaluate Directives:**  
+   Verify whether strict directives are enforced. For example, an overpermissive setup might appear as:
+   ```http
+   Access-Control-Allow-Origin: *
+   Access-Control-Allow-Credentials: true
+   X-Permitted-Cross-Domain-Policies: all
+   Referrer-Policy: unsafe-url
+   ```
+   A safe configuration would look like:
+   ```http
+   Access-Control-Allow-Origin: {theallowedoriginurl}
+   X-Permitted-Cross-Domain-Policies: none
+   Referrer-Policy: no-referrer
+   ```
 
-2. Verify if strict directives are enforced or not. Here is an example of overpermissive security headers.
-
-```http
-Access-Control-Allow-Origin: *
-Access-Control-Allow-Credentials: true
-X-Permitted-Cross-Domain-Policies: all
-Referrer-Policy: unsafe-url
-```
-
-And here is an example of its strict directive (secure) equivalents:
-
-```http
-Access-Control-Allow-Origin: {theallowedoriginurl}
-X-Permitted-Cross-Domain-Policies: none
-Referrer-Policy: no-referrer
-```
-
-To verify the directives make sure you search the header name on the [Mozilla Developer Network: Security Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers) website as this will give you a proper overview of secure and insecure directives for each header.
-
-3. Finally, ensure that the strict directives are implemented but keep in mind that sometimes strict directives can break normal functionality so always check that it works with your application.
+3. **Cross-Reference Documentation:**  
+   Use resources such as the [Mozilla Developer Network: Security Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers) to review secure and insecure directives.
 
 ### Check for Duplicate, Deprecated / Obsolete Headers
 
-To detect duplicate or deprecated headers, perform the following:
+- **Duplicate Headers:**  
+  Ensure that the same header is not defined multiple times with conflicting values.
+  
+- **Obsolete Headers:**  
+  Identify and remove deprecated headers (e.g., HPKP) and outdated directives (e.g., `ALLOW-FROM` in X-Frame-Options).  
+  Refer to sources like [Mozilla Developer Network: X-Frame-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) for current standards.
 
-- Look for multiple occurrences of the same security header with conflicting values.
-- Be aware of obsolete headers such as HPKP or header directives such as, ALLOW-FROM in X-Frame-Options, which is no longer supported by modern browsers. Again, you can verify the deprecation status of headers on Mozilla's website for example: [X-Frame-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options). 
-- Ensure deprecated headers are removed or replaced with modern equivalents.
+### Confirm Proper Placement of Security Headers
 
-### Confirm Proper Placement of Security Headers 
+- **Protocol-Specific Requirements:**  
+  Validate that headers intended for secure contexts (e.g., HSTS) are delivered only under appropriate conditions (i.e., over HTTPS).
 
-Similar to the `Secure` flag in cookies, some HTTP security headers are only effective under specific conditions. For instance, certain headers must be delivered over HTTPS; sending them over HTTP renders them ineffective.
+- **Conditional Delivery:**  
+  Some headers may only be effective under specific circumstances. Verify that these conditions are met for the header to function as intended.
 
-To ensure security headers are correctly positioned:
+### Evaluate META Tag Handling
 
-- Validate that the correct conditions required for the header to work are present. For example; for HSTS make sure TLS/SSL is present.
+- **Dual Enforcement Checks:**  
+  When a security policy like CSP is applied through both an HTTP header and a META tag using `http-equiv`, confirm that the HTTP header (which is generally considered more authoritative) is not inadvertently overridden by the META tag.
+  
+- **Review Browser Behavior:**  
+  Test the application in various browsers to see if any differences occur due to the presence of conflicting directives. Where possible, avoid using dual definitions to prevent unintended security lapses.
 
 ## Remediation
 
-- **Ensure headers are correctly configured**: Avoid empty or invalid values, and double-check for typos.
-- **Apply strict directives**: Configure headers to minimize security risks (e.g., avoid using * in CORS policies unless required).
-- **Remove deprecated headers**: Remove headers like HPKP that are no longer supported.
-- **Beware of conditional exclusive headers**: Ensure that security headers like HSTS are correctly applied only in HTTPS responses.
+- **Correct Header Configuration:**  
+  Ensure that headers are correctly implemented with proper values and no typos.
+  
+- **Enforce Strict Directives:**  
+  Configure headers with the most secure settings that still allow for required functionality. For example, avoid using `*` in CORS policies unless absolutely necessary.
+  
+- **Remove Deprecated Headers:**  
+  Replace legacy security headers with modern equivalents and remove any that are no longer supported.
+  
+- **Avoid Conflicting Definitions:**  
+  Prevent duplicate header definitions and ensure that META tags do not conflict with HTTP headers for security policies.
 
 ## Tools
 
