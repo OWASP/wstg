@@ -54,17 +54,13 @@ Security headers play a vital role in protecting web applications from a wide ra
 
 To inspect the security headers used by an application, employ the following methods:
 
-- **Intercepting Proxies:**  Use tools such as **Burp Suite** or **curl** to analyze server responses.
-
-- **Command Line Tools:**  Execute a curl command to retrieve HTTP response headers: ` curl -I https://example.com`
-Sometimes the web application will redirect to a new page, in order to follow redirect use the following command:`curl -L -I https://example.com`
-
-Some Firewalls may block curl's default User-Agent and some TLS/SSL errors will also prevent it from returning the correct information, in thise case you could try to use the following command:
+- **Intercepting Proxies:** Use tools such as **Burp Suite** or **curl** to analyze server responses.
+- **Command Line Tools:** Execute a curl command to retrieve HTTP response headers: ` curl -I https://example.com`
+    - Sometimes the web application will redirect to a new page, in order to follow redirect use the following command:`curl -L -I https://example.com`
+    - Some Firewalls may block curl's default User-Agent and some TLS/SSL errors will also prevent it from returning the correct information, in thise case you could try to use the following command:
 
 `curl -I -L -k --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36" https://example.com`
-
-- **Browser Developer Tools:**  
-  Open developer tools (F12), navigate to the **Network** tab, select a request, and view the **Headers** section.
+- **Browser Developer Tools:** Open developer tools (F12), navigate to the **Network** tab, select a request, and view the **Headers** section.
 
 ### Check for Overly Permissive Security Headers
 
