@@ -55,8 +55,6 @@ Access-Control-Allow-Credentials: true
 X-Permitted-Cross-Domain-Policies: all
 Referrer-Policy: unsafe-url
 
-3. **Cross-Reference Documentation:** Use resources such as the [Mozilla Developer Network: Security Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers) to review secure and insecure directives.
-
 ### Check for Duplicate, Deprecated / Obsolete Headers
 
 - **Duplicate Headers:**  
