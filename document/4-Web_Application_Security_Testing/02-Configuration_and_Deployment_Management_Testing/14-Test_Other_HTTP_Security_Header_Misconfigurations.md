@@ -62,6 +62,7 @@ To inspect the security headers used by an application, employ the following met
     X-Permitted-Cross-Domain-Policies: none
     Referrer-Policy: no-referrer
     ```
+
 - **Cross-Reference Documentation:** Use resources such as the [Mozilla Developer Network: Security Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers) to review secure and insecure directives.
 
 ### Check for Duplicate, Deprecated / Obsolete Headers
