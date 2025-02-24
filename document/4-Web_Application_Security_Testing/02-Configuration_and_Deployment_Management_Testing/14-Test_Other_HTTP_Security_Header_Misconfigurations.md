@@ -2,7 +2,7 @@
 
 | ID          |
 |-------------|
-| WSTG-CONF-14 |
+|WSTG-CONF-14|
 
 ## Summary
 
