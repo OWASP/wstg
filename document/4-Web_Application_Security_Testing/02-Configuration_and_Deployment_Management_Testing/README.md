@@ -25,3 +25,5 @@
 4.2.12 [Test for Content Security Policy](12-Test_for_Content_Security_Policy.md)
 
 4.2.13 [Test for Path Confusion](13-Test_for_Path_Confusion.md)
+
+4.2.14 [Test for Other HTTP Security Header Misconfigurations](14-Test_Other_HTTP_Security_Header_Misconfigurations.md)
