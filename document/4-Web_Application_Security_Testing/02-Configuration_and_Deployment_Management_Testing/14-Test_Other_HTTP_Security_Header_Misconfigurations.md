@@ -37,62 +37,45 @@ Security headers play a vital role in protecting web applications from a wide ra
 To inspect the security headers used by an application, employ the following methods:
 
 - **Intercepting Proxies:** Use tools such as **Burp Suite** or **curl** to analyze server responses.
-- **Command Line Tools:** Execute a curl command to retrieve HTTP response headers: ` curl -I https://example.com`
+- **Command Line Tools:** Execute a curl command to retrieve HTTP response headers: `curl -I https://example.com`
     - Sometimes the web application will redirect to a new page, in order to follow redirect use the following command:`curl -L -I https://example.com`
     - Some Firewalls may block curl's default User-Agent and some TLS/SSL errors will also prevent it from returning the correct information, in thise case you could try to use the following command:
-
 `curl -I -L -k --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36" https://example.com`
 - **Browser Developer Tools:** Open developer tools (F12), navigate to the **Network** tab, select a request, and view the **Headers** section.
 
 ### Check for Overly Permissive Security Headers
 
-1. **Identify Risky Headers:** Look for headers that could allow excessive access, such as:
+- **Identify Risky Headers:** Look for headers that could allow excessive access, such as:
+- **Evaluate Directives:** Verify whether strict directives are enforced. For example, an overpermissive setup might appear as:
 
-2. **Evaluate Directives:** Verify whether strict directives are enforced. For example, an overpermissive setup might appear as:
 ```http
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Credentials: true
 X-Permitted-Cross-Domain-Policies: all
 Referrer-Policy: unsafe-url
+```
 
 ### Check for Duplicate, Deprecated / Obsolete Headers
 
-- **Duplicate Headers:**  
-  Ensure that the same header is not defined multiple times with conflicting values.
-  
-- **Obsolete Headers:**  
-  Identify and remove deprecated headers (e.g., HPKP) and outdated directives (e.g., `ALLOW-FROM` in X-Frame-Options).  
-  Refer to sources like [Mozilla Developer Network: X-Frame-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) for current standards.
+- **Duplicate Headers:** Ensure that the same header is not defined multiple times with conflicting values.
+- **Obsolete Headers:** Identify and remove deprecated headers (e.g., HPKP) and outdated directives (e.g., `ALLOW-FROM` in X-Frame-Options). Refer to sources like [Mozilla Developer Network: X-Frame-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) for current standards.
 
 ### Confirm Proper Placement of Security Headers
 
-- **Protocol-Specific Requirements:**  
-  Validate that headers intended for secure contexts (e.g., HSTS) are delivered only under appropriate conditions (i.e., over HTTPS).
-
-- **Conditional Delivery:**  
-  Some headers may only be effective under specific circumstances. Verify that these conditions are met for the header to function as intended.
+- **Protocol-Specific Requirements:** Validate that headers intended for secure contexts (e.g., HSTS) are delivered only under appropriate conditions (i.e., over HTTPS).
+- **Conditional Delivery:** Some headers may only be effective under specific circumstances. Verify that these conditions are met for the header to function as intended.
 
 ### Evaluate META Tag Handling
 
-- **Dual Enforcement Checks:**  
-  When a security policy like CSP is applied through both an HTTP header and a META tag using `http-equiv`, confirm that the HTTP header (which is generally considered more authoritative) is not inadvertently overridden by the META tag.
-  
-- **Review Browser Behavior:**  
-  Test the application in various browsers to see if any differences occur due to the presence of conflicting directives. Where possible, avoid using dual definitions to prevent unintended security lapses.
+- **Dual Enforcement Checks:** When a security policy like CSP is applied through both an HTTP header and a META tag using `http-equiv`, confirm that the HTTP header (which is generally considered more authoritative) is not inadvertently overridden by the META tag.
+- **Review Browser Behavior:** Test the application in various browsers to see if any differences occur due to the presence of conflicting directives. Where possible, avoid using dual definitions to prevent unintended security lapses.
 
 ## Remediation
 
-- **Correct Header Configuration:**  
-  Ensure that headers are correctly implemented with proper values and no typos.
-  
-- **Enforce Strict Directives:**  
-  Configure headers with the most secure settings that still allow for required functionality. For example, avoid using `*` in CORS policies unless absolutely necessary.
-  
-- **Remove Deprecated Headers:**  
-  Replace legacy security headers with modern equivalents and remove any that are no longer supported.
-  
-- **Avoid Conflicting Definitions:**  
-  Prevent duplicate header definitions and ensure that META tags do not conflict with HTTP headers for security policies.
+- **Correct Header Configuration:** Ensure that headers are correctly implemented with proper values and no typos.
+- **Enforce Strict Directives:** Configure headers with the most secure settings that still allow for required functionality. For example, avoid using `*` in CORS policies unless absolutely necessary.
+- **Remove Deprecated Headers:** Replace legacy security headers with modern equivalents and remove any that are no longer supported.
+- **Avoid Conflicting Definitions:** Prevent duplicate header definitions and ensure that META tags do not conflict with HTTP headers for security policies.
 
 ## Tools
 
