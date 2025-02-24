@@ -46,32 +46,16 @@ To inspect the security headers used by an application, employ the following met
 
 ### Check for Overly Permissive Security Headers
 
-1. **Identify Risky Headers:**  
-   Look for headers that could allow excessive access, such as:
-   ```
-   Access-Control-Allow-Origin
-   Access-Control-Allow-Credentials
-   X-Permitted-Cross-Domain-Policies
-   Referrer-Policy
-   ```
+1. **Identify Risky Headers:** Look for headers that could allow excessive access, such as:
 
-2. **Evaluate Directives:**  
-   Verify whether strict directives are enforced. For example, an overpermissive setup might appear as:
-   ```http
-   Access-Control-Allow-Origin: *
-   Access-Control-Allow-Credentials: true
-   X-Permitted-Cross-Domain-Policies: all
-   Referrer-Policy: unsafe-url
-   ```
-   A safe configuration would look like:
-   ```http
-   Access-Control-Allow-Origin: {theallowedoriginurl}
-   X-Permitted-Cross-Domain-Policies: none
-   Referrer-Policy: no-referrer
-   ```
+2. **Evaluate Directives:** Verify whether strict directives are enforced. For example, an overpermissive setup might appear as:
+```http
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+X-Permitted-Cross-Domain-Policies: all
+Referrer-Policy: unsafe-url
 
-3. **Cross-Reference Documentation:**  
-   Use resources such as the [Mozilla Developer Network: Security Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers) to review secure and insecure directives.
+3. **Cross-Reference Documentation:** Use resources such as the [Mozilla Developer Network: Security Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers) to review secure and insecure directives.
 
 ### Check for Duplicate, Deprecated / Obsolete Headers
 
