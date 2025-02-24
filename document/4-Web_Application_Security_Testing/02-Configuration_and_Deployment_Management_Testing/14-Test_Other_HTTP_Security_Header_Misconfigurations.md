@@ -59,7 +59,7 @@ To inspect the security headers used by an application, employ the following met
 
 - **Command Line Tools:**  
   Execute a curl command to retrieve HTTP response headers:
-  ```HTTP
+  ```bash
   curl -I https://example.com
   
   Sometimes the web application will redirect to a new page, in order to follow redirect use the following command:
