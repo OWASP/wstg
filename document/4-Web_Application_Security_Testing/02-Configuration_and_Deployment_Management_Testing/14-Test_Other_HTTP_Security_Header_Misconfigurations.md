@@ -10,9 +10,9 @@ Security headers play a vital role in protecting web applications from a wide ra
 
 ## Test Objectives
 
-- **Identify improperly configured security headers.**
-- **Assess the impact of misconfigured security headers.**
-- **Validate the correct implementation of required security headers.**
+- Identify improperly configured security headers.
+- Assess the impact of misconfigured security headers.
+- Validate the correct implementation of required security headers.
 
 ## Common Security Header Misconfigurations
 
@@ -59,7 +59,7 @@ To inspect the security headers used by an application, employ the following met
 
 - **Command Line Tools:**  
   Execute a curl command to retrieve HTTP response headers:
-  ```bash
+  ```HTTP
   curl -I https://example.com
   
   Sometimes the web application will redirect to a new page, in order to follow redirect use the following command:
