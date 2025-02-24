@@ -26,14 +26,9 @@ Security headers play a vital role in protecting web applications from a wide ra
 
 ## Risks of Misconfigured Security Headers
 
-- **Reduced Effectiveness:**  
-  Misconfigured headers might not provide the intended protection, leaving the application vulnerable to attacks such as XSS, Clickjacking, or CORS-related exploits.
-
-- **Breakage of Security Measures:**  
-  Duplicate headers or conflicting directives can result in browsers ignoring the HTTP security headers entirely, thereby disabling the intended protections.
-
-- **Introduction of New Attack Vectors:**  
-  The use of legacy or deprecated headers may introduce risks rather than mitigate them if modern browsers no longer support the intended security measures.
+- **Reduced Effectiveness:** Misconfigured headers might not provide the intended protection, leaving the application vulnerable to attacks such as XSS, Clickjacking, or CORS-related exploits.
+- **Breakage of Security Measures:** Duplicate headers or conflicting directives can result in browsers ignoring the HTTP security headers entirely, thereby disabling the intended protections.
+- **Introduction of New Attack Vectors:** The use of legacy or deprecated headers may introduce risks rather than mitigate them if modern browsers no longer support the intended security measures.
 
 ## How to Test
 
