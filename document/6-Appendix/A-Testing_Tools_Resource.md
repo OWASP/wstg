@@ -101,7 +101,7 @@ waybackurls example.com
 - [GAU (Get All URLs)](https://github.com/lc/gau)
     - GAU collects URLs from multiple public archives, including the Wayback Machine and Common Crawl.
     - **Usage:**
-      
+
 ```bash
 gau example.com
 ```
@@ -110,9 +110,9 @@ gau example.com
     - Unfurl extracts subdomains, paths, and parameters from URLs for deeper analysis.
     - **Usage:**
       
-    ```bash
-    unfurl "https://example.com/page?query=123"
-    ```
+```bash
+unfurl "https://example.com/page?query=123"
+```
 
 ### Port and Service Discovery
 
