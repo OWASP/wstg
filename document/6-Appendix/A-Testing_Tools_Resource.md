@@ -90,6 +90,24 @@ The list contains only tools that are freely available to download and use (alth
 ### Content Discovery
 
 - [Gobuster](https://github.com/OJ/gobuster)
+- [Waybackurls](https://github.com/tomnomnom/waybackurls)
+    - Waybackurls fetches all URLs known to the Wayback Machine for a given domain, useful for reconnaissance.
+    - **Usage:**
+      ```bash
+      echo "example.com" | waybackurls
+      ```
+- [GAU (Get All URLs)](https://github.com/lc/gau)
+    - GAU collects URLs from multiple public archives, including the Wayback Machine and Common Crawl.
+    - **Usage:**
+      ```bash
+      echo "example.com" | gau
+      ```
+- [Unfurl](https://github.com/tomnomnom/unfurl)
+    - Unfurl extracts subdomains, paths, and parameters from URLs for deeper analysis.
+    - **Usage:**
+      ```bash
+      echo "https://example.com/page?query=123" | unfurl
+      ```
 
 ### Port and Service Discovery
 
