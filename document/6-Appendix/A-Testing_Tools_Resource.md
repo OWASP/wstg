@@ -109,7 +109,7 @@ gau example.com
 - [Unfurl](https://github.com/tomnomnom/unfurl)
     - Unfurl extracts subdomains, paths, and parameters from URLs for deeper analysis.
     - **Usage:**
-      
+
 ```bash
 unfurl "https://example.com/page?query=123"
 ```
