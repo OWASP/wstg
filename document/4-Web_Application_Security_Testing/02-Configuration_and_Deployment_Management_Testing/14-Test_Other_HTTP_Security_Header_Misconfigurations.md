@@ -36,7 +36,7 @@ Security headers play a vital role in protecting web applications from a wide ra
 
 To inspect the security headers used by an application, employ the following methods:
 
-- **Intercepting Proxies:** Use tools such as **Burp Suite** or **curl** to analyze server responses.
+- **Intercepting Proxies:** Use tools such as **Burp Suite** to analyze server responses.
 - **Command Line Tools:** Execute a curl command to retrieve HTTP response headers: `curl -I https://example.com`
     - Sometimes the web application will redirect to a new page, in order to follow redirect use the following command:`curl -L -I https://example.com`
     - Some Firewalls may block curl's default User-Agent and some TLS/SSL errors will also prevent it from returning the correct information, in thise case you could try to use the following command:
