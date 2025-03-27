@@ -202,6 +202,16 @@
                     "Make sure application paths are configured correctly."
                   ]
                 }
+                ,{
+                "name":"Test Other HTTP Security Header Misconfigurations",
+                "id":"WSTG-CONF-14",
+                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/14-Test_Other_HTTP_Security_Header_Misconfigurations",
+                "objectives":[
+                    "Identify improperly configured security headers.",
+                    "Assess the impact of misconfigured security headers.",
+                    "Validate the correct implementation of required security headers."
+                  ]
+                }
             ]
         }
         ,"Identity Management Testing": {
