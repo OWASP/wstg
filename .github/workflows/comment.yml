@@ -1,14 +1,7 @@
 name: Comment
 
 on:
-  workflow_run:
-    workflows: ['Markdown Link Check', 'Markdown Lint Check', 'Markdown Terminology Lint Check']
-    types:
-      - completed
-
-permissions:
-  contents: read
-  pull-requests: write
+  workflow_call:
 
 jobs:
   comment:
