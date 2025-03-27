@@ -53,7 +53,7 @@ jobs:
         # All markdown files, excluding .github
         # Use fix flag so that it goes through all files
         for FILE in $FILES; do echo 'pr/'"$FILE" | grep -v \.github && textlint --config base/.github/configs/.textlintrc --fix --rule terminology 'pr/'"$FILE" | tee -a log.txt; done
-        if grep -q  'Incorrect usage' log.txt ; then exit 1 ; else echo -e \"No terminology issues found.\"; fi
+        if grep -q  'Incorrect term' log.txt ; then exit 1 ; else echo -e \"No terminology issues found.\"; fi
     - name: Show Mistakes
       if: failure()
       run: |
@@ -73,4 +73,10 @@ jobs:
         path: |
           artifact.txt
           pr_number
-
+  comment:
+    needs: textlint
+    if: failure()
+    uses: OWASP/wstg/.github/workflows/comment.yml@master
+    permissions:
+      pull-requests: write
+      contents: read
