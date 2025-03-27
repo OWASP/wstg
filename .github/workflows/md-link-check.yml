@@ -75,3 +75,10 @@ jobs:
         path: |
           artifact.txt
           pr_number
+  comment:
+    needs: link-check
+    if: failure()
+    uses: OWASP/wstg/.github/workflows/comment.yml@master
+    permissions:
+      pull-requests: write
+      contents: read
