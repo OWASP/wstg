@@ -48,7 +48,6 @@ jobs:
     - name: Run textlint Check
       env:
         FILES: '${{ steps.files.outputs.files_updated }} ${{ steps.files.outputs.files_created }}'
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         touch log.txt
         # All markdown files, excluding .github
@@ -74,10 +73,4 @@ jobs:
         path: |
           artifact.txt
           pr_number
-  comment:
-    needs: textlint
-    if: failure()
-    uses: OWASP/wstg/.github/workflows/comment.yml@master
-    permissions:
-      pull-requests: write
-      contents: read
+
