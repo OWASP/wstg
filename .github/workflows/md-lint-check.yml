@@ -8,9 +8,6 @@ on:
     - '**.md'
     - '!.github/**'
 
-permissions:
-  contents: read
-
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -55,8 +52,6 @@ jobs:
     needs: lint
     if: failure()
     uses: OWASP/wstg/.github/workflows/comment.yml@master
-    with:
-      github-token: ${{ secrets.GITHUB_TOKEN }}
     permissions:
       pull-requests: write
       contents: read
