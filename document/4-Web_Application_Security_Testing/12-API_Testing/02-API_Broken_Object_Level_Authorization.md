@@ -21,6 +21,7 @@ Exploiting BOLA can lead to unauthorized access to sensitive data, user imperson
 Review API documentation (e.g. OpenAPI specification), traffic, or use an interception proxy (e.g., **Burp Suite**, **ZAP**) to identify endpoints that accept object identifiers of interest. These could be in the form of **IDs**, **UUIDs**, or other references.
 
 Examples:
+
 - GET /api/users/{user_id}
 - GET /api/orders/{order_id}
 - POST /graphql\
