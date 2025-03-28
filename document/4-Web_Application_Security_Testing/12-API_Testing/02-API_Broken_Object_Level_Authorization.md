@@ -22,10 +22,10 @@ Review API documentation (e.g. OpenAPI specification), traffic, or use an interc
 
 Examples:
 
-- GET /api/users/{user_id}
-- GET /api/orders/{order_id}
-- POST /graphql\
-        query: {user(id: "123") }
+- `GET /api/users/{user_id}`
+- `GET /api/orders/{order_id}`
+- `POST /graphql`\
+        `query: {user(id: "123") }`
 
 With the knowledge gained in the previous step, review and collect third-party object identifiers (e.g. user IDs, orders IDs etc) that can be used subsequently in the object identifiers manipulation.
 
