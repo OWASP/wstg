@@ -65,9 +65,7 @@ Example: `GET /api/users` returns data for all users instead of only the authent
 - **Error responses**: Properly secured APIs in general would return `403 Forbidden` or `401 Unauthorized` for unauthorized object access. A `200 OK` response for another user's object indicates BOLA.
 - **Inconsistent responses**: If some endpoints enforce authorization and others do not, it points to incomplete or inconsistent security controls.
 
-## Remediations
-
-To prevent BOLA, implement the following mitigations:
+## Remediation
 
 - **Object Ownership Checks**: Ensure that object-level authorization checks are performed for every API request. Always verify that the user making the request is authorized to access the requested object.
 - **Role-Based Access Control (RBAC)**: Implement RBAC policies that define which roles can access or modify specific objects.
