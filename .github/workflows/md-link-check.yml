@@ -32,7 +32,7 @@ jobs:
     - name: Changed Files Exporter
       if: github.event_name == 'pull_request'
       id: files
-      uses: umani/changed-files@138acc60bcaa548e0c194fc69ed36321ee8466d2 # v4.2.0
+      uses: umani/changed-files@v4.2.0
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
     - name: PR link check
@@ -75,10 +75,3 @@ jobs:
         path: |
           artifact.txt
           pr_number
-  comment:
-    needs: link-check
-    if: failure()
-    uses: OWASP/wstg/.github/workflows/comment.yml@master
-    permissions:
-      pull-requests: write
-      contents: read
