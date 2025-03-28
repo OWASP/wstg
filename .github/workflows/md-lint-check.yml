@@ -55,6 +55,8 @@ jobs:
     needs: lint
     if: failure()
     uses: OWASP/wstg/.github/workflows/comment.yml@master
+    with:
+      github-token: ${{ secrets.GITHUB_TOKEN }}
     permissions:
       pull-requests: write
       contents: read
