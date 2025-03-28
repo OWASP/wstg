@@ -8,6 +8,9 @@ on:
     - '**.md'
     - '!.github/**'
 
+permissions:
+  contents: read
+
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -48,10 +51,4 @@ jobs:
         path: |
           artifact.txt
           pr_number
-  comment:
-    needs: lint
-    if: failure()
-    uses: OWASP/wstg/.github/workflows/comment.yml@master
-    permissions:
-      pull-requests: write
-      contents: read
+
