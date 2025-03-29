@@ -1016,6 +1016,14 @@
                   ]
                 }
                 ,{
+                "name":"API Broken Object Level Authorization",
+                "id":"WSTG-APIT-02",
+                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/12-API_Testing/02-API_Broken_Object_Level_Authorization",
+                "objectives":[
+                    "The objective of this test is to identify whether the API enforces proper **object-level authorization** checks, ensuring that users can only access and manipulate objects they are authorized to interact with."
+                  ]
+                }
+                ,{
                 "name":"Testing GraphQL",
                 "id":"WSTG-APIT-99",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/12-API_Testing/99-Testing_GraphQL",
