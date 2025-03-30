@@ -60,7 +60,7 @@ Given the URL and querystring: `https://example.com/?color=red&color=blue`
   | mod_wsgi (Python) / Apache | First occurrence only | color=red |
   | Python / Zope | All occurrences in List data type | color=['red','blue'] |
 
-(source: [Appsec EU 2009 Carettoni & Paola](https://owasp.org/www-pdf-archive/AppsecEU09_CarettoniDiPaola_v0.8.pdf))
+(Source: Appsec EU 2009 Carettoni & Paola)
 
 ## Test Objectives
 
@@ -130,7 +130,7 @@ In particular, pay attention to responses having HPP vectors within `data`, `src
 
 ### Whitepapers
 
-- [HTTP Parameter Pollution - Luca Carettoni, Stefano di Paola](https://owasp.org/www-pdf-archive/AppsecEU09_CarettoniDiPaola_v0.8.pdf)
+- [HTTP Parameter Pollution - Luca Carettoni, Stefano di Paola](https://www.acunetix.com/websitesecurity/HTTP-Parameter-Pollution-WhitePaper.pdf)
 - [Client-side HTTP Parameter Pollution Example (Yahoo! Classic Mail flaw) - Stefano di Paola](https://blog.mindedsecurity.com/2009/05/client-side-http-parameter-pollution.html)
 - [How to Detect HTTP Parameter Pollution Attacks - Chrysostomos Daniel](https://www.acunetix.com/blog/whitepaper-http-parameter-pollution/)
 - [CAPEC-460: HTTP Parameter Pollution (HPP) - Evgeny Lebanidze](https://capec.mitre.org/data/definitions/460.html)
