@@ -20,7 +20,7 @@ In 2009, immediately after the publication of the first research on HTTP Paramet
 
 One of these flaws, affecting *ModSecurity SQL Injection Core Rules*, represents a perfect example of the impedance mismatch between applications and filters. The ModSecurity filter would correctly apply a deny list for the following string: `select 1,2,3 from table`, thus blocking this example URL from being processed by the web server: `/index.aspx?page=select 1,2,3 from table`. However, by exploiting the concatenation of multiple HTTP parameters, an attacker could cause the application server to concatenate the string after the ModSecurity filter already accepted the input. As an example, the URL `/index.aspx?page=select 1&page=2,3` from table would not trigger the ModSecurity filter, yet the application layer would concatenate the input back into the full malicious string.
 
-Another HPP vulnerability turned out to affect *Apple Cups*, the well-known printing system used by many UNIX systems. Exploiting HPP, an attacker could easily trigger a Cross-Site Scripting vulnerability using the following URL: `https://127.0.0.1:631/admin/?kerberos=onmouseover=alert(1)&kerberos`. The application validation checkpoint could be bypassed by adding an extra `kerberos` argument having a valid string (e.g. empty string). As the validation checkpoint would only consider the second occurrence, the first `kerberos` parameter was not properly sanitized before being used to generate dynamic HTML content. Successful exploitation would result in JavaScript code execution under the context of the hosting site.
+Another HPP vulnerability turned out to affect *Apple Cups*, the well-known printing system used by many Unix systems. Exploiting HPP, an attacker could easily trigger a Cross-Site Scripting vulnerability using the following URL: `https://127.0.0.1:631/admin/?kerberos=onmouseover=alert(1)&kerberos`. The application validation checkpoint could be bypassed by adding an extra `kerberos` argument having a valid string (e.g. empty string). As the validation checkpoint would only consider the second occurrence, the first `kerberos` parameter was not properly sanitized before being used to generate dynamic HTML content. Successful exploitation would result in JavaScript code execution under the context of the hosting site.
 
 ### Authentication Bypass
 
@@ -60,7 +60,7 @@ Given the URL and querystring: `https://example.com/?color=red&color=blue`
   | mod_wsgi (Python) / Apache | First occurrence only | color=red |
   | Python / Zope | All occurrences in List data type | color=['red','blue'] |
 
-(source: [Appsec EU 2009 Carettoni & Paola](https://owasp.org/www-pdf-archive/AppsecEU09_CarettoniDiPaola_v0.8.pdf))
+(Source: Appsec EU 2009 Carettoni & Paola)
 
 ## Test Objectives
 
@@ -130,7 +130,7 @@ In particular, pay attention to responses having HPP vectors within `data`, `src
 
 ### Whitepapers
 
-- [HTTP Parameter Pollution - Luca Carettoni, Stefano di Paola](https://owasp.org/www-pdf-archive/AppsecEU09_CarettoniDiPaola_v0.8.pdf)
+- [HTTP Parameter Pollution - Luca Carettoni, Stefano di Paola](https://www.acunetix.com/websitesecurity/HTTP-Parameter-Pollution-WhitePaper.pdf)
 - [Client-side HTTP Parameter Pollution Example (Yahoo! Classic Mail flaw) - Stefano di Paola](https://blog.mindedsecurity.com/2009/05/client-side-http-parameter-pollution.html)
 - [How to Detect HTTP Parameter Pollution Attacks - Chrysostomos Daniel](https://www.acunetix.com/blog/whitepaper-http-parameter-pollution/)
 - [CAPEC-460: HTTP Parameter Pollution (HPP) - Evgeny Lebanidze](https://capec.mitre.org/data/definitions/460.html)
