@@ -38,12 +38,13 @@ Log in as a lower-privilege user (e.g., guest or regular user) and send requests
 
 Example: as a **regular user**, send a request to the following administrative endpoint to delete a random user:
 
-    POST /api/admin/deleteUser
-    Authorization: Bearer <regular_user_token>
-    {
-      "userId": "12345"
-    }
-        
+```
+POST /api/admin/deleteUser
+Authorization: Bearer <regular_user_token>
+
+{ "userId": "12345" }
+```
+
 ### Test Function-Level Access with Different HTTP Methods
 
 Test various **HTTP methods** for BFLA vulnerabilities:
@@ -64,14 +65,7 @@ Example: `DELETE /api/admin/deleteUser/12345`
 
 In **GraphQL APIs**, test if a user can invoke functions restricted to higher-privilege roles by modifying GraphQL queries.
 
-Example:
-
-    graphql
-    mutation {
-      deleteUser(id: "12345") {
-        success
-      }
-    }
+Example: `mutation { deleteUser(id: "12345") { success } }`.
 
 ## Indicators of BFLA
 
