@@ -44,7 +44,7 @@ The bank account to which the payments were directed had only 1000 free transfer
 - Once found try to insert logically invalid data into the application/system.
 Specific Testing Method:
 - Perform frontend GUI Functional Valid testing on the application to ensure that the only "valid" values are accepted.
-- Using an intercepting proxy observe the HTTP POST/GET looking for places that variables such as cost and quality are passed. Specifically, look for "hand-offs" between application/systems that may be possible injection or tamper points.
+- Using an intercepting proxy observe the HTTP POST/GET looking for places that variables such as cost and quantity are passed. Specifically, look for "hand-offs" between application/systems that may be possible injection or tamper points.
 - Once variables are found start interrogating the field with logically "invalid" data, such as social security numbers or unique identifiers that do not exist or that do not fit the business logic. This testing verifies that the server functions properly and does not accept logically invalid data.
 
 ## Related Test Cases
@@ -66,4 +66,4 @@ The application/system must ensure that only "logically valid" data is accepted 
 ## References
 
 - [OWASP Proactive Controls (C5) - Validate All Inputs](https://owasp.org/www-project-proactive-controls/v3/en/c5-validate-inputs)
-- [OWASP Cheatsheet Series - Input_Validation_Cheat_Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html)
+- [OWASP Cheat Sheet Series - Input_Validation_Cheat_Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html)
