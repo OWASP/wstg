@@ -35,7 +35,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Jeremy Bonghwan Choi
 - Jinson Varghese Behanan
 - Joel Espunya
-- [Joel Aviad Ossi](https://websec.net)
+- Joel Aviad Ossi
 - Manh Pham Tien
 - Mark Clayton
 - Or Asaf
