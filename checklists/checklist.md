@@ -125,5 +125,5 @@ Note: The `Status` column can be set for values similar to "Pass", "Fail", "N/A"
 | WSTG-CLNT-14      | Testing for Reverse Tabnabbing                                             |        |       |
 | **WSTG-APIT**     | **API Testing**                                                            |        |       |
 | WSTG-APIT-01      | API Reconnaissance                                                         |        |       |
-| WSTG-APIT-01      | API Broken Object Level Authorization                                      |        |       |
+| WSTG-APIT-02      | API Broken Object Level Authorization                                      |        |       |
 | WSTG-APIT-99      | Testing GraphQL                                                            |        |       |
