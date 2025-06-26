@@ -38,7 +38,7 @@ Log in as a lower-privilege user (e.g., guest or regular user) and send requests
 
 Example: as a **regular user**, send a request to the following administrative endpoint to delete a random user:
 
-```
+```http
 POST /api/admin/deleteUser
 Authorization: Bearer <regular_user_token>
 
