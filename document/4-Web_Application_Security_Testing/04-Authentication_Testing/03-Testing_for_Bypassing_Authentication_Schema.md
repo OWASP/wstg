@@ -12,7 +12,7 @@ While most applications require authentication to gain access to private informa
 
 In addition, it is often possible to bypass authentication measures by tampering with requests and tricking the application into thinking that the user is already authenticated. This can be accomplished either by modifying the given URL parameter, by manipulating the form, or by counterfeiting sessions.
 
-Problems related to the authentication schema can be found at different stages of the software development life cycle (SDLC), like the design, development, and deployment phases:
+Problems related to the authentication schema can be found at different stages of the software development lifecycle (SDLC), like the design, development, and deployment phases:
 
 - In the design phase errors can include a wrong definition of application sections to be protected, the choice of not applying strong encryption protocols for securing the transmission of credentials, and many more.
 - In the development phase errors can include the incorrect implementation of input validation functionality or not following the security best practices for the specific language.
@@ -94,7 +94,7 @@ The following figure shows that with a simple SQL injection attack, it is someti
 
 If an attacker has been able to retrieve the application source code by exploiting a previously discovered vulnerability (e.g., directory traversal), or from a web repository (Open Source Applications), it could be possible to perform refined attacks against the implementation of the authentication process.
 
-In the following example (PHPBB 2.0.12 - Authentication Bypass Vulnerability), at line 2 the `unserialize()` function parses a user supplied cookie and sets values inside the `$sessiondata` array. At line 7, the user's MD5 password hash stored inside the back end database (`$auto_login_key`) is compared to the one supplied (`$sessiondata['autologinid']`) by the user.
+In the following example (PHPBB 2.0.12 - Authentication Bypass Vulnerability), at line 2 the `unserialize()` function parses a user supplied cookie and sets values inside the `$sessiondata` array. At line 7, the user's MD5 password hash stored inside the backend database (`$auto_login_key`) is compared to the one supplied (`$sessiondata['autologinid']`) by the user.
 
 ```php
 1. if (isset($HTTP_COOKIE_VARS[$cookiename . '_sid'])) {
@@ -121,7 +121,7 @@ a:2:{s:11:"autologinid";b:1;s:6:"userid";s:1:"2";}  // original value: a:2:{s:11
 Let's disassemble what we did in this string:
 
 1. `autologinid` is now a boolean set to `true`: this can be seen by replacing the MD5 value of the password hash (`s:32:"8b8e9715d12e4ca12c4c3eb4865aaf6a"`) with `b:1`
-2. `userid` is now set to the admin id: this can be seen in the last piece of the string, where we replaced our regular user ID (`s:4:"1337"`) with `s:1:"2"`
+2. `userid` is now set to the admin ID: this can be seen in the last piece of the string, where we replaced our regular user ID (`s:4:"1337"`) with `s:1:"2"`
 
 ## Tools
 
