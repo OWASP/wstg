@@ -81,4 +81,4 @@ You can also join our [Google Group](https://groups.google.com/a/owasp.org/forum
 
 ---
 
-Open Web Application Security Project and OWASP are registered trademarks of the OWASP Foundation, Inc.
+Open Worldwide Application Security Project and OWASP are registered trademarks of the OWASP Foundationw, Inc.
