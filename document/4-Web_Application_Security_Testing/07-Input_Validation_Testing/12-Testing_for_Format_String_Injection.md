@@ -15,7 +15,7 @@ The worst case for format strings vulnerabilities occur in languages that don't 
 
 These format string functions cannot write to memory, but attackers can still cause information disclosure by changing format strings to output values the developers did not intend to send:
 
-- Python 2.6 and 2.7 [str.format](https://docs.python.org/2/library/string.html) and Python 3 unicode [str.format](https://docs.python.org/3/library/stdtypes.html#str.format) can be modified by injecting strings that can point to [other variables](https://lucumr.pocoo.org/2016/12/29/careful-with-str-format/) in memory
+- Python 2.6 and 2.7 [str.format](https://docs.python.org/2/library/string.html) and Python 3 Unicode [str.format](https://docs.python.org/3/library/stdtypes.html#str.format) can be modified by injecting strings that can point to [other variables](https://lucumr.pocoo.org/2016/12/29/careful-with-str-format/) in memory
 
 The following format string functions can cause runtime errors if the attacker adds conversion specifiers:
 
