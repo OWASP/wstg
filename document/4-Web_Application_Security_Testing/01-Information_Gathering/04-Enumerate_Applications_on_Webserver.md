@@ -13,7 +13,7 @@ Security professionals are sometimes given a set of IP addresses as a target to 
 
 Sometimes, the target specification is richer. The tester may be given a list of IP addresses and their corresponding symbolic names. Nevertheless, this list might convey partial information, i.e., it could omit some symbolic names and the client may not even be aware of that (this is more likely to happen in large organizations).
 
-Other issues affecting the scope of the assessment are represented by web applications published at non-obvious URLs (e.g., `http://www.example.com/some-strange-URL`), which are not referenced elsewhere. This may happen either by error (due to misconfigurations), or intentionally (for example, unadvertised administrative interfaces).
+Other issues affecting the scope of the assessment are represented by web applications published at non-obvious URLs (e.g., `https://www.example.com/some-strange-URL`), which are not referenced elsewhere. This may happen either by error (due to misconfigurations), or intentionally (for example, unadvertised administrative interfaces).
 
 To address these issues, it is necessary to perform web application discovery.
 
@@ -23,7 +23,7 @@ To address these issues, it is necessary to perform web application discovery.
 
 ## How to Test
 
-Web application discovery is a process that aims to identify web applications on a given infrastructure. The latter is usually specified as a set of IP addresses (maybe a net block), but may consist of a set of DNS symbolic names or a mix of the two. This information is handed out prior to the execution of an assessment, be it a classic-style penetration test or an application-focused assessment. In both cases, unless the rules of engagement specify otherwise (e.g., test only the application located at the URL `http://www.example.com/`), the assessment should strive to be the most comprehensive in scope, i.e. it should identify all the applications accessible through the given target. The following examples examine a few techniques that can be employed to achieve this goal.
+Web application discovery is a process that aims to identify web applications on a given infrastructure. The latter is usually specified as a set of IP addresses (maybe a net block), but may consist of a set of DNS symbolic names or a mix of the two. This information is handed out prior to the execution of an assessment, be it a classic-style penetration test or an application-focused assessment. In both cases, unless the rules of engagement specify otherwise (e.g., test only the application located at the URL `https://www.example.com/`), the assessment should strive to be the most comprehensive in scope, i.e. it should identify all the applications accessible through the given target. The following examples examine a few techniques that can be employed to achieve this goal.
 
 > Some of the following techniques apply to Internet-facing web servers, namely DNS and reverse-IP web-based search services and the use of search engines. Examples make use of private IP addresses (such as `192.168.1.100`), which, unless indicated otherwise, represent *generic* IP addresses and are used only for anonymity purposes.
 
@@ -31,15 +31,15 @@ There are three factors influencing how many applications are related to a given
 
 1. **Different Base URL**
 
-    The obvious entry point for a web application is `www.example.com`, i.e., with this shorthand notation we think of the web application originating at `http://www.example.com/` (the same applies for HTTPS). However, even though this is the most common situation, there is nothing forcing the application to start at `/`.
+    The obvious entry point for a web application is `www.example.com`, i.e., with this shorthand notation we think of the web application originating at `https://www.example.com/` (the same applies for HTTPS). However, even though this is the most common situation, there is nothing forcing the application to start at `/`.
 
-    For example, the same symbolic name may be associated to three web applications such as: `http://www.example.com/app1` `http://www.example.com/app2` `http://www.example.com/app3`
+    For example, the same symbolic name may be associated to three web applications such as: `https://www.example.com/app1` `https://www.example.com/app2` `https://www.example.com/app3`
 
-    In this case, the URL `http://www.example.com/` would not be associated with a meaningful page. The three applications would remain **hidden** unless the tester explicitly knows how to access them, i.e., the tester knows *app1*, *app2* or *app3*. There is usually no need to publish web applications in this way, unless the owner doesn’t want them to be accessible in a standard way, and is prepared to inform the users about their exact location. This doesn’t mean that these applications are secret, just that their existence and location is not explicitly advertised.
+    In this case, the URL `https://www.example.com/` would not be associated with a meaningful page. The three applications would remain **hidden** unless the tester explicitly knows how to access them, i.e., the tester knows *app1*, *app2* or *app3*. There is usually no need to publish web applications in this way, unless the owner doesn’t want them to be accessible in a standard way, and is prepared to inform the users about their exact location. This doesn’t mean that these applications are secret, just that their existence and location is not explicitly advertised.
 
 2. **Non-standard Ports**
 
-    While web applications usually live on port 80 (HTTP) and 443 (HTTPS), there is nothing fixed or mandatory about these port numbers. In fact, web applications may be associated with arbitrary TCP ports, and can be referenced by specifying the port number as follows: `http[s]://www.example.com:port/`. For example, `http://www.example.com:20000/`.
+    While web applications usually live on port 80 (HTTP) and 443 (HTTPS), there is nothing fixed or mandatory about these port numbers. In fact, web applications may be associated with arbitrary TCP ports, and can be referenced by specifying the port number as follows: `http[s]://www.example.com:port/`. For example, `https://www.example.com:20000/`.
 
 3. **Virtual Hosts**
 
@@ -162,7 +162,7 @@ Reverse-IP services are similar to DNS inverse queries, with the difference that
 
 - [MxToolbox Reverse IP](https://mxtoolbox.com/ReverseLookup.aspx)
 - [DNSstuff](https://www.dnsstuff.com/) (multiple services available)
-- [Net Square](https://web.archive.org/web/20190515092354/http://www.net-square.com/mspawn.html) (multiple queries on domains and IP addresses, requires installation)
+- [Net Square](https://web.archive.org/web/20190515092354/https://www.net-square.com/mspawn.html) (multiple queries on domains and IP addresses, requires installation)
 
 #### Googling
 

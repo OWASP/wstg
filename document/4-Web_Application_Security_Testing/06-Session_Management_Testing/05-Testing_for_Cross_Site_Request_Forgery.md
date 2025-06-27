@@ -32,7 +32,7 @@ The GET request could be sent by the user in several different ways:
 - Typing the URL directly in the browser
 - Following an external link that points to the URL
 
-These invocations are indistinguishable by the application. In particular, the third may be quite dangerous. There are a number of techniques and vulnerabilities that can disguise the real properties of a link. The link can be embedded in an email message, appear in a malicious website to which the user is lured, or appear in content hosted by a third-party (such as another web site or HTML email) and point to a resource of the application. If the user clicks on the link, since they are already authenticated by the web application on *site*, the browser will issue a GET request to the web application, accompanied by authentication information (the session ID cookie). This results in a valid operation being performed on the web application that the user does not expect; for example, a funds transfer on a web banking application.
+These invocations are indistinguishable by the application. In particular, the third may be quite dangerous. There are a number of techniques and vulnerabilities that can disguise the real properties of a link. The link can be embedded in an email message, appear in a malicious site to which the user is lured, or appear in content hosted by a third-party (such as another site or HTML email) and point to a resource of the application. If the user clicks on the link, since they are already authenticated by the web application on *site*, the browser will issue a GET request to the web application, accompanied by authentication information (the session ID cookie). This results in a valid operation being performed on the web application that the user does not expect; for example, a funds transfer on a web banking application.
 
 By using a tag such as `img`, as specified in point 4 above, it is not even necessary that the user follows a particular link. Suppose the attacker sends the user an email inducing them to visit a URL referring to a page containing the following (oversimplified) HTML.
 
@@ -62,7 +62,7 @@ In integrated mail/browser environments, simply displaying an email message cont
 <img src="https://[attacker]/picture.gif" width="0" height="0">
 ```
 
-In this example, `[attacker]` is a site controlled by the attacker. By utilizing a redirect mechanism, the malicious site may use `http://[attacker]/picture.gif` to direct the victim to `http://[thirdparty]/action` and trigger the `action`.
+In this example, `[attacker]` is a site controlled by the attacker. By utilizing a redirect mechanism, the malicious site may use `https://[attacker]/picture.gif` to direct the victim to `https://[thirdparty]/action` and trigger the `action`.
 
 Cookies are not the only example involved in this kind of vulnerability. Web applications whose session information is entirely supplied by the browser are vulnerable too. This includes applications relying on HTTP authentication mechanisms alone, since the authentication information is known by the browser and is sent automatically upon each request. This does not include form-based authentication, which occurs just once and generates some form of session-related information, usually a cookie.
 
@@ -106,7 +106,7 @@ Or by following a link pointing, directly or via a redirection, to the above URL
 
 In all of these cases, if the user is currently logged in to the firewall management application, the request will succeed and will modify the configuration of the firewall. One can imagine attacks targeting sensitive applications and making automatic auction bids, money transfers, orders, changing the configuration of critical software components, etc.
 
-An interesting thing is that these vulnerabilities may be exercised behind a firewall; i.e. it is sufficient that the link being attacked be reachable by the victim and not directly by the attacker. In particular, it can be any intranet web server; for example, in the firewall management scenario mentioned before, which is unlikely to be exposed to the Internet.
+An interesting thing is that these vulnerabilities may be exercised behind a firewall; i.e. it is sufficient that the link being attacked be reachable by the victim and not directly by the attacker. In particular, it can be any intranet web server; for example, in the firewall management scenario mentioned before, which is unlikely to be exposed to the internet.
 
 Self-vulnerable applications, i.e. applications that are used both as attack vector and target (such as web mail applications), make things worse. Since users are logged in when they read their email messages, a vulnerable application of this type can allow attackers to perform actions such as deleting messages or sending messages that appear to originate from the victim.
 
@@ -130,7 +130,7 @@ In case of POST, the following sample can be used.
 <html>
 <body onload='document.CSRF.submit()'>
 
-<form action='http://targetWebsite/Authenticate.jsp' method='POST' name='CSRF'>
+<form action='https://targetWebsite/Authenticate.jsp' method='POST' name='CSRF'>
     <input type='hidden' name='name' value='Hacked'>
     <input type='hidden' name='password' value='Hacked'>
 </form>
@@ -145,7 +145,7 @@ In case of web applications in which developers are utilizing JSON for browser t
 <html>
  <body>
   <script>history.pushState('', '', '/')</script>
-   <form action='http://victimsite.com' method='POST' enctype='text/plain'>
+   <form action='https://victimsite.com' method='POST' enctype='text/plain'>
      <input type='hidden' name='{"name":"hacked","password":"hacked","padding":"'value='something"}' />
      <input type='submit' value='Submit request' />
    </form>
@@ -171,16 +171,16 @@ When this data is sent as a POST request, the server will happily accept the nam
 
 ## Tools
 
-- [OWASP ZAP](https://www.zaproxy.org/)
+- [ZAP](https://www.zaproxy.org/)
 - [CSRF Tester](https://wiki.owasp.org/index.php/Category:OWASP_CSRFTester_Project)
 - [Pinata-csrf-tool](https://code.google.com/archive/p/pinata-csrf-tool/)
 
 ## References
 
 - [Peter W: "Cross-Site Request Forgeries"](https://web.archive.org/web/20160303230910/http://www.tux.org/~peterw/csrf.txt)
-- [Thomas Schreiber: "Session Riding"](https://web.archive.org/web/20160304001446/http://www.securenet.de/papers/Session_Riding.pdf)
-- [Oldest known post](https://web.archive.org/web/20000622042229/http://www.zope.org/Members/jim/ZopeSecurity/ClientSideTrojan)
+- [Thomas Schreiber: "Session Riding"](https://web.archive.org/web/20160304001446/https://www.securenet.de/papers/Session_Riding.pdf)
+- [Oldest known post](https://web.archive.org/web/20000622042229/https://www.zope.org/Members/jim/ZopeSecurity/ClientSideTrojan)
 - [Cross-site Request Forgery FAQ](https://www.cgisecurity.com/csrf-faq.html)
-- [A Most-Neglected Fact About Cross Site Request Forgery (CSRF)](http://yehg.net/lab/pr0js/view.php/A_Most-Neglected_Fact_About_CSRF.pdf)
+- [A Most-Neglected Fact About Cross Site Request Forgery (CSRF)](https://yehg.net/lab/pr0js/view.php/A_Most-Neglected_Fact_About_CSRF.pdf)
 - [Multi-POST CSRF](https://www.lanmaster53.com/2013/07/17/multi-post-csrf/)
 - [SANS Pen Test Webcast: Complete Application pwnage via Multi POST XSRF](https://www.youtube.com/watch?v=EOs5PZiiwug)

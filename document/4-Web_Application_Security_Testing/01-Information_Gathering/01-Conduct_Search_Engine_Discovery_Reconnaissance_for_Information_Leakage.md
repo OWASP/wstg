@@ -33,7 +33,7 @@ Use a search engine to search for potentially sensitive information. This may in
 Do not limit testing to just one search engine provider, as different search engines may generate different results. Search engine results can vary in a few ways, depending on when the engine last crawled content, and the algorithm the engine uses to determine relevant pages. Consider using the following (alphabetically listed) search engines:
 
 - [Baidu](https://www.baidu.com/), China's [most popular](https://en.wikipedia.org/wiki/Web_search_engine#Market_share) search engine.
-- [Bing](https://www.bing.com/), a search engine owned and operated by Microsoft, and the second [most popular](https://en.wikipedia.org/wiki/Web_search_engine#Market_share) worldwide. Supports [advanced search keywords](http://help.bing.microsoft.com/#apex/18/en-US/10001/-1).
+- [Bing](https://www.bing.com/), a search engine owned and operated by Microsoft, and the second [most popular](https://en.wikipedia.org/wiki/Web_search_engine#Market_share) worldwide. Supports [advanced search keywords](https://help.bing.microsoft.com/#apex/18/en-US/10001/-1).
 - [binsearch.info](https://binsearch.info/), a search engine for binary Usenet newsgroups.
 - [Common Crawl](https://commoncrawl.org/), "an open repository of web crawl data that can be accessed and analyzed by anyone."
 - [DuckDuckGo](https://duckduckgo.com/), a privacy-focused search engine that compiles results from many different [sources](https://help.duckduckgo.com/results/sources/). Supports [search syntax](https://help.duckduckgo.com/duckduckgo-help-pages/results/syntax/).

@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Fuzzing is the process or technique of sending a number of request to as target site in a certain interval of time. In other words, it is also similar to bruteforcing. Fuzzing is a process which can be achieved using tools like Wfuzz, ffuf, and so on. As a tester you would need to provide the tool with the target URL, parameter, endpoint, etc, and some sort of inputs. Then the fuzzing tool crafts requests and sends them to the target. After the fuzzing has finished, the responses, timing, status codes, and otehr characteristics need to be analyzed for potential vulnerabilities.
+Fuzzing is the process or technique of sending a number of request to as target site in a certain interval of time. In other words, it is also similar to bruteforcing. Fuzzing is a process which can be achieved using tools like Wfuzz, ffuf, and so on. As a tester you would need to provide the tool with the target URL, parameter, endpoint, etc, and some sort of inputs. Then the fuzzing tool crafts requests and sends them to the target. After the fuzzing has finished, the responses, timing, status codes, and other characteristics need to be analyzed for potential vulnerabilities.
 
 ## Why fuzzing?
 
@@ -20,11 +20,11 @@ There are hundreds of tools available in the industry for doing fuzzing. But som
 wfuzz -w userIDs.txt https://example.com/view_photo?userId=FUZZ
 ```
 
-In the above command, `userIds.txt` is a worldlist file containing numeric ID values. Here, we are telling wfuzz to fuzz the request to the example URL. Note that `FUZZ` word in the URL, it will act as a placeholder for wfuzz to replace with values from the wordlist. All the numeric ID values from the `userIDs.txt` file will be inserted replacing the `FUZZ` keyword.
+In the above command, `userIds.txt` is a wordlist file containing numeric ID values. Here, we are telling wfuzz to fuzz the request to the example URL. Note that `FUZZ` word in the URL, it will act as a placeholder for wfuzz to replace with values from the wordlist. All the numeric ID values from the `userIDs.txt` file will be inserted replacing the `FUZZ` keyword.
 
 ### Ffuf
 
-[Ffuf](https://github.com/ffuf/ffuf) is a web fuzzing tool written in the Go language which is very fast and recursive in nature. It works similar to Wfuzz but in contrast it is recursive. Ffuf also works by replacing the placeholder `FUZZ` with worldlist values. For example:
+[Ffuf](https://github.com/ffuf/ffuf) is a web fuzzing tool written in the Go language which is very fast and recursive in nature. It works similar to Wfuzz but in contrast it is recursive. Ffuf also works by replacing the placeholder `FUZZ` with wordlist values. For example:
 
 ```bash
 ffuf -w userIDs.txt -u https://example.com/view_photo?userId=FUZZ
@@ -40,17 +40,17 @@ Here the `-w` is the flag for wordlist and `-u` is the flag for the target URL. 
 gobuster dir -w endpoints.txt -u https://example.com
 ```
 
-In the above command `dir` specifies we are fuzzing a directory, `-u` is the flag for URL, and `-w` is the flag for wordlist where `endpoints.txt` is the worldlist file payloads will be taken from. The command runs concurrent requests to the endpoint to find available directories.
+In the above command `dir` specifies we are fuzzing a directory, `-u` is the flag for URL, and `-w` is the flag for wordlist where `endpoints.txt` is the wordlist file payloads will be taken from. The command runs concurrent requests to the endpoint to find available directories.
 
 ### ZAP
 
-[ZAP](https://owasp.org/www-project-zap) is a web application security scanner that can be used to find vulnerabilities and weaknesses in web applications. It also includes a [Fuzzer](https://www.zaproxy.org/docs/desktop/addons/fuzzer/).
+[ZAP](https://www.zaproxy.org) is a web application security scanner that can be used to find vulnerabilities and weaknesses in web applications. It also includes a [Fuzzer](https://www.zaproxy.org/docs/desktop/addons/fuzzer/).
 
 One of the key features of ZAP is its ability to perform both passive and active scans. Passive scans involve observing the traffic between the user and the web application, while active scans involve sending test payloads to the web application to identify vulnerabilities.
 
 ### Wordlists and References
 
-In the examples above we have seen why we need a wordlist. Just wordlists are not enough, the worlist must great for your fuzzing scenario. If you don't find any wordlists that match the necessary scenario then consider generating your own wordlist. Some popular wordlists and references are provided below.
+In the examples above we have seen why we need a wordlist. Just wordlists are not enough, the wordlist must great for your fuzzing scenario. If you don't find any wordlists that match the necessary scenario then consider generating your own wordlist. Some popular wordlists and references are provided below.
 
 - [Cross-site scripting (XSS) cheat sheet](https://portswigger.net/web-security/cross-site-scripting/cheat-sheet)
 - [AwesomeXSS](https://github.com/s0md3v/AwesomeXSS)

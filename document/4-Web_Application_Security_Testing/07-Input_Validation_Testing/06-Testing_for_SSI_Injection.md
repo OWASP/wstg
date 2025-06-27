@@ -65,15 +65,15 @@ User-Agent: <!--#include virtual="/proc/version"-->
 ## Tools
 
 - [Web Proxy Burp Suite](https://portswigger.net/burp/communitydownload)
-- [OWASP ZAP](https://www.zaproxy.org/)
+- [ZAP](https://www.zaproxy.org/)
 - [String searcher: grep](https://www.gnu.org/software/grep)
 
 ## References
 
-- [Nginx SSI module](http://nginx.org/en/docs/http/ngx_http_ssi_module.html)
+- [Nginx SSI module](https://nginx.org/en/docs/http/ngx_http_ssi_module.html)
 - [Apache: Module mod_include](https://httpd.apache.org/docs/current/mod/mod_include.html)
-- [IIS: Server Side Includes directives](https://docs.microsoft.com/en-us/previous-versions/iis/6.0-sdk/ms525185%28v=vs.90%29)
-- [Apache Tutorial: Introduction to Server Side Includes](https://httpd.apache.org/docs/current/howto/ssi.html)
+- [IIS: Server-Side Includes directives](https://docs.microsoft.com/en-us/previous-versions/iis/6.0-sdk/ms525185%28v=vs.90%29)
+- [Apache Tutorial: Introduction to Server-Side Includes](https://httpd.apache.org/docs/current/howto/ssi.html)
 - [Apache: Security Tips for Server Configuration](https://httpd.apache.org/docs/current/misc/security_tips.html#ssi)
 - [SSI Injection instead of JavaScript Malware](https://jeremiahgrossman.blogspot.com/2006/08/ssi-injection-instead-of-javascript.html)
 - [IIS: Notes on Server-Side Includes (SSI) syntax](https://blogs.iis.net/robert_mcmurray/archive/2010/12/28/iis-notes-on-server-side-includes-ssi-syntax-kb-203064-revisited.aspx)

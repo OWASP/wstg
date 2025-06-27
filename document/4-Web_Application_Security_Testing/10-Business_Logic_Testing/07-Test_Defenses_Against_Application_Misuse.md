@@ -81,5 +81,4 @@ Applications should implement active defenses to fend off attackers and abusers.
 - [IR 7684](https://csrc.nist.gov/publications/detail/nistir/7864/final) Common Misuse Scoring System (CMSS), NIST
 - [Common Attack Pattern Enumeration and Classification](https://capec.mitre.org/) (CAPEC), The Mitre Corporation
 - [OWASP AppSensor Project](https://owasp.org/www-project-appsensor/)
-- [AppSensor Guide v2](https://owasp.org/www-pdf-archive/Owasp-appsensor-guide-v2.pdf), OWASP
 - Watson C, Coates M, Melton J and Groves G, [Creating Attack-Aware Software Applications with Real-Time Defenses](https://pdfs.semanticscholar.org/0236/5631792fa6c953e82cadb0e7268be35df905.pdf), CrossTalk The Journal of Defense Software Engineering, Vol. 24, No. 5, Sep/Oct 2011

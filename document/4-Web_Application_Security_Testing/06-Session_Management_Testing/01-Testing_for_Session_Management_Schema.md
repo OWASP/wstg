@@ -190,7 +190,7 @@ More information here: [Testing for cookies attributes](02-Testing_for_Cookies_A
 
 ## Tools
 
-- [OWASP Zed Attack Proxy Project (ZAP)](https://www.zaproxy.org) - features a session token analysis mechanism.
+- [Zed Attack Proxy Project (ZAP)](https://www.zaproxy.org) - features a session token analysis mechanism.
 - [Burp Sequencer](https://portswigger.net/burp/documentation/desktop/tools/sequencer)
 - [YEHG's JHijack](https://github.com/yehgdotnet/JHijack)
 
@@ -200,10 +200,9 @@ More information here: [Testing for cookies attributes](02-Testing_for_Cookies_A
 
 - [RFC 2965 "HTTP State Management Mechanism"](https://tools.ietf.org/html/rfc2965)
 - [RFC 1750 "Randomness Recommendations for Security"](https://www.ietf.org/rfc/rfc1750.txt)
-- [Michal Zalewski: "Strange Attractors and TCP/IP Sequence Number Analysis" (2001)](http://lcamtuf.coredump.cx/oldtcp/tcpseq.html)
-- [Michal Zalewski: "Strange Attractors and TCP/IP Sequence Number Analysis - One Year Later" (2002)](http://lcamtuf.coredump.cx/newtcp/)
-- [Correlation Coefficient](http://mathworld.wolfram.com/CorrelationCoefficient.html)
+- [Michal Zalewski: "Strange Attractors and TCP/IP Sequence Number Analysis" (2001)](https://lcamtuf.coredump.cx/oldtcp/tcpseq.html)
+- [Michal Zalewski: "Strange Attractors and TCP/IP Sequence Number Analysis - One Year Later" (2002)](https://lcamtuf.coredump.cx/newtcp/)
+- [Correlation Coefficient](https://mathworld.wolfram.com/CorrelationCoefficient.html)
 - [ENT](https://fourmilab.ch/random/)
 - [DMA 2005-0614a - Global Hauri ViRobot Server cookie overflow](https://seclists.org/lists/fulldisclosure/2005/Jun/0188.html)
-- [Gunter Ollmann: "Web Based Session Management"](http://www.technicalinfo.net)
 - [OWASP Code Review Guide](https://wiki.owasp.org/index.php/Category:OWASP_Code_Review_Project)

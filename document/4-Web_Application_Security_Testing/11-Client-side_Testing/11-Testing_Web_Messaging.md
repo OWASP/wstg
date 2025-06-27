@@ -21,7 +21,7 @@ There are some security concerns when using `*` as the domain that we discuss be
 Here is an example of the messaging API in use. To send a message:
 
 ```js
-iframe1.contentWindow.postMessage("Hello world","http://www.example.com");
+iframe1.contentWindow.postMessage("Hello world","https://www.example.com");
 ```
 
 To receive a message:
@@ -39,7 +39,7 @@ function handler(event) {
 
 ### Origin Security
 
-The origin is made up of a scheme, host name, and port. It uniquely identifies the domain sending or receiving the message, and does not include the path or the fragment part of the URL. For instance, `https://example.com` will be considered different from `http://example.com` because the schema of the former is `https`, while the latter is `http`. This also applies to web servers running in the same domain but on different ports.
+The origin is made up of a scheme, host name, and port. It uniquely identifies the domain sending or receiving the message, and does not include the path or the fragment part of the URL. For instance, `https://example.com` will be considered different from `https://example.com` because the schema of the former is `https`, while the latter is `http`. This also applies to web servers running in the same domain but on different ports.
 
 ## Test Objectives
 

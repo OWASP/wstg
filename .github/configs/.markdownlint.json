@@ -5,5 +5,6 @@
   "MD024": { "siblings_only": true},
   "MD026": { "punctuation" : ".,;:!。，；：!" },
   "line-length": false,
+  "descriptive-link-text": false,
   "code-block-style": { "style" : "fenced" }
 }

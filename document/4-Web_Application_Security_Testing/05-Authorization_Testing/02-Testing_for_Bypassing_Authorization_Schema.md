@@ -111,7 +111,7 @@ Some applications support non-standard headers such as `X-Original-URL` or `X-Re
 
 This behavior can be leveraged in a situation in which the application is behind a component that applies access control restriction based on the request URL.
 
-The kind of access control restriction based on the request URL can be, for example, blocking access from Internet to an administration console exposed on `/console` or `/admin`.
+The kind of access control restriction based on the request URL can be, for example, blocking access from internet to an administration console exposed on `/console` or `/admin`.
 
 To detect the support for the header `X-Original-URL` or `X-Rewrite-URL`, the following steps can be applied.
 
@@ -143,7 +143,7 @@ X-Rewrite-URL: /donotexist2
 
 If the response for either request contains markers that the resource was not found, this indicates that the application supports the special request headers. These markers may include the HTTP response status code 404, or a "resource not found" message in the response body.
 
-Once the support for the header `X-Original-URL` or `X-Rewrite-URL` was validated then the tentative of bypass against the access control restriction can be leveraged by sending the expected request to the application but specifying a URL "allowed" by the front-end component as the main request URL and specifying the real target URL in the `X-Original-URL` or `X-Rewrite-URL` header depending on the one supported. If both are supported then try one after the other to verify for which header the bypass is effective.
+Once the support for the header `X-Original-URL` or `X-Rewrite-URL` was validated then the tentative of bypass against the access control restriction can be leveraged by sending the expected request to the application but specifying a URL "allowed" by the frontend component as the main request URL and specifying the real target URL in the `X-Original-URL` or `X-Rewrite-URL` header depending on the one supported. If both are supported then try one after the other to verify for which header the bypass is effective.
 
 #### 4. Other Headers to Consider
 
@@ -174,7 +174,7 @@ Employ the least privilege principles on the users, roles, and resources to ensu
 
 ## Tools
 
-- [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org/)
+- [Zed Attack Proxy (ZAP)](https://www.zaproxy.org/)
     - [ZAP add-on: Access Control Testing](https://www.zaproxy.org/docs/desktop/addons/access-control-testing/)
 - [Port Swigger Burp Suite](https://portswigger.net/burp)
     - [Burp extension: AuthMatrix](https://github.com/SecurityInnovation/AuthMatrix/)

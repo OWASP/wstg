@@ -12,7 +12,7 @@ While most applications require authentication to gain access to private informa
 
 In addition, it is often possible to bypass authentication measures by tampering with requests and tricking the application into thinking that the user is already authenticated. This can be accomplished either by modifying the given URL parameter, by manipulating the form, or by counterfeiting sessions.
 
-Problems related to the authentication schema can be found at different stages of the software development life cycle (SDLC), like the design, development, and deployment phases:
+Problems related to the authentication schema can be found at different stages of the software development lifecycle (SDLC), like the design, development, and deployment phases:
 
 - In the design phase errors can include a wrong definition of application sections to be protected, the choice of not applying strong encryption protocols for securing the transmission of credentials, and many more.
 - In the development phase errors can include the incorrect implementation of input validation functionality or not following the security best practices for the specific language.
@@ -43,7 +43,7 @@ If a web application implements access control only on the log in page, the auth
 Another problem related to authentication design is when the application verifies a successful log in on the basis of a fixed value parameters. A user could modify these parameters to gain access to the protected areas without providing valid credentials. In the example below, the "authenticated" parameter is changed to a value of "yes", which allows the user to gain access. In this example, the parameter is in the URL, but a proxy could also be used to modify the parameter, especially when the parameters are sent as form elements in a POST request or when the parameters are stored in a cookie.
 
 ```html
-http://www.site.com/page.asp?authenticated=no
+https://www.site.com/page.asp?authenticated=no
 
 raven@blackbox /home $nc www.site.com 80
 GET /page.asp?authenticated=yes HTTP/1.0
@@ -94,7 +94,7 @@ The following figure shows that with a simple SQL injection attack, it is someti
 
 If an attacker has been able to retrieve the application source code by exploiting a previously discovered vulnerability (e.g., directory traversal), or from a web repository (Open Source Applications), it could be possible to perform refined attacks against the implementation of the authentication process.
 
-In the following example (PHPBB 2.0.12 - Authentication Bypass Vulnerability), at line 2 the `unserialize()` function parses a user supplied cookie and sets values inside the `$sessiondata` array. At line 7, the user's MD5 password hash stored inside the back end database (`$auto_login_key`) is compared to the one supplied (`$sessiondata['autologinid']`) by the user.
+In the following example (PHPBB 2.0.12 - Authentication Bypass Vulnerability), at line 2 the `unserialize()` function parses a user supplied cookie and sets values inside the `$sessiondata` array. At line 7, the user's MD5 password hash stored inside the backend database (`$auto_login_key`) is compared to the one supplied (`$sessiondata['autologinid']`) by the user.
 
 ```php
 1. if (isset($HTTP_COOKIE_VARS[$cookiename . '_sid'])) {
@@ -126,7 +126,7 @@ Let's disassemble what we did in this string:
 ## Tools
 
 - [WebGoat](https://owasp.org/www-project-webgoat/)
-- [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
+- [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
 
 ## References
 

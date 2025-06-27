@@ -12,7 +12,7 @@ Vulnerabilities related to the ability to forge requests are unique to each appl
 
 Applications should have logic checks in place to prevent the system from accepting forged requests that may allow attackers the opportunity to exploit the business logic, process, or flow of the application. Request forgery is nothing new; the attacker uses an intercepting proxy to send HTTP POST/GET requests to the application. Through request forgeries attackers may be able to circumvent the business logic or process by finding, predicting and manipulating parameters to make the application think a process or task has or has not taken place.
 
-Also, forged requests may allow subversion of programmatic or business logic flow by invoking "hidden" features or functionality such as debugging initially used by developers and testers sometimes referred to as an ["Easter egg"](http://en.wikipedia.org/wiki/Easter_egg_(media)). "An Easter egg is an intentional inside joke, hidden message, or feature in a work such as a computer program, movie, book, or crossword. According to game designer Warren Robinett, the term was coined at Atari by personnel who were alerted to the presence of a secret message which had been hidden by Robinett in his already widely distributed game, Adventure. The name has been said to evoke the idea of a traditional Easter egg hunt."
+Also, forged requests may allow subversion of programmatic or business logic flow by invoking "hidden" features or functionality such as debugging initially used by developers and testers sometimes referred to as an ["Easter egg"](https://en.wikipedia.org/wiki/Easter_egg_(media)). "An Easter egg is an intentional inside joke, hidden message, or feature in a work such as a computer program, movie, book, or crossword. According to game designer Warren Robinett, the term was coined at Atari by personnel who were alerted to the presence of a secret message which had been hidden by Robinett in his already widely distributed game, Adventure. The name has been said to evoke the idea of a traditional Easter egg hunt."
 
 ### Example 1
 
@@ -53,11 +53,10 @@ The application must be smart enough and designed with business logic that will 
 
 ## Tools
 
-- [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
+- [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
 - [Burp Suite](https://portswigger.net/burp)
 
 ## References
 
-- [Cross Site Request Forgery - Legitimizing Forged Requests](http://www.stan.gr/2012/11/cross-site-request-forgery-legitimazing.html)
 - [Easter egg](https://en.wikipedia.org/wiki/Easter_egg_(media))
 - [Top 10 Software Easter Eggs](https://lifehacker.com/371083/top-10-software-easter-eggs)

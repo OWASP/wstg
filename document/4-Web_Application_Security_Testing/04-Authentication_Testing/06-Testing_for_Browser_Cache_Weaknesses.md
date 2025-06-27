@@ -34,7 +34,7 @@ The **Back** button can be stopped from showing sensitive data. This can be done
 
 ### Browser Cache
 
-Here testers check that the application does not leak any sensitive data into the browser cache. In order to do that, they can use a proxy (such as OWASP ZAP) and search through the server responses that belong to the session, checking that for every page that contains sensitive information the server instructed the browser not to cache any data. Such a directive can be issued in the HTTP response headers with the following directives:
+Here testers check that the application does not leak any sensitive data into the browser cache. In order to do that, they can use a proxy (such as ZAP) and search through the server responses that belong to the session, checking that for every page that contains sensitive information the server instructed the browser not to cache any data. Such a directive can be issued in the HTTP response headers with the following directives:
 
 - `Cache-Control: no-cache, no-store`
 - `Expires: 0`
@@ -86,7 +86,7 @@ The methodology for testing is equivalent to the black-box case, as in both scen
 
 ## Tools
 
-- [OWASP Zed Attack Proxy](https://www.zaproxy.org)
+- [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
 
 ## References
 

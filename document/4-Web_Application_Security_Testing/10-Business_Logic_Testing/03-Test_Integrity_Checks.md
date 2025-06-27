@@ -65,12 +65,12 @@ The application should follow strict access controls on how data and artifacts c
 ## Tools
 
 - Various system/application tools such as editors and file manipulation tools.
-- [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
+- [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
 - [Burp Suite](https://portswigger.net/burp)
 
 ## References
 
-- [Implementing Referential Integrity and Shared Business Logic in a RDB](http://www.agiledata.org/essays/referentialIntegrity.html)
+- [Implementing Referential Integrity and Shared Business Logic in a RDB](https://agiledata.org/essays/referentialIntegrity.html)
 - [On Rules and Integrity Constraints in Database Systems](https://www.comp.nus.edu.sg/~lingtw/papers/IST92.teopk.pdf)
 - [Use referential integrity to enforce basic business rules in Oracle](https://www.techrepublic.com/article/use-referential-integrity-to-enforce-basic-business-rules-in-oracle/)
 - [Maximizing Business Logic Reuse with Reactive Logic](https://dzone.com/articles/maximizing-business-logic)

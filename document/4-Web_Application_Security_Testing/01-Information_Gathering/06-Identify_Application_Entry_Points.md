@@ -102,7 +102,7 @@ To enable logging include the -debug argument
 
 You can also generate a JSON output file using the `-json` flag, which can be used by the plugin for both ZAP and Burp Suite. See the following links for more details.
 
-- [Home of ASD Plugin for OWASP ZAP](https://github.com/secdec/attack-surface-detector-zap/wiki)
+- [Home of ASD Plugin for ZAP](https://github.com/secdec/attack-surface-detector-zap/wiki)
 - [Home of ASD Plugin for PortSwigger Burp](https://github.com/secdec/attack-surface-detector-burp/wiki)
 
 ### Testing for Application Entry Points
@@ -143,7 +143,7 @@ Having a variety of injection locations provides the attacker with chaining poss
 
 ## Tools
 
-- [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org/)
+- [Zed Attack Proxy (ZAP)](https://www.zaproxy.org/)
 - [Burp Suite](https://www.portswigger.net/burp/)
 - [Fiddler](https://www.telerik.com/fiddler)
 
