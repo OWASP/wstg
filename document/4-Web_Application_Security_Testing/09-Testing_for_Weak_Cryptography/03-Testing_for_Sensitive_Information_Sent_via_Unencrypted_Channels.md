@@ -133,7 +133,7 @@ Use HTTPS for the whole web site and redirect any HTTP requests to HTTPS.
 ## Tools
 
 - [curl](https://curl.haxx.se/)
-- [grep](http://man7.org/linux/man-pages/man1/egrep.1.html)
+- [grep](https://man7.org/linux/man-pages/man1/egrep.1.html)
 - [Wireshark](https://www.wireshark.org/)
 - [TCPDUMP](https://www.tcpdump.org/)
 

@@ -2,7 +2,7 @@
 
 |ID          |
 |------------|
-|WSTG-APIT-01|
+|WSTG-APIT-99|
 
 ## Summary
 
@@ -227,7 +227,7 @@ You can even download the schemas to use in Voyager.
 
 #### Introspection Conclusion
 
-Introspection is a useful tool that allows users to gain more information about the GraphQL deployment. However, this will also allow malicious users to gain access to the same information. The best practice is to limit access to the introspection queries, since some tools or requests might fail if this feature is disabled altogether. As GraphQL usually bridges to the back end APIs of the system, it's better to enforce strict access control.
+Introspection is a useful tool that allows users to gain more information about the GraphQL deployment. However, this will also allow malicious users to gain access to the same information. The best practice is to limit access to the introspection queries, since some tools or requests might fail if this feature is disabled altogether. As GraphQL usually bridges to the backend APIs of the system, it's better to enforce strict access control.
 
 ### Authorization
 
@@ -285,7 +285,7 @@ All of the Dogs in the list belong to Benoit, and not to the auth token owner. I
 
 ### Injection
 
-GraphQL is the implementation of the API layer of an application, and as such, it usually forwards the requests to a back end API or the database directly. This allows you to utilize any underlying vulnerability such as SQL injection, command injection, cross-site scripting, etc. Using GraphQL just changes the entry point of the malicious payload.
+GraphQL is the implementation of the API layer of an application, and as such, it usually forwards the requests to a backend API or the database directly. This allows you to utilize any underlying vulnerability such as SQL injection, command injection, cross-site scripting, etc. Using GraphQL just changes the entry point of the malicious payload.
 
 You can refer to other scenarios within the OWASP testing guide to get some ideas.
 
@@ -487,7 +487,7 @@ query {
 }
 ```
 
-Batching attacks can be used to bypass many security measures enforced on websites. It can also be used to enumerate objects and attempt to brute force multi-factor authentication or other sensitive information.
+Batching attacks can be used to bypass many security measures enforced on sites. It can also be used to enumerate objects and attempt to brute force multi-factor authentication or other sensitive information.
 
 ### Detailed Error Message
 
@@ -528,7 +528,7 @@ For more on remediating GraphQL weaknesses, refer to the [GraphQL Cheat Sheet](h
 - [sqlmap](https://github.com/sqlmapproject/sqlmap)
 - [InQL (Burp Extension)](https://portswigger.net/bappstore/296e9a0730384be4b2fffef7b4e19b1f)
 - [GraphQL Raider (Burp Extension)](https://portswigger.net/bappstore/4841f0d78a554ca381c65b26d48207e6)
-- [GraphQL (Add-on for OWASP ZAP)](https://www.zaproxy.org/blog/2020-08-28-introducing-the-graphql-add-on-for-zap/)
+- [GraphQL (Add-on for ZAP)](https://www.zaproxy.org/blog/2020-08-28-introducing-the-graphql-add-on-for-zap/)
 
 ## References
 

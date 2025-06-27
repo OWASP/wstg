@@ -30,6 +30,8 @@ Note: The `Status` column can be set for values similar to "Pass", "Fail", "N/A"
 | WSTG-CONF-10      | Test for Subdomain Takeover                                                |        |       |
 | WSTG-CONF-11      | Test Cloud Storage                                                         |        |       |
 | WSTG-CONF-12      | Testing for Content Security Policy                                        |        |       |
+| WSTG-CONF-13      | Test Path Confusion                                                        |        |       |
+| WSTG-CONF-14      | Test Other HTTP Security Header Misconfigurations                          |        |       |
 | **WSTG-IDNT**     | **Identity Management Testing**                                            |        |       |
 | WSTG-IDNT-01      | Test Role Definitions                                                      |        |       |
 | WSTG-IDNT-02      | Test User Registration Process                                             |        |       |
@@ -47,11 +49,13 @@ Note: The `Status` column can be set for values similar to "Pass", "Fail", "N/A"
 | WSTG-ATHN-08      | Testing for Weak Security Question Answer                                  |        |       |
 | WSTG-ATHN-09      | Testing for Weak Password Change or Reset Functionalities                  |        |       |
 | WSTG-ATHN-10      | Testing for Weaker Authentication in Alternative Channel                   |        |       |
+| WSTG-ATHN-11      | Testing Multi-Factor Authentication (MFA)                                  |        |       |
 | **WSTG-ATHZ**     | **Authorization Testing**                                                  |        |       |
 | WSTG-ATHZ-01      | Testing Directory Traversal File Include                                   |        |       |
 | WSTG-ATHZ-02      | Testing for Bypassing Authorization Schema                                 |        |       |
 | WSTG-ATHZ-03      | Testing for Privilege Escalation                                           |        |       |
 | WSTG-ATHZ-04      | Testing for Insecure Direct Object References                              |        |       |
+| WSTG-ATHZ-05      | Testing for OAuth Weaknesses                                               |        |       |
 | **WSTG-SESS**     | **Session Management Testing**                                             |        |       |
 | WSTG-SESS-01      | Testing for Session Management Schema                                      |        |       |
 | WSTG-SESS-02      | Testing for Cookies Attributes                                             |        |       |
@@ -63,6 +67,7 @@ Note: The `Status` column can be set for values similar to "Pass", "Fail", "N/A"
 | WSTG-SESS-08      | Testing for Session Puzzling                                               |        |       |
 | WSTG-SESS-09      | Testing for Session Hijacking                                              |        |       |
 | WSTG-SESS-10      | Testing JSON Web Tokens                                                    |        |       |
+| WSTG-SESS-11      | Testing for Concurrent Sessions                                            |        |       |
 | **WSTG-INPV**     | **Input Validation Testing**                                               |        |       |
 | WSTG-INPV-01      | Testing for Reflected Cross Site Scripting                                 |        |       |
 | WSTG-INPV-02      | Testing for Stored Cross Site Scripting                                    |        |       |
@@ -83,6 +88,7 @@ Note: The `Status` column can be set for values similar to "Pass", "Fail", "N/A"
 | WSTG-INPV-17      | Testing for Host Header Injection                                          |        |       |
 | WSTG-INPV-18      | Testing for Server-Side Template Injection                                 |        |       |
 | WSTG-INPV-19      | Testing for Server-Side Request Forgery                                    |        |       |
+| WSTG-INPV-20      | Testing for Mass Assignment                                                |        |       |
 | **WSTG-ERRH**     | **Error Handling**                                                         |        |       |
 | WSTG-ERRH-01      | Testing for Improper Error Handling                                        |        |       |
 | WSTG-ERRH-02      | Testing for Stack Traces                                                   |        |       |
@@ -101,6 +107,7 @@ Note: The `Status` column can be set for values similar to "Pass", "Fail", "N/A"
 | WSTG-BUSL-07      | Test Defenses Against Application Misuse                                   |        |       |
 | WSTG-BUSL-08      | Test Upload of Unexpected File Types                                       |        |       |
 | WSTG-BUSL-09      | Test Upload of Malicious Files                                             |        |       |
+| WSTG-BUSL-10      | Test Payment Functionality                                                 |        |       |
 | **WSTG-CLIENT**   | **Client-side Testing**                                                    |        |       |
 | WSTG-CLNT-01      | Testing for DOM Based Cross Site Scripting                                 |        |       |
 | WSTG-CLNT-02      | Testing for JavaScript Execution                                           |        |       |
@@ -115,5 +122,8 @@ Note: The `Status` column can be set for values similar to "Pass", "Fail", "N/A"
 | WSTG-CLNT-11      | Test Web Messaging                                                         |        |       |
 | WSTG-CLNT-12      | Test Browser Storage                                                       |        |       |
 | WSTG-CLNT-13      | Testing for Cross Site Script Inclusion                                    |        |       |
+| WSTG-CLNT-14      | Testing for Reverse Tabnabbing                                             |        |       |
 | **WSTG-APIT**     | **API Testing**                                                            |        |       |
-| WSTG-APIT-01      | Testing GraphQL                                                            |        |       |
+| WSTG-APIT-01      | API Reconnaissance                                                         |        |       |
+| WSTG-APIT-02      | API Broken Object Level Authorization                                      |        |       |
+| WSTG-APIT-99      | Testing GraphQL                                                            |        |       |

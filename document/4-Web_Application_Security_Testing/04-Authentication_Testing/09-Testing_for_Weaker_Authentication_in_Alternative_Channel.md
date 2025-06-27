@@ -35,9 +35,9 @@ Even if the scope of the test does not allow the alternative channels to be test
 
 ## Example
 
-The primary website is `http://www.example.com` and authentication functions always take place on pages using TLS `https://www.example.com/myaccount/`.
+The primary website is `https://www.example.com` and authentication functions always take place on pages using TLS `https://www.example.com/myaccount/`.
 
-However, a separate mobile-optimized website exists that does not use TLS at all, and has a weaker password recovery mechanism `http://m.example.com/myaccount/`.
+However, a separate mobile-optimized website exists that does not use TLS at all, and has a weaker password recovery mechanism `https://m.example.com/myaccount/`.
 
 ## Test Objectives
 

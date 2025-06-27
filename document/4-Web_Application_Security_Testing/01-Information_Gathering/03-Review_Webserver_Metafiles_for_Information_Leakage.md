@@ -50,7 +50,7 @@ Web spiders/robots/crawlers can [intentionally ignore](https://blog.isc2.org/isc
 The `robots.txt` file is retrieved from the web root directory of the web server. For example, to retrieve the `robots.txt` from `www.google.com` using `wget` or `curl`:
 
 ```bash
-$ curl -O -Ss http://www.google.com/robots.txt && head -n5 robots.txt
+$ curl -O -Ss https://www.google.com/robots.txt && head -n5 robots.txt
 User-agent: *
 Disallow: /search
 Allow: /search/about
@@ -117,7 +117,7 @@ $ wget --no-verbose https://www.google.com/sitemap.xml && head -n8 sitemap.xml
 2020-05-05 12:23:30 URL:https://www.google.com/sitemap.xml [2049] -> "sitemap.xml" [1]
 
 <?xml version="1.0" encoding="UTF-8"?>
-<sitemapindex xmlns="http://www.google.com/schemas/sitemap/0.84">
+<sitemapindex xmlns="https://www.google.com/schemas/sitemap/0.84">
   <sitemap>
     <loc>https://www.google.com/gmail/sitemap.xml</loc>
   </sitemap>
@@ -131,7 +131,7 @@ Exploring from there a tester may wish to retrieve the gmail sitemap `https://ww
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="https://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.google.com/intl/am/gmail/about/</loc>
     <xhtml:link href="https://www.google.com/gmail/about/" hreflang="x-default" rel="alternate"/>
@@ -167,6 +167,16 @@ Encryption: https://www.linkedin.com/help/linkedin/answer/79676
 Canonical: https://www.linkedin.com/.well-known/security.txt
 Policy: https://www.linkedin.com/help/linkedin/answer/62924
 ```
+
+OpenPGP Public Keys contain some metadata that can provide information about the key itself. Here are some common metadata elements that can be extracted from an OpenPGP Public Key:
+
+- **Key ID**: The Key ID is a short identifier derived from the public key material. It helps identify the key and is often displayed as an eight-character hexadecimal value.
+- **Key Fingerprint**: The Key Fingerprint is a longer and more unique identifier derived from the key material. It is often displayed as a 40-character hexadecimal value. Key fingerprints are commonly used to verify the integrity and authenticity of a public key.
+- **Key Algorithm**: The Key Algorithm represents the cryptographic algorithm used by the public key. OpenPGP supports various algorithms such as RSA, DSA, and ECC (Elliptic Curve Cryptography).
+- **Key Size**: The Key Size refers to the length or size of the cryptographic key in bits. It indicates the strength of the key and determines the level of security provided by the key.
+- **Key Creation Date**: The Key Creation Date indicates when the key was generated or created.
+- **Key Expiration Date**: OpenPGP Public Keys can have an expiration date set, after which they are considered invalid. The Key Expiration Date specifies when the key is no longer valid.
+- **User IDs**: Public keys can have one or more associated User IDs that identify the owner or entity associated with the key. User IDs typically include information such as the name, email address, and optional comments of the key owner.
 
 ### Humans TXT
 

@@ -48,7 +48,7 @@ The tester may even find something like this:
 Check HTML version information for valid version numbers and Data Type Definition (DTD) URLs
 
 ```html
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "https://www.w3.org/TR/html4/strict.dtd">
 ```
 
 - `strict.dtd` -- default strict DTD
@@ -79,7 +79,7 @@ Although most web servers manage search engine indexing via the `robots.txt` fil
 <META name="robots" content="none">
 ```
 
-The [Platform for Internet Content Selection (PICS)](https://www.w3.org/PICS/) and [Protocol for Web Description Resources (POWDER)](https://www.w3.org/2007/powder/) provide infrastructure for associating metadata with internet content.
+The [Platform for Internet Content Selection (PICS)](https://www.w3.org/PICS/) and [Protocol for Web Description Resources (POWDER)](https://www.w3.org/2007/powder/) provide infrastructure for associating metadata with Internet content.
 
 ### Identifying JavaScript Code and Gathering JavaScript Files
 
@@ -158,7 +158,7 @@ Consider a situation in which a redirect response is the result of an authentica
 - Browser "view source" function
 - Eyeballs
 - [Curl](https://curl.haxx.se/)
-- [Zaproxy](https://www.zaproxy.org)
+- [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
 - [Burp Suite](https://portswigger.net/burp)
 - [Waybackurls](https://github.com/tomnomnom/waybackurls)
 - [Google Maps API Scanner](https://github.com/ozguralp/gmapsapiscanner/)

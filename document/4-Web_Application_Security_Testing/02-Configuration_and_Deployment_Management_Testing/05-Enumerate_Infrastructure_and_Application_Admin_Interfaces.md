@@ -51,18 +51,6 @@ Source code should be reviewed to ensure that the authorization and authenticati
 
 Each web framework may have its own default admin pages or paths, as in the following examples:
 
-WebSphere:
-
-```html
-/admin
-/admin-authz.xml
-/admin.conf
-/admin.passwd
-/admin/*
-/admin/logon.jsp
-/admin/secure/logon.jsp
-```
-
 PHP:
 
 ```html
@@ -78,34 +66,6 @@ PHP:
 /dbadmin
 ```
 
-FrontPage:
-
-```html
-/admin.dll
-/admin.exe
-/administrators.pwd
-/author.dll
-/author.exe
-/author.log
-/authors.pwd
-/cgi-bin
-```
-
-WebLogic:
-
-```html
-/AdminCaptureRootCA
-/AdminClients
-/AdminConnections
-/AdminEvents
-/AdminJDBC
-/AdminLicense
-/AdminMain
-/AdminProps
-/AdminRealm
-/AdminThreads
-```
-
 WordPress:
 
 ```html
@@ -118,11 +78,53 @@ wp-admin/admin-functions.php
 wp-admin/admin-header.php
 ```
 
+Joomla:
+
+```html
+/administrator/index.php
+/administrator/index.php?option=com_login
+/administrator/index.php?option=com_content
+/administrator/index.php?option=com_users
+/administrator/index.php?option=com_menus
+/administrator/index.php?option=com_installer
+/administrator/index.php?option=com_config
+```
+
+Tomcat:
+
+```html
+/manager/html
+/host-manager/html
+/manager/text
+/tomcat-users.xml
+```
+
+Apache:
+
+```html
+/index.html
+/httpd.conf
+/apache2.conf
+/server-status
+```
+
+Nginx:
+
+```html
+/index.html
+/index.htm
+/index.php
+/nginx_status
+/index.php
+/nginx.conf
+/html/error
+```
+
 ## Tools
 
 Several tools can assist in identifying hidden administrator interfaces and functionality, including:
 
-- [OWASP ZAP - Forced Browse](https://www.zaproxy.org/docs/desktop/addons/forced-browse/) is a currently maintained use of OWASP's previous DirBuster project.
+- [ZAP - Forced Browse](https://www.zaproxy.org/docs/desktop/addons/forced-browse/) is a currently maintained use of OWASP's previous DirBuster project.
 - [THC-HYDRA](https://github.com/vanhauser-thc/thc-hydra) is a tool that allows brute-forcing of many interfaces, including form-based HTTP authentication.
 - A brute forcer is much more effective when it uses a good dictionary, such as the [Netsparker](https://www.netsparker.com/blog/web-security/svn-digger-better-lists-for-forced-browsing/) dictionary.
 

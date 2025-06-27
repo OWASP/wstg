@@ -10,7 +10,7 @@ The list contains only tools that are freely available to download and use (alth
 
 ### Web Proxies
 
-- [OWASP ZAP](https://www.zaproxy.org)
+- [ZAP](https://www.zaproxy.org)
     - The Zed Attack Proxy (ZAP) is an easy to use integrated penetration testing tool for finding vulnerabilities in web applications. It is designed to be used by people with a wide range of security experience and as such is ideal for developers and functional testers who are new to penetration testing.
     - ZAP provides automated scanners as well as a set of tools that allow you to find security vulnerabilities manually.
 - [Burp Suite Community Edition](https://portswigger.net/burp/communitydownload)
@@ -42,7 +42,7 @@ The list contains only tools that are freely available to download and use (alth
 
 #### Testing for SQL Injection
 
-- [sqlmap](http://sqlmap.org)
+- [sqlmap](s://sqlmap.org)
 
 #### Testing TLS
 
@@ -61,7 +61,7 @@ The list contains only tools that are freely available to download and use (alth
 
 ##### Remote Brute Force
 
-- [OWASP ZAP](https://www.zaproxy.org)
+- [ZAP](https://www.zaproxy.org)
 - [Patator](https://github.com/lanjelot/patator)
 - [THC Hydra](https://github.com/vanhauser-thc/thc-hydra)
 - [Burp Suite Community Edition (Intruder)](https://portswigger.net/burp/communitydownload)
@@ -84,12 +84,35 @@ The list contains only tools that are freely available to download and use (alth
 ### Site Mirroring
 
 - [wget](https://www.gnu.org/software/wget/)
-- [wget for windows](http://gnuwin32.sourceforge.net/packages/wget.htm)
+- [wget for windows](https://gnuwin32.sourceforge.net/packages/wget.htm)
 - [curl](https://curl.haxx.se)
 
 ### Content Discovery
 
 - [Gobuster](https://github.com/OJ/gobuster)
+- [Waybackurls](https://github.com/tomnomnom/waybackurls)
+    - Waybackurls fetches all URLs known to the Wayback Machine for a given domain, useful for reconnaissance.
+    - **Usage:**
+
+```bash
+waybackurls example.com
+```
+
+- [GAU (Get All URLs)](https://github.com/lc/gau)
+    - GAU collects URLs from multiple public archives, including the Wayback Machine and Common Crawl.
+    - **Usage:**
+
+```bash
+gau example.com
+```
+
+- [Unfurl](https://github.com/tomnomnom/unfurl)
+    - Unfurl extracts subdomains, paths, and parameters from URLs for deeper analysis.
+    - **Usage:**
+
+```bash
+unfurl "https://example.com/page?query=123"
+```
 
 ### Port and Service Discovery
 
@@ -97,9 +120,10 @@ The list contains only tools that are freely available to download and use (alth
 
 ## Vulnerability Scanners
 
-- [OWASP ZAP](https://www.zaproxy.org)
+- [ZAP](https://www.zaproxy.org)
 - [Nikto](https://cirt.net/Nikto2)
 - [Nuclei](https://nuclei.projectdiscovery.io/)
+- [SecOps Solution](https://secopsolution.com)
 
 ## Exploitation Frameworks
 
@@ -129,7 +153,7 @@ Browser Automation tools are used to validate the functionality of web applicati
 
 ### Open Source Tools
 
-- [HtmlUnit](http://htmlunit.sourceforge.net)
+- [HtmlUnit](https://htmlunit.sourceforge.net)
     - A Java and JUnit based framework that uses the Apache HttpClient as the transport.
     - Very robust and configurable and is used as the engine for a number of other testing tools.
 - [Selenium](https://www.selenium.dev)

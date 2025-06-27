@@ -12,8 +12,8 @@ In order to achieve this, OAuth heavily relies on tokens to communicate between 
 
 - **Resource Owner:** The entity who grants access to a resource, the owner, and in most cases is the user themselves
 - **Client:** The application that is requesting access to a resource on behalf of the Resource Owner. These clients come in two [types](https://oauth.net/2/client-types/):
-    - **Public:** clients that can't protect a secret (*e.g.* front-end focused applications, such as SPAs, mobile applications, etc.)
-    - **Confidential:** clients that are able to securely authenticate with the authorization server by keeping their registered secrets safe (*e.g.* back-end services)
+    - **Public:** clients that can't protect a secret (*e.g.* frontend focused applications, such as SPAs, mobile applications, etc.)
+    - **Confidential:** clients that are able to securely authenticate with the authorization server by keeping their registered secrets safe (*e.g.* backend services)
 - **Authorization Server:** The server that holds authorization information and grants the access
 - **Resource Server:** The application that serves the content accessed by the client
 
@@ -29,7 +29,7 @@ In order to provide access to a client application, OAuth relies on several [aut
 
 Two flows will be deprecated in the release of [OAuth2.1](https://oauth.net/2.1/), and their usage is not recommended:
 
-- [Implicit Flow*](https://oauth.net/2/grant-types/implicit/): PKCE's secure implementation renders this flow obsolete. Prior to PKCE, the implicit flow was used by client-side applications such as [single page applications](https://en.wikipedia.org/wiki/Single-page_application) since [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) relaxed the [same-origin policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy) for websites to inter-communicate. For more information on why the implicit grant is not recommended, review this [section](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics#section-2.1.2).
+- [Implicit Flow*](https://oauth.net/2/grant-types/implicit/): PKCE's secure implementation renders this flow obsolete. Prior to PKCE, the implicit flow was used by client-side applications such as [single page applications](https://en.wikipedia.org/wiki/Single-page_application) since [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) relaxed the [same-origin policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy) for sites to inter-communicate. For more information on why the implicit grant is not recommended, review this [section](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics#section-2.1.2).
 - [Resource Owner Password Credentials](https://oauth.net/2/grant-types/password/):used to exchange users' credentials directly with the client, which then sends them to the authorization to exchange them for an access token. For information on why this flow is not recommended, review this [section](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics#section-2.4).
 
 *: The implicit flow in OAuth only is deprecated, yet is still a viable solution within Open ID Connect (OIDC) to retrieve `id_tokens`. Be careful to understand how the implicit flow is being used, which can be identified if only the `/authorization` endpoint is being used to gain an access token, without relying on `/token` endpoint in any way. An example on this can be found [here](https://auth0.com/docs/get-started/authentication-and-authorization-flow/implicit-flow-with-form-post).
@@ -60,7 +60,7 @@ Host: as.example.com
   "code_verifier":"example",
   "grant_type":"authorization_code",
   "code":"example",
-  "redirect_uri":"http://client.example.com"
+  "redirect_uri":"https://client.example.com"
 }
 ```
 
@@ -137,7 +137,7 @@ If you know the `client_id` and `client_secret`, it is possible to obtain a toke
 $ curl --request POST \
   --url https://as.example.com/oauth/token \
   --header 'content-type: application/json' \
-  --data '{"client_id":"<some_client_id>","client_secret":"<some_client_secret>","grant_type":"client_credentials"}' --proxy http://localhost:8080/ -k
+  --data '{"client_id":"<some_client_id>","client_secret":"<some_client_secret>","grant_type":"client_credentials"}' --proxy https://localhost:8080/ -k
 ```
 
 ### Credential Leakage
@@ -155,7 +155,7 @@ Due to how OAuth works, the authorization `code` as well as the `code_challenge`
 
 The risk that's carried by the implicit flow leaking the tokens is far higher than leaking the `code` or any other `code_*` parameters, as they are bound to specific clients and are harder to abuse in case of leakage.
 
-In order to test this scenario, make use of an HTTP intercepting proxy such as OWASP ZAP and intercept the OAuth traffic.
+In order to test this scenario, make use of an HTTP intercepting proxy such as ZAP and intercept the OAuth traffic.
 
 - Step through the authorization process and identify any credentials present in the URL.
 - If any external resources are included in a page involved with the OAuth flow, analyze the request made to them. Credentials could be leaked in the referrer header.
@@ -179,7 +179,7 @@ Reviewing the HTML meta tags (although this tag is [not supported](https://caniu
 
 - [BurpSuite](https://portswigger.net/burp/releases)
 - [EsPReSSO](https://github.com/portswigger/espresso)
-- [OWASP ZAP](https://www.zaproxy.org/)
+- [ZAP](https://www.zaproxy.org/)
 
 ## References
 

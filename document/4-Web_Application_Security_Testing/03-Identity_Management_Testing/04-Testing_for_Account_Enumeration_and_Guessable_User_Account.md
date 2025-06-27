@@ -10,7 +10,7 @@ The scope of this test is to verify if it is possible to collect a set of valid 
 
 Often, web applications reveal when a username exists on system, either as a consequence of mis-configuration or as a design decision. For example, sometimes, when we submit wrong credentials, we receive a message that states that either the username is present on the system or the provided password is wrong. The information obtained can be used by an attacker to gain a list of users on system. This information can be used to attack the web application, for example, through a brute force or default username and password attack.
 
-The tester should interact with the authentication mechanism of the application to understand if sending particular requests causes the application to answer in different manners. This issue exists because the information released from web application or web server when the user provide a valid username is different than when they use an invalid one.
+The tester should interact with the authentication mechanism of the application to understand if sending particular requests causes the application to answer in different manners. This issue exists because the information released from web application or web server when the user provides a valid username is different than when they use an invalid one.
 
 In some cases, a message is received that reveals if the provided credentials are wrong because an invalid username or an invalid password was used. Sometimes, testers can enumerate the existing users by sending a username and an empty password.
 
@@ -82,8 +82,8 @@ Some web application release a specific error code or message that we can analyz
 
 For example:
 
-- `http://www.foo.com/err.jsp?User=baduser&Error=0`
-- `http://www.foo.com/err.jsp?User=gooduser&Error=2`
+- `https://www.foo.com/err.jsp?User=baduser&Error=0`
+- `https://www.foo.com/err.jsp?User=gooduser&Error=2`
 
 As is seen above, when a tester provides a user ID and password to the web application, they see a message indication that an error has occurred in the URL. In the first case they have provided a bad user ID and bad password. In the second, a good user ID and a bad password, so they can identify a valid user ID.
 
@@ -98,8 +98,8 @@ Some of the common errors received from web servers are:
 
 Example:
 
-- `http://www.foo.com/account1` - we receive from web server: 403 Forbidden
-- `http://www.foo.com/account2` - we receive from web server: 404 file Not Found
+- `https://www.foo.com/account1` - we receive from web server: 403 Forbidden
+- `https://www.foo.com/account2` - we receive from web server: 404 file Not Found
 
 In the first case the user exists, but the tester cannot view the web page, in second case instead the user "account2" does not exist. By collecting this information testers can enumerate the users.
 
@@ -127,7 +127,7 @@ When we request a user within the directory that does not exist, we don't always
 
 #### Analyzing Response Times
 
-As well as looking at the content of the responses, the time that the response take should also be considered. Particularly where the request causes an interaction with an external service (such as sending a forgotten password email), this can add several hundred milliseconds to the response, which can be used to determine whether the requested user is valid.
+As well as looking at the content of the responses, the time that the response takes should also be considered. Particularly where the request causes an interaction with an external service (such as sending a forgotten password email), this can add several hundred milliseconds to the response, which can be used to determine whether the requested user is valid.
 
 ### Guessing Users
 
@@ -152,6 +152,22 @@ Again, we can guess a username from the information received from an LDAP query 
 
 > By enumerating user accounts, you risk locking out accounts after a predefined number of failed probes (based on application policy). Also, sometimes, your IP address can be banned by dynamic rules on the application firewall or Intrusion Prevention System.
 
+### Testing Staff Impersonation
+
+Ensure that unregistered users are unable to select reserved usernames (e.g., admin, administrator, moderator) during the registration process. Additionally, verify that users cannot edit their current username to one of these reserved usernames on the profile editing page.
+
+If the web application has features that allow a user to access the web application's registration and profile editing functionality, the interactions to test include the following:
+
+- Registration process:
+    - Access the registration page as an unregistered user and fill in the registration form, entering one of the reserved usernames (e.g., admin, administrator, moderator), submit the registration form, and then verify the response.
+    - The registration process should reject the form submission and display an error message indicating that the selected username is not available for registration.
+- Profile editing page:
+    - Log into the web application using valid credentials and navigate to the profile editing page. Attempt to change the current username to one of the reserved usernames (e.g., admin, administrator, moderator) and save the changes to verify the behavior.
+    - The profile editing process should reject the username change request and display an error message indicating that the selected username is not available.
+- Test for variants and similarities:
+    - Repeat the above steps for different variations of the reserved usernames (e.g., Admin, ADMIN, Administrator) and perform tests with different combinations of uppercase and lowercase letters to ensure case insensitivity is handled correctly.
+    - The web application should treat these variants as identical to the reserved usernames, rejecting their selection or modification.
+
 ### Gray-Box Testing
 
 #### Testing for Authentication Error Messages
@@ -170,7 +186,7 @@ Ensure default system accounts and test accounts are deleted prior to releasing 
 
 ## Tools
 
-- [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
+- [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
 - [curl](https://curl.haxx.se/)
 - [PERL](https://www.perl.org)
 

@@ -175,7 +175,7 @@
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/10-Test_for_Subdomain_Takeover",
                 "objectives":[
                     "Enumerate all possible domains (previous and current).",
-                    "Identify forgotten or misconfigured domains."
+                    "Identify any forgotten or misconfigured domains."
                   ]
                 }
                 ,{
@@ -200,6 +200,16 @@
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/13-Test_for_Path_Confusion",
                 "objectives":[
                     "Make sure application paths are configured correctly."
+                  ]
+                }
+                ,{
+                "name":"Test Other HTTP Security Header Misconfigurations",
+                "id":"WSTG-CONF-14",
+                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/14-Test_Other_HTTP_Security_Header_Misconfigurations",
+                "objectives":[
+                    "Identify improperly configured security headers.",
+                    "Assess the impact of misconfigured security headers.",
+                    "Validate the correct implementation of required security headers."
                   ]
                 }
             ]
@@ -309,9 +319,9 @@
                   ]
                 }
                 ,{
-                "name":"Testing for Weak Password Policy",
+                "name":"Testing for Weak Authentication Methods",
                 "id":"WSTG-ATHN-07",
-                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/07-Testing_for_Weak_Password_Policy",
+                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/07-Testing_for_Weak_Authentication_Methods",
                 "objectives":[
                     "Determine the resistance of the application against brute force password guessing using available password dictionaries by evaluating the length, complexity, reuse, and aging requirements of passwords."
                   ]
@@ -492,6 +502,14 @@
                 "objectives":[
                     "Determine whether the JWTs expose sensitive information.",
                     "Determine whether the JWTs can be tampered with or modified."
+                  ]
+                }
+                ,{
+                "name":"Testing for Concurrent Sessions",
+                "id":"WSTG-SESS-11",
+                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/11-Testing_for_Concurrent_Sessions",
+                "objectives":[
+                    "Evaluate the application's session management by assessing the handling of multiple active sessions for a single user account."
                   ]
                 }
             ]
@@ -935,8 +953,7 @@
                 "id":"WSTG-CLNT-09",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/09-Testing_for_Clickjacking",
                 "objectives":[
-                    "Understand security measures in place.",
-                    "Assess how strict the security measures are and if they are bypassable."
+                    "Assess application vulnerability to clickjacking attacks."
                   ]
                 }
                 ,{
@@ -989,9 +1006,27 @@
             "id":"WSTG-APIT",
             "tests":[
                 {
-                "name":"Testing GraphQL",
+                "name":"API Reconnaissance",
                 "id":"WSTG-APIT-01",
-                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/12-API_Testing/01-Testing_GraphQL",
+                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/12-API_Testing/01-API_Reconnaissance",
+                "objectives":[
+                    "Find all API endpoints supported by the backend server code, documented or undocumented.",
+                    "Find all parameters for each endpoint supported by the backend server, documented or undocumented.",
+                    "Discover interesting data related to APIs in HTML and JavaScript sent to clients."
+                  ]
+                }
+                ,{
+                "name":"API Broken Object Level Authorization",
+                "id":"WSTG-APIT-02",
+                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/12-API_Testing/02-API_Broken_Object_Level_Authorization",
+                "objectives":[
+                    "The objective of this test is to identify whether the API enforces proper **object-level authorization** checks, ensuring that users can only access and manipulate objects they are authorized to interact with."
+                  ]
+                }
+                ,{
+                "name":"Testing GraphQL",
+                "id":"WSTG-APIT-99",
+                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/12-API_Testing/99-Testing_GraphQL",
                 "objectives":[
                     "Assess that a secure and production-ready configuration is deployed.",
                     "Validate all input fields against generic attacks.",

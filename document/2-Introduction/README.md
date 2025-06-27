@@ -138,6 +138,10 @@ It is critical not to perform a superficial security review of an application an
 
 While black-box penetration test results can be impressive and useful to demonstrate how vulnerabilities are exposed in a production environment, they are not the most effective or efficient way to secure an application. It is difficult for dynamic testing to test the entire codebase, particularly if many nested conditional statements exist. If the source code for the application is available, it should be given to the security staff to assist them while performing their review. It is possible to discover vulnerabilities within the application source that would be missed during a black-box engagement.
 
+### Disable Compensating Controls for Testers
+
+Testing traffic should be allowed through compensating controls such as a Web Application Firewall (WAF). While a WAF can block many attacks on an application, a sophisticated attacker can bypass the control and exploit the vulnerable underlying application with enough time and dedication. Like providing source code access, turning off the compensating control enables the security staff to dedicate all their focus to the application logic. A white-box penetration test aims to find security vulnerabilities in the product itself, not the systems that proxy traffic to the production environment.
+
 ### Develop Metrics
 
 An important part of a good security program is the ability to determine if things are getting better. It is important to track the results of testing engagements, and develop metrics that will reveal the application security trends within the organization.
@@ -302,11 +306,11 @@ The following examples show why automated black-box testing may not be effective
 
 ### Example 1: Magic Parameters
 
-Imagine a simple web application that accepts a name-value pair of "magic" and then the value. For simplicity, the GET request may be: `http://www.host/application?magic=value`
+Imagine a simple web application that accepts a name-value pair of "magic" and then the value. For simplicity, the GET request may be: `https://www.host/application?magic=value`
 
 To further simplify the example, the values in this case can only be ASCII characters a – z (upper or lowercase) and integers 0 – 9.
 
-The designers of this application created an administrative backdoor during testing, but obfuscated it to prevent the casual observer from discovering it. By submitting the value sf8g7sfjdsurtsdieerwqredsgnfg8d (30 characters), the user will then be logged in and presented with an administrative screen with total control of the application. The HTTP request is now: `http://www.host/application?magic=sf8g7sfjdsurtsdieerwqredsgnfg8d`
+The designers of this application created an administrative backdoor during testing, but obfuscated it to prevent the casual observer from discovering it. By submitting the value sf8g7sfjdsurtsdieerwqredsgnfg8d (30 characters), the user will then be logged in and presented with an administrative screen with total control of the application. The HTTP request is now: `https://www.host/application?magic=sf8g7sfjdsurtsdieerwqredsgnfg8d`
 
 Given that all of the other parameters were simple two- and three-characters fields, it is not possible to start guessing combinations at approximately 28 characters. A web application scanner will need to brute force (or guess) the entire key space of 30 characters. That is up to 30\^28 permutations, or trillions of HTTP requests. That is an electron in a digital haystack.
 

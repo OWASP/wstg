@@ -15,6 +15,13 @@ For building PDF and EPUB e-Books at release.
 - See: `/.github/pdf/` in the root of the repository for PDF build specific configurations.
 - See: `/.github/epub/` in the root of the repository for EPUB build specific configurations.
 
+## `comment.yml`
+
+Triggered by the completion of other workflows in order to comment lint or other results on PRs.
+The workflows which leverage it should create a `pr_number` text file and `artifact.txt` with the content to be commented, which are attached to their workflow runs as `artifact`.
+
+- Trigger: Other workflows `workflow_run`.
+
 ## `dummy.yml`
 
 Utility action so that PRs without Markdown files can pass the branch protection rules. `lint` is required per the branch protection rules. If a PR contains no Markdown files (e.g. only an image or YAML that isn't linted) the dummy runs and passes the branch protection requirement.

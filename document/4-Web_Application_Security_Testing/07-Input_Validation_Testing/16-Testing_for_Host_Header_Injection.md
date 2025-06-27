@@ -34,7 +34,7 @@ In the simplest case, this may cause a 302 redirect to the supplied domain.
 ```http
 HTTP/1.1 302 Found
 [...]
-Location: http://www.attacker.com/login.php
+Location: https://www.attacker.com/login.php
 
 ```
 
@@ -55,7 +55,7 @@ Potentially producing client-side output such as:
 
 ```html
 [...]
-<link src="http://www.attacker.com/link" />
+<link src="https://www.attacker.com/link" />
 [...]
 ```
 
@@ -75,7 +75,7 @@ The following will be served from the web cache, when a victim visits the vulner
 
 ```html
 [...]
-<link src="http://www.attacker.com/link" />
+<link src="https://www.attacker.com/link" />
 [...]
 ```
 

@@ -75,7 +75,7 @@ If the filtering is performed on the server-side, then various techniques can be
 - Change the capitalisation of the extension, such as `file.PhP` or `file.AspX`
 - If the request includes multiple filenames, change them to different values.
 - Using special trailing characters such as spaces, dots or null characters such as `file.asp...`, `file.php;jpg`, `file.asp%00.jpg`, `1.jpg%00.php`
-- In badly configured versions of nginx, uploading a file as `test.jpg/x.php` may allow it to be executed as `x.php`.
+- In badly configured versions of Nginx, uploading a file as `test.jpg/x.php` may allow it to be executed as `x.php`.
 
 ### Malicious File Contents
 
@@ -83,7 +83,7 @@ Once the file type has been validated, it is important to also ensure that the c
 
 #### Malware
 
-Applications should generally scan uploaded files with anti-malware software to ensure that they do not contain anything malicious. The easiest way to test for this is using the [EICAR test file](https://www.eicar.org/?page_id=3950), which is an safe file that is flagged as malicious by all anti-malware software.
+Applications should generally scan uploaded files with anti-malware software to ensure that they do not contain anything malicious. The easiest way to test for this is using the [EICAR test file](https://www.eicar.org/download-anti-malware-testfile/), which is an safe file that is flagged as malicious by all anti-malware software.
 
 Depending on the type of application, it may be necessary to test for other dangerous file types, such as Office documents containing malicious macros. Tools such as the [Metasploit Framework](https://github.com/rapid7/metasploit-framework) and the [Social Engineer Toolkit (SET)](https://github.com/trustedsec/social-engineer-toolkit) can be used to generate malicious files for various formats.
 
@@ -91,21 +91,56 @@ When this file is uploaded, it should be detected and quarantined or deleted by 
 
 #### Archive Directory Traversal
 
-If the application extracts archives (such as Zip files), then it may be possible to write to unintended locations using directory traversal. This can be exploited by uploading a malicious zip file that contains paths that traverse the file system using sequences such as `..\..\..\..\shell.php`. This technique is discussed further in the [snyk advisory](https://snyk.io/research/zip-slip-vulnerability).
+If the application extracts archives (such as ZIP files), then it may be possible to write to unintended locations using directory traversal. This can be exploited by uploading a malicious ZIP file that contains paths that traverse the file system using sequences such as `..\..\..\..\shell.php`. This technique is discussed further in the [snyk advisory](https://snyk.io/research/zip-slip-vulnerability).
 
-#### Zip Bombs
+A test against Archive Directory Traversal should include two parts:
 
-A [Zip bomb](https://en.wikipedia.org/wiki/Zip_bomb) (more generally known as a decompression bomb) is an archive file that contains a large volume of data. It's intended to cause a denial of service by exhausting the disk space or memory of the target system that tries to extract the archive. Note that although the Zip format is the most used example for this, other formats are also affected, including gzip (which is frequently used to compress data in transit).
+1. A malicious archive that breaks out of the target directory when extracted. This malicious archive should contain two files: a `base` file, extracted into the target directory, and a `traversed` file that attempts to navigate up the directory tree to hit the root folder - adding a file into the `tmp` directory. A malicious path will contain many levels of `../` (*i.e.* `../../../../../../../../tmp/traversed`) to stand a better chance of reaching the root directory. Once the attack is successful, the tester can find `/tmp/traversed` to be created on the webserver through the ZIP slip attack.
+2. Logic that extracts compressed files either using custom code or a library. Archive Directory Traversal vulnerabilities exist when the extraction functionality doesn’t validate file paths in the archive. The example below shows a vulnerable implementation in Java:
 
-At its simplest level, a Zip bomb can be created by compressing a large file consisting of a single character. The example below shows how to create a 1MB file that will decompress to 1GB:
+```java
+Enumeration<ZipEntry> entries =​ ​zip​.g​etEntries();
+
+while(entries​.h​asMoreElements()){
+    ZipEntry e ​= ​entries.nextElement();
+    File f = new File(destinationDir, e.getName());
+    InputStream input = zip​.g​etInputStream(e);
+    IOUtils​.c​opy(input, write(f));
+}
+```
+
+Follow the steps below to create a ZIP file that can abuse the vulnerable code above once its uploaded to the web server:
+
+```bash
+# Open a new terminal and create a tree structure
+# (more directory levels might be required based on the system being targeted)
+mkdir -p a/b/c
+# Create a base file
+echo 'base' > a/b/c/base
+# Create a traversed file
+echo 'traversed' > traversed
+# You can double check the tree structure using `tree` at this stage
+# Navigate to a/b/c root directory
+cd a/b/c
+# Compress the files
+zip test.zip base ../../../traversed
+# Verify compressed files content
+unzip -l test.zip
+```
+
+#### ZIP Bombs
+
+A [ZIP bomb](https://en.wikipedia.org/wiki/zip_bomb) (more generally known as a decompression bomb) is an archive file that contains a large volume of data. It's intended to cause a denial of service by exhausting the disk space or memory of the target system that tries to extract the archive. Note that although the ZIP format is the most used example for this, other formats are also affected, including gzip (which is frequently used to compress data in transit).
+
+At its simplest level, a ZIP bomb can be created by compressing a large file consisting of a single character. The example below shows how to create a 1MB file that will decompress to 1GB:
 
 ```bash
 dd if=/dev/zero bs=1M count=1024 | zip -9 > bomb.zip
 ```
 
-There are a number of methods that can be used to achieve much higher compression ratios, including multiple levels of compression, [abusing the Zip format](https://www.bamsoftware.com/hacks/zipbomb/) and [quines](https://research.swtch.com/zip) (which are archives that contain a copy of themselves, causing infinite recursion).
+There are a number of methods that can be used to achieve much higher compression ratios, including multiple levels of compression, [abusing the ZIP format](https://www.bamsoftware.com/hacks/zipbomb/) and [quines](https://research.swtch.com/zip) (which are archives that contain a copy of themselves, causing infinite recursion).
 
-A successful Zip bomb attack will result in a denial of service, and can also lead to increased costs if an auto-scaling cloud platform is used. **Do not carry out this kind of attack unless you have considered these risks and have written approval to do so.**
+A successful ZIP bomb attack will result in a denial of service, and can also lead to increased costs if an auto-scaling cloud platform is used. **Do not carry out this kind of attack unless you have considered these risks and have written approval to do so.**
 
 #### XML Files
 

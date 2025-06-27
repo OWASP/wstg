@@ -1,6 +1,6 @@
 # API Testing
 
-Web APIs have gained a lot of popularity as they allow third-party programs to interact with websites in a more efficient and easy way. In this guide, we will discuss some basic concepts about APIs and the way to test security for APIs.
+Web APIs have gained a lot of popularity as they allow third-party programs to interact with sites in a more efficient and easy way. In this guide, we will discuss some basic concepts about APIs and the way to test security for APIs.
 
 ## Background Concepts
 
@@ -83,7 +83,7 @@ The most commonly used token format is the JSON Web Token (JWT), defined in [RFC
 
 ## Tools
 
-- ZAProxy
+- ZAP
 - Burp suite
 
 ## References

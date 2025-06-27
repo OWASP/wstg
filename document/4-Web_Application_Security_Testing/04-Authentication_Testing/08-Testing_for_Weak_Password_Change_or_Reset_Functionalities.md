@@ -163,9 +163,15 @@ Rather than sending them a link or new password, security questions can be used 
 
 See the [Testing for Weak Security Questions](08-Testing_for_Weak_Security_Question_Answer.md) guide for further information.
 
+### Authenticated Identity and Configuration Changes
+
+If the application supports the ability to modify an account's primary identifier (such as an email address or phone number) that is utilized in the password change and reset functionalities the user should be forced to re-authenticate. When the primary identifier used in the password change functionality is able to be modified without re-authentication it allows the re-authentication in the password change functionality to be bypassed. Overall, anything that impacts the security of the account (email, MFA, backup settings, etc.) should require re-authentication before it can be modified.
+
+For example: An application has a password reset flow that sends a reset link to the account's email address. The application also requires re-authentication if the password is attempted to be changed from the perspective of an authenticated user. If an attacker gains access to the account (via a stolen cookie, physical access to the computer, etc.) and changes the account's email address without needing to re-authenticate, then the password reset flow can be used to change the password, bypassing the authenticated password change flow.
+
 ### Authenticated Password Changes
 
-Once the user has proved their identity (either through a password reset link, a recovery code, or by logging in on the application) they should be able to change their password. The key area to test are:
+Once the user has proved their identity (either through a password reset link, a recovery code, or by logging in on the application) they should be able to change their password. The key areas to test are:
 
 - When setting the password, can you specify the user ID?
 
@@ -181,7 +187,7 @@ Once the user has proved their identity (either through a password reset link, a
 
 - Is a strong and effective password policy applied?
 
-  The password policy should be consistent across the registration, password change, and password reset functionality. See the [Testing for Weak Password Policy](07-Testing_for_Weak_Password_Policy.md) guide for further information.
+  The password policy should be consistent across the registration, password change, and password reset functionality. See the [Testing for Weak Authentication Methods](07-Testing_for_Weak_Authentication_Methods.md) guide for further information.
 
 ## References
 
