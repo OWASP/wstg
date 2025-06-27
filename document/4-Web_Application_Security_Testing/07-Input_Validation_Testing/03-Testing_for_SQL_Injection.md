@@ -179,7 +179,7 @@ When the testers move to a more advanced SQL injection exploitation they need to
 
 The first way to find out what backend database is used is by observing the error returned by the application. The following are some examples of error messages:
 
-MySql:
+MySQL:
 
 ```html
 You have an error in your SQL syntax; check the manual
@@ -213,7 +213,7 @@ Query failed: ERROR: syntax error at or near
 
 If there is no error message or a custom error message, the tester can try to inject it into string fields using varying concatenation techniques:
 
-- MySql: ‘test’ + ‘ing’
+- MySQL: ‘test’ + ‘ing’
 - SQL Server: ‘test’ ‘ing’
 - Oracle: ‘test’||’ing’
 - PostgreSQL: ‘test’||’ing’
@@ -599,11 +599,11 @@ Consider also the request to a script that executes the query above:
 
 `https://www.example.com/product.php?id=10`
 
-The malicious request would be (e.g. MySql 5.x):
+The malicious request would be (e.g. MySQL 5.x):
 
 `https://www.example.com/product.php?id=10 AND IF(version() like ‘5%’, sleep(10), ‘false’))--`
 
-In this example the tester is checking whether the MySql version is 5.x or not, making the server to delay the answer by 10 seconds. The tester can increase the delay time and monitor the responses. The tester also doesn’t need to wait for the response. Sometimes he can set a very high value (e.g. 100) and cancel the request after some seconds.
+In this example the tester is checking whether the MySQL version is 5.x or not, making the server to delay the answer by 10 seconds. The tester can increase the delay time and monitor the responses. The tester also doesn’t need to wait for the response. Sometimes he can set a very high value (e.g. 100) and cancel the request after some seconds.
 
 #### Stored Procedure Injection
 
@@ -786,16 +786,16 @@ This technique could also be used to determine exact discount codes through incr
 
 ## Remediation
 
-- To secure the application from SQL injection vulnerabilities, refer to the [SQL Injection Prevention CheatSheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html).
-- To secure the SQL server, refer to the [Database Security CheatSheet](https://cheatsheetseries.owasp.org/cheatsheets/Database_Security_Cheat_Sheet.html).
+- To secure the application from SQL injection vulnerabilities, refer to the [SQL Injection Prevention cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html).
+- To secure the SQL server, refer to the [Database Security cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Database_Security_Cheat_Sheet.html).
 
-For generic input validation security, refer to the [Input Validation CheatSheet](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html).
+For generic input validation security, refer to the [Input Validation cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html).
 
 ## Tools
 
 - [SQL Injection Fuzz Strings (from wfuzz tool) - Fuzzdb](https://github.com/fuzzdb-project/fuzzdb/tree/master/attack/sql-injection)
 - [Bernardo Damele A. G.: sqlmap, automatic SQL injection tool](https://sqlmap.org/)
-- [Muhaimin Dzulfakar: MySqloit, MySql Injection takeover tool](https://github.com/dtrip/mysqloit)
+- [Muhaimin Dzulfakar: MySQLoit, MySQL Injection takeover tool](https://github.com/dtrip/mysqloit)
 - [SQL Injection - PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/SQL%20Injection)
 
 ## References
