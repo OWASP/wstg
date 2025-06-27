@@ -131,4 +131,3 @@ Let's disassemble what we did in this string:
 ## References
 
 - [Niels Teusink: phpBB 2.0.12 authentication bypass](http://blog.teusink.net/2008/12/classic-bug-phpbb-2012-authentication.html)
-
