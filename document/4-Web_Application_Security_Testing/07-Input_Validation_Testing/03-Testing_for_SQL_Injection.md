@@ -786,10 +786,10 @@ This technique could also be used to determine exact discount codes through incr
 
 ## Remediation
 
-- To secure the application from SQL injection vulnerabilities, refer to the [SQL Injection Prevention cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html).
-- To secure the SQL server, refer to the [Database Security cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Database_Security_Cheat_Sheet.html).
+- To secure the application from SQL injection vulnerabilities, refer to the [SQL Injection Prevention cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html).
+- To secure the SQL server, refer to the [Database Security cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Database_Security_Cheat_Sheet.html).
 
-For generic input validation security, refer to the [Input Validation cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html).
+For generic input validation security, refer to the [Input Validation cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html).
 
 ## Tools
 
