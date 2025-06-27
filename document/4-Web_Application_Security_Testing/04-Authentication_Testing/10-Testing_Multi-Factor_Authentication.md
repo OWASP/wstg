@@ -56,7 +56,7 @@ In some cases, there may also be intentional MFA bypasses implemented, such as n
 
 - From specific IP addresses (which may be spoofable using the `X-Forwarded-For` HTTP header).
 - When a specific HTTP header is set (such as a non-standard header like `X-Debug`).
-- For a specific hard-coded account (such as a "root" or "breakglass" account).
+- For a specific hardcoded account (such as a "root" or "breakglass" account).
 
 Where an application supports both local and federated logins, it may be possible to bypass the MFA if there is no strong separation between these two types of accounts. For example, if a user registers a local account and configures MFA for it, but does not have MFA configured on their account on the federated login provider, it may be possible for an attacker to re-register (or link) a federated account on the target application with the same email address by compromising the user's account on the federated login provider.
 
