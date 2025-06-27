@@ -256,7 +256,7 @@ To test for XXE vulnerabilities, one can use the following input:
         <foo>&xxe;</foo>
 ```
 
-This test could crash the web server (on a UNIX system), if the XML parser attempts to substitute the entity with the contents of the /dev/random file.
+This test could crash the web server (on a Unix system), if the XML parser attempts to substitute the entity with the contents of the /dev/random file.
 
 Other useful tests are the following:
 
@@ -422,5 +422,5 @@ The followings source code keyword may apply to C.
 ## References
 
 - [XML Injection](https://www.whitehatsec.com/glossary/content/xml-injection)
-- [Gregory Steuck, "XXE (Xml eXternal Entity) attack"](https://www.securityfocus.com/archive/1/297714)
+- [Gregory Steuck, "XXE (XML eXternal Entity) attack"](https://www.securityfocus.com/archive/1/297714)
 - [OWASP XXE Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html)
