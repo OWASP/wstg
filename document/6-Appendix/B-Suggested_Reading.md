@@ -39,7 +39,7 @@
 - [McAfee Free Tools](https://www.mcafee.com/enterprise/en-us/downloads/free-tools.html)
 - [OASIS Web Application Security (WAS) TC](https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=was)
 - [SANS Internet Storm Center (ISC)](https://isc.sans.edu/)
-- [The Open Web Application Application Security Project (OWASP)](https://owasp.org)
+- [The Open Worldwide Application Application Security Project (OWASP)](https://owasp.org)
 - [Pentestmonkey - Pen Testing Cheat Sheets](https://pentestmonkey.net/cheat-sheet)
 - [Secure Coding Guidelines for the .NET Framework 4.5](https://docs.microsoft.com/en-us/dotnet/standard/security/secure-coding-guidelines)
 - [Security in the Java platform](https://docs.oracle.com/javase/6/docs/technotes/guides/security/overview/jsoverview.html)
