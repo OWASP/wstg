@@ -6,6 +6,7 @@
 			// Syntax elements to skip. Overrides the default
 			"skip": [
 				"Link",
+				"LinkReference",
 				"Blockquote"
 			],
 			// List of terms
@@ -51,6 +52,10 @@
 				"Wikipedia",
 				"WordPress",
 				"YouTube",
+				[
+					"Open Web Application Security Project",
+					"Open Worldwide Application Security Project"
+				],
 				[
 					"StackOverflow",
 					"Stack Overflow"
