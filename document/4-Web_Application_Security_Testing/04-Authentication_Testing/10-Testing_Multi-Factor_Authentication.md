@@ -88,7 +88,7 @@ See the ["Backup Codes" section in the Forgotten Password Cheat Sheet](https://c
 
 #### MFA Reset Process
 
-If the application implements an MFA reset process, this should be tested in the same way that the [password reset process](09-Testing_for_Weak_Password_Change_or_Reset_Functionalities.md) is tested. It is important that this process is *at least* as strong as the MFA implementation for the application.
+If the application implements an MFA reset process, this should be tested in the same way that the [password reset process](08-Testing_for_Weak_Password_Change_or_Reset_Functionalities.md) is tested. It is important that this process is *at least* as strong as the MFA implementation for the application.
 
 #### Alternative Authentication
 
