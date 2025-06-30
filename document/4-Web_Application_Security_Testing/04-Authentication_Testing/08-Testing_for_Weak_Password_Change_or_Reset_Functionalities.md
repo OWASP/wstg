@@ -107,7 +107,7 @@ In this model, the user is emailed a link that contains a token. They can then c
 
 - Can you inject a different host header?
 
-  If the application trusts the value of the `Host` header and uses this to generate the password reset link, it may be possible to steal tokens by injecting a modified `Host` header into the request. See the [Testing for Host Header Injection](../07-Input_Validation_Testing/17-Testing_for_Host_Header_Injection.md) guide for further information.
+  If the application trusts the value of the `Host` header and uses this to generate the password reset link, it may be possible to steal tokens by injecting a modified `Host` header into the request. See the [Testing for Host Header Injection](../07-Input_Validation_Testing/16-Testing_for_Host_Header_Injection.md) guide for further information.
 
 - Is the link exposed to third parties?
 
@@ -161,7 +161,7 @@ Rather than sending a token in an email, an alternative approach is to send it v
 
 Rather than sending them a link or new password, security questions can be used as a mechanism to authenticate the user. This is considered to be a weak approach, and should not be used if better options are available.
 
-See the [Testing for Weak Security Questions](08-Testing_for_Weak_Security_Question_Answer.md) guide for further information.
+See the [Testing for Weak Security Questions](07-Testing_for_Weak_Security_Question_Answer.md) guide for further information.
 
 ### Authenticated Identity and Configuration Changes
 
