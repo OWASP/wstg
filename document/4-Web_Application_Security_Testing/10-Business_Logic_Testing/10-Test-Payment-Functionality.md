@@ -130,7 +130,7 @@ If this doesn't work, then you need to find the public key that is used to encry
 Alternatively, it's possible that the application re-uses the same public/private key pair for the payment gateway and its digital certificate. You can obtain the public key from the server with the following command:
 
 ```bash
-echo -e '\0' | openssl s_client -connect example.org:443 2>/dev/null | openssl x509 -pubkey -noout
+echo -e '\0' | opensssl s_client -connect example.org:443 2>/dev/null | openssl x509 -pubkey -noout
 ```
 
 Once you have this key, you can then try and create an encrypted request (based on the payment gateway's documentation), and submit it to the gateway to see if it's accepted.
@@ -226,6 +226,51 @@ Testing payment functionality on applications can introduce additional complexit
     - If these are not available, then it may be possible to obtain a pre-paid card or an alternative.
 - Keeping a record of any orders that are made so that they can be cancelled and refunded.
 - Not placing orders that can't be cancelled, or that will cause other actions (such as goods being immediately dispatched from a warehouse).
+
+#### Source Equals Destination
+
+If the source of the transfer is equal to the destination, it may result in simply adding value to the account without any actual transfer occurring. This scenario should be tested to ensure that the application prevents such operations.
+
+#### Two-Step Payments or Transfers
+
+For payments or transfers requiring two steps (initiation and confirmation), ensure that checks are performed during both phases. For example:
+
+- Initiate two separate payments.
+- Confirm them individually.
+
+Verify that necessary checks, such as daily limits or balance validations, are performed during the confirmation phase. Failure to do so may lead to negative balances or bypassing limits.
+
+#### Adding Items After Payment Initiation
+
+Test the scenario where a payment is initiated, and items are added to the cart afterward. Confirming the payment may result in marking the added items as paid, which could lead to inconsistencies in the payment process.
+
+#### Race Conditions
+
+- Concurrent Payment Confirmations
+  Initiate multiple confirmation requests (e.g., `POST /confirm-payment`) simultaneously for the same order using tools like Burp Intruder or custom scripts. This may result in the same order being processed multiple times.
+
+- Callback Replay or Flooding 
+  Intercept the gateway’s callback request (e.g., to `success.php` or `/payment/callback`) and replay it rapidly in parallel. If the backend lacks proper idempotency checks, this can:
+  - Trigger multiple order fulfillment events (e.g., shipping, credits).
+  - Mark the same order as "paid" multiple times.
+  - Cause balance inflation or inventory errors.
+
+Impact:
+- Duplicate charges or credits.
+- Abuse of limited resources (coupons, digital assets).
+- Inconsistent database state.
+
+#### Multi-Input Systems (Bulk Payments)
+
+In systems that support bulk payments, test scenarios where the total amount remains positive, but individual inputs include negative values. For example:
+
+```plaintext
+account_id_1 = $5
+account_id_2 = -$4
+Total = $1 paid, but $5 credited
+```
+
+Ensure that the application correctly handles such cases and prevents exploitation.
 
 ## Related Test Cases
 
