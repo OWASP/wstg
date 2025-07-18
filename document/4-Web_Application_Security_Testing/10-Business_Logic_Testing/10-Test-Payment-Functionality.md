@@ -130,7 +130,7 @@ If this doesn't work, then you need to find the public key that is used to encry
 Alternatively, it's possible that the application re-uses the same public/private key pair for the payment gateway and its digital certificate. You can obtain the public key from the server with the following command:
 
 ```bash
-echo -e '\0' | opensssl s_client -connect example.org:443 2>/dev/null | openssl x509 -pubkey -noout
+echo -e '\0' | openssl s_client -connect example.org:443 2>/dev/null | openssl x509 -pubkey -noout
 ```
 
 Once you have this key, you can then try and create an encrypted request (based on the payment gateway's documentation), and submit it to the gateway to see if it's accepted.
