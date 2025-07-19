@@ -249,18 +249,16 @@ Test the scenario where a payment is initiated, and items are added to the cart 
 - Concurrent Payment Confirmations
   Initiate multiple confirmation requests (e.g., `POST /confirm-payment`) simultaneously for the same order using tools like Burp Intruder or custom scripts. This may result in the same order being processed multiple times.
 
-- Callback Replay or Flooding 
+- Callback Replay or Flooding
     Intercept the gateway’s callback request (e.g., to `success.php` or `/payment/callback`) and replay it rapidly in parallel. If the backend lacks proper idempotency checks, this can:
     - Trigger multiple order fulfillment events (e.g., shipping, credits).
     - Mark the same order as "paid" multiple times.
     - Cause balance inflation or inventory errors.
 
-
 Impact:
-
-    - Duplicate charges or credits.
-    - Abuse of limited resources (coupons, digital assets).
-    - Inconsistent database state.
+- Duplicate charges or credits.
+- Abuse of limited resources (coupons, digital assets).
+- Inconsistent database state.
 
 #### Multi-Input Systems (Bulk Payments)
 
@@ -272,9 +270,7 @@ account_id_2 = -$4
 Total = $1 paid, but $5 credited
 ```
 
-
 Ensure that the application correctly handles such cases and prevents exploitation.
-
 
 ## Related Test Cases
 
