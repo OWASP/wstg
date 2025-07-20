@@ -255,11 +255,6 @@ Test the scenario where a payment is initiated, and items are added to the cart 
     - Mark the same order as "paid" multiple times.
     - Cause balance inflation or inventory errors.
 
-Impact:
-- Duplicate charges or credits.
-- Abuse of limited resources (coupons, digital assets).
-- Inconsistent database state.
-
 #### Multi-Input Systems (Bulk Payments)
 
 In systems that support bulk payments, test scenarios where the total amount remains positive, but individual inputs include negative values. For example:
