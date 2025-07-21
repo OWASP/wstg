@@ -227,6 +227,46 @@ Testing payment functionality on applications can introduce additional complexit
 - Keeping a record of any orders that are made so that they can be cancelled and refunded.
 - Not placing orders that can't be cancelled, or that will cause other actions (such as goods being immediately dispatched from a warehouse).
 
+#### Source Equals Destination
+
+If the source of the transfer is equal to the destination, it may result in simply adding value to the account without any actual transfer occurring. This scenario should be tested to ensure that the application prevents such operations.
+
+#### Two-Step Payments or Transfers
+
+For payments or transfers requiring two steps (initiation and confirmation), ensure that checks are performed during both phases. For example:
+
+- Initiate two separate payments.
+- Confirm them individually.
+
+Verify that necessary checks, such as daily limits or balance validations, are performed during the confirmation phase. Failure to do so may lead to negative balances or bypassing limits.
+
+#### Adding Items After Payment Initiation
+
+Test the scenario where a payment is initiated, and items are added to the cart afterward. Confirming the payment may result in marking the added items as paid, which could lead to inconsistencies in the payment process.
+
+#### Race Conditions
+
+- Concurrent Payment Confirmations
+  Initiate multiple confirmation requests (e.g., `POST /confirm-payment`) simultaneously for the same order using tools like Burp Intruder or custom scripts. This may result in the same order being processed multiple times.
+
+- Callback Replay or Flooding
+    Intercept the gateway’s callback request (e.g., to `success.php` or `/payment/callback`) and replay it rapidly in parallel. If the backend lacks proper idempotency checks, this can:
+    - Trigger multiple order fulfillment events (e.g., shipping, credits).
+    - Mark the same order as "paid" multiple times.
+    - Cause balance inflation or inventory errors.
+
+#### Multi-Input Systems (Bulk Payments)
+
+In systems that support bulk payments, test scenarios where the total amount remains positive, but individual inputs include negative values. For example:
+
+```plaintext
+account_id_1 = $5
+account_id_2 = -$4
+Total = $1 paid, but $5 credited
+```
+
+Ensure that the application correctly handles such cases and prevents exploitation.
+
 ## Related Test Cases
 
 - [Testing for HTTP Parameter Pollution](../07-Input_Validation_Testing/04-Testing_for_HTTP_Parameter_Pollution.md)
