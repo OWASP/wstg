@@ -98,7 +98,7 @@ Application APIs that conform to REST principles use the response status code of
 | 307           | Temporary Redirect    | Temporary redirection of resource                                                                      |
 | 400           | Bad Request           | Malformed request by the client                                                                        |
 | 401           | Unauthorized          | Client is not allowed to make requests or access a particular resource                                 |
-| 402           | Forbidden             | Client is forbidden to access the resource                                                             |
+| 403           | Forbidden             | Client is forbidden to access the resource                                                             |
 | 404           | Not Found             | Resource doesn't exist or incorrect based on the request                                               |
 | 405           | Method Not Allowed    | Invalid method or unknown method used                                                                  |
 | 500           | Internal Server Error | Server failed to process request due to an internal error                                              |

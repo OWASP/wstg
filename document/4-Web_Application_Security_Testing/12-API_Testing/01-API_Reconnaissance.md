@@ -16,7 +16,7 @@ APIs can be public or private.
 
 #### Public APIs
 
-Public APIs typically have their details published in a Swagger/OpenAPI document. Gaining access to this document is important to understand the attack surface. Equally important is finding older versions of this document that might show depricated but still functional code that may have security vulnerabilities.
+Public APIs typically have their details published in a Swagger/OpenAPI document. Gaining access to this document is important to understand the attack surface. Equally important is finding older versions of this document that might show deprecated but still functional code that may have security vulnerabilities.
 
 Keep in mind that this document, however well intentioned, may not be accurate, and also may not dislose the complete API.
 
