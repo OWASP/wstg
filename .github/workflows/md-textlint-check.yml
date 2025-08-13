@@ -17,13 +17,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout PR
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         ref: ${{github.event.pull_request.head.ref}}
         repository: ${{github.event.pull_request.head.repo.full_name}}
         path: pr
     - name: Checkout Base
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         repository: OWASP/wstg
         path: base
