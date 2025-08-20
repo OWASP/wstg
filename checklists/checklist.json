@@ -624,14 +624,7 @@
                   ]
                 }
                 ,{
-                "name":"Testing for Buffer Overflow",
-                "id":"WSTG-INPV-13",
-                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/13-Testing_for_Buffer_Overflow",
-                "objectives":[
-                    ""
-                  ]
-                }
-                ,{
+                
                 "name":"Testing for Format String Injection",
                 "id":"WSTG-INPV-13",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/13-Testing_for_Format_String_Injection",
