@@ -30,7 +30,6 @@ There are several methods of bypassing the authentication schema that is used by
 - Session ID prediction
 - SQL injection
 
-
 ### Parameter Modification
 
 Another problem related to authentication design is when the application verifies a successful log in on the basis of a fixed value parameters. A user could modify these parameters to gain access to the protected areas without providing valid credentials. In the example below, the "authenticated" parameter is changed to a value of "yes", which allows the user to gain access. In this example, the parameter is in the URL, but a proxy could also be used to modify the parameter, especially when the parameters are sent as form elements in a POST request or when the parameters are stored in a cookie.
