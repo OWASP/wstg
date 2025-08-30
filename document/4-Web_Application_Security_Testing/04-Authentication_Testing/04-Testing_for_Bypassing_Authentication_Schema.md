@@ -26,17 +26,10 @@ Problems related to the authentication schema can be found at different stages o
 
 There are several methods of bypassing the authentication schema that is used by a web application:
 
-- Direct page request ([forced browsing](https://owasp.org/www-community/attacks/Forced_browsing))
 - Parameter modification
 - Session ID prediction
 - SQL injection
 
-### Direct Page Request
-
-If a web application implements access control only on the log in page, the authentication schema could be bypassed. For example, if a user directly requests a different page via forced browsing, that page may not check the credentials of the user before granting access. Attempt to directly access a protected page through the address bar in your browser to test using this method.
-
-![Direct Request to Protected Page](images/Basm-directreq.jpg)\
-*Figure 4.4.4-1: Direct Request to Protected Page*
 
 ### Parameter Modification
 
