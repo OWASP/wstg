@@ -19,7 +19,7 @@ Most of Web security testing tools (i.e. AppScan, BurpSuite, ZAP) act as HTTP Pr
 
 ### Reverse Proxy
 
-There is situation that we would like to monitor all HTTP incoming requests on web server but we can't change configuration on the browser or application client-side. In this scenario, we can setup a reverse proxy on web server end to monitor all incoming/outgoing requests on web server.
+There are situations where we would like to monitor all HTTP incoming requests on the web server but we can't change the configuration on the browser or application client-side. In this scenario, we can setup a reverse proxy on the web server and to monitor all incoming/outgoing requests on the web server.
 
 For windows platform, Fiddler Classic is recommended. It provides not only monitor but can also edit/reply the HTTP requests. Refer to [this reference for how to configure Fiddler as reverse Proxy](https://docs.telerik.com/fiddler/configure-fiddler/tasks/usefiddlerasreverseproxy)
 
