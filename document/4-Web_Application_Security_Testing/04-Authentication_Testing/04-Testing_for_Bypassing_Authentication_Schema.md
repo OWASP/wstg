@@ -54,7 +54,7 @@ Content-Type: text/html; charset=iso-8859-1
 ```
 
 ![Parameter Modified Request](images/Basm-parammod.jpg)\
-*Figure 4.4.4-2: Parameter Modified Request*
+*Figure 4.4.4-1: Parameter Modified Request*
 
 ### Session ID Prediction
 
@@ -63,24 +63,24 @@ Many web applications manage authentication by using session identifiers (sessio
 In the following figure, values inside cookies increase linearly, so it could be easy for an attacker to guess a valid session ID.
 
 ![Cookie Values Over Time](images/Basm-sessid.jpg)\
-*Figure 4.4.4-3: Cookie Values Over Time*
+*Figure 4.4.4-2: Cookie Values Over Time*
 
 In the following figure, values inside cookies change only partially, so it's possible to restrict a brute force attack to the defined fields shown below.
 
 ![Partially Changed Cookie Values](images/Basm-sessid2.jpg)\
-*Figure 4.4.4-4: Partially Changed Cookie Values*
+*Figure 4.4.4-3: Partially Changed Cookie Values*
 
 ### SQL Injection (HTML Form Authentication)
 
 SQL Injection is a widely known attack technique. This section is not going to describe this technique in detail as there are several sections in this guide that explain injection techniques beyond the scope of this section.
 
 ![SQL Injection](images/Basm-sqlinj.jpg)\
-*Figure 4.4.4-5: SQL Injection*
+*Figure 4.4.4-4: SQL Injection*
 
 The following figure shows that with a simple SQL injection attack, it is sometimes possible to bypass the authentication form.
 
 ![Simple SQL Injection Attack](images/Basm-sqlinj2.gif)\
-*Figure 4.4.4-6: Simple SQL Injection Attack*
+*Figure 4.4.4-5: Simple SQL Injection Attack*
 
 ### PHP Loose Comparison
 
