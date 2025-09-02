@@ -21,7 +21,7 @@ Try to access the application as an administrative user and track all the admini
 
 ## Test Objectives
 
-- Assess if unauthenticated, horizontal and/or vertical access is possible.
+- Assess if unauthenticated, horizontal, or vertical access is possible.
 
 ## How to Test
 
