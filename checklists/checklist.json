@@ -381,7 +381,7 @@
                 "id":"WSTG-ATHZ-02",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/05-Authorization_Testing/02-Testing_for_Bypassing_Authorization_Schema",
                 "objectives":[
-                    "Assess if horizontal or vertical access is possible."
+                    "Assess if unauthenticated, horizontal, or vertical access is possible."
                   ]
                 }
                 ,{
