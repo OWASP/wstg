@@ -21,12 +21,30 @@ Try to access the application as an administrative user and track all the admini
 
 ## Test Objectives
 
-- Assess if horizontal or vertical access is possible.
+- Assess if unauthenticated, horizontal, or vertical access is possible.
 
 ## How to Test
 
+- Access resources and conduct operations without login. - Direct page request ([forced browsing](https://owasp.org/www-community/attacks/Forced_browsing))
 - Access resources and conduct operations horizontally.
 - Access resources and conduct operations vertically.
+
+### Testing for Basic Unauthenticated Access
+
+#### Using a Browser Manually
+
+When a web application does not properly enforce access control mechanisms, sensitive resources become exposed, allowing unauthenticated users to view them. For example, if a user directly requests a different page via forced browsing, that page may not check the authorization of the anonymous user before granting access. Attempt to directly access a protected page through the address bar in your browser to test using this method.
+
+![Direct Request to Protected Page](images/Basm-directreq.jpg)\
+*Figure 4.5.2-1: Direct Request to Protected Page*
+
+#### Using Automation
+
+This process can be automated if you have a list of all endpoints with tools like ffuf, gobuster, ZAP, and Burp Suite Intruder.
+
+For ZAP, using a adddon for [Access Control Testing](https://www.zaproxy.org/docs/desktop/addons/access-control-testing/) allows testers to determine which parts of the application are available to anonymous users, and identify potential access control issues.
+
+For Burp Suite, built-in tools such as Intruder, and a number of plugins, including Autorize, help the tester automate testing authorization.
 
 ### Testing for Horizontal Bypassing Authorization Schema
 

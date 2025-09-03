@@ -26,17 +26,9 @@ Problems related to the authentication schema can be found at different stages o
 
 There are several methods of bypassing the authentication schema that is used by a web application:
 
-- Direct page request ([forced browsing](https://owasp.org/www-community/attacks/Forced_browsing))
 - Parameter modification
 - Session ID prediction
 - SQL injection
-
-### Direct Page Request
-
-If a web application implements access control only on the log in page, the authentication schema could be bypassed. For example, if a user directly requests a different page via forced browsing, that page may not check the credentials of the user before granting access. Attempt to directly access a protected page through the address bar in your browser to test using this method.
-
-![Direct Request to Protected Page](images/Basm-directreq.jpg)\
-*Figure 4.4.4-1: Direct Request to Protected Page*
 
 ### Parameter Modification
 
@@ -62,7 +54,7 @@ Content-Type: text/html; charset=iso-8859-1
 ```
 
 ![Parameter Modified Request](images/Basm-parammod.jpg)\
-*Figure 4.4.4-2: Parameter Modified Request*
+*Figure 4.4.4-1: Parameter Modified Request*
 
 ### Session ID Prediction
 
@@ -71,24 +63,24 @@ Many web applications manage authentication by using session identifiers (sessio
 In the following figure, values inside cookies increase linearly, so it could be easy for an attacker to guess a valid session ID.
 
 ![Cookie Values Over Time](images/Basm-sessid.jpg)\
-*Figure 4.4.4-3: Cookie Values Over Time*
+*Figure 4.4.4-2: Cookie Values Over Time*
 
 In the following figure, values inside cookies change only partially, so it's possible to restrict a brute force attack to the defined fields shown below.
 
 ![Partially Changed Cookie Values](images/Basm-sessid2.jpg)\
-*Figure 4.4.4-4: Partially Changed Cookie Values*
+*Figure 4.4.4-3: Partially Changed Cookie Values*
 
 ### SQL Injection (HTML Form Authentication)
 
 SQL Injection is a widely known attack technique. This section is not going to describe this technique in detail as there are several sections in this guide that explain injection techniques beyond the scope of this section.
 
 ![SQL Injection](images/Basm-sqlinj.jpg)\
-*Figure 4.4.4-5: SQL Injection*
+*Figure 4.4.4-4: SQL Injection*
 
 The following figure shows that with a simple SQL injection attack, it is sometimes possible to bypass the authentication form.
 
 ![Simple SQL Injection Attack](images/Basm-sqlinj2.gif)\
-*Figure 4.4.4-6: Simple SQL Injection Attack*
+*Figure 4.4.4-5: Simple SQL Injection Attack*
 
 ### PHP Loose Comparison
 
@@ -121,7 +113,7 @@ a:2:{s:11:"autologinid";b:1;s:6:"userid";s:1:"2";}  // original value: a:2:{s:11
 Let's disassemble what we did in this string:
 
 1. `autologinid` is now a boolean set to `true`: this can be seen by replacing the MD5 value of the password hash (`s:32:"8b8e9715d12e4ca12c4c3eb4865aaf6a"`) with `b:1`
-2. `userid` is now set to the admin id: this can be seen in the last piece of the string, where we replaced our regular user ID (`s:4:"1337"`) with `s:1:"2"`
+2. `userid` is now set to the admin ID: this can be seen in the last piece of the string, where we replaced our regular user ID (`s:4:"1337"`) with `s:1:"2"`
 
 ## Tools
 
