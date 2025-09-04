@@ -24,7 +24,7 @@ jobs:
         PR_NUMBER: ${{ github.event.number }}
       run: echo $PR_NUMBER > pr_number
     - name: Setup Node
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v5
       with:
         node-version: '20'
     - name: Install dependencies
