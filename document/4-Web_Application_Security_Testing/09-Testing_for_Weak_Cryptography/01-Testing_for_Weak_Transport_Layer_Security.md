@@ -29,14 +29,14 @@ There are a large number of protocol versions, ciphers, and extensions supported
 - [TLSv1.0 (BEAST)](https://www.acunetix.com/blog/web-security-zone/what-is-beast-attack/)
 - [TLSv1.1 (Deprecated by RFC 8996)](https://tools.ietf.org/html/rfc8996)
 - [EXPORT ciphers suites (FREAK)](https://en.wikipedia.org/wiki/FREAK)
-- [NULL ciphers](https://www.rapid7.com/db/vulnerabilities/ssl-null-ciphers) ([they only provide authentication](https://tools.ietf.org/html/rfc4785)).
+- NULL ciphers ([they only provide authentication](https://tools.ietf.org/html/rfc4785)).
 - Anonymous ciphers (these may be supported on SMTP servers, as discussed in [RFC 7672](https://tools.ietf.org/html/rfc7672#section-8.2))
 - [RC4 ciphers (NOMORE)](https://www.rc4nomore.com/)
 - CBC mode ciphers (BEAST, [Lucky 13](https://en.wikipedia.org/wiki/Lucky_Thirteen_attack))
 - [TLS compression (CRIME)](https://en.wikipedia.org/wiki/CRIME)
 - [Weak DHE keys (LOGJAM)](https://weakdh.org/)
 
-The [Mozilla Server Side TLS Guide](https://wiki.mozilla.org/Security/Server_Side_TLS) details the protocols and ciphers that are currently recommended.
+The [Mozilla Server-Side TLS Guide](https://wiki.mozilla.org/Security/Server_Side_TLS) details the protocols and ciphers that are currently recommended.
 
 #### Exploitability
 
@@ -98,7 +98,7 @@ Many sites will accept connections over unencrypted HTTP, and then immediately r
 
 However, if an attacker is able to intercept this initial request, they could redirect the user to a malicious site, or use a tool such as [sslstrip](https://github.com/moxie0/sslstrip) to intercept subsequent requests.
 
-In order to defend against this type of attack, the site must use be added to the [preload list](https://hstspreload.org).
+In order to defend against this type of attack, the site must be added to the [preload list](https://hstspreload.org).
 
 ## Automated Testing
 
@@ -122,4 +122,4 @@ It can also be possible to performed limited testing using a web browser, as mod
 ## References
 
 - [OWASP Transport Layer Protection Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html)
-- [Mozilla Server Side TLS Guide](https://wiki.mozilla.org/Security/Server_Side_TLS)
+- [Mozilla Server-Side TLS Guide](https://wiki.mozilla.org/Security/Server_Side_TLS)
