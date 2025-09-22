@@ -23,7 +23,7 @@ jobs:
     - name: Setup Node
       uses: actions/setup-node@v5
       with:
-        node-version: '20'
+        node-version: 24
     - name: SetUp python
       uses: actions/setup-python@v6
       with:
