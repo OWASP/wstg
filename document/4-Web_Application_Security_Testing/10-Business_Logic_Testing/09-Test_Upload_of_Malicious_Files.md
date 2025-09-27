@@ -80,7 +80,7 @@ If the filtering is performed on the server-side, then various techniques can be
 - In badly configured versions of Nginx, uploading a file as `test.jpg/x.php` may allow it to be executed as `x.php`.
 - Upload an `.htaccess` file with the following content: `AddType application/x-httpd-php .png`. This will cause the Apache server to execute `.png` images as if they were `.php` scripts.
 
-Note that in some situations, you may need to combine the different filter evasion techniques discussed above in order to successfully bypass server-side filters.
+**Note that in some situations, you may need to combine the different filter evasion techniques discussed above in order to successfully bypass server-side filters.**
 
 ### Malicious File Contents
 
