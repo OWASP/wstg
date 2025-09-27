@@ -72,10 +72,15 @@ If the filtering is performed on the server-side, then various techniques can be
 
 - Change the value of `Content-Type` as `image/jpeg` in HTTP request.
 - Change the extensions to a less common extension, such as `file.php5`, `file.shtml`, `file.asa`, `file.jsp`, `file.jspx`, `file.aspx`, `file.asp`, `file.phtml`, `file.cshtml`
+- Use double extensions such as `file.jpg.php` or `file.png.php`. For this to work properly, you must first understand how the web server handles files with multiple extensions. For instance, in certain scenario, the web server may only check if `.jpg` or `.png` is part of the file's extension which may allow attackers to bypass file extension filter.
+- Change the [file signature](https://en.wikipedia.org/wiki/List_of_file_signatures) or magic byte of the uploaded file.
 - Change the capitalisation of the extension, such as `file.PhP` or `file.AspX`
 - If the request includes multiple filenames, change them to different values.
 - Using special trailing characters such as spaces, dots or null characters such as `file.asp...`, `file.php;jpg`, `file.asp%00.jpg`, `1.jpg%00.php`
 - In badly configured versions of Nginx, uploading a file as `test.jpg/x.php` may allow it to be executed as `x.php`.
+- Upload an `.htaccess` file with the following content: `AddType application/x-httpd-php .png`. This will cause the Apache server to execute `.png` images as if they were `.php` scripts.
+
+Note that in some situations, you may need to combine the different filter evasion techniques discussed above in order to successfully bypass server-side filters.
 
 ### Malicious File Contents
 
@@ -193,3 +198,4 @@ Fully protecting against malicious file upload can be complex, and the exact ste
 - [CWE-434: Unrestricted Upload of File with Dangerous Type](https://cwe.mitre.org/data/definitions/434.html)
 - [Implementing Secure File Upload](https://infosecauditor.wordpress.com/tag/malicious-file-upload/)
 - [Metasploit Generating Payloads](https://www.offensive-security.com/metasploit-unleashed/Generating_Payloads)
+- [List of file signatures](https://en.wikipedia.org/wiki/List_of_file_signatures)
