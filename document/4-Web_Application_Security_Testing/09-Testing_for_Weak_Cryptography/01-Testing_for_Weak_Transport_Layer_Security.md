@@ -123,3 +123,4 @@ It can also be possible to performed limited testing using a web browser, as mod
 
 - [OWASP Transport Layer Protection Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html)
 - [Mozilla Server-Side TLS Guide](https://wiki.mozilla.org/Security/Server_Side_TLS)
+- [CWE-1428: Reliance on HTTP instead of HTTPS](https://cwe.mitre.org/data/definitions/1428.html)
