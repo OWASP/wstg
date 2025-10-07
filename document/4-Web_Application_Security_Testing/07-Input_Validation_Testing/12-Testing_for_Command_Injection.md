@@ -166,7 +166,7 @@ In Windows CMD, we can replace `\` with `%HOMEPATH:~6,1%` or use `$env:HOMEPATH[
 
 Bash brace expansion is a Bash feature that allows you to execute commands by using curly braces.  
 For example, `{ls,-la}` will execute `ls -la` command. This can be extremely useful if the web server is filtering space, new line or tab characters.  
-Let's assume that we want to display the content of '/etc/passwd' file. Thus, instead of using `;cat /etc/passwd`, we can use `;{cat,/etc/passwd}`  
+Let's assume that we want to display the content of '/etc/passwd' file. Thus, instead of using `;cat /etc/passwd`, we can use `;{cat,/etc/passwd}`.
 That said, it's important to note that this technique will only work if the web server is using Bash and if characters like `}{/,;` are not filtered.
 
 ### Commands Filter Evasion
