@@ -110,6 +110,7 @@ In this case, we have successfully performed an OS injection attack.
 Special characters are used to chain multiple commands together.
 These characters will vary based on the operating system running on the web server.
 For instance, the following special characters can be used on both Windows and Unix-based systems :
+
 - `cmd1|cmd2` : cmd2 will be executed whether cmd1 succeeds or not.
 - `cmd1||cmd2` : cmd2 will only be executed if cmd1 fails.
 - `cmd1&&cmd2` : cmd2 will only be executed if cmd1 succeeds.
@@ -128,6 +129,7 @@ In this section, we will cover different techniques used to bypass those filters
 
 First of all, it is always good practice to have a basic understanding of how the filter works before trying to bypass it.
 Here is a methodology we can use when we come across a filter:
+
 - Is the filter client-side or server-side ?
 - Is the filter applied on special characters, os commands, or both ?
 - Is the webapp using a whitelist or blacklist filter ?
@@ -161,6 +163,7 @@ For instance, in Linux, `/`, `;` and `[space]` can be replaced respectively with
 In Windows CMD, we can replace `\` with `%HOMEPATH:~6,1%` or use `$env:HOMEPATH[0]` in PowerShell
 
 #### Bash Brace Expansion
+
 Bash brace expansion is a Bash feature that allows you to execute commands by using curly braces.  
 For example, `{ls,-la}` will execute `ls -la` command. This can be extremely useful if the web server is filtering space, new line or tab characters.  
 Let's assume that we want to display the content of '/etc/passwd' file. Thus, instead of using `;cat /etc/passwd`, we can use `;{cat,/etc/passwd}`  
@@ -189,7 +192,7 @@ The command above will simply translate each uppercase character to its correspo
 #### Character Insertion
 
 Characters like `\`; `$@`, `'` can be inserted to Linux OS commands without affecting the normal execution of the command.  
-For example, `who\ami`, `w$@hoami` or `wh'o'ami` will all execute the `whoami` command   
+For example, `who\ami`, `w$@hoami` or `wh'o'ami` will all execute the `whoami` command  
 
 Note that the number of single quotes `'` in the Linux command must be **even**, otherwise you will get an error. If you're using Windows CMD, make sure to use double quotes `"` instead.  
 Furthermore, you can also use a caret `^` in CMD commands. For example, `whoa^mi` will execute the `whoami` command. This does not work in PowerShell.  
@@ -244,7 +247,7 @@ The URL query parameters and form data need to be validated and sanitized to pre
 A blacklist of characters is an option but it may be difficult to think of all of the characters to validate against. Also there may be some that were not discovered as of yet.  
 A whitelist containing only authorized characters or commands should be created to validate the user input. Characters that were missed, as well as undiscovered threats, should be eliminated by this list.  
 
-General deny list to be included for command injection can be `|` `;` `&` `$` `>` `<` `'` `\` `!` `>>` `#`   
+General deny list to be included for command injection can be `|` `;` `&` `$` `>` `<` `'` `\` `!` `>>` `#`  
 
 Escape or filter special characters for windows, `(` `)` `<` `>` `&` `*` `‘` `|` `=` `?` `;` `[` `]` `^` `~` `!` `.` `"` `%` `@` `/` `\` `:` `+` `,`  ``` ` ```  
 
