@@ -188,7 +188,7 @@ Characters like `\`; `$@`, `'` can be inserted into Linux OS commands without af
 For example, `who\ami`, `w$@hoami` or `wh'o'ami` will all execute the `whoami` command  
 
 Note that the number of single quotes `'` in the Linux command must be **even**, otherwise you will get an error. If you're using Windows CMD, make sure to use double quotes `"` instead.  
-Furthermore, you can also use a caret `^` in CMD commands. For example, `whoa^mi` will execute the `whoami` command. This does not work in PowerShell. 
+Furthermore, you can also use a caret `^` in CMD commands. For example, `whoa^mi` will execute the `whoami` command. This does not work in PowerShell.
 
 #### Base64 Encoding
 
