@@ -202,7 +202,7 @@ Furthermore, you can also use a caret `^` in CMD commands. For example, `whoa^mi
 ## Blind Command Injection
 
 Sometimes, we may not be able to see the output from our injected command in the web server's HTTP response. Thus, we will need to find a way to confirm whether or not our injection succeeded. To do that, we can use `HTTP`, `DNS` or `SMTP` remote servers under our control.  
-We can also use **time delay system commands** like `sleep` (Linux), `timeout` (Windows) or network utility like `ping`.  
+We can also use **time delay system commands** like `sleep` (Linux), `timeout` (Windows), or network utility like `ping`.  
 For instance, we can execute `;sleep(5)` and if the web server waits 5 seconds before sending a response back to us, we can confirm that it is vulnerable to a blind command injection.  
 Moreover, we can also **redirect the output of the injected command in the web server's web root**. `;whoami>/var/www/html/poc.txt;`  
 After that, we can execute `curl http://website.com/poc.txt`. If we are able to retrieve the file, we can then confirm that the web server is vulnerable to a blind command injection.
