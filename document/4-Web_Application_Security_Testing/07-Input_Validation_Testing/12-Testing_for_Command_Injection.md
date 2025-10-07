@@ -11,10 +11,12 @@ This article describes how to test an application for OS command injection. The 
 OS commmand injection is a vulnerability that occurs when user input is directly passed to an operating system command without proper validation or sanitization. This allows the user to inject and execute arbitrary commands on the server which can lead to unauthorized data access, data corruption and full server compromise. This vulnerability can be prevented by emphasizing security during the design and development of applications.
 
 ## Test Objectives
+
 - Identify and assess command injection points.
 - Bypass special characters and OS commands filters.
 
 ## How to Test
+
 When viewing a file in a web application, the filename is often shown in the URL. Perl allows piping data from a process into an open statement. The user can simply append the Pipe symbol `|` onto the end of the filename.
 
 Example URL before alteration:
@@ -35,7 +37,7 @@ Example:
 
 ### Example
 
-Consider the case of an application that contains a set of documents that you can browse from the Internet. If you fire up a personal proxy (such as ZAP or Burp Suite), you can obtain a POST HTTP like the following (`https://www.example.com/public/doc`):
+Consider the case of an application that contains a set of documents that you can browse from the internet. If you fire up a personal proxy (such as ZAP or Burp Suite), you can obtain a POST HTTP like the following (`https://www.example.com/public/doc`):
 
 ```txt
 POST /public/doc HTTP/1.1
@@ -104,6 +106,7 @@ If the application doesn't validate the request, we can obtain the following res
 In this case, we have successfully performed an OS injection attack.
 
 ## Special Characters for Command Injection
+
 Special characters are used to chain multiple commands together.
 These characters will vary based on the operating system running on the web server.
 For instance, the following special characters can be used on both Windows and Unix-based systems :
@@ -117,10 +120,12 @@ Furthermore, you can use Bash command substitution `$(cmd)` or ``cmd`` to execut
 Additionally, Linux file descriptors such as `>(cmd)`, `<(cmd)` can also be used.
 
 ## Filter Evasion
+
 To prevent OS command injection, web developers often use filters. However, these filters are sometimes not properly implemented which allows attackers to bypass them.
 In this section, we will cover different techniques used to bypass those filters.
 
 ### Methodology
+
 First of all, it is always good practice to have a basic understanding of how the filter works before trying to bypass it.
 Here is a methodology we can use when we come across a filter:
 - Is the filter client-side or server-side ?
@@ -129,12 +134,15 @@ Here is a methodology we can use when we come across a filter:
 - What OS is running on the web server ? This allows us to have an idea of the commands and special characters we can use
 
 ### Special Characters Filter Evasion
+
 As previously mentionned, filters can either be applied on special characters, OS commands or both.
 To bypass filters applied on special characters, we can use environment variables, Bash brace expansion or URL encoding.
 
 #### URL Encoding
+
 URL encoding special characters can allow us to bypass the filter if the web server only blocks the plaintext special characters.
 Here are some special characters with their URL encoded format:
+
 |Special character|URL encoding|
 |-----------------|------------|
 |;                | %3b        |
@@ -146,9 +154,9 @@ Here are some special characters with their URL encoded format:
 For instance, instead of using `;whoami`, we will use `%3bwhoami`
 
 #### Environment Variables
+
 Special characters like space, semi-colon, tab or new line will generally be filtered by the web server especially if they are not useful for the specified input.  
 To escape this restriction, we can use environment variables such as **IFS**, **PATH** or **LS_COLORS** in Linux and **HOMEPATH** in Windows.  
-
 For instance, in Linux, `/`, `;` and `[space]` can be replaced respectively with `${PATH:0:1}`, `${LS_COLORS:10:1}` and `${IFS}`.  
 In Windows CMD, we can replace `\` with `%HOMEPATH:~6,1%` or use `$env:HOMEPATH[0]` in PowerShell
 
@@ -159,14 +167,18 @@ Let's assume that we want to display the content of '/etc/passwd' file. Thus, in
 That said, it's important to note that this technique will only work if the web server is using Bash and if characters like `}{/,;` are not filtered.
 
 ### Commands Filter Evasion
+
 In this section, we are going to explore some techniques used to bypass filters applied on operating system commands.
+
 #### Base64 Encoding
+
 In certain scenarios, the web server may filter commands such as `whoami`, `id`, etc.  
 Let's suppose that `whoami` is blocked by the web server. Therefore, we cannot use a payload like `;whoami`.  
 To bypass this restriction, we will use instead the base64 encoded format of `whoami` by executing: `echo -n 'whoami' | base64`. This will return `d2hvYW1p`  
-After that, we will send the following payload: `;bash<<<$(base64 -d<<< d2hvYW1p)` to the vulnerable parameter. This should then bypass the server-side filter and allow us to achieve remote code execution.  
+After that, we will send the following payload: `;bash<<<$(base64 -d<<< d2hvYW1p)` to the vulnerable parameter. This should then bypass the server-side filter and allow us to achieve remote code execution.
 
 #### Case Modification
+
 Changing the case of a command may allow us to bypass OS command filters.  
 Note that this will generally work on Windows systems see that commands are case sensitive in Linux.  
 For instance, if we notice that the web server is blocking `;whoami`, we can try to use `;WhoAmi`.  
@@ -175,6 +187,7 @@ To use uppercase commands in Linux, we can use a technique called **character sh
 The command above will simply translate each uppercase character to its corresponding lowercase character.
 
 #### Character Insertion
+
 Characters like `\`; `$@`, `'` can be inserted to Linux OS commands without affecting the normal execution of the command.  
 For example, `who\ami`, `w$@hoami` or `wh'o'ami` will all execute the `whoami` command   
 
@@ -227,13 +240,13 @@ Be aware of the uses of following API as it may introduce the command injection 
 
 ### Sanitization
 
-The URL's query parameters and form data need to be validated and sanitized to prevent the injection of malicious characters.  
+The URL query parameters and form data need to be validated and sanitized to prevent the injection of malicious characters.  
 A blacklist of characters is an option but it may be difficult to think of all of the characters to validate against. Also there may be some that were not discovered as of yet.  
 A whitelist containing only authorized characters or commands should be created to validate the user input. Characters that were missed, as well as undiscovered threats, should be eliminated by this list.  
 
 General deny list to be included for command injection can be `|` `;` `&` `$` `>` `<` `'` `\` `!` `>>` `#`   
 
-Escape or filter special characters for windows,   `(` `)` `<` `>` `&` `*` `‘` `|` `=` `?` `;` `[` `]` `^` `~` `!` `.` `"` `%` `@` `/` `\` `:` `+` `,`  ``` ` ```  
+Escape or filter special characters for windows, `(` `)` `<` `>` `&` `*` `‘` `|` `=` `?` `;` `[` `]` `^` `~` `!` `.` `"` `%` `@` `/` `\` `:` `+` `,`  ``` ` ```  
 
 Escape or filter special characters for Linux, `{` `}` `(` `)` `>` `<` `&` `*` `‘` `|` `=` `?` `;` `[` `]` `$` `–` `#` `~` `!` `.` `"` `%`  `/` `\` `:` `+` `,` ``` ` ```  
 
