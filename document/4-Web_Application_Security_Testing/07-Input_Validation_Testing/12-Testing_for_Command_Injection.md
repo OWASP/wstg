@@ -110,15 +110,16 @@ For instance, the following special characters can be used on both Windows and U
 - `cmd1|cmd2` : cmd2 will be executed whether cmd1 succeeds or not.
 - `cmd1||cmd2` : cmd2 will only be executed if cmd1 fails.
 - `cmd1&&cmd2` : cmd2 will only be executed if cmd1 succeeds.
-- `cmd1&cmd2` : cmd2 will be executed whether cmd1 succeeds or not.<br>
+- `cmd1&cmd2` : cmd2 will be executed whether cmd1 succeeds or not.  
 
-Note that, `;` will work on Unix-based systems and Powershell. However, it will not work on Windows Command Prompt (cmd).<br>
-Furthermore, you can use bash command substitution `$(cmd)` or ``cmd`` to execute commands on Unix-based systems.<br>
+Note that, `;` will work on Unix-based systems and PowerShell. However, it will not work on Windows Command Prompt (cmd).  
+Furthermore, you can use Bash command substitution `$(cmd)` or ``cmd`` to execute commands on Unix-based systems.  
 Additionally, Linux file descriptors such as `>(cmd)`, `<(cmd)` can also be used.
 
 ## Filter Evasion
 To prevent OS command injection, web developers often use filters. However, these filters are sometimes not properly implemented which allows attackers to bypass them.
 In this section, we will cover different techniques used to bypass those filters.
+
 ### Methodology
 First of all, it is always good practice to have a basic understanding of how the filter works before trying to bypass it.
 Here is a methodology we can use when we come across a filter:
@@ -129,11 +130,12 @@ Here is a methodology we can use when we come across a filter:
 
 ### Special Characters Filter Evasion
 As previously mentionned, filters can either be applied on special characters, OS commands or both.
-To bypass filters applied on special characters, we can use environment variables, bash brace expansion or url encoding.
+To bypass filters applied on special characters, we can use environment variables, Bash brace expansion or URL encoding.
+
 #### URL Encoding
-Url encoding special characters can allow us to bypass the filter if the web server only blocks the plaintext special characters.
-Here are some special characters with their url encoded format:
-|Special character|URL encode  |
+URL encoding special characters can allow us to bypass the filter if the web server only blocks the plaintext special characters.
+Here are some special characters with their URL encoded format:
+|Special character|URL encoding|
 |-----------------|------------|
 |;                | %3b        |
 |space            | %20        |
@@ -144,48 +146,49 @@ Here are some special characters with their url encoded format:
 For instance, instead of using `;whoami`, we will use `%3bwhoami`
 
 #### Environment Variables
-Special characters like space, semi-colon, tab or new line will generally be filtered by the web server especially if they are not useful for the specified input.<br>
-To escape this restriction, we can use environment variables such as **IFS**, **PATH** or **LS_COLORS** in Linux and **HOMEPATH** in Windows.<br>
+Special characters like space, semi-colon, tab or new line will generally be filtered by the web server especially if they are not useful for the specified input.  
+To escape this restriction, we can use environment variables such as **IFS**, **PATH** or **LS_COLORS** in Linux and **HOMEPATH** in Windows.  
 
-For instance, in Linux, `/`, `;` and `[space]` can be replaced respectively with `${PATH:0:1}`, `${LS_COLORS:10:1}` and `${IFS}`.<br>
-In Windows CMD, we can replace `\` with `%HOMEPATH:~6,1%` or use `$env:HOMEPATH[0]` in powershell
+For instance, in Linux, `/`, `;` and `[space]` can be replaced respectively with `${PATH:0:1}`, `${LS_COLORS:10:1}` and `${IFS}`.  
+In Windows CMD, we can replace `\` with `%HOMEPATH:~6,1%` or use `$env:HOMEPATH[0]` in PowerShell
 
 #### Bash Brace Expansion
-Bash brace expansion is a Bash feature that allows you to execute commands by using curly braces.<br>
-For example, `{ls,-la}` will execute `ls -la` command. This can be extremely useful if the web server is filtering space, new line or tab characters.<br>
-Let's assume that we want to display the content of '/etc/passwd' file. Thus, instead of using `;cat /etc/passwd`, we can use `;{cat,/etc/passwd}`<br>
+Bash brace expansion is a Bash feature that allows you to execute commands by using curly braces.  
+For example, `{ls,-la}` will execute `ls -la` command. This can be extremely useful if the web server is filtering space, new line or tab characters.  
+Let's assume that we want to display the content of '/etc/passwd' file. Thus, instead of using `;cat /etc/passwd`, we can use `;{cat,/etc/passwd}`  
 That said, it's important to note that this technique will only work if the web server is using Bash and if characters like `}{/,;` are not filtered.
 
 ### Commands Filter Evasion
 In this section, we are going to explore some techniques used to bypass filters applied on operating system commands.
 #### Base64 Encoding
-In certain scenarios, the web server may filter commands such as `whoami`, `id`, etc.<br>
-Let's suppose that `whoami` is blocked by the web server. Therefore, we cannot use a payload like `;whoami`.<br>
-To bypass this restriction, we will use instead the base64 encoded format of `whoami` by executing: `echo -n 'whoami' | base64`. This will return `d2hvYW1p`<br>
-After that, we will send the following payload: `;bash<<<$(base64 -d<<< d2hvYW1p)` to the vulnerable parameter. This should then bypass the server-side filter and allow us to achieve remote code execution.<br>
+In certain scenarios, the web server may filter commands such as `whoami`, `id`, etc.  
+Let's suppose that `whoami` is blocked by the web server. Therefore, we cannot use a payload like `;whoami`.  
+To bypass this restriction, we will use instead the base64 encoded format of `whoami` by executing: `echo -n 'whoami' | base64`. This will return `d2hvYW1p`  
+After that, we will send the following payload: `;bash<<<$(base64 -d<<< d2hvYW1p)` to the vulnerable parameter. This should then bypass the server-side filter and allow us to achieve remote code execution.  
 
 #### Case Modification
-Changing the case of a command may allow us to bypass OS command filters.<br>
-Note that this will generally work on Windows systems see that commands are case sensitive in Linux.<br>
-For instance, if we notice that the web server is blocking `;whoami`, we can try to use `;WhoAmi`.<br>
-To use uppercase commands in Linux, we can use a technique called **character shifting** that works as follows:<br>
-`;$(tr "[A-Z]" "[a-z]"<<<"WhoaMi")`<br>
+Changing the case of a command may allow us to bypass OS command filters.  
+Note that this will generally work on Windows systems see that commands are case sensitive in Linux.  
+For instance, if we notice that the web server is blocking `;whoami`, we can try to use `;WhoAmi`.  
+To use uppercase commands in Linux, we can use a technique called **character shifting** that works as follows:  
+`;$(tr "[A-Z]" "[a-z]"<<<"WhoaMi")`  
 The command above will simply translate each uppercase character to its corresponding lowercase character.
 
 #### Character Insertion
-Characters like `\`; `$@`, `'` can be inserted to Linux OS commands without affecting the normal execution of the command.<br>
-For example, `who\ami`, `w$@hoami` or `wh'o'ami` will all execute the `whoami` command <br>
+Characters like `\`; `$@`, `'` can be inserted to Linux OS commands without affecting the normal execution of the command.  
+For example, `who\ami`, `w$@hoami` or `wh'o'ami` will all execute the `whoami` command   
 
-Note that the number of single quotes `'` in the Linux command must be **even**, otherwise you will get an error. If you're using Windows CMD, make sure to use double quotes `"` instead.<br>
-Furthermore, you can also use a caret `^` in CMD commands. For example, `whoa^mi` will execute the `whoami` command. This does not work in Powershell.<br>
+Note that the number of single quotes `'` in the Linux command must be **even**, otherwise you will get an error. If you're using Windows CMD, make sure to use double quotes `"` instead.  
+Furthermore, you can also use a caret `^` in CMD commands. For example, `whoa^mi` will execute the `whoami` command. This does not work in PowerShell.  
 
 **Finally, note that you may need to combine different special characters and OS command filter evasion techniques to successfully bypass the filters put it place by the web server.**
+
 ## Blind Command Injection
 
-Sometimes, we may not be able to see the output from our injected command in the web server's HTTP response. Thus, we will need to find a way to confirm whether or not our injection succeeded. To do that, we can use `HTTP`, `DNS` or `SMTP` remote servers under our control.<br>
-We can also use **time delay system commands** like `sleep` (Linux), `timeout` (Windows) or network utility like `ping`.<br>
-For instance, we can execute `;sleep(5)` and if the web server waits 5 seconds before sending a response back to us, we can confirm that it is vulnerable to a blind command injection.<br>
-Moreover, we can also **redirect the output of the injected command in the web server's web root**. `;whoami>/var/www/html/poc.txt;`<br>
+Sometimes, we may not be able to see the output from our injected command in the web server's HTTP response. Thus, we will need to find a way to confirm whether or not our injection succeeded. To do that, we can use `HTTP`, `DNS` or `SMTP` remote servers under our control.  
+We can also use **time delay system commands** like `sleep` (Linux), `timeout` (Windows) or network utility like `ping`.  
+For instance, we can execute `;sleep(5)` and if the web server waits 5 seconds before sending a response back to us, we can confirm that it is vulnerable to a blind command injection.  
+Moreover, we can also **redirect the output of the injected command in the web server's web root**. `;whoami>/var/www/html/poc.txt;`  
 After that, we can execute `curl http://website.com/poc.txt`. If we are able to retrieve the file, we can then confirm that the web server is vulnerable to a blind command injection.
 
 ## Code Review Dangerous API
@@ -224,17 +227,18 @@ Be aware of the uses of following API as it may introduce the command injection 
 
 ### Sanitization
 
-The URL's query parameters and form data need to be validated and sanitized to prevent the injection of malicious characters.<br>
-A blacklist of characters is an option but it may be difficult to think of all of the characters to validate against. Also there may be some that were not discovered as of yet.<br>
-A whitelist containing only authorized characters or commands should be created to validate the user input. Characters that were missed, as well as undiscovered threats, should be eliminated by this list.<br>
+The URL's query parameters and form data need to be validated and sanitized to prevent the injection of malicious characters.  
+A blacklist of characters is an option but it may be difficult to think of all of the characters to validate against. Also there may be some that were not discovered as of yet.  
+A whitelist containing only authorized characters or commands should be created to validate the user input. Characters that were missed, as well as undiscovered threats, should be eliminated by this list.  
 
-General deny list to be included for command injection can be `|` `;` `&` `$` `>` `<` `'` `\` `!` `>>` `#` <br>
+General deny list to be included for command injection can be `|` `;` `&` `$` `>` `<` `'` `\` `!` `>>` `#`   
 
-Escape or filter special characters for windows,   `(` `)` `<` `>` `&` `*` `‘` `|` `=` `?` `;` `[` `]` `^` `~` `!` `.` `"` `%` `@` `/` `\` `:` `+` `,`  ``` ` ```<br>
+Escape or filter special characters for windows,   `(` `)` `<` `>` `&` `*` `‘` `|` `=` `?` `;` `[` `]` `^` `~` `!` `.` `"` `%` `@` `/` `\` `:` `+` `,`  ``` ` ```  
 
-Escape or filter special characters for Linux, `{` `}` `(` `)` `>` `<` `&` `*` `‘` `|` `=` `?` `;` `[` `]` `$` `–` `#` `~` `!` `.` `"` `%`  `/` `\` `:` `+` `,` ``` ` ```<br>
+Escape or filter special characters for Linux, `{` `}` `(` `)` `>` `<` `&` `*` `‘` `|` `=` `?` `;` `[` `]` `$` `–` `#` `~` `!` `.` `"` `%`  `/` `\` `:` `+` `,` ``` ` ```  
 
-Moreover, avoid using functions that execute operating system commands in your application unless absolutely necessary. For instance, instead of using `system("cp /path/to/file1.txt /path/to/file2.txt")` to copy a file, you can directly use the php builtin function `copy("cp /path/to/file1.txt, /path/to/file2.txt")` which does exactly the same thing.
+Moreover, avoid using functions that execute operating system commands in your application unless absolutely necessary. For instance, instead of using `system("cp /path/to/file1.txt /path/to/file2.txt")` to copy a file, you can directly use the php built-in function `copy("cp /path/to/file1.txt, /path/to/file2.txt")` which does exactly the same thing.
+
 ### Permissions
 
 The web application and its components should be running under strict permissions that do not allow operating system command execution. Try to verify all this information to test from a gray-box testing point of view.
