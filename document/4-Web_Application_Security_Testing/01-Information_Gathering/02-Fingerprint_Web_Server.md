@@ -164,7 +164,8 @@ Server: lighttpd/1.4.54
 </html>
 ```
 
-As default error pages offer many differentiating factors between types of web servers, their examination can be an effective method for fingerprinting even when server header fields are obscured.
+As default error pages offer many differentiating factors between types of web servers, their examination can be an effective method for fingerprinting even when server header fields are obscured.  
+Furthermore, this [resource](https://0xdf.gitlab.io/cheatsheets/404) can be handy, especially when you come across default error pages that do not disclose the web server type.
 
 ### Using Automated Scanning Tools
 
