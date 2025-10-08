@@ -184,6 +184,8 @@ As can be seen in the following screenshot the listed file system path points to
 | LEPTON       | lep[some_numeric_value]+sessionid |
 | Wix          | Domain=.wix.com                   |
 | VIVVO        | VivvoSessionId                    |
+| Tiny File Manager        | filemanager                    |
+| Zenphoto        | zenphoto_auth                    |
 
 ### HTML Source Code
 
