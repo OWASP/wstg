@@ -24,7 +24,7 @@ jobs:
         PR_NUMBER: ${{ github.event.number }}
       run: echo $PR_NUMBER > pr_number
     - name: Setup Node
-      uses: actions/setup-node@v5
+      uses: actions/setup-node@v6
       with:
         node-version: 24
     - name: Install dependencies
@@ -69,7 +69,7 @@ jobs:
         rm -f err log
     - name: Upload list of broken links
       if: failure()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: artifact
         path: |

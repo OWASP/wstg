@@ -83,7 +83,7 @@ The Penetration Testing Framework (PTF) provides comprehensive hands-on penetrat
 - Physical Security
 - Final Report - template
 
-[Penetration Testing Framework](http://www.vulnerabilityassessment.co.uk/Penetration%20Test.html)
+[Penetration Testing Framework](https://web.archive.org/web/20130925044437/http://www.vulnerabilityassessment.co.uk/Penetration%20Test.html)
 
 ## Technical Guide to Information Security Testing and Assessment
 
@@ -120,12 +120,12 @@ OSSTMM includes the following key sections:
 
 ## References
 
-- [PCI Data Security Standard - Penetration TestingGuidance](https://www.pcisecuritystandards.org/documents/Penetration-Testing-Guidance-v1_1.pdf)
+- [PCI Data Security Standard - Penetration Testing Guidance](https://www.pcisecuritystandards.org/documents/Penetration-Testing-Guidance-v1_1.pdf)
 - [PTES Standard](http://www.pentest-standard.org/index.php/Main_Page)
 - [Open Source Security Testing Methodology Manual (OSSTMM)](https://www.isecom.org/research.html#content5-9d)
 - [Technical Guide to Information Security Testing and Assessment NIST SP 800-115](https://csrc.nist.gov/publications/detail/sp/800-115/final)
 - [HIPAA Security Testing Guidance](https://www.hhs.gov/hipaa/for-professionals/security/guidance/cybersecurity/index.html)
-- [Penetration Testing Framework 0.59](http://www.vulnerabilityassessment.co.uk/Penetration%20Test.html)
+- [Penetration Testing Framework 0.59 (Archived)](https://web.archive.org/web/20130925044437/http://www.vulnerabilityassessment.co.uk/Penetration%20Test.html)
 - [OWASP Mobile Security Testing Guide](https://owasp.org/www-project-mobile-security-testing-guide/)
 - [Kali Linux](https://www.kali.org/)
 - [Information Supplement: Requirement 11.3 Penetration Testing](https://www.pcisecuritystandards.org/pdfs/infosupp_11_3_penetration_testing.pdf)
