@@ -159,7 +159,7 @@ For instance, instead of using `;whoami`, we could use `%3bwhoami`.
 
 Special characters like space, semi-colon, tab, or new line will generally be filtered by the web server especially if they are not useful for the specified input.  
 To escape this restriction, we can use environment variables such as **IFS**, **PATH** or **LS_COLORS** on Linux, and **HOMEPATH** on Windows.  
-For instance, on Linux, `/`, `;` and `[space]` can be replaced respectively with `${PATH:0:1}`, `${LS_COLORS:10:1}`, and `${IFS}`.  
+For instance, on Linux, `/`, `;`, and `[space]` can be replaced respectively with `${PATH:0:1}`, `${LS_COLORS:10:1}`, and `${IFS}`.  
 On Windows CMD, we can replace `\` with `%HOMEPATH:~6,1%`, or use `$env:HOMEPATH[0]` in PowerShell.
 
 #### Bash Brace Expansion
