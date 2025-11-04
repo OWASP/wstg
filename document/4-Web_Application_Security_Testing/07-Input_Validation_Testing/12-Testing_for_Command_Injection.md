@@ -175,12 +175,14 @@ In this section, we are going to explore some techniques used to bypass filters 
 
 #### Case Modification
 
-Case modification is a technique that can be used to bypass OS command filters. This could be handy if the filter used by the server is case sensitive.  
-However, note that this will generally work on Windows systems see that commands are case sensitive on Linux.  
-For instance, if we notice that the web server is blocking `;whoami`, we can try to use `;WhoAmi`.  
-To use uppercase commands on Linux, we can use a technique called **character shifting** that works as follows:  
-`;$(tr "[A-Z]" "[a-z]"<<<"WhoaMi")`  
-The command above will simply translate each uppercase character to its corresponding lowercase character.
+Case modification is a technique that is used to bypass OS command filters. This will be helpful if the server-side filter is case sensitive.  
+For instance, if we notice during our testing that the web server is blocking `;whoami`, we can try to use instead `;WhoAmi`, and see that the server-side filter is only blocking lowercase commands, we will be able to bypass it.  
+Note that this technique will generally work on Windows systems.  
+On Linux, we will use a technique called **character shifting**. For instance, the command below will translate each uppercase character to its corresponding lowercase character.  
+
+```
+;$(tr "[A-Z]" "[a-z]"<<<"WhoaMi")
+```
 
 #### Character Insertion
 
