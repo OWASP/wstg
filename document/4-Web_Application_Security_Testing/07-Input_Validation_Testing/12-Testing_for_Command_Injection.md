@@ -8,7 +8,7 @@
 
 This article describes how to test an application for OS command injection. The tester will try to inject an OS command through an HTTP request to the application.
 
-OS command injection is a vulnerability that occurs when user input is directly passed to an operating system command without proper validation or sanitization. This allows the user to inject and execute arbitrary commands on the server which can lead to unauthorized data access, data corruption and full server compromise. This vulnerability can be prevented by emphasizing security during the design and development of applications.
+OS command injection is a vulnerability that occurs when user input is directly passed to an operating system command without proper validation or sanitization. This allows the user to inject and execute arbitrary commands on the server which can lead to unauthorized data access, data corruption, and full server compromise. This vulnerability can be prevented by emphasizing security during the design and development of applications.
 
 ## Test Objectives
 
