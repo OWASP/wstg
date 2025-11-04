@@ -109,7 +109,7 @@ In this case, we have successfully performed an OS injection attack.
 
 Special characters are used to chain multiple commands together.
 These characters will vary based on the operating system running on the web server.
-For instance, the following special characters can be used on both Windows and Unix-based systems :
+For instance, the following types of command chaining can be used on both Windows and Unix-based systems :
 
 - `cmd1|cmd2` : cmd2 will be executed whether cmd1 succeeds or not.
 - `cmd1||cmd2` : cmd2 will only be executed if cmd1 fails.
