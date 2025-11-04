@@ -180,7 +180,7 @@ For instance, if we notice during our testing that the web server is blocking `;
 Note that this technique will generally work on Windows systems.  
 On Linux, we will use a technique called **character shifting**. For instance, the command below will translate each uppercase character to its corresponding lowercase character.  
 
-```
+```bash
 ;$(tr "[A-Z]" "[a-z]"<<<"WhoaMi")
 ```
 
@@ -255,7 +255,7 @@ Escape or filter special characters for windows, `(` `)` `<` `>` `&` `*` `‘` `
 
 Escape or filter special characters for Linux, `{` `}` `(` `)` `>` `<` `&` `*` `‘` `|` `=` `?` `;` `[` `]` `$` `–` `#` `~` `!` `.` `"` `%`  `/` `\` `:` `+` `,` ``` ` ```  
 
-Moreover, avoid using functions that execute operating system commands in your application unless absolutely necessary. For instance, instead of using `system("cp /path/to/file1.txt /path/to/file2.txt")` to copy a file, you can directly use the php built-in function `copy("cp /path/to/file1.txt, /path/to/file2.txt")` which does exactly the same thing.
+Moreover, avoid using functions that execute operating system commands in your application unless absolutely necessary. For instance, instead of using `system("cp /path/to/file1.txt /path/to/file2.txt")` to copy a file, you can directly use the php built-in function `copy("cp /path/to/file1.txt, /path/to/file2.txt")` which does exactly the same thing. It's worth noting that other development languages/frameworks generally offer similar built-in functionality.
 
 ### Permissions
 
@@ -270,6 +270,5 @@ The web application and its components should be running under strict permission
 
 ## References
 
-- [Penetration Testing for Web Applications (Part Two)](https://www.symantec.com/connect/articles/penetration-testing-web-applications-part-two)
 - [CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')](https://cwe.mitre.org/data/definitions/78.html)
 - [ENV33-C. Do not call system()](https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=87152177)
