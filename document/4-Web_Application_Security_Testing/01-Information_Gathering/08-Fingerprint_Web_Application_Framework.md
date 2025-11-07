@@ -184,6 +184,8 @@ As can be seen in the following screenshot the listed file system path points to
 | LEPTON       | lep[some_numeric_value]+sessionid |
 | Wix          | Domain=.wix.com                   |
 | VIVVO        | VivvoSessionId                    |
+| Tiny File Manager | filemanager                  |
+| Zenphoto     | zenphoto_auth                     |
 
 ### HTML Source Code
 
@@ -223,7 +225,7 @@ A list of general and well-known tools is presented below. There are also a lot 
 
 ### WhatWeb
 
-Website: [https://github.com/urbanadventurer/WhatWeb](https://github.com/urbanadventurer/WhatWeb)
+Site: [https://github.com/urbanadventurer/WhatWeb](https://github.com/urbanadventurer/WhatWeb)
 
 WhatWeb is one of the best open source fingerprinting tools currently available on the market and is included in the default [Kali Linux](https://www.kali.org/) build. Language: Ruby Matches for fingerprinting are made with:
 
@@ -242,7 +244,7 @@ Sample output is presented on a screenshot below:
 
 ### Wappalyzer
 
-Website: [https://www.wappalyzer.com/](https://www.wappalyzer.com/)
+Site: [https://www.wappalyzer.com/](https://www.wappalyzer.com/)
 
 Wappalyzer is available in multiple usage models, the most popular of which is likely the Firefox/Chrome extensions. They work largely on regular expression matching and don't need anything beyond the page being loaded in a browser. It works completely at the browser level and gives results in the form of icons. Although sometimes it has false positives, this is very handy to have notion of what technologies were used to construct a target site immediately after browsing a page.
 
