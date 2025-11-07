@@ -4,7 +4,7 @@ Performing the technical side of the assessment is only half of the overall asse
 
 ## About This Section
 
-This guide provides only suggestions about one possible approach to reporting, and should not be treated as as strict rules that must be followed. When considering any of the recommendations below, always ask yourself whether the recommendation would improve your report.
+This guide provides only suggestions about one possible approach to reporting, and should not be treated as strict rules that must be followed. When considering any of the recommendations below, always ask yourself whether the recommendation would improve your report.
 
 This guide to reporting is a best fit for consultancy-based reports. It may be overkill for internal or bug bounty reports.
 
