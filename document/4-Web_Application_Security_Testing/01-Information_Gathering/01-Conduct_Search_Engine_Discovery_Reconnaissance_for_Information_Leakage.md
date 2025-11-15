@@ -96,8 +96,8 @@ Alternatively, click the arrow next to search results in Bing and select "Cached
 
 Additional services for viewing cached or archived web pages include:
 
-- [archive.today]: (https://archive.md)(also known as archive.ph) - On-demand archiving service that creates permanent snapshots
-- [CachedView]:(https://cachedview.com/) - Aggregates cached pages from multiple sources including Google Cache historical data, Wayback Machine, and others
+- [archive.today](https://archive.md)(also known as archive.ph) - On-demand archiving service that creates permanent snapshots
+- [CachedView](https://cachedview.com/) - Aggregates cached pages from multiple sources including Google Cache historical data, Wayback Machine, and others
 
 ### Google Hacking or Dorking
 
