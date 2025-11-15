@@ -64,7 +64,13 @@ site:owasp.org
 
 To search for content that has previously been indexed, use the `cache:` operator. This is helpful for viewing content that may have changed since the time it was indexed, or that may no longer be available. Not all search engines provide cached content to search; the most useful source at time of writing is Google.
 
+To view owasp.org as it is cached, the syntax is:
 
+```text
+cache:owasp.org
+```
+![Google Cache Operation Search Result Example](images/Google_cache_Operator_Search_Results_Example_20200406.png)\
+*Figure 4.1.1-2: Google Cache Operation Search Result Example*
 
 #### Internet Archive Wayback Machine
 
@@ -82,12 +88,6 @@ This will display a calendar view showing all available snapshots of the site ov
 
 Bing still provides cached versions of web pages. To view cached content, use the `cache:` operator:
 
-```text
-cache:owasp.org
-```
-
-![Google Cache Operation Search Result Example](images/Google_cache_Operator_Search_Results_Example_20200406.png)\
-*Figure 4.1.1-2: Google Cache Operation Search Result Example*
 
 Alternatively, click the arrow next to search results in Bing and select "Cached" from the dropdown menu.
 
