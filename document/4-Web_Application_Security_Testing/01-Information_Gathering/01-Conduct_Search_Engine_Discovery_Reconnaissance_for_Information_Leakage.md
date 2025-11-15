@@ -88,8 +88,6 @@ This will display a calendar view showing all available snapshots of the site ov
 #### Bing Cache
 
 Bing still provides cached versions of web pages. To view cached content, use the `cache:` operator:
-
-
 Alternatively, click the arrow next to search results in Bing and select "Cached" from the dropdown menu.
 
 #### Other Cached Content Services
