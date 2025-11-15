@@ -69,6 +69,7 @@ To view `owasp.org` as it is cached, the syntax is:
 ```text
 cache:owasp.org
 ```
+
 ![Google Cache Operation Search Result Example](images/Google_cache_Operator_Search_Results_Example_20200406.png)\
 *Figure 4.1.1-2: Google Cache Operation Search Result Example*
 
