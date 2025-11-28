@@ -100,7 +100,7 @@ Testers can use this information to guess that the obscured server is nginx. How
 
 Web servers may be identified by examining their error responses, and in the cases where they have not been customized, their default error pages. One way to compel a server to present these is by sending intentionally incorrect or malformed requests.
 
-For example, here is the response to a request for the non-existent method `SANTA CLAUS` from an Apache server.
+For example, here is the response to a request for the non-existent HTTP version `SANTA CLAUS` from an Apache server.
 
 ```sh
 GET / SANTA CLAUS/1.1
