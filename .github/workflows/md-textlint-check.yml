@@ -67,7 +67,7 @@ jobs:
         cat mistakes.txt | tee -a artifact.txt
     - name: Upload list of mistakes
       if: failure()
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v6
       with:
         name: artifact
         path: |
