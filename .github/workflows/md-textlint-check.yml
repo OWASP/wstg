@@ -8,11 +8,10 @@ on:
     - '**.md'
     - '!.github/**'
 
-permissions:
-  contents: read
-  pull-requests: write
-
 jobs:
+  permissions:
+    contents: read
+    pull-requests: write
   textlint:
     runs-on: ubuntu-latest
     steps:

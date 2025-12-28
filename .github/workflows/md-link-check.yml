@@ -7,10 +7,9 @@ on:
     - '!.github/**'
   workflow_dispatch:
 
-permissions:
-  contents: read
-
 jobs:
+  permissions:
+    contents: read
   link-check:
     runs-on: ubuntu-latest
     steps:
