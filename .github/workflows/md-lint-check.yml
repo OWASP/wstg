@@ -8,10 +8,9 @@ on:
     - '**.md'
     - '!.github/**'
 
-permissions:
-  contents: read
-
 jobs:
+  permissions:
+    contents: read
   lint:
     runs-on: ubuntu-latest
     steps:
