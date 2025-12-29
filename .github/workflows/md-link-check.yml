@@ -8,9 +8,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  permissions:
-    contents: read
   link-check:
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
     - name: Setup Action

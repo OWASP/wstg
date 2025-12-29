@@ -9,10 +9,10 @@ on:
     - '!.github/**'
 
 jobs:
-  permissions:
-    contents: read
-    pull-requests: write
   textlint:
+    permissions:
+      contents: read
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
     - name: Checkout PR
