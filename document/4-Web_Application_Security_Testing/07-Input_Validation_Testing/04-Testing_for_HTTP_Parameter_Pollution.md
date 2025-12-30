@@ -93,6 +93,18 @@ Append the same parameter with a different value:
 https://example.com/?mode=guest&search_string=kittens&num_results=100&search_string=puppies
 ```
 
+For JSON-based endpoints, the payload would look like this:
+
+```http
+POST /search HTTP/1.1
+Host: example.com
+Content-Type: application/json
+
+{
+  "search_string": "kittens",
+  "search_string": "puppies"
+}
+```
 and submit the new request.
 
 Analyze the response page to determine which value(s) were parsed. In the above example, the search results may show `kittens`, `puppies`, some combination of both (`kittens,puppies` or `kittens~puppies` or `['kittens','puppies']`), may give an empty result, or error page.
