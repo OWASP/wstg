@@ -26,10 +26,12 @@ However, if you believe you have identified:
 Please follow **responsible disclosure** practices.
 
 ### How to Report
+
 - Open a **private GitHub Security Advisory** for this repository, **or**
 - Contact the OWASP project maintainers through official OWASP communication channels
 
 Please include:
+
 - A clear description of the issue
 - Steps to reproduce (if applicable)
 - Potential impact

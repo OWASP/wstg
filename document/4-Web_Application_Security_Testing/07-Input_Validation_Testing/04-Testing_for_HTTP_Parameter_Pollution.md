@@ -105,6 +105,7 @@ Content-Type: application/json
   "search_string": "puppies"
 }
 ```
+
 and submit the new request.
 
 Analyze the response page to determine which value(s) were parsed. In the above example, the search results may show `kittens`, `puppies`, some combination of both (`kittens,puppies` or `kittens~puppies` or `['kittens','puppies']`), may give an empty result, or error page.
