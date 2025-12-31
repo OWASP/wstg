@@ -11,7 +11,7 @@ Feature flags (also known as feature toggles, feature switches, or feature gates
 Common security issues with feature flags include:
 
 - **Client-side manipulation**: Flags evaluated in the browser can be modified by attackers to enable restricted features.
-- **Authorization bypass**: Hidden UI elements may still have accessible back-end endpoints.
+- **Authorization bypass**: Hidden UI elements may still have accessible backend endpoints.
 - **Information disclosure**: Flag configurations may leak unreleased features or internal logic.
 - **Insecure defaults**: Fallback values when the flag service is unavailable may fail open.
 - **Stale flag vulnerabilities**: Unused flags referencing deprecated code paths may contain unpatched vulnerabilities.
@@ -22,7 +22,7 @@ Modern applications increasingly rely on feature flag services (LaunchDarkly, Sp
 
 - Identify feature flags that gate security-relevant functionality.
 - Assess whether feature flag states can be manipulated client-side.
-- Verify that back-end authorization is independent of flag state.
+- Verify that backend authorization is independent of flag state.
 - Determine if flag configurations expose sensitive information.
 - Evaluate fail-safe behavior when the flag service is unavailable.
 
@@ -44,7 +44,7 @@ splitio
 flagsmith
 ```
 
-2. **Monitor network traffic** for requests to feature flag endpoints:
+1. **Monitor network traffic** for requests to feature flag endpoints:
 
 ```http
 GET /api/features HTTP/1.1
@@ -62,7 +62,7 @@ Content-Type: application/json
 }
 ```
 
-3. **Examine local storage and cookies** for cached flag values.
+1. **Examine localStorage and cookies** for cached flag values.
 
 ### Test Client-Side Flag Manipulation
 
@@ -78,7 +78,7 @@ Attempt to modify flag values to enable restricted features:
 {"admin_mode": true}
 ```
 
-2. **Modify local storage**: If flags are cached client-side, change the values directly.
+1. **Modify localStorage**: If flags are cached client-side, change the values directly.
 
 ```javascript
 // In browser console
@@ -88,11 +88,11 @@ localStorage.setItem('featureFlags', JSON.stringify({
 }));
 ```
 
-3. **Observe application behavior**: Determine if the application grants access to functionality that should be restricted.
+1. **Observe application behavior**: Determine if the application grants access to functionality that should be restricted.
 
 ### Verify Backend Authorization Independence
 
-Ensure back-end endpoints enforce authorization independently of flag state:
+Ensure backend endpoints enforce authorization independently of flag state:
 
 1. **Identify hidden endpoints**: Extract API endpoints from JavaScript bundles that are associated with disabled features.
 
@@ -101,7 +101,7 @@ Ensure back-end endpoints enforce authorization independently of flag state:
 grep -oE '/api/v[0-9]+/[a-zA-Z_]+' bundle.js
 ```
 
-2. **Send direct requests**: Attempt to access endpoints for disabled features.
+1. **Send direct requests**: Attempt to access endpoints for disabled features.
 
 ```http
 POST /api/admin/users/delete HTTP/1.1
@@ -112,7 +112,7 @@ Content-Type: application/json
 {"user_id": "12345"}
 ```
 
-3. **Expected result**: The server should return `403 Forbidden` if the feature is disabled, not just hide the UI.
+1. **Expected result**: The server should return `403 Forbidden` if the feature is disabled, not just hide the UI.
 
 ### Test Fallback Behavior
 
@@ -126,9 +126,9 @@ Evaluate what happens when the feature flag service is unavailable:
 127.0.0.1 app.split.io
 ```
 
-2. **Observe fallback behavior**: Determine if the application fails open (enables features) or fails closed (disables features).
+1. **Observe fallback behavior**: Determine if the application fails open (enables features) or fails closed (disables features).
 
-3. **Security-critical result**: Features gating security controls should default to disabled when the flag service is unreachable.
+1. **Security-critical result**: Features gating security controls should default to disabled when the flag service is unreachable.
 
 ### Analyze Flag Configuration for Information Leakage
 
@@ -140,7 +140,7 @@ Examine flag payloads for sensitive information:
    - Targeting rules containing email domains or user identifiers
    - Environment-specific configurations
 
-2. **Example of information leakage**:
+1. **Example of information leakage**:
 
 ```json
 {
@@ -157,8 +157,8 @@ Examine flag payloads for sensitive information:
 Identify and test unused flags that may expose deprecated functionality:
 
 1. **Map all flags** and their creation dates if available.
-2. **Force-enable old flags** and observe if deprecated code paths are accessible.
-3. **Assess deprecated code** for known vulnerabilities or security weaknesses.
+1. **Force-enable old flags** and observe if deprecated code paths are accessible.
+1. **Assess deprecated code** for known vulnerabilities or security weaknesses.
 
 ## Remediation
 
@@ -180,11 +180,10 @@ For more details, see:
 
 - [Burp Suite](https://portswigger.net/burp) - Intercept and modify HTTP traffic
 - [OWASP ZAP](https://www.zaproxy.org/) - Web application security testing
-- Browser Developer Tools - Network inspection and local storage modification
+- Browser Developer Tools - Network inspection and localStorage modification
 
 ## References
 
 - [Feature Toggles (aka Feature Flags) - Martin Fowler](https://martinfowler.com/articles/feature-toggles.html)
-- [LaunchDarkly Security Best Practices](https://docs.launchdarkly.com/home/security)
+- [LaunchDarkly Account Security](https://launchdarkly.com/docs/home/account/secure)
 - [OWASP Testing Guide](https://owasp.org/www-project-web-security-testing-guide/)
-
