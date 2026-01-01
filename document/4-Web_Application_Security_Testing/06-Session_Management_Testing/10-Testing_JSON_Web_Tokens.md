@@ -181,6 +181,40 @@ The [JSON Web Signature (JWS) standard](https://tools.ietf.org/html/rfc7515) (wh
 
 There are a variety of scripts that can be used to do this, such as [jwk-node-jose.py](https://github.com/zi0Black/POC-CVE-2018-0114) or [jwt_tool](https://github.com/ticarpi/jwt_tool).
 
+### Key ID (kid) Manipulation
+
+The `kid` header parameter is typically used to retrieve the key needed to verify the signature from a file system or database. It can be vulnerable to several injection attacks.
+
+**Directory Traversal:**
+If the application uses the `kid` parameter to read a key file from the filesystem, an attacker might specify a path to a known empty file, such as `../../../../dev/null` (on Linux) or `nul` (on Windows).
+
+For example, an attacker can modify the header to point to an empty file:
+
+```json
+{
+  "alg": "HS256",
+  "typ": "JWT",
+  "kid": "../../../../../dev/null"
+}
+```
+
+Since the content of `/dev/null` is empty, the attacker can then sign the malicious token using an **empty string** as the secret key. If the server is vulnerable, it will read the empty file, use the empty string to verify the signature, and accept the forged token.
+
+**Command/SQL Injection:**
+If the `kid` is passed unsanitized to a database query or a system command to retrieve the key, it may be vulnerable to SQL Injection or Command Injection.
+
+For example, an attacker can inject a SQL payload into the `kid` parameter to control the key returned by the database:
+
+```json
+{
+  "alg": "HS256",
+  "typ": "JWT",
+  "kid": "invalid-key' UNION SELECT 'attacker-controlled-key'--"
+}
+```
+
+This allows an attacker to force the application to use a known key (e.g., "attacker-controlled-key") for verification, enabling them to forge valid tokens.
+
 ## Related Test Cases
 
 - [Testing for Sensitive Information Sent via Unencrypted Channels](../09-Testing_for_Weak_Cryptography/03-Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels.md).
