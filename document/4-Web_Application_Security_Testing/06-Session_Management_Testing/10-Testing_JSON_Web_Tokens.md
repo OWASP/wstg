@@ -185,7 +185,8 @@ There are a variety of scripts that can be used to do this, such as [jwk-node-jo
 
 The `kid` header parameter is typically used to retrieve the key needed to verify the signature from a file system or database. It can be vulnerable to several injection attacks.
 
-**Directory Traversal:**
+#### Directory Traversal
+
 If the application uses the `kid` parameter to read a key file from the filesystem, an attacker might specify a path to a known empty file, such as `../../../../dev/null` (on Linux) or `nul` (on Windows).
 
 For example, an attacker can modify the header to point to an empty file:
