@@ -201,7 +201,8 @@ For example, an attacker can modify the header to point to an empty file:
 
 Since the content of `/dev/null` is empty, the attacker can then sign the malicious token using an **empty string** as the secret key. If the server is vulnerable, it will read the empty file, use the empty string to verify the signature, and accept the forged token.
 
-**Command/SQL Injection:**
+#### Command/SQL Injection
+
 If the `kid` is passed unsanitized to a database query or a system command to retrieve the key, it may be vulnerable to SQL Injection or Command Injection.
 
 For example, an attacker can inject a SQL payload into the `kid` parameter to control the key returned by the database:
