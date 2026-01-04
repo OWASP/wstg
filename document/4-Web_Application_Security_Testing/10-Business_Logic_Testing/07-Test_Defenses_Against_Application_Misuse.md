@@ -62,6 +62,21 @@ Localized security controls are not sufficient. There are often no defenses agai
 - Change of user agent
 - Accessing a multi-stage business process in the wrong order
 - Large number of, or high rate of use of, application-specific functionality (e.g. voucher code submission, failed credit card payments, file uploads, file downloads, log outs, etc).
+### UI Misrepresentation / Content Spoofing
+
+UI misrepresentation occurs when user-controlled input is rendered in trusted UI elements in a way that can mislead users or administrators, without requiring script execution. Unlike cross-site scripting, these issues rely on visual or contextual deception and can enable workflow abuse or social engineering within the application.
+
+Common examples include:
+- User-controlled filenames, titles, or labels displayed as system-generated messages
+- Renamed file uploads that appear as trusted documents or system artifacts
+- User-supplied text rendered as approval states, sender names, or workflow indicators
+
+During testing, assess whether:
+- User-controlled data is reflected in privileged or authoritative UI contexts
+- Injected text can mimic system messages, workflow states, or trusted labels
+- UI presentation could influence user decisions or business processes despite no technical exploit occurring
+
+
 
 These defenses work best in authenticated parts of the application, although rate of creation of new accounts or accessing content (e.g. to scrape information) can be of use in public areas.
 
