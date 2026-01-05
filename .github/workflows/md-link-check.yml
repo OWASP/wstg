@@ -66,6 +66,7 @@ jobs:
         # Copy to generic name for commenting
         cat brokenlinks.txt | tee -a artifact.txt
         rm -f err log
+        cat artifact.txt >> $GITHUB_STEP_SUMMARY
     - name: Upload list of broken links
       if: failure()
       uses: actions/upload-artifact@v6
