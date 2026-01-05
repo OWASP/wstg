@@ -67,8 +67,6 @@ Localized security controls are not sufficient. There are often no defenses agai
 
 UI misrepresentation occurs when user-controlled input is rendered in trusted UI elements in a way that can mislead users or administrators, without requiring script execution. Unlike cross-site scripting, these issues rely on visual or contextual deception and can enable workflow abuse or social engineering within the application. 
 These issues represent application misuse because they abuse legitimate UI workflows and trust boundaries rather than exploiting a technical vulnerability.
-
-
 Common examples include:
 - User-controlled filenames, titles, or labels displayed as system-generated messages
 - Renamed file uploads that appear as trusted documents or system artifacts
