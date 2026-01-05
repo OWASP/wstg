@@ -75,8 +75,7 @@ Common examples include:
 - Renamed file uploads that appear as trusted documents or system artifacts
 - User-supplied text rendered as approval states, sender names, or workflow indicators
 
-Example:
-An application allows users to name uploaded files. An attacker uploads a file named
+For example: an application allows users to name uploaded files. An attacker uploads a file named
 "Payment Approved – Finance System". When this filename is displayed in an administrative
 review workflow without clear indication that it is user-supplied, reviewers may be misled
 into approving a fraudulent process.
