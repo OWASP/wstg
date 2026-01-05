@@ -2,6 +2,7 @@
     "useHead": false,
     "ignorePatterns": [
         { "pattern": "^/" },
+        { "pattern": "^\\./" },
         { "pattern": "^https://www\\.nstalker\\.com" },
         { "pattern": "^https://www.kali.org" },
         { "pattern": "^https://.*\\.linkedin\\.com" },
