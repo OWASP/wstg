@@ -70,6 +70,7 @@ UI misrepresentation occurs when user-controlled input is rendered in trusted UI
 These issues represent application misuse because they abuse legitimate UI workflows and trust boundaries rather than exploiting a technical vulnerability.
 
 Common examples include:
+
 - User-controlled filenames, titles, or labels displayed as system-generated messages
 - Renamed file uploads that appear as trusted documents or system artifacts
 - User-supplied text rendered as approval states, sender names, or workflow indicators
