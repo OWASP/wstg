@@ -81,6 +81,7 @@ review workflow without clear indication that it is user-supplied, reviewers may
 into approving a fraudulent process.
 
 During testing, assess whether:
+
 - User-controlled data is reflected in privileged or authoritative UI contexts
 - Injected text can mimic system messages, workflow states, or trusted labels
 - UI presentation could influence user decisions or business processes despite no technical exploit occurring
