@@ -63,7 +63,7 @@ Localized security controls are not sufficient. There are often no defenses agai
 - Accessing a multi-stage business process in the wrong order
 - Large number of, or high rate of use of, application-specific functionality (e.g. voucher code submission, failed credit card payments, file uploads, file downloads, log outs, etc).
 
-#### UI Misrepresentation / Content Spoofing
+### UI Misrepresentation / Content Spoofing
 
 UI misrepresentation occurs when user-controlled input is rendered in trusted UI elements in a way that can mislead users or administrators, without requiring script execution. Unlike cross-site scripting, these issues rely on visual or contextual deception and can enable workflow abuse or social engineering within the application.
 
