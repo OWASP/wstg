@@ -71,19 +71,17 @@ Common examples include:
 - User-controlled filenames, titles, or labels displayed as system-generated messages
 - Renamed file uploads that appear as trusted documents or system artifacts
 - User-supplied text rendered as approval states, sender names, or workflow indicators
+
 Example:
 An application allows users to name uploaded files. An attacker uploads a file named
 "Payment Approved – Finance System". When this filename is displayed in an administrative
 review workflow without clear indication that it is user-supplied, reviewers may be misled
 into approving a fraudulent process.
 
-
 During testing, assess whether:
 - User-controlled data is reflected in privileged or authoritative UI contexts
 - Injected text can mimic system messages, workflow states, or trusted labels
 - UI presentation could influence user decisions or business processes despite no technical exploit occurring
-
-
 
 These defenses work best in authenticated parts of the application, although rate of creation of new accounts or accessing content (e.g. to scrape information) can be of use in public areas.
 
