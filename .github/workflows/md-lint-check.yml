@@ -8,17 +8,16 @@ on:
     - '**.md'
     - '!.github/**'
 
-permissions:
-  contents: read
-
 jobs:
   lint:
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v6
       with:
-        ref: ${{github.event.pull_request.head.ref}}
+        ref: ${{github.event.pull_request.head.sha}}
         repository: ${{github.event.pull_request.head.repo.full_name}}
     - name: Save PR number
       env:

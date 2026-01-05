@@ -92,7 +92,7 @@ The validity of the JWT should also be reviewed, based on the `iat`, `nbf` and `
 
 ### Signature Verification
 
-One of the most serious vulnerabilities encountered with JWTs is when the application fails to validate that the signature is correct. This usually occurs when a developer uses a function such as the NodeJS `jwt.decode()` function, which simply decodes the body of the JWT, rather than `jwt.verify()`, which verifies the signature before decoding the JWT.
+One of the most serious vulnerabilities encountered with JWTs is when the application fails to validate that the signature is correct. This usually occurs when a developer uses a function such as the Node.js `jwt.decode()` function, which simply decodes the body of the JWT, rather than `jwt.verify()`, which verifies the signature before decoding the JWT.
 
 This can be easily tested for by modifying the body of the JWT without changing anything in the header or signature, submitting it in a request to see if the application accepts it.
 
@@ -180,6 +180,42 @@ In order to test this, modify the contents of the JWT, and then use the previous
 The [JSON Web Signature (JWS) standard](https://tools.ietf.org/html/rfc7515) (which defines the header and signatures used by JWTs) allows the key used to sign the token to be embedded in the header. If the library used to validate the token supports this, and doesn't check the key against a list of approved keys, this allows an attacker to sign an JWT with an arbitrary key that they provide.
 
 There are a variety of scripts that can be used to do this, such as [jwk-node-jose.py](https://github.com/zi0Black/POC-CVE-2018-0114) or [jwt_tool](https://github.com/ticarpi/jwt_tool).
+
+### Key ID (kid) Manipulation
+
+The `kid` header parameter is typically used to retrieve the key needed to verify the signature from a file system or database. It can be vulnerable to several injection attacks.
+
+#### Directory Traversal
+
+If the application uses the `kid` parameter to read a key file from the filesystem, an attacker might specify a path to a known empty file, such as `../../../../dev/null` (on Linux) or `nul` (on Windows).
+
+For example, an attacker can modify the header to point to an empty file:
+
+```json
+{
+  "alg": "HS256",
+  "typ": "JWT",
+  "kid": "../../../../../dev/null"
+}
+```
+
+Since the content of `/dev/null` is empty, the attacker can then sign the malicious token using an **empty string** as the secret key. If the server is vulnerable, it will read the empty file, use the empty string to verify the signature, and accept the forged token.
+
+#### Command/SQL Injection
+
+If the `kid` is passed unsanitized to a database query or a system command to retrieve the key, it may be vulnerable to SQL Injection or Command Injection.
+
+For example, an attacker can inject a SQL payload into the `kid` parameter to control the key returned by the database:
+
+```json
+{
+  "alg": "HS256",
+  "typ": "JWT",
+  "kid": "invalid-key' UNION SELECT 'attacker-controlled-key'--"
+}
+```
+
+This allows an attacker to force the application to use a known key (e.g., "attacker-controlled-key") for verification, enabling them to forge valid tokens.
 
 ## Related Test Cases
 

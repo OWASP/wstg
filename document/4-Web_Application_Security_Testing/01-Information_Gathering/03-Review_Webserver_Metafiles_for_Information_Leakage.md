@@ -192,14 +192,14 @@ Google is built by a large team of engineers, designers, researchers, robots, an
 
 ### Other .well-known Information Sources
 
-There are other RFCs and internet drafts which suggest standardized uses of files within the `.well-known/` directory. Lists of these can be found [here](https://en.wikipedia.org/wiki/List_of_/.well-known/_services_offered_by_webservers) or [here](https://www.iana.org/assignments/well-known-uris/well-known-uris.xhtml).
+There are other RFCs and internet drafts which suggest standardized uses of files within the `.well-known/` directory. Lists of these can be found [here on WikiPedia](https://en.wikipedia.org/wiki/List_of_/.well-known/_services_offered_by_webservers) or [here via IANA](https://www.iana.org/assignments/well-known-uris/well-known-uris.xhtml).
 
 It would be fairly simple for a tester to review the RFC/drafts and create a list to be supplied to a crawler or fuzzer, in order to verify the existence or content of such files.
 
 ## Tools
 
 - Browser (View Source or Dev Tools functionality)
-- curl
+- cURL
 - wget
 - Burp Suite
 - ZAP

@@ -8,18 +8,17 @@ on:
     - '**.md'
     - '!.github/**'
 
-permissions:
-  contents: read
-  pull-requests: write
-
 jobs:
   textlint:
+    permissions:
+      contents: read
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
     - name: Checkout PR
       uses: actions/checkout@v6
       with:
-        ref: ${{github.event.pull_request.head.ref}}
+        ref: ${{github.event.pull_request.head.sha}}
         repository: ${{github.event.pull_request.head.repo.full_name}}
         path: pr
     - name: Checkout Base

@@ -96,7 +96,7 @@ Technical Guide to Information Security Testing and Assessment (NIST 800-115) wa
 - Security Assessment Execution
 - Post-Testing Activities
 
-The NIST 800-115 can be accessed [here](https://csrc.nist.gov/publications/detail/sp/800-115/final)
+For further details see: [NIST 800-115](https://csrc.nist.gov/publications/detail/sp/800-115/final).
 
 ## Open Source Security Testing Methodology Manual
 

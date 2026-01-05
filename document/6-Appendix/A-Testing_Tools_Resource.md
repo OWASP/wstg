@@ -85,7 +85,7 @@ The list contains only tools that are freely available to download and use (alth
 
 - [wget](https://www.gnu.org/software/wget/)
 - [wget for windows](https://gnuwin32.sourceforge.net/packages/wget.htm)
-- [curl](https://curl.haxx.se)
+- [cURL](https://curl.haxx.se)
 
 ### Content Discovery
 
