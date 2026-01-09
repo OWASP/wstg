@@ -40,6 +40,33 @@ An electronic bulletin board system may be designed to ensure that initial posts
 
 - On a content management or bulletin board system enter and save valid initial text or values.
 - Then try to append, edit and remove data that would leave the existing data in an invalid state or with invalid values to ensure that the user is not allowed to save the incorrect information. Some "invalid" data or information may be specific words (profanity) or specific topics (such as political issues).
+### Testing Method 3: Multi-Step Workflow and State Transition Abuse
+Modern applications often implement workflows that span multiple requests, APIs, or backend services. 
+In such cases, workflow state may be inferred from client-controlled parameters or distributed system state rather than being strictly enforced server-side.
+
+Attackers may attempt to abuse these workflows by skipping required steps, reordering requests, or manipulating state transitions to reach unauthorized or unintended application states.
+
+Common workflow and state transition abuse patterns include:
+
+- Skipping required workflow steps by directly invoking later-stage APIs
+- Reordering requests to bypass enforced sequence controls
+- Replaying or reusing state identifiers across workflow steps
+- Manipulating status, phase, or step parameters supplied by the client
+- Executing dependent actions in parallel to bypass sequence validation
+
+Test Steps:
+
+- Identify multi-step workflows and the APIs involved at each stage.
+- Capture requests associated with each workflow step and note any state or status parameters.
+- Attempt to invoke later-stage APIs without completing prerequisite steps.
+- Replay or reorder requests to determine whether sequence enforcement exists.
+- Modify state or status parameters to invalid, future, or unauthorized values.
+- Verify whether the application enforces workflow state validation server-side.
+
+Examples include:
+
+- Triggering order shipment or fulfillment actions without a confirmed payment step.
+- Accessing restricted or premium features by directly invoking activation or enablement endpoints.
 
 ## Related Test Cases
 
