@@ -13,7 +13,7 @@
     "pdfgen": "bash ./.github/pdf/scripts/make-pdf.sh",
     "jsongen": "bash ./.github/json/scripts/make-json.sh",
     "xlsxgen": "python ./.github/xlsx/scripts/build-checklist.py",
-    "publishxlsx" :"python ./.github/xlsx/scripts/upload-to-google-drive.py",
+    "publishxlsx": "python ./.github/xlsx/scripts/upload-to-google-drive.py",
     "epubgen": "bash ./.github/epub/scripts/make-epub.sh"
   },
   "repository": {
