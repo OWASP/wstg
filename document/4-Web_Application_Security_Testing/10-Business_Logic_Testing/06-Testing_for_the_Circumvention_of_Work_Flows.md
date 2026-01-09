@@ -40,8 +40,10 @@ An electronic bulletin board system may be designed to ensure that initial posts
 
 - On a content management or bulletin board system enter and save valid initial text or values.
 - Then try to append, edit and remove data that would leave the existing data in an invalid state or with invalid values to ensure that the user is not allowed to save the incorrect information. Some "invalid" data or information may be specific words (profanity) or specific topics (such as political issues).
+
 ### Testing Method 3: Multi-Step Workflow and State Transition Abuse
-Modern applications often implement workflows that span multiple requests, APIs, or backend services. 
+
+Modern applications often implement workflows that span multiple requests, APIs, or backend services.
 In such cases, workflow state may be inferred from client-controlled parameters or distributed system state rather than being strictly enforced server-side.
 
 Attackers may attempt to abuse these workflows by skipping required steps, reordering requests, or manipulating state transitions to reach unauthorized or unintended application states.
