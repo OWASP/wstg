@@ -397,7 +397,7 @@ In order to validate security requirements with security tests, security require
 - Allow for password change functionality only to authenticated users by validating the old password, the new password, and the user's answer to the challenge question, to prevent brute forcing of a password via password change.
 - The password reset form should validate the user’s username and the user’s registered email before sending the temporary password to the user via email. The temporary password issued should be a one-time password. A link to the password reset web page will be sent to the user. The password reset web page should validate the user's temporary password, the new password, as well as the user's answer to the challenge question.
 
-#### Risk-Driven Security Requirements
+#### Non-Functional Security Requirements
 
 Security tests must also be risk-driven. They need to validate the application for unexpected behavior, or negative requirements.
 
