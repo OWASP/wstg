@@ -18,7 +18,6 @@ and roles.
 Detailed unauthenticated and post-authentication scenarios are covered in the
 How to Test section.
 
-
 ## Test Objectives
 
 - Assess if unauthenticated, horizontal, or vertical access is possible.
