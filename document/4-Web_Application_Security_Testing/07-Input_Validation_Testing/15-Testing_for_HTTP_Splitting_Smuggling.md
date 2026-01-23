@@ -87,6 +87,77 @@ A successful exploitation of HTTP Splitting is greatly helped by knowing some de
 
 As mentioned in the introduction, HTTP Smuggling leverages the different ways that a particularly crafted HTTP message can be parsed and interpreted by different agents (browsers, web caches, application firewalls). This relatively new kind of attack was first discovered by Chaim Linhart, Amit Klein, Ronen Heled and Steve Orrin in 2005. There are several possible applications and we will analyze one of the most spectacular: the bypass of an application firewall. Refer to the original whitepaper (linked at the bottom of this page) for more detailed information and other scenarios.
 
+#### Modern HTTP Request Smuggling (HTTP Desync)
+
+Modern HTTP Request Smuggling attacks often target the discrepancies in how front-end servers (load balancers, reverse proxies) and back-end servers process the `Content-Length` (CL) and `Transfer-Encoding` (TE) headers. When these two servers disagree on where a request ends, an attacker can smuggle a malicious request that gets interpreted by the back-end as the beginning of the next user's request.
+
+According to RFC 7230, if both headers are present, the `Content-Length` header should be ignored. However, if one server fails to follow this rule or creates a desynchronization state, vulnerabilities arise.
+
+There are three main types of desynchronization attacks:
+
+1.  **CL.TE**: The front-end uses `Content-Length`, and the back-end uses `Transfer-Encoding`.
+2.  **TE.CL**: The front-end uses `Transfer-Encoding`, and the back-end uses `Content-Length`.
+3.  **TE.TE (Obfuscation)**: Both servers support `Transfer-Encoding`, but one can be induced to ignore it by obfuscating the header, effectively downgrading the attack to CL.TE or TE.CL.
+
+##### Testing for CL.TE Vulnerabilities
+
+In a CL.TE scenario, the front-end processes the request based on `Content-Length` and forwards the entire body. The back-end, using `Transfer-Encoding`, stops processing at the termination chunk (`0`). The remaining data acts as a prefix for the next request.
+
+**Example Payload (Triggering a 404):**
+
+```http
+POST / HTTP/1.1
+Host: vulnerable-website.com
+Content-Length: 35
+Transfer-Encoding: chunked
+
+0
+
+GET /404 HTTP/1.1
+Foo: x
+```
+
+* **Effect:** The back-end reads up to the `0`. The `GET /404...` is left in the buffer. When the next legitimate request arrives, it is appended to this prefix, causing the server to respond with a 404 Not Found (proving the interference).
+
+##### Testing for TE.CL Vulnerabilities
+
+In a TE.CL scenario, the front-end handles the chunked encoding correctly. However, the back-end uses `Content-Length` and stops reading early. The remainder of the chunked body is treated as the start of the next request.
+
+**Example Payload:**
+
+```http
+POST / HTTP/1.1
+Host: vulnerable-website.com
+Content-Length: 4
+Transfer-Encoding: chunked
+
+5c
+GET /404 HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 15
+
+x=1
+0
+```
+
+* **Effect:** The back-end reads only the first few bytes (defined by `Content-Length`). The rest of the chunked data (starting with `GET /404...`) remains in the buffer and poisons the next request.
+
+##### Testing for TE.TE (Obfuscated TE)
+
+If both servers support `Transfer-Encoding`, the attacker can send an obfuscated header to confuse one of the servers into ignoring it and falling back to `Content-Length`.
+
+**Example Obfuscations:**
+* `Transfer-Encoding: xchunked`
+* `Transfer-Encoding : chunked`
+* `Transfer-Encoding: chunked`
+* `Transfer-Encoding:[tab]chunked`
+
+If successful, this desynchronizes the servers, allowing for CL.TE or TE.CL attacks as described above.
+
+##### Testing Tools
+* **[Burp Suite (HTTP Request Smuggler)](https://portswigger.net/bappstore/aaaa60ef945341e8a450217a54a11646):** The industry standard for detection and exploitation (BApp Store extension).
+* **[Smuggler (Python)](https://github.com/defparam/smuggler):** Command-line alternative for scanning.
+
 ##### Application Firewall Bypass
 
 There are several products that enable a system administration to detect and block a hostile web request depending on some known malicious pattern that is embedded in the request. For example, consider the infamous, old [Unicode directory traversal attack against IIS server](https://www.securityfocus.com/bid/1806), in which an attacker could break out the www root by issuing a request like:
@@ -132,6 +203,8 @@ Note that HTTP Smuggling does `*not*` exploit any vulnerability in the target we
 
 - [Amit Klein, "Divide and Conquer: HTTP Response Splitting, Web Cache Poisoning Attacks, and Related Topics"](https://packetstormsecurity.com/files/32815/Divide-and-Conquer-HTTP-Response-Splitting-Whitepaper.html)
 - [Amit Klein: "HTTP Message Splitting, Smuggling and Other Animals"](https://www.slideserve.com/alicia/http-message-splitting-smuggling-and-other-animals-powerpoint-ppt-presentation)
-- [Amit Klein: "HTTP Request Smuggling - ERRATA (the IIS 48K buffer phenomenon)"](https://www.securityfocus.com/archive/1/411418)
-- [Amit Klein: "HTTP Response Smuggling"](https://www.securityfocus.com/archive/1/425593)
-- [Chaim Linhart, Amit Klein, Ronen Heled, Steve Orrin: "HTTP Request Smuggling"](https://www.cgisecurity.com/lib/http-request-smuggling.pdf)
+- [Amit Klein: "HTTP Request Smuggling - ERRATA (the IIS 48K buffer phenomenon)"](https://web.archive.org/web/20210614052317/https://www.securityfocus.com/archive/1/411418)
+- [Amit Klein: "HTTP Response Smuggling"](https://web.archive.org/web/20210126213458/https://www.securityfocus.com/archive/1/425593)
+- [Chaim Linhart, Amit Klein, Ronen Heled, Steve Orrin: "HTTP Request Smuggling"](https://web.archive.org/web/20200810143521/https://www.cgisecurity.com/lib/http-request-smuggling.pdf)
+- [James Kettle: "HTTP Desync Attacks: Request Smuggling Reborn" (PortSwigger Research)](https://portswigger.net/research/http-desync-attacks-request-smuggling-reborn)
+- [RFC 7230, Section 3.3.3: Message Body Length](https://datatracker.ietf.org/doc/html/rfc7230#section-3.3.3)
