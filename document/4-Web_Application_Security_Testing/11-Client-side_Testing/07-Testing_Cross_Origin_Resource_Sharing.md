@@ -149,7 +149,7 @@ Content-Length: 4
 Content-Type: application/xml
 ```
 
-In an exploit scenario, an attacker embeds a sandboxed `iframe` on their malicious site. The `sandbox` attribute forces the browser to set the `Origin` of requests initiated from within that frame to `null`. 
+In an exploit scenario, an attacker embeds a sandboxed `iframe` on their malicious site. The `sandbox` attribute forces the browser to set the `Origin` of requests initiated from within that frame to `null`.
 
 ```html
 <iframe sandbox="allow-scripts allow-top-navigation allow-forms" src="data:text/html,
@@ -168,7 +168,6 @@ In an exploit scenario, an attacker embeds a sandboxed `iframe` on their malicio
 ```
 
 Consequently, the browser sees the request coming from `null`, the server allows `null`, and the attacker successfully reads the sensitive response.
-
 
 ### Input Validation Weakness
 
