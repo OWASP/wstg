@@ -134,7 +134,7 @@ Content-Type: application/xml
 
 #### Allowlisted Null Origin Value
 
-The `Origin` header may have the value `null` in specific situations, such as requests triggered from a local file, a redirect, or a serialized object. Developers sometimes whitelist the `null` origin to facilitate local development or to support non-web clients.
+The `Origin` header may have the value `null` in specific situations, such as requests triggered from a local file, a redirect, or a serialized object. Developers sometimes allowlist the `null` origin to facilitate local development or to support non-web clients.
 
 However, the `null` origin serves as a "wildcard" that can be exploited. An attacker can programmatically generate a request with the origin `null` by using a sandboxed `iframe`.
 
