@@ -207,6 +207,6 @@ Note that HTTP Smuggling does `*not*` exploit any vulnerability in the target we
 - [Amit Klein: "HTTP Message Splitting, Smuggling and Other Animals"](https://www.slideserve.com/alicia/http-message-splitting-smuggling-and-other-animals-powerpoint-ppt-presentation)
 - [Amit Klein: "HTTP Request Smuggling - ERRATA (the IIS 48K buffer phenomenon)"](https://web.archive.org/web/20210614052317/https://www.securityfocus.com/archive/1/411418)
 - [Amit Klein: "HTTP Response Smuggling"](https://web.archive.org/web/20210126213458/https://www.securityfocus.com/archive/1/425593)
-- [Chaim Linhart, Amit Klein, Ronen Heled, Steve Orrin: "HTTP Request Smuggling"](https://web.archive.org/web/20200810143521/https://www.cgisecurity.com/lib/http-request-smuggling.pdf)
+- [Chaim Linhart, Amit Klein, Ronen Heled, Steve Orrin: "HTTP Request Smuggling"](https://packetstormsecurity.com/files/37651/HTTP-Request-Smuggling.pdf.html)
 - [James Kettle: "HTTP Desync Attacks: Request Smuggling Reborn" (PortSwigger Research)](https://portswigger.net/research/http-desync-attacks-request-smuggling-reborn)
 - [RFC 7230, Section 3.3.3: Message Body Length](https://datatracker.ietf.org/doc/html/rfc7230#section-3.3.3)
