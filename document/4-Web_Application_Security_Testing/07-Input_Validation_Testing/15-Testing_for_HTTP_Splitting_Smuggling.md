@@ -95,9 +95,9 @@ According to RFC 7230, if both headers are present, the `Content-Length` header 
 
 There are three main types of desynchronization attacks:
 
-1.  **CL.TE**: The front-end uses `Content-Length`, and the back-end uses `Transfer-Encoding`.
-2.  **TE.CL**: The front-end uses `Transfer-Encoding`, and the back-end uses `Content-Length`.
-3.  **TE.TE (Obfuscation)**: Both servers support `Transfer-Encoding`, but one can be induced to ignore it by obfuscating the header, effectively downgrading the attack to CL.TE or TE.CL.
+1. **CL.TE**: The front-end uses `Content-Length`, and the back-end uses `Transfer-Encoding`.
+2. **TE.CL**: The front-end uses `Transfer-Encoding`, and the back-end uses `Content-Length`.
+3. **TE.TE (Obfuscation)**: Both servers support `Transfer-Encoding`, but one can be induced to ignore it by obfuscating the header, effectively downgrading the attack to CL.TE or TE.CL.
 
 ##### Testing for CL.TE Vulnerabilities
 
@@ -117,7 +117,7 @@ GET /404 HTTP/1.1
 Foo: x
 ```
 
-* **Effect:** The back-end reads up to the `0`. The `GET /404...` is left in the buffer. When the next legitimate request arrives, it is appended to this prefix, causing the server to respond with a 404 Not Found (proving the interference).
+- **Effect:** The back-end reads up to the `0`. The `GET /404...` is left in the buffer. When the next legitimate request arrives, it is appended to this prefix, causing the server to respond with a 404 Not Found (proving the interference).
 
 ##### Testing for TE.CL Vulnerabilities
 
@@ -140,23 +140,25 @@ x=1
 0
 ```
 
-* **Effect:** The back-end reads only the first few bytes (defined by `Content-Length`). The rest of the chunked data (starting with `GET /404...`) remains in the buffer and poisons the next request.
+- **Effect:** The back-end reads only the first few bytes (defined by `Content-Length`). The rest of the chunked data (starting with `GET /404...`) remains in the buffer and poisons the next request.
 
 ##### Testing for TE.TE (Obfuscated TE)
 
 If both servers support `Transfer-Encoding`, the attacker can send an obfuscated header to confuse one of the servers into ignoring it and falling back to `Content-Length`.
 
 **Example Obfuscations:**
-* `Transfer-Encoding: xchunked`
-* `Transfer-Encoding : chunked`
-* `Transfer-Encoding: chunked`
-* `Transfer-Encoding:[tab]chunked`
+
+- `Transfer-Encoding: xchunked`
+- `Transfer-Encoding : chunked`
+- `Transfer-Encoding: chunked`
+- `Transfer-Encoding:[tab]chunked`
 
 If successful, this desynchronizes the servers, allowing for CL.TE or TE.CL attacks as described above.
 
 ##### Testing Tools
-* **[Burp Suite (HTTP Request Smuggler)](https://portswigger.net/bappstore/aaaa60ef945341e8a450217a54a11646):** The industry standard for detection and exploitation (BApp Store extension).
-* **[Smuggler (Python)](https://github.com/defparam/smuggler):** Command-line alternative for scanning.
+
+- **[Burp Suite (HTTP Request Smuggler)](https://portswigger.net/bappstore/aaaa60ef945341e8a450217a54a11646):** The industry standard for detection and exploitation (BApp Store extension).
+- **[Smuggler (Python)](https://github.com/defparam/smuggler):** Command-line alternative for scanning.
 
 ##### Application Firewall Bypass
 
