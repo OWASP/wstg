@@ -60,7 +60,7 @@ Content-Length: 35
 <other data>
 ```
 
-The web cache will see two different responses, so if the attacker sends, immediately after the first request, a second one asking for `/index.html`, the web cache will match this request with the second response and cache its content, so that all subsequent requests directed to `victim.com/index.html` passing through that web cache will receive the "system down" message. In this way, an attacker would be able to effectively deface the site for all users using that web cache (the whole Internet, if the web cache is a reverse proxy for the web application).
+The web cache will see two different responses, so if the attacker sends, immediately after the first request, a second one asking for `/index.html`, the web cache will match this request with the second response and cache its content, so that all subsequent requests directed to `victim.com/index.html` passing through that web cache will receive the "system down" message. In this way, an attacker would be able to effectively deface the site for all users using that web cache (the whole internet, if the web cache is a reverse proxy for the web application).
 
 Alternatively, the attacker could pass to those users a JavaScript snippet that mounts a cross site scripting attack, e.g., to steal the cookies. Note that while the vulnerability is in the application, the target here is its users. Therefore, in order to look for this vulnerability, the tester needs to identify all user controlled input that influences one or more headers in the response, and check whether they can successfully inject a CR+LF sequence in it.
 
@@ -89,19 +89,19 @@ As mentioned in the introduction, HTTP Smuggling leverages the different ways th
 
 #### Modern HTTP Request Smuggling (HTTP Desync)
 
-Modern HTTP Request Smuggling attacks often target the discrepancies in how front-end servers (load balancers, reverse proxies) and back-end servers process the `Content-Length` (CL) and `Transfer-Encoding` (TE) headers. When these two servers disagree on where a request ends, an attacker can smuggle a malicious request that gets interpreted by the back-end as the beginning of the next user's request.
+Modern HTTP Request Smuggling attacks often target the discrepancies in how frontend servers (load balancers, reverse proxies) and backend servers process the `Content-Length` (CL) and `Transfer-Encoding` (TE) headers. When these two servers disagree on where a request ends, an attacker can smuggle a malicious request that gets interpreted by the backend as the beginning of the next user's request.
 
 According to RFC 7230, if both headers are present, the `Content-Length` header should be ignored. However, if one server fails to follow this rule or creates a desynchronization state, vulnerabilities arise.
 
 There are three main types of desynchronization attacks:
 
-1. **CL.TE**: The front-end uses `Content-Length`, and the back-end uses `Transfer-Encoding`.
-2. **TE.CL**: The front-end uses `Transfer-Encoding`, and the back-end uses `Content-Length`.
+1. **CL.TE**: The frontend uses `Content-Length`, and the backend uses `Transfer-Encoding`.
+2. **TE.CL**: The frontend uses `Transfer-Encoding`, and the backend uses `Content-Length`.
 3. **TE.TE (Obfuscation)**: Both servers support `Transfer-Encoding`, but one can be induced to ignore it by obfuscating the header, effectively downgrading the attack to CL.TE or TE.CL.
 
 ##### Testing for CL.TE Vulnerabilities
 
-In a CL.TE scenario, the front-end processes the request based on `Content-Length` and forwards the entire body. The back-end, using `Transfer-Encoding`, stops processing at the termination chunk (`0`). The remaining data acts as a prefix for the next request.
+In a CL.TE scenario, the frontend processes the request based on `Content-Length` and forwards the entire body. The backend, using `Transfer-Encoding`, stops processing at the termination chunk (`0`). The remaining data acts as a prefix for the next request.
 
 **Example Payload (Triggering a 404):**
 
@@ -117,11 +117,11 @@ GET /404 HTTP/1.1
 Foo: x
 ```
 
-- **Effect:** The back-end reads up to the `0`. The `GET /404...` is left in the buffer. When the next legitimate request arrives, it is appended to this prefix, causing the server to respond with a 404 Not Found (proving the interference).
+- **Effect:** The backend reads up to the `0`. The `GET /404...` is left in the buffer. When the next legitimate request arrives, it is appended to this prefix, causing the server to respond with a 404 Not Found (proving the interference).
 
 ##### Testing for TE.CL Vulnerabilities
 
-In a TE.CL scenario, the front-end handles the chunked encoding correctly. However, the back-end uses `Content-Length` and stops reading early. The remainder of the chunked body is treated as the start of the next request.
+In a TE.CL scenario, the frontend handles the chunked encoding correctly. However, the backend uses `Content-Length` and stops reading early. The remainder of the chunked body is treated as the start of the next request.
 
 **Example Payload:**
 
@@ -140,7 +140,7 @@ x=1
 0
 ```
 
-- **Effect:** The back-end reads only the first few bytes (defined by `Content-Length`). The rest of the chunked data (starting with `GET /404...`) remains in the buffer and poisons the next request.
+- **Effect:** The backend reads only the first few bytes (defined by `Content-Length`). The rest of the chunked data (starting with `GET /404...`) remains in the buffer and poisons the next request.
 
 ##### Testing for TE.TE (Obfuscated TE)
 
