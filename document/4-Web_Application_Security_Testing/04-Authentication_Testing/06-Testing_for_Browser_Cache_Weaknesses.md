@@ -30,32 +30,24 @@ Authentication does not necessarily need to be involved in the testing. For exam
 The **Back** button can be stopped from showing sensitive data. This can be done by:
 
 - Delivering the page over HTTPS.
-- Setting `Cache-Control: must-revalidate`
+- Setting `Cache-Control: no-store`
+
+`Cache-Control: no-store` instructs the browser not to store the response in any cache or history storage, which helps prevent sensitive data from being accessible when users navigate back after logging out.
 
 ### Browser Cache
 
 Here testers check that the application does not leak any sensitive data into the browser cache. In order to do that, they can use a proxy (such as ZAP) and search through the server responses that belong to the session, checking that for every page that contains sensitive information the server instructed the browser not to cache any data. Such a directive can be issued in the HTTP response headers with the following directives:
 
-- `Cache-Control: no-cache, no-store`
-- `Expires: 0`
-- `Pragma: no-cache`
+- `Cache-Control: no-store`
 
-These directives are generally robust, although additional flags may be necessary for the `Cache-Control` header in order to better prevent persistently linked files on the file system. These include:
-
-- `Cache-Control: must-revalidate, max-age=0, s-maxage=0`
+When `Cache-Control: no-store` is used, additional directives such as `must-revalidate`, `max-age`, or the `Expires` header are generally unnecessary for modern browsers.
 
 ```http
-HTTP/1.1:
-Cache-Control: no-cache
+HTTP/1.1
+Cache-Control: no-store
 ```
 
-```html
-HTTP/1.0:
-Pragma: no-cache
-Expires: "past date or illegal value (e.g., 0)"
-```
-
-For instance, if testers are testing an e-commerce application, they should look for all pages that contain a credit card number or some other financial information, and check that all those pages enforce the `no-cache` directive. If they find pages that contain critical information but that fail to instruct the browser not to cache their content, they know that sensitive information will be stored on the disk, and they can double-check this simply by looking for the page in the browser cache.
+For instance, if testers are testing an e-commerce application, they should look for all pages that contain a credit card number or some other financial information, and check that all those pages enforce the `no-store` directive. If they find pages that contain critical information but that fail to instruct the browser not to cache their content, they know that sensitive information will be stored on the disk, and they can double-check this simply by looking for the page in the browser cache.
 
 The exact location where that information is stored depends on the client operating system and on the browser that has been used. Here are some examples:
 
@@ -92,4 +84,6 @@ The methodology for testing is equivalent to the black-box case, as in both scen
 
 ### Whitepapers
 
+- [MDN – Cache-Control](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control)
+- [Euthanize Pragma no-cache](https://www.veggiespam.com/euthanize-pragma-no-cache/)
 - [Caching in HTTP](https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html)
