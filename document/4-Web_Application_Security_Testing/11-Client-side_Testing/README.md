@@ -30,4 +30,4 @@
 
 4.11.14 [Testing for Reverse Tabnabbing](14-Testing_for_Reverse_Tabnabbing.md)
 
-4.11.15 [Testing for Client Side Template Injection](15-Testing_for_Client_Side_Template_Injection.md)
+4.11.15 [Testing for Client-side Template Injection](15-Testing_for_Client_Side_Template_Injection.md)
