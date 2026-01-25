@@ -1,4 +1,4 @@
-# Testing for Client Side Template Injection
+# Testing for Client-side Template Injection
 
 |ID          |
 |------------|
@@ -6,7 +6,7 @@
 
 ## Summary
 
-Client-Side Template Injection (CSTI), also known as DOM-based Template Injection, arises when applications using client-side frameworks (such as AngularJS, Vue.js, or Alpine.js) dynamically embed user input into the web page's DOM. If this input is embedded into a template expression or interpreted by the framework's template engine, an attacker can inject malicious directives.
+Client-Side Template Injection (CSTI), also known as DOM-based Template Injection, arises when applications using client-side frameworks (such as Angular, Vue.js, or Alpine.js) dynamically embed user input into the web page's DOM. If this input is embedded into a template expression or interpreted by the framework's template engine, an attacker can inject malicious directives.
 
 Unlike Server-Side Template Injection (SSTI), where the template is rendered on the server, CSTI occurs entirely within the user's browser. When the framework scans the DOM for dynamic content, it may execute the injected template expressions. This often leads to Cross-Site Scripting (XSS), but the method of injection and exploitation differs from standard XSS because the payload must follow the specific syntax of the template engine (e.g., `{{ 7*7 }}`).
 
@@ -26,7 +26,7 @@ This vulnerability is particularly common in Single Page Applications (SPAs) whe
 
 The first step is to identify if a client-side framework is in use. Testers should look for specific attributes in the HTML source code or specific HTTP response headers.
 
-- **AngularJS/Angular:** Look for attributes like `ng-app`, `ng-model`, or `ng-bind`.
+- **Angular/Angular:** Look for attributes like `ng-app`, `ng-model`, or `ng-bind`.
 - **Vue.js:** Look for attributes starting with `v-`, such as `v-if`, `v-for`, or the presence of the Vue global object in the console.
 - **Alpine.js:** Look for `x-data`, `x-html`.
 
@@ -45,17 +45,18 @@ Inject the string: {{ 7*7 }}
 - If the application renders `49`, CSTI is present.
 - If the application renders `{{ 7*7 }}`, it is likely not vulnerable or strict contextual escaping is in place.
 
-#### Angular (and AngularJS)
+#### Angular (and Angular)
 
-AngularJS acts on the DOM. If an attacker can inject a string containing Angular expressions into the DOM before Angular bootstraps or compiles it, the expression will be executed.
+Angular acts on the DOM. If an attacker can inject a string containing Angular expressions into the DOM before Angular bootstraps or compiles it, the expression will be executed.
 
 **Payloads for Detection:**
+
 - `{{ 7*7 }}`
 - `{{ constructor.constructor('alert(1)')() }}`
 
-In older versions of AngularJS (1.x), the template engine works in a sandbox. Exploitation requires breaking out of this sandbox. The complexity of the payload depends heavily on the specific version.
+In older versions of Angular (1.x), the template engine works in a sandbox. Exploitation requires breaking out of this sandbox. The complexity of the payload depends heavily on the specific version.
 
-**Example Payload (AngularJS 1.5.x sandbox bypass):**
+**Example Payload (Angular 1.5.x sandbox bypass):**
 
 ```javascript
 {{x={'y':''.constructor.prototype};x['y'].charAt=[].join;$eval('x=alert(1)');}}
@@ -66,6 +67,7 @@ In older versions of AngularJS (1.x), the template engine works in a sandbox. Ex
 Vue.js is also susceptible if developers use the `v-html` directive with user input or if they mount a Vue instance on a DOM element that already contains user-controlled HTML.
 
 **Payloads for Detection:**
+
 - `{{ 7*7 }}`
 
 **Example Payload (Vue.js 2.x):**
@@ -73,6 +75,7 @@ Vue.js is also susceptible if developers use the `v-html` directive with user in
 ```javascript
 {{_v.constructor('alert(1)')()}}
 ```
+
 #### Alpine.js
 
 Alpine.js relies heavily on DOM attributes. If an attacker can control an attribute name or inject into a directive, they can execute code.
@@ -89,12 +92,12 @@ Alpine.js relies heavily on DOM attributes. If an attacker can control an attrib
 
 In a gray-box scenario, testers verify how user input is handled in the frontend code. The key is to identify where "sinks" that interpret HTML or Template Syntax are used with "tainted" sources (user input).
 
-**AngularJS Sinks:**
+**Angular Sinks:**
 Search for usages of `$compile` or `ng-bind-html`.
 If `ng-bind-html` is used, check if `$sce` (Strict Contextual Escaping) is properly configured or if `$sce.trustAsHtml()` is used on untrusted data.
 
 ```javascript
-// Vulnerable example in AngularJS
+// Vulnerable example in Angular
 $scope.htmlSnippet = $sce.trustAsHtml(userInput);
 ```
 
@@ -138,6 +141,6 @@ Look for `unsafe-eval` in the CSP. Many template engines (especially older ones)
 ### Whitepapers and Articles
 
 - [PortSwigger: Client-Side Template Injection](https://portswigger.net/research/server-side-template-injection)
-- [Gareth Heyes: AngularJS Sandbox Bypasses](https://portswigger.net/research/dom-based-angularjs-sandbox-escapes)
+- [Gareth Heyes: Angular Sandbox Bypasses](https://portswigger.net/research/dom-based-Angular-sandbox-escapes)
 - [Vue.js Security Guide](https://vuejs.org/guide/best-practices/security.html)
 - [Angular Security Guide](https://angular.io/guide/security)
