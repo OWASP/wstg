@@ -141,6 +141,6 @@ Look for `unsafe-eval` in the CSP. Many template engines (especially older ones)
 ### Whitepapers and Articles
 
 - [PortSwigger: Client-Side Template Injection](https://portswigger.net/research/server-side-template-injection)
-- [Gareth Heyes: Angular Sandbox Bypasses](https://portswigger.net/research/dom-based-Angular-sandbox-escapes)
+- [Gareth Heyes: Angular Sandbox Bypasses](https://portswigger.net/research/dom-based-angularjs-sandbox-escapes)
 - [Vue.js Security Guide](https://vuejs.org/guide/best-practices/security.html)
 - [Angular Security Guide](https://angular.io/guide/security)
