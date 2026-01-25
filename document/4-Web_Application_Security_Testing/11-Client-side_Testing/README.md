@@ -29,3 +29,5 @@
 4.11.13 [Testing for Cross Site Script Inclusion](13-Testing_for_Cross_Site_Script_Inclusion.md)
 
 4.11.14 [Testing for Reverse Tabnabbing](14-Testing_for_Reverse_Tabnabbing.md)
+
+4.11.15 [Testing for Client Side Template Injection](15-Testing_for_Client_Side_Template_Injection.md)
