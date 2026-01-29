@@ -50,7 +50,7 @@ Attackers may attempt to abuse these workflows by skipping required steps, reord
 
 Common workflow and state transition abuse patterns include:
 
-- Skipping required workflow steps by directly invoking later-stage APIs
+- Skipping required workflow steps by directly invoking later-stage functionality
 - Reordering requests to bypass enforced sequence controls
 - Replaying or reusing state identifiers across workflow steps
 - Manipulating status, phase, or step parameters supplied by the client
