@@ -1,33 +1,22 @@
 {
+    "useHead": false,
     "ignorePatterns": [
+        { "pattern": "^/" },
+        { "pattern": "^\\./" },
+        { "pattern": "^https://www\\.nstalker\\.com" },
+        { "pattern": "^https://www.kali.org" },
+        { "pattern": "^https://.*\\.linkedin\\.com" },
+        { "pattern": "^https://www\\.shodan\\.io" },
+        { "pattern": "^https://developer\\.android\\.com" },
+        { "pattern": "^https://github\\.com" }
+    ],
+    "httpHeaders": [
         {
-            "pattern": "^\/"
-        },
-        {
-            "pattern": "^https://www.nstalker.com"
-        },
-        {
-            "pattern": "^https://www.kali.org"
-        },
-        {
-            "pattern": "^https://.*.linkedin.com"
-        },
-        {
-            "pattern": "^https://www.shodan.io"
-        },
-        {
-            "pattern": "^https://developer.android.com"
-        },
-        {
-            "pattern": "^https://github.com"
+            "urls": ["https://", "http://"],
+            "headers": {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0"
+            }
         }
     ],
-    "httpHeaders": [{
-        "urls": [
-            "https://", "http://"
-        ],
-        "headers": {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0"
-        }
-    }]
+    "aliveStatusCodes": [200, 202]
 }
