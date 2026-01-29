@@ -60,7 +60,7 @@ Test Steps:
 
 - Identify multi-step workflows and the functionality involved at each stage.
 - Capture requests associated with each workflow step and note any state or status parameters.
-- Attempt to invoke later-stage APIs without completing prerequisite steps.
+- Attempt to invoke later-stage functionality without completing prerequisite steps.
 - Replay or reorder requests to determine whether sequence enforcement exists.
 - Modify state or status parameters to invalid, future, or unauthorized values.
 - Verify whether the application enforces workflow state validation server-side.
