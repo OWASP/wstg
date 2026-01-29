@@ -190,7 +190,7 @@ Create Date             : 2008:05:30 15:56:01
 Modify Date             : 2008:07:31 10:38:11
 GPS Latitude            : 35 deg 41' 22.00" N
 GPS Longitude           : 51 deg 23' 18.00" E
-File Path               : /home/jdoe/projects/marketing/images/
+File Path               : /home/user/projects/marketing/images/
 ```
 ## Tools
 
