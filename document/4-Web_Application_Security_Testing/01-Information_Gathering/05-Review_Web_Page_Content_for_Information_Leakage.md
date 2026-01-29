@@ -185,7 +185,7 @@ File Type               : JPEG
 Make                    : Canon
 Camera Model Name       : Canon EOS 40D
 Software                : GIMP 2.4.5
-Author                  : John Doe
+Author                  : Example User
 Create Date             : 2008:05:30 15:56:01
 Modify Date             : 2008:07:31 10:38:11
 GPS Latitude            : 35 deg 41' 22.00" N
