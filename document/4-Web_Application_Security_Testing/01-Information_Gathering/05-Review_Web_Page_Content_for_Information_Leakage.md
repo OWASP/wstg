@@ -190,6 +190,7 @@ GPS Latitude            : 35 deg 41' 22.00" N
 GPS Longitude           : 51 deg 23' 18.00" E
 File Path               : /home/user/projects/marketing/images/
 ```
+
 ## Tools
 
 - [Wget](https://www.gnu.org/software/wget/wget.html)
