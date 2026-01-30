@@ -50,6 +50,49 @@ A support engineer shouldn't be able to conduct administrative functionalities, 
 
 An administrator shouldn't have full powers on the system. Sensitive admin functionality should leverage a maker-checker principle, or use MFA to ensure that the administrator is conducting the transaction. A clear example on this was the [Twitter incident in 2020](https://blog.twitter.com/en_us/topics/company/2020/an-update-on-our-security-incident.html).
 
+### API-Specific Role Testing
+
+When testing APIs, role definitions often manifest differently than in traditional web applications:
+
+#### OAuth Scopes and Permissions
+
+APIs commonly use OAuth 2.0 with scopes to define role-based access:
+
+- Identify all scopes defined in the API (often documented in OpenAPI/Swagger specs)
+- Test if tokens with limited scopes can access higher-privileged endpoints
+- Check if scope enforcement is consistent across all API versions
+- Verify that refresh tokens don't grant additional scopes beyond the original authorization
+
+#### JWT Claims and Roles
+
+For APIs using JWT tokens:
+
+- Examine the JWT payload for role claims (`role`, `roles`, `permissions`, `groups`)
+- Test if modifying role claims in unsigned tokens affects authorization
+- Verify that the API validates the token signature before trusting claims
+- Check for JWT algorithm confusion vulnerabilities (e.g., changing `RS256` to `HS256`)
+
+```bash
+# Decode JWT payload to examine role claims
+echo "<jwt_payload_base64>" | base64 -d | jq '.roles'
+```
+
+#### API Key Permission Levels
+
+For APIs using API keys:
+
+- Determine if different API keys grant different permission levels
+- Test if lower-privileged API keys can access administrative endpoints
+- Check if API key permissions are properly documented and enforced
+
+#### GraphQL Role Enforcement
+
+For GraphQL APIs:
+
+- Test if role restrictions apply consistently to all queries and mutations
+- Check for authorization bypass through nested queries or fragments
+- Verify that introspection respects role-based visibility restrictions
+
 ## Tools
 
 The above mentioned tests can be conducted without the use of any tool, except the one being used to access the system.

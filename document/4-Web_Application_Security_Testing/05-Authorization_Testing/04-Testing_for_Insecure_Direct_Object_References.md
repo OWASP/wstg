@@ -70,6 +70,84 @@ In this case, the value of the `menuitem` parameter is used to tell the applicat
 
 In the above examples the modification of a single parameter is sufficient. However, sometimes the object reference may be split between more than one parameter, and testing should be adjusted accordingly.
 
+### API-Specific IDOR Testing
+
+APIs are particularly susceptible to IDOR vulnerabilities due to their direct object access patterns. This vulnerability is often referred to as **Broken Object Level Authorization (BOLA)** in API security contexts.
+
+#### REST API IDOR Patterns
+
+Common REST API endpoints vulnerable to IDOR:
+
+```http
+# User-specific resources
+GET /api/v1/users/123/profile
+GET /api/v1/users/123/orders
+GET /api/v1/users/123/documents
+
+# Resource operations
+PUT /api/v1/orders/456
+DELETE /api/v1/messages/789
+PATCH /api/v1/accounts/101/settings
+```
+
+Test by:
+1. Identify numeric or predictable IDs in API responses
+2. Create resources with one user account
+3. Attempt to access/modify those resources with another user's credentials
+4. Check if UUIDs can be enumerated or predicted
+
+#### GraphQL IDOR
+
+GraphQL APIs may expose IDOR through queries and mutations:
+
+```graphql
+# Direct object access
+query {
+  order(id: "other_users_order_id") {
+    items
+    total
+    shippingAddress
+  }
+}
+
+# Mutation on another user's resource
+mutation {
+  cancelOrder(id: "other_users_order_id") {
+    status
+  }
+}
+```
+
+#### Nested Object IDOR
+
+APIs may fail to validate authorization on nested resources:
+
+```http
+# May check authorization on user but not on nested document
+GET /api/v1/users/123/documents/456
+```
+
+```graphql
+# May not check document ownership through relationship
+query {
+  user(id: "123") {
+    documents(id: "456") {
+      content
+    }
+  }
+}
+```
+
+#### Testing Approach for API IDOR
+
+1. **Collect object IDs**: Note all IDs returned in API responses
+2. **Create test data**: Use multiple accounts to create owned resources
+3. **Cross-account testing**: Attempt to access Account A's resources with Account B's token
+4. **Check all HTTP methods**: GET may be protected while PUT/DELETE are not
+5. **Test batch operations**: `DELETE /api/orders?ids=1,2,3,4,5` may bypass individual checks
+
+For comprehensive API authorization testing, see [API Broken Object Level Authorization](../12-API_Testing/02-API_Broken_Object_Level_Authorization.md).
+
 ## References
 
 [Top 10 2013-A4-Insecure Direct Object References](https://owasp.org/www-project-top-ten/2017/Release_Notes)

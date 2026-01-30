@@ -24,11 +24,42 @@ Problems related to the authentication schema can be found at different stages o
 
 ## How to Test
 
-There are several methods of bypassing the authentication schema that is used by a web application:
+There are several methods of bypassing the authentication schema that is used by a web application or API:
 
 - Parameter modification
 - Session ID prediction
 - SQL injection
+
+### API Authentication Bypass
+
+When testing APIs, additional authentication bypass vectors should be considered:
+
+#### Token Manipulation
+
+- **Bearer Token Tampering**: Modify JWT or other bearer tokens to change claims (e.g., user ID, role, permissions). See [Testing JSON Web Tokens](../06-Session_Management_Testing/10-Testing_JSON_Web_Tokens.md) for detailed JWT testing.
+- **Token Reuse**: Test if tokens from one environment (staging) work in another (production)
+- **Expired Token Handling**: Submit expired tokens to verify the API properly rejects them
+- **Token Signature Removal**: For JWTs, test if the API accepts tokens with the algorithm set to `none`
+
+#### API Key Weaknesses
+
+- **Missing API Key Validation**: Access endpoints without providing an API key
+- **API Key in URL**: If keys are passed in URLs, they may be logged or exposed in referrer headers
+- **Shared/Default API Keys**: Check for common or default API keys in documentation or source code
+
+#### OAuth/OIDC Bypass
+
+- **State Parameter Manipulation**: Test for CSRF in OAuth flows
+- **Redirect URI Manipulation**: Attempt to redirect tokens to attacker-controlled endpoints
+- **Scope Escalation**: Request additional scopes not originally granted
+
+Example API authentication bypass test:
+
+```http
+GET /api/v1/users/profile HTTP/1.1
+Host: api.example.com
+Authorization: Bearer eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJ1c2VyX2lkIjoiYWRtaW4ifQ.
+```
 
 ### Parameter Modification
 

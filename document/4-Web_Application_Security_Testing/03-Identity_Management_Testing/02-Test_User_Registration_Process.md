@@ -41,6 +41,43 @@ In contrast, in the Google example below the identification requirements include
 ![Google Registration Page](images/Google_registration_page.jpg)\
 *Figure 4.3.2-2: Google Registration Page*
 
+### API Registration Testing
+
+When testing API registration endpoints, additional considerations apply:
+
+#### API Registration Endpoints
+
+APIs typically expose registration via dedicated endpoints:
+
+- `POST /api/register`
+- `POST /api/v1/users`
+- `POST /api/auth/signup`
+
+Test these endpoints for:
+
+1. Can registration requests be submitted without CAPTCHA or rate limiting?
+2. Does the API accept additional fields beyond those documented (mass assignment)?
+3. Can privileged role values be injected during registration (`"role": "admin"`)?
+4. Does the response leak sensitive information about existing users?
+
+#### Token Issuance During Registration
+
+For APIs that issue tokens upon registration:
+
+1. Is the token granted before email verification is complete?
+2. Does the token have full access or limited scope for unverified accounts?
+3. Are refresh tokens issued immediately, potentially allowing persistent access?
+4. Can tokens be obtained by replaying registration requests?
+
+#### API Key Provisioning
+
+For APIs that issue API keys:
+
+1. Are API keys generated with sufficient entropy?
+2. Is there a limit on how many API keys a user can create?
+3. Are API key permissions properly scoped based on registration type?
+4. Can API keys be enumerated through timing attacks on the registration response?
+
 ## Remediation
 
 Implement identification and verification requirements that correspond to the security requirements of the information the credentials protect.
