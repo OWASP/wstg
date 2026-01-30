@@ -167,6 +167,7 @@ Inspect downloaded files for metadata fields that expose organization-specific o
 Metadata analysis tools (e.g. ExifTool) can be used to extract metadata from common formats such as images, PDFs, and Office documents.
 
 Focus on metadata such as:
+
 - Author or creator names
 - Embedded file system paths
 - Software or application versions
