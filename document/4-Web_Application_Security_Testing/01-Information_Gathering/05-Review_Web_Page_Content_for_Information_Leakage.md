@@ -156,12 +156,10 @@ Consider a situation in which a redirect response is the result of an authentica
 
 Web applications may expose publicly accessible files such as images, PDF documents, and office files. These files can contain embedded metadata that is not visible during normal usage but can be extracted using common tools. Exposed metadata may reveal internal usernames, file system paths, software versions, device details, or physical location data, which can assist attackers during reconnaissance and social engineering.
 
-#### Test Objectives
 - Identify publicly accessible files containing embedded metadata
 - Determine whether metadata reveals sensitive or internal information
 - Assess how leaked metadata could support further attacks
 
-#### How to Test
 Review files that are accessible without authentication, including images on public pages, downloadable documents, user-uploaded files, and files located in static directories (e.g. `/uploads/`, `/files/`, `/documents/`).
 
 Inspect downloaded files for metadata fields that expose organization-specific or user-specific information rather than generic or default values.
