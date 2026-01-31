@@ -15,12 +15,6 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout PR
-      uses: actions/checkout@v6
-      with:
-        ref: ${{github.event.pull_request.head.sha}}
-        repository: ${{github.event.pull_request.head.repo.full_name}}
-        path: pr
     - name: Checkout Base
       uses: actions/checkout@v6
       with:
@@ -44,6 +38,26 @@ jobs:
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         pattern: '^.*\.(md)$'
+    - name: Sparse Checkout Changed Files
+      env:
+        FILES: '${{ steps.files.outputs.files_updated }} ${{ steps.files.outputs.files_created }}'
+      run: |
+        # Create pr directory for sparse checkout
+        mkdir -p pr
+        cd pr
+        # Initialize git repository
+        git init
+        git remote add origin https://github.com/${{ github.event.pull_request.head.repo.full_name }}
+        # Enable sparse checkout
+        git config core.sparseCheckout true
+        # Add only the changed files to sparse checkout
+        for FILE in $FILES; do
+          echo "$FILE" >> .git/info/sparse-checkout
+        done
+        # Fetch and checkout only the specified files
+        git fetch --depth=1 origin ${{ github.event.pull_request.head.sha }}
+        git checkout ${{ github.event.pull_request.head.sha }}
+        cd ..
     - name: Run textlint Check
       env:
         FILES: '${{ steps.files.outputs.files_updated }} ${{ steps.files.outputs.files_created }}'

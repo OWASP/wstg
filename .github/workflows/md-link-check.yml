@@ -13,11 +13,11 @@ jobs:
       contents: read
     runs-on: ubuntu-latest
     steps:
-    - name: Setup Action
+    - name: Checkout Base
       uses: actions/checkout@v6
       with:
-        ref: ${{github.event.pull_request.head.sha}}
-        repository: ${{github.event.pull_request.head.repo.full_name}}
+        repository: OWASP/wstg
+        path: base
     - name: Save PR number
       env:
         PR_NUMBER: ${{ github.event.number }}
@@ -34,6 +34,29 @@ jobs:
       uses: umani/changed-files@138acc60bcaa548e0c194fc69ed36321ee8466d2 # v4.2.0
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Sparse Checkout Changed Files
+      if: github.event_name == 'pull_request'
+      env:
+        FILES: '${{ steps.files.outputs.files_updated }} ${{ steps.files.outputs.files_created }}'
+      run: |
+        # Create pr directory for sparse checkout
+        mkdir -p pr
+        cd pr
+        # Initialize git repository
+        git init
+        git remote add origin https://github.com/${{ github.event.pull_request.head.repo.full_name }}
+        # Enable sparse checkout
+        git config core.sparseCheckout true
+        # Add only the changed files to sparse checkout
+        for FILE in $FILES; do
+          if [[ "$FILE" == *.md ]]; then
+            echo "$FILE" >> .git/info/sparse-checkout
+          fi
+        done
+        # Fetch and checkout only the specified files
+        git fetch --depth=1 origin ${{ github.event.pull_request.head.sha }}
+        git checkout ${{ github.event.pull_request.head.sha }}
+        cd ..
     - name: PR link check
       if: github.event_name == 'pull_request'
       env:
@@ -42,18 +65,20 @@ jobs:
         echo "The Following files were changed or created:"
         echo $FILES
         touch log err
-        for FILE in $FILES; do echo $FILE | grep -q .*\.md\$ && markdown-link-check -q -v -c .github/configs/markdown-link-check-config.json $FILE 1>> log 2>> err; done
+        for FILE in $FILES; do echo $FILE | grep -q .*\.md\$ && markdown-link-check -q -v -c base/.github/configs/markdown-link-check-config.json pr/$FILE 1>> log 2>> err; done
         if grep -q  "ERROR:" err ; then exit 1 ; else echo -e "No broken links found."; fi
         echo $(cat log)
         echo $(cat err)
     - name: Repository link check
       if: github.event_name == 'workflow_dispatch'
       run: |
+        cd base
         touch log err
         find . -name \*.md -exec markdown-link-check -q -v --config .github/configs/markdown-link-check-config.json {} 1>> log 2>> err \;
         if grep -q  "ERROR:" err ; then exit 1 ; else echo -e "No broken links found."; fi
         echo $(cat log)
         echo $(cat err)
+        cd ..
     - name: Show broken links
       if: failure()
       run: |

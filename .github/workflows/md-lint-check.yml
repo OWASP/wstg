@@ -14,11 +14,11 @@ jobs:
       contents: read
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
+    - name: Checkout Base
       uses: actions/checkout@v6
       with:
-        ref: ${{github.event.pull_request.head.sha}}
-        repository: ${{github.event.pull_request.head.repo.full_name}}
+        repository: OWASP/wstg
+        path: base
     - name: Save PR number
       env:
         PR_NUMBER: ${{ github.event.number }}
@@ -29,8 +29,46 @@ jobs:
         node-version: 24
     - name: Install dependencies
       run: npm install -g markdownlint-cli
+    - name: Changed Files Exporter
+      id: files
+      uses: umani/changed-files@138acc60bcaa548e0c194fc69ed36321ee8466d2 # v4.2.0
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        pattern: '^.*\.(md)$'
+    - name: Sparse Checkout Changed Files
+      env:
+        FILES: '${{ steps.files.outputs.files_updated }} ${{ steps.files.outputs.files_created }}'
+      run: |
+        # Create pr directory for sparse checkout
+        mkdir -p pr
+        cd pr
+        # Initialize git repository
+        git init
+        git remote add origin https://github.com/${{ github.event.pull_request.head.repo.full_name }}
+        # Enable sparse checkout
+        git config core.sparseCheckout true
+        # Add only the changed files to sparse checkout
+        for FILE in $FILES; do
+          echo "$FILE" >> .git/info/sparse-checkout
+        done
+        # Fetch and checkout only the specified files
+        git fetch --depth=1 origin ${{ github.event.pull_request.head.sha }}
+        git checkout ${{ github.event.pull_request.head.sha }}
+        cd ..
     - name: Run linter
-      run: markdownlint . --config .github/configs/.markdownlint.json --ignore node_modules --ignore .github &> lint.txt
+      env:
+        FILES: '${{ steps.files.outputs.files_updated }} ${{ steps.files.outputs.files_created }}'
+      run: |
+        cd pr
+        for FILE in $FILES; do
+          if [ -f "$FILE" ]; then
+            markdownlint "$FILE" --config ../base/.github/configs/.markdownlint.json 2>&1 | tee -a ../lint.txt || true
+          fi
+        done
+        cd ..
+        if [ -s lint.txt ]; then
+          exit 1
+        fi
     - name: Show Linting Issues
       if: failure()
       run: |
