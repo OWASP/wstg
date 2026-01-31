@@ -105,7 +105,7 @@ jobs:
         echo "The Following files were changed or created:"
         printf '%s\n' $FILES
         touch log err
-        for FILE in $FILES; do echo $FILE | grep -q .*\.md\$ && markdown-link-check -q -v -c base/.github/configs/markdown-link-check-config.json pr/$FILE 1>> log 2>> err; done
+        for FILE in $FILES; do printf '%s\n' "$FILE" | grep -q .*\.md\$ && markdown-link-check -q -v -c base/.github/configs/markdown-link-check-config.json "pr/$FILE" 1>> log 2>> err; done
         if grep -q  "ERROR:" err ; then exit 1 ; else echo -e "No broken links found."; fi
         echo $(cat log)
         echo $(cat err)

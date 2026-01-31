@@ -81,6 +81,14 @@ jobs:
         for FILE in $FILES; do
           printf '%s\n' "$FILE" >> .git/info/sparse-checkout
         done
+        
+        # If no files were added to sparse-checkout, skip fetch/checkout
+        if [ ! -s .git/info/sparse-checkout ]; then
+          echo "No markdown files to checkout, skipping git fetch and checkout"
+          cd ..
+          exit 0
+        fi
+        
         # Fetch and checkout only the specified files
         git fetch --depth=1 origin "$SHA" || { echo "Error: git fetch failed for SHA '$SHA'" >&2; exit 1; }
         git checkout "$SHA" || { echo "Error: git checkout failed for SHA '$SHA'" >&2; exit 1; }
