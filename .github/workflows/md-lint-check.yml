@@ -88,7 +88,8 @@ jobs:
           if [ -f "$FILE" ]; then
             OUTPUT="$(markdownlint "$FILE" --config ../base/.github/configs/.markdownlint.json 2>&1)" || STATUS=$?
             if [ "${STATUS:-0}" -eq 0 ]; then
-              :
+              # File passed linting, continue to next file
+              continue
             elif [ "${STATUS:-0}" -eq 1 ]; then
               printf '%s\n' "$OUTPUT" | tee -a ../lint.txt
             else
