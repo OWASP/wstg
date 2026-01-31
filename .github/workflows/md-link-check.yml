@@ -105,7 +105,28 @@ jobs:
         echo "The Following files were changed or created:"
         printf '%s\n' $FILES
         touch log err
-        for FILE in $FILES; do printf '%s\n' "$FILE" | grep -q .*\.md\$ && markdown-link-check -q -v -c base/.github/configs/markdown-link-check-config.json "pr/$FILE" 1>> log 2>> err; done
+        
+        # Copy changed files from pr/ to base/ to check them with correct relative link resolution
+        for FILE in $FILES; do
+          if printf '%s\n' "$FILE" | grep -q .*\.md\$; then
+            # Ensure parent directory exists in base/
+            mkdir -p "base/$(dirname "$FILE")"
+            # Copy the PR version to base/
+            if [ -f "pr/$FILE" ]; then
+              cp "pr/$FILE" "base/$FILE"
+            fi
+          fi
+        done
+        
+        # Check files in base/ where relative links can be resolved
+        for FILE in $FILES; do
+          if printf '%s\n' "$FILE" | grep -q .*\.md\$; then
+            if [ -f "base/$FILE" ]; then
+              markdown-link-check -q -v -c base/.github/configs/markdown-link-check-config.json "base/$FILE" 1>> log 2>> err
+            fi
+          fi
+        done
+        
         if grep -q  "ERROR:" err ; then exit 1 ; else echo -e "No broken links found."; fi
         echo $(cat log)
         echo $(cat err)
