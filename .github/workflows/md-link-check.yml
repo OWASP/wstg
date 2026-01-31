@@ -79,6 +79,7 @@ jobs:
       if: github.event_name == 'pull_request'
       env:
         FILES: '${{ steps.files.outputs.files_updated }} ${{ steps.files.outputs.files_created }}'
+      shell: bash
       run: |
         echo "The Following files were changed or created:"
         echo $FILES
