@@ -26,7 +26,7 @@ This vulnerability is particularly common in Single Page Applications (SPAs) whe
 
 The first step is to identify if a client-side framework is in use. Testers should look for specific attributes in the HTML source code or specific HTTP response headers.
 
-- **Angular/Angular:** Look for attributes like `ng-app`, `ng-model`, or `ng-bind`.
+- **Angular:** Look for attributes like `ng-app`, `ng-model`, or `ng-bind`.
 - **Vue.js:** Look for attributes starting with `v-`, such as `v-if`, `v-for`, or the presence of the Vue global object in the console.
 - **Alpine.js:** Look for `x-data`, `x-html`.
 
@@ -45,7 +45,7 @@ Inject the string: {{ 7*7 }}
 - If the application renders `49`, CSTI is present.
 - If the application renders `{{ 7*7 }}`, it is likely not vulnerable or strict contextual escaping is in place.
 
-#### Angular (and Angular)
+#### Angular
 
 Angular acts on the DOM. If an attacker can inject a string containing Angular expressions into the DOM before Angular bootstraps or compiles it, the expression will be executed.
 
