@@ -41,22 +41,40 @@ jobs:
     - name: Sparse Checkout Changed Files
       env:
         FILES: '${{ steps.files.outputs.files_updated }} ${{ steps.files.outputs.files_created }}'
+      shell: bash
       run: |
+        set -euo pipefail
+        
+        # Skip if no files changed
+        if [ -z "$FILES" ]; then
+          echo "No files to checkout, skipping sparse checkout"
+          mkdir -p pr
+          exit 0
+        fi
+        
+        REPO="${{ github.event.pull_request.head.repo.full_name }}"
+        SHA="${{ github.event.pull_request.head.sha }}"
+        
+        if [ -z "$REPO" ] || [ -z "$SHA" ]; then
+          echo "Error: Missing repository information (REPO='$REPO', SHA='$SHA')" >&2
+          exit 1
+        fi
+        
         # Create pr directory for sparse checkout
         mkdir -p pr
         cd pr
         # Initialize git repository
-        git init
-        git remote add origin https://github.com/${{ github.event.pull_request.head.repo.full_name }}
+        git init || { echo "Error: git init failed" >&2; exit 1; }
+        git remote add origin "https://github.com/$REPO" || { echo "Error: git remote add failed" >&2; exit 1; }
         # Enable sparse checkout
-        git config core.sparseCheckout true
+        git config core.sparseCheckout true || { echo "Error: git config failed" >&2; exit 1; }
         # Add only the changed files to sparse checkout
         for FILE in $FILES; do
-          echo "$FILE" >> .git/info/sparse-checkout
+          printf '%s\n' "$FILE" >> .git/info/sparse-checkout
         done
         # Fetch and checkout only the specified files
-        git fetch --depth=1 origin ${{ github.event.pull_request.head.sha }}
-        git checkout ${{ github.event.pull_request.head.sha }}
+        git fetch --depth=1 origin "$SHA" || { echo "Error: git fetch failed for SHA '$SHA'" >&2; exit 1; }
+        git checkout "$SHA" || { echo "Error: git checkout failed for SHA '$SHA'" >&2; exit 1; }
         cd ..
     - name: Run textlint Check
       env:
