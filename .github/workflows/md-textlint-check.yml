@@ -66,6 +66,12 @@ jobs:
           exit 1
         fi
         
+        # Validate SHA format: 7 to 40 lowercase hex characters
+        if ! [[ "$SHA" =~ ^[0-9a-f]{7,40}$ ]]; then
+          echo "Error: Invalid SHA format '$SHA'. Expected 7-40 lowercase hex characters." >&2
+          exit 1
+        fi
+        
         # Create pr directory for sparse checkout
         mkdir -p pr
         cd pr
