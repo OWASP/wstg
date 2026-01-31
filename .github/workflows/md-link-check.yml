@@ -50,7 +50,7 @@ jobs:
         # Add only the changed files to sparse checkout
         for FILE in $FILES; do
           if [[ "$FILE" == *.md ]]; then
-            echo "$FILE" >> .git/info/sparse-checkout
+            printf '%s\n' "$FILE" >> .git/info/sparse-checkout
           fi
         done
         # Fetch and checkout only the specified files
