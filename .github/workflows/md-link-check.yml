@@ -78,7 +78,6 @@ jobs:
         if grep -q  "ERROR:" err ; then exit 1 ; else echo -e "No broken links found."; fi
         echo $(cat log)
         echo $(cat err)
-        cd ..
     - name: Show broken links
       if: failure()
       run: |
