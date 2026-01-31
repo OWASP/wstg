@@ -34,6 +34,7 @@ jobs:
       uses: umani/changed-files@138acc60bcaa548e0c194fc69ed36321ee8466d2 # v4.2.0
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
+        pattern: '^.*\.(md)$'
     - name: Sparse Checkout Changed Files
       if: github.event_name == 'pull_request'
       env:
@@ -57,6 +58,18 @@ jobs:
           exit 1
         fi
         
+        # Validate REPO format to prevent injection via special characters
+        if [[ ! "$REPO" =~ ^[a-zA-Z0-9_-]+/[a-zA-Z0-9_.-]+$ ]]; then
+          echo "Error: Invalid repository format: '$REPO'. Expected 'owner/repo'." >&2
+          exit 1
+        fi
+        
+        # Validate SHA format (7-40 lowercase hex characters)
+        if [[ ! "$SHA" =~ ^[0-9a-f]{7,40}$ ]]; then
+          echo "Error: Invalid SHA format '$SHA'. Expected 7-40 lowercase hex characters." >&2
+          exit 1
+        fi
+        
         # Create pr directory for sparse checkout
         mkdir -p pr
         cd pr
@@ -67,10 +80,16 @@ jobs:
         git config core.sparseCheckout true || { echo "Error: git config failed" >&2; exit 1; }
         # Add only the changed files to sparse checkout
         for FILE in $FILES; do
-          if [[ "$FILE" == *.md ]]; then
-            printf '%s\n' "$FILE" >> .git/info/sparse-checkout
-          fi
+          printf '%s\n' "$FILE" >> .git/info/sparse-checkout
         done
+        
+        # If no files were added to sparse-checkout, skip fetch/checkout
+        if [ ! -s .git/info/sparse-checkout ]; then
+          echo "No markdown files to checkout, skipping git fetch and checkout"
+          cd ..
+          exit 0
+        fi
+        
         # Fetch and checkout only the specified files
         git fetch --depth=1 origin "$SHA" || { echo "Error: git fetch failed for SHA '$SHA'" >&2; exit 1; }
         git checkout "$SHA" || { echo "Error: git checkout failed for SHA '$SHA'" >&2; exit 1; }
@@ -81,8 +100,10 @@ jobs:
         FILES: '${{ steps.files.outputs.files_updated }} ${{ steps.files.outputs.files_created }}'
       shell: bash
       run: |
+        set -euo pipefail
+        
         echo "The Following files were changed or created:"
-        echo $FILES
+        printf '%s\n' $FILES
         touch log err
         for FILE in $FILES; do echo $FILE | grep -q .*\.md\$ && markdown-link-check -q -v -c base/.github/configs/markdown-link-check-config.json pr/$FILE 1>> log 2>> err; done
         if grep -q  "ERROR:" err ; then exit 1 ; else echo -e "No broken links found."; fi

@@ -56,6 +56,18 @@ jobs:
           echo "Error: Missing repository information (REPO='$REPO', SHA='$SHA')" >&2
           exit 1
         fi
+
+        # Validate REPO format to prevent injection via special characters
+        if [[ ! "$REPO" =~ ^[a-zA-Z0-9_-]+/[a-zA-Z0-9_.-]+$ ]]; then
+          echo "Error: Invalid repository name format '$REPO'. Expected 'owner/repo'." >&2
+          exit 1
+        fi
+        
+        # Validate SHA format: 7 to 40 lowercase hexadecimal characters
+        if ! [[ "$SHA" =~ ^[0-9a-f]{7,40}$ ]]; then
+          echo "Error: Invalid SHA format '$SHA'" >&2
+          exit 1
+        fi
         
         # Create pr directory for sparse checkout
         mkdir -p pr
