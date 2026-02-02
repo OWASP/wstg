@@ -7,7 +7,7 @@
     "puppeteer": "^19.2.2"
   },
   "devDependencies": {
-    "markdownlint-cli2": "^0.5.1"
+    "markdownlint-cli2": "^0.20.0"
   },
   "scripts": {
     "lint": "markdownlint-cli2 \"**/*.md\" \"!node_modules\"",
