@@ -308,6 +308,8 @@
 
 #### 4.11.14 [Testing for Reverse Tabnabbing](4-Web_Application_Security_Testing/11-Client-side_Testing/14-Testing_for_Reverse_Tabnabbing.md)
 
+#### 4.11.15 [Testing for Client-side Template Injection](4-Web_Application_Security_Testing/11-Client-side_Testing/15-Testing_for_Client-side_Template_Injection.md)
+
 ### 4.12 [API Testing](4-Web_Application_Security_Testing/12-API_Testing/README.md)
 
 #### 4.12.0 [API Testing Overview](4-Web_Application_Security_Testing/12-API_Testing/00-API_Testing_Overview.md)
