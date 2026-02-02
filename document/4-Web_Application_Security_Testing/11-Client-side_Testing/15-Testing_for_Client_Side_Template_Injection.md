@@ -8,7 +8,7 @@
 
 Client-Side Template Injection (CSTI), also known as DOM-based Template Injection, arises when applications using client-side frameworks (such as Angular, Vue.js, or Alpine.js) dynamically embed user input into the web page's DOM. If this input is embedded into a template expression or interpreted by the framework's template engine, an attacker can inject malicious directives.
 
-Unlike [Server-Side Template Injection (SSTI)](../../07-Input_Validation_Testing/18-Testing_for_Server-side_Template_Injection.md), where the template is rendered on the server, CSTI occurs entirely within the user's browser. When the framework scans the DOM for dynamic content, it may execute the injected template expressions. This often leads to Cross-Site Scripting (XSS), but the method of injection and exploitation differs from standard XSS because the payload must follow the specific syntax of the template engine (e.g., `{{ 7*7 }}`).
+Unlike [Server-Side Template Injection (SSTI)](../07-Input_Validation_Testing/18-Testing_for_Server-side_Template_Injection.md), where the template is rendered on the server, CSTI occurs entirely within the user's browser. When the framework scans the DOM for dynamic content, it may execute the injected template expressions. This often leads to Cross-Site Scripting (XSS), but the method of injection and exploitation differs from standard XSS because the payload must follow the specific syntax of the template engine (e.g., `{{ 7*7 }}`).
 
 This vulnerability is particularly common in Single Page Applications (SPAs) where developers might rely on client-side rendering without strict context separation.
 
