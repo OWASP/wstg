@@ -99,13 +99,13 @@ We've made it easy to get started! The repository includes configuration files f
 Visual Studio Code is recommended for the best experience. The repository includes pre-configured settings in the `.vscode` directory.
 
 1. Install [Visual Studio Code](https://code.visualstudio.com/).
-2. Open the cloned repository in VS Code.
+2. Open the cloned repository in Visual Studio Code.
 3. When prompted, install the recommended extensions from `.vscode/extensions.json`. These include:
     - **markdownlint**: Ensures Markdown files follow the project's style guide
     - **Markdown All in One**: Provides helpful Markdown editing features
     - **Code Spell Checker**: Catches spelling errors
     - **Prettier**: Code formatter
-    - **GitHub Pull Request**: Manage PRs directly from VS Code
+    - **GitHub Pull Request**: Manage PRs directly from Visual Studio Code
 
 4. The workspace settings in `.vscode/settings.json` will automatically configure markdownlint to use the project's configuration file at `.github/configs/.markdownlint.json`.
 
@@ -115,7 +115,7 @@ If you're using a different editor, the `.editorconfig` file will help maintain 
 
 - **Vim/Neovim**: Install [editorconfig-vim](https://github.com/editorconfig/editorconfig-vim)
 - **Sublime Text**: Install [EditorConfig](https://packagecontrol.io/packages/EditorConfig)
-- **Atom**: Install [editorconfig](https://atom.io/packages/editorconfig)
+- **Atom**: Install [EditorConfig](https://atom.io/packages/editorconfig)
 - **IntelliJ/WebStorm**: Built-in support
 
 ### Running the Linter Locally
@@ -152,7 +152,7 @@ Note: The github.dev editor has limited support for running commands, so it's be
 
 ### Using GitHub Codespaces
 
-GitHub Codespaces provides a full VS Code environment in the cloud with all recommended extensions pre-installed.
+GitHub Codespaces provides a full Visual Studio Code environment in the cloud with all recommended extensions pre-installed.
 
 1. Learn more about [GitHub Codespaces](https://docs.github.com/en/codespaces/overview).
 2. Get started by [creating a codespace](https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace) for this repository.
