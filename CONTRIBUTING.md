@@ -138,15 +138,6 @@ The linter will check all Markdown files and report any style issues that need t
 
 You can use GitHub's cloud-based development environments (Codespaces and github.dev) to contribute to this repository without setting up a local environment!
 
-### Using GitHub Codespaces
-
-GitHub Codespaces provides a full VS Code environment in the cloud with all recommended extensions pre-installed.
-
-1. Learn more about [GitHub Codespaces](https://docs.github.com/en/codespaces/overview).
-2. Get started by [creating a codespace](https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace) for this repository.
-
-Our `.vscode` configuration will automatically set up the workspace with the correct linting and formatting settings.
-
 ### Using github.dev
 
 For quick edits, you can use the github.dev web-based editor:
@@ -156,3 +147,12 @@ For quick edits, you can use the github.dev web-based editor:
 3. Make your changes and commit them directly from the browser.
 
 Note: The github.dev editor has limited support for running commands, so it's best for simple text edits. For testing linting and other scripts, use Codespaces or a local environment.
+
+### Using GitHub Codespaces
+
+GitHub Codespaces provides a full VS Code environment in the cloud with all recommended extensions pre-installed.
+
+1. Learn more about [GitHub Codespaces](https://docs.github.com/en/codespaces/overview).
+2. Get started by [creating a codespace](https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace) for this repository.
+
+Our `.vscode` configuration will automatically set up the workspace with the correct linting and formatting settings.
