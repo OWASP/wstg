@@ -58,9 +58,11 @@ In older versions of Angular (1.x), the template engine works in a sandbox. Expl
 
 **Example Payload (Angular 1.5.x sandbox bypass):**
 
+<-- {% raw %} -->
 ```javascript
 {{x={'y':''.constructor.prototype};x['y'].charAt=[].join;$eval('x=alert(1)');}}
 ```
+<-- {% endraw %} -->
 
 #### Vue.js
 
