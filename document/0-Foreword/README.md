@@ -47,12 +47,10 @@ These tools can also be very useful, since they do find lots of potential issues
 
 ## Call to Action
 
-If you're building, designing or testing software, I strongly encourage you to get familiar with the security testing guidance in this document. It is a great road map for testing the most common issues that applications are facing today, but it is not exhaustive. If you find errors, please add a note to the discussion page or make the change yourself. You'll be helping thousands of others who use this guide.
+If you're building, designing or testing software, we strongly encourage you to get familiar with the security testing guidance in this document. It is a great road map for testing the most common issues that applications are facing today, but it is not exhaustive. If you find errors, please add a note to the discussion page or make the change yourself. You'll be helping thousands of others who use this guide.
 
 Please consider [joining us](https://owasp.org/membership/) as an individual or corporate member so that we can continue to produce materials like this testing guide and all the other great projects at OWASP.
 
 Thank you to all the past and future contributors to this guide, your work will help to make applications worldwide more secure.
-
---Eoin Keary, OWASP Board Member, April 19, 2013
 
 Open Worldwide Application Security Project and OWASP are registered trademarks of the OWASP Foundation, Inc.
