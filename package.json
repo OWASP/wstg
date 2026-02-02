@@ -7,9 +7,11 @@
     "puppeteer": "^19.2.2"
   },
   "devDependencies": {
-    "markdownlint-cli": "^0.31.1"
+    "markdownlint-cli": "^0.31.1",
+    "markdownlint-cli2": "^0.5.1"
   },
   "scripts": {
+    "lint": "markdownlint-cli2 \"**/*.md\" \"!node_modules\"",
     "pdfgen": "bash ./.github/pdf/scripts/make-pdf.sh",
     "jsongen": "bash ./.github/json/scripts/make-json.sh",
     "xlsxgen": "python ./.github/xlsx/scripts/build-checklist.py",

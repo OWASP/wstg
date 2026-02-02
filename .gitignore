@@ -69,7 +69,10 @@ $RECYCLE.BIN/
 *.lnk
 
 ### VisualStudioCode ###
-.vscode
+# Ignore user-specific files but allow workspace settings and extensions recommendations
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
 
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
