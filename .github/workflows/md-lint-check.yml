@@ -106,7 +106,7 @@ jobs:
         cd pr
         for FILE in $FILES; do
           if [ -f "$FILE" ]; then
-            OUTPUT="$(markdownlint-cli2 --config ../base/.github/configs/.markdownlint.json "$FILE" 2>&1)" || STATUS=$?
+            OUTPUT="$(markdownlint-cli2 "$FILE" --config ../base/.github/configs/.markdownlint.json 2>&1)" || STATUS=$?
             if [ "${STATUS:-0}" -eq 0 ]; then
               # File passed linting, continue to next file
               continue
