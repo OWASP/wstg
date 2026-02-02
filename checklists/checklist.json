@@ -1001,6 +1001,16 @@
                     ""
                   ]
                 }
+                ,{
+                "name":"Testing for Client-side Template Injection",
+                "id":"WSTG-CLNT-15",
+                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/15-Testing_for_Client-Side_Template_Injection",
+                "objectives":[
+                    "Identify the client-side framework and its version used by the application.",
+                    "Detect injection points where user input is reflected into the DOM and processed by the template engine.",
+                    "Assess if the injection allows for arbitrary JavaScript execution (XSS) via the template syntax."
+                  ]
+                }
             ]
         }
         ,"API Testing": {
