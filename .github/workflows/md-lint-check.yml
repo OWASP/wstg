@@ -28,7 +28,7 @@ jobs:
       with:
         node-version: 24
     - name: Install dependencies
-      run: npm install -g markdownlint-cli
+      run: npm install -g markdownlint-cli2
     - name: Changed Files Exporter
       id: files
       uses: umani/changed-files@138acc60bcaa548e0c194fc69ed36321ee8466d2 # v4.2.0
@@ -106,7 +106,7 @@ jobs:
         cd pr
         for FILE in $FILES; do
           if [ -f "$FILE" ]; then
-            OUTPUT="$(markdownlint "$FILE" --config ../base/.github/configs/.markdownlint.json 2>&1)" || STATUS=$?
+            OUTPUT="$(markdownlint-cli2-config ../base/.github/configs/.markdownlint.json "$FILE" 2>&1)" || STATUS=$?
             if [ "${STATUS:-0}" -eq 0 ]; then
               # File passed linting, continue to next file
               continue
