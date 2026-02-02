@@ -134,7 +134,7 @@ Look for `unsafe-eval` in the CSP. Many template engines (especially older ones)
 
 ### Tools
 
-- [DOMPurify](https://github.com/cure53/DOMPurify): A DOM-only, super-fast, uber-tolerant XSS sanitizer for HTML, MathML and SVG.
+- [DOMPurify](https://github.com/cure53/DOMPurify): A DOM-only, super-fast, uber-tolerant XSS sanitizer for HTML, MathML, and SVG.
 
 ## References
 
