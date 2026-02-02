@@ -123,11 +123,13 @@ If you're using a different editor, the `.editorconfig` file will help maintain 
 To ensure your changes follow the project's Markdown style guide, you can run the linter locally:
 
 1. Install dependencies (requires [Node.js](https://nodejs.org/)):
+
     ```bash
     npm install
     ```
 
 2. Run the linter:
+
     ```bash
     npm run lint
     ```
