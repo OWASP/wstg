@@ -21,11 +21,6 @@ The following JavaScript code shows a possible vulnerable script in which the at
 </script>
 ```
 
-The attacker could target the victim by asking them to visit the following URLs:
-
-- `www.victim.com/#red;-o-link:'<javascript:alert(1)>';-o-link-source:current;` (Opera \[8,12\])
-- `www.victim.com/#red;-:expression(alert(URL=1));` (IE 7/8)
-
 > **Note:**
 
  Some CSS-based JavaScript execution techniques rely on legacy browser behavior (e.g., older versions of IE and Opera). While modern browsers mitigate most of these vectors, CSS injection can still enable data exfiltration, UI manipulation, and attack chaining.
