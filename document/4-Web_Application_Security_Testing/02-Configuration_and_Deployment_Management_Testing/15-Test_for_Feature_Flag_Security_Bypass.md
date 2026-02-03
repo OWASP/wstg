@@ -178,7 +178,7 @@ For more details, see:
 ## Tools
 
 - [Burp Suite](https://portswigger.net/burp) - Intercept and modify HTTP traffic
-- [OWASP ZAP](https://www.zaproxy.org/) - Web application security testing
+- [ZAP](https://www.zaproxy.org/) - Web application security testing
 - Browser Developer Tools - Network inspection and localStorage modification
 
 ## References
