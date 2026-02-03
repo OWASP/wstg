@@ -127,7 +127,6 @@ Evaluate what happens when the feature flag service is unavailable:
 ```
 
 1. **Observe fallback behavior**: Determine if the application fails open (enables features) or fails closed (disables features).
-
 1. **Security-critical result**: Features gating security controls should default to disabled when the flag service is unreachable.
 
 ### Analyze Flag Configuration for Information Leakage
