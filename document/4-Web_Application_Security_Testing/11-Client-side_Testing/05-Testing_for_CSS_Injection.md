@@ -6,7 +6,7 @@
 
 ## Summary
 
-A CSS Injection vulnerability involves the ability to inject arbitrary CSS code in the context of a trusted website which is rendered inside a victim's browser. The impact of this type of vulnerability varies based on the supplied CSS payload. It may lead to cross-site scripting or data exfiltration.
+A CSS Injection vulnerability involves the ability to inject arbitrary CSS code in the context of a trusted site which is rendered inside a victim's browser. The impact of this type of vulnerability varies based on the supplied CSS payload. It may lead to cross-site scripting or data exfiltration.
 
 This vulnerability occurs when the application allows user-supplied CSS to interfere with the application's legitimate style sheets. Injecting code in the CSS context may provide an attacker with the ability to execute JavaScript in certain conditions, or to extract sensitive values using CSS selectors and functions able to generate HTTP requests. Generally, allowing users the ability to customize pages by supplying custom CSS files is a considerable risk.
 
@@ -57,7 +57,7 @@ Other attacks using solicited content such as CSS are highlighted in [Mario Heid
 
 ## How to Test
 
-Code should be analyzed to determine if a user is permitted to inject content in the CSS context. Particularly, the way in which the website returns CSS rules on the basis of the inputs should be inspected.
+Code should be analyzed to determine if a user is permitted to inject content in the CSS context. Particularly, the way in which the site returns CSS rules on the basis of the inputs should be inspected.
 
 The following is a basic example:
 
