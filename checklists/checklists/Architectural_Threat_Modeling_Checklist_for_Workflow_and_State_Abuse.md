@@ -98,4 +98,3 @@ Modern distributed applications frequently fail not because of traditional vulne
 ## Objective
 
 Prevent attackers from abusing legitimate application flows to achieve unauthorized outcomes by enforcing architectural integrity across UI, API, and backend layers.
-
