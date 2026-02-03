@@ -6,7 +6,7 @@
 
 ## Summary
 
-Feature flags (also known as feature toggles, feature switches, or feature gates) are a software development technique that allows teams to enable or disable functionality without deploying new code. While feature flags provide significant benefits for progressive delivery and A/B testing, they can introduce security vulnerabilities when improperly implemented.
+Feature flags (also known as feature toggles, feature switches, or feature gates) are a software development technique that allows teams to enable or disable functionality without fully deploying (or exposing) new code. While feature flags provide significant benefits for progressive delivery and A/B testing, they can introduce security vulnerabilities when improperly implemented.
 
 Common security issues with feature flags include:
 
