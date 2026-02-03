@@ -16,7 +16,7 @@ Common security issues with feature flags include:
 - **Insecure defaults**: Fallback values when the flag service is unavailable may fail open.
 - **Stale flag vulnerabilities**: Unused flags referencing deprecated code paths may contain unpatched vulnerabilities.
 
-Modern applications increasingly rely on feature flag services (LaunchDarkly, Split, Flagsmith, ConfigCat) or custom implementations for controlled rollouts, making security testing of these mechanisms essential.
+Modern applications increasingly rely on feature flag services (such as: LaunchDarkly, Split, Flagsmith, ConfigCat) or custom implementations for control roll-outs, making security testing of these mechanisms essential.
 
 ## Test Objectives
 
