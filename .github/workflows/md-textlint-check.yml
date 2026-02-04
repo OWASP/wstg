@@ -109,7 +109,7 @@ jobs:
       if: failure()
       run: |
         cat log.txt
-        cat log.txt | grep -v '✔ Fixed' | tr '✔' '✖' >mistakes.txt
+        cat log.txt | grep -v '✔ Fixed' | tr '✔' '✖' > mistakes.txt
         sed -i 's/✖/❌/g' mistakes.txt
     - name: Create artifact for comment
       if: failure()
