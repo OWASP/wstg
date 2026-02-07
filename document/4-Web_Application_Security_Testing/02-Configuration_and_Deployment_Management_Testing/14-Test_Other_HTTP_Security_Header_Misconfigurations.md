@@ -23,7 +23,6 @@ Security headers play a vital role in protecting web applications from a wide ra
 - **Legacy or Deprecated Headers:** Inclusion of obsolete headers (e.g., HPKP) or directives (e.g., `ALLOW-FROM` in X-Frame-Options) that are no longer supported by modern browsers may create unnecessary risks.
 - **Invalid Placement of Security Headers:** Some headers are only effective under specific conditions. For example, headers like HSTS must be delivered over HTTPS; if sent over HTTP, they become ineffective.
 - **META Tag Handling Mistakes:** In cases where security policies such as Content-Security-Policy (CSP) are enforced via both HTTP headers and META tags (using `http-equiv`), there is a risk that the META tag value might override or conflict with the secure logic defined in the HTTP header. This can lead to a scenario where an insecure policy inadvertently takes precedence, weakening the overall security posture.
-  
 - **Hop-by-Hop Header Injection:** Occurs when intermediaries incorrectly process the `Connection` header, allowing attackers to list and "strip" sensitive internal security headers (like `X-Forwarded-For`) before the request reaches the backend.
 
 ## Risks of Misconfigured Security Headers
