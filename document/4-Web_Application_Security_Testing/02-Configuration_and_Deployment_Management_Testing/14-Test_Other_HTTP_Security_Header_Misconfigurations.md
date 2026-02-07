@@ -128,7 +128,6 @@ Connection: close, X-Authenticated-User
 - **Restrict Connection Header:** Configure proxies to ignore client-supplied values in the `Connection` header that match sensitive internal headers.
 - **Zero Trust:** Avoid relying solely on hop-by-hop headers for critical security decisions.
 
-
 ## Tools
 
 - [Mozilla Observatory](https://observatory.mozilla.org/)
