@@ -130,9 +130,8 @@ jobs:
     - name: Create artifact for comment
       if: failure()
       run: |
-        echo "**The following issues were identified:**" > artifact.txt
-        # Copy to generic name for commenting
-        cat lint.txt | tee -a artifact.txt
+        # Parse and format the lint output for better readability
+        python3 base/.github/workflows/scripts/format_lint_output.py > artifact.txt
     - name: Upload list of issues
       if: failure()
       uses: actions/upload-artifact@v6

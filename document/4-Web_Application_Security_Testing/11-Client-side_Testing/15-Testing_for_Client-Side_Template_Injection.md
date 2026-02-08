@@ -8,7 +8,7 @@
 
 Client-Side Template Injection (CSTI), also known as DOM-based Template Injection, arises when applications using client-side frameworks (such as Angular, Vue.js, or Alpine.js) dynamically embed user input into the web page's DOM. If this input is embedded into a template expression or interpreted by the framework's template engine, an attacker can inject malicious directives.
 
-Unlike [Server-Side Template Injection (SSTI)](../07-Input_Validation_Testing/18-Testing_for_Server-side_Template_Injection.md), where the template is rendered on the server, CSTI occurs entirely within the user's browser. When the framework scans the DOM for dynamic content, it may execute the injected template expressions. This often leads to Cross-Site Scripting (XSS), but the method of injection and exploitation differs from standard XSS because the payload must follow the specific syntax of the template engine (e.g., `{{ 7*7 }}`).
+Unlike [Server-Side Template Injection (SSTI)](../07-Input_Validation_Testing/18-Testing_for_Server-side_Template_Injection.md), where the template is rendered on the server, CSTI occurs entirely within the user's browser. When the framework scans the DOM for dynamic content, it may execute the injected template expressions. This often leads to Cross-Site Scripting (XSS), but the method of injection and exploitation differs from standard XSS because the payload must follow the specific syntax of the template engine (e.g., {% raw %}`{{ 7*7 }}`{% endraw %}).
 
 This vulnerability is particularly common in Single Page Applications (SPAs) where developers might rely on client-side rendering without strict context separation.
 
@@ -32,20 +32,22 @@ The first step is to identify if a client-side framework is in use. Testers shou
 
 #### Injection Detection
 
-To detect CSTI, testers should inject characters that are syntactically significant to the template engine. The most common syntax for interpolation in many frameworks is double curly braces `{{ }}`.
+To detect CSTI, testers should inject characters that are syntactically significant to the template engine. The most common syntax for interpolation in many frameworks is double curly braces {% raw %}`{{ }}`{% endraw %}.
 
 A simple arithmetic operation is the standard probe. If the application evaluates the math, it is vulnerable.
 
 **Generic Probe:**
 
 {% raw %}
+
 ```txt
 Inject the string: {{ 7*7 }}
 ```
+
 {% endraw %}
 
 - If the application renders `49`, CSTI is present.
-- If the application renders `{{ 7*7 }}`, it is likely not vulnerable or strict contextual escaping is in place.
+- If the application renders {% raw %}`{{ 7*7 }}`{% endraw %}, it is likely not vulnerable or strict contextual escaping is in place.
 
 #### Angular
 
@@ -54,8 +56,10 @@ Angular acts on the DOM. If an attacker can inject a string containing Angular e
 **Payloads for Detection:**
 
 {% raw %}
+
 - `{{ 7*7 }}`
 - `{{ constructor.constructor('alert(1)')() }}`
+
 {% endraw %}
 
 In older versions of Angular (1.x), the template engine works in a sandbox. Exploitation requires breaking out of this sandbox. The complexity of the payload depends heavily on the specific version.
@@ -63,9 +67,11 @@ In older versions of Angular (1.x), the template engine works in a sandbox. Expl
 **Example Payload (Angular 1.5.x sandbox bypass):**
 
 {% raw %}
+
 ```javascript
 {{x={'y':''.constructor.prototype};x['y'].charAt=[].join;$eval('x=alert(1)');}}
 ```
+
 {% endraw %}
 
 #### Vue.js
@@ -75,15 +81,19 @@ Vue.js is also susceptible if developers use the `v-html` directive with user in
 **Payloads for Detection:**
 
 {% raw %}
+
 - `{{ 7*7 }}`
+
 {% endraw %}
 
 **Example Payload (Vue.js 2.x):**
 
 {% raw %}
+
 ```javascript
 {{_v.constructor('alert(1)')()}}
 ```
+
 {% endraw %}
 
 #### Alpine.js
@@ -121,10 +131,14 @@ Search for the `v-html` directive. Using `v-html` on user-provided content is a 
 **React Sinks:**
 While React is generally safer regarding template injection because it does not scan the DOM for templates (JSX is compiled), improper use of `dangerouslySetInnerHTML` allows for DOM-based XSS, which is the React equivalent of the risk profile discussed here.
 
+{% raw %}
+
 ```javascript
 // Vulnerable example in React
 <div dangerouslySetInnerHTML={{__html: userContent}} />
 ```
+
+{% endraw %}
 
 #### Configuration Review
 
@@ -136,7 +150,7 @@ Look for `unsafe-eval` in the CSP. Many template engines (especially older ones)
 
 - **Avoid Rendering User Input as HTML:** Whenever possible, use safe directives that treat input as text only.
     - Angular: Use `ng-bind` instead of `ng-bind-html`.
-    - Vue: Use `v-text` or curly braces `{{ }}` (which auto-escape HTML) instead of `v-html`.
+    - Vue: Use `v-text` or curly braces {% raw %}`{{ }}`{% endraw %} (which auto-escape HTML) instead of `v-html`.
     - React: Avoid `dangerouslySetInnerHTML`.
 - **Sanitization:** If HTML rendering is required, use a dedicated sanitization library (like DOMPurify) to strip dangerous tags and attributes before passing the data to the framework.
 - **Content Security Policy (CSP):** Implement a strict CSP that disables `unsafe-eval` and restricts script sources.
@@ -154,3 +168,4 @@ Look for `unsafe-eval` in the CSP. Many template engines (especially older ones)
 - [Gareth Heyes: Angular Sandbox Bypasses](https://portswigger.net/research/dom-based-angularjs-sandbox-escapes)
 - [Vue.js Security Guide](https://vuejs.org/guide/best-practices/security.html)
 - [Angular Security Guide](https://angular.io/guide/security)
+- [{% raw %}{{alert(’CSTI’)}}{% endraw %}: Large-Scale Detection of Client-Side Template Injection](https://ieeexplore.ieee.org/document/11352459)
