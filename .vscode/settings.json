@@ -5,7 +5,11 @@
   "[markdown]": {
     "editor.wordWrap": "bounded",
     "editor.wordWrapColumn": 100,
-    "editor.quickSuggestions": false
+    "editor.quickSuggestions": {
+      "comments": "off",
+      "strings": "off",
+      "other": "off"
+    }
   },
   "markdown.extension.toc.levels": "2..6",
   "markdown.preview.fontSize": 21,
