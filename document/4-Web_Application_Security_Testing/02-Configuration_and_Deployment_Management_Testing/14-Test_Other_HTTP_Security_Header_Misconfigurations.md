@@ -38,9 +38,9 @@ Security headers play a vital role in protecting web applications from a wide ra
 To inspect the security headers used by an application, employ the following methods:
 
 - **Intercepting Proxies:** Use tools such as **Burp Suite** to analyze server responses.
-- **Command Line Tools:** Execute a curl command to retrieve HTTP response headers: `curl -I https://example.com`
+- **Command-line Tools:** Execute a cURL command to retrieve HTTP response headers: `curl -I https://example.com`
     - Sometimes the web application will redirect to a new page, in order to follow redirect use the following command:`curl -L -I https://example.com`
-    - Some Firewalls may block curl's default User-Agent and some TLS/SSL errors will also prevent it from returning the correct information, in thise case you could try to use the following command:
+    - Some Firewalls may block cURL's default User-Agent and some TLS/SSL errors will also prevent it from returning the correct information, in thise case you could try to use the following command:
 `curl -I -L -k --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36" https://example.com`
 - **Browser Developer Tools:** Open developer tools (F12), navigate to the **Network** tab, select a request, and view the **Headers** section.
 
@@ -84,20 +84,24 @@ To inspect the security headers used by an application, employ the following met
 - ### Test for Header Stripping (Hop-by-Hop Injection)
 
 Attackers can exploit this by listing sensitive security headers inside the `Connection` header. The proxy, following the standard, strips these headers before forwarding the request to the backend. This can lead to:
-* Bypassing IP-based Access Control Lists (ACLs).
-* Bypassing Identity/Authentication checks performed at the edge.
-* Disabling security features enforced by intermediary headers.
 
-**1. Identification of Internal/Sensitive Headers (Reconnaissance)**
+- Bypassing IP-based Access Control Lists (ACLs).
+- Bypassing Identity/Authentication checks performed at the edge.
+- Disabling security features enforced by intermediary headers.
+
+#### Identification of Internal/Sensitive Headers (Reconnaissance)
+
 To perform this test, you first need to identify which headers are used by the internal infrastructure. You can identify them by:
-* **Triggering Error Pages:** Send malformed requests to trigger error pages (404, 500), which might leak internal headers in the response.
-* **Reflection Endpoints:** Search for debugging or "Echo" pages (e.g., `/phpinfo`, `/debug`, `/env`) that display all headers received by the backend.
-* **Header Guessing:** Common targets include `X-Forwarded-For`, `X-Real-IP`, `X-Forwarded-Proto`, and `X-Authenticated-User`.
 
-**2. Execution of the Injection**
+- **Triggering Error Pages:** Send malformed requests to trigger error pages (404, 500), which might leak internal headers in the response.
+- **Reflection Endpoints:** Search for debugging or "Echo" pages (e.g., `/phpinfo`, `/debug`, `/env`) that display all headers received by the backend.
+- **Header Guessing:** Common targets include `X-Forwarded-For`, `X-Real-IP`, `X-Forwarded-Proto`, and `X-Authenticated-User`.
+
+#### Execution of the Injection
+
 Attempt to "strip" a target header by adding it as a value to the `Connection` header.
 
-**Scenario A: Bypassing IP-based Restrictions**
+##### Scenario A: Bypassing IP-based Restrictions
 
 ```http
 GET /admin HTTP/1.1
@@ -105,7 +109,7 @@ Host: example.com
 Connection: close, X-Forwarded-For
 ```
 
-**Scenario B: Stripping Authentication Context**
+##### Scenario B: Stripping Authentication Context
 
 ```http
 GET /api/user/profile HTTP/1.1
@@ -114,9 +118,10 @@ X-Authenticated-User: victim_user
 Connection: close, X-Authenticated-User
 ```
 
-**3. Analyzing the Response**
-* **Vulnerable:** The application behavior changes (e.g., access is granted, or a reflected IP disappears).
-* **Secure:** The application behavior remains unchanged, or the proxy returns a `400 Bad Request`.
+#### Analyzing the Response
+
+- **Vulnerable:** The application behavior changes (e.g., access is granted, or a reflected IP disappears).
+- **Secure:** The application behavior remains unchanged, or the proxy returns a `400 Bad Request`.
 
 ## Remediation
 
@@ -144,4 +149,3 @@ Connection: close, X-Authenticated-User
 - [HPKP is No More](https://scotthelme.co.uk/hpkp-is-no-more/)
 - [RFC 9110 - HTTP Semantics: Connection Header](https://datatracker.ietf.org/doc/html/rfc9110#section-7.6.1)
 - [Abusing HTTP Hop-by-Hop Request Headers](https://nathandavison.com/blog/abusing-http-hop-by-hop-request-headers)
-
