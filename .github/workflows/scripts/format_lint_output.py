@@ -169,7 +169,7 @@ def generate_formatted_output(file_blocks: List[Dict], total_error_count: int) -
     
     Args:
         file_blocks: List of file blocks with errors
-        total_error_count: Total number of errors across all files
+        total_error_count: Total number of errors across all files (from Summary lines)
         
     Returns:
         Formatted markdown output
@@ -177,8 +177,12 @@ def generate_formatted_output(file_blocks: List[Dict], total_error_count: int) -
     output = []
     output.append("## 📝 Markdown Linting Issues\n")
     
-    if total_error_count > 0:
-        output.append(f"**Total Errors:** {total_error_count}\n")
+    # Compute actual total from file_blocks as fallback if Summary parsing failed
+    actual_total = sum(block['count'] for block in file_blocks)
+    display_total = actual_total if actual_total > 0 else total_error_count
+    
+    if display_total > 0:
+        output.append(f"**Total Errors:** {display_total}\n")
     
     for block in file_blocks:
         output.append(format_file_block(block))

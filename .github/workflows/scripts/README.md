@@ -8,7 +8,7 @@ This directory contains helper scripts used by GitHub Actions workflows.
 
 Formats markdown linting output for better readability in PR comments.
 
-**Input:** Reads from `lint.txt` (raw markdownlint-cli2 output)
+**Input:** Reads from `lint.txt` (raw markdownlint-cli2 output) in the current working directory  
 **Output:** Writes formatted markdown to stdout
 
 **Features:**
@@ -20,6 +20,13 @@ Formats markdown linting output for better readability in PR comments.
 - Graceful fallback to raw output if parsing fails
 
 **Usage:**
+
+From the repository root (where `lint.txt` is generated):
 ```bash
-python3 format_lint_output.py > artifact.txt
+python3 .github/workflows/scripts/format_lint_output.py > artifact.txt
+```
+
+Or from within the workflow (with base checkout):
+```bash
+python3 base/.github/workflows/scripts/format_lint_output.py > artifact.txt
 ```
