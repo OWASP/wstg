@@ -27,6 +27,64 @@ Additionally, applications may utilize alternative credentials that are treated 
 8. Is it possible to set common passwords such as `Password1` or `123456`?
 9. Is the credential chosen for the user by the application, such as a social security number or a birthdate? Is the credential that's utilized in lieu of a standard password easily obtainable, predictable, or susceptible to brute-force attacks?
 
+### API Authentication Methods
+
+APIs utilize various authentication methods beyond traditional passwords. Each has unique weaknesses to test:
+
+#### API Keys
+
+API keys are simple authentication tokens but have several weaknesses:
+
+- **Insufficient entropy**: Keys that are too short or predictable
+- **No rotation policy**: Long-lived keys that are never rotated
+- **Transmitted insecurely**: Keys sent in URLs (logged in access logs, referrer headers)
+- **Overprivileged**: Single key grants access to all API functionality
+- **No scope limitation**: Keys cannot be restricted to specific endpoints or methods
+
+Testing approach:
+1. Analyze key format and attempt to predict patterns
+2. Test if expired or revoked keys are properly rejected
+3. Check if keys are exposed in client-side code or documentation
+4. Verify keys are transmitted only in headers, not URLs
+
+#### OAuth 2.0 and OpenID Connect
+
+OAuth flows can have implementation weaknesses:
+
+- **Insecure token storage**: Tokens stored in localStorage or cookies without proper security
+- **Missing state parameter**: Allows CSRF attacks during OAuth flow
+- **Open redirect on callback**: Redirect URI validation can be bypassed
+- **Refresh token theft**: Long-lived refresh tokens without binding to client
+- **Scope creep**: Tokens granted more scopes than requested
+
+#### JWT (JSON Web Tokens)
+
+JWT has well-known implementation pitfalls:
+
+- **Algorithm confusion**: Accepting `none` algorithm or switching `RS256` to `HS256`
+- **Weak signing keys**: Short or predictable secrets for HMAC signing
+- **Missing expiration**: Tokens without `exp` claim or very long expiration
+- **Missing audience validation**: Tokens accepted across different services
+- **Sensitive data in payload**: PII or secrets in the unencrypted payload
+
+See [Testing JSON Web Tokens](../06-Session_Management_Testing/10-Testing_JSON_Web_Tokens.md) for detailed JWT testing.
+
+#### Mutual TLS (mTLS)
+
+For APIs using client certificate authentication:
+
+- **Certificate validation bypass**: Server not properly validating client certs
+- **Self-signed certificates accepted**: No CA chain validation
+- **Revocation not checked**: CRLs or OCSP not verified
+
+#### Basic and Digest Authentication
+
+Legacy authentication methods over APIs:
+
+- **Basic auth over HTTP**: Credentials transmitted in cleartext when TLS not enforced
+- **Credential caching**: Browsers caching credentials leading to session confusion
+- **No logout mechanism**: No way to invalidate credentials short of changing password
+
 ## Remediation
 
 To mitigate the risk of easily guessed passwords facilitating unauthorized access there are two solutions: introduce additional authentication controls (i.e. two-factor authentication) or introduce a strong password policy. The simplest and cheapest of these is the introduction of a strong password policy that ensures password length, complexity, reuse and aging; although ideally both of them should be implemented.
