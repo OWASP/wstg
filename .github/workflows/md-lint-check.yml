@@ -242,7 +242,7 @@ jobs:
             try:
                 with open('lint.txt', 'r') as f:
                     print(f.read())
-            except:
+            except Exception:
                 print(f"Error: {e}")
         EOF
     - name: Upload list of issues
