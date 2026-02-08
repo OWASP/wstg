@@ -106,6 +106,7 @@ Attempt to "strip" a target header by adding it as a value to the `Connection` h
 ```http
 GET /admin HTTP/1.1
 Host: example.com
+X-Forwarded-For: 203.0.113.10
 Connection: close, X-Forwarded-For
 ```
 
