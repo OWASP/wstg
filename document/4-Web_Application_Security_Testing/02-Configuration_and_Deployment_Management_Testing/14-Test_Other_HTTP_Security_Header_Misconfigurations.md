@@ -129,7 +129,6 @@ Connection: close, X-Authenticated-User
 - **Enforce Strict Directives:** Configure headers with the most secure settings that still allow for required functionality. For example, avoid using `*` in CORS policies unless absolutely necessary.
 - **Remove Deprecated Headers:** Replace legacy security headers with modern equivalents and remove any that are no longer supported.
 - **Avoid Conflicting Definitions:** Prevent duplicate header definitions and ensure that META tags do not conflict with HTTP headers for security policies.
-
 - **Restrict Connection Header:** Configure proxies to ignore client-supplied values in the `Connection` header that match sensitive internal headers.
 - **Zero Trust:** Avoid relying solely on hop-by-hop headers for critical security decisions.
 
