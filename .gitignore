@@ -333,3 +333,8 @@ build/
 # Lock files should not be added.
 package-lock.json
 yarn.lock
+
+# Temporary lint and artifact files from CI
+lint.txt
+artifact.txt
+pr_number
