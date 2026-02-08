@@ -81,7 +81,7 @@ To inspect the security headers used by an application, employ the following met
 - **Dual Enforcement Checks:** When a security policy like CSP is applied through both an HTTP header and a META tag using `http-equiv`, confirm that the HTTP header (which is generally considered more authoritative) is not inadvertently overridden by the META tag.
 - **Review Browser Behavior:** Test the application in various browsers to see if any differences occur due to the presence of conflicting directives. Where possible, avoid using dual definitions to prevent unintended security lapses.
 
-- ### Test for Header Stripping (Hop-by-Hop Injection)
+### Test for Header Stripping (Hop-by-Hop Injection)
 
 Attackers can exploit this by listing sensitive security headers inside the `Connection` header. The proxy, following the standard, strips these headers before forwarding the request to the backend. This can lead to:
 
