@@ -82,5 +82,5 @@ If the web application relies on a load-balanced, heterogeneous infrastructure, 
 Vulnerability scanners, such as Nessus and Nikto, check for the existence of well-known web directories. They may allow the tester to download the site structure, which is helpful when trying to determine the configuration of web directories and how individual file extensions are served. Other tools that can be used for this purpose include:
 
 - [wget](https://www.gnu.org/software/wget)
-- [curl](https://curl.haxx.se)
+- [cURL](https://curl.haxx.se)
 - Perform a Google search for "web mirroring tools"
