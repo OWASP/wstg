@@ -57,16 +57,19 @@ The list given above details only a few examples, since file extensions are too 
 
 To identify files with a given extension, a mix of techniques can be employed. These techniques can include using vulnerability scanners, spidering and mirroring tools, and querying search engines (see [Testing: Spidering and googling](../01-Information_Gathering/01-Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage.md)). Manual inspection of the application can also be beneficial, as it overcomes limitations in automatic spidering. See also [Testing for Old, Backup and Unreferenced Files](04-Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information.md) which deals with the security issues related to "forgotten" files.
 
-### File Upload
+### File Upload (Clarification)
 
-Windows 8.3 legacy file handling can sometimes be used to defeat file upload filters.
+Windows 8.3 legacy filename handling on Windows-based systems can affect how files are resolved and accessed by the web server. While this behavior is often discussed in the context of file upload restrictions, it is also relevant when assessing how existing files with non-standard or legacy names may be exposed.
 
-Usage examples:
+In environments where 8.3 filename generation is enabled, sensitive files that are otherwise not directly accessible using their long filenames may still be reachable through their shortened equivalents. This can lead to unintended disclosure of source code or configuration files if access controls are not consistently enforced.
 
-1. `file.phtml` gets processed as PHP code.
-2. `FILE~1.PHT` is served, but not processed by the PHP ISAPI handler.
-3. `shell.phPWND` can be uploaded.
-4. `SHELL~1.PHP` will be expanded and returned by the OS shell, then processed by the PHP ISAPI handler.
+Examples of 8.3 filename resolution behavior that may lead to unintended file exposure:
+
+1. A file such as `file.phtml` may be processed as PHP code.
+2. A corresponding shortened filename (for example, `FILE~1.PHT`) may be accessible depending on server and handler configuration.
+3. Files with misleading or extended filenames may still resolve to executable handlers once expanded by the operating system.
+
+Testing should focus on identifying whether legacy filename handling allows access to sensitive files that were not intended to be served. Exploitation of file upload mechanisms themselves is covered in dedicated File Upload and Business Logic test cases.
 
 ### Gray-Box Testing
 
