@@ -59,14 +59,17 @@ To identify files with a given extension, a mix of techniques can be employed. T
 
 ### File Upload
 
-Windows 8.3 legacy file handling can sometimes be used to defeat file upload filters.
+Windows 8.3 legacy filename handling on Windows-based systems can affect how files are resolved and accessed by the web server. While this behavior is often discussed in the context of file upload restrictions, it is also relevant when assessing how existing files with non-standard or legacy names may be exposed.
 
-Usage examples:
+In environments where 8.3 filename generation is enabled, sensitive files that are otherwise not directly accessible using their long filenames may still be reachable through their shortened equivalents. This can lead to unintended disclosure of source code or configuration files if access controls are not consistently enforced.
 
-1. `file.phtml` gets processed as PHP code.
-2. `FILE~1.PHT` is served, but not processed by the PHP ISAPI handler.
-3. `shell.phPWND` can be uploaded.
-4. `SHELL~1.PHP` will be expanded and returned by the OS shell, then processed by the PHP ISAPI handler.
+Examples of 8.3 filename resolution behavior that may lead to unintended file exposure:
+
+1. A file such as `file.phtml` may be processed as PHP code.
+2. A corresponding shortened filename (for example, `FILE~1.PHT`) may be accessible depending on server and handler configuration.
+3. Files with misleading or extended filenames may still resolve to executable handlers once expanded by the operating system.
+
+Testing should focus on identifying whether legacy filename handling allows access to sensitive files that were not intended to be served. Exploitation of file upload mechanisms themselves is covered in dedicated File Upload and Business Logic test cases.
 
 ### Gray-Box Testing
 
