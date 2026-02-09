@@ -6,7 +6,7 @@
 
 ## Summary
 
-Web servers commonly use file extensions to determine which technologies, languages, and plugins must be used to fulfill web requests. While this behavior is consistent with RFCs and Web Standards, using standard file extensions provides the penetration tester useful information about the underlying technologies used in a web appliance and greatly simplifies the task of determining the attack scenario to be used on particular technologies. In addition, mis-configuration of web servers could easily reveal confidential information about access credentials.
+Web servers commonly use file extensions to determine which technologies, languages, and plugins must be used to fulfill web requests. While this behavior is consistent with RFCs and Web Standards, using standard file extensions provides the penetration tester useful information about the underlying technologies used in a web appliance and greatly simplifies the task of determining the attack scenario to be used on particular technologies. In addition, misconfiguration of web servers could easily reveal confidential information about access credentials.
 
 File extension checks are often done to validate files before uploading them to the server. Unrestricted file uploads can lead to unforeseen results because the content may not be what is expected, or due to unexpected OS filename handling.
 
@@ -14,7 +14,7 @@ Understanding how web servers handle requests for files with different extension
 
 ## Test Objectives
 
-- Brute force sensitive file extensions that might contain raw data such as scripts, credentials, etc.
+- Enumerate sensitive file extensions that might contain raw data such as scripts or credentials
 - Validate that no system framework bypasses exist for the rules that have been set
 
 ## How to Test
@@ -57,7 +57,7 @@ The list given above details only a few examples, since file extensions are too 
 
 To identify files with a given extension, a mix of techniques can be employed. These techniques can include using vulnerability scanners, spidering and mirroring tools, and querying search engines (see [Testing: Spidering and googling](../01-Information_Gathering/01-Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage.md)). Manual inspection of the application can also be beneficial, as it overcomes limitations in automatic spidering. See also [Testing for Old, Backup and Unreferenced Files](04-Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information.md) which deals with the security issues related to "forgotten" files.
 
-### File Upload (Clarification)
+### File Upload
 
 Windows 8.3 legacy filename handling on Windows-based systems can affect how files are resolved and accessed by the web server. While this behavior is often discussed in the context of file upload restrictions, it is also relevant when assessing how existing files with non-standard or legacy names may be exposed.
 
@@ -69,7 +69,7 @@ Examples of 8.3 filename resolution behavior that may lead to unintended file ex
 2. A corresponding shortened filename (for example, `FILE~1.PHT`) may be accessible depending on server and handler configuration.
 3. Files with misleading or extended filenames may still resolve to executable handlers once expanded by the operating system.
 
-Testing should focus on identifying whether legacy filename handling allows access to sensitive files that were not intended to be served. Exploitation of file upload mechanisms themselves is covered in dedicated File Upload and Business Logic test cases.
+Testing should focus on identifying whether legacy filename handling allows access to sensitive files that were not intended to be served. Testing of file upload mechanisms themselves is covered in dedicated File Upload and Business Logic test cases.
 
 ### Gray-Box Testing
 
