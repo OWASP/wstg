@@ -224,7 +224,7 @@
 
 #### 4.7.14 [Testing for Incubated Vulnerability](4-Web_Application_Security_Testing/07-Input_Validation_Testing/14-Testing_for_Incubated_Vulnerability.md)
 
-#### 4.7.15 [Testing for HTTP Splitting Smuggling](4-Web_Application_Security_Testing/07-Input_Validation_Testing/15-Testing_for_HTTP_Splitting_Smuggling.md)
+#### 4.7.15 [Testing for HTTP Response Splitting](4-Web_Application_Security_Testing/07-Input_Validation_Testing/15-Testing_for_HTTP_Response_Splitting.md)
 
 #### 4.7.16 [Testing for HTTP Incoming Requests](4-Web_Application_Security_Testing/07-Input_Validation_Testing/16-Testing_for_HTTP_Incoming_Requests.md)
 

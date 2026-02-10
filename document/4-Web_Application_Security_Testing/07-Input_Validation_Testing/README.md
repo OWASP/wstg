@@ -46,7 +46,7 @@
 
 4.7.14 [Testing for Incubated Vulnerability](14-Testing_for_Incubated_Vulnerability.md)
 
-4.7.15 [Testing for HTTP Splitting Smuggling](15-Testing_for_HTTP_Splitting_Smuggling.md)
+4.7.15 [Testing for HTTP Response Splitting](15-Testing_for_HTTP_Response_Splitting.md)
 
 4.7.16 [Testing for HTTP Incoming Requests](16-Testing_for_HTTP_Incoming_Requests.md)
 
