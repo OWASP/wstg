@@ -88,6 +88,30 @@ Different servers, intermediaries, or clients may determine message boundaries u
 
 This constraint may pose challenges when the vulnerable parameter is transmitted in a URL, as excessively long URLs may be truncated or rejected. With architectural insight, testers may identify alternative request methods (such as POST instead of GET) or injection points that allow greater control over payload length and positioning.
 
+## Remediation
+
+To prevent HTTP Response Splitting vulnerabilities, applications must ensure that user-supplied input is never placed into HTTP headers without strict validation and sanitization.
+
+### Input Validation and Sanitization
+
+The most effective defense is to strictly validate all input that influences response headers. Specifically, the application should:
+
+1. **Reject Newline Characters:** Ensure that input containing Carriage Return (`\r`, `%0d`) or Line Feed (`\n`, `%0a`) characters is rejected or stripped before being used in HTTP headers.
+2. **Whitelisting:** Where possible, validate input against a strict allowlist of expected values (e.g., allowing only alphanumeric characters for specific parameters).
+3. **URL Encoding:** If the input is intended to be part of a URL (e.g., in a `Location` header), ensure it is properly URL-encoded. This converts control characters into their safe, encoded representation (e.g., `%0d%0a`), preventing them from being interpreted as header delimiters.
+
+### Use Secure Frameworks
+
+Modern web frameworks and application servers often provide built-in protection against header injection. Ensure that the underlying platform and runtime environment are up to date.
+
+- **Update Platforms:** Many modern environments (such as PHP post-5.1.2, ASP.NET, and recent versions of Node.js) automatically throw an error or sanitize input if an attempt is made to inject newline characters into headers using standard APIs.
+- **Avoid Custom Header Construction:** Use the framework's built-in functions for setting headers (e.g., `setHeader()`, `header()`, `addHeader()`) rather than manually constructing raw HTTP response strings.
+
+### Infrastructure Controls
+
+- **Web Application Firewall (WAF):** Configure WAFs to detect and block requests containing patterns typical of CRLF injection, such as `%0d%0a` in query parameters or headers.
+- **Reverse Proxies:** Ensure reverse proxies and load balancers are configured to handle malformed headers strictly, preventing them from being forwarded to the backend or cached incorrectly.
+
 ## References
 
 - [Amit Klein, "Divide and Conquer: HTTP Response Splitting, Web Cache Poisoning Attacks, and Related Topics"](https://packetstormsecurity.com/files/32815/Divide-and-Conquer-HTTP-Response-Splitting-Whitepaper.html)
