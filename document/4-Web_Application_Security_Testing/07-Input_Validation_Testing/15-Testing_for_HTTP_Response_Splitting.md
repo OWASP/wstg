@@ -42,9 +42,7 @@ By injecting CRLF sequences, a tester may cause the response to be interpreted a
 
 For example, the tester supplies the following value for the `interface` parameter:
 
-```http
-advanced%0d%0aContent-Length:%200%0d%0a%0d%0aHTTP/1.1%20200%20OK%0d%0aContent-Type:%20text/html%0d%0aContent-Length:%2035%0d%0a%0d%0a<html>Sorry,%20System%20Down</html>
-```
+`advanced%0d%0aContent-Length:%200%0d%0a%0d%0aHTTP/1.1%20200%20OK%0d%0aContent-Type:%20text/html%0d%0aContent-Length:%2035%0d%0a%0d%0a<html>Sorry,%20System%20Down</html>`
 
 The resulting response from the vulnerable application may be:
 
