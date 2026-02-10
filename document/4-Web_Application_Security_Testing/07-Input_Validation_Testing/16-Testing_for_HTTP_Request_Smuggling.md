@@ -24,7 +24,7 @@ In modern architectures, additional desynchronization vectors emerge from:
 
 These behaviors can lead to persistent desynchronization, cache poisoning, credential hijacking, and access control bypass.
 
-### Test Objectives
+## Test Objectives
 
 - Identify request boundary inconsistencies between frontend and backend components
 - Detect classic CL/TE desynchronization vulnerabilities
@@ -32,7 +32,9 @@ These behaviors can lead to persistent desynchronization, cache poisoning, crede
 - Assess H2C upgrade handling and downgrade safety
 - Confirm backend request queue poisoning
 
-### How to Test
+## How to Test
+
+### Black-Box Testing
 
 #### 1. Testing for CL.TE Desynchronization
 
@@ -200,7 +202,7 @@ Attackers can exploit this to poison persistent backend connections, impacting m
 - Delayed or mismatched responses
 - Cross-user response leakage
 
-### Remediation
+## Remediation
 
 - Enforce strict RFC-compliant parsing
 - Normalize request handling across all intermediaries
@@ -208,7 +210,7 @@ Attackers can exploit this to poison persistent backend connections, impacting m
 - Avoid protocol downgrades on untrusted connections
 - Terminate and revalidate backend connections upon parsing errors
 
-### Tools
+## Tools
 
 - [HTTP Request Smuggler (Burp Suite Extension)](https://portswigger.net/bappstore/aaaa60ef945341e8a450217a54a11646)
 - [Smuggler (Python) by defparam](https://github.com/defparam/smuggler)
