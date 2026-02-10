@@ -112,6 +112,13 @@ Modern web frameworks and application servers often provide built-in protection 
 - **Web Application Firewall (WAF):** Configure WAFs to detect and block requests containing patterns typical of CRLF injection, such as `%0d%0a` in query parameters or headers.
 - **Reverse Proxies:** Ensure reverse proxies and load balancers are configured to handle malformed headers strictly, preventing them from being forwarded to the backend or cached incorrectly.
 
+## Tools
+
+- [OWASP ZAP](https://www.zaproxy.org/)
+- [Burp Suite](https://portswigger.net/burp)
+- [CRLFuzz](https://github.com/dwisiswant0/crlfuzz) - A tool designed specifically to scan for CRLF vulnerabilities.
+- [Nuclei](https://github.com/projectdiscovery/nuclei) - Can be used with specific templates to detect CRLF injection patterns.
+
 ## References
 
 - [Amit Klein, "Divide and Conquer: HTTP Response Splitting, Web Cache Poisoning Attacks, and Related Topics"](https://packetstormsecurity.com/files/32815/Divide-and-Conquer-HTTP-Response-Splitting-Whitepaper.html)
