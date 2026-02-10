@@ -1,6 +1,6 @@
 # Table of Contents
 
-## 0. [Foreword by Eoin Keary](0-Foreword/README.md)
+## 0. [Foreword](0-Foreword/README.md)
 
 ## 1. [Frontispiece](1-Frontispiece/)
 
@@ -307,6 +307,8 @@
 #### 4.11.13 [Testing for Cross Site Script Inclusion](4-Web_Application_Security_Testing/11-Client-side_Testing/13-Testing_for_Cross_Site_Script_Inclusion.md)
 
 #### 4.11.14 [Testing for Reverse Tabnabbing](4-Web_Application_Security_Testing/11-Client-side_Testing/14-Testing_for_Reverse_Tabnabbing.md)
+
+#### 4.11.15 [Testing for Client-side Template Injection](4-Web_Application_Security_Testing/11-Client-side_Testing/15-Testing_for_Client-Side_Template_Injection.md)
 
 ### 4.12 [API Testing](4-Web_Application_Security_Testing/12-API_Testing/README.md)
 
