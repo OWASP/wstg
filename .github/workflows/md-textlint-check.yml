@@ -15,12 +15,6 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout PR
-      uses: actions/checkout@v6
-      with:
-        ref: ${{github.event.pull_request.head.sha}}
-        repository: ${{github.event.pull_request.head.repo.full_name}}
-        path: pr
     - name: Checkout Base
       uses: actions/checkout@v6
       with:
@@ -44,6 +38,64 @@ jobs:
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         pattern: '^.*\.(md)$'
+    - name: Sparse Checkout Changed Files
+      env:
+        FILES: '${{ steps.files.outputs.files_updated }} ${{ steps.files.outputs.files_created }}'
+      shell: bash
+      run: |
+        set -euo pipefail
+        
+        # Skip if no files changed
+        if [ -z "$FILES" ]; then
+          echo "No files to checkout, skipping sparse checkout"
+          mkdir -p pr
+          exit 0
+        fi
+        
+        REPO="${{ github.event.pull_request.head.repo.full_name }}"
+        SHA="${{ github.event.pull_request.head.sha }}"
+        
+        if [ -z "$REPO" ] || [ -z "$SHA" ]; then
+          echo "Error: Missing repository information (REPO='$REPO', SHA='$SHA')" >&2
+          exit 1
+        fi
+        
+        # Validate repository format to prevent unsafe values
+        if [[ ! "$REPO" =~ ^[a-zA-Z0-9_-]+/[a-zA-Z0-9_.-]+$ ]]; then
+          echo "Error: Invalid repository format (REPO='$REPO'). Expected 'owner/repo'." >&2
+          exit 1
+        fi
+        
+        # Validate SHA format: 7 to 40 lowercase hex characters
+        if ! [[ "$SHA" =~ ^[0-9a-f]{7,40}$ ]]; then
+          echo "Error: Invalid SHA format '$SHA'. Expected 7-40 lowercase hex characters." >&2
+          exit 1
+        fi
+        
+        # Create pr directory for sparse checkout
+        mkdir -p pr
+        cd pr
+        # Initialize git repository
+        git init || { echo "Error: git init failed" >&2; exit 1; }
+        git remote add origin "https://github.com/$REPO" || { echo "Error: git remote add failed" >&2; exit 1; }
+        # Enable sparse checkout
+        git config core.sparseCheckout true || { echo "Error: git config failed" >&2; exit 1; }
+        # Add only the changed files to sparse checkout
+        for FILE in $FILES; do
+          printf '%s\n' "$FILE" >> .git/info/sparse-checkout
+        done
+        
+        # If no files were added to sparse-checkout, skip fetch/checkout
+        if [ ! -s .git/info/sparse-checkout ]; then
+          echo "No markdown files to checkout, skipping git fetch and checkout"
+          cd ..
+          exit 0
+        fi
+        
+        # Fetch and checkout only the specified files
+        git fetch --depth=1 origin "$SHA" || { echo "Error: git fetch failed for SHA '$SHA'" >&2; exit 1; }
+        git checkout "$SHA" || { echo "Error: git checkout failed for SHA '$SHA'" >&2; exit 1; }
+        cd ..
     - name: Run textlint Check
       env:
         FILES: '${{ steps.files.outputs.files_updated }} ${{ steps.files.outputs.files_created }}'
@@ -57,7 +109,8 @@ jobs:
       if: failure()
       run: |
         cat log.txt
-        cat log.txt | grep -v '✔ Fixed' | tr '✔' '✖' >mistakes.txt
+        cat log.txt | grep -v '✔ Fixed' | tr '✔' '✖' > mistakes.txt
+        sed -i 's/✖/❌/g' mistakes.txt
     - name: Create artifact for comment
       if: failure()
       run: |

@@ -63,6 +63,29 @@ Localized security controls are not sufficient. There are often no defenses agai
 - Accessing a multi-stage business process in the wrong order
 - Large number of, or high rate of use of, application-specific functionality (e.g. voucher code submission, failed credit card payments, file uploads, file downloads, log outs, etc).
 
+### UI Misrepresentation / Content Spoofing
+
+UI misrepresentation occurs when user-controlled input is rendered in trusted UI elements in a way that can mislead users or administrators, without requiring script execution. Unlike cross-site scripting, these issues rely on visual or contextual deception and can enable workflow abuse or social engineering within the application.
+
+These issues represent application misuse because they abuse legitimate UI workflows and trust boundaries rather than exploiting a technical vulnerability.
+
+Common examples include:
+
+- User-controlled filenames, titles, or labels displayed as system-generated messages
+- Renamed file uploads that appear as trusted documents or system artifacts
+- User-supplied text rendered as approval states, sender names, or workflow indicators
+
+For example: an application allows users to name uploaded files. An attacker uploads a file named
+"Payment Approved – Finance System". When this filename is displayed in an administrative
+review workflow without clear indication that it is user-supplied, reviewers may be misled
+into approving a fraudulent process.
+
+During testing, assess whether:
+
+- User-controlled data is reflected in privileged or authoritative UI contexts
+- Injected text can mimic system messages, workflow states, or trusted labels
+- UI presentation could influence user decisions or business processes despite no technical exploit occurring
+
 These defenses work best in authenticated parts of the application, although rate of creation of new accounts or accessing content (e.g. to scrape information) can be of use in public areas.
 
 Not all the above need to be monitored by the application, but there is a problem if none of them are. By testing the web application, doing the above type of actions, was any response taken against the tester? If not, the tester should report that the application appears to have no application-wide active defenses against misuse. Note it is sometimes possible that all responses to attack detection are silent to the user (e.g. logging changes, increased monitoring, alerts to administrators and and request proxying), so confidence in this finding cannot be guaranteed. In practice, very few applications (or related infrastructure such as a web application firewall) are detecting these types of misuse.

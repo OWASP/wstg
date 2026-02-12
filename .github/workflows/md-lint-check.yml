@@ -14,11 +14,11 @@ jobs:
       contents: read
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
+    - name: Checkout Base
       uses: actions/checkout@v6
       with:
-        ref: ${{github.event.pull_request.head.sha}}
-        repository: ${{github.event.pull_request.head.repo.full_name}}
+        repository: OWASP/wstg
+        path: base
     - name: Save PR number
       env:
         PR_NUMBER: ${{ github.event.number }}
@@ -28,9 +28,100 @@ jobs:
       with:
         node-version: 24
     - name: Install dependencies
-      run: npm install -g markdownlint-cli
+      run: npm install -g markdownlint-cli2
+    - name: Changed Files Exporter
+      id: files
+      uses: umani/changed-files@138acc60bcaa548e0c194fc69ed36321ee8466d2 # v4.2.0
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        pattern: '^.*\.(md)$'
+    - name: Sparse Checkout Changed Files
+      env:
+        FILES: '${{ steps.files.outputs.files_updated }} ${{ steps.files.outputs.files_created }}'
+      shell: bash
+      run: |
+        set -euo pipefail
+        
+        # Skip if no files changed
+        if [ -z "$FILES" ]; then
+          echo "No files to checkout, skipping sparse checkout"
+          mkdir -p pr
+          exit 0
+        fi
+        
+        REPO="${{ github.event.pull_request.head.repo.full_name }}"
+        SHA="${{ github.event.pull_request.head.sha }}"
+        
+        if [ -z "$REPO" ] || [ -z "$SHA" ]; then
+          echo "Error: Missing repository information (REPO='$REPO', SHA='$SHA')" >&2
+          exit 1
+        fi
+
+        # Validate REPO format to prevent injection via special characters
+        if [[ ! "$REPO" =~ ^[a-zA-Z0-9_-]+/[a-zA-Z0-9_.-]+$ ]]; then
+          echo "Error: Invalid repository name format '$REPO'. Expected 'owner/repo'." >&2
+          exit 1
+        fi
+        
+        # Validate SHA format: 7 to 40 lowercase hexadecimal characters
+        if ! [[ "$SHA" =~ ^[0-9a-f]{7,40}$ ]]; then
+          echo "Error: Invalid SHA format '$SHA'" >&2
+          exit 1
+        fi
+        
+        # Create pr directory for sparse checkout
+        mkdir -p pr
+        cd pr
+        # Initialize git repository
+        git init || { echo "Error: git init failed" >&2; exit 1; }
+        git remote add origin "https://github.com/$REPO" || { echo "Error: git remote add failed" >&2; exit 1; }
+        # Enable sparse checkout
+        git config core.sparseCheckout true || { echo "Error: git config failed" >&2; exit 1; }
+        # Add only the changed files to sparse checkout
+        for FILE in $FILES; do
+          printf '%s\n' "$FILE" >> .git/info/sparse-checkout
+        done
+        
+        # If no files were added to sparse-checkout, skip fetch/checkout
+        if [ ! -s .git/info/sparse-checkout ]; then
+          echo "No markdown files to checkout, skipping git fetch and checkout"
+          cd ..
+          exit 0
+        fi
+        
+        # Fetch and checkout only the specified files
+        git fetch --depth=1 origin "$SHA" || { echo "Error: git fetch failed for SHA '$SHA'" >&2; exit 1; }
+        git checkout "$SHA" || { echo "Error: git checkout failed for SHA '$SHA'" >&2; exit 1; }
+        cd ..
     - name: Run linter
-      run: markdownlint . --config .github/configs/.markdownlint.json --ignore node_modules --ignore .github &> lint.txt
+      env:
+        FILES: '${{ steps.files.outputs.files_updated }} ${{ steps.files.outputs.files_created }}'
+      shell: bash
+      run: |
+        set -euo pipefail
+        
+        # Initialize lint file (will remain empty if there are no issues)
+        : > lint.txt
+        
+        cd pr
+        for FILE in $FILES; do
+          if [ -f "$FILE" ]; then
+            OUTPUT="$(markdownlint-cli2 "$FILE" --config ../base/.github/configs/.markdownlint.json 2>&1)" || STATUS=$?
+            if [ "${STATUS:-0}" -eq 0 ]; then
+              # File passed linting, continue to next file
+              continue
+            elif [ "${STATUS:-0}" -eq 1 ]; then
+              printf '%s\n' "$OUTPUT" | tee -a ../lint.txt
+            else
+              printf 'markdownlint failed for "%s" with exit code %s\n%s\n' "$FILE" "${STATUS:-0}" "$OUTPUT" >&2
+              exit "${STATUS:-0}"
+            fi
+          fi
+        done
+        cd ..
+        if [ -s lint.txt ]; then
+          exit 1
+        fi
     - name: Show Linting Issues
       if: failure()
       run: |
@@ -39,9 +130,8 @@ jobs:
     - name: Create artifact for comment
       if: failure()
       run: |
-        echo "**The following issues were identified:**" > artifact.txt
-        # Copy to generic name for commenting
-        cat lint.txt | tee -a artifact.txt
+        # Parse and format the lint output for better readability
+        python3 base/.github/workflows/scripts/format_lint_output.py > artifact.txt
     - name: Upload list of issues
       if: failure()
       uses: actions/upload-artifact@v6

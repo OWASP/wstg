@@ -11,7 +11,7 @@ Here are some ways you can make a helpful contribution. The [Open Source Guide f
 - [How to Open an Issue](#how-to-open-an-issue)
 - [How to Submit a Pull Request](#how-to-submit-a-pull-request)
 - [How to Set Up Your Contributor Environment](#how-to-set-up-your-contributor-environment)
-- [Contributing with Codespaces](#contributing-with-codespaces)
+- [Contributing with GitHub Dev Environments](#contributing-with-github-dev-environments)
 
 ## Become an Author
 
@@ -88,27 +88,73 @@ Once the PR is complete, we'll merge it! At that point, you may like to add your
 
 ## How to Set Up Your Contributor Environment
 
+We've made it easy to get started! The repository includes configuration files for Visual Studio Code and other editors to help you maintain consistency with the project's style guide.
+
 1. [Create an account on GitHub](https://help.github.com/en/github/getting-started-with-github/signing-up-for-a-new-github-account).
-2. Install [Visual Studio Code](https://code.visualstudio.com/) and this [Markdown linter plugin](https://github.com/DavidAnson/vscode-markdownlint#install). We use this linter to help keep the project content consistent and pretty.
+2. Fork and clone your own copy of the repository. Here are complete instructions for [forking and syncing with GitHub](https://help.github.com/en/github/getting-started-with-github/fork-a-repo).
+3. Choose your development environment:
 
-    1. From the gear icon/menu select "Settings".
-    2. Select the "Workspace" tab.
-    3. Expand "Extensions", and find "markdownlint".
-    4. Just below "Markdownlint: config" click the "Edit in settings.json" link.
-    5. Add the following:
+### Using Visual Studio Code
 
-    ```json
-    "markdownlint.config": {
-      "extends": ".github/configs/.markdownlint.json"
-    }
+Visual Studio Code is recommended for the best experience. The repository includes pre-configured settings in the `.vscode` directory.
+
+1. Install [Visual Studio Code](https://code.visualstudio.com/).
+2. Open the cloned repository in Visual Studio Code.
+3. When prompted, install the recommended extensions from `.vscode/extensions.json`. These include:
+    - **markdownlint**: Ensures Markdown files follow the project's style guide
+    - **Markdown All in One**: Provides helpful Markdown editing features
+    - **Code Spell Checker**: Catches spelling errors
+    - **Prettier**: Code formatter
+    - **GitHub Pull Request**: Manage PRs directly from Visual Studio Code
+
+4. The workspace settings in `.vscode/settings.json` will automatically configure markdownlint to use the project's configuration file at `.github/configs/.markdownlint.json`.
+
+### Using Other Editors
+
+If you're using a different editor, the `.editorconfig` file will help maintain consistent formatting across different editors. Most modern editors support EditorConfig either natively or via plugins:
+
+- **Vim/Neovim**: Install [editorconfig-vim](https://github.com/editorconfig/editorconfig-vim)
+- **Sublime Text**: Install [EditorConfig](https://packagecontrol.io/packages/EditorConfig)
+- **Atom**: Install [EditorConfig](https://atom.io/packages/editorconfig)
+- **IntelliJ/WebStorm**: Built-in support
+
+### Running the Linter Locally
+
+To ensure your changes follow the project's Markdown style guide, you can run the linter locally:
+
+1. Install dependencies (requires [Node.js](https://nodejs.org/)):
+
+    ```bash
+    npm install
     ```
 
-3. Fork and clone your own copy of the repository. Here are complete instructions for [forking and syncing with GitHub](https://help.github.com/en/github/getting-started-with-github/fork-a-repo).
+2. Run the linter:
 
-## Contributing with Codespaces
+    ```bash
+    npm run lint
+    ```
 
-We've included settings for GitHub Codespaces so you can use a cloud-hosted IDE to contribute to this repository! Our configuration includes Visual Studio Code extensions and `markdownlint` configuration settings that help to keep work consistent across all our amazing contributors.
+The linter will check all Markdown files and report any style issues that need to be fixed before submitting your pull request.
 
-Codespaces is currently in limited beta. To learn more, see [About Codespaces](https://docs.github.com/en/github/developing-online-with-codespaces/about-codespaces).
+## Contributing with GitHub Dev Environments
 
-If you have access to the beta, get started by [creating a codespace](https://docs.github.com/en/github/developing-online-with-codespaces/creating-a-codespace) for this repository.
+You can use GitHub's cloud-based development environments (Codespaces and github.dev) to contribute to this repository without setting up a local environment!
+
+### Using github.dev
+
+For quick edits, you can use the github.dev web-based editor:
+
+1. Navigate to the repository on GitHub.
+2. Press `.` (period) on your keyboard to open the github.dev editor.
+3. Make your changes and commit them directly from the browser.
+
+Note: The github.dev editor has limited support for running commands, so it's best for simple text edits. For testing linting and other scripts, use Codespaces or a local environment.
+
+### Using GitHub Codespaces
+
+GitHub Codespaces provides a full Visual Studio Code environment in the cloud with all recommended extensions pre-installed.
+
+1. Learn more about [GitHub Codespaces](https://docs.github.com/en/codespaces/overview).
+2. Get started by [creating a codespace](https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace) for this repository.
+
+Our `.vscode` configuration will automatically set up the workspace with the correct linting and formatting settings.

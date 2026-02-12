@@ -38,6 +38,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Joel Aviad Ossi
 - Manh Pham Tien
 - Mark Clayton
+- Meysam Bal-afkan
 - Or Asaf
 - Phu Nguyen (Tony)
 - rbsec

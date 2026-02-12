@@ -8,7 +8,7 @@
 
 It is very common, and even recommended, for programmers to include detailed comments and metadata on their source code. However, comments and metadata included in the HTML code might reveal internal information that should not be available to potential attackers. Comments and metadata review should be done in order to determine if any information is being leaked. Additionally some applications may leak information in the body of redirect responses.
 
-For modern web apps, the use of client-side JavaScript for the frontend is becoming more popular. Popular frontend construction technologies use client-side JavaScript like ReactJS, AngularJS, or Vue. Similar to the comments and metadata in HTML code, many programmers also hardcode sensitive information in JavaScript variables on the frontend. Sensitive information can include (but is not limited to): Private API Keys (*e.g.* an unrestricted Google Map API Key), internal IP addresses, sensitive routes (*e.g.* route to hidden admin pages or functionality), or even credentials. This sensitive information can be leaked from such frontend JavaScript code. A review should be done in order to determine if any sensitive information leaked which could be used by attackers for abuse.
+For modern web apps, the use of client-side JavaScript for the frontend is becoming more popular. Popular frontend construction technologies use client-side JavaScript like React, Angular, or Vue. Similar to the comments and metadata in HTML code, many programmers also hardcode sensitive information in JavaScript variables on the frontend. Sensitive information can include (but is not limited to): Private API Keys (*e.g.* an unrestricted Google Map API Key), internal IP addresses, sensitive routes (*e.g.* route to hidden admin pages or functionality), or even credentials. This sensitive information can be leaked from such frontend JavaScript code. A review should be done in order to determine if any sensitive information leaked which could be used by attackers for abuse.
 
 For large web applications, performance issues are a big concern to programmers. Programmers have used different methods to optimize frontend performance, including Syntactically Awesome Style Sheets (Sass), Sassy CSS (SCSS), webpack, etc. Using these technologies, frontend code will sometimes become harder to understand and difficult to debug, and because of it, programmers often deploy source map files for debugging purposes. A "source map" is a special file that connects a minified/uglified version of an asset (CSS or JavaScript) to the original authored version. Programmers are still debating whether or not to bring source map files to the production environment. However, it is undeniable that source map files or files for debugging if released to the production environment will make their source more human-readable. It can make it easier for attackers to find vulnerabilities from the frontend or collect sensitive information from it. JavaScript code review should be done in order to determine if any debug files are exposed from the frontend. Depending on the context and sensitivity of the project, a security expert should decide whether the files should exist in the production environment or not.
 
@@ -79,7 +79,7 @@ Although most web servers manage search engine indexing via the `robots.txt` fil
 <META name="robots" content="none">
 ```
 
-The [Platform for Internet Content Selection (PICS)](https://www.w3.org/PICS/) and [Protocol for Web Description Resources (POWDER)](https://www.w3.org/2007/powder/) provide infrastructure for associating metadata with Internet content.
+The [Platform for Internet Content Selection (PICS)](https://www.w3.org/PICS/) and [Protocol for Web Description Resources (POWDER)](https://www.w3.org/2007/powder/) provide infrastructure for associating metadata with internet content.
 
 ### Identifying JavaScript Code and Gathering JavaScript Files
 
@@ -152,16 +152,57 @@ Although redirect responses are not generally expected to contain any significan
 
 Consider a situation in which a redirect response is the result of an authentication or authorization check, if that check fails the server may respond redirecting the user back to a "safe" or "default" page, yet the redirect response itself may still contain content which isn't shown in the browser but is indeed transmitted to the client. This can be seen either leveraging browser developer tools or via a personal proxy (such as ZAP, Burp, Fiddler, or Charles).
 
+### Testing for Sensitive Metadata Leakage in Publicly Accessible Files
+
+Web applications may expose publicly accessible files such as images, PDF documents, and office files. These files can contain embedded metadata that is not visible during normal usage but can be extracted using common tools. Exposed metadata may reveal internal usernames, file system paths, software versions, device details, or physical location data, which can assist attackers during reconnaissance and social engineering.
+
+- Identify publicly accessible files containing embedded metadata
+- Determine whether metadata reveals sensitive or internal information
+- Assess how leaked metadata could support further attacks
+
+Review files that are accessible without authentication, including images on public pages, downloadable documents, user-uploaded files, and files located in static directories (e.g. `/uploads/`, `/files/`, `/documents/`).
+
+Inspect downloaded files for metadata fields that expose organization-specific or user-specific information rather than generic or default values.
+
+Metadata analysis tools (e.g. ExifTool) can be used to extract metadata from common formats such as images, PDFs, and Office documents.
+
+Focus on metadata such as:
+
+- Author or creator names
+- Embedded file system paths
+- Software or application versions
+- Device information
+- GPS coordinates
+- Creation and modification timestamps
+
+Example (ExifTool):
+
+```text
+$ exiftool Camera.jpg
+
+File Type               : JPEG
+Make                    : Canon
+Camera Model Name       : Canon EOS 40D
+Software                : GIMP 2.4.5
+Author                  : Example User
+Create Date             : 2008:05:30 15:56:01
+Modify Date             : 2008:07:31 10:38:11
+GPS Latitude            : 35 deg 41' 22.00" N
+GPS Longitude           : 51 deg 23' 18.00" E
+File Path               : /home/user/projects/marketing/images/
+```
+
 ## Tools
 
 - [Wget](https://www.gnu.org/software/wget/wget.html)
 - Browser "view source" function
 - Eyeballs
-- [Curl](https://curl.haxx.se/)
+- [CURL](https://curl.haxx.se/)
 - [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
 - [Burp Suite](https://portswigger.net/burp)
 - [Waybackurls](https://github.com/tomnomnom/waybackurls)
 - [Google Maps API Scanner](https://github.com/ozguralp/gmapsapiscanner/)
+- [exiftool](https://exiftool.org/)
 
 ## References
 

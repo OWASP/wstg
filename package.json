@@ -7,13 +7,14 @@
     "puppeteer": "^19.2.2"
   },
   "devDependencies": {
-    "markdownlint-cli": "^0.31.1"
+    "markdownlint-cli2": "^0.20.0"
   },
   "scripts": {
+    "lint": "markdownlint-cli2 \"**/*.md\" \"!node_modules\"",
     "pdfgen": "bash ./.github/pdf/scripts/make-pdf.sh",
     "jsongen": "bash ./.github/json/scripts/make-json.sh",
     "xlsxgen": "python ./.github/xlsx/scripts/build-checklist.py",
-    "publishxlsx" :"python ./.github/xlsx/scripts/upload-to-google-drive.py",
+    "publishxlsx": "python ./.github/xlsx/scripts/upload-to-google-drive.py",
     "epubgen": "bash ./.github/epub/scripts/make-epub.sh"
   },
   "repository": {
