@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Base
-      uses: actions/checkout@v6
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       with:
         repository: OWASP/wstg
         path: base
@@ -24,7 +24,7 @@ jobs:
         PR_NUMBER: ${{ github.event.number }}
       run: echo $PR_NUMBER > pr_number
     - name: Setup Node
-      uses: actions/setup-node@v6
+      uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6
       with:
         node-version: 24
     - name: Install dependencies
@@ -134,7 +134,7 @@ jobs:
         python3 base/.github/workflows/scripts/format_lint_output.py > artifact.txt
     - name: Upload list of issues
       if: failure()
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
       with:
         name: artifact
         path: |
@@ -142,7 +142,7 @@ jobs:
           pr_number
     - name: Upload PR number on success
       if: success()
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
       with:
         name: artifact
         path: pr_number
