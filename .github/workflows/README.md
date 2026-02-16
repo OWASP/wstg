@@ -5,10 +5,8 @@ This directory contains GitHub Actions workflows for the WSTG repository. Helper
 ## Version Information
 
 These workflows use:
-- Node.js version 24
-- GitHub Actions v6 for checkout (`actions/checkout@v6`) and setup actions (`actions/setup-node@v6`)
-- Latest artifact actions (`actions/upload-artifact@v6`, `actions/download-artifact@v7.0.0`)
-- `actions/github-script@v8` for GitHub API interactions
+- Node.js and Python for various automation tasks
+- GitHub Actions for checkout, setup, artifact management, and API interactions
 
 ## `build-checklists.yml`
 
@@ -35,8 +33,7 @@ This workflow:
   - `RESOLVED` when the workflow succeeds
   - `OUTDATED` when the workflow fails
 - Only posts NEW comments on failure (not on success)
-- Uses `actions/download-artifact@v7.0.0` for artifact retrieval
-- Uses `actions/github-script@v8` for PR comment management
+- Uses GitHub Actions for artifact retrieval and PR comment management
 
 - Trigger: Other workflows `workflow_run`.
 
