@@ -78,7 +78,7 @@ For a deeper discussion of this attack class and additional exploitation scenari
 
 ### Gray-Box Testing
 
-In a gray-box testing scenario, knowledge of application architecture and server behavior improves exploitation reliability. 
+In a gray-box testing scenario, knowledge of application architecture and server behavior improves exploitation reliability.
 
 Different servers or intermediaries may determine message boundaries differently (e.g., using fixed-size buffers), requiring precise offsets or padding. When vulnerable parameters are transmitted via GET, URL length limits may truncate payloads. Testers should identify alternative injection points or request methods, such as POST, to gain better control over payload length and positioning.
 
