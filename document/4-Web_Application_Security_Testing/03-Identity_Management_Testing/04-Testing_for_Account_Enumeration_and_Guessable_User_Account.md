@@ -131,6 +131,19 @@ As well as looking at the content of the responses, the time that the response t
 
 ### Guessing Users
 
+#### Predictable Username Structures
+
+In many organizations, usernames follow consistent patterns (e.g., first initial + last name such as jbloggs, or structured identifiers such as CN000100). If the naming convention can be identified, valid usernames can often be derived systematically.
+
+Testers should:
+
+- Identify whether usernames follow a predictable structure.
+- Attempt to generate additional usernames based on observed patterns.
+- Use username dictionaries derived from organizational data (e.g., staff names, email formats).
+- Observe application responses to determine whether generated usernames are valid.
+
+Predictable username structures significantly reduce the effort required to enumerate valid accounts and can facilitate further attacks such as brute force attempts.
+
 In some cases the user IDs are created with specific policies of administrator or company. For example we can view a user with a user ID created in sequential order:
 
 ```text
@@ -144,7 +157,7 @@ Sometimes the usernames are created with a REALM alias and then a sequential num
 - R1001 – user 001 for REALM1
 - R2001 – user 001 for REALM2
 
-In the above sample we can create simple shell scripts that compose user IDs and submit a request with tool like wget to automate a web query to discern valid user IDs. To create a script we can also use Perl and curl.
+In the above sample we can create simple shell scripts that compose user IDs and submit a request with tool like wget to automate a web query to discern valid user IDs. To create a script we can also use Perl and cURL.
 
 Other possibilities are: - user IDs associated with credit card numbers, or in general numbers with a pattern. - user IDs associated with real names, e.g. if Freddie Mercury has a user ID of "fmercury", then you might guess Roger Taylor to have the user ID of "rtaylor".
 
@@ -187,7 +200,7 @@ Ensure default system accounts and test accounts are deleted prior to releasing 
 ## Tools
 
 - [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
-- [curl](https://curl.haxx.se/)
+- [cURL](https://curl.haxx.se/)
 - [PERL](https://www.perl.org)
 
 ## References
