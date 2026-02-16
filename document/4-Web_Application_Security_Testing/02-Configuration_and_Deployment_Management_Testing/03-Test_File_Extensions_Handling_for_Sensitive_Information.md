@@ -6,7 +6,7 @@
 
 ## Summary
 
-Web servers commonly use file extensions to determine which technologies, languages, and plugins must be used to fulfill web requests. While this behavior is consistent with RFCs and Web Standards, using standard file extensions provides the penetration tester useful information about the underlying technologies used in a web appliance and greatly simplifies the task of determining the attack scenario to be used on particular technologies. In addition, mis-configuration of web servers could easily reveal confidential information about access credentials.
+Web servers commonly use file extensions to determine which technologies, languages, and plugins must be used to fulfill web requests. While this behavior is consistent with RFCs and Web Standards, using standard file extensions provides the penetration tester useful information about the underlying technologies used in a web appliance and greatly simplifies the task of determining the attack scenario to be used on particular technologies. In addition, misconfiguration of web servers could easily reveal confidential information about access credentials.
 
 File extension checks are often done to validate files before uploading them to the server. Unrestricted file uploads can lead to unforeseen results because the content may not be what is expected, or due to unexpected OS filename handling.
 
@@ -14,7 +14,7 @@ Understanding how web servers handle requests for files with different extension
 
 ## Test Objectives
 
-- Brute force sensitive file extensions that might contain raw data such as scripts, credentials, etc.
+- Enumerate sensitive file extensions that might contain raw data such as scripts or credentials
 - Validate that no system framework bypasses exist for the rules that have been set
 
 ## How to Test
@@ -59,14 +59,17 @@ To identify files with a given extension, a mix of techniques can be employed. T
 
 ### File Upload
 
-Windows 8.3 legacy file handling can sometimes be used to defeat file upload filters.
+Windows 8.3 legacy filename handling on Windows-based systems can affect how files are resolved and accessed by the web server. While this behavior is often discussed in the context of file upload restrictions, it is also relevant when assessing how existing files with non-standard or legacy names may be exposed.
 
-Usage examples:
+In environments where 8.3 filename generation is enabled, sensitive files that are otherwise not directly accessible using their long filenames may still be reachable through their shortened equivalents. This can lead to unintended disclosure of source code or configuration files if access controls are not consistently enforced.
 
-1. `file.phtml` gets processed as PHP code.
-2. `FILE~1.PHT` is served, but not processed by the PHP ISAPI handler.
-3. `shell.phPWND` can be uploaded.
-4. `SHELL~1.PHP` will be expanded and returned by the OS shell, then processed by the PHP ISAPI handler.
+Examples of 8.3 filename resolution behavior that may lead to unintended file exposure:
+
+1. A file such as `file.phtml` may be processed as PHP code.
+2. A corresponding shortened filename (for example, `FILE~1.PHT`) may be accessible depending on server and handler configuration.
+3. Files with misleading or extended filenames may still resolve to executable handlers once expanded by the operating system.
+
+Testing should focus on identifying whether legacy filename handling allows access to sensitive files that were not intended to be served. Testing of file upload mechanisms themselves is covered in dedicated File Upload and Business Logic test cases.
 
 ### Gray-Box Testing
 
@@ -79,5 +82,5 @@ If the web application relies on a load-balanced, heterogeneous infrastructure, 
 Vulnerability scanners, such as Nessus and Nikto, check for the existence of well-known web directories. They may allow the tester to download the site structure, which is helpful when trying to determine the configuration of web directories and how individual file extensions are served. Other tools that can be used for this purpose include:
 
 - [wget](https://www.gnu.org/software/wget)
-- [curl](https://curl.haxx.se)
+- [cURL](https://curl.haxx.se)
 - Perform a Google search for "web mirroring tools"
