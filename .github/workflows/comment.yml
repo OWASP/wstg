@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download Artifact
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v6
         with:
           name: artifact
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -49,16 +49,23 @@ jobs:
             
             // Minimize previous comments from this workflow
             try {
-              // Get all comments on the PR
-              const comments = await github.rest.issues.listComments({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: issue_number,
-              });
+              // Get all comments on the PR (paginate to handle more than one page)
+              const comments = await github.paginate(
+                github.rest.issues.listComments,
+                {
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue_number,
+                  per_page: 100,
+                }
+              );
               
-              // Find comments from this workflow
-              const workflowComments = comments.data.filter(comment => 
-                comment.body && comment.body.includes(workflowIdentifier)
+              // Find comments from this workflow authored by the GitHub Actions bot
+              const workflowComments = comments.filter(comment =>
+                comment.body &&
+                comment.body.includes(workflowIdentifier) &&
+                comment.user &&
+                comment.user.login === 'github-actions[bot]'
               );
               
               // Minimize each previous comment with appropriate classifier
