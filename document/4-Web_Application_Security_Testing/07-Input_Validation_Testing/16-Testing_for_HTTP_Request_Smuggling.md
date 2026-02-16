@@ -10,8 +10,6 @@ HTTP Request Smuggling is a class of vulnerabilities caused by inconsistencies i
 
 Modern infrastructures significantly expand the attack surface by introducing HTTP/2, protocol downgrades (HTTP/2 → HTTP/1.1), and cleartext upgrades (H2C), where request normalization and translation logic frequently diverges from RFC expectations.
 
-### Description
-
 Request smuggling exploits arise when two or more HTTP parsers disagree on where a request begins or ends. Historically, this discrepancy was most commonly observed in conflicting interpretations of the `Content-Length` (CL) and `Transfer-Encoding` (TE) headers.
 
 In modern architectures, additional desynchronization vectors emerge from:
@@ -36,7 +34,7 @@ These behaviors can lead to persistent desynchronization, cache poisoning, crede
 
 ### Black-Box Testing
 
-#### 1. Testing for CL.TE Desynchronization
+#### Testing for CL.TE Desynchronization
 
 In a CL.TE scenario, the frontend uses `Content-Length` to determine request size, while the backend honors `Transfer-Encoding`.
 
@@ -52,13 +50,13 @@ GET /404 HTTP/1.1
 Foo: x
 ```
 
-**Expected Result:**
+Expected Result:
 
 - Backend stops parsing at the `0` chunk
 - Smuggled request remains buffered
 - Subsequent legitimate requests are corrupted or return unexpected responses (e.g., 404)
 
-#### 2. Testing for TE.CL Desynchronization
+#### Testing for TE.CL Desynchronization
 
 In a TE.CL scenario, the frontend processes chunked encoding correctly, but the backend relies on `Content-Length`.
 
@@ -75,13 +73,13 @@ Content-Length: 0
 0
 ```
 
-**Expected Result:**
+Expected Result:
 
 - Backend stops early
 - Remaining payload is interpreted as a new request
 - Unauthorized endpoint access or request poisoning may occur
 
-#### 3. Testing for TE.TE (Obfuscated Transfer-Encoding)
+#### Testing for TE.TE (Obfuscated Transfer-Encoding)
 
 If both servers support `Transfer-Encoding`, header obfuscation may cause one parser to ignore it.
 
@@ -106,7 +104,7 @@ Foo: bar
 
 ### Modern Attack Vectors
 
-#### 4. HTTP/2 to HTTP/1.1 Desynchronization
+#### HTTP/2 to HTTP/1.1 Desynchronization
 
 In many deployments, clients communicate with edge servers using HTTP/2, while backend services still operate over HTTP/1.1. During protocol translation, intermediaries must reconstruct HTTP/1.1 requests from HTTP/2 frames.
 
@@ -116,10 +114,10 @@ Common failure points include:
 - Reintroduction of hop-by-hop headers
 - Multiple logical requests collapsed into a single backend request
 
-> **Note:** HTTP/2 downgrading is not inherently vulnerable by itself.  
+> Note: HTTP/2 downgrading is not inherently vulnerable by itself.  
 > Exploitation becomes possible when protocol translation reconstructs an HTTP/1.1 request that violates backend parsing assumptions, leading to request boundary desynchronization.
 
-**Testing Approach:**
+Testing Approach:
 
 - Send multiple HTTP/2 DATA frames with conflicting length semantics
 - Observe backend behavior via timing discrepancies or response splitting
@@ -157,11 +155,11 @@ Host: internal
 
 If the frontend treats the request as complete while the backend continues parsing buffered data, the second request may be processed out of sequence, resulting in request smuggling.
 
-> **Implicit Downgrades:**  
+> Implicit Downgrades:
 > Even in the absence of an explicit `Upgrade: h2c` mechanism, many CDNs and reverse proxies silently downgrade HTTP/2 client connections to HTTP/1.1 when forwarding requests to backend services.  
 > These implicit downgrades expand the smuggling attack surface, especially when combined with connection reuse and insufficient request normalization.
 
-#### 5. H2C Smuggling (Cleartext HTTP/2 Upgrade)
+#### H2C Smuggling (Cleartext HTTP/2 Upgrade)
 
 H2C allows upgrading an HTTP/1.1 connection to HTTP/2 using the `Upgrade: h2c` mechanism.  
 Unlike protocol downgrades, H2C smuggling occurs during an in-place protocol transition, where frontend and backend components may temporarily disagree on the active parsing state of the same connection, potentially leaving residual bytes in the backend buffer.
@@ -179,13 +177,13 @@ GET /admin HTTP/1.1
 Host: internal
 ```
 
-**Risk Factors:**
+Risk Factors:
 
 - Partial upgrade acceptance
 - Backend continues parsing as HTTP/1.1
 - Smuggled request processed post-upgrade
 
-#### 6. Request Queue Poisoning via Protocol Downgrade
+#### Request Queue Poisoning via Protocol Downgrade
 
 Some proxies downgrade HTTP/2 requests to HTTP/1.1 but fail to fully sanitize:
 

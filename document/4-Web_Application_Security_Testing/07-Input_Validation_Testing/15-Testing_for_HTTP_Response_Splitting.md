@@ -22,8 +22,6 @@ This section focuses exclusively on identifying and testing HTTP Response Splitt
 
 ### Black-Box Testing
 
-#### HTTP Response Splitting
-
 Some web applications use user-supplied input to generate the values of certain HTTP response headers. A common example is redirection logic, where the destination URL is derived from a request parameter.
 
 For instance, assume a user is asked to choose between a standard or advanced interface. The selected option is passed as a parameter and reflected in a redirection response header.
@@ -72,15 +70,13 @@ The response headers most commonly associated with HTTP Response Splitting inclu
 
 Successful exploitation in real-world scenarios may require careful consideration of additional factors:
 
-1. The tester may need to craft response headers suitable for caching (e.g., `Last-Modified` set to a future date) and potentially invalidate existing cache entries using headers such as `Pragma: no-cache`.
-2. Applications may filter CRLF characters but allow alternative encodings or character representations, which can sometimes be leveraged to bypass input validation.
-3. Some platforms URL-encode portions of response headers (such as the path in the `Location` header) while leaving the query string unencoded, allowing injection through specific components of the URL.
+- The tester may need to craft response headers suitable for caching (e.g., `Last-Modified` set to a future date) and potentially invalidate existing cache entries using headers such as `Pragma: no-cache`.
+- Applications may filter CRLF characters but allow alternative encodings or character representations, which can sometimes be leveraged to bypass input validation.
+- Some platforms URL-encode portions of response headers (such as the path in the `Location` header) while leaving the query string unencoded, allowing injection through specific components of the URL.
 
 For a deeper discussion of this attack class and additional exploitation scenarios, refer to the whitepapers listed in the References section.
 
 ### Gray-Box Testing
-
-#### HTTP Response Splitting
 
 In a gray-box testing scenario, knowledge of the application architecture and server behavior can significantly improve the reliability of HTTP Response Splitting exploitation.
 
@@ -90,31 +86,15 @@ This constraint may pose challenges when the vulnerable parameter is transmitted
 
 ## Remediation
 
-To prevent HTTP Response Splitting vulnerabilities, applications must ensure that user-supplied input is never placed into HTTP headers without strict validation and sanitization.
+Ensure that user-supplied input is never placed into HTTP headers without strict validation and sanitization.
 
-### Input Validation and Sanitization
-
-The most effective defense is to strictly validate all input that influences response headers. Specifically, the application should:
-
-1. **Reject Newline Characters:** Ensure that input containing Carriage Return (`\r`, `%0d`) or Line Feed (`\n`, `%0a`) characters is rejected or stripped before being used in HTTP headers.
-2. **Whitelisting:** Where possible, validate input against a strict allowlist of expected values (e.g., allowing only alphanumeric characters for specific parameters).
-3. **URL Encoding:** If the input is intended to be part of a URL (e.g., in a `Location` header), ensure it is properly URL-encoded. This converts control characters into their safe, encoded representation (e.g., `%0d%0a`), preventing them from being interpreted as header delimiters.
-
-### Use Secure Frameworks
-
-Modern web frameworks and application servers often provide built-in protection against header injection. Ensure that the underlying platform and runtime environment are up to date.
-
-- **Update Platforms:** Many modern environments (such as PHP post-5.1.2, ASP.NET, and recent versions of Node.js) automatically throw an error or sanitize input if an attempt is made to inject newline characters into headers using standard APIs.
-- **Avoid Custom Header Construction:** Use the framework's built-in functions for setting headers (e.g., `setHeader()`, `header()`, `addHeader()`) rather than manually constructing raw HTTP response strings.
-
-### Infrastructure Controls
-
-- **Web Application Firewall (WAF):** Configure WAFs to detect and block requests containing patterns typical of CRLF injection, such as `%0d%0a` in query parameters or headers.
-- **Reverse Proxies:** Ensure reverse proxies and load balancers are configured to handle malformed headers strictly, preventing them from being forwarded to the backend or cached incorrectly.
+- **Input Validation:** Reject or strip input containing Carriage Return (`\r`, `%0d`) or Line Feed (`\n`, `%0a`) characters before it is used in HTTP headers.
+- **URL Encoding:** If the input is part of a URL (e.g., in a `Location` header), ensure it is properly URL-encoded to prevent control characters from being interpreted as delimiters.
+- **Use Secure Frameworks:** Utilize built-in framework functions for setting headers (e.g., `setHeader()`, `addHeader()`) rather than manually constructing raw HTTP response strings. Modern environments typically block header injection by default.
 
 ## Tools
 
-- [OWASP ZAP](https://www.zaproxy.org/)
+- [ZAP](https://www.zaproxy.org/)
 - [Burp Suite](https://portswigger.net/burp)
 - [CRLFuzz](https://github.com/dwisiswant0/crlfuzz) - A tool designed specifically to scan for CRLF vulnerabilities.
 - [Nuclei](https://github.com/projectdiscovery/nuclei) - Can be used with specific templates to detect CRLF injection patterns.
