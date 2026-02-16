@@ -78,11 +78,9 @@ For a deeper discussion of this attack class and additional exploitation scenari
 
 ### Gray-Box Testing
 
-In a gray-box testing scenario, knowledge of the application architecture and server behavior can significantly improve the reliability of HTTP Response Splitting exploitation.
+In a gray-box testing scenario, knowledge of application architecture and server behavior improves exploitation reliability. 
 
-Different servers, intermediaries, or clients may determine message boundaries using different techniques. Some rely strictly on HTTP header boundaries, while others may assume messages are separated by network packets or fixed-size buffers. In such cases, the injected response must begin at a precise offset, requiring the tester to use padding between messages.
-
-This constraint may pose challenges when the vulnerable parameter is transmitted in a URL, as excessively long URLs may be truncated or rejected. With architectural insight, testers may identify alternative request methods (such as POST instead of GET) or injection points that allow greater control over payload length and positioning.
+Different servers or intermediaries may determine message boundaries differently (e.g., using fixed-size buffers), requiring precise offsets or padding. When vulnerable parameters are transmitted via GET, URL length limits may truncate payloads. Testers should identify alternative injection points or request methods, such as POST, to gain better control over payload length and positioning.
 
 ## Remediation
 
