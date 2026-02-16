@@ -145,20 +145,9 @@ If the backend extracts this archive without validating or rejecting symbolic li
 
 ##### How to Test
 
-1. Create a symbolic link:
-
-   ```bash
-   ln -s /etc/passwd link.txt
-   ```
-
-1. Create an archive:
-
-   ```bash
-   tar -czf malicious.tar.gz link.txt
-   ```
-
+1. Create a symbolic link: `ln -s /etc/passwd link.txt`
+1. Create an archive: `tar -czf malicious.tar.gz link.txt`
 1. Upload the archive to the application.
-
 1. Check:
 
    - Is the symbolic link extracted?
