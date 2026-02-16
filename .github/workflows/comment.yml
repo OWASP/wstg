@@ -13,25 +13,112 @@ jobs:
      pull-requests: write
          
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     steps:
       - name: Download Artifact
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
         with:
           name: artifact
           github-token: ${{ secrets.GITHUB_TOKEN }}
           run-id: ${{ github.event.workflow_run.id }}
-      - name: Comment on PR
-        uses: actions/github-script@v8
+      
+      - name: Manage PR Comments
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            let fs = require('fs');
-            const issue_number = Number(fs.readFileSync('./pr_number'));
-            const artifactString = fs.readFileSync('./artifact.txt').toString().trimEnd();
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: issue_number,
-              body: `${artifactString}`
-            });
+            const fs = require('fs');
+            
+            // Read PR number and validate
+            let issue_number;
+            try {
+              issue_number = Number(fs.readFileSync('./pr_number', 'utf8').trim());
+            } catch (error) {
+              console.log('Could not read PR number, skipping comment management');
+              return;
+            }
+            
+            // Validate PR number
+            if (!issue_number || issue_number < 1 || !Number.isInteger(issue_number)) {
+              console.log(`Invalid PR number: ${issue_number}`);
+              return;
+            }
+            
+            // Determine workflow identifier based on the triggering workflow
+            const workflowName = context.payload.workflow_run.name;
+            const workflowIdentifier = `<!-- workflow-comment: ${workflowName} -->`;
+            
+            // Minimize previous comments from this workflow
+            try {
+              // Get all comments on the PR (paginate to handle more than one page)
+              const comments = await github.paginate(
+                github.rest.issues.listComments,
+                {
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue_number,
+                  per_page: 100,
+                }
+              );
+              
+              // Find comments from this workflow authored by the GitHub Actions bot
+              const workflowComments = comments.filter(comment =>
+                comment.body &&
+                comment.body.includes(workflowIdentifier) &&
+                comment.user &&
+                comment.user.login === 'github-actions[bot]'
+              );
+              
+              // Minimize each previous comment with appropriate classifier
+              const classifier = context.payload.workflow_run.conclusion === 'success' ? 'RESOLVED' : 'OUTDATED';
+              
+              for (const comment of workflowComments) {
+                try {
+                  // Use GraphQL API to minimize comment with parameterized query
+                  await github.graphql(
+                    `mutation($commentId: ID!, $classifier: ReportedContentClassifiers!) {
+                      minimizeComment(input: {subjectId: $commentId, classifier: $classifier}) {
+                        minimizedComment {
+                          isMinimized
+                        }
+                      }
+                    }`,
+                    {
+                      commentId: comment.node_id,
+                      classifier: classifier
+                    }
+                  );
+                  console.log(`Minimized comment ${comment.id} as ${classifier}`);
+                } catch (error) {
+                  console.log(`Failed to minimize comment ${comment.id}: ${error.message}`);
+                }
+              }
+            } catch (error) {
+              console.log(`Error managing previous comments: ${error.message}`);
+            }
+            
+            // Post new comment only on failure
+            if (context.payload.workflow_run.conclusion === 'failure') {
+              try {
+                // Check if artifact.txt exists before reading
+                if (!fs.existsSync('./artifact.txt')) {
+                  console.log('artifact.txt not found, skipping comment post');
+                  return;
+                }
+                
+                const artifactString = fs.readFileSync('./artifact.txt', 'utf8').trimEnd();
+                const commentBody = `${workflowIdentifier}\n${artifactString}`;
+                
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue_number,
+                  body: commentBody
+                });
+                console.log('Posted new comment with issues found');
+              } catch (error) {
+                console.log(`Failed to post comment: ${error.message}`);
+                throw error;
+              }
+            } else {
+              console.log('Workflow succeeded, no new comment needed');
+            }
