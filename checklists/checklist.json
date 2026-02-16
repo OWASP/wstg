@@ -258,8 +258,7 @@
                 "id":"WSTG-IDNT-05",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/03-Identity_Management_Testing/05-Testing_for_Weak_or_Unenforced_Username_Policy",
                 "objectives":[
-                    "Determine whether a consistent account name structure renders the application vulnerable to account enumeration.",
-                    "Determine whether the application's error messages permit account enumeration."
+                    ""
                   ]
                 }
             ]
@@ -651,21 +650,25 @@
                   ]
                 }
                 ,{
-                "name":"Testing for HTTP Splitting Smuggling",
+                "name":"Testing for HTTP Response Splitting",
                 "id":"WSTG-INPV-15",
-                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/15-Testing_for_HTTP_Splitting_Smuggling",
+                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/15-Testing_for_HTTP_Response_Splitting",
                 "objectives":[
-                    "Assess if the application is vulnerable to splitting, identifying what possible attacks are achievable.",
-                    "Assess if the chain of communication is vulnerable to smuggling, identifying what possible attacks are achievable."
+                    "Identify user-controlled input that is reflected into HTTP response headers.",
+                    "Assess whether CR (`r`) and LF (`n`) characters can be injected into response headers.",
+                    "Determine the potential impact of successful HTTP Response Splitting attacks, such as cache poisoning or client-side exploitation."
                   ]
                 }
                 ,{
-                "name":"Testing for HTTP Incoming Requests",
+                "name":"Testing for HTTP Request Smuggling",
                 "id":"WSTG-INPV-16",
-                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/16-Testing_for_HTTP_Incoming_Requests",
+                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/16-Testing_for_HTTP_Request_Smuggling",
                 "objectives":[
-                    "Monitor all incoming and outgoing HTTP requests to the Web Server to inspect any suspicious requests.",
-                    "Monitor HTTP traffic without changes of end user Browser proxy or client-side application."
+                    "Identify request boundary inconsistencies between frontend and backend components",
+                    "Detect classic CL/TE desynchronization vulnerabilities",
+                    "Evaluate protocol translation logic (HTTP/2 → HTTP/1.1)",
+                    "Assess H2C upgrade handling and downgrade safety",
+                    "Confirm backend request queue poisoning"
                   ]
                 }
                 ,{
