@@ -115,7 +115,7 @@
                 "id":"WSTG-CONF-03",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/03-Test_File_Extensions_Handling_for_Sensitive_Information",
                 "objectives":[
-                    "Brute force sensitive file extensions that might contain raw data such as scripts, credentials, etc.",
+                    "Enumerate sensitive file extensions that might contain raw data such as scripts or credentials",
                     "Validate that no system framework bypasses exist for the rules that have been set"
                   ]
                 }
