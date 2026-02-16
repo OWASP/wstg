@@ -20,6 +20,7 @@ jobs:
           name: artifact
           github-token: ${{ secrets.GITHUB_TOKEN }}
           run-id: ${{ github.event.workflow_run.id }}
+        continue-on-error: true
       
       - name: Manage PR Comments
         uses: actions/github-script@v8
