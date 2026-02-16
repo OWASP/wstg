@@ -102,6 +102,12 @@ jobs:
             // Post new comment only on failure
             if (context.payload.workflow_run.conclusion === 'failure') {
               try {
+                // Check if artifact.txt exists before reading
+                if (!fs.existsSync('./artifact.txt')) {
+                  console.log('artifact.txt not found, skipping comment post');
+                  return;
+                }
+                
                 const artifactString = fs.readFileSync('./artifact.txt', 'utf8').trimEnd();
                 const commentBody = `${workflowIdentifier}\n${artifactString}`;
                 
