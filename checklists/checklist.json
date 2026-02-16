@@ -258,8 +258,7 @@
                 "id":"WSTG-IDNT-05",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/03-Identity_Management_Testing/05-Testing_for_Weak_or_Unenforced_Username_Policy",
                 "objectives":[
-                    "Determine whether a consistent account name structure renders the application vulnerable to account enumeration.",
-                    "Determine whether the application's error messages permit account enumeration."
+                    ""
                   ]
                 }
             ]
