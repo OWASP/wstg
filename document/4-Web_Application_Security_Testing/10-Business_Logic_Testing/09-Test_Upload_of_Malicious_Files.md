@@ -149,7 +149,6 @@ If the backend extracts this archive without validating or rejecting symbolic li
 1. Create an archive: `tar -czf malicious.tar.gz link.txt`
 1. Upload the archive to the application.
 1. Check:
-
    - Is the symbolic link extracted?
    - Does the application follow the link?
    - Can sensitive file contents be accessed?
