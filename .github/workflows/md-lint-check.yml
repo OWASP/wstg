@@ -140,4 +140,10 @@ jobs:
         path: |
           artifact.txt
           pr_number
+    - name: Upload PR number on success
+      if: success()
+      uses: actions/upload-artifact@v6
+      with:
+        name: artifact
+        path: pr_number
 
