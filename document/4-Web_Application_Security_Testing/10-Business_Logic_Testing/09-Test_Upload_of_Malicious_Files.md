@@ -133,6 +133,31 @@ zip test.zip base ../../../traversed
 unzip -l test.zip
 ```
 
+#### Archive Symlink Attacks
+
+If the application extracts archive files (such as ZIP or TAR), it is important to verify how symbolic links contained within the archive are handled. Unlike Archive Directory Traversal (ZIP Slip), this technique does not rely on `../` path traversal sequences.
+
+An attacker can craft an archive containing a symbolic link that points to a sensitive file on the server (for example `/etc/passwd`). If the extraction process preserves symbolic links without validation, and the application later processes or exposes the extracted files, this may result in unintended access to sensitive system files.
+
+For example, a malicious archive may contain: `link.txt -> /etc/passwd`
+
+If the backend extracts this archive without validating or rejecting symbolic links, and the application reads `link.txt`, it may inadvertently disclose the contents of `/etc/passwd`.
+
+##### How to Test
+
+1. Create a symbolic link: `ln -s /etc/passwd link.txt`
+1. Create an archive: `tar -czf malicious.tar.gz link.txt`
+1. Upload the archive to the application.
+1. Check:
+   - Is the symbolic link extracted?
+   - Does the application follow the link?
+   - Can sensitive file contents be accessed?
+
+##### Impact
+
+- Arbitrary file read
+- Disclosure of sensitive information
+
 #### ZIP Bombs
 
 A [ZIP bomb](https://en.wikipedia.org/wiki/zip_bomb) (more generally known as a decompression bomb) is an archive file that contains a large volume of data. It's intended to cause a denial of service by exhausting the disk space or memory of the target system that tries to extract the archive. Note that although the ZIP format is the most used example for this, other formats are also affected, including gzip (which is frequently used to compress data in transit).
