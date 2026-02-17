@@ -115,7 +115,7 @@ If the application claims to escape/quote values:
 
 This step is critical because Excel may normalize/remove certain escaping/quoting behaviors after save/reopen.
 
-### 6. Assess Impact
+### Assess Impact
 
 Assess practical risk based on:
 
