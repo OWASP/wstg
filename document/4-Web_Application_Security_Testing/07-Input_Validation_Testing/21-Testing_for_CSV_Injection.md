@@ -1,7 +1,7 @@
 # Testing for CSV Injection
 
-|ID|
-|--|
+|ID          |
+|------------|
 |WSTG-INPV-21|
 
 ## Summary
