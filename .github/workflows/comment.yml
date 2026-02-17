@@ -15,6 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download Artifact
+        id: download-artifact
+        continue-on-error: true
         uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
         with:
           name: artifact
@@ -22,6 +24,7 @@ jobs:
           run-id: ${{ github.event.workflow_run.id }}
       
       - name: Manage PR Comments
+        if: steps.download-artifact.outcome == 'success'
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
