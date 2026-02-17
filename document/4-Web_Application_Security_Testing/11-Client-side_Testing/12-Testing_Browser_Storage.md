@@ -204,4 +204,3 @@ Applications should be storing sensitive data on the server-side, and not on the
 - [Cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)
 
 For more OWASP resources on the HTML5 Web Storage API, see the [Session Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#html5-web-storage-api).
-now is this fine
