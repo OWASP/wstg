@@ -54,7 +54,7 @@ Identify untrusted data sources that can end up in the export:
 
 Document which roles can trigger the export and which roles are likely to open it.
 
-### 2. Place Benign, Detectable Formula-Like Values into Candidate Fields
+### Place Benign, Detectable Formula-Like Values into Candidate Fields
 
 Use harmless payloads to detect formula evaluation (avoid payloads that execute commands or perform uncontrolled network access).
 Test values that begin with each formula-triggering character:
