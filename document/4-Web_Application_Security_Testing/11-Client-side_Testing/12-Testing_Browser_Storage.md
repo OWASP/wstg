@@ -182,7 +182,6 @@ In addition to enumerating storage entries, testers should:
 - Identify authentication tokens, session identifiers, or sensitive business data.
 - Attempt to access stored values via the JavaScript console.
 - Verify whether storage entries are cleared after logout or session expiration.
-- Validate secure cookie attributes (`HttpOnly`, `Secure`, `SameSite`).
 - Assess whether stored data could be leveraged in a client-side attack chain.
 
 ### Attack Chain
