@@ -37,7 +37,7 @@ Also note that it is not sufficient to ensure the *overall* untrusted input does
 
 ## How to Test
 
-### 1. Identify CSV Export Functionality and Data Sources
+### Identify CSV Export Functionality and Data Sources
 
 Locate features that generate CSV/TSV or “export to spreadsheet” content:
 
