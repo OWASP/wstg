@@ -90,7 +90,7 @@ Example *benign* test patterns (adjust separator to the actual export format):
 
 Your objective is to see whether the resulting CSV contains any cell whose first character is one of the formula-triggering prefixes. Verify this by inspecting the raw CSV output in a text editor.
 
-### 4. Export and Verify in Spreadsheet Applications
+### Export and Verify in Spreadsheet Applications
 
 - Export/download the CSV.
 - Open it in at least one spreadsheet application used in the target environment (Excel and/or LibreOffice, etc.).
