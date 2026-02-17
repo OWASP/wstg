@@ -10,23 +10,6 @@ CSV Injection (also known as Formula Injection) occurs when an application embed
 
 A key characteristic of this issue is that the vulnerability often manifests only when the exported file is opened by a user (e.g., an administrator, finance, or support) in a spreadsheet application.
 
-### Formula-triggering prefixes
-
-Cells beginning with the following characters may be interpreted as formulas by spreadsheet software:
-
-- Equals (`=`)
-- Plus (`+`)
-- Minus (`-`)
-- At (`@`)
-- Tab (`0x09`)
-- Carriage return (`0x0D`)
-- Line feed (`0x0A`)
-- Full-width (double-byte) variants such as `＝`, `＋`, `－`, `＠` (depending on locale/application behavior)
-
-> Important (Excel behavior): Microsoft Excel may remove quotes or escape characters from CSV cells when a file is saved and re-opened. As a result, some commonly suggested mitigations can fail after save/reopen and previously escaped formulas may become active again.
-
-Also note that it is not sufficient to ensure the *overall* untrusted input does not start with a dangerous character. Attackers may inject separators and quoting to start a new cell, placing the dangerous character at the beginning of a cell.
-
 ## Test Objectives
 
 - Identify CSV/spreadsheet export features that include untrusted input.
