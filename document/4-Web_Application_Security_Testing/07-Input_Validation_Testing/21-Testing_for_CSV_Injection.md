@@ -75,7 +75,7 @@ Also test control-character and Unicode variants (where input handling allows it
 - A value that begins with a tab character followed by `=1+1` (TAB + `=1+1`)
 - Full-width prefix variants (e.g., `＝1+1`)
 
-### 3. Test Separator and Quote “Cell Breakout” Scenarios
+### Test Separator and Quote “Cell Breakout” Scenarios
 
 Because CSV is cell-based, test whether you can inject content that starts a new cell and then begins with a dangerous character. This depends on:
 
