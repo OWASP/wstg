@@ -104,7 +104,7 @@ Record:
 - How the file was opened (double-click vs import wizard)
 - Whether locale settings influenced parsing
 
-### 5. Excel Save/Re-open Regression Test (Mitigation Reliability)
+### Excel Save/Re-open Regression Test (Mitigation Reliability)
 
 If the application claims to escape/quote values:
 
