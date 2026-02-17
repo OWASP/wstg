@@ -157,7 +157,7 @@ Always validate the chosen mitigation against the spreadsheet applications and w
 
 ## Tools
 
-- Intercepting proxy (e.g., Burp Suite, OWASP ZAP) to inject controlled values and reproduce the exact export workflow.
+- Intercepting proxy (e.g., Burp Suite, ZAP) to inject controlled values and reproduce the exact export workflow.
 - Spreadsheet software for validation in an isolated environment (e.g., Microsoft Excel, LibreOffice Calc).
 - A safe HTTP listener (local or internal test host) to observe clicks/requests when validating `HYPERLINK()` behavior.
 - A text editor to inspect the raw CSV and confirm whether any cell begins with a formula-triggering prefix.
