@@ -20,6 +20,23 @@ A key characteristic of this issue is that the vulnerability often manifests onl
 
 ## How to Test
 
+### Formula-Triggering Prefixes
+
+Cells beginning with the following characters may be interpreted as formulas by spreadsheet software:
+
+- Equals (`=`)
+- Plus (`+`)
+- Minus (`-`)
+- At (`@`)
+- Tab (`0x09`)
+- Carriage return (`0x0D`)
+- Line feed (`0x0A`)
+- Full-width (double-byte) variants such as `＝`, `＋`, `－`, `＠` (depending on locale/application behavior)
+
+> Important (Excel behavior): Microsoft Excel may remove quotes or escape characters from CSV cells when a file is saved and re-opened. As a result, some commonly suggested mitigations can fail after save/reopen and previously escaped formulas may become active again.
+
+Also note that it is not sufficient to ensure the *overall* untrusted input does not start with a dangerous character. Attackers may inject separators and quoting to start a new cell, placing the dangerous character at the beginning of a cell.
+
 ### Identify CSV Export Functionality and Data Sources
 
 Locate features that generate CSV/TSV or “export to spreadsheet” content:
