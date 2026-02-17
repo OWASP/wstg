@@ -131,7 +131,7 @@ Provide a clear reproduction path:
 3) Which program interprets it as a formula
 4) Evidence (screenshot or description) that evaluation occurs
 
-### 7. Higher-Impact Validation (Optional, Strictly Controlled)
+### Higher-Impact Validation (Optional, Strictly Controlled)
 
 Some real-world cases show formula injection escalating beyond simple calculation/deception (e.g., via legacy spreadsheet features such as DDE). This behavior is highly environment-dependent.
 
