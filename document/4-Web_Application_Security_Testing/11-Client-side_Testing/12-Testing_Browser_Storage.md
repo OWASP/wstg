@@ -1,6 +1,6 @@
 # Testing Browser Storage
 
-|ID          |
+|ID          |
 |------------|
 |WSTG-CLNT-12|
 
@@ -8,8 +8,8 @@
 
 Browsers provide the following client-side storage mechanisms for developers to store and retrieve data:
 
-- Local Storage
-- Session Storage
+- LocalStorage
+- SessionStorage
 - IndexedDB
 - Web SQL (Deprecated)
 - Cookies
@@ -20,12 +20,12 @@ Note: While cache is also a form of storage it is covered in a [separate section
 
 ## Test Objectives
 
-- Determine whether the website is storing sensitive data in client-side storage.
+- Determine whether the site is storing sensitive data in client-side storage.
 - The code handling of the storage objects should be examined for possibilities of injection attacks, such as utilizing unvalidated input or vulnerable libraries.
 
 ## How to Test
 
-### Local Storage
+### LocalStorage
 
 `window.localStorage` is a global property that implements the [Web Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API) and provides **persistent** key-value storage in the browser.
 
@@ -39,13 +39,13 @@ The maximum storage capacity of `localStorage` varies between browsers.
 
 ```javascript
 for (let i = 0; i < localStorage.length; i++) {
-  const key = localStorage.key(i);
-  const value = localStorage.getItem(key);
-  console.log(`${key}: ${value}`);
+  const key = localStorage.key(i);
+  const value = localStorage.getItem(key);
+  console.log(`${key}: ${value}`);
 }
 ```
 
-### Session Storage
+### SessionStorage
 
 `window.sessionStorage` is a global property that implements the [Web Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API) and provides **ephemeral** key-value storage in the browser.
 
@@ -59,9 +59,9 @@ The maximum storage capacity of `sessionStorage` varies between browsers.
 
 ```javascript
 for (let i = 0; i < sessionStorage.length; i++) {
-  const key = sessionStorage.key(i);
-  const value = sessionStorage.getItem(key);
-  console.log(`${key}: ${value}`);
+  const key = sessionStorage.key(i);
+  const value = sessionStorage.getItem(key);
+  console.log(`${key}: ${value}`);
 }
 ```
 
@@ -69,9 +69,9 @@ for (let i = 0; i < sessionStorage.length; i++) {
 
 IndexedDB is a transactional, object-oriented database intended for structured data. An IndexedDB database can have multiple object stores and each object store can have multiple objects.
 
-In contrast to Local Storage and Session Storage, IndexedDB can store more than just strings. Any objects supported by the [structured clone algorithm](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm) can be stored in IndexedDB.
+In contrast to localStorage and sessionStorage, IndexedDB can store more than just strings. Any objects supported by the [structured clone algorithm](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm) can be stored in IndexedDB.
 
-An example of a complex JavaScript object that can be stored in IndexedDB, but not in Local/Session Storage are [CryptoKeys](https://developer.mozilla.org/en-US/docs/Web/API/CryptoKey).
+An example of a complex JavaScript object that can be stored in IndexedDB, but not in localStorage/sessionStorage are [CryptoKeys](https://developer.mozilla.org/en-US/docs/Web/API/CryptoKey).
 
 W3C recommendation on [Web Crypto API](https://www.w3.org/TR/WebCryptoAPI/) [recommends](https://www.w3.org/TR/WebCryptoAPI/#concepts-key-storage) that CryptoKeys that need to be persisted in the browser, to be stored in IndexedDB. When testing a web page, look for any CryptoKeys in IndexedDB and check if they are set as `extractable: true` when they should have been set to `extractable: false` (i.e. ensure the underlying private key material is never exposed during cryptographic operations.)
 
@@ -79,27 +79,27 @@ W3C recommendation on [Web Crypto API](https://www.w3.org/TR/WebCryptoAPI/) [rec
 
 ```javascript
 const dumpIndexedDB = dbName => {
-  const DB_VERSION = 1;
-  const req = indexedDB.open(dbName, DB_VERSION);
-  req.onsuccess = function() {
-    const db = req.result;
-    const objectStoreNames = db.objectStoreNames || [];
+  const DB_VERSION = 1;
+  const req = indexedDB.open(dbName, DB_VERSION);
+  req.onsuccess = function() {
+    const db = req.result;
+    const objectStoreNames = db.objectStoreNames || [];
 
-    console.log(`[*] Database: ${dbName}`);
+    console.log(`[*] Database: ${dbName}`);
 
-    Array.from(objectStoreNames).forEach(storeName => {
-      const txn = db.transaction(storeName, 'readonly');
-      const objectStore = txn.objectStore(storeName);
+    Array.from(objectStoreNames).forEach(storeName => {
+      const txn = db.transaction(storeName, 'readonly');
+      const objectStore = txn.objectStore(storeName);
 
-      console.log(`\t[+] ObjectStore: ${storeName}`);
+      console.log(`\t[+] ObjectStore: ${storeName}`);
 
-      // Print all entries in objectStore with name `storeName`
-      objectStore.getAll().onsuccess = event => {
-        const items = event.target.result || [];
-        items.forEach(item => console.log(`\t\t[-] `, item));
-      };
-    });
-  };
+      // Print all entries in objectStore with name `storeName`
+      objectStore.getAll().onsuccess = event => {
+        const items = event.target.result || [];
+        items.forEach(item => console.log(`\t\t[-] `, item));
+      };
+    });
+  };
 };
 
 indexedDB.databases().then(dbs => dbs.forEach(db => dumpIndexedDB(db.name)));
@@ -127,8 +127,8 @@ Sometimes web developers initialize and maintain global state that is available 
 
 ```javascript
 window.MY_STATE = {
-  counter: 0,
-  flag: false,
+  counter: 0,
+  flag: false,
 };
 ```
 
@@ -138,32 +138,57 @@ Any data attached on the `window` object will be lost when the page is refreshed
 
 ```javascript
 (() => {
-  // create an iframe and append to body to load a clean window object
-  const iframe = document.createElement('iframe');
-  iframe.style.display = 'none';
-  document.body.appendChild(iframe);
+  // create an iframe and append to body to load a clean window object
+  const iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
 
-  // get the current list of properties on window
-  const currentWindow = Object.getOwnPropertyNames(window);
+  // get the current list of properties on window
+  const currentWindow = Object.getOwnPropertyNames(window);
 
-  // filter the list against the properties that exist in the clean window
-  const results = currentWindow.filter(
-    prop => !iframe.contentWindow.hasOwnProperty(prop)
-  );
+  // filter the list against the properties that exist in the clean window
+  const results = currentWindow.filter(
+    prop => !iframe.contentWindow.hasOwnProperty(prop)
+  );
 
-  // remove iframe
-  document.body.removeChild(iframe);
+  // remove iframe
+  document.body.removeChild(iframe);
 
-  // log key-value entries that are different
-  results.forEach(key => console.log(`${key}: ${window[key]}`));
+  // log key-value entries that are different
+  results.forEach(key => console.log(`${key}: ${window[key]}`));
 })();
 ```
 
 _(Modified version of this [snippet](https://stackoverflow.com/a/17246535/3099132))_
 
+### Security Implications
+
+When reviewing browser storage mechanisms, testers should evaluate whether sensitive data is unnecessarily exposed on the client-side. Modern applications, especially SPAs, frequently store authentication tokens or application state in browser storage, which may introduce security risks.
+
+Common concerns include:
+
+- Authentication tokens (e.g., JWTs) stored in `localStorage` or `sessionStorage`, which are accessible via JavaScript and may be exposed through XSS.
+- Cookies missing `HttpOnly`, `Secure`, or `SameSite` attributes.
+- Tokens or session identifiers persisting after logout.
+- Sensitive business data stored in IndexedDB or localStorage without a clear requirement.
+- Cryptographic material stored as extractable when it should be protected.
+
+Improper client-side storage may increase the impact of client-side attacks such as DOM-based XSS.
+
+### General Testing Guidance
+
+In addition to enumerating storage entries, testers should:
+
+- Inspect browser storage using developer tools (Application/Storage tab).
+- Identify authentication tokens, session identifiers, or sensitive business data.
+- Attempt to access stored values via the JavaScript console.
+- Verify whether storage entries are cleared after logout or session expiration.
+- Validate secure cookie attributes (`HttpOnly`, `Secure`, `SameSite`).
+- Assess whether stored data could be leveraged in a client-side attack chain.
+
 ### Attack Chain
 
-Following the identification any of the above attack vectors, an attack chain can be formed with different types of client-side attacks, such as [DOM based XSS](01-Testing_for_DOM-based_Cross_Site_Scripting.md) attacks.
+Following the identification of any of the above attack vectors, an attack chain can be formed with different types of client-side attacks, such as [DOM based XSS](01-Testing_for_DOM-based_Cross_Site_Scripting.md) attacks.
 
 ## Remediation
 
@@ -171,11 +196,12 @@ Applications should be storing sensitive data on the server-side, and not on the
 
 ## References
 
-- [Local Storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
-- [Session Storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage)
+- [LocalStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
+- [SessionStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage)
 - [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
 - [Web Crypto API: Key Storage](https://www.w3.org/TR/WebCryptoAPI/#concepts-key-storage)
 - [Web SQL](https://www.w3.org/TR/webdatabase/)
 - [Cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)
 
 For more OWASP resources on the HTML5 Web Storage API, see the [Session Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#html5-web-storage-api).
+now is this fine
