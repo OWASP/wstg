@@ -168,7 +168,6 @@ When reviewing browser storage mechanisms, testers should evaluate whether sensi
 Common concerns include:
 
 - Authentication tokens (e.g., JWTs) stored in `localStorage` or `sessionStorage`, which are accessible via JavaScript and may be exposed through XSS.
-- Cookies missing `HttpOnly`, `Secure`, or `SameSite` attributes.
 - Tokens or session identifiers persisting after logout.
 - Sensitive business data stored in IndexedDB or localStorage without a clear requirement.
 - Cryptographic material stored as extractable when it should be protected.
