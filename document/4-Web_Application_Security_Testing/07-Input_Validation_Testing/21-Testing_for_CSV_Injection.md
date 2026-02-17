@@ -135,9 +135,6 @@ Provide a clear reproduction path:
 
 Some real-world cases show formula injection escalating beyond simple calculation/deception (e.g., via legacy spreadsheet features such as DDE). This behavior is highly environment-dependent.
 
-- Do **not** embed command-execution formulas in this guide.
-- If demonstrating higher impact is explicitly authorized, perform it only in an isolated test environment and cite public research/bug-bounty reports rather than reproducing weaponizable payloads in documentation.
-
 ## Remediation
 
 There is no universal CSV sanitization strategy safe for all spreadsheet applications and downstream consumers. For CSVs intended for human viewing in spreadsheet software, apply a defense-in-depth approach:
