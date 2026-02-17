@@ -983,7 +983,7 @@
                 "id":"WSTG-CLNT-12",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/12-Testing_Browser_Storage",
                 "objectives":[
-                    "Determine whether the website is storing sensitive data in client-side storage.",
+                    "Determine whether the site is storing sensitive data in client-side storage.",
                     "The code handling of the storage objects should be examined for possibilities of injection attacks, such as utilizing unvalidated input or vulnerable libraries."
                   ]
                 }
