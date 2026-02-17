@@ -126,10 +126,10 @@ Assess practical risk based on:
 
 Provide a clear reproduction path:
 
-1) Where input is entered
-2) How export is generated
-3) Which program interprets it as a formula
-4) Evidence (screenshot or description) that evaluation occurs
+1. Where input is entered
+2. How export is generated
+3. Which program interprets it as a formula
+4. Evidence (screenshot or description) that evaluation occurs
 
 ### Higher-Impact Validation (Optional, Strictly Controlled)
 
