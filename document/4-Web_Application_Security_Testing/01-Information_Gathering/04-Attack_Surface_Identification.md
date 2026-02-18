@@ -157,11 +157,7 @@ Common tools used for DNS enumeration include:
 - `dig`
 - `nslookup`
 
-Example using `dig`:
-
-```bash
-dig example.com ANY
-```
+Example using `dig`: `dig example.com ANY`
 
 #### DNS Zone Transfers
 
