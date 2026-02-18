@@ -28,17 +28,21 @@ jobs:
         node-version: 24
     - name: Install dependencies
       run: npm install -g markdown-link-check@3.11.0
-    - name: Changed Files Exporter
+    - name: Get Changed Files
       if: github.event_name == 'pull_request'
       id: files
-      uses: umani/changed-files@138acc60bcaa548e0c194fc69ed36321ee8466d2 # v4.2.0
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        pattern: '^.*\.(md)$'
+      run: |
+        # Get list of changed .md files (excluding .github/)
+        git fetch origin ${{ github.base_ref }}
+        FILES=$(git diff --name-only --diff-filter=d origin/${{ github.base_ref }}...HEAD | grep '\.md$' | grep -v '^\.github/' || true)
+        # Convert newlines to spaces for compatibility with expected format
+        FILES_SPACE_SEPARATED=$(echo "$FILES" | tr '\n' ' ' | xargs)
+        echo "files_updated=$FILES_SPACE_SEPARATED" >> $GITHUB_OUTPUT
+      shell: bash
     - name: Sparse Checkout Changed Files
       if: github.event_name == 'pull_request'
       env:
-        FILES: '${{ steps.files.outputs.files_updated }} ${{ steps.files.outputs.files_created }}'
+        FILES: '${{ steps.files.outputs.files_updated }}'
       shell: bash
       run: |
         set -euo pipefail
@@ -97,7 +101,7 @@ jobs:
     - name: PR link check
       if: github.event_name == 'pull_request'
       env:
-        FILES: '${{ steps.files.outputs.files_updated }} ${{ steps.files.outputs.files_created }}'
+        FILES: '${{ steps.files.outputs.files_updated }}'
       shell: bash
       run: |
         set -euo pipefail
