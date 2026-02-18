@@ -1,4 +1,4 @@
-# Enumerate Applications on Webserver
+# Attack Surface Identification
 
 |ID          |
 |------------|
@@ -6,8 +6,9 @@
 
 ## Summary
 
-A paramount step in testing for web application vulnerabilities is to find out which particular applications are hosted on a web server. Many applications have known vulnerabilities and attack strategies that can be exploited to gain unauthorized access or compromise data. In addition, many applications are often misconfigured or not updated, due to the perception that they are only used "internally" and therefore no threat exists.
-With the proliferation of virtual web servers, the traditional 1:1-type relationship between an IP address and a web server is losing much of its original significance. It is not uncommon to have multiple sites or applications whose symbolic names resolve to the same IP address. This scenario is not limited to hosting environments, but also applies to ordinary corporate environments as well.
+Identifying the attack surface of a web application involves discovering all applications, domains, virtual hosts, and externally exposed services associated with the target infrastructure. This process extends beyond identifying hosted applications and includes DNS enumeration, subdomain discovery, virtual host analysis, non-standard ports, and the review of digital certificates and Certificate Transparency logs.
+
+With the proliferation of virtual hosting and shared infrastructure, the traditional 1:1 relationship between an IP address and a web server has largely disappeared. A single IP address may host multiple applications across different domains, environments, or administrative interfaces. Failing to identify these assets can result in incomplete assessments and overlooked vulnerabilities.
 
 Security professionals are sometimes given a set of IP addresses as a target to test. It is arguable that this scenario is more akin to a penetration test-type engagement, but in any case it is expected that such an assignment would test all web applications accessible through this target. The problem is that the given IP address hosts an HTTP service on port 80, but if a tester should access it by specifying the IP address (which is all they know) it reports "No web server configured at this address" or a similar message. But that system could "hide" a number of web applications, associated to unrelated symbolic (DNS) names. Obviously, the extent of the analysis is deeply affected depending on whether the tester tests all the applications or only tests the applications that they are aware of.
 
@@ -15,7 +16,7 @@ Sometimes, the target specification is richer. The tester may be given a list of
 
 Other issues affecting the scope of the assessment are represented by web applications published at non-obvious URLs (e.g., `https://www.example.com/some-strange-URL`), which are not referenced elsewhere. This may happen either by error (due to misconfigurations), or intentionally (for example, unadvertised administrative interfaces).
 
-To address these issues, it is necessary to perform web application discovery.
+To address these issues, a comprehensive attack surface identification process must be performed.
 
 ## Test Objectives
 

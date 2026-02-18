@@ -6,7 +6,7 @@
 
 4.1.3 [Review Webserver Metafiles for Information Leakage](03-Review_Webserver_Metafiles_for_Information_Leakage.md)
 
-4.1.4 [Enumerate Applications on Webserver](04-Enumerate_Applications_on_Webserver.md)
+4.1.4 [Attack Surface Identification](04-Attack_Surface_Identification.md)
 
 4.1.5 [Review Web Page Content for Information Leakage](05-Review_Web_Page_Content_for_Information_Leakage.md)
 
