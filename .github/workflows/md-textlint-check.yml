@@ -49,6 +49,8 @@ jobs:
         # Convert newlines to spaces for compatibility with expected format
         FILES_SPACE_SEPARATED=$(echo "$FILES" | tr '\n' ' ' | xargs)
         echo "files_updated=$FILES_SPACE_SEPARATED" >> $GITHUB_OUTPUT
+        echo "## Changed files" >> $GITHUB_STEP_SUMMARY
+        echo "$FILES" >> $GITHUB_STEP_SUMMARY
       shell: bash
     - name: Run textlint Check
       env:
