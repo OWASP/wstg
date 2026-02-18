@@ -35,7 +35,7 @@ jobs:
         # Get list of changed .md files (excluding .github/)
         git fetch origin ${{ github.base_ref }}
         FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | grep '\.md$' | grep -v '^\.github/' || true)
-        # Convert newlines to spaces for compatibility with existing logic
+        # Convert newlines to spaces for compatibility with expected format
         FILES_SPACE_SEPARATED=$(echo "$FILES" | tr '\n' ' ' | xargs)
         echo "files_updated=$FILES_SPACE_SEPARATED" >> $GITHUB_OUTPUT
       shell: bash
