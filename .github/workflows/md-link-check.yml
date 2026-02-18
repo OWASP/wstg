@@ -41,12 +41,15 @@ jobs:
       id: files
       working-directory: pr
       run: |
-        # Get list of changed .md files (excluding .github/)
+        # Get list of changed .md files (excluding .github/) for link checking
         git fetch origin ${{ github.base_ref }}
-        FILES=$(git diff --name-only --diff-filter=d origin/${{ github.base_ref }}...HEAD | grep '\.md$' | grep -v '^\.github/' || true)
+        CHANGED_ALL=$(git diff --name-only --diff-filter=d origin/${{ github.base_ref }}...HEAD | grep -v '^\.github/' || true)
+        FILES=$(echo "$CHANGED_ALL" | grep '\.md$' || true)
         # Convert newlines to spaces for compatibility with expected format
         FILES_SPACE_SEPARATED=$(echo "$FILES" | tr '\n' ' ' | xargs)
+        ALL_SPACE_SEPARATED=$(echo "$CHANGED_ALL" | tr '\n' ' ' | xargs)
         echo "files_updated=$FILES_SPACE_SEPARATED" >> $GITHUB_OUTPUT
+        echo "all_changed=$ALL_SPACE_SEPARATED" >> $GITHUB_OUTPUT
         echo "## Changed files" >> $GITHUB_STEP_SUMMARY
         echo "$FILES" >> $GITHUB_STEP_SUMMARY
       shell: bash
@@ -54,6 +57,7 @@ jobs:
       if: github.event_name == 'pull_request'
       env:
         FILES: '${{ steps.files.outputs.files_updated }}'
+        ALL_CHANGED: '${{ steps.files.outputs.all_changed }}'
       shell: bash
       run: |
         set -euo pipefail
@@ -62,17 +66,14 @@ jobs:
         printf '%s\n' $FILES
         touch log err
         
-        # Copy changed files from pr/ to base/ to check them with correct relative link resolution
-        for FILE in $FILES; do
-          if printf '%s\n' "$FILE" | grep -q '.*\.md$'; then
-            # Ensure parent directory exists in base/
-            mkdir -p "base/$(dirname "$FILE")"
-            # Copy the PR version to base/
-            cp "pr/$FILE" "base/$FILE"
-          fi
+        # Copy all changed files (md + images etc.) from pr/ to base/ so link targets exist when we check .md files
+        for FILE in $ALL_CHANGED; do
+          [ -z "$FILE" ] && continue
+          mkdir -p "base/$(dirname "$FILE")"
+          cp "pr/$FILE" "base/$FILE"
         done
         
-        # Check files in base/ where relative links can be resolved
+        # Check only .md files in base/ where relative links can be resolved
         for FILE in $FILES; do
           if printf '%s\n' "$FILE" | grep -q '.*\.md$'; then
             markdown-link-check -q -v -c base/.github/configs/markdown-link-check-config.json "base/$FILE" 1>> log 2>> err
