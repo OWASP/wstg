@@ -29,11 +29,14 @@
                   ]
                 }
                 ,{
-                "name":"Enumerate Applications on Webserver",
+                "name":"Attack Surface Identification",
                 "id":"WSTG-INFO-04",
-                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/01-Information_Gathering/04-Enumerate_Applications_on_Webserver",
+                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/01-Information_Gathering/04-Attack_Surface_Identification",
                 "objectives":[
-                    "Enumerate the applications within the scope that exist on a web server."
+                    "Enumerate all web applications within scope.",
+                    "Identify DNS names, domains, and virtual hosts associated with the target.",
+                    "Discover additional domains and subdomains using passive and active DNS techniques.",
+                    "Analyze digital certificates and Certificate Transparency logs for additional hostnames."
                   ]
                 }
                 ,{
