@@ -39,7 +39,7 @@ jobs:
         git fetch origin ${{ github.base_ref }}
         FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | grep '\.md$' | grep -v '^\.github/' || true)
         # Convert newlines to spaces for compatibility with existing logic
-        FILES_SPACE_SEPARATED=$(echo "$FILES" | tr '\n' ' ')
+        FILES_SPACE_SEPARATED=$(echo "$FILES" | tr '\n' ' ' | xargs)
         echo "files_updated=$FILES_SPACE_SEPARATED" >> $GITHUB_OUTPUT
       shell: bash
     - name: Sparse Checkout Changed Files
