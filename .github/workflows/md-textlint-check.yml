@@ -25,6 +25,7 @@ jobs:
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       with:
         ref: ${{ github.event.pull_request.head.sha }}
+        path: pr
         fetch-depth: 0
     - name: Save PR number
       env:
@@ -40,6 +41,7 @@ jobs:
         npm install -g textlint-rule-terminology
     - name: Get Changed Files
       id: files
+      working-directory: pr
       run: |
         # Get list of changed .md files (excluding .github/)
         git fetch origin ${{ github.base_ref }}
@@ -55,7 +57,7 @@ jobs:
         touch log.txt
         # All markdown files, excluding .github
         # Use fix flag so that it goes through all files
-        for FILE in $FILES; do echo "$FILE" | grep -v \.github && textlint --config base/.github/configs/.textlintrc --fix --rule terminology "$FILE" | tee -a log.txt; done
+        for FILE in $FILES; do echo "$FILE" | grep -v \.github && textlint --config base/.github/configs/.textlintrc --fix --rule terminology "pr/$FILE" | tee -a log.txt; done
         if grep -q  'Incorrect term' log.txt ; then exit 1 ; else echo -e \"No terminology issues found.\"; fi
     - name: Show Mistakes
       if: failure()
