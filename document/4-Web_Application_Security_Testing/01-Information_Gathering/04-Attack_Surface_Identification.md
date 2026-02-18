@@ -1,4 +1,4 @@
-# Enumerate Applications on Webserver
+# Attack Surface Identification
 
 |ID          |
 |------------|
@@ -6,8 +6,9 @@
 
 ## Summary
 
-A paramount step in testing for web application vulnerabilities is to find out which particular applications are hosted on a web server. Many applications have known vulnerabilities and known attack strategies that can be exploited in order to gain remote control or to exploit data. In addition, many applications are often misconfigured or not updated, due to the perception that they are only used "internally" and therefore no threat exists.
-With the proliferation of virtual web servers, the traditional 1:1-type relationship between an IP address and a web server is losing much of its original significance. It is not uncommon to have multiple sites or applications whose symbolic names resolve to the same IP address. This scenario is not limited to hosting environments, but also applies to ordinary corporate environments as well.
+Identifying the attack surface of a web application involves discovering all applications, domains, virtual hosts, and externally exposed services associated with the target infrastructure. This process extends beyond identifying hosted applications and includes DNS enumeration, subdomain discovery, virtual host analysis, non-standard ports, and the review of digital certificates and Certificate Transparency logs.
+
+With the proliferation of virtual hosting and shared infrastructure, the traditional 1:1 relationship between an IP address and a web server has largely disappeared. A single IP address may host multiple applications across different domains, environments, or administrative interfaces. Failing to identify these assets can result in incomplete assessments and overlooked vulnerabilities.
 
 Security professionals are sometimes given a set of IP addresses as a target to test. It is arguable that this scenario is more akin to a penetration test-type engagement, but in any case it is expected that such an assignment would test all web applications accessible through this target. The problem is that the given IP address hosts an HTTP service on port 80, but if a tester should access it by specifying the IP address (which is all they know) it reports "No web server configured at this address" or a similar message. But that system could "hide" a number of web applications, associated to unrelated symbolic (DNS) names. Obviously, the extent of the analysis is deeply affected depending on whether the tester tests all the applications or only tests the applications that they are aware of.
 
@@ -15,11 +16,14 @@ Sometimes, the target specification is richer. The tester may be given a list of
 
 Other issues affecting the scope of the assessment are represented by web applications published at non-obvious URLs (e.g., `https://www.example.com/some-strange-URL`), which are not referenced elsewhere. This may happen either by error (due to misconfigurations), or intentionally (for example, unadvertised administrative interfaces).
 
-To address these issues, it is necessary to perform web application discovery.
+To address these issues, a comprehensive attack surface identification process must be performed.
 
 ## Test Objectives
 
-- Enumerate the applications within the scope that exist on a web server.
+- Enumerate all web applications within scope.
+- Identify DNS names, domains, and virtual hosts associated with the target.
+- Discover additional domains and subdomains using passive and active DNS techniques.
+- Analyze digital certificates and Certificate Transparency logs for additional hostnames.
 
 ## How to Test
 
@@ -118,6 +122,43 @@ The same task may be performed by vulnerability scanners, but first check that t
 
 There are a number of techniques which may be used to identify DNS names associated to a given IP address `x.y.z.t`.
 
+#### DNS Enumeration
+
+DNS enumeration aims to identify domains, subdomains, and related DNS records associated with the target organization to expand the assessment scope. DNS enumeration plays a key role in identifying additional virtual hosts mapped to the same IP address. This may reveal development systems, staging environments, legacy services, or administrative interfaces.
+
+Both passive and active techniques can be used.
+
+#### Passive DNS Enumeration
+
+Passive techniques do not directly interact with the target infrastructure and instead rely on publicly available data sources. Examples include:
+
+- Public DNS records (A, AAAA, MX, TXT, NS)
+- Reverse DNS lookups (PTR records)
+- Search engines
+- Passive DNS databases
+- Certificate Transparency logs
+
+Passive techniques are preferred during early reconnaissance phases to avoid detection.
+
+#### Active DNS Enumeration
+
+Active techniques directly query the target's DNS infrastructure and may generate logs on the target systems. These include:
+
+- Subdomain brute forcing
+- DNS zone transfer attempts
+- DNS record enumeration using tools
+
+Common tools used for DNS enumeration include:
+
+- `amass`
+- `subfinder`
+- `dnsrecon`
+- `fierce`
+- `dig`
+- `nslookup`
+
+Example using `dig`: `dig example.com ANY`
+
 #### DNS Zone Transfers
 
 This technique has limited use nowadays, given the fact that zone transfers are largely not honored by DNS servers. However, it could still be worth attempting. First of all, testers must determine the name servers serving `x.y.z.t`. If a symbolic name is known for `x.y.z.t` (let it be `www.example.com`), its name servers can be determined by means of tools such as `nslookup`, `host`, or `dig`, by requesting DNS NS records.
@@ -185,11 +226,41 @@ Subject: C = US, ST = California, L = Los Angeles, O = Internet Corporation for 
 DNS:www.example.org, DNS:example.com, DNS:example.edu, DNS:example.net, DNS:example.org, DNS:www.example.com, DNS:www.example.edu, DNS:www.example.net
 ```
 
+#### Certificate Transparency Logs
+
+Certificate Transparency (CT) logs are publicly accessible records of issued TLS certificates. These logs can be searched to identify hostnames and subdomains associated with a target organization, including staging systems, administrative interfaces, legacy systems, or other externally reachable services.
+
+Reviewing CT logs may reveal hostnames that are not directly discoverable through DNS zone transfers, reverse lookups, or search engine queries alone. Testers should extract discovered hostnames and validate them through DNS resolution to determine whether they are active and within the defined scope of the assessment.
+
+When reviewing CT log data, consider:
+
+- Hostnames indicating development, staging, or testing environments.
+- Administrative or management interfaces.
+- Deprecated or legacy systems that may still be accessible.
+- Wildcard certificates that may imply additional undiscovered subdomains.
+
+Information gathered from CT logs should be validated to confirm ownership and relevance before further testing.
+
+Care must be taken to respect scope limitations defined in the engagement.
+
+Discovered assets should be validated and documented before further testing activities.
+
+One common approach to querying CT logs is to use publicly available search portals that aggregate certificate data. For example, a tester may search for certificates issued to `example.com` and review the listed subdomains.
+
+For instance: `https://crt.sh/?q=%25.example.com`
+
+![CT Log Search Example](images/Figure-4.1.4-CT-logs-example.png)  
+
+*Figure 4.1.4-1: Example of Certificate Transparency log search results.*
+
+The results may list subdomains such as `dev.example.com`, `staging.example.com`, or other hostnames that are not directly referenced from the primary site. Discovered hostnames should be validated through DNS resolution before further testing.
+
 ## Tools
 
-- DNS lookup tools such as `nslookup`, `dig` and similar.
-- Search engines (Google, Bing, and other major search engines).
-- Specialized DNS-related web-based search service: see text.
+- DNS lookup tools such as `nslookup`, `dig`, and `host`
+- Subdomain enumeration tools such as `amass`, `subfinder`, `dnsrecon`, and `fierce`
+- Search engines (Google, Bing, and other major search engines)
+- Reverse IP lookup services
 - [Nmap](https://nmap.org/)
 - [Nessus Vulnerability Scanner](https://www.tenable.com/products/nessus)
-- [Nikto](https://www.cirt.net/nikto2)
+- [Nikto](https://github.com/sullo/nikto)
