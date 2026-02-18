@@ -24,6 +24,7 @@ jobs:
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       with:
         ref: ${{ github.event.pull_request.head.sha }}
+        path: pr
         fetch-depth: 0
     - name: Save PR number
       env:
@@ -37,6 +38,7 @@ jobs:
       run: npm install -g markdownlint-cli2
     - name: Get Changed Files
       id: files
+      working-directory: pr
       run: |
         # Get list of changed .md files (excluding .github/)
         git fetch origin ${{ github.base_ref }}
@@ -56,8 +58,8 @@ jobs:
         : > lint.txt
         
         for FILE in $FILES; do
-          if [ -f "$FILE" ]; then
-            OUTPUT="$(markdownlint-cli2 "$FILE" --config base/.github/configs/.markdownlint.json 2>&1)" || STATUS=$?
+          if [ -f "pr/$FILE" ]; then
+            OUTPUT="$(markdownlint-cli2 "pr/$FILE" --config base/.github/configs/.markdownlint.json 2>&1)" || STATUS=$?
             if [ "${STATUS:-0}" -eq 0 ]; then
               # File passed linting, continue to next file
               continue

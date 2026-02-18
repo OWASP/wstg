@@ -24,6 +24,7 @@ jobs:
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       with:
         ref: ${{ github.event.pull_request.head.sha }}
+        path: pr
         fetch-depth: 0
     - name: Save PR number
       env:
@@ -38,6 +39,7 @@ jobs:
     - name: Get Changed Files
       if: github.event_name == 'pull_request'
       id: files
+      working-directory: pr
       run: |
         # Get list of changed .md files (excluding .github/)
         git fetch origin ${{ github.base_ref }}
@@ -58,13 +60,13 @@ jobs:
         printf '%s\n' $FILES
         touch log err
         
-        # Copy changed files from workspace (PR checkout) to base/ to check them with correct relative link resolution
+        # Copy changed files from pr/ to base/ to check them with correct relative link resolution
         for FILE in $FILES; do
           if printf '%s\n' "$FILE" | grep -q '.*\.md$'; then
             # Ensure parent directory exists in base/
             mkdir -p "base/$(dirname "$FILE")"
             # Copy the PR version to base/
-            cp "$FILE" "base/$FILE"
+            cp "pr/$FILE" "base/$FILE"
           fi
         done
         
