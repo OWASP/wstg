@@ -19,7 +19,12 @@ jobs:
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       with:
         repository: OWASP/wstg
+        ref: ${{ github.base_ref || 'master' }}
         path: base
+    - name: Checkout PR
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
     - name: Save PR number
       env:
         PR_NUMBER: ${{ github.event.number }}
@@ -42,64 +47,6 @@ jobs:
         FILES_SPACE_SEPARATED=$(echo "$FILES" | tr '\n' ' ' | xargs)
         echo "files_updated=$FILES_SPACE_SEPARATED" >> $GITHUB_OUTPUT
       shell: bash
-    - name: Sparse Checkout Changed Files
-      env:
-        FILES: '${{ steps.files.outputs.files_updated }}'
-      shell: bash
-      run: |
-        set -euo pipefail
-        
-        # Skip if no files changed
-        if [ -z "$FILES" ]; then
-          echo "No files to checkout, skipping sparse checkout"
-          mkdir -p pr
-          exit 0
-        fi
-        
-        REPO="${{ github.event.pull_request.head.repo.full_name }}"
-        SHA="${{ github.event.pull_request.head.sha }}"
-        
-        if [ -z "$REPO" ] || [ -z "$SHA" ]; then
-          echo "Error: Missing repository information (REPO='$REPO', SHA='$SHA')" >&2
-          exit 1
-        fi
-        
-        # Validate repository format to prevent unsafe values
-        if [[ ! "$REPO" =~ ^[a-zA-Z0-9_-]+/[a-zA-Z0-9_.-]+$ ]]; then
-          echo "Error: Invalid repository format (REPO='$REPO'). Expected 'owner/repo'." >&2
-          exit 1
-        fi
-        
-        # Validate SHA format: 7 to 40 lowercase hex characters
-        if ! [[ "$SHA" =~ ^[0-9a-f]{7,40}$ ]]; then
-          echo "Error: Invalid SHA format '$SHA'. Expected 7-40 lowercase hex characters." >&2
-          exit 1
-        fi
-        
-        # Create pr directory for sparse checkout
-        mkdir -p pr
-        cd pr
-        # Initialize git repository
-        git init || { echo "Error: git init failed" >&2; exit 1; }
-        git remote add origin "https://github.com/$REPO" || { echo "Error: git remote add failed" >&2; exit 1; }
-        # Enable sparse checkout
-        git config core.sparseCheckout true || { echo "Error: git config failed" >&2; exit 1; }
-        # Add only the changed files to sparse checkout
-        for FILE in $FILES; do
-          printf '%s\n' "$FILE" >> .git/info/sparse-checkout
-        done
-        
-        # If no files were added to sparse-checkout, skip fetch/checkout
-        if [ ! -s .git/info/sparse-checkout ]; then
-          echo "No markdown files to checkout, skipping git fetch and checkout"
-          cd ..
-          exit 0
-        fi
-        
-        # Fetch and checkout only the specified files
-        git fetch --depth=1 origin "$SHA" || { echo "Error: git fetch failed for SHA '$SHA'" >&2; exit 1; }
-        git checkout "$SHA" || { echo "Error: git checkout failed for SHA '$SHA'" >&2; exit 1; }
-        cd ..
     - name: Run textlint Check
       env:
         FILES: '${{ steps.files.outputs.files_updated }}'
@@ -107,7 +54,7 @@ jobs:
         touch log.txt
         # All markdown files, excluding .github
         # Use fix flag so that it goes through all files
-        for FILE in $FILES; do echo 'pr/'"$FILE" | grep -v \.github && textlint --config base/.github/configs/.textlintrc --fix --rule terminology 'pr/'"$FILE" | tee -a log.txt; done
+        for FILE in $FILES; do echo "$FILE" | grep -v \.github && textlint --config base/.github/configs/.textlintrc --fix --rule terminology "$FILE" | tee -a log.txt; done
         if grep -q  'Incorrect term' log.txt ; then exit 1 ; else echo -e \"No terminology issues found.\"; fi
     - name: Show Mistakes
       if: failure()

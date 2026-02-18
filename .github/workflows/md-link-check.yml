@@ -17,7 +17,13 @@ jobs:
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       with:
         repository: OWASP/wstg
+        ref: ${{ github.base_ref || 'master' }}
         path: base
+    - name: Checkout PR
+      if: github.event_name == 'pull_request'
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
     - name: Save PR number
       env:
         PR_NUMBER: ${{ github.event.number }}
@@ -39,65 +45,6 @@ jobs:
         FILES_SPACE_SEPARATED=$(echo "$FILES" | tr '\n' ' ' | xargs)
         echo "files_updated=$FILES_SPACE_SEPARATED" >> $GITHUB_OUTPUT
       shell: bash
-    - name: Sparse Checkout Changed Files
-      if: github.event_name == 'pull_request'
-      env:
-        FILES: '${{ steps.files.outputs.files_updated }}'
-      shell: bash
-      run: |
-        set -euo pipefail
-        
-        # Skip if no files changed
-        if [ -z "$FILES" ]; then
-          echo "No files to checkout, skipping sparse checkout"
-          mkdir -p pr
-          exit 0
-        fi
-        
-        REPO="${{ github.event.pull_request.head.repo.full_name }}"
-        SHA="${{ github.event.pull_request.head.sha }}"
-        
-        if [ -z "$REPO" ] || [ -z "$SHA" ]; then
-          echo "Error: Missing repository information (REPO='$REPO', SHA='$SHA')" >&2
-          exit 1
-        fi
-        
-        # Validate REPO format to prevent injection via special characters
-        if [[ ! "$REPO" =~ ^[a-zA-Z0-9_-]+/[a-zA-Z0-9_.-]+$ ]]; then
-          echo "Error: Invalid repository format: '$REPO'. Expected 'owner/repo'." >&2
-          exit 1
-        fi
-        
-        # Validate SHA format (7-40 lowercase hex characters)
-        if [[ ! "$SHA" =~ ^[0-9a-f]{7,40}$ ]]; then
-          echo "Error: Invalid SHA format '$SHA'. Expected 7-40 lowercase hex characters." >&2
-          exit 1
-        fi
-        
-        # Create pr directory for sparse checkout
-        mkdir -p pr
-        cd pr
-        # Initialize git repository
-        git init || { echo "Error: git init failed" >&2; exit 1; }
-        git remote add origin "https://github.com/$REPO" || { echo "Error: git remote add failed" >&2; exit 1; }
-        # Enable sparse checkout
-        git config core.sparseCheckout true || { echo "Error: git config failed" >&2; exit 1; }
-        # Add only the changed files to sparse checkout
-        for FILE in $FILES; do
-          printf '%s\n' "$FILE" >> .git/info/sparse-checkout
-        done
-        
-        # If no files were added to sparse-checkout, skip fetch/checkout
-        if [ ! -s .git/info/sparse-checkout ]; then
-          echo "No markdown files to checkout, skipping git fetch and checkout"
-          cd ..
-          exit 0
-        fi
-        
-        # Fetch and checkout only the specified files
-        git fetch --depth=1 origin "$SHA" || { echo "Error: git fetch failed for SHA '$SHA'" >&2; exit 1; }
-        git checkout "$SHA" || { echo "Error: git checkout failed for SHA '$SHA'" >&2; exit 1; }
-        cd ..
     - name: PR link check
       if: github.event_name == 'pull_request'
       env:
@@ -110,13 +57,13 @@ jobs:
         printf '%s\n' $FILES
         touch log err
         
-        # Copy changed files from pr/ to base/ to check them with correct relative link resolution
+        # Copy changed files from workspace (PR checkout) to base/ to check them with correct relative link resolution
         for FILE in $FILES; do
           if printf '%s\n' "$FILE" | grep -q '.*\.md$'; then
             # Ensure parent directory exists in base/
             mkdir -p "base/$(dirname "$FILE")"
             # Copy the PR version to base/
-            cp "pr/$FILE" "base/$FILE"
+            cp "$FILE" "base/$FILE"
           fi
         done
         

@@ -47,9 +47,12 @@ Utility action named "Markdown Lint Check" (same name as `md-lint-check.yml`) th
 
 Checks Pull Requests for broken links.
 
-This workflow includes security enhancements:
-- Input validation for repository names and commit SHAs to prevent injection attacks
-- Sparse checkout for security and efficiency (only checking out changed files)
+This workflow:
+- Checks out the **base branch** into `base/` (used for config and for relative link resolution)
+- Checks out the **PR head** into the workspace root (for the "Get Changed Files" step and as the source of changed content)
+- Uses inline `git diff` (no third-party action) to list changed `.md` files between the base ref and HEAD, excluding deleted files and paths under `.github/`
+- Copies only those changed files from the workspace into `base/`, then runs the link checker so relative links resolve correctly
+- Config and scripts are always taken from `base/` (the base branch), not from the PR
 
 - Trigger: Pull Requests (when `.md` files are changed, excluding `.github/**`). Manual (`workflow_dispatch`).
 - Config File: `markdown-link-check-config.json`
@@ -59,14 +62,12 @@ This workflow includes security enhancements:
 Checks Markdown files and flags style or syntax issues.
 
 This workflow:
-- Uses `markdownlint-cli2` for linting
-- Leverages sparse checkout for security and efficiency (only checking out changed files)
-- Uses `format_lint_output.py` script to format output for PR comments
+- Checks out the **base branch** into `base/` (used for config and for `format_lint_output.py`)
+- Checks out the **PR head** into the workspace root
+- Uses inline `git diff` to list changed `.md` files (excluding deleted files and `.github/`), then runs `markdownlint-cli2` only on those files
+- Uses `format_lint_output.py` from `base/.github/workflows/scripts/` to format output for PR comments
 - Uploads artifacts for both success and failure cases to work with `comment.yml`
-
-Security enhancements:
-- Input validation for repository names and commit SHAs to prevent injection attacks
-- Sparse checkout for security and efficiency
+- Config and scripts are always taken from `base/` (the base branch), not from the PR
 
 - Trigger: Pull Requests (when `.md` files are changed, excluding `.github/**`).
 - Config File: `.markdownlint.json`
@@ -75,9 +76,11 @@ Security enhancements:
 
 Checks Markdown files for spelling style and typo issues.
 
-This workflow includes security enhancements:
-- Input validation for repository names and commit SHAs to prevent injection attacks
-- Sparse checkout for security and efficiency (only checking out changed files)
+This workflow:
+- Checks out the **base branch** into `base/` (used for config)
+- Checks out the **PR head** into the workspace root
+- Uses inline `git diff` to list changed `.md` files (excluding deleted files and `.github/`), then runs textlint only on those files
+- Config is always taken from `base/` (the base branch), not from the PR
 
 - Trigger: Pull Requests (when `.md` files are changed, excluding `.github/**`).
 - Config File: `.textlintrc`
