@@ -14,7 +14,7 @@ When a test is merged into another test, retain the original file to preserve ID
 
 At the end of the file, include the following reference-style metadata marker:
 
-[merged]: # (WSTG-XXXX-XX)
+`[merged]: # (WSTG-XXXX-XX)`
 
 Replace `WSTG-XXXX-XX` with the destination test ID.
 
