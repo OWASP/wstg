@@ -49,8 +49,8 @@ Checks Pull Requests for broken links.
 
 This workflow:
 - Checks out the **base branch** into `base/` and the **PR head** into `pr/` (each checkout uses an explicit path so neither overwrites the other)
-- Uses inline `git diff` from `pr/` (no third-party action) to list changed `.md` files between the base ref and HEAD, excluding deleted files and paths under `.github/`
-- Copies only those changed files from `pr/` into `base/`, then runs the link checker so relative links resolve correctly
+- Uses inline `git diff` from `pr/` (no third-party action) to list changed files between the base ref and HEAD, excluding deleted files and paths under `.github/`
+- Copies **all** changed files (including images and other assets) from `pr/` into `base/` so link targets exist, then runs the link checker only on changed `.md` files so relative links resolve correctly
 - Config and scripts are always taken from `base/` (the base branch), not from the PR
 
 - Trigger: Pull Requests (when `.md` files are changed, excluding `.github/**`). Manual (`workflow_dispatch`).
