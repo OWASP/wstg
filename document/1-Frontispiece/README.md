@@ -30,6 +30,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Alessia Michela Di Campi
 - Elie Saad
 - Felix Sieges
+- Himasree Kolathur
 - Ismael Goncalves
 - Janos Zold
 - Jeremy Bonghwan Choi
@@ -39,6 +40,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Manh Pham Tien
 - Mark Clayton
 - Meysam Bal-afkan
+- Omar Jezi
 - Or Asaf
 - Phu Nguyen (Tony)
 - rbsec
@@ -49,7 +51,6 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Stefano Calzavara
 - Tal Argoni
 - Victoria Drake
-- Omar Jezi
 
 ## Graphic Designers
 
