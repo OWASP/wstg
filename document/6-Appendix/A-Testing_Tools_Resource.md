@@ -158,3 +158,11 @@ Browser Automation tools are used to validate the functionality of web applicati
     - Very robust and configurable and is used as the engine for a number of other testing tools.
 - [Selenium](https://www.selenium.dev)
     - JavaScript based testing framework, cross-platform and provides a GUI for creating tests.
+
+## Online Resources
+
+Curated collections and comparison sites that help practitioners choose the right tools for their needs.
+
+- [AppSec Santa](https://appsecsanta.com) — Curated comparison of 160+ application security tools across 10 categories (SAST, SCA, DAST, IAST, RASP, API Security, IaC Security, ASPM, Mobile, AI Security) with feature breakdowns and licensing info.
+- [OWASP Source Code Analysis Tools](https://owasp.org/www-community/Source_Code_Analysis_Tools) — Community-maintained list of static analysis tools.
+- [analysis-tools.dev](https://analysis-tools.dev) — Open-source directory of static analysis and linting tools for many programming languages.
