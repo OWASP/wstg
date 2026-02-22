@@ -712,6 +712,18 @@
                     "Assess if it is possible to modify fields never intended to be modified from outside"
                   ]
                 }
+                ,{
+                "name":"Testing for CSV Injection",
+                "id":"WSTG-INPV-21",
+                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/21-Testing_for_CSV_Injection",
+                "objectives":[
+                    "Identify CSV/spreadsheet export features that include untrusted input.",
+                    "Verify whether attacker-controlled values are interpreted as formulas when the export is opened in common spreadsheet applications.",
+                    "Check whether separator/quote injection can move a dangerous prefix to the start of a cell.",
+                    "Validate whether mitigations remain effective in Microsoft Excel after saving and re-opening the CSV.",
+                    "Assess practical impact based on who opens the export and how it is used."
+                  ]
+                }
             ]
         }
         ,"Testing for Error Handling": {
