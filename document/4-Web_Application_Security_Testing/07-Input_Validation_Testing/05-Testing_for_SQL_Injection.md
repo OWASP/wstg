@@ -47,13 +47,51 @@ About the techniques to exploit SQL injection flaws, there are five common techn
 
 ### Detection Techniques
 
-The first step in this test is to understand when the application interacts with a DB Server to access some data. Typical examples of cases, when an application needs to talk to a DB, include:
+The first step in this test is to understand when the application or API interacts with a DB Server to access some data. Typical examples of cases, when an application needs to talk to a DB, include:
 
 - Authentication forms: when authentication is performed using a web form, chances are that the user credentials are checked against a database that contains all usernames and passwords (or, better, password hashes).
 - Search engines: the string submitted by the user could be used in an SQL query that extracts all relevant records from a database.
 - E-Commerce sites: the products and their characteristics (price, description, availability, etc) are very likely to be stored in a database.
 
-The tester has to make a list of all input fields whose values could be used in crafting a SQL query, including the hidden fields of POST requests, and then test them separately, trying to interfere with the query and to generate an error. Consider also HTTP headers and Cookies.
+#### API-Specific SQL Injection Vectors
+
+When testing APIs, additional injection points should be considered:
+
+- **JSON body parameters**: API endpoints accepting JSON payloads may be vulnerable
+
+```http
+POST /api/v1/users/search HTTP/1.1
+Content-Type: application/json
+
+{"username": "admin' OR '1'='1", "filter": "active"}
+```
+
+- **GraphQL queries**: Parameters within GraphQL queries can be injection points
+
+```graphql
+query {
+  user(id: "1' OR '1'='1") {
+    name
+    email
+  }
+}
+```
+
+- **API path parameters**: RESTful path segments may be used in queries
+
+```http
+GET /api/users/1%20OR%201=1/orders HTTP/1.1
+```
+
+- **HTTP headers**: Custom headers used by APIs for filtering or sorting
+
+```http
+GET /api/v1/products HTTP/1.1
+X-Sort-By: price; DROP TABLE products;--
+X-Filter: category='electronics' OR 1=1
+```
+
+The tester has to make a list of all input fields whose values could be used in crafting a SQL query, including the hidden fields of POST requests, JSON body parameters, and then test them separately, trying to interfere with the query and to generate an error. Consider also HTTP headers and Cookies.
 
 The very first test usually consists of adding a single quote `'` or a semicolon `;` to the field or parameter under test. The first is used in SQL as a string terminator and, if not filtered by the application, would lead to an incorrect query. The second is used to end a SQL statement and, if it is not filtered, it is also likely to generate an error. The output of a vulnerable field might resemble the following (on a Microsoft SQL Server, in this case):
 

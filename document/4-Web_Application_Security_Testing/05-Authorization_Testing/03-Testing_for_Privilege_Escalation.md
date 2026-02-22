@@ -184,6 +184,97 @@ For example:
 startswith(), endswith(), contains(), indexOf()
 ```
 
+### API Privilege Escalation
+
+When testing APIs, privilege escalation attacks often exploit weaknesses in how APIs handle user identity and permissions.
+
+#### Token Claim Manipulation
+
+APIs using JWT or similar tokens may be vulnerable to claim manipulation:
+
+```http
+# Original token claims
+{
+  "user_id": "12345",
+  "role": "user",
+  "permissions": ["read"]
+}
+
+# Attempt to escalate by modifying claims
+{
+  "user_id": "12345",
+  "role": "admin",
+  "permissions": ["read", "write", "delete"]
+}
+```
+
+Test for:
+- Signature validation bypass (algorithm confusion)
+- Accepted but unverified claims
+- Missing claim validation at the API level
+
+#### OAuth Scope Escalation
+
+For OAuth-based APIs, test if users can escalate scopes:
+
+1. Request a token with limited scopes
+2. Attempt to access endpoints requiring higher scopes
+3. Check if refresh tokens can obtain elevated scopes
+4. Test if scope changes are validated on each request
+
+```http
+# Token with read-only scope accessing write endpoint
+POST /api/v1/users HTTP/1.1
+Authorization: Bearer <token_with_read_scope>
+Content-Type: application/json
+
+{"name": "New User"}
+```
+
+#### API Key Privilege Escalation
+
+For APIs using API keys:
+
+- Test if modifying key metadata elevates privileges
+- Check for privilege differences between key types (test vs production)
+- Verify that revoked keys truly lose all access
+
+#### GraphQL Privilege Escalation
+
+GraphQL APIs can expose privilege escalation through:
+
+```graphql
+# Mutation to modify own profile
+mutation {
+  updateUser(id: "my_id", role: "admin") {
+    id
+    role
+  }
+}
+
+# Nested mutation that may bypass checks
+mutation {
+  createPost(input: {
+    title: "Test",
+    author: { update: { role: "admin" } }
+  }) {
+    id
+  }
+}
+```
+
+#### Horizontal to Vertical Escalation
+
+In APIs, horizontal access may lead to vertical escalation:
+
+1. Access another user's data (horizontal)
+2. Find that user has admin privileges
+3. Use their session/token for admin access (vertical)
+
+For detailed API authorization testing, see:
+- [API Broken Object Level Authorization](../12-API_Testing/02-API_Broken_Object_Level_Authorization.md)
+- [Testing for Bypassing Authorization Schema](02-Testing_for_Bypassing_Authorization_Schema.md)
+
 ## References
 
 ### Whitepapers

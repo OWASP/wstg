@@ -61,6 +61,43 @@ The passwords may be based on:
 
 This type of issue of often difficult to identify from a black-box perspective.
 
+### API Default Credentials
+
+When testing APIs, additional categories of default credentials should be considered:
+
+#### API Keys and Secrets
+
+Many APIs ship with default or example API keys that should be changed before deployment:
+
+- Check for API keys matching those in documentation or tutorials
+- Look for keys in common formats like `test_key`, `demo_key`, or `sk_test_xxxx` (Stripe pattern)
+- Search for default keys in API client libraries or SDKs
+- Check environment-specific keys (development keys used in production)
+
+#### Service Account Credentials
+
+APIs often use service accounts for machine-to-machine authentication:
+
+- Default service account names (`api-service`, `backend-service`, `integration-user`)
+- Pre-configured client IDs and secrets in OAuth applications
+- Default database connection credentials exposed through API configuration endpoints
+
+#### Cloud Provider Defaults
+
+For APIs hosted on cloud platforms:
+
+| Platform | Common Default Credential Locations |
+|----------|-------------------------------------|
+| AWS | Default IAM roles, Lambda environment variables |
+| Azure | Managed identity defaults, Key Vault access |
+| GCP | Service account JSON keys, default compute credentials |
+
+#### GraphQL and API Gateway Defaults
+
+- Default admin credentials for GraphQL IDEs (GraphiQL, GraphQL Playground)
+- API gateway admin consoles (Kong, AWS API Gateway, Apigee)
+- Default introspection access without authentication
+
 ## Tools
 
 - [Burp Intruder](https://portswigger.net/burp/documentation/desktop/tools/intruder)

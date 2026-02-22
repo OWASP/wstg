@@ -122,6 +122,76 @@ Various applications setup resource controls based on user roles. Let's take an 
 
 As a normal user, try accessing the location of those files. If you are able to retrieve them, modify them, or delete them, then the application is vulnerable.
 
+### Testing API Authorization Bypass
+
+When testing APIs, authorization bypass testing should focus on the following areas:
+
+#### HTTP Method Manipulation
+
+APIs may enforce authorization differently for different HTTP methods. Test if changing the method bypasses authorization:
+
+```http
+# Original request (blocked)
+DELETE /api/v1/users/123 HTTP/1.1
+Authorization: Bearer user_token
+
+# Try alternative methods
+POST /api/v1/users/123 HTTP/1.1
+Authorization: Bearer user_token
+X-HTTP-Method-Override: DELETE
+
+# Or use PUT with delete action
+PUT /api/v1/users/123 HTTP/1.1
+Authorization: Bearer user_token
+Content-Type: application/json
+
+{"action": "delete"}
+```
+
+#### API Versioning Bypass
+
+Test if older or alternative API versions have weaker authorization:
+
+- `/api/v1/admin/users` (may be protected)
+- `/api/v2/admin/users` (may lack same controls)
+- `/api/admin/users` (unversioned endpoint)
+
+#### GraphQL Authorization Bypass
+
+For GraphQL APIs, test authorization at the field and resolver level:
+
+```graphql
+# Direct query that may bypass authorization
+query {
+  user(id: "other_user_id") {
+    email
+    password
+    creditCard
+  }
+}
+
+# Nested query bypass
+query {
+  publicPost(id: "123") {
+    author {
+      privateData  # May not check authorization in nested resolvers
+    }
+  }
+}
+```
+
+#### Token Scope Bypass
+
+For OAuth-based APIs, test if endpoints respect token scopes:
+
+```http
+# Request with limited scope token
+GET /api/v1/users/full-profile HTTP/1.1
+Authorization: Bearer token_with_read_basic_scope
+```
+
+For detailed API-specific authorization testing, see [API Broken Object Level Authorization](../12-API_Testing/02-API_Broken_Object_Level_Authorization.md).
+
 ### Testing for Special Request Header Handling
 
 Some applications support non-standard headers such as `X-Original-URL` or `X-Rewrite-URL` in order to allow overriding the target URL in requests with the one specified in the header value.

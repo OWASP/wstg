@@ -129,6 +129,71 @@ When we request a user within the directory that does not exist, we don't always
 
 As well as looking at the content of the responses, the time that the response takes should also be considered. Particularly where the request causes an interaction with an external service (such as sending a forgotten password email), this can add several hundred milliseconds to the response, which can be used to determine whether the requested user is valid.
 
+### API-Specific Enumeration Techniques
+
+When testing APIs, additional enumeration vectors exist beyond traditional web application testing:
+
+#### API Response Analysis
+
+APIs often return more structured data that can reveal user existence:
+
+```json
+// Valid user, wrong password
+{"error": "invalid_password", "code": 401}
+
+// Invalid user
+{"error": "user_not_found", "code": 404}
+```
+
+Test these scenarios:
+- Compare HTTP status codes between valid and invalid users (200 vs 404, 401 vs 403)
+- Examine JSON error objects for differing fields or error codes
+- Check if error messages differ in content or structure
+- Analyze response headers for differences (`X-Error-Code`, `X-Request-ID` patterns)
+
+#### API Rate Limiting Differences
+
+Some APIs implement different rate limiting for existing vs non-existing accounts:
+
+- Compare rate limit headers (`X-RateLimit-Limit`, `X-RateLimit-Remaining`)
+- Test if lockout policies apply differently
+- Check for different CAPTCHA or verification challenges
+
+#### GraphQL Enumeration
+
+GraphQL APIs can be particularly vulnerable:
+
+```graphql
+# May return different errors for valid vs invalid users
+query {
+  user(email: "test@example.com") {
+    id
+  }
+}
+```
+
+Test for:
+- Different error types in GraphQL error responses
+- Nullable vs non-nullable field behavior differences
+- Information disclosure through GraphQL introspection
+
+#### Timing-Based API Enumeration
+
+APIs are often susceptible to timing-based enumeration:
+
+```bash
+# Measure response times for multiple requests
+for user in user1 user2 user3; do
+  time curl -X POST https://api.example.com/auth/login \
+    -d "{\"username\": \"$user\", \"password\": \"test\"}"
+done
+```
+
+Look for timing differences caused by:
+- Password hash computation (only occurs for valid users)
+- Database queries that return early for non-existent users
+- External service calls (MFA, logging) triggered by valid accounts only
+
 ### Guessing Users
 
 #### Predictable Username Structures

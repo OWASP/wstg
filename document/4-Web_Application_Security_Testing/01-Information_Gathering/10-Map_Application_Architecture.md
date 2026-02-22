@@ -108,6 +108,49 @@ Almost all web applications include third party resources that are loaded or tha
 
 These resources are requested directly by the user's browser, making them easier to identify using the developer tools, or an intercepting proxy. While it is important to identify them (as they can impact the security of the application), remember that *they are usually out-of-scope for testing*, as they belong to third parties.
 
+### API Architecture Components
+
+When testing APIs, understanding the API architecture is crucial for effective security testing.
+
+#### API Gateway
+
+An API gateway acts as a single entry point for all API requests, routing them to appropriate backend services. Common indicators include:
+
+- Consistent response headers across different API endpoints (e.g., `X-Kong-Upstream-Latency` for Kong, `X-Envoy-Upstream-Service-Time` for Envoy)
+- Centralized authentication/authorization handling
+- Rate limiting headers (`X-RateLimit-Limit`, `X-RateLimit-Remaining`)
+- Request ID headers for distributed tracing (`X-Request-ID`, `X-Correlation-ID`)
+
+Common API gateway products include Kong, AWS API Gateway, Azure API Management, Apigee, and Envoy.
+
+#### API Versioning
+
+APIs often use versioning strategies that can reveal architecture decisions:
+
+- URL path versioning: `/api/v1/`, `/api/v2/`
+- Query parameter versioning: `?version=1`
+- Header versioning: `Api-Version: 1` or `Accept: application/vnd.example.v1+json`
+
+Testing older API versions may reveal deprecated but still accessible endpoints with known vulnerabilities.
+
+#### API Service Discovery
+
+For APIs, testers should identify:
+
+- All available API endpoints and their HTTP methods
+- API documentation endpoints (Swagger UI, ReDoc, GraphQL Playground)
+- Health check and debugging endpoints (`/health`, `/status`, `/debug`, `/metrics`)
+- Administrative API endpoints that may be separate from public APIs
+- Internal vs external API boundaries
+
+#### Backend-for-Frontend (BFF) Pattern
+
+Modern applications often use a BFF pattern where:
+
+- A dedicated API layer exists for each frontend (web, mobile, IoT)
+- Each BFF may have different security controls and data exposure
+- Testing should identify all BFF variants and their differences
+
 ### Network Components
 
 #### Reverse Proxy

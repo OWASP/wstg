@@ -178,6 +178,60 @@ OpenPGP Public Keys contain some metadata that can provide information about the
 - **Key Expiration Date**: OpenPGP Public Keys can have an expiration date set, after which they are considered invalid. The Key Expiration Date specifies when the key is no longer valid.
 - **User IDs**: Public keys can have one or more associated User IDs that identify the owner or entity associated with the key. User IDs typically include information such as the name, email address, and optional comments of the key owner.
 
+### API Documentation Discovery
+
+When testing APIs, several metafiles and endpoints can expose API structure, endpoints, and functionality. These should be checked as part of the reconnaissance phase:
+
+#### OpenAPI/Swagger Specifications
+
+Many APIs expose their OpenAPI (formerly Swagger) specification files, which contain detailed information about all endpoints, parameters, authentication methods, and data models:
+
+- `/swagger.json`
+- `/swagger.yaml`
+- `/openapi.json`
+- `/openapi.yaml`
+- `/api-docs`
+- `/v1/api-docs`
+- `/v2/api-docs`
+- `/api/swagger.json`
+
+Example retrieval:
+
+```bash
+$ curl -s https://api.example.com/swagger.json | jq '.paths | keys'
+[
+  "/api/users",
+  "/api/users/{id}",
+  "/api/orders",
+  "/api/admin/settings"
+]
+```
+
+#### GraphQL Introspection
+
+GraphQL APIs may have introspection enabled, allowing the full schema to be retrieved:
+
+```bash
+$ curl -X POST https://api.example.com/graphql \
+  -H "Content-Type: application/json" \
+  -d '{"query": "{ __schema { types { name } } }"}'
+```
+
+#### Postman Collections
+
+Developers sometimes publish or accidentally expose Postman collection files:
+
+- `/postman_collection.json`
+- `/api.postman_collection.json`
+- Look for references in documentation or source code
+
+#### WADL Files
+
+For SOAP-based or older REST APIs, Web Application Description Language files may be available:
+
+- `/application.wadl`
+- `/api/application.wadl`
+
 ### Humans TXT
 
 `humans.txt` is an initiative for knowing the people behind a site. It takes the form of a text file that contains information about the different people who have contributed to building the site. This file often (but not always) contains information related to career or job sites/paths.

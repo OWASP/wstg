@@ -165,6 +165,73 @@ Content-Type: text/plain
 
 When this data is sent as a POST request, the server will happily accept the name and password fields and ignore the one with the name padding as it does not need it.
 
+### API CSRF Considerations
+
+> **Note**: CSRF is fundamentally a browser-based vulnerability. Pure API clients (mobile apps, server-to-server communication) are not subject to CSRF attacks. However, APIs accessed from browsers can be vulnerable.
+
+#### When APIs Are Vulnerable to CSRF
+
+APIs are vulnerable to CSRF when:
+
+1. **Cookie-based authentication**: The API uses cookies for session management
+2. **Browser access**: The API is called from JavaScript in web applications
+3. **No additional tokens**: The API lacks CSRF tokens or other protections
+
+```javascript
+// Vulnerable: API using cookies without CSRF protection
+fetch('/api/transfer', {
+  method: 'POST',
+  credentials: 'include',  // Sends cookies
+  body: JSON.stringify({amount: 1000, to: 'attacker'})
+});
+```
+
+#### When APIs Are NOT Vulnerable to CSRF
+
+APIs are generally protected when:
+
+1. **Bearer token authentication**: Using `Authorization: Bearer <token>` headers
+2. **API keys in headers**: Custom `X-API-Key` or similar headers
+3. **No credential inclusion**: Cookies are not sent with requests
+
+```javascript
+// Protected: API using Bearer token
+fetch('/api/transfer', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer <token>',  // Custom header prevents CSRF
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({amount: 1000, to: 'recipient'})
+});
+```
+
+#### Testing API CSRF Protection
+
+1. **Identify authentication mechanism**: Determine if the API uses cookies
+2. **Test without Origin header**: Remove or modify `Origin` and `Referer` headers
+3. **Test Content-Type requirements**: Check if the API enforces `application/json`
+4. **Test custom header requirements**: Verify if custom headers are mandatory
+
+```http
+# Test if API accepts request without custom headers
+POST /api/v1/sensitive-action HTTP/1.1
+Host: api.example.com
+Cookie: session=abc123
+Content-Type: application/x-www-form-urlencoded
+
+action=delete&id=123
+```
+
+If the above request succeeds, the API may be vulnerable to CSRF.
+
+#### API CSRF Protection Mechanisms
+
+- **SameSite cookies**: Set `SameSite=Strict` or `SameSite=Lax` on session cookies
+- **Custom request headers**: Require non-standard headers that cannot be set by HTML forms
+- **Content-Type validation**: Reject requests without `application/json` Content-Type
+- **Origin/Referer checking**: Validate the origin of requests (as defense in depth)
+
 ## Remediation
 
 - See the [OWASP CSRF Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html) for prevention measures.

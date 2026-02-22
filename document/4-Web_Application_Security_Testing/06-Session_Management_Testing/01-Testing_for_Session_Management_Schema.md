@@ -188,6 +188,66 @@ If the tester has access to the session management schema implementation, they c
 
 More information here: [Testing for cookies attributes](02-Testing_for_Cookies_Attributes.md)
 
+### API Session Management
+
+APIs typically use different session management approaches than traditional web applications. Instead of server-side sessions with cookies, APIs often implement stateless authentication using tokens.
+
+#### Token-Based vs Session-Based Authentication
+
+| Aspect | Cookie/Session-Based | Token-Based (API) |
+|--------|----------------------|-------------------|
+| State Storage | Server-side | Client-side or stateless |
+| Transport | Cookie header | Authorization header |
+| Scalability | Requires session sharing | Stateless, inherently scalable |
+| CSRF Vulnerability | Susceptible | Generally resistant |
+| XSS Impact | Session theft via HttpOnly bypass | Token theft if stored insecurely |
+
+#### Testing API Authentication Tokens
+
+For APIs using bearer tokens (JWT, OAuth access tokens):
+
+1. **Token Generation Analysis**
+   - Collect multiple tokens and analyze for patterns
+   - Check if tokens contain predictable elements (timestamps, user IDs)
+   - Verify sufficient entropy in token generation
+
+2. **Token Storage**
+   - Where does the client application store tokens?
+   - Are tokens stored in localStorage (vulnerable to XSS)?
+   - Are tokens stored in secure, HttpOnly cookies? (better for web apps)
+
+3. **Token Transmission**
+   - Are tokens only transmitted over HTTPS?
+   - Are tokens ever included in URLs or logs?
+   - Check for token leakage in error responses
+
+#### Stateless API Authentication Testing
+
+For pure API testing (no browser):
+
+```http
+# Test if API properly validates token
+GET /api/v1/protected HTTP/1.1
+Authorization: Bearer <token>
+
+# Test with expired token
+GET /api/v1/protected HTTP/1.1
+Authorization: Bearer <expired_token>
+
+# Test with modified token
+GET /api/v1/protected HTTP/1.1
+Authorization: Bearer <tampered_token>
+```
+
+#### API Session Considerations
+
+- **Token Expiration**: APIs should use short-lived access tokens (5-30 minutes)
+- **Refresh Tokens**: Test refresh token rotation and revocation
+- **Token Binding**: Check if tokens are bound to client characteristics
+- **Concurrent Sessions**: Test limits on simultaneous active tokens
+
+For detailed JWT testing, see [Testing JSON Web Tokens](10-Testing_JSON_Web_Tokens.md).
+
 ## Tools
 
 - [Zed Attack Proxy Project (ZAP)](https://www.zaproxy.org) - features a session token analysis mechanism.
