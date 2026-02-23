@@ -135,7 +135,7 @@ Organizations should implement a strong, well-scoped Content Security Policy tha
 
 ### Deployment Best Practices
 
-- Deploy CSP in `Report-Only` mode temporarily for testing, then enforce it once validated.
+- Deploy `Content-Security-Policy-Report-Only` temporarily for testing, then enforce `Content-Security-Policy` once validated.
 - Monitor violation reports for legitimate breakage and potential attack attempts.
 - Prefer `report-to` (CSP Level 3) while maintaining `report-uri` for backward compatibility where required.
 - Ensure nonces are cryptographically random and regenerated per response.
