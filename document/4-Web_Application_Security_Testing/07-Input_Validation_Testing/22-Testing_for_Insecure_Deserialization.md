@@ -40,7 +40,7 @@ often expose recognizable patterns, encodings, or structural characteristics.
 
 ##### Java Serialization
 
-Java serialized objects typically begin with the hex bytes `AC ED 00 05`. When Base64
+Java serialized objects typically begin with the hex bytes `AC ED 00 05`. When base64
 encoded, this frequently appears as `rO0`.
 
 ```http
@@ -71,7 +71,7 @@ In Node.js applications using the `node-serialize` library, serialized data is o
 
 ##### .NET Serialization
 
-Applications using `BinaryFormatter` or `NetDataContractSerializer` often encode the output in Base64. A common pattern for .NET serialized data is starting with the hex bytes `00 01 00 00 00 FF FF FF FF` or the Base64 string `AAEAAAD/////`.
+Applications using `BinaryFormatter` or `NetDataContractSerializer` often encode the output in base64. A common pattern for .NET serialized data is starting with the hex bytes `00 01 00 00 00 FF FF FF FF` or the base64 string `AAEAAAD/////`.
 
 ```http
 Cookie: SessionData=AAEAAAD/////AQAAAAAAAAAMAgAAAF...
