@@ -59,7 +59,7 @@ jobs:
         touch log.txt
         # All markdown files, excluding .github
         # Use fix flag so that it goes through all files
-        for FILE in $FILES; do echo "$FILE" | grep -v \.github && textlint --config base/.github/configs/.textlintrc --fix --rule terminology "pr/$FILE" | tee -a log.txt; done
+        for FILE in $FILES; do echo "$FILE" | grep -v \.github && textlint --config base/.github/configs/.textlintrc.json --fix "pr/$FILE" | tee -a log.txt; done
         if grep -q  'Incorrect term' log.txt ; then exit 1 ; else echo -e \"No terminology issues found.\"; fi
     - name: Show Mistakes
       if: failure()
