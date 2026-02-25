@@ -26,7 +26,7 @@ jobs:
         ref: ${{ github.event.pull_request.head.sha }}
         path: pr
         fetch-depth: 0
-    - name: Save PR number
+    - name: Save PR Number
       env:
         PR_NUMBER: ${{ github.event.number }}
       run: echo $PR_NUMBER > pr_number
@@ -39,7 +39,7 @@ jobs:
       with:
         path: ~/.npm
         key: ${{ runner.os }}-npm-global-markdownlint-cli2
-    - name: Install dependencies
+    - name: Install Dependencies
       run: npm install -g markdownlint-cli2
     - name: Get Changed Files
       id: files
@@ -54,7 +54,7 @@ jobs:
         echo "## Changed files" >> $GITHUB_STEP_SUMMARY
         echo "$FILES" >> $GITHUB_STEP_SUMMARY
       shell: bash
-    - name: Run linter
+    - name: Run Linter
       env:
         FILES: '${{ steps.files.outputs.files_updated }}'
       shell: bash
@@ -86,12 +86,12 @@ jobs:
       run: |
         cat lint.txt
         sed -i 's/```/triple-backtick/g' lint.txt
-    - name: Create artifact for comment
+    - name: Create Artifact for Comment
       if: failure()
       run: |
         # Parse and format the lint output for better readability
         python3 base/.github/workflows/scripts/format_lint_output.py > artifact.txt
-    - name: Upload list of issues
+    - name: Upload List of Issues
       if: failure()
       uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
       with:
@@ -99,7 +99,7 @@ jobs:
         path: |
           artifact.txt
           pr_number
-    - name: Upload PR number on success
+    - name: Upload PR Number on Success
       if: success()
       uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
       with:
