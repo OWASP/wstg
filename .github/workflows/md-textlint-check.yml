@@ -80,7 +80,7 @@ jobs:
         cat mistakes.txt | tee -a artifact.txt
     - name: Upload List of Mistakes
       if: failure()
-      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+      uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
       with:
         name: artifact
         path: |
@@ -88,7 +88,7 @@ jobs:
           pr_number
     - name: Upload PR Number on Success
       if: success()
-      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+      uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
       with:
         name: artifact
         path: pr_number
