@@ -152,45 +152,13 @@ Although redirect responses are not generally expected to contain any significan
 
 Consider a situation in which a redirect response is the result of an authentication or authorization check, if that check fails the server may respond redirecting the user back to a "safe" or "default" page, yet the redirect response itself may still contain content which isn't shown in the browser but is indeed transmitted to the client. This can be seen either leveraging browser developer tools or via a personal proxy (such as ZAP, Burp, Fiddler, or Charles).
 
-### Testing for Sensitive Metadata Leakage in Publicly Accessible Files
+### Review Generated Files for Metadata Leakage
 
-Web applications may expose publicly accessible files such as images, PDF documents, and office files. These files can contain embedded metadata that is not visible during normal usage but can be extracted using common tools. Exposed metadata may reveal internal usernames, file system paths, software versions, device details, or physical location data, which can assist attackers during reconnaissance and social engineering.
+Web applications may generate downloadable files (PDFs, spreadsheets, reports, invoices, etc.) that contain embedded metadata revealing backend technologies and version information.
 
-- Identify publicly accessible files containing embedded metadata
-- Determine whether metadata reveals sensitive or internal information
-- Assess how leaked metadata could support further attacks
+Detailed guidance on identifying file producer metadata leakage is covered in:
 
-Review files that are accessible without authentication, including images on public pages, downloadable documents, user-uploaded files, and files located in static directories (e.g. `/uploads/`, `/files/`, `/documents/`).
-
-Inspect downloaded files for metadata fields that expose organization-specific or user-specific information rather than generic or default values.
-
-Metadata analysis tools (e.g. ExifTool) can be used to extract metadata from common formats such as images, PDFs, and Office documents.
-
-Focus on metadata such as:
-
-- Author or creator names
-- Embedded file system paths
-- Software or application versions
-- Device information
-- GPS coordinates
-- Creation and modification timestamps
-
-Example (ExifTool):
-
-```text
-$ exiftool Camera.jpg
-
-File Type               : JPEG
-Make                    : Canon
-Camera Model Name       : Canon EOS 40D
-Software                : GIMP 2.4.5
-Author                  : Example User
-Create Date             : 2008:05:30 15:56:01
-Modify Date             : 2008:07:31 10:38:11
-GPS Latitude            : 35 deg 41' 22.00" N
-GPS Longitude           : 51 deg 23' 18.00" E
-File Path               : /home/user/projects/marketing/images/
-```
+[Testing for File Producer Metadata Leakage](11-Testing_for_File_Producer_Metadata_Leakage.md)
 
 ## Tools
 
