@@ -156,9 +156,7 @@ Consider a situation in which a redirect response is the result of an authentica
 
 Web applications may generate downloadable files (PDFs, spreadsheets, reports, invoices, etc.) that contain embedded metadata revealing backend technologies and version information.
 
-Detailed guidance on identifying file producer metadata leakage is covered in:
-
-[Testing for File Producer Metadata Leakage](11-Testing_for_File_Producer_Metadata_Leakage.md)
+Detailed guidance on identifying file producer metadata leakage is covered in WSTG-INFO-11.
 
 ## Tools
 
