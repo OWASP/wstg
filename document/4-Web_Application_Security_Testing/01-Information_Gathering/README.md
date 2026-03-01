@@ -19,3 +19,5 @@
 4.1.9 [Fingerprint Web Application](09-Fingerprint_Web_Application.md)
 
 4.1.10 [Map Application Architecture](10-Map_Application_Architecture.md)
+
+4.1.11 [Testing for File Producer Metadata Leakage](11-Testing_for_File_Producer_Metadata_Leakage.md)

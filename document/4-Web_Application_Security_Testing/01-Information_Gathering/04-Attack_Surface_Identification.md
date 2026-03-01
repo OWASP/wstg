@@ -47,7 +47,7 @@ There are three factors influencing how many applications are related to a given
 
 3. **Virtual Hosts**
 
-    DNS allows a single IP address to be associated with one or more symbolic names. For example, the IP address `192.168.1.100` might be associated to DNS names `www.example.com`, `helpdesk.example.com`, `webmail.example.com`. It is not necessary that all the names belong to the same DNS domain. This 1-to-N relationship may be reflected to serve different content by using so called virtual hosts. The information specifying the virtual host we are referring to is embedded in the HTTP 1.1 [Host header](https://tools.ietf.org/html/rfc2616#section-14.23).
+    DNS allows a single IP address to be associated with one or more symbolic names. For example, the IP address `192.168.1.100` might be associated to DNS names `www.example.com`, `helpdesk.example.com`, `webmail.example.com`. It is not necessary that all the names belong to the same DNS domain. This 1-to-N relationship may be reflected to serve different content by using so called virtual hosts. The information specifying the virtual host we are referring to is embedded in the HTTP 1.1 [Host header](https://datatracker.ietf.org/doc/html/rfc2616#section-14.23).
 
     One would not suspect the existence of other web applications in addition to the obvious `www.example.com`, unless they know of `helpdesk.example.com` and `webmail.example.com`.
 
