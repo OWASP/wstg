@@ -13,6 +13,11 @@ jobs:
       contents: read
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout workflow repository (self)
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      with:
+        ref: ${{ github.event.pull_request.head.sha || github.sha }}
+        fetch-depth: 0
     - name: Checkout Base
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       with:
