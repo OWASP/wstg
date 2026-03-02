@@ -15,11 +15,16 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout workflow repository (self)
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+        fetch-depth: 0
     - name: Checkout Base
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       with:
         repository: OWASP/wstg
-        ref: ${{ github.base_ref || 'master' }}
+        ref: master
         path: base
     - name: Checkout PR
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
@@ -45,18 +50,14 @@ jobs:
         npm install -g textlint
         npm install -g textlint-rule-terminology
     - name: Get Changed Files
+      # Use base/head SHAs from the PR event for fork-safe, PR-accurate changed-file detection.
+      # github.base_ref resolves differently for forks, while base.sha/head.sha are always correct.
       id: files
-      working-directory: pr
-      run: |
-        # Get list of changed .md files (excluding .github/)
-        git fetch origin ${{ github.base_ref }}
-        FILES=$(git diff --name-only --diff-filter=d origin/${{ github.base_ref }}...HEAD | grep '\.md$' | grep -v '^\.github/' || true)
-        # Convert newlines to spaces for compatibility with expected format
-        FILES_SPACE_SEPARATED=$(echo "$FILES" | tr '\n' ' ' | xargs)
-        echo "files_updated=$FILES_SPACE_SEPARATED" >> $GITHUB_OUTPUT
-        echo "## Changed files" >> $GITHUB_STEP_SUMMARY
-        echo "$FILES" >> $GITHUB_STEP_SUMMARY
-      shell: bash
+      uses: ./.github/actions/get-changed-files
+      with:
+        base_sha: ${{ github.event.pull_request.base.sha }}
+        head_sha: ${{ github.event.pull_request.head.sha }}
+        base_repo: ${{ github.event.pull_request.base.repo.full_name }}
     - name: Run textlint Check
       env:
         FILES: '${{ steps.files.outputs.files_updated }}'

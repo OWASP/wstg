@@ -5,7 +5,6 @@ on:
     paths:
     - '**.md'
     - '!.github/**'
-  workflow_dispatch:
 
 jobs:
   link-check:
@@ -16,7 +15,7 @@ jobs:
     - name: Checkout workflow repository (self)
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       with:
-        ref: ${{ github.event.pull_request.head.sha || github.sha }}
+        ref: ${{ github.event.pull_request.head.sha }}
         fetch-depth: 0
     - name: Checkout Base
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
@@ -25,7 +24,6 @@ jobs:
         ref: master
         path: base
     - name: Checkout PR
-      if: github.event_name == 'pull_request'
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       with:
         ref: ${{ github.event.pull_request.head.sha }}
@@ -49,7 +47,6 @@ jobs:
     - name: Get Changed Files
       # Use base/head SHAs from the PR event for fork-safe, PR-accurate changed-file detection.
       # github.base_ref resolves differently for forks, while base.sha/head.sha are always correct.
-      if: github.event_name == 'pull_request'
       id: files
       uses: ./.github/actions/get-changed-files
       with:
@@ -57,7 +54,6 @@ jobs:
         head_sha: ${{ github.event.pull_request.head.sha }}
         base_repo: ${{ github.event.pull_request.base.repo.full_name }}
     - name: PR Link Check
-      if: github.event_name == 'pull_request'
       env:
         FILES: '${{ steps.files.outputs.files_updated }}'
         ALL_CHANGED: '${{ steps.files.outputs.all_changed }}'
@@ -83,15 +79,6 @@ jobs:
           fi
         done
         
-        if grep -q  "ERROR:" err ; then exit 1 ; else echo -e "No broken links found."; fi
-        echo $(cat log)
-        echo $(cat err)
-    - name: Repository Link Check
-      if: github.event_name == 'workflow_dispatch'
-      run: |
-        cd base
-        touch log err
-        find . -name \*.md -exec markdown-link-check -q -v --config .github/configs/markdown-link-check-config.json {} 1>> log 2>> err \;
         if grep -q  "ERROR:" err ; then exit 1 ; else echo -e "No broken links found."; fi
         echo $(cat log)
         echo $(cat err)
