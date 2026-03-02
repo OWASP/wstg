@@ -42,22 +42,15 @@ jobs:
     - name: Install Dependencies
       run: npm install -g markdown-link-check@3.11.0
     - name: Get Changed Files
+      # Use base/head SHAs from the PR event for fork-safe, PR-accurate changed-file detection.
+      # github.base_ref resolves differently for forks, while base.sha/head.sha are always correct.
       if: github.event_name == 'pull_request'
       id: files
-      working-directory: pr
-      run: |
-        # Get list of changed .md files (excluding .github/) for link checking
-        git fetch origin ${{ github.base_ref }}
-        CHANGED_ALL=$(git diff --name-only --diff-filter=d origin/${{ github.base_ref }}...HEAD | grep -v '^\.github/' || true)
-        FILES=$(echo "$CHANGED_ALL" | grep '\.md$' || true)
-        # Convert newlines to spaces for compatibility with expected format
-        FILES_SPACE_SEPARATED=$(echo "$FILES" | tr '\n' ' ' | xargs)
-        ALL_SPACE_SEPARATED=$(echo "$CHANGED_ALL" | tr '\n' ' ' | xargs)
-        echo "files_updated=$FILES_SPACE_SEPARATED" >> $GITHUB_OUTPUT
-        echo "all_changed=$ALL_SPACE_SEPARATED" >> $GITHUB_OUTPUT
-        echo "## Changed files" >> $GITHUB_STEP_SUMMARY
-        echo "$FILES" >> $GITHUB_STEP_SUMMARY
-      shell: bash
+      uses: ./.github/actions/get-changed-files
+      with:
+        base_sha: ${{ github.event.pull_request.base.sha }}
+        head_sha: ${{ github.event.pull_request.head.sha }}
+        base_repo: ${{ github.event.pull_request.base.repo.full_name }}
     - name: PR Link Check
       if: github.event_name == 'pull_request'
       env:
