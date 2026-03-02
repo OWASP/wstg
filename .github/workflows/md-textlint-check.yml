@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
     - master
+    - copilot/refactor-markdown-link-check-workflow
     paths:
     - '**.md'
     - '!.github/**'
