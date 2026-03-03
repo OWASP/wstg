@@ -23,6 +23,12 @@ For building PDF and EPUB e-Books at release.
 - See: `/.github/pdf/` in the root of the repository for PDF build specific configurations.
 - See: `/.github/epub/` in the root of the repository for EPUB build specific configurations.
 
+## `clean-workflow-runs.yml`
+
+Tiddies up old workflow runs.
+
+- Trigger: Schedule
+
 ## `comment.yml`
 
 Triggered by the completion of other workflows in order to comment lint or other results on PRs.
