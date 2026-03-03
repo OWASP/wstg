@@ -22,10 +22,10 @@ inputs:
 
 outputs:
   all_changed:
-    description: Space-separated list of all changed/added non-.github files
+    description: Newline-separated list of all changed/added non-.github files
     value: ${{ steps.compute.outputs.all_changed }}
   files_updated:
-    description: Space-separated list of changed/added .md files
+    description: Newline-separated list of changed/added .md files
     value: ${{ steps.compute.outputs.files_updated }}
 
 runs:
@@ -59,12 +59,18 @@ runs:
 
       FILES=$(echo "$CHANGED_ALL" | grep '\.md$' || true)
 
-      # Convert newline-separated lists to space-separated, stripping empty tokens.
-      FILES_SPACE=$(echo "$FILES"        | tr '\n' ' ' | xargs)
-      ALL_SPACE=$(echo "$CHANGED_ALL" | tr '\n' ' ' | xargs)
+      # Emit newline-separated multiline outputs using the GitHub Actions heredoc delimiter syntax.
+      {
+        echo "files_updated<<EOF"
+        echo "$FILES"
+        echo "EOF"
+      } >> "$GITHUB_OUTPUT"
 
-      echo "files_updated=$FILES_SPACE" >> "$GITHUB_OUTPUT"
-      echo "all_changed=$ALL_SPACE"     >> "$GITHUB_OUTPUT"
+      {
+        echo "all_changed<<EOF"
+        echo "$CHANGED_ALL"
+        echo "EOF"
+      } >> "$GITHUB_OUTPUT"
 
       echo "## Changed files" >> "$GITHUB_STEP_SUMMARY"
       echo "$FILES"           >> "$GITHUB_STEP_SUMMARY"

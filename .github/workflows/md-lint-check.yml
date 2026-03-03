@@ -60,7 +60,9 @@ jobs:
         # Initialize lint file (will remain empty if there are no issues)
         : > lint.txt
         
-        for FILE in $FILES; do
+        readarray -t files_arr <<< "$FILES"
+        for FILE in "${files_arr[@]}"; do
+          [ -z "$FILE" ] && continue
           if [ -f "$FILE" ]; then
             OUTPUT="$(markdownlint-cli2 "$FILE" --config base/.github/configs/.markdownlint.json 2>&1)" || STATUS=$?
             if [ "${STATUS:-0}" -eq 0 ]; then

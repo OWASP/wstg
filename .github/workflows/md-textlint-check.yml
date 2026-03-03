@@ -56,11 +56,16 @@ jobs:
     - name: Run textlint Check
       env:
         FILES: '${{ steps.files.outputs.files_updated }}'
+      shell: bash
       run: |
         touch log.txt
+        readarray -t files_arr <<< "$FILES"
         # All markdown files, excluding .github
         # Use fix flag so that it goes through all files
-        for FILE in $FILES; do echo "$FILE" | grep -v \.github && textlint --config base/.github/configs/.textlintrc.json --fix "$FILE" | tee -a log.txt; done
+        for FILE in "${files_arr[@]}"; do
+          [ -z "$FILE" ] && continue
+          echo "$FILE" | grep -v '\.github' && textlint --config base/.github/configs/.textlintrc.json --fix "$FILE" | tee -a log.txt
+        done
         if grep -q  'Incorrect term' log.txt ; then exit 1 ; else echo -e \"No terminology issues found.\"; fi
     - name: Show Mistakes
       if: failure()
