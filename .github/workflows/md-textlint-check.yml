@@ -4,7 +4,6 @@ on:
   pull_request:
     branches:
     - master
-    - copilot/refactor-markdown-link-check-workflow
     paths:
     - '**.md'
     - '!.github/**'
@@ -16,7 +15,7 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout workflow repository (self)
+    - name: Checkout PR
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       with:
         ref: ${{ github.event.pull_request.head.sha }}
@@ -27,12 +26,6 @@ jobs:
         repository: OWASP/wstg
         ref: master
         path: base
-    - name: Checkout PR
-      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-      with:
-        ref: ${{ github.event.pull_request.head.sha }}
-        path: pr
-        fetch-depth: 0
     - name: Save PR Number
       env:
         PR_NUMBER: ${{ github.event.number }}
@@ -59,6 +52,7 @@ jobs:
         base_sha: ${{ github.event.pull_request.base.sha }}
         head_sha: ${{ github.event.pull_request.head.sha }}
         base_repo: ${{ github.event.pull_request.base.repo.full_name }}
+        repo_path: .
     - name: Run textlint Check
       env:
         FILES: '${{ steps.files.outputs.files_updated }}'
@@ -66,7 +60,7 @@ jobs:
         touch log.txt
         # All markdown files, excluding .github
         # Use fix flag so that it goes through all files
-        for FILE in $FILES; do echo "$FILE" | grep -v \.github && textlint --config base/.github/configs/.textlintrc.json --fix "pr/$FILE" | tee -a log.txt; done
+        for FILE in $FILES; do echo "$FILE" | grep -v \.github && textlint --config base/.github/configs/.textlintrc.json --fix "$FILE" | tee -a log.txt; done
         if grep -q  'Incorrect term' log.txt ; then exit 1 ; else echo -e \"No terminology issues found.\"; fi
     - name: Show Mistakes
       if: failure()

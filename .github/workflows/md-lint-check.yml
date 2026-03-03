@@ -4,7 +4,6 @@ on:
   pull_request:
     branches:
     - master
-    - copilot/refactor-markdown-link-check-workflow
     paths:
     - '**.md'
     - '!.github/**'
@@ -15,7 +14,7 @@ jobs:
       contents: read
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout workflow repository (self)
+    - name: Checkout PR
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       with:
         ref: ${{ github.event.pull_request.head.sha }}
@@ -26,12 +25,6 @@ jobs:
         repository: OWASP/wstg
         ref: master
         path: base
-    - name: Checkout PR
-      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-      with:
-        ref: ${{ github.event.pull_request.head.sha }}
-        path: pr
-        fetch-depth: 0
     - name: Save PR Number
       env:
         PR_NUMBER: ${{ github.event.number }}
@@ -56,6 +49,7 @@ jobs:
         base_sha: ${{ github.event.pull_request.base.sha }}
         head_sha: ${{ github.event.pull_request.head.sha }}
         base_repo: ${{ github.event.pull_request.base.repo.full_name }}
+        repo_path: .
     - name: Run Linter
       env:
         FILES: '${{ steps.files.outputs.files_updated }}'
@@ -67,8 +61,8 @@ jobs:
         : > lint.txt
         
         for FILE in $FILES; do
-          if [ -f "pr/$FILE" ]; then
-            OUTPUT="$(markdownlint-cli2 "pr/$FILE" --config base/.github/configs/.markdownlint.json 2>&1)" || STATUS=$?
+          if [ -f "$FILE" ]; then
+            OUTPUT="$(markdownlint-cli2 "$FILE" --config base/.github/configs/.markdownlint.json 2>&1)" || STATUS=$?
             if [ "${STATUS:-0}" -eq 0 ]; then
               # File passed linting, continue to next file
               continue

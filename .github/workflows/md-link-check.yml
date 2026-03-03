@@ -12,7 +12,7 @@ jobs:
       contents: read
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout workflow repository (self)
+    - name: Checkout PR
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       with:
         ref: ${{ github.event.pull_request.head.sha }}
@@ -23,12 +23,6 @@ jobs:
         repository: OWASP/wstg
         ref: master
         path: base
-    - name: Checkout PR
-      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-      with:
-        ref: ${{ github.event.pull_request.head.sha }}
-        path: pr
-        fetch-depth: 0
     - name: Save PR Number
       env:
         PR_NUMBER: ${{ github.event.number }}
@@ -53,6 +47,7 @@ jobs:
         base_sha: ${{ github.event.pull_request.base.sha }}
         head_sha: ${{ github.event.pull_request.head.sha }}
         base_repo: ${{ github.event.pull_request.base.repo.full_name }}
+        repo_path: .
     - name: PR Link Check
       env:
         FILES: '${{ steps.files.outputs.files_updated }}'
@@ -65,11 +60,11 @@ jobs:
         printf '%s\n' $FILES
         touch log err
         
-        # Copy all changed files (md + images etc.) from pr/ to base/ so link targets exist when we check .md files
+        # Copy all changed files (md + images etc.) to base/ so link targets exist when we check .md files
         for FILE in $ALL_CHANGED; do
           [ -z "$FILE" ] && continue
           mkdir -p "base/$(dirname "$FILE")"
-          cp "pr/$FILE" "base/$FILE"
+          cp "$FILE" "base/$FILE"
         done
         
         # Check only .md files in base/ where relative links can be resolved
