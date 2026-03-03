@@ -48,12 +48,19 @@ Utility action named "Markdown Lint Check" (same name as `md-lint-check.yml`) th
 Checks Pull Requests for broken links.
 
 This workflow:
-- Checks out the **base branch** into `base/` and the **PR head** into `pr/` (each checkout uses an explicit path so neither overwrites the other)
-- Uses inline `git diff` from `pr/` (no third-party action) to list changed files between the base ref and HEAD, excluding deleted files and paths under `.github/`
-- Copies **all** changed files (including images and other assets) from `pr/` into `base/` so link targets exist, then runs the link checker only on changed `.md` files so relative links resolve correctly
-- Config and scripts are always taken from `base/` (the base branch), not from the PR
+- Checks out the **PR head** to the workspace root (provides the composite action files and the PR's content) and the **base branch** (OWASP/wstg `master`) into `base/`
+- Uses the `.github/actions/get-changed-files` composite action with the exact `base.sha`/`head.sha` from the PR event for fork-safe changed-file detection
+- Copies **all** changed files (including images and other assets) into `base/` so link targets exist, then runs the link checker only on changed `.md` files so relative links resolve correctly
+- Config is always taken from `base/` (the base branch), not from the PR
 
-- Trigger: Pull Requests (when `.md` files are changed, excluding `.github/**`). Manual (`workflow_dispatch`).
+- Trigger: Pull Requests (when `.md` files are changed, excluding `.github/**`).
+- Config File: `markdown-link-check-config.json`
+
+## `md-link-check-full.yml`
+
+Checks all Markdown files in the repository for broken links.
+
+- Trigger: Manual (`workflow_dispatch`), GitHub web UI.
 - Config File: `markdown-link-check-config.json`
 
 ## `md-lint-check.yml`
@@ -61,8 +68,8 @@ This workflow:
 Checks Markdown files and flags style or syntax issues.
 
 This workflow:
-- Checks out the **base branch** into `base/` and the **PR head** into `pr/` (each checkout uses an explicit path so neither overwrites the other)
-- Uses inline `git diff` from `pr/` to list changed `.md` files (excluding deleted files and `.github/`), then runs `markdownlint-cli2` only on those files under `pr/`
+- Checks out the **PR head** to the workspace root and the **base branch** (OWASP/wstg `master`) into `base/`
+- Uses the `.github/actions/get-changed-files` composite action with the exact `base.sha`/`head.sha` from the PR event for fork-safe changed-file detection, then runs `markdownlint-cli2` only on changed `.md` files
 - Uses `format_lint_output.py` from `base/.github/workflows/scripts/` to format output for PR comments
 - Uploads artifacts for both success and failure cases to work with `comment.yml`
 - Config and scripts are always taken from `base/` (the base branch), not from the PR
@@ -75,8 +82,8 @@ This workflow:
 Checks Markdown files for spelling style and typo issues.
 
 This workflow:
-- Checks out the **base branch** into `base/` and the **PR head** into `pr/` (each checkout uses an explicit path so neither overwrites the other)
-- Uses inline `git diff` from `pr/` to list changed `.md` files (excluding deleted files and `.github/`), then runs textlint only on those files under `pr/`
+- Checks out the **PR head** to the workspace root and the **base branch** (OWASP/wstg `master`) into `base/`
+- Uses the `.github/actions/get-changed-files` composite action with the exact `base.sha`/`head.sha` from the PR event for fork-safe changed-file detection, then runs textlint only on changed `.md` files
 - Config is always taken from `base/` (the base branch), not from the PR
 
 - Trigger: Pull Requests (when `.md` files are changed, excluding `.github/**`).
