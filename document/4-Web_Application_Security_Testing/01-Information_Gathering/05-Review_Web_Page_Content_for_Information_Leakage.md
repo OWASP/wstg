@@ -160,9 +160,7 @@ Metadata fields such as *Producer*, *Creator*, *Application*, or *Library Versio
 
 For example, a generated PDF may expose the library used to create it:
 
-```
-Producer: iText 2.1.7
-```
+`Producer: iText 2.1.7`
 
 An attacker could then search for known vulnerabilities affecting that version.
 
@@ -180,9 +178,7 @@ strings file.pdf | grep -i producer
 
 Example output:
 
-```
-Producer: iText 2.1.7
-```
+`Producer: iText 2.1.7`
 
 For Office documents (DOCX, XLSX):
 
