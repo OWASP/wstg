@@ -79,7 +79,7 @@ Although most web servers manage search engine indexing via the `robots.txt` fil
 <META name="robots" content="none">
 ```
 
-The [Platform for Internet Content Selection (PICS)](https://www.w3.org/PICS/) and [Protocol for Web Description Resources (POWDER)](https://www.w3.org/2007/powder/) provide infrastructure for associating metadata with internet content.
+The [Platform for Internet Content Selection (PICS)](https://www.w3.org/PICS/) and [Protocol for Web Description Resources (POWDER)](https://www.w3.org/2007/powder/) provide infrastructure for associating metadata with Internet content.
 
 ### Identifying JavaScript Code and Gathering JavaScript Files
 
@@ -154,16 +154,56 @@ Consider a situation in which a redirect response is the result of an authentica
 
 ### Review Generated Files for Metadata Leakage
 
-Web applications may generate downloadable files (PDFs, spreadsheets, reports, invoices, etc.) that contain embedded metadata revealing backend technologies and version information.
+Web applications may generate downloadable files such as PDFs, spreadsheets, invoices, or reports. These files may contain embedded metadata describing the software or libraries used to create them.
 
-Detailed guidance on identifying file producer metadata leakage is covered in WSTG-INFO-11.
+Metadata fields such as *Producer*, *Creator*, *Application*, or *Library Version* may reveal backend technologies and specific version numbers. This information can assist attackers in fingerprinting the application and identifying publicly known vulnerabilities (CVEs).
+
+For example, a generated PDF may expose the library used to create it:
+
+```
+Producer: iText 2.1.7
+```
+
+An attacker could then search for known vulnerabilities affecting that version.
+
+#### How to Test
+
+Download generated files from the application and inspect their metadata.
+
+For PDF files:
+
+```bash
+exiftool file.pdf
+pdfinfo file.pdf
+strings file.pdf | grep -i producer
+```
+
+Example output:
+
+```
+Producer: iText 2.1.7
+```
+
+For Office documents (DOCX, XLSX):
+
+```bash
+exiftool file.docx
+```
+
+Check metadata fields such as:
+
+- Producer
+- Creator
+- Application
+- Creation Tool
+- Library Version
 
 ## Tools
 
 - [Wget](https://www.gnu.org/software/wget/wget.html)
 - Browser "view source" function
 - Eyeballs
-- [CURL](https://curl.haxx.se/)
+- [Curl](https://curl.haxx.se/)
 - [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
 - [Burp Suite](https://portswigger.net/burp)
 - [Waybackurls](https://github.com/tomnomnom/waybackurls)
