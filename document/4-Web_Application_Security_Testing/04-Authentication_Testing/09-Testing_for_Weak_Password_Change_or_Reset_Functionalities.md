@@ -116,7 +116,6 @@ In this model, the user is emailed a link that contains a token. They can then c
   #### Testing for Reset Token Exposure via Referer Headers
   When a password reset link contains the token in the URL, such as:
 
-  https://example.com/reset?token=ABC123
 
   the token may be included in the HTTP `Referer` header when the page
   loads external resources such as analytics scripts, images, or
