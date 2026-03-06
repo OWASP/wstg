@@ -5,7 +5,6 @@ on:
     paths:
     - '**.md'
     - '!.github/**'
-  workflow_dispatch:
 
 jobs:
   link-check:
@@ -13,25 +12,23 @@ jobs:
       contents: read
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout PR
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+        fetch-depth: 0
     - name: Checkout Base
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       with:
         repository: OWASP/wstg
-        ref: ${{ github.base_ref || 'master' }}
+        ref: master
         path: base
-    - name: Checkout PR
-      if: github.event_name == 'pull_request'
-      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-      with:
-        ref: ${{ github.event.pull_request.head.sha }}
-        path: pr
-        fetch-depth: 0
     - name: Save PR Number
       env:
         PR_NUMBER: ${{ github.event.number }}
       run: echo $PR_NUMBER > pr_number
     - name: Setup Node
-      uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6
+      uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6
       with:
         node-version: 24
     - name: Cache npm Global
@@ -42,24 +39,16 @@ jobs:
     - name: Install Dependencies
       run: npm install -g markdown-link-check@3.11.0
     - name: Get Changed Files
-      if: github.event_name == 'pull_request'
+      # Use base/head SHAs from the PR event for fork-safe, PR-accurate changed-file detection.
+      # github.base_ref resolves differently for forks, while base.sha/head.sha are always correct.
       id: files
-      working-directory: pr
-      run: |
-        # Get list of changed .md files (excluding .github/) for link checking
-        git fetch origin ${{ github.base_ref }}
-        CHANGED_ALL=$(git diff --name-only --diff-filter=d origin/${{ github.base_ref }}...HEAD | grep -v '^\.github/' || true)
-        FILES=$(echo "$CHANGED_ALL" | grep '\.md$' || true)
-        # Convert newlines to spaces for compatibility with expected format
-        FILES_SPACE_SEPARATED=$(echo "$FILES" | tr '\n' ' ' | xargs)
-        ALL_SPACE_SEPARATED=$(echo "$CHANGED_ALL" | tr '\n' ' ' | xargs)
-        echo "files_updated=$FILES_SPACE_SEPARATED" >> $GITHUB_OUTPUT
-        echo "all_changed=$ALL_SPACE_SEPARATED" >> $GITHUB_OUTPUT
-        echo "## Changed files" >> $GITHUB_STEP_SUMMARY
-        echo "$FILES" >> $GITHUB_STEP_SUMMARY
-      shell: bash
+      uses: ./.github/actions/get-changed-files
+      with:
+        base_sha: ${{ github.event.pull_request.base.sha }}
+        head_sha: ${{ github.event.pull_request.head.sha }}
+        base_repo: ${{ github.event.pull_request.base.repo.full_name }}
+        repo_path: .
     - name: PR Link Check
-      if: github.event_name == 'pull_request'
       env:
         FILES: '${{ steps.files.outputs.files_updated }}'
         ALL_CHANGED: '${{ steps.files.outputs.all_changed }}'
@@ -67,33 +56,28 @@ jobs:
       run: |
         set -euo pipefail
         
+        readarray -t files_arr <<< "$FILES"
+        readarray -t all_arr   <<< "$ALL_CHANGED"
+        
         echo "The Following files were changed or created:"
-        printf '%s\n' $FILES
+        printf '%s\n' "${files_arr[@]}"
         touch log err
         
-        # Copy all changed files (md + images etc.) from pr/ to base/ so link targets exist when we check .md files
-        for FILE in $ALL_CHANGED; do
+        # Copy all changed files (md + images etc.) to base/ so link targets exist when we check .md files
+        for FILE in "${all_arr[@]}"; do
           [ -z "$FILE" ] && continue
           mkdir -p "base/$(dirname "$FILE")"
-          cp "pr/$FILE" "base/$FILE"
+          cp "$FILE" "base/$FILE"
         done
         
         # Check only .md files in base/ where relative links can be resolved
-        for FILE in $FILES; do
+        for FILE in "${files_arr[@]}"; do
+          [ -z "$FILE" ] && continue
           if printf '%s\n' "$FILE" | grep -q '.*\.md$'; then
             markdown-link-check -q -v -c base/.github/configs/markdown-link-check-config.json "base/$FILE" 1>> log 2>> err
           fi
         done
         
-        if grep -q  "ERROR:" err ; then exit 1 ; else echo -e "No broken links found."; fi
-        echo $(cat log)
-        echo $(cat err)
-    - name: Repository Link Check
-      if: github.event_name == 'workflow_dispatch'
-      run: |
-        cd base
-        touch log err
-        find . -name \*.md -exec markdown-link-check -q -v --config .github/configs/markdown-link-check-config.json {} 1>> log 2>> err \;
         if grep -q  "ERROR:" err ; then exit 1 ; else echo -e "No broken links found."; fi
         echo $(cat log)
         echo $(cat err)
