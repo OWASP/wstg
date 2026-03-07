@@ -1,0 +1,76 @@
+name: Get Changed Files
+description: >
+  Compute changed files between base and head SHAs using PR-accurate diff.
+  Works for PRs from forks by fetching base_sha from an upstream remote.
+
+inputs:
+  repo_path:
+    description: Path to the checked-out PR repository
+    default: pr
+  base_sha:
+    description: Base commit SHA (from github.event.pull_request.base.sha)
+    required: true
+  head_sha:
+    description: Head commit SHA (from github.event.pull_request.head.sha)
+    required: true
+  base_repo:
+    description: 'Base repository (owner/name) used to fetch base_sha for forks'
+    default: ${{ github.repository }}
+  exclude_pattern:
+    description: Grep pattern for paths to exclude from changed-files output
+    default: '^\.github/'
+
+outputs:
+  all_changed:
+    description: Newline-separated list of all changed/added non-.github files
+    value: ${{ steps.compute.outputs.all_changed }}
+  files_updated:
+    description: Newline-separated list of changed/added .md files
+    value: ${{ steps.compute.outputs.files_updated }}
+
+runs:
+  using: composite
+  steps:
+  - name: Compute changed files
+    id: compute
+    working-directory: ${{ inputs.repo_path }}
+    shell: bash
+    run: |
+      set -euo pipefail
+
+      # Add an 'upstream' remote pointing at the base repository so we can
+      # fetch the exact base SHA even when the PR comes from a fork (where
+      # 'origin' only has the fork's commits).
+      if ! git remote get-url upstream >/dev/null 2>&1; then
+        git remote add upstream "https://github.com/${{ inputs.base_repo }}.git"
+      fi
+
+      # Fetch just the base commit so the diff is available without a full clone.
+      git fetch --no-tags --depth=1 upstream "${{ inputs.base_sha }}"
+
+      # Defensively confirm the head SHA exists locally (it should via checkout).
+      git rev-parse --verify "${{ inputs.head_sha }}^{commit}" >/dev/null
+
+      # Compute the diff between base and head using the exact PR SHAs.
+      # --diff-filter=d excludes deleted files; we only want changed/added files.
+      CHANGED_ALL=$(git diff --name-only --diff-filter=d \
+        "${{ inputs.base_sha }}...${{ inputs.head_sha }}" \
+        | grep -v '${{ inputs.exclude_pattern }}' || true)
+
+      FILES=$(echo "$CHANGED_ALL" | grep '\.md$' || true)
+
+      # Emit newline-separated multiline outputs using the GitHub Actions heredoc delimiter syntax.
+      {
+        echo "files_updated<<EOF"
+        echo "$FILES"
+        echo "EOF"
+      } >> "$GITHUB_OUTPUT"
+
+      {
+        echo "all_changed<<EOF"
+        echo "$CHANGED_ALL"
+        echo "EOF"
+      } >> "$GITHUB_OUTPUT"
+
+      echo "## Changed files" >> "$GITHUB_STEP_SUMMARY"
+      echo "$FILES"           >> "$GITHUB_STEP_SUMMARY"

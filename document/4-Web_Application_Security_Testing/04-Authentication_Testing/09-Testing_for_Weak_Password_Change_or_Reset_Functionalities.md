@@ -102,7 +102,7 @@ In this model, the user is emailed a link that contains a token. They can then c
 
   Tokens should never be generated based on known values, such as by taking the MD5 hash of the user's email with `md5($email)`, or using GUIDs which may use insecure PRNG functions, or may not even be random depending on the type.
 
-  Testers should also verify how password reset tokens are stored on the server. If reset tokens are stored in plaintext in the database, an attacker who gains database access may be able to reuse them to reset user passwords. A more secure implementation stores a hashed version of the token and compares the hash during validation.  
+  Testers should also verify how password reset tokens are stored on the server. If reset tokens are stored in plaintext in the database, an attacker who gains database access may be able to reuse them to reset user passwords. A more secure implementation stores a hashed version of the token and compares the hash during validation.
 
   An alternative approach to random tokens is to use a cryptographically signed token such as a JWT. In this case, the usual JWT checks should be carried out (is the signature verified, can the "nONe" algorithm be used, can the HMAC key be brute-forced, etc). See the [Testing JSON Web Tokens](../06-Session_Management_Testing/10-Testing_JSON_Web_Tokens.md) guide for further information.
 
@@ -115,11 +115,13 @@ In this model, the user is emailed a link that contains a token. They can then c
   If the application trusts the value of the `Host` header and uses this to generate the password reset link, it may be possible to steal tokens by injecting a modified `Host` header into the request. See the [Testing for Host Header Injection](../07-Input_Validation_Testing/17-Testing_for_Host_Header_Injection.md) guide for further information.
 
 - Is the link exposed to third parties?
-  
+
+  Test whether the reset token can be exposed through the HTTP `Referer`
+  header when the reset page loads third-party resources.
+
   **Testing for Reset Token Exposure via Referer Headers**
 
   When a password reset link contains the token in the URL, such as:
-
   `https://example.com/reset?token=ABC123`
 
   the token may be included in the HTTP `Referer` header when the page
@@ -127,7 +129,7 @@ In this model, the user is emailed a link that contains a token. They can then c
   JavaScript from third-party domains.
 
   Testers should verify whether the reset token is leaked to external
-  services by inspecting network requests made by the reset page.
+  domains by inspecting network requests made by the reset page.
 
   **Testing steps:**
 

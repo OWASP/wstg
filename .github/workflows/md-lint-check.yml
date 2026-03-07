@@ -14,24 +14,23 @@ jobs:
       contents: read
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout Base
-      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-      with:
-        repository: OWASP/wstg
-        ref: ${{ github.base_ref || 'master' }}
-        path: base
     - name: Checkout PR
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       with:
         ref: ${{ github.event.pull_request.head.sha }}
-        path: pr
         fetch-depth: 0
+    - name: Checkout Base
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      with:
+        repository: OWASP/wstg
+        ref: master
+        path: base
     - name: Save PR Number
       env:
         PR_NUMBER: ${{ github.event.number }}
       run: echo $PR_NUMBER > pr_number
     - name: Setup Node
-      uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6
+      uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6
       with:
         node-version: 24
     - name: Cache npm Global
@@ -42,18 +41,15 @@ jobs:
     - name: Install Dependencies
       run: npm install -g markdownlint-cli2
     - name: Get Changed Files
+      # Use base/head SHAs from the PR event for fork-safe, PR-accurate changed-file detection.
+      # github.base_ref resolves differently for forks, while base.sha/head.sha are always correct.
       id: files
-      working-directory: pr
-      run: |
-        # Get list of changed .md files (excluding .github/)
-        git fetch origin ${{ github.base_ref }}
-        FILES=$(git diff --name-only --diff-filter=d origin/${{ github.base_ref }}...HEAD | grep '\.md$' | grep -v '^\.github/' || true)
-        # Convert newlines to spaces for compatibility with expected format
-        FILES_SPACE_SEPARATED=$(echo "$FILES" | tr '\n' ' ' | xargs)
-        echo "files_updated=$FILES_SPACE_SEPARATED" >> $GITHUB_OUTPUT
-        echo "## Changed files" >> $GITHUB_STEP_SUMMARY
-        echo "$FILES" >> $GITHUB_STEP_SUMMARY
-      shell: bash
+      uses: ./.github/actions/get-changed-files
+      with:
+        base_sha: ${{ github.event.pull_request.base.sha }}
+        head_sha: ${{ github.event.pull_request.head.sha }}
+        base_repo: ${{ github.event.pull_request.base.repo.full_name }}
+        repo_path: .
     - name: Run Linter
       env:
         FILES: '${{ steps.files.outputs.files_updated }}'
@@ -64,9 +60,11 @@ jobs:
         # Initialize lint file (will remain empty if there are no issues)
         : > lint.txt
         
-        for FILE in $FILES; do
-          if [ -f "pr/$FILE" ]; then
-            OUTPUT="$(markdownlint-cli2 "pr/$FILE" --config base/.github/configs/.markdownlint.json 2>&1)" || STATUS=$?
+        readarray -t files_arr <<< "$FILES"
+        for FILE in "${files_arr[@]}"; do
+          [ -z "$FILE" ] && continue
+          if [ -f "$FILE" ]; then
+            OUTPUT="$(markdownlint-cli2 "$FILE" --config base/.github/configs/.markdownlint.json 2>&1)" || STATUS=$?
             if [ "${STATUS:-0}" -eq 0 ]; then
               # File passed linting, continue to next file
               continue

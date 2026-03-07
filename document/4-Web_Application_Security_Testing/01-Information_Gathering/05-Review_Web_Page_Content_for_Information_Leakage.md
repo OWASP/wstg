@@ -79,7 +79,7 @@ Although most web servers manage search engine indexing via the `robots.txt` fil
 <META name="robots" content="none">
 ```
 
-The [Platform for Internet Content Selection (PICS)](https://www.w3.org/PICS/) and [Protocol for Web Description Resources (POWDER)](https://www.w3.org/2007/powder/) provide infrastructure for associating metadata with internet content.
+The [Platform for Internet Content Selection (PICS)](https://www.w3.org/PICS/) and [Protocol for Web Description Resources (POWDER)](https://www.w3.org/2007/powder/) provide infrastructure for associating metadata with Internet content.
 
 ### Identifying JavaScript Code and Gathering JavaScript Files
 
@@ -152,52 +152,54 @@ Although redirect responses are not generally expected to contain any significan
 
 Consider a situation in which a redirect response is the result of an authentication or authorization check, if that check fails the server may respond redirecting the user back to a "safe" or "default" page, yet the redirect response itself may still contain content which isn't shown in the browser but is indeed transmitted to the client. This can be seen either leveraging browser developer tools or via a personal proxy (such as ZAP, Burp, Fiddler, or Charles).
 
-### Testing for Sensitive Metadata Leakage in Publicly Accessible Files
+### Review Generated Files for Metadata Leakage
 
-Web applications may expose publicly accessible files such as images, PDF documents, and office files. These files can contain embedded metadata that is not visible during normal usage but can be extracted using common tools. Exposed metadata may reveal internal usernames, file system paths, software versions, device details, or physical location data, which can assist attackers during reconnaissance and social engineering.
+Web applications may generate downloadable files such as PDFs, spreadsheets, invoices, or reports. These files may contain embedded metadata describing the software or libraries used to create them.
 
-- Identify publicly accessible files containing embedded metadata
-- Determine whether metadata reveals sensitive or internal information
-- Assess how leaked metadata could support further attacks
+Metadata fields such as *Producer*, *Creator*, *Application*, or *Library Version* may reveal backend technologies and specific version numbers. This information can assist attackers in fingerprinting the application and identifying publicly known vulnerabilities (CVEs).
 
-Review files that are accessible without authentication, including images on public pages, downloadable documents, user-uploaded files, and files located in static directories (e.g. `/uploads/`, `/files/`, `/documents/`).
+For example, a generated PDF may expose the library used to create it:
 
-Inspect downloaded files for metadata fields that expose organization-specific or user-specific information rather than generic or default values.
+`Producer: iText 2.1.7`
 
-Metadata analysis tools (e.g. ExifTool) can be used to extract metadata from common formats such as images, PDFs, and Office documents.
+An attacker could then search for known vulnerabilities affecting that version.
 
-Focus on metadata such as:
+#### How to Test
 
-- Author or creator names
-- Embedded file system paths
-- Software or application versions
-- Device information
-- GPS coordinates
-- Creation and modification timestamps
+Download generated files from the application and inspect their metadata.
 
-Example (ExifTool):
+For PDF files:
 
-```text
-$ exiftool Camera.jpg
-
-File Type               : JPEG
-Make                    : Canon
-Camera Model Name       : Canon EOS 40D
-Software                : GIMP 2.4.5
-Author                  : Example User
-Create Date             : 2008:05:30 15:56:01
-Modify Date             : 2008:07:31 10:38:11
-GPS Latitude            : 35 deg 41' 22.00" N
-GPS Longitude           : 51 deg 23' 18.00" E
-File Path               : /home/user/projects/marketing/images/
+```bash
+exiftool file.pdf
+pdfinfo file.pdf
+strings file.pdf | grep -i producer
 ```
+
+Example output:
+
+`Producer: iText 2.1.7`
+
+For Office documents (DOCX, XLSX):
+
+```bash
+exiftool file.docx
+```
+
+Check metadata fields such as:
+
+- Producer
+- Creator
+- Application
+- Creation Tool
+- Library Version
 
 ## Tools
 
 - [Wget](https://www.gnu.org/software/wget/wget.html)
 - Browser "view source" function
 - Eyeballs
-- [CURL](https://curl.haxx.se/)
+- [Curl](https://curl.haxx.se/)
 - [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
 - [Burp Suite](https://portswigger.net/burp)
 - [Waybackurls](https://github.com/tomnomnom/waybackurls)
