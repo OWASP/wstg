@@ -16,6 +16,9 @@ As this functionality provides a direct route to compromise the user's account, 
 
 ## How to Test
 
+The following tests should be performed to evaluate the security of password
+change and reset functionality.
+
 ### Information Gathering
 
 The first step is to gather information about what mechanisms are available to allow the user to reset their password on the application. If there are multiple interfaces on the same site (such as a web interface, mobile application, and API) then these should all be reviewed, in case they provide different functionality.
@@ -112,11 +115,12 @@ In this model, the user is emailed a link that contains a token. They can then c
   If the application trusts the value of the `Host` header and uses this to generate the password reset link, it may be possible to steal tokens by injecting a modified `Host` header into the request. See the [Testing for Host Header Injection](../07-Input_Validation_Testing/17-Testing_for_Host_Header_Injection.md) guide for further information.
 
 - Is the link exposed to third parties?
+  
+  **Testing for Reset Token Exposure via Referer Headers**
 
-  #### Testing for Reset Token Exposure via Referer Headers
   When a password reset link contains the token in the URL, such as:
 
-  https://example.com/reset?token=ABC123
+  `https://example.com/reset?token=ABC123`
 
   the token may be included in the HTTP `Referer` header when the page
   loads external resources such as analytics scripts, images, or
@@ -138,22 +142,6 @@ In this model, the user is emailed a link that contains a token. They can then c
   controlling those resources may capture the token and use it to reset
   the victim's password.
 
-  **Mitigations include:**
-
-  - Avoid embedding sensitive tokens directly in URLs where possible.
-  - Use short-lived tokens and invalidate them after use.
-  - Avoid loading third-party scripts or analytics on password reset pages.
-  - Configure an appropriate `Referrer-Policy` header such as:
-
-    ```
-    Referrer-Policy: strict-origin
-    ```
-
-    or
-
-    ```
-    Referrer-Policy: no-referrer
-    ```
 - Are the emails sent from a domain with anti-spoofing protection?
 
   The domain should implement SPF, DKIM, and DMARC to prevent attackers from spoofing emails from it, which could be used as part of a social engineering attack.
