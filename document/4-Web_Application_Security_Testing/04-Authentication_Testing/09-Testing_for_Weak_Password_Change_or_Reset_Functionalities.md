@@ -119,31 +119,23 @@ In this model, the user is emailed a link that contains a token. They can then c
   Test whether the reset token can be exposed through the HTTP `Referer`
   header when the reset page loads third-party resources.
 
-  **Testing for Reset Token Exposure via Referer Headers**
-
-  When a password reset link contains the token in the URL, such as:
-  `https://example.com/reset?token=ABC123`
-
-  the token may be included in the HTTP `Referer` header when the page
-  loads external resources such as analytics scripts, images, or
-  JavaScript from third-party domains.
+  When a password reset link contains the token in the URL, such as
+  `https://example.com/reset?token=ABC123`, the token may be included in
+  the HTTP `Referer` header when the page loads external resources such
+  as analytics scripts, images, or JavaScript from third-party domains.
 
   Testers should verify whether the reset token is leaked to external
   domains by inspecting network requests made by the reset page.
 
-  **Testing steps:**
-
   1. Trigger a password reset request and open the reset link.
-  2. Inspect network requests using browser developer tools or an
-     intercepting proxy such as Burp Suite or OWASP ZAP.
+  2. Inspect network requests using browser developer tools or an intercepting proxy such as Burp Suite or OWASP ZAP.
   3. Identify requests made to external domains.
-  4. Check whether the full reset URL, including the token, appears in
-     the `Referer` header of these requests.
+  4. Check whether the full reset URL, including the token, appears in the `Referer` header of these requests.
 
   If the token is transmitted to third-party domains, an attacker
   controlling those resources may capture the token and use it to reset
   the victim's password.
-
+  
 - Are the emails sent from a domain with anti-spoofing protection?
 
   The domain should implement SPF, DKIM, and DMARC to prevent attackers from spoofing emails from it, which could be used as part of a social engineering attack.
