@@ -37,6 +37,7 @@ There are a large number of protocol versions, ciphers, and extensions supported
 - [Weak DHE keys (LOGJAM)](https://weakdh.org/)
 
 The [Mozilla Server-Side TLS Guide](https://wiki.mozilla.org/Security/Server_Side_TLS) details the protocols and ciphers that are currently recommended.
+Because of its compatibility with post-quantum ciphers, TLS 1.3 should be preferred over TLS 1.2.
 
 #### Exploitability
 
@@ -46,10 +47,17 @@ It should be emphasised that while many of these attacks have been demonstrated 
 
 #### Cryptographic Weaknesses
 
-From a cryptographic perspective, there are two main areas that need to be reviewed on a digital certificate:
+From a cryptographic perspective, there are two main areas that need to be reviewed on a digital certificate: The signature of the certificate itself and the key-exchange algorithm used during the TLS handshake. The following points should be considered when using classical cryptography:
 
-- The key strength should be *at least* 2048 bits.
-- The signature algorithm should be *at least* SHA-256. Legacy algorithms such as MD5 and SHA-1 should not be used.
+- The used cipher strength should be at least 128 bits of security or higher.
+- For classical signatures you should at least use RSA-3072 or ECDSA with P-256 in combination with SHA-256 or stronger.
+- For a classical key exchange use ECDHE with P-256 or X25519 elliptic curves at minimum.
+
+Additionally, both the signature and key exchange algorithm should support post-quantum cryptography. The following points should be considered:
+
+- For post-quantum signatures you should use at least ML-DSA-44 (according to [FIPS-204](https://csrc.nist.gov/pubs/fips/204/final)) or higher.
+- For post-quantum key exchanges you should use at least ML-KEM-512 (according to [FIPS-203](https://csrc.nist.gov/pubs/fips/203/final)) or higher.
+- You may use hybrid ciphers such as X25519+ML-KEM-768 during the transition to post-quantum algorithms.
 
 #### Validity
 
@@ -57,6 +65,7 @@ As well as being cryptographically secure, the certificate must also be consider
 
 - Be within the defined validity period.
     - Any certificates issued after 1st September 2020 must not have a maximum lifespan of more than [398 days](https://blog.mozilla.org/security/2020/07/09/reducing-tls-certificate-lifespans-to-398-days/).
+    - The validity period of certificates will gradually be reduced to a maximum lifespan of [47 days in March 2029](https://github.com/cabforum/servercert/blob/main/docs/BR.md#11-overview).
 - Be signed by a trusted certificate authority (CA).
     - This should either be a trusted public CA for externally facing applications, or an internal CA for internal applications.
     - Don't flag internal applications as having untrusted certificates just because *your* system doesn't trust the CA.
