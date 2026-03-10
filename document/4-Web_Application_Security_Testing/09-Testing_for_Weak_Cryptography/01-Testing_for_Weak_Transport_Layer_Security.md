@@ -65,6 +65,7 @@ As well as being cryptographically secure, the certificate must also be consider
 
 - Be within the defined validity period.
     - Any certificates issued after 1st September 2020 must not have a maximum lifespan of more than [398 days](https://blog.mozilla.org/security/2020/07/09/reducing-tls-certificate-lifespans-to-398-days/).
+    - The validity period of certificates will gradually be reduced to a maximum lifespan of [47 days until March 2029](https://github.com/cabforum/servercert/blob/main/docs/BR.md#11-overview).
 - Be signed by a trusted certificate authority (CA).
     - This should either be a trusted public CA for externally facing applications, or an internal CA for internal applications.
     - Don't flag internal applications as having untrusted certificates just because *your* system doesn't trust the CA.
