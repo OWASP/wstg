@@ -27,4 +27,13 @@
     "url": "https://github.com/OWASP/wstg/issues"
   },
   "homepage": "https://github.com/OWASP/wstg#readme"
+  ,
+  "author1": "OWASP",
+  "license1": "CC-BY-SA-4.0",
+  "bugs1": {
+    "url": "https://github.com/OWASP/wstg/issues"
+  },
+  "homepage1": "https://github.com/OWASP/wstg#readme"
+  
 }
+
