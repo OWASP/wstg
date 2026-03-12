@@ -10,6 +10,8 @@ Clickjacking, a subset of UI redressing, is a malicious technique whereby a web 
 
 A clickjacking attack uses seemingly-harmless features of HTML and JavaScript to force the victim to perform undesired actions, such as clicking an invisible button that performs an unintended operation. This is a client-side security issue that affects a variety of browsers and platforms.
 
+> **Note on API Testing**: This test is specific to browser-based clients and relies on the browser's ability to render HTML/iframes. It is **not applicable to API-only testing**. However, APIs that are consumed by web applications should still implement proper `X-Frame-Options` or `Content-Security-Policy` headers to protect any associated web interfaces.
+
 To carry out this attack, an attacker creates a seemingly-harmless web page that loads the target application through the use of an inline frame (concealed with CSS code). Once this is done, an attacker may induce the victim to interact with the web page by other means (through, for example, social engineering). Like other attacks, a common prerequisite is that the victim is authenticated against the attacker’s target application.
 
 ![Clickjacking illustration](images/Clickjacking_description.png)\

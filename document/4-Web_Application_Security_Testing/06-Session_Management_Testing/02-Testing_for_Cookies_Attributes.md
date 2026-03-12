@@ -123,6 +123,40 @@ Based on the application needs, and how the cookie should function, the attribut
 
 Putting all this together, we can define the most secure cookie attribute configuration as: `Set-Cookie: __Host-SID=<session token>; path=/; Secure; HttpOnly; SameSite=Strict`.
 
+### API Considerations
+
+While this test primarily focuses on browser-based cookie handling, cookies can also apply to APIs in certain contexts:
+
+#### APIs That Use Cookies
+
+Some APIs use cookies for authentication, particularly:
+
+- APIs serving web applications (same-origin requests)
+- APIs using cookie-based session authentication
+- GraphQL endpoints integrated with web applications
+
+For these APIs, all cookie security attributes remain relevant:
+
+- **Secure**: Essential to prevent token interception
+- **HttpOnly**: Protects against XSS token theft
+- **SameSite**: Provides CSRF protection for API endpoints
+
+#### APIs That Don't Use Cookies
+
+Most REST APIs use alternative authentication mechanisms:
+
+- Bearer tokens in the `Authorization` header
+- API keys in headers or query parameters
+- OAuth 2.0 access tokens
+
+For these APIs, cookie testing is not applicable. Instead, focus on:
+
+- Token security and storage
+- Token transmission security
+- Token expiration and revocation
+
+See [Testing for Session Management Schema](01-Testing_for_Session_Management_Schema.md) for API session testing guidance.
+
 ## Tools
 
 ### Intercepting Proxy

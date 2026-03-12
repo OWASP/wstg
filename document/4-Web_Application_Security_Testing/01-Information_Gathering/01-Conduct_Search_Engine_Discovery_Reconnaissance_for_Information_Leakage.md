@@ -97,6 +97,51 @@ A database of dorks, like the [Google Hacking Database](https://www.exploit-db.c
 - Files containing passwords
 - Sensitive Online Shopping Info
 
+### API Endpoint and Documentation Discovery
+
+When testing APIs, search engines can be particularly useful for discovering exposed API documentation and endpoints:
+
+#### API Specification Files
+
+Use search operators to find exposed API documentation:
+
+```text
+site:example.com filetype:json inurl:swagger
+site:example.com filetype:yaml inurl:openapi
+site:example.com inurl:api-docs
+site:example.com "openapi" OR "swagger" filetype:json
+```
+
+#### Postman Collections
+
+Developers sometimes accidentally publish or index Postman collections:
+
+```text
+site:example.com filetype:json "postman_collection"
+site:documenter.getpostman.com "example.com"
+```
+
+#### GraphQL Endpoints
+
+GraphQL APIs may be discoverable through search engines:
+
+```text
+site:example.com inurl:graphql
+site:example.com inurl:graphiql
+site:example.com "GraphQL Playground"
+```
+
+#### API Keys and Secrets
+
+Search for accidentally exposed API credentials:
+
+```text
+site:example.com "api_key" OR "apikey" OR "api-key"
+site:github.com "example.com" "API_KEY"
+```
+
+> Note: When testing APIs, the reconnaissance phase should include searches for API documentation that may reveal endpoint structures, authentication mechanisms, and data models that are not intended to be publicly accessible.
+
 ## Remediation
 
 Carefully consider the sensitivity of design and configuration information before it is posted online.

@@ -34,6 +34,41 @@ Below are some points of interests for all requests and responses. Within the re
 - Please note, when identifying multiple parameters in one string or within a POST request, some or all of the parameters will be required to execute the attacks. The tester needs to identify all of the parameters (even if they are encoded or encrypted) and identify which ones are processed by the application. Later sections of the guide will cover how to test these parameters. At this point, it is important to make sure that each one of them is identified.
 - Also pay attention to any additional or custom type headers not typically seen (such as `debug: false`).
 
+### API-Specific Entry Points
+
+When testing APIs (REST, GraphQL, gRPC, or WebSocket-based), additional entry points should be identified:
+
+#### REST API Endpoints
+
+- Identify all API endpoint paths (e.g., `/api/v1/users`, `/api/v2/orders/{id}`)
+- Note API versioning patterns (`/v1/`, `/v2/`, query parameter `?version=1`, or header `Api-Version: 1`)
+- Identify all HTTP methods accepted by each endpoint (GET, POST, PUT, PATCH, DELETE, OPTIONS)
+- Check for hidden or undocumented endpoints by fuzzing common patterns
+- Review OpenAPI/Swagger documentation if available
+
+#### GraphQL Endpoints
+
+- Common locations: `/graphql`, `/api/graphql`, `/v1/graphql`
+- Identify all queries, mutations, and subscriptions (via introspection if enabled)
+- Note any custom directives or batching support
+- Check for GraphQL IDE endpoints like `/graphiql` or `/playground`
+
+#### gRPC and WebSocket Endpoints
+
+- Identify gRPC service endpoints and available methods
+- For WebSocket APIs, identify the connection URL and message formats
+- Note authentication mechanisms for persistent connections
+
+#### API Request Bodies
+
+For APIs, pay special attention to:
+
+- JSON body parameters (`{"username": "test", "role": "admin"}`)
+- XML body parameters for SOAP or legacy APIs
+- Content-Type headers (`application/json`, `application/xml`, `multipart/form-data`)
+- Custom headers used for API functionality (`X-API-Key`, `X-Request-ID`, `X-Correlation-ID`)
+- Authorization headers (`Bearer` tokens, API keys, OAuth tokens)
+
 ### Responses
 
 - Identify where new cookies are set (`Set-Cookie` header), modified, or added to.

@@ -75,6 +75,41 @@ To evaluate the unlock mechanism's resistance to unauthorized account unlocking,
 
 Note that an unlock mechanism should only be used for unlocking accounts. It is not the same as a password recovery mechanism, yet could follow the same security practices.
 
+### API Rate Limiting and Throttling
+
+For APIs, rate limiting serves a similar purpose to account lockout mechanisms, preventing brute force attacks against authentication endpoints.
+
+#### Testing API Rate Limits
+
+1. **Identify rate limit headers**: Check for headers like `X-RateLimit-Limit`, `X-RateLimit-Remaining`, `X-RateLimit-Reset`, or `Retry-After`
+2. **Determine limit scope**: Test if limits apply per-IP, per-user, per-API-key, or globally
+3. **Test limit enforcement**: Send requests exceeding the advertised limit and verify blocking
+4. **Test bypass techniques**:
+   - Rotating IP addresses or using proxies
+   - Distributing requests across multiple API keys
+   - Manipulating headers like `X-Forwarded-For` or `X-Real-IP`
+   - Using different authentication methods (API key vs OAuth token)
+
+#### Rate Limiting Weaknesses
+
+- **No authentication endpoint limits**: Login/token endpoints without rate limiting
+- **Inconsistent enforcement**: Rate limits not applied to all API versions
+- **Client-side only**: Rate limiting enforced by API gateway but not backend
+- **Per-endpoint limits**: Attackers can target multiple similar endpoints
+
+#### Example Rate Limit Testing
+
+```bash
+# Test authentication endpoint rate limiting
+for i in {1..100}; do
+  curl -s -o /dev/null -w "%{http_code}\n" \
+    -X POST https://api.example.com/auth/token \
+    -d '{"username":"test","password":"wrong"}'
+done | sort | uniq -c
+```
+
+Expected secure behavior: 429 (Too Many Requests) responses after threshold.
+
 ## Remediation
 
 Apply account unlock mechanisms depending on the risk level. In order from lowest to highest assurance:
