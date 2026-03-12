@@ -42,7 +42,7 @@ The list contains only tools that are freely available to download and use (alth
 
 #### Testing for SQL Injection
 
-- [sqlmap](s://sqlmap.org)
+- [sqlmap](https://sqlmap.org)
 
 #### Testing TLS
 
@@ -158,3 +158,33 @@ Browser Automation tools are used to validate the functionality of web applicati
     - Very robust and configurable and is used as the engine for a number of other testing tools.
 - [Selenium](https://www.selenium.dev)
     - JavaScript based testing framework, cross-platform and provides a GUI for creating tests.
+      
+## Online Resources for Security Testing Tool Comparison
+
+In addition to individual tools listed in this appendix, practitioners often need resources that help compare and evaluate security testing tools across categories such as SAST, DAST, SCA, and API security.
+
+The following freely available resources provide curated comparisons and evaluation guidance.
+
+### AppSec Santa Tool Comparison
+
+- [AppSec Santa](https://appsecsanta.com)
+    - A curated comparison of more than 160 application security tools across categories such as SAST, DAST, SCA, API Security, container security and more.
+
+### Security Headers Analyzer
+
+- [SecurityHeaders](https://securityheaders.com)
+    - A free online tool that analyzes HTTP response headers and highlights missing or misconfigured security protections such as Content Security Policy, HSTS, and X-Frame-Options.
+
+### OWASP ZAP Documentation
+
+Official documentation and learning resources for the OWASP ZAP dynamic application security testing tool.
+
+- [OWASP ZAP Documentation](https://www.zaproxy.org/docs/)
+
+### Nuclei Templates Project
+
+A large open-source repository of vulnerability detection templates used for automated security scanning.
+
+- [Nuclei Templates](https://github.com/projectdiscovery/nuclei-templates)
+
+
