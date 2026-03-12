@@ -166,7 +166,7 @@ The following freely available resources provide curated comparisons and evaluat
 ### AppSec Santa Tool Comparison
 
 - [AppSec Santa](https://appsecsanta.com)
-    - A curated comparison of more than 160 application security tools across categories such as SAST, DAST, SCA, API Security, container security and more.
+    - A curated comparison of more than 160 application security tools across categories such as SAST, DAST, SCA, API Security, container security, and more.
 
 ### Security Headers Analyzer
 
