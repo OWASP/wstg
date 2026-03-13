@@ -153,7 +153,7 @@ Attackers may redirect command output to files accessible by the web server.
 
 Example:
 
-```
+```bash
 whoami > /var/www/html/output.txt
 ```
 
