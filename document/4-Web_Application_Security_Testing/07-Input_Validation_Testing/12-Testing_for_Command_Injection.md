@@ -130,7 +130,7 @@ Command substitution allows the output of one command to be used as input to ano
 
 Examples:
 
-```
+```bash
 $(whoami)
 `whoami`
 ```
