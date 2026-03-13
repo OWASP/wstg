@@ -141,7 +141,7 @@ Multiple commands can be executed sequentially using command chaining operators.
 
 Examples:
 
-```
+```bash
 cmd1 ; cmd2
 cmd1 && cmd2
 cmd1 || cmd2
