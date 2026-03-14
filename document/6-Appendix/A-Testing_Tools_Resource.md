@@ -152,7 +152,7 @@ Browser Automation tools are used to validate the functionality of web applicati
 ### Open Source Tools
 
 - [HtmlUnit](https://htmlunit.sourceforge.io) - HtmlUnit is a GUI-less browser for Java programs. It models HTML documents and provides an API to invoke pages, fill out forms, click links, and interact with JavaScript and complex AJAX libraries. It can simulate Chrome, Firefox, or Edge depending on configuration, and is typically used for automated testing or web scraping. HtmlUnit can also be used as a Selenium-compatible browser via the [htmlunit-driver](https://github.com/SeleniumHQ/htmlunit-driver). The latest stable release is 4.21.0 (`org.htmlunit:htmlunit:4.21.0`).
-  - GitHub Repository: [HtmlUnit/htmlunit](https://github.com/HtmlUnit/htmlunit)
+    - GitHub Repository: [HtmlUnit/htmlunit](https://github.com/HtmlUnit/htmlunit)
 - [Selenium](https://www.selenium.dev)
     - JavaScript based testing framework, cross-platform and provides a GUI for creating tests.
 
