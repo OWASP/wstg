@@ -252,7 +252,7 @@
 
 #### 4.9.3 [Testing for Sensitive Information Sent via Unencrypted Channels](4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/03-Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels.md)
 
-#### 4.9.4 [Testing for Weak Encryption](4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/04-Testing_for_Weak_Encryption.md)
+#### 4.9.4 [Testing for Weak Cryptographic Primitives](4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/04-Testing_for_Weak_Cryptographic_Primitives.md)
 
 ### 4.10 [Business Logic Testing](4-Web_Application_Security_Testing/10-Business_Logic_Testing/README.md)
 
