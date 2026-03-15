@@ -39,6 +39,7 @@ Do not limit testing to just one search engine provider, as different search eng
 - [DuckDuckGo](https://duckduckgo.com/), a privacy-focused search engine that compiles results from many different [sources](https://help.duckduckgo.com/results/sources/). Supports [search syntax](https://help.duckduckgo.com/duckduckgo-help-pages/results/syntax/).
 - [Google](https://www.google.com/), which offers the world's [most popular](https://en.wikipedia.org/wiki/Web_search_engine#Market_share) search engine, and uses a ranking system to attempt to return the most relevant results. Supports [search operators](https://support.google.com/websearch/answer/2466433).
 - [Internet Archive Wayback Machine](https://archive.org/web/), "building a digital library of internet sites and other cultural artifacts in digital form."
+- [Censys](https://censys.io) is a security-focused search engine that indexes internet-connected infrastructure including servers, certificates,and open services. It offers a free community tier with limited monthly credits and paid plans for enterprise use.
 - [Shodan](https://www.shodan.io/), a service for searching internet-connected devices and services. Usage options include a limited free plan as well as paid subscription plans.
 
 ### Search Operators
@@ -84,7 +85,9 @@ Additional services for viewing cached or archived web pages include:
 
 Searching with operators can be a very effective discovery technique when combined with the creativity of the tester. Operators can be chained to effectively discover specific kinds of sensitive files and information. This technique, called [Google hacking](https://en.wikipedia.org/wiki/Google_hacking) or Dorking, is also possible using other search engines, as long as the search operators are supported.
 
-A database of dorks, like the [Google Hacking Database](https://www.exploit-db.com/google-hacking-database), is a useful resource that can help uncover specific information. Some categories of dorks available on this database include:
+A database of dorks, like the [Google Hacking Database](https://www.exploit-db.com/google-hacking-database), is a useful resource that can help uncover specific information.
+AI-assisted query generators such as [DorkGPT](https://www.dorkgpt.com) can translate natural language prompts into Google dork syntax, reducing the manual effort of constructing complex search operators.
+Some categories of dorks available on this database include:
 
 - Footholds
 - Files containing usernames
@@ -96,6 +99,12 @@ A database of dorks, like the [Google Hacking Database](https://www.exploit-db.c
 - Files containing juicy info
 - Files containing passwords
 - Sensitive Online Shopping Info
+
+## OSINT Correlation Tools
+
+Beyond individual search engines, testers can use dedicated OSINT frameworks to correlate and visualize relationships between discovered entities:
+
+[Maltego](https://maltego.com) is an industry-standard OSINT and link analysis platform that maps relationships between domains, IP addresses, email addresses, and organizations through automated data transforms. Testers use it to visualize an organization's attack surface by pivoting from a single entity to discover related infrastructure and associated data points. A free Community Edition is available for non-commercial use.
 
 ## Remediation
 
