@@ -1,4 +1,4 @@
-# Testing for Weak Encryption
+# Testing for Weak Cryptographic Primitives
 
 |ID          |
 |------------|
