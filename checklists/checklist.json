@@ -780,9 +780,9 @@
                   ]
                 }
                 ,{
-                "name":"Testing for Weak Encryption",
+                "name":"Testing for Weak Cryptographic Primitives",
                 "id":"WSTG-CRYP-04",
-                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/04-Testing_for_Weak_Encryption",
+                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/04-Testing_for_Weak_Cryptographic_Primitives",
                 "objectives":[
                     "Provide a guideline for the identification weak encryption or hashing uses and implementations."
                   ]

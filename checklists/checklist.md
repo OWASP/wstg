@@ -96,7 +96,7 @@ Note: The `Status` column can be set for values similar to "Pass", "Fail", "N/A"
 | WSTG-CRYP-01      | Testing for Weak Transport Layer Security                                  |        |       |
 | WSTG-CRYP-02      | Testing for Padding Oracle                                                 |        |       |
 | WSTG-CRYP-03      | Testing for Sensitive Information Sent Via Unencrypted Channels            |        |       |
-| WSTG-CRYP-04      | Testing for Weak Encryption                                                |        |       |
+| WSTG-CRYP-04      | Testing for Weak Cryptographic Primitives                                  |        |       |
 | **WSTG-BUSLOGIC** | **Business Logic Testing**                                                 |        |       |
 | WSTG-BUSL-01      | Test Business Logic Data Validation                                        |        |       |
 | WSTG-BUSL-02      | Test Ability to Forge Requests                                             |        |       |
