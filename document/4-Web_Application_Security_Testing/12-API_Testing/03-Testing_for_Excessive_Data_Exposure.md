@@ -142,7 +142,7 @@ Frontend JavaScript bundles and source maps can inadvertently reveal the expecte
 
 Test for source map availability:
 
-```
+```http
 GET /static/js/main.js.map
 GET /assets/app.js.map
 ```
