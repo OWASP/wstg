@@ -149,7 +149,7 @@ Some applications have race windows that are extremely narrow. To increase the c
 
 ## Tools
 
-- [Burp Suite Turbo Intruder](https://portswigger.net/bappstore/9abfe09175524b47bb9345e82984155b): Extension for sending large numbers of precisely timed concurrent HTTP requests.
+- [Burp Suite Turbo Intruder](https://github.com/PortSwigger/turbo-intruder): Extension for sending large numbers of precisely timed concurrent HTTP requests.
 - [racepwn](https://github.com/racepwn/racepwn): Dedicated race condition testing tool.
 - [race-the-web](https://github.com/TheHackerDev/race-the-web): Tool for testing race conditions in web applications by sending concurrent requests.
 
@@ -158,5 +158,5 @@ Some applications have race windows that are extremely narrow. To increase the c
 - [OWASP Testing Guide: Test for Process Timing](04-Test_for_Process_Timing.md)
 - [OWASP Testing Guide: Test Number of Times a Function Can Be Used Limits](05-Test_Number_of_Times_a_Function_Can_Be_Used_Limits.md)
 - [OWASP Testing Guide: Testing for the Circumvention of Work Flows](06-Testing_for_the_Circumvention_of_Work_Flows.md)
-- [PortSwigger Research: Smashing the State Machine](https://portswigger.net/research/smashing-the-state-machine)
+- [CWE-362: Concurrent Execution using Shared Resource with Improper Synchronization](https://cwe.mitre.org/data/definitions/362.html)
 - [HackerOne Report #1540969: Race Condition in Joining CTF Group](https://hackerone.com/reports/1540969)
