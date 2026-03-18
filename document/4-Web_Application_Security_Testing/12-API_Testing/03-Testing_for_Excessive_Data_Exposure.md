@@ -10,7 +10,7 @@ Excessive data exposure occurs when an API returns more information in its respo
 
 The problem is that API responses are directly accessible to anyone who can make requests, regardless of what the user interface chooses to display. An attacker inspecting raw API traffic can observe all returned fields, including those the UI intentionally hides. This can expose passwords, authentication tokens, internal identifiers, personally identifiable information (PII), financial data, infrastructure details, or internal business logic.
 
-This vulnerability maps to [OWASP API Security Top 10 API3:2023 Broken Object Property Level Authorization](https://owasp.org/API-Security/editions/2023/en/0xa3-broken-object-property-level-authorization/) and [CWE-200: Exposure of Sensitive Information to an Unauthorized Actor](https://cwe.mitre.org/data/definitions/200.html).
+This vulnerability maps to [OWASP API Security Top 10 API3:2023 Broken Object Property Level Authorization](https://owasp.org/API-Security/editions/2023/en/0xa3-broken-object-property-level-authorization/).
 
 ## Test Objectives
 
@@ -181,6 +181,6 @@ Trigger error responses by sending malformed input, invalid authentication, or r
 ## References
 
 - [OWASP API Security Top 10: API3:2023 Broken Object Property Level Authorization](https://owasp.org/API-Security/editions/2023/en/0xa3-broken-object-property-level-authorization/)
-- [CWE-200: Exposure of Sensitive Information to an Unauthorized Actor](https://cwe.mitre.org/data/definitions/200.html)
+
 - [OWASP ASVS V4: API and Web Service](https://github.com/OWASP/ASVS/blob/v5.0.0/5.0/en/0x13-V4-API-and-Web-Service.md)
 - [Testing for Insecure Direct Object References (IDOR)](../05-Authorization_Testing/04-Testing_for_Insecure_Direct_Object_References.md)
