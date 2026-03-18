@@ -1053,6 +1053,16 @@
                   ]
                 }
                 ,{
+                "name":"Testing for Excessive Data Exposure",
+                "id":"WSTG-APIT-03",
+                "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/12-API_Testing/03-Testing_for_Excessive_Data_Exposure",
+                "objectives":[
+                    "Identify API responses that contain more data than what the client application displays or requires.",
+                    "Detect sensitive fields returned in API responses such as password hashes, authentication tokens, internal object IDs, PII, or infrastructure details.",
+                    "Determine whether the API relies on client-side filtering rather than server-side field selection to control data exposure."
+                  ]
+                }
+                ,{
                 "name":"Testing GraphQL",
                 "id":"WSTG-APIT-99",
                 "reference":"https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/12-API_Testing/99-Testing_GraphQL",
