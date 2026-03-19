@@ -51,10 +51,10 @@ The core testing technique is sending multiple identical requests simultaneously
 
 #### Using curl
 
-Send parallel requests to a state-changing endpoint:
+Send 20 rapid requests to a state-changing endpoint:
 
 ```bash
-# Send 20 concurrent requests to redeem a single-use coupon
+# Send 20 near-concurrent requests to redeem a single-use coupon
 for i in $(seq 1 20); do
   curl -s -X POST https://example.com/api/redeem-coupon \
     -H "Cookie: session=USER_SESSION" \
