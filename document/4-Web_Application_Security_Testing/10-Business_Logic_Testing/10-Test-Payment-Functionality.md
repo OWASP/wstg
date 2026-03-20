@@ -29,7 +29,7 @@ There are several different ways that applications can integrate payment functio
 
 The Payment Card Industry Data Security Standard (PCI DSS) is a standard that organizations are required to follow in order process debit and card payments (although it's important to note that it is not a law). A full discussion of this standard is outside of the scope of this guide (and of most penetration tests) - but it's useful for testers to understand a few key points.
 
-The most common misconception about PCI DSS is that it only applies to systems that store cardholder data (i.e, debit or credit card details). This is incorrect: it applies to any system that "stores, processes or transmits" this information. Exactly which requirements need to be followed depends on how which of the payment gateway integration methods are used. The [Visa Processing E-Commerce Payments guidance](https://www.visa.co.uk/dam/VCOM/regional/ve/unitedkingdom/PDF/risk/processing-e-commerce-payments-guide-73-17337.pdf) provides further details on this, but as a brief summary:
+The most common misconception about PCI DSS is that it only applies to systems that store cardholder data (i.e, debit or credit card details). This is incorrect: it applies to any system that "stores, processes or transmits" this information. Exactly which requirements need to be followed depends on how which of the payment gateway integration methods are used. The [Visa Processing E-Commerce Payments guidance](https://web.archive.org/web/2023/https://www.visa.co.uk/dam/VCOM/regional/ve/unitedkingdom/PDF/risk/processing-e-commerce-payments-guide-73-17337.pdf) provides further details on this, but as a brief summary:
 
 | Integration Method | Self Assessment Questionnaire (SAQ) |
 |--------------------|-------------------------------------|
@@ -214,7 +214,7 @@ Most payment gateways have a set of defined test card details, which can be used
 
 Examples of these test details for various payment gateways are listed below:
 
-- [Adyen - Test Card Numbers](https://docs.adyen.com/development-resources/test-cards/test-card-numbers)
+- [Adyen - Test Card Numbers](https://docs.adyen.com/development-resources/test-cards-and-credentials/test-card-numbers)
 - [Globalpay - Test Cards](https://developer.globalpay.com/resources/test-card-numbers)
 - [Stripe - Basic Test Card Numbers](https://stripe.com/docs/testing#cards)
 
@@ -340,4 +340,4 @@ Ensure that the application correctly handles such cases and prevents exploitati
 ## References
 
 - [Payment Card Industry Data Security Standard (PCI DSS)](https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf)
-- [Visa Processing E-Commerce Payments guidance](https://www.visa.co.uk/dam/VCOM/regional/ve/unitedkingdom/PDF/risk/processing-e-commerce-payments-guide-73-17337.pdf)
+- [Visa Processing E-Commerce Payments guidance](https://web.archive.org/web/2023/https://www.visa.co.uk/dam/VCOM/regional/ve/unitedkingdom/PDF/risk/processing-e-commerce-payments-guide-73-17337.pdf)
