@@ -14,8 +14,7 @@ A secure session termination requires at least the following components:
 - Session termination after a given amount of time without activity (session timeout).
 - Proper invalidation of server-side session state.
 
-There are multiple issues which can prevent the effective termination of a session. For the ideal secure web application, a user should be able to terminate at any time through the user interface.
-Unclear or ambiguous log out functions may cause users to mistrust such functionality.
+There are multiple issues which can prevent the effective termination of a session. For the ideal secure web application, a user should be able to terminate at any time through the user interface. Unclear or ambiguous log out functions may cause users to mistrust such functionality.
 
 Another common mistake in session termination is that the client-side session token is set to a new value while the server-side state remains active and can be reused by setting the session cookie back to the previous value. Sometimes only a confirmation message is shown to the user without performing any further action. This should be avoided.
 
