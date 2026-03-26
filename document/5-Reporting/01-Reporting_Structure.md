@@ -105,6 +105,19 @@ Format this section in a way that best delivers your message.
 
 Always ensure that your descriptions provide enough information for the engineer reading this report to take action based on it. Explain the finding thoroughly and provide as much technical detail as might be necessary to remedy it.
 
+### Reproducible Test Artifacts
+
+As part of reporting, testers may include reproducible test artifacts to help developers verify fixes.
+
+Examples include:
+
+- curl commands demonstrating the request
+- Proof-of-Concept (PoC) such as CSRF forms
+- HAR files capturing request/response flows
+- Simple automation scripts (e.g., Selenium, Puppeteer)
+
+These artifacts can help developers quickly validate and retest vulnerabilities.
+
 ## Appendices
 
 Multiple appendices can be added, such as:
@@ -121,6 +134,6 @@ This section is not part of the suggested report format. The below links provide
 
 - [SANS: Tips for Creating a Strong Cybersecurity Assessment Report](https://www.sans.org/blog/tips-for-creating-a-strong-cybersecurity-assessment-report/)
 - [SANS: Writing a Penetration Testing Report](https://www.sans.org/reading-room/whitepapers/bestprac/paper/33343)
-- [Infosec Institute: The Art of Writing Penetration Test Reports](https://resources.infosecinstitute.com/topic/writing-penetration-testing-reports/)
-- [Dummies: How to Structure a Pen Test Report](https://www.dummies.com/computers/macs/security/how-to-structure-a-pen-test-report/)
+- [Infosec Institute: The Art of Writing Penetration Test Reports](https://www.infosecinstitute.com/resources/penetration-testing/writing-penetration-testing-reports/)
+- [Dummies: How to Structure a Pen Test Report](https://www.dummies.com/article/technology/cybersecurity/how-to-structure-a-pen-test-report-270933/)
 - [Rhino Security Labs: Four Things Every Penetration Test Report Should Have](https://rhinosecuritylabs.com/penetration-testing/four-things-every-penetration-test-report/)
