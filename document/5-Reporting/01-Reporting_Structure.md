@@ -105,6 +105,18 @@ Format this section in a way that best delivers your message.
 
 Always ensure that your descriptions provide enough information for the engineer reading this report to take action based on it. Explain the finding thoroughly and provide as much technical detail as might be necessary to remedy it.
 
+### Reproducible Test Artifacts
+
+As part of reporting, testers may include reproducible test artifacts to help developers verify fixes.
+
+Examples include:
+- curl commands demonstrating the request
+- Proof-of-Concept (PoC) such as CSRF forms
+- HAR files capturing request/response flows
+- Simple automation scripts (e.g., Selenium, Puppeteer)
+
+These artifacts can help developers quickly validate and retest vulnerabilities.
+
 ## Appendices
 
 Multiple appendices can be added, such as:
