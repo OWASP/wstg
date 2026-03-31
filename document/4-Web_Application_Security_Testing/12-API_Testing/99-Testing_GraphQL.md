@@ -526,9 +526,9 @@ Batching attacks can be used to bypass many security measures enforced on sites.
 
 ### Query Denylist Bypass via Aliases
 
-GraphQL allows you to give any field in a query an alias — an alternative name used to label the result. This is a standard language feature, but it can be used to bypass security controls that block queries by name.
+GraphQL allows you to give any field in a query an alias — an alternative name used to label the result. This is a standard language feature, but it can be abused to evade poorly implemented security controls that look for specific field names.
 
-Some deployments implement a denylist that inspects incoming queries and rejects requests containing specific operation names (e.g., blocking direct calls to a sensitive `adminUsers` query). Because this check matches on the literal field name in the request, renaming the call with an alias bypasses the check while the underlying resolver runs normally.
+Some deployments implement a query denylist using naive string or regular-expression matching on the raw GraphQL document (for example, rejecting any query that contains the field name `adminUsers` only when it appears as `adminUsers {` or `adminUsers(`, without fully parsing the syntax or building an AST). A robust implementation that searches for `adminUsers` as a substring anywhere in the request, or that correctly parses the query structure, will still detect aliased calls, because the underlying field name `adminUsers` remains present in the operation and is not renamed or removed by the alias. However, simplistic checks that do not handle the `aliasName: fieldName` syntax can be bypassed by issuing the same field under an alias, while the `adminUsers` resolver continues to execute on the server. Note that in GraphQL terminology, `adminUsers` in the examples below is a field name; an operation name would appear after the `query` keyword (for example, `query GetAdmins { ... }`).
 
 First, send the query directly to confirm it is blocked:
 
@@ -597,7 +597,7 @@ A tester should try and gain access to underlying API methods as it may be possi
 ## Remediation
 
 - Restrict access to introspection queries.
-- Disable field suggestions in production: most GraphQL servers allow this to be turned off (e.g., in Apollo Server, set `introspection: false` and disable the suggestion plugin). This prevents schema enumeration through "Did you mean?" error responses.
+- Disable field suggestions in production: most GraphQL servers allow this to be turned off (e.g., in Apollo Server, set [hideSchemaDetailsFromClientErrors](https://www.apollographql.com/docs/apollo-server/api/apollo-server#hideschemadetailsfromclienterrors)). This prevents schema enumeration through "Did you mean?" error responses.
 - Implement input validation.
     - GraphQL does not have a native way to validate input, however, there is an open source project called ["graphql-constraint-directive"](https://github.com/confuser/graphql-constraint-directive) which allows for input validation as part of the schema definition.
     - Input validation alone is helpful, but it is not a complete solution and additional measures should be taken to mitigate injection attacks.
