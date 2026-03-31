@@ -29,7 +29,7 @@ There are several different ways that applications can integrate payment functio
 
 The Payment Card Industry Data Security Standard (PCI DSS) is a standard that organizations are required to follow in order process debit and card payments (although it's important to note that it is not a law). A full discussion of this standard is outside of the scope of this guide (and of most penetration tests) - but it's useful for testers to understand a few key points.
 
-The most common misconception about PCI DSS is that it only applies to systems that store cardholder data (i.e, debit or credit card details). This is incorrect: it applies to any system that "stores, processes or transmits" this information. Exactly which requirements need to be followed depends on how which of the payment gateway integration methods are used. The [Visa Processing E-Commerce Payments guidance](https://www.visa.co.uk/dam/VCOM/regional/ve/unitedkingdom/PDF/risk/processing-e-commerce-payments-guide-73-17337.pdf) provides further details on this, but as a brief summary:
+The most common misconception about PCI DSS is that it only applies to systems that store cardholder data (i.e, debit or credit card details). This is incorrect: it applies to any system that "stores, processes or transmits" this information. Exactly which requirements need to be followed depends on how which of the payment gateway integration methods are used. The [Visa Processing E-Commerce Payments guidance](https://web.archive.org/web/2023/https://www.visa.co.uk/dam/VCOM/regional/ve/unitedkingdom/PDF/risk/processing-e-commerce-payments-guide-73-17337.pdf) provides further details on this, but as a brief summary:
 
 | Integration Method | Self Assessment Questionnaire (SAQ) |
 |--------------------|-------------------------------------|
@@ -214,7 +214,7 @@ Most payment gateways have a set of defined test card details, which can be used
 
 Examples of these test details for various payment gateways are listed below:
 
-- [Adyen - Test Card Numbers](https://docs.adyen.com/development-resources/test-cards/test-card-numbers)
+- [Adyen - Test Card Numbers](https://docs.adyen.com/development-resources/test-cards-and-credentials/test-card-numbers)
 - [Globalpay - Test Cards](https://developer.globalpay.com/resources/test-card-numbers)
 - [Stripe - Basic Test Card Numbers](https://stripe.com/docs/testing#cards)
 
@@ -246,14 +246,68 @@ Test the scenario where a payment is initiated, and items are added to the cart 
 
 #### Race Conditions
 
-- Concurrent Payment Confirmations
-  Initiate multiple confirmation requests (e.g., `POST /confirm-payment`) simultaneously for the same order using tools like Burp Intruder or custom scripts. This may result in the same order being processed multiple times.
+A race condition occurs when the behavior of an application depends on the timing or sequence of events that are not properly controlled. In payment contexts, this typically manifests when multiple concurrent requests interact with shared state (such as an account balance, an inventory count, or a one-time-use coupon code) without adequate synchronization, allowing an attacker to exploit the time gap between a check and the subsequent action. This is commonly referred to as a Time-of-Check to Time-of-Use (TOCTOU) flaw.
 
-- Callback Replay or Flooding
-    Intercept the gateway’s callback request (e.g., to `success.php` or `/payment/callback`) and replay it rapidly in parallel. If the backend lacks proper idempotency checks, this can:
+Race conditions are particularly impactful in:
+
+- Financial transactions (transfers, payments, withdrawals)
+- One-time-use tokens or codes (coupons, gift cards, referral bonuses)
+- Resource allocation with limited availability (inventory, seats, registrations)
+- State transitions that should happen exactly once (account activation, approval workflows)
+
+To test, focus on endpoints where a value is checked and then modified, or where an action should only succeed once. Send multiple identical requests simultaneously and observe whether the application processes more than one successfully when only one should succeed.
+
+Using curl, send 20 rapid requests to a state-changing endpoint:
+
+```bash
+# Send 20 near-concurrent requests to redeem a single-use coupon
+for i in $(seq 1 20); do
+  curl -s -X POST https://example.com/api/redeem-coupon \
+    -H "Cookie: session=USER_SESSION" \
+    -H "Content-Type: application/json" \
+    -d ‘{"code":"SINGLE-USE-CODE"}’ &
+done
+wait
+```
+
+For more precise timing, use [Burp Suite Turbo Intruder](https://github.com/PortSwigger/turbo-intruder) with the gate mechanism to hold all requests and release them simultaneously:
+
+```python
+def queueRequests(target, wordlists):
+    engine = RequestEngine(endpoint=target.endpoint,
+                           concurrentConnections=20,
+                           requestsPerConnection=1,
+                           pipeline=False)
+    for i in range(20):
+        engine.queue(target.req, gate=’race’)
+    engine.openGate(‘race’)
+
+def handleResponse(req, interesting):
+    table.add(req)
+```
+
+Common test scenarios include:
+
+- Concurrent Payment Confirmations:
+  Initiate multiple confirmation requests (e.g., `POST /confirm-payment`) simultaneously for the same order. This may result in the same order being processed multiple times.
+
+- Callback Replay or Flooding:
+  Intercept the gateway’s callback request (e.g., to `success.php` or `/payment/callback`) and replay it rapidly in parallel. If the backend lacks proper idempotency checks, this can:
     - Trigger multiple order fulfillment events (e.g., shipping, credits).
     - Mark the same order as "paid" multiple times.
     - Cause balance inflation or inventory errors.
+
+- Balance Operations:
+  If an account has 100 credits, send multiple concurrent requests that each spend the full balance. If the total debited exceeds the original balance (e.g., balance goes to -100), the application is vulnerable.
+
+- One-Time-Use Tokens:
+  For coupon codes, invitation links, or password reset tokens, send multiple concurrent requests that each attempt to use the token. If more than one succeeds, the application fails to atomically invalidate the token.
+
+Indicators of vulnerability include: multiple success responses for a single-use action, negative balances after concurrent debits, resources allocated beyond stated capacity, or duplicate side effects (multiple emails, double charges).
+
+To mitigate race conditions, wrap check-and-modify operations in database transactions with row-level locking (`SELECT ... FOR UPDATE`), implement optimistic locking with version columns, require idempotency keys for state-changing requests, and invalidate tokens atomically using operations like `DELETE FROM tokens WHERE token = ? RETURNING *`.
+
+See also [CWE-362: Concurrent Execution using Shared Resource with Improper Synchronization](https://cwe.mitre.org/data/definitions/362.html).
 
 #### Multi-Input Systems (Bulk Payments)
 
@@ -286,4 +340,4 @@ Ensure that the application correctly handles such cases and prevents exploitati
 ## References
 
 - [Payment Card Industry Data Security Standard (PCI DSS)](https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf)
-- [Visa Processing E-Commerce Payments guidance](https://www.visa.co.uk/dam/VCOM/regional/ve/unitedkingdom/PDF/risk/processing-e-commerce-payments-guide-73-17337.pdf)
+- [Visa Processing E-Commerce Payments guidance](https://web.archive.org/web/2023/https://www.visa.co.uk/dam/VCOM/regional/ve/unitedkingdom/PDF/risk/processing-e-commerce-payments-guide-73-17337.pdf)
