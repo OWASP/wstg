@@ -42,7 +42,7 @@ Various tools, documents, or checklists can be used to give IT and security prof
 - [Microsoft's Attack Surface Analyzer](https://github.com/microsoft/AttackSurfaceAnalyzer)
 - [NIST's National Checklist Program](https://nvd.nist.gov/ncp/repository)
 
-### Grey-Box Testing
+### Gray-Box Testing
 
 #### Configuration Review
 
@@ -67,14 +67,14 @@ Logging is an important part of application security. It supports monitoring, in
 
 During the review, verify the following:
 
-- Verify that security-relevant events are logged.
-- Verify that log entries contain enough context to support investigation.
-- Verify that logs do not store secrets or unnecessary sensitive data.
-- Verify that logged data is handled safely before storage and display.
-- Verify that access to logs is restricted to authorized personnel.
-- Verify that logs are protected against tampering and retained appropriately.
-- Verify that logging failures do not expose sensitive debugging information.
-- Verify that logs can be centralized or correlated in distributed environments.
+- Security-relevant events are logged.
+- Log entries contain enough context to support investigation.
+- Logs do not store secrets or unnecessary sensitive data.
+- Logged data is handled safely before storage and display.
+- Access to logs is restricted to authorized personnel.
+- Logs are protected against tampering and retained appropriately.
+- Logging failures do not expose sensitive debugging information.
+- Logs can be centralized or correlated in distributed environments.
 
 Testing should confirm that logs are usable, consistent, and effectively support detection and response activities.
 
