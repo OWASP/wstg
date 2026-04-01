@@ -62,11 +62,87 @@ Perform a log out in the tested application. Verify if there is a central portal
 
 > It is expected that the invocation of a log out function in a web application connected to a SSO system or in the SSO system itself causes global termination of all sessions. An authentication of the user should be required to gain access to the application after log out in the SSO system and connected application.
 
+### Testing for Cross-Device Session Reuse and Single Authentication Cookie in Single Sign-On Environments
+
+Cross-Device Session Reuse and Single-Cookie Dependency in SSO Implementations
+
+> While traditional SSO logout testing focuses on reauthentication flows within the same browser context, testers must also evaluate whether authentication cookies can be replayed across devices.
+
+In some Single Sign-On (SSO) implementations, authentication across multiple applications relies on a single authentication cookie issued after successful login (e.g., after password and MFA verification).
+
+While this cookie may be marked Secure and HttpOnly, its security depends entirely on server-side validation and revocation controls. If the SSO ecosystem relies on a single cookie as the sole proof of authentication, compromise of that cookie may grant immediate cross-application access.
+
+Testers should evaluate whether:
+
+- Only one cookie is required to maintain authenticated state.
+- The cookie can be reused across browsers or devices.
+- Logout properly invalidates the cookie server-side.
+- All applications trusting the SSO cookies reject it after logout.
+
+Test Procedure:
+- Step 1 – Authenticate and Capture All Issued Cookies
+1. Log in on Device 1 using valid credentials and complete MFA.
+2. Intercept the authentication response.
+3. Record all cookies issued by the application or SSO domain.
+
+> Example:
+auth-cookie=XYZ123
+session_meta=ABC456
+tracking_id=DEF789
+
+- Step 2 – Identify Authentication-Critical Cookie(s)
+The purpose of this step is to determine whether the SSO implementation depends on a single authentication artifact.
+1. Send requests to protected endpoints.
+2. Remove cookies individually and resend the request.
+3. Observe which cookies are required to maintain a 200 OK response.
+
+If only one cookie (e.g., auth-cookie) is required to sustain authentication, this indicates that the SSO trust boundary may rely solely on that cookie.
+
+> Security Note:
+When a single cookie represents the entire authenticated state, it becomes a high-value target. An attacker who obtains that cookie may not require any additional session metadata or device context to gain access.
+
+- Step 3 – Cross-Device Session Injection
+1. Copy the authentication-critical cookie value.
+2. Open a different browser or device (Device 2).
+3. Manually insert the copied single cookie.
+4. Attempt to access protected endpoints across:
+- The original application
+- Other applications participating in the same SSO ecosystem
+
+If Device 2 gains authenticated access without credential entry or MFA, the cookie is reusable across contexts.
+
+- Step 4 – Logout Validation Across Devices
+1. On Device 1, perform logout.
+2. On Device 2, refresh or access protected resources using the same injected cookie value.
+
+Expected Result:
+- Logout must invalidate the authentication cookie server-side.
+- All sessions using that cookie must be terminated.
+- Access must not remain valid until cookie expiration.
+- All applications trusting the SSO cookie must reject it.
+
+Security Implications
+If an SSO implementation:
+- Relies primarily on a single authentication cookie,
+- Allows that cookie to be reused across devices,
+- Does not revoke it server-side upon logout,
+
+then:
+
+- Theft of that single cookie may immediately compromise active sessions.
+- MFA protections are effectively bypassed after initial login.
+- Logout may not provide global session termination.
+- Access may persist for the entire cookie lifetime (e.g., 8 hours).
+
+Implementations should avoid architectures where a single cookie represents the entire authenticated state without additional validation controls.
+
 ## Tools
 
 - [Burp Suite - Repeater](https://portswigger.net/burp/documentation/desktop/tools/repeater)
 
 ## References
+
+- [The Golden Cookie: When SSO Session Boundaries Fail](https://allaboutinfosec.blogspot.com/2026/03/the-golden-cookie-when-sso-session.html)
 
 ### Whitepapers
 
