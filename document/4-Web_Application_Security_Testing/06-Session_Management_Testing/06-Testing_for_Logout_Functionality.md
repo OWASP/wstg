@@ -62,7 +62,7 @@ Perform a log out in the tested application. Verify if there is a central portal
 
 > It is expected that the invocation of a log out function in a web application connected to a SSO system or in the SSO system itself causes global termination of all sessions. An authentication of the user should be required to gain access to the application after log out in the SSO system and connected application.
 
-### Testing for Cross-Device Session Reuse and Single Authentication Cookie in Single Sign-On Environments
+### Testing Cross-Device Session Reuse and Single-Value Dependency in SSO
 
 > While traditional SSO logout testing focuses on reauthentication flows within the same browser context, testers must also evaluate whether authentication cookies can be replayed across devices.
 
