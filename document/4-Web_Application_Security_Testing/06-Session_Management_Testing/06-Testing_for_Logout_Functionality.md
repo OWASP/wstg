@@ -64,7 +64,6 @@ Perform a log out in the tested application. Verify if there is a central portal
 
 ### Testing for Cross-Device Session Reuse and Single Authentication Cookie in Single Sign-On Environments
 
-
 > While traditional SSO logout testing focuses on reauthentication flows within the same browser context, testers must also evaluate whether authentication cookies can be replayed across devices.
 
 In some Single Sign-On (SSO) implementations, authentication across multiple applications relies on a single authentication cookie issued after successful login (e.g., after password and MFA verification).
