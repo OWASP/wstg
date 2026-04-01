@@ -25,7 +25,7 @@ Example URL before alteration:
 
 Example URL modified:
 
-`https://sensitive/cgi-bin/userData.pl?doc=/bin/ls|`
+`https://sensitive/cgi-bin/userData.pl?doc=user1.txt|/bin/ls`
 
 This will execute the command `/bin/ls`.
 
