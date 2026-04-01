@@ -123,7 +123,6 @@ Expected Result:
 - Access must not remain valid until cookie expiration.
 - All applications trusting the SSO cookie must reject it.
 
-Security Implications
 If an SSO implementation:
 
 - Relies primarily on a single authentication cookie
