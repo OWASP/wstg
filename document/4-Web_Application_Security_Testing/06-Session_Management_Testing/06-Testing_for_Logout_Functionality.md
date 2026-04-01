@@ -128,9 +128,9 @@ Expected Result:
 Security Implications
 If an SSO implementation:
 
-- Relies primarily on a single authentication cookie,
-- Allows that cookie to be reused across devices,
-- Does not revoke it server-side upon logout,
+- Relies primarily on a single authentication cookie
+- Allows that cookie to be reused across devices
+- Does not revoke it server-side upon logout
 
 then:
 
