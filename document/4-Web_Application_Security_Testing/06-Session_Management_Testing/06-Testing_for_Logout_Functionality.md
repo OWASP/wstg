@@ -87,18 +87,18 @@ Test Procedure:
 
 For example: `auth-cookie=XYZ123`, `session_meta=ABC456`, `tracking_id=DEF789`...
 
-- Step 2 – Identify Authentication-Critical Cookie(s)
+- Step 2 – Identify Authentication-Critical Token(s)
 
-The purpose of this step is to determine whether the SSO implementation depends on a single authentication artifact.
+The purpose of this step is to determine whether the SSO implementation depends on a single authentication artifact (e.g., cookie, header, or bearer token).
 
 1. Send requests to protected endpoints.
-2. Remove cookies individually and resend the request.
-3. Observe which cookies are required to maintain a 200 OK response.
+2. Remove session tokens individually and resend the request.
+3. Observe which tokens are required to maintain a 200 OK response.
 
-If only one cookie (e.g., auth-cookie) is required to sustain authentication, this indicates that the SSO trust boundary may rely solely on that cookie.
+If only one token (e.g., auth-cookie) is required to sustain authentication, this indicates that the SSO trust boundary may rely solely on that token.
 
 > Security Note:
-When a single cookie represents the entire authenticated state, it becomes a high-value target. An attacker who obtains that cookie may not require any additional session metadata or device context to gain access.
+When a single authentication token represents the entire authenticated state, it becomes a high-value target. An attacker who obtains that token may not require any additional session metadata or device context to gain access.
 
 - Step 3 – Cross-Device Session Injection
 
