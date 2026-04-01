@@ -87,10 +87,7 @@ Test Procedure:
 2. Intercept the authentication response.
 3. Record all cookies issued by the application or SSO domain.
 
-> Example:
-auth-cookie=XYZ123
-session_meta=ABC456
-tracking_id=DEF789
+For example: `auth-cookie=XYZ123`, `session_meta=ABC456`, `tracking_id=DEF789`...
 
 - Step 2 – Identify Authentication-Critical Cookie(s)
 
