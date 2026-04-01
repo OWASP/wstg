@@ -80,7 +80,9 @@ Testers should evaluate whether:
 - All applications trusting the SSO cookies reject it after logout.
 
 Test Procedure:
+
 - Step 1 – Authenticate and Capture All Issued Cookies
+
 1. Log in on Device 1 using valid credentials and complete MFA.
 2. Intercept the authentication response.
 3. Record all cookies issued by the application or SSO domain.
@@ -91,7 +93,9 @@ session_meta=ABC456
 tracking_id=DEF789
 
 - Step 2 – Identify Authentication-Critical Cookie(s)
+
 The purpose of this step is to determine whether the SSO implementation depends on a single authentication artifact.
+
 1. Send requests to protected endpoints.
 2. Remove cookies individually and resend the request.
 3. Observe which cookies are required to maintain a 200 OK response.
@@ -102,20 +106,24 @@ If only one cookie (e.g., auth-cookie) is required to sustain authentication, th
 When a single cookie represents the entire authenticated state, it becomes a high-value target. An attacker who obtains that cookie may not require any additional session metadata or device context to gain access.
 
 - Step 3 – Cross-Device Session Injection
+
 1. Copy the authentication-critical cookie value.
 2. Open a different browser or device (Device 2).
 3. Manually insert the copied single cookie.
 4. Attempt to access protected endpoints across:
+
 - The original application
 - Other applications participating in the same SSO ecosystem
 
 If Device 2 gains authenticated access without credential entry or MFA, the cookie is reusable across contexts.
 
 - Step 4 – Logout Validation Across Devices
+
 1. On Device 1, perform logout.
 2. On Device 2, refresh or access protected resources using the same injected cookie value.
 
 Expected Result:
+
 - Logout must invalidate the authentication cookie server-side.
 - All sessions using that cookie must be terminated.
 - Access must not remain valid until cookie expiration.
@@ -123,6 +131,7 @@ Expected Result:
 
 Security Implications
 If an SSO implementation:
+
 - Relies primarily on a single authentication cookie,
 - Allows that cookie to be reused across devices,
 - Does not revoke it server-side upon logout,
