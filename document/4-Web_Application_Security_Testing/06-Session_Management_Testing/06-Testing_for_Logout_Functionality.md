@@ -108,9 +108,8 @@ When a single cookie represents the entire authenticated state, it becomes a hig
 2. Open a different browser or device (Device 2).
 3. Manually insert the copied single cookie.
 4. Attempt to access protected endpoints across:
-
-- The original application
-- Other applications participating in the same SSO ecosystem
+    - The original application
+    - Other applications participating in the same SSO ecosystem
 
 If Device 2 gains authenticated access without credential entry or MFA, the cookie is reusable across contexts.
 
