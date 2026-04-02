@@ -225,9 +225,44 @@ Note that in some cases, you will need to set the HTTP headers at the bottom, to
 
 You can even download the schemas to use in Voyager.
 
+#### Schema Leakage Through Field Suggestions
+
+Many GraphQL server implementations (including Apollo Server and `graphql-js`) return "Did you mean...?" suggestions by default whenever a client references a field name that does not exist. This behavior aids development but leaks schema information even when introspection has been explicitly disabled.
+
+Send a slightly misspelled field name to test for this. If the server returns a suggestion in the error response, the response discloses the real field name without issuing an introspection query.
+
+For example, send a request with a non-existent field `userss`:
+
+```graphql
+query {
+  userss {
+    id
+  }
+}
+```
+
+A vulnerable server reveals the real field name in its response:
+
+```json
+{
+  "errors": [
+    {
+      "message": "Cannot query field \"userss\" on type \"Query\". Did you mean \"users\"?",
+      "locations": [{ "line": 2, "column": 3 }]
+    }
+  ]
+}
+```
+
+Iterate over variants of guessed names (e.g., `userss`, `usesr`, `usres`) to enumerate valid query and mutation names one suggestion at a time. Doing so can reconstruct a substantial portion of the schema without introspection access.
+
+[Clairvoyance](https://github.com/nikitastupin/clairvoyance) automates this process by combining a wordlist with suggestion responses to incrementally build a schema.
+
 #### Introspection Conclusion
 
 Introspection is a useful tool that allows users to gain more information about the GraphQL deployment. However, this will also allow malicious users to gain access to the same information. The best practice is to limit access to the introspection queries, since some tools or requests might fail if this feature is disabled altogether. As GraphQL usually bridges to the backend APIs of the system, it's better to enforce strict access control.
+
+Disabling introspection alone is not sufficient. Disable field suggestions in production as well, since they independently allow schema enumeration.
 
 ### Authorization
 
@@ -489,6 +524,64 @@ query {
 
 Batching attacks can be used to bypass many security measures enforced on sites. It can also be used to enumerate objects and attempt to brute force multi-factor authentication or other sensitive information.
 
+### Query Denylist Bypass via Aliases
+
+GraphQL allows you to give any field in a query an alias — an alternative name used to label the result. This is a standard language feature, but it can be abused to evade poorly implemented security controls that look for specific field names.
+
+Some deployments implement a query denylist using naive string or regular-expression matching on the raw GraphQL document (for example, rejecting any query that contains the field name `adminUsers` only when it appears as `adminUsers {` or `adminUsers(`, without fully parsing the syntax or building an AST). A robust implementation that searches for `adminUsers` as a substring anywhere in the request, or that correctly parses the query structure, will still detect aliased calls, because the underlying field name `adminUsers` remains present in the operation and is not renamed or removed by the alias. However, simplistic checks that do not handle the `aliasName: fieldName` syntax can be bypassed by issuing the same field under an alias, while the `adminUsers` resolver continues to execute on the server. Note that in GraphQL terminology, `adminUsers` in the examples below is a field name; an operation name would appear after the `query` keyword (for example, `query GetAdmins { ... }`).
+
+First, send the query directly to confirm it is blocked:
+
+```graphql
+query {
+  adminUsers {
+    id
+    name
+    email
+  }
+}
+```
+
+Response (blocked by denylist):
+
+```json
+{
+  "errors": [
+    {
+      "message": "400 Bad Request: query not allowed"
+    }
+  ]
+}
+```
+
+Then, resend the same query using an alias:
+
+```graphql
+query {
+  s: adminUsers {
+    id
+    name
+    email
+  }
+}
+```
+
+Response (denylist bypassed, data returned):
+
+```json
+{
+  "data": {
+    "s": [
+      { "id": 1, "name": "Admin", "email": "admin@example.com" }
+    ]
+  }
+}
+```
+
+The server resolves `s` as `adminUsers` because aliases are a GraphQL-layer construct — the underlying resolver runs normally. A denylist that matches only on the literal field name in the request body will not catch aliased calls.
+
+For every query that appears to be blocked or restricted, try prefixing it with an arbitrary alias (e.g., `x:`, `s:`, `bypass:`) and observe whether the response changes from an error to a successful data payload.
+
 ### Detailed Error Message
 
 GraphQL can encounter unexpected errors during runtime. When such an error occurs, the server may send an error response that may reveal internal error details or application configurations or data. This allows a malicious user to acquire more information about the application. As part of testing, error messages should be checked by sending unexpected data, a process known as fuzzing. The responses should be searched for potentially sensitive information that may be revealed using this technique.
@@ -504,6 +597,7 @@ A tester should try and gain access to underlying API methods as it may be possi
 ## Remediation
 
 - Restrict access to introspection queries.
+- Disable field suggestions in production: most GraphQL servers allow this to be turned off (e.g., in Apollo Server, set [hideSchemaDetailsFromClientErrors](https://www.apollographql.com/docs/apollo-server/api/apollo-server#hideschemadetailsfromclienterrors)). This prevents schema enumeration through "Did you mean?" error responses.
 - Implement input validation.
     - GraphQL does not have a native way to validate input, however, there is an open source project called ["graphql-constraint-directive"](https://github.com/confuser/graphql-constraint-directive) which allows for input validation as part of the schema definition.
     - Input validation alone is helpful, but it is not a complete solution and additional measures should be taken to mitigate injection attacks.
@@ -518,6 +612,7 @@ A tester should try and gain access to underlying API methods as it may be possi
     - Add object request rate limiting in code.
     - Prevent batching for sensitive objects.
     - Limit the number of queries that can run at one time.
+- Prevent query denylist bypass: implement access controls at the resolver level rather than relying solely on operation-name blocklists, since GraphQL aliases let callers invoke any field under an arbitrary name.
 
 For more on remediating GraphQL weaknesses, refer to the [GraphQL Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/GraphQL_Cheat_Sheet.html).
 
@@ -529,6 +624,8 @@ For more on remediating GraphQL weaknesses, refer to the [GraphQL Cheat Sheet](h
 - [InQL (Burp Extension)](https://portswigger.net/bappstore/296e9a0730384be4b2fffef7b4e19b1f)
 - [GraphQL Raider (Burp Extension)](https://portswigger.net/bappstore/4841f0d78a554ca381c65b26d48207e6)
 - [GraphQL (Add-on for ZAP)](https://www.zaproxy.org/blog/2020-08-28-introducing-the-graphql-add-on-for-zap/)
+- [GraphQLer](https://github.com/omar2535/GraphQLer)
+- [Clairvoyance](https://github.com/nikitastupin/clairvoyance)
 
 ## References
 
@@ -540,3 +637,5 @@ For more on remediating GraphQL weaknesses, refer to the [GraphQL Cheat Sheet](h
 - [5 Common GraphQL Security Vulnerabilities](https://carvesystems.com/news/the-5-most-common-graphql-security-vulnerabilities/)
 - [GraphQL common vulnerabilities and how to exploit them](https://medium.com/@the.bilal.rizwan/graphql-common-vulnerabilities-how-to-exploit-them-464f9fdce696)
 - [GraphQL CS](https://cheatsheetseries.owasp.org/cheatsheets/GraphQL_Cheat_Sheet.html)
+- [GraphQL Enumeration Basics](https://blog.cyberadvisors.com/technical-blog/blog/graphql-apis-enumeration-basics)
+- [GraphQL API Vulnerabilities](https://portswigger.net/web-security/graphql)
