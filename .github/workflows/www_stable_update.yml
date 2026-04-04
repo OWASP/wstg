@@ -5,9 +5,7 @@ on:
     tags:
       - 'v*'
 
-permissions:
-  contents: write
-  pull-requests: write
+permissions: {}
 
 jobs:
   create_pr:
