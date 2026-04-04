@@ -40,6 +40,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Joel Aviad Ossi
 - Manh Pham Tien
 - Mark Clayton
+- Mohamed Bassia (0xBassia)
 - Meysam Bal-afkan
 - Omar Jezi
 - Or Asaf
