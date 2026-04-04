@@ -88,7 +88,6 @@ jobs:
       with:
         name: Release ${{ needs.build.outputs.tag }}
         artifacts: "./build/wstg-${{ needs.build.outputs.tag }}.pdf, ./build/wstg-${{ needs.build.outputs.tag }}.epub"
-        artifactContentType: application/pdf
         artifactErrorsFailBuild: true
         draft: false
         prerelease: true
