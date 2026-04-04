@@ -16,9 +16,11 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
     env:
       CI: true
+    outputs:
+      tag: ${{ steps.vars.outputs.tag }}
     steps:
     - name: Setup Action
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
@@ -51,20 +53,14 @@ jobs:
       run: |
         npm run-script  pdfgen -- ${{ github.event.inputs.version }}
         npm run-script  epubgen -- ${{ github.event.inputs.version }}
-    - name: Create Release
+    - name: Upload Ebooks for Release
       if: github.event_name == 'push'
-      id: create_release
-      uses: ncipollo/release-action@339a81892b84b4eeb0f6e744e4574d79d0d9b8dd # v1.21.0
+      uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
       with:
-        name: Release ${{ steps.vars.outputs.tag }}
-        artifacts: "./build/wstg-${{ steps.vars.outputs.tag }}.pdf, ./build/wstg-${{ steps.vars.outputs.tag }}.epub"
-        artifactContentType: application/pdf
-        artifactErrorsFailBuild: true
-        draft: false
-        prerelease: true
-        token: ${{ secrets.GITHUB_TOKEN }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        name: wstg-${{ steps.vars.outputs.tag }}-ebooks
+        path: |
+          ./build/wstg-${{ steps.vars.outputs.tag }}.pdf
+          ./build/wstg-${{ steps.vars.outputs.tag }}.epub
     - name: Attach PDF and Epub
       if: github.event_name == 'workflow_dispatch'
       uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
@@ -73,3 +69,29 @@ jobs:
         path: |
           ./build/wstg-${{ github.event.inputs.version }}.pdf
           ./build/wstg-${{ github.event.inputs.version }}.epub
+  release:
+    if: github.event_name == 'push'
+    needs: build
+    name: Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - name: Download Ebooks
+      uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+      with:
+        name: wstg-${{ needs.build.outputs.tag }}-ebooks
+        path: ./build
+    - name: Create Release
+      id: create_release
+      uses: ncipollo/release-action@339a81892b84b4eeb0f6e744e4574d79d0d9b8dd # v1.21.0
+      with:
+        name: Release ${{ needs.build.outputs.tag }}
+        artifacts: "./build/wstg-${{ needs.build.outputs.tag }}.pdf, ./build/wstg-${{ needs.build.outputs.tag }}.epub"
+        artifactContentType: application/pdf
+        artifactErrorsFailBuild: true
+        draft: false
+        prerelease: true
+        token: ${{ secrets.GITHUB_TOKEN }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
