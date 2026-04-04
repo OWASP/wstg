@@ -18,8 +18,6 @@ jobs:
     permissions:
       contents: read
       actions: write
-    env:
-      CI: true
     outputs:
       tag: ${{ steps.vars.outputs.tag }}
     steps:
