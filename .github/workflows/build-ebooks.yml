@@ -20,6 +20,7 @@ jobs:
       actions: write
     env:
       CI: true
+      PUPPETEER_EXECUTABLE_PATH: /usr/bin/chromium-browser
     outputs:
       tag: ${{ steps.vars.outputs.tag }}
     steps:
@@ -36,7 +37,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt update
-        sudo apt install libgbm1
+        sudo apt install libgbm1 chromium-browser
         npm install -g md-to-pdf
         sudo snap install pdftk
         sudo apt install pandoc

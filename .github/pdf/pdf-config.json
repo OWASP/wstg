@@ -17,5 +17,8 @@
     "preferCSSPageSize":true,
     "timeout": "60000"
   },
-  "stylesheet_encoding": "utf-8"
+  "stylesheet_encoding": "utf-8",
+  "puppeteerLaunchOptions": {
+    "args": ["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage"]
+  }
 }
