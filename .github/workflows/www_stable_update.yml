@@ -5,6 +5,8 @@ on:
     tags:
       - 'v*'
 
+permissions: {}
+
 jobs:
   create_pr:
     name: Create Pull Request
