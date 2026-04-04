@@ -8,6 +8,9 @@ on:
       - 'document/**'
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   create_pr:
     name: Create Pull Request
