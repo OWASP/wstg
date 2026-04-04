@@ -1,8 +1,5 @@
 name: Build Ebooks
 
-permissions:
-  contents: write
-
 on:
   push:
     tags: 
@@ -18,6 +15,8 @@ jobs:
     if: github.actor == 'kingthorin' || github.actor == 'ThunderSon' || github.actor == 'rejahrehim' || github.actor == 'victoriadrake'
     name: Build
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     env:
       CI: true
     steps:
