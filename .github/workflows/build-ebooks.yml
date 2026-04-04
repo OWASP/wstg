@@ -20,7 +20,6 @@ jobs:
       actions: write
     env:
       CI: true
-      PUPPETEER_EXECUTABLE_PATH: /usr/bin/chromium-browser
     outputs:
       tag: ${{ steps.vars.outputs.tag }}
     steps:
@@ -41,6 +40,19 @@ jobs:
         npm install -g md-to-pdf
         sudo snap install pdftk
         sudo apt install pandoc
+    - name: Configure Puppeteer for CI
+      run: |
+        CHROMIUM_PATH=$(command -v chromium-browser || command -v chromium) || {
+          echo "Error: No Chromium binary found on PATH" >&2
+          exit 1
+        }
+        echo "PUPPETEER_EXECUTABLE_PATH=$CHROMIUM_PATH" >> $GITHUB_ENV
+        if ! jq '.puppeteerLaunchOptions.args += ["--no-sandbox", "--disable-setuid-sandbox"]' \
+            .github/pdf/pdf-config.json > /tmp/pdf-config.tmp.json; then
+          echo "Error: Failed to update pdf-config.json with CI launch options" >&2
+          exit 1
+        fi
+        mv /tmp/pdf-config.tmp.json .github/pdf/pdf-config.json
     - name: Get Tag Version
       if: github.event_name == 'push'
       id: vars
