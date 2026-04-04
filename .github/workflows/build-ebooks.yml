@@ -1,5 +1,8 @@
 name: Build Ebooks
 
+permissions:
+  contents: write
+
 on:
   push:
     tags: 
