@@ -8,6 +8,7 @@ on:
     - '**.md'
 jobs:
   lint:
+    permissions: {}
     runs-on: ubuntu-latest
     steps:
       - name: Exit with success
