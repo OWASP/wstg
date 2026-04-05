@@ -107,6 +107,7 @@ Always ensure that your descriptions provide enough information for the engineer
 and provide as much technical detail as might be necessary to remedy it.
 
 ## Human Factors
+
 Human factors strongly influence the effectiveness of technical security controls. Attackers commonly exploit people (phishing, social engineering, credential reuse, and social recovery flows) rather than technical weaknesses alone. Testers should surface user-facing and process issues in their reports alongside technical findings and recommend remediations that combine technical controls, UX improvements, and targeted process or training changes.
 
 Checklist (what to look for and report)
