@@ -44,13 +44,17 @@ jobs:
           echo "Error: No Chromium binary found on PATH" >&2
           exit 1
         }
-        echo "PUPPETEER_EXECUTABLE_PATH=$CHROMIUM_PATH" >> $GITHUB_ENV
+        echo "PUPPETEER_EXECUTABLE_PATH=$CHROMIUM_PATH" >> "$GITHUB_ENV"
+        TMP_PDF_CONFIG=$(mktemp) || {
+          echo "Error: Failed to create temporary file for pdf-config.json" >&2
+          exit 1
+        }
         if ! jq '.puppeteerLaunchOptions.args += ["--no-sandbox", "--disable-setuid-sandbox"]' \
-            .github/pdf/pdf-config.json > /tmp/pdf-config.tmp.json; then
+            .github/pdf/pdf-config.json > "$TMP_PDF_CONFIG"; then
           echo "Error: Failed to update pdf-config.json with CI launch options" >&2
           exit 1
         fi
-        mv /tmp/pdf-config.tmp.json .github/pdf/pdf-config.json
+        mv "$TMP_PDF_CONFIG" .github/pdf/pdf-config.json
     - name: Get Tag Version
       if: github.event_name == 'push'
       id: vars
