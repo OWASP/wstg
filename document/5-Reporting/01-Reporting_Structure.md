@@ -110,15 +110,16 @@ and provide as much technical detail as might be necessary to remedy it.
 
 Human factors strongly influence the effectiveness of technical security controls. Attackers commonly exploit people (phishing, social engineering, credential reuse, and social recovery flows) rather than technical weaknesses alone. Testers should surface user-facing and process issues in their reports alongside technical findings and recommend remediations that combine technical controls, UX improvements, and targeted process or training changes.
 
-Checklist (what to look for and report)
+Checklist (what to look for and report):
 
-Phishing and information leakage: note UI text, error messages, or pages that leak information useful to attackers (account enumeration, overly-detailed errors, recovery workflow details).
-Authentication and recovery UX: check for recovery flows (password reset, account recovery, backup codes, SMS fallback) that can be abused or that encourage insecure workarounds.
-2FA and fallback flows: verify whether second-factor options are implemented securely (no weak fallback paths) and whether the UX leads users to disable protections.
-Social engineering exposure: identify features or processes (support/helpdesk, unvalidated profile links, shared accounts) that could be abused by an attacker posing as a legitimate user.
-Session and credential handling: look for long-lived sessions, “remember me” implementations, or token exposure that increase risk when combined with social engineering/malware.
-Practical mitigations: recommend technical controls first (rate limiting, account lockout, secure 2FA, hardened recovery flows, minimal information in error messages) and augment them with targeted process fixes (support verification procedures) and short, actionable user guidance where appropriate.
-Reporting notes
+- Phishing and information leakage: note UI text, error messages, or pages that leak information useful to attackers (account enumeration, overly-detailed errors, recovery workflow details).
+- Authentication and recovery UX: check for recovery flows (password reset, account recovery, backup codes, SMS fallback) that can be abused or that encourage insecure workarounds.
+- 2FA and fallback flows: verify whether second-factor options are implemented securely (no weak fallback paths) and whether the UX leads users to disable protections.
+- Social engineering exposure: identify features or processes (support/helpdesk, unvalidated profile links, shared accounts) that could be abused by an attacker posing as a legitimate user.
+- Session and credential handling: look for long-lived sessions, “remember me” implementations, or token exposure that increase risk when combined with social engineering/malware.
+- Practical mitigations: recommend technical controls first (rate limiting, account lockout, secure 2FA, hardened recovery flows, minimal information in error messages) and augment them with targeted process fixes (support verification procedures) and short, actionable user guidance where appropriate.
+
+Reporting notes:
 
 Provide non-sensitive examples or redacted screenshots to show the issue and its user-facing context.
 Suggest concrete, prioritized remediation steps that engineers and product teams can act on.
