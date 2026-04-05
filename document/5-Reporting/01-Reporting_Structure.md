@@ -124,6 +124,7 @@ Reporting notes:
 Provide non-sensitive examples or redacted screenshots to show the issue and its user-facing context.
 Suggest concrete, prioritized remediation steps that engineers and product teams can act on.
 Where appropriate, identify who in the organisation should own the fix (e.g., product, support, or security) and any short-term mitigations (feature flags, temporary rate limits).
+
 References
 
 NIST SP 800-63: Digital Identity Guidelines (identity proofing & authentication).
