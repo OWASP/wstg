@@ -125,11 +125,6 @@ Provide non-sensitive examples or redacted screenshots to show the issue and its
 Suggest concrete, prioritized remediation steps that engineers and product teams can act on.
 Where appropriate, identify who in the organisation should own the fix (e.g., product, support, or security) and any short-term mitigations (feature flags, temporary rate limits).
 
-References
-
-NIST SP 800-63: Digital Identity Guidelines (identity proofing & authentication).
-OWASP Cheat Sheet Series — consider linking relevant cheat sheets on phishing, authentication, and social engineering prevention.
-
 ### Reproducible Test Artifacts
 
 As part of reporting, testers may include reproducible test artifacts to help developers verify fixes.
@@ -157,6 +152,8 @@ Multiple appendices can be added, such as:
 
 This section is not part of the suggested report format. The below links provide more guidance to writing your reports.
 
+NIST SP 800-63: Digital Identity Guidelines (identity proofing & authentication).
+OWASP Cheat Sheet Series — consider linking relevant cheat sheets on phishing, authentication, and social engineering prevention.
 - [SANS: Tips for Creating a Strong Cybersecurity Assessment Report](https://www.sans.org/blog/tips-for-creating-a-strong-cybersecurity-assessment-report/)
 - [SANS: Writing a Penetration Testing Report](https://www.sans.org/reading-room/whitepapers/bestprac/paper/33343)
 - [Infosec Institute: The Art of Writing Penetration Test Reports](https://www.infosecinstitute.com/resources/penetration-testing/writing-penetration-testing-reports/)
