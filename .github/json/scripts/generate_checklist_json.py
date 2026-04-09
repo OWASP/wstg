@@ -2,7 +2,9 @@
 """Generate checklists/checklist.json from WSTG chapter markdown files."""
 
 import json
+import os
 import re
+import sys
 from collections import OrderedDict
 from pathlib import Path
 
@@ -125,6 +127,72 @@ def reference_url(relative_md_stem: str) -> str:
     return f"{REFERENCE_PREFIX}{relative_md_stem}"
 
 
+def _objectives_are_empty_or_blank(objectives: list[str]) -> bool:
+    if not objectives:
+        return True
+    return all(not o.strip() for o in objectives)
+
+
+def _empty_objective_entries(
+    data: OrderedDict,
+) -> list[tuple[str, str, str, str]]:
+    """(category_label, test_id, test_name, reference_url) for tests with no real objective text."""
+    rows: list[tuple[str, str, str, str]] = []
+    for category_label, category in data["categories"].items():
+        for test in category["tests"]:
+            objs = test.get("objectives", [])
+            if _objectives_are_empty_or_blank(objs):
+                rows.append(
+                    (
+                        category_label,
+                        test["id"],
+                        test["name"],
+                        test["reference"],
+                    )
+                )
+    return rows
+
+
+def _write_empty_objectives_report(entries: list[tuple[str, str, str, str]]) -> None:
+    """
+    In GitHub Actions, append to the job summary. Locally, print to stderr.
+    Never raises for missing env or IO errors beyond logging to stderr.
+    """
+    lines: list[str] = []
+    if not entries:
+        lines.append("## Checklist JSON: Test Objectives\n\n")
+        lines.append(
+            "All generated entries have at least one non-blank objective.\n"
+        )
+    else:
+        lines.append("## Checklist JSON: empty or blank Test Objectives\n\n")
+        lines.append(
+            "These IDs have no non-blank objective strings; the Excel builder "
+            "will show **N/A** for objectives.\n\n"
+        )
+        lines.append("| Category | ID | Name |\n")
+        lines.append("| --- | --- | --- |\n")
+        for category, tid, name, _ref in entries:
+            safe_cat = category.replace("|", "\\|")
+            safe_name = name.replace("|", "\\|")
+            lines.append(f"| {safe_cat} | `{tid}` | {safe_name} |\n")
+
+    text = "".join(lines)
+    summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
+    if summary_path:
+        try:
+            with open(summary_path, "a", encoding="utf-8") as fh:
+                fh.write(text)
+        except OSError as exc:
+            print(
+                f"Warning: could not write GITHUB_STEP_SUMMARY: {exc}",
+                file=sys.stderr,
+            )
+            print(text, file=sys.stderr)
+    else:
+        print(text, file=sys.stderr)
+
+
 def build_checklist() -> OrderedDict:
     categories: OrderedDict[str, OrderedDict] = OrderedDict()
 
@@ -168,6 +236,7 @@ def build_checklist() -> OrderedDict:
 
 def main() -> None:
     data = build_checklist()
+    _write_empty_objectives_report(_empty_objective_entries(data))
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     text = json.dumps(data, indent=2, ensure_ascii=False) + "\n"
     OUTPUT_PATH.write_text(text, encoding="utf-8")
