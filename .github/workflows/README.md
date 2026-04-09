@@ -13,7 +13,7 @@ These workflows use:
 For building checklists and Create a PR with changes made in the master.
 
 - Trigger: Push, Only when files inside document directory is changed. Manual (`workflow_dispatch`), GitHub web UI.
-- See: `/.github/xlsx/` in the root of the repository for XLSX build.
+- See: `/.github/json/` for JSON checklist generation and `/.github/xlsx/` for XLSX build.
 
 ## `build-ebooks.yml`
 

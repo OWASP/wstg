@@ -27,10 +27,13 @@ jobs:
       uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6
       with:
         node-version: 24
+    - name: Setup Python
+      uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6
+      with:
+        python-version: "3.10"
     - name: Install Dependencies
       run: |
-        sudo apt update
-        sudo apt install moreutils
+        pip install openpyxl pydrive
     - name: Generate JSON Checklist
       run: |
         npm run-script jsongen
@@ -38,14 +41,6 @@ jobs:
         if ! git diff-index --quiet HEAD --; then
           echo "CHANGED=true" >> $GITHUB_ENV
         fi
-    - name: Setup Python
-      if: env.CHANGED == 'true'
-      uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6
-      with:
-        python-version: "3.10"
-    - name: Install Dependencies
-      run: |
-        pip install openpyxl pydrive
     - name: Run XLSX Build
       if: env.CHANGED == 'true'
       run: npm run-script xlsxgen

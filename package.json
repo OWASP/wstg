@@ -12,7 +12,7 @@
   "scripts": {
     "lint": "markdownlint-cli2 \"**/*.md\" \"!node_modules\"",
     "pdfgen": "bash ./.github/pdf/scripts/make-pdf.sh",
-    "jsongen": "bash ./.github/json/scripts/make-json.sh",
+    "jsongen": "python3 ./.github/json/scripts/generate_checklist_json.py",
     "xlsxgen": "python ./.github/xlsx/scripts/build-checklist.py",
     "publishxlsx": "python ./.github/xlsx/scripts/upload-to-google-drive.py",
     "epubgen": "bash ./.github/epub/scripts/make-epub.sh"
