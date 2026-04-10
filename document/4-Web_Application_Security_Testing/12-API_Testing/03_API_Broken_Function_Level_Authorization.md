@@ -48,11 +48,11 @@ Authorization: Bearer <regular_user_token>
 Test various **HTTP methods** for BFLA vulnerabilities:
 
 - **GET**: Attempt to access information available only to high-privilege users (e.g., administrators).
-  - Example: `GET /api/admin/getAllUsers`
+    - Example: `GET /api/admin/getAllUsers`
 - **POST/PUT/PATCH**: Attempt to modify or create sensitive resources (e.g., changing user roles, creating or deleting system-critical data).
-  - Example: `POST /api/admin/promoteUser { "userId": "12345", "newRole": "admin" }`
+    - Example: `POST /api/admin/promoteUser { "userId": "12345", "newRole": "admin" }`
 - **DELETE**: Attempt to delete sensitive resources, such as removing user accounts or data.
-  - Example: `DELETE /api/admin/deleteUser/12345`
+    - Example: `DELETE /api/admin/deleteUser/12345`
 
 ### Test for BFLA in GraphQL APIs
 
