@@ -23,9 +23,7 @@ Exploiting BFLA can lead to serious consequences such as privilege escalation, u
 Review API documentation (e.g. OpenAPI specification), traffic, or use an interception proxy (e.g., **Burp Suite**, **ZAP**) to identify different function-level endpoints. These might include:
   
 - **Administrative functions** (e.g., `/api/admin/deleteUser`, `/api/admin/getAllUsers`)
-
 - **Role-based operations** (e.g., `/api/admin/promoteUser`, `/api/user/createOrder`)
-
 - **Critical functions** for users (e.g., `/api/user/withdrawFunds`)
 
 Focus on **functionality differences** between different user roles (e.g., regular user, admin, partner, guest) and endpoints that offer more sensitive capabilities.
