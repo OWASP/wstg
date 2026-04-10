@@ -1063,6 +1063,14 @@
           ]
         },
         {
+          "name": "API Broken Function Level Authorization",
+          "id": "WSTG-APIT-03",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/12-API_Testing/04-API_Broken_Function_Level_Authorization",
+          "objectives": [
+            "The goal of this test is to determine if the API enforces **role or privilege-based access control** to restrict users from accessing or executing functions they are not authorized to use. This ensures that function-level security boundaries are properly enforced."
+          ]
+        },
+        {
           "name": "Testing GraphQL",
           "id": "WSTG-APIT-99",
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/12-API_Testing/99-Testing_GraphQL",
