@@ -53,6 +53,7 @@ Test various **HTTP methods** for BFLA vulnerabilities:
     - Example: `POST /api/admin/promoteUser { "userId": "12345", "newRole": "admin" }`
 - **DELETE**: Attempt to delete sensitive resources, such as removing user accounts or data.
     - Example: `DELETE /api/admin/deleteUser/12345`
+
 ### Test for BFLA in GraphQL APIs
 
 In **GraphQL APIs**, test if a user can invoke functions restricted to higher-privilege roles by modifying GraphQL queries.
