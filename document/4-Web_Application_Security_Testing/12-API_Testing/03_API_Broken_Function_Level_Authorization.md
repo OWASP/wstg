@@ -84,5 +84,5 @@ To prevent BFLA vulnerabilities, implement the following mitigations:
 ## References
 
 - [OWASP API Security Top 10: BFLA](https://owasp.org/API-Security/editions/2023/en/0xa5-broken-function-level-authorization/)
-- [OWASP Testing Guide: Testing for Privilege Escalation](../../05-Authorization_Testing/03-Testing_for_Privilege_Escalation.md)
+- [OWASP Testing Guide: Testing for Privilege Escalation](../05-Authorization_Testing/03-Testing_for_Privilege_Escalation.md)
 - [OWASP Testing Guide: Testing for GraphQL](99-Testing_GraphQL.md)
