@@ -320,6 +320,10 @@
 
 #### 4.12.2 [API Broken Object Level Authorization](4-Web_Application_Security_Testing/12-API_Testing/02-API_Broken_Object_Level_Authorization.md)
 
+#### 4.12.3 [Testing for Excessive Data Exposure](4-Web_Application_Security_Testing/12-API_Testing/03-Testing_for_Excessive_Data_Exposure.md)
+
+#### 4.12.4 [API Broken Function Level Authorization](4-Web_Application_Security_Testing/12-API_Testing/04-API_Broken_Function_Level_Authorization.md)
+
 #### 4.12.99 [Testing GraphQL](4-Web_Application_Security_Testing/12-API_Testing/99-Testing_GraphQL.md)
 
 ## 5. [Reporting](5-Reporting/README.md)
