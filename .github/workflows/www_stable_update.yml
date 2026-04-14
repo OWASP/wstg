@@ -16,8 +16,12 @@ jobs:
     - name: Setup
       run: |
         sudo apt update
-        sudo apt install -y moreutils
-        sudo snap install yq
+        sudo apt install -y moreutils wget
+        # ubuntu-latest is linux/amd64 on GitHub-hosted runners
+        YQ_VERSION=v4.52.5
+        sudo wget -qO /usr/local/bin/yq "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64"
+        sudo chmod +x /usr/local/bin/yq
+        yq --version
     - name: Git Clone and Global Config
       run: |
         # Git setup
@@ -99,7 +103,7 @@ jobs:
         # Copy info.md to all directories (excluding 'images' directories)
         find . -type d -not -name "images" -execdir cp -v "$WSTG_BASE/.github/www/$VERSION_PATH/info.md" {} \;
         # Set stable_version in site config
-        yq -I4 w "$WWW_BASE/_config.yml" stable_version "$VERSION_PATH" | sponge "$WWW_BASE/_config.yml"
+        VERSION_PATH="$VERSION_PATH" yq -I4 -i '.stable_version = strenv(VERSION_PATH)' "$WWW_BASE/_config.yml"
     - name: Setup Navigation (Versioned)
       run: |
         # Copy the current ToC for manipulation

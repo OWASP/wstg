@@ -60,16 +60,26 @@ jobs:
       run: |
         set -uo pipefail
         touch log.txt
+        TEXTLINT_FATAL=0
         readarray -t files_arr <<< "$FILES"
         # All markdown files, excluding .github
         # Use fix flag so that it goes through all files
+        # textlint: exit 0 = ok, 1 = rule violations (terminology here), >=2 = fatal (config, parse, etc.)
         for FILE in "${files_arr[@]}"; do
           [ -z "$FILE" ] && continue
           if printf '%s\n' "$FILE" | grep -q '\.github'; then
             continue
           fi
-          textlint --config base/.github/configs/.textlintrc.json --fix "$FILE" | tee -a log.txt
+          textlint --config base/.github/configs/.textlintrc.json --fix "$FILE" 2>&1 | tee -a log.txt
+          rc=${PIPESTATUS[0]}
+          if [ "$rc" -ge 2 ]; then
+            printf 'textlint exited with code %s for file: %s\n' "$rc" "$FILE" >&2
+            TEXTLINT_FATAL=1
+          fi
         done
+        if [ "$TEXTLINT_FATAL" -eq 1 ]; then
+          exit 2
+        fi
         if grep -q 'Incorrect term' log.txt; then
           exit 1
         else
