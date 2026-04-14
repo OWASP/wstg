@@ -46,7 +46,6 @@ jobs:
         # Git setup
         export GITHUB_USER=wstgbot
         echo "GITHUB_USER=$GITHUB_USER" >> "$GITHUB_ENV"
-        echo "GITHUB_TOKEN=${{ secrets.wstg_deploy_token }}" >> "$GITHUB_ENV"
         git config --global user.email "62450690+wstgbot@users.noreply.github.com"
         git config --global user.name "$GITHUB_USER"
     - name: Setup Environment Variables
@@ -63,6 +62,8 @@ jobs:
         git checkout -b "$BRANCH_STAMP"
     - name: Push Feature Branch and Raise PR
       if: env.CHANGED == 'true'
+      env:
+        GH_TOKEN: ${{ secrets.wstg_deploy_token }}
       run: |
         # If there are changes: add, commit, PR
         git add checklists/
@@ -73,6 +74,7 @@ jobs:
           gh pr create -R OWASP/wstg --fill
         fi
     - name: Set XLSX Publishing Secrets
+      if: env.CHANGED == 'true'
       run: |
         echo "$GDRIVECREDSFILE" | base64 -d > credentials.json
         echo "$GDRIVESETTINGSFILE" | base64 -d > settings.yaml
@@ -81,6 +83,7 @@ jobs:
         GDRIVECREDSFILE: ${{ secrets.GDRIVECREDSFILE }}
         GDRIVESETTINGSFILE: ${{ secrets.GDRIVESETTINGSFILE }}
     - name: Publish XLSX file to Google Drive
+      if: env.CHANGED == 'true'
       run: |
         python3 ./.github/xlsx/scripts/upload-to-google-drive.py "${{ secrets.GDRIVEFILEID }}" "${{ github.event.inputs.version }}"
 

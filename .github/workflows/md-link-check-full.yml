@@ -32,8 +32,10 @@ jobs:
         touch log err
         find . -name \*.md -exec markdown-link-check -q -v --config .github/configs/markdown-link-check-config.json {} 1>> log 2>> err \;
         if grep -q  "ERROR:" err ; then exit 1 ; else echo -e "No broken links found."; fi
-        echo $(cat log)
-        echo $(cat err)
+        echo "--- markdown-link-check stdout (log) ---"
+        cat log
+        echo "--- markdown-link-check stderr (err) ---"
+        cat err
     - name: Show Broken Links
       if: failure()
       run: |

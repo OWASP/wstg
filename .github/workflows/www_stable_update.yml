@@ -23,7 +23,6 @@ jobs:
         # Git setup
         export GITHUB_USER=wstgbot
         echo "GITHUB_USER=$GITHUB_USER" >> "$GITHUB_ENV"
-        echo "GITHUB_TOKEN=${{ secrets.wstg_deploy_token }}" >> "$GITHUB_ENV"
         git config --global user.email "62450690+wstgbot@users.noreply.github.com"
         git config --global user.name "$GITHUB_USER"
         # Clone the necessary repos
@@ -122,6 +121,8 @@ jobs:
         # Copy the navigation yaml to _data
         cp "$VERSION_PATH.yaml" "$WWW_BASE/_data/."
     - name: Push Feature Branch and Raise PR
+      env:
+        GH_TOKEN: ${{ secrets.wstg_deploy_token }}
       run: |
         cd "$WWW_BASE"
         git remote set-url origin "https://${GITHUB_USER}:${{ secrets.wstg_deploy_token }}@github.com/${GITHUB_USER}/www-project-web-security-testing-guide.git"
