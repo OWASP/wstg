@@ -16,7 +16,7 @@ jobs:
     - name: Setup
       run: |
         sudo apt update
-        sudo apt install moreutils
+        sudo apt install -y moreutils
         sudo snap install yq
     - name: Git Clone and Global Config
       run: |

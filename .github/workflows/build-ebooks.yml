@@ -34,10 +34,9 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt update
-        sudo apt install libgbm1 chromium-browser
-        npm install -g md-to-pdf
+        sudo apt install -y libgbm1 chromium-browser pandoc
         sudo snap install pdftk
-        sudo apt install pandoc
+        npm install -g md-to-pdf
     - name: Configure Puppeteer for CI
       run: |
         CHROMIUM_PATH=$(command -v chromium-browser || command -v chromium) || {

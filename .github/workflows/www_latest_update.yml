@@ -19,7 +19,7 @@ jobs:
     - name: Setup
       run: |
         sudo apt update
-        sudo apt install moreutils
+        sudo apt install -y moreutils
     - name: Git Clone and Global Config
       run: |
         # Git setup
