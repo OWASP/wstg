@@ -85,9 +85,10 @@ jobs:
         GH_TOKEN: ${{ secrets.wstg_deploy_token }}
       run: |
         cd "$WWW_BASE"
+        gh auth setup-git
         git add .
         if ! git diff-index --quiet HEAD --; then
-          git remote set-url origin "https://${GITHUB_USER}:${{ secrets.wstg_deploy_token }}@github.com/${GITHUB_USER}/www-project-web-security-testing-guide.git"
+          git remote set-url origin "https://github.com/${GITHUB_USER}/www-project-web-security-testing-guide.git"
           git commit -m "Publish Latest $SHORT_DATE" -m "Updates based on $SRC_BASE"
           git push --set-upstream origin "$BRANCH" --force
           gh pr create -R OWASP/www-project-web-security-testing-guide --fill
