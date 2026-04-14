@@ -35,7 +35,7 @@ jobs:
         python3 ./.github/json/scripts/generate_checklist_json.py
         git update-index -q --refresh
         if ! git diff-index --quiet HEAD --; then
-          echo "CHANGED=true" >> $GITHUB_ENV
+          echo "CHANGED=true" >> "$GITHUB_ENV"
         fi
     - name: Run XLSX Build
       if: env.CHANGED == 'true'
@@ -45,31 +45,31 @@ jobs:
       run: |
         # Git setup
         export GITHUB_USER=wstgbot
-        echo "GITHUB_USER=$GITHUB_USER" >> $GITHUB_ENV
-        echo "GITHUB_TOKEN=${{ secrets.wstg_deploy_token }}" >> $GITHUB_ENV
+        echo "GITHUB_USER=$GITHUB_USER" >> "$GITHUB_ENV"
+        echo "GITHUB_TOKEN=${{ secrets.wstg_deploy_token }}" >> "$GITHUB_ENV"
         git config --global user.email "62450690+wstgbot@users.noreply.github.com"
-        git config --global user.name $GITHUB_USER
+        git config --global user.name "$GITHUB_USER"
     - name: Setup Environment Variables
       if: env.CHANGED == 'true'
-      run : |
+      run: |
         # Setup some env vars etc for future use
-        echo "SRC_BASE="OWASP/wstg@"$(git log -1 --format=format:%h)" >> $GITHUB_ENV
-        echo "BRANCH_STAMP=$(date +"%Y%m%d%H%M%S")" >> $GITHUB_ENV
-        echo "SHORT_DATE=$(date +"%Y-%m-%d")" >> $GITHUB_ENV
+        echo "SRC_BASE=OWASP/wstg@$(git log -1 --format=format:%h)" >> "$GITHUB_ENV"
+        echo "BRANCH_STAMP=$(date +"%Y%m%d%H%M%S")" >> "$GITHUB_ENV"
+        echo "SHORT_DATE=$(date +"%Y-%m-%d")" >> "$GITHUB_ENV"
     - name: Create Feature Branch
       if: env.CHANGED == 'true'
       run: |
         # Checkout what will be the new feature branch
-        git checkout -b $BRANCH_STAMP
+        git checkout -b "$BRANCH_STAMP"
     - name: Push Feature Branch and Raise PR
       if: env.CHANGED == 'true'
       run: |
         # If there are changes: add, commit, PR
         git add checklists/
         if ! git diff-index --quiet HEAD --; then
-          git remote set-url origin https://$GITHUB_USER:${{ secrets.wstg_deploy_token }}@github.com/OWASP/wstg.git
+          git remote set-url origin "https://${GITHUB_USER}:${{ secrets.wstg_deploy_token }}@github.com/OWASP/wstg.git"
           git commit -m "Publish Latest checklists $SHORT_DATE" -m "Updates based on $SRC_BASE"
-          git push --set-upstream origin $BRANCH_STAMP
+          git push --set-upstream origin "$BRANCH_STAMP"
           gh pr create -R OWASP/wstg --fill
         fi
     - name: Set XLSX Publishing Secrets
@@ -82,5 +82,5 @@ jobs:
         GDRIVESETTINGSFILE: ${{ secrets.GDRIVESETTINGSFILE }}
     - name: Publish XLSX file to Google Drive
       run: |
-        python3 ./.github/xlsx/scripts/upload-to-google-drive.py ${{ secrets.GDRIVEFILEID }} ${{ github.event.inputs.version }}
+        python3 ./.github/xlsx/scripts/upload-to-google-drive.py "${{ secrets.GDRIVEFILEID }}" "${{ github.event.inputs.version }}"
 

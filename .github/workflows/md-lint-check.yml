@@ -28,7 +28,7 @@ jobs:
     - name: Save PR Number
       env:
         PR_NUMBER: ${{ github.event.number }}
-      run: echo $PR_NUMBER > pr_number
+      run: echo "$PR_NUMBER" > pr_number
     - name: Setup Node
       uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6
       with:

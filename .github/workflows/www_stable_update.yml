@@ -22,59 +22,59 @@ jobs:
       run: |
         # Git setup
         export GITHUB_USER=wstgbot
-        echo "GITHUB_USER=$GITHUB_USER" >> $GITHUB_ENV
-        echo "GITHUB_TOKEN=${{ secrets.wstg_deploy_token }}" >> $GITHUB_ENV
+        echo "GITHUB_USER=$GITHUB_USER" >> "$GITHUB_ENV"
+        echo "GITHUB_TOKEN=${{ secrets.wstg_deploy_token }}" >> "$GITHUB_ENV"
         git config --global user.email "62450690+wstgbot@users.noreply.github.com"
-        git config --global user.name $GITHUB_USER
+        git config --global user.name "$GITHUB_USER"
         # Clone the necessary repos
         git clone https://github.com/OWASP/wstg.git
         git clone -o upstream https://github.com/OWASP/www-project-web-security-testing-guide.git
     - name: Setup Environment Variables
-      run : |
+      run: |
         # Setup some env vars etc for future use
         # Extract version from tag ref
-        VERSION_TAG=${GITHUB_REF/refs\/tags\//}
-        echo "VERSION_TAG=$VERSION_TAG" >> $GITHUB_ENV
-        VERSION_PATH=$(echo $VERSION_TAG | tr -d .)
-        echo "VERSION_PATH=$VERSION_PATH" >> $GITHUB_ENV
+        VERSION_TAG="${GITHUB_REF#refs/tags/}"
+        echo "VERSION_TAG=$VERSION_TAG" >> "$GITHUB_ENV"
+        VERSION_PATH=$(echo "$VERSION_TAG" | tr -d .)
+        echo "VERSION_PATH=$VERSION_PATH" >> "$GITHUB_ENV"
         cd wstg
-        echo "WSTG_BASE=$(pwd)" >> $GITHUB_ENV
-        echo "SRC_BASE="OWASP/wstg@"$(git log -1 --format=format:%h)" >> $GITHUB_ENV
-        echo "BRANCH=stable-update" >> $GITHUB_ENV
-        echo "SHORT_DATE=$(date +"%Y-%m-%d")" >> $GITHUB_ENV
+        echo "WSTG_BASE=$(pwd)" >> "$GITHUB_ENV"
+        echo "SRC_BASE=OWASP/wstg@$(git log -1 --format=format:%h)" >> "$GITHUB_ENV"
+        echo "BRANCH=stable-update" >> "$GITHUB_ENV"
+        echo "SHORT_DATE=$(date +"%Y-%m-%d")" >> "$GITHUB_ENV"
         cd ../www-project-web-security-testing-guide
-        echo "WWW_BASE=$(pwd)" >> $GITHUB_ENV
+        echo "WWW_BASE=$(pwd)" >> "$GITHUB_ENV"
     - name: Create Feature Branch
       run: |
-        cd $WSTG_BASE
-        git checkout tags/$VERSION_TAG -b ver-branch
-        cd $WWW_BASE
-        git remote add origin https://github.com/$GITHUB_USER/www-project-web-security-testing-guide.git
+        cd "$WSTG_BASE"
+        git checkout "tags/$VERSION_TAG" -b ver-branch
+        cd "$WWW_BASE"
+        git remote add origin "https://github.com/${GITHUB_USER}/www-project-web-security-testing-guide.git"
         # Checkout what will be the new feature branch
-        git checkout -b $BRANCH
+        git checkout -b "$BRANCH"
         # Remove old 'stable' content
         rm -rf stable
         mkdir stable
         # Copy new 'stable' content
-        cp -R $WSTG_BASE/document/* ./stable
+        cp -R "$WSTG_BASE/document/." ./stable/
         # Create version directory
-        mkdir $VERSION_PATH
+        mkdir "$VERSION_PATH"
         # Copy new version content
-        cp -R $WSTG_BASE/document/* ./$VERSION_PATH
+        cp -R "$WSTG_BASE/document/." "./$VERSION_PATH/"
     - name: Modify Files for Web Deployment (Stable)
       run: |
-        cd $WWW_BASE/stable
+        cd "$WWW_BASE/stable"
         # Append front mater
-        for FILE in `find . -type f -name "*.md"`; do cat $WSTG_BASE/.github/www/stable/prepend.txt $FILE | sponge $FILE; done
+        for FILE in `find . -type f -name "*.md"`; do cat "$WSTG_BASE/.github/www/stable/prepend.txt" "$FILE" | sponge "$FILE"; done
         # Duplicate README.md as index.md in case people forcefully browse to directory bases
         find . -type f -name "README.md" -execdir cp -v {} ./index.md \;
         # Copy info.md to all directories (excluding 'images' directories)
-        find . -type d -not -name "images" -execdir cp -v $WSTG_BASE/.github/www/stable/info.md {} \;
+        find . -type d -not -name "images" -execdir cp -v "$WSTG_BASE/.github/www/stable/info.md" {} \;
     - name: Setup Navigation (Stable)
       run: |
         # Copy the current ToC for manipulation
-        cp $WSTG_BASE/document/README.md $WSTG_BASE/.github/www/stable/.
-        cd $WSTG_BASE/.github/www/stable/
+        cp "$WSTG_BASE/document/README.md" "$WSTG_BASE/.github/www/stable/."
+        cd "$WSTG_BASE/.github/www/stable/"
         # Create new navigation details from ToC
         # Handle numbered entries
         sed -i -E 's/^#{2,5}\s([0-9.]*\s)\[(.*?)\]\((.*?)\)/- title: '\''\1\2'\''\n  url: \3/g' README.md
@@ -89,23 +89,23 @@ jobs:
         # Add the leadin and add the generated yaml
         cat prepend.nav > stable.yaml && cat README.md >> stable.yaml
         # Copy the navigation yaml to _data
-        cp stable.yaml $WWW_BASE/_data/.
+        cp stable.yaml "$WWW_BASE/_data/."
     - name: Modify Files for Web Deployment (Versioned)
       run: |
-        cd $WWW_BASE/$VERSION_PATH
+        cd "$WWW_BASE/$VERSION_PATH"
         # Append front mater
-        for FILE in `find . -type f -name "*.md"`; do cat $WSTG_BASE/.github/www/$VERSION_PATH/prepend.txt $FILE | sponge $FILE; done
+        for FILE in `find . -type f -name "*.md"`; do cat "$WSTG_BASE/.github/www/$VERSION_PATH/prepend.txt" "$FILE" | sponge "$FILE"; done
         # Duplicate README.md as index.md in case people forcefully browse to directory bases
         find . -type f -name "README.md" -execdir cp -v {} ./index.md \;
         # Copy info.md to all directories (excluding 'images' directories)
-        find . -type d -not -name "images" -execdir cp -v $WSTG_BASE/.github/www/$VERSION_PATH/info.md {} \;
+        find . -type d -not -name "images" -execdir cp -v "$WSTG_BASE/.github/www/$VERSION_PATH/info.md" {} \;
         # Set stable_version in site config
-        yq -I4 w $WWW_BASE/_config.yml stable_version $VERSION_PATH |sponge $WWW_BASE/_config.yml
+        yq -I4 w "$WWW_BASE/_config.yml" stable_version "$VERSION_PATH" | sponge "$WWW_BASE/_config.yml"
     - name: Setup Navigation (Versioned)
       run: |
         # Copy the current ToC for manipulation
-        cp $WSTG_BASE/document/README.md $WSTG_BASE/.github/www/$VERSION_PATH/.
-        cd $WSTG_BASE/.github/www/$VERSION_PATH/
+        cp "$WSTG_BASE/document/README.md" "$WSTG_BASE/.github/www/$VERSION_PATH/."
+        cd "$WSTG_BASE/.github/www/$VERSION_PATH/"
         # Create new navigation details from ToC
         # Handle numbered entries
         sed -i -E 's/^#{2,5}\s([0-9.]*\s)\[(.*?)\]\((.*?)\)/- title: '\''\1\2'\''\n  url: \3/g' README.md
@@ -118,14 +118,14 @@ jobs:
         # Switch .md references to no extension
         sed -i 's/.md//g' README.md
         # Add the leadin and add the generated yaml
-        cat prepend.nav > $VERSION_PATH.yaml && cat README.md >> $VERSION_PATH.yaml
+        cat prepend.nav > "$VERSION_PATH.yaml" && cat README.md >> "$VERSION_PATH.yaml"
         # Copy the navigation yaml to _data
-        cp $VERSION_PATH.yaml $WWW_BASE/_data/.
+        cp "$VERSION_PATH.yaml" "$WWW_BASE/_data/."
     - name: Push Feature Branch and Raise PR
       run: |
-        cd $WWW_BASE
-        git remote set-url origin https://$GITHUB_USER:${{ secrets.wstg_deploy_token }}@github.com/$GITHUB_USER/www-project-web-security-testing-guide.git
+        cd "$WWW_BASE"
+        git remote set-url origin "https://${GITHUB_USER}:${{ secrets.wstg_deploy_token }}@github.com/${GITHUB_USER}/www-project-web-security-testing-guide.git"
         git add .
         git commit -m "Publish Stable and $VERSION_TAG - $SHORT_DATE" -m "Updates based on $SRC_BASE $VERSION_TAG"
-        git push --set-upstream origin $BRANCH --force
+        git push --set-upstream origin "$BRANCH" --force
         gh pr create -R OWASP/www-project-web-security-testing-guide --fill

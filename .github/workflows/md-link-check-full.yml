@@ -46,7 +46,7 @@ jobs:
         echo "**The following links are broken:**" > artifact.txt
         cat brokenlinks.txt | tee -a artifact.txt
         rm -f base/err base/log
-        cat artifact.txt >> $GITHUB_STEP_SUMMARY
+        cat artifact.txt >> "$GITHUB_STEP_SUMMARY"
     - name: Upload List of Broken Links
       if: failure()
       uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

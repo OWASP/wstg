@@ -57,17 +57,17 @@ jobs:
     - name: Get Tag Version
       if: github.event_name == 'push'
       id: vars
-      run: echo "tag=$(echo ${GITHUB_REF:10})" >> $GITHUB_OUTPUT
+      run: echo "tag=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
     - name: Run Push Build
       if: github.event_name == 'push'
       run: |
-        bash ./.github/pdf/scripts/make-pdf.sh ${{ steps.vars.outputs.tag }}
-        bash ./.github/epub/scripts/make-epub.sh ${{ steps.vars.outputs.tag }}
+        bash ./.github/pdf/scripts/make-pdf.sh "${{ steps.vars.outputs.tag }}"
+        bash ./.github/epub/scripts/make-epub.sh "${{ steps.vars.outputs.tag }}"
     - name: Run Workflow Build
       if: github.event_name == 'workflow_dispatch'
       run: |
-        bash ./.github/pdf/scripts/make-pdf.sh ${{ github.event.inputs.version }}
-        bash ./.github/epub/scripts/make-epub.sh ${{ github.event.inputs.version }}
+        bash ./.github/pdf/scripts/make-pdf.sh "${{ github.event.inputs.version }}"
+        bash ./.github/epub/scripts/make-epub.sh "${{ github.event.inputs.version }}"
     - name: Upload Ebooks for Release
       if: github.event_name == 'push'
       uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
