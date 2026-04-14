@@ -19,34 +19,33 @@ jobs:
     - name: Setup
       run: |
         sudo apt update
-        sudo apt install moreutils
+        sudo apt install -y moreutils
     - name: Git Clone and Global Config
       run: |
         # Git setup
         export GITHUB_USER=wstgbot
-        echo "GITHUB_USER=$GITHUB_USER" >> $GITHUB_ENV
-        echo "GITHUB_TOKEN=${{ secrets.wstg_deploy_token }}" >> $GITHUB_ENV
+        echo "GITHUB_USER=$GITHUB_USER" >> "$GITHUB_ENV"
         git config --global user.email "62450690+wstgbot@users.noreply.github.com"
-        git config --global user.name $GITHUB_USER
+        git config --global user.name "$GITHUB_USER"
         # Clone the necessary repos
         git clone https://github.com/OWASP/wstg.git --depth 1
         git clone -o upstream https://github.com/OWASP/www-project-web-security-testing-guide.git
     - name: Setup Environment Variables
-      run : |
+      run: |
         # Setup some env vars etc for future use
         cd wstg
-        echo "WSTG_BASE=$(pwd)" >> $GITHUB_ENV
-        echo "SRC_BASE="OWASP/wstg@"$(git log -1 --format=format:%h)" >> $GITHUB_ENV
-        echo "BRANCH=latest-update" >> $GITHUB_ENV
-        echo "SHORT_DATE=$(date +"%Y-%m-%d")" >> $GITHUB_ENV
+        echo "WSTG_BASE=$(pwd)" >> "$GITHUB_ENV"
+        echo "SRC_BASE=OWASP/wstg@$(git log -1 --format=format:%h)" >> "$GITHUB_ENV"
+        echo "BRANCH=latest-update" >> "$GITHUB_ENV"
+        echo "SHORT_DATE=$(date +"%Y-%m-%d")" >> "$GITHUB_ENV"
         cd ../www-project-web-security-testing-guide
-        echo "WWW_BASE=$(pwd)" >> $GITHUB_ENV
+        echo "WWW_BASE=$(pwd)" >> "$GITHUB_ENV"
     - name: Create Feature Branch
       run: |
-        cd $WWW_BASE
-        git remote add origin https://github.com/$GITHUB_USER/www-project-web-security-testing-guide.git
+        cd "$WWW_BASE"
+        git remote add origin "https://github.com/${GITHUB_USER}/www-project-web-security-testing-guide.git"
         # Checkout what will be the new feature branch
-        git checkout -b $BRANCH
+        git checkout -b "$BRANCH"
         # Remove old 'latest' content
         rm -rf latest
         mkdir latest
@@ -54,18 +53,18 @@ jobs:
         cp -R ../wstg/document/* ./latest
     - name: Modify Files for Web Deployment
       run: |
-        cd $WWW_BASE/latest
+        cd "$WWW_BASE/latest"
         # Append front mater
-        for FILE in `find . -type f -name "*.md"`; do cat $WSTG_BASE/.github/www/latest/prepend.txt $FILE | sponge $FILE; done
+        for FILE in `find . -type f -name "*.md"`; do cat "$WSTG_BASE/.github/www/latest/prepend.txt" "$FILE" | sponge "$FILE"; done
         # Duplicate README.md as index.md in case people forcefully browse to directory bases
         find . -type f -name "README.md" -execdir cp -v {} ./index.md \;
         # Copy info.md to all directories (excluding 'images' directories)
-        find . -type d -not -name "images" -execdir cp -v $WSTG_BASE/.github/www/latest/info.md {} \;
+        find . -type d -not -name "images" -execdir cp -v "$WSTG_BASE/.github/www/latest/info.md" {} \;
     - name: Setup Navigation
       run: |
         # Copy the current ToC for manipulation
-        cp $WSTG_BASE/document/README.md $WSTG_BASE/.github/www/latest/.
-        cd $WSTG_BASE/.github/www/latest/
+        cp "$WSTG_BASE/document/README.md" "$WSTG_BASE/.github/www/latest/."
+        cd "$WSTG_BASE/.github/www/latest/"
         # Create new navigation details from ToC
         # Handle numbered entries
         sed -i -E 's/^#{2,5}\s([0-9.]*\s)\[(.*?)\]\((.*?)\)/- title: '\''\1\2'\''\n  url: \3/g' README.md
@@ -80,14 +79,17 @@ jobs:
         # Add the leadin and add the generated yaml
         cat prepend.nav > latest.yaml && cat README.md >> latest.yaml
         # Copy the navigation yaml to _data
-        cp latest.yaml $WWW_BASE/_data/.
+        cp latest.yaml "$WWW_BASE/_data/."
     - name: Push Feature Branch and Raise PR
+      env:
+        GH_TOKEN: ${{ secrets.wstg_deploy_token }}
       run: |
-        cd $WWW_BASE
+        cd "$WWW_BASE"
+        gh auth setup-git
         git add .
         if ! git diff-index --quiet HEAD --; then
-          git remote set-url origin https://$GITHUB_USER:${{ secrets.wstg_deploy_token }}@github.com/$GITHUB_USER/www-project-web-security-testing-guide.git
+          git remote set-url origin "https://github.com/${GITHUB_USER}/www-project-web-security-testing-guide.git"
           git commit -m "Publish Latest $SHORT_DATE" -m "Updates based on $SRC_BASE"
-          git push --set-upstream origin $BRANCH --force
+          git push --set-upstream origin "$BRANCH" --force
           gh pr create -R OWASP/www-project-web-security-testing-guide --fill
         fi

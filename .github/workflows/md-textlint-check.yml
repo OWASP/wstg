@@ -29,7 +29,7 @@ jobs:
     - name: Save PR Number
       env:
         PR_NUMBER: ${{ github.event.number }}
-      run: echo $PR_NUMBER > pr_number
+      run: echo "$PR_NUMBER" > pr_number
     - name: Setup Node
       uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6
       with:
@@ -58,15 +58,33 @@ jobs:
         FILES: '${{ steps.files.outputs.files_updated }}'
       shell: bash
       run: |
+        set -uo pipefail
         touch log.txt
+        TEXTLINT_FATAL=0
         readarray -t files_arr <<< "$FILES"
         # All markdown files, excluding .github
         # Use fix flag so that it goes through all files
+        # textlint: exit 0 = ok, 1 = rule violations (terminology here), >=2 = fatal (config, parse, etc.)
         for FILE in "${files_arr[@]}"; do
           [ -z "$FILE" ] && continue
-          echo "$FILE" | grep -v '\.github' && textlint --config base/.github/configs/.textlintrc.json --fix "$FILE" | tee -a log.txt
+          if printf '%s\n' "$FILE" | grep -q '\.github'; then
+            continue
+          fi
+          textlint --config base/.github/configs/.textlintrc.json --fix "$FILE" 2>&1 | tee -a log.txt
+          rc=${PIPESTATUS[0]}
+          if [ "$rc" -ge 2 ]; then
+            printf 'textlint exited with code %s for file: %s\n' "$rc" "$FILE" >&2
+            TEXTLINT_FATAL=1
+          fi
         done
-        if grep -q  'Incorrect term' log.txt ; then exit 1 ; else echo -e \"No terminology issues found.\"; fi
+        if [ "$TEXTLINT_FATAL" -eq 1 ]; then
+          exit 2
+        fi
+        if grep -q 'Incorrect term' log.txt; then
+          exit 1
+        else
+          echo "No terminology issues found."
+        fi
     - name: Show Mistakes
       if: failure()
       run: |

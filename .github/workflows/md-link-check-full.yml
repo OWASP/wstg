@@ -32,8 +32,10 @@ jobs:
         touch log err
         find . -name \*.md -exec markdown-link-check -q -v --config .github/configs/markdown-link-check-config.json {} 1>> log 2>> err \;
         if grep -q  "ERROR:" err ; then exit 1 ; else echo -e "No broken links found."; fi
-        echo $(cat log)
-        echo $(cat err)
+        echo "--- markdown-link-check stdout (log) ---"
+        cat log
+        echo "--- markdown-link-check stderr (err) ---"
+        cat err
     - name: Show Broken Links
       if: failure()
       run: |
@@ -46,7 +48,7 @@ jobs:
         echo "**The following links are broken:**" > artifact.txt
         cat brokenlinks.txt | tee -a artifact.txt
         rm -f base/err base/log
-        cat artifact.txt >> $GITHUB_STEP_SUMMARY
+        cat artifact.txt >> "$GITHUB_STEP_SUMMARY"
     - name: Upload List of Broken Links
       if: failure()
       uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
