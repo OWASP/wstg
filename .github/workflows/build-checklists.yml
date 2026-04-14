@@ -23,10 +23,6 @@ jobs:
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       with:
         persist-credentials: false
-    - name: Setup Node
-      uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6
-      with:
-        node-version: 24
     - name: Setup Python
       uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6
       with:
@@ -36,14 +32,14 @@ jobs:
         pip install openpyxl pydrive
     - name: Generate JSON Checklist
       run: |
-        npm run-script jsongen
+        python3 ./.github/json/scripts/generate_checklist_json.py
         git update-index -q --refresh
         if ! git diff-index --quiet HEAD --; then
           echo "CHANGED=true" >> $GITHUB_ENV
         fi
     - name: Run XLSX Build
       if: env.CHANGED == 'true'
-      run: npm run-script xlsxgen
+      run: python3 ./.github/xlsx/scripts/build-checklist.py
     - name: Git Setup Global Config
       if: env.CHANGED == 'true'
       run: |
@@ -86,5 +82,5 @@ jobs:
         GDRIVESETTINGSFILE: ${{ secrets.GDRIVESETTINGSFILE }}
     - name: Publish XLSX file to Google Drive
       run: |
-        npm run-script publishxlsx --  ${{ secrets.GDRIVEFILEID }}  ${{ github.event.inputs.version }}
+        python3 ./.github/xlsx/scripts/upload-to-google-drive.py ${{ secrets.GDRIVEFILEID }} ${{ github.event.inputs.version }}
 

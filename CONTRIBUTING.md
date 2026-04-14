@@ -67,7 +67,7 @@ Choose a short, descriptive title. Briefly explain what you think needs changing
 
 Here are the steps for creating and submitting a Pull Request (PR) that we can quickly review and merge.
 
-1. [Set up your environment](#how-to-set-up-your-contributor-environment) to fork the project and install a Markdown linter.
+1. [Set up your environment](#how-to-set-up-your-contributor-environment) to fork the project.
 2. Associate your contribution with an [issue](https://github.com/OWASP/wstg/issues). To change existing content, read [Become a Reviewer or Editor](#become-a-reviewer-or-editor). To make additions, read [Become an Author](#become-an-author).
 3. Make your modifications. Be sure to follow our [style guide](style_guide.md).
 4. When you're ready to submit your work, push your changes to your fork. Ensure that your fork is [synced with `master`](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork).
@@ -117,24 +117,6 @@ If you're using a different editor, the `.editorconfig` file will help maintain 
 - **Sublime Text**: Install [EditorConfig](https://packagecontrol.io/packages/EditorConfig)
 - **Atom**: Install [EditorConfig](https://atom.io/packages/editorconfig)
 - **IntelliJ/WebStorm**: Built-in support
-
-### Running the Linter Locally
-
-To ensure your changes follow the project's Markdown style guide, you can run the linter locally:
-
-1. Install dependencies (requires [Node.js](https://nodejs.org/)):
-
-    ```bash
-    npm install
-    ```
-
-2. Run the linter:
-
-    ```bash
-    npm run lint
-    ```
-
-The linter will check all Markdown files and report any style issues that need to be fixed before submitting your pull request.
 
 ## Contributing with GitHub Dev Environments
 
