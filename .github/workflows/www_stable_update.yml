@@ -19,7 +19,9 @@ jobs:
         sudo apt install -y moreutils wget
         # ubuntu-latest is linux/amd64 on GitHub-hosted runners
         YQ_VERSION=v4.52.5
+        YQ_SHA256="8e413c6810744c0a9fb26c8a9703d1b8a4aa7b06b1c6156f5f2c918c38d27912"
         sudo wget -qO /usr/local/bin/yq "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64"
+        echo "${YQ_SHA256}  /usr/local/bin/yq" | sudo sha256sum -c -
         sudo chmod +x /usr/local/bin/yq
         yq --version
     - name: Git Clone and Global Config
