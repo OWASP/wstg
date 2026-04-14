@@ -11,6 +11,7 @@ Here are some ways you can make a helpful contribution. The [Open Source Guide f
 - [How to Open an Issue](#how-to-open-an-issue)
 - [How to Submit a Pull Request](#how-to-submit-a-pull-request)
 - [How to Set Up Your Contributor Environment](#how-to-set-up-your-contributor-environment)
+    - [Optional CLI Checks Using npx](#optional-cli-checks-using-npx)
 - [Contributing with GitHub Dev Environments](#contributing-with-github-dev-environments)
 
 ## Become an Author
@@ -117,6 +118,39 @@ If you're using a different editor, the `.editorconfig` file will help maintain 
 - **Sublime Text**: Install [EditorConfig](https://packagecontrol.io/packages/EditorConfig)
 - **Atom**: Install [EditorConfig](https://atom.io/packages/editorconfig)
 - **IntelliJ/WebStorm**: Built-in support
+
+### Optional CLI Checks Using npx
+
+> [!CAUTION]
+> The tool versions and command details below can drift out of sync with the jobs defined under `.github/workflows/`. Re-check those workflow files from time to time so your local commands still match what CI runs.
+
+If you have [Node.js](https://nodejs.org/) installed (which includes `npm` and `npx`), you can run the same checks the GitHub Actions workflows use, without a `package.json` in the repository root. `npx --yes` downloads a temporary copy of the tool when needed.
+
+From the root of your clone:
+
+**Markdown style ([Markdown Lint Check](.github/workflows/md-lint-check.yml))** — uses [markdownlint-cli2](https://github.com/DavidAnson/markdownlint-cli2) with the project config:
+
+```bash
+npx --yes markdownlint-cli2 "document/**/*.md" --config .github/configs/.markdownlint.json
+```
+
+Narrow the glob (for example to a single path) when you only want feedback on files you edited.
+
+**Broken links ([Markdown Link Check](.github/workflows/md-link-check.yml))** — uses [markdown-link-check](https://github.com/tcort/markdown-link-check) at the same major version as CI:
+
+```bash
+npx --yes markdown-link-check@3.11.0 -q -c .github/configs/markdown-link-check-config.json document/path/to/your_file.md
+```
+
+Relative links are easiest to validate when your branch includes the targets they point to (CI checks changed files in a layout similar to merging with `master`).
+
+**Terminology ([Markdown Terminology Lint Check](.github/workflows/md-textlint-check.yml))** — uses [textlint](https://textlint.github.io/) and the terminology rule:
+
+```bash
+npx --yes -p textlint -p textlint-rule-terminology textlint --config .github/configs/.textlintrc.json "document/**/*.md"
+```
+
+These commands are optional. If you skip them, rely on the recommended editor extensions and the results of the checks on your pull request.
 
 ## Contributing with GitHub Dev Environments
 
