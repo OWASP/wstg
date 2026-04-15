@@ -81,9 +81,9 @@ The list contains only tools that are freely available to download and use (alth
 
 ### Site Mirroring
 
-- [wget](https://www.gnu.org/software/wget/)
+- [wget](https://www.gnu.org/software/wget)
 - [wget for windows](https://gnuwin32.sourceforge.net/packages/wget.htm)
-- [cURL](https://curl.haxx.se)
+- [cURL](https://curl.se)
 
 ### Content Discovery
 
@@ -151,8 +151,10 @@ Browser Automation tools are used to validate the functionality of web applicati
 
 ### Open Source Tools
 
-- [HtmlUnit](https://htmlunit.sourceforge.io) - HtmlUnit is a GUI-less browser for Java programs. It models HTML documents and provides an API to invoke pages, fill out forms, click links, and interact with JavaScript and complex AJAX libraries. It can simulate Chrome, Firefox, or Edge depending on configuration, and is typically used for automated testing or web scraping. HtmlUnit can also be used as a Selenium-compatible browser via the [htmlunit-driver](https://github.com/SeleniumHQ/htmlunit-driver). The latest stable release is 4.21.0 (`org.htmlunit:htmlunit:4.21.0`).
+- [HtmlUnit](https://htmlunit.sourceforge.io)
+    - HtmlUnit is a GUI-less browser for Java programs. It models HTML documents and provides an API to invoke pages, fill out forms, click links, and interact with JavaScript and complex AJAX libraries.
     - GitHub Repository: [HtmlUnit/htmlunit](https://github.com/HtmlUnit/htmlunit)
+
 - [Selenium](https://www.selenium.dev)
     - JavaScript based testing framework, cross-platform and provides a GUI for creating tests.
 
@@ -174,12 +176,8 @@ The following freely available resources provide curated comparisons and evaluat
 
 ### ZAP (Zed Attack Proxy) Documentation
 
-Official documentation and learning resources for the ZAP (Zed Attack Proxy) dynamic application security testing tool.
-
 - [ZAP Documentation](https://www.zaproxy.org/docs/)
 
 ### Nuclei Templates Project
-
-A large open-source repository of vulnerability detection templates used for automated security scanning.
 
 - [Nuclei Templates](https://github.com/projectdiscovery/nuclei-templates)
