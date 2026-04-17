@@ -29,14 +29,21 @@ DEFAULT_CONCURRENCY_LIMIT = 4
 RETRY_COUNT = 3
 REQUEST_TIMEOUT = 30
 
-CONCURRENCY_LIMIT = int(
-    os.environ.get(
-        "OPENCRE_CONCURRENCY",
-        min(os.cpu_count() or 1, DEFAULT_CONCURRENCY_LIMIT),
-    )
-)
+
+def get_concurrency_limit() -> int:
+    default_limit = min(os.cpu_count() or 1, DEFAULT_CONCURRENCY_LIMIT)
+    raw_value = os.environ.get("OPENCRE_CONCURRENCY")
+
+    if raw_value is None:
+        return default_limit
+
+    try:
+        return max(1, int(raw_value))
+    except ValueError:
+        return default_limit
 
 
+CONCURRENCY_LIMIT = get_concurrency_limit()
 class OpenCRELookupError(Exception):
     """Raised when an OpenCRE request cannot be resolved."""
 
