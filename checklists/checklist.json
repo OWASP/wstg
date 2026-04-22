@@ -111,6 +111,10 @@
             "Ensure that default and known files have been removed.",
             "Validate that no debugging code or extensions are left in the production environments.",
             "Review the logging mechanisms set in place for the application."
+          ],
+          "cre_ids": [
+            "843-841",
+            "402-706"
           ]
         },
         {
@@ -120,6 +124,9 @@
           "objectives": [
             "Enumerate sensitive file extensions that might contain raw data such as scripts or credentials",
             "Validate that no system framework bypasses exist for the rules that have been set"
+          ],
+          "cre_ids": [
+            "615-744"
           ]
         },
         {
@@ -128,6 +135,9 @@
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/04-Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information",
           "objectives": [
             "Find and analyse unreferenced files that might contain sensitive information."
+          ],
+          "cre_ids": [
+            "462-245"
           ]
         },
         {
@@ -146,6 +156,9 @@
             "Enumerate supported HTTP methods.",
             "Test for access control bypass.",
             "Test HTTP method overriding techniques."
+          ],
+          "cre_ids": [
+            "483-715"
           ]
         },
         {
@@ -154,14 +167,9 @@
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/07-Test_HTTP_Strict_Transport_Security",
           "objectives": [
             "Review the HSTS header and its validity."
-          ]
-        },
-        {
-          "name": "Test RIA Cross Domain Policy",
-          "id": "WSTG-CONF-08",
-          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/08-Test_RIA_Cross_Domain_Policy",
-          "objectives": [
-            ""
+          ],
+          "cre_ids": [
+            "036-147"
           ]
         },
         {
@@ -179,6 +187,9 @@
           "objectives": [
             "Enumerate all possible domains (previous and current).",
             "Identify any forgotten or misconfigured domains."
+          ],
+          "cre_ids": [
+            "336-512"
           ]
         },
         {
@@ -228,6 +239,10 @@
             "Identify and document roles used by the application.",
             "Attempt to switch, change, or access another role.",
             "Review the granularity of the roles and the needs behind the permissions given."
+          ],
+          "cre_ids": [
+            "817-808",
+            "368-633"
           ]
         },
         {
@@ -275,6 +290,9 @@
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/01-Testing_for_Credentials_Transported_over_an_Encrypted_Channel",
           "objectives": [
             ""
+          ],
+          "cre_ids": [
+            "270-634"
           ]
         },
         {
@@ -284,6 +302,9 @@
           "objectives": [
             "Determine whether the application has any user accounts with default passwords.",
             "Review whether new user accounts are created with weak or predictable passwords."
+          ],
+          "cre_ids": [
+            "235-658"
           ]
         },
         {
@@ -293,6 +314,9 @@
           "objectives": [
             "Evaluate the account lockout mechanism's ability to mitigate brute force password guessing.",
             "Evaluate the unlock mechanism's resistance to unauthorized account unlocking."
+          ],
+          "cre_ids": [
+            "802-056"
           ]
         },
         {
@@ -318,6 +342,9 @@
           "objectives": [
             "Review if the application stores sensitive information on the client-side.",
             "Review if access can occur without authorization."
+          ],
+          "cre_ids": [
+            "473-758"
           ]
         },
         {
@@ -326,6 +353,13 @@
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/07-Testing_for_Weak_Authentication_Methods",
           "objectives": [
             "Determine the resistance of the application against brute force password guessing using available password dictionaries by evaluating the length, complexity, reuse, and aging requirements of passwords."
+          ],
+          "cre_ids": [
+            "630-577",
+            "487-305",
+            "455-885",
+            "327-505",
+            "751-176"
           ]
         },
         {
@@ -335,6 +369,9 @@
           "objectives": [
             "Determine the complexity and how straight-forward the questions are.",
             "Assess possible user answers and brute force capabilities."
+          ],
+          "cre_ids": [
+            "772-358"
           ]
         },
         {
@@ -343,6 +380,9 @@
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/09-Testing_for_Weak_Password_Change_or_Reset_Functionalities",
           "objectives": [
             "Determine whether the password change and reset functionality allows accounts to be compromised."
+          ],
+          "cre_ids": [
+            "581-525"
           ]
         },
         {
@@ -376,6 +416,11 @@
           "objectives": [
             "Identify injection points that pertain to path traversal.",
             "Assess bypassing techniques and identify the extent of path traversal."
+          ],
+          "cre_ids": [
+            "737-086",
+            "742-056",
+            "675-168"
           ]
         },
         {
@@ -384,6 +429,11 @@
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/05-Authorization_Testing/02-Testing_for_Bypassing_Authorization_Schema",
           "objectives": [
             "Assess if unauthenticated, horizontal, or vertical access is possible."
+          ],
+          "cre_ids": [
+            "152-725",
+            "524-603",
+            "650-560"
           ]
         },
         {
@@ -393,6 +443,9 @@
           "objectives": [
             "Identify injection points related to privilege manipulation.",
             "Fuzz or otherwise attempt to bypass security measures."
+          ],
+          "cre_ids": [
+            "713-683"
           ]
         },
         {
@@ -402,6 +455,9 @@
           "objectives": [
             "Identify points where object references may occur.",
             "Assess the access control measures and if they're vulnerable to IDOR."
+          ],
+          "cre_ids": [
+            "304-667"
           ]
         },
         {
@@ -425,6 +481,13 @@
             "Gather session tokens, for the same user and for different users where possible.",
             "Analyze and ensure that enough randomness exists to stop session forging attacks.",
             "Modify cookies that are not signed and contain information that can be manipulated."
+          ],
+          "cre_ids": [
+            "582-541",
+            "618-403",
+            "551-054",
+            "704-530",
+            "727-043"
           ]
         },
         {
@@ -433,6 +496,14 @@
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes",
           "objectives": [
             "Ensure that the proper security configuration is set for cookies."
+          ],
+          "cre_ids": [
+            "232-034",
+            "342-055",
+            "688-081",
+            "804-220",
+            "705-182",
+            "455-358"
           ]
         },
         {
@@ -442,6 +513,9 @@
           "objectives": [
             "Analyze the authentication mechanism and its flow.",
             "Force cookies and assess the impact."
+          ],
+          "cre_ids": [
+            "002-630"
           ]
         },
         {
@@ -452,6 +526,10 @@
             "Ensure that proper encryption is implemented.",
             "Review the caching configuration.",
             "Assess the channel and methods' security."
+          ],
+          "cre_ids": [
+            "333-888",
+            "402-133"
           ]
         },
         {
@@ -460,6 +538,10 @@
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/05-Testing_for_Cross_Site_Request_Forgery",
           "objectives": [
             "Determine whether it is possible to initiate requests on a user's behalf that are not initiated by the user."
+          ],
+          "cre_ids": [
+            "464-084",
+            "060-472"
           ]
         },
         {
@@ -469,6 +551,11 @@
           "objectives": [
             "Assess the logout UI.",
             "Analyze the session timeout and if the session is properly killed after logout."
+          ],
+          "cre_ids": [
+            "673-736",
+            "238-346",
+            "457-165"
           ]
         },
         {
@@ -477,6 +564,9 @@
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/07-Testing_Session_Timeout",
           "objectives": [
             "Validate that a hard session timeout exists."
+          ],
+          "cre_ids": [
+            "065-782"
           ]
         },
         {
@@ -526,6 +616,11 @@
           "objectives": [
             "Identify variables that are reflected in responses.",
             "Assess the input they accept and the encoding that gets applied on return (if any)."
+          ],
+          "cre_ids": [
+            "257-668",
+            "065-388",
+            "366-835"
           ]
         },
         {
@@ -535,6 +630,10 @@
           "objectives": [
             "Identify stored input that is reflected on the client-side.",
             "Assess the input they accept and the encoding that gets applied on return (if any)."
+          ],
+          "cre_ids": [
+            "257-668",
+            "065-388"
           ]
         },
         {
@@ -543,6 +642,9 @@
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/03-Testing_for_HTTP_Verb_Tampering",
           "objectives": [
             ""
+          ],
+          "cre_ids": [
+            "532-878"
           ]
         },
         {
@@ -552,6 +654,9 @@
           "objectives": [
             "Identify the backend and the parsing method used.",
             "Assess injection points and try bypassing input filters using HPP."
+          ],
+          "cre_ids": [
+            "743-237"
           ]
         },
         {
@@ -561,6 +666,10 @@
           "objectives": [
             "Identify SQL injection points.",
             "Assess the severity of the injection and the level of access that can be achieved through it."
+          ],
+          "cre_ids": [
+            "064-808",
+            "732-873"
           ]
         },
         {
@@ -570,6 +679,9 @@
           "objectives": [
             "Identify LDAP injection points.",
             "Assess the severity of the injection."
+          ],
+          "cre_ids": [
+            "531-558"
           ]
         },
         {
@@ -579,6 +691,11 @@
           "objectives": [
             "Identify XML injection points.",
             "Assess the types of exploits that can be attained and their severities."
+          ],
+          "cre_ids": [
+            "611-051",
+            "134-207",
+            "764-507"
           ]
         },
         {
@@ -596,6 +713,9 @@
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/09-Testing_for_XPath_Injection",
           "objectives": [
             "Identify XPATH injection points."
+          ],
+          "cre_ids": [
+            "134-207"
           ]
         },
         {
@@ -606,6 +726,9 @@
             "Identify IMAP/SMTP injection points.",
             "Understand the data flow and deployment structure of the system.",
             "Assess the injection impacts."
+          ],
+          "cre_ids": [
+            "881-434"
           ]
         },
         {
@@ -615,6 +738,10 @@
           "objectives": [
             "Identify injection points where you can inject code into the application.",
             "Assess the injection severity."
+          ],
+          "cre_ids": [
+            "547-283",
+            "657-084"
           ]
         },
         {
@@ -624,14 +751,10 @@
           "objectives": [
             "Identify and assess command injection points.",
             "Bypass special characters and OS commands filter."
-          ]
-        },
-        {
-          "name": "Testing for Buffer Overflow",
-          "id": "WSTG-INPV-13",
-          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/13-Testing_for_Buffer_Overflow",
-          "objectives": [
-            ""
+          ],
+          "cre_ids": [
+            "683-722",
+            "857-718"
           ]
         },
         {
@@ -640,6 +763,9 @@
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/13-Testing_for_Format_String_Injection",
           "objectives": [
             "Assess whether injecting format string conversion specifiers into user-controlled fields causes undesired behavior from the application."
+          ],
+          "cre_ids": [
+            "831-570"
           ]
         },
         {
@@ -691,6 +817,9 @@
             "Detect template injection vulnerability points.",
             "Identify the templating engine.",
             "Build the exploit."
+          ],
+          "cre_ids": [
+            "422-005"
           ]
         },
         {
@@ -736,6 +865,9 @@
           "objectives": [
             "Identify existing error output.",
             "Analyze the different output returned."
+          ],
+          "cre_ids": [
+            "166-151"
           ]
         },
         {
@@ -744,6 +876,9 @@
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/02-Testing_for_Stack_Traces",
           "objectives": [
             ""
+          ],
+          "cre_ids": [
+            "513-183"
           ]
         }
       ]
@@ -759,6 +894,11 @@
             "Validate the service configuration.",
             "Review the digital certificate's cryptographic strength and validity.",
             "Ensure that the TLS security is not bypassable and is properly implemented across the application."
+          ],
+          "cre_ids": [
+            "248-646",
+            "745-045",
+            "767-701"
           ]
         },
         {
@@ -768,6 +908,9 @@
           "objectives": [
             "Identify encrypted messages that rely on padding.",
             "Attempt to break the padding of the encrypted messages and analyze the returned error messages for further analysis."
+          ],
+          "cre_ids": [
+            "036-810"
           ]
         },
         {
@@ -777,6 +920,9 @@
           "objectives": [
             "Identify sensitive information transmitted through the various channels.",
             "Assess the privacy and security of the channels used."
+          ],
+          "cre_ids": [
+            "186-540"
           ]
         },
         {
@@ -785,6 +931,21 @@
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/04-Testing_for_Weak_Cryptographic_Primitives",
           "objectives": [
             "Provide a guideline for the identification weak encryption or hashing uses and implementations."
+          ],
+          "cre_ids": [
+            "170-772",
+            "786-224",
+            "742-431",
+            "433-122",
+            "674-425",
+            "441-132",
+            "267-468",
+            "224-321",
+            "482-866",
+            "027-210",
+            "664-571",
+            "542-488",
+            "483-883"
           ]
         }
       ]
@@ -820,6 +981,9 @@
             "Determine what type of data is logically acceptable by the component and what types the system should guard against.",
             "Determine who should be allowed to modify or read that data in each component.",
             "Attempt to insert, update, or delete data values used by each component that should not be allowed per the business logic workflow."
+          ],
+          "cre_ids": [
+            "048-612"
           ]
         },
         {
@@ -867,6 +1031,9 @@
             "Review the project documentation for file types that are rejected by the system.",
             "Verify that the unwelcomed file types are rejected and handled safely.",
             "Verify that file batch uploads are secure and do not allow any bypass against the set security measures."
+          ],
+          "cre_ids": [
+            "314-701"
           ]
         },
         {
@@ -880,6 +1047,13 @@
             "Determine how the uploaded files are processed.",
             "Obtain or create a set of malicious files for testing.",
             "Try to upload the malicious files to the application and determine whether it is accepted and processed."
+          ],
+          "cre_ids": [
+            "814-322",
+            "545-243",
+            "307-111",
+            "112-273",
+            "660-052"
           ]
         },
         {
@@ -904,6 +1078,11 @@
           "objectives": [
             "Identify DOM sinks.",
             "Build payloads that pertain to every sink type."
+          ],
+          "cre_ids": [
+            "257-668",
+            "065-388",
+            "607-671"
           ]
         },
         {
@@ -912,6 +1091,10 @@
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/02-Testing_for_JavaScript_Execution",
           "objectives": [
             "Identify sinks and possible JavaScript injection points."
+          ],
+          "cre_ids": [
+            "387-848",
+            "317-743"
           ]
         },
         {
@@ -920,6 +1103,9 @@
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/03-Testing_for_HTML_Injection",
           "objectives": [
             "Identify HTML injection points and assess the severity of the injected content."
+          ],
+          "cre_ids": [
+            "542-445"
           ]
         },
         {
@@ -929,6 +1115,9 @@
           "objectives": [
             "Identify injection points that handle URLs or paths.",
             "Assess the locations that the system could redirect to."
+          ],
+          "cre_ids": [
+            "232-217"
           ]
         },
         {
@@ -938,6 +1127,9 @@
           "objectives": [
             "Identify CSS injection points.",
             "Assess the impact of the injection."
+          ],
+          "cre_ids": [
+            "646-462"
           ]
         },
         {
@@ -956,6 +1148,9 @@
           "objectives": [
             "Identify endpoints that implement CORS.",
             "Ensure that the CORS configuration is secure or harmless."
+          ],
+          "cre_ids": [
+            "316-272"
           ]
         },
         {
@@ -973,6 +1168,9 @@
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/09-Testing_for_Clickjacking",
           "objectives": [
             "Assess application vulnerability to clickjacking attacks."
+          ],
+          "cre_ids": [
+            "480-071"
           ]
         },
         {
@@ -1000,6 +1198,11 @@
           "objectives": [
             "Determine whether the site is storing sensitive data in client-side storage.",
             "The code handling of the storage objects should be examined for possibilities of injection attacks, such as utilizing unvalidated input or vulnerable libraries."
+          ],
+          "cre_ids": [
+            "046-257",
+            "617-524",
+            "455-358"
           ]
         },
         {
