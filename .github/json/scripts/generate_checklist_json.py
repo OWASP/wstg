@@ -389,7 +389,8 @@ def is_removed_placeholder_document(content: str) -> bool:
     meaningful_lines = [line.strip() for line in content.splitlines() if line.strip()]
     if len(meaningful_lines) < 4:
         return False
-    return meaningful_lines[-1] == "This content has been removed"
+    last_meaningful_line = meaningful_lines[-1].rstrip().rstrip(".")
+    return last_meaningful_line == "This content has been removed"
 
 
 def _nonblank_lines_in_objectives_section(content: str) -> list[str]:
