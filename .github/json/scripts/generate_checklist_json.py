@@ -25,6 +25,11 @@ REFERENCE_PREFIX = (
 
 OPENCRE_STANDARD = "OWASP Web Security Testing Guide (WSTG)"
 OPENCRE_BASE_URL = "https://www.opencre.org/rest/v1/standard"
+OPENCRE_LOOKUP_DESCRIPTION = (
+    "OpenCRE is queried with `GET /rest/v1/standard/<OWASP Web Security Testing Guide "
+    "(WSTG)>?section=<WSTG-ID>` (plus `&page=` when the section spans multiple pages)."
+)
+CRE_IDS_CELL_MAX_LEN = 240
 DEFAULT_CONCURRENCY_LIMIT = 4
 RETRY_COUNT = 3
 REQUEST_TIMEOUT = 30
@@ -44,6 +49,23 @@ def get_concurrency_limit() -> int:
 
 
 CONCURRENCY_LIMIT = get_concurrency_limit()
+
+
+def emit_markdown_report(text: str) -> None:
+    """Print markdown to stdout and append to GITHUB_STEP_SUMMARY when set."""
+    print(text, flush=True)
+    summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
+    if summary_path:
+        try:
+            with open(summary_path, "a", encoding="utf-8") as fh:
+                fh.write(text)
+        except OSError as exc:
+            print(
+                f"Warning: could not write GITHUB_STEP_SUMMARY: {exc}",
+                file=sys.stderr,
+            )
+
+
 class OpenCRELookupError(Exception):
     """Raised when an OpenCRE request cannot be resolved."""
 
@@ -183,6 +205,69 @@ def load_existing_cre_ids(path: Path) -> dict[str, list[str]]:
     return existing_cre_ids
 
 
+def _opencre_failure_is_404(message: str) -> bool:
+    return "404" in message
+
+
+def _opencre_failure_response_code(message: str) -> str:
+    """Best-effort HTTP status from OpenCRE error text; ``—`` when not present."""
+    m = re.search(r"returned (\d{3})\b", message)
+    if m:
+        return m.group(1)
+    if "404" in message:
+        return "404"
+    return "—"
+
+
+def _sort_opencre_failures_guide_order(
+    rows: list[tuple[str, str]], guide_rank: dict[str, int]
+) -> list[tuple[str, str]]:
+    """Order failures like the checklist (chapter order, then markdown file order)."""
+    sentinel = len(guide_rank) + 1
+    return sorted(
+        rows,
+        key=lambda r: (guide_rank.get(r[0], sentinel), r[0]),
+    )
+
+
+def _emit_opencre_failure_report(
+    failures: list[tuple[str, str]], guide_order_ids: list[str]
+) -> None:
+    if not failures:
+        return
+    guide_rank = {tid: i for i, tid in enumerate(guide_order_ids)}
+    lines: list[str] = [
+        "## Checklist JSON: OpenCRE lookup failures\n\n",
+        f"{OPENCRE_LOOKUP_DESCRIPTION}\n\n",
+        f"**{len(failures)}** WSTG test ID(s) could not be fetched from OpenCRE; "
+        "existing `cre_ids` in `checklist.json` are kept when present.\n\n",
+    ]
+    not_found = _sort_opencre_failures_guide_order(
+        [(tid, msg) for tid, msg in failures if _opencre_failure_is_404(msg)],
+        guide_rank,
+    )
+    other = _sort_opencre_failures_guide_order(
+        [(tid, msg) for tid, msg in failures if not _opencre_failure_is_404(msg)],
+        guide_rank,
+    )
+
+    def append_table(title: str, rows: list[tuple[str, str]]) -> None:
+        lines.append(f"### {title}\n\n")
+        if not rows:
+            lines.append("_None._\n\n")
+            return
+        lines.append("| WSTG ID | Response Code |\n")
+        lines.append("| --- | --- |\n")
+        for tid, msg in rows:
+            code = _opencre_failure_response_code(msg)
+            lines.append(f"| `{tid}` | {code} |\n")
+        lines.append("\n")
+
+    append_table(f"HTTP 404 ({len(not_found)})", not_found)
+    append_table(f"Other errors ({len(other)})", other)
+    emit_markdown_report("".join(lines))
+
+
 def enrich_with_opencre(checklist: OrderedDict) -> OrderedDict:
     all_tests = []
     existing_cre_ids = load_existing_cre_ids(OUTPUT_PATH)
@@ -221,16 +306,10 @@ def enrich_with_opencre(checklist: OrderedDict) -> OrderedDict:
                 results[returned_id] = cre_ids
             except Exception as exc:
                 message = str(exc)
-                print(f"WARNING: OpenCRE lookup failed for {test_id}: {message}")
                 results[test_id] = None
                 failures.append((test_id, message))
 
-    if failures:
-        print(
-            "WARNING: OpenCRE enrichment failures for the following test IDs:"
-        )
-        for failed_id, message in failures:
-            print(f"  - {failed_id}: {message}")
+    _emit_opencre_failure_report(failures, unique_ids)
 
     for test in all_tests:
         if not isinstance(test, dict):
@@ -303,6 +382,14 @@ def title_from_h1_prefix(content: str) -> str:
     """Strip the leading ``# `` from the document title line."""
     first = content.splitlines()[0] if content else ""
     return first[2:] if len(first) >= 2 else first
+
+
+def is_removed_placeholder_document(content: str) -> bool:
+    """True for stub markdown pages that only retain a removal notice."""
+    meaningful_lines = [line.strip() for line in content.splitlines() if line.strip()]
+    if len(meaningful_lines) < 4:
+        return False
+    return meaningful_lines[-1] == "This content has been removed"
 
 
 def _nonblank_lines_in_objectives_section(content: str) -> list[str]:
@@ -392,21 +479,22 @@ def _empty_objective_entries(
 
 
 def _write_empty_objectives_report(entries: list[tuple[str, str, str, str]]) -> None:
-    """
-    In GitHub Actions, append to the job summary. Locally, print to stderr.
-    Never raises for missing env or IO errors beyond logging to stderr.
-    """
+    """Build markdown for Test Objectives quality; emit to stdout and job summary."""
     lines: list[str] = []
     if not entries:
-        lines.append("## Checklist JSON: Test Objectives\n\n")
+        lines.append("## Checklist JSON: WSTG markdown — Test Objectives\n\n")
         lines.append(
-            "All generated entries have at least one non-blank objective.\n"
+            "All checklist rows include at least one non-blank objective parsed from "
+            "each chapter's `## Test Objectives` section.\n"
         )
     else:
-        lines.append("## Checklist JSON: empty or blank Test Objectives\n\n")
         lines.append(
-            "These IDs have no non-blank objective strings; the Excel builder "
-            "will show **N/A** for objectives.\n\n"
+            "## Checklist JSON: WSTG markdown — empty or blank Test Objectives\n\n"
+        )
+        lines.append(
+            "These rows have empty or whitespace-only objectives in JSON (from each "
+            "chapter's `## Test Objectives` section). The Excel builder shows **N/A** "
+            "for the objective column.\n\n"
         )
         lines.append("| Category | ID | Name |\n")
         lines.append("| --- | --- | --- |\n")
@@ -415,20 +503,65 @@ def _write_empty_objectives_report(entries: list[tuple[str, str, str, str]]) -> 
             safe_name = name.replace("|", "\\|")
             lines.append(f"| {safe_cat} | `{tid}` | {safe_name} |\n")
 
-    text = "".join(lines)
-    summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
-    if summary_path:
-        try:
-            with open(summary_path, "a", encoding="utf-8") as fh:
-                fh.write(text)
-        except OSError as exc:
-            print(
-                f"Warning: could not write GITHUB_STEP_SUMMARY: {exc}",
-                file=sys.stderr,
-            )
-            print(text, file=sys.stderr)
-    else:
-        print(text, file=sys.stderr)
+    emit_markdown_report("".join(lines))
+
+
+def _cre_mapping_success_rows(
+    data: OrderedDict,
+) -> list[tuple[str, str, str, str]]:
+    """(category_label, test_id, test_name, cre_joined) for tests with non-empty cre_ids."""
+    rows: list[tuple[str, str, str, str]] = []
+    categories = data.get("categories", {})
+    if not isinstance(categories, dict):
+        return rows
+    for category_label, category in categories.items():
+        if not isinstance(category, dict):
+            continue
+        tests = category.get("tests", [])
+        if not isinstance(tests, list):
+            continue
+        for test in tests:
+            if not isinstance(test, dict):
+                continue
+            cre_ids = test.get("cre_ids")
+            if not isinstance(cre_ids, list) or not cre_ids:
+                continue
+            parts = [str(x) for x in cre_ids if isinstance(x, str) and x]
+            if not parts:
+                continue
+            joined = ", ".join(parts)
+            if len(joined) > CRE_IDS_CELL_MAX_LEN:
+                joined = joined[: CRE_IDS_CELL_MAX_LEN - 1] + "…"
+            tid = test.get("id", "")
+            name = test.get("name", "")
+            if not isinstance(tid, str):
+                tid = str(tid)
+            if not isinstance(name, str):
+                name = str(name)
+            rows.append((str(category_label), tid, name, joined))
+    rows.sort(key=lambda r: (r[0], r[1]))
+    return rows
+
+
+def _write_cre_mapping_success_report(data: OrderedDict) -> None:
+    rows = _cre_mapping_success_rows(data)
+    lines: list[str] = ["## Checklist JSON: OpenCRE mappings (success)\n\n"]
+    if not rows:
+        lines.append("No tests have non-empty `cre_ids` after this run.\n")
+        emit_markdown_report("".join(lines))
+        return
+    lines.append(
+        f"{OPENCRE_LOOKUP_DESCRIPTION}\n\n"
+        f"**{len(rows)}** checklist row(s) have at least one CRE id from OpenCRE.\n\n"
+    )
+    lines.append("| Category | ID | Name | CRE IDs |\n")
+    lines.append("| --- | --- | --- | --- |\n")
+    for category, tid, name, cre_cell in rows:
+        safe_cat = category.replace("|", "\\|")
+        safe_name = name.replace("|", "\\|")
+        safe_cre = cre_cell.replace("|", "\\|")
+        lines.append(f"| {safe_cat} | `{tid}` | {safe_name} | {safe_cre} |\n")
+    emit_markdown_report("".join(lines))
 
 
 def build_checklist() -> OrderedDict:
@@ -450,6 +583,8 @@ def build_checklist() -> OrderedDict:
             if md_path.name == "README.md":
                 continue
             text = md_path.read_text(encoding="utf-8")
+            if is_removed_placeholder_document(text):
+                continue
             tid = first_wstg_id_in_document(text)
             if not tid:
                 continue
@@ -475,6 +610,7 @@ def build_checklist() -> OrderedDict:
 def main() -> None:
     data = build_checklist()
     data = enrich_with_opencre(data)
+    _write_cre_mapping_success_report(data)
     _write_empty_objectives_report(_empty_objective_entries(data))
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     text = json.dumps(data, indent=2, ensure_ascii=False) + "\n"
