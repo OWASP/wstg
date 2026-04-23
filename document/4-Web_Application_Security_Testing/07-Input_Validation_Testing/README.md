@@ -59,3 +59,5 @@
 4.7.20 [Testing for Mass Assignment](20-Testing_for_Mass_Assignment.md)
 
 4.7.21 [Testing for CSV Injection](21-Testing_for_CSV_Injection.md)
+
+4.7.22 [Testing for Insecure Deserialization](22-Testing_for_Insecure_Deserialization.md)
