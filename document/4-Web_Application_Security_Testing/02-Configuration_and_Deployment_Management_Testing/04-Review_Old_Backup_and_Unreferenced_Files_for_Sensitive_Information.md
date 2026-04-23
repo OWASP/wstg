@@ -173,11 +173,17 @@ Vulnerability assessment tools tend to include checks to spot web directories ha
 - [Nessus](https://www.tenable.com/products/nessus)
 - [Nikto2](https://cirt.net/Nikto2)
 
-Web spider tools
+### Web spider tools
 
 - [wget](https://www.gnu.org/software/wget/)
-- [Spike proxy includes a site crawler function](https://www.spikeproxy.com/)
-- [Xenu](https://home.snafu.de/tilman/xenulink.html)
+- Spike Proxy (legacy – no longer maintained; replaced by tools such as Burp Suite)
+- Xenu (legacy – last updated in 2010, no active maintenance)
 - [curl](https://curl.haxx.se)
+
+### Modern Alternatives
+
+- [Burp Suite](https://portswigger.net/burp) – widely used web security testing proxy
+- [OWASP ZAP](https://www.zaproxy.org/) – open-source web application security testing tool
+- [Screaming Frog SEO Spider](https://www.screamingfrog.co.uk/seo-spider/) – website crawler and broken link checker
 
 Some of them are also included in standard Linux distributions. Web development tools usually include facilities to identify broken links and unreferenced files.
