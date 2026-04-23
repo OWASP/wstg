@@ -10,7 +10,7 @@ OWASP thanks the many authors, reviewers, and editors for their hard work in bri
 
 ## Copyright and Licensee
 
-Copyright (c) 2020 The OWASP Foundation.
+Copyright (c) 2025 The OWASP Foundation.
 
 This document is released under the [Creative Commons 4.0 License](https://creativecommons.org/licenses/by-sa/4.0/). Please read and understand the license and copyright conditions.
 
@@ -28,13 +28,21 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 
 - Aaron Williams
 - Alessia Michela Di Campi
+- Alexander Bas
 - Elie Saad
+- Felix Sieges
+- Himasree Kolathur
 - Ismael Goncalves
 - Janos Zold
 - Jeremy Bonghwan Choi
+- Jinson Varghese Behanan
 - Joel Espunya
+- Joel Aviad Ossi
 - Manh Pham Tien
 - Mark Clayton
+- Meysam Bal-afkan
+- Mohamed Bassia (0xBassia)
+- Omar Jezi
 - Or Asaf
 - Phu Nguyen (Tony)
 - rbsec
@@ -59,14 +67,17 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Asharaf Ali
 - Elie Saad
 - Eoin Murphy
+- Evan Read (alp1n3-eth)
 - Francisco Bustos
 - frozensolid
 - Hsiang-Chih Hsu
 - Jeremy Bonghwan Choi
+- Jinson Varghese Behanan
 - Lukasz Lubczynski
 - Miguel Arevalo
 - Najam Ul Saqib
 - Nikoleta Misheva
+- Olivier Konaté
 - Patrick Santos
 - Rejah Rehim
 - Rick Mitchell
@@ -81,7 +92,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Merriam-Webster is a trademark of Merriam-Webster, Inc.
 - Microsoft is a registered trademark of Microsoft Corporation.
 - Octave is a service mark of Carnegie Mellon University.
-- Open Web Application Security Project and OWASP are registered trademarks of the OWASP Foundation, Inc.
+- Open Worldwide Application Security Project and OWASP are registered trademarks of the OWASP Foundation, Inc.
 - VeriSign and Thawte are registered trademarks of VeriSign, Inc.
 - Visa is a registered trademark of VISA USA.
 
@@ -89,7 +100,7 @@ All other products and company names may be trademarks of their respective owner
 
 ## Contacting OWASP
 
-Contact details for the [OWASP Foundation](https://owasp.org/) are available [online](https://owasp.org/contact/). If you have a question concerning a particular project, we strongly recommend using the [Google Group](https://groups.google.com/a/owasp.org/forum/) for that project. Many questions can also be answered by searching the [OWASP](https://owasp.org/) web site, so please check there first.
+Contact details for the [OWASP Foundation](https://owasp.org/) are available [online](https://owasp.org/contact/). If you have a question concerning a particular project, we strongly recommend using the [Google Group](https://groups.google.com/a/owasp.org/forum/) for that project. Many questions can also be answered by searching the [OWASP](https://owasp.org/) site, so please check there first.
 
 ### Follow Us
 

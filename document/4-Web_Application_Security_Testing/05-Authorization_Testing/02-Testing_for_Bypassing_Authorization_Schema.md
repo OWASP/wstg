@@ -6,27 +6,44 @@
 
 ## Summary
 
-This kind of test focuses on verifying how the authorization schema has been implemented for each role or privilege to get access to reserved functions and resources.
+This test case focuses on identifying authorization weaknesses where an authenticated
+user is able to access resources or perform actions beyond their assigned permissions,
+including horizontal and vertical privilege escalation.
 
-For every specific role the tester holds during the assessment and for every function and request that the application executes during the post-authentication phase, it is necessary to verify:
+While some checks may include scenarios such as direct access to protected resources
+without an active session or after logout, the primary intent of this test is to
+validate that authorization controls are correctly enforced for authenticated users
+and roles.
 
-- Is it possible to access that resource even if the user is not authenticated?
-- Is it possible to access that resource after the log-out?
-- Is it possible to access functions and resources that should be accessible to a user that holds a different role or privilege?
-
-Try to access the application as an administrative user and track all the administrative functions.
-
-- Is it possible to access administrative functions if the tester is logged in as a  non-admin user?
-- Is it possible to use these administrative functions as a user with a different role and for whom that action should be denied?
+Detailed unauthenticated and post-authentication scenarios are covered in the
+How to Test section.
 
 ## Test Objectives
 
-- Assess if horizontal or vertical access is possible.
+- Assess if unauthenticated, horizontal, or vertical access is possible.
 
 ## How to Test
 
+- Access resources and conduct operations without login. - Direct page request ([forced browsing](https://owasp.org/www-community/attacks/Forced_browsing))
 - Access resources and conduct operations horizontally.
 - Access resources and conduct operations vertically.
+
+### Testing for Basic Unauthenticated Access
+
+#### Using a Browser Manually
+
+When a web application does not properly enforce access control mechanisms, sensitive resources become exposed, allowing unauthenticated users to view them. For example, if a user directly requests a different page via forced browsing, that page may not check the authorization of the anonymous user before granting access. Attempt to directly access a protected page through the address bar in your browser to test using this method.
+
+![Direct Request to Protected Page](images/Basm-directreq.jpg)\
+*Figure 4.5.2-1: Direct Request to Protected Page*
+
+#### Using Automation
+
+This process can be automated if you have a list of all endpoints with tools like ffuf, gobuster, ZAP, and Burp Suite Intruder.
+
+For ZAP, using a adddon for [Access Control Testing](https://www.zaproxy.org/docs/desktop/addons/access-control-testing/) allows testers to determine which parts of the application are available to anonymous users, and identify potential access control issues.
+
+For Burp Suite, built-in tools such as Intruder, and a number of plugins, including Autorize, help the tester automate testing authorization.
 
 ### Testing for Horizontal Bypassing Authorization Schema
 
@@ -111,7 +128,7 @@ Some applications support non-standard headers such as `X-Original-URL` or `X-Re
 
 This behavior can be leveraged in a situation in which the application is behind a component that applies access control restriction based on the request URL.
 
-The kind of access control restriction based on the request URL can be, for example, blocking access from Internet to an administration console exposed on `/console` or `/admin`.
+The kind of access control restriction based on the request URL can be, for example, blocking access from internet to an administration console exposed on `/console` or `/admin`.
 
 To detect the support for the header `X-Original-URL` or `X-Rewrite-URL`, the following steps can be applied.
 
@@ -143,7 +160,7 @@ X-Rewrite-URL: /donotexist2
 
 If the response for either request contains markers that the resource was not found, this indicates that the application supports the special request headers. These markers may include the HTTP response status code 404, or a "resource not found" message in the response body.
 
-Once the support for the header `X-Original-URL` or `X-Rewrite-URL` was validated then the tentative of bypass against the access control restriction can be leveraged by sending the expected request to the application but specifying a URL "allowed" by the front-end component as the main request URL and specifying the real target URL in the `X-Original-URL` or `X-Rewrite-URL` header depending on the one supported. If both are supported then try one after the other to verify for which header the bypass is effective.
+Once the support for the header `X-Original-URL` or `X-Rewrite-URL` was validated then the tentative of bypass against the access control restriction can be leveraged by sending the expected request to the application but specifying a URL "allowed" by the frontend component as the main request URL and specifying the real target URL in the `X-Original-URL` or `X-Rewrite-URL` header depending on the one supported. If both are supported then try one after the other to verify for which header the bypass is effective.
 
 #### 4. Other Headers to Consider
 
@@ -174,7 +191,7 @@ Employ the least privilege principles on the users, roles, and resources to ensu
 
 ## Tools
 
-- [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org/)
+- [Zed Attack Proxy (ZAP)](https://www.zaproxy.org/)
     - [ZAP add-on: Access Control Testing](https://www.zaproxy.org/docs/desktop/addons/access-control-testing/)
 - [Port Swigger Burp Suite](https://portswigger.net/burp)
     - [Burp extension: AuthMatrix](https://github.com/SecurityInnovation/AuthMatrix/)

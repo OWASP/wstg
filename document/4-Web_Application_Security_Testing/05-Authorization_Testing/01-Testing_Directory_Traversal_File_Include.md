@@ -14,7 +14,7 @@ The definition of the privileges is made using Access Control Lists (ACL) whic
 
 Many web applications use server-side scripts to include different kinds of files. It is quite common to use this method to manage images, templates, load static texts, and so on. Unfortunately, these applications expose security vulnerabilities if input parameters (i.e., form parameters, cookie values) are not correctly validated.
 
-In web servers and web applications, this kind of problem arises in path traversal/file include attacks. By exploiting this kind of vulnerability, an attacker is able to read directories or files which they normally couldn't read, access data outside the web document root, or include scripts and other kinds of files from external websites.
+In web servers and web applications, this kind of problem arises in path traversal/file include attacks. By exploiting this kind of vulnerability, an attacker is able to read directories or files which they normally couldn't read, access data outside the web document root, or include scripts and other kinds of files from external sites.
 
 For the purpose of the OWASP Testing Guide, only the security threats related to web applications will be considered and not threats to web servers (e.g., the infamous `%5c` escape code into Microsoft IIS web server). Further reading suggestions will be provided in the references section for interested readers.
 
@@ -43,9 +43,9 @@ Here are some examples of the checks to be performed at this stage:
 - Are there request parameters which could be used for file-related operations?
 - Are there unusual file extensions?
 - Are there interesting variable names?
-    - `http://example.com/getUserProfile.jsp?item=ikki.html`
-    - `http://example.com/index.php?file=content`
-    - `http://example.com/main.cgi?home=index.htm`
+    - `https://example.com/getUserProfile.jsp?item=ikki.html`
+    - `https://example.com/index.php?file=content`
+    - `https://example.com/main.cgi?home=index.htm`
 - Is it possible to identify cookies used by the web application for the dynamic generation of pages or templates?
     - `Cookie: ID=d9ccd3f4f9f18cc1:TM=2166255468:LM=1162655568:S=3cFpqbJgMSSPKVMV:TEMPLATE=flower`
     - `Cookie: USER=1826cc8f:PSTYLE=GreenDotRed`
@@ -57,13 +57,13 @@ The next stage of testing is analyzing the input validation functions present in
 **Note:** To successfully test for this flaw, the tester needs to have knowledge of the system being tested and the location of the files being requested. There is no point requesting `/etc/passwd` from an IIS web server.
 
 ```text
-http://example.com/getUserProfile.jsp?item=../../../../etc/passwd
+https://example.com/getUserProfile.jsp?item=../../../../etc/passwd
 ```
 
 Another common example is including content from an external source:
 
 ```text
-http://example.com/index.php?file=http://www.owasp.org/malicioustxt
+https://example.com/index.php?file=https://www.owasp.org/malicioustxt
 ```
 
 The same can be applied to cookies or any other input vector that is used for dynamic page generation.
@@ -118,7 +118,7 @@ When the analysis is performed with a gray-box testing approach, testers have to
 - `JSP/Servlet: java.io.File(), java.io.FileReader(), ...`
 - `ASP: include file, include virtual, ...`
 
-Using online code search engines (e.g., [Searchcode](https://searchcode.com/)), it may also be possible to find path traversal flaws in Open Source software published on the Internet.
+Using online code search engines (e.g., [Searchcode](https://searchcode.com/)), it may also be possible to find path traversal flaws in Open Source software published on the internet.
 
 For PHP, testers can use the following regex:
 
@@ -152,9 +152,9 @@ file= ..\..\boot.ini
 
 - [DotDotPwn - The Directory Traversal Fuzzer](https://github.com/wireghoul/dotdotpwn)
 - [Path Traversal Fuzz Strings (from WFuzz Tool)](https://github.com/xmendez/wfuzz/blob/master/wordlist/Injections/Traversal.txt)
-- [OWASP ZAP](https://www.zaproxy.org/)
+- [ZAP](https://www.zaproxy.org/)
 - [Burp Suite](https://portswigger.net)
-- Enconding/Decoding tools
+- Encoding/Decoding tools
 - [String searcher "grep"](https://www.gnu.org/software/grep/)
 - [DirBuster](https://wiki.owasp.org/index.php/Category:OWASP_DirBuster_Project)
 

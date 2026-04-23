@@ -6,183 +6,255 @@
 
 ## Summary
 
-HTTP offers a number of methods that can be used to perform actions on the web server (the HTTP 1.1 standard refers to them as `methods` but they are also commonly described as `verbs`). While GET and POST are by far the most common methods that are used to access information provided by a web server, HTTP allows several other (and somewhat less known) methods. Some of these can be used for nefarious purposes if the web server is misconfigured.
+HTTP offers a number of methods (or verbs) that can be used to perform actions on the web server. While GET and POST are by far the most common methods that are used to access information provided by a web server, there are a variety of other methods that may also be supported, and can sometimes be exploited by attackers.
 
-[RFC 7231 –  Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content](https://tools.ietf.org/html/rfc7231) defines the following valid HTTP request methods, or verbs:
+[RFC 7231](https://datatracker.ietf.org/doc/html/rfc7231) defines the main valid HTTP request methods (or verbs), although additional methods have been added in other RFCs, such as [RFC 5789](https://datatracker.ietf.org/doc/html/rfc5789). Several of these verbs have been re-used for different purposes in [RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer) applications, listed in the table below.
 
-- [`GET`](https://tools.ietf.org/html/rfc7231#section-4.3.1)
-- [`HEAD`](https://tools.ietf.org/html/rfc7231#section-4.3.2)
-- [`POST`](https://tools.ietf.org/html/rfc7231#section-4.3.3)
-- [`PUT`](https://tools.ietf.org/html/rfc7231#section-4.3.4)
-- [`DELETE`](https://tools.ietf.org/html/rfc7231#section-4.3.5)
-- [`CONNECT`](https://tools.ietf.org/html/rfc7231#section-4.3.6)
-- [`OPTIONS`](https://tools.ietf.org/html/rfc7231#section-4.3.7)
-- [`TRACE`](https://tools.ietf.org/html/rfc7231#section-4.3.8)
-
-However, most web applications only need to respond to GET and POST requests, receiving user data in the URL query string or appended to the request respectively. The standard `<a href=""></a>` style links as well as forms defined without a method trigger a GET request; form data submitted via `<form method='POST'></form>` trigger POST requests. JavaScript and AJAX calls may send methods other than GET and POST but should usually not need to do that. Since the other methods are so rarely used, many developers do not know, or fail to take into consideration, how the web server or application framework's implementation of these methods impact the security features of the application.
+| Method | Original Purpose | RESTful Purpose |
+|--------|------------------|-----------------|
+| [`GET`](https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.1) | Request a file. | Request an object.|
+| [`HEAD`](https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.2) | Request a file, but only return the HTTP headers. | |
+| [`POST`](https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.3) | Submit data. | |
+| [`PUT`](https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.4) | Upload a file. | Create an object. |
+| [`DELETE`](https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.5) | Delete a file | Delete an object. |
+| [`CONNECT`](https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.6) | Establish a connection to another system. | |
+| [`OPTIONS`](https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.7) | List supported HTTP methods. | Perform a [CORS Preflight](https://developer.mozilla.org/en-US/docs/Glossary/Preflight_request) request. |
+| [`TRACE`](https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.8) | Echo the HTTP request for debug purposes. | |
+| [`PATCH`](https://datatracker.ietf.org/doc/html/rfc5789#section-2) |  | Modify an object. |
 
 ## Test Objectives
 
 - Enumerate supported HTTP methods.
 - Test for access control bypass.
-- Test XST vulnerabilities.
 - Test HTTP method overriding techniques.
 
 ## How to Test
 
 ### Discover the Supported Methods
 
-To perform this test, the tester needs some way to figure out which HTTP methods are supported by the web server that is being examined. While the `OPTIONS` HTTP method provides a direct way to do that, verify the server's response by issuing requests using different methods. This can be achieved by manual testing or something like the [`http-methods`](https://nmap.org/nsedoc/scripts/http-methods.html) Nmap script.
+To perform this test, the tester needs a way to identify which HTTP methods are supported by the web server that is being examined. The simplest way to do this is to make an `OPTIONS` request to the server:
 
-To use the `http-methods` Nmap script to test the endpoint `/index.php` on the server `localhost` using HTTPS, issue the command:
-
-```bash
-nmap -p 443 --script http-methods --script-args http-methods.url-path='/index.php' localhost
+```http
+OPTIONS / HTTP/1.1
+Host: example.org
 ```
 
-When testing an application that has to accept other methods, e.g. a RESTful Web Service, test it thoroughly to make sure that all endpoints accept only the methods that they require.
+The server should then respond with a list of supported methods:
 
-#### Testing the PUT Method
+```http
+HTTP/1.1 200 OK
+Allow: OPTIONS, GET, HEAD, POST
+```
 
-1. Capture the base request of the target with a web proxy.
-2. Change the request method to `PUT` and add `test.html` file and send the request to the application server.
+However, not all servers may respond to OPTIONS requests, and some may even return inaccurate information. It's also worth noting that servers may support different methods for different paths. This means that even if a method is not supported for the root / directory, it does not necessarily indicate that the same method won't be supported elsewhere.
 
-   ```html
-   PUT /test.html HTTP/1.1
-   Host: testing-website
+A more reliable way to test for supported methods is to simply make a request with that method type, and examine the server response. If the method is not permitted, the server should return a `405 Method Not Allowed` status.
 
-   <html>
-   HTTP PUT Method is Enabled
-   </html>
-   ```
+Note that some servers treat unknown methods as equivalent to `GET`, so they may respond to arbitrary methods, such as the request shown below. This can occasionally be useful to evade a web application firewall, or any other filtering that blocks specific methods.
 
-3. If the server response with 2XX success codes or 3XX redirections and then confirm by `GET` request for `test.html` file. The application is vulnerable.
+```http
+FOO / HTTP/1.1
+Host: example.org
+```
 
-If the HTTP `PUT` method is not allowed on base URL or request, try other paths in the system.
+Requests with arbitrary methods can also be made using curl with the `-X` option:
 
-> NOTE: If you are successful in uploading a web shell you should overwrite it or ensure that the security team of the target are aware and remove the component promptly after your proof-of-concept.
+```bash
+curl -X FOO https://example.org
+```
 
-Leveraging the `PUT` method an attacker may be able to place arbitrary and potentially malicious content, into the system which may lead to remote code execution, defacing the site or denial of service.
+There are also a variety of automated tools that can attempt to determine supported methods, such as the [`http-methods`](https://nmap.org/nsedoc/scripts/http-methods.html) Nmap script. However, these tools may not test for dangerous methods (i.e., methods that may cause changes such as `PUT` or `DELETE`), or may unintentionally cause changes to the web server if these methods are supported. As such, they should be used with care.
+
+### PUT and DELETE
+
+The `PUT` and `DELETE` methods can have different effects, depending on whether they are being interpreted by the web server or by the application running on it.
+
+#### Legacy Web Servers
+
+Some legacy web servers allowed the use of the `PUT` method to create files on the server. For example, if the server is configured to allow this, the request below would create a file on the server called `test.html` with the contents `<script>alert(1)</script>`.
+
+```http
+PUT /test.html HTTP/1.1
+Host: example.org
+Content-Length: 25
+
+<script>alert(1)</script>
+```
+
+Similar requests can also be made with cURL:
+
+```bash
+curl https://example.org --upload-file test.html
+```
+
+This allows an attacker to upload arbitrary files to the webserver, which could potentially result in a full system compromise if they are allowed to upload executable code such as PHP files. However, this configuration is extremely rare, and is unlikely to be seen on modern systems.
+
+Similarly, the `DELETE` method can be used to delete files from the webserver. Please note that this is a **destructive action**; therefore, extreme care should be exercised when testing this method.
+
+```http
+DELETE /test.html HTTP/1.1
+Host: example.org
+```
+
+Or with cURL:
+
+```bash
+curl https://example.org/test.html -X DELETE
+```
+
+#### RESTful APIs
+
+By contrast, the `PUT` and `DELETE` methods are commonly used by modern RESTful applications to create and delete objects. For example, the API request below could be used to create a user called "foo" with a role of "user":
+
+```http
+PUT /api/users/foo HTTP/1.1
+Host: example.org
+Content-Length: 34
+
+{
+    "role": "user"
+}
+```
+
+A similar request with the DELETE method could be used to delete an object.
+
+```http
+DELETE /api/users/foo HTTP/1.1
+Host: example.org
+```
+
+Although it may be reported by automated scanning tools, the presence of these methods on a RESTful API **is not a security issue**. However, this functionality may have other vulnerabilities (such as weak access control), and should be thoroughly tested.
+
+### TRACE
+
+The `TRACE` method (or Microsoft's equivalent `TRACK` method) causes the server to echo back the contents of the request. This led to a vulnerability called Cross-Site Tracing (XST) to be published in [2003](https://www.cgisecurity.com/whitehat-mirror/WH-WhitePaper_XST_ebook.pdf) (PDF), which could be used to access cookies that had the `HttpOnly` flag set. The `TRACE` method has been blocked in all browsers and plugins for many years; as such, this issue is no longer exploitable. However, it may still be flagged by automated scanning tools, and the `TRACE` method being enabled on a web server suggests that is has not been properly hardened.
+
+### CONNECT
+
+The `CONNECT` method causes the web server to open a TCP connection to another system, and then pass traffic from the client to that system. This could allow an attacker to proxy traffic through the server, in order to hide their source address, access internal systems or access services that are bound to localhost. An example of a `CONNECT` request is shown below:
+
+```http
+CONNECT 192.168.0.1:443 HTTP/1.1
+Host: example.org
+```
+
+### PATCH
+
+The `PATCH` method is defined in [RFC 5789](https://datatracker.ietf.org/doc/html/rfc5789), and is used to provide instructions on how an object should be modified. The RFC itself does not define what format these instructions should be in, but various methods are defined in other standards, such as the [RFC 6902 - JavaScript Object Notation (JSON) Patch](https://datatracker.ietf.org/doc/html/rfc6902).
+
+For example, if we have a user called "foo" with the following properties:
+
+```json
+{
+    "role": "user",
+    "email": "foo@example.org"
+}
+```
+
+The following JSON PATCH request could be used to change the role of this user to "admin", without modifying the email address:
+
+```http
+PATCH /api/users/foo HTTP/1.1
+Host: example.org
+
+{ "op": "replace", "path": "/role", "value": "admin" }
+```
+
+Although the RFC states that it should include instructions for how the object should be modified, the `PATCH` method is commonly (mis)used to include the changed content instead, as shown below. Much like the previous request, this would change the "role" value to "admin" without modifying the rest of the object. This is in contrast to the `PUT` method, which would overwrite the entire object, and thus result in an object with no "email" attribute.
+
+```http
+PATCH /api/users/foo HTTP/1.1
+Host: example.org
+
+{
+    "role": "admin"
+}
+```
+
+As with the `PUT` method, this functionality may have access control weaknesses or other vulnerabilities. Additionally, applications may not perform the same level of input validation when modifying an object as they do when creating one. This could potentially allow malicious values to be injected (such as in a stored cross-site scripting attack), or could allow broken or invalid objects that may result in business logic related issues.
 
 ### Testing for Access Control Bypass
 
-Find a page to visit that has a security constraint such that a GET request would normally force a 302 redirect to a log in page or force a log in directly. Issue requests using various methods such as HEAD, POST, PUT etc. as well as arbitrarily made up methods such as BILBAO, FOOBAR, CATS, etc. If the web application responds with a `HTTP/1.1 200 OK` that is not a log in page, it may be possible to bypass authentication or authorization. The following example uses [Nmap's `ncat`](https://nmap.org/ncat/).
+If a page on the application redirects users to a login page with a 302 code when they attempt to access it directly, it may be possible to bypass this by making a request with a different HTTP method, such as `HEAD`, `POST` or even a made up method such as `FOO`. If the web application responds with a `HTTP/1.1 200 OK` rather than the expected `HTTP/1.1 302 Found`, it may then be possible to bypass the authentication or authorization. The example below shows how a `HEAD` request may result in a page setting administrative cookies, rather than redirecting the user to a login page:
 
-```bash
-$ ncat www.example.com 80
-HEAD /admin HTTP/1.1
-Host: www.example.com
+```http
+HEAD /admin/ HTTP/1.1
+Host: example.org
+```
 
+```http
 HTTP/1.1 200 OK
-Date: Mon, 18 Aug 2008 22:44:11 GMT
-Server: Apache
-Set-Cookie: PHPSESSID=pKi...; path=/; HttpOnly
-Expires: Thu, 19 Nov 1981 08:52:00 GMT
-Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
-Pragma: no-cache
-Set-Cookie: adminOnlyCookie1=...; expires=Tue, 18-Aug-2009 22:44:31 GMT; domain=www.example.com
-Set-Cookie: adminOnlyCookie2=...; expires=Mon, 18-Aug-2008 22:54:31 GMT; domain=www.example.com
-Set-Cookie: adminOnlyCookie3=...; expires=Sun, 19-Aug-2007 22:44:30 GMT; domain=www.example.com
-Content-Language: EN
-Connection: close
-Content-Type: text/html; charset=ISO-8859-1
+[...]
+Set-Cookie: adminSessionCookie=[...];
 ```
 
-If the system appears vulnerable, issue CSRF-like attacks such as the following to exploit the issue more fully:
+Alternatively, it may be possible to make direct requests to pages that cause actions, such as:
 
-- `HEAD /admin/createUser.php?member=myAdmin`
-- `PUT /admin/changePw.php?member=myAdmin&passwd=foo123&confirm=foo123`
-- `CATS /admin/groupEdit.php?group=Admins&member=myAdmin&action=add`
-
-Using the above three commands, modified to suit the application under test and testing requirements, a new user would be created, a password assigned, and the user made an administrator, all using blind request submission.
-
-### Testing for Cross-Site Tracing Potential
-
-Note: in order to understand the logic and the goals of a cross-site tracing (XST) attack, one must be familiar with [cross-site scripting attacks](https://owasp.org/www-community/attacks/xss/).
-
-The `TRACE` method, intended for testing and debugging, instructs the web server to reflect the received message back to the client. This method, while apparently harmless, can be successfully leveraged in some scenarios to steal legitimate users' credentials. This attack technique was discovered by Jeremiah Grossman in 2003, in an attempt to bypass the [HttpOnly](https://owasp.org/www-community/HttpOnly) attribute that aims to protect cookies from being accessed by JavaScript.  However, the TRACE method can be used to bypass this protection and access the cookie even when this attribute is set.
-
-Test for cross-site tracing potential by issuing a request such as the following:
-
-```bash
-$ ncat www.victim.com 80
-TRACE / HTTP/1.1
-Host: www.victim.com
-Random: Header
-
-HTTP/1.1 200 OK
-Random: Header
-...
+```http
+HEAD /admin/createUser.php?username=foo&password=bar&role=admin HTTP/1.1
+Host: example.org
 ```
 
-The web server returned a 200 and reflected the random header that was set in place. To further exploit this issue:
+Or:
 
-```bash
-$ ncat www.victim.com 80
-TRACE / HTTP/1.1
-Host: www.victim.com
-Attack: <script>prompt()</script>
+```http
+FOO /admin/createUser.php
+Host: example.org
+Content-Length: 36
+
+username=foo&password=bar&role=admin
 ```
-
-The above example works if the response is being reflected in the HTML context.
-
-In older browsers, attacks were pulled using [XHR](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) technology, which leaked the headers when the server reflects them (*e.g.* Cookies, Authorization tokens, etc.) and bypassed security measures such as the [HttpOnly](../06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.md#httponly-attribute) attribute. This attack can be pulled in recent browsers only if the application integrates with technologies similar to Flash.
 
 ### Testing for HTTP Method Overriding
 
-Some web frameworks provide a way to override the actual HTTP method in the request by emulating the missing HTTP verbs passing some custom header in the requests. The main purpose of this is to circumvent some middleware (e.g. proxy, firewall) limitation where methods allowed usually do not encompass verbs such as `PUT` or `DELETE`. The following alternative headers could be used to do such verb tunneling:
+Some web frameworks provide a way to override the actual HTTP method in the request. They achieve this by emulating the missing HTTP verbs and passing some custom headers in the requests. The main purpose of this is to circumvent a middleware application (such as a proxy or web application firewall) which blocks specific methods. The following alternative HTTP headers could potentially be used:
 
 - `X-HTTP-Method`
 - `X-HTTP-Method-Override`
 - `X-Method-Override`
 
-In order to test this, in the scenarios where restricted verbs such as PUT or DELETE return a "405 Method not allowed", replay the same request with the addition of the alternative headers for HTTP method overriding, and observe how the system responds. The application should respond with a different status code (*e.g.* 200) in cases where method overriding is supported.
+To test this, consider scenarios where restricted verbs like `PUT` or `DELETE` return a `405 Method not allowed`. In such cases, replay the same request, but add the alternative headers for HTTP method overriding. Then, observe the system's response. The application should respond with a different status code (*e.g.* `200 OK`) in cases where method overriding is supported.
 
 The web server in the following example does not allow the `DELETE` method and blocks it:
 
-```bash
-$ ncat www.example.com 80
+```http
 DELETE /resource.html HTTP/1.1
-Host: www.example.com
+Host: example.org
+```
 
+```http
 HTTP/1.1 405 Method Not Allowed
-Date: Sat, 04 Apr 2020 18:26:53 GMT
-Server: Apache
-Allow: GET,HEAD,POST,OPTIONS
-Content-Length: 320
-Content-Type: text/html; charset=iso-8859-1
-Vary: Accept-Encoding
+[...]
 ```
 
 After adding the `X-HTTP-Method` header, the server responds to the request with a 200:
 
-```bash
-$ ncat www.example.com 80
-DELETE /resource.html HTTP/1.1
-Host: www.example.com
+```http
+GET /resource.html HTTP/1.1
+Host: example.org
 X-HTTP-Method: DELETE
+```
 
+```http
 HTTP/1.1 200 OK
-Date: Sat, 04 Apr 2020 19:26:01 GMT
-Server: Apache
+[...]
 ```
 
 ## Remediation
 
-- Ensure that only the required headers are allowed, and that the allowed headers are properly configured.
+- Ensure that only the required methods are allowed and that these methods are properly configured.
 - Ensure that no workarounds are implemented to bypass security measures implemented by user-agents, frameworks, or web servers.
 
 ## Tools
 
 - [Ncat](https://nmap.org/ncat/)
 - [cURL](https://curl.haxx.se/)
-- [nmap http-methods NSE script](https://nmap.org/nsedoc/scripts/http-methods.html)
-- [w3af plugin htaccess_methods](http://w3af.org/plugins/audit/htaccess_methods)
+- [Nmap http-methods NSE script](https://nmap.org/nsedoc/scripts/http-methods.html)
 
 ## References
 
-- [RFC 2109](https://tools.ietf.org/html/rfc2109) and [RFC 2965](https://tools.ietf.org/html/rfc2965): "HTTP State Management Mechanism"
-- [HTACCESS: BILBAO Method Exposed](https://web.archive.org/web/20160616172703/http://www.kernelpanik.org/docs/kernelpanik/bme.eng.pdf)
-- [Amit Klein: "XS(T) attack variants which can, in some cases, eliminate the need for TRACE"](https://www.securityfocus.com/archive/107/308433)
+- [RFC 7231 - Hypertext Transfer Protocol (HTTP/1.1)](https://datatracker.ietf.org/doc/html/rfc7231)
+- [RFC 5789 - PATCH Method for HTTP](https://datatracker.ietf.org/doc/html/rfc5789)
+- [HTACCESS: BILBAO Method Exposed](https://web.archive.org/web/20160616172703/https://www.kernelpanik.org/docs/kernelpanik/bme.eng.pdf)
 - [Fortify - Misused HTTP Method Override](https://vulncat.fortify.com/en/detail?id=desc.dynamic.xtended_preview.often_misused_http_method_override)
-- [CAPEC-107: Cross Site Tracing](https://capec.mitre.org/data/definitions/107.html)
+- [Mozilla Developer Network - Safe HTTP Methods](https://developer.mozilla.org/en-US/docs/Glossary/Safe/HTTP)

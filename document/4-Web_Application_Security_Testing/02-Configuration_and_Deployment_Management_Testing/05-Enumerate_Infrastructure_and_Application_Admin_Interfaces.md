@@ -6,7 +6,7 @@
 
 ## Summary
 
-Administrator interfaces may be present in the application or on the application server to allow certain users to undertake privileged activities on the site. Tests should be undertaken to reveal if and how this privileged functionality can be accessed by an unauthorized or standard user.
+Administrator interfaces may be present in the application or on the application server to allow certain users to perform privileged activities on the site. Tests should be undertaken to reveal if and how this privileged functionality can be accessed by an unauthorized or standard user.
 
 An application may require an administrator interface to enable a privileged user to access functionality that may make changes to how the site functions. Such changes may include:
 
@@ -23,17 +23,16 @@ In many instances, such interfaces do not have sufficient controls to protect th
 
 ## How to Test
 
-### Black-Box Testing
+### Black Box Testing
 
-The following section describes vectors that may be used to test for the presence of administrative interfaces. These techniques may also be used to test for related issues including privilege escalation, and are described elsewhere in this guide(for example [Testing for bypassing authorization schema](../05-Authorization_Testing/02-Testing_for_Bypassing_Authorization_Schema.md) and [Testing for Insecure Direct Object References](../05-Authorization_Testing/04-Testing_for_Insecure_Direct_Object_References.md) in greater detail.
+The following section describes vectors that may be used to test for the presence of administrative interfaces. These techniques may also be used to test for related issues including privilege escalation, and are described elsewhere in this guide (for example, [Testing for bypassing authorization schema](../05-Authorization_Testing/02-Testing_for_Bypassing_Authorization_Schema.md) and [Testing for Insecure Direct Object References](../05-Authorization_Testing/04-Testing_for_Insecure_Direct_Object_References.md)) in greater detail.
 
-- Directory and file enumeration. An administrative interface may be present but not visibly available to the tester. Attempting to guess the path of the administrative interface may be as simple as requesting: */admin or /administrator etc..* or in some scenarios can be revealed within seconds using [Google dorks](https://www.exploit-db.com/google-hacking-database).
-- There are many tools available to perform brute forcing of server contents, see the tools section below for more information. A tester may have to also identify the filename of the administration page. Forcibly browsing to the identified page may provide access to the interface.
-- Comments and links in source code. Many sites use common code that is loaded for all site users. By examining all source sent to the client, links to administrator functionality may be discovered and should be investigated.
-- Reviewing server and application documentation. If the application server or application is deployed in its default configuration it may be possible to access the administration interface using information described in configuration or help documentation. Default password lists should be consulted if an administrative interface is found and credentials are required.
-- Publicly available information. Many applications such as WordPress have default administrative interfaces .
-- Alternative server port. Administration interfaces may be seen on a different port on the host than the main application. For example, Apache Tomcat's Administration interface can often be seen on port 8080.
-- Parameter tampering. A GET or POST parameter or a cookie variable may be required to enable the administrator functionality. Clues to this include the presence of hidden fields such as:
+- Directory and file enumeration: An administrative interface may be present but not visibly available to the tester. The path of the administrative interface may be guessed by simple requests such as /admin or /administrator. In some scenarios, these paths can be revealed within seconds using advanced Google search techniques - [Google dorks](https://www.exploit-db.com/google-hacking-database). There are many tools available to perform brute forcing of server contents, see the tools section below for more information. A tester may have to also identify the filename of the administration page. Forcibly browsing to the identified page may provide access to the interface.
+- Comments and links in source code: Many sites use common code that is loaded for all site users. By examining all source sent to the client, links to administrator functionality may be discovered and should be investigated.
+- Reviewing server and application documentation: If the application server or application is deployed in its default configuration it may be possible to access the administration interface using information described in configuration or help documentation. Default password lists should be consulted if an administrative interface is found and credentials are required.
+- Publicly available information: Many applications, such as WordPress, have administrative interfaces that are available by default.
+- Alternative server port: Administration interfaces may be seen on a different port on the host than the main application. For example, Apache Tomcat's Administration interface can often be seen on port 8080.
+- Parameter tampering: A GET or POST parameter, or a cookie may be required to enable the administrator functionality. Clues to this include the presence of hidden fields such as:
 
 ```html
 <input type="hidden" name="admin" value="no">
@@ -43,26 +42,14 @@ or in a cookie:
 
 `Cookie: session_cookie; useradmin=0`
 
-Once an administrative interface has been discovered, a combination of the above techniques may be used to attempt to bypass authentication. If this fails, the tester may wish to attempt a brute force attack. In such an instance the tester should be aware of the potential for administrative account lockout if such functionality is present.
+Once an administrative interface has been discovered, a combination of the above techniques may be used to attempt to bypass authentication. If this fails, the tester may wish to attempt a brute force attack. In such an instance, the tester should be aware of the potential for administrative account lockout if such functionality is present.
 
-### Gray-Box Testing
+### Gray Box Testing
 
 A more detailed examination of the server and application components should be undertaken to ensure hardening (i.e. administrator pages are not accessible to everyone through the use of IP filtering or other controls), and where applicable, verification that all components do not use default credentials or configurations.
-Source code should be reviewed to ensure that the authorization and authentication model ensures clear separation of duties between normal users and site administrators. User interface functions shared between normal and administrator users should be reviewed to ensure clear separation between the drawing of such components and information leakage from such shared functionality.
+Source code should be reviewed to ensure that the authorization and authentication model ensures clear separation of duties between normal users and site administrators. User interface functions shared between normal and administrator users should be reviewed to ensure clear separation between the rendering of such components and the information leakage from such shared functionality.
 
-Each web framework may have its own admin default pages or path. For example
-
-WebSphere:
-
-```html
-/admin
-/admin-authz.xml
-/admin.conf
-/admin.passwd
-/admin/*
-/admin/logon.jsp
-/admin/secure/logon.jsp
-```
+Each web framework may have its own default admin pages or paths, as in the following examples:
 
 PHP:
 
@@ -79,34 +66,6 @@ PHP:
 /dbadmin
 ```
 
-FrontPage:
-
-```html
-/admin.dll
-/admin.exe
-/administrators.pwd
-/author.dll
-/author.exe
-/author.log
-/authors.pwd
-/cgi-bin
-```
-
-WebLogic:
-
-```html
-/AdminCaptureRootCA
-/AdminClients
-/AdminConnections
-/AdminEvents
-/AdminJDBC
-/AdminLicense
-/AdminMain
-/AdminProps
-/AdminRealm
-/AdminThreads
-```
-
 WordPress:
 
 ```html
@@ -119,11 +78,55 @@ wp-admin/admin-functions.php
 wp-admin/admin-header.php
 ```
 
+Joomla:
+
+```html
+/administrator/index.php
+/administrator/index.php?option=com_login
+/administrator/index.php?option=com_content
+/administrator/index.php?option=com_users
+/administrator/index.php?option=com_menus
+/administrator/index.php?option=com_installer
+/administrator/index.php?option=com_config
+```
+
+Tomcat:
+
+```html
+/manager/html
+/host-manager/html
+/manager/text
+/tomcat-users.xml
+```
+
+Apache:
+
+```html
+/index.html
+/httpd.conf
+/apache2.conf
+/server-status
+```
+
+Nginx:
+
+```html
+/index.html
+/index.htm
+/index.php
+/nginx_status
+/index.php
+/nginx.conf
+/html/error
+```
+
 ## Tools
 
-- [OWASP ZAP - Forced Browse](https://www.zaproxy.org/docs/desktop/addons/forced-browse/) is a currently maintained use of OWASP's previous DirBuster project.
+Several tools can assist in identifying hidden administrator interfaces and functionality, including:
+
+- [ZAP - Forced Browse](https://www.zaproxy.org/docs/desktop/addons/forced-browse/) is a currently maintained use of OWASP's previous DirBuster project.
 - [THC-HYDRA](https://github.com/vanhauser-thc/thc-hydra) is a tool that allows brute-forcing of many interfaces, including form-based HTTP authentication.
-- A brute forcer is much better when it uses a good dictionary, for example the [netsparker](https://www.netsparker.com/blog/web-security/svn-digger-better-lists-for-forced-browsing/) dictionary.
+- A brute forcer is much more effective when it uses a good dictionary, such as the [Netsparker](https://www.netsparker.com/blog/web-security/svn-digger-better-lists-for-forced-browsing/) dictionary.
 
 ## References
 

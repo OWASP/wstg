@@ -1,0 +1,110 @@
+name: Build Ebooks
+
+on:
+  push:
+    tags: 
+      - '*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version?'
+        required: true
+        default: '4.x'
+jobs:
+  build:
+    if: github.actor == 'kingthorin' || github.actor == 'ThunderSon' || github.actor == 'rejahrehim' || github.actor == 'victoriadrake'
+    name: Build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write
+    outputs:
+      tag: ${{ steps.vars.outputs.tag }}
+    steps:
+    - name: Setup Action
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+    - name: Setup Node
+      uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
+      with:
+        node-version: 24
+    - name: SetUp python
+      uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y libgbm1 chromium-browser pandoc
+        sudo snap install pdftk
+        npm install -g md-to-pdf
+    - name: Configure Puppeteer for CI
+      run: |
+        CHROMIUM_PATH=$(command -v chromium-browser || command -v chromium) || {
+          echo "Error: No Chromium binary found on PATH" >&2
+          exit 1
+        }
+        echo "PUPPETEER_EXECUTABLE_PATH=$CHROMIUM_PATH" >> "$GITHUB_ENV"
+        TMP_PDF_CONFIG=$(mktemp) || {
+          echo "Error: Failed to create temporary file for pdf-config.json" >&2
+          exit 1
+        }
+        if ! jq '.puppeteerLaunchOptions.args += ["--no-sandbox", "--disable-setuid-sandbox"]' \
+            .github/pdf/pdf-config.json > "$TMP_PDF_CONFIG"; then
+          echo "Error: Failed to update pdf-config.json with CI launch options" >&2
+          exit 1
+        fi
+        mv "$TMP_PDF_CONFIG" .github/pdf/pdf-config.json
+    - name: Get Tag Version
+      if: github.event_name == 'push'
+      id: vars
+      run: echo "tag=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
+    - name: Run Push Build
+      if: github.event_name == 'push'
+      run: |
+        bash ./.github/pdf/scripts/make-pdf.sh "${{ steps.vars.outputs.tag }}"
+        bash ./.github/epub/scripts/make-epub.sh "${{ steps.vars.outputs.tag }}"
+    - name: Run Workflow Build
+      if: github.event_name == 'workflow_dispatch'
+      run: |
+        bash ./.github/pdf/scripts/make-pdf.sh "${{ github.event.inputs.version }}"
+        bash ./.github/epub/scripts/make-epub.sh "${{ github.event.inputs.version }}"
+    - name: Upload Ebooks for Release
+      if: github.event_name == 'push'
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      with:
+        name: wstg-${{ steps.vars.outputs.tag }}-ebooks
+        path: |
+          ./build/wstg-${{ steps.vars.outputs.tag }}.pdf
+          ./build/wstg-${{ steps.vars.outputs.tag }}.epub
+    - name: Attach PDF and Epub
+      if: github.event_name == 'workflow_dispatch'
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      with:
+        name: wstg-${{ github.event.inputs.version }}-ebooks
+        path: |
+          ./build/wstg-${{ github.event.inputs.version }}.pdf
+          ./build/wstg-${{ github.event.inputs.version }}.epub
+  release:
+    if: github.event_name == 'push'
+    needs: build
+    name: Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
+    steps:
+    - name: Download Ebooks
+      uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+      with:
+        name: wstg-${{ needs.build.outputs.tag }}-ebooks
+        path: .
+    - name: Create Release
+      id: create_release
+      uses: ncipollo/release-action@339a81892b84b4eeb0f6e744e4574d79d0d9b8dd # v1.21.0
+      with:
+        name: Release ${{ needs.build.outputs.tag }}
+        artifacts: "./build/wstg-${{ needs.build.outputs.tag }}.pdf, ./build/wstg-${{ needs.build.outputs.tag }}.epub"
+        artifactErrorsFailBuild: true
+        draft: false
+        prerelease: true
+        token: ${{ secrets.GITHUB_TOKEN }}

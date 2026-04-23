@@ -86,9 +86,7 @@ remove_blank_pages () {
 
 # Add page break after each chapter
 add_page_break () {
-sed -e 's/^# /<div style=\"page-break-after: always\;\"><\/div>\
-\
-# /' $1
+    echo '<div style="page-break-after: always;"></div>'
 }
 
 # Replace internal markdown Links inside headings with html anchor tags (<a>)
@@ -204,9 +202,23 @@ add_design_to_image_name_tag () {
    sed 's/\*\(Figure [0-9.ABCDEF\-]*\: .*\)\*/<div class="image-name-tag-wrap"><span class="image-name-tag">\1<\/span><\/div>/'  $1
 }
 
+# Add design to the test case id table
+add_design_to_test_case_id_table () {
+    # sed -e '/<table>/,/<th>ID<\/th>/ s/<table>/<table class="test-case-id-table">/' $1
+    # sed 's/\|ID[.]*\|[\n]\|[-]*\|[\n]\|(WSTG-[A-Z]*-[0-9]*)\|/<table class="test-case-id-table"><thead><tr><th>ID</th></tr></thead><tbody><tr><td>\1</td></tr></tbody></table>/' $1
+    # sed 's/<table>\s<thead>\s<tr>\s<th>ID<\/th>\s<\/tr>\s<\/thead>/<table class="test-case-id-table"><thead><tr><th>ID<\/th><\/tr>\/thead>/' $1
+    sed '
+    /|ID.*|/,/|WSTG-[A-Z]*-[0-9]*|/ {
+        s/|ID.*|//
+        s/|[-]*|//
+        s/|\(WSTG-[A-Z]*-[0-9]*\)|/<ul class="arrowbox"><li class="first">ID<\/li><li class="second">\1<\/li><\/ul>/
+    }
+    ' $1
+}
+
 # Preprocess markdown files to support internal links and image designs
 preprocess_markdown_to_support_md_to_pdf () {
-    cat build/md/$1 | add_page_break | \
+    cat build/md/$1 | \
     replace_internal_markdown_links_with_in_headers_with_html_tags | \
     replace_markdown_headers_with_html_tags | \
     replace_internal_markdown_links_with_html_tags | \
@@ -226,7 +238,8 @@ preprocess_markdown_to_support_md_to_pdf () {
     convert_href_to_lower_case | \
     remove_chapter_numbers_from_link | \
     add_design_to_images | \
-    add_design_to_image_name_tag
+    add_design_to_test_case_id_table | \
+    { add_design_to_image_name_tag; add_page_break;}
 }
 
 extract_chapter_details_and_page_number_from_pdf () {
@@ -336,7 +349,8 @@ while read line; do
     pagenumber=$(($pagenumber+$numberofpages));
     numberofpages=0;
     headerlevel=0;
-
+    sectionTitle1=""
+    sectionTitle2=""
 done < build/chapters.txt;
 
 }
@@ -359,6 +373,9 @@ ls build/md | sort -n | while read x; do preprocess_markdown_to_support_md_to_pd
 
 # Create document body pages by converting Markdown to PDF
 md-to-pdf  --config-file .github/pdf/pdf-config.json build/wstg-doc-$VERSION.md
+
+# Remove Blank pages from the combined PDF
+remove_blank_pages build/wstg-doc-$VERSION.pdf
 
 # Combine Cover page and Document body
 pdftk build/cover-$VERSION.pdf build/second-cover-$VERSION.pdf build/wstg-doc-$VERSION.pdf build/back-$VERSION.pdf cat output build/wstg-com-$VERSION.pdf

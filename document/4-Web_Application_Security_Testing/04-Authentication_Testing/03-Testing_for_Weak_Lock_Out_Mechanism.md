@@ -38,9 +38,17 @@ To evaluate the account lockout mechanism's ability to mitigate brute force pass
 8. Attempt to log in with the correct password 10 minutes later. The application returns "Your account is locked out.", thereby showing that the lockout mechanism does not automatically unlock after 10 minutes.
 9. Successfully log in with the correct password 15 minutes later, thereby showing that the lockout mechanism automatically unlocks after a 10 to 15 minute period.
 
+#### Unique Lockout Mechanisms
+
+There are more unique implementations of lockout mechanisms in use that are still acceptable. One of which is AWS's [Cognito](https://docs.aws.amazon.com/cognito/latest/developerguide/authentication.html#authentication-flow-lockout-behavior). It uses a simple scaling algorithm that mitigates brute-force attacks while not enabling long-term denial-of-service attacks against the affected user. After 5 failed sign-in attempts with a password, the user is locked out for one second. The lockout duration doubles with each failed attempt, with a maximum of 15 minutes. Sign-in attempts made during the lockout period are exceptions referred to as `Password attempts exceeded`, and in most implementations are not returned to the user who initiated the sign-in. If they aren't shown to the user, a tester may think that no lockout mechanism is being used, as 200 rapid attempts to sign-in would generate a lot of the exceptions, and very few legitimate failed sign-in attempts.
+  
+The math behind the mechanism is: `2^(n-5)`, with `n` being the number of failed sign-in attempts. The resulting number is the amount of seconds that the user is locked out. To reset the lockout count to zero, the user must sign-in successfully or wait the 15 minutes.
+
+To test for this using a fuzzing tool, such as Burp Suite's Intruder, navigate into the "Resource Pool". Then set the maximum concurrent requests to 1 and the delay between requests to 2 seconds. Attempt the invalid authentication 200 times, then attempt to use the valid credentials 3 times directly after the fuzzing tool finishes. Wait 2 minutes and attempt to sign-in. If sign-in is then successful, Cognito may be in use. Further testing can then be performed to validate the use of Cognito by attempting to push the lockout time higher, but it may be easier to validate this information with the client.
+
 A CAPTCHA may hinder brute force attacks, but they can come with their own set of weaknesses, and should not replace a lockout mechanism. A CAPTCHA mechanism may be bypassed if implemented incorrectly. CAPTCHA flaws include:
 
-1. Easily defeated challenge, such as arithimetic or limited question set.
+1. Easily defeated challenge, such as arithmetic or limited question set.
 2. CAPTCHA checks for HTTP response code instead of response success.
 3. CAPTCHA server-side logic defaults to a successful solve.
 4. CAPTCHA challenge result is never validated server-side.
@@ -81,7 +89,7 @@ Factors to consider when implementing an account lockout mechanism:
 1. What is the risk of brute force password guessing against the application?
 2. Is a CAPTCHA sufficient to mitigate this risk?
 3. Is a client-side lockout mechanism being used (e.g., JavaScript)? (If so, disable the client-side code to test.)
-4. Number of unsuccessful log in attempts before lockout. If the lockout threshold is to low then valid users may be locked out too often. If the lockout threshold is to high then the more attempts an attacker can make to brute force the account before it will be locked. Depending on the application's purpose, a range of 5 to 10 unsuccessful attempts is typical lockout threshold.
+4. Number of unsuccessful log in attempts before lockout. If the lockout threshold is too low then valid users may be locked out too often. If the lockout threshold is too high then the more attempts an attacker can make to brute force the account before it will be locked. Depending on the application's purpose, a range of 5 to 10 unsuccessful attempts is a typical lockout threshold.
 5. How will accounts be unlocked?
     1. Manually by an administrator: this is the most secure lockout method, but may cause inconvenience to users and take up the administrator's "valuable" time.
         1. Note that the administrator should also have a recovery method in case his account gets locked.

@@ -69,7 +69,7 @@ The camera must:
 
 #### 2. Set Up Camera
 
-Mount the camera inside the box using provided hardware, or duct tape. Follow the manufacturer's instructions to set up the camera and make the video feed available. For example, you may be able to view the video feed on your local network at an address beginning with `http://localhost:`.
+Mount the camera inside the box using provided hardware, or duct tape. Follow the manufacturer's instructions to set up the camera and make the video feed available. For example, you may be able to view the video feed on your local network at an address beginning with `https://localhost:`.
 
 #### 3. Monitor the Video Feed
 

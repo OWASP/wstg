@@ -31,7 +31,7 @@ document.write("<h1>Hello, " + user +"</h1>");
 In both examples, this vulnerability can be exploited with an input such as:
 
 ```text
-http://vulnerable.site/page.html?user=<img%20src='aaa'%20onerror=alert(1)>
+https://vulnerable.site/page.html?user=<img%20src='aaa'%20onerror=alert(1)>
 ```
 
 This input will add an image tag to the page that will execute arbitrary JavaScript code inserted by the malicious user in the HTML context.
@@ -42,7 +42,7 @@ This input will add an image tag to the page that will execute arbitrary JavaScr
 
 ## How to Test
 
-Consider the following DOM XSS exercise <http://www.domxss.com/domxss/01_Basics/06_jquery_old_html.html>
+Consider the following DOM XSS exercise <https://www.domxss.com/domxss/01_Basics/06_jquery_old_html.html>
 
 The HTML code contains the following script:
 

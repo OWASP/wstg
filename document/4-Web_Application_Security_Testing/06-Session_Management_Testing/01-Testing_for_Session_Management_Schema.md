@@ -6,7 +6,7 @@
 
 ## Summary
 
-One of the core components of any web-based application is the mechanism by which it controls and maintains the state for a user interacting with it. To avoid continuous authentication for each page of a website or service, web applications implement various mechanisms to store and validate credentials for a pre-determined timespan. These mechanisms are known as Session Management.
+One of the core components of any web-based application is the mechanism by which it controls and maintains the state for a user interacting with it. To avoid continuous authentication for each page of a site or service, web applications implement various mechanisms to store and validate credentials for a pre-determined timespan. These mechanisms are known as Session Management.
 
 In this test, the tester wants to check that cookies and other session tokens are created in a secure and unpredictable way. An attacker who is able to predict and forge a weak cookie can easily hijack the sessions of legitimate users.
 
@@ -76,7 +76,7 @@ The first stage is to examine the structure and content of a Session ID provided
 
 If the Session ID is clear-text, the structure and pertinent data may be immediately obvious such as `192.168.100.1:owaspuser:password:15:58`.
 
-If part or the entire token appears to be encoded or hashed, it should be compared to various techniques to check for obvious obfuscation. For example the string `192.168.100.1:owaspuser:password:15:58` is represented in Hex, Base64, and as an MD5 hash:
+If part or the entire token appears to be encoded or hashed, it should be compared to various techniques to check for obvious obfuscation. For example the string `192.168.100.1:owaspuser:password:15:58` is represented in hex, base64, and as an MD5 hash:
 
 - Hex: `3139322E3136382E3130302E313A6F77617370757365723A70617373776F72643A31353A3538`
 - Base64: `MTkyLjE2OC4xMDAuMTpvd2FzcHVzZXI6cGFzc3dvcmQ6MTU6NTg=`
@@ -131,7 +131,7 @@ The approach here is to collect a sufficient number of instances of a cookie and
 
 It is important to pay particular attention to the workflow of the application, as the state of a session can have a heavy impact on collected cookies. A cookie collected before being authenticated can be very different from a cookie obtained after the authentication.
 
-Another aspect to keep into consideration is time. Always record the exact time when a cookie has been obtained, when there is the possibility that time plays a role in the value of the cookie (the server could use a timestamp as part of the cookie value). The time recorded could be the local time or the server's tiemstamp included in the HTTP response (or both).
+Another aspect to keep into consideration is time. Always record the exact time when a cookie has been obtained, when there is the possibility that time plays a role in the value of the cookie (the server could use a timestamp as part of the cookie value). The time recorded could be the local time or the server's timestamp included in the HTTP response (or both).
 
 When analyzing the collected values, the tester should try to figure out all variables that could have influenced the cookie value and try to vary them one at the time. Passing to the server modified versions of the same cookie can be very helpful in understanding how the application reads and processes the cookie.
 
@@ -190,7 +190,7 @@ More information here: [Testing for cookies attributes](02-Testing_for_Cookies_A
 
 ## Tools
 
-- [OWASP Zed Attack Proxy Project (ZAP)](https://www.zaproxy.org) - features a session token analysis mechanism.
+- [Zed Attack Proxy Project (ZAP)](https://www.zaproxy.org) - features a session token analysis mechanism.
 - [Burp Sequencer](https://portswigger.net/burp/documentation/desktop/tools/sequencer)
 - [YEHG's JHijack](https://github.com/yehgdotnet/JHijack)
 
@@ -200,10 +200,9 @@ More information here: [Testing for cookies attributes](02-Testing_for_Cookies_A
 
 - [RFC 2965 "HTTP State Management Mechanism"](https://tools.ietf.org/html/rfc2965)
 - [RFC 1750 "Randomness Recommendations for Security"](https://www.ietf.org/rfc/rfc1750.txt)
-- [Michal Zalewski: "Strange Attractors and TCP/IP Sequence Number Analysis" (2001)](http://lcamtuf.coredump.cx/oldtcp/tcpseq.html)
-- [Michal Zalewski: "Strange Attractors and TCP/IP Sequence Number Analysis - One Year Later" (2002)](http://lcamtuf.coredump.cx/newtcp/)
-- [Correlation Coefficient](http://mathworld.wolfram.com/CorrelationCoefficient.html)
+- [Michal Zalewski: "Strange Attractors and TCP/IP Sequence Number Analysis" (2001)](https://lcamtuf.coredump.cx/oldtcp/tcpseq.html)
+- [Michal Zalewski: "Strange Attractors and TCP/IP Sequence Number Analysis - One Year Later" (2002)](https://lcamtuf.coredump.cx/newtcp/)
+- [Correlation Coefficient](https://mathworld.wolfram.com/CorrelationCoefficient.html)
 - [ENT](https://fourmilab.ch/random/)
-- [DMA[2005-0614a] - 'Global Hauri ViRobot Server cookie overflow'](https://seclists.org/lists/fulldisclosure/2005/Jun/0188.html)
-- [Gunter Ollmann: "Web Based Session Management"](http://www.technicalinfo.net)
+- [DMA 2005-0614a - Global Hauri ViRobot Server cookie overflow](https://seclists.org/lists/fulldisclosure/2005/Jun/0188.html)
 - [OWASP Code Review Guide](https://wiki.owasp.org/index.php/Category:OWASP_Code_Review_Project)

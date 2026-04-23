@@ -6,7 +6,7 @@
 
 ## Summary
 
-The misuse and invalid use of of valid functionality can identify attacks attempting to enumerate the web application, identify weaknesses, and exploit vulnerabilities. Tests should be undertaken to determine whether there are application-layer defensive mechanisms in place to protect the application.
+The misuse and invalid use of valid functionality can identify attacks attempting to enumerate the web application, identify weaknesses, and exploit vulnerabilities. Tests should be undertaken to determine whether there are application-layer defensive mechanisms in place to protect the application.
 
 The lack of active defenses allows an attacker to hunt for vulnerabilities without any recourse. The application's owner will thus not know their application is under attack.
 
@@ -54,7 +54,7 @@ Localized security controls are not sufficient. There are often no defenses agai
 - Bypassing presentation layer input validation
 - Multiple access control errors
 - Additional, duplicated or missing parameter names
-- Multiple input validation or business logic verification failures with values that cannot be the result user mistakes or typos
+- Multiple input validation or business logic verification failures with values that cannot be the result of user mistakes or typos
 - Structured data (e.g. JSON, XML) of an invalid format is received
 - Blatant cross-site scripting or SQL injection payloads are received
 - Utilizing the application faster than would be possible without automation tools
@@ -62,6 +62,29 @@ Localized security controls are not sufficient. There are often no defenses agai
 - Change of user agent
 - Accessing a multi-stage business process in the wrong order
 - Large number of, or high rate of use of, application-specific functionality (e.g. voucher code submission, failed credit card payments, file uploads, file downloads, log outs, etc).
+
+### UI Misrepresentation / Content Spoofing
+
+UI misrepresentation occurs when user-controlled input is rendered in trusted UI elements in a way that can mislead users or administrators, without requiring script execution. Unlike cross-site scripting, these issues rely on visual or contextual deception and can enable workflow abuse or social engineering within the application.
+
+These issues represent application misuse because they abuse legitimate UI workflows and trust boundaries rather than exploiting a technical vulnerability.
+
+Common examples include:
+
+- User-controlled filenames, titles, or labels displayed as system-generated messages
+- Renamed file uploads that appear as trusted documents or system artifacts
+- User-supplied text rendered as approval states, sender names, or workflow indicators
+
+For example: an application allows users to name uploaded files. An attacker uploads a file named
+"Payment Approved – Finance System". When this filename is displayed in an administrative
+review workflow without clear indication that it is user-supplied, reviewers may be misled
+into approving a fraudulent process.
+
+During testing, assess whether:
+
+- User-controlled data is reflected in privileged or authoritative UI contexts
+- Injected text can mimic system messages, workflow states, or trusted labels
+- UI presentation could influence user decisions or business processes despite no technical exploit occurring
 
 These defenses work best in authenticated parts of the application, although rate of creation of new accounts or accessing content (e.g. to scrape information) can be of use in public areas.
 
@@ -77,9 +100,8 @@ Applications should implement active defenses to fend off attackers and abusers.
 
 ## References
 
-- [Resilient Software](https://buildsecurityin.us-cert.gov/swa/resilient.html), Software Assurance, US Department Homeland Security
+- [Software Assurance](https://www.cisa.gov/uscert/sites/default/files/publications/infosheet_SoftwareAssurance.pdf), US Department Homeland Security
 - [IR 7684](https://csrc.nist.gov/publications/detail/nistir/7864/final) Common Misuse Scoring System (CMSS), NIST
 - [Common Attack Pattern Enumeration and Classification](https://capec.mitre.org/) (CAPEC), The Mitre Corporation
 - [OWASP AppSensor Project](https://owasp.org/www-project-appsensor/)
-- [AppSensor Guide v2](https://owasp.org/www-pdf-archive/Owasp-appsensor-guide-v2.pdf), OWASP
 - Watson C, Coates M, Melton J and Groves G, [Creating Attack-Aware Software Applications with Real-Time Defenses](https://pdfs.semanticscholar.org/0236/5631792fa6c953e82cadb0e7268be35df905.pdf), CrossTalk The Journal of Defense Software Engineering, Vol. 24, No. 5, Sep/Oct 2011

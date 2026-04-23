@@ -11,7 +11,8 @@ Here are some ways you can make a helpful contribution. The [Open Source Guide f
 - [How to Open an Issue](#how-to-open-an-issue)
 - [How to Submit a Pull Request](#how-to-submit-a-pull-request)
 - [How to Set Up Your Contributor Environment](#how-to-set-up-your-contributor-environment)
-- [Contributing with Codespaces](#contributing-with-codespaces)
+    - [Optional CLI Checks Using npx](#optional-cli-checks-using-npx)
+- [Contributing with GitHub Dev Environments](#contributing-with-github-dev-environments)
 
 ## Become an Author
 
@@ -51,13 +52,11 @@ Please don't hesitate to make as many changes as you see fit, especially if you 
 
 ### Translation
 
-Due to challenges with sync'ing images and removed content, the WSTG is no longer tackling in-bound translation efforts directly.
+Due to challenges with syncing images and removed content, the WSTG is no longer tackling in-bound translation efforts directly.
 
 At this time we suggest that you start another repository in which to tackle translations of a specific language. Once you've produced a PDF for a given version of the guide we'll be happy to attach it to the appropriate release. Simply [open an issue](https://github.com/OWASP/wstg/issues/new) here asking us to do so.
 
 Also we're willing to list your translation repository, just [let us know](https://github.com/OWASP/wstg/issues/new) where it is.
-
-- [Portuguese-BR](https://github.com/doverh/wstg-translations-pt)
 
 ## How to Open an Issue
 
@@ -69,7 +68,7 @@ Choose a short, descriptive title. Briefly explain what you think needs changing
 
 Here are the steps for creating and submitting a Pull Request (PR) that we can quickly review and merge.
 
-1. [Set up your environment](#how-to-set-up-your-contributor-environment) to fork the project and install a Markdown linter.
+1. [Set up your environment](#how-to-set-up-your-contributor-environment) to fork the project.
 2. Associate your contribution with an [issue](https://github.com/OWASP/wstg/issues). To change existing content, read [Become a Reviewer or Editor](#become-a-reviewer-or-editor). To make additions, read [Become an Author](#become-an-author).
 3. Make your modifications. Be sure to follow our [style guide](style_guide.md).
 4. When you're ready to submit your work, push your changes to your fork. Ensure that your fork is [synced with `master`](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork).
@@ -90,27 +89,88 @@ Once the PR is complete, we'll merge it! At that point, you may like to add your
 
 ## How to Set Up Your Contributor Environment
 
+We've made it easy to get started! The repository includes configuration files for Visual Studio Code and other editors to help you maintain consistency with the project's style guide.
+
 1. [Create an account on GitHub](https://help.github.com/en/github/getting-started-with-github/signing-up-for-a-new-github-account).
-2. Install [Visual Studio Code](https://code.visualstudio.com/) and this [Markdown linter plugin](https://github.com/DavidAnson/vscode-markdownlint#install). We use this linter to help keep the project content consistent and pretty.
+2. Fork and clone your own copy of the repository. Here are complete instructions for [forking and syncing with GitHub](https://help.github.com/en/github/getting-started-with-github/fork-a-repo).
+3. Choose your development environment:
 
-    1. From the gear icon/menu select "Settings".
-    2. Select the "Workspace" tab.
-    3. Expand "Extensions", and find "markdownlint".
-    4. Just below "Markdownlint: config" click the "Edit in settings.json" link.
-    5. Add the following:
+### Using Visual Studio Code
 
-    ```json
-    "markdownlint.config": {
-      "extends": ".github/configs/.markdownlint.json"
-    }
-    ```
+Visual Studio Code is recommended for the best experience. The repository includes pre-configured settings in the `.vscode` directory.
 
-3. Fork and clone your own copy of the repository. Here are complete instructions for [forking and syncing with GitHub](https://help.github.com/en/github/getting-started-with-github/fork-a-repo).
+1. Install [Visual Studio Code](https://code.visualstudio.com/).
+2. Open the cloned repository in Visual Studio Code.
+3. When prompted, install the recommended extensions from `.vscode/extensions.json`. These include:
+    - **markdownlint**: Ensures Markdown files follow the project's style guide
+    - **Markdown All in One**: Provides helpful Markdown editing features
+    - **Code Spell Checker**: Catches spelling errors
+    - **Prettier**: Code formatter
+    - **GitHub Pull Request**: Manage PRs directly from Visual Studio Code
 
-## Contributing with Codespaces
+4. The workspace settings in `.vscode/settings.json` will automatically configure markdownlint to use the project's configuration file at `.github/configs/.markdownlint.json`.
 
-We've included settings for GitHub Codespaces so you can use a cloud-hosted IDE to contribute to this repository! Our configuration includes Visual Studio Code extensions and `markdownlint` configuration settings that help to keep work consistent across all our amazing contributors.
+### Using Other Editors
 
-Codespaces is currently in limited beta. To learn more, see [About Codespaces](https://docs.github.com/en/github/developing-online-with-codespaces/about-codespaces).
+If you're using a different editor, the `.editorconfig` file will help maintain consistent formatting across different editors. Most modern editors support EditorConfig either natively or via plugins:
 
-If you have access to the beta, get started by [creating a codespace](https://docs.github.com/en/github/developing-online-with-codespaces/creating-a-codespace) for this repository.
+- **Vim/Neovim**: Install [editorconfig-vim](https://github.com/editorconfig/editorconfig-vim)
+- **Sublime Text**: Install [EditorConfig](https://packagecontrol.io/packages/EditorConfig)
+- **Atom**: Install [EditorConfig](https://atom.io/packages/editorconfig)
+- **IntelliJ/WebStorm**: Built-in support
+
+### Optional CLI Checks Using npx
+
+> [!CAUTION]
+> The tool versions and command details below can drift out of sync with the jobs defined under `.github/workflows/`. Re-check those workflow files from time to time so your local commands still match what CI runs.
+
+If you have [Node.js](https://nodejs.org/) installed (which includes `npm` and `npx`), you can run the same checks the GitHub Actions workflows use, without a `package.json` in the repository root. `npx --yes` downloads a temporary copy of the tool when needed.
+
+From the root of your clone:
+
+**Markdown style ([Markdown Lint Check](.github/workflows/md-lint-check.yml))** — uses [markdownlint-cli2](https://github.com/DavidAnson/markdownlint-cli2) with the project config:
+
+```bash
+npx --yes markdownlint-cli2 "document/**/*.md" --config .github/configs/.markdownlint.json
+```
+
+Narrow the glob (for example to a single path) when you only want feedback on files you edited.
+
+**Broken links ([Markdown Link Check](.github/workflows/md-link-check.yml))** — uses [markdown-link-check](https://github.com/tcort/markdown-link-check) at the same major version as CI:
+
+```bash
+npx --yes markdown-link-check@3.11.0 -q -c .github/configs/markdown-link-check-config.json document/path/to/your_file.md
+```
+
+Relative links are easiest to validate when your branch includes the targets they point to (CI checks changed files in a layout similar to merging with `master`).
+
+**Terminology ([Markdown Terminology Lint Check](.github/workflows/md-textlint-check.yml))** — uses [textlint](https://textlint.github.io/) and the terminology rule:
+
+```bash
+npx --yes -p textlint -p textlint-rule-terminology textlint --config .github/configs/.textlintrc.json "document/**/*.md"
+```
+
+These commands are optional. If you skip them, rely on the recommended editor extensions and the results of the checks on your pull request.
+
+## Contributing with GitHub Dev Environments
+
+You can use GitHub's cloud-based development environments (Codespaces and github.dev) to contribute to this repository without setting up a local environment!
+
+### Using github.dev
+
+For quick edits, you can use the github.dev web-based editor:
+
+1. Navigate to the repository on GitHub.
+2. Press `.` (period) on your keyboard to open the github.dev editor.
+3. Make your changes and commit them directly from the browser.
+
+Note: The github.dev editor has limited support for running commands, so it's best for simple text edits. For testing linting and other scripts, use Codespaces or a local environment.
+
+### Using GitHub Codespaces
+
+GitHub Codespaces provides a full Visual Studio Code environment in the cloud with all recommended extensions pre-installed.
+
+1. Learn more about [GitHub Codespaces](https://docs.github.com/en/codespaces/overview).
+2. Get started by [creating a codespace](https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace) for this repository.
+
+Our `.vscode` configuration will automatically set up the workspace with the correct linting and formatting settings.

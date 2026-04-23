@@ -15,25 +15,24 @@ Opening Dev Tools can be accomplished in a number of ways.
 5. Via the web page right-click context menu and then selecting `Inspect Element` in Mozilla Firefox.
 6. Via the triple dot 'kabob' menu in Google Chrome then selecting `More Tools` and then `Developer Tools`.
 7. Via the triple line 'hamburger' (or 'pancake') menu in Mozilla Firefox then selecting `Web Developer` and then `Toggle Tools`.
-8. Via the gear icon settings menu in Edge/IE then selecting `Developer Tools`.
 
 > NOTE: The majority of the instructions below assume that Dev Tools is already open or active.
 
 ## Capabilities
 
-| Functionality         | Chrome* | Firefox | Edge/IE | Safari |
-|-----------------------|:-------:|:-------:|:-------:|:------:|
-| User-Agent Switching  | Y       | Y       | Y       | Y      |
-| Edit/Resend Requests  | Y       | Y       | N       | N      |
-| Cookie Editing        | Y       | Y       | Y       | N      |
-| Local Storage Editing | Y       | Y       | Y       | N      |
-| Disable CSS           | Y       | Y       | Y       | Y      |
-| Disable JavaScript    | Y       | Y       | N       | Y      |
-| View HTTP Headers     | Y       | Y       | Y       | Y      |
-| Screenshots           | Y       | Y       | Y       | N      |
-| Offline Mode          | Y       | Y       | N       | N      |
-| Encoding and Decoding | Y       | Y       | Y       | Y      |
-| Responsive Design Mode| Y       | Y       | Y       | Y      |
+| Functionality         | Chrome* | Firefox | Safari |
+|-----------------------|:-------:|:-------:|:------:|
+| User-Agent Switching  | Y       | Y       | Y      |
+| Edit/Resend Requests  | Y       | Y       | N      |
+| Cookie Editing        | Y       | Y       | N      |
+| Local Storage Editing | Y       | Y       | N      |
+| Disable CSS           | Y       | Y       | Y      |
+| Disable JavaScript    | Y       | Y       | Y      |
+| View HTTP Headers     | Y       | Y       | Y      |
+| Screenshots           | Y       | Y       | N      |
+| Offline Mode          | Y       | Y       | N      |
+| Encoding and Decoding | Y       | Y       | Y      |
+| Responsive Design Mode| Y       | Y       | Y      |
 
 `*` Anything that applies to Google Chrome should be applicable to all Chromium based applications. (Which includes Microsoft rebadging Edge around 2019/2020.)
 
@@ -174,7 +173,7 @@ All major browsers support manipulating CSS leveraging the Dev Tools Console and
 ### Mozilla Firefox
 
 1. On the dev tools `Debugger` tab, click on the settings gear button in the upper right corner of the developer toolbar.
-2. Select `Disable JavaScript` from the dropdown (this is an enable/disable menu item, when JavaScript is disabled the meny item has a check mark).
+2. Select `Disable JavaScript` from the dropdown (this is an enable/disable menu item; when JavaScript is disabled, the menu item has a check mark).
 
 ## View HTTP Headers
 
@@ -243,12 +242,9 @@ All major browsers support manipulating CSS leveraging the Dev Tools Console and
 
 All major browsers support encoding and decoding strings in various ways leveraging the Dev Tools Console and JavaScript functionality:
 
-- Base64 encode: `btoa("string-to-encode")`
-- Base64 decode: `atob("string-to-decode")`
-- URL encode: `encodeURIComponent("string-to-encode")`
-- URL decode: `decodeURIComponent("string-to-decode")`
-- HTML encode: `escape("string-to-encode")`
-- HTML decode: `unescape("string-to-decode")`
+- base64 encode: `btoa("string-to-encode")` & base64 decode: `atob("string-to-decode")` - built-in JavaScript functions that are used to encode a string to base64 and decode a string from base64.
+- URL encode: `encodeURIComponent("string-to-encode")` & URL decode: `decodeURIComponent("string-to-decode")` - It encodes and decodes user-supplied input that will be used as a part of a URL, and it encodes all characters that have special meanings in a URL, including reserved characters.
+- URI encode: `encodeURI()` and URI decode: `decodeURI()` are functions used to encode and decode a complete URI, such as query parameters, path segments, or fragments, including special characters but excluding the reserved characters such as `:/?#[]@!$'()*+,;=` which have special meanings in a URL.
 
 ## Responsive Design Mode
 
@@ -269,7 +265,7 @@ All major browsers support encoding and decoding strings in various ways leverag
 
 1. Click the `Responsive Design Mode` button or press `ctrl` + `shift` + `m`.
 
-![Responsive Design Mode in Mozilla Firefo](images/f_firefox_responsive_design_mode.png)\
+![Responsive Design Mode in Mozilla Firefox](images/f_firefox_responsive_design_mode.png)\
 *Figure 6.F-9: Mozilla Firefox Responsive Design Mode*
 
 ## References
@@ -277,4 +273,4 @@ All major browsers support encoding and decoding strings in various ways leverag
 - [Web App Security Testing with Browsers](https://getmantra.com/web-app-security-testing-with-browsers/)
 - [Black Hills Information Security - Webcast: Free Tools! How to Use Developer Tools and JavaScript in Webapp Pentests](https://www.blackhillsinfosec.com/webcast-free-tools-how-to-use-developer-tools-and-javascript-in-webapp-pentests/)
 - [Greg Malcolm - Chrome Developer Tools: Raiding the Armory](https://github.com/gregmalcolm/wacky-wandas-wicked-weapons-frontend/blob/fix-it/README.md)
-- [List of UserAgent Strings](http://user-agent-string.info/list-of-ua)
+- [List of UserAgent Strings](https://techblog.willshouse.com/2012/01/03/most-common-user-agents/)

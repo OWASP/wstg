@@ -1,0 +1,218 @@
+# Review Web Page Content for Information Leakage
+
+|ID          |
+|------------|
+|WSTG-INFO-05|
+
+## Summary
+
+It is very common, and even recommended, for programmers to include detailed comments and metadata on their source code. However, comments and metadata included in the HTML code might reveal internal information that should not be available to potential attackers. Comments and metadata review should be done in order to determine if any information is being leaked. Additionally some applications may leak information in the body of redirect responses.
+
+For modern web apps, the use of client-side JavaScript for the frontend is becoming more popular. Popular frontend construction technologies use client-side JavaScript like React, Angular, or Vue. Similar to the comments and metadata in HTML code, many programmers also hardcode sensitive information in JavaScript variables on the frontend. Sensitive information can include (but is not limited to): Private API Keys (*e.g.* an unrestricted Google Map API Key), internal IP addresses, sensitive routes (*e.g.* route to hidden admin pages or functionality), or even credentials. This sensitive information can be leaked from such frontend JavaScript code. A review should be done in order to determine if any sensitive information leaked which could be used by attackers for abuse.
+
+For large web applications, performance issues are a big concern to programmers. Programmers have used different methods to optimize frontend performance, including Syntactically Awesome Style Sheets (Sass), Sassy CSS (SCSS), webpack, etc. Using these technologies, frontend code will sometimes become harder to understand and difficult to debug, and because of it, programmers often deploy source map files for debugging purposes. A "source map" is a special file that connects a minified/uglified version of an asset (CSS or JavaScript) to the original authored version. Programmers are still debating whether or not to bring source map files to the production environment. However, it is undeniable that source map files or files for debugging if released to the production environment will make their source more human-readable. It can make it easier for attackers to find vulnerabilities from the frontend or collect sensitive information from it. JavaScript code review should be done in order to determine if any debug files are exposed from the frontend. Depending on the context and sensitivity of the project, a security expert should decide whether the files should exist in the production environment or not.
+
+## Test Objectives
+
+- Review web page comments, metadata, and redirect bodies to find any information leakage.
+- Gather JavaScript files and review the JS code to better understand the application and to find any information leakage.
+- Identify if source map files or other frontend debug files exist.
+
+## How to Test
+
+### Review Web Page Comments and Metadata
+
+HTML comments are often used by the developers to include debugging information about the application. Sometimes, they forget about the comments and they leave them in production environments. Testers should look for HTML comments which start with `<!--`.
+
+Check HTML source code for comments containing sensitive information that can help the attacker gain more insight about the application. It might be SQL code, usernames and passwords, internal IP addresses, or debugging information.
+
+```html
+...
+<div class="table2">
+  <div class="col1">1</div><div class="col2">Mary</div>
+  <div class="col1">2</div><div class="col2">Peter</div>
+  <div class="col1">3</div><div class="col2">Joe</div>
+
+<!-- Query: SELECT id, name FROM app.users WHERE active='1' -->
+
+</div>
+...
+```
+
+The tester may even find something like this:
+
+```html
+<!-- Use the DB administrator password for testing:  f@keP@a$$w0rD -->
+```
+
+Check HTML version information for valid version numbers and Data Type Definition (DTD) URLs
+
+```html
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "https://www.w3.org/TR/html4/strict.dtd">
+```
+
+- `strict.dtd` -- default strict DTD
+- `loose.dtd` -- loose DTD
+- `frameset.dtd` -- DTD for frameset documents
+
+Some `META` tags do not provide active attack vectors but instead allow an attacker to profile an application:
+
+```html
+<META name="Author" content="Andrew Muller">
+```
+
+A common (but not [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) compliant) `META` tag is [Refresh](https://en.wikipedia.org/wiki/Meta_refresh).
+
+```html
+<META http-equiv="Refresh" content="15;URL=https://www.owasp.org/index.html">
+```
+
+A common use for `META` tag is to specify keywords that a search engine may use to improve the quality of search results.
+
+```html
+<META name="keywords" lang="en-us" content="OWASP, security, sunshine, lollipops">
+```
+
+Although most web servers manage search engine indexing via the `robots.txt` file, it can also be managed by `META` tags. The tag below will advise robots to not index and not follow links on the HTML page containing the tag.
+
+```html
+<META name="robots" content="none">
+```
+
+The [Platform for Internet Content Selection (PICS)](https://www.w3.org/PICS/) and [Protocol for Web Description Resources (POWDER)](https://www.w3.org/2007/powder/) provide infrastructure for associating metadata with Internet content.
+
+### Identifying JavaScript Code and Gathering JavaScript Files
+
+Programmers often hardcode sensitive information with JavaScript variables on the frontend. Testers should check HTML source code and look for JavaScript code between `<script>` and `</script>` tags. Testers should also identify external JavaScript files to review the code (JavaScript files have the file extension `.js` and name of the JavaScript file usually put in the `src` (source) attribute of a `<script>` tag).
+
+Check JavaScript code for any sensitive information leaks which could be used by attackers to further abuse or manipulate the system. Look for values such as: API keys, internal IP addresses, sensitive routes, or credentials. For example:
+
+```javascript
+const myS3Credentials = {
+  accessKeyId: config('AWSS3AccessKeyID'),
+  secretAccessKey: config('AWSS3SecretAccessKey'),
+};
+```
+
+The tester may even find something like this:
+
+```javascript
+var conString = "tcp://postgres:1234@localhost/postgres";
+```
+
+When an API Key is found, testers can check if the API Key restrictions are set per service or by IP, HTTP referrer, application, SDK, etc.
+
+For example, if testers find a Google Map API Key, they can check if this API Key is restricted by IP or restricted only per the Google Map APIs. If the Google API Key is restricted only per the Google Map APIs, attackers can still use that API Key to query unrestricted Google Map APIs and the application owner must pay for that.
+
+```html
+
+<script type="application/json">
+...
+{"GOOGLE_MAP_API_KEY":"AIzaSyDUEBnKgwiqMNpDplT6ozE4Z0XxuAbqDi4", "RECAPTCHA_KEY":"6LcPscEUiAAAAHOwwM3fGvIx9rsPYUq62uRhGjJ0"}
+...
+</script>
+```
+
+In some cases, testers may find sensitive routes from JavaScript code, such as links to internal or hidden admin pages.
+
+```html
+<script type="application/json">
+...
+"runtimeConfig":{"BASE_URL_VOUCHER_API":"https://staging-voucher.victim.net/api", "BASE_BACKOFFICE_API":"https://10.10.10.2/api", "ADMIN_PAGE":"/hidden_administrator"}
+...
+</script>
+```
+
+### Identifying Source Map Files
+
+Source map files will usually be loaded when DevTools open. Testers can also find source map files by adding the ".map" extension after the extension of each external JavaScript file. For example, if a tester sees a `/static/js/main.chunk.js` file, they can then check for its source map file by visiting `/static/js/main.chunk.js.map`.
+
+Check source map files for any sensitive information that can help the attacker gain more insight about the application. For example:
+
+```json
+{
+  "version": 3,
+  "file": "static/js/main.chunk.js",
+  "sources": [
+    "/home/sysadmin/cashsystem/src/actions/index.js",
+    "/home/sysadmin/cashsystem/src/actions/reportAction.js",
+    "/home/sysadmin/cashsystem/src/actions/cashoutAction.js",
+    "/home/sysadmin/cashsystem/src/actions/userAction.js",
+    "..."
+  ],
+  "..."
+}
+```
+
+When sites load source map files, the frontend source code will become readable and easier to debug.
+
+### Identify Redirect Responses which Leak Information
+
+Although redirect responses are not generally expected to contain any significant web content there is no assurance that they cannot contain content. So, while series 300 (redirect) responses often contain "redirecting to `https://example.com/`" type content they may also leak content.
+
+Consider a situation in which a redirect response is the result of an authentication or authorization check, if that check fails the server may respond redirecting the user back to a "safe" or "default" page, yet the redirect response itself may still contain content which isn't shown in the browser but is indeed transmitted to the client. This can be seen either leveraging browser developer tools or via a personal proxy (such as ZAP, Burp, Fiddler, or Charles).
+
+### Review Generated Files for Metadata Leakage
+
+Web applications may generate downloadable files such as PDFs, spreadsheets, invoices, or reports. These files may contain embedded metadata describing the software or libraries used to create them.
+
+Metadata fields such as *Producer*, *Creator*, *Application*, or *Library Version* may reveal backend technologies and specific version numbers. This information can assist attackers in fingerprinting the application and identifying publicly known vulnerabilities (CVEs).
+
+For example, a generated PDF may expose the library used to create it:
+
+`Producer: iText 2.1.7`
+
+An attacker could then search for known vulnerabilities affecting that version.
+
+#### How to Test
+
+Download generated files from the application and inspect their metadata.
+
+For PDF files:
+
+```bash
+exiftool file.pdf
+pdfinfo file.pdf
+strings file.pdf | grep -i producer
+```
+
+Example output:
+
+`Producer: iText 2.1.7`
+
+For Office documents (DOCX, XLSX):
+
+```bash
+exiftool file.docx
+```
+
+Check metadata fields such as:
+
+- Producer
+- Creator
+- Application
+- Creation Tool
+- Library Version
+
+## Tools
+
+- [Wget](https://www.gnu.org/software/wget/wget.html)
+- Browser "view source" function
+- Eyeballs
+- [Curl](https://curl.haxx.se/)
+- [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
+- [Burp Suite](https://portswigger.net/burp)
+- [Waybackurls](https://github.com/tomnomnom/waybackurls)
+- [Google Maps API Scanner](https://github.com/ozguralp/gmapsapiscanner/)
+- [exiftool](https://exiftool.org/)
+
+## References
+
+- [KeyHacks](https://github.com/streaak/keyhacks)
+- [RingZer0 Online CTF](https://ringzer0ctf.com/challenges/104) - Challenge 104 "Admin Panel".
+
+### Whitepapers
+
+- [HTML version 4.01](https://www.w3.org/TR/1999/REC-html401-19991224)
+- [XHTML](https://www.w3.org/TR/2010/REC-xhtml-basic-20101123/)
+- [HTML version 5](https://www.w3.org/TR/html5/)

@@ -46,12 +46,16 @@
 
 4.7.14 [Testing for Incubated Vulnerability](14-Testing_for_Incubated_Vulnerability.md)
 
-4.7.15 [Testing for HTTP Splitting Smuggling](15-Testing_for_HTTP_Splitting_Smuggling.md)
+4.7.15 [Testing for HTTP Response Splitting](15-Testing_for_HTTP_Response_Splitting.md)
 
-4.7.16 [Testing for HTTP Incoming Requests](16-Testing_for_HTTP_Incoming_Requests.md)
+4.7.16 [Testing for HTTP Request Smuggling](16-Testing_for_HTTP_Request_Smuggling.md)
 
 4.7.17 [Testing for Host Header Injection](17-Testing_for_Host_Header_Injection.md)
 
 4.7.18 [Testing for Server-side Template Injection](18-Testing_for_Server-side_Template_Injection.md)
 
 4.7.19 [Testing for Server-Side Request Forgery](19-Testing_for_Server-Side_Request_Forgery.md)
+
+4.7.20 [Testing for Mass Assignment](20-Testing_for_Mass_Assignment.md)
+
+4.7.21 [Testing for CSV Injection](21-Testing_for_CSV_Injection.md)

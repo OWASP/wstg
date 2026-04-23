@@ -1,71 +1,114 @@
 name: Markdown Terminology Lint Check
 
 on:
-  pull_request_target:
+  pull_request:
     branches:
     - master
     paths:
     - '**.md'
     - '!.github/**'
-    - '!translations/**'
 
 jobs:
   textlint:
+    permissions:
+      contents: read
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+    - name: Checkout PR
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       with:
-        ref: ${{github.event.pull_request.head.ref}}
-        repository: ${{github.event.pull_request.head.repo.full_name}}
+        ref: ${{ github.event.pull_request.head.sha }}
+        fetch-depth: 0
+    - name: Checkout Base
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      with:
+        repository: OWASP/wstg
+        ref: master
+        path: base
+    - name: Save PR Number
+      env:
+        PR_NUMBER: ${{ github.event.number }}
+      run: echo "$PR_NUMBER" > pr_number
     - name: Setup Node
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
       with:
-        node-version: 13.x
-    - name: Install dependencies
+        node-version: 24
+    - name: Cache npm Global
+      uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-npm-global-textlint
+    - name: Install Dependencies
       run: |
         npm install -g textlint
         npm install -g textlint-rule-terminology
-    - name: Changed Files Exporter
+    - name: Get Changed Files
+      # Use base/head SHAs from the PR event for fork-safe, PR-accurate changed-file detection.
+      # github.base_ref resolves differently for forks, while base.sha/head.sha are always correct.
       id: files
-      uses: futuratrepadeira/changed-files@v3.2.1
+      uses: ./.github/actions/get-changed-files
       with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        pattern: '^.*\.(md)$'
+        base_sha: ${{ github.event.pull_request.base.sha }}
+        head_sha: ${{ github.event.pull_request.head.sha }}
+        base_repo: ${{ github.event.pull_request.base.repo.full_name }}
+        repo_path: .
     - name: Run textlint Check
       env:
-        FILES: '${{ steps.files.outputs.files_updated }} ${{ steps.files.outputs.files_created }}'
+        FILES: '${{ steps.files.outputs.files_updated }}'
+      shell: bash
       run: |
+        set -uo pipefail
         touch log.txt
-        # All markdown files, excluding .github and translations
+        TEXTLINT_FATAL=0
+        readarray -t files_arr <<< "$FILES"
+        # All markdown files, excluding .github
         # Use fix flag so that it goes through all files
-        for FILE in $FILES; do echo $FILE | grep -v \.github | grep -v translations && textlint --config .github/configs/.textlintrc --fix --rule terminology $FILE | tee -a log.txt; done
-        if grep -q  'Incorrect usage' log.txt ; then exit 1 ; else echo -e \"No terminology issues found.\"; fi
+        # textlint: exit 0 = ok, 1 = rule violations (terminology here), >=2 = fatal (config, parse, etc.)
+        for FILE in "${files_arr[@]}"; do
+          [ -z "$FILE" ] && continue
+          if printf '%s\n' "$FILE" | grep -q '\.github'; then
+            continue
+          fi
+          textlint --config base/.github/configs/.textlintrc.json --fix "$FILE" 2>&1 | tee -a log.txt
+          rc=${PIPESTATUS[0]}
+          if [ "$rc" -ge 2 ]; then
+            printf 'textlint exited with code %s for file: %s\n' "$rc" "$FILE" >&2
+            TEXTLINT_FATAL=1
+          fi
+        done
+        if [ "$TEXTLINT_FATAL" -eq 1 ]; then
+          exit 2
+        fi
+        if grep -q 'Incorrect term' log.txt; then
+          exit 1
+        else
+          echo "No terminology issues found."
+        fi
     - name: Show Mistakes
-      id: mistakes
       if: failure()
       run: |
         cat log.txt
-        MISTAKES=$(cat log.txt|grep -v '✔ Fixed'|tr '✔' '✖')
-        MISTAKES="${MISTAKES//'%'/'%25'}"
-        MISTAKES="${MISTAKES//$'\n'/'%0A'}"
-        MISTAKES="${MISTAKES//$'\r'/'%0D'}"
-        echo ::set-output name=MISTAKES::**The following mistakes were identified:** %0A$MISTAKES
-    - name: Attach Mistakes
+        cat log.txt | grep -v '✔ Fixed' | tr '✔' '✖' > mistakes.txt
+        sed -i 's/✖/❌/g' mistakes.txt
+    - name: Create Artifact for Comment
       if: failure()
-      uses: actions/upload-artifact@v1
-      with:
-        name: Terminology Mistakes
-        path: log.txt
-    - name: Comment Mistakes
+      run: |
+        echo "**The following mistakes were identified:**" > artifact.txt
+        # Copy to generic name for commenting
+        cat mistakes.txt | tee -a artifact.txt
+    - name: Upload List of Mistakes
       if: failure()
-      uses: actions/github-script@v2
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
       with:
-        github-token: ${{secrets.GITHUB_TOKEN}}
-        script: |
-          github.issues.createComment({
-            issue_number: ${{ github.event.number }},
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: `${{ steps.mistakes.outputs.MISTAKES }}`
-          })
+        name: artifact
+        path: |
+          artifact.txt
+          pr_number
+    - name: Upload PR Number on Success
+      if: success()
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      with:
+        name: artifact
+        path: pr_number
+

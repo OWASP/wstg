@@ -42,8 +42,8 @@ A successful exploitation of an LDAP injection vulnerability could allow the tes
 
 - Access unauthorized content
 - Evade application restrictions
-- Gather unauthorized informations
-- Add or modify Objects inside LDAP tree structure.
+- Gather unauthorized information
+- Add or modify Objects inside LDAP tree structure
 
 ## Test Objectives
 
@@ -60,11 +60,11 @@ Let's suppose we have a web application using a search filter like the following
 
 which is instantiated by an HTTP request like this:
 
-`http://www.example.com/ldapsearch?user=John`
+`https://www.example.com/ldapsearch?user=John`
 
 If the value `John` is replaced with a `*`, by sending the request:
 
-`http://www.example.com/ldapsearch?user=*`
+`https://www.example.com/ldapsearch?user=*`
 
 the filter will look like:
 
@@ -107,7 +107,7 @@ which is correct and always true. This way, the tester will gain logged-in statu
 
 ### Whitepapers
 
-- [Sacha Faust: LDAP Injection: Are Your Applications Vulnerable?](http://www.networkdls.com/articles/ldapinjection.pdf)
+- [Sacha Faust: LDAP Injection: Are Your Applications Vulnerable?](httphttps://www.networkdls.com/articles/ldapinjection.pdf)
 - [IBM paper: Understanding LDAP](https://www.redbooks.ibm.com/redbooks/pdfs/sg244986.pdf)
 - [RFC 1960: A String Representation of LDAP Search Filters](https://www.ietf.org/rfc/rfc1960.txt)
 - [LDAP injection](https://www.blackhat.com/presentations/bh-europe-08/Alonso-Parada/Whitepaper/bh-eu-08-alonso-parada-WP.pdf)

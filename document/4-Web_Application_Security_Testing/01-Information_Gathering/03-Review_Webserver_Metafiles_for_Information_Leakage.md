@@ -11,7 +11,7 @@ This section describes how to test various metadata files for information leakag
 ## Test Objectives
 
 - Identify hidden or obfuscated paths and functionality through the analysis of metadata files.
-- Extract and map other information that could lead to better understanding of the systems at hand.
+- Extract and map other information that could lead to a better understanding of the systems at hand.
 
 ## How to Test
 
@@ -50,7 +50,7 @@ Web spiders/robots/crawlers can [intentionally ignore](https://blog.isc2.org/isc
 The `robots.txt` file is retrieved from the web root directory of the web server. For example, to retrieve the `robots.txt` from `www.google.com` using `wget` or `curl`:
 
 ```bash
-$ curl -O -Ss http://www.google.com/robots.txt && head -n5 robots.txt
+$ curl -O -Ss https://www.google.com/robots.txt && head -n5 robots.txt
 User-agent: *
 Disallow: /search
 Allow: /search/about
@@ -61,7 +61,7 @@ Allow: /search/howsearchworks
 
 #### Analyze robots.txt Using Google Webmaster Tools
 
-Web site owners can use the Google "Analyze robots.txt" function to analyze the website as part of its [Google Webmaster Tools](https://www.google.com/webmasters/tools). This tool can assist with testing and the procedure is as follows:
+Site owners can use the Google "Analyze robots.txt" function to analyze the site as part of its [Google Webmaster Tools](https://www.google.com/webmasters/tools). This tool can assist with testing and the procedure is as follows:
 
 1. Sign into Google Webmaster Tools with a Google account.
 2. On the dashboard, enter the URL for the site to be analyzed.
@@ -69,13 +69,13 @@ Web site owners can use the Google "Analyze robots.txt" function to analyze the 
 
 ### META Tags
 
-`<META>` tags are located within the `HEAD` section of each HTML document and should be consistent across a web site in the event that the robot/spider/crawler start point does not begin from a document link other than webroot i.e. a [deep link](https://en.wikipedia.org/wiki/Deep_linking). Robots directive can also be specified through use of a specific [META tag](https://www.robotstxt.org/meta.html).
+`<META>` tags are located within the `HEAD` section of each HTML document and should be consistent across a site in the event that the robot/spider/crawler start point does not begin from a document link other than webroot i.e. a [deep link](https://en.wikipedia.org/wiki/Deep_linking). The Robots directive can also be specified using a specific [META tag](https://www.robotstxt.org/meta.html).
 
 #### Robots META Tag
 
-If there is no `<META NAME="ROBOTS" ... >` entry then the "Robots Exclusion Protocol" defaults to `INDEX,FOLLOW` respectively. Therefore, the other two valid entries defined by the "Robots Exclusion Protocol" are prefixed with `NO...` i.e. `NOINDEX` and `NOFOLLOW`.
+If there is no `<META NAME="ROBOTS" ... >` entry, then the "Robots Exclusion Protocol" defaults to `INDEX,FOLLOW` respectively. Therefore, the other two valid entries defined by the "Robots Exclusion Protocol" are prefixed with `NO...` i.e. `NOINDEX` and `NOFOLLOW`.
 
-Based on the Disallow directive(s) listed within the `robots.txt` file in webroot, a regular expression search for `<META NAME="ROBOTS"` within each web page is undertaken and the result compared to the `robots.txt` file in webroot.
+Based on the Disallow directive(s) listed within the `robots.txt` file in webroot, a regular expression search for `<META NAME="ROBOTS"` is undertaken within each web page. The result is then compared to the robots.txt file in the webroot.
 
 #### Miscellaneous META Information Tags
 
@@ -108,7 +108,7 @@ Organizations often embed informational META tags in web content to support vari
 
 ### Sitemaps
 
-A sitemap is a file where a developer or organization can provide information about the pages, videos, and other files offered by the site or application, and the relationship between them. Search engines can use this file to more intelligently explore your site. Testers can use `sitemap.xml` files to learn more about the site or application to explore it more completely.
+A sitemap is a file where a developer or organization can provide information about the pages, videos, and other files offered by the site or application, and the relationship between them. Search engines can use this file to navigate your site more efficiently. Likewise, testers can utilize 'sitemap.xml' files to gain deeper insights into the site or application under investigation.
 
 The following excerpt is from Google's primary sitemap retrieved 2020 May 05.
 
@@ -117,7 +117,7 @@ $ wget --no-verbose https://www.google.com/sitemap.xml && head -n8 sitemap.xml
 2020-05-05 12:23:30 URL:https://www.google.com/sitemap.xml [2049] -> "sitemap.xml" [1]
 
 <?xml version="1.0" encoding="UTF-8"?>
-<sitemapindex xmlns="http://www.google.com/schemas/sitemap/0.84">
+<sitemapindex xmlns="https://www.google.com/schemas/sitemap/0.84">
   <sitemap>
     <loc>https://www.google.com/gmail/sitemap.xml</loc>
   </sitemap>
@@ -131,7 +131,7 @@ Exploring from there a tester may wish to retrieve the gmail sitemap `https://ww
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="https://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.google.com/intl/am/gmail/about/</loc>
     <xhtml:link href="https://www.google.com/gmail/about/" hreflang="x-default" rel="alternate"/>
@@ -143,14 +143,14 @@ Exploring from there a tester may wish to retrieve the gmail sitemap `https://ww
 
 ### Security TXT
 
-`security.txt` is a [proposed standard](https://securitytxt.org/) which allows websites to define security policies and contact details. There are multiple reasons this might be of interest in testing scenarios, including but not limited to:
+[security.txt](https://securitytxt.org) was ratified by the IETF as [RFC 9116 - A File Format to Aid in Security Vulnerability Disclosure](https://www.rfc-editor.org/rfc/rfc9116.html) which allows sites to define security policies and contact details. There are multiple reasons why this might be of interest in testing scenarios, which include, but are not limited to:
 
 - Identifying further paths or resources to include in discovery/analysis.
 - Open Source intelligence gathering.
 - Finding information on Bug Bounties, etc.
 - Social Engineering.
 
-The file may be present either in the root of the webserver or in the `.well-known/` directory. Ex:
+The file may be present either in the root of the webserver or in the `.well-known/` directory, for example:
 
 - `https://example.com/security.txt`
 - `https://example.com/.well-known/security.txt`
@@ -168,9 +168,19 @@ Canonical: https://www.linkedin.com/.well-known/security.txt
 Policy: https://www.linkedin.com/help/linkedin/answer/62924
 ```
 
+OpenPGP Public Keys contain some metadata that can provide information about the key itself. Here are some common metadata elements that can be extracted from an OpenPGP Public Key:
+
+- **Key ID**: The Key ID is a short identifier derived from the public key material. It helps identify the key and is often displayed as an eight-character hexadecimal value.
+- **Key Fingerprint**: The Key Fingerprint is a longer and more unique identifier derived from the key material. It is often displayed as a 40-character hexadecimal value. Key fingerprints are commonly used to verify the integrity and authenticity of a public key.
+- **Key Algorithm**: The Key Algorithm represents the cryptographic algorithm used by the public key. OpenPGP supports various algorithms such as RSA, DSA, and ECC (Elliptic Curve Cryptography).
+- **Key Size**: The Key Size refers to the length or size of the cryptographic key in bits. It indicates the strength of the key and determines the level of security provided by the key.
+- **Key Creation Date**: The Key Creation Date indicates when the key was generated or created.
+- **Key Expiration Date**: OpenPGP Public Keys can have an expiration date set, after which they are considered invalid. The Key Expiration Date specifies when the key is no longer valid.
+- **User IDs**: Public keys can have one or more associated User IDs that identify the owner or entity associated with the key. User IDs typically include information such as the name, email address, and optional comments of the key owner.
+
 ### Humans TXT
 
-`humans.txt` is an initiative for knowing the people behind a website. It takes the form of a text file that contains information about the different people who have contributed to building the website. See [humanstxt](http://humanstxt.org/) for more info. This file often (though not always) contains information for career or job sites/paths.
+`humans.txt` is an initiative for knowing the people behind a site. It takes the form of a text file that contains information about the different people who have contributed to building the site. This file often (but not always) contains information related to career or job sites/paths.
 
 The following example was retrieved from Google 2020 May 05:
 
@@ -182,14 +192,14 @@ Google is built by a large team of engineers, designers, researchers, robots, an
 
 ### Other .well-known Information Sources
 
-There are other RFCs and Internet drafts which suggest standardized uses of files within the `.well-known/` directory. Lists of which can be found [here](https://en.wikipedia.org/wiki/List_of_/.well-known/_services_offered_by_webservers) or [here](https://www.iana.org/assignments/well-known-uris/well-known-uris.xhtml).
+There are other RFCs and internet drafts which suggest standardized uses of files within the `.well-known/` directory. Lists of these can be found [here on WikiPedia](https://en.wikipedia.org/wiki/List_of_/.well-known/_services_offered_by_webservers) or [here via IANA](https://www.iana.org/assignments/well-known-uris/well-known-uris.xhtml).
 
-It would be fairly simple for a tester to review the RFC/drafts are create a list to be supplied to a crawler or fuzzer, in order to verify the existence or content of such files.
+It would be fairly simple for a tester to review the RFC/drafts and create a list to be supplied to a crawler or fuzzer, in order to verify the existence or content of such files.
 
 ## Tools
 
 - Browser (View Source or Dev Tools functionality)
-- curl
+- cURL
 - wget
 - Burp Suite
 - ZAP

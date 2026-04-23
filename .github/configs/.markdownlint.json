@@ -2,8 +2,11 @@
   "default": true,
   "MD004": { "style": "dash" },
   "MD007": { "indent": 4 },
-  "MD024": { "siblings_only": true},
+  "MD024": false,
   "MD026": { "punctuation" : ".,;:!。，；：!" },
+  "MD060": false,
+  "MD053": false,
   "line-length": false,
+  "descriptive-link-text": false,
   "code-block-style": { "style" : "fenced" }
 }

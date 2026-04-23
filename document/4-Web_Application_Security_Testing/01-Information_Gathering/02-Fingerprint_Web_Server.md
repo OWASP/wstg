@@ -16,13 +16,13 @@ Accurately discovering the type of web server that an application runs on can en
 
 ## How to Test
 
-Techniques used for web server fingerprinting include [banner grabbing](https://en.wikipedia.org/wiki/Banner_grabbing), eliciting responses to malformed requests, and using automated tools to perform more robust scans that use a combination of tactics. The fundamental premise by which all these techniques operate is the same. They all strive to elicit some response from the web server which can then be compared to a database of known responses and behaviors, and thus matched to a known server type.
+Techniques used for web server fingerprinting include [banner grabbing](https://en.wikipedia.org/wiki/Banner_grabbing), eliciting responses to malformed requests, and using automated tools to perform more robust scans that use a combination of tactics. The fundamental premise on which all these techniques operate is the same. They all strive to elicit some response from the web server which can then be compared to a database of known responses and behaviors, and thus matched to a known server type.
 
 ### Banner Grabbing
 
-A banner grab is performed by sending an HTTP request to the web server and examining its [response header](https://developer.mozilla.org/en-US/docs/Glossary/Response_header). This can be accomplished using a variety of tools, including `telnet` for HTTP requests, or `openssl` for requests over SSL.
+A banner grab is performed by sending an HTTP request to the web server and examining its [response header](https://developer.mozilla.org/en-US/docs/Glossary/Response_header). This can be accomplished using a variety of tools, including `telnet` for HTTP requests, or `openssl` for requests over TLS/SSL.
 
-For example, here is the response to a request from an Apache server.
+For example, here is the response to a request sent to an Apache server.
 
 ```http
 HTTP/1.1 200 OK
@@ -37,7 +37,7 @@ Content-Type: text/html
 ...
 ```
 
-Here is another response, this time from nginx.
+Here is another response, this time sent by nginx.
 
 ```http
 HTTP/1.1 200 OK
@@ -52,7 +52,7 @@ Accept-Ranges: bytes
 ...
 ```
 
-Here's what a response from lighttpd looks like.
+Here's what a response sent by lighttpd looks like.
 
 ```sh
 HTTP/1.0 200 OK
@@ -100,7 +100,7 @@ Testers can use this information to guess that the obscured server is nginx. How
 
 Web servers may be identified by examining their error responses, and in the cases where they have not been customized, their default error pages. One way to compel a server to present these is by sending intentionally incorrect or malformed requests.
 
-For example, here is the response to a request for the non-existent method `SANTA CLAUS` from an Apache server.
+For example, here is the response to a request for the non-existent HTTP version `SANTA CLAUS` from an Apache server.
 
 ```sh
 GET / SANTA CLAUS/1.1
@@ -153,8 +153,8 @@ Server: lighttpd/1.4.54
 
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+         "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="https://www.w3.org/1999/xhtml/" xml:lang="en" lang="en">
  <head>
   <title>400 Bad Request</title>
  </head>
@@ -164,7 +164,8 @@ Server: lighttpd/1.4.54
 </html>
 ```
 
-As default error pages offer many differentiating factors between types of web servers, their examination can be an effective method for fingerprinting even when server header fields are obscured.
+As default error pages offer many differentiating factors between types of web servers, their examination can be an effective method for fingerprinting even when server header fields are obscured.  
+Furthermore, this [resource](https://0xdf.gitlab.io/cheatsheets/404) can be handy, especially when you come across default error pages that do not disclose the web server type.
 
 ### Using Automated Scanning Tools
 
@@ -172,7 +173,7 @@ As stated earlier, web server fingerprinting is often included as a functionalit
 
 Here are some commonly-used scan tools that include web server fingerprinting functionality.
 
-- [Netcraft](https://toolbar.netcraft.com/site_report), an online tool that scans websites for information, including the web server.
+- [Netcraft](https://toolbar.netcraft.com/site_report), an online tool that scans sites for information, including web server details.
 - [Nikto](https://github.com/sullo/nikto), an Open Source command-line scanning tool.
 - [Nmap](https://nmap.org/), an Open Source command-line tool that also has a GUI, [Zenmap](https://nmap.org/zenmap/).
 
@@ -181,5 +182,5 @@ Here are some commonly-used scan tools that include web server fingerprinting fu
 While exposed server information is not necessarily in itself a vulnerability, it is information that can assist attackers in exploiting other vulnerabilities that may exist. Exposed server information can also lead attackers to find version-specific server vulnerabilities that can be used to exploit unpatched servers. For this reason it is recommended that some precautions be taken. These actions include:
 
 - Obscuring web server information in headers, such as with Apache's [mod_headers module](https://httpd.apache.org/docs/current/mod/mod_headers.html).
-- Using a hardened [reverse proxy server](https://en.wikipedia.org/wiki/Proxy_server#Reverse_proxies) to create an additional layer of security between the web server and the Internet.
+- Using a hardened [reverse proxy server](https://en.wikipedia.org/wiki/Proxy_server#Reverse_proxies) to create an additional layer of security between the web server and the internet.
 - Ensuring that web servers are kept up-to-date with the latest software and security patches.

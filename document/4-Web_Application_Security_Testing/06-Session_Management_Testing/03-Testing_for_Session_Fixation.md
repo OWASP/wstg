@@ -8,7 +8,7 @@
 
 Session fixation is enabled by the insecure practice of preserving the same value of the session cookies before and after authentication. This typically happens when session cookies are used to store state information even before login, e.g., to add items to a shopping cart before authenticating for payment.
 
-In the generic exploit of session fixation vulnerabilities, an attacker can obtain a set of session cookies from the target website without first authenticating. The attacker can then force these cookies into the victim's browser using different techniques. If the victim later authenticates at the target website and the cookies are not refreshed upon login, the victim will be identified by the session cookies chosen by the attacker. The attacker is then able to impersonate the victim with these known cookies.
+In the generic exploit of session fixation vulnerabilities, an attacker can obtain a set of session cookies from the target site without first authenticating. The attacker can then force these cookies into the victim's browser using different techniques. If the victim later authenticates at the target site and the cookies are not refreshed upon login, the victim will be identified by the session cookies chosen by the attacker. The attacker is then able to impersonate the victim with these known cookies.
 
 This issue can be fixed by refreshing the session cookies after the authentication process. Alternatively, the attack can be prevented by ensuring the integrity of session cookies. When considering network attackers, i.e., attackers who control the network used by the victim, use full [HSTS](https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security) or add the`__Host-` / `__Secure-` prefix to the cookie name.
 
@@ -23,7 +23,7 @@ Full HSTS adoption occurs when a host activates HSTS for itself and all its sub-
 
 In this section we give an explanation of the testing strategy that will be shown in the next section.
 
-The first step is to make a request to the site to be tested (_e.g._ `www.example.com`). If the tester requests the following:
+The first step is to make a request to the site to be tested (*e.g.* `www.example.com`). If the tester requests the following:
 
 ```http
 GET / HTTP/1.1
@@ -53,7 +53,7 @@ Next, if the tester successfully authenticates to the application with the follo
 POST /authentication.php HTTP/1.1
 Host: www.example.com
 [...]
-Referer: http://www.example.com
+Referer: https://www.example.com
 Cookie: JSESSIONID=0000d8eyYq3L0z2fgq10m4v-rt4:-1
 Content-Type: application/x-www-form-urlencoded
 Content-length: 57
@@ -85,13 +85,13 @@ The tester can send a valid session identifier to a user (possibly using a socia
 
 ### Test with Forced Cookies
 
-This testing strategy is targeted at network attackers, hence it only needs to be applied to sites without full HSTS adoption (sites with full HSTS adoption are secure, since all their cookies have integrity). We assume to have two testing accounts on the website under test, one to act as the victim and one to act as the attacker. We simulate a scenario where the attacker forces in the victim's browser all the cookies which are not freshly issued after login and do not have integrity. After the victim's login, the attacker presents the forced cookies to the website to access the victim's account: if they are enough to act on the victim's behalf, session fixation is possible.
+This testing strategy is targeted at network attackers, hence it only needs to be applied to sites without full HSTS adoption (sites with full HSTS adoption are secure, since all their cookies have integrity). We assume to have two testing accounts on the site under test, one to act as the victim and one to act as the attacker. We simulate a scenario where the attacker forces in the victim's browser all the cookies which are not freshly issued after login and do not have integrity. After the victim's login, the attacker presents the forced cookies to the site to access the victim's account: if they are enough to act on the victim's behalf, session fixation is possible.
 
 Here are the steps for executing this test:
 
-1. Reach the login page of the website.
+1. Reach the login page of the site.
 2. Save a snapshot of the cookie jar before logging in, excluding cookies which contain the `__Host-` or `__Secure-` prefix in their name.
-3. Login to the website as the victim and reach any page offering a secure function requiring authentication.
+3. Login to the site as the victim and reach any page offering a secure function requiring authentication.
 4. Set the cookie jar to the snapshot taken at step 2.
 5. Trigger the secure function identified at step 3.
 6. Observe whether the operation at step 5 has been performed successfully. If so, the attack was successful.
@@ -111,10 +111,10 @@ The application should always first invalidate the existing session ID before au
 
 ## Tools
 
-- [OWASP ZAP](https://www.zaproxy.org)
+- [ZAP](https://www.zaproxy.org)
 
 ## References
 
 - [Session Fixation](https://owasp.org/www-community/attacks/Session_fixation)
 - [ACROS Security](https://www.acrossecurity.com/papers/session_fixation.pdf)
-- [Chris Shiflett](http://shiflett.org/articles/session-fixation)
+- [Chris Shiflett](https://shiflett.org/articles/session-fixation)

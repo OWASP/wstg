@@ -1,0 +1,337 @@
+# Testing for OAuth Authorization Server Weaknesses
+
+## Summary
+
+OAuth stores the identities of users and their corresponding access rights with the Authorization Server (AS). The AS plays a crucial role during the OAuth flow as it grants clients access to resources. To be able to do that securely, it must properly validate parameters that are part of the OAuth flow.
+
+Failure to validate the parameters may lead to account takeover, unauthorized resource access and the elevation of privileges.
+
+## Test Objectives
+
+- Identify weaknesses in the Authorization Server.
+
+## How to Test
+
+In order to test for AS weaknesses, you will aim to:
+
+1. Retrieve credentials used for authorization.
+2. Grant yourself access to arbitrary resources through forceful browsing.
+3. Bypass the authorization.
+
+### Testing for Insufficient Redirect URI Validation
+
+If the `redirect_uri` is not properly validated, a link can be crafted that contains a URL pointing to a server controlled by an attacker. This can be used to trick the AS into sending an authorization code to the attacker. In the following example, `client.evil.com` is used as the forged `redirect_uri`.
+
+```text
+https://as.example.com/authorize?client_id=example-client&redirect_uri=http%3A%2F%client.evil.com%2F&state=example&response_mode=fragment&response_type=code&scope=openid&nonce=example
+```
+
+If a user opens this link in the user agent, the AS will redirect the user agent to the malicious URL.
+
+An attacker can capture the `code` value passed in the spoofed URL and then submit it to the AS token endpoint.
+
+The following request illustrates an authorization request that sends the `redirect_uri` to the authorization server. The client `client.example.com` sends an authorization request to the AS `as.example.com` with the URL-encoded redirect URI `http%3A%2F%2Fclient.example.com%2F`.
+
+```http
+GET /authorize
+    ?redirect_uri=http%3A%2F%2Fclient.example.com%2F
+    &client_id=example-client
+    &errorPath=%2Ferror
+    &scope=openid%20profile%20email
+    &response_type=code
+    &response_mode=query
+    &state=example
+    &nonce=example
+    &code_challenge=example
+    &code_challenge_method=S256 HTTP/1.1
+Host: as.example.com
+```
+
+The AS responds with a redirect containing the authorization code. This can be exchanged with an access token in the token request. As shown below, the URL in the `Location` header is the URI given in the previous `redirect_uri` parameter.
+
+```http
+HTTP/1.1 302 Found
+Date: Mon, 18 Oct 2021 20:46:44 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 340
+Location: https://client.example.com/?code=example&state=example
+```
+
+To test if the AS is vulnerable to insufficient redirect URI validation, capture the traffic with an HTTP intercepting proxy such as ZAP.
+
+1. Start the OAuth flow and pause it at the authorization request.
+2. Change the value of the `redirect_uri` and observe the response.
+3. Investigate the response and identify if the arbitrary `redirect_uri` parameter was accepted by the AS.
+
+If the AS redirects the user agent to the `redirect_uri` you specified, the AS does not properly validate the `redirect_uri`.
+
+Additionally, see the `Common Filter Bypass` section in [Testing for Server-Side Request Forgery](../07-Input_Validation_Testing/19-Testing_for_Server-Side_Request_Forgery.md) to identity common bypasses for redirect URI validation.
+
+### Testing for Authorization Code Injection
+
+During the Authorization Code flow code exchange, a code is issued by the AS to the client and later exchanged against the token endpoint to retrieve an authorization token and a refresh token.
+
+Conduct the following tests against the AS:
+
+1. Send a valid code for another `client_id`.
+2. Send a valid code for another resource owner.
+3. Send a valid code for another `redirect_uri`.
+4. Resend the code more than once (code replay).
+
+#### Test Public Clients
+
+The request sent to the token endpoint contains the authorization code. It is exchanged against the token. Capture this request with an HTTP intercepting proxy like ZAP and resend the request with modified values.
+
+```http
+POST /oauth/token HTTP/1.1
+Host: as.example.com
+[...]
+
+{
+    "errorPath":"/error",
+    "client_id":"example-client",
+    "code":"INJECT_CODE_HERE",
+    "grant_type":"authorization_code",
+    "redirect_uri":"https://client.example.com"
+}
+```
+
+If the AS responds with an `access_token`, the code was successfully injected.
+
+#### Test Confidential Clients
+
+As the OAuth flow for confidential clients is additionally protected by a client secret, it is not possible to directly submit an authorization code to the token endpoint. Instead, inject the authorization code into the client. This injected code will then be sent in the token request, issued by the confidential client together with the client secret.
+
+First, capture an authorization code from the AS:
+
+1. Start the authorization code flow with user Alice. Pause when you receive a code from the AS.
+2. Do not submit the code to the client and keep note of the code and corresponding state.
+
+Then, inject the code:
+
+ 1. Start the authorization code flow with user Mallory and inject the previously gathered code and state values for user Alice into the process.
+ 2. When the attack is successful, the client should now be in possession of an `authorization_token` that grants access to resources owned by user Alice.
+
+```http
+GET /callback?code=INJECT_CODE_HERE&state=example HTTP/1.1
+Host: client.example.com
+[...]
+
+```
+
+### Testing for PKCE Downgrade Attack
+
+Under certain circumstances the PKCE extension can be removed from the authorization code flow. This has the potential to leave public clients vulnerable to attacks mitigated by the PKCE extension.
+
+This can happen when:
+
+- The AS does not support PKCE.
+- The AS does not properly validate PKCE.
+
+Both can be tested with an HTTP intercepting proxy like ZAP. Conduct the following tests:
+
+1. Send the authorization request without the `code_challenge=sha256(xyz)` and `code_challenge_method` parameter.
+2. Send the authorization request with an empty value for the `code_challenge=sha256(xyz)` parameter.
+3. Send the authorization request with a forged value for the `code_challenge=sha256(xyz)` parameter
+
+The example below highlights the values to modify:
+
+```http
+GET /authorize
+    ?redirect_uri=http%3A%2F%client.example.com
+    &client_id=example-client
+    &errorPath=%2Ferror
+    &scope=openid%20profile%20email
+    &response_type=code
+    &response_mode=web_message
+    &state=example-state
+    &nonce=example-nonce
+    &code_challenge=MODIFY_OR_OMIT_THIS
+    &code_challenge_method=MODIFY_OR_OMIT_THIS
+    &prompt=none HTTP/1.1
+Host: as.example.com
+[...]
+
+```
+
+The AS should verify the `code_verifier` value in the token exchange. To test:
+
+1. Send the token request without the `code_verifier`.
+2. Send the token request with an empty `code_verifier`.
+3. Send the token request with a valid `code_verifier` for a different authorization code.
+
+```http
+POST /oauth/token HTTP/1.1
+Host: as.example.com
+[...]
+
+{
+"client_id":"example-client",
+"code_verifier":"MODIFY_OR_OMIT_THIS",
+"code":"example",
+"grant_type":"authorization_code",
+"redirect_uri":"https://client.example.com"
+}
+```
+
+### Testing for Consent Page Cross-Site Request Forgery
+
+CSRF attacks are described in [CSRF](../06-Session_Management_Testing/05-Testing_for_Cross_Site_Request_Forgery.md). OAuth can be attacked with CSRF.
+
+To prevent CSRF attacks OAuth, leverages the `state` parameter as an anti-CSRF token.
+
+Other measures can prevent CSRF attacks as well. The PKCE flow mitigates CSRF. A `nonce` value may act as an anti-CSRF token as well.
+
+Test every request that contains one of the anti-CSRF parameters used by OAuth according to the tests described in the [CSRF](../06-Session_Management_Testing/05-Testing_for_Cross_Site_Request_Forgery.md) test cases.
+
+The consent page is displayed to a user to verify that this user consents in the client accessing the resource on the users behalf. Attacking the consent page with CSRF may grant an arbitrary client access to a resource on behalf of the user. The steps of this flow are:
+
+1. The Client generates a state parameter and sends it with the consent request.
+2. The User Agent displays the consent page.
+3. The Resource Owner grants access to the Client.
+4. The consent is sent to the AS together with the acknowledged scopes.
+
+Use an HTTP intercepting proxy like ZAP to test whether the state parameter is properly validated.
+
+```http
+POST /u/consent?state=Tampered_State HTTP/1.1
+Host: as.example.com
+[...]
+
+state=MODIFY_OR_OMIT_THIS
+&audience=https%3A%2F%2Fas.example.com%2Fuserinfo
+&scope%5B%5D=profile
+&scope%5B%5D=email
+&action=accept
+```
+
+### Testing for Clickjacking
+
+Clickjacking is described in [Testing for Clickjacking](../11-Client-side_Testing/09-Testing_for_Clickjacking.md). When the consent page is prone to clickjacking and the attacker is in possession of the `client_id` (for public clients, or the client secret for confidential clients), the attacker can forge the user's consent and gain access to the requested resource through a rogue client.
+
+#### How to Test
+
+For this attack to be successful, the attacker needs to load the authorization page in an iframe.
+
+The following HTML page can be used to load the authorization page in an iframe:
+
+```html
+<html>
+    <head>
+        <title>Clickjack test page</title>
+    </head>
+    <body>
+        <iframe src="https://as.example.com/auth/realms/example/login-actions/required-action?execution=OAUTH_GRANT&client_id=example-client" width="500" height="500"></iframe>
+    </body>
+</html>
+```
+
+If successfully loaded, the site is vulnerable to clickjacking.
+
+See [Testing for Clickjacking](../11-Client-side_Testing/09-Testing_for_Clickjacking.md) for a detailed description of how such an attack can be conducted.
+
+### Testing Token Lifetime
+
+OAuth has two types of tokens: the access token and the refresh token. An access token should be limited in the duration of its validity. That means it is short-lived: a good duration depends on the application and may be 5 to 15 minutes.
+
+The refresh token should be valid for a longer duration. It should be a one-time token that gets replaced each time it has been used.
+
+#### Test Access Token Lifetime Validation
+
+When a JSON Web Token (JWT) is used as the access token, it is possible to retrieve the validity of the access token from the decoded JWT. This is described in [Testing JSON Web Tokens](../06-Session_Management_Testing/10-Testing_JSON_Web_Tokens.md). It is possible that the AS does not properly validate the lifetime of the JWT.
+
+To test the lifetime of the access token, use an HTTP intercepting proxy such as ZAP. Intercept a request to an endpoint that contains an access token. Put this request in the repeater and let the targeted time pass. The validity of an access token should be between 5 and 15 minutes, depending on the sensitivity of the resources.
+
+Such requests may look like the following example. The token could also be transported in other ways, for example, in a cookie.
+
+```http
+GET /userinfo HTTP/1.1
+Host: as.example.com
+[...]
+Authorization: Bearer eyJhbGciOiJkaXIiL[...]
+
+```
+
+Test for lifetime validation by sending the request after varying lengths of time have passed, for example, after 5 minutes, 10 minutes, and 30 minutes.
+
+This process can be optimized by automating the steps and logging of the server's response. When a response of HTTP status 403 (instead of HTTP status 200) is received, this can indicate that the access token is no longer valid.
+
+#### Test Refresh Token Lifetime Validation
+
+Refresh tokens have a longer validity period than access tokens. Due to their long validity, they should be invalidated after they are used in an exchange against an access token.
+
+Refresh tokens are issued in the same token request where the access token is handed out to the client.
+
+Use an HTTP intercepting proxy such as ZAP. Set up the test by doing the following:
+
+1. Retrieve a valid refresh token.
+2. Capture the request that is used to exchange the refresh token against a new access token.
+3. Send the captured request to the request repeater.
+
+In the following example, the refresh token is sent as part of the POST body.
+
+```http
+POST /token HTTP/1.1
+Host: as.example.com
+Cookie: [...]
+[...]
+
+grant_type=refresh_token
+&refresh_token=eyJhbGciOiJIUz[...]
+&client_id=example-client
+
+```
+
+Conduct the following tests:
+
+1. Send the refresh token and determine if the AS hands out an access token.
+2. Repeat the steps with the same refresh token to evaluate how often a single refresh token is accepted.
+
+When a JWT is used as the refresh token, it is possible to retrieve the validity of the refresh token from the decoded JWT. This is described in [Testing JSON Web Tokens](../06-Session_Management_Testing/10-Testing_JSON_Web_Tokens.md). The refresh token may be valid for a longer period of time, but should have an expiry date.
+
+Additional security can be gained with a theft detection mechanism. If a refresh token is used in a token exchange beyond its validity (or lifetime), the AS invalidates all refresh tokens. To test this mechanism:
+
+1. Send the refresh token and determine if the AS hands out an access token.
+2. Repeat the steps with the same refresh token until it is invalidated.
+3. Use the refresh token from the last token response
+
+If all refresh tokens that were issued to the client for this resource owner are invalidated, the AS has token theft detection.
+
+## Related Test Cases
+
+- [Testing for Cross Site Request Forgery](../06-Session_Management_Testing/05-Testing_for_Cross_Site_Request_Forgery.md)
+- [Testing for Client-side URL Redirect](../11-Client-side_Testing/04-Testing_for_Client-side_URL_Redirect.md)
+- [Testing for Server-Side Request Forgery](../07-Input_Validation_Testing/19-Testing_for_Server-Side_Request_Forgery.md)
+- [Testing JSON Web Tokens](../06-Session_Management_Testing/10-Testing_JSON_Web_Tokens.md)
+- [Testing for Clickjacking](../11-Client-side_Testing/09-Testing_for_Clickjacking.md)
+- [Testing Cross Origin Resource Sharing](../11-Client-side_Testing/07-Testing_Cross_Origin_Resource_Sharing.md)
+
+## Remediation
+
+Most of the attacks against OAuth AS can be mitigated by validating the existence and content of parameters during the authorization code and token exchange.
+
+Restrict the time span and allowed usage for credentials such as the authorization code and refresh token. This can mitigate some types of attacks and also limits the use of such credentials for an attacker, if they are gained.
+
+Proper configuration of security mitigation like CORS, anti-CSRF tokens, and anti-clickjacking headers can mitigate or limit the impact of attacks.
+
+- Always validate if all parameters are present, and validate their values.
+- Use the PKCE extension to properly secure the authorization code and token exchange.
+- Do not allow fallback for security features like the PKCE extension.
+- Restrict the lifetime of credentials.
+- Use credentials only once where possible, e.g. the authorization code.
+- Configure available security mitigation like CORS, anti-CSRF tokens, and anti-clickjacking headers.
+
+## Tools
+
+- [BurpSuite](https://portswigger.net/burp/releases)
+- [EsPReSSO](https://github.com/portswigger/espresso)
+- [ZAP](https://www.zaproxy.org/)
+
+## References
+
+- [User Authentication with OAuth 2.0](https://oauth.net/articles/authentication/)
+- [The OAuth 2.0 Authorization Framework](https://datatracker.ietf.org/doc/html/rfc6749)
+- [The OAuth 2.0 Authorization Framework: Bearer Token Usage](https://datatracker.ietf.org/doc/html/rfc6750)
+- [OAuth 2.0 Threat Model and Security Considerations](https://datatracker.ietf.org/doc/html/rfc6819)
+- [OAuth 2.0 Security Best Current Practice](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics-16)
+- [Authorization Code Flow with Proof Key for Code Exchange](https://auth0.com/docs/authorization/flows/authorization-code-flow-with-proof-key-for-code-exchange-pkce)

@@ -29,7 +29,7 @@ SWFs have the capability to navigate the browser. If the SWF takes the destinati
 In the Flash case, the malicious URL might look like:
 
 ```text
-http://trusted.example.org/trusted.swf?getURLValue=http://www.evil-spoofing-website.org/phishEndUsers.html
+https://trusted.example.org/trusted.swf?getURLValue=https://www.evil-spoofing-website.org/phishEndUsers.html
 ```
 
 In the above example, an end user might see that the URL begins with their favorite trusted website and click on it. The link would load the trusted SWF which takes the `getURLValue` and provides it to an ActionScript browser navigation call:
@@ -59,7 +59,7 @@ Since May 2007, three new versions of Flash Player were released by Adobe. Every
 
 ## How to Test
 
-Since the first publication of [Testing Flash Applications](http://www.wisec.it/en/Docs/flash_App_testing_Owasp07.pdf), new versions of Flash Player were released in order to mitigate some of the attacks which will be described. Nevertheless, some issues still remain exploitable because they are the result of insecure programming practices.
+Since the first publication of "Testing Flash Applications", new versions of Flash Player were released in order to mitigate some of the attacks which will be described. Nevertheless, some issues still remain exploitable because they are the result of insecure programming practices.
 
 ### Decompilation
 
@@ -71,7 +71,7 @@ To decompile a SWF file with flare just type:
 
 This results in a new file called hello.flr.
 
-Decompilation helps testers because it allows for white-box testing of the Flash applications. A quick web search can lead you to various disassmeblers and flash security tools.
+Decompilation helps testers because it allows for white-box testing of the Flash applications. A quick web search can lead you to various disassemblers and flash security tools.
 
 ### Undefined Variables FlashVars
 
@@ -89,7 +89,7 @@ codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#ve
 
 FlashVars can also be initialized from the URL:
 
-`http://www.example.org/somefilename.swf?var1=val1&var2=val2`
+`https://www.example.org/somefilename.swf?var1=val1&var2=val2`
 
 In ActionScript 3.0, a developer must explicitly assign the FlashVar values to local variables. Typically, this looks like:
 
@@ -101,7 +101,7 @@ var var2:String = String(paramObj["var2"]);
 
 In ActionScript 2.0, any uninitialized global variable is assumed to be a FlashVar. Global variables are those variables that are prepended by `_root`, `_global` or `_level0`. This means that if an attribute like `_root.varname` is undefined throughout the code flow, it could be overwritten by URL parameters:
 
-`http://victim/file.swf?varname=value`
+`https://victim/file.swf?varname=value`
 
 Regardless of whether you are looking at ActionScript 2.0 or ActionScript 3.0, FlashVars can be a vector of attack. Let's look at some ActionScript 2.0 code that is vulnerable:
 
@@ -137,7 +137,7 @@ movieClip 328 __Packages.Locale {
 
 The above code could be attacked by requesting:
 
-`http://victim/file.swf?language=http://evil.example.org/malicious.xml?`
+`https://victim/file.swf?language=https://evil.example.org/malicious.xml?`
 
 ### Unsafe Methods
 
@@ -165,7 +165,7 @@ Unsafe Methods since version r47 are:
 The swf file should be hosted on the victim's host, and the techniques of reflected XSS must be used. An attacker forces the browser to load a pure swf file directly in the location bar (by redirection or social engineering) or by loading it through an iframe from an evil page:
 
 ```html
-<iframe src='http://victim/path/to/file.swf'></iframe>
+<iframe src='https://victim/path/to/file.swf'></iframe>
 ```
 
 In this situation, the browser will self-generate an HTML page as if it were hosted by the victim host.
@@ -185,7 +185,7 @@ navigateToURL(request);
 
 Then this will mean it's possible to call JavaScript in the same domain where the movie is hosted by requesting:
 
-`http://victim/file.swf?URI=javascript:evilcode`
+`https://victim/file.swf?URI=javascript:evilcode`
 
 `getURL('javascript:evilcode','_self');`
 
@@ -213,7 +213,7 @@ loadMovie(_root.URL)
 
 by requesting:
 
-`http://victim/file.swf?URL=asfunction:getURL,javascript:evilcode`
+`https://victim/file.swf?URL=asfunction:getURL,javascript:evilcode`
 
 ### ExternalInterface
 
@@ -258,7 +258,7 @@ Some attack examples with `<a>` tag:
 An image tag could be used as well:
 
 ```html
-<img src='http://evil/evil.swf'>
+<img src='https://evil/evil.swf'>
 ```
 
 In this example, `.swf` is necessary to bypass the Flash Player internal filter:
@@ -272,6 +272,5 @@ Since the release of Flash Player 9.0.124.0, XSS is no longer exploitable, but G
 The following tools may be helpful in working with SWF:
 
 - [OWASP SWFIntruder](https://wiki.owasp.org/index.php/Category:SWFIntruder)
-- [Decompiler – Flare](http://www.nowrap.de/flare.html)
-- [Disassembler – Flasm](http://flasm.sourceforge.net/)
+- [Disassembler – Flasm](https://flasm.sourceforge.net/)
 - [Swfmill – Convert Swf to XML and vice versa](https://www.swfmill.org/)

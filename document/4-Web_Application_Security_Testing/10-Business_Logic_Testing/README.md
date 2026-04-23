@@ -19,3 +19,5 @@
 4.10.8 [Test Upload of Unexpected File Types](08-Test_Upload_of_Unexpected_File_Types.md)
 
 4.10.9 [Test Upload of Malicious Files](09-Test_Upload_of_Malicious_Files.md)
+
+4.10.10 [Test Payment Functionality](10-Test-Payment-Functionality.md)

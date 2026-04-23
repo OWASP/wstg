@@ -69,7 +69,10 @@ $RECYCLE.BIN/
 *.lnk
 
 ### VisualStudioCode ###
-.vscode
+# Ignore user-specific files but allow workspace settings and extensions recommendations
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
 
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
@@ -330,3 +333,17 @@ build/
 # Lock files should not be added.
 package-lock.json
 yarn.lock
+
+# Temporary workflow artifact files from CI
+# Markdown Lint Check workflow
+lint.txt
+# Markdown Link Check workflow
+log
+err
+brokenlinks.txt
+# Markdown Terminology Lint Check workflow
+log.txt
+mistakes.txt
+# Common artifacts across workflows
+artifact.txt
+pr_number

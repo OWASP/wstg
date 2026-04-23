@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "DavidAnson.vscode-markdownlint",
+    "yzhang.markdown-all-in-one",
+    "streetsidesoftware.code-spell-checker",
+    "shd101wyy.markdown-preview-enhanced",
+    "bierner.github-markdown-preview",
+    "esbenp.prettier-vscode",
+    "GitHub.vscode-pull-request-github"
+  ]
+}

@@ -1,0 +1,94 @@
+name: Deploy Latest Checklists
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'document/**'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version?'
+        required: false
+        default: ''
+jobs:
+  create_pr:
+    name: Create Pull Request
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+    - name: Setup Action
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      with:
+        persist-credentials: false
+    - name: Setup Python
+      uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6
+      with:
+        python-version: "3.10"
+    - name: Install Dependencies
+      run: |
+        pip install openpyxl pydrive
+    - name: Generate JSON Checklist
+      run: |
+        python3 ./.github/json/scripts/generate_checklist_json.py
+        git update-index -q --refresh
+        if ! git diff-index --quiet HEAD --; then
+          echo "CHANGED=true" >> "$GITHUB_ENV"
+        fi
+    - name: Run XLSX Build
+      if: env.CHANGED == 'true'
+      run: python3 ./.github/xlsx/scripts/build-checklist.py
+    - name: Git Setup Global Config
+      if: env.CHANGED == 'true'
+      run: |
+        # Git setup
+        export GITHUB_USER=wstgbot
+        echo "GITHUB_USER=$GITHUB_USER" >> "$GITHUB_ENV"
+        git config --global user.email "62450690+wstgbot@users.noreply.github.com"
+        git config --global user.name "$GITHUB_USER"
+    - name: Setup Environment Variables
+      if: env.CHANGED == 'true'
+      run: |
+        # Setup some env vars etc for future use
+        echo "SRC_BASE=OWASP/wstg@$(git log -1 --format=format:%h)" >> "$GITHUB_ENV"
+        echo "BRANCH_STAMP=$(date +"%Y%m%d%H%M%S")" >> "$GITHUB_ENV"
+        echo "SHORT_DATE=$(date +"%Y-%m-%d")" >> "$GITHUB_ENV"
+    - name: Create Feature Branch
+      if: env.CHANGED == 'true'
+      run: |
+        # Checkout what will be the new feature branch
+        git checkout -b "$BRANCH_STAMP"
+    - name: Push Feature Branch and Raise PR
+      if: env.CHANGED == 'true'
+      env:
+        GH_TOKEN: ${{ secrets.wstg_deploy_token }}
+      run: |
+        # If there are changes: add, commit, PR
+        gh auth setup-git
+        git add checklists/
+        if ! git diff-index --quiet HEAD --; then
+          git remote set-url origin "https://github.com/OWASP/wstg.git"
+          git commit -m "Publish Latest checklists $SHORT_DATE" -m "Updates based on $SRC_BASE"
+          git push --set-upstream origin "$BRANCH_STAMP"
+          gh pr create -R OWASP/wstg --fill
+        fi
+    - name: Set XLSX Publishing Secrets
+      if: env.CHANGED == 'true'
+      run: |
+        echo "$GDRIVECREDSFILE" | base64 -d > credentials.json
+        echo "$GDRIVESETTINGSFILE" | base64 -d > settings.yaml
+      shell: bash
+      env:
+        GDRIVECREDSFILE: ${{ secrets.GDRIVECREDSFILE }}
+        GDRIVESETTINGSFILE: ${{ secrets.GDRIVESETTINGSFILE }}
+    - name: Publish XLSX file to Google Drive
+      if: env.CHANGED == 'true'
+      run: |
+        if [ -n "${{ github.event.inputs.version }}" ]; then
+          python3 ./.github/xlsx/scripts/upload-to-google-drive.py "${{ secrets.GDRIVEFILEID }}" "${{ github.event.inputs.version }}"
+        else
+          python3 ./.github/xlsx/scripts/upload-to-google-drive.py "${{ secrets.GDRIVEFILEID }}"
+        fi
+

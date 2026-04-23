@@ -34,7 +34,7 @@ In the simplest case, this may cause a 302 redirect to the supplied domain.
 ```http
 HTTP/1.1 302 Found
 [...]
-Location: http://www.attacker.com/login.php
+Location: https://www.attacker.com/login.php
 
 ```
 
@@ -55,7 +55,7 @@ Potentially producing client-side output such as:
 
 ```html
 [...]
-<link src="http://www.attacker.com/link" />
+<link src="https://www.attacker.com/link" />
 [...]
 ```
 
@@ -75,7 +75,7 @@ The following will be served from the web cache, when a victim visits the vulner
 
 ```html
 [...]
-<link src="http://www.attacker.com/link" />
+<link src="https://www.attacker.com/link" />
 [...]
 ```
 
@@ -116,7 +116,7 @@ https://www.attacker.com/reset.php?token=12345
 
 In some cases a server may have virtual hosts that are not intended to be externally accessible. This is most common with a [split-horizon](https://en.wikipedia.org/wiki/Split-horizon_DNS) DNS setup (where internal and external DNS servers return different records for the same domain).
 
-For example, an organisation may have a single webserver on their internal network, which hosts both their public website (on `www.example.org`) and their internal Intranet (on `intranet.example.org`, but that record only exists on the internal DNS server). Although it would not be possible to browse directly to `intranet.example.org` from outside the network (as the domain would not resolve), it may be possible to access to Intranet by making a request from outside with the following `Host` header:
+For example, an organization may have a single webserver on their internal network, which hosts both their public website (on `www.example.org`) and their internal Intranet (on `intranet.example.org`, but that record only exists on the internal DNS server). Although it would not be possible to browse directly to `intranet.example.org` from outside the network (as the domain would not resolve), it may be possible to access to Intranet by making a request from outside with the following `Host` header:
 
 ```http
 Host: intranet.example.org

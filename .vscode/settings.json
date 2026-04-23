@@ -1,0 +1,19 @@
+{
+  "editor.formatOnType": true,
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1500,
+  "[markdown]": {
+    "editor.wordWrap": "bounded",
+    "editor.wordWrapColumn": 100,
+    "editor.quickSuggestions": {
+      "comments": "off",
+      "strings": "off",
+      "other": "off"
+    }
+  },
+  "markdown.extension.toc.levels": "2..6",
+  "markdown.preview.fontSize": 21,
+  "markdownlint.config": {
+    "extends": ".github/configs/.markdownlint.json"
+  }
+}

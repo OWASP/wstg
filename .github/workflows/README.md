@@ -1,44 +1,99 @@
 # Workflows Documentation
 
-## `build-pdf.yml`
+This directory contains GitHub Actions workflows for the WSTG repository. Helper scripts used by these workflows are located in the `scripts/` subdirectory (with its own README).
 
-For building PDFs at release.
+## Version Information
+
+These workflows use:
+- Node.js and Python for various automation tasks
+- GitHub Actions for checkout, setup, artifact management, and API interactions
+
+## `build-checklists.yml`
+
+For building checklists and Create a PR with changes made in the master.
+
+- Trigger: Push, Only when files inside document directory is changed. Manual (`workflow_dispatch`), GitHub web UI.
+- See: `/.github/json/` for JSON checklist generation and `/.github/xlsx/` for XLSX build.
+
+## `build-ebooks.yml`
+
+For building PDF and EPUB e-Books at release.
 
 - Trigger: Tag applied to repository. Manual (`workflow_dispatch`), GitHub web UI.
-- See: `/.github/pdf/` in the root of the repository.
+- See: `/.github/pdf/` in the root of the repository for PDF build specific configurations.
+- See: `/.github/epub/` in the root of the repository for EPUB build specific configurations.
+
+## `clean-workflow-runs.yml`
+
+Tiddies up old workflow runs.
+
+- Trigger: Schedule
+
+## `comment.yml`
+
+Triggered by the completion of other workflows in order to comment lint or other results on PRs.
+The workflows which leverage it should create a `pr_number` text file and `artifact.txt` with the content to be commented, which are attached to their workflow runs as `artifact`.
+
+This workflow:
+- Minimizes (collapses) previous comments from the same workflow run with appropriate classifiers:
+  - `RESOLVED` when the workflow succeeds
+  - `OUTDATED` when the workflow fails
+- Only posts NEW comments on failure (not on success)
+- Uses GitHub Actions for artifact retrieval and PR comment management
+
+- Trigger: Other workflows `workflow_run`.
 
 ## `dummy.yml`
 
-Utility action so that PRs without Markdown files can pass the branch protection rules. `lint` is required per the branch protection rules. If a PR contains no Markdown files (e.g. only an image or YAML that isn't linted) the dummy runs and passes the branch protection requirement.
+Utility action named "Markdown Lint Check" (same name as `md-lint-check.yml`) that serves as a fallback to satisfy branch protection requirements. This workflow only runs when NO Markdown files are changed in a PR (e.g., only an image or YAML that isn't linted). It's a complementary workflow to `md-lint-check.yml` that ensures the required "Markdown Lint Check" status check passes even when there are no Markdown files to lint.
 
-- Trigger: Pull Requests.
+- Trigger: Pull Requests (when no `.md` files are changed).
 
 ## `md-link-check.yml`
 
 Checks Pull Requests for broken links.
 
-- Trigger: Pull Requests.
+This workflow:
+- Checks out the **PR head** to the workspace root (provides the composite action files and the PR's content) and the **base branch** (OWASP/wstg `master`) into `base/`
+- Uses the `.github/actions/get-changed-files` composite action with the exact `base.sha`/`head.sha` from the PR event for fork-safe changed-file detection
+- Copies **all** changed files (including images and other assets) into `base/` so link targets exist, then runs the link checker only on changed `.md` files so relative links resolve correctly
+- Config is always taken from `base/` (the base branch), not from the PR
+
+- Trigger: Pull Requests (when `.md` files are changed, excluding `.github/**`).
+- Config File: `markdown-link-check-config.json`
+
+## `md-link-check-full.yml`
+
+Checks all Markdown files in the repository for broken links.
+
+- Trigger: Manual (`workflow_dispatch`), GitHub web UI.
 - Config File: `markdown-link-check-config.json`
 
 ## `md-lint-check.yml`
 
 Checks Markdown files and flags style or syntax issues.
 
-- Trigger: Pull Requests.
+This workflow:
+- Checks out the **PR head** to the workspace root and the **base branch** (OWASP/wstg `master`) into `base/`
+- Uses the `.github/actions/get-changed-files` composite action with the exact `base.sha`/`head.sha` from the PR event for fork-safe changed-file detection, then runs `markdownlint-cli2` only on changed `.md` files
+- Uses `format_lint_output.py` from `base/.github/workflows/scripts/` to format output for PR comments
+- Uploads artifacts for both success and failure cases to work with `comment.yml`
+- Config and scripts are always taken from `base/` (the base branch), not from the PR
+
+- Trigger: Pull Requests (when `.md` files are changed, excluding `.github/**`).
 - Config File: `.markdownlint.json`
 
 ## `md-textlint-check.yml`
 
 Checks Markdown files for spelling style and typo issues.
 
-- Trigger: Pull Requests.
+This workflow:
+- Checks out the **PR head** to the workspace root and the **base branch** (OWASP/wstg `master`) into `base/`
+- Uses the `.github/actions/get-changed-files` composite action with the exact `base.sha`/`head.sha` from the PR event for fork-safe changed-file detection, then runs textlint only on changed `.md` files
+- Config is always taken from `base/` (the base branch), not from the PR
+
+- Trigger: Pull Requests (when `.md` files are changed, excluding `.github/**`).
 - Config File: `.textlintrc`
-
-## `refresh-stale`
-
-Comments on issues and PRs that have been inactive for 30 days and reapplies the "help wanted" label.
-
-- Trigger: Schedule, midnight daily.
 
 ## `www_latest_update.yml`
 

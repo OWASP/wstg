@@ -6,7 +6,7 @@
 
 ## Summary
 
-JSON Web Tokens (JWTs) are cryptographically signed JSON tokens, intended to share claims between systems. They are are frequently used as authentication or session tokens, particularly on REST APIs.
+JSON Web Tokens (JWTs) are cryptographically signed JSON tokens, intended to share claims between systems. They are frequently used as authentication or session tokens, particularly on REST APIs.
 
 JWTs are a common source of vulnerabilities, both in how they are in implemented in applications, and in the underlying libraries. As they are used for authentication, a vulnerability can easily result in a complete compromise of the application.
 
@@ -19,13 +19,13 @@ JWTs are a common source of vulnerabilities, both in how they are in implemented
 
 ### Overview
 
-JWTs are are made up of three components:
+JWTs are made up of three components:
 
 - The header
 - The payload (or body)
 - The signature
 
-Each component is Base64 encoded, and they are separated by periods (`.`). Note that the Base64 encoding used in a JWT strips out the equals signs (`=`), so you may need to add these back in to decode the sections.
+Each component is base64 encoded, and they are separated by periods (`.`). Note that the base64 encoding used in a JWT strips out the equals signs (`=`), so you may need to add these back in to decode the sections.
 
 ### Analyse the Contents
 
@@ -56,7 +56,7 @@ The payload of the JWT contains the actual data. An example payload is shown bel
 
 ```json
 {
-  "username": "admininistrator",
+  "username": "administrator",
   "is_admin": true,
   "iat": 1516239022,
   "exp": 1516242622
@@ -76,7 +76,7 @@ This JWT includes the username and administrative status of the user, as well as
 
 #### Signature
 
-The signature is calculated using the algorithm defined in the JWT header, and then Base64 encoded and appended to the token. Modifying any part of the JWT should cause the signature to be invalid, and the token to be rejected by the server.
+The signature is calculated using the algorithm defined in the JWT header, and then base64 encoded and appended to the token. Modifying any part of the JWT should cause the signature to be invalid, and the token to be rejected by the server.
 
 ### Review Usage
 
@@ -92,7 +92,7 @@ The validity of the JWT should also be reviewed, based on the `iat`, `nbf` and `
 
 ### Signature Verification
 
-One of the most serious vulnerabilities encountered with JWTs is when the application fails to validate that the signature is correct. This usually occurs when a developer uses a function such as the NodeJS `jwt.decode()` function, which simply decodes the body of the JWT, rather than `jwt.verify()`, which verifies the signature before decoding the JWT.
+One of the most serious vulnerabilities encountered with JWTs is when the application fails to validate that the signature is correct. This usually occurs when a developer uses a function such as the Node.js `jwt.decode()` function, which simply decodes the body of the JWT, rather than `jwt.verify()`, which verifies the signature before decoding the JWT.
 
 This can be easily tested for by modifying the body of the JWT without changing anything in the header or signature, submitting it in a request to see if the application accepts it.
 
@@ -100,21 +100,35 @@ This can be easily tested for by modifying the body of the JWT without changing 
 
 As well as the public key and HMAC-based algorithms, the JWT specification also defines a signature algorithm called `none`. As the name suggests, this means that there is no signature for the JWT, allowing it to be modified.
 
-Some implementation try and avoid this by explicitly blocking the use of the `none` algorithm. If this is done in a case-insensitive way, it may be possible to bypass by specifying an algorithm such as `NoNe`.
-
-This can be tested by modifying the signature algorithm (`alg`) in the JWT header to `NoNe`, as shown in the example below:
+This can be tested by modifying the signature algorithm (`alg`) in the JWT header to `none`, as shown in the example below:
 
 ```json
 {
-        "alg": "NoNe",
+        "alg": "none",
         "typ": "JWT"
 }
 ```
 
-The header and payload are then re-encoded with Base64, and the signature is removed (leaving the trailing period). Using the header above, and the payload listed in the [payload](#payload) section, this would give the following JWT:
+The header and payload are then re-encoded with base64, and the signature is removed (leaving the trailing period). Using the header above, and the payload listed in the [payload](#payload) section, this would give the following JWT:
 
 ```txt
-eyJhbGciOiAiTm9OZSIsICJ0eXAiOiAiSldUIn0.eyJ1c2VybmFtZSI6ImFkbWluaW5pc3RyYXRvciIsImlzX2FkbWluIjp0cnVlLCJpYXQiOjE1MTYyMzkwMjIsImV4cCI6MTUxNjI0MjYyMn0.
+eyJhbGciOiAibm9uZSIsICJ0eXAiOiAiSldUIn0K.eyJ1c2VybmFtZSI6ImFkbWluaW5pc3RyYXRvciIsImlzX2FkbWluIjp0cnVlLCJpYXQiOjE1MTYyMzkwMjIsImV4cCI6MTUxNjI0MjYyMn0.
+```
+
+Some implementations try and avoid this by explicitly blocking the use of the `none` algorithm. If this is done in a case-insensitive way, it may be possible to bypass by specifying an algorithm such as `NoNe`.
+
+#### ECDSA "Psychic Signatures"
+
+A vulnerability was identified in Java version 15 to 18 where they did not correctly validate ECDSA signatures in some circumstances ([CVE-2022-21449](https://neilmadden.blog/2022/04/19/psychic-signatures-in-java/), known as "psychic signatures"). If one of these vulnerable versions is used to parse a JWT using the `ES256` algorithm, this can be used to completely bypass the signature verification by tampering the body and then replacing the signature with the following value:
+
+```txt
+MAYCAQACAQA
+```
+
+Resulting in a JWT which looks something like this:
+
+```txt
+eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6InRydWUifQ.MAYCAQACAQA
 ```
 
 ### Weak HMAC Keys
@@ -139,7 +153,7 @@ If the application uses JWTs with public key based signatures, but does not chec
 2. The application must not check which algorithm the JWT is actually using for the signature.
 3. The public key used to verify the JWT must be available to the attacker.
 
-If all of these conditions are true, then an attacker can use the public key to sign the JWT using a HMAC based algorithm (such as `HS256`). For example, the [Node.JS jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) library uses the same function for both public key and HMAC based tokens, as shown in the example below:
+If all of these conditions are true, then an attacker can use the public key to sign the JWT using a HMAC based algorithm (such as `HS256`). For example, the [Node.js jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) library uses the same function for both public key and HMAC based tokens, as shown in the example below:
 
 ```javascript
 // Verify a JWT signed using RS256
@@ -166,6 +180,42 @@ In order to test this, modify the contents of the JWT, and then use the previous
 The [JSON Web Signature (JWS) standard](https://tools.ietf.org/html/rfc7515) (which defines the header and signatures used by JWTs) allows the key used to sign the token to be embedded in the header. If the library used to validate the token supports this, and doesn't check the key against a list of approved keys, this allows an attacker to sign an JWT with an arbitrary key that they provide.
 
 There are a variety of scripts that can be used to do this, such as [jwk-node-jose.py](https://github.com/zi0Black/POC-CVE-2018-0114) or [jwt_tool](https://github.com/ticarpi/jwt_tool).
+
+### Key ID (kid) Manipulation
+
+The `kid` header parameter is typically used to retrieve the key needed to verify the signature from a file system or database. It can be vulnerable to several injection attacks.
+
+#### Directory Traversal
+
+If the application uses the `kid` parameter to read a key file from the filesystem, an attacker might specify a path to a known empty file, such as `../../../../dev/null` (on Linux) or `nul` (on Windows).
+
+For example, an attacker can modify the header to point to an empty file:
+
+```json
+{
+  "alg": "HS256",
+  "typ": "JWT",
+  "kid": "../../../../../dev/null"
+}
+```
+
+Since the content of `/dev/null` is empty, the attacker can then sign the malicious token using an **empty string** as the secret key. If the server is vulnerable, it will read the empty file, use the empty string to verify the signature, and accept the forged token.
+
+#### Command/SQL Injection
+
+If the `kid` is passed unsanitized to a database query or a system command to retrieve the key, it may be vulnerable to SQL Injection or Command Injection.
+
+For example, an attacker can inject a SQL payload into the `kid` parameter to control the key returned by the database:
+
+```json
+{
+  "alg": "HS256",
+  "typ": "JWT",
+  "kid": "invalid-key' UNION SELECT 'attacker-controlled-key'--"
+}
+```
+
+This allows an attacker to force the application to use a known key (e.g., "attacker-controlled-key") for verification, enabling them to forge valid tokens.
 
 ## Related Test Cases
 

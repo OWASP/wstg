@@ -99,6 +99,8 @@ In this model, the user is emailed a link that contains a token. They can then c
 
   Tokens should never be generated based on known values, such as by taking the MD5 hash of the user's email with `md5($email)`, or using GUIDs which may use insecure PRNG functions, or may not even be random depending on the type.
 
+  Testers should also verify how password reset tokens are stored on the server. If reset tokens are stored in plaintext in the database, an attacker who gains database access may be able to reuse them to reset user passwords. A more secure implementation stores a hashed version of the token and compares the hash during validation.
+
   An alternative approach to random tokens is to use a cryptographically signed token such as a JWT. In this case, the usual JWT checks should be carried out (is the signature verified, can the "nONe" algorithm be used, can the HMAC key be brute-forced, etc). See the [Testing JSON Web Tokens](../06-Session_Management_Testing/10-Testing_JSON_Web_Tokens.md) guide for further information.
 
 - Does the link contain a user ID?
@@ -163,9 +165,15 @@ Rather than sending them a link or new password, security questions can be used 
 
 See the [Testing for Weak Security Questions](08-Testing_for_Weak_Security_Question_Answer.md) guide for further information.
 
+### Authenticated Identity and Configuration Changes
+
+If the application supports the ability to modify an account's primary identifier (such as an email address or phone number) that is utilized in the password change and reset functionalities the user should be forced to re-authenticate. When the primary identifier used in the password change functionality is able to be modified without re-authentication it allows the re-authentication in the password change functionality to be bypassed. Overall, anything that impacts the security of the account (email, MFA, backup settings, etc.) should require re-authentication before it can be modified.
+
+For example: An application has a password reset flow that sends a reset link to the account's email address. The application also requires re-authentication if the password is attempted to be changed from the perspective of an authenticated user. If an attacker gains access to the account (via a stolen cookie, physical access to the computer, etc.) and changes the account's email address without needing to re-authenticate, then the password reset flow can be used to change the password, bypassing the authenticated password change flow.
+
 ### Authenticated Password Changes
 
-Once the user has proved their identity (either through a password reset link, a recovery code, or by logging in on the application) they should be able to change their password. The key area to test are:
+Once the user has proved their identity (either through a password reset link, a recovery code, or by logging in on the application) they should be able to change their password. The key areas to test are:
 
 - When setting the password, can you specify the user ID?
 
@@ -181,7 +189,7 @@ Once the user has proved their identity (either through a password reset link, a
 
 - Is a strong and effective password policy applied?
 
-  The password policy should be consistent across the registration, password change, and password reset functionality. See the [Testing for Weak Password Policy](07-Testing_for_Weak_Password_Policy.md) guide for further information.
+  The password policy should be consistent across the registration, password change, and password reset functionality. See the [Testing for Weak Authentication Methods](07-Testing_for_Weak_Authentication_Methods.md) guide for further information.
 
 ## References
 

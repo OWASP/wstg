@@ -1,56 +1,107 @@
 name: Markdown Lint Check
 
 on:
-  pull_request_target:
+  pull_request:
     branches:
     - master
     paths:
     - '**.md'
     - '!.github/**'
+
 jobs:
   lint:
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+    - name: Checkout PR
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       with:
-        ref: ${{github.event.pull_request.head.ref}}
-        repository: ${{github.event.pull_request.head.repo.full_name}}
+        ref: ${{ github.event.pull_request.head.sha }}
+        fetch-depth: 0
+    - name: Checkout Base
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      with:
+        repository: OWASP/wstg
+        ref: master
+        path: base
+    - name: Save PR Number
+      env:
+        PR_NUMBER: ${{ github.event.number }}
+      run: echo "$PR_NUMBER" > pr_number
     - name: Setup Node
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
       with:
-        node-version: 12.x
-    - name: Install dependencies
-      run: npm install -g markdownlint-cli
-    - name: Run linter
-      run: markdownlint . --config .github/configs/.markdownlint.json --ignore node_modules --ignore .github &> lint.txt
+        node-version: 24
+    - name: Cache npm Global
+      uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-npm-global-markdownlint-cli2
+    - name: Install Dependencies
+      run: npm install -g markdownlint-cli2
+    - name: Get Changed Files
+      # Use base/head SHAs from the PR event for fork-safe, PR-accurate changed-file detection.
+      # github.base_ref resolves differently for forks, while base.sha/head.sha are always correct.
+      id: files
+      uses: ./.github/actions/get-changed-files
+      with:
+        base_sha: ${{ github.event.pull_request.base.sha }}
+        head_sha: ${{ github.event.pull_request.head.sha }}
+        base_repo: ${{ github.event.pull_request.base.repo.full_name }}
+        repo_path: .
+    - name: Run Linter
+      env:
+        FILES: '${{ steps.files.outputs.files_updated }}'
+      shell: bash
+      run: |
+        set -euo pipefail
+        
+        # Initialize lint file (will remain empty if there are no issues)
+        : > lint.txt
+        
+        readarray -t files_arr <<< "$FILES"
+        for FILE in "${files_arr[@]}"; do
+          [ -z "$FILE" ] && continue
+          if [ -f "$FILE" ]; then
+            STATUS=0
+            OUTPUT="$(markdownlint-cli2 "$FILE" --config base/.github/configs/.markdownlint.json 2>&1)" || STATUS=$?
+            if [ "$STATUS" -eq 0 ]; then
+              # File passed linting, continue to next file
+              continue
+            elif [ "$STATUS" -eq 1 ]; then
+              printf '%s\n' "$OUTPUT" | tee -a lint.txt
+            else
+              printf 'markdownlint failed for "%s" with exit code %s\n%s\n' "$FILE" "$STATUS" "$OUTPUT" >&2
+              exit "$STATUS"
+            fi
+          fi
+        done
+        if [ -s lint.txt ]; then
+          exit 1
+        fi
     - name: Show Linting Issues
-      id: lint
       if: failure()
       run: |
         cat lint.txt
         sed -i 's/```/triple-backtick/g' lint.txt
-        ISSUES=$(cat lint.txt)
-        ISSUES="${ISSUES//'%'/'%25'}"
-        ISSUES="${ISSUES//$'\n'/'%0A'}"
-        ISSUES="${ISSUES//$'\r'/'%0D'}"
-        echo ::set-output name=ISSUES::**The following issues were identified:** %0A$ISSUES
-    - name: Attach Linting Issues
+    - name: Create Artifact for Comment
       if: failure()
-      uses: actions/upload-artifact@v1
-      with:
-        name: Linting Issues
-        path: lint.txt
-    - name: Comment Linting Issues
+      run: |
+        # Parse and format the lint output for better readability
+        python3 base/.github/workflows/scripts/format_lint_output.py > artifact.txt
+    - name: Upload List of Issues
       if: failure()
-      uses: actions/github-script@v2
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
       with:
-        github-token: ${{secrets.GITHUB_TOKEN}}
-        script: |
-          github.issues.createComment({
-            issue_number: ${{ github.event.number }},
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: `${{ steps.lint.outputs.ISSUES }}`
-          })
+        name: artifact
+        path: |
+          artifact.txt
+          pr_number
+    - name: Upload PR Number on Success
+      if: success()
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      with:
+        name: artifact
+        path: pr_number
 

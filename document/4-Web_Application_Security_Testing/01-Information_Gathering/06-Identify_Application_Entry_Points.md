@@ -16,33 +16,33 @@ Enumerating the application and its attack surface is a key precursor before any
 
 Before any testing begins, the tester should always get a good understanding of the application and how the user and browser communicates with it. As the tester walks through the application, they should pay attention to all HTTP requests as well as every parameter and form field that is passed to the application. They should pay special attention to when GET requests are used and when POST requests are used to pass parameters to the application. In addition, they also need to pay attention to when other methods for RESTful services are used.
 
-Note that in order to see the parameters sent in the body of requests such as a POST request, the tester may want to use a tool such as an intercepting proxy (See [tools](#tools)). Within the POST request, the tester should also make special note of any hidden form fields that are being passed to the application, as these usually contain sensitive information, such as state information, quantity of items, the price of items, that the developer never intended for anyone to see or change.
+Note that in order to see the parameters sent in the body of requests such as a POST request, the tester may want to use a tool such as an intercepting proxy (see [tools](#tools)). Within the POST request, the tester should also make special note of any hidden form fields that are being passed to the application, as these usually contain sensitive information such as state information, quantity of items, the price of items, etc., that the developer never intended for anyone to see or change.
 
-In the author's experience, it has been very useful to use an intercepting proxy and a spreadsheet for this stage of testing. The proxy will keep track of every request and response between the tester and the application as they explore it. Additionally, at this point, testers usually trap every request and response so that they can see exactly every header, parameter, etc. that is being passed to the application and what is being returned. This can be quite tedious at times, especially on large interactive sites (think of a banking application). However, experience will show what to look for and this phase can be significantly reduced.
+The usage of an intercepting proxy and a note taking application (for example, a spreadsheet software) for this stage of testing is popular among testers. The proxy will keep track of every request and response between the tester and the application as they explore it. Additionally, at this point, testers usually trap every request and response so that they can see exactly every header, parameter, etc. that is being passed to the application and what is being returned. This can be quite tedious at times, especially on large interactive sites (think of a banking application). However, experience will show what to look for and this phase can be significantly optimized.
 
-As the tester walks through the application, they should take note of any interesting parameters in the URL, custom headers, or body of the requests/responses, and save them in a spreadsheet. The spreadsheet should include the page requested (it might be good to also add the request number from the proxy, for future reference), the interesting parameters, the type of request (GET, POST, etc), if access is authenticated/unauthenticated, if TLS is used, if it's part of a multi-step process, if WebSockets are used, and any other relevant notes. Once they have every area of the application mapped out, then they can go through the application and test each of the areas that they have identified and make notes for what worked and what didn't work. The rest of this guide will identify how to test each of these areas of interest, but this section must be undertaken before any of the actual testing can commence.
+As the tester walks through the application, they should take note of any interesting parameters in the URL, custom headers, or body of the requests/responses, and save them in a spreadsheet. The spreadsheet should include the page requested (it might be good to also add the request number from the proxy, for future reference), the interesting parameters, the type of request (GET, POST, etc.), if access is authenticated/unauthenticated, if TLS is used, if it's part of a multi-step process, if WebSockets are used, and any other relevant notes. Once they have every area of the application mapped out, they can then go through the application and test each of the areas that they have identified and make notes for what worked and what didn't work. The rest of this guide will identify how to test each of these areas of interest, but this section must be undertaken before any of the actual testing can commence.
 
-Below are some points of interests for all requests and responses. Within the requests section, focus on the GET and POST methods, as these appear the majority of the requests. Note that other methods, such as PUT and DELETE, can be used. Often, these more rare requests, if allowed, can expose vulnerabilities. There is a special section in this guide dedicated for testing these HTTP methods.
+Below are some points of interests for all requests and responses. Within the requests section, focus on the GET and POST methods as these comprise majority of the requests. Note that other methods, such as PUT and DELETE can also be found. Often, such rarer requests, if allowed, can expose vulnerabilities. There is a special section in this guide dedicated for testing these HTTP methods.
 
 ### Requests
 
 - Identify where GETs are used and where POSTs are used.
-- Identify all parameters used in a POST request (these are in the body of the request).
-- Within the POST request, pay special attention to any hidden parameters. When a POST is sent all the form fields (including hidden parameters) will be sent in the body of the HTTP message to the application. These typically aren't seen unless a proxy or view the HTML source code is used. In addition, the next page shown, its data, and the level of access can all be different depending on the value of the hidden parameter(s).
-- Identify all parameters used in a GET request (i.e., URL), in particular the query string (usually after a ? mark).
-- Identify all the parameters of the query string. These usually are in a pair format, such as `foo=bar`. Also note that many parameters can be in one query string such as separated by a `&`, `\~`, `:`, or any other special character or encoding.
-- A special note when it comes to identifying multiple parameters in one string or within a POST request is that some or all of the parameters will be needed to execute the attacks. The tester needs to identify all of the parameters (even if encoded or encrypted) and identify which ones are processed by the application. Later sections of the guide will identify how to test these parameters. At this point, just make sure each one of them is identified.
+- Identify all the parameters used in a POST request (these are in the body of the request).
+- Within the POST request, pay special attention to any hidden parameters. When a POST is sent, all the form fields (including hidden parameters) will be sent in the body of the HTTP message to the application. These typically aren't seen unless a proxy is used, or the HTML source code is viewed. Altering these hidden parameters may result in changes to the following pages that load, the data they contain, and the degree of access granted.
+- Identify all the parameters used in a GET request (i.e., in the URL), particularly the query string (usually appearing after a ? mark).
+- Identify all the parameters of the query string. These usually are in a pair format, such as `foo=bar`. Also note that many parameters can be in one query string separated by a `&`, `\~`, `:`, or any other special character or encoding.
+- Please note, when identifying multiple parameters in one string or within a POST request, some or all of the parameters will be required to execute the attacks. The tester needs to identify all of the parameters (even if they are encoded or encrypted) and identify which ones are processed by the application. Later sections of the guide will cover how to test these parameters. At this point, it is important to make sure that each one of them is identified.
 - Also pay attention to any additional or custom type headers not typically seen (such as `debug: false`).
 
 ### Responses
 
 - Identify where new cookies are set (`Set-Cookie` header), modified, or added to.
-- Identify where there are any redirects (3xx HTTP status code), 400 status codes, in particular 403 Forbidden, and 500 internal server errors during normal responses (i.e., unmodified requests).
+- Identify any redirects (3xx HTTP status code), 400 status codes (particularly 403 Forbidden), and 500 internal server errors during normal responses (i.e., unmodified requests).
 - Also note where any interesting headers are used. For example, `Server: BIG-IP` indicates that the site is load balanced. Thus, if a site is load balanced and one server is incorrectly configured, then the tester might have to make multiple requests to access the vulnerable server, depending on the type of load balancing used.
 
 ### OWASP Attack Surface Detector
 
-The Attack Surface Detector (ASD) tool investigates the source code and uncovers the endpoints of a web application, the parameters these endpoints accept, and the data type of those parameters. This includes the unlinked endpoints a spider will not be able to find, or optional parameters totally unused in client-side code. It also has the capability to calculate the changes in attack surface between two versions of an application.
+The Attack Surface Detector (ASD) tool investigates the source code and uncovers the endpoints of a web application, the parameters these endpoints accept, and the data type of those parameters. This includes unlinked endpoints that a spider wouldn't be able to find, as well as optional parameters that are completely unused in the client-side code. It also has the capability to calculate the changes in attack surface between two versions of an application.
 
 The Attack Surface Detector is available as a plugin to both ZAP and Burp Suite, and a command-line tool is also available. The command-line tool exports the attack surface as a JSON output, which can then be used by the ZAP and Burp Suite plugin. This is helpful for cases where the source code is not provided to the penetration tester directly. For example, the penetration tester can get the json output file from a customer who does not want to provide the source code itself.
 
@@ -100,9 +100,9 @@ Generated 36 total parameters
 To enable logging include the -debug argument
 ```
 
-You can also generate a JSON output file using the `-json` flag, which can be used by the plugin to both ZAP and Burp Suite. See the following links for more details.
+You can also generate a JSON output file using the `-json` flag, which can be used by the plugin for both ZAP and Burp Suite. See the following links for more details.
 
-- [Home of ASD Plugin for OWASP ZAP](https://github.com/secdec/attack-surface-detector-zap/wiki)
+- [Home of ASD Plugin for ZAP](https://github.com/secdec/attack-surface-detector-zap/wiki)
 - [Home of ASD Plugin for PortSwigger Burp](https://github.com/secdec/attack-surface-detector-burp/wiki)
 
 ### Testing for Application Entry Points
@@ -139,11 +139,11 @@ It can be noted that the parameters are sent in several locations:
 2. In the Cookie header: `SESSIONID`, `CustomCookie`
 3. In the request body: `user`, `pass`, `debug`, `fromtrustIP`
 
-Having a variety of injection locations provide the attacker with chaining possibilities that could improve the chances of finding a bug in the handling code.
+Having a variety of injection locations provides the attacker with chaining possibilities that could improve the chances of finding a bug in the handling code.
 
 ## Tools
 
-- [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org/)
+- [Zed Attack Proxy (ZAP)](https://www.zaproxy.org/)
 - [Burp Suite](https://www.portswigger.net/burp/)
 - [Fiddler](https://www.telerik.com/fiddler)
 

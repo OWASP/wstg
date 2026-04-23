@@ -83,7 +83,7 @@ The Penetration Testing Framework (PTF) provides comprehensive hands-on penetrat
 - Physical Security
 - Final Report - template
 
-[Penetration Testing Framework](http://www.vulnerabilityassessment.co.uk/Penetration%20Test.html)
+[Penetration Testing Framework](https://web.archive.org/web/20130925044437/http://www.vulnerabilityassessment.co.uk/Penetration%20Test.html)
 
 ## Technical Guide to Information Security Testing and Assessment
 
@@ -96,7 +96,7 @@ Technical Guide to Information Security Testing and Assessment (NIST 800-115) wa
 - Security Assessment Execution
 - Post-Testing Activities
 
-The NIST 800-115 can be accessed [here](https://csrc.nist.gov/publications/detail/sp/800-115/final)
+For further details see: [NIST 800-115](https://csrc.nist.gov/publications/detail/sp/800-115/final).
 
 ## Open Source Security Testing Methodology Manual
 
@@ -120,13 +120,12 @@ OSSTMM includes the following key sections:
 
 ## References
 
-- [PCI Data Security Standard - Penetration TestingGuidance](https://www.pcisecuritystandards.org/documents/Penetration-Testing-Guidance-v1_1.pdf)
+- [PCI Data Security Standard - Penetration Testing Guidance](https://www.pcisecuritystandards.org/documents/Penetration-Testing-Guidance-v1_1.pdf)
 - [PTES Standard](http://www.pentest-standard.org/index.php/Main_Page)
-- [Open Source Security Testing Methodology Manual (OSSTMM)](http://www.isecom.org/research/osstmm.html)
+- [Open Source Security Testing Methodology Manual (OSSTMM)](https://www.isecom.org/research.html#content5-9d)
 - [Technical Guide to Information Security Testing and Assessment NIST SP 800-115](https://csrc.nist.gov/publications/detail/sp/800-115/final)
-- [HIPAA Security Testing Assessment 2012](http://csrc.nist.gov/news_events/hiipaa_june2012/day2/day2-6_kscarfone-rmetzer_security-testing-assessment.pdf)
-- [Penetration Testing Framework 0.59](http://www.vulnerabilityassessment.co.uk/Penetration%20Test.html)
+- [HIPAA Security Testing Guidance](https://www.hhs.gov/hipaa/for-professionals/security/guidance/cybersecurity/index.html)
+- [Penetration Testing Framework 0.59 (Archived)](https://web.archive.org/web/20130925044437/http://www.vulnerabilityassessment.co.uk/Penetration%20Test.html)
 - [OWASP Mobile Security Testing Guide](https://owasp.org/www-project-mobile-security-testing-guide/)
-- [Security Testing Guidelines for Mobile Apps](https://owasp.org/www-pdf-archive/Security_Testing_Guidelines_for_mobile_Apps_-_Florian_Stahl+Johannes_Stroeher.pdf)
 - [Kali Linux](https://www.kali.org/)
 - [Information Supplement: Requirement 11.3 Penetration Testing](https://www.pcisecuritystandards.org/pdfs/infosupp_11_3_penetration_testing.pdf)

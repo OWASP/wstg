@@ -15,7 +15,7 @@ This vulnerability may enable an attacker to successfully launch a phishing scam
 Here is an example of a phishing attack URL.
 
 ```text
-http://www.target.site?#redirect=www.fake-target.site
+https://www.target.site?#redirect=www.fake-target.site
 ```
 
 The victim that visits this URL will be automatically redirected to `fake-target.site`, where an attacker could place a fake page that resembles the intended site, in order to steal the victim's credentials.
@@ -34,7 +34,7 @@ When testers manually check for this type of vulnerability, they first identify 
 ```js
 var redir = location.hash.substring(1);
 if (redir) {
-    window.location='http://'+decodeURIComponent(redir);
+    window.location='https://'+decodeURIComponent(redir);
 }
 ```
 
@@ -43,7 +43,7 @@ In this example, the script does not perform any validation of the variable `red
 This implies that an attacker could redirect the victim to a malicious site simply by submitting the following query string:
 
 ```text
-http://www.victim.site/?#www.malicious.site
+https://www.victim.site/?#www.malicious.site
 ```
 
 With a slight modification, the above example snippet can be vulnerable to JavaScript injection.
@@ -58,7 +58,7 @@ if (redir) {
 This can be exploited by submitting the following query string:
 
 ```text
-http://www.victim.site/?#javascript:alert(document.cookie)
+https://www.victim.site/?#javascript:alert(document.cookie)
 ```
 
 When testing for this vulnerability, consider that some characters are treated differently by different browsers. For reference, see [DOM-based XSS](https://owasp.org/www-community/attacks/DOM_Based_XSS).

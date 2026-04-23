@@ -25,18 +25,18 @@ The OWASP approach is open and collaborative:
 - Open: every security expert can participate with their experience in the project. Everything is free.
 - Collaborative: brainstorming is performed before the articles are written so the team can share ideas and develop a collective vision of the project. That means rough consensus, a wider audience and increased participation.
 
-This approach tends to create a defined Testing Methodology that will be:
+This approach tends to result in a defined Testing Methodology that will be:
 
 - Consistent
 - Reproducible
 - Rigorous
 - Under quality control
 
-The problems to be addressed are fully documented and tested. It is important to use a method to test all known vulnerabilities and document all the security test activities.
+The problems to be addressed are fully documented and tested. It is important to use various methods to test all the known vulnerabilities and document all the security test activities.
 
 ## What Is the OWASP Testing Methodology?
 
-Security testing will never be an exact science where a complete list of all possible issues that should be tested can be defined. Indeed, security testing is only an appropriate technique for testing the security of web applications under certain circumstances. The goal of this project is to collect all the possible testing techniques, explain these techniques, and keep the guide updated. The OWASP Web Application Security Testing method is based on the black box approach. The tester knows nothing or has very little information about the application to be tested.
+Security testing will never be an exact science where a complete list of all possible issues that should be tested can be defined. In fact, security testing is only one of the several suitable techniques for testing the security of web applications under certain circumstances. The goal of this project is to collect all the possible testing techniques, explain these techniques, and keep the guide updated. The OWASP Web Application Security Testing methodology is based on the black box approach. The tester has little to no information about the application to be tested.
 
 The testing model consists of:
 
@@ -48,7 +48,7 @@ Testing can be categorized as passive or active:
 
 ### Passive Testing
 
-During passive testing, a tester tries to understand the application's logic and explores the application as a user. Tools can be used for information gathering. For example, an HTTP proxy can be used to observe all the HTTP requests and responses. At the end of this phase, the tester should generally understand all the access points and functionality of the system (e.g., HTTP headers, parameters, cookies, APIs, technology usage/patterns, etc). The [Information Gathering](../01-Information_Gathering/README.md) section explains how to perform passive testing.
+During passive testing, a tester tries to understand the application's logic and explores the application as an end user. Tools can be used for information gathering. For example, an HTTP(S) proxy can be used to observe all the HTTP(S) requests and responses. At the end of this phase, the tester should generally understand all the access points and functionality of the system (e.g., HTTP headers, parameters, cookies, APIs, technology usage/patterns, etc). The [Information Gathering](../01-Information_Gathering/README.md) section explains how to perform passive testing.
 
 For example, a tester may find a page at the following URL: `https://www.example.com/login/auth_form`
 
@@ -56,11 +56,11 @@ This may indicate an authentication form where the application requests a userna
 
 The following parameters represent two access points to the application: `https://www.example.com/appx?a=1&b=1`
 
-In this case, the application shows two access points (parameters `a` and `b`). All the input points found in this phase represent a target for testing. Keeping track of the directory or call tree of the application and all the access points may be useful during active testing.
+In this case, the application has two access points (parameters `a` and `b`). All the input points found in this phase represent targets for testing. Keeping track of the directory or call tree of the application and all the access points can be useful during active testing.
 
 ### Active Testing
 
-During active testing, a tester begins to use the methodologies described in the follow sections.
+During active testing, a tester uses the methodologies described in the following sections.
 
 The set of active tests have been split into 12 categories:
 
@@ -71,8 +71,8 @@ The set of active tests have been split into 12 categories:
 - Authorization Testing
 - Session Management Testing
 - Input Validation Testing
-- Error Handling
-- Cryptography
+- Testing for Error Handling
+- Testing for Weak Cryptography
 - Business Logic Testing
 - Client-side Testing
 - API Testing

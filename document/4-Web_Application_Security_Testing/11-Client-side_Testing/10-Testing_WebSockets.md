@@ -12,7 +12,7 @@ Traditionally, the HTTP protocol only allows one request/response per TCP connec
 
 ### Origin
 
-It is the server’s responsibility to verify the [`Origin` header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin) in the initial HTTP WebSocket handshake. If the server does not validate the origin header in the initial WebSocket handshake, the WebSocket server may accept connections from any origin. This could allow attackers to communicate with the WebSocket server cross-domain allowing for CSRF-like issues. See also [Top 10-2017 A5-Broken Access Control](https://owasp.org/www-project-top-ten/2017/A5_2017-Broken_Access_Control).
+It is the server’s responsibility to verify the [`Origin` header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin) in the initial HTTP WebSocket handshake. If the server does not validate the origin header in the initial WebSocket handshake, the WebSocket server may accept connections from any origin. This could allow attackers to communicate with the WebSocket server cross-domain allowing for CSRF-like issues. See also [Top 10-2017 A5-Broken Access Control](https://owasp.org/www-project-top-ten/2017/A5_2017-Broken_Access_Control). The exploit for this weakness is called Cross-Site Websocket Hijacking (CSWH or CSWSH).
 
 ### Confidentiality and Integrity
 
@@ -36,10 +36,10 @@ As with any data originating from untrusted sources, the data should be properly
    - Use Google Chrome's Developer Tools to view the Network WebSocket communication.
    - Use [ZAP's](https://www.zaproxy.org) WebSocket tab.
 2. Origin.
-   - Using a WebSocket client (one can be found in the [Tools](#Tools) section below) attempt to connect to the remote WebSocket server. If a connection is established the server may not be checking the origin header of the WebSocket handshake.
+   - Using a WebSocket client (one can be found in the Tools section below) attempt to connect to the remote WebSocket server. If a connection is established the server may not be checking the origin header of the WebSocket handshake.
 3. Confidentiality and Integrity.
-   - Check that the WebSocket connection is using SSL to transport sensitive information `wss://`.
-   - Check the SSL Implementation for security issues (Valid Certificate, BEAST, CRIME, RC4, etc). Refer to the [Testing for Weak Transport Layer Security](../09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_Transport_Layer_Security.md) section of this guide.
+   - Check that the WebSocket connection is using TLS to transport sensitive information `wss://`.
+   - Check the HTTPS Implementation for security issues (Valid Certificate, BEAST, CRIME, RC4, etc). Refer to the [Testing for Weak Transport Layer Security](../09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_Transport_Layer_Security.md) section of this guide.
 4. Authentication.
    - WebSockets do not handle authentication, normal black-box authentication tests should be carried out. Refer to the [Authentication Testing](../04-Authentication_Testing/README.md) sections of this guide.
 5. Authorization.
@@ -49,14 +49,14 @@ As with any data originating from untrusted sources, the data should be properly
 
 #### Example 1
 
-Once we have identified that the application is using WebSockets (as described above) we can use the [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org) to intercept the WebSocket request and responses. ZAP can then be used to replay and fuzz the WebSocket request/responses.
+Once we have identified that the application is using WebSockets (as described above) we can use the [Zed Attack Proxy (ZAP)](https://www.zaproxy.org) to intercept the WebSocket request and responses. ZAP can then be used to replay and fuzz the WebSocket request/responses.
 
 ![ZAP WebSockets](images/OWASP_ZAP_WebSockets.png)\
 *Figure 4.11.10-1: ZAP WebSockets*
 
 #### Example 2
 
-Using a WebSocket client (one can be found in the [Tools](#Tools) section below) attempt to connect to the remote WebSocket server. If the connection is allowed the WebSocket server may not be checking the WebSocket handshake's origin header. Attempt to replay requests previously intercepted to verify that cross-domain WebSocket communication is possible.
+Using a WebSocket client (one can be found in the Tools section below) attempt to connect to the remote WebSocket server. If the connection is allowed the WebSocket server may not be checking the WebSocket handshake's origin header. Attempt to replay requests previously intercepted to verify that cross-domain WebSocket communication is possible.
 
 ![WebSocket Client](images/WebSocket_Client.png)\
 *Figure 4.11.10-2: WebSocket Client*
@@ -67,7 +67,7 @@ Gray-box testing is similar to black-box testing. In gray-box testing, the pen-t
 
 ## Tools
 
-- [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
+- [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
 - [WebSocket Client](https://github.com/ethicalhack3r/scripts/blob/master/WebSockets.html)
 - [Google Chrome Simple WebSocket Client](https://chrome.google.com/webstore/detail/simple-websocket-client/pfdhoblngboilpfeibdedpjgfnlcodoo?hl=en)
 
@@ -76,6 +76,7 @@ Gray-box testing is similar to black-box testing. In gray-box testing, the pen-t
 - [HTML5 Rocks - Introducing WebSockets: Bringing Sockets to the Web](https://www.html5rocks.com/en/tutorials/websockets/basics/)
 - [W3C - The WebSocket API](https://html.spec.whatwg.org/multipage/web-sockets.html#network)
 - [IETF - The WebSocket Protocol](https://tools.ietf.org/html/rfc6455)
-- [Christian Schneider - Cross-Site WebSocket Hijacking (CSWSH)](http://www.christian-schneider.net/CrossSiteWebSocketHijacking.html)
-- [Robert Koch- On WebSockets in Penetration Testing](http://www.ub.tuwien.ac.at/dipl/2013/AC07815487.pdf)
-- [DigiNinja - OWASP ZAP and Web Sockets](http://www.digininja.org/blog/zap_web_sockets.php)
+- [CWE-1385: Missing Origin Validation in WebSockets](https://cwe.mitre.org/data/definitions/1385.html)
+- [Christian Schneider - Cross-Site WebSocket Hijacking (CSWSH)](https://www.christian-schneider.net/blog/cross-site-websocket-hijacking/)
+- [Robert Koch- On WebSockets in Penetration Testing](https://repositum.tuwien.at/retrieve/21955)
+- [DigiNinja - ZAP and Web Sockets](https://digi.ninja/blog/zap_web_sockets.php)

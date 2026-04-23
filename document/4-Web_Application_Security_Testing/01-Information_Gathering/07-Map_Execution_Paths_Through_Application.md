@@ -6,7 +6,7 @@
 
 ## Summary
 
-Before commencing security testing, understanding the structure of the application is paramount. Without a thorough understanding of the layout of the application, it is unlikely that it will be tested thoroughly.
+Before commencing security testing, understanding the structure of the application is paramount. Without a thorough understanding of the application's layout, a comprehensive test is unlikely.
 
 ## Test Objectives
 
@@ -14,7 +14,7 @@ Before commencing security testing, understanding the structure of the applicati
 
 ## How to Test
 
-In black-box testing it is extremely difficult to test the entire codebase. Not just because the tester has no view of the code paths through the application, but even if they did, to test all code paths would be very time consuming. One way to reconcile this is to document what code paths were discovered and tested.
+In black-box testing, it is extremely difficult to test the entire codebase. This is not just because the tester cannot see the code paths through the application, but also because testing all the code paths would be extremely time-consuming. One way to reconcile this is to document the code paths that were discovered and tested.
 
 There are several ways to approach the testing and measurement of code coverage:
 
@@ -22,21 +22,21 @@ There are several ways to approach the testing and measurement of code coverage:
 - **Data Flow (or Taint Analysis)** - tests the assignment of variables via external interaction (normally users). Focuses on mapping the flow, transformation and use of data throughout an application.
 - **Race** - tests multiple concurrent instances of the application manipulating the same data.
 
-The trade off as to what method is used and to what degree each method is used should be negotiated with the application owner. Simpler approaches could also be adopted, including asking the application owner what functions or code sections they are particularly concerned about and how those code segments can be reached.
+The choice of method and the extent to which each method is used should be negotiated with the application owner. Additionally, simpler approaches could be adopted. For example, the tester could ask the application owner about specific functions or code sections that they are particularly concerned about, and discuss how those code segments can be reached.
 
-To demonstrate code coverage to the application owner, the tester can start with a spreadsheet and document all the links discovered by spidering the application (either manually or automatically). Then the tester can look more closely at decision points in the application and investigate how many significant code paths are discovered. These should then be documented in the spreadsheet with URLs, prose and screenshot descriptions of the paths discovered.
+To demonstrate code coverage to the application owner, the tester can start by documenting all the links discovered from spidering the application (either manually or automatically) in a spreadsheet. The tester can then look more closely at decision points in the application and investigate how many significant code paths are discovered. These should then be documented in the spreadsheet with URLs, prose and screenshot descriptions of the paths discovered.
 
 ### Automatic Spidering
 
-The automatic spider is a tool used to automatically discover new resources (URLs) on a particular website. It begins with a list of URLs to visit, called the seeds, which depends on how the Spider is started. While there are a lot of Spidering tools, the following example uses the [Zed Attack Proxy (ZAP)](https://github.com/zaproxy/zaproxy):
+An automatic spider is a tool that is used to discover new resources (URLs) on a specific site automatically. It begins with a list of URLs to visit, called the seeds, which depends on how the Spider is started. While there are a lot of Spidering tools, the following example uses the [Zed Attack Proxy (ZAP)](https://github.com/zaproxy/zaproxy):
 
 ![Zed Attack Proxy Screen](images/OWASPZAPSP.png)\
 *Figure 4.1.7-1: Zed Attack Proxy Screen*
 
-[ZAP](https://github.com/zaproxy/zaproxy) offers various automatic spidering options, which can leveraged based on the tester's needs:
+[ZAP](https://github.com/zaproxy/zaproxy) offers various automatic spidering options, which can be leveraged based on the tester's needs:
 
 - [Spider](https://www.zaproxy.org/docs/desktop/start/features/spider/)
-- [AJAX Spider](https://www.zaproxy.org/docs/desktop/addons/ajax-spider/)
+- [Ajax Spider](https://www.zaproxy.org/docs/desktop/addons/ajax-spider/)
 - [OpenAPI Support](https://www.zaproxy.org/docs/desktop/addons/openapi-support/)
 
 ## Tools

@@ -84,7 +84,7 @@ In this condition, verify that it is not possible to escalate privileges by modi
 
 #### Manipulation of IP Address
 
-Some websites limit access or count the number of failed login attempts based on IP address.
+Some sites limit access or count the number of failed login attempts based on IP address.
 
 For example:
 
@@ -92,7 +92,7 @@ For example:
 X-Forwarded-For: 8.1.1.1
 ```
 
-In this case, if the website uses the value of `X-forwarded-For` as client IP address, tester may change the IP value of the `X-forwarded-For` HTTP header to workaround the IP source identification.
+In this case, if the site uses the value of `X-forwarded-For` as client IP address, tester may change the IP value of the `X-forwarded-For` HTTP header to workaround the IP source identification.
 
 ### Testing for Vertical Bypassing Authorization Schema
 
@@ -166,7 +166,7 @@ The application will be considered vulnerable if any role other than administrat
 
 ### URL Traversal
 
-Try to traverse the website and check if some of pages that may miss the authorization check.
+Try to traverse the site and check if some of pages that may miss the authorization check.
 
 For example:
 
@@ -184,10 +184,6 @@ For example:
 startswith(), endswith(), contains(), indexOf()
 ```
 
-### Weak SessionID
-
-Weak Session ID has algorithm may be vulnerable to brute Force attack. For example, one website is using `MD5(Password + UserID)` as sessionID. Then, testers may guess or generate the sessionID for other users.
-
 ## References
 
 ### Whitepapers
@@ -196,4 +192,4 @@ Weak Session ID has algorithm may be vulnerable to brute Force attack. For examp
 
 ## Tools
 
-- [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
+- [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)

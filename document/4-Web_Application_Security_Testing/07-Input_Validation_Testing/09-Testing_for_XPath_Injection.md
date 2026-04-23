@@ -18,7 +18,7 @@ Since, from a conceptual point of view, XPath is very similar to SQL in its purp
 
 ## How to Test
 
-The [XPath attack pattern was first published by Amit Klein](http://dl.packetstormsecurity.net/papers/bypass/Blind_XPath_Injection_20040518.pdf) and is very similar to the usual SQL Injection. In order to get a first grasp of the problem, let's imagine a login page that manages the authentication to an application in which the user must enter their username and password. Let's assume that our database is represented by the following XML file:
+The [XPath attack pattern was first published by Amit Klein](https://dl.packetstormsecurity.net/papers/bypass/Blind_XPath_Injection_20040518.pdf) and is very similar to the usual SQL Injection. In order to get a first grasp of the problem, let's imagine a login page that manages the authentication to an application in which the user must enter their username and password. Let's assume that our database is represented by the following XML file:
 
 ```xml
 <?xml version="1.0" encoding="ISO-8859-1"?>
@@ -64,5 +64,5 @@ If there is no knowledge about the XML data internal details and if the applicat
 
 ### Whitepapers
 
-- [Amit Klein: "Blind XPath Injection"](http://dl.packetstormsecurity.net/papers/bypass/Blind_XPath_Injection_20040518.pdf)
+- [Amit Klein: "Blind XPath Injection"](https://dl.packetstormsecurity.net/papers/bypass/Blind_XPath_Injection_20040518.pdf)
 - [XPath 1.0 specifications](https://www.w3.org/TR/1999/REC-xpath-19991116/)

