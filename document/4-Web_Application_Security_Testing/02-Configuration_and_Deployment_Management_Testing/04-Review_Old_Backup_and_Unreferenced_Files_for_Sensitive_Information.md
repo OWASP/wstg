@@ -183,7 +183,7 @@ Vulnerability assessment tools tend to include checks to spot web directories ha
 ### Modern Alternatives
 
 - [Burp Suite](https://portswigger.net/burp) – widely used web security testing proxy
-- [OWASP ZAP](https://www.zaproxy.org/) – open-source web application security testing tool
+- [ZAP](https://www.zaproxy.org/) – open-source web application security testing tool
 - [Screaming Frog SEO Spider](https://www.screamingfrog.co.uk/seo-spider/) – website crawler and broken link checker
 
 Some of them are also included in standard Linux distributions. Web development tools usually include facilities to identify broken links and unreferenced files.
