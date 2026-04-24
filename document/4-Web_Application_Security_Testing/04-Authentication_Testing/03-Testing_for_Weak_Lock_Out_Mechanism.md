@@ -22,6 +22,47 @@ Despite it being easy to conduct brute force attacks, the result of a successful
 
 ## How to Test
 
+### Testing Credential Stuffing and Distributed Brute Force
+
+Modern authentication attacks frequently rely on credential stuffing rather than traditional brute force attempts. Credential stuffing uses previously leaked username and password combinations from data breaches to gain unauthorized access to user accounts.
+
+Many applications implement account lockout mechanisms based solely on repeated login attempts from a single IP address. This approach may be ineffective against distributed attacks where requests originate from multiple IP addresses.
+
+Testers should verify whether the application can detect and mitigate credential stuffing attacks that originate from distributed sources such as botnets or rotating proxy networks.
+
+#### Test Methodology
+
+1. Obtain a controlled list of test usernames and passwords.
+2. Send authentication requests using a set of known or commonly used passwords.
+3. Distribute login attempts across multiple IP addresses using proxies or VPN endpoints.
+4. Observe whether the application enforces account-based protections or only IP-based restrictions.
+5. Monitor the application's responses for indicators such as account lockout, CAPTCHA challenges, or rate limiting.
+
+Example authentication request:
+
+```
+POST /login HTTP/1.1
+Host: example.com
+Content-Type: application/x-www-form-urlencoded
+
+username=user1@example.com&password=Password123
+```
+
+#### Tools
+
+The following tools may assist in testing credential stuffing protections:
+
+- Burp Suite Intruder
+- Hydra
+- ffuf
+- Custom scripts using proxy rotation (e.g., Python + requests + proxy lists)
+  
+Example using ffuf:
+
+```
+ffuf -w passwords.txt -X POST -d "username=test&password=FUZZ" -u https://example.com/login
+```
+
 ### Lockout Mechanism
 
 To test the strength of lockout mechanisms, you will need access to an account that you are willing or can afford to lock. If you have only one account with which you can log on to the web application, perform this test at the end of your test plan to avoid losing testing time by being locked out.
