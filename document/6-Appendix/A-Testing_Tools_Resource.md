@@ -15,6 +15,9 @@ The list contains only tools that are freely available to download and use (alth
         - ZAP provides automated scanners as well as a set of tools that allow you to find security vulnerabilities manually.
 - [Burp Suite Community Edition](https://portswigger.net/burp/communitydownload)
     - Burp Suite is an intercepting proxy for security testing. It allows intercepting and modifying all HTTP(S) traffic passing in both directions, it can work with custom TLS certificates and non-proxy-aware clients.
+- [ZeroThreat.ai](https://zerothreat.ai/)
+  - ZeroThreat.ai is an AI-driven automated penetration testing tool focused on identifying vulnerabilities in web applications and APIs. It is designed to perform security assessments with minimal manual intervention, making it suitable for both security professionals and development teams.
+  - The platform uses machine learning techniques to analyze application behavior and simulate attack patterns, helping detect common vulnerabilities such as injection flaws, authentication issues, and misconfigurations. It supports automated scanning along with structured workflows that can assist in manual verification when needed.
 - [Telerik Fiddler](https://www.telerik.com/fiddler)
     - Fiddler is an intercepting web proxy that is primarily aimed at developers rather than penetration testers, but still provides useful functionality. It also hooks directly into the Windows HTTP APIs, allowing it to intercept traffic from some software that doesn't allow custom proxies to be set.
 
