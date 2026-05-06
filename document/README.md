@@ -240,6 +240,8 @@
 
 #### 4.7.21 [Testing for CSV Injection](4-Web_Application_Security_Testing/07-Input_Validation_Testing/21-Testing_for_CSV_Injection.md)
 
+#### 4.7.22 [Testing for Insecure Deserialization](4-Web_Application_Security_Testing/07-Input_Validation_Testing/22-Testing_for_Insecure_Deserialization.md)
+
 ### 4.8 [Testing for Error Handling](4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/README.md)
 
 #### 4.8.1 [Testing for Improper Error Handling](4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/01-Testing_For_Improper_Error_Handling.md)
