@@ -33,72 +33,73 @@ If the subdomain takeover is successful, a wide variety of attacks are possible 
 
 ### Black-Box Testing
 
-The first step is to enumerate the victim DNS servers and resource records. There are multiple ways to accomplish this task; for example, DNS enumeration using a list of common subdomains dictionary, DNS brute force or using web search engines and other OSINT data sources.
+Testing for subdomain takeover follows three phases: subdomain enumeration, automated fingerprint-based detection, and manual validation.
 
-Using the dig command the tester looks for the following DNS server response messages that warrant further investigation:
+A dangling DNS record occurs when a DNS entry points to an external resource that no longer exists or has been deprovisioned. For example, a CNAME record pointing to a GitHub Pages site that the owner deleted still resolves, but the underlying resource is unclaimed. An attacker can register that resource and take control of the subdomain.
 
-- `NXDOMAIN`
-- `SERVFAIL`
-- `REFUSED`
-- `no servers could be reached.`
+#### Subdomain Enumeration
 
-#### Testing DNS A, CNAME Record Subdomain Takeover
-
-Perform a basic DNS enumeration on the victim's domain (`victim.com`) using `dnsrecon`:
+Use [subfinder](https://github.com/projectdiscovery/subfinder) to discover subdomains for the target domain:
 
 ```bash
-$ ./dnsrecon.py -d victim.com
-[*] Performing General Enumeration of Domain: victim.com
+subfinder -d victim.com -o subdomains.txt
+```
+
+This produces a list of subdomains to use in the detection phase.
+
+#### Fingerprint-Based Detection
+
+Fingerprint-based detection works by comparing each subdomain's HTTP response against a database of known vulnerable service responses. The [can-i-take-over-xyz](https://github.com/EdOverflow/can-i-take-over-xyz) project maintains this database, cataloging the specific response strings returned by service providers such as GitHub Pages, AWS S3, Heroku, and Fastly when a resource is unclaimed.
+
+Use [subzy](https://github.com/LukaSikic/subzy) for a quick initial scan:
+
+```bash
+subzy run --targets subdomains.txt
+```
+
+Follow up with [nuclei](https://github.com/projectdiscovery/nuclei) using the dedicated takeover templates for a more accurate result:
+
+```bash
+nuclei -l subdomains.txt -t takeovers/
+```
+
+A positive result from either tool indicates that a subdomain's response matched a known vulnerable fingerprint, suggesting a dangling DNS record pointing to an unclaimed resource on a third-party service.
+
+For example, a subdomain pointing to an unclaimed GitHub Pages site returns the following response:
+
+```http
+HTTP/1.1 404 Not Found
 ...
-[-] DNSSEC is not configured for victim.com
-[*]      A subdomain.victim.com 192.30.252.153
-[*]      CNAME subdomain1.victim.com fictioussubdomain.victim.com
-...
+<p>There isn't a GitHub Pages site here.</p>
 ```
 
-Identify which DNS resource records are dead and point to inactive/not-used services. Using the dig command for the `CNAME` record:
+This specific string is listed in can-i-take-over-xyz as the GitHub Pages fingerprint. When subzy or nuclei matches this response, it flags the subdomain as potentially vulnerable.
+
+#### Manual Validation
+
+Automated tools produce false positives. Validate each finding manually before reporting it.
+
+1. Confirm the DNS record and where it points:
 
 ```bash
-$ dig CNAME fictioussubdomain.victim.com
-; <<>> DiG 9.10.3-P4-Ubuntu <<>> ns victim.com
-;; global options: +cmd
-;; Got answer:
-;; ->>HEADER<<- opcode: QUERY, status: NXDOMAIN, id: 42950
-;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1
+dig CNAME subdomain.victim.com
 ```
 
-The following DNS responses warrant further investigation: `NXDOMAIN`.
-
-To test the `A` record the tester performs a whois database lookup and identifies GitHub as the service provider:
+1. Confirm the response matches the expected fingerprint for that service provider as listed in [can-i-take-over-xyz](https://github.com/EdOverflow/can-i-take-over-xyz):
 
 ```bash
-$ whois 192.30.252.153 | grep "OrgName"
-OrgName: GitHub, Inc.
+curl -i http://subdomain.victim.com
 ```
 
-The tester visits `subdomain.victim.com` or issues a HTTP GET request which returns a "404 - File not found" response which is a clear indication of the vulnerability.
+1. Confirm the resource is unclaimed on the service provider's platform. Do not claim it.
 
-![GitHub 404 File Not Found response](images/subdomain_takeover_ex1.jpeg)\
-*Figure 4.2.10-1: GitHub 404 File Not Found response*
+#### Cloud-Specific Takeovers
 
-The tester claims the domain using GitHub Pages:
+Major cloud providers have distinct takeover patterns worth specific attention:
 
-![GitHub claim domain](images/subdomain_takeover_ex2.jpeg)\
-*Figure 4.2.10-2: GitHub claim domain*
-
-#### Testing NS Record Subdomain Takeover
-
-Identify all nameservers for the domain in scope:
-
-```bash
-$ dig ns victim.com +short
-ns1.victim.com
-nameserver.expireddomain.com
-```
-
-In this fictitious example, the tester checks if the domain `expireddomain.com` is active with a domain registrar search. If the domain is available for purchase the subdomain is vulnerable.
-
-The following DNS responses warrant further investigation: `SERVFAIL` or `REFUSED`.
+- AWS S3: A CNAME pointing to an S3 bucket URL (for example, `bucket.s3.amazonaws.com`) where the bucket no longer exists returns a `NoSuchBucket` response. Anyone who creates a bucket with the same name in any AWS account can claim the subdomain.
+- Azure: Dangling CNAMEs pointing to deprovisioned Azure resources such as App Services or Traffic Manager endpoints can be claimed by registering the same resource name in a different Azure subscription.
+- GCP: Similar patterns exist for Cloud Storage buckets and Firebase Hosting endpoints.
 
 ### Gray-Box Testing
 
@@ -110,12 +111,12 @@ To mitigate the risk of subdomain takeover, the vulnerable DNS resource record(s
 
 ## Tools
 
-- [dig - man page](https://linux.die.net/man/1/dig)
-- [recon-ng - Web Reconnaissance framework](https://github.com/lanmaster53/recon-ng)
-- [theHarvester - OSINT intelligence gathering tool](https://github.com/laramies/theHarvester)
-- [Sublist3r - OSINT subdomain enumeration tool](https://github.com/aboul3la/Sublist3r)
-- [dnsrecon - DNS Enumeration Script](https://github.com/darkoperator/dnsrecon)
-- [OWASP Amass DNS enumeration](https://github.com/OWASP/Amass)
+- [subfinder - Subdomain enumeration tool](https://github.com/projectdiscovery/subfinder)
+- [subzy - Subdomain takeover detection tool](https://github.com/LukaSikic/subzy)
+- [nuclei - Vulnerability scanner with takeover templates](https://github.com/projectdiscovery/nuclei)
+- [nuclei-templates - Community takeover templates](https://github.com/projectdiscovery/nuclei-templates)
+- [can-i-take-over-xyz - Vulnerable service fingerprint database](https://github.com/EdOverflow/can-i-take-over-xyz)
+- [dig - DNS lookup utility](https://man.cx/dig)
 - [OWASP Domain Protect](https://owasp.org/www-project-domain-protect)
 
 ## References
