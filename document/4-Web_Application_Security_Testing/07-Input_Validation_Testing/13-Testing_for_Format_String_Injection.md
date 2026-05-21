@@ -33,7 +33,19 @@ printf("DEBUG Current user: ");
 // Vulnerable debugging code
 printf(userName);
 ```
+The example in C++:
 
+```cpp
+// Secure C++ input validation to prevent buffer‑overflow vulnerability
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string safe_input;
+    std::getline(std::cin, safe_input);
+    return 0;
+}
+```
 The example in Java:
 
 ```java
