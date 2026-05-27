@@ -39,11 +39,7 @@ A dangling DNS record occurs when a DNS entry points to an external resource tha
 
 #### Subdomain Enumeration
 
-Use [subfinder](https://github.com/projectdiscovery/subfinder) to discover subdomains for the target domain:
-
-```bash
-subfinder -d victim.com -o subdomains.txt
-```
+Use [subfinder](https://github.com/projectdiscovery/subfinder) to discover subdomains for the target domain: `subfinder -d victim.com -o subdomains.txt`
 
 This produces a list of subdomains to use in the detection phase.
 
@@ -51,17 +47,9 @@ This produces a list of subdomains to use in the detection phase.
 
 Fingerprint-based detection works by comparing each subdomain's HTTP response against a database of known vulnerable service responses. The [can-i-take-over-xyz](https://github.com/EdOverflow/can-i-take-over-xyz) project maintains this database, cataloging the specific response strings returned by service providers such as GitHub Pages, AWS S3, Heroku, and Fastly when a resource is unclaimed.
 
-Use [subzy](https://github.com/LukaSikic/subzy) for a quick initial scan:
+Use [subzy](https://github.com/LukaSikic/subzy) for a quick initial scan: `subzy run --targets subdomains.txt`
 
-```bash
-subzy run --targets subdomains.txt
-```
-
-Follow up with [nuclei](https://github.com/projectdiscovery/nuclei) using the dedicated takeover templates for a more accurate result:
-
-```bash
-nuclei -l subdomains.txt -t takeovers/
-```
+Follow up with [nuclei](https://github.com/projectdiscovery/nuclei) using the dedicated takeover templates for a more accurate result: `nuclei -l subdomains.txt -t takeovers/`
 
 A positive result from either tool indicates that a subdomain's response matched a known vulnerable fingerprint, suggesting a dangling DNS record pointing to an unclaimed resource on a third-party service.
 
@@ -79,17 +67,9 @@ This specific string is listed in can-i-take-over-xyz as the GitHub Pages finger
 
 Automated tools produce false positives. Validate each finding manually before reporting it.
 
-1. Confirm the DNS record and where it points:
+1. Confirm the DNS record and where it points: `dig CNAME subdomain.victim.com`
 
-```bash
-dig CNAME subdomain.victim.com
-```
-
-1. Confirm the response matches the expected fingerprint for that service provider as listed in [can-i-take-over-xyz](https://github.com/EdOverflow/can-i-take-over-xyz):
-
-```bash
-curl -i http://subdomain.victim.com
-```
+1. Confirm the response matches the expected fingerprint for that service provider as listed in [can-i-take-over-xyz](https://github.com/EdOverflow/can-i-take-over-xyz): `curl -i http://subdomain.victim.com`
 
 1. Confirm the resource is unclaimed on the service provider's platform. Do not claim it.
 
