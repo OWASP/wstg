@@ -100,7 +100,7 @@ The most common form of MFA is the one of One-Time Passwords (OTPs), which are t
 
 | Type | Description |
 |------|-------------|
-| HMAC One-Time Password (HOPT) | Generates a code based on the HMAC of a secret and a shared counter. |
+| HMAC One-Time Password (HOTP) | Generates a code based on the HMAC of a secret and a shared counter. |
 | Time-based One-Time Password (TOTP) | Generates a code based on HMAC of a secret and the current time. |
 | Email | Sends a code via email. |
 | SMS | Sends a code via SMS. |
