@@ -72,11 +72,11 @@ Then confirm in the browser developer console whether the property leaked onto t
 // undefined   -> not polluted through this source
 ```
 
-If the value is returned, the source is exploitable and the next step is to find a gadget that turns the polluted property into DOM XSS (for example, a property a library reads when building markup or configuring script behaviour). Browser tooling that scans for both sources and gadgets, such as DOM Invader (see Tools), significantly speeds up this phase.
+If the value is returned, the source is exploitable and the next step is to find a gadget that turns the polluted property into DOM XSS (for example, a property a library reads when building markup or configuring script behavior). Browser tooling that scans for both sources and gadgets, such as DOM Invader (see Tools), significantly speeds up this phase.
 
 #### Testing for Server-Side Prototype Pollution
 
-The tester cannot read the prototype from a console here, so detection is indirect: pollute a property and observe an externally visible change in behaviour. Send a JSON body that nests the special key inside an otherwise normal object, targeting an endpoint that merges or clones request data:
+The tester cannot read the prototype from a console here, so detection is indirect: pollute a property and observe an externally visible change in behavior. Send a JSON body that nests the special key inside an otherwise normal object, targeting an endpoint that merges or clones request data:
 
 ```http
 POST /api/update HTTP/1.1
@@ -86,7 +86,7 @@ Content-Type: application/json
 {"name":"test","__proto__":{"json spaces":10}}
 ```
 
-A reliable, non-destructive indicator on Express applications is to pollute the `json spaces` property: if a later JSON response from the application comes back pretty-printed (indented) when it previously was not, the server read the indentation setting from the polluted prototype, confirming the vulnerability. Other behavioural indicators include:
+A reliable, non-destructive indicator on Express applications is to pollute the `json spaces` property: if a later JSON response from the application comes back pretty-printed (indented) when it previously was not, the server read the indentation setting from the polluted prototype, confirming the vulnerability. Other behavioral indicators include:
 
 - A property the client never sent appearing in subsequent JSON responses.
 - A change in HTTP status, headers, or content negotiation after polluting a property the framework reads internally.
@@ -94,7 +94,7 @@ A reliable, non-destructive indicator on Express applications is to pollute the 
 
 #### Assess the Impact
 
-Because impact is gadget-dependent, analyze each confirmed pollution for realistic consequences. On the client side this is most often DOM XSS or a bypass of a security control. On the server side, gadgets have historically escalated to denial of service, authentication or authorization bypass, and remote code execution. Treat any confirmed prototype pollution as potentially high severity until gadget analysis rules out impact.
+Because impact is gadget-dependent, analyze each confirmed pollution for realistic consequences. On the client-side this is most often DOM XSS or a bypass of a security control. On the server-side, gadgets have historically escalated to denial of service, authentication or authorization bypass, and remote code execution. Treat any confirmed prototype pollution as potentially high severity until gadget analysis rules out impact.
 
 ### Gray-Box Testing
 
@@ -120,7 +120,7 @@ Also confirm the versions of any dependencies with known prototype pollution adv
 
 - Sanitize property keys before assignment, explicitly rejecting `__proto__`, `constructor`, and `prototype`.
 - Use objects without a prototype for map-like data, for example `Object.create(null)`, or use the `Map` data structure instead of plain objects.
-- Freeze the base prototype with `Object.freeze(Object.prototype)` where the application's behaviour permits it.
+- Freeze the base prototype with `Object.freeze(Object.prototype)` where the application's behavior permits it.
 - Validate incoming structured data against a strict schema (for example, JSON Schema) so that unexpected keys are dropped.
 - Prefer well-maintained merge and clone utilities, and keep all dependencies updated to versions that mitigate prototype pollution.
 - On Node.js, the `--disable-proto=delete` runtime flag removes the `__proto__` accessor as a defense-in-depth measure.
@@ -131,7 +131,7 @@ Also confirm the versions of any dependencies with known prototype pollution adv
 - [PortSwigger: Widespread Prototype Pollution Gadgets](https://portswigger.net/research/widespread-prototype-pollution-gadgets)
 - [Olivier Arteau: Prototype Pollution Attacks in NodeJS Applications (NorthSec 2018)](https://github.com/HoLyVieR/prototype-pollution-nsec18)
 - [BlackFan: Client-Side Prototype Pollution](https://github.com/BlackFan/client-side-prototype-pollution)
-- [Securitum: Kibana RCE via Prototype Pollution (CVE-2019-7609)](https://research.securitum.com/prototype-pollution-rce-kibana-cve-2019-7609/)
+- [Michał Bentkowski: Prototype Pollution in Kibana (CVE-2019-7609)](https://slides.com/securitymb/prototype-pollution-in-kibana)
 - [CWE-1321: Improperly Controlled Modification of Object Prototype Attributes ('Prototype Pollution')](https://cwe.mitre.org/data/definitions/1321.html)
 
 ## Tools
