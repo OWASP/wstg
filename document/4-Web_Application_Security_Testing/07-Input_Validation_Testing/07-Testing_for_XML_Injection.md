@@ -6,9 +6,9 @@
 
 ## Summary
 
-XML Injection testing is when a tester tries to inject an XML doc to the application. If the XML parser fails to contextually validate data, then the test will yield a positive result.
+XML Injection testing is when a tester tries to inject an XML document into the application. If the XML parser fails to contextually validate data, then the test will yield a positive result.
 
-This section describes practical examples of XML Injection. First, an XML style communication will be defined and its working principles explained. Then, the discovery method in which we try to insert XML metacharacters. Once the first step is accomplished, the tester will have some information about the XML structure, so it will be possible to try to inject XML data and tags (Tag Injection).
+This section describes practical examples of XML Injection. First, an XML style communication will be defined and its working principles explained. Then, the discovery method in which we try to insert XML metacharacters. Once the first step is accomplished, the tester will have some information about the XML structure, so it will be possible to try to inject XML data and tags (tag injection).
 
 ## Test Objectives
 
@@ -17,7 +17,7 @@ This section describes practical examples of XML Injection. First, an XML style 
 
 ## How to Test
 
-Let's suppose there is a web application using an XML style communication in order to perform user registration. This is done by creating and adding a new `user>`node in an `xmlDb` file.
+Let's suppose there is a web application using an XML style communication in order to perform user registration. This is done by creating and adding a new `<user>`node in an `xmlDb` file.
 
 Let's suppose the xmlDB file is like the following:
 
@@ -143,7 +143,7 @@ the application will build a new node:
 
 but, because of the presence of the open '<', the resulting XML document is invalid.
 
-- Comment tag: `<!--/-->` - This sequence of characters is interpreted as the beginning/end of a comment. So by injecting one of them in Username parameter:
+- Comment tag: `<!--` and `-->` - This sequence of characters is interpreted as the beginning or end of a comment. So by injecting one of them in Username parameter:
 
 `Username = foo<!--`
 
@@ -187,7 +187,7 @@ a new node will be created:
 
 but, again, the document is not valid: `&foo` is not terminated with `;` and the `&foo;` entity is undefined.
 
-- CDATA section delimiters: `<!\[CDATA\[ / ]]>` - CDATA sections are used to escape blocks of text containing characters which would otherwise be recognized as markup. In other words, characters enclosed in a CDATA section are not parsed by an XML parser.
+- CDATA section delimiters: `<![CDATA[` and `]]>` - CDATA sections are used to escape blocks of text containing characters which would otherwise be recognized as markup. In other words, characters enclosed in a CDATA section are not parsed by an XML parser.
 
 For example, if there is the need to represent the string `<foo>` inside a text node, a CDATA section may be used:
 
@@ -318,7 +318,7 @@ the application will build a new node and append it to the XML database:
 </users>
 ```
 
-The resulting XML file is well formed. Furthermore, it is likely that, for the user tony, the value associated with the userid tag is the one appearing last, i.e., 0 (the admin ID). In other words, we have injected a user with administrative privileges.
+The resulting XML file is well formed. Furthermore, it is likely that, for the user "tony", the value associated with the userid tag is the one appearing last, i.e., 0 (the admin ID). In other words, we have injected a user with administrative privileges.
 
 The only problem is that the userid tag appears twice in the last user node. Often, XML documents are associated with a schema or a DTD and will be rejected if they don't comply with it.
 

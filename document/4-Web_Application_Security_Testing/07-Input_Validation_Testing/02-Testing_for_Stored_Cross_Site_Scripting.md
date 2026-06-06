@@ -19,12 +19,12 @@ This vulnerability can be used to conduct a number of browser-based attacks incl
 - Directed delivery of browser-based exploits
 - Other malicious activities
 
-Stored XSS does not need a malicious link to be exploited. A successful exploitation occurs when a user visits a page with a stored XSS. The following phases relate to a typical stored XSS attack scenario:
+Stored XSS does not need the victim to click a malicious link - exploitation occurs when a user visits a page with a stored XSS. The following phases relate to a typical stored XSS attack scenario:
 
-- Attacker stores malicious code into the vulnerable page
-- User authenticates in the application
-- User visits vulnerable page
-- Malicious code is executed by the user's browser
+- The attacker stores malicious code into the vulnerable page
+- The victim authenticates in the application
+- The victim views the vulnerable page
+- Malicious code is executed by the victim's browser
 
 This type of attack can also be exploited with browser exploitation frameworks such as [BeEF](https://beefproject.com) and [XSS Proxy](https://xss-proxy.sourceforge.net/). These frameworks allow for complex JavaScript exploit development.
 
@@ -53,9 +53,11 @@ The first step is to identify all points where user input is stored into the bac
 - Blog: if the blog application permits to users submitting comments
 - Log: if the application stores some users input into logs.
 
+Note that this can also include URL paths, cookies, HTTP headers and other less-obvious types of user input, as well as GET and POST parameters.
+
 #### Analyze HTML Code
 
-Input stored by the application is normally used in HTML tags, but it can also be found as part of JavaScript content. At this stage, it is fundamental to understand if input is stored and how it is positioned in the context of the page. Differently from reflected XSS, the pen-tester should also investigate any out-of-band channels through which the application receives and stores users input.
+Input stored by the application is normally used in HTML tags, but it can also be found as part of JavaScript content. At this stage, it is fundamental to understand if input is stored and how it is positioned in the context of the page. Differently from reflected XSS, the pentester should also investigate any out-of-band channels through which the application receives and stores users input, such as via email or integration with external applications.
 
 **Note**: All areas of the application accessible by administrators should be tested to identify the presence of any data submitted by users.
 
@@ -123,7 +125,7 @@ When the user loads the page `index2.php`, the script `hook.js` is executed by t
 
 #### File Upload
 
-If the web application allows file upload, it is important to check if it is possible to upload HTML content. For instance, if HTML or TXT files are allowed, XSS payload can be injected in the file uploaded. The pen-tester should also verify if the file upload allows setting arbitrary MIME types.
+If the web application allows file upload, it is important to check if it is possible to upload HTML content. For instance, if HTML or TXT files are allowed, XSS payload can be injected in the uploaded file. The pentester should also verify if the file upload allows setting arbitrary MIME types.
 
 Consider the following HTTP POST request for file upload:
 
@@ -153,11 +155,11 @@ Also consider that Internet Explorer does not handle MIME types in the same way 
 
 Blind Cross-site Scripting is a form of stored XSS. It generally occurs when the attacker’s payload is saved on the server/infrastructure and later reflected back to the victim from the backend application. For example in feedback forms, an attacker can submit the malicious payload using the form, and once the backend user/admin of the application views the attacker’s submission via the backend application, the attacker’s payload will get executed. Blind Cross-site Scripting is hard to confirm in the real-world scenario but one of the best tools for this is [XSS Hunter](https://xsshunter.com/).
 
-> Note: Testers should carefully consider the privacy implications of using public or third party services while performing security tests. (See #tools.)
+> Note: Testers should carefully consider the privacy implications of using public or third party services while performing security tests. (See [#tools](#tools).)
 
 ### Gray-Box Testing
 
-Gray-box testing is similar to black-box testing. In gray-box testing, the pen-tester has partial knowledge of the application. In this case, information regarding user input, input validation controls, and data storage might be known by the pen-tester.
+Gray-box testing is similar to black-box testing. In gray-box testing, the pentester has partial knowledge of the application. In this case, information regarding user input, input validation controls, and data storage might be known by the pentester.
 
 Depending on the information available, it is normally recommended that testers check how user input is processed by the application and then stored into the backend system. The following steps are recommended:
 
@@ -177,6 +179,7 @@ The following table summarizes some special variables and functions to look at w
 | `$_POST` - HTTP POST variables| `Request.Form` - HTTP POST | `request.getParameter` - HTTP GET/POST variables |
 | `$_REQUEST` – HTTP POST, GET and COOKIE variables | `Server.CreateObject` - used to upload files | |
 | `$_FILES` - HTTP File Upload variables | | |
+| `$_SERVER` - HTTP headers | | |
 
 **Note**: The table above is only a summary of the most important parameters but, all user input parameters should be investigated.
 

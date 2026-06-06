@@ -63,7 +63,7 @@ Using a WebSocket client (one can be found in the Tools section below) attempt t
 
 ### Gray-Box Testing
 
-Gray-box testing is similar to black-box testing. In gray-box testing, the pen-tester has partial knowledge of the application. The only difference here is that you may have API documentation for the application being tested which includes the expected WebSocket request and responses.
+Gray-box testing is similar to black-box testing. In gray-box testing, the pentester has partial knowledge of the application. The only difference here is that you may have API documentation for the application being tested which includes the expected WebSocket request and responses.
 
 ## Tools
 
