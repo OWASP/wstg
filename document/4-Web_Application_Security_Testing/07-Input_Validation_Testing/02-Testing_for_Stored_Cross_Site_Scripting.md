@@ -53,13 +53,13 @@ The first step is to identify all points where user input is stored into the bac
 - Blog: if the blog application permits to users submitting comments
 - Log: if the application stores some users input into logs.
 
-Note that this can also include URL paths, cookies, HTTP headers and other less-obvious types of user input, as well as GET and POST parameters.
+> Note: This can also include URL paths, cookies, HTTP headers and other less-obvious types of user input, as well as GET and POST parameters.
 
 #### Analyze HTML Code
 
 Input stored by the application is normally used in HTML tags, but it can also be found as part of JavaScript content. At this stage, it is fundamental to understand if input is stored and how it is positioned in the context of the page. Differently from reflected XSS, the pentester should also investigate any out-of-band channels through which the application receives and stores users input, such as via email or integration with external applications.
 
-**Note**: All areas of the application accessible by administrators should be tested to identify the presence of any data submitted by users.
+> Note: All areas of the application accessible by administrators should be tested to identify the presence of any data submitted by users.
 
 **Example**: Email stored data in `index2.php`
 
@@ -181,7 +181,7 @@ The following table summarizes some special variables and functions to look at w
 | `$_FILES` - HTTP File Upload variables | | |
 | `$_SERVER` - HTTP headers | | |
 
-**Note**: The table above is only a summary of the most important parameters but, all user input parameters should be investigated.
+> Note: The table above is only a summary of the most important parameters but, all user input parameters should be investigated.
 
 ## Tools
 
