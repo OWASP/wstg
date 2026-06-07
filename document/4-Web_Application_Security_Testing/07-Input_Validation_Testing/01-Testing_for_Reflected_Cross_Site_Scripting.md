@@ -202,8 +202,8 @@ If source code is available (white-box testing), all variables received from use
 
 ## Tools
 
-- [PHP Charset Encoder(PCE)](https://cybersecurity.wtf/encoder/) helps you encode arbitrary texts to and from 65 kinds of character sets that you can use in your customized payloads.
-- [Hackvertor](https://hackvertor.co.uk/public) is an online tool which allows many types of encoding and obfuscation of JavaScript (or any string input).
+
+- [Hackvertor](https://hackvertor.co.uk/) is an online tool which allows many types of encoding and obfuscation of JavaScript (or any string input).
 - [XSS-Proxy](https://xss-proxy.sourceforge.net/) is an advanced Cross-Site-Scripting (XSS) attack tool.
 - [ratproxy](https://code.google.com/archive/p/ratproxy/) is a semi-automated, largely passive web application security audit tool, optimized for an accurate and sensitive detection, and automatic annotation, of potential problems and security-relevant design patterns based on the observation of existing, user-initiated traffic in complex web 2.0 environments.
 - [Burp Proxy](https://portswigger.net/burp/) is an interactive HTTP/S proxy server for attacking and testing web applications.
@@ -225,4 +225,4 @@ If source code is available (white-box testing), all variables received from use
 
 - [CERT - Malicious HTML Tags Embedded in Client Web Requests](https://resources.sei.cmu.edu/asset_files/WhitePaper/2000_019_001_496188.pdf)
 - [cgisecurity.com - The Cross Site Scripting FAQ](https://www.cgisecurity.com/xss-faq.html)
-- [S. Frei, T. Dübendorfer, G. Ollmann, M. May - Understanding the Web browser threat](https://www.techzoom.net/Publications/Insecurity-Iceberg)
+- [S. Frei, T. Dübendorfer, G. Ollmann, M. May - Understanding the Web browser threat](https://www.researchgate.net/publication/230751208_Understanding_the_Web_browser_threat_Examination_of_vulnerable_online_Web_browser_populations_and_the_insecurity_iceberg)
