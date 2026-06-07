@@ -140,6 +140,16 @@ In order to test for this, first you need to identify the type of hashing used b
 
 If this is successful, it not only implies that the application is insecurely comparing password hashes, but also that they're not salting passwords, and most likely that they're using a legacy hashing algorithm.
 
+### Passwords of the Same Length Working
+
+Occasionally applications will allow users to login by entering any password that is the correct length as the actual password. This is a fairly unusual issue, and suggests significant flaws in how passwords are being stored and processed.
+
+One possible cause for this issue is character encoding problems between different parts of the application, as unknown or invalid characters are often represented with a `?` character, which some languages such as SQL treat as a single character wildcard. Thus a comparison of a string like `password` and `????????` may return true if they wildcards are interpreted, such as in a SQL `LIKE` comparison.
+
+> Note: This also implies that passwords are either being stored in plain text, or using reversible encryption.
+
+Testing is simple: try and login to an account with a password that is incorrect, but is the same length as a valid one.
+
 ## Tools
 
 - [WebGoat](https://owasp.org/www-project-webgoat/)
