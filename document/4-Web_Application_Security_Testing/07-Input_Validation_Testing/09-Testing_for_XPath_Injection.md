@@ -52,7 +52,7 @@ Username: ' or '1' = '1
 Password: ' or '1' = '1
 ```
 
-Looks quite familiar, doesn't it? Using these parameters, the query becomes:
+Using these parameters, the query becomes:
 
 `string(//user[username/text()='' or '1' = '1' and password/text()='' or '1' = '1']/account/text())`
 

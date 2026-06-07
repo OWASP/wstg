@@ -19,12 +19,12 @@ This vulnerability can be used to conduct a number of browser-based attacks incl
 - Directed delivery of browser-based exploits
 - Other malicious activities
 
-Stored XSS does not need a malicious link to be exploited. A successful exploitation occurs when a user visits a page with a stored XSS. The following phases relate to a typical stored XSS attack scenario:
+Stored XSS does not need the victim to click a malicious link - exploitation occurs when a user visits a page with a stored XSS. The following phases relate to a typical stored XSS attack scenario:
 
-- Attacker stores malicious code into the vulnerable page
-- User authenticates in the application
-- User visits vulnerable page
-- Malicious code is executed by the user's browser
+- The attacker stores malicious code into the vulnerable page
+- The victim authenticates in the application
+- The victim views the vulnerable page
+- Malicious code is executed by the victim's browser
 
 This type of attack can also be exploited with browser exploitation frameworks such as [BeEF](https://beefproject.com) and [XSS Proxy](https://xss-proxy.sourceforge.net/). These frameworks allow for complex JavaScript exploit development.
 
@@ -53,11 +53,13 @@ The first step is to identify all points where user input is stored into the bac
 - Blog: if the blog application permits to users submitting comments
 - Log: if the application stores some users input into logs.
 
+> Note: This can also include URL paths, cookies, HTTP headers and other less-obvious types of user input, as well as GET and POST parameters.
+
 #### Analyze HTML Code
 
-Input stored by the application is normally used in HTML tags, but it can also be found as part of JavaScript content. At this stage, it is fundamental to understand if input is stored and how it is positioned in the context of the page. Differently from reflected XSS, the pen-tester should also investigate any out-of-band channels through which the application receives and stores users input.
+Input stored by the application is normally used in HTML tags, but it can also be found as part of JavaScript content. At this stage, it is fundamental to understand if input is stored and how it is positioned in the context of the page. Differently from reflected XSS, the pentester should also investigate any out-of-band channels through which the application receives and stores users input, such as via email or integration with external applications.
 
-**Note**: All areas of the application accessible by administrators should be tested to identify the presence of any data submitted by users.
+> Note: All areas of the application accessible by administrators should be tested to identify the presence of any data submitted by users.
 
 **Example**: Email stored data in `index2.php`
 
@@ -94,7 +96,7 @@ Ensure the input is submitted through the application. This normally involves di
 > <input class="inputbox" type="text" name="email" size="40" value="aaa@aa.com"><script>alert(document.cookie)</script>
 > ```
 >
-> The input is stored and the XSS payload is executed by the browser when reloading the page. If the input is escaped by the application, testers should test the application for XSS filters. For instance, if the string "SCRIPT" is replaced by a space or by a NULL character then this could be a potential sign of XSS filtering in action. Many techniques exist in order to evade input filters (see [testing for reflected XSS](01-Testing_for_Reflected_Cross_Site_Scripting.md)) chapter). It is strongly recommended that testers refer to [XSS Filter Evasion](https://owasp.org/www-community/xss-filter-evasion-cheatsheet) and [Mario](https://cybersecurity.wtf/encoder/) XSS Cheat pages, which provide an extensive list of XSS attacks and filtering bypasses. Refer to the whitepapers and tools section for more detailed information.
+> The input is stored and the XSS payload is executed by the browser when reloading the page. If the input is escaped by the application, testers should test the application for XSS filters. For instance, if the string "SCRIPT" is replaced by a space or by a NULL character then this could be a potential sign of XSS filtering in action. Many techniques exist in order to evade input filters (see [testing for reflected XSS](01-Testing_for_Reflected_Cross_Site_Scripting.md)) chapter). It is strongly recommended that testers refer to [XSS Filter Evasion](https://owasp.org/www-community/xss-filter-evasion-cheatsheet) and other XSS Cheat pages, which provide an extensive list of XSS attacks and filtering bypasses. Refer to the whitepapers and tools section for more detailed information.
 
 #### Leverage Stored XSS with BeEF
 
@@ -123,7 +125,7 @@ When the user loads the page `index2.php`, the script `hook.js` is executed by t
 
 #### File Upload
 
-If the web application allows file upload, it is important to check if it is possible to upload HTML content. For instance, if HTML or TXT files are allowed, XSS payload can be injected in the file uploaded. The pen-tester should also verify if the file upload allows setting arbitrary MIME types.
+If the web application allows file upload, it is important to check if it is possible to upload HTML content. For instance, if HTML or TXT files are allowed, XSS payload can be injected in the uploaded file. The pentester should also verify if the file upload allows setting arbitrary MIME types.
 
 Consider the following HTTP POST request for file upload:
 
@@ -153,11 +155,11 @@ Also consider that Internet Explorer does not handle MIME types in the same way 
 
 Blind Cross-site Scripting is a form of stored XSS. It generally occurs when the attacker’s payload is saved on the server/infrastructure and later reflected back to the victim from the backend application. For example in feedback forms, an attacker can submit the malicious payload using the form, and once the backend user/admin of the application views the attacker’s submission via the backend application, the attacker’s payload will get executed. Blind Cross-site Scripting is hard to confirm in the real-world scenario but one of the best tools for this is [XSS Hunter](https://xsshunter.com/).
 
-> Note: Testers should carefully consider the privacy implications of using public or third party services while performing security tests. (See #tools.)
+> Note: Testers should carefully consider the privacy implications of using public or third party services while performing security tests. (See [#tools](#tools).)
 
 ### Gray-Box Testing
 
-Gray-box testing is similar to black-box testing. In gray-box testing, the pen-tester has partial knowledge of the application. In this case, information regarding user input, input validation controls, and data storage might be known by the pen-tester.
+Gray-box testing is similar to black-box testing. In gray-box testing, the pentester has partial knowledge of the application. In this case, information regarding user input, input validation controls, and data storage might be known by the pentester.
 
 Depending on the information available, it is normally recommended that testers check how user input is processed by the application and then stored into the backend system. The following steps are recommended:
 
@@ -177,12 +179,12 @@ The following table summarizes some special variables and functions to look at w
 | `$_POST` - HTTP POST variables| `Request.Form` - HTTP POST | `request.getParameter` - HTTP GET/POST variables |
 | `$_REQUEST` – HTTP POST, GET and COOKIE variables | `Server.CreateObject` - used to upload files | |
 | `$_FILES` - HTTP File Upload variables | | |
+| `$_SERVER` - HTTP headers | | |
 
-**Note**: The table above is only a summary of the most important parameters but, all user input parameters should be investigated.
+> Note: The table above is only a summary of the most important parameters but, all user input parameters should be investigated.
 
 ## Tools
 
-- [PHP Charset Encoder(PCE)](https://cybersecurity.wtf/encoder/) helps you encode arbitrary texts to and from 65 kinds of character sets that you can use in your customized payloads.
 - [Hackvertor](https://hackvertor.co.uk/public) is an online tool which allows many types of encoding and obfuscation of JavaScript (or any string input).
 - [BeEF](https://www.beefproject.com) is the browser exploitation framework. A professional tool to demonstrate the real-time impact of browser vulnerabilities.
 - [XSS-Proxy](https://xss-proxy.sourceforge.net/) is an advanced Cross-Site-Scripting (XSS) attack tool.

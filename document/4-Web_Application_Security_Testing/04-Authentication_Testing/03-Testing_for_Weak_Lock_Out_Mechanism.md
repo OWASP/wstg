@@ -8,8 +8,9 @@
 
 Account lockout mechanisms are used to mitigate brute force attacks. Some of the attacks that can be defeated by using lockout mechanism:
 
-- Login password or username guessing attack.
-- Code guessing on any 2FA functionality or Security Questions.
+- Password guessing or brute-force attacks.
+- Security question guessing.
+- OTP code guessing for two-factor authentication (2FA/MFA).
 
 Account lockout mechanisms require a balance between protecting accounts from unauthorized access and protecting users from being denied authorized access. Accounts are typically locked after 3 to 5 unsuccessful attempts and can only be unlocked after a predetermined period of time, via a self-service unlock mechanism, or intervention by an administrator.
 
@@ -53,6 +54,7 @@ A CAPTCHA may hinder brute force attacks, but they can come with their own set o
 3. CAPTCHA server-side logic defaults to a successful solve.
 4. CAPTCHA challenge result is never validated server-side.
 5. CAPTCHA input field or parameter is manually processed, and is improperly validated or escaped.
+6. A single solved CAPTCHA can be re-used multiple times.
 
 To evaluate CAPTCHA effectiveness:
 
@@ -88,7 +90,7 @@ Factors to consider when implementing an account lockout mechanism:
 
 1. What is the risk of brute force password guessing against the application?
 2. Is a CAPTCHA sufficient to mitigate this risk?
-3. Is a client-side lockout mechanism being used (e.g., JavaScript)? (If so, disable the client-side code to test.)
+3. Is a client-side lockout mechanism being used (e.g., JavaScript)? (if so, disable the client-side code to test.)
 4. Number of unsuccessful log in attempts before lockout. If the lockout threshold is too low then valid users may be locked out too often. If the lockout threshold is too high then the more attempts an attacker can make to brute force the account before it will be locked. Depending on the application's purpose, a range of 5 to 10 unsuccessful attempts is a typical lockout threshold.
 5. How will accounts be unlocked?
     1. Manually by an administrator: this is the most secure lockout method, but may cause inconvenience to users and take up the administrator's "valuable" time.
