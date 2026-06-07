@@ -115,6 +115,31 @@ Let's disassemble what we did in this string:
 1. `autologinid` is now a boolean set to `true`: this can be seen by replacing the MD5 value of the password hash (`s:32:"8b8e9715d12e4ca12c4c3eb4865aaf6a"`) with `b:1`
 2. `userid` is now set to the admin ID: this can be seen in the last piece of the string, where we replaced our regular user ID (`s:4:"1337"`) with `s:1:"2"`
 
+### PHP Magic Hashes
+
+A similar issue can occur in PHP when hashes are are loosely compared, and end up being evaluated as numbers.
+
+PHP supports the use of [scientific notation](https://en.wikipedia.org/wiki/Scientific_notation) for numbers, so the number `2e4` is treated as "two times ten to the power of four", which equals 20,000. Similarly, a number such as `0e4` would be "zero times ten to the power of four", which equals zero. Because zero times anything is zero, this means that an comparison such as `0e2 == 0e3` would evaualate to true, because both sides equal zero.
+
+This can be exploitable where two password hashes are compared, and and both of them are in the form of string of zeros, the letter "e", and then a string of numbers. Consider the following code:
+
+```php
+<?php
+{
+    if (md5('240610708') == md5('QLTHNDT')) {
+        print("Passwords match");
+    } else {
+        print("Passwords are different");
+    }                                                                           
+}
+```
+
+The two passwords are clearly different, but since they both hash to strings that equal zero in scietific notation ("0e462097431906509019562988736854" and "0e405967825401955372549139051580" respectively), the comparison will return true and the user will be logged in.
+
+In order to test for this, first you need to identify the type of hashing used by the application. Then you can set a password on a user account that produces this type of hash, and then attempt to login with a different password that would produce a different hashes that would also evaluate to zero. Strings for various password hashes are availabile in the [spaze/hashes](https://github.com/spaze/hashes) GitHub repository.
+
+> Note: This relies both the the application loosely comparing hashes with `==` (rather than using `===` or a secure function such as `hash_equals()`), and on the application using a legacy hashing algorithm.
+
 ## Tools
 
 - [WebGoat](https://owasp.org/www-project-webgoat/)
