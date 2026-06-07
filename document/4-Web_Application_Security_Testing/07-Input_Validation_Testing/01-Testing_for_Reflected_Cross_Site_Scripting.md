@@ -202,7 +202,6 @@ If source code is available (white-box testing), all variables received from use
 
 ## Tools
 
-
 - [Hackvertor](https://hackvertor.co.uk/) is an online tool which allows many types of encoding and obfuscation of JavaScript (or any string input).
 - [XSS-Proxy](https://xss-proxy.sourceforge.net/) is an advanced Cross-Site-Scripting (XSS) attack tool.
 - [ratproxy](https://code.google.com/archive/p/ratproxy/) is a semi-automated, largely passive web application security audit tool, optimized for an accurate and sensitive detection, and automatic annotation, of potential problems and security-relevant design patterns based on the observation of existing, user-initiated traffic in complex web 2.0 environments.
