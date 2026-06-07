@@ -24,7 +24,7 @@ But they could also be other types of application or business processes:
 - Call center operators
 - Interactive voice response or phone tree systems
 
-Note that the focus of this test is on alternative channels; some authentication alternatives might appear as different content delivered via the same website and would almost certainly be in scope for testing. These are not discussed further here, and should have been identified during information gathering and primary authentication testing. For example:
+Bear in mind the focus of this test is on alternative channels; some authentication alternatives might appear as different content delivered via the same website and would almost certainly be in scope for testing. These are not discussed further here, and should have been identified during information gathering and primary authentication testing. For example:
 
 - Progressive enrichment and graceful degradation that change functionality
 - Site use without cookies
@@ -55,7 +55,7 @@ Fully test the website's primary authentication functions. This should identify 
 Other channels can be found by using the following methods:
 
 - Reading site content, especially the home page, contact us, help pages, support articles and FAQs, T&Cs, privacy notices, the robots.txt file and any sitemap.xml files.
-- Searching HTTP proxy logs, recorded during previous information gathering and testing, for strings such as "mobile", "android", blackberry", "ipad", "iphone", "mobile app", "e-reader", "wireless", "auth", "sso", "single sign on" in URL paths and body content.
+- Searching HTTP proxy logs, recorded during previous information gathering and testing, for strings such as "mobile", "Android", blackberry", "ipad", "iphone", "mobile app", "e-reader", "wireless", "auth", "sso", "single sign on" in URL paths and body content.
 - Use search engines to find different websites from the same organization, or using the same domain name, that have similar home page content or which also have authentication mechanisms.
 
 For each possible channel confirm whether user accounts are shared across these, or provide access to the same or similar functionality.
@@ -78,7 +78,7 @@ While enumerating these it is worth taking note of how session management is und
 
 ### Review and Test
 
-Alternative channels should be mentioned in the testing report, even if they are marked as "information only" or "out of scope". In some cases the test scope might include the alternative channel (e.g. because it is just another path on the target host name), or may be added to the scope after discussion with the owners of all the channels. If testing is permitted and authorized, all the other authentication tests in this guide should then be performed, and compared against the primary channel.
+Alternative channels should be mentioned in the testing report, even if they are marked as "information only" or "out of scope". In some cases the test scope might include the alternative channel (e.g. because it is just another path on the target hostname), or may be added to the scope after discussion with the owners of all the channels. If testing is permitted and authorized, all the other authentication tests in this guide should then be performed, and compared against the primary channel.
 
 ## Related Test Cases
 

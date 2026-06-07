@@ -31,7 +31,7 @@ MFA means that *at least* two of the following factors are required to authentic
 
 \* Email only really constitutes "something you have" if the email account itself is protected with MFA. As such, it should be considered weaker than other alternatives such as certificates or TOTP, and may not be accepted as MFA under some definitions.
 
-Note that requiring multiple examples of a single factor (such as needing both a password and a PIN) **does not constitute MFA**, although it may provide some security benefits over a simple password, and may be considered two-step verification (2SV).
+It's worth noting that requiring multiple examples of a single factor (such as needing both a password and a PIN) **does not constitute MFA**, although it may provide some security benefits over a simple password, and may be considered two-step verification (2SV).
 
 Due to the complexity of implementing biometrics in a browser-based environment, "Something You Are" is rarely used for web applications, although it is starting to be adopted using standards such as WebAuthn. The most common second factor is "Something You Have".
 
@@ -168,7 +168,7 @@ Properly evaluating the security of this requires the scope of testing to be exp
 
 One of the factors that is sometimes used with MFA is location ("somewhere you are"), although whether this constitutes a proper authentication factor is debatable. In the context of a web application, this typically means restricting access to specific IP addresses, or not prompting the user for a second factor as long as they are connecting from a specific trusted IP address. A common scenario for this would be to authenticate users with just their password when connecting from the office IP ranges, but requiring an OTP code when they connect from elsewhere.
 
-Depending on the implementation, it may be possible for a user to spoof a trusted IP address by setting the `X-Forwarded-For` header, which could allow them to bypass this check. Note that if the application does not correctly sanitize the contents of this header, it may also be possible to carry out attack such as SQL injection here. If the application supports IPv6, then this should also be checked to ensure that appropriate restrictions are applied to those connections.
+Depending on the implementation, it may be possible for a user to spoof a trusted IP address by setting the `X-Forwarded-For` header, which could allow them to bypass this check. Also consider  that if the application does not correctly sanitize the contents of this header, it may also be possible to carry out attack such as SQL injection here. If the application supports IPv6, then this should also be checked to ensure that appropriate restrictions are applied to those connections.
 
 Additionally, the trusted IP addresses should be reviewed to ensure that they do not present any weaknesses, such as if they include:
 

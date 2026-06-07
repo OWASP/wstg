@@ -22,7 +22,7 @@ Transport layer security related issues can be broadly split into the following 
 
 ### Server Configuration
 
-There are a large number of protocol versions, ciphers, and extensions supported by TLS. Many of these are considered to be legacy, and have cryptographic weaknesses, such as those listed below. Note that new weaknesses are likely to be identified over time, so this list may be incomplete.
+There are a large number of protocol versions, ciphers, and extensions supported by TLS. Many of these are considered to be legacy, and have cryptographic weaknesses, such as those listed below. New weaknesses are likely to be identified over time, so this list may be incomplete.
 
 - [SSLv2 (DROWN)](https://drownattack.com/)
 - [SSLv3 (POODLE)](https://en.wikipedia.org/wiki/POODLE)
@@ -34,7 +34,7 @@ There are a large number of protocol versions, ciphers, and extensions supported
 - [RC4 ciphers (NOMORE)](https://www.rc4nomore.com/)
 - CBC mode ciphers (BEAST, [Lucky 13](https://en.wikipedia.org/wiki/Lucky_Thirteen_attack))
 - [TLS compression (CRIME)](https://en.wikipedia.org/wiki/CRIME)
-- [Weak DHE keys (LOGJAM)](https://weakdh.org/)
+- [Weak DHE Keys (LOGJAM)](https://weakdh.org/)
 
 The [Mozilla Server-Side TLS Guide](https://wiki.mozilla.org/Security/Server_Side_TLS) details the protocols and ciphers that are currently recommended.
 Because of its compatibility with post-quantum ciphers, TLS 1.3 should be preferred over TLS 1.2.

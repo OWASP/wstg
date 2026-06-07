@@ -21,9 +21,7 @@ The following JavaScript code shows a possible vulnerable script in which the at
 </script>
 ```
 
-> **Note:**
-
- Some CSS-based JavaScript execution techniques rely on legacy browser behavior (e.g., older versions of IE and Opera). While modern browsers mitigate most of these vectors, CSS injection can still enable data exfiltration, UI manipulation, and attack chaining.
+> Note: Some CSS-based JavaScript execution techniques rely on legacy browser behavior (e.g., older versions of IE and Opera). While modern browsers mitigate most of these vectors, CSS injection can still enable data exfiltration, UI manipulation, and attack chaining.
 
 The same vulnerability may appear in the case of reflected XSS, for example, in the following PHP code:
 

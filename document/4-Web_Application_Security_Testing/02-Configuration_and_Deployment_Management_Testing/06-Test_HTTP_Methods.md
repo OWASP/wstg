@@ -50,7 +50,7 @@ However, not all servers may respond to OPTIONS requests, and some may even retu
 
 A more reliable way to test for supported methods is to simply make a request with that method type, and examine the server response. If the method is not permitted, the server should return a `405 Method Not Allowed` status.
 
-Note that some servers treat unknown methods as equivalent to `GET`, so they may respond to arbitrary methods, such as the request shown below. This can occasionally be useful to evade a web application firewall, or any other filtering that blocks specific methods.
+It's worth noting that some servers treat unknown methods as equivalent to `GET`, so they may respond to arbitrary methods, such as the request shown below. This can occasionally be useful to evade a web application firewall, or any other filtering that blocks specific methods.
 
 ```http
 FOO / HTTP/1.1
@@ -81,7 +81,7 @@ Content-Length: 25
 <script>alert(1)</script>
 ```
 
-Similar requests can also be made with cURL:
+Similar requests can also be made with curl:
 
 ```bash
 curl https://example.org --upload-file test.html
@@ -96,7 +96,7 @@ DELETE /test.html HTTP/1.1
 Host: example.org
 ```
 
-Or with cURL:
+Or with curl:
 
 ```bash
 curl https://example.org/test.html -X DELETE
@@ -248,7 +248,7 @@ HTTP/1.1 200 OK
 ## Tools
 
 - [Ncat](https://nmap.org/ncat/)
-- [cURL](https://curl.haxx.se/)
+- [curl](https://curl.haxx.se/)
 - [Nmap http-methods NSE script](https://nmap.org/nsedoc/scripts/http-methods.html)
 
 ## References

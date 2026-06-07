@@ -24,7 +24,7 @@ or through HTML META tag (`META HTTP-EQUIV`), as shown below:
 <META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 ```
 
-It is through these character encoding declarations that the browser understands which set of characters to use when converting bytes to characters. Note that the content type mentioned in the HTTP header has precedence over the META tag declaration.
+It is through these character encoding declarations that the browser understands which set of characters to use when converting bytes to characters. Keep in mind the content type mentioned in the HTTP header has precedence over the META tag declaration.
 
 CERT describes it here as follows:
 
