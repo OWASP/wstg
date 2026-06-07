@@ -46,7 +46,7 @@ When staff within an organization manually create passwords for new accounts, th
 - Organization specific details, such as the organization name or address.
 - Passwords that follow a simple pattern, such as "Monday123" if account is created on a Monday.
 
-These types of passwords are often difficult to identify from a black-box perspective, unless they can successfully be guessed or brute-forced. However, they are easy to identify when performing grey-box or white-box testing.
+These types of passwords are often difficult to identify from a black-box perspective, unless they can successfully be guessed or brute-forced. However, they are easy to identify when performing gray-box or white-box testing.
 
 ### Testing for Application Generated Default Passwords
 

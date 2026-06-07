@@ -25,7 +25,7 @@ JWTs are made up of three components:
 - The payload (or body)
 - The signature
 
-Each component is base64 encoded, and they are separated by periods (`.`). Note that the base64 encoding used in a JWT strips out the equals signs (`=`), so you may need to add these back in to decode the sections.
+Each component is base64 encoded, and they are separated by periods (`.`). Keep in mind the base64 encoding used in a JWT strips out the equals signs (`=`), so you may need to add these back in to decode the sections.
 
 ### Analyse the Contents
 

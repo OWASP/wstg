@@ -580,6 +580,15 @@
         [
           "verion(s)?",
           "version$1"
+        ],
+        // Standarization
+        [
+          "([Gg])rey",
+          "$1ray"
+        ],
+        [
+          "([Pp])en-tester",
+          "$1entester"
         ]
       ]
     }

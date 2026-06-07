@@ -116,7 +116,7 @@ For instance, the following types of command chaining can be used on both Window
 - `cmd1&&cmd2` : cmd2 will only be executed if cmd1 succeeds.
 - `cmd1&cmd2` : cmd2 will be executed whether cmd1 succeeds or not.  
 
-Note that, `;` will work on Unix-based systems and PowerShell. However, it will not work on Windows Command Prompt (CMD).  
+Semi-colon `;` will work on Unix-based systems and PowerShell. However, it will not work on Windows Command Prompt (CMD).  
 Furthermore, you can use Bash command substitution `$(cmd)` or &grave;`cmd`&grave; to execute commands on Unix-based systems.  
 Additionally, Linux file descriptors such as `>(cmd)`, `<(cmd)` can also be used.
 
@@ -225,7 +225,7 @@ In this section, we are going to explore some techniques used to bypass filters 
 
 Case modification is a technique that is used to bypass OS command filters. This will be helpful if the server-side filter is case sensitive.  
 For instance, if we notice during our testing that the web server is blocking `;whoami`, we can try to use instead `;WhoAmi`, and see that the server-side filter is only blocking lowercase commands, we will be able to bypass it.  
-Note that this technique will generally work on Windows systems.  
+This technique will generally work on Windows systems.  
 On Linux, we will use a technique called **character shifting**. For instance, the command below will translate each uppercase character to its corresponding lowercase character.  
 
 ```bash
@@ -237,7 +237,7 @@ On Linux, we will use a technique called **character shifting**. For instance, t
 Characters like `\`; `$@`, `'` can be inserted into Linux OS commands without affecting the normal execution of the command.  
 For example, `who\ami`, `w$@hoami` or `wh'o'ami` will all execute the `whoami` command  
 
-Note that the number of single quotes `'` in the Linux command must be **even**, otherwise you will get an error. If you're using Windows CMD, make sure to use double quotes `"` instead.  
+> Note: the number of single quotes `'` in the Linux command must be **even**, otherwise you will get an error. If you're using Windows CMD, make sure to use double quotes `"` instead.  
 Furthermore, you can also use a caret `^` in CMD commands. For example, `whoa^mi` will execute the `whoami` command. This does not work in PowerShell.
 
 #### Base64 Encoding

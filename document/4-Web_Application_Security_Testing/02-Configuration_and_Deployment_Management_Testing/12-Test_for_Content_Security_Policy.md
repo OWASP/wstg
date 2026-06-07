@@ -23,7 +23,7 @@ Testing for Content Security Policy (CSP) weaknesses requires more than verifyin
 - Inspect HTTP responses for the presence of the `Content-Security-Policy` header.
 - Check for `Content-Security-Policy-Report-Only`. If only Report-Only is present, the policy is not enforced.
 - Verify whether CSP is delivered via HTTP header or `<meta>` tag (HTTP headers are preferred).
-- Note that CSP delivered via `<meta>` tags does not support certain directives such as `frame-ancestors`, `report-uri`, `report-to`, or `sandbox`.
+- Consider that CSP delivered via `<meta>` tags does not support certain directives such as `frame-ancestors`, `report-uri`, `report-to`, or `sandbox`.
 - Confirm that the policy is consistently applied across sensitive endpoints.
 
 ### Review High-Risk Directives
@@ -163,7 +163,7 @@ object-src 'none';
 base-uri 'none';
 ```
 
-Note: `'nonce-r4nd0m'` is shown as an example placeholder. In practice, nonces must be cryptographically strong, base64-encoded values that are uniquely generated for every HTTP response.
+> Note: `'nonce-r4nd0m'` is shown as an example placeholder. In practice, nonces must be cryptographically strong, base64-encoded values that are uniquely generated for every HTTP response.
 
 Teams should adapt strict policies carefully, ensuring compatibility with application architecture while maintaining security objectives.
 

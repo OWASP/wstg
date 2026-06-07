@@ -164,7 +164,7 @@ For quick edits, you can use the github.dev web-based editor:
 2. Press `.` (period) on your keyboard to open the github.dev editor.
 3. Make your changes and commit them directly from the browser.
 
-Note: The github.dev editor has limited support for running commands, so it's best for simple text edits. For testing linting and other scripts, use Codespaces or a local environment.
+> Note: The github.dev editor has limited support for running commands, so it's best for simple text edits. For testing linting and other scripts, use Codespaces or a local environment.
 
 ### Using GitHub Codespaces
 
