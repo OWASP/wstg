@@ -99,6 +99,10 @@ Example: An order endpoint returning an embedded customer object, a payment obje
 
 Each nested object should be reviewed for fields that exceed what the consuming client needs.
 
+### Test for Mass Assignment
+
+For endpoints that accept a JSON or XML body, test for mass assignment vulnerabilities by adding extra fields to the request body beyond those displayed in the application interface. Fields such as role identifiers, privilege flags, or account status attributes are high-value targets.
+
 ### Check for Sensitive Data in GraphQL Responses
 
 GraphQL APIs present a specific form of this issue. While GraphQL allows clients to select which fields they want, the schema may expose sensitive fields that the default UI queries do not request but that an attacker can add to a custom query.

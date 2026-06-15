@@ -91,6 +91,18 @@ It is important that the pentester attempts to exercise as much functionality in
 
 Once completed, the endpoint information obtained from browsing and spidering of the application can help the pentester compose API documentation of the target using other tools such as Postman.
 
+### Analyze Intercepted Requests
+
+When auditing REST APIs, use an interception proxy to collect full HTTP requests. REST services utilize more than just URL parameters, so capturing the complete request body and headers is critical.
+
+Analyze the collected requests to identify non-standard or hidden parameters:
+
+- Identify HTTP headers that influence application behavior or resource selection.
+- Determine if a URL segment has a repeating pattern across multiple URLs. Patterns containing dates, numbers, or identifier values may indicate a URL-embedded parameter. For example, in the URL `https://api.example.com/user/2026-10-03/profile`, the date segment may represent a parameter value.
+- Identify structured parameter values formatted in JSON, XML, or other custom structures.
+- Examine the final element of a URL. If it lacks a file extension, it may be a parameter.
+- Look for highly varying URL segments. If a single segment changes frequently across hundreds of requests, it is more likely to represent a parameter value than a static path component.
+
 ### Google Dorking
 
 Using passive reconnaissance techniques such as Google Dorking with directives such as `site` and `inurl` allows us to tailor a search for common API keywords that the Google indexer may have found. Review [Conduct Search Engine Discovery Reconnaissance for Information Leakage](../01-Information_Gathering/01-Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage.md) for additional information.

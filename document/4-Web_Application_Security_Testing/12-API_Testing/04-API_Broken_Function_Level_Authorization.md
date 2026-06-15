@@ -45,14 +45,14 @@ Authorization: Bearer <regular_user_token>
 
 ### Test Function-Level Access with Different HTTP Methods
 
-Test various **HTTP methods** for BFLA vulnerabilities:
+Test various **HTTP methods** for BFLA vulnerabilities. Test each identified resource with alternative HTTP methods. Issue requests using methods other than those documented (such as `PUT`, `DELETE`, or `PATCH`) against endpoints that normally accept only `GET` or `POST`. Record any difference in response behavior or authorization outcome.
 
-- **GET**: Attempt to access information available only to high-privilege users (e.g., administrators).
-    - Example: `GET /api/admin/getAllUsers`
-- **POST/PUT/PATCH**: Attempt to modify or create sensitive resources (e.g., changing user roles, creating or deleting system-critical data).
-    - Example: `POST /api/admin/promoteUser { "userId": "12345", "newRole": "admin" }`
+- **GET**: Attempt to access information available only to high-privilege users, such as administrators.
+  - Example: `GET /api/admin/getAllUsers`
+- **POST/PUT/PATCH**: Attempt to modify or create sensitive resources, such as changing user roles or system-critical data.
+  - Example: `POST /api/admin/promoteUser { "userId": "12345", "newRole": "admin" }`
 - **DELETE**: Attempt to delete sensitive resources, such as removing user accounts or data.
-    - Example: `DELETE /api/admin/deleteUser/12345`
+  - Example: `DELETE /api/admin/deleteUser/12345`
 
 ### Test for BFLA in GraphQL APIs
 
