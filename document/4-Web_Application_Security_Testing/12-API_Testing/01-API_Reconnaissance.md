@@ -80,7 +80,7 @@ Even if you have the API documentation browsing the application is a good idea. 
 
 Browsing the application with an intercepting proxy such as ZAP or Burp Suite records endpoints for later inspection. In addition, using their built-in spidering functionality, intercepting proxies can help generate a comprehensive list of endpoints. From the spidered URLs look for links with obvious API URL naming schemes. These include:
 
-- `https://example.com/api/v1` (or v2 etc)
+- `https://example.com/api/v1` (or v2 etc)  
 - `https://example.com/graphql`
 
 Or subdomains the the applications may consume or depend upon:
@@ -135,7 +135,7 @@ An excellent source of API and other information is the HTML and JavaScript that
 
 There are a variety of tools that we can use to help us extract sensitive information from JavaScript transmitted to the browser. These tools are typically based on one of two approaches: Regular Expressions or Abstract Syntax Trees (AST). Then there are generalized tools that help us organize or manage JS files for investigation by AST and Regular Expression tools.
 
-Regex is more straightforward by searching JS or HTML content for known patterns. However, this approach can miss content not explicitly identified in the Regular Expression. Given the structure of some JS this approach can miss a lot. ASTs on the other hand are tree-like structures that represent the syntax of source code. Each node in the tree corresponds to a part of the code. For JavaScript, an AST breaks the code into basic components, allowing tools and compilers to understand and modify the code easily.
+Regular expression is more straightforward by searching JS or HTML content for known patterns. However, this approach can miss content not explicitly identified in the Regular Expression. Given the structure of some JS this approach can miss a lot. ASTs on the other hand are tree-like structures that represent the syntax of source code. Each node in the tree corresponds to a part of the code. For JavaScript, an AST breaks the code into basic components, allowing tools and compilers to understand and modify the code easily.
 
 #### General Tools
 
@@ -183,7 +183,7 @@ kr scan https://example.com/api -w /usr/share/wordlists/apis/routes-large.kite -
 
 All three of FFUF, DirBuster, and GoBuster are designed to discover hidden paths and files on web servers through brute-forcing techniques. All three use customizable wordlists to generate requests to the target web server, attempting to identify valid directories and files. All three support multi-threaded or highly efficient processing to speed up the brute-forcing process.
 
-Some common wordlist files for APIs include: [SecLists](https://github.com/danielmiessler/SecLists) in the Discovery/Web-Content/api section, [GraphQL Wordlist](https://github.com/Escape-Technologies/graphql-wordlist), and [Assetnote](https://wordlists.assetnote.io/).
+Some common wordlist files for APIs include: [SecLists](https://github.com/danielmiessler/SecLists) in the Discovery/Web-Content/API section, [GraphQL Wordlist](https://github.com/Escape-Technologies/graphql-wordlist), and [Assetnote](https://wordlists.assetnote.io/).
 
 GoBuster Example:
 
