@@ -121,7 +121,7 @@ A similar issue can occur in PHP when hashes are are loosely compared, and end u
 
 PHP supports the use of [scientific notation](https://en.wikipedia.org/wiki/Scientific_notation) for numbers, so the number `2e4` is treated as "two times ten to the power of four", which equals 20,000. Similarly, a number such as `0e4` would be "zero times ten to the power of four", which equals zero. Because zero times anything is zero, this means that an comparison such as `0e2 == 0e3` would evaluate to true, because both sides equal zero.
 
-This can be exploitable where two password hashes are compared, and and both of them are in the form of string of zeros, the letter "e", and then a string of numbers. Consider the following code:
+This can be exploitable where two password hashes are compared, and both of them are in the form of string of zeros, the letter "e", and then a string of numbers. Consider the following code:
 
 ```php
 <?php
