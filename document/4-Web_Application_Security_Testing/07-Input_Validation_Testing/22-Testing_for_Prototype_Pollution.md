@@ -1,8 +1,8 @@
 # Testing for Prototype Pollution
 
-| ID           |
-| ------------ |
-| WSTG-INPV-22 |
+|ID          |
+|------------|
+|WSTG-INPV-22|
 
 ## Summary
 
