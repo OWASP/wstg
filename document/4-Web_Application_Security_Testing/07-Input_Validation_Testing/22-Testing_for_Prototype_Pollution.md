@@ -125,14 +125,12 @@ Also confirm the versions of any dependencies with known prototype pollution adv
 - Prefer well-maintained merge and clone utilities, and keep all dependencies updated to versions that mitigate prototype pollution.
 - On Node.js, the `--disable-proto=delete` runtime flag removes the `__proto__` accessor as a defense-in-depth measure.
 
-## References
+## Tools
 
-- [PortSwigger: Prototype Pollution](https://portswigger.net/web-security/prototype-pollution)
-- [PortSwigger: Widespread Prototype Pollution Gadgets](https://portswigger.net/research/widespread-prototype-pollution-gadgets)
-- [Olivier Arteau: Prototype Pollution Attacks in NodeJS Applications (NorthSec 2018)](https://github.com/HoLyVieR/prototype-pollution-nsec18)
-- [BlackFan: Client-Side Prototype Pollution](https://github.com/BlackFan/client-side-prototype-pollution)
-- [Michał Bentkowski: Prototype Pollution in Kibana (CVE-2019-7609)](https://slides.com/securitymb/prototype-pollution-in-kibana)
-- [CWE-1321: Improperly Controlled Modification of Object Prototype Attributes ('Prototype Pollution')](https://cwe.mitre.org/data/definitions/1321.html)
+- [DOM Invader](https://portswigger.net/burp/documentation/desktop/tools/dom-invader) - automated source and gadget discovery for client-side prototype pollution
+- [Burp Suite](https://portswigger.net/burp) - intercepting and crafting JSON payloads for server-side testing
+- [ppmap](https://github.com/kleiton0x00/ppmap) - scanner for client-side prototype pollution
+- [ppfuzz](https://github.com/dwisiswant0/ppfuzz) - prototype pollution fuzzer
 
 ## References
 
