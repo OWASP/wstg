@@ -16,7 +16,7 @@ Contained in this folder is an Excel file which provides the following worksheet
 
 ## Excel File Hash
 
-SHA-256: e743295ab84bb14a7afaa7ff390684d5c0558dca238be84dba7aa6d46c39cdf1
+SHA-256: 88e7b896401f4fd94265de1ece1d06816bb1901e8505dd62905a682eeef83471
 
 ## Google Sheets Template
 
