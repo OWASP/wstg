@@ -1,4 +1,24 @@
-# OWASP Web Security Testing Guide
+# OWASP WSTG Interactive Checklist App
+
+Welcome to the **OWASP WSTG Interactive Checklist App**! This repository contains an offline-capable, interactive companion app for the OWASP Web Security Testing Guide (WSTG).
+
+## About the Checklist App
+
+The `wstg_checklist_app` folder contains a client-side web application that allows you to:
+- Track your progress during a penetration test based on the WSTG modules.
+- Read summaries, test objectives, methodologies, and tools directly within the app.
+- Add custom finding titles and notes.
+- Export and import your current testing state as a JSON file.
+
+### How to Use
+Simply open the `wstg_checklist_app/index.html` file in any modern web browser. It runs entirely locally, meaning no data is sent to any servers, making it safe for confidential assessments.
+
+### How it Works
+The checklist data is generated from the official OWASP WSTG markdown files. The python script `wstg_checklist_app/extract_wstg.py` parses the markdown documentation and compiles it into a static JavaScript file (`wstg_checklist_data.js`) used by the app.
+
+---
+
+# Original OWASP Web Security Testing Guide
 
 [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/OWASP/wstg/issues)
 [![OWASP Flagship](https://img.shields.io/badge/owasp-flagship-brightgreen.svg)](https://owasp.org/projects/)
