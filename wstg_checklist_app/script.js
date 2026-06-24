@@ -13,9 +13,107 @@ document.addEventListener('DOMContentLoaded', () => {
     const importBtn = document.getElementById('import-btn');
     const importFile = document.getElementById('import-file');
     const resetBtn = document.getElementById('reset-btn');
+    const langToggle = document.getElementById('lang-toggle');
 
     let checklistData = [];
     let state = {};
+    let currentLang = localStorage.getItem('lang') || 'en';
+    
+    const i18n = {
+        en: {
+            header_title: "OWASP WSTG Checklist",
+            header_subtitle: "Web Application Security Testing Guide Companion",
+            export_btn: "Export State",
+            import_btn: "Import State",
+            reset_btn: "⚠️ Reset everything",
+            progress_text: "Checked",
+            status_pending: "Pending",
+            status_done: "Done",
+            status_finding: "Finding!",
+            status_na: "N/A",
+            label_information: "Information:",
+            label_relevance: "Relevance",
+            label_goal: "Goal / Objectives",
+            label_documentation: "Documentation",
+            label_summary: "Summary",
+            label_methodology: "Methodology",
+            label_expected_evidence: "Expected Evidence / Reporting",
+            label_evidence: "Evidence:",
+            label_reporting: "Reporting:",
+            label_tools: "Tools",
+            label_sysreptor: "SysReptor Integration",
+            label_finding_title: "Finding Title (Editable):",
+            label_no_content: "No content available.",
+            label_no_summary: "No summary specified.",
+            label_no_tools: "No specific tools mentioned.",
+            btn_show_less: "▲ Show Less",
+            btn_add_note: "Add Note",
+            btn_add_image: "Add Image(s)",
+            placeholder_notes: "Add notes (images can be pasted via Ctrl+V)...",
+            alert_reset: "Warning: Do you really want to permanently delete all your progress and notes?",
+            alert_import_success: "State imported successfully!",
+            alert_import_zip_success: "State imported successfully from ZIP!",
+            alert_import_zip_error: "Error importing ZIP file.",
+            alert_import_error: "Invalid JSON file.",
+            alert_export_error: "Error creating ZIP file."
+        },
+        de: {
+            header_title: "OWASP WSTG Checkliste",
+            header_subtitle: "Web Application Security Testing Guide Begleiter",
+            export_btn: "Status exportieren",
+            import_btn: "Status importieren",
+            reset_btn: "⚠️ Alles zurücksetzen",
+            progress_text: "Geprüft",
+            status_pending: "Ausstehend",
+            status_done: "Erledigt",
+            status_finding: "Fundstelle!",
+            status_na: "N/A",
+            label_information: "Information:",
+            label_relevance: "Relevanz",
+            label_goal: "Ziel / Ziele",
+            label_documentation: "Dokumentation",
+            label_summary: "Zusammenfassung",
+            label_methodology: "Methodik",
+            label_expected_evidence: "Erwarteter Nachweis / Berichterstattung",
+            label_evidence: "Nachweis:",
+            label_reporting: "Berichterstattung:",
+            label_tools: "Werkzeuge",
+            label_sysreptor: "SysReptor Integration",
+            label_finding_title: "Titel des Befunds (Editierbar):",
+            label_no_content: "Kein Inhalt verfügbar.",
+            label_no_summary: "Keine Zusammenfassung angegeben.",
+            label_no_tools: "Keine spezifischen Werkzeuge erwähnt.",
+            btn_show_less: "▲ Weniger anzeigen",
+            btn_add_note: "Hinweis hinzufügen",
+            btn_add_image: "Bild(er) hinzufügen",
+            placeholder_notes: "Hinweise hinzufügen (Bilder per Strg+V einfügen möglich)...",
+            alert_reset: "Warnung: Möchtest du wirklich deinen gesamten Fortschritt und alle Notizen unwiderruflich löschen?",
+            alert_import_success: "Status erfolgreich importiert!",
+            alert_import_zip_success: "Status erfolgreich aus ZIP importiert!",
+            alert_import_zip_error: "Fehler beim Importieren der ZIP-Datei.",
+            alert_import_error: "Ungültige JSON-Datei.",
+            alert_export_error: "Fehler beim Erstellen der ZIP-Datei."
+        }
+    };
+    
+    const applyTranslations = () => {
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (i18n[currentLang][key]) {
+                el.textContent = i18n[currentLang][key];
+            }
+        });
+        langToggle.textContent = currentLang === 'en' ? 'DE' : 'EN';
+    };
+
+    langToggle.addEventListener('click', () => {
+        currentLang = currentLang === 'en' ? 'de' : 'en';
+        localStorage.setItem('lang', currentLang);
+        applyTranslations();
+        renderChecklist();
+        updateProgress();
+    });
+
     try {
         state = JSON.parse(localStorage.getItem('wstgState')) || {};
     } catch (e) {
@@ -52,6 +150,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Render Logic
     const renderChecklist = () => {
+        // Save current expanded state
+        const openCategories = new Set(
+            Array.from(checklistContainer.querySelectorAll('.category-section')).filter(s => {
+                const content = s.querySelector('.category-content');
+                return content && content.classList.contains('open');
+            }).map(s => s.getAttribute('data-category'))
+        );
+        
+        const openModules = new Set(
+            Array.from(checklistContainer.querySelectorAll('.module-details.open')).map(el => {
+                const card = el.closest('.module-card');
+                return card.getAttribute('data-id');
+            })
+        );
+        
+        const openDocs = new Set(
+            Array.from(checklistContainer.querySelectorAll('.docs-content')).filter(el => el.style.display === 'block').map(el => {
+                const card = el.closest('.module-card');
+                return card.getAttribute('data-id');
+            })
+        );
+
         checklistContainer.innerHTML = '';
         
         // Group by category
@@ -67,10 +187,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const sortedCategoryNames = Object.keys(categories).sort((a, b) => categoryOrder[a] - categoryOrder[b]);
 
+        const t = i18n[currentLang];
+        
         for (const categoryName of sortedCategoryNames) {
             const modules = categories[categoryName];
             const section = document.createElement('section');
             section.className = 'category-section';
+            section.setAttribute('data-category', categoryName);
 
             // Category Header
             const header = document.createElement('div');
@@ -78,8 +201,10 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const title = document.createElement('h2');
             // Extract the first module to get the category index for numbering
-            const index = modules.length > 0 ? modules[0].category_index : '';
-            title.textContent = `${index}. ${categoryName}`;
+            const firstModule = modules.length > 0 ? modules[0] : null;
+            const index = firstModule ? firstModule.category_index : '';
+            const displayCategoryName = (currentLang === 'de' && firstModule && firstModule.category_de) ? firstModule.category_de : categoryName;
+            title.textContent = `${index}. ${displayCategoryName}`;
 
             const stats = document.createElement('span');
             stats.className = 'category-stats';
@@ -95,83 +220,95 @@ document.addEventListener('DOMContentLoaded', () => {
             modules.forEach(module => {
                 const card = document.createElement('div');
                 card.className = 'module-card';
+                card.setAttribute('data-id', module.id);
 
                 const moduleState = state[module.id] || 'pending';
+                
+                // Content Fallback logic
+                const mTitle = currentLang === 'de' && module.title_de ? module.title_de : module.title;
+                const mFullText = currentLang === 'de' && module.full_text_de ? module.full_text_de : module.full_text;
+                const mRelevance = currentLang === 'de' && module.relevance_de ? module.relevance_de : module.relevance;
+                const mGoal = currentLang === 'de' && module.goal_de ? module.goal_de : module.goal;
+                const mFullSummary = currentLang === 'de' && module.full_summary_de ? module.full_summary_de : module.full_summary;
+                const mMethodology = currentLang === 'de' && module.methodology_de ? module.methodology_de : module.methodology;
+                const mExpectedEvidence = currentLang === 'de' && module.expected_evidence_de ? module.expected_evidence_de : module.expected_evidence;
+                const mReportingHints = currentLang === 'de' && module.reporting_hints_de ? module.reporting_hints_de : module.reporting_hints;
+                const mTools = currentLang === 'de' && module.tools_de ? module.tools_de : module.tools;
 
                 card.innerHTML = `
                     <div class="module-header">
                         ${module.is_info ? '' : `
                         <div class="module-status" onclick="event.stopPropagation()">
                             <select class="status-select ${moduleState}" data-id="${module.id}">
-                                <option value="pending" ${moduleState === 'pending' ? 'selected' : ''}>Pending</option>
-                                <option value="done" ${moduleState === 'done' ? 'selected' : ''}>Done</option>
-                                <option value="finding" ${moduleState === 'finding' ? 'selected' : ''}>Finding!</option>
-                                <option value="na" ${moduleState === 'na' ? 'selected' : ''}>N/A</option>
+                                <option value="pending" ${moduleState === 'pending' ? 'selected' : ''}>${t.status_pending}</option>
+                                <option value="done" ${moduleState === 'done' ? 'selected' : ''}>${t.status_done}</option>
+                                <option value="finding" ${moduleState === 'finding' ? 'selected' : ''}>${t.status_finding}</option>
+                                <option value="na" ${moduleState === 'na' ? 'selected' : ''}>${t.status_na}</option>
                             </select>
                         </div>
                         `}
                         <div class="module-title-area">
                             ${module.is_info ? 
-                                `<span>ℹ️ <strong>Information:</strong> ${module.title}</span>` :
+                                `<span>ℹ️ <strong>${t.label_information}</strong> ${mTitle}</span>` :
                                 `<span class="module-id">${module.id}</span>
-                                 <span class="module-name">${module.title}</span>`
+                                 <span class="module-name">${mTitle}</span>`
                             }
                         </div>
-                        <div style="color: var(--text-secondary);">▼</div>
+                        <div style="color: var(--text-secondary);">${openModules.has(module.id) ? '▲' : '▼'}</div>
                     </div>
-                    <div class="module-details">
+                    <div class="module-details ${openModules.has(module.id) ? 'open' : ''}">
                         ${module.is_info ? `
                         <div class="detail-section full-width">
-                            <div class="detail-content">${marked.parse(module.full_text || 'No content available.')}</div>
+                            <div class="detail-content">${marked.parse(mFullText || t.label_no_content)}</div>
                         </div>
                         ` : `
                         <div class="detail-section">
-                            <h4>Relevance</h4>
-                            <div class="detail-content">${module.relevance}</div>
+                            <h4>${t.label_relevance}</h4>
+                            <div class="detail-content">${mRelevance}</div>
                         </div>
                         <div class="detail-section">
-                            <h4>Goal / Objectives</h4>
-                            <div class="detail-content">${marked.parse(module.goal)}</div>
+                            <h4>${t.label_goal}</h4>
+                            <div class="detail-content">${marked.parse(mGoal)}</div>
                         </div>
                         <div class="detail-section full-width docs-section" style="padding: 0;">
                             <div class="docs-header" style="padding: 1rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none;">
-                                <h4 style="margin: 0;">Documentation</h4>
-                                <div class="docs-arrow" style="color: var(--text-secondary);">▼</div>
+                                <h4 style="margin: 0;">${t.label_documentation}</h4>
+                                <div class="docs-arrow" style="color: var(--text-secondary);">${openDocs.has(module.id) ? '▲' : '▼'}</div>
                             </div>
-                            <div class="detail-content docs-content" style="display: none; padding: 0 1rem 1rem 1rem;">
-                                    <h3 class="doc-section-title" style="margin-top: 0;">Summary</h3>
-                                    ${marked.parse(module.full_summary || 'No summary specified.')}
+                            <div class="detail-content docs-content" style="display: ${openDocs.has(module.id) ? 'block' : 'none'}; padding: 0 1rem 1rem 1rem;">
+                                    <h3 class="doc-section-title" style="margin-top: 0;">${t.label_summary}</h3>
+                                    ${marked.parse(mFullSummary || t.label_no_summary)}
                                     
-                                    <h3 class="doc-section-title">Methodology</h3>
-                                    ${marked.parse(module.methodology)}
+                                    <h3 class="doc-section-title">${t.label_methodology}</h3>
+                                    ${marked.parse(mMethodology)}
                                     
-                                    <h3 class="doc-section-title">Expected Evidence / Reporting</h3>
-                                    <p><strong>Evidence:</strong> ${marked.parseInline ? marked.parseInline(module.expected_evidence) : module.expected_evidence}</p>
-                                    <p><strong>Reporting:</strong> ${marked.parseInline ? marked.parseInline(module.reporting_hints) : marked.parse(module.reporting_hints).replace(/^<p>|<\/p>\n?$/g, '')}</p>
+                                    <h3 class="doc-section-title">${t.label_expected_evidence}</h3>
+                                    <p><strong>${t.label_evidence}</strong> ${marked.parseInline ? marked.parseInline(mExpectedEvidence) : mExpectedEvidence}</p>
+                                    <p><strong>${t.label_reporting}</strong> ${marked.parseInline ? marked.parseInline(mReportingHints) : marked.parse(mReportingHints).replace(/^<p>|<\/p>\n?$/g, '')}</p>
                                     
-                                    <h3 class="doc-section-title">Tools</h3>
-                                    ${marked.parse(module.tools || 'No specific tools mentioned.')}
+                                    <h3 class="doc-section-title">${t.label_tools}</h3>
+                                    ${marked.parse(mTools || t.label_no_tools)}
                                     
                                     <div style="margin-top: 1.5rem; text-align: center;">
-                                        <button class="docs-close-btn btn secondary">▲ Weniger anzeigen</button>
+                                        <button class="docs-close-btn btn secondary">${t.btn_show_less}</button>
                                     </div>
                             </div>
                         </div>
 
                         <div class="detail-section full-width sysreptor-section" data-id="${module.id}">
-                            <h4>SysReptor Integration</h4>
+                            <h4>${t.label_sysreptor}</h4>
                             <div class="detail-content">
                                 <div>
-                                    <label style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 4px;">Finding Title (Editable):</label>
+                                    <label style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 4px;">${t.label_finding_title}</label>
                                     <input type="text" class="sysreptor-title-input" value="${(state[module.id + '_title'] || module.sysreptor_finding).replace(/"/g, '&quot;')}">
                                 </div>
                                 <div class="sysreptor-notes-container">
                                     <ul class="sysreptor-notes-list"></ul>
                                     <div class="sysreptor-images-list" style="margin-bottom: 10px; margin-top: 5px;"></div>
-                                    <textarea class="sysreptor-note-textarea" placeholder="Hinweise hinzufügen (Bilder per Strg+V einfügen möglich)..."></textarea>
+                                    <textarea class="sysreptor-note-textarea" placeholder="${t.placeholder_notes}"></textarea>
                                     <div style="display: flex; gap: 10px; margin-top: 5px;">
-                                        <button class="sysreptor-add-note-btn">Hinweis hinzufügen</button>
-                                        <button class="sysreptor-add-image-btn btn secondary" style="padding: 6px 12px; font-size: 0.85rem;">Bild(er) hinzufügen</button>
+                                        <button class="sysreptor-add-note-btn">${t.btn_add_note}</button>
+                                        <button class="sysreptor-add-image-btn btn secondary" style="padding: 6px 12px; font-size: 0.85rem;">${t.btn_add_image}</button>
                                     </div>
                                     <input type="file" class="sysreptor-image-input" accept="image/*" multiple style="display: none;">
                                 </div>
@@ -406,6 +543,9 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             // Toggle Category Content
+            if (openCategories.has(categoryName)) {
+                content.classList.add('open');
+            }
             header.addEventListener('click', () => {
                 content.classList.toggle('open');
             });
@@ -436,7 +576,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        progressText.textContent = `${completed} / ${total} Checked`;
+        const t = i18n[currentLang];
+        progressText.textContent = `${completed} / ${total} ${t.progress_text}`;
         const percentage = total === 0 ? 0 : (completed / total) * 100;
         progressFill.style.width = `${percentage}%`;
 
@@ -509,7 +650,7 @@ document.addEventListener('DOMContentLoaded', () => {
             URL.revokeObjectURL(url);
         } catch (e) {
             console.error("Failed to generate zip", e);
-            alert("Fehler beim Erstellen der ZIP-Datei.");
+            alert(i18n[currentLang].alert_export_error);
         }
     });
 
@@ -571,10 +712,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 saveState();
                 renderChecklist();
                 updateProgress();
-                alert("State imported successfully from ZIP!");
+                alert(i18n[currentLang].alert_import_zip_success);
             } catch (err) {
                 console.error(err);
-                alert("Error importing ZIP file.");
+                alert(i18n[currentLang].alert_import_zip_error);
             }
         } else {
             const reader = new FileReader();
@@ -604,9 +745,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     saveState();
                     renderChecklist();
                     updateProgress();
-                    alert("State imported successfully!");
+                    alert(i18n[currentLang].alert_import_success);
                 } catch (err) {
-                    alert("Invalid JSON file.");
+                    alert(i18n[currentLang].alert_import_error);
                 }
             };
             reader.readAsText(file);
@@ -616,7 +757,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (resetBtn) {
         resetBtn.addEventListener('click', () => {
-            const confirmed = confirm("Warnung: Möchtest du wirklich deinen gesamten Fortschritt und alle Notizen unwiderruflich löschen?");
+            const confirmed = confirm(i18n[currentLang].alert_reset);
             if (confirmed) {
                 state = {};
                 saveState();
@@ -650,5 +791,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Init
     initTheme();
+    applyTranslations();
     loadData();
 });

@@ -10,7 +10,7 @@
     <!-- Include marked.js for markdown rendering of fields like methodology -->
     <script src="marked.min.js"></script>
     <script src="jszip.min.js"></script>
-    <script src="wstg_checklist_data.js?v=2"></script>
+    <script src="wstg_checklist_data.js?v=3"></script>
 </head>
 <body>
     <div class="app-container">
@@ -18,8 +18,8 @@
             <div class="header-left">
                 <img src="owasp-logo.webp" alt="OWASP Logo" class="header-logo">
                 <div>
-                    <h1>OWASP WSTG Checklist</h1>
-                    <p>Web Application Security Testing Guide Companion</p>
+                    <h1 data-i18n="header_title">OWASP WSTG Checklist</h1>
+                    <p data-i18n="header_subtitle">Web Application Security Testing Guide Companion</p>
                 </div>
             </div>
             <div class="header-right">
@@ -30,9 +30,10 @@
                     </div>
                 </div>
                 <div class="actions">
-                    <button id="export-btn" class="btn primary">Export State</button>
-                    <button id="import-btn" class="btn secondary">Import State</button>
+                    <button id="export-btn" class="btn primary" data-i18n="export_btn">Export State</button>
+                    <button id="import-btn" class="btn secondary" data-i18n="import_btn">Import State</button>
                     <input type="file" id="import-file" style="display: none;" accept=".json,.zip">
+                    <button id="lang-toggle" class="btn icon-btn" title="Toggle Language">DE</button>
                     <button id="theme-toggle" class="btn icon-btn" title="Toggle Theme">🌓</button>
                 </div>
             </div>
@@ -44,7 +45,7 @@
 
         <footer style="margin-top: 3rem; text-align: center; padding-bottom: 2rem;">
             <div style="margin-bottom: 1.5rem;">
-                <button id="reset-btn" class="btn secondary" style="color: var(--danger-color); border-color: var(--danger-color); font-weight: bold;">⚠️ Alles zurücksetzen</button>
+                <button id="reset-btn" class="btn secondary" style="color: var(--danger-color); border-color: var(--danger-color); font-weight: bold;" data-i18n="reset_btn">⚠️ Alles zurücksetzen</button>
             </div>
             <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
                 <p><strong>Version:</strong> WSTG v5.0 (Stable)</p>
