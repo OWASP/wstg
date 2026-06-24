@@ -1,0 +1,41 @@
+name: Deploy WSTG Checklist to GitHub Pages
+
+on:
+  # Führt das Deployment aus, wenn du auf den main/master Branch pushst
+  push:
+    branches: ["main", "master"]
+  # Erlaubt dir, das Deployment auch manuell im Actions-Tab zu starten
+  workflow_dispatch:
+
+# Berechtigungen, die GitHub Pages braucht
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact (Nur den App-Ordner!)
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Hier sagen wir, dass nur dieser Ordner online gestellt wird
+          path: './wstg_checklist_app'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
