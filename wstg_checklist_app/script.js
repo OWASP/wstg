@@ -8,12 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const checklistContainer = document.getElementById('checklist-container');
     const progressText = document.getElementById('progress-text');
     const progressFill = document.getElementById('progress-fill');
-    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggle = document.getElementById('theme-toggle-input');
     const exportBtn = document.getElementById('export-btn');
     const importBtn = document.getElementById('import-btn');
     const importFile = document.getElementById('import-file');
     const resetBtn = document.getElementById('reset-btn');
-    const langToggle = document.getElementById('lang-toggle');
 
     let checklistData = [];
     let state = {};
@@ -103,15 +102,46 @@ document.addEventListener('DOMContentLoaded', () => {
                 el.textContent = i18n[currentLang][key];
             }
         });
-        langToggle.textContent = currentLang === 'en' ? 'DE' : 'EN';
     };
 
-    langToggle.addEventListener('click', () => {
-        currentLang = currentLang === 'en' ? 'de' : 'en';
-        localStorage.setItem('lang', currentLang);
-        applyTranslations();
-        renderChecklist();
-        updateProgress();
+    const langToggleBtn = document.getElementById('lang-toggle');
+    const langDropdownMenu = document.getElementById('lang-dropdown-menu');
+    const langOptions = document.querySelectorAll('.lang-option');
+    const langToggleFlag = langToggleBtn.querySelector('.lang-flag');
+
+    const updateLangUI = () => {
+        langOptions.forEach(opt => {
+            if (opt.getAttribute('data-value') === currentLang) {
+                opt.classList.add('selected');
+                langToggleFlag.innerHTML = opt.querySelector('.lang-flag').innerHTML;
+            } else {
+                opt.classList.remove('selected');
+            }
+        });
+    };
+
+    langToggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        langDropdownMenu.classList.toggle('open');
+    });
+
+    document.addEventListener('click', () => {
+        langDropdownMenu.classList.remove('open');
+    });
+
+    langOptions.forEach(opt => {
+        opt.addEventListener('click', () => {
+            const newLang = opt.getAttribute('data-value');
+            if (newLang !== currentLang) {
+                currentLang = newLang;
+                localStorage.setItem('lang', currentLang);
+                updateLangUI();
+                applyTranslations();
+                renderChecklist();
+                updateProgress();
+            }
+            langDropdownMenu.classList.remove('open');
+        });
     });
 
     try {
@@ -124,11 +154,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const initTheme = () => {
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
+        if (themeToggle) {
+            themeToggle.checked = savedTheme === 'dark';
+        }
     };
 
-    themeToggle.addEventListener('click', () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    themeToggle.addEventListener('change', (e) => {
+        const newTheme = e.target.checked ? 'dark' : 'light';
         document.documentElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
     });
@@ -791,6 +823,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Init
     initTheme();
+    updateLangUI();
     applyTranslations();
     loadData();
 });

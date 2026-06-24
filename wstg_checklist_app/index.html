@@ -33,8 +33,26 @@
                     <button id="export-btn" class="btn primary" data-i18n="export_btn">Export State</button>
                     <button id="import-btn" class="btn secondary" data-i18n="import_btn">Import State</button>
                     <input type="file" id="import-file" style="display: none;" accept=".json,.zip">
-                    <button id="lang-toggle" class="btn icon-btn" title="Toggle Language">DE</button>
-                    <button id="theme-toggle" class="btn icon-btn" title="Toggle Theme">🌓</button>
+                    <div class="lang-dropdown-container" id="lang-dropdown-container">
+                        <button id="lang-toggle" class="btn lang-btn" title="Change Language">
+                            <span class="lang-flag"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="20" height="14" preserveAspectRatio="none" style="border-radius:2px;"><clipPath id="s"><path d="M0,0 v30 h60 v-30 z"/></clipPath><clipPath id="t"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath><g clip-path="url(#s)"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#t)" stroke="#C8102E" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></g></svg></span> <span class="lang-arrow">▼</span>
+                        </button>
+                        <div class="lang-dropdown-menu" id="lang-dropdown-menu">
+                            <div class="lang-option" data-value="en">
+                                <span class="lang-flag"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="20" height="14" preserveAspectRatio="none" style="border-radius:2px;"><clipPath id="s2"><path d="M0,0 v30 h60 v-30 z"/></clipPath><clipPath id="t2"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath><g clip-path="url(#s2)"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#t2)" stroke="#C8102E" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></g></svg></span> ENGLISH <span class="lang-check">✔</span>
+                            </div>
+                            <div class="lang-option" data-value="de">
+                                <span class="lang-flag"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 3" width="20" height="14" preserveAspectRatio="none" style="border-radius:2px;"><rect width="5" height="3" y="0" x="0" fill="#000"/><rect width="5" height="2" y="1" x="0" fill="#D00"/><rect width="5" height="1" y="2" x="0" fill="#FFCE00"/></svg></span> DEUTSCH <span class="lang-check">✔</span>
+                            </div>
+                        </div>
+                    </div>
+                    <label class="theme-switch" title="Toggle Theme">
+                        <input type="checkbox" id="theme-toggle-input">
+                        <span class="slider round">
+                            <svg class="slider-icon sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                            <svg class="slider-icon moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                        </span>
+                    </label>
                 </div>
             </div>
         </header>
