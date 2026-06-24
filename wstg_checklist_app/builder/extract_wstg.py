@@ -137,7 +137,7 @@ def main():
 
     # Load custom relevance file if it exists
     custom_relevance = {}
-    relevance_file = Path("/home/len/Festplatte/wstg/wstg_checklist_app/wstg_relevance.json")
+    relevance_file = Path("/home/len/Festplatte/wstg/wstg_checklist_app/builder/wstg_relevance.json")
     if relevance_file.exists():
         try:
             with open(relevance_file, 'r', encoding='utf-8') as f:
@@ -148,7 +148,7 @@ def main():
 
     # Load custom evidence and reporting file if it exists
     custom_evidence = {}
-    evidence_file = Path("/home/len/Festplatte/wstg/wstg_checklist_app/wstg_evidence_reporting.json")
+    evidence_file = Path("/home/len/Festplatte/wstg/wstg_checklist_app/builder/wstg_evidence_reporting.json")
     if evidence_file.exists():
         try:
             with open(evidence_file, 'r', encoding='utf-8') as f:
@@ -162,7 +162,7 @@ def main():
 
     # Load custom tools file if it exists
     custom_tools = {}
-    tools_file = Path("/home/len/Festplatte/wstg/wstg_checklist_app/wstg_tools.json")
+    tools_file = Path("/home/len/Festplatte/wstg/wstg_checklist_app/builder/wstg_tools.json")
     if tools_file.exists():
         try:
             with open(tools_file, 'r', encoding='utf-8') as f:
