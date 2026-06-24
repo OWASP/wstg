@@ -194,6 +194,19 @@ document.addEventListener('DOMContentLoaded', () => {
                         const arrow = modHeader.querySelector('div:last-child');
                         arrow.textContent = '▲';
 
+                        // Scroll module into view smoothly
+                        setTimeout(() => {
+                            const rect = card.getBoundingClientRect();
+                            let targetY;
+                            if (rect.height > window.innerHeight - 100) {
+                                // If the module is too large to fit the screen, scroll to its top with a little margin
+                                targetY = rect.top + window.scrollY - 80;
+                            } else {
+                                // Otherwise, center it perfectly on the screen
+                                targetY = rect.top + window.scrollY - (window.innerHeight / 2) + (rect.height / 2);
+                            }
+                            window.scrollTo({ top: targetY, behavior: 'smooth' });
+                        }, 50);
                     }
                 });
 
