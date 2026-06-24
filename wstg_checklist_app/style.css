@@ -469,7 +469,7 @@ a:hover {
 .sysreptor-title-input {
     width: 100%;
     padding: 8px 12px;
-    margin-bottom: 6px;
+    margin-bottom: 3px;
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     background: var(--surface-color);
@@ -486,7 +486,7 @@ a:hover {
 }
 
 .sysreptor-notes-container {
-    margin-top: 5px;
+    margin-top: 2px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -574,6 +574,11 @@ a:hover {
     gap: 12px;
     flex-wrap: wrap;
     margin-top: 12px;
+}
+
+.sysreptor-images-list:empty {
+    display: none;
+    margin-top: 0;
 }
 
 /* Image Modal */
