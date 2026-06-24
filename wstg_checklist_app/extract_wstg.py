@@ -27,6 +27,14 @@ def parse_wstg_file(filepath, custom_relevance=None, custom_evidence=None, custo
 
     # Category is the parent directory
     category_raw = os.path.basename(os.path.dirname(filepath))
+    
+    # Rewrite image paths to point to the OWASP GitHub repository
+    image_base_url = f"https://raw.githubusercontent.com/OWASP/wstg/master/document/4-Web_Application_Security_Testing/{category_raw}/images/"
+    # Replace markdown image links ![alt](images/file.png)
+    content = re.sub(r'\]\(images/', f']({image_base_url}', content)
+    # Replace HTML image links <img src="images/file.png">
+    content = re.sub(r'src=["\']images/', f'src="{image_base_url}', content)
+
     category_index_match = re.search(r'^(\d+)-', category_raw)
     category_index = int(category_index_match.group(1)) if category_index_match else 99
     # clean up category name (e.g. 01-Information_Gathering -> Information Gathering)

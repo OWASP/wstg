@@ -166,7 +166,7 @@
   },
   {
     "id": "WSTG-CLNT-03",
-    "expected_evidence": "Injection of HTML structures (e.g., a spoofed login form or <h1> tags) that are rendered unfiltered client-side due to missing escaping mechanisms.",
+    "expected_evidence": "Injection of HTML structures (e.g., a spoofed login form or `<h1>` tags) that are rendered unfiltered client-side due to missing escaping mechanisms.",
     "reporting_hints": "Explain the risk of phishing and social engineering within the trusted page. Remediation: Enforce strict HTML entity encoding when outputting user input to the DOM."
   },
   {
@@ -196,7 +196,7 @@
   },
   {
     "id": "WSTG-CLNT-09",
-    "expected_evidence": "An external PoC HTML file successfully loading the target application (e.g., account settings) in an invisible <iframe>, allowing users to be tricked into unintended clicks.",
+    "expected_evidence": "An external PoC HTML file successfully loading the target application (e.g., account settings) in an invisible `<iframe>`, allowing users to be tricked into unintended clicks.",
     "reporting_hints": "Demonstrate which critical action can be stealthily clicked. Remediation: Implement the HTTP headers X-Frame-Options: DENY (or SAMEORIGIN) and Content-Security-Policy: frame-ancestors 'none'."
   },
   {
@@ -216,7 +216,7 @@
   },
   {
     "id": "WSTG-CLNT-13",
-    "expected_evidence": "Proof that an attacker-controlled webpage can load a confidential, dynamic JS/JSON file from the target site via <script src=\"...\"> and read its sensitive variables/data within its own context (XSSI).",
+    "expected_evidence": "Proof that an attacker-controlled webpage can load a confidential, dynamic JS/JSON file from the target site via `<script src=\"...\">` and read its sensitive variables/data within its own context (XSSI).",
     "reporting_hints": "POC page demonstrating the exfiltration of user data from the victim. Remediation: Dynamic sensitive data must not be deliverable as a valid JavaScript script (use JSON with anti-hijacking prefixes like while(1); or protect endpoints with CSRF tokens)."
   },
   {
@@ -266,7 +266,7 @@
   },
   {
     "id": "WSTG-CONF-08",
-    "expected_evidence": "Discovery of highly outdated and insecure policy files like crossdomain.xml or clientaccesspolicy.xml containing overly-permissive rules (e.g., <allow-access-from domain=\"*\" />) that allow data leakage.",
+    "expected_evidence": "Discovery of highly outdated and insecure policy files like crossdomain.xml or clientaccesspolicy.xml containing overly-permissive rules (e.g., `<allow-access-from domain=\"*\" />`) that allow data leakage.",
     "reporting_hints": "Reference the End-of-Life of Flash/Silverlight. Remediation: Delete these files entirely, unless legacy systems strictly require them (in which case, restrict to explicit allowlists)."
   },
   {
