@@ -133,34 +133,29 @@ document.addEventListener('DOMContentLoaded', () => {
                             <h4>Goal / Objectives</h4>
                             <div class="detail-content">${marked.parse(module.goal)}</div>
                         </div>
-                        <div class="detail-section full-width">
-                            <h4>Full Summary</h4>
-                            <div class="detail-content">
-                                <div class="collapsible-text" id="summary-${module.id}">
+                        <div class="detail-section full-width docs-section" style="padding: 0;">
+                            <div class="docs-header" style="padding: 1rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none;">
+                                <h4 style="margin: 0;">Documentation</h4>
+                                <div class="docs-arrow" style="color: var(--text-secondary);">▼</div>
+                            </div>
+                            <div class="detail-content docs-content" style="display: none; padding: 0 1rem 1rem 1rem;">
+                                    <h3 class="doc-section-title" style="margin-top: 0;">Summary</h3>
                                     ${marked.parse(module.full_summary || 'No summary specified.')}
-                                </div>
-                                <button class="expand-btn" data-target="summary-${module.id}">Mehr anzeigen</button>
-                            </div>
-                        </div>
-                        <div class="detail-section full-width">
-                            <h4>Methodology</h4>
-                            <div class="detail-content">
-                                <div class="collapsible-text" id="methodology-${module.id}">
+                                    
+                                    <h3 class="doc-section-title">Methodology</h3>
                                     ${marked.parse(module.methodology)}
-                                </div>
-                                <button class="expand-btn" data-target="methodology-${module.id}">Mehr anzeigen</button>
+                                    
+                                    <h3 class="doc-section-title">Expected Evidence / Reporting</h3>
+                                    <p><strong>Evidence:</strong> ${marked.parseInline ? marked.parseInline(module.expected_evidence) : module.expected_evidence}</p>
+                                    <p><strong>Reporting:</strong> ${marked.parseInline ? marked.parseInline(module.reporting_hints) : marked.parse(module.reporting_hints).replace(/^<p>|<\/p>\n?$/g, '')}</p>
+                                    
+                                    <h3 class="doc-section-title">Tools</h3>
+                                    ${marked.parse(module.tools || 'No specific tools mentioned.')}
+                                    
+                                    <div style="margin-top: 1.5rem; text-align: center;">
+                                        <button class="docs-close-btn btn secondary">▲ Weniger anzeigen</button>
+                                    </div>
                             </div>
-                        </div>
-                        <div class="detail-section full-width">
-                            <h4>Expected Evidence / Reporting</h4>
-                            <div class="detail-content">
-                                <p><strong>Evidence:</strong> ${marked.parseInline ? marked.parseInline(module.expected_evidence) : module.expected_evidence}</p>
-                                <p><strong>Reporting:</strong> ${marked.parseInline ? marked.parseInline(module.reporting_hints) : marked.parse(module.reporting_hints).replace(/^<p>|<\/p>\n?$/g, '')}</p>
-                            </div>
-                        </div>
-                        <div class="detail-section full-width">
-                            <h4>Tools</h4>
-                            <div class="detail-content">${marked.parse(module.tools || 'No specific tools mentioned.')}</div>
                         </div>
 
                         <div class="detail-section full-width sysreptor-section" data-id="${module.id}">
@@ -199,34 +194,49 @@ document.addEventListener('DOMContentLoaded', () => {
                         const arrow = modHeader.querySelector('div:last-child');
                         arrow.textContent = '▲';
 
-                        // Hide expand button and gradient if text is short
-                        modDetails.querySelectorAll('.collapsible-text').forEach(textBlock => {
-                            if (textBlock.scrollHeight <= 160) {
-                                textBlock.classList.add('expanded');
-                                const btn = textBlock.nextElementSibling;
-                                if (btn && btn.classList.contains('expand-btn')) {
-                                    btn.style.display = 'none';
-                                }
-                            }
-                        });
                     }
                 });
 
-                // Expand button logic
-                card.querySelectorAll('.expand-btn').forEach(expandBtn => {
-                    expandBtn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const targetId = e.target.getAttribute('data-target');
-                        const textBlock = document.getElementById(targetId);
-                        if (textBlock.classList.contains('expanded')) {
-                            textBlock.classList.remove('expanded');
-                            e.target.textContent = 'Mehr anzeigen';
-                        } else {
-                            textBlock.classList.add('expanded');
-                            e.target.textContent = 'Weniger anzeigen';
+                // Documentation expand logic
+                const docsHeader = card.querySelector('.docs-header');
+                const docsContent = card.querySelector('.docs-content');
+                const docsArrow = card.querySelector('.docs-arrow');
+                const docsCloseBtn = card.querySelector('.docs-close-btn');
+
+                const toggleDocs = (scrollToTop = false) => {
+                    if (docsContent.style.display === 'none') {
+                        docsContent.style.display = 'block';
+                        docsArrow.textContent = '▲';
+                    } else {
+                        let targetY = 0;
+                        if (scrollToTop) {
+                            // Calculate position BEFORE shrinking the card
+                            targetY = card.getBoundingClientRect().top + window.scrollY - 120; // 120px offset for plenty of space
                         }
+                        
+                        docsContent.style.display = 'none';
+                        docsArrow.textContent = '▼';
+                        
+                        if (scrollToTop) {
+                            setTimeout(() => {
+                                window.scrollTo({ top: targetY, behavior: 'smooth' });
+                            }, 10);
+                        }
+                    }
+                };
+
+                if (docsHeader) {
+                    docsHeader.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        toggleDocs(false); // No scroll needed when clicking the top header
                     });
-                });
+                }
+                if (docsCloseBtn) {
+                    docsCloseBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        toggleDocs(true); // Scroll up when clicking the bottom close button
+                    });
+                }
 
                 // Status Change
                 if (!module.is_info) {

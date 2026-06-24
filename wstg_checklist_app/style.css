@@ -338,6 +338,33 @@ a:hover {
 /* Markdown styling inside detail content */
 .detail-content p { margin-bottom: 0.75rem; }
 .detail-content ul, .detail-content ol { margin-left: 1.5rem; margin-bottom: 0.75rem; }
+
+.doc-section-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.25rem;
+}
+.doc-section-title:first-child {
+    margin-top: 0;
+}
+
+/* Adjust markdown subheadings inside the texts */
+.detail-content h3:not(.doc-section-title) {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+.detail-content h4 {
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
 .detail-content code {
     background-color: rgba(0,0,0,0.05);
     padding: 0.2rem 0.4rem;
@@ -381,30 +408,19 @@ a:hover {
 
 /* Collapsible Text Area */
 .collapsible-text {
-    max-height: 160px;
-    overflow: hidden;
-    position: relative;
-    transition: max-height 0.3s ease;
+    display: none;
 }
 
 .collapsible-text.expanded {
-    max-height: none;
+    display: block;
 }
 
 .collapsible-text::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 40px;
-    background: linear-gradient(to bottom, transparent, var(--surface-color));
-    pointer-events: none;
-    transition: opacity 0.3s ease;
+    display: none;
 }
 
 .collapsible-text.expanded::after {
-    opacity: 0;
+    display: none;
 }
 
 .expand-btn {
