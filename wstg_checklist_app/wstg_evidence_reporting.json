@@ -1,0 +1,412 @@
+[
+  {
+    "id": "WSTG-APIT-01",
+    "expected_evidence": "Comprehensive list (e.g., as a table or Postman collection) of discovered API endpoints, especially undocumented ones. Output from discovery tools (e.g., Kiterunner, ffuf), screenshots of exposed Swagger/OpenAPI definitions (/swagger.json, /api-docs), or endpoint paths extracted from JavaScript.",
+    "reporting_hints": "Clearly document if the API was intended to be internal but is publicly accessible. Emphasize the risk of information disclosure and an unprotected attack surface (shadow IT). Remediation advice must include the strict disabling of debug/test APIs, enforcing access management, and removing schema definitions in production environments."
+  },
+  {
+    "id": "WSTG-APIT-02",
+    "expected_evidence": "HTTP Request/Response pairs (e.g., via Burp Suite) clearly demonstrating how \"User A's\" session token successfully accessed or modified \"User B's\" data simply by manipulating an object ID (e.g., changing user_id=123 to 124) in the URL path or JSON body.",
+    "reporting_hints": "Emphasize the loss of confidentiality/integrity at the record level. State in the PoC whether Personally Identifiable Information (PII) was compromised. Remediation must strictly require server-side validation of object ownership for every request. Recommend using hard-to-guess UUIDs (v4) instead of incremental IDs as a defense-in-depth measure."
+  },
+  {
+    "id": "WSTG-APIT-03",
+    "expected_evidence": "Screenshots and request logs showing that an authenticated low-privilege user (e.g., \"User\" or \"Guest\") successfully executed administrative API functions (e.g., POST /api/admin/deleteUser) or unauthorized methods (e.g., DELETE instead of GET) with an HTTP 200/201 status code (not 403).",
+    "reporting_hints": "The PoC must unequivocally show the JWT/session context of the low-privilege user. The risk assessment should describe the impact of the administrative action (e.g., system takeover, user deletion). Remediation must mandate Role-Based Access Control (RBAC) at the controller level of the backend framework."
+  },
+  {
+    "id": "WSTG-APIT-03",
+    "expected_evidence": "A side-by-side comparison of the UI screenshot (e.g., displaying only first and last name) and the raw JSON API response (which additionally leaks password hashes, SSNs, internal admin flags, or tokens).",
+    "reporting_hints": "Clarify that \"client-side filtering\" (hiding fields in the frontend) is not a security feature. Remediation must require the use of Data Transfer Objects (DTOs). The API must exclusively serialize and send fields intended for the specific context and user role."
+  },
+  {
+    "id": "WSTG-APIT-99",
+    "expected_evidence": "GraphQL Introspection output (e.g., via GraphQL Voyager) proving an information leak. Logs of successful query batching attacks (bypassing rate limits) or aliasing attacks to bypass weak blocklists. Examples of missing access controls on mutations.",
+    "reporting_hints": "The PoC must include the executed GraphQL query and the server's response. Remediation must strongly recommend disabling introspection and field suggestions in production, enforcing maximum query depth/cost limits to prevent DoS, and implementing strict field-level authorization in resolvers."
+  },
+  {
+    "id": "WSTG-ATHN-01",
+    "expected_evidence": "Wireshark or proxy captures (pcap/txt) proving that credentials (passwords, session cookies, bearer tokens) were transmitted in plaintext (HTTP or inadequately encrypted protocols) over the network.",
+    "reporting_hints": "Classify the risk of Man-in-the-Middle (MitM) attacks as critical. Remediation must mandate forced TLS encryption (minimum TLS 1.2, preferably TLS 1.3), the implementation of the Strict-Transport-Security (HSTS) header, and the prevention of all plaintext traffic."
+  },
+  {
+    "id": "WSTG-ATHN-02",
+    "expected_evidence": "Screenshot of a successful login (e.g., into an admin console) using default credentials (e.g., admin:admin, root:password) or weak, application-generated default patterns.",
+    "reporting_hints": "Reference the publicly available documentation of the utilized software (e.g., Tomcat, WordPress). Remediation: Systems must enforce a password change upon initial setup (Force Password Change on First Login). Administrators must be instructed to immediately delete or disable default accounts."
+  },
+  {
+    "id": "WSTG-ATHN-03",
+    "expected_evidence": "Excerpt from an Intruder log (automated fuzzing) demonstrating that the application continues to process login attempts for the same account even after a high number of failed attempts (e.g., 20 attempts), proving the absence of a lockout mechanism or CAPTCHA.",
+    "reporting_hints": "Highlight the risk of brute-force and credential stuffing attacks. Remediation should include account lockout after X failed attempts (e.g., a 15-minute lockout after 5 failures), exponential backoff, or server-side CAPTCHA verification."
+  },
+  {
+    "id": "WSTG-ATHN-04",
+    "expected_evidence": "A request where parameter manipulation (e.g., changing auth=0 to auth=1), session ID prediction, or SQL injection in the login form (e.g., ' OR 1=1 --) resulted in an authenticated state without knowledge of the password.",
+    "reporting_hints": "The PoC must detail both the original and manipulated requests to ensure 100% reproducibility. Remediation: The authentication state must never be dictated by the client. Enforce cryptographically secure, server-side managed session tokens."
+  },
+  {
+    "id": "WSTG-ATHN-05",
+    "expected_evidence": "Screenshots of the browser's local storage or cookies showing that the \"Remember Me\" feature stores plaintext passwords or trivial hashes (e.g., Base64 encoded) that can be easily stolen or manipulated.",
+    "reporting_hints": "Explain the risk of exposure via local access or XSS. Remediation: Implement rotating, long-lived tokens (\"Remember-Me Tokens\") that are bound to the device and validated against a server-side database (as a hash), entirely decoupled from the actual user password."
+  },
+  {
+    "id": "WSTG-ATHN-06",
+    "expected_evidence": "Screenshots of the browser cache (e.g., via about:cache) or successful use of the \"Back\" button to view pages containing sensitive data (PII, account balances) after a successful logout. HTTP response headers proving the absence of Cache-Control directives.",
+    "reporting_hints": "Emphasize that the risk primarily affects public/shared computers. Remediation: All dynamic and sensitive pages must strictly enforce the headers Cache-Control: no-store, no-cache, must-revalidate and Pragma: no-cache."
+  },
+  {
+    "id": "WSTG-ATHN-07",
+    "expected_evidence": "Screenshots proving that trivial passwords (e.g., 123456, password), excessively short passwords, or username-equals-password combinations are accepted by the system during registration or password change.",
+    "reporting_hints": "Point out susceptibility to brute-force and dictionary attacks. Remediation should reference industry standards (e.g., NIST SP 800-63B) and require: minimum length (e.g., 12 characters), rejection of known compromised passwords (breach lists), and favoring passphrases over rigid (but ineffective) complexity rules."
+  },
+  {
+    "id": "WSTG-ATHN-08",
+    "expected_evidence": "A list of security questions offered by the system that can be easily answered via Open Source Intelligence (OSINT) or guessing (e.g., \"Pet's name\", \"City of birth\"). Evidence showing a lack of rate limiting for answer submissions.",
+    "reporting_hints": "Explain that this feature reduces the overall authentication strength to its weakest link. Remediation: Security questions should be deprecated entirely. Implement alternatives like email magic links, SMS, or hardware tokens for password resets."
+  },
+  {
+    "id": "WSTG-ATHN-09",
+    "expected_evidence": "HTTP requests proving that reset tokens are predictable (e.g., time-based, Base64), reusable, or leaked in URLs (Referer leak). Proof that an authenticated user can perform a password reset without confirming the old password.",
+    "reporting_hints": "Provide a flawless PoC for a full Account Takeover. Remediation: Tokens must be generated using a CSPRNG (Cryptographically Secure Pseudo-Random Number Generator), have a short expiration time (e.g., 15 minutes), and be invalidated immediately after their first use or upon a new request."
+  },
+  {
+    "id": "WSTG-ATHN-10",
+    "expected_evidence": "A side-by-side comparison proving that while the main application (e.g., web frontend) is secured by MFA and lockout mechanisms, an alternative channel (e.g., a mobile API, legacy SOAP service) does not enforce these security controls.",
+    "reporting_hints": "Use log excerpts to show how an attacker bypasses the main application's protections via the unsecured channel. Remediation: Enforce global and consistent authentication policies (MFA, Rate Limiting) across all interfaces and endpoints."
+  },
+  {
+    "id": "WSTG-ATHN-11",
+    "expected_evidence": "Documentation (Request/Response) of the MFA step bypass. This can be achieved by direct navigation to /dashboard, manipulating a server response (\"mfa_passed\": true), or brute-forcing short SMS OTPs due to missing rate limiting.",
+    "reporting_hints": "The PoC must demonstrate the exact bypass method after the initial login step. Remediation: Implement strict session validation ensuring that no fully authorized session token is issued without a verified MFA step. Implement server-side rate limiting (lockout) for failed OTP attempts."
+  },
+  {
+    "id": "WSTG-ATHZ-01",
+    "expected_evidence": "An HTTP response displaying the plaintext of local system files (e.g., /etc/passwd, C:\\Windows\\win.ini) or backend source code, triggered by path manipulation (e.g., file=../../../../etc/passwd or null-byte injections).",
+    "reporting_hints": "Provide the exact payload and any necessary encoding steps (URL encoding). Remediation: File system access must never rely on unfiltered user input. File names must be validated against a server-side allowlist or mapped via indirect identifiers (e.g., database IDs)."
+  },
+  {
+    "id": "WSTG-ATHZ-02",
+    "expected_evidence": "Screenshots and requests showing that unauthorized access (horizontal or vertical/admin panel) was achieved through forced browsing (direct URL access without a link) or header manipulation (X-Original-URL, X-Forwarded-For).",
+    "reporting_hints": "Clearly define the attacker's role in the report. Remediation: Implement server-side authorization checks (e.g., filters/middleware) for every single route and action. \"Security by Obscurity\" (hiding buttons) is not effective access control."
+  },
+  {
+    "id": "WSTG-ATHZ-03",
+    "expected_evidence": "Manipulation of request parameters (e.g., changing role=user to role=admin in a POST request or cookie) that is accepted by the server and leads to immediate, verifiable privilege escalation for the account.",
+    "reporting_hints": "Include before/after proof of the account's permissions. Remediation: Parameters defining permission levels or roles must never be client-controlled or transmitted by the client. Role binding must occur exclusively via server-side databases/assignments."
+  },
+  {
+    "id": "WSTG-ATHZ-04",
+    "expected_evidence": "Two requests proving that User A, by altering an ID in a parameter (e.g., /api/invoice?id=10 to id=11), successfully retrieved or modified a private invoice, profile, or document belonging to User B.",
+    "reporting_hints": "Emphasize the potential leakage of customer data (PII). Remediation: Implement server-side validation logic that verifies whether the ID of the currently authenticated user is authorized to access the referenced data object."
+  },
+  {
+    "id": "WSTG-ATHZ-05",
+    "expected_evidence": "Intercepted access_tokens in URLs (e.g., leaked to third parties via the Referer header), successful bypass of redirect_uri allowlists, or the use of deprecated, vulnerable flows (e.g., OAuth 2.0 Implicit Flow).",
+    "reporting_hints": "The PoC must demonstrate exactly how an attacker can steal the token. Remediation: Mandate the use of the Authorization Code Flow with PKCE (Proof Key for Code Exchange) and enforce strict, exact-match server-side validation of allowed callback URLs."
+  },
+  {
+    "id": "WSTG-BUSL-01",
+    "expected_evidence": "Successful manipulation of business rules through unexpected data inputs, such as entering a negative price or a negative quantity into a shopping cart, resulting in a negative total (a credit).",
+    "reporting_hints": "Since logic flaws are often missed by automated scanners, describe the business workflow in detail. Remediation: Plausibility and value range checks for all logic-relevant data must be performed server-side."
+  },
+  {
+    "id": "WSTG-BUSL-02",
+    "expected_evidence": "Discovery and successful exploitation of hidden parameters (e.g., debug=1, admin_mode=true, or invalid discount values in the POST payload) that allow manipulation of the normal workflow.",
+    "reporting_hints": "Contrast the system behavior with and without the forged parameter. Remediation: Strict allowlisting of input parameters. Debug routines and test functionalities must be completely removed from the production codebase."
+  },
+  {
+    "id": "WSTG-BUSL-03",
+    "expected_evidence": "Manipulation of \"Hidden HTML Fields\" or read-only UI elements (e.g., modifying a supposedly fixed price) that are not integrity-checked server-side, leading to unauthorized state changes.",
+    "reporting_hints": "The proxy capture (e.g., Burp) is critical evidence. Remediation: Never trust client-generated values for critical business logic. Critical variables (e.g., prices) must be retrieved server-side from the database."
+  },
+  {
+    "id": "WSTG-BUSL-04",
+    "expected_evidence": "Proof of Time-of-check to time-of-use (TOCTOU) / Race Conditions, such as the simultaneous redemption of a single voucher in multiple parallel threads, where the voucher value is credited multiple times before the limit is enforced.",
+    "reporting_hints": "Logs from tools like Turbo Intruder showing the parallel requests and responses. Remediation: Implement transactional locks (Row-Level Locks, Mutexes) during critical read/write operations in the database."
+  },
+  {
+    "id": "WSTG-BUSL-05",
+    "expected_evidence": "Evasion of usage limits, demonstrated by executing a limited function (e.g., promo code redemption, voting, download quotas) significantly more often than the system intended.",
+    "reporting_hints": "Point out whether the limitation was implemented only client-side or defectively server-side. Remediation: Implement strict server-side counters that are updated atomically and checked against the limit during every transaction."
+  },
+  {
+    "id": "WSTG-BUSL-06",
+    "expected_evidence": "Successfully skipping essential process steps in a multi-step application. E.g., directly calling the API route for \"order confirmation\" without having completed the payment process.",
+    "reporting_hints": "The PoC must document the intended workflow path versus the manipulated path. Remediation: Implement server-side state management (State Machine) that strictly verifies whether the preconditions for a specific step have been met."
+  },
+  {
+    "id": "WSTG-BUSL-07",
+    "expected_evidence": "Lack of application response to massive errors (e.g., no blocking after thousands of SQLi attacks) or successful Content Spoofing attacks where UI notifications were maliciously modified to deceive users.",
+    "reporting_hints": "Describe the missing defense mechanisms. Remediation: Introduce Rate Limiting, Web Application Firewalls (WAF), and active monitoring/blocking mechanisms against overtly malicious behavior."
+  },
+  {
+    "id": "WSTG-BUSL-08",
+    "expected_evidence": "Successful upload of unauthorized file types (e.g., .exe, .jsp, .sh instead of .png) that are stored and potentially served by the server.",
+    "reporting_hints": "Document whether client-side checks or simple extension checks were bypassed. Remediation: Validate file types exclusively via file content (Magic Bytes), randomize filenames, and prohibit script execution within the upload directory."
+  },
+  {
+    "id": "WSTG-BUSL-09",
+    "expected_evidence": "Upload of a Web Shell (e.g., PHP/ASP), an EICAR test file, a Zip Bomb, or archives crafted for Directory Traversal (Zip Slip), followed by successful execution or parsing on the server.",
+    "reporting_hints": "The PoC must prove code execution (e.g., output of id or whoami) or file access. Remediation: Scan uploaded files (Antivirus), process them in isolated containers (Sandboxes), and never store them in the web root directory with execution permissions."
+  },
+  {
+    "id": "WSTG-BUSL-10",
+    "expected_evidence": "Demonstrable vulnerabilities in the payment process. This may include price manipulation during redirection to the payment gateway, skipping the gateway entirely, or exploiting race conditions to credit an account multiple times.",
+    "reporting_hints": "Emphasize the direct risk of financial loss. Remediation: Never pass prices to the client. Payment status validation must occur asynchronously and cryptographically secured (via Webhooks/Signed Hashes) directly from the payment provider to the backend."
+  },
+  {
+    "id": "WSTG-CLNT-01",
+    "expected_evidence": "Screenshot/proof of an XSS payload executed entirely client-side. Identification of the exact \"Source\" (e.g., location.hash) and the unfiltered \"Sink\" (e.g., document.write or innerHTML) within the JavaScript code.",
+    "reporting_hints": "Specify the exact line in the JS source code. Remediation: Replace dangerous sinks (e.g., use textContent instead of innerHTML) or use specialized sanitization libraries (like DOMPurify) prior to DOM modification."
+  },
+  {
+    "id": "WSTG-CLNT-02",
+    "expected_evidence": "Payload and proof of successful injection where user-controlled input was evaluated and executed client-side as JavaScript by functions like eval(), setTimeout(), or setInterval().",
+    "reporting_hints": "The PoC must show the triggering link/request. Remediation: Completely avoid dynamic code evaluation (eval) for user-generated content."
+  },
+  {
+    "id": "WSTG-CLNT-03",
+    "expected_evidence": "Injection of HTML structures (e.g., a spoofed login form or <h1> tags) that are rendered unfiltered client-side due to missing escaping mechanisms.",
+    "reporting_hints": "Explain the risk of phishing and social engineering within the trusted page. Remediation: Enforce strict HTML entity encoding when outputting user input to the DOM."
+  },
+  {
+    "id": "WSTG-CLNT-04",
+    "expected_evidence": "Modified URL (e.g., example.com/#redirect=https://evil.com) that forces an automatic redirect to a foreign, potentially malicious domain (Open Redirect) due to flawed JavaScript logic (window.location = ...).",
+    "reporting_hints": "Illustrate the usability for phishing campaigns. Remediation: Validate redirects client-side (e.g., by matching against an allowlist of permitted local paths)."
+  },
+  {
+    "id": "WSTG-CLNT-05",
+    "expected_evidence": "Injection of CSS code (e.g., via inadequately filtered parameters flowing into a style attribute) that defaces the webpage or exfiltrates sensitive data (like CSRF tokens) to external servers via CSS selectors.",
+    "reporting_hints": "Ideally, the PoC should demonstrate data exfiltration, not just color changes. Remediation: Strict validation of styles and deployment of a Content Security Policy (CSP) that prohibits unsafe-inline for styles."
+  },
+  {
+    "id": "WSTG-CLNT-06",
+    "expected_evidence": "Proof that a manipulated parameter causes the application to load resources (scripts, iframes, images) from an attacker-controlled URL (e.g., src=\"https://evil.com/malicious.js\").",
+    "reporting_hints": "Screenshots from the browser's Network tab proving the retrieval of the external resource. Remediation: Hardcode resource URLs or use server-side allowlists for dynamic paths."
+  },
+  {
+    "id": "WSTG-CLNT-07",
+    "expected_evidence": "HTTP Response Headers showing that the application reflects dynamic (unverified) Origin headers or uses Access-Control-Allow-Origin: * in conjunction with Access-Control-Allow-Credentials: true for API endpoints containing sensitive data.",
+    "reporting_hints": "The PoC must include an external HTML/JS script that successfully reads the logged-in victim's sensitive API data. Remediation: Strict allowlisting of exact domains without regular expression flaws, and avoidance of wildcards for authenticated endpoints."
+  },
+  {
+    "id": "WSTG-CLNT-08",
+    "expected_evidence": "Decompiled source code excerpts of an .swf file or manipulated FlashVars proving that unsafe functions (getURL, ExternalInterface.call) are invoked to enable XSS.",
+    "reporting_hints": "Since Flash is End-of-Life (EOL), the primary risk should highlight the use of obsolete code. Remediation: Complete removal of Flash content and migration to HTML5/JavaScript."
+  },
+  {
+    "id": "WSTG-CLNT-09",
+    "expected_evidence": "An external PoC HTML file successfully loading the target application (e.g., account settings) in an invisible <iframe>, allowing users to be tricked into unintended clicks.",
+    "reporting_hints": "Demonstrate which critical action can be stealthily clicked. Remediation: Implement the HTTP headers X-Frame-Options: DENY (or SAMEORIGIN) and Content-Security-Policy: frame-ancestors 'none'."
+  },
+  {
+    "id": "WSTG-CLNT-10",
+    "expected_evidence": "ZAP/Burp logs showing that unfiltered payload messages (XSS, SQLi) are sent to the server via WebSockets, accepted, and potentially broadcast to other clients. Alternatively: Proof of missing Origin validation during the WebSocket handshake (CSWSH).",
+    "reporting_hints": "Point out the lack of authentication and validation mechanisms at the WS level. Remediation: Verify the Origin header during the handshake and enforce strict input sanitization for all WebSocket frames."
+  },
+  {
+    "id": "WSTG-CLNT-11",
+    "expected_evidence": "Code review excerpt of a window.addEventListener(\"message\", ...) listener that fails to validate the origin (event.origin) of the message and processes the received event.data dangerously (e.g., writing it to innerHTML).",
+    "reporting_hints": "Provide an iFrame PoC that sends malicious messages (postMessage) to the application. Remediation: Every message must strictly verify event.origin against a hardcoded allowlist before processing event.data."
+  },
+  {
+    "id": "WSTG-CLNT-12",
+    "expected_evidence": "Screenshot of the browser developer tools (Local Storage, Session Storage, IndexedDB) revealing sensitive data (plaintext passwords, PII, persistent JWT authentication tokens) stored unencrypted.",
+    "reporting_hints": "Explain that this data can be extracted by any XSS vulnerability in the system. Remediation: Authentication tokens should instead be stored in HttpOnly; Secure cookies to prevent client-side JavaScript access."
+  },
+  {
+    "id": "WSTG-CLNT-13",
+    "expected_evidence": "Proof that an attacker-controlled webpage can load a confidential, dynamic JS/JSON file from the target site via <script src=\"...\"> and read its sensitive variables/data within its own context (XSSI).",
+    "reporting_hints": "POC page demonstrating the exfiltration of user data from the victim. Remediation: Dynamic sensitive data must not be deliverable as a valid JavaScript script (use JSON with anti-hijacking prefixes like while(1); or protect endpoints with CSRF tokens)."
+  },
+  {
+    "id": "WSTG-CLNT-14",
+    "expected_evidence": "Identification of user-generated or external links on the page that feature target=\"_blank\" but lack the attributes rel=\"noopener noreferrer\". POC showing how the opened tab redirects the originating page to a phishing site via window.opener.location.",
+    "reporting_hints": "Emphasize the phishing risk. Remediation: Universally append rel=\"noopener noreferrer\" to all links that open in a new tab."
+  },
+  {
+    "id": "WSTG-CLNT-15",
+    "expected_evidence": "Execution of a template payload (e.g., {{ 7 * 7 }} in Angular or Vue) evaluated client-side (outputting \"49\"). If a sandbox escape is successful, provide a PoC with alert(1).",
+    "reporting_hints": "Show the payload and the rendered result. Remediation: Avoid server-side mixing of user-generated data and client-side templates. Use safe directives (e.g., v-text instead of v-html)."
+  },
+  {
+    "id": "WSTG-CONF-01",
+    "expected_evidence": "Results from Nmap/Nessus scans showing unnecessarily open ports, outdated services (e.g., outdated OpenSSH), or unprotected management interfaces (e.g., RDP, database ports) directly accessible from the internet.",
+    "reporting_hints": "List the found ports and detected versions. Remediation: Close all non-essential external ports. Management services must only be accessible via VPN or strict IP allowlisting."
+  },
+  {
+    "id": "WSTG-CONF-02",
+    "expected_evidence": "Discovery of leftover debug modes (e.g., Django/Werkzeug debug pages), default management consoles, installation scripts, or verbose error logs freely accessible in the production environment.",
+    "reporting_hints": "Include direct URLs and screenshots of the leaked information. Remediation: Strict hardening of the application server according to best practice guidelines (e.g., CIS Benchmarks) and deactivation of all debug flags in production."
+  },
+  {
+    "id": "WSTG-CONF-03",
+    "expected_evidence": "Successful HTTP retrieval of files with sensitive extensions (e.g., .config, .inc, .bak, .log) revealing source code, server configurations, or even database connection strings.",
+    "reporting_hints": "Display the content of the retrieved sensitive file. Remediation: Adjust web server configuration (e.g., Apache, Nginx) to categorically block access to configuration or archive extensions server-side with a 403 (Forbidden) status."
+  },
+  {
+    "id": "WSTG-CONF-04",
+    "expected_evidence": "Discovery of forgotten backup archives (e.g., backup.zip, dump.sql) or unreferenced old pages (e.g., old_index.php) containing sensitive data via automated fuzzing or Google Dorks.",
+    "reporting_hints": "Prove the existence of the file and its sensitive content. Remediation: Backups and source code archives must never be stored in publicly accessible web directories (web root)."
+  },
+  {
+    "id": "WSTG-CONF-05",
+    "expected_evidence": "Discovery of hidden or unlinked administration interfaces (e.g., /wp-admin, /admin.php, /manager/html) accessible without network restrictions and potentially exposed to brute-force attacks.",
+    "reporting_hints": "Provide the URL of the admin panel and state whether authentication flaws exist. Remediation: Hide administration panels behind internal networks, VPNs, IP allowlisting, and mandate the use of MFA."
+  },
+  {
+    "id": "WSTG-CONF-06",
+    "expected_evidence": "Proof that unusual HTTP methods (like PUT, DELETE, or PATCH) can create or delete files on the server without authentication, or that access controls were bypassed using HTTP Method Overriding (e.g., X-HTTP-Method-Override).",
+    "reporting_hints": "Show the request that successfully modified the file. Remediation: Disable unnecessary HTTP verbs at the web server level and implement strict application permission checks regardless of the verb used."
+  },
+  {
+    "id": "WSTG-CONF-07",
+    "expected_evidence": "HTTP response header analysis (e.g., via curl -I) demonstrating the absence of the Strict-Transport-Security (HSTS) header, or a flawed configuration (e.g., max-age=0 or missing includeSubDomains).",
+    "reporting_hints": "Include the header excerpt. Remediation: Configure the HSTS header with an appropriate max-age (at least 1 year), the includeSubDomains flag, and ideally register it on the HSTS Preload List."
+  },
+  {
+    "id": "WSTG-CONF-08",
+    "expected_evidence": "Discovery of highly outdated and insecure policy files like crossdomain.xml or clientaccesspolicy.xml containing overly-permissive rules (e.g., <allow-access-from domain=\"*\" />) that allow data leakage.",
+    "reporting_hints": "Reference the End-of-Life of Flash/Silverlight. Remediation: Delete these files entirely, unless legacy systems strictly require them (in which case, restrict to explicit allowlists)."
+  },
+  {
+    "id": "WSTG-CONF-09",
+    "expected_evidence": "Identification of server files (e.g., config.php, log files) within the web root possessing incorrect permissions (e.g., World-Readable/World-Writable, chmod 777), allowing other processes or users on the server to read/overwrite them.",
+    "reporting_hints": "List the exact file permissions (if white-box access is available). Remediation: Strictly enforce the Principle of Least Privilege at the file system level through correct user/group ownerships."
+  },
+  {
+    "id": "WSTG-CONF-10",
+    "expected_evidence": "Proof of a \"Dangling DNS Record\" (e.g., a CNAME pointing to an unregistered S3 bucket, a non-existent Heroku app, or Github Page) that could theoretically or practically be registered and taken over by an attacker.",
+    "reporting_hints": "The PoC must include the DNS resolution (dig) and a screenshot from the third-party provider confirming the resource's availability. Remediation: Immediately remove orphaned CNAME records from DNS zones."
+  },
+  {
+    "id": "WSTG-CONF-11",
+    "expected_evidence": "Open cloud resources (AWS S3 Buckets, Azure Blobs) allowing unauthorized content reading (e.g., via aws s3 ls s3://bucket-name) or file uploads (write access) directly from the internet.",
+    "reporting_hints": "Show console outputs proving read or write access. Remediation: Review IAM policies and strictly enable \"Block Public Access\" for the affected storage services."
+  },
+  {
+    "id": "WSTG-CONF-12",
+    "expected_evidence": "Analysis of the HTTP Response Header proving the complete absence of the Content-Security-Policy or highlighting insecure directives like unsafe-inline, unsafe-eval, and wildcards (*) that fail to effectively prevent XSS attacks.",
+    "reporting_hints": "Use tools like CSP Evaluator to highlight policy gaps. Remediation: Create a restrictive CSP utilizing nonces or hashes for scripts, and eliminate the use of unsafe-inline."
+  },
+  {
+    "id": "WSTG-CONF-13",
+    "expected_evidence": "HTTP requests where path manipulations (e.g., /dashboard/..%2f..%2f/admin or /dashboard/nonexistent.js) cause interpretation discrepancies between the frontend cache (CDN/Proxy) and the backend (Web Cache Deception).",
+    "reporting_hints": "Demonstrate how this resulted in private user data being cached publicly or authentication being bypassed. Remediation: Implement consistent, RFC-compliant path normalization across all architecture tiers."
+  },
+  {
+    "id": "WSTG-CONF-14",
+    "expected_evidence": "Documentation of missing established security headers (e.g., X-Content-Type-Options: nosniff, X-Frame-Options), redundancies, or the presence of outdated/deprecated headers (e.g., X-XSS-Protection).",
+    "reporting_hints": "Substantiate this with header excerpts. Remediation: Implement Modern Secure Header Best Practices to harden the client-side and prevent MIME sniffing and framing attacks."
+  },
+  {
+    "id": "WSTG-CRYP-01",
+    "expected_evidence": "Output from scanning tools (e.g., testssl.sh or Qualys SSL Labs) showing the server accepts outdated protocols (TLS 1.0, TLS 1.1), weak ciphers (e.g., RC4, 3DES), or invalid/expired certificates.",
+    "reporting_hints": "List the specific findings (CVEs like POODLE, SWEET32). Remediation: Configure the server according to current BSI/NIST guidelines (disable TLS < 1.2, prioritize PFS and strong AEAD ciphers)."
+  },
+  {
+    "id": "WSTG-CRYP-02",
+    "expected_evidence": "Discrepancies in the server response (e.g., specific error messages, HTTP 500, or significant timing differences) when the encrypted string (ciphertext) is manipulated byte by byte.",
+    "reporting_hints": "The proof should include logs from exploitation tools (like PadBuster) showing that decryption is possible. Remediation: Use Authenticated Encryption (AEAD) such as AES-GCM instead of CBC modes."
+  },
+  {
+    "id": "WSTG-CRYP-03",
+    "expected_evidence": "Intercepted network traffic (e.g., in Wireshark or as a proxy log) demonstrating how sensitive data (logins, session IDs, PII, credit card details) is transmitted unencrypted (plaintext) over HTTP.",
+    "reporting_hints": "The PoC must clearly show the plaintext visibility. Remediation: Immediately enforce HTTPS for the entire application (via Redirects and HSTS)."
+  },
+  {
+    "id": "WSTG-CRYP-04",
+    "expected_evidence": "Discovery of weak algorithms (e.g., MD5, SHA1) for password hashing, the use of static initialization vectors (IVs), or ECB mode encryption, identified through code review (White-Box) or token crypto-analysis.",
+    "reporting_hints": "Reference the relevant code sections or token patterns. Remediation: Employ modern cryptographic standards (e.g., Argon2/bcrypt for passwords, AES-256-GCM for symmetric encryption) and Secure Pseudo-Random Number Generators (CSPRNG)."
+  },
+  {
+    "id": "WSTG-ERRH-01",
+    "expected_evidence": "HTTP responses to erroneous, modified, or unexpected inputs (e.g., broken JSON or invalid types) that reveal deep system information like stack traces, absolute file paths, or database query syntax.",
+    "reporting_hints": "Highlight exactly which system details were leaked in the report. Remediation: Implement a global exception handler that returns generic error messages (e.g., HTTP 500 with a generic Ref-ID) to the client in production."
+  },
+  {
+    "id": "WSTG-ERRH-02",
+    "expected_evidence": "A complete, unfiltered stack trace in the application UI or API response, revealing exact versions of used libraries, frameworks, and the backend code structure.",
+    "reporting_hints": "Attach a screenshot of the error message. Remediation: Log stack traces exclusively in secure, server-side log files for debugging purposes, but never output them directly to the end user."
+  },
+  {
+    "id": "WSTG-IDNT-01",
+    "expected_evidence": "Documentation of a poorly segregated role where, for example, a standard user can access functions logically reserved for administrators, or proof that roles can be switched via parameter manipulation.",
+    "reporting_hints": "Compare the implemented permissions against the logical requirements (Business Need). Remediation: Strictly implement Role-Based (RBAC) or Attribute-Based Access Control (ABAC) and adhere to the Principle of Least Privilege."
+  },
+  {
+    "id": "WSTG-IDNT-02",
+    "expected_evidence": "The ability to massively automate registrations without verification (e.g., missing email loop, no CAPTCHA), or injecting privileges (e.g., role=admin) during the standard registration POST request.",
+    "reporting_hints": "Show a script or the manipulated request exploiting the flaw. Remediation: Strict identity validation, rate limiting against mass registrations, and stripping any privilege-assigning parameters from user-controlled payloads."
+  },
+  {
+    "id": "WSTG-IDNT-03",
+    "expected_evidence": "Proof that unauthorized users or lower privilege levels can provision new (potentially highly privileged) accounts, or that no review/approval process exists.",
+    "reporting_hints": "Describe how the approval workflow was bypassed. Remediation: Implement multi-level approvals (Maker-Checker Principle) for the provisioning of critical access accounts."
+  },
+  {
+    "id": "WSTG-IDNT-04",
+    "expected_evidence": "Different server responses (text changes like \"User not found\" vs. \"Incorrect password\") or measurable response times (timing discrepancies) during login/password reset, depending on whether a username exists in the system or not.",
+    "reporting_hints": "Include screenshots of the differing error messages or a chart of the timing differences. Remediation: Use consistent, generic error messages (\"If the account exists, an email has been sent\") and mitigate timing attacks."
+  },
+  {
+    "id": "WSTG-IDNT-05",
+    "expected_evidence": "Registration of accounts using reserved, system-critical names (e.g., admin, system) or names with whitespaces that collide with existing accounts due to faulty normalization (case sensitivity).",
+    "reporting_hints": "The PoC must show the registered account and its disruptive effect. Remediation: Hardcoded blocklists for reserved names, strict special character restrictions, and proper string normalization."
+  },
+  {
+    "id": "WSTG-SESS-01",
+    "expected_evidence": "Session tokens with predictable generation patterns (e.g., sequentially incrementing, Base64 encoding of the username without a salt), proven by analyzing multiple generated tokens (e.g., via Burp Sequencer).",
+    "reporting_hints": "Point out the lack of entropy. Remediation: Exclusively use Cryptographically Secure Pseudo-Random Number Generators (CSPRNG) and the hardened session management routines integrated into modern frameworks."
+  },
+  {
+    "id": "WSTG-SESS-02",
+    "expected_evidence": "HTTP Set-Cookie headers for authentication or session cookies missing security-relevant attributes such as Secure, HttpOnly, or SameSite.",
+    "reporting_hints": "Include the raw response header as evidence and explain the impact (e.g., XSS danger due to missing HttpOnly). Remediation: Universally set the Secure, HttpOnly, and SameSite=Strict (or Lax) attributes for session cookies."
+  },
+  {
+    "id": "WSTG-SESS-03",
+    "expected_evidence": "HTTP traffic proving that the Session ID (e.g., PHPSESSID) prior to authentication is identical to the ID after a successful login (no token renewal).",
+    "reporting_hints": "The PoC should demonstrate how an ID predefined by the attacker is forced upon the victim, leading to session takeover. Remediation: Mandatory regeneration of the Session ID (Session Token Renewal) after every successful authentication."
+  },
+  {
+    "id": "WSTG-SESS-04",
+    "expected_evidence": "Transmission of session tokens as GET parameters in the URL (e.g., /dashboard?session_id=abc), causing these tokens to leak into browser histories, Referer headers to third-party sites, or proxy logs.",
+    "reporting_hints": "Show screenshots of the URL bar and (if applicable) the HTTP Referer header leaking to external sites. Remediation: Session tokens must never be transmitted in the URI path; they must strictly be passed as cookies or in the HTTP Authorization header."
+  },
+  {
+    "id": "WSTG-SESS-05",
+    "expected_evidence": "A POC in the form of an HTML document that (when opened by the logged-in victim) silently executes a critical, state-changing action (e.g., email change, money transfer) in the application because Anti-CSRF mechanisms are missing.",
+    "reporting_hints": "Document the affected endpoint. Remediation: Implement the Synchronizer Token Pattern (Anti-CSRF Tokens) for all state-changing methods (POST, PUT, DELETE) and use SameSite cookie attributes."
+  },
+  {
+    "id": "WSTG-SESS-06",
+    "expected_evidence": "Proof (via API calls using cURL/Postman after clicking \"Logout\") that the session token was not invalidated server-side and remains valid for further authenticated requests.",
+    "reporting_hints": "The PoC must demonstrate that the \"deleted\" cookie still retains full access rights. Remediation: The logout process must imperatively mark the token as invalid on the server (Invalidation) and instruct the client to delete the cookie."
+  },
+  {
+    "id": "WSTG-SESS-07",
+    "expected_evidence": "Proof that a session token is still accepted by the server for protected access even after an extremely long period of inactivity (several hours/days).",
+    "reporting_hints": "State the time window between the last activity and the subsequent successful request. Remediation: Configure a strict Idle Timeout (e.g., 15-30 minutes of inactivity) and an absolute session timeout on the server side."
+  },
+  {
+    "id": "WSTG-SESS-08",
+    "expected_evidence": "Successful bypass of authorization by unforeseen exploitation of session variables (e.g., if setting the username in the \"Forgot Password\" flow inadvertently tricks the backend into considering the user \"logged in\" in another function).",
+    "reporting_hints": "The PoC must describe the exact, unusual sequence of page requests that triggers the logic flaw in the session map. Remediation: Strict isolation of session variables and dedicated status flags for different processes."
+  },
+  {
+    "id": "WSTG-SESS-09",
+    "expected_evidence": "Practical demonstration of theft (e.g., interception due to lack of encryption or extraction via XSS) and the subsequent, successful use of the session (hijacking) from a completely foreign IP or different device.",
+    "reporting_hints": "Show the foreign takeover of the account session in the report. Remediation: Implement device/IP fingerprinting for sessions to minimize risk, combined with strict Secure and HttpOnly cookie attributes."
+  },
+  {
+    "id": "WSTG-SESS-10",
+    "expected_evidence": "Successful manipulation of a JWT, e.g., by bypassing signature verification via \"alg\": \"none\", altering claims after cracking a weak signing key (e.g., using jwt2john), or type confusion (HMAC vs. Public Key Confusion).",
+    "reporting_hints": "The report must include the decoded original payload and the successfully altered JWT payload including the signature. Remediation: Prohibit the none algorithm, use secure asymmetric signatures (RS256), and protect the secret key."
+  },
+  {
+    "id": "WSTG-SESS-11",
+    "expected_evidence": "Proof that the same account can simultaneously establish hundreds of active sessions from various devices/IPs without older sessions being invalidated or a warning being triggered (e.g., for admin accounts).",
+    "reporting_hints": "Document the number of sessions created and whether this poses business risks (e.g., Account Sharing). Remediation: Implement server-side session tracking that forcibly terminates old sessions when a limit (e.g., 1 or 3 active sessions) is exceeded."
+  }
+]

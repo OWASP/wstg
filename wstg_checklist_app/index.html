@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OWASP WSTG Interactive Checklist</title>
+    <link rel="icon" href="owasp-logo.webp" type="image/webp">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Include marked.js for markdown rendering of fields like methodology -->
+    <script src="marked.min.js"></script>
+    <script src="jszip.min.js"></script>
+    <script src="wstg_checklist_data.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-left">
+                <img src="owasp-logo.webp" alt="OWASP Logo" class="header-logo">
+                <div>
+                    <h1>OWASP WSTG Checklist</h1>
+                    <p>Web Application Security Testing Guide Companion</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="progress-container">
+                    <span id="progress-text">0 / 0 Completed</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                </div>
+                <div class="actions">
+                    <button id="export-btn" class="btn primary">Export State</button>
+                    <button id="import-btn" class="btn secondary">Import State</button>
+                    <input type="file" id="import-file" style="display: none;" accept=".json,.zip">
+                    <button id="theme-toggle" class="btn icon-btn" title="Toggle Theme">🌓</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="checklist-container" id="checklist-container">
+            <!-- Categories and Modules will be rendered here by JS -->
+        </main>
+
+        <footer style="margin-top: 3rem; text-align: center; padding-bottom: 2rem;">
+            <div style="margin-bottom: 1.5rem;">
+                <button id="reset-btn" class="btn secondary" style="color: var(--danger-color); border-color: var(--danger-color); font-weight: bold;">⚠️ Alles zurücksetzen</button>
+            </div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
+                <p><strong>Version:</strong> WSTG v5.0 (Stable)</p>
+                <p>
+                    <a href="https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/" target="_blank" rel="noopener noreferrer">OWASP WSTG Website</a> | 
+                    <a href="https://github.com/OWASP/wstg/tree/master" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
