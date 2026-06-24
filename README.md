@@ -1,5 +1,7 @@
 # OWASP WSTG Interactive Checklist App
 
+🚀 **[Access the Live Checklist App Here!](https://laurinengelen.github.io/OWASP-WSTG-Checklisten-App/)**
+
 Welcome to the **OWASP WSTG Interactive Checklist App**! This repository contains an offline-capable, interactive companion app for the OWASP Web Security Testing Guide (WSTG).
 
 ## About the Checklist App
@@ -11,7 +13,12 @@ The `wstg_checklist_app` folder contains a client-side web application that allo
 - Export and import your current testing state as a JSON file.
 
 ### How to Use
-Simply open the `wstg_checklist_app/index.html` file in any modern web browser. It runs entirely locally, meaning no data is sent to any servers, making it safe for confidential assessments.
+
+**Online Version:**
+Simply visit the live hosted application at [https://laurinengelen.github.io/OWASP-WSTG-Checklisten-App/](https://laurinengelen.github.io/OWASP-WSTG-Checklisten-App/).
+
+**Offline Version:**
+Alternatively, you can open the `wstg_checklist_app/index.html` file in any modern web browser locally. It runs entirely client-side, meaning no data is sent to any servers, making it safe for confidential assessments.
 
 ### How it Works
 The checklist data is generated from the official OWASP WSTG markdown files. The python script `wstg_checklist_app/extract_wstg.py` parses the markdown documentation and compiles it into a static JavaScript file (`wstg_checklist_data.js`) used by the app.
