@@ -466,6 +466,14 @@ a:hover {
     border: 1px solid var(--border-color);
 }
 
+.docs-section {
+    transition: all 0.2s ease;
+}
+
+.docs-section:has(.docs-header:hover) {
+    border-color: var(--primary-color);
+}
+
 .detail-section h4 {
     font-size: 0.75rem;
     text-transform: uppercase;
