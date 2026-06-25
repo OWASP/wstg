@@ -16,6 +16,9 @@ As this functionality provides a direct route to compromise the user's account, 
 
 ## How to Test
 
+The following tests should be performed to evaluate the security of password
+change and reset functionality.
+
 ### Information Gathering
 
 The first step is to gather information about what mechanisms are available to allow the user to reset their password on the application. If there are multiple interfaces on the same site (such as a web interface, mobile application, and API) then these should all be reviewed, in case they provide different functionality.
@@ -113,10 +116,26 @@ In this model, the user is emailed a link that contains a token. They can then c
 
 - Is the link exposed to third parties?
 
-  If the page that the user is taken to includes content from other parties (such as loading scripts from other domains), then the reset token in the URL may be exposed in the HTTP `Referer` header sent in these requests. The `Referrer-Policy` HTTP header can be used to protect against this, so check if one is defined for the page.
+  Test whether the reset token can be exposed through the HTTP `Referer`
+  header when the reset page loads third-party resources.
 
-  Additionally, if the page includes any tracking, analytics or advertising scripts, the token will also be exposed to them.
+  When a password reset link contains the token in the URL, such as
+  `https://example.com/reset?token=ABC123`, the token may be included in
+  the HTTP `Referer` header when the page loads external resources such
+  as analytics scripts, images, or JavaScript from third-party domains.
 
+  Testers should verify whether the reset token is leaked to external
+  domains by inspecting network requests made by the reset page.
+
+  1. Trigger a password reset request and open the reset link.
+  2. Inspect network requests using browser developer tools or an intercepting proxy such as Burp Suite or OWASP ZAP.
+  3. Identify requests made to external domains.
+  4. Check whether the full reset URL, including the token, appears in the `Referer` header of these requests.
+
+  If the token is transmitted to third-party domains, an attacker
+  controlling those resources may capture the token and use it to reset
+  the victim's password.
+  
 - Are the emails sent from a domain with anti-spoofing protection?
 
   The domain should implement SPF, DKIM, and DMARC to prevent attackers from spoofing emails from it, which could be used as part of a social engineering attack.
