@@ -10,10 +10,10 @@ Administrator interfaces may be present in the application or on the application
 
 An application may require an administrator interface to enable a privileged user to access functionality that may make changes to how the site functions. Such changes may include:
 
-- user account provisioning
-- site design and layout
-- data manipulation
-- configuration changes
+- User account provisioning
+- Site design and layout
+- Data manipulation
+- Configuration changes
 
 In many instances, such interfaces do not have sufficient controls to protect them from unauthorized access. Testing is aimed at discovering these administrator interfaces and accessing functionality intended for the privileged users.
 
