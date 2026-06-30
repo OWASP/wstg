@@ -204,6 +204,13 @@ document.addEventListener('DOMContentLoaded', () => {
             })
         );
 
+        const openTools = new Set(
+            Array.from(checklistContainer.querySelectorAll('.tools-content')).filter(el => el.style.display === 'block').map(el => {
+                const card = el.closest('.module-card');
+                return card.getAttribute('data-id');
+            })
+        );
+
         checklistContainer.innerHTML = '';
         
         // Group by category
@@ -318,23 +325,80 @@ document.addEventListener('DOMContentLoaded', () => {
                                     <p><strong>${t.label_evidence}</strong> ${marked.parseInline ? marked.parseInline(mExpectedEvidence) : mExpectedEvidence}</p>
                                     <p><strong>${t.label_reporting}</strong> ${marked.parseInline ? marked.parseInline(mReportingHints) : marked.parse(mReportingHints).replace(/^<p>|<\/p>\n?$/g, '')}</p>
                                     
-                                    <h3 class="doc-section-title">${t.label_tools}</h3>
-                                    ${marked.parse(mTools || t.label_no_tools)}
-                                    
                                     <div style="margin-top: 1.5rem; text-align: center;">
                                         <button class="docs-close-btn btn secondary">${t.btn_show_less}</button>
                                     </div>
                             </div>
                         </div>
 
+                        <div class="detail-section full-width tools-section" style="padding: 0;">
+                            <div class="tools-header" style="padding: 1rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none;">
+                                <h4 style="margin: 0;">${t.label_tools}</h4>
+                                <div class="tools-arrow" style="color: var(--text-secondary);">${openTools.has(module.id) ? '▲' : '▼'}</div>
+                            </div>
+                            <div class="detail-content tools-content" style="display: ${openTools.has(module.id) ? 'block' : 'none'}; padding: 0 1rem 1rem 1rem;">
+                                    ${marked.parse(mTools || t.label_no_tools)}
+                            </div>
+                        </div>
+
                         <div class="detail-section full-width sysreptor-section" data-id="${module.id}">
                             <h4>${t.label_sysreptor}</h4>
                             <div class="detail-content">
-                                <div>
-                                    <label style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 4px;">${t.label_finding_title}</label>
-                                    <input type="text" class="sysreptor-title-input" value="${(state[module.id + '_title'] || module.sysreptor_finding).replace(/"/g, '&quot;')}">
+
+                                ${module.sysreptor_templates && module.sysreptor_templates.length > 0 ? `
+                                <div class="sysreptor-checklist-container">
+                                    <label style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 8px;">${currentLang === 'de' ? 'Checkliste / Befunde' : 'Checklist / Findings'}:</label>
+                                    <div class="sysreptor-checklist">
+                                        ${module.sysreptor_templates.map(tmpl => {
+                                            const mFindings = state[module.id + '_sysreptor_findings'] || {};
+                                            const fData = mFindings[tmpl.id] || {};
+                                            const isChecked = !!fData.checked;
+                                            
+                                            const defaultTitle = currentLang === 'de' ? tmpl.title_de : tmpl.title_en;
+                                            const defaultDesc = currentLang === 'de' ? tmpl.description_de : tmpl.description_en;
+                                            const defaultCons = currentLang === 'de' ? tmpl.consequences_de : tmpl.consequences_en;
+                                            
+                                            const activeTitle = fData.title !== undefined ? fData.title : defaultTitle;
+                                            const activeDesc = fData.description !== undefined ? fData.description : defaultDesc;
+                                            const activeCons = fData.consequences !== undefined ? fData.consequences : defaultCons;
+                                            const activeComment = fData.comment || '';
+                                            
+                                            return `
+                                            <div class="sysreptor-finding-card ${isChecked ? 'checked' : ''}" data-finding-id="${tmpl.id}">
+                                                <div class="sysreptor-finding-header">
+                                                    <div class="sysreptor-finding-header-left">
+                                                        <input type="checkbox" class="sysreptor-finding-checkbox" ${isChecked ? 'checked' : ''}>
+                                                        <span class="sysreptor-finding-title">${activeTitle.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</span>
+                                                    </div>
+                                                    <button class="sysreptor-finding-toggle" type="button">▼</button>
+                                                </div>
+                                                <div class="sysreptor-finding-details">
+                                                    <div class="sysreptor-field-group">
+                                                        <label class="sysreptor-field-label">${currentLang === 'de' ? 'Titel des Befunds' : 'Finding Title'}</label>
+                                                        <input type="text" class="sysreptor-input-minimal sysreptor-finding-title-input" value="${activeTitle.replace(/"/g, '&quot;')}">
+                                                    </div>
+                                                    <div class="sysreptor-field-group">
+                                                        <label class="sysreptor-field-label">${currentLang === 'de' ? 'Beschreibung' : 'Description'}</label>
+                                                        <textarea class="sysreptor-textarea-minimal sysreptor-finding-desc-input">${activeDesc}</textarea>
+                                                    </div>
+                                                    <div class="sysreptor-field-group">
+                                                        <label class="sysreptor-field-label">${currentLang === 'de' ? 'Konsequenzen' : 'Consequences'}</label>
+                                                        <textarea class="sysreptor-textarea-minimal sysreptor-finding-cons-input">${activeCons}</textarea>
+                                                    </div>
+                                                    <div class="sysreptor-field-group">
+                                                        <label class="sysreptor-field-label">${currentLang === 'de' ? 'Kommentar' : 'Comment'}</label>
+                                                        <textarea class="sysreptor-textarea-minimal sysreptor-finding-comment-input" placeholder="${currentLang === 'de' ? 'Kommentar oder Nachweis hinzufügen...' : 'Add comment or evidence...'}">${activeComment}</textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            `;
+                                        }).join('')}
+                                    </div>
                                 </div>
+                                ` : ''}
+
                                 <div class="sysreptor-notes-container">
+                                    <label style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-top: 4px; margin-bottom: 0;">${currentLang === 'de' ? 'Zusätzliche Hinweise & Medien' : 'Additional Notes & Media'}:</label>
                                     <ul class="sysreptor-notes-list"></ul>
                                     <div class="sysreptor-images-list" style="margin-bottom: 10px; margin-top: 5px;"></div>
                                     <textarea class="sysreptor-note-textarea" placeholder="${t.placeholder_notes}"></textarea>
@@ -420,6 +484,29 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 }
 
+                // Tools expand logic
+                const toolsHeader = card.querySelector('.tools-header');
+                const toolsContent = card.querySelector('.tools-content');
+                const toolsArrow = card.querySelector('.tools-arrow');
+
+                const toggleTools = () => {
+                    if (!toolsContent) return;
+                    if (toolsContent.style.display === 'none') {
+                        toolsContent.style.display = 'block';
+                        toolsArrow.textContent = '▲';
+                    } else {
+                        toolsContent.style.display = 'none';
+                        toolsArrow.textContent = '▼';
+                    }
+                };
+
+                if (toolsHeader) {
+                    toolsHeader.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        toggleTools();
+                    });
+                }
+
                 // Status Change
                 if (!module.is_info) {
                     const select = card.querySelector('.status-select');
@@ -435,19 +522,96 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
 
                     // SysReptor Logic
-                    const titleInput = card.querySelector('.sysreptor-title-input');
                     const textarea = card.querySelector('.sysreptor-note-textarea');
                     const addBtn = card.querySelector('.sysreptor-add-note-btn');
                     const notesList = card.querySelector('.sysreptor-notes-list');
 
-                    if (!titleInput) {
+                    if (!textarea || !addBtn || !notesList) {
                         console.error("SysReptor fields missing for module:", module.id);
                         return; // skip event listeners for this card
                     }
 
-                    titleInput.addEventListener('input', (e) => {
-                        state[module.id + '_title'] = e.target.value;
-                        saveState();
+                    // SysReptor Checklist Event Listeners
+                    const findingCards = card.querySelectorAll('.sysreptor-finding-card');
+                    findingCards.forEach(fCard => {
+                        const findingId = fCard.getAttribute('data-finding-id');
+                        const checkbox = fCard.querySelector('.sysreptor-finding-checkbox');
+                        const header = fCard.querySelector('.sysreptor-finding-header');
+                        const toggleBtn = fCard.querySelector('.sysreptor-finding-toggle');
+                        const details = fCard.querySelector('.sysreptor-finding-details');
+                        
+                        const titleInputEl = fCard.querySelector('.sysreptor-finding-title-input');
+                        const descInputEl = fCard.querySelector('.sysreptor-finding-desc-input');
+                        const consInputEl = fCard.querySelector('.sysreptor-finding-cons-input');
+                        const commentInputEl = fCard.querySelector('.sysreptor-finding-comment-input');
+                        const titleDisplayEl = fCard.querySelector('.sysreptor-finding-title');
+
+                        const getFindingState = () => {
+                            if (!state[module.id + '_sysreptor_findings']) {
+                                state[module.id + '_sysreptor_findings'] = {};
+                            }
+                            if (!state[module.id + '_sysreptor_findings'][findingId]) {
+                                state[module.id + '_sysreptor_findings'][findingId] = {};
+                            }
+                            return state[module.id + '_sysreptor_findings'][findingId];
+                        };
+
+                        // Checkbox logic
+                        checkbox.addEventListener('change', (e) => {
+                            const fState = getFindingState();
+                            fState.checked = e.target.checked;
+                            if (e.target.checked) {
+                                fCard.classList.add('checked');
+                            } else {
+                                fCard.classList.remove('checked');
+                            }
+                            saveState();
+                        });
+
+                        // Expand/Collapse logic
+                        const toggleDetails = (e) => {
+                            if (e.target === checkbox) return;
+                            if (details.contains(e.target)) return;
+
+                            if (details.classList.contains('open')) {
+                                details.classList.remove('open');
+                                toggleBtn.textContent = '▼';
+                            } else {
+                                details.classList.add('open');
+                                toggleBtn.textContent = '▲';
+                            }
+                        };
+                        header.addEventListener('click', toggleDetails);
+                        toggleBtn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            toggleDetails(e);
+                        });
+
+                        // Input listeners
+                        titleInputEl.addEventListener('input', (e) => {
+                            const fState = getFindingState();
+                            fState.title = e.target.value;
+                            titleDisplayEl.textContent = e.target.value;
+                            saveState();
+                        });
+
+                        descInputEl.addEventListener('input', (e) => {
+                            const fState = getFindingState();
+                            fState.description = e.target.value;
+                            saveState();
+                        });
+
+                        consInputEl.addEventListener('input', (e) => {
+                            const fState = getFindingState();
+                            fState.consequences = e.target.value;
+                            saveState();
+                        });
+
+                        commentInputEl.addEventListener('input', (e) => {
+                            const fState = getFindingState();
+                            fState.comment = e.target.value;
+                            saveState();
+                        });
                     });
 
                     const renderNotes = () => {
@@ -639,13 +803,44 @@ document.addEventListener('DOMContentLoaded', () => {
             const notes = state[module.id + '_notes'];
             const images = state[module.id + '_images'];
             
-            if (status !== 'pending' || title || (notes && notes.length > 0) || (images && images.length > 0)) {
+            const mFindings = state[module.id + '_sysreptor_findings'] || {};
+            const hasCheckedFindings = Object.values(mFindings).some(f => f && f.checked);
+
+            if (status !== 'pending' || title || (notes && notes.length > 0) || (images && images.length > 0) || hasCheckedFindings) {
                 exportData[module.id] = {
                     status: status,
                     title: title || module.sysreptor_finding
                 };
                 if (notes && notes.length > 0) {
                     exportData[module.id].notes = notes;
+                }
+                
+                // Export SysReptor Checklist findings
+                if (hasCheckedFindings) {
+                    const checkedFindings = [];
+                    for (const fid in mFindings) {
+                        if (mFindings[fid] && mFindings[fid].checked) {
+                            const tmpl = (module.sysreptor_templates || []).find(t => t.id === fid);
+                            if (tmpl) {
+                                checkedFindings.push({
+                                    id: fid,
+                                    title_en: tmpl.title_en,
+                                    title_de: tmpl.title_de,
+                                    title_custom: mFindings[fid].title !== undefined ? mFindings[fid].title : (currentLang === 'de' ? tmpl.title_de : tmpl.title_en),
+                                    description_en: tmpl.description_en,
+                                    description_de: tmpl.description_de,
+                                    description_custom: mFindings[fid].description !== undefined ? mFindings[fid].description : (currentLang === 'de' ? tmpl.description_de : tmpl.description_en),
+                                    consequences_en: tmpl.consequences_en,
+                                    consequences_de: tmpl.consequences_de,
+                                    consequences_custom: mFindings[fid].consequences !== undefined ? mFindings[fid].consequences : (currentLang === 'de' ? tmpl.consequences_de : tmpl.consequences_en),
+                                    comment: mFindings[fid].comment || ''
+                                });
+                            }
+                        }
+                    }
+                    if (checkedFindings.length > 0) {
+                        exportData[module.id].sysreptor_findings = checkedFindings;
+                    }
                 }
                 if (images && images.length > 0) {
                     exportData[module.id].images = [];
@@ -713,6 +908,19 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (importedData[key].notes) {
                             newState[key + '_notes'] = importedData[key].notes;
                         }
+                        if (importedData[key].sysreptor_findings) {
+                            const mFindings = {};
+                            importedData[key].sysreptor_findings.forEach(f => {
+                                mFindings[f.id] = {
+                                    checked: true,
+                                    title: f.title_custom !== undefined ? f.title_custom : undefined,
+                                    description: f.description_custom !== undefined ? f.description_custom : undefined,
+                                    consequences: f.consequences_custom !== undefined ? f.consequences_custom : undefined,
+                                    comment: f.comment || ''
+                                };
+                            });
+                            newState[key + '_sysreptor_findings'] = mFindings;
+                        }
                         if (importedData[key].images) {
                             const images = [];
                             for (const fileName of importedData[key].images) {
@@ -764,6 +972,19 @@ document.addEventListener('DOMContentLoaded', () => {
                             }
                             if (importedData[key].notes) {
                                 newState[key + '_notes'] = importedData[key].notes;
+                            }
+                            if (importedData[key].sysreptor_findings) {
+                                const mFindings = {};
+                                importedData[key].sysreptor_findings.forEach(f => {
+                                    mFindings[f.id] = {
+                                        checked: true,
+                                        title: f.title_custom !== undefined ? f.title_custom : undefined,
+                                        description: f.description_custom !== undefined ? f.description_custom : undefined,
+                                        consequences: f.consequences_custom !== undefined ? f.consequences_custom : undefined,
+                                        comment: f.comment || ''
+                                    };
+                                });
+                                newState[key + '_sysreptor_findings'] = mFindings;
                             }
                             if (importedData[key].images) {
                                 newState[key + '_images'] = importedData[key].images;

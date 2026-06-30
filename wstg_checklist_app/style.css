@@ -196,9 +196,7 @@ a:hover {
   box-shadow: 0 1px 2px rgba(0,0,0,0.2);
   z-index: 2;
 }
-.theme-switch input:checked + .slider {
-  /* Let data-theme override or keep it grey */
-}
+
 .theme-switch input:focus + .slider {
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
 }
@@ -466,11 +464,13 @@ a:hover {
     border: 1px solid var(--border-color);
 }
 
-.docs-section {
+.docs-section,
+.tools-section {
     transition: all 0.2s ease;
 }
 
-.docs-section:has(.docs-header:hover) {
+.docs-section:has(.docs-header:hover),
+.tools-section:has(.tools-header:hover) {
     border-color: var(--primary-color);
 }
 
@@ -799,4 +799,148 @@ a:hover {
 .image-modal-close:hover {
     background: rgba(255, 255, 255, 0.4);
 }
+
+/* SysReptor Checklist Redesign */
+.sysreptor-checklist-container {
+    margin-top: 15px;
+    margin-bottom: 4px;
+}
+
+.sysreptor-checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.sysreptor-finding-card {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--surface-color);
+    transition: all 0.2s ease;
+    overflow: hidden;
+}
+
+.sysreptor-finding-card:hover {
+    border-color: var(--primary-color);
+}
+
+.sysreptor-finding-card.checked {
+    background: rgba(59, 130, 246, 0.05); /* very soft primary overlay */
+    border-color: var(--primary-color);
+}
+
+.sysreptor-finding-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.sysreptor-finding-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-grow: 1;
+}
+
+.sysreptor-finding-header-left input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary-color);
+    cursor: pointer;
+    margin: 0;
+}
+
+.sysreptor-finding-title {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.sysreptor-finding-toggle {
+    background: none;
+    border: none;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 4px 8px;
+    transition: transform 0.2s ease;
+}
+
+.sysreptor-finding-details {
+    padding: 0 14px 14px 14px;
+    display: none;
+    border-top: 1px dashed var(--border-color);
+    background: var(--surface-color);
+    flex-direction: column;
+    gap: 12px;
+}
+
+.sysreptor-finding-details.open {
+    display: flex;
+    margin-top: 8px;
+    padding-top: 12px;
+}
+
+.sysreptor-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sysreptor-field-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.sysreptor-input-minimal,
+.sysreptor-textarea-minimal {
+    width: 100%;
+    padding: 8px;
+    font-size: 0.85rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--bg-color);
+    color: var(--text-primary);
+    outline: none;
+    font-family: inherit;
+    transition: border-color 0.2s, background-color 0.2s;
+    box-sizing: border-box;
+}
+
+.sysreptor-input-minimal {
+    font-weight: 500;
+}
+
+.sysreptor-textarea-minimal {
+    min-height: 60px;
+    resize: vertical;
+}
+
+.sysreptor-input-minimal:focus,
+.sysreptor-textarea-minimal:focus {
+    border-color: var(--primary-color);
+    background: var(--surface-color);
+}
+
+.sysreptor-static-text {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    background: var(--bg-color);
+    padding: 8px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    margin: 0;
+}
+
+.sysreptor-notes-list:empty {
+    display: none;
+}
+
 

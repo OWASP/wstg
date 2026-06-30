@@ -3,7 +3,7 @@ import re
 import json
 from pathlib import Path
 
-def parse_wstg_file(filepath, custom_relevance=None, custom_evidence=None, custom_tools=None):
+def parse_wstg_file(filepath, custom_relevance=None, custom_evidence=None, custom_tools=None, sysreptor_templates=None):
     if custom_relevance is None:
         custom_relevance = {}
     if custom_evidence is None:
@@ -110,6 +110,10 @@ def parse_wstg_file(filepath, custom_relevance=None, custom_evidence=None, custo
     # Generic SysReptor Finding Title
     finding_title = f"{wstg_id}: {title}"
 
+    templates = []
+    if sysreptor_templates and wstg_id in sysreptor_templates:
+        templates = sysreptor_templates[wstg_id]
+
     return {
         "id": wstg_id,
         "is_info": is_info,
@@ -124,7 +128,8 @@ def parse_wstg_file(filepath, custom_relevance=None, custom_evidence=None, custo
         "tools": tools,
         "expected_evidence": expected_evidence,
         "reporting_hints": reporting_hints,
-        "sysreptor_finding": finding_title
+        "sysreptor_finding": finding_title,
+        "sysreptor_templates": templates
     }
 
 def main():
@@ -174,11 +179,22 @@ def main():
         except Exception as e:
             print(f"Failed to load custom tools file: {e}")
 
+    # Load custom SysReptor templates if they exist
+    sysreptor_templates = {}
+    sysreptor_file = Path("/home/len/Festplatte/wstg/wstg_checklist_app/builder/sysreptor_templates.json")
+    if sysreptor_file.exists():
+        try:
+            with open(sysreptor_file, 'r', encoding='utf-8') as f:
+                sysreptor_templates = json.load(f)
+            print(f"Loaded {len(sysreptor_templates)} SysReptor templates.")
+        except Exception as e:
+            print(f"Failed to load SysReptor templates file: {e}")
+
     for root, _, files in os.walk(base_dir):
         for file in files:
             if file.endswith('.md'):
                 filepath = os.path.join(root, file)
-                module_data = parse_wstg_file(filepath, custom_relevance, custom_evidence, custom_tools)
+                module_data = parse_wstg_file(filepath, custom_relevance, custom_evidence, custom_tools, sysreptor_templates)
                 if module_data and module_data['id'] != "UNKNOWN-ID":
                     checklist.append(module_data)
 
