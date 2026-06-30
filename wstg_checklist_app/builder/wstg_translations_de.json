@@ -1,6 +1,6 @@
 {
     "INFO-API-Testing": {
-        "title_de": "Übersicht API-Testing",
+        "title_de": "Übersicht über API-Tests",
         "category_de": "API-Tests",
         "goal_de": "Kein Ziel definiert.",
         "relevance_de": "Keine Beschreibung verfügbar.",
@@ -10,7 +10,7 @@
         "reporting_hints_de": "Dokumentieren Sie den betroffenen Endpunkt, die genauen verwendeten Nutzlasten/Parameter, die geschäftlichen Auswirkungen und stellen Sie klare Schritte zur Reproduktion bereit."
     },
     "INFO-Business-Logic-Testing": {
-        "title_de": "Testen der Geschäftslogik (Einführung)",
+        "title_de": "Einführung in die Geschäftslogik",
         "category_de": "Testen der Geschäftslogik",
         "goal_de": "Kein Ziel definiert.",
         "relevance_de": "Keine Beschreibung verfügbar.",
@@ -30,7 +30,7 @@
         "reporting_hints_de": "Dokumentieren Sie eindeutig, ob die API als intern gedacht, aber öffentlich zugänglich ist. Betonen Sie das Risiko der Offenlegung von Informationen und einer ungeschützten Angriffsfläche (Schatten-IT). Abhilfemaßnahmen müssen die strikte Deaktivierung von Debug-/Test-APIs, die Durchsetzung der Zugriffsverwaltung und das Entfernen von Schemadefinitionen in Produktionsumgebungen umfassen."
     },
     "WSTG-APIT-02": {
-        "title_de": "Fehlerhafte Autorisierung auf Objektebene (BOLA)",
+        "title_de": "Fehlerhafte Autorisierung auf API-Objektebene (Broken Object Level Authorization / BOLA)",
         "category_de": "API-Tests",
         "goal_de": "– Das Ziel dieses Tests besteht darin, festzustellen, ob die API ordnungsgemäße **Autorisierungsprüfungen auf Objektebene** erzwingt, um sicherzustellen, dass Benutzer nur auf Objekte zugreifen und diese bearbeiten können, mit denen sie interagieren dürfen.",
         "relevance_de": "APIs müssen Autorisierungsprüfungen für jedes Objekt, auf das zugegriffen wird, ordnungsgemäß durchsetzen. Durch das Testen auf BOLA wird sichergestellt, dass Angreifer Objektkennungen (wie IDs) nicht manipulieren können, um Ressourcen anderer Benutzer zu lesen oder zu ändern.",
@@ -40,7 +40,7 @@
         "reporting_hints_de": "Betonen Sie den Verlust der Vertraulichkeit/Integrität auf Datensatzebene. Geben Sie im PoC an, ob personenbezogene Daten (PII) kompromittiert wurden. Die Behebung muss unbedingt eine serverseitige Validierung des Objektbesitzes für jede Anfrage erfordern. Als Tiefenverteidigungsmaßnahme wird die Verwendung schwer zu erratender UUIDs (v4) anstelle inkrementeller IDs empfohlen."
     },
     "WSTG-APIT-03": {
-        "title_de": "Fehlerhafte Autorisierung auf Funktionsebene (BFLA)",
+        "title_de": "Prüfung auf übermäßige Datenpreisgabe (Excessive Data Exposure)",
         "category_de": "API-Tests",
         "goal_de": "– Identifizieren Sie API-Antworten, die mehr Daten enthalten, als die Clientanwendung anzeigt oder benötigt.\n- Erkennen Sie vertrauliche Felder, die in API-Antworten zurückgegeben werden, z. B. Passwort-Hashes, Authentifizierungstokens, interne Objekt-IDs, PII oder Infrastrukturdetails.\n– Bestimmen Sie, ob die API zur Steuerung der Datenfreigabe auf clientseitige Filterung und nicht auf serverseitige Feldauswahl angewiesen ist.",
         "relevance_de": "Defekte Autorisierung auf Funktionsebene: Durch das Testen der Autorisierung auf Funktionsebene wird sichergestellt, dass Benutzer keine eingeschränkten Vorgänge wie Verwaltungsaufgaben ausführen können. Dies verhindert eine vertikale Rechteausweitung und unbefugten Zugriff auf sensible Anwendungsfunktionen. Übermäßige Datenoffenlegung: APIs geben oft mehr Daten als nötig zurück und verlassen sich darauf, dass der Client sie filtert. Dieser Test stellt sicher, dass Backend-Systeme nur wesentliche Felder übertragen und verhindert so die Offenlegung vertraulicher Informationen wie personenbezogener Daten oder interner Anmeldeinformationen.",
@@ -50,7 +50,7 @@
         "reporting_hints_de": "Stellen Sie klar, dass „clientseitige Filterung“ (Ausblenden von Feldern im Frontend) keine Sicherheitsfunktion ist. Die Behebung muss die Verwendung von Data Transfer Objects (DTOs) erfordern. Die API muss ausschließlich Felder serialisieren und senden, die für den spezifischen Kontext und die Benutzerrolle bestimmt sind."
     },
     "WSTG-APIT-99": {
-        "title_de": "GraphQL-Testing",
+        "title_de": "Prüfung von GraphQL",
         "category_de": "API-Tests",
         "goal_de": "- Beurteilen Sie, dass eine sichere und produktionsbereite Konfiguration bereitgestellt wird.\n- Validieren Sie alle Eingabefelder gegen generische Angriffe.\n- Stellen Sie sicher, dass ordnungsgemäße Zugangskontrollen angewendet werden.",
         "relevance_de": "GraphQL führt einzigartige Angriffsvektoren wie Introspektionsabfragen, Batch-Angriffe und tiefe Rekursion ein. Durch Tests wird sichergestellt, dass die Implementierung die unbefugte Datenextraktion einschränkt, Denial-of-Service verhindert und Eingaben ordnungsgemäß validiert.",
@@ -60,7 +60,7 @@
         "reporting_hints_de": "Der PoC muss die ausgeführte GraphQL-Abfrage und die Antwort des Servers enthalten. Bei der Behebung muss dringend empfohlen werden, Introspektion und Feldvorschläge in der Produktion zu deaktivieren, maximale Abfragetiefe/Kostengrenzen durchzusetzen, um DoS zu verhindern, und eine strenge Autorisierung auf Feldebene in Resolvern zu implementieren."
     },
     "WSTG-ATHN-02": {
-        "title_de": "Standard-Zugangsdaten (Default Credentials)",
+        "title_de": "Prüfung auf Standard-Zugangsdaten (Default Credentials)",
         "category_de": "Authentifizierungstests",
         "goal_de": "– Stellen Sie fest, ob die Anwendung über Benutzerkonten mit Standardkennwörtern verfügt.\n- Überprüfen Sie, ob neue Benutzerkonten mit schwachen oder vorhersehbaren Passwörtern erstellt werden.",
         "relevance_de": "Standardmäßige oder vorhersehbare Anmeldeinformationen sind ein häufiger und leicht ausnutzbarer Fehler. Dieser Test stellt sicher, dass die Anwendung, die zugrunde liegende Infrastruktur und neu erstellte Konten nicht auf leicht zu erratenden oder vom Hersteller vorgegebenen Passwörtern basieren.",
@@ -70,7 +70,7 @@
         "reporting_hints_de": "Verweisen Sie auf die öffentlich verfügbare Dokumentation der verwendeten Software (z. B. Tomcat, WordPress). Abhilfe: Systeme müssen bei der Ersteinrichtung eine Passwortänderung erzwingen (Passwortänderung bei erster Anmeldung erzwingen). Administratoren müssen angewiesen werden, Standardkonten sofort zu löschen oder zu deaktivieren."
     },
     "WSTG-ATHN-03": {
-        "title_de": "Sperrmechanismen (Account Lockout)",
+        "title_de": "Prüfung auf schwache Sperrmechanismen (Lock Out Mechanism)",
         "category_de": "Authentifizierungstests",
         "goal_de": "- Bewerten Sie die Fähigkeit des Kontosperrmechanismus, das Erraten von Passwörtern durch Brute-Force-Angriffe einzudämmen.\n- Bewerten Sie die Widerstandsfähigkeit des Entsperrmechanismus gegen unbefugtes Entsperren des Kontos.",
         "relevance_de": "Ohne geeignete Mechanismen zur Kontosperrung sind Anwendungen sehr anfällig für Brute-Force- und Wörterbuchangriffe. Dieser Test bewertet die Wirksamkeit von Sperrungen und die Sicherheit des anschließenden Kontoentsperrvorgangs.",
@@ -80,7 +80,7 @@
         "reporting_hints_de": "Heben Sie das Risiko von Brute-Force- und Credential-Stuffing-Angriffen hervor. Die Abhilfe sollte eine Kontosperrung nach X Fehlversuchen (z. B. eine 15-minütige Sperrung nach 5 Fehlversuchen), einen exponentiellen Backoff oder eine serverseitige CAPTCHA-Überprüfung umfassen."
     },
     "WSTG-ATHN-04": {
-        "title_de": "Umgehung der Authentifizierung",
+        "title_de": "Prüfung auf Umgehung des Authentifizierungsschemas",
         "category_de": "Authentifizierungstests",
         "goal_de": "– Stellen Sie sicher, dass die Authentifizierung auf alle Dienste angewendet wird, die sie erfordern.",
         "relevance_de": "Authentifizierungsmechanismen müssen robust gegenüber Manipulationen sein. Dieser Test stellt sicher, dass Angreifer Anmeldebildschirme nicht mithilfe von Techniken wie Parametermanipulation, Sitzungs-ID-Vorhersage oder SQL-Injection umgehen können.",
@@ -90,7 +90,7 @@
         "reporting_hints_de": "Der PoC muss sowohl die ursprünglichen als auch die manipulierten Anfragen detailliert beschreiben, um eine 100-prozentige Reproduzierbarkeit zu gewährleisten. Abhilfe: Der Authentifizierungsstatus darf niemals vom Client vorgegeben werden. Erzwingen Sie kryptografisch sichere, serverseitig verwaltete Sitzungstoken."
     },
     "WSTG-ATHN-05": {
-        "title_de": "„Angemeldet bleiben“-Funktion (Remember Me)",
+        "title_de": "Prüfung auf anfällige \"Passwort merken\"-Funktionen",
         "category_de": "Authentifizierungstests",
         "goal_de": "- Stellen Sie sicher, dass die generierte Sitzung sicher verwaltet wird und die Anmeldeinformationen des Benutzers nicht gefährdet werden.",
         "relevance_de": "Funktionen wie „Remember Me“ können die Angriffsfläche durch unsachgemäßes Speichern von Anmeldeinformationen vergrößern. Dieser Test stellt sicher, dass persistente Sitzungen sicher mithilfe serverseitiger Token verwaltet werden, anstatt Anmeldeinformationen im lokalen Browserspeicher offenzulegen.",
@@ -100,7 +100,7 @@
         "reporting_hints_de": "Erklären Sie das Risiko einer Exposition über lokalen Zugriff oder XSS. Abhilfe: Implementieren Sie rotierende, langlebige Token („Remember-Me-Token“), die an das Gerät gebunden und anhand einer serverseitigen Datenbank (als Hash) validiert werden, völlig entkoppelt vom tatsächlichen Benutzerkennwort."
     },
     "WSTG-ATHN-06": {
-        "title_de": "Browser-Caching sensibler Inhalte",
+        "title_de": "Prüfung auf Schwachstellen im Browser-Cache",
         "category_de": "Authentifizierungstests",
         "goal_de": "- Überprüfen Sie, ob die Anwendung vertrauliche Informationen auf der Clientseite speichert.\n- Überprüfen Sie, ob der Zugriff ohne Autorisierung erfolgen kann.",
         "relevance_de": "Browser können versehentlich vertrauliche Daten zwischenspeichern und sie so für lokale Angreifer zugänglich machen, nachdem sich ein Benutzer abgemeldet hat. Dieser Test stellt sicher, dass die Anwendung geeignete Cache-Control-Header sendet, um zu verhindern, dass vertrauliche Informationen clientseitig gespeichert werden.",
@@ -110,7 +110,7 @@
         "reporting_hints_de": "Betonen Sie, dass das Risiko hauptsächlich öffentliche/gemeinsam genutzte Computer betrifft. Abhilfe: Alle dynamischen und sensiblen Seiten müssen die Header Cache-Control: no-store, no-cache, Must-revalidate und Pragma: no-cache strikt durchsetzen."
     },
     "WSTG-ATHN-07": {
-        "title_de": "Passwortrichtlinien",
+        "title_de": "Prüfung auf schwache Authentifizierungsmethoden",
         "category_de": "Authentifizierungstests",
         "goal_de": "- Bestimmen Sie die Widerstandsfähigkeit der Anwendung gegen das Erraten von Passwörtern durch Brute-Force-Angriffe mithilfe verfügbarer Passwortwörterbücher, indem Sie die Länge, Komplexität, Wiederverwendung und Alterungsanforderungen von Passwörtern bewerten.",
         "relevance_de": "Schwache Passwortrichtlinien ermöglichen es Angreifern, Benutzeranmeldeinformationen leicht zu erraten oder brutal zu erzwingen. Dieser Test bewertet die Komplexität, Länge, Wiederverwendungsbeschränkungen und Alterungsanforderungen von Passwörtern, um einen starken Authentifizierungsschutz sicherzustellen.",
@@ -120,7 +120,7 @@
         "reporting_hints_de": "Weisen Sie auf die Anfälligkeit für Brute-Force- und Wörterbuchangriffe hin. Die Behebung sollte sich an Industriestandards (z. B. NIST SP 800-63B) orientieren und Folgendes erfordern: Mindestlänge (z. B. 12 Zeichen), Ablehnung bekanntermaßen kompromittierter Passwörter (Breach-Listen) und Bevorzugung von Passphrasen gegenüber starren (aber ineffektiven) Komplexitätsregeln."
     },
     "WSTG-ATHN-08": {
-        "title_de": "Sicherheitsfragen",
+        "title_de": "Prüfung auf schwache Antworten bei Sicherheitsfragen",
         "category_de": "Authentifizierungstests",
         "goal_de": "- Bestimmen Sie die Komplexität und die Einfachheit der Fragen.\n- Bewerten Sie mögliche Benutzerantworten und Brute-Force-Fähigkeiten.",
         "relevance_de": "Sicherheitsfragen werden häufig zur Passwortwiederherstellung verwendet, können aber auch über Social Engineering erraten oder recherchiert werden. Dieser Test bewertet die Vorhersehbarkeit und Brute-Force-Resistenz der geheimen Fragen und Antworten der Anwendung.",
@@ -130,7 +130,7 @@
         "reporting_hints_de": "Erklären Sie, dass diese Funktion die gesamte Authentifizierungsstärke auf ihr schwächstes Glied reduziert. Abhilfe: Sicherheitsfragen sollten vollständig veraltet sein. Implementieren Sie Alternativen wie E-Mail-Magic-Links, SMS oder Hardware-Tokens zum Zurücksetzen von Passwörtern."
     },
     "WSTG-ATHN-09": {
-        "title_de": "Passwortänderung und -zurücksetzung",
+        "title_de": "Prüfung auf schwache Funktionen zum Ändern oder Zurücksetzen von Passwörtern",
         "category_de": "Authentifizierungstests",
         "goal_de": "- Stellen Sie fest, ob die Funktion zum Ändern und Zurücksetzen des Passworts eine Kompromittierung von Konten ermöglicht.",
         "relevance_de": "Passwort-Reset-Flows bieten einen alternativen Einstiegspunkt in Benutzerkonten. Dieser Test sucht nach Schwachstellen wie vorhersehbaren Reset-Tokens, fehlender Ratenbegrenzung oder unsicherer Token-Übertragung, die zu einer Kontoübernahme führen könnten.",
@@ -140,7 +140,7 @@
         "reporting_hints_de": "Stellen Sie einen einwandfreien PoC für eine vollständige Kontoübernahme bereit. Abhilfe: Token müssen mit einem CSPRNG (Cryptographically Secure Pseudo-Random Number Generator) generiert werden, eine kurze Ablaufzeit (z. B. 15 Minuten) haben und sofort nach ihrer ersten Verwendung oder auf eine neue Anfrage hin ungültig gemacht werden."
     },
     "WSTG-ATHN-10": {
-        "title_de": "Authentifizierung in alternativen Kanälen",
+        "title_de": "Prüfung auf schwächere Authentifizierung über alternative Kanäle",
         "category_de": "Authentifizierungstests",
         "goal_de": "- Identifizieren Sie alternative Authentifizierungskanäle.\n- Bewerten Sie die verwendeten Sicherheitsmaßnahmen und prüfen Sie, ob auf den alternativen Kanälen Umgehungswege vorhanden sind.",
         "relevance_de": "Alternative Authentifizierungskanäle wie mobile Apps oder Callcenter verfügen oft über schwächere Sicherheitskontrollen als die primäre Weboberfläche. Dieser Test stellt sicher, dass über alle Zugriffskanäle hinweg eine konsistente und sichere Authentifizierungsrichtlinie angewendet wird.",
@@ -150,7 +150,7 @@
         "reporting_hints_de": "Verwenden Sie Protokollauszüge, um zu zeigen, wie ein Angreifer den Schutz der Hauptanwendung über den ungesicherten Kanal umgeht. Abhilfe: Erzwingen Sie globale und konsistente Authentifizierungsrichtlinien (MFA, Ratenbegrenzung) über alle Schnittstellen und Endpunkte hinweg."
     },
     "WSTG-ATHN-11": {
-        "title_de": "Multi-Faktor-Authentifizierung (MFA)",
+        "title_de": "Prüfung der Multi-Faktor-Authentifizierung (MFA)",
         "category_de": "Authentifizierungstests",
         "goal_de": "- Identifizieren Sie den von der Anwendung verwendeten MFA-Typ.\n- Stellen Sie fest, ob die MFA-Implementierung robust und sicher ist.\n- Versuchen Sie, die MFA zu umgehen.",
         "relevance_de": "MFA fügt eine wichtige Verteidigungsebene hinzu, fehlerhafte Implementierungen können jedoch umgangen werden. Dieser Test überprüft, ob MFA robust ist, konsequent durchgesetzt wird und keine logischen Fehler, vorhersehbaren Token oder Fallback-Schwachstellen aufweist.",
@@ -160,7 +160,7 @@
         "reporting_hints_de": "Der PoC muss nach dem ersten Anmeldeschritt die genaue Umgehungsmethode demonstrieren. Abhilfe: Implementieren Sie eine strenge Sitzungsvalidierung, um sicherzustellen, dass kein vollständig autorisiertes Sitzungstoken ohne einen verifizierten MFA-Schritt ausgestellt wird. Implementieren Sie eine serverseitige Ratenbegrenzung (Sperrung) für fehlgeschlagene OTP-Versuche."
     },
     "WSTG-ATHZ-01": {
-        "title_de": "Directory Traversal / File Inclusion",
+        "title_de": "Prüfung auf Directory Traversal / File Include (Verzeichnisdurchquerung / Dateieinbindung)",
         "category_de": "Autorisierungstests",
         "goal_de": "- Identifizieren Sie Injektionspunkte, die sich auf die Pfaddurchquerung beziehen.\n- Bewerten Sie Umgehungstechniken und ermitteln Sie das Ausmaß der Pfaddurchquerung.",
         "relevance_de": "Eine unsachgemäße Eingabevalidierung kann es Angreifern ermöglichen, beliebige Dateien auf dem Server zu lesen oder auszuführen. Dieser Test identifiziert Path-Traversal-Schwachstellen und stellt sicher, dass der Zugriff auf das Dateisystem streng kontrolliert und eingedämmt wird.",
@@ -170,7 +170,7 @@
         "reporting_hints_de": "Geben Sie die genaue Nutzlast und alle erforderlichen Kodierungsschritte (URL-Kodierung) an. Abhilfe: Der Zugriff auf das Dateisystem darf niemals auf ungefilterten Benutzereingaben beruhen. Dateinamen müssen anhand einer serverseitigen Zulassungsliste validiert oder über indirekte Identifikatoren (z. B. Datenbank-IDs) zugeordnet werden."
     },
     "WSTG-ATHZ-02": {
-        "title_de": "Umgehung der Autorisierung",
+        "title_de": "Prüfung auf Umgehung des Autorisierungsschemas",
         "category_de": "Autorisierungstests",
         "goal_de": "- Beurteilen Sie, ob ein nicht authentifizierter, horizontaler oder vertikaler Zugriff möglich ist.",
         "relevance_de": "Durch Autorisierungsfehler können Benutzer auf Ressourcen zugreifen oder Aktionen außerhalb ihres zulässigen Umfangs ausführen. Dieser Test stellt sicher, dass der unauthentifizierte, horizontale oder vertikale Zugriff auf eingeschränkte Daten und Funktionen strengstens untersagt ist.",
@@ -180,7 +180,7 @@
         "reporting_hints_de": "Definieren Sie im Bericht klar die Rolle des Angreifers. Abhilfe: Implementieren Sie serverseitige Autorisierungsprüfungen (z. B. Filter/Middleware) für jede einzelne Route und Aktion. „Security by Obscurity“ (Ausblenden von Schaltflächen) ist keine wirksame Zugriffskontrolle."
     },
     "WSTG-ATHZ-03": {
-        "title_de": "Privilegieneskalation (Privilege Escalation)",
+        "title_de": "Prüfung auf Rechteausweitung (Privilege Escalation)",
         "category_de": "Autorisierungstests",
         "goal_de": "- Identifizieren Sie Injektionspunkte im Zusammenhang mit der Manipulation von Berechtigungen.\n- Fuzzy oder andere Versuche, Sicherheitsmaßnahmen zu umgehen.",
         "relevance_de": "Angreifer können Rollen oder Anwendungszustände manipulieren, um erweiterte Berechtigungen zu erlangen. Dieser Test stellt sicher, dass Standardbenutzer ihre Berechtigungen für den Zugriff auf administrative oder höherstufige Funktionen nicht missbräuchlich erweitern können.",
@@ -190,7 +190,7 @@
         "reporting_hints_de": "Fügen Sie einen Vorher-/Nachher-Beweis der Kontoberechtigungen bei. Abhilfe: Parameter, die Berechtigungsstufen oder Rollen definieren, dürfen niemals vom Client gesteuert oder vom Client übertragen werden. Die Rollenbindung muss ausschließlich über serverseitige Datenbanken/Zuweisungen erfolgen."
     },
     "WSTG-ATHZ-04": {
-        "title_de": "Insecure Direct Object References (IDOR)",
+        "title_de": "Prüfung auf unsichere direkte Objektverweise (Insecure Direct Object References / IDOR)",
         "category_de": "Autorisierungstests",
         "goal_de": "- Identifizieren Sie Punkte, an denen Objektreferenzen auftreten können.\n- Bewerten Sie die Zugangskontrollmaßnahmen und ob sie für IDOR anfällig sind.",
         "relevance_de": "IDOR tritt auf, wenn Anwendungen Zugriff auf Objekte basierend auf Benutzereingaben gewähren, ohne den Besitz zu überprüfen. Dieser Test stellt sicher, dass für alle angeforderten Datenbankeinträge, Dateien oder Funktionen robuste Autorisierungsprüfungen vorhanden sind.",
@@ -200,7 +200,7 @@
         "reporting_hints_de": "Betonen Sie den potenziellen Verlust von Kundendaten (PII). Abhilfe: Implementieren Sie eine serverseitige Validierungslogik, die überprüft, ob die ID des aktuell authentifizierten Benutzers berechtigt ist, auf das referenzierte Datenobjekt zuzugreifen."
     },
     "WSTG-ATHZ-05": {
-        "title_de": "OAuth-Implementierung",
+        "title_de": "Prüfung auf OAuth-Schwachstellen",
         "category_de": "Autorisierungstests",
         "goal_de": "– Stellen Sie fest, ob die OAuth2-Implementierung anfällig ist oder eine veraltete oder benutzerdefinierte Implementierung verwendet.",
         "relevance_de": "OAuth-Implementierungen können unter anfälligen Berechtigungstypen, Anmeldeinformationslecks oder falscher Konfiguration leiden. Dieser Test gewährleistet sichere Autorisierungsflüsse und verhindert unbefugten Zugriff auf Benutzerressourcen durch veraltete oder benutzerdefinierte Implementierungen.",
@@ -210,7 +210,7 @@
         "reporting_hints_de": "Der PoC muss genau aufzeigen, wie ein Angreifer den Token stehlen kann. Abhilfe: Erzwingen Sie die Verwendung des Autorisierungscodeflusses mit PKCE (Proof Key for Code Exchange) und erzwingen Sie eine strenge, exakt übereinstimmende serverseitige Validierung zulässiger Rückruf-URLs."
     },
     "WSTG-BUSL-01": {
-        "title_de": "Datenvalidierung in der Geschäftslogik",
+        "title_de": "Prüfung der Datenvalidierung in der Geschäftslogik",
         "category_de": "Testen der Geschäftslogik",
         "goal_de": "- Identifizieren Sie Dateneinspeisungspunkte.\n– Stellen Sie sicher, dass alle Prüfungen im Backend stattfinden und nicht umgangen werden können.\n- Versuchen Sie, das Format der erwarteten Daten aufzubrechen und zu analysieren, wie die Anwendung damit umgeht.",
         "relevance_de": "Sich ausschließlich auf die clientseitige Validierung zu verlassen, stellt ein großes Sicherheitsrisiko dar. Dieser Test überprüft, ob die Serverseite logisch ungültige Daten korrekt validiert, um die Umgehung von Geschäftsregeln und die Ausnutzung nachgelagerter Systeme zu verhindern.",
@@ -220,7 +220,7 @@
         "reporting_hints_de": "Da automatisierte Scanner häufig Logikfehler übersehen, beschreiben Sie den Geschäftsablauf im Detail. Abhilfe: Plausibilitäts- und Wertebereichsprüfungen für alle logikrelevanten Daten müssen serverseitig durchgeführt werden."
     },
     "WSTG-BUSL-02": {
-        "title_de": "Fälschung von Anfragen (Request Forgery)",
+        "title_de": "Prüfung der Möglichkeit, Anfragen zu fälschen (Forged Requests)",
         "category_de": "Testen der Geschäftslogik",
         "goal_de": "- Überprüfen Sie die Projektdokumentation auf erratene, vorhersehbare oder verborgene Funktionen von Feldern.\n- Fügen Sie logisch gültige Daten ein, um den normalen Geschäftslogik-Workflow zu umgehen.",
         "relevance_de": "Angreifer fälschen häufig HTTP-Anfragen, um direkt mit Backend-Systemen zu interagieren. Dieser Test stellt sicher, dass die Geschäftslogik der Anwendung Parametermanipulationen, vorhersehbaren Werten und der Ausnutzung versteckter oder undokumentierter Funktionen widersteht.",
@@ -230,7 +230,7 @@
         "reporting_hints_de": "Vergleichen Sie das Systemverhalten mit und ohne den Parameter „forged“. Abhilfe: Strikte Zulassungsliste für Eingabeparameter. Debug-Routinen und Testfunktionen müssen vollständig aus der Produktionscodebasis entfernt werden."
     },
     "WSTG-BUSL-03": {
-        "title_de": "Integritätsprüfungen von Daten",
+        "title_de": "Prüfung von Integritätskontrollen",
         "category_de": "Testen der Geschäftslogik",
         "goal_de": "- Überprüfen Sie die Projektdokumentation auf Komponenten des Systems, die Daten verschieben, speichern oder verarbeiten.\n- Bestimmen Sie, welche Datentypen von der Komponente logisch akzeptiert werden und vor welchen Datentypen das System schützen soll.\n- Bestimmen Sie, wer diese Daten in den einzelnen Komponenten ändern oder lesen darf.\n– Versuchen Sie, von jeder Komponente verwendete Datenwerte einzufügen, zu aktualisieren oder zu löschen, die gemäß dem Geschäftslogik-Workflow nicht zulässig sein sollten.",
         "relevance_de": "Versteckte Felder und nicht bearbeitbare Parameter werden häufig über abfangende Proxys manipuliert. Dieser Test stellt sicher, dass der Server strenge Integritätsprüfungen und Zugriffskontrollen durchsetzt, um unbefugtes Einfügen oder Ändern von Daten zu verhindern.",
@@ -240,7 +240,7 @@
         "reporting_hints_de": "Die Proxy-Erfassung (z. B. Burp) ist ein entscheidender Beweis. Abhilfe: Vertrauen Sie niemals kundengenerierten Werten für kritische Geschäftslogik. Kritische Variablen (z. B. Preise) müssen serverseitig aus der Datenbank abgerufen werden."
     },
     "WSTG-BUSL-04": {
-        "title_de": "Prozess-Timing",
+        "title_de": "Prüfung auf Timing-Angriffe im Prozessablauf (Process Timing)",
         "category_de": "Testen der Geschäftslogik",
         "goal_de": "- Überprüfen Sie die Projektdokumentation auf Systemfunktionen, die möglicherweise mit der Zeit beeinträchtigt werden.\n- Missbrauchsfälle entwickeln und durchführen.",
         "relevance_de": "Timing-Diskrepanzen können zum Verlust vertraulicher Informationen oder zur Umgehung der Geschäftslogik führen. Das Testen des Prozess-Timings stellt sicher, dass die Anwendung Angreifern keinen Vorteil durch vorhersehbare Ausführungszeiten oder manipulierte Transaktionsfenster verschafft.",
@@ -250,7 +250,7 @@
         "reporting_hints_de": "Protokolle von Tools wie Turbo Intruder, die die parallelen Anfragen und Antworten zeigen. Abhilfe: Implementieren Sie Transaktionssperren (Sperren auf Zeilenebene, Mutexe) während kritischer Lese-/Schreibvorgänge in der Datenbank."
     },
     "WSTG-BUSL-05": {
-        "title_de": "Fehlende Ratenbegrenzung (Rate Limiting)",
+        "title_de": "Prüfung der Nutzungslimits einer Funktion (Rate Limiting)",
         "category_de": "Testen der Geschäftslogik",
         "goal_de": "- Identifizieren Sie Funktionen, deren Aufrufzeiten begrenzt werden müssen.\n- Beurteilen Sie, ob eine logische Grenze für die Funktionen festgelegt ist und ob diese ordnungsgemäß validiert ist.",
         "relevance_de": "Anwendungen schränken häufig bestimmte Aktionen ein (z. B. Rabatte, Downloads oder Versuche). Dieser Test überprüft, ob harte Limits im Backend strikt durchgesetzt werden, um Missbrauch, finanzielle Verluste oder unbefugte Vorteile zu verhindern.",
@@ -260,7 +260,7 @@
         "reporting_hints_de": "Weisen Sie darauf hin, ob die Einschränkung nur clientseitig oder fehlerhaft serverseitig umgesetzt wurde. Abhilfe: Implementieren Sie strenge serverseitige Zähler, die atomar aktualisiert und bei jeder Transaktion auf den Grenzwert überprüft werden."
     },
     "WSTG-BUSL-06": {
-        "title_de": "Umgehung von Workflows (Workflow Bypass)",
+        "title_de": "Prüfung auf Umgehung von Arbeitsabläufen (Workflows)",
         "category_de": "Testen der Geschäftslogik",
         "goal_de": "- Überprüfen Sie die Projektdokumentation auf Methoden zum Überspringen oder Durchlaufen von Schritten im Anwendungsprozess in einer anderen Reihenfolge als dem beabsichtigten Geschäftslogikfluss.\n- Entwickeln Sie einen Missbrauchsfall und versuchen Sie, jeden identifizierten Logikfluss zu umgehen.",
         "relevance_de": "Angreifer können Workflow-Schritte überspringen oder neu anordnen, um wichtige Prüfungen zu umgehen (z. B. Auslösen eines Versands ohne Bezahlung). Dieser Test stellt sicher, dass die Anwendung ihren Status sicher beibehält und die korrekte Reihenfolge der Geschäftsvorgänge strikt durchsetzt.",
@@ -270,7 +270,7 @@
         "reporting_hints_de": "Der PoC muss den beabsichtigten Workflow-Pfad im Vergleich zum manipulierten Pfad dokumentieren. Abhilfe: Implementieren Sie eine serverseitige Zustandsverwaltung (State Machine), die streng überprüft, ob die Voraussetzungen für einen bestimmten Schritt erfüllt sind."
     },
     "WSTG-BUSL-07": {
-        "title_de": "Abwehrmaßnahmen gegen Anwendungsmissbrauch",
+        "title_de": "Prüfung der Abwehrmaßnahmen gegen Anwendungsmissbrauch",
         "category_de": "Testen der Geschäftslogik",
         "goal_de": "- Generieren Sie Notizen zu allen Tests, die mit dem System durchgeführt wurden.\n- Überprüfen Sie, welche Tests aufgrund aggressiver Eingaben eine andere Funktionalität hatten.\n- Verstehen Sie die vorhandenen Abwehrmaßnahmen und prüfen Sie, ob sie ausreichen, um das System vor Umgehungstechniken zu schützen.",
         "relevance_de": "Legitime Funktionen können zur Aufzählung, zum Scraping oder zur falschen Darstellung der Benutzeroberfläche missbraucht werden. Dieser Test bewertet das Vorhandensein und die Wirksamkeit aktiver Abwehrmaßnahmen auf Anwendungsebene gegen automatisierte Angriffe oder manuellen Missbrauch.",
@@ -280,7 +280,7 @@
         "reporting_hints_de": "Beschreiben Sie die fehlenden Abwehrmechanismen. Abhilfe: Einführung von Ratenbegrenzung, Web Application Firewalls (WAF) und aktiven Überwachungs-/Blockierungsmechanismen gegen offenkundig bösartiges Verhalten."
     },
     "WSTG-BUSL-08": {
-        "title_de": "Hochladen unerwarteter Dateitypen",
+        "title_de": "Prüfung des Uploads unerwarteter Dateitypen",
         "category_de": "Testen der Geschäftslogik",
         "goal_de": "- Überprüfen Sie die Projektdokumentation auf Dateitypen, die vom System abgelehnt werden.\n- Stellen Sie sicher, dass unerwünschte Dateitypen abgelehnt und sicher behandelt werden.\n- Stellen Sie sicher, dass Datei-Batch-Uploads sicher sind und keine Umgehung der festgelegten Sicherheitsmaßnahmen zulassen.",
         "relevance_de": "Das Akzeptieren nicht genehmigter Dateitypen kann Backend-Systeme gefährden oder die Website verunstalten. Dieser Test gewährleistet eine strenge serverseitige Validierung von Dateierweiterungen, Inhaltstypen und Pfaden, um unerwartete Uploads sicher abzulehnen.",
@@ -290,7 +290,7 @@
         "reporting_hints_de": "Dokumentieren Sie, ob clientseitige Prüfungen oder einfache Erweiterungsprüfungen umgangen wurden. Abhilfe: Validieren Sie Dateitypen ausschließlich anhand des Dateiinhalts (Magic Bytes), sortieren Sie Dateinamen nach dem Zufallsprinzip und verbieten Sie die Skriptausführung innerhalb des Upload-Verzeichnisses."
     },
     "WSTG-BUSL-09": {
-        "title_de": "Hochladen schädlicher Dateien",
+        "title_de": "Prüfung des Uploads bösartiger Dateien",
         "category_de": "Testen der Geschäftslogik",
         "goal_de": "- Identifizieren Sie die Funktion zum Hochladen von Dateien.\n- Sehen Sie sich die Projektdokumentation an, um herauszufinden, welche Dateitypen als akzeptabel gelten und welche als gefährlich oder bösartig gelten würden.\n    - Wenn keine Dokumentation verfügbar ist, überlegen Sie, was basierend auf dem Zweck der Anwendung angemessen wäre.\n- Bestimmen Sie, wie die hochgeladenen Dateien verarbeitet werden.\n- Besorgen oder erstellen Sie eine Reihe schädlicher Dateien zum Testen.\n- Versuchen Sie, die schädlichen Dateien in die Anwendung hochzuladen und festzustellen, ob sie akzeptiert und verarbeitet werden.",
         "relevance_de": "Sogar zulässige Dateitypen können schädliche Payloads wie Web-Shells, Makros oder Zip-Bombs enthalten. Dieser Test überprüft, ob hochgeladene Dateien sicher analysiert, gescannt und gespeichert werden, um eine Remote-Codeausführung oder einen Denial-of-Service zu verhindern.",
@@ -300,7 +300,7 @@
         "reporting_hints_de": "Der PoC muss die Codeausführung (z. B. Ausgabe von ID oder Whoami) oder den Dateizugriff nachweisen. Abhilfe: Hochgeladene Dateien scannen (Antivirus), sie in isolierten Containern (Sandboxes) verarbeiten und sie niemals mit Ausführungsberechtigungen im Web-Stammverzeichnis speichern."
     },
     "WSTG-BUSL-10": {
-        "title_de": "Zahlungsfunktionen",
+        "title_de": "Prüfung der Zahlungsfunktion",
         "category_de": "Testen der Geschäftslogik",
         "goal_de": "- Bestimmen Sie, ob die Geschäftslogik für die E-Commerce-Funktionalität robust ist.\n- Verstehen Sie, wie die Zahlungsfunktion funktioniert.\n- Stellen Sie fest, ob die Zahlungsfunktion sicher ist.",
         "relevance_de": "Sicherheitslücken im E-Commerce können zu direkten finanziellen Verlusten und Bußgeldern führen. Das Testen von Zahlungsgateways stellt die Widerstandsfähigkeit gegen Preismanipulationen, Mengenmanipulationen, Race Conditions und Workflow-Umgehungen sicher und schützt die Transaktionsintegrität.",
@@ -310,7 +310,7 @@
         "reporting_hints_de": "Betonen Sie das direkte Risiko eines finanziellen Verlusts. Abhilfe: Geben Sie niemals Preise an den Kunden weiter. Die Validierung des Zahlungsstatus muss asynchron und kryptografisch gesichert (über Webhooks/Signed Hashes) direkt vom Zahlungsanbieter zum Backend erfolgen."
     },
     "WSTG-CLNT-01": {
-        "title_de": "DOM-basiertes Cross-Site-Scripting (DOM-XSS)",
+        "title_de": "Prüfung auf DOM-basiertes Cross-Site Scripting (XSS)",
         "category_de": "Clientseitiges Testen",
         "goal_de": "- DOM-Senken identifizieren.\n- Erstellen Sie Nutzlasten, die zu jedem Senkentyp gehören.",
         "relevance_de": "DOM-basiertes XSS tritt auf, wenn clientseitige Skripte Benutzereingaben unsicher in das Document Object Model schreiben. Dieser Test identifiziert gefährliche JavaScript-Senken und stellt sicher, dass Eingaben ordnungsgemäß codiert werden, um die Ausführung von Schadcode im Browser zu verhindern.",
@@ -320,7 +320,7 @@
         "reporting_hints_de": "Geben Sie die genaue Zeile im JS-Quellcode an. Abhilfe: Ersetzen Sie gefährliche Senken (z. B. verwenden Sie textContent anstelle von innerHTML) oder verwenden Sie vor der DOM-Änderung spezielle Bereinigungsbibliotheken (wie DOMPurify)."
     },
     "WSTG-CLNT-02": {
-        "title_de": "JavaScript-Ausführung",
+        "title_de": "Prüfung auf JavaScript-Ausführung",
         "category_de": "Clientseitiges Testen",
         "goal_de": "- Identifizieren Sie Senken und mögliche JavaScript-Injektionspunkte.",
         "relevance_de": "Die willkürliche Ausführung von JavaScript gefährdet die Browsersitzung des Benutzers. Dieser Test stellt sicher, dass vom Benutzer bereitgestellte Daten niemals direkt als Code ausgewertet oder ausgeführt werden (z. B. über eval()), wodurch Sitzungsentführung und clientseitige Manipulation verhindert werden.",
@@ -330,7 +330,7 @@
         "reporting_hints_de": "Der PoC muss den auslösenden Link/Anfrage anzeigen. Abhilfe: Vermeiden Sie vollständig die dynamische Codeauswertung (Eval) für benutzergenerierte Inhalte."
     },
     "WSTG-CLNT-03": {
-        "title_de": "HTML-Injection",
+        "title_de": "Prüfung auf HTML-Injection",
         "category_de": "Clientseitiges Testen",
         "goal_de": "- Identifizieren Sie HTML-Einschleusungspunkte und beurteilen Sie den Schweregrad des eingeschleusten Inhalts.",
         "relevance_de": "Das Zulassen von beliebigem HTML ermöglicht es Angreifern, Seiteninhalte zu ändern oder Anmeldeinformationen über gefälschte Anmeldeformulare zu stehlen. Dieser Test stellt sicher, dass alle Benutzereingaben bereinigt werden, um clientseitiges Content-Spoofing und visuelle Manipulation zu verhindern.",
@@ -340,7 +340,7 @@
         "reporting_hints_de": "Erläutern Sie das Risiko von Phishing und Social Engineering auf der vertrauenswürdigen Seite. Abhilfe: Erzwingen Sie eine strikte HTML-Entitätskodierung bei der Ausgabe von Benutzereingaben im DOM."
     },
     "WSTG-CLNT-04": {
-        "title_de": "Clientseitige URL-Umleitung (Open Redirect)",
+        "title_de": "Prüfung auf clientseitige URL-Weiterleitungen (URL Redirects)",
         "category_de": "Clientseitiges Testen",
         "goal_de": "- Identifizieren Sie Injektionspunkte, die URLs oder Pfade verarbeiten.\n- Bewerten Sie die Standorte, zu denen das System umleiten könnte.",
         "relevance_de": "Nicht validierte clientseitige Weiterleitungen (offene Weiterleitungen) werden häufig verwendet, um Phishing-Angriffe zu erleichtern. Dieser Test stellt sicher, dass die Anwendung Benutzer nicht blind über benutzergesteuerte Eingaben oder URL-Fragmente auf bösartige externe Domänen umleitet.",
@@ -350,7 +350,7 @@
         "reporting_hints_de": "Veranschaulichen Sie die Verwendbarkeit für Phishing-Kampagnen. Abhilfe: Weiterleitungen clientseitig validieren (z. B. durch Abgleich mit einer Zulassungsliste zulässiger lokaler Pfade)."
     },
     "WSTG-CLNT-05": {
-        "title_de": "CSS-Injection",
+        "title_de": "Prüfung auf CSS-Injection",
         "category_de": "Clientseitiges Testen",
         "goal_de": "- Identifizieren Sie CSS-Injektionspunkte.\n- Bewerten Sie die Wirkung der Injektion.",
         "relevance_de": "CSS-Injection kann zu Datenexfiltration oder Cross-Site-Scripting führen. Dieser Test bewertet, ob Angreifer beliebige Stilregeln einschleusen können, um vertrauliche Daten (wie CSRF-Tokens) zu stehlen oder die Benutzeroberfläche böswillig zu verändern.",
@@ -360,7 +360,7 @@
         "reporting_hints_de": "Idealerweise sollte der PoC die Datenexfiltration und nicht nur Farbänderungen demonstrieren. Abhilfe: Strenge Validierung von Stilen und Bereitstellung einer Content Security Policy (CSP), die unsicheres Inline für Stile verbietet."
     },
     "WSTG-CLNT-06": {
-        "title_de": "Clientseitige Ressourcenmanipulation",
+        "title_de": "Prüfung auf clientseitige Ressourcenmanipulation",
         "category_de": "Clientseitiges Testen",
         "goal_de": "– Identifizieren Sie Senken mit schwacher Eingabevalidierung.\n- Bewerten Sie die Auswirkungen der Ressourcenmanipulation.",
         "relevance_de": "Durch die Kontrolle von Ressourcenpfaden (z. B. Iframe-Quellen, AJAX-Endpunkte) können Angreifer schädliche Objekte laden. Dieser Test überprüft, ob URLs, die auf externe Ressourcen verweisen, streng validiert werden, um eine clientseitige Ausnutzung zu verhindern.",
@@ -370,7 +370,7 @@
         "reporting_hints_de": "Screenshots von der Registerkarte „Netzwerk“ des Browsers, die den Abruf der externen Ressource belegen. Abhilfe: Ressourcen-URLs fest codieren oder serverseitige Zulassungslisten für dynamische Pfade verwenden."
     },
     "WSTG-CLNT-07": {
-        "title_de": "Cross-Origin Resource Sharing (CORS)",
+        "title_de": "Prüfung von Cross-Origin Resource Sharing (CORS)",
         "category_de": "Clientseitiges Testen",
         "goal_de": "- Identifizieren Sie Endpunkte, die CORS implementieren.\n- Stellen Sie sicher, dass die CORS-Konfiguration sicher oder harmlos ist.",
         "relevance_de": "Falsch konfigurierte CORS-Richtlinien können sensible Daten für bösartige Domänen offenlegen. Dieser Test stellt sicher, dass Access-Control-Allow-Origin und zugehörige Header streng definiert sind und nicht blind willkürlichen oder Null-Ursprüngen vertrauen.",
@@ -380,7 +380,7 @@
         "reporting_hints_de": "Der PoC muss ein externes HTML/JS-Skript enthalten, das die sensiblen API-Daten des angemeldeten Opfers erfolgreich liest. Abhilfe: Strikte Zulassungsliste für exakte Domänen ohne Fehler im regulären Ausdruck und Vermeidung von Platzhaltern für authentifizierte Endpunkte."
     },
     "WSTG-CLNT-08": {
-        "title_de": "Cross-Site-Flashing",
+        "title_de": "Prüfung auf Cross-Site Flashing",
         "category_de": "Clientseitiges Testen",
         "goal_de": "- Dekompilieren und analysieren Sie den Code der Anwendung.\n- Bewerten Sie Senkeneingaben und unsichere Methodenverwendungen.",
         "relevance_de": "Ältere Flash-Anwendungen können XSS oder nicht autorisierte domänenübergreifende Anforderungen einführen. Wenn Flash-Komponenten vorhanden sind, stellt dieser Test sicher, dass kompilierte SWF-Dateien Eingaben sicher verarbeiten und unsichere Methoden vermeiden, die den Browser gefährden könnten.",
@@ -390,7 +390,7 @@
         "reporting_hints_de": "Da Flash End-of-Life (EOL) ist, sollte das Hauptrisiko die Verwendung von veraltetem Code hervorheben. Abhilfe: Vollständige Entfernung von Flash-Inhalten und Migration auf HTML5/JavaScript."
     },
     "WSTG-CLNT-09": {
-        "title_de": "Clickjacking",
+        "title_de": "Prüfung auf Clickjacking",
         "category_de": "Clientseitiges Testen",
         "goal_de": "- Bewerten Sie die Anfälligkeit der Anwendung für Clickjacking-Angriffe.",
         "relevance_de": "Clickjacking verleitet Benutzer dazu, auf transparente oder versteckte Elemente zu klicken, um unbeabsichtigte Aktionen auszuführen. Dieser Test stellt sicher, dass die Anwendung geeignete Schutzmaßnahmen wie Content-Security-Policy: Frame-Ancestors bereitstellt, um eine Korrektur der Benutzeroberfläche zu verhindern.",
@@ -400,7 +400,7 @@
         "reporting_hints_de": "Demonstrieren Sie, welche kritische Aktion heimlich angeklickt werden kann. Abhilfe: Implementieren Sie die HTTP-Header X-Frame-Options: DENY (oder SAMEORIGIN) und Content-Security-Policy: Frame-Ancestors „none“."
     },
     "WSTG-CLNT-10": {
-        "title_de": "WebSockets",
+        "title_de": "Prüfung von WebSockets",
         "category_de": "Clientseitiges Testen",
         "goal_de": "- Identifizieren Sie die Verwendung von WebSockets.\n- Bewerten Sie die Implementierung, indem Sie dieselben Tests auf normalen HTTP-Kanälen verwenden.",
         "relevance_de": "WebSockets ermöglichen eine Vollduplex-Kommunikation, verarbeiten jedoch keine Authentifizierung oder Autorisierung nativ. Dieser Test stellt sicher, dass WebSocket-Verbindungen verschlüsselt (wss://) und ordnungsgemäß validiert werden, um unbefugten Datenzugriff oder unbefugte Dateneinschleusung zu verhindern.",
@@ -410,7 +410,7 @@
         "reporting_hints_de": "Weisen Sie auf den Mangel an Authentifizierungs- und Validierungsmechanismen auf WS-Ebene hin. Abhilfe: Überprüfen Sie den Origin-Header während des Handshakes und erzwingen Sie eine strikte Eingabebereinigung für alle WebSocket-Frames."
     },
     "WSTG-CLNT-11": {
-        "title_de": "Web-Messaging",
+        "title_de": "Prüfung von Web-Messaging",
         "category_de": "Clientseitiges Testen",
         "goal_de": "- Bewerten Sie die Sicherheit des Ursprungs der Nachricht.\n- Überprüfen Sie, ob sichere Methoden verwendet werden, und überprüfen Sie die Eingabe.",
         "relevance_de": "Web Messaging ermöglicht eine ursprungsübergreifende Kommunikation, unsichere Implementierungen können jedoch zu Datenlecks führen. Dieser Test überprüft, ob Anwendungen die Herkunft von Nachrichten streng überprüfen und eingehende Daten bereinigen, um DOM-basiertes XSS und unbefugte Datenmanipulation zu verhindern.",
@@ -420,7 +420,7 @@
         "reporting_hints_de": "Stellen Sie einen iFrame-PoC bereit, der schädliche Nachrichten (postMessage) an die Anwendung sendet. Abhilfe: Jede Nachricht muss event.origin streng anhand einer hartcodierten Zulassungsliste überprüfen, bevor event.data verarbeitet wird."
     },
     "WSTG-CLNT-12": {
-        "title_de": "Lokaler Browserspeicher (Browser Storage)",
+        "title_de": "Prüfung des Browser-Speichers (Browser Storage)",
         "category_de": "Clientseitiges Testen",
         "goal_de": "– Stellen Sie fest, ob die Site vertrauliche Daten im clientseitigen Speicher speichert.\n- Die Codeverarbeitung der Speicherobjekte sollte auf Möglichkeiten von Injektionsangriffen untersucht werden, wie z. B. die Nutzung nicht validierter Eingaben oder anfälliger Bibliotheken.",
         "relevance_de": "HTML5-Lokal-/Sitzungsspeicher und IndexedDB werden häufig zum Speichern sensibler Daten verwendet. Dieser Test stellt sicher, dass Authentifizierungstoken oder PII nicht unnötigerweise auf der Clientseite offengelegt werden, wodurch die Auswirkungen clientseitiger Angriffe wie XSS verringert werden.",
@@ -430,7 +430,7 @@
         "reporting_hints_de": "Erklären Sie, dass diese Daten durch jede XSS-Schwachstelle im System extrahiert werden können. Abhilfe: Authentifizierungstokens sollten stattdessen in HttpOnly gespeichert werden; Sichere Cookies, um clientseitigen JavaScript-Zugriff zu verhindern."
     },
     "WSTG-CLNT-13": {
-        "title_de": "Cross-Site Script Inclusion (XSSI)",
+        "title_de": "Prüfung auf Cross-Site Script Inclusion (XSSI)",
         "category_de": "Clientseitiges Testen",
         "goal_de": "- Lokalisieren Sie vertrauliche Daten im gesamten System.\n- Bewerten Sie den Verlust sensibler Daten mithilfe verschiedener Techniken.",
         "relevance_de": "XSSI ermöglicht es der Website eines Angreifers, sensible Daten aus der authentifizierten Sitzung eines Opfers zu lesen, indem es gezielte Skripte einbindet. Dieser Test stellt sicher, dass vertrauliche dynamische Daten vor ursprungsübergreifenden Skripteinschlüssen geschützt sind.",
@@ -440,7 +440,7 @@
         "reporting_hints_de": "POC-Seite, die die Exfiltration von Benutzerdaten vom Opfer demonstriert. Abhilfe: Dynamische sensible Daten dürfen nicht als gültiges JavaScript-Skript bereitgestellt werden können (verwenden Sie JSON mit Anti-Hijacking-Präfixen wie while(1); oder schützen Sie Endpunkte mit CSRF-Tokens)."
     },
     "WSTG-CLNT-14": {
-        "title_de": "Reverse Tabnabbing",
+        "title_de": "Prüfung auf Reverse Tabnabbing",
         "category_de": "Clientseitiges Testen",
         "goal_de": "Kein Ziel definiert.",
         "relevance_de": "Links, die in neuen Tabs ohne entsprechende Attribute geöffnet werden (noopener noreferrer), können dazu führen, dass die neue Seite den ursprünglichen Tab kapert. Dieser Test stellt sicher, dass die Anwendung vor unbefugten Weiterleitungen auf Phishing-Seiten schützt.",
@@ -450,7 +450,7 @@
         "reporting_hints_de": "Betonen Sie das Phishing-Risiko. Abhilfe: Hängen Sie rel=\"noopener noreferrer\" allgemein an alle Links an, die in einem neuen Tab geöffnet werden."
     },
     "WSTG-CLNT-15": {
-        "title_de": "Clientseitige Template-Injection",
+        "title_de": "Prüfung auf clientseitige Template-Injection",
         "category_de": "Clientseitiges Testen",
         "goal_de": "- Identifizieren Sie das clientseitige Framework und seine von der Anwendung verwendete Version.\n- Erkennen Sie Injektionspunkte, an denen Benutzereingaben im DOM reflektiert und von der Vorlagen-Engine verarbeitet werden.\n– Beurteilen Sie, ob die Injektion eine beliebige JavaScript-Ausführung (XSS) über die Vorlagensyntax ermöglicht.",
         "relevance_de": "CSTI tritt auf, wenn Frontend-Frameworks (wie Vue oder Angular) Benutzereingaben unsicher als Vorlage auswerten. Dieser Test stellt sicher, dass Eingaben nicht dynamisch als ausführbare Vorlagendirektiven gerendert werden, wodurch die clientseitige Codeausführung verhindert wird.",
@@ -460,7 +460,7 @@
         "reporting_hints_de": "Zeigen Sie die Nutzlast und das gerenderte Ergebnis an. Abhilfe: Vermeiden Sie eine serverseitige Vermischung von benutzergenerierten Daten und clientseitigen Vorlagen. Verwenden Sie sichere Anweisungen (z. B. V-Text anstelle von V-HTML)."
     },
     "WSTG-CONF-01": {
-        "title_de": "Netzwerkinfrastruktur-Konfiguration",
+        "title_de": "Prüfung der Netzwerkinfrastruktur-Konfiguration",
         "category_de": "Tests des Konfigurations- und Bereitstellungsmanagements",
         "goal_de": "- Überprüfen Sie die im gesamten Netzwerk festgelegten Anwendungskonfigurationen und stellen Sie sicher, dass sie nicht anfällig sind.\n- Überprüfen Sie, ob die verwendeten Frameworks und Systeme sicher und nicht anfällig für bekannte Schwachstellen aufgrund nicht gewarteter Software oder Standardeinstellungen und Anmeldeinformationen sind.",
         "relevance_de": "Ein einzelner anfälliger Server kann die gesamte Anwendung gefährden. Dieser Test bewertet die zugrunde liegende Infrastruktur auf ungepatchte Software, offengelegte Verwaltungsschnittstellen und Standardeinstellungen, die die Anwendung gefährden könnten.",
@@ -470,7 +470,7 @@
         "reporting_hints_de": "Listen Sie die gefundenen Ports und erkannten Versionen auf. Abhilfe: Schließen Sie alle nicht unbedingt erforderlichen externen Ports. Verwaltungsdienste dürfen nur über VPN oder eine strikte IP-Zulassungsliste zugänglich sein."
     },
     "WSTG-CONF-02": {
-        "title_de": "Anwendungsplattform-Konfiguration",
+        "title_de": "Prüfung der Anwendungsplattform-Konfiguration",
         "category_de": "Tests des Konfigurations- und Bereitstellungsmanagements",
         "goal_de": "- Stellen Sie sicher, dass Standarddateien und bekannte Dateien entfernt wurden.\n– Stellen Sie sicher, dass in den Produktionsumgebungen kein Debugging-Code oder keine Erweiterungen mehr vorhanden sind.\n- Überprüfen Sie die für die Anwendung eingerichteten Protokollierungsmechanismen.",
         "relevance_de": "Bei falsch konfigurierten Plattformen bleiben in der Produktion häufig Debug-Tools, Beispieldateien oder ausführliche Fehler aktiviert. Dieser Test stellt sicher, dass die Plattform gehärtet ist, unnötige Funktionen deaktiviert sind und die Protokollierungsmechanismen sicher sind.",
@@ -480,7 +480,7 @@
         "reporting_hints_de": "Fügen Sie direkte URLs und Screenshots der durchgesickerten Informationen hinzu. Abhilfe: Strikte Härtung des Anwendungsservers gemäß Best-Practice-Richtlinien (z. B. CIS-Benchmarks) und Deaktivierung aller Debug-Flags in der Produktion."
     },
     "WSTG-CONF-03": {
-        "title_de": "Handhabung von Dateiendungen bei sensiblen Informationen",
+        "title_de": "Prüfung der Handhabung von Dateierweiterungen in Bezug auf sensible Informationen",
         "category_de": "Tests des Konfigurations- und Bereitstellungsmanagements",
         "goal_de": "– Zählen Sie vertrauliche Dateierweiterungen auf, die möglicherweise Rohdaten wie Skripte oder Anmeldeinformationen enthalten\n– Stellen Sie sicher, dass für die festgelegten Regeln keine System-Framework-Umgehungen vorhanden sind",
         "relevance_de": "Unsachgemäß behandelte Dateierweiterungen können versehentlich Quellcode oder Anmeldeinformationen preisgeben. Dieser Test überprüft, ob der Webserver Anfragen für vertrauliche Dateitypen wie .inc, .bak oder .config korrekt verarbeitet oder ablehnt.",
@@ -490,7 +490,7 @@
         "reporting_hints_de": "Zeigen Sie den Inhalt der abgerufenen vertraulichen Datei an. Abhilfe: Passen Sie die Webserverkonfiguration (z. B. Apache, Nginx) an, um den Zugriff auf Konfigurations- oder Archiverweiterungen serverseitig mit dem Status 403 (Verboten) kategorisch zu blockieren."
     },
     "WSTG-CONF-04": {
-        "title_de": "Backup-Dateien und unreferenzierte Dateien",
+        "title_de": "Überprüfung alter Backups und nicht referenzierter Dateien auf sensible Informationen",
         "category_de": "Tests des Konfigurations- und Bereitstellungsmanagements",
         "goal_de": "- Suchen und analysieren Sie nicht referenzierte Dateien, die möglicherweise vertrauliche Informationen enthalten.",
         "relevance_de": "Übrig gebliebene Sicherungsdateien oder nicht verknüpfte Verwaltungsskripte enthalten oft Quellcode oder Passwörter. Dieser Test identifiziert vergessene oder versteckte Dateien im Webstamm, die Angreifern tiefe Einblicke oder unbefugten Zugriff gewähren könnten.",
@@ -500,7 +500,7 @@
         "reporting_hints_de": "Beweisen Sie die Existenz der Datei und ihres sensiblen Inhalts. Abhilfe: Backups und Quellcode-Archive dürfen niemals in öffentlich zugänglichen Webverzeichnissen (Web-Root) gespeichert werden."
     },
     "WSTG-CONF-05": {
-        "title_de": "Administrationsschnittstellen von Infrastruktur und Anwendungen",
+        "title_de": "Aufzählung (Enumeration) von Infrastruktur- und Anwendungs-Admin-Schnittstellen",
         "category_de": "Tests des Konfigurations- und Bereitstellungsmanagements",
         "goal_de": "- Identifizieren Sie versteckte Administratorschnittstellen und -funktionen.",
         "relevance_de": "Versteckte Admin-Panels sind Hauptziele für Brute-Force- oder Bypass-Angriffe. Dieser Test erkennt Verwaltungsschnittstellen und stellt sicher, dass sie durch Zugriffskontrollen streng geschützt sind und nicht für unbefugte Benutzer zugänglich sind.",
@@ -510,7 +510,7 @@
         "reporting_hints_de": "Geben Sie die URL des Admin-Panels an und geben Sie an, ob Authentifizierungsfehler vorliegen. Abhilfe: Verstecken Sie Verwaltungsbereiche hinter internen Netzwerken, VPNs, IP-Zulassungslisten und fordern Sie die Verwendung von MFA."
     },
     "WSTG-CONF-06": {
-        "title_de": "HTTP-Methoden",
+        "title_de": "Prüfung der HTTP-Methoden",
         "category_de": "Tests des Konfigurations- und Bereitstellungsmanagements",
         "goal_de": "– Auflisten der unterstützten HTTP-Methoden.\n- Testen Sie die Umgehung der Zugangskontrolle.\n- Testen Sie Techniken zum Überschreiben von HTTP-Methoden.",
         "relevance_de": "Webserver unterstützen möglicherweise unbeabsichtigt gefährliche HTTP-Methoden wie PUT oder DELETE oder ermöglichen die Umgehung der Authentifizierung durch Methodenmanipulation. Dieser Test stellt sicher, dass nur erforderliche, sichere HTTP-Methoden vom Server zugelassen werden.",
@@ -520,7 +520,7 @@
         "reporting_hints_de": "Zeigen Sie die Anfrage an, die die Datei erfolgreich geändert hat. Abhilfe: Deaktivieren Sie unnötige HTTP-Verben auf Webserverebene und implementieren Sie strenge Anwendungsberechtigungsprüfungen unabhängig vom verwendeten Verb."
     },
     "WSTG-CONF-07": {
-        "title_de": "HTTP Strict Transport Security (HSTS)",
+        "title_de": "Prüfung von HTTP Strict Transport Security (HSTS)",
         "category_de": "Tests des Konfigurations- und Bereitstellungsmanagements",
         "goal_de": "- Überprüfen Sie den HSTS-Header und seine Gültigkeit.",
         "relevance_de": "Ohne HSTS sind Anwendungen anfällig für Downgrade-Angriffe. Dieser Test bestätigt das Vorhandensein und die Gültigkeit des HSTS-Headers und stellt sicher, dass Browser sichere (HTTPS)-Verbindungen vorschreiben und ungültige Zertifikate ablehnen.",
@@ -530,7 +530,7 @@
         "reporting_hints_de": "Fügen Sie den Header-Auszug hinzu. Abhilfe: Konfigurieren Sie den HSTS-Header mit einem geeigneten Maximalalter (mindestens 1 Jahr) und dem Flag „includeSubDomains“ und registrieren Sie ihn idealerweise in der HSTS-Preload-Liste."
     },
     "WSTG-CONF-08": {
-        "title_de": "RIA Cross-Domain-Policies",
+        "title_de": "Prüfung der RIA Cross-Domain-Richtlinie",
         "category_de": "Tests des Konfigurations- und Bereitstellungsmanagements",
         "goal_de": "Kein Ziel definiert.",
         "relevance_de": "Rich-Internet-Anwendungen verwenden Richtliniendateien, um den domänenübergreifenden Datenzugriff zu steuern. Dieser Test stellt sicher, dass domänenübergreifende Richtlinien streng konfiguriert sind und nicht zu sehr auf beliebige Domänen vertrauen, wodurch standortübergreifender Datendiebstahl verhindert wird.",
@@ -540,7 +540,7 @@
         "reporting_hints_de": "Verweisen Sie auf das Lebensende von Flash/Silverlight. Abhilfe: Löschen Sie diese Dateien vollständig, es sei denn, ältere Systeme erfordern sie unbedingt (in diesem Fall beschränken Sie sich auf explizite Zulassungslisten)."
     },
     "WSTG-CONF-09": {
-        "title_de": "Dateiberechtigungen",
+        "title_de": "Prüfung von Dateiberechtigungen (File Permissions)",
         "category_de": "Tests des Konfigurations- und Bereitstellungsmanagements",
         "goal_de": "- Überprüfen und identifizieren Sie alle Berechtigungen für betrügerische Dateien.",
         "relevance_de": "Zu großzügige Dateiberechtigungen auf dem Server können zur Offenlegung des Quellcodes oder zur unbefugten Dateiänderung führen. Dieser Test identifiziert betrügerische Berechtigungen für kritische Dateien wie Konfigurationen, Protokolle oder verschlüsselte Daten.",
@@ -550,7 +550,7 @@
         "reporting_hints_de": "Listen Sie die genauen Dateiberechtigungen auf (sofern White-Box-Zugriff verfügbar ist). Abhilfe: Setzen Sie das Prinzip der geringsten Rechte auf Dateisystemebene strikt durch korrekte Benutzer-/Gruppenbesitzverhältnisse durch."
     },
     "WSTG-CONF-10": {
-        "title_de": "Subdomain-Übernahme (Subdomain Takeover)",
+        "title_de": "Prüfung auf Subdomain-Übernahme (Subdomain Takeover)",
         "category_de": "Tests des Konfigurations- und Bereitstellungsmanagements",
         "goal_de": "- Zählen Sie alle möglichen Domänen auf (vorherige und aktuelle).\n- Identifizieren Sie alle vergessenen oder falsch konfigurierten Domänen.",
         "relevance_de": "Dangling-DNS-Einträge, die auf verlassene Dienste Dritter verweisen, können von Angreifern beansprucht werden. Dieser Test identifiziert vergessene Subdomains, um zu verhindern, dass Angreifer sie für Phishing- oder Cookie-Diebstahl-Kampagnen kapern.",
@@ -560,7 +560,7 @@
         "reporting_hints_de": "Der PoC muss die DNS-Auflösung (dig) und einen Screenshot des Drittanbieters enthalten, der die Verfügbarkeit der Ressource bestätigt. Abhilfe: Entfernen Sie verwaiste CNAME-Einträge sofort aus DNS-Zonen."
     },
     "WSTG-CONF-11": {
-        "title_de": "Cloud-Speicher",
+        "title_de": "Prüfung von Cloud-Speichern (Cloud Storage)",
         "category_de": "Tests des Konfigurations- und Bereitstellungsmanagements",
         "goal_de": "- Stellen Sie sicher, dass die Zugriffskontrollkonfiguration für die Speicherdienste ordnungsgemäß vorhanden ist.",
         "relevance_de": "Falsch konfigurierter Cloud-Speicher (z. B. AWS S3-Buckets) führt häufig zu massiven Datenschutzverletzungen. Dieser Test bewertet die Zugriffskontrollen auf Speicherdienste, um sicherzustellen, dass unbefugte Benutzer keine sensiblen Daten lesen oder schädliche Dateien hochladen können.",
@@ -570,7 +570,7 @@
         "reporting_hints_de": "Konsolenausgaben anzeigen, die den Lese- oder Schreibzugriff belegen. Abhilfe: Überprüfen Sie die IAM-Richtlinien und aktivieren Sie „Öffentlichen Zugriff blockieren“ für die betroffenen Speicherdienste unbedingt."
     },
     "WSTG-CONF-12": {
-        "title_de": "Content Security Policy (CSP)",
+        "title_de": "Prüfung der Content Security Policy (CSP)",
         "category_de": "Tests des Konfigurations- und Bereitstellungsmanagements",
         "goal_de": "- Überprüfen Sie den Content-Security-Policy-Header oder das Metaelement, um Fehlkonfigurationen zu identifizieren.",
         "relevance_de": "Ein robuster CSP wehrt XSS- und Clickjacking-Angriffe ab. Dieser Test überprüft den CSP-Header auf Fehlkonfigurationen – wie etwa zu breite Platzhalter oder unsichere Inline-Anweisungen –, um eine wirksame Durchsetzung von Inhaltsbeschränkungen sicherzustellen.",
@@ -580,7 +580,7 @@
         "reporting_hints_de": "Verwenden Sie Tools wie CSP Evaluator, um Richtlinienlücken aufzuzeigen. Abhilfe: Erstellen Sie einen restriktiven CSP, der Nonces oder Hashes für Skripte verwendet, und vermeiden Sie die Verwendung von Unsafe-Inline."
     },
     "WSTG-CONF-13": {
-        "title_de": "Pfad-Manipulation (Path Confusion)",
+        "title_de": "Prüfung auf Pfadverwechslung (Path Confusion)",
         "category_de": "Tests des Konfigurations- und Bereitstellungsmanagements",
         "goal_de": "– Stellen Sie sicher, dass die Anwendungspfade korrekt konfiguriert sind.",
         "relevance_de": "Pfadverwirrung tritt auf, wenn die Anwendung und Vermittler (wie CDNs) Pfade unterschiedlich analysieren, was häufig zu einer Web-Cache-Täuschung führt. Dieser Test stellt sicher, dass das Routing korrekt konfiguriert ist, um das Zwischenspeichern vertraulicher Benutzerdaten zu verhindern.",
@@ -590,7 +590,7 @@
         "reporting_hints_de": "Zeigen Sie, wie dies dazu führte, dass private Benutzerdaten öffentlich zwischengespeichert oder die Authentifizierung umgangen wurde. Abhilfe: Implementieren Sie eine konsistente, RFC-konforme Pfadnormalisierung über alle Architekturebenen hinweg."
     },
     "WSTG-CONF-14": {
-        "title_de": "Fehlkonfiguration sonstiger HTTP-Sicherheitsheader",
+        "title_de": "Prüfung auf Fehlkonfigurationen sonstiger HTTP-Sicherheits-Header",
         "category_de": "Tests des Konfigurations- und Bereitstellungsmanagements",
         "goal_de": "- Identifizieren Sie falsch konfigurierte Sicherheitsheader.\n- Bewerten Sie die Auswirkungen falsch konfigurierter Sicherheitsheader.\n– Validieren Sie die korrekte Implementierung der erforderlichen Sicherheitsheader.",
         "relevance_de": "HTTP-Sicherheitsheader weisen Browser an, wie sie mit der Anwendungssicherheit umgehen sollen. Dieser Test identifiziert fehlende, doppelte oder übermäßig freizügige Header, um einen optimalen clientseitigen Schutz vor häufigen Web-Schwachstellen zu gewährleisten.",
@@ -600,7 +600,7 @@
         "reporting_hints_de": "Untermauern Sie dies mit Header-Auszügen. Abhilfe: Implementieren Sie Best Practices für moderne sichere Header, um die Client-Seite abzusichern und MIME-Sniffing- und Framing-Angriffe zu verhindern."
     },
     "WSTG-CRYP-01": {
-        "title_de": "Schwache Transportverschlüsselung (TLS)",
+        "title_de": "Prüfung auf schwache Transportschichtsicherheit (TLS)",
         "category_de": "Testen auf schwache Kryptographie",
         "goal_de": "- Validieren Sie die Dienstkonfiguration.\n- Überprüfen Sie die kryptografische Stärke und Gültigkeit des digitalen Zertifikats.\n– Stellen Sie sicher, dass die TLS-Sicherheit nicht umgangen werden kann und in der gesamten Anwendung ordnungsgemäß implementiert ist.",
         "relevance_de": "Transport Layer Security (TLS) schützt Daten während der Übertragung. Dieser Test überprüft, ob die Anwendung starke Verschlüsselungsprotokolle, sichere Chiffren und gültige digitale Zertifikate verwendet, um Lauschangriffe und Man-in-the-Middle-Angriffe (MitM) zu verhindern.",
@@ -610,7 +610,7 @@
         "reporting_hints_de": "Listen Sie die spezifischen Ergebnisse auf (CVEs wie POODLE, SWEET32). Abhilfe: Konfigurieren Sie den Server gemäß den aktuellen BSI/NIST-Richtlinien (deaktivieren Sie TLS < 1.2, priorisieren Sie PFS und starke AEAD-Verschlüsselungen)."
     },
     "WSTG-CRYP-02": {
-        "title_de": "Padding-Oracle-Schwachstellen",
+        "title_de": "Prüfung auf Padding-Oracle-Angriffe",
         "category_de": "Testen auf schwache Kryptographie",
         "goal_de": "- Identifizieren Sie verschlüsselte Nachrichten, die auf Padding angewiesen sind.\n- Versuchen Sie, die Auffüllung der verschlüsselten Nachrichten zu unterbrechen und die zurückgegebenen Fehlermeldungen zur weiteren Analyse zu analysieren.",
         "relevance_de": "Kryptografische Fehler wie ein Padding-Orakel ermöglichen es Angreifern, Chiffretext zu entschlüsseln und beliebige Daten zu fälschen, ohne den Verschlüsselungsschlüssel zu kennen. Dieser Test identifiziert, ob die Anwendung den Füllgültigkeitsstatus durch Fehlermeldungen oder Zeitunterschiede verliert.",
@@ -620,7 +620,7 @@
         "reporting_hints_de": "Der Beweis sollte Protokolle von Exploit-Tools (wie PadBuster) enthalten, die belegen, dass eine Entschlüsselung möglich ist. Abhilfe: Verwenden Sie Authenticated Encryption (AEAD) wie AES-GCM anstelle von CBC-Modi."
     },
     "WSTG-CRYP-03": {
-        "title_de": "Übertragung sensibler Informationen über unverschlüsselte Kanäle",
+        "title_de": "Prüfung auf Übertragung sensibler Daten über unverschlüsselte Kanäle",
         "category_de": "Testen auf schwache Kryptographie",
         "goal_de": "- Identifizieren Sie sensible Informationen, die über die verschiedenen Kanäle übertragen werden.\n- Bewerten Sie die Privatsphäre und Sicherheit der verwendeten Kanäle.",
         "relevance_de": "Durch die Übertragung vertraulicher Daten – wie Anmeldeinformationen, Sitzungs-IDs oder PII – über unverschlüsseltes HTTP sind diese dem Abfangen durch das Netzwerk ausgesetzt. Dieser Test stellt sicher, dass alle sensiblen Kommunikationen ausschließlich verschlüsselte Kanäle wie HTTPS verwenden.",
@@ -630,7 +630,7 @@
         "reporting_hints_de": "Der PoC muss die Klartextsichtbarkeit deutlich zeigen. Abhilfe: HTTPS sofort für die gesamte Anwendung erzwingen (über Weiterleitungen und HSTS)."
     },
     "WSTG-CRYP-04": {
-        "title_de": "Schwache kryptographische Verfahren",
+        "title_de": "Prüfung auf schwache kryptografische Primitive (Algorithmen)",
         "category_de": "Testen auf schwache Kryptographie",
         "goal_de": "- Bereitstellung einer Richtlinie zur Identifizierung schwacher Verschlüsselungs- oder Hashing-Anwendungen und -Implementierungen.",
         "relevance_de": "Die Verwendung veralteter oder schwacher kryptografischer Algorithmen (z. B. MD5, RC4) gefährdet die Vertraulichkeit und Integrität der Daten. Dieser Test stellt sicher, dass die Anwendung moderne, sichere Verschlüsselungs-, Hashing- und Padding-Standards verwendet.",
@@ -640,7 +640,7 @@
         "reporting_hints_de": "Verweisen Sie auf die relevanten Codeabschnitte oder Tokenmuster. Abhilfe: Nutzen Sie moderne kryptografische Standards (z. B. Argon2/bcrypt für Passwörter, AES-256-GCM für symmetrische Verschlüsselung) und sichere Pseudozufallszahlengeneratoren (CSPRNG)."
     },
     "WSTG-ERRH-01": {
-        "title_de": "Fehlerbehandlung",
+        "title_de": "Prüfung auf unsachgemäße Fehlerbehandlung",
         "category_de": "Testen zur Fehlerbehandlung",
         "goal_de": "- Identifizieren Sie die vorhandene Fehlerausgabe.\n- Analysieren Sie die verschiedenen zurückgegebenen Ausgaben.",
         "relevance_de": "Anwendungen, die Fehler nicht ordnungsgemäß verarbeiten, können Stack-Traces, Datenbankabfragen oder Backend-Details an den Benutzer zurückgeben. Dieser Test stellt sicher, dass unerwartete Eingaben zu generischen Fehlermeldungen führen, die die interne Architektur nicht offenlegen.",
@@ -650,7 +650,7 @@
         "reporting_hints_de": "Heben Sie im Bericht genau hervor, welche Systemdetails durchgesickert sind. Abhilfe: Implementieren Sie einen globalen Ausnahmehandler, der generische Fehlermeldungen (z. B. HTTP 500 mit einer generischen Ref-ID) an den Client in der Produktion zurückgibt."
     },
     "WSTG-IDNT-01": {
-        "title_de": "Rollendefinitionen",
+        "title_de": "Prüfung der Rollendefinitionen",
         "category_de": "Testen des Identitätsmanagements",
         "goal_de": "- Identifizieren und dokumentieren Sie die von der Anwendung verwendeten Rollen.\n- Versuchen Sie, eine andere Rolle zu wechseln, zu ändern oder darauf zuzugreifen.\n- Überprüfen Sie die Granularität der Rollen und die Anforderungen hinter den erteilten Berechtigungen.",
         "relevance_de": "Anwendungen müssen strenge rollenbasierte Berechtigungen erzwingen, um Benutzerfunktionen zu trennen. Dieser Test bewertet die Granularität definierter Rollen und stellt sicher, dass Benutzer nicht zu Funktionen wechseln oder darauf zugreifen können, die für andere Berechtigungsstufen vorgesehen sind.",
@@ -660,7 +660,7 @@
         "reporting_hints_de": "Vergleichen Sie die implementierten Berechtigungen mit den logischen Anforderungen (Geschäftsbedarf). Abhilfe: Implementieren Sie strikt rollenbasierte (RBAC) oder attributbasierte Zugriffskontrolle (ABAC) und halten Sie sich an das Prinzip der geringsten Rechte."
     },
     "WSTG-IDNT-02": {
-        "title_de": "Benutzerregistrierungsprozess",
+        "title_de": "Prüfung des Benutzerregistrierungsprozesses",
         "category_de": "Testen des Identitätsmanagements",
         "goal_de": "- Stellen Sie sicher, dass die Identitätsanforderungen für die Benutzerregistrierung mit den Geschäfts- und Sicherheitsanforderungen übereinstimmen.\n- Bestätigen Sie den Registrierungsprozess.",
         "relevance_de": "Unsichere Registrierungsprozesse können zur automatisierten Kontoerstellung, Identitätsfälschung oder unbefugtem Zugriff führen. Dieser Test überprüft, ob Identitätsanforderungen und Überprüfungsprozesse mit den Sicherheitsrichtlinien des Systems übereinstimmen.",
@@ -670,7 +670,7 @@
         "reporting_hints_de": "Zeigen Sie ein Skript oder die manipulierte Anfrage, die den Fehler ausnutzt. Abhilfe: Strenge Identitätsüberprüfung, Ratenbegrenzung bei Massenregistrierungen und Entfernung aller privilegierten Parameter aus benutzergesteuerten Nutzlasten."
     },
     "WSTG-IDNT-03": {
-        "title_de": "Kontobereitstellungsprozess (Account Provisioning)",
+        "title_de": "Prüfung des Konto-Bereitstellungsprozesses (Account Provisioning)",
         "category_de": "Testen des Identitätsmanagements",
         "goal_de": "- Überprüfen Sie, welche Konten andere Konten bereitstellen können und welchen Typs.",
         "relevance_de": "Fehler bei der Kontobereitstellung können es Benutzern ermöglichen, Konten mit höheren Berechtigungen als ihren eigenen zu erstellen. Bei diesem Test werden die Autorisierungsprüfungen im Zusammenhang mit der Erstellung, Änderung und Aufhebung der Bereitstellung von Anwendungskonten überprüft.",
@@ -680,7 +680,7 @@
         "reporting_hints_de": "Beschreiben Sie, wie der Genehmigungsworkflow umgangen wurde. Abhilfe: Implementieren Sie mehrstufige Genehmigungen (Maker-Checker-Prinzip) für die Bereitstellung kritischer Zugriffskonten."
     },
     "WSTG-IDNT-04": {
-        "title_de": "Kontoaufzählung (Account Enumeration) und erratbare Benutzerkonten",
+        "title_de": "Prüfung auf Konto-Enumeration und erratbare Benutzerkonten",
         "category_de": "Testen des Identitätsmanagements",
         "goal_de": "- Überprüfen Sie Prozesse, die sich auf die Benutzeridentifizierung beziehen (*z. B.* Registrierung, Anmeldung usw.).\n- Zählen Sie Benutzer nach Möglichkeit durch Antwortanalyse auf.",
         "relevance_de": "Diskrepanzen in den Fehlermeldungen oder Antwortzeiten während der Anmeldung oder Passwortwiederherstellung können Aufschluss darüber geben, ob ein Benutzername vorhanden ist. Dieser Test stellt sicher, dass die Anwendung verhindert, dass Angreifer gültige Benutzerkonten für Brute-Force-Angriffe ausnutzen.",
@@ -690,7 +690,7 @@
         "reporting_hints_de": "Fügen Sie Screenshots der unterschiedlichen Fehlermeldungen oder ein Diagramm der Zeitunterschiede bei. Abhilfe: Verwenden Sie konsistente, generische Fehlermeldungen („Wenn das Konto vorhanden ist, wurde eine E-Mail gesendet“) und schwächen Sie Timing-Angriffe ab."
     },
     "WSTG-IDNT-05": {
-        "title_de": "Schwache oder nicht durchgesetzte Benutzernamen-Richtlinien",
+        "title_de": "Prüfung auf schwache oder nicht durchgesetzte Benutzernamen-Richtlinien",
         "category_de": "Testen des Identitätsmanagements",
         "goal_de": "Kein Ziel definiert.",
         "relevance_de": "Ohne eine strenge Richtlinie für Benutzernamen wählen Benutzer möglicherweise vorhersehbare oder leicht zu erratende Kennungen (z. B. „admin“). Dieser Test bewertet die Durchsetzung von Namenskonventionen durch die Anwendung, um eine triviale Kontoerkennung zu verhindern.",
@@ -700,7 +700,7 @@
         "reporting_hints_de": "Der PoC muss das registrierte Konto und dessen störende Wirkung aufzeigen. Abhilfe: Hartcodierte Blocklisten für reservierte Namen, strenge Sonderzeichenbeschränkungen und ordnungsgemäße Zeichenfolgennormalisierung."
     },
     "WSTG-INFO-01": {
-        "title_de": "Informationsbeschaffung über Suchmaschinen (Search Engine Reconnaissance)",
+        "title_de": "Suchmaschinen-Aufklärung zur Entdeckung von Informationslecks (Dorking)",
         "category_de": "Informationsbeschaffung",
         "goal_de": "- Identifizieren Sie, welche vertraulichen Design- und Konfigurationsinformationen der Anwendung, des Systems oder der Organisation direkt (auf der Website der Organisation) oder indirekt (über Dienste von Drittanbietern) offengelegt werden.",
         "relevance_de": "Suchmaschinen crawlen und indizieren aktiv Webinhalte und erfassen dabei manchmal unbeabsichtigt sensible Daten. Dieser Test nutzt erweiterte Suchoperatoren (z. B. Google Dorking), um durchgesickerte Konfigurationsdateien, Anmeldeinformationen oder versteckte Verzeichnisse zu entdecken.",
@@ -710,7 +710,7 @@
         "reporting_hints_de": "Berücksichtigen Sie sorgfältig die Sensibilität von Design- und Konfigurationsinformationen, bevor Sie diese online veröffentlichen.\n\nÜberprüfen Sie regelmäßig die Vertraulichkeit vorhandener Design- und Konfigurationsinformationen, die online veröffentlicht werden."
     },
     "WSTG-INFO-02": {
-        "title_de": "Fingerprinting von Webservern",
+        "title_de": "Fingerprinting des Webservers",
         "category_de": "Informationsbeschaffung",
         "goal_de": "- Bestimmen Sie die Version und den Typ eines laufenden Webservers, um die weitere Erkennung bekannter Schwachstellen zu ermöglichen.",
         "relevance_de": "Durch die Identifizierung des spezifischen Webservers und seiner Version können Angreifer bekannte Schwachstellen ausnutzen. Dieser Test nutzt Bannergrabbing und fehlerhafte Anfragen, um festzustellen, auf welcher Serversoftware die Anwendung ausgeführt wird.",
@@ -720,7 +720,7 @@
         "reporting_hints_de": "Während offengelegte Serverinformationen nicht unbedingt an sich eine Sicherheitslücke darstellen, handelt es sich um Informationen, die Angreifern dabei helfen können, andere möglicherweise vorhandene Sicherheitslücken auszunutzen. Offengelegte Serverinformationen können Angreifer auch dazu veranlassen, versionenspezifische Serverschwachstellen zu finden, die zum Ausnutzen nicht gepatchter Server genutzt werden können. Aus diesem Grund wird empfohlen, einige Vorsichtsmaßnahmen zu treffen. Zu diesen Aktionen gehören:\n\n– Verschleierung von Webserverinformationen in Headern, beispielsweise mit dem [mod_headers-Modul](https://httpd.apache.org/docs/current/mod/mod_headers.html) von Apache.\n- Verwendung eines gehärteten [Reverse-Proxy-Servers] (https://en.wikipedia.org/wiki/Proxy_server#Reverse_proxies), um eine zusätzliche Sicherheitsebene zwischen dem Webserver und dem Internet zu schaffen.\n- Sicherstellen, dass Webserver mit der neuesten Software und Sicherheitspatches auf dem neuesten Stand gehalten werden."
     },
     "WSTG-INFO-03": {
-        "title_de": "Informationslecks in Webserver-Metadateien (robots.txt, Sitemap etc.)",
+        "title_de": "Überprüfung von Webserver-Metadateien auf Informationslecks",
         "category_de": "Informationsbeschaffung",
         "goal_de": "- Identifizieren Sie versteckte oder verschleierte Pfade und Funktionen durch die Analyse von Metadatendateien.\n- Extrahieren und kartieren Sie weitere Informationen, die zu einem besseren Verständnis der jeweiligen Systeme führen könnten.",
         "relevance_de": "Metadateien wie robots.txt, sitemap.xml und .well-known-Verzeichnisse offenbaren oft versteckte Pfade, interne Endpunkte oder API-Details. Dieser Test analysiert diese Dateien, um verborgene Angriffsflächen der Anwendung aufzudecken.",
@@ -730,7 +730,7 @@
         "reporting_hints_de": "Dokumentieren Sie den betroffenen Endpunkt, die genauen verwendeten Nutzlasten/Parameter, die geschäftlichen Auswirkungen und stellen Sie klare Schritte zur Reproduktion bereit."
     },
     "WSTG-INFO-04": {
-        "title_de": "Identifizierung der Angriffsfläche",
+        "title_de": "Identifizierung der Angriffsfläche (Attack Surface)",
         "category_de": "Informationsbeschaffung",
         "goal_de": "– Listen Sie alle Webanwendungen im Geltungsbereich auf.\n- Identifizieren Sie DNS-Namen, Domänen und virtuelle Hosts, die dem Ziel zugeordnet sind.\n- Entdecken Sie zusätzliche Domänen und Subdomänen mithilfe passiver und aktiver DNS-Techniken.\n- Analysieren Sie digitale Zertifikate und Zertifikatstransparenzprotokolle auf zusätzliche Hostnamen.",
         "relevance_de": "Für eine umfassende Bewertung muss die gesamte Angriffsfläche identifiziert werden, einschließlich Subdomänen, virtuellen Hosts und exponierten Diensten. Dieser Test verwendet DNS-Aufzählungs- und Zertifikattransparenzprotokolle, um den gesamten Footprint des Ziels abzubilden.",
@@ -740,7 +740,7 @@
         "reporting_hints_de": "Dokumentieren Sie den betroffenen Endpunkt, die genauen verwendeten Nutzlasten/Parameter, die geschäftlichen Auswirkungen und stellen Sie klare Schritte zur Reproduktion bereit."
     },
     "WSTG-INFO-05": {
-        "title_de": "Informationslecks in Webseiteninhalten",
+        "title_de": "Überprüfung von Webseiteninhalten auf Informationslecks",
         "category_de": "Informationsbeschaffung",
         "goal_de": "- Überprüfen Sie Webseitenkommentare, Metadaten und Weiterleitungstexte, um etwaige Informationslecks zu finden.\n- Sammeln Sie JavaScript-Dateien und überprüfen Sie den JS-Code, um die Anwendung besser zu verstehen und etwaige Informationslecks zu finden.\n– Identifizieren Sie, ob Quellzuordnungsdateien oder andere Frontend-Debugdateien vorhanden sind.",
         "relevance_de": "Entwickler hinterlassen häufig vertrauliche Informationen – wie API-Schlüssel, fest codierte Anmeldeinformationen oder Backend-Logik – in HTML-Kommentaren oder JavaScript-Quellzuordnungen. Bei diesem Test wird der clientseitige Code gründlich auf versehentliche Datenlecks überprüft.",
@@ -750,7 +750,7 @@
         "reporting_hints_de": "Dokumentieren Sie den betroffenen Endpunkt, die genauen verwendeten Nutzlasten/Parameter, die geschäftlichen Auswirkungen und stellen Sie klare Schritte zur Reproduktion bereit."
     },
     "WSTG-INFO-06": {
-        "title_de": "Anwendungseintrittspunkte",
+        "title_de": "Identifizierung von Anwendungseinstiegspunkten",
         "category_de": "Informationsbeschaffung",
         "goal_de": "- Identifizieren Sie mögliche Eintritts- und Injektionspunkte durch Anforderungs- und Antwortanalyse.",
         "relevance_de": "Das Erkennen aller Parameter, Header und API-Endpunkte ist von entscheidender Bedeutung, bevor mit aktiven Tests begonnen wird. Dieser Test bildet alle Anwendungseinstiegspunkte ab und unterscheidet zwischen GET- und POST-Anfragen, um potenzielle Injektionsvektoren zu identifizieren.",
@@ -760,7 +760,7 @@
         "reporting_hints_de": "Dokumentieren Sie den betroffenen Endpunkt, die genauen verwendeten Nutzlasten/Parameter, die geschäftlichen Auswirkungen und stellen Sie klare Schritte zur Reproduktion bereit."
     },
     "WSTG-INFO-07": {
-        "title_de": "Ausführungspfade der Anwendung",
+        "title_de": "Nachvollziehen der Ausführungspfade durch die Anwendung",
         "category_de": "Informationsbeschaffung",
         "goal_de": "- Ordnen Sie die Zielanwendung zu und verstehen Sie die wichtigsten Arbeitsabläufe.",
         "relevance_de": "Um gründliche Tests sicherzustellen, ist es notwendig, die primären Arbeitsabläufe und Entscheidungszweige der Anwendung zu verstehen. Dieser Test umfasst manuelles und automatisiertes Spidering, um Benutzerreisen und undokumentierte Codepfade abzubilden.",
@@ -770,7 +770,7 @@
         "reporting_hints_de": "Dokumentieren Sie den betroffenen Endpunkt, die genauen verwendeten Nutzlasten/Parameter, die geschäftlichen Auswirkungen und stellen Sie klare Schritte zur Reproduktion bereit."
     },
     "WSTG-INFO-08": {
-        "title_de": "Fingerprinting von Webanwendungs-Frameworks",
+        "title_de": "Fingerprinting des Webanwendungs-Frameworks",
         "category_de": "Informationsbeschaffung",
         "goal_de": "- Fingerabdruck der von den Webanwendungen verwendeten Komponenten.",
         "relevance_de": "Anwendungen stützen sich stark auf Frameworks von Drittanbietern, die bekannte Schwachstellen enthalten können. Dieser Test überprüft HTTP-Header, Cookies und Verzeichnisstrukturen, um einen genauen Fingerabdruck des zugrunde liegenden Webanwendungs-Frameworks (z. B. Spring, Laravel) zu erhalten.",
@@ -780,7 +780,7 @@
         "reporting_hints_de": "Es können zwar Anstrengungen unternommen werden, unterschiedliche Cookie-Namen zu verwenden (durch Ändern von Konfigurationen), Datei-/Verzeichnispfade zu verbergen oder zu ändern (durch Umschreiben oder Quellcodeänderungen), bekannte Header zu entfernen usw., diese Bemühungen laufen jedoch auf „Sicherheit durch Unklarheit“ hinaus. Systembesitzer/-administratoren sollten erkennen, dass solche Bemühungen nur die rudimentärsten Gegner verlangsamen. Die Zeit und der Aufwand könnten besser in die Sensibilisierung der Stakeholder und die Aufrechterhaltung von Lösungen investiert werden."
     },
     "WSTG-INFO-10": {
-        "title_de": "Webanwendungs-Architektur",
+        "title_de": "Analyse der Anwendungsarchitektur",
         "category_de": "Informationsbeschaffung",
         "goal_de": "- Verstehen Sie die Architektur der Anwendung und die verwendeten Technologien.",
         "relevance_de": "Es ist wichtig, die zugrunde liegende Architektur der Anwendung zu verstehen – einschließlich Datenbanken, Reverse-Proxys, WAFs und APIs von Drittanbietern. Dieser Test bildet den Technologie-Stack ab, um Testfälle genau anzupassen und infrastrukturspezifische Schwachstellen zu identifizieren.",
@@ -790,7 +790,7 @@
         "reporting_hints_de": "Dokumentieren Sie den betroffenen Endpunkt, die genauen verwendeten Nutzlasten/Parameter, die geschäftlichen Auswirkungen und stellen Sie klare Schritte zur Reproduktion bereit."
     },
     "WSTG-INPV-01": {
-        "title_de": "Reflektiertes Cross-Site-Scripting (Reflected XSS)",
+        "title_de": "Prüfung auf Reflected Cross-Site Scripting (XSS)",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie Variablen, die sich in den Antworten widerspiegeln.\n- Bewerten Sie die von ihnen akzeptierten Eingaben und die Codierung, die bei der Rückgabe angewendet wird (falls vorhanden).",
         "relevance_de": "Reflektiertes XSS tritt auf, wenn nicht validierte Benutzereingaben sofort vom Server zurückgegeben und im Browser des Opfers ausgeführt werden. Dieser Test stellt sicher, dass die Anwendung Eingaben ordnungsgemäß bereinigt und kodiert, um das Einschleusen böswilliger Skripte zu verhindern.",
@@ -800,7 +800,7 @@
         "reporting_hints_de": "Dokumentieren Sie den betroffenen Endpunkt, die genauen verwendeten Nutzlasten/Parameter, die geschäftlichen Auswirkungen und stellen Sie klare Schritte zur Reproduktion bereit."
     },
     "WSTG-INPV-02": {
-        "title_de": "Gespeichertes Cross-Site-Scripting (Stored XSS)",
+        "title_de": "Prüfung auf Stored Cross-Site Scripting (XSS)",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie gespeicherte Eingaben, die auf der Clientseite widergespiegelt werden.\n- Bewerten Sie die von ihnen akzeptierten Eingaben und die Codierung, die bei der Rückgabe angewendet wird (falls vorhanden).",
         "relevance_de": "Gespeichertes XSS ist eine schwerwiegende Sicherheitslücke, bei der schädliche Skripte im Backend gespeichert und an nachfolgende Benutzer weitergegeben werden. Dieser Test stellt sicher, dass alle gespeicherten Daten vor dem Rendern bereinigt werden, um eine dauerhafte Codeausführung zu verhindern.",
@@ -810,7 +810,7 @@
         "reporting_hints_de": "Dokumentieren Sie den betroffenen Endpunkt, die genauen verwendeten Nutzlasten/Parameter, die geschäftlichen Auswirkungen und stellen Sie klare Schritte zur Reproduktion bereit."
     },
     "WSTG-INPV-04": {
-        "title_de": "HTTP Parameter Pollution",
+        "title_de": "Prüfung auf HTTP Parameter Pollution (HPP)",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie das Backend und die verwendete Parsing-Methode.\n- Bewerten Sie Einspritzpunkte und versuchen Sie, Eingangsfilter mithilfe von HPP zu umgehen.",
         "relevance_de": "HTTP-Parameterverschmutzung tritt auf, wenn mehrere Parameter mit demselben Namen angegeben werden, was möglicherweise zu einem anomalen Anwendungsverhalten führt. Dieser Test überprüft, ob das Backend doppelte Parameter sicher verarbeitet, ohne Geschäftslogik oder Sicherheitsfilter zu umgehen.",
@@ -820,7 +820,7 @@
         "reporting_hints_de": "Dokumentieren Sie den betroffenen Endpunkt, die genauen verwendeten Nutzlasten/Parameter, die geschäftlichen Auswirkungen und stellen Sie klare Schritte zur Reproduktion bereit."
     },
     "WSTG-INPV-05": {
-        "title_de": "SQL-Injection",
+        "title_de": "Prüfung auf SQL-Injection (SQLi)",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie SQL-Injection-Punkte.\n- Bewerten Sie den Schweregrad der Injektion und den Grad des dadurch erreichbaren Zugangs.",
         "relevance_de": "Mithilfe der SQL-Injection können Angreifer Datenbankabfragen manipulieren, um Daten zu stehlen, zu verändern oder zu zerstören. Dieser Test stellt sicher, dass alle Benutzereingaben sicher parametrisiert und bereinigt werden, um unbefugte Datenbankinteraktionen zu verhindern.",
@@ -830,7 +830,7 @@
         "reporting_hints_de": "– Um die Anwendung vor SQL-Injection-Schwachstellen zu schützen, lesen Sie das [SQL Injection Prevention CheatSheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html).\n- Informationen zum Sichern des SQL-Servers finden Sie im [Datenbanksicherheits-CheatSheet](https://cheatsheetseries.owasp.org/cheatsheets/Database_Security_Cheat_Sheet.html).\n\nInformationen zur allgemeinen Sicherheit der Eingabevalidierung finden Sie im [CheatSheet zur Eingabevalidierung](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html)."
     },
     "WSTG-INPV-06": {
-        "title_de": "LDAP-Injection",
+        "title_de": "Prüfung auf LDAP-Injection",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie LDAP-Injektionspunkte.\n- Beurteilen Sie den Schweregrad der Injektion.",
         "relevance_de": "Wenn eine Anwendung nicht validierte Eingaben verwendet, um ein LDAP-Verzeichnis abzufragen, können Angreifer die Abfrage ändern, um die Authentifizierung zu umgehen oder vertrauliche Verzeichnisinformationen zu extrahieren. Dieser Test überprüft den Schutz der Anwendung gegen LDAP-Syntaxinjektion.",
@@ -840,7 +840,7 @@
         "reporting_hints_de": "Dokumentieren Sie den betroffenen Endpunkt, die genauen verwendeten Nutzlasten/Parameter, die geschäftlichen Auswirkungen und stellen Sie klare Schritte zur Reproduktion bereit."
     },
     "WSTG-INPV-07": {
-        "title_de": "XML-Injection (inkl. XXE)",
+        "title_de": "Prüfung auf XML-Injection",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie XML-Injektionspunkte.\n- Bewerten Sie die Arten von Exploits, die erreicht werden können, und deren Schwere.",
         "relevance_de": "In böswilliger Absicht erstellte XML-Eingaben können die Anwendungslogik verändern oder zu XXE-Angriffen (External Entity) führen. Dieser Test überprüft, ob XML-Parser Eingaben ordnungsgemäß validieren und gefährliche Funktionen wie die Auswertung externer Entitäten einschränken.",
@@ -850,7 +850,7 @@
         "reporting_hints_de": "Dokumentieren Sie den betroffenen Endpunkt, die genauen verwendeten Nutzlasten/Parameter, die geschäftlichen Auswirkungen und stellen Sie klare Schritte zur Reproduktion bereit."
     },
     "WSTG-INPV-08": {
-        "title_de": "Server-Side Includes (SSI) Injection",
+        "title_de": "Prüfung auf SSI-Injection (Server-Side Includes)",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie SSI-Injektionspunkte.\n- Beurteilen Sie den Schweregrad der Injektion.",
         "relevance_de": "Mit der Server-Side Includes (SSI)-Injection können Angreifer über bestimmte HTML-Anweisungen beliebigen serverseitigen Code ausführen oder Dateien lesen. Dieser Test identifiziert, ob Benutzereingaben unsicher in Dateien eingebettet sind, die auf SSI-Anweisungen analysiert werden.",
@@ -860,7 +860,7 @@
         "reporting_hints_de": "Dokumentieren Sie den betroffenen Endpunkt, die genauen verwendeten Nutzlasten/Parameter, die geschäftlichen Auswirkungen und stellen Sie klare Schritte zur Reproduktion bereit."
     },
     "WSTG-INPV-09": {
-        "title_de": "XPath-Injection",
+        "title_de": "Prüfung auf XPath-Injection",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie XPATH-Injektionspunkte.",
         "relevance_de": "Mit der XPath-Injection können Angreifer Abfragen manipulieren, die zum Parsen von XML-Daten verwendet werden, wodurch möglicherweise die Authentifizierung umgangen oder die gesamte XML-Struktur offengelegt wird. Dieser Test überprüft, ob XPath-Abfragen vom Benutzer eingegebene Eingaben korrekt neutralisieren.",
@@ -870,7 +870,7 @@
         "reporting_hints_de": "Dokumentieren Sie den betroffenen Endpunkt, die genauen verwendeten Nutzlasten/Parameter, die geschäftlichen Auswirkungen und stellen Sie klare Schritte zur Reproduktion bereit."
     },
     "WSTG-INPV-10": {
-        "title_de": "IMAP/SMTP-Injection",
+        "title_de": "Prüfung auf IMAP/SMTP-Injection",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie IMAP/SMTP-Injektionspunkte.\n- Verstehen Sie den Datenfluss und die Bereitstellungsstruktur des Systems.\n- Bewerten Sie die Auswirkungen der Injektion.",
         "relevance_de": "Webmail-Anwendungen, die Eingaben nicht bereinigen, können gezwungen werden, beliebige IMAP- oder SMTP-Befehle auszuführen. Dieser Test bewertet, ob Angreifer E-Mail-Einschränkungen umgehen, das Routing manipulieren oder über Command Injection (CRLF) auf nicht autorisierte E-Mail-Funktionen zugreifen können.",
@@ -880,7 +880,7 @@
         "reporting_hints_de": "Dokumentieren Sie den betroffenen Endpunkt, die genauen verwendeten Nutzlasten/Parameter, die geschäftlichen Auswirkungen und stellen Sie klare Schritte zur Reproduktion bereit."
     },
     "WSTG-INPV-11": {
-        "title_de": "Code-Injection",
+        "title_de": "Prüfung auf Code-Injection",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie Injektionspunkte, an denen Sie Code in die Anwendung einfügen können.\n- Beurteilen Sie den Schweregrad der Injektion.",
         "relevance_de": "Code-Injection erfolgt, wenn Benutzereingaben direkt von der Skript-Engine des Servers ausgewertet werden (z. B. über eval()). Dieser Test identifiziert Endpunkte, bei denen mangelnde Bereinigung zu einer schwerwiegenden Remotecodeausführung führt.",
@@ -890,7 +890,7 @@
         "reporting_hints_de": "Dokumentieren Sie den betroffenen Endpunkt, die genauen verwendeten Nutzlasten/Parameter, die geschäftlichen Auswirkungen und stellen Sie klare Schritte zur Reproduktion bereit."
     },
     "WSTG-INPV-12": {
-        "title_de": "Command-Injection",
+        "title_de": "Prüfung auf Command-Injection (Befehlsinjektion)",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren und bewerten Sie Befehlsinjektionspunkte.\n- Umgehen Sie den Filter für Sonderzeichen und Betriebssystembefehle.",
         "relevance_de": "Mit OS Command Injection können Angreifer beliebige Systembefehle auf dem Hostserver ausführen. Dieser Test stellt sicher, dass Benutzereingaben niemals unsicher an System-Shells oder Befehlsausführungs-APIs weitergeleitet werden.",
@@ -900,7 +900,7 @@
         "reporting_hints_de": "### Desinfektion\n\nDie URL-Abfrageparameter und Formulardaten müssen validiert und bereinigt werden, um das Einschleusen schädlicher Zeichen zu verhindern.  \nEine Blockliste mit Zeichen ist eine Option, aber es kann schwierig sein, sich alle Zeichen vorzustellen, anhand derer validiert werden kann. Möglicherweise gibt es auch einige, die noch nicht entdeckt wurden.  \nZur Validierung der Benutzereingaben sollte eine Zulassungsliste erstellt werden, die nur autorisierte Zeichen oder Befehle enthält. Übersehene Charaktere sowie unentdeckte Bedrohungen sollten durch diese Liste eliminiert werden.  \n\nDie allgemeine Verweigerungsliste, die für die Befehlsinjektion einbezogen werden soll, kann `|` `;` `&` `$` `>` `<` `'` `\\` `!` `>>` `#` lauten   \n\nSonderzeichen für Windows maskieren oder filtern, `(` `)` `<` `>` `&` `*` `‘` `|` `=` `?` `;` `[` `]` `^` `~` `!` `.` `\"` `%` `@` `/` `\\` `:`   `+` `,` ``` ` ```   \n\nEscape- oder Filter-Sonderzeichen für Linux, `{` `}` `(` `)` `>` `<` `&` `*` `‘` `|` `=` `?` `;` `[` `]`   `$` `–` `#`   `~` `!` `.` `\"` `%`   `/` `\\` `:`  `+` `,` ``` ` ```   \n\nVermeiden Sie außerdem die Verwendung von Funktionen, die Betriebssystembefehle in Ihrer Anwendung ausführen, es sei denn, dies ist unbedingt erforderlich. Anstatt beispielsweise `system(\"cp /path/to/file1.txt /path/to/file2.txt\")` zum Kopieren einer Datei zu verwenden, können Sie direkt die in PHP integrierte Funktion `copy(\"cp /path/to/file1.txt, /path/to/file2.txt\")` verwenden, die genau das Gleiche tut. Es ist erwähnenswert, dass andere Entwicklungssprachen/Frameworks im Allgemeinen ähnliche integrierte Funktionen bieten.\n\n### Berechtigungen\n\nDie Webanwendung und ihre Komponenten sollten unter strengen Berechtigungen ausgeführt werden, die die Ausführung von Betriebssystembefehlen nicht zulassen. Versuchen Sie, alle diese Informationen zu überprüfen, um sie aus der Sicht eines Gray-Box-Tests zu testen."
     },
     "WSTG-INPV-13": {
-        "title_de": "Format-String-Injection",
+        "title_de": "Prüfung auf Pufferüberläufe (Buffer Overflow) und Format-String-Injection",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "– Bewerten Sie, ob das Einfügen von Konvertierungsspezifizierern für Formatzeichenfolgen in benutzergesteuerte Felder zu unerwünschtem Verhalten der Anwendung führt.",
         "relevance_de": "Pufferüberlauf: Pufferüberläufe treten auf, wenn eine Anwendung mehr Daten empfängt, als ihr zugewiesener Speicher verarbeiten kann, was möglicherweise zu Abstürzen oder Remotecodeausführung führt. Dieser Test stellt sicher, dass für alle Eingabefelder eine strenge Grenzprüfung erzwungen wird. Format-String-Injection: Das Einfügen von Format-String-Bezeichnern (z. B. %x, %n) in eine Anwendung kann zu Laufzeitfehlern, Speicheroffenlegung oder Codeausführung führen. Dieser Test überprüft, ob Benutzereingaben nicht unsicher an Formatierungsfunktionen weitergeleitet werden.",
@@ -910,7 +910,7 @@
         "reporting_hints_de": "Dokumentieren Sie den betroffenen Endpunkt, die genauen verwendeten Nutzlasten/Parameter, die geschäftlichen Auswirkungen und stellen Sie klare Schritte zur Reproduktion bereit."
     },
     "WSTG-INPV-14": {
-        "title_de": "Inkubierte Schwachstellen (Incubated Vulnerabilities)",
+        "title_de": "Prüfung auf inkubierte Schwachstellen (Incubated Vulnerabilities)",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie gespeicherte Injektionen, für die ein Rückrufschritt für die gespeicherte Injektion erforderlich ist.\n- Verstehen Sie, wie ein Rückrufschritt ablaufen könnte.\n- Legen Sie Hörer fest oder aktivieren Sie den Rückrufschritt, wenn möglich.",
         "relevance_de": "Bei inkubierten (persistenten) Schwachstellen handelt es sich um mehrstufige Angriffe, bei denen eine schädliche Nutzlast in einer Datenbank gespeichert und später von einem Opfer oder Administrator ausgeführt wird. Dieser Test prüft auf verzögerte Ausführungsszenarien, die mehrere Eingabefehler kombinieren.",
@@ -920,7 +920,7 @@
         "reporting_hints_de": "Dokumentieren Sie den betroffenen Endpunkt, die genauen verwendeten Nutzlasten/Parameter, die geschäftlichen Auswirkungen und stellen Sie klare Schritte zur Reproduktion bereit."
     },
     "WSTG-INPV-15": {
-        "title_de": "HTTP Response Splitting",
+        "title_de": "Prüfung auf HTTP Response Splitting",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "– Identifizieren Sie benutzergesteuerte Eingaben, die sich in HTTP-Antwortheadern widerspiegeln.\n– Bewerten Sie, ob CR- ( `\\r` ) und LF- ( `\\n` ) Zeichen in Antwortheader eingefügt werden können.\n- Ermitteln Sie die potenziellen Auswirkungen erfolgreicher HTTP Response Splitting-Angriffe, z. B. Cache-Poisoning oder clientseitige Ausnutzung.",
         "relevance_de": "HTTP Response Splitting ermöglicht es Angreifern, CRLF-Zeichen in Header einzufügen und so nachfolgende HTTP-Antworten zu fälschen. Dieser Test stellt sicher, dass Eingaben bereinigt werden, um Cache-Poisoning, XSS und Session-Hijacking durch Header-Manipulation zu verhindern.",
@@ -930,7 +930,7 @@
         "reporting_hints_de": "Stellen Sie sicher, dass vom Benutzer bereitgestellte Eingaben niemals ohne strenge Validierung und Bereinigung in HTTP-Headern platziert werden.\n\n- **Eingabevalidierung:** Eingaben mit Wagenrücklaufzeichen ( `\\r` , `%0d` ) oder Zeilenvorschubzeichen ( `\\n` , `%0a` ) ablehnen oder entfernen, bevor sie in HTTP-Headern verwendet werden.\n- **URL-Kodierung:** Wenn die Eingabe Teil einer URL ist (z. B. in einem `Location`-Header), stellen Sie sicher, dass sie ordnungsgemäß URL-kodiert ist, um zu verhindern, dass Steuerzeichen als Trennzeichen interpretiert werden.\n- **Verwenden Sie sichere Frameworks:** Nutzen Sie integrierte Framework-Funktionen zum Festlegen von Headern (z. B. `setHeader()`, `addHeader()`), anstatt rohe HTTP-Antwortzeichenfolgen manuell zu erstellen. Moderne Umgebungen blockieren normalerweise standardmäßig die Header-Injektion."
     },
     "WSTG-INPV-16": {
-        "title_de": "HTTP Request Smuggling",
+        "title_de": "Prüfung auf HTTP Request Smuggling",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie Inkonsistenzen bei Anforderungsgrenzen zwischen Frontend- und Backend-Komponenten\n- Erkennen Sie klassische CL/TE-Desynchronisierungsschwachstellen\n- Bewerten Sie die Protokollübersetzungslogik (HTTP/2 → HTTP/1.1)\n- Bewerten Sie die H2C-Upgrade-Handhabung und die Downgrade-Sicherheit\n– Bestätigen Sie die Vergiftung der Backend-Anfragewarteschlange",
         "relevance_de": "Beim Anforderungsschmuggel werden Diskrepanzen bei der Analyse von HTTP-Grenzen durch Front-End- und Back-End-Server ausgenutzt (z. B. Content-Length vs. Transfer-Encoding). Dieser Test stellt sicher, dass Angreifer keine versteckten Anfragen an den Backend-Server schleichen können.",
@@ -940,7 +940,7 @@
         "reporting_hints_de": "- Erzwingen Sie eine strikte RFC-konforme Analyse\n- Normalisieren Sie die Bearbeitung von Anfragen über alle Vermittler hinweg\n- Deaktivieren Sie H2C, wo es nicht erforderlich ist\n- Vermeiden Sie Protokoll-Downgrades bei nicht vertrauenswürdigen Verbindungen\n- Backend-Verbindungen bei Analysefehlern beenden und erneut validieren"
     },
     "WSTG-INPV-17": {
-        "title_de": "Host-Header-Injection",
+        "title_de": "Prüfung auf Host-Header-Injection",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "– Beurteilen Sie, ob der Host-Header in der Anwendung dynamisch analysiert wird.\n- Umgehen Sie Sicherheitskontrollen, die auf dem Header basieren.",
         "relevance_de": "Anwendungen, die dem HTTP-Host-Header dynamisch vertrauen, können für Cache-Poisoning, Passwort-Reset-Hijacking oder den Zugriff auf interne virtuelle Hosts ausgenutzt werden. Dieser Test bewertet die sichere Handhabung des bereitgestellten Host-Werts durch die Anwendung.",
@@ -950,7 +950,7 @@
         "reporting_hints_de": "Dokumentieren Sie den betroffenen Endpunkt, die genauen verwendeten Nutzlasten/Parameter, die geschäftlichen Auswirkungen und stellen Sie klare Schritte zur Reproduktion bereit."
     },
     "WSTG-INPV-18": {
-        "title_de": "Server-Side Template Injection (SSTI)",
+        "title_de": "Prüfung auf serverseitige Template-Injection (SSTI)",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Erkennen Sie Schwachstellen bei der Template-Injection.\n- Identifizieren Sie die Template-Engine.\n- Erstellen Sie den Exploit.",
         "relevance_de": "Server-Side Template Injection (SSTI) ermöglicht es Angreifern, native Template-Syntax (z. B. Jinja2, Twig) einzuschleusen, was möglicherweise zur Remote-Codeausführung führt. Dieser Test stellt sicher, dass Benutzereingaben strikt von den Vorlagenbewertungs-Engines getrennt werden.",
@@ -960,7 +960,7 @@
         "reporting_hints_de": "Dokumentieren Sie den betroffenen Endpunkt, die genauen verwendeten Nutzlasten/Parameter, die geschäftlichen Auswirkungen und stellen Sie klare Schritte zur Reproduktion bereit."
     },
     "WSTG-INPV-19": {
-        "title_de": "Server-Side Request Forgery (SSRF)",
+        "title_de": "Prüfung auf Server-Side Request Forgery (SSRF)",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie SSRF-Injektionspunkte.\n- Testen Sie, ob die Einspritzpunkte ausnutzbar sind.\n- Bewertet den Schweregrad der Schwachstelle.",
         "relevance_de": "SSRF bringt den Server dazu, im Namen des Angreifers beliebige HTTP-Anfragen zu stellen und so interne Dienste, Cloud-Metadaten oder lokale Dateien offenzulegen. Dieser Test überprüft, ob die für den externen Ressourcenabruf vorgesehene Eingabe stark eingeschränkt ist.",
@@ -970,7 +970,7 @@
         "reporting_hints_de": "SSRF ist bekanntermaßen einer der am schwersten zu bekämpfenden Angriffe ohne die Verwendung von Zulassungslisten, die die Zulassung bestimmter IP-Adressen und URLs erfordern. Weitere Informationen zur SSRF-Prävention finden Sie im [Cheatsheet zur Server Side Request Forgery Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html)."
     },
     "WSTG-INPV-20": {
-        "title_de": "Mass Assignment",
+        "title_de": "Prüfung auf Mass Assignment",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie Anforderungen, die Objekte ändern\n- Prüfen Sie, ob es möglich ist, Felder zu ändern, die niemals von außen geändert werden sollen",
         "relevance_de": "Eine Massenzuweisung erfolgt, wenn Frameworks Benutzereingaben automatisch an interne Objektmodelle binden. Dieser Test stellt sicher, dass Angreifer keine unerwarteten Parameter (z. B. isAdmin=true) bereitstellen können, um vertrauliche, eingeschränkte Felder zu ändern.",
@@ -980,7 +980,7 @@
         "reporting_hints_de": "Verwenden Sie integrierte Funktionen, die von Frameworks bereitgestellt werden, um bindbare und nicht bindbare Felder zu definieren. Ein auf erlaubten Feldern (bindable) basierender Ansatz, bei dem nur die Eigenschaften explizit definiert werden, die vom Benutzer aktualisiert werden sollen, ist vorzuziehen.\nEin architektonischer Ansatz zur Vermeidung des Problems besteht darin, das *Data Transfer Object* (DTO)-Muster zu verwenden, um eine direkte Bindung zu vermeiden. Das DTO sollte nur die Felder enthalten, die vom Benutzer bearbeitet werden können."
     },
     "WSTG-INPV-21": {
-        "title_de": "CSV-Injection",
+        "title_de": "Prüfung auf CSV-Injection",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie CSV-/Tabellen-Exportfunktionen, die nicht vertrauenswürdige Eingaben enthalten.\n– Überprüfen Sie, ob vom Angreifer kontrollierte Werte als Formeln interpretiert werden, wenn der Export in gängigen Tabellenkalkulationsanwendungen geöffnet wird.\n- Überprüfen Sie, ob durch Trennzeichen/Anführungszeichen-Injektion ein gefährliches Präfix an den Anfang einer Zelle verschoben werden kann.\n- Überprüfen Sie, ob Abhilfemaßnahmen in Microsoft Excel nach dem Speichern und erneuten Öffnen der CSV-Datei wirksam bleiben.\n- Bewerten Sie die praktischen Auswirkungen basierend darauf, wer den Export öffnet und wie er verwendet wird.",
         "relevance_de": "CSV-Injection (Formula-Injection) erfolgt, wenn nicht vertrauenswürdige Daten, die in eine Tabellenkalkulation exportiert werden, als Formel ausgeführt werden. Dieser Test überprüft, ob gefährliche Präfixe (wie =, +, -, @) in Exportfunktionen ordnungsgemäß bereinigt oder maskiert werden.",
@@ -990,7 +990,7 @@
         "reporting_hints_de": "Es gibt keine universelle CSV-Bereinigungsstrategie, die für alle Tabellenkalkulationsanwendungen und nachgeschalteten Verbraucher sicher ist. Wenden Sie für CSVs, die für die menschliche Anzeige in Tabellenkalkulationsprogrammen vorgesehen sind, einen tiefgreifenden Verteidigungsansatz an:\n\n– Stellen Sie sicher, dass keine Zelle mit formelauslösenden Zeichen ( `=` , `+` , `-` , `@` ) und relevanten Steuer-/Unicode-Varianten beginnt.\n- Erwägen Sie die Desinfektion pro Feld (häufig empfohlen):\n    - Setzen Sie jede Zelle in doppelte Anführungszeichen\n    - Stellen Sie jeder Zelle ein einfaches Anführungszeichen voran\n    - Vermeiden Sie doppelte Anführungszeichen, indem Sie sie verdoppeln  \n  Hinweis: Dies bleibt in Microsoft Excel nach dem Speichern und erneuten Öffnen möglicherweise nicht zuverlässig.\n\n- Excel-resistente Abschwächung (beobachtetes Verhalten):\n    – Wenn eine Zelle mit `=` , `+` , `-` oder `@` beginnt, stellen Sie dem Inhalt ein Tabulatorzeichen ( `0x09` ) innerhalb eines Felds in Anführungszeichen voran (z. B. `\"\\t=1+1\"` ).  \n  Kompromiss: Die Registerkarte wird Teil der zugrunde liegenden Daten und kann sich auf nachgelagerte programmatische Importe auswirken.\n\nValidieren Sie die gewählte Schadensbegrenzung immer anhand der Tabellenkalkulationsanwendungen und Arbeitsabläufe im Geltungsbereich."
     },
     "WSTG-SESS-01": {
-        "title_de": "Sitzungsverwaltung (Session Management)",
+        "title_de": "Prüfung des Sitzungsmanagementschemas",
         "category_de": "Sitzungsverwaltungstests",
         "goal_de": "- Sammeln Sie Sitzungstoken, für denselben Benutzer und nach Möglichkeit für verschiedene Benutzer.\n- Analysieren Sie und stellen Sie sicher, dass genügend Zufälligkeit vorhanden ist, um Session-Forging-Angriffe zu stoppen.\n- Ändern Sie Cookies, die nicht signiert sind und manipulierbare Informationen enthalten.",
         "relevance_de": "Eine sichere Sitzungsverwaltung ist entscheidend, um Sitzungshijacking und -fälschung zu verhindern. Dieser Test bewertet die Zufälligkeit, Vorhersagbarkeit und Struktur von Sitzungstoken, um sicherzustellen, dass sie von Angreifern nicht erraten oder rückentwickelt werden können.",
@@ -1000,7 +1000,7 @@
         "reporting_hints_de": "Weisen Sie auf den Mangel an Entropie hin. Abhilfe: Verwenden Sie ausschließlich kryptographisch sichere Pseudozufallszahlengeneratoren (CSPRNG) und die in modernen Frameworks integrierten, gehärteten Sitzungsverwaltungsroutinen."
     },
     "WSTG-SESS-02": {
-        "title_de": "Cookie-Attribute",
+        "title_de": "Prüfung von Cookie-Attributen",
         "category_de": "Sitzungsverwaltungstests",
         "goal_de": "- Stellen Sie sicher, dass die richtige Sicherheitskonfiguration für Cookies eingestellt ist.",
         "relevance_de": "Cookies müssen durch geeignete Attribute gesichert werden, um Diebstahl und Missbrauch zu verhindern. Dieser Test bestätigt die ordnungsgemäße Verwendung der Flags Secure, HttpOnly und SameSite, um Sitzungscookies vor XSS, CSRF und unverschlüsseltem Abfangen zu schützen.",
@@ -1010,7 +1010,7 @@
         "reporting_hints_de": "Fügen Sie den rohen Antwortheader als Beweis hinzu und erläutern Sie die Auswirkungen (z. B. XSS-Gefahr durch fehlendes HttpOnly). Abhilfe: Legen Sie die Attribute „Secure“, „HttpOnly“ und „SameSite=Strict“ (oder „Lax“) für Sitzungscookies allgemein fest."
     },
     "WSTG-SESS-03": {
-        "title_de": "Sitzungsfixierung (Session Fixation)",
+        "title_de": "Prüfung auf Session Fixation (Sitzungsübernahme)",
         "category_de": "Sitzungsverwaltungstests",
         "goal_de": "- Analysieren Sie den Authentifizierungsmechanismus und seinen Ablauf.\n- Cookies erzwingen und die Auswirkungen abschätzen.",
         "relevance_de": "Eine Sitzungsfixierung tritt auf, wenn eine Anwendung bei einer erfolgreichen Anmeldung keine neue Sitzungskennung ausgibt. Dieser Test stellt sicher, dass die Anwendung das Risiko verringert, dass Angreifer die Sitzungs-ID eines Opfers voreinstellen, um dessen Konto später zu kapern.",
@@ -1020,7 +1020,7 @@
         "reporting_hints_de": "Der PoC sollte zeigen, wie dem Opfer eine vom Angreifer vordefinierte ID aufgezwungen wird, was zur Sitzungsübernahme führt. Abhilfe: Obligatorische Neugenerierung der Session-ID (Session Token Renewal) nach jeder erfolgreichen Authentifizierung."
     },
     "WSTG-SESS-04": {
-        "title_de": "Offengelegte Sitzungsvariablen",
+        "title_de": "Prüfung auf offengelegte Sitzungsvariablen",
         "category_de": "Sitzungsverwaltungstests",
         "goal_de": "- Stellen Sie sicher, dass eine ordnungsgemäße Verschlüsselung implementiert ist.\n- Überprüfen Sie die Caching-Konfiguration.\n- Bewerten Sie die Sicherheit des Kanals und der Methoden.",
         "relevance_de": "Das Offenlegen von Sitzungstokens in URLs (GET-Parametern), unverschlüsselten Kanälen oder Browser-Caches erhöht das Abhörrisiko erheblich. Dieser Test stellt sicher, dass Token ausschließlich über sichere POST-Anfragen und HTTPS übertragen werden.",
@@ -1030,7 +1030,7 @@
         "reporting_hints_de": "Zeigen Sie Screenshots der URL-Leiste und (falls zutreffend) des HTTP-Referer-Headers an, der an externe Websites weitergegeben wird. Abhilfe: Sitzungstoken dürfen niemals im URI-Pfad übertragen werden; Sie müssen unbedingt als Cookies oder im HTTP-Autorisierungsheader übergeben werden."
     },
     "WSTG-SESS-05": {
-        "title_de": "Cross-Site Request Forgery (CSRF)",
+        "title_de": "Prüfung auf Cross-Site Request Forgery (CSRF)",
         "category_de": "Sitzungsverwaltungstests",
         "goal_de": "– Bestimmen Sie, ob es möglich ist, im Namen eines Benutzers Anfragen zu initiieren, die nicht vom Benutzer initiiert wurden.",
         "relevance_de": "CSRF verleitet einen authentifizierten Benutzer dazu, unerwünschte Aktionen auszuführen. Dieser Test stellt sicher, dass die Anwendung die Absicht von Statusänderungsanforderungen durch Anti-CSRF-Tokens, SameSite-Cookie-Attribute oder erneute Authentifizierungsprüfungen validiert.",
@@ -1040,7 +1040,7 @@
         "reporting_hints_de": "Dokumentieren Sie den betroffenen Endpunkt. Abhilfe: Implementieren Sie das Synchronizer-Token-Muster (Anti-CSRF-Tokens) für alle Methoden zur Zustandsänderung (POST, PUT, DELETE) und verwenden Sie SameSite-Cookie-Attribute."
     },
     "WSTG-SESS-06": {
-        "title_de": "Logout-Funktionalität",
+        "title_de": "Prüfung der Logout-Funktion",
         "category_de": "Sitzungsverwaltungstests",
         "goal_de": "- Bewerten Sie die Abmelde-Benutzeroberfläche.\n- Analysieren Sie das Sitzungszeitlimit und ob die Sitzung nach dem Abmelden ordnungsgemäß beendet wird.",
         "relevance_de": "Die sichere Abmeldefunktion muss die Sitzung sowohl auf dem Client als auch auf dem Server vollständig zerstören. Dieser Test stellt sicher, dass ungültige Sitzungstoken nicht mehr wiederverwendet werden können, insbesondere auf mehreren Geräten in Single Sign-On (SSO)-Ökosystemen.",
@@ -1050,7 +1050,7 @@
         "reporting_hints_de": "Der PoC muss nachweisen, dass das „gelöschte“ Cookie weiterhin volle Zugriffsrechte behält. Abhilfe: Der Abmeldevorgang muss den Token unbedingt auf dem Server als ungültig markieren (Invalidierung) und den Client anweisen, das Cookie zu löschen."
     },
     "WSTG-SESS-07": {
-        "title_de": "Sitzungs-Timeout",
+        "title_de": "Prüfung des Sitzungsablaufs (Session Timeout)",
         "category_de": "Sitzungsverwaltungstests",
         "goal_de": "– Überprüfen Sie, ob ein hartes Sitzungszeitlimit vorliegt.",
         "relevance_de": "Sitzungen, die auf unbestimmte Zeit aktiv bleiben, stellen ein erhebliches Sicherheitsrisiko dar, wenn ein Gerät kompromittiert oder unbeaufsichtigt bleibt. Dieser Test stellt sicher, dass die Anwendung strikte serverseitige Leerlauf- und absolute Zeitüberschreitungen erzwingt, um das Angriffsfenster zu minimieren.",
@@ -1060,7 +1060,7 @@
         "reporting_hints_de": "Geben Sie das Zeitfenster zwischen der letzten Aktivität und der darauffolgenden erfolgreichen Anfrage an. Abhilfe: Konfigurieren Sie ein striktes Leerlauf-Timeout (z. B. 15–30 Minuten Inaktivität) und ein absolutes Sitzungs-Timeout auf der Serverseite."
     },
     "WSTG-SESS-08": {
-        "title_de": "Session Puzzling",
+        "title_de": "Prüfung auf Session Puzzling (Sitzungsvariablen-Überladung)",
         "category_de": "Sitzungsverwaltungstests",
         "goal_de": "- Identifizieren Sie alle Sitzungsvariablen.\n- Unterbrechen Sie den logischen Fluss der Sitzungsgenerierung.",
         "relevance_de": "Session Puzzling (Variablenüberladung) tritt auf, wenn eine Anwendung dieselbe Sitzungsvariable für mehrere Zwecke verwendet. Dieser Test stellt sicher, dass Angreifer Zwischenschritte (wie einen Passwort-Reset-Flow) nicht manipulieren können, um die Authentifizierung böswillig zu umgehen.",
@@ -1070,7 +1070,7 @@
         "reporting_hints_de": "Der PoC muss die genaue, ungewöhnliche Abfolge von Seitenanfragen beschreiben, die den Logikfehler in der Sitzungszuordnung auslöst. Abhilfe: Strikte Isolierung von Sitzungsvariablen und dedizierten Statusflags für verschiedene Prozesse."
     },
     "WSTG-SESS-09": {
-        "title_de": "Session-Hijacking",
+        "title_de": "Prüfung auf Session Hijacking (Sitzungskapern)",
         "category_de": "Sitzungsverwaltungstests",
         "goal_de": "- Identifizieren Sie anfällige Sitzungscookies.\n- Kapern Sie anfällige Cookies und bewerten Sie das Risikoniveau.",
         "relevance_de": "Beim Session-Hijacking stiehlt ein Angreifer ein gültiges Sitzungscookie und verwendet es wieder. Dieser Test bewertet die allgemeine Widerstandsfähigkeit der Sitzungsarchitektur gegen Anmeldedatendiebstahl und konzentriert sich dabei auf HTTPS-Durchsetzung und Netzwerkangreifer-Szenarien.",
@@ -1080,7 +1080,7 @@
         "reporting_hints_de": "Zeigen Sie die Auslandsübernahme der Kontositzung im Bericht an. Abhilfe: Implementieren Sie Geräte-/IP-Fingerprinting für Sitzungen, um das Risiko zu minimieren, kombiniert mit strengen Secure- und HttpOnly-Cookie-Attributen."
     },
     "WSTG-SESS-10": {
-        "title_de": "JSON Web Tokens (JWT)",
+        "title_de": "Prüfung von JSON Web Tokens (JWT)",
         "category_de": "Sitzungsverwaltungstests",
         "goal_de": "– Stellen Sie fest, ob die JWTs vertrauliche Informationen offenlegen.\n- Stellen Sie fest, ob die JWTs manipuliert oder geändert werden können.",
         "relevance_de": "JSON-Web-Tokens (JWT) können anfällig für Signaturumgehungen, schwache HMAC-Schlüssel oder Verwirrung bei Algorithmen sein. Dieser Test stellt sicher, dass JWTs sicher signiert und streng validiert sind und keine vertraulichen Klartextdaten in der Nutzlast enthalten.",
@@ -1090,7 +1090,7 @@
         "reporting_hints_de": "Der Bericht muss die entschlüsselte ursprüngliche Nutzlast und die erfolgreich geänderte JWT-Nutzlast einschließlich der Signatur enthalten. Abhilfe: Verbieten Sie den None-Algorithmus, verwenden Sie sichere asymmetrische Signaturen (RS256) und schützen Sie den geheimen Schlüssel."
     },
     "WSTG-SESS-11": {
-        "title_de": "Parallele Sitzungen (Concurrent Sessions)",
+        "title_de": "Prüfung auf gleichzeitige Sitzungen (Concurrent Sessions)",
         "category_de": "Sitzungsverwaltungstests",
         "goal_de": "- Bewerten Sie die Sitzungsverwaltung der Anwendung, indem Sie die Handhabung mehrerer aktiver Sitzungen für ein einzelnes Benutzerkonto bewerten.",
         "relevance_de": "Das Zulassen unbegrenzter gleichzeitiger Sitzungen erhöht das Risiko einer unbemerkten Kontokompromittierung. Dieser Test stellt sicher, dass die Anwendung frühere aktive Sitzungen für ein einzelnes Benutzerkonto angemessen überwacht, einschränkt oder ungültig macht, um eine strenge Zugriffskontrolle aufrechtzuerhalten.",
@@ -1098,5 +1098,15 @@
         "methodology_de": "1. **Gültige Sitzung generieren:**\n   - Geben Sie gültige Anmeldeinformationen (Benutzername und Passwort) ein, um eine Sitzung zu erstellen.\n   - Beispiel einer HTTP-Anfrage:\n\n      ```http\n     POST /login HTTP/1.1\n     Host: www.example.com\n     Content-Length: 32\n\n     username=admin&password=admin123\n     ``` \n\n   - Beispielantwort:\n\n      ```http\n     HTTP/1.1 200 OK\n     Set-Cookie: SESSIONID=0add0d8eyYq3HIUy09hhus; Path=/; Secure\n     ``` \n\n   - Speichern Sie das generierte Authentifizierungs-Cookie. In einigen Fällen wird das generierte Authentifizierungscookie durch Token wie JSON Web Tokens (JWT) ersetzt.\n\n2. **Test zum Generieren aktiver Sitzungen:**\n   - Versuchen Sie, mehrere Authentifizierungscookies zu erstellen, indem Sie Anmeldeanfragen senden (z. B. einhundert Mal).\n\n   Hinweis: Die Verwendung des privaten Browsermodus oder von Multi-Account-Containern kann für die Durchführung dieser Tests von Vorteil sein, da sie separate Umgebungen zum Testen der Sitzungsverwaltung bereitstellen können, ohne dass bestehende Sitzungen oder im Browser gespeicherte Cookies beeinträchtigt werden.\n\n3. **Test zur Validierung aktiver Sitzungen:**\n   - Versuchen Sie, mit dem anfänglichen Sitzungstoken (z. B. `SESSIONID=0add0d8eyYq3HIUy09hhus`) auf die Anwendung zuzugreifen.\n   – Wenn die Authentifizierung mit dem ersten generierten Token erfolgreich ist, betrachten Sie dies als potenzielles Problem, das auf eine unzureichende Sitzungsverwaltung hinweist.\n\nDarüber hinaus gibt es zusätzliche Testfälle, die den Umfang der Testmethodik um Szenarien mit mehreren Sitzungen erweitern, die von verschiedenen IPs und Standorten stammen. Diese Testfälle helfen bei der Identifizierung potenzieller Schwachstellen oder Unregelmäßigkeiten bei der Sitzungsabwicklung im Zusammenhang mit geografischen oder netzwerkbasierten Faktoren:\n\n- Testen Sie mehrere Sitzungen von derselben IP.\n- Testen Sie mehrere Sitzungen von verschiedenen IPs.\n- Testen Sie mehrere Sitzungen von Orten, die wahrscheinlich oder gar nicht in kurzer Zeit von demselben Benutzer besucht werden können (z. B. eine Sitzung, die in einem bestimmten Land erstellt wurde, gefolgt von einer weiteren Sitzung, die fünf Minuten später in einem anderen Land erstellt wurde).",
         "expected_evidence_de": "Nachweis, dass dasselbe Konto gleichzeitig Hunderte von aktiven Sitzungen von verschiedenen Geräten/IPs aufbauen kann, ohne dass ältere Sitzungen ungültig werden oder eine Warnung ausgelöst wird (z. B. für Administratorkonten).",
         "reporting_hints_de": "Dokumentieren Sie die Anzahl der erstellten Sitzungen und ob dies geschäftliche Risiken birgt (z. B. Kontofreigabe). Abhilfe: Implementieren Sie eine serverseitige Sitzungsverfolgung, die alte Sitzungen zwangsweise beendet, wenn ein Limit (z. B. 1 oder 3 aktive Sitzungen) überschritten wird."
+    },
+    "WSTG-APIT-04": {
+        "title_de": "Fehlerhafte Autorisierung auf API-Funktionsebene (Broken Function Level Authorization)",
+        "category_de": "API-Tests",
+        "goal_de": "Kein Ziel definiert.",
+        "relevance_de": "Keine Beschreibung verfügbar.",
+        "full_summary_de": "Keine Zusammenfassung bereitgestellt.",
+        "methodology_de": "Keine Methodik definiert.",
+        "expected_evidence_de": "Ein funktionierender Proof of Concept (PoC), der die Schwachstelle demonstriert.",
+        "reporting_hints_de": "Dokumentieren Sie den betroffenen Endpunkt, den Payload und die Reproduktionsschritte."
     }
 }

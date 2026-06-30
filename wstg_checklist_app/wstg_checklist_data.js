@@ -15,7 +15,7 @@ const wstgData = [
         "reporting_hints": "Document the affected endpoint, the exact payload/parameters used, the business impact, and provide clear steps to reproduce.",
         "sysreptor_finding": "INFO-API-Testing: API Testing Overview",
         "sysreptor_templates": [],
-        "title_de": "\u00dcbersicht API-Testing",
+        "title_de": "\u00dcbersicht \u00fcber API-Tests",
         "category_de": "API-Tests",
         "goal_de": "Kein Ziel definiert.",
         "relevance_de": "Keine Beschreibung verf\u00fcgbar.",
@@ -40,7 +40,7 @@ const wstgData = [
         "reporting_hints": "Document the affected endpoint, the exact payload/parameters used, the business impact, and provide clear steps to reproduce.",
         "sysreptor_finding": "INFO-Business-Logic-Testing: Introduction to Business Logic",
         "sysreptor_templates": [],
-        "title_de": "Testen der Gesch\u00e4ftslogik (Einf\u00fchrung)",
+        "title_de": "Einf\u00fchrung in die Gesch\u00e4ftslogik",
         "category_de": "Testen der Gesch\u00e4ftslogik",
         "goal_de": "Kein Ziel definiert.",
         "relevance_de": "Keine Beschreibung verf\u00fcgbar.",
@@ -110,7 +110,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen die ID in der Anfrage trivial manipulieren, um sensible Objekte anderer Benutzer zu lesen, zu \u00e4ndern oder zu l\u00f6schen."
             }
         ],
-        "title_de": "Fehlerhafte Autorisierung auf Objektebene (BOLA)",
+        "title_de": "Fehlerhafte Autorisierung auf API-Objektebene (Broken Object Level Authorization / BOLA)",
         "category_de": "API-Tests",
         "goal_de": "\u2013 Das Ziel dieses Tests besteht darin, festzustellen, ob die API ordnungsgem\u00e4\u00dfe **Autorisierungspr\u00fcfungen auf Objektebene** erzwingt, um sicherzustellen, dass Benutzer nur auf Objekte zugreifen und diese bearbeiten k\u00f6nnen, mit denen sie interagieren d\u00fcrfen.",
         "relevance_de": "APIs m\u00fcssen Autorisierungspr\u00fcfungen f\u00fcr jedes Objekt, auf das zugegriffen wird, ordnungsgem\u00e4\u00df durchsetzen. Durch das Testen auf BOLA wird sichergestellt, dass Angreifer Objektkennungen (wie IDs) nicht manipulieren k\u00f6nnen, um Ressourcen anderer Benutzer zu lesen oder zu \u00e4ndern.",
@@ -145,7 +145,7 @@ const wstgData = [
                 "consequences_de": "Jeder, der den rohen API-Verkehr abf\u00e4ngt, erh\u00e4lt sofort Zugriff auf streng vertrauliche Benutzer- oder Systemdaten, die niemals offengelegt werden sollten."
             }
         ],
-        "title_de": "Fehlerhafte Autorisierung auf Funktionsebene (BFLA)",
+        "title_de": "Pr\u00fcfung auf \u00fcberm\u00e4\u00dfige Datenpreisgabe (Excessive Data Exposure)",
         "category_de": "API-Tests",
         "goal_de": "\u2013 Identifizieren Sie API-Antworten, die mehr Daten enthalten, als die Clientanwendung anzeigt oder ben\u00f6tigt.\n- Erkennen Sie vertrauliche Felder, die in API-Antworten zur\u00fcckgegeben werden, z. B. Passwort-Hashes, Authentifizierungstokens, interne Objekt-IDs, PII oder Infrastrukturdetails.\n\u2013 Bestimmen Sie, ob die API zur Steuerung der Datenfreigabe auf clientseitige Filterung und nicht auf serverseitige Feldauswahl angewiesen ist.",
         "relevance_de": "Defekte Autorisierung auf Funktionsebene: Durch das Testen der Autorisierung auf Funktionsebene wird sichergestellt, dass Benutzer keine eingeschr\u00e4nkten Vorg\u00e4nge wie Verwaltungsaufgaben ausf\u00fchren k\u00f6nnen. Dies verhindert eine vertikale Rechteausweitung und unbefugten Zugriff auf sensible Anwendungsfunktionen. \u00dcberm\u00e4\u00dfige Datenoffenlegung: APIs geben oft mehr Daten als n\u00f6tig zur\u00fcck und verlassen sich darauf, dass der Client sie filtert. Dieser Test stellt sicher, dass Backend-Systeme nur wesentliche Felder \u00fcbertragen und verhindert so die Offenlegung vertraulicher Informationen wie personenbezogener Daten oder interner Anmeldeinformationen.",
@@ -179,7 +179,15 @@ const wstgData = [
                 "consequences_en": "Low-privileged users or unauthenticated attackers can invoke critical administrative functions, leading to massive privilege escalation.",
                 "consequences_de": "Benutzer mit geringen Rechten oder unauthentifizierte Angreifer k\u00f6nnen kritische administrative Funktionen aufrufen, was zu massiver Privilegieneskalation f\u00fchrt."
             }
-        ]
+        ],
+        "title_de": "Fehlerhafte Autorisierung auf API-Funktionsebene (Broken Function Level Authorization)",
+        "category_de": "API-Tests",
+        "goal_de": "Kein Ziel definiert.",
+        "relevance_de": "Keine Beschreibung verf\u00fcgbar.",
+        "full_summary_de": "Keine Zusammenfassung bereitgestellt.",
+        "methodology_de": "Keine Methodik definiert.",
+        "expected_evidence_de": "Ein funktionierender Proof of Concept (PoC), der die Schwachstelle demonstriert.",
+        "reporting_hints_de": "Dokumentieren Sie den betroffenen Endpunkt, den Payload und die Reproduktionsschritte."
     },
     {
         "id": "WSTG-APIT-99",
@@ -225,7 +233,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen externe WAF- oder Ratenbegrenzungskontrollen umgehen, um OTPs per Brute-Force zu knacken, Benutzerdaten zu enumerieren oder schnell massives Credential Stuffing durchzuf\u00fchren."
             }
         ],
-        "title_de": "GraphQL-Testing",
+        "title_de": "Pr\u00fcfung von GraphQL",
         "category_de": "API-Tests",
         "goal_de": "- Beurteilen Sie, dass eine sichere und produktionsbereite Konfiguration bereitgestellt wird.\n- Validieren Sie alle Eingabefelder gegen generische Angriffe.\n- Stellen Sie sicher, dass ordnungsgem\u00e4\u00dfe Zugangskontrollen angewendet werden.",
         "relevance_de": "GraphQL f\u00fchrt einzigartige Angriffsvektoren wie Introspektionsabfragen, Batch-Angriffe und tiefe Rekursion ein. Durch Tests wird sichergestellt, dass die Implementierung die unbefugte Datenextraktion einschr\u00e4nkt, Denial-of-Service verhindert und Eingaben ordnungsgem\u00e4\u00df validiert.",
@@ -278,7 +286,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen den Generierungsalgorithmus per Reverse-Engineering analysieren, um die Passw\u00f6rter aller neu bereitgestellten Konten vorherzusagen."
             }
         ],
-        "title_de": "Standard-Zugangsdaten (Default Credentials)",
+        "title_de": "Pr\u00fcfung auf Standard-Zugangsdaten (Default Credentials)",
         "category_de": "Authentifizierungstests",
         "goal_de": "\u2013 Stellen Sie fest, ob die Anwendung \u00fcber Benutzerkonten mit Standardkennw\u00f6rtern verf\u00fcgt.\n- \u00dcberpr\u00fcfen Sie, ob neue Benutzerkonten mit schwachen oder vorhersehbaren Passw\u00f6rtern erstellt werden.",
         "relevance_de": "Standardm\u00e4\u00dfige oder vorhersehbare Anmeldeinformationen sind ein h\u00e4ufiger und leicht ausnutzbarer Fehler. Dieser Test stellt sicher, dass die Anwendung, die zugrunde liegende Infrastruktur und neu erstellte Konten nicht auf leicht zu erratenden oder vom Hersteller vorgegebenen Passw\u00f6rtern basieren.",
@@ -331,7 +339,7 @@ const wstgData = [
                 "consequences_de": "Ein Angreifer kann ein Konto b\u00f6swillig sperren und es dann unabh\u00e4ngig wieder entsperren, um das Passwort zur\u00fcckzusetzen oder die Sperrbeschr\u00e4nkung komplett zu umgehen."
             }
         ],
-        "title_de": "Sperrmechanismen (Account Lockout)",
+        "title_de": "Pr\u00fcfung auf schwache Sperrmechanismen (Lock Out Mechanism)",
         "category_de": "Authentifizierungstests",
         "goal_de": "- Bewerten Sie die F\u00e4higkeit des Kontosperrmechanismus, das Erraten von Passw\u00f6rtern durch Brute-Force-Angriffe einzud\u00e4mmen.\n- Bewerten Sie die Widerstandsf\u00e4higkeit des Entsperrmechanismus gegen unbefugtes Entsperren des Kontos.",
         "relevance_de": "Ohne geeignete Mechanismen zur Kontosperrung sind Anwendungen sehr anf\u00e4llig f\u00fcr Brute-Force- und W\u00f6rterbuchangriffe. Dieser Test bewertet die Wirksamkeit von Sperrungen und die Sicherheit des anschlie\u00dfenden Kontoentsperrvorgangs.",
@@ -402,7 +410,7 @@ const wstgData = [
                 "consequences_de": "Dieser kritische Fehler erm\u00f6glicht es Angreifern, die Authentifizierung leicht zu umgehen, wenn die Passwortl\u00e4nge bekannt ist oder per Brute-Force ermittelt wurde, was darauf hindeutet, dass Passw\u00f6rter nicht richtig gehasht werden."
             }
         ],
-        "title_de": "Umgehung der Authentifizierung",
+        "title_de": "Pr\u00fcfung auf Umgehung des Authentifizierungsschemas",
         "category_de": "Authentifizierungstests",
         "goal_de": "\u2013 Stellen Sie sicher, dass die Authentifizierung auf alle Dienste angewendet wird, die sie erfordern.",
         "relevance_de": "Authentifizierungsmechanismen m\u00fcssen robust gegen\u00fcber Manipulationen sein. Dieser Test stellt sicher, dass Angreifer Anmeldebildschirme nicht mithilfe von Techniken wie Parametermanipulation, Sitzungs-ID-Vorhersage oder SQL-Injection umgehen k\u00f6nnen.",
@@ -446,7 +454,7 @@ const wstgData = [
                 "consequences_de": "Gestohlene Tokens bieten einem Angreifer eine dauerhafte, persistente Hintert\u00fcr zum Konto des Opfers."
             }
         ],
-        "title_de": "\u201eAngemeldet bleiben\u201c-Funktion (Remember Me)",
+        "title_de": "Pr\u00fcfung auf anf\u00e4llige \"Passwort merken\"-Funktionen",
         "category_de": "Authentifizierungstests",
         "goal_de": "- Stellen Sie sicher, dass die generierte Sitzung sicher verwaltet wird und die Anmeldeinformationen des Benutzers nicht gef\u00e4hrdet werden.",
         "relevance_de": "Funktionen wie \u201eRemember Me\u201c k\u00f6nnen die Angriffsfl\u00e4che durch unsachgem\u00e4\u00dfes Speichern von Anmeldeinformationen vergr\u00f6\u00dfern. Dieser Test stellt sicher, dass persistente Sitzungen sicher mithilfe serverseitiger Token verwaltet werden, anstatt Anmeldeinformationen im lokalen Browserspeicher offenzulegen.",
@@ -490,7 +498,7 @@ const wstgData = [
                 "consequences_de": "Sensible Benutzerinformationen werden auf der lokalen Festplatte im Cache-Verzeichnis des Browsers gespeichert, wo sie durch lokale Malware oder Forensik extrahiert werden k\u00f6nnen."
             }
         ],
-        "title_de": "Browser-Caching sensibler Inhalte",
+        "title_de": "Pr\u00fcfung auf Schwachstellen im Browser-Cache",
         "category_de": "Authentifizierungstests",
         "goal_de": "- \u00dcberpr\u00fcfen Sie, ob die Anwendung vertrauliche Informationen auf der Clientseite speichert.\n- \u00dcberpr\u00fcfen Sie, ob der Zugriff ohne Autorisierung erfolgen kann.",
         "relevance_de": "Browser k\u00f6nnen versehentlich vertrauliche Daten zwischenspeichern und sie so f\u00fcr lokale Angreifer zug\u00e4nglich machen, nachdem sich ein Benutzer abgemeldet hat. Dieser Test stellt sicher, dass die Anwendung geeignete Cache-Control-Header sendet, um zu verhindern, dass vertrauliche Informationen clientseitig gespeichert werden.",
@@ -534,7 +542,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen diese Daten \u00fcber OSINT oder \u00f6ffentliche Aufzeichnungen sammeln und sich m\u00fchelos als Opfer ausgeben, ohne ein herk\u00f6mmliches Passwort per Brute-Force knacken zu m\u00fcssen."
             }
         ],
-        "title_de": "Passwortrichtlinien",
+        "title_de": "Pr\u00fcfung auf schwache Authentifizierungsmethoden",
         "category_de": "Authentifizierungstests",
         "goal_de": "- Bestimmen Sie die Widerstandsf\u00e4higkeit der Anwendung gegen das Erraten von Passw\u00f6rtern durch Brute-Force-Angriffe mithilfe verf\u00fcgbarer Passwortw\u00f6rterb\u00fccher, indem Sie die L\u00e4nge, Komplexit\u00e4t, Wiederverwendung und Alterungsanforderungen von Passw\u00f6rtern bewerten.",
         "relevance_de": "Schwache Passwortrichtlinien erm\u00f6glichen es Angreifern, Benutzeranmeldeinformationen leicht zu erraten oder brutal zu erzwingen. Dieser Test bewertet die Komplexit\u00e4t, L\u00e4nge, Wiederverwendungsbeschr\u00e4nkungen und Alterungsanforderungen von Passw\u00f6rtern, um einen starken Authentifizierungsschutz sicherzustellen.",
@@ -587,7 +595,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen automatisierte Brute-Force-Angriffe gegen Sicherheitsfragen durchf\u00fchren, die eine begrenzte Anzahl m\u00f6glicher Antworten haben."
             }
         ],
-        "title_de": "Sicherheitsfragen",
+        "title_de": "Pr\u00fcfung auf schwache Antworten bei Sicherheitsfragen",
         "category_de": "Authentifizierungstests",
         "goal_de": "- Bestimmen Sie die Komplexit\u00e4t und die Einfachheit der Fragen.\n- Bewerten Sie m\u00f6gliche Benutzerantworten und Brute-Force-F\u00e4higkeiten.",
         "relevance_de": "Sicherheitsfragen werden h\u00e4ufig zur Passwortwiederherstellung verwendet, k\u00f6nnen aber auch \u00fcber Social Engineering erraten oder recherchiert werden. Dieser Test bewertet die Vorhersehbarkeit und Brute-Force-Resistenz der geheimen Fragen und Antworten der Anwendung.",
@@ -649,7 +657,7 @@ const wstgData = [
                 "consequences_de": "Ein Angreifer mit tempor\u00e4rem Zugriff auf eine unbeaufsichtigte Sitzung oder \u00fcber einen CSRF-Exploit kann das Konto dauerhaft \u00fcbernehmen, indem er E-Mail oder Passwort \u00e4ndert."
             }
         ],
-        "title_de": "Passwort\u00e4nderung und -zur\u00fccksetzung",
+        "title_de": "Pr\u00fcfung auf schwache Funktionen zum \u00c4ndern oder Zur\u00fccksetzen von Passw\u00f6rtern",
         "category_de": "Authentifizierungstests",
         "goal_de": "- Stellen Sie fest, ob die Funktion zum \u00c4ndern und Zur\u00fccksetzen des Passworts eine Kompromittierung von Konten erm\u00f6glicht.",
         "relevance_de": "Passwort-Reset-Flows bieten einen alternativen Einstiegspunkt in Benutzerkonten. Dieser Test sucht nach Schwachstellen wie vorhersehbaren Reset-Tokens, fehlender Ratenbegrenzung oder unsicherer Token-\u00dcbertragung, die zu einer Konto\u00fcbernahme f\u00fchren k\u00f6nnten.",
@@ -684,7 +692,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen die starken prim\u00e4ren Sicherheitskontrollen (wie MFA oder komplexe Passw\u00f6rter) vollst\u00e4ndig umgehen, indem sie die weniger sicheren alternativen Kan\u00e4le ins Visier nehmen."
             }
         ],
-        "title_de": "Authentifizierung in alternativen Kan\u00e4len",
+        "title_de": "Pr\u00fcfung auf schw\u00e4chere Authentifizierung \u00fcber alternative Kan\u00e4le",
         "category_de": "Authentifizierungstests",
         "goal_de": "- Identifizieren Sie alternative Authentifizierungskan\u00e4le.\n- Bewerten Sie die verwendeten Sicherheitsma\u00dfnahmen und pr\u00fcfen Sie, ob auf den alternativen Kan\u00e4len Umgehungswege vorhanden sind.",
         "relevance_de": "Alternative Authentifizierungskan\u00e4le wie mobile Apps oder Callcenter verf\u00fcgen oft \u00fcber schw\u00e4chere Sicherheitskontrollen als die prim\u00e4re Weboberfl\u00e4che. Dieser Test stellt sicher, dass \u00fcber alle Zugriffskan\u00e4le hinweg eine konsistente und sichere Authentifizierungsrichtlinie angewendet wird.",
@@ -746,7 +754,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen den OTP-Code-Raum innerhalb des g\u00fcltigen Zeitrahmens per Brute-Force knacken, um den zweiten Authentifizierungsfaktor nahtlos zu umgehen."
             }
         ],
-        "title_de": "Multi-Faktor-Authentifizierung (MFA)",
+        "title_de": "Pr\u00fcfung der Multi-Faktor-Authentifizierung (MFA)",
         "category_de": "Authentifizierungstests",
         "goal_de": "- Identifizieren Sie den von der Anwendung verwendeten MFA-Typ.\n- Stellen Sie fest, ob die MFA-Implementierung robust und sicher ist.\n- Versuchen Sie, die MFA zu umgehen.",
         "relevance_de": "MFA f\u00fcgt eine wichtige Verteidigungsebene hinzu, fehlerhafte Implementierungen k\u00f6nnen jedoch umgangen werden. Dieser Test \u00fcberpr\u00fcft, ob MFA robust ist, konsequent durchgesetzt wird und keine logischen Fehler, vorhersehbaren Token oder Fallback-Schwachstellen aufweist.",
@@ -799,7 +807,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen grundlegende Filter f\u00fcr Directory Traversal umgehen, auf Remote-SMB-Freigaben zugreifen, um Hashes zu stehlen, oder mit sensiblen Ger\u00e4te-Namensr\u00e4umen interagieren."
             }
         ],
-        "title_de": "Directory Traversal / File Inclusion",
+        "title_de": "Pr\u00fcfung auf Directory Traversal / File Include (Verzeichnisdurchquerung / Dateieinbindung)",
         "category_de": "Autorisierungstests",
         "goal_de": "- Identifizieren Sie Injektionspunkte, die sich auf die Pfaddurchquerung beziehen.\n- Bewerten Sie Umgehungstechniken und ermitteln Sie das Ausma\u00df der Pfaddurchquerung.",
         "relevance_de": "Eine unsachgem\u00e4\u00dfe Eingabevalidierung kann es Angreifern erm\u00f6glichen, beliebige Dateien auf dem Server zu lesen oder auszuf\u00fchren. Dieser Test identifiziert Path-Traversal-Schwachstellen und stellt sicher, dass der Zugriff auf das Dateisystem streng kontrolliert und einged\u00e4mmt wird.",
@@ -861,7 +869,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen den Frontend-Proxy austricksen, um die Anfrage zuzulassen, und so pfad- oder IP-basierte Zugriffskontrollbeschr\u00e4nkungen umgehen, die administrative Backend-Panels sch\u00fctzen sollen."
             }
         ],
-        "title_de": "Umgehung der Autorisierung",
+        "title_de": "Pr\u00fcfung auf Umgehung des Autorisierungsschemas",
         "category_de": "Autorisierungstests",
         "goal_de": "- Beurteilen Sie, ob ein nicht authentifizierter, horizontaler oder vertikaler Zugriff m\u00f6glich ist.",
         "relevance_de": "Durch Autorisierungsfehler k\u00f6nnen Benutzer auf Ressourcen zugreifen oder Aktionen au\u00dferhalb ihres zul\u00e4ssigen Umfangs ausf\u00fchren. Dieser Test stellt sicher, dass der unauthentifizierte, horizontale oder vertikale Zugriff auf eingeschr\u00e4nkte Daten und Funktionen strengstens untersagt ist.",
@@ -914,7 +922,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen die Fehler-/Statusbedingungen abfangen und \u00e4ndern, um die Anwendung trotz eines tats\u00e4chlichen Fehlers in einen authentifizierten oder hochprivilegierten Zustand zu zwingen."
             }
         ],
-        "title_de": "Privilegieneskalation (Privilege Escalation)",
+        "title_de": "Pr\u00fcfung auf Rechteausweitung (Privilege Escalation)",
         "category_de": "Autorisierungstests",
         "goal_de": "- Identifizieren Sie Injektionspunkte im Zusammenhang mit der Manipulation von Berechtigungen.\n- Fuzzy oder andere Versuche, Sicherheitsma\u00dfnahmen zu umgehen.",
         "relevance_de": "Angreifer k\u00f6nnen Rollen oder Anwendungszust\u00e4nde manipulieren, um erweiterte Berechtigungen zu erlangen. Dieser Test stellt sicher, dass Standardbenutzer ihre Berechtigungen f\u00fcr den Zugriff auf administrative oder h\u00f6herstufige Funktionen nicht missbr\u00e4uchlich erweitern k\u00f6nnen.",
@@ -976,7 +984,7 @@ const wstgData = [
                 "consequences_de": "Benutzer k\u00f6nnen auf Men\u00fcs, Konfigurationen oder Administrationspanels zugreifen, die in ihrem zugewiesenen Profil zwar visuell verborgen, aber nicht technisch eingeschr\u00e4nkt sind."
             }
         ],
-        "title_de": "Insecure Direct Object References (IDOR)",
+        "title_de": "Pr\u00fcfung auf unsichere direkte Objektverweise (Insecure Direct Object References / IDOR)",
         "category_de": "Autorisierungstests",
         "goal_de": "- Identifizieren Sie Punkte, an denen Objektreferenzen auftreten k\u00f6nnen.\n- Bewerten Sie die Zugangskontrollma\u00dfnahmen und ob sie f\u00fcr IDOR anf\u00e4llig sind.",
         "relevance_de": "IDOR tritt auf, wenn Anwendungen Zugriff auf Objekte basierend auf Benutzereingaben gew\u00e4hren, ohne den Besitz zu \u00fcberpr\u00fcfen. Dieser Test stellt sicher, dass f\u00fcr alle angeforderten Datenbankeintr\u00e4ge, Dateien oder Funktionen robuste Autorisierungspr\u00fcfungen vorhanden sind.",
@@ -1020,7 +1028,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen geleakte Tokens aus Logs oder externen Analysediensten abfangen und so aktive OAuth-Sitzungen \u00fcbernehmen."
             }
         ],
-        "title_de": "OAuth-Implementierung",
+        "title_de": "Pr\u00fcfung auf OAuth-Schwachstellen",
         "category_de": "Autorisierungstests",
         "goal_de": "\u2013 Stellen Sie fest, ob die OAuth2-Implementierung anf\u00e4llig ist oder eine veraltete oder benutzerdefinierte Implementierung verwendet.",
         "relevance_de": "OAuth-Implementierungen k\u00f6nnen unter anf\u00e4lligen Berechtigungstypen, Anmeldeinformationslecks oder falscher Konfiguration leiden. Dieser Test gew\u00e4hrleistet sichere Autorisierungsfl\u00fcsse und verhindert unbefugten Zugriff auf Benutzerressourcen durch veraltete oder benutzerdefinierte Implementierungen.",
@@ -1055,7 +1063,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen den gesch\u00e4ftlichen Zustand manipulieren, was zu finanziellen Verlusten, Ressourcenersch\u00f6pfung oder der Ausnutzung nachgelagerter Partnersysteme f\u00fchrt."
             }
         ],
-        "title_de": "Datenvalidierung in der Gesch\u00e4ftslogik",
+        "title_de": "Pr\u00fcfung der Datenvalidierung in der Gesch\u00e4ftslogik",
         "category_de": "Testen der Gesch\u00e4ftslogik",
         "goal_de": "- Identifizieren Sie Dateneinspeisungspunkte.\n\u2013 Stellen Sie sicher, dass alle Pr\u00fcfungen im Backend stattfinden und nicht umgangen werden k\u00f6nnen.\n- Versuchen Sie, das Format der erwarteten Daten aufzubrechen und zu analysieren, wie die Anwendung damit umgeht.",
         "relevance_de": "Sich ausschlie\u00dflich auf die clientseitige Validierung zu verlassen, stellt ein gro\u00dfes Sicherheitsrisiko dar. Dieser Test \u00fcberpr\u00fcft, ob die Serverseite logisch ung\u00fcltige Daten korrekt validiert, um die Umgehung von Gesch\u00e4ftsregeln und die Ausnutzung nachgelagerter Systeme zu verhindern.",
@@ -1090,7 +1098,7 @@ const wstgData = [
                 "consequences_de": "Der Zugriff auf undokumentierte Funktionen erm\u00f6glicht es Angreifern, Rabatte zu umgehen, Privilegien zu eskalieren oder auf unverdiente Belohnungen im System zuzugreifen."
             }
         ],
-        "title_de": "F\u00e4lschung von Anfragen (Request Forgery)",
+        "title_de": "Pr\u00fcfung der M\u00f6glichkeit, Anfragen zu f\u00e4lschen (Forged Requests)",
         "category_de": "Testen der Gesch\u00e4ftslogik",
         "goal_de": "- \u00dcberpr\u00fcfen Sie die Projektdokumentation auf erratene, vorhersehbare oder verborgene Funktionen von Feldern.\n- F\u00fcgen Sie logisch g\u00fcltige Daten ein, um den normalen Gesch\u00e4ftslogik-Workflow zu umgehen.",
         "relevance_de": "Angreifer f\u00e4lschen h\u00e4ufig HTTP-Anfragen, um direkt mit Backend-Systemen zu interagieren. Dieser Test stellt sicher, dass die Gesch\u00e4ftslogik der Anwendung Parametermanipulationen, vorhersehbaren Werten und der Ausnutzung versteckter oder undokumentierter Funktionen widersteht.",
@@ -1125,7 +1133,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen HTTP-Anfragen abfangen und beliebige Werte \u00fcbermitteln, wodurch kritische Beschr\u00e4nkungen wie Preise oder Benutzerberechtigungen \u00fcberschrieben werden."
             }
         ],
-        "title_de": "Integrit\u00e4tspr\u00fcfungen von Daten",
+        "title_de": "Pr\u00fcfung von Integrit\u00e4tskontrollen",
         "category_de": "Testen der Gesch\u00e4ftslogik",
         "goal_de": "- \u00dcberpr\u00fcfen Sie die Projektdokumentation auf Komponenten des Systems, die Daten verschieben, speichern oder verarbeiten.\n- Bestimmen Sie, welche Datentypen von der Komponente logisch akzeptiert werden und vor welchen Datentypen das System sch\u00fctzen soll.\n- Bestimmen Sie, wer diese Daten in den einzelnen Komponenten \u00e4ndern oder lesen darf.\n\u2013 Versuchen Sie, von jeder Komponente verwendete Datenwerte einzuf\u00fcgen, zu aktualisieren oder zu l\u00f6schen, die gem\u00e4\u00df dem Gesch\u00e4ftslogik-Workflow nicht zul\u00e4ssig sein sollten.",
         "relevance_de": "Versteckte Felder und nicht bearbeitbare Parameter werden h\u00e4ufig \u00fcber abfangende Proxys manipuliert. Dieser Test stellt sicher, dass der Server strenge Integrit\u00e4tspr\u00fcfungen und Zugriffskontrollen durchsetzt, um unbefugtes Einf\u00fcgen oder \u00c4ndern von Daten zu verhindern.",
@@ -1160,7 +1168,7 @@ const wstgData = [
                 "consequences_de": "Informationspreisgabe und finanzielle Manipulation als Folge vorhersehbarer Timing-Abl\u00e4ufe im Hintergrund."
             }
         ],
-        "title_de": "Prozess-Timing",
+        "title_de": "Pr\u00fcfung auf Timing-Angriffe im Prozessablauf (Process Timing)",
         "category_de": "Testen der Gesch\u00e4ftslogik",
         "goal_de": "- \u00dcberpr\u00fcfen Sie die Projektdokumentation auf Systemfunktionen, die m\u00f6glicherweise mit der Zeit beeintr\u00e4chtigt werden.\n- Missbrauchsf\u00e4lle entwickeln und durchf\u00fchren.",
         "relevance_de": "Timing-Diskrepanzen k\u00f6nnen zum Verlust vertraulicher Informationen oder zur Umgehung der Gesch\u00e4ftslogik f\u00fchren. Das Testen des Prozess-Timings stellt sicher, dass die Anwendung Angreifern keinen Vorteil durch vorhersehbare Ausf\u00fchrungszeiten oder manipulierte Transaktionsfenster verschafft.",
@@ -1195,7 +1203,7 @@ const wstgData = [
                 "consequences_de": "Benutzer k\u00f6nnen die Funktion zum grenzenlosen pers\u00f6nlichen Vorteil auf Kosten des Unternehmens ausnutzen."
             }
         ],
-        "title_de": "Fehlende Ratenbegrenzung (Rate Limiting)",
+        "title_de": "Pr\u00fcfung der Nutzungslimits einer Funktion (Rate Limiting)",
         "category_de": "Testen der Gesch\u00e4ftslogik",
         "goal_de": "- Identifizieren Sie Funktionen, deren Aufrufzeiten begrenzt werden m\u00fcssen.\n- Beurteilen Sie, ob eine logische Grenze f\u00fcr die Funktionen festgelegt ist und ob diese ordnungsgem\u00e4\u00df validiert ist.",
         "relevance_de": "Anwendungen schr\u00e4nken h\u00e4ufig bestimmte Aktionen ein (z. B. Rabatte, Downloads oder Versuche). Dieser Test \u00fcberpr\u00fcft, ob harte Limits im Backend strikt durchgesetzt werden, um Missbrauch, finanzielle Verluste oder unbefugte Vorteile zu verhindern.",
@@ -1230,7 +1238,7 @@ const wstgData = [
                 "consequences_de": "Gesch\u00e4ftslogik wird vollst\u00e4ndig umgangen, was zu unautorisierten Aktionen f\u00fchrt, wie z.B. dem kostenlosen Erhalt von Artikeln oder unberechtigtem Zugang."
             }
         ],
-        "title_de": "Umgehung von Workflows (Workflow Bypass)",
+        "title_de": "Pr\u00fcfung auf Umgehung von Arbeitsabl\u00e4ufen (Workflows)",
         "category_de": "Testen der Gesch\u00e4ftslogik",
         "goal_de": "- \u00dcberpr\u00fcfen Sie die Projektdokumentation auf Methoden zum \u00dcberspringen oder Durchlaufen von Schritten im Anwendungsprozess in einer anderen Reihenfolge als dem beabsichtigten Gesch\u00e4ftslogikfluss.\n- Entwickeln Sie einen Missbrauchsfall und versuchen Sie, jeden identifizierten Logikfluss zu umgehen.",
         "relevance_de": "Angreifer k\u00f6nnen Workflow-Schritte \u00fcberspringen oder neu anordnen, um wichtige Pr\u00fcfungen zu umgehen (z. B. Ausl\u00f6sen eines Versands ohne Bezahlung). Dieser Test stellt sicher, dass die Anwendung ihren Status sicher beibeh\u00e4lt und die korrekte Reihenfolge der Gesch\u00e4ftsvorg\u00e4nge strikt durchsetzt.",
@@ -1265,7 +1273,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen uneingeschr\u00e4nkt Aufkl\u00e4rung, Fuzzing und Brute-Forcing durchf\u00fchren, ohne jemals blockiert oder verlangsamt zu werden."
             }
         ],
-        "title_de": "Abwehrma\u00dfnahmen gegen Anwendungsmissbrauch",
+        "title_de": "Pr\u00fcfung der Abwehrma\u00dfnahmen gegen Anwendungsmissbrauch",
         "category_de": "Testen der Gesch\u00e4ftslogik",
         "goal_de": "- Generieren Sie Notizen zu allen Tests, die mit dem System durchgef\u00fchrt wurden.\n- \u00dcberpr\u00fcfen Sie, welche Tests aufgrund aggressiver Eingaben eine andere Funktionalit\u00e4t hatten.\n- Verstehen Sie die vorhandenen Abwehrma\u00dfnahmen und pr\u00fcfen Sie, ob sie ausreichen, um das System vor Umgehungstechniken zu sch\u00fctzen.",
         "relevance_de": "Legitime Funktionen k\u00f6nnen zur Aufz\u00e4hlung, zum Scraping oder zur falschen Darstellung der Benutzeroberfl\u00e4che missbraucht werden. Dieser Test bewertet das Vorhandensein und die Wirksamkeit aktiver Abwehrma\u00dfnahmen auf Anwendungsebene gegen automatisierte Angriffe oder manuellen Missbrauch.",
@@ -1300,7 +1308,7 @@ const wstgData = [
                 "consequences_de": "Erm\u00f6glicht Cross-Site Scripting (wenn HTML gerendert wird) oder die Besch\u00e4digung von Anwendungsdaten-Parsern."
             }
         ],
-        "title_de": "Hochladen unerwarteter Dateitypen",
+        "title_de": "Pr\u00fcfung des Uploads unerwarteter Dateitypen",
         "category_de": "Testen der Gesch\u00e4ftslogik",
         "goal_de": "- \u00dcberpr\u00fcfen Sie die Projektdokumentation auf Dateitypen, die vom System abgelehnt werden.\n- Stellen Sie sicher, dass unerw\u00fcnschte Dateitypen abgelehnt und sicher behandelt werden.\n- Stellen Sie sicher, dass Datei-Batch-Uploads sicher sind und keine Umgehung der festgelegten Sicherheitsma\u00dfnahmen zulassen.",
         "relevance_de": "Das Akzeptieren nicht genehmigter Dateitypen kann Backend-Systeme gef\u00e4hrden oder die Website verunstalten. Dieser Test gew\u00e4hrleistet eine strenge serverseitige Validierung von Dateierweiterungen, Inhaltstypen und Pfaden, um unerwartete Uploads sicher abzulehnen.",
@@ -1344,7 +1352,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen beliebige Dateien auf dem Server \u00fcberschreiben (Zip Slip) oder durch Ersch\u00f6pfung von Festplatten-/Speicherressourcen schwere Denial-of-Service-Angriffe ausl\u00f6sen (Zip-Bombe)."
             }
         ],
-        "title_de": "Hochladen sch\u00e4dlicher Dateien",
+        "title_de": "Pr\u00fcfung des Uploads b\u00f6sartiger Dateien",
         "category_de": "Testen der Gesch\u00e4ftslogik",
         "goal_de": "- Identifizieren Sie die Funktion zum Hochladen von Dateien.\n- Sehen Sie sich die Projektdokumentation an, um herauszufinden, welche Dateitypen als akzeptabel gelten und welche als gef\u00e4hrlich oder b\u00f6sartig gelten w\u00fcrden.\n    - Wenn keine Dokumentation verf\u00fcgbar ist, \u00fcberlegen Sie, was basierend auf dem Zweck der Anwendung angemessen w\u00e4re.\n- Bestimmen Sie, wie die hochgeladenen Dateien verarbeitet werden.\n- Besorgen oder erstellen Sie eine Reihe sch\u00e4dlicher Dateien zum Testen.\n- Versuchen Sie, die sch\u00e4dlichen Dateien in die Anwendung hochzuladen und festzustellen, ob sie akzeptiert und verarbeitet werden.",
         "relevance_de": "Sogar zul\u00e4ssige Dateitypen k\u00f6nnen sch\u00e4dliche Payloads wie Web-Shells, Makros oder Zip-Bombs enthalten. Dieser Test \u00fcberpr\u00fcft, ob hochgeladene Dateien sicher analysiert, gescannt und gespeichert werden, um eine Remote-Codeausf\u00fchrung oder einen Denial-of-Service zu verhindern.",
@@ -1388,7 +1396,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen massiv eingeschr\u00e4nkte Ressourcen ausnutzen, Guthaben doppelt ausgeben oder extreme Rabatte anwenden."
             }
         ],
-        "title_de": "Zahlungsfunktionen",
+        "title_de": "Pr\u00fcfung der Zahlungsfunktion",
         "category_de": "Testen der Gesch\u00e4ftslogik",
         "goal_de": "- Bestimmen Sie, ob die Gesch\u00e4ftslogik f\u00fcr die E-Commerce-Funktionalit\u00e4t robust ist.\n- Verstehen Sie, wie die Zahlungsfunktion funktioniert.\n- Stellen Sie fest, ob die Zahlungsfunktion sicher ist.",
         "relevance_de": "Sicherheitsl\u00fccken im E-Commerce k\u00f6nnen zu direkten finanziellen Verlusten und Bu\u00dfgeldern f\u00fchren. Das Testen von Zahlungsgateways stellt die Widerstandsf\u00e4higkeit gegen Preismanipulationen, Mengenmanipulationen, Race Conditions und Workflow-Umgehungen sicher und sch\u00fctzt die Transaktionsintegrit\u00e4t.",
@@ -1423,7 +1431,7 @@ const wstgData = [
                 "consequences_de": "B\u00f6sartiger Code wird vollst\u00e4ndig im Browser ausgef\u00fchrt, umgeht serverseitige WAFs und XSS-Filter und erm\u00f6glicht Sitzungsdiebstahl und b\u00f6sartige Aktionen."
             }
         ],
-        "title_de": "DOM-basiertes Cross-Site-Scripting (DOM-XSS)",
+        "title_de": "Pr\u00fcfung auf DOM-basiertes Cross-Site Scripting (XSS)",
         "category_de": "Clientseitiges Testen",
         "goal_de": "- DOM-Senken identifizieren.\n- Erstellen Sie Nutzlasten, die zu jedem Senkentyp geh\u00f6ren.",
         "relevance_de": "DOM-basiertes XSS tritt auf, wenn clientseitige Skripte Benutzereingaben unsicher in das Document Object Model schreiben. Dieser Test identifiziert gef\u00e4hrliche JavaScript-Senken und stellt sicher, dass Eingaben ordnungsgem\u00e4\u00df codiert werden, um die Ausf\u00fchrung von Schadcode im Browser zu verhindern.",
@@ -1458,7 +1466,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen beliebige JavaScript-Logik ausf\u00fchren, um Tokens zu stehlen, das DOM zu \u00e4ndern oder Benutzer umzuleiten."
             }
         ],
-        "title_de": "JavaScript-Ausf\u00fchrung",
+        "title_de": "Pr\u00fcfung auf JavaScript-Ausf\u00fchrung",
         "category_de": "Clientseitiges Testen",
         "goal_de": "- Identifizieren Sie Senken und m\u00f6gliche JavaScript-Injektionspunkte.",
         "relevance_de": "Die willk\u00fcrliche Ausf\u00fchrung von JavaScript gef\u00e4hrdet die Browsersitzung des Benutzers. Dieser Test stellt sicher, dass vom Benutzer bereitgestellte Daten niemals direkt als Code ausgewertet oder ausgef\u00fchrt werden (z. B. \u00fcber eval()), wodurch Sitzungsentf\u00fchrung und clientseitige Manipulation verhindert werden.",
@@ -1493,7 +1501,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen die Seite verunstalten oder Anmeldedaten stehlen, indem sie Benutzer mit gef\u00e4lschten Inhalten t\u00e4uschen, selbst wenn die vollst\u00e4ndige Skriptausf\u00fchrung verhindert wird."
             }
         ],
-        "title_de": "HTML-Injection",
+        "title_de": "Pr\u00fcfung auf HTML-Injection",
         "category_de": "Clientseitiges Testen",
         "goal_de": "- Identifizieren Sie HTML-Einschleusungspunkte und beurteilen Sie den Schweregrad des eingeschleusten Inhalts.",
         "relevance_de": "Das Zulassen von beliebigem HTML erm\u00f6glicht es Angreifern, Seiteninhalte zu \u00e4ndern oder Anmeldeinformationen \u00fcber gef\u00e4lschte Anmeldeformulare zu stehlen. Dieser Test stellt sicher, dass alle Benutzereingaben bereinigt werden, um clientseitiges Content-Spoofing und visuelle Manipulation zu verhindern.",
@@ -1528,7 +1536,7 @@ const wstgData = [
                 "consequences_de": "Erleichtert hocheffektive Phishing-Kampagnen, da das Opfer auf einen Link klickt, der zu einer vertrauensw\u00fcrdigen Domain geh\u00f6rt, aber sofort auf Malware oder gef\u00e4lschte Login-Seiten weitergeleitet wird."
             }
         ],
-        "title_de": "Clientseitige URL-Umleitung (Open Redirect)",
+        "title_de": "Pr\u00fcfung auf clientseitige URL-Weiterleitungen (URL Redirects)",
         "category_de": "Clientseitiges Testen",
         "goal_de": "- Identifizieren Sie Injektionspunkte, die URLs oder Pfade verarbeiten.\n- Bewerten Sie die Standorte, zu denen das System umleiten k\u00f6nnte.",
         "relevance_de": "Nicht validierte clientseitige Weiterleitungen (offene Weiterleitungen) werden h\u00e4ufig verwendet, um Phishing-Angriffe zu erleichtern. Dieser Test stellt sicher, dass die Anwendung Benutzer nicht blind \u00fcber benutzergesteuerte Eingaben oder URL-Fragmente auf b\u00f6sartige externe Dom\u00e4nen umleitet.",
@@ -1563,7 +1571,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen erweiterte CSS-Selektoren nutzen, um sensible Daten (wie CSRF-Tokens) zu exfiltrieren oder die Benutzeroberfl\u00e4che der Anwendung schwer zu verunstalten."
             }
         ],
-        "title_de": "CSS-Injection",
+        "title_de": "Pr\u00fcfung auf CSS-Injection",
         "category_de": "Clientseitiges Testen",
         "goal_de": "- Identifizieren Sie CSS-Injektionspunkte.\n- Bewerten Sie die Wirkung der Injektion.",
         "relevance_de": "CSS-Injection kann zu Datenexfiltration oder Cross-Site-Scripting f\u00fchren. Dieser Test bewertet, ob Angreifer beliebige Stilregeln einschleusen k\u00f6nnen, um vertrauliche Daten (wie CSRF-Tokens) zu stehlen oder die Benutzeroberfl\u00e4che b\u00f6swillig zu ver\u00e4ndern.",
@@ -1598,7 +1606,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen den Browser des Opfers zwingen, b\u00f6sartige externe Skripte oder HTML-Dateien zu laden, wodurch der vorgesehene Anwendungsablauf umgangen wird und XSS entsteht."
             }
         ],
-        "title_de": "Clientseitige Ressourcenmanipulation",
+        "title_de": "Pr\u00fcfung auf clientseitige Ressourcenmanipulation",
         "category_de": "Clientseitiges Testen",
         "goal_de": "\u2013 Identifizieren Sie Senken mit schwacher Eingabevalidierung.\n- Bewerten Sie die Auswirkungen der Ressourcenmanipulation.",
         "relevance_de": "Durch die Kontrolle von Ressourcenpfaden (z. B. Iframe-Quellen, AJAX-Endpunkte) k\u00f6nnen Angreifer sch\u00e4dliche Objekte laden. Dieser Test \u00fcberpr\u00fcft, ob URLs, die auf externe Ressourcen verweisen, streng validiert werden, um eine clientseitige Ausnutzung zu verhindern.",
@@ -1642,7 +1650,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen Ursprungsbeschr\u00e4nkungen umgehen und sensible Daten im Namen des Opfers exfiltrieren."
             }
         ],
-        "title_de": "Cross-Origin Resource Sharing (CORS)",
+        "title_de": "Pr\u00fcfung von Cross-Origin Resource Sharing (CORS)",
         "category_de": "Clientseitiges Testen",
         "goal_de": "- Identifizieren Sie Endpunkte, die CORS implementieren.\n- Stellen Sie sicher, dass die CORS-Konfiguration sicher oder harmlos ist.",
         "relevance_de": "Falsch konfigurierte CORS-Richtlinien k\u00f6nnen sensible Daten f\u00fcr b\u00f6sartige Dom\u00e4nen offenlegen. Dieser Test stellt sicher, dass Access-Control-Allow-Origin und zugeh\u00f6rige Header streng definiert sind und nicht blind willk\u00fcrlichen oder Null-Urspr\u00fcngen vertrauen.",
@@ -1677,7 +1685,7 @@ const wstgData = [
                 "consequences_de": "Kann zu XSS, offenen Weiterleitungen oder GUI-Manipulationen innerhalb von Legacy-Umgebungen f\u00fchren."
             }
         ],
-        "title_de": "Cross-Site-Flashing",
+        "title_de": "Pr\u00fcfung auf Cross-Site Flashing",
         "category_de": "Clientseitiges Testen",
         "goal_de": "- Dekompilieren und analysieren Sie den Code der Anwendung.\n- Bewerten Sie Senkeneingaben und unsichere Methodenverwendungen.",
         "relevance_de": "\u00c4ltere Flash-Anwendungen k\u00f6nnen XSS oder nicht autorisierte dom\u00e4nen\u00fcbergreifende Anforderungen einf\u00fchren. Wenn Flash-Komponenten vorhanden sind, stellt dieser Test sicher, dass kompilierte SWF-Dateien Eingaben sicher verarbeiten und unsichere Methoden vermeiden, die den Browser gef\u00e4hrden k\u00f6nnten.",
@@ -1712,7 +1720,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen unsichtbare Schichten \u00fcber die Anwendung legen, um authentifizierte Benutzer dazu zu verleiten, auf Schaltfl\u00e4chen zu klicken, die zustands\u00e4ndernde Aktionen ausf\u00fchren."
             }
         ],
-        "title_de": "Clickjacking",
+        "title_de": "Pr\u00fcfung auf Clickjacking",
         "category_de": "Clientseitiges Testen",
         "goal_de": "- Bewerten Sie die Anf\u00e4lligkeit der Anwendung f\u00fcr Clickjacking-Angriffe.",
         "relevance_de": "Clickjacking verleitet Benutzer dazu, auf transparente oder versteckte Elemente zu klicken, um unbeabsichtigte Aktionen auszuf\u00fchren. Dieser Test stellt sicher, dass die Anwendung geeignete Schutzma\u00dfnahmen wie Content-Security-Policy: Frame-Ancestors bereitstellt, um eine Korrektur der Benutzeroberfl\u00e4che zu verhindern.",
@@ -1747,7 +1755,7 @@ const wstgData = [
                 "consequences_de": "B\u00f6sartige Websites k\u00f6nnen unter Verwendung der authentifizierten Sitzung des Opfers WebSocket-Verbindungen zum anf\u00e4lligen Server \u00f6ffnen, was bidirektionalen Datendiebstahl erm\u00f6glicht."
             }
         ],
-        "title_de": "WebSockets",
+        "title_de": "Pr\u00fcfung von WebSockets",
         "category_de": "Clientseitiges Testen",
         "goal_de": "- Identifizieren Sie die Verwendung von WebSockets.\n- Bewerten Sie die Implementierung, indem Sie dieselben Tests auf normalen HTTP-Kan\u00e4len verwenden.",
         "relevance_de": "WebSockets erm\u00f6glichen eine Vollduplex-Kommunikation, verarbeiten jedoch keine Authentifizierung oder Autorisierung nativ. Dieser Test stellt sicher, dass WebSocket-Verbindungen verschl\u00fcsselt (wss://) und ordnungsgem\u00e4\u00df validiert werden, um unbefugten Datenzugriff oder unbefugte Dateneinschleusung zu verhindern.",
@@ -1782,7 +1790,7 @@ const wstgData = [
                 "consequences_de": "Sensible Daten k\u00f6nnen an beliebige b\u00f6sartige Domains gesendet werden, oder b\u00f6sartige Nachrichten k\u00f6nnen DOM XSS ausl\u00f6sen, wenn sie in Senken wie innerHTML injiziert werden."
             }
         ],
-        "title_de": "Web-Messaging",
+        "title_de": "Pr\u00fcfung von Web-Messaging",
         "category_de": "Clientseitiges Testen",
         "goal_de": "- Bewerten Sie die Sicherheit des Ursprungs der Nachricht.\n- \u00dcberpr\u00fcfen Sie, ob sichere Methoden verwendet werden, und \u00fcberpr\u00fcfen Sie die Eingabe.",
         "relevance_de": "Web Messaging erm\u00f6glicht eine ursprungs\u00fcbergreifende Kommunikation, unsichere Implementierungen k\u00f6nnen jedoch zu Datenlecks f\u00fchren. Dieser Test \u00fcberpr\u00fcft, ob Anwendungen die Herkunft von Nachrichten streng \u00fcberpr\u00fcfen und eingehende Daten bereinigen, um DOM-basiertes XSS und unbefugte Datenmanipulation zu verhindern.",
@@ -1817,7 +1825,7 @@ const wstgData = [
                 "consequences_de": "Im Gegensatz zu HttpOnly-Cookies sind Daten in Browser-Speichern \u00fcber JavaScript zug\u00e4nglich. Wenn eine XSS-Schwachstelle existiert, kann der Angreifer diese Geheimnisse trivial auslesen."
             }
         ],
-        "title_de": "Lokaler Browserspeicher (Browser Storage)",
+        "title_de": "Pr\u00fcfung des Browser-Speichers (Browser Storage)",
         "category_de": "Clientseitiges Testen",
         "goal_de": "\u2013 Stellen Sie fest, ob die Site vertrauliche Daten im clientseitigen Speicher speichert.\n- Die Codeverarbeitung der Speicherobjekte sollte auf M\u00f6glichkeiten von Injektionsangriffen untersucht werden, wie z. B. die Nutzung nicht validierter Eingaben oder anf\u00e4lliger Bibliotheken.",
         "relevance_de": "HTML5-Lokal-/Sitzungsspeicher und IndexedDB werden h\u00e4ufig zum Speichern sensibler Daten verwendet. Dieser Test stellt sicher, dass Authentifizierungstoken oder PII nicht unn\u00f6tigerweise auf der Clientseite offengelegt werden, wodurch die Auswirkungen clientseitiger Angriffe wie XSS verringert werden.",
@@ -1852,7 +1860,7 @@ const wstgData = [
                 "consequences_de": "B\u00f6sartige Seiten k\u00f6nnen diese Dateien \u00fcber <script>-Tags einbinden. Durch Manipulation von Prototypen, globalen Variablen oder Fehler-Handlern kann der Angreifer die privaten Daten des Opfers leaken."
             }
         ],
-        "title_de": "Cross-Site Script Inclusion (XSSI)",
+        "title_de": "Pr\u00fcfung auf Cross-Site Script Inclusion (XSSI)",
         "category_de": "Clientseitiges Testen",
         "goal_de": "- Lokalisieren Sie vertrauliche Daten im gesamten System.\n- Bewerten Sie den Verlust sensibler Daten mithilfe verschiedener Techniken.",
         "relevance_de": "XSSI erm\u00f6glicht es der Website eines Angreifers, sensible Daten aus der authentifizierten Sitzung eines Opfers zu lesen, indem es gezielte Skripte einbindet. Dieser Test stellt sicher, dass vertrauliche dynamische Daten vor ursprungs\u00fcbergreifenden Skripteinschl\u00fcssen gesch\u00fctzt sind.",
@@ -1887,7 +1895,7 @@ const wstgData = [
                 "consequences_de": "Die Zielseite kann die Eigenschaft window.opener.location manipulieren und den urspr\u00fcnglichen, vertrauensw\u00fcrdigen Anwendungs-Tab auf eine Phishing-Seite umleiten."
             }
         ],
-        "title_de": "Reverse Tabnabbing",
+        "title_de": "Pr\u00fcfung auf Reverse Tabnabbing",
         "category_de": "Clientseitiges Testen",
         "goal_de": "Kein Ziel definiert.",
         "relevance_de": "Links, die in neuen Tabs ohne entsprechende Attribute ge\u00f6ffnet werden (noopener noreferrer), k\u00f6nnen dazu f\u00fchren, dass die neue Seite den urspr\u00fcnglichen Tab kapert. Dieser Test stellt sicher, dass die Anwendung vor unbefugten Weiterleitungen auf Phishing-Seiten sch\u00fctzt.",
@@ -1922,7 +1930,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen framework-spezifische Syntax (z.B. {{constructor.constructor('alert(1)')()}}) injizieren, um DOM XSS im Kontext des Frontend-Frameworks zu erreichen."
             }
         ],
-        "title_de": "Clientseitige Template-Injection",
+        "title_de": "Pr\u00fcfung auf clientseitige Template-Injection",
         "category_de": "Clientseitiges Testen",
         "goal_de": "- Identifizieren Sie das clientseitige Framework und seine von der Anwendung verwendete Version.\n- Erkennen Sie Injektionspunkte, an denen Benutzereingaben im DOM reflektiert und von der Vorlagen-Engine verarbeitet werden.\n\u2013 Beurteilen Sie, ob die Injektion eine beliebige JavaScript-Ausf\u00fchrung (XSS) \u00fcber die Vorlagensyntax erm\u00f6glicht.",
         "relevance_de": "CSTI tritt auf, wenn Frontend-Frameworks (wie Vue oder Angular) Benutzereingaben unsicher als Vorlage auswerten. Dieser Test stellt sicher, dass Eingaben nicht dynamisch als ausf\u00fchrbare Vorlagendirektiven gerendert werden, wodurch die clientseitige Codeausf\u00fchrung verhindert wird.",
@@ -1966,7 +1974,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen Brute-Force-Angriffe gegen das Admin-Portal starten oder ungepatchte Schwachstellen ausnutzen, um tiefen Systemzugriff zu erlangen."
             }
         ],
-        "title_de": "Netzwerkinfrastruktur-Konfiguration",
+        "title_de": "Pr\u00fcfung der Netzwerkinfrastruktur-Konfiguration",
         "category_de": "Tests des Konfigurations- und Bereitstellungsmanagements",
         "goal_de": "- \u00dcberpr\u00fcfen Sie die im gesamten Netzwerk festgelegten Anwendungskonfigurationen und stellen Sie sicher, dass sie nicht anf\u00e4llig sind.\n- \u00dcberpr\u00fcfen Sie, ob die verwendeten Frameworks und Systeme sicher und nicht anf\u00e4llig f\u00fcr bekannte Schwachstellen aufgrund nicht gewarteter Software oder Standardeinstellungen und Anmeldeinformationen sind.",
         "relevance_de": "Ein einzelner anf\u00e4lliger Server kann die gesamte Anwendung gef\u00e4hrden. Dieser Test bewertet die zugrunde liegende Infrastruktur auf ungepatchte Software, offengelegte Verwaltungsschnittstellen und Standardeinstellungen, die die Anwendung gef\u00e4hrden k\u00f6nnten.",
@@ -2028,7 +2036,7 @@ const wstgData = [
                 "consequences_de": "Die Reaktion auf Vorf\u00e4lle wird stark behindert, und wenn Protokolle zug\u00e4nglich sind, k\u00f6nnen Angreifer gespeicherte Anmeldedaten oder sensible Benutzerdaten stehlen."
             }
         ],
-        "title_de": "Anwendungsplattform-Konfiguration",
+        "title_de": "Pr\u00fcfung der Anwendungsplattform-Konfiguration",
         "category_de": "Tests des Konfigurations- und Bereitstellungsmanagements",
         "goal_de": "- Stellen Sie sicher, dass Standarddateien und bekannte Dateien entfernt wurden.\n\u2013 Stellen Sie sicher, dass in den Produktionsumgebungen kein Debugging-Code oder keine Erweiterungen mehr vorhanden sind.\n- \u00dcberpr\u00fcfen Sie die f\u00fcr die Anwendung eingerichteten Protokollierungsmechanismen.",
         "relevance_de": "Bei falsch konfigurierten Plattformen bleiben in der Produktion h\u00e4ufig Debug-Tools, Beispieldateien oder ausf\u00fchrliche Fehler aktiviert. Dieser Test stellt sicher, dass die Plattform geh\u00e4rtet ist, unn\u00f6tige Funktionen deaktiviert sind und die Protokollierungsmechanismen sicher sind.",
@@ -2072,7 +2080,7 @@ const wstgData = [
                 "consequences_de": "Dateien, die ansonsten unter langen, komplexen Namen gesch\u00fctzt oder verborgen sind, k\u00f6nnen aufgerufen werden, was zur unbeabsichtigten Offenlegung von Quellcode oder Konfigurationsdateien f\u00fchrt."
             }
         ],
-        "title_de": "Handhabung von Dateiendungen bei sensiblen Informationen",
+        "title_de": "Pr\u00fcfung der Handhabung von Dateierweiterungen in Bezug auf sensible Informationen",
         "category_de": "Tests des Konfigurations- und Bereitstellungsmanagements",
         "goal_de": "\u2013 Z\u00e4hlen Sie vertrauliche Dateierweiterungen auf, die m\u00f6glicherweise Rohdaten wie Skripte oder Anmeldeinformationen enthalten\n\u2013 Stellen Sie sicher, dass f\u00fcr die festgelegten Regeln keine System-Framework-Umgehungen vorhanden sind",
         "relevance_de": "Unsachgem\u00e4\u00df behandelte Dateierweiterungen k\u00f6nnen versehentlich Quellcode oder Anmeldeinformationen preisgeben. Dieser Test \u00fcberpr\u00fcft, ob der Webserver Anfragen f\u00fcr vertrauliche Dateitypen wie .inc, .bak oder .config korrekt verarbeitet oder ablehnt.",
@@ -2125,7 +2133,7 @@ const wstgData = [
                 "consequences_de": "Selbst wenn Links von der aktuellen Website entfernt wurden, k\u00f6nnen Angreifer veraltete Skripte finden und angreifen, die m\u00f6glicherweise ungepatchte Schwachstellen enthalten."
             }
         ],
-        "title_de": "Backup-Dateien und unreferenzierte Dateien",
+        "title_de": "\u00dcberpr\u00fcfung alter Backups und nicht referenzierter Dateien auf sensible Informationen",
         "category_de": "Tests des Konfigurations- und Bereitstellungsmanagements",
         "goal_de": "- Suchen und analysieren Sie nicht referenzierte Dateien, die m\u00f6glicherweise vertrauliche Informationen enthalten.",
         "relevance_de": "\u00dcbrig gebliebene Sicherungsdateien oder nicht verkn\u00fcpfte Verwaltungsskripte enthalten oft Quellcode oder Passw\u00f6rter. Dieser Test identifiziert vergessene oder versteckte Dateien im Webstamm, die Angreifern tiefe Einblicke oder unbefugten Zugriff gew\u00e4hren k\u00f6nnten.",
@@ -2169,7 +2177,7 @@ const wstgData = [
                 "consequences_de": "Ein Angreifer kann Privilegien erweitern oder auf sensible Backend-Tools ohne formelle administrative Authentifizierung zugreifen."
             }
         ],
-        "title_de": "Administrationsschnittstellen von Infrastruktur und Anwendungen",
+        "title_de": "Aufz\u00e4hlung (Enumeration) von Infrastruktur- und Anwendungs-Admin-Schnittstellen",
         "category_de": "Tests des Konfigurations- und Bereitstellungsmanagements",
         "goal_de": "- Identifizieren Sie versteckte Administratorschnittstellen und -funktionen.",
         "relevance_de": "Versteckte Admin-Panels sind Hauptziele f\u00fcr Brute-Force- oder Bypass-Angriffe. Dieser Test erkennt Verwaltungsschnittstellen und stellt sicher, dass sie durch Zugriffskontrollen streng gesch\u00fctzt sind und nicht f\u00fcr unbefugte Benutzer zug\u00e4nglich sind.",
@@ -2222,7 +2230,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen Sicherheitskontrollen (wie WAFs), die gef\u00e4hrliche Verben wie PUT oder DELETE blockieren, umgehen und die anf\u00e4llige Anwendungslogik direkt erreichen."
             }
         ],
-        "title_de": "HTTP-Methoden",
+        "title_de": "Pr\u00fcfung der HTTP-Methoden",
         "category_de": "Tests des Konfigurations- und Bereitstellungsmanagements",
         "goal_de": "\u2013 Auflisten der unterst\u00fctzten HTTP-Methoden.\n- Testen Sie die Umgehung der Zugangskontrolle.\n- Testen Sie Techniken zum \u00dcberschreiben von HTTP-Methoden.",
         "relevance_de": "Webserver unterst\u00fctzen m\u00f6glicherweise unbeabsichtigt gef\u00e4hrliche HTTP-Methoden wie PUT oder DELETE oder erm\u00f6glichen die Umgehung der Authentifizierung durch Methodenmanipulation. Dieser Test stellt sicher, dass nur erforderliche, sichere HTTP-Methoden vom Server zugelassen werden.",
@@ -2257,7 +2265,7 @@ const wstgData = [
                 "consequences_de": "Browser werden nicht gezwungen, \u00fcber HTTPS zu kommunizieren, wodurch Benutzer anf\u00e4llig f\u00fcr Man-in-the-Middle-Angriffe und SSL-Stripping bleiben."
             }
         ],
-        "title_de": "HTTP Strict Transport Security (HSTS)",
+        "title_de": "Pr\u00fcfung von HTTP Strict Transport Security (HSTS)",
         "category_de": "Tests des Konfigurations- und Bereitstellungsmanagements",
         "goal_de": "- \u00dcberpr\u00fcfen Sie den HSTS-Header und seine G\u00fcltigkeit.",
         "relevance_de": "Ohne HSTS sind Anwendungen anf\u00e4llig f\u00fcr Downgrade-Angriffe. Dieser Test best\u00e4tigt das Vorhandensein und die G\u00fcltigkeit des HSTS-Headers und stellt sicher, dass Browser sichere (HTTPS)-Verbindungen vorschreiben und ung\u00fcltige Zertifikate ablehnen.",
@@ -2282,7 +2290,7 @@ const wstgData = [
         "reporting_hints": "Reference the End-of-Life of Flash/Silverlight. Remediation: Delete these files entirely, unless legacy systems strictly require them (in which case, restrict to explicit allowlists).",
         "sysreptor_finding": "WSTG-CONF-08: Test RIA Cross Domain Policy",
         "sysreptor_templates": [],
-        "title_de": "RIA Cross-Domain-Policies",
+        "title_de": "Pr\u00fcfung der RIA Cross-Domain-Richtlinie",
         "category_de": "Tests des Konfigurations- und Bereitstellungsmanagements",
         "goal_de": "Kein Ziel definiert.",
         "relevance_de": "Rich-Internet-Anwendungen verwenden Richtliniendateien, um den dom\u00e4nen\u00fcbergreifenden Datenzugriff zu steuern. Dieser Test stellt sicher, dass dom\u00e4nen\u00fcbergreifende Richtlinien streng konfiguriert sind und nicht zu sehr auf beliebige Dom\u00e4nen vertrauen, wodurch standort\u00fcbergreifender Datendiebstahl verhindert wird.",
@@ -2317,7 +2325,7 @@ const wstgData = [
                 "consequences_de": "Lokale Angreifer oder kompromittierte Dienste mit geringeren Rechten k\u00f6nnen sensible Daten wie Datenbank-Schl\u00fcssel lesen oder ausf\u00fchrbare Dateien \u00e4ndern, was zu einer vollst\u00e4ndigen Systemkompromittierung f\u00fchrt."
             }
         ],
-        "title_de": "Dateiberechtigungen",
+        "title_de": "Pr\u00fcfung von Dateiberechtigungen (File Permissions)",
         "category_de": "Tests des Konfigurations- und Bereitstellungsmanagements",
         "goal_de": "- \u00dcberpr\u00fcfen und identifizieren Sie alle Berechtigungen f\u00fcr betr\u00fcgerische Dateien.",
         "relevance_de": "Zu gro\u00dfz\u00fcgige Dateiberechtigungen auf dem Server k\u00f6nnen zur Offenlegung des Quellcodes oder zur unbefugten Datei\u00e4nderung f\u00fchren. Dieser Test identifiziert betr\u00fcgerische Berechtigungen f\u00fcr kritische Dateien wie Konfigurationen, Protokolle oder verschl\u00fcsselte Daten.",
@@ -2361,7 +2369,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen das Routing f\u00fcr die in der Cloud gehosteten Subdomains der Organisation sofort \u00fcbernehmen und b\u00f6sartige Inhalte hosten."
             }
         ],
-        "title_de": "Subdomain-\u00dcbernahme (Subdomain Takeover)",
+        "title_de": "Pr\u00fcfung auf Subdomain-\u00dcbernahme (Subdomain Takeover)",
         "category_de": "Tests des Konfigurations- und Bereitstellungsmanagements",
         "goal_de": "- Z\u00e4hlen Sie alle m\u00f6glichen Dom\u00e4nen auf (vorherige und aktuelle).\n- Identifizieren Sie alle vergessenen oder falsch konfigurierten Dom\u00e4nen.",
         "relevance_de": "Dangling-DNS-Eintr\u00e4ge, die auf verlassene Dienste Dritter verweisen, k\u00f6nnen von Angreifern beansprucht werden. Dieser Test identifiziert vergessene Subdomains, um zu verhindern, dass Angreifer sie f\u00fcr Phishing- oder Cookie-Diebstahl-Kampagnen kapern.",
@@ -2405,7 +2413,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen Malware hosten, legitime Anwendungsressourcen \u00fcberschreiben, um Angriffe (wie XSS) durchzuf\u00fchren, oder kritische Organisationsdaten zerst\u00f6ren."
             }
         ],
-        "title_de": "Cloud-Speicher",
+        "title_de": "Pr\u00fcfung von Cloud-Speichern (Cloud Storage)",
         "category_de": "Tests des Konfigurations- und Bereitstellungsmanagements",
         "goal_de": "- Stellen Sie sicher, dass die Zugriffskontrollkonfiguration f\u00fcr die Speicherdienste ordnungsgem\u00e4\u00df vorhanden ist.",
         "relevance_de": "Falsch konfigurierter Cloud-Speicher (z. B. AWS S3-Buckets) f\u00fchrt h\u00e4ufig zu massiven Datenschutzverletzungen. Dieser Test bewertet die Zugriffskontrollen auf Speicherdienste, um sicherzustellen, dass unbefugte Benutzer keine sensiblen Daten lesen oder sch\u00e4dliche Dateien hochladen k\u00f6nnen.",
@@ -2458,7 +2466,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen die Nonce vorhersagen oder extrahieren und an ihre b\u00f6sartigen injizierten Skript-Tags anh\u00e4ngen, wodurch der CSP-Schutz vollst\u00e4ndig umgangen wird."
             }
         ],
-        "title_de": "Content Security Policy (CSP)",
+        "title_de": "Pr\u00fcfung der Content Security Policy (CSP)",
         "category_de": "Tests des Konfigurations- und Bereitstellungsmanagements",
         "goal_de": "- \u00dcberpr\u00fcfen Sie den Content-Security-Policy-Header oder das Metaelement, um Fehlkonfigurationen zu identifizieren.",
         "relevance_de": "Ein robuster CSP wehrt XSS- und Clickjacking-Angriffe ab. Dieser Test \u00fcberpr\u00fcft den CSP-Header auf Fehlkonfigurationen \u2013 wie etwa zu breite Platzhalter oder unsichere Inline-Anweisungen \u2013, um eine wirksame Durchsetzung von Inhaltsbeschr\u00e4nkungen sicherzustellen.",
@@ -2493,7 +2501,7 @@ const wstgData = [
                 "consequences_de": "Ein Angreifer kann ein authentifiziertes Opfer dazu verleiten, die manipulierte URL zu besuchen. Die sensiblen Kontodaten des Opfers werden auf dem \u00f6ffentlichen Edge-Server zwischengespeichert, wo der Angreifer sie anschlie\u00dfend herunterladen kann."
             }
         ],
-        "title_de": "Pfad-Manipulation (Path Confusion)",
+        "title_de": "Pr\u00fcfung auf Pfadverwechslung (Path Confusion)",
         "category_de": "Tests des Konfigurations- und Bereitstellungsmanagements",
         "goal_de": "\u2013 Stellen Sie sicher, dass die Anwendungspfade korrekt konfiguriert sind.",
         "relevance_de": "Pfadverwirrung tritt auf, wenn die Anwendung und Vermittler (wie CDNs) Pfade unterschiedlich analysieren, was h\u00e4ufig zu einer Web-Cache-T\u00e4uschung f\u00fchrt. Dieser Test stellt sicher, dass das Routing korrekt konfiguriert ist, um das Zwischenspeichern vertraulicher Benutzerdaten zu verhindern.",
@@ -2537,7 +2545,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen IP-basierte ACLs umgehen, Backend-Sicherheitskontrollen deaktivieren oder Identit\u00e4tspr\u00fcfungen umgehen, die normalerweise am Edge durchgef\u00fchrt werden."
             }
         ],
-        "title_de": "Fehlkonfiguration sonstiger HTTP-Sicherheitsheader",
+        "title_de": "Pr\u00fcfung auf Fehlkonfigurationen sonstiger HTTP-Sicherheits-Header",
         "category_de": "Tests des Konfigurations- und Bereitstellungsmanagements",
         "goal_de": "- Identifizieren Sie falsch konfigurierte Sicherheitsheader.\n- Bewerten Sie die Auswirkungen falsch konfigurierter Sicherheitsheader.\n\u2013 Validieren Sie die korrekte Implementierung der erforderlichen Sicherheitsheader.",
         "relevance_de": "HTTP-Sicherheitsheader weisen Browser an, wie sie mit der Anwendungssicherheit umgehen sollen. Dieser Test identifiziert fehlende, doppelte oder \u00fcberm\u00e4\u00dfig freiz\u00fcgige Header, um einen optimalen clientseitigen Schutz vor h\u00e4ufigen Web-Schwachstellen zu gew\u00e4hrleisten.",
@@ -2590,7 +2598,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen durch einen MitM-Angriff die unverschl\u00fcsselten aktiven Inhalte ersetzen und so beliebigen Code im sicheren Kontext der Anwendung ausf\u00fchren."
             }
         ],
-        "title_de": "Schwache Transportverschl\u00fcsselung (TLS)",
+        "title_de": "Pr\u00fcfung auf schwache Transportschichtsicherheit (TLS)",
         "category_de": "Testen auf schwache Kryptographie",
         "goal_de": "- Validieren Sie die Dienstkonfiguration.\n- \u00dcberpr\u00fcfen Sie die kryptografische St\u00e4rke und G\u00fcltigkeit des digitalen Zertifikats.\n\u2013 Stellen Sie sicher, dass die TLS-Sicherheit nicht umgangen werden kann und in der gesamten Anwendung ordnungsgem\u00e4\u00df implementiert ist.",
         "relevance_de": "Transport Layer Security (TLS) sch\u00fctzt Daten w\u00e4hrend der \u00dcbertragung. Dieser Test \u00fcberpr\u00fcft, ob die Anwendung starke Verschl\u00fcsselungsprotokolle, sichere Chiffren und g\u00fcltige digitale Zertifikate verwendet, um Lauschangriffe und Man-in-the-Middle-Angriffe (MitM) zu verhindern.",
@@ -2625,7 +2633,7 @@ const wstgData = [
                 "consequences_de": "Erm\u00f6glicht es Angreifern, Chiffretext Byte f\u00fcr Byte zu entschl\u00fcsseln oder beliebigen Klartext zu verschl\u00fcsseln, ohne den symmetrischen Schl\u00fcssel zu kennen."
             }
         ],
-        "title_de": "Padding-Oracle-Schwachstellen",
+        "title_de": "Pr\u00fcfung auf Padding-Oracle-Angriffe",
         "category_de": "Testen auf schwache Kryptographie",
         "goal_de": "- Identifizieren Sie verschl\u00fcsselte Nachrichten, die auf Padding angewiesen sind.\n- Versuchen Sie, die Auff\u00fcllung der verschl\u00fcsselten Nachrichten zu unterbrechen und die zur\u00fcckgegebenen Fehlermeldungen zur weiteren Analyse zu analysieren.",
         "relevance_de": "Kryptografische Fehler wie ein Padding-Orakel erm\u00f6glichen es Angreifern, Chiffretext zu entschl\u00fcsseln und beliebige Daten zu f\u00e4lschen, ohne den Verschl\u00fcsselungsschl\u00fcssel zu kennen. Dieser Test identifiziert, ob die Anwendung den F\u00fcllg\u00fcltigkeitsstatus durch Fehlermeldungen oder Zeitunterschiede verliert.",
@@ -2660,7 +2668,7 @@ const wstgData = [
                 "consequences_de": "Lauscher im Netzwerk k\u00f6nnen den Klartextverkehr aufzeichnen, um Konten und sensible Informationen zu stehlen."
             }
         ],
-        "title_de": "\u00dcbertragung sensibler Informationen \u00fcber unverschl\u00fcsselte Kan\u00e4le",
+        "title_de": "Pr\u00fcfung auf \u00dcbertragung sensibler Daten \u00fcber unverschl\u00fcsselte Kan\u00e4le",
         "category_de": "Testen auf schwache Kryptographie",
         "goal_de": "- Identifizieren Sie sensible Informationen, die \u00fcber die verschiedenen Kan\u00e4le \u00fcbertragen werden.\n- Bewerten Sie die Privatsph\u00e4re und Sicherheit der verwendeten Kan\u00e4le.",
         "relevance_de": "Durch die \u00dcbertragung vertraulicher Daten \u2013 wie Anmeldeinformationen, Sitzungs-IDs oder PII \u2013 \u00fcber unverschl\u00fcsseltes HTTP sind diese dem Abfangen durch das Netzwerk ausgesetzt. Dieser Test stellt sicher, dass alle sensiblen Kommunikationen ausschlie\u00dflich verschl\u00fcsselte Kan\u00e4le wie HTTPS verwenden.",
@@ -2704,7 +2712,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen die 'zuf\u00e4lligen' Werte vorhersagen und so Tokens, Passwort-Resets oder Sitzungsschl\u00fcssel kompromittieren."
             }
         ],
-        "title_de": "Schwache kryptographische Verfahren",
+        "title_de": "Pr\u00fcfung auf schwache kryptografische Primitive (Algorithmen)",
         "category_de": "Testen auf schwache Kryptographie",
         "goal_de": "- Bereitstellung einer Richtlinie zur Identifizierung schwacher Verschl\u00fcsselungs- oder Hashing-Anwendungen und -Implementierungen.",
         "relevance_de": "Die Verwendung veralteter oder schwacher kryptografischer Algorithmen (z. B. MD5, RC4) gef\u00e4hrdet die Vertraulichkeit und Integrit\u00e4t der Daten. Dieser Test stellt sicher, dass die Anwendung moderne, sichere Verschl\u00fcsselungs-, Hashing- und Padding-Standards verwendet.",
@@ -2739,7 +2747,7 @@ const wstgData = [
                 "consequences_de": "Angreifer erhalten Einblick in die interne Architektur der Anwendung, was die Erstellung gezielter Exploits erleichtert."
             }
         ],
-        "title_de": "Fehlerbehandlung",
+        "title_de": "Pr\u00fcfung auf unsachgem\u00e4\u00dfe Fehlerbehandlung",
         "category_de": "Testen zur Fehlerbehandlung",
         "goal_de": "- Identifizieren Sie die vorhandene Fehlerausgabe.\n- Analysieren Sie die verschiedenen zur\u00fcckgegebenen Ausgaben.",
         "relevance_de": "Anwendungen, die Fehler nicht ordnungsgem\u00e4\u00df verarbeiten, k\u00f6nnen Stack-Traces, Datenbankabfragen oder Backend-Details an den Benutzer zur\u00fcckgeben. Dieser Test stellt sicher, dass unerwartete Eingaben zu generischen Fehlermeldungen f\u00fchren, die die interne Architektur nicht offenlegen.",
@@ -2783,7 +2791,7 @@ const wstgData = [
                 "consequences_de": "Benutzer k\u00f6nnen auf sensible Daten zugreifen oder Aktionen ausf\u00fchren, die weit \u00fcber das f\u00fcr ihre eigentliche Aufgabe erforderliche Ma\u00df hinausgehen, was die Auswirkungen einer Insider-Bedrohung oder eines kompromittierten Kontos erh\u00f6ht."
             }
         ],
-        "title_de": "Rollendefinitionen",
+        "title_de": "Pr\u00fcfung der Rollendefinitionen",
         "category_de": "Testen des Identit\u00e4tsmanagements",
         "goal_de": "- Identifizieren und dokumentieren Sie die von der Anwendung verwendeten Rollen.\n- Versuchen Sie, eine andere Rolle zu wechseln, zu \u00e4ndern oder darauf zuzugreifen.\n- \u00dcberpr\u00fcfen Sie die Granularit\u00e4t der Rollen und die Anforderungen hinter den erteilten Berechtigungen.",
         "relevance_de": "Anwendungen m\u00fcssen strenge rollenbasierte Berechtigungen erzwingen, um Benutzerfunktionen zu trennen. Dieser Test bewertet die Granularit\u00e4t definierter Rollen und stellt sicher, dass Benutzer nicht zu Funktionen wechseln oder darauf zugreifen k\u00f6nnen, die f\u00fcr andere Berechtigungsstufen vorgesehen sind.",
@@ -2827,7 +2835,7 @@ const wstgData = [
                 "consequences_de": "Ein Angreifer kann ein Konto mit einer gef\u00e4lschten Identit\u00e4t registrieren, was ihm m\u00f6glicherweise sofortigen Zugriff auf privilegierte Rollen oder Mandantendaten gew\u00e4hrt, die er nicht besitzen sollte."
             }
         ],
-        "title_de": "Benutzerregistrierungsprozess",
+        "title_de": "Pr\u00fcfung des Benutzerregistrierungsprozesses",
         "category_de": "Testen des Identit\u00e4tsmanagements",
         "goal_de": "- Stellen Sie sicher, dass die Identit\u00e4tsanforderungen f\u00fcr die Benutzerregistrierung mit den Gesch\u00e4fts- und Sicherheitsanforderungen \u00fcbereinstimmen.\n- Best\u00e4tigen Sie den Registrierungsprozess.",
         "relevance_de": "Unsichere Registrierungsprozesse k\u00f6nnen zur automatisierten Kontoerstellung, Identit\u00e4tsf\u00e4lschung oder unbefugtem Zugriff f\u00fchren. Dieser Test \u00fcberpr\u00fcft, ob Identit\u00e4tsanforderungen und \u00dcberpr\u00fcfungsprozesse mit den Sicherheitsrichtlinien des Systems \u00fcbereinstimmen.",
@@ -2862,7 +2870,7 @@ const wstgData = [
                 "consequences_de": "Ein kompromittiertes administratives Konto auf unterer Ebene oder ein Standardbenutzer kann heimliche Super-Admin-Konten erstellen, um die volle Kontrolle \u00fcber die Anwendung zu \u00fcbernehmen."
             }
         ],
-        "title_de": "Kontobereitstellungsprozess (Account Provisioning)",
+        "title_de": "Pr\u00fcfung des Konto-Bereitstellungsprozesses (Account Provisioning)",
         "category_de": "Testen des Identit\u00e4tsmanagements",
         "goal_de": "- \u00dcberpr\u00fcfen Sie, welche Konten andere Konten bereitstellen k\u00f6nnen und welchen Typs.",
         "relevance_de": "Fehler bei der Kontobereitstellung k\u00f6nnen es Benutzern erm\u00f6glichen, Konten mit h\u00f6heren Berechtigungen als ihren eigenen zu erstellen. Bei diesem Test werden die Autorisierungspr\u00fcfungen im Zusammenhang mit der Erstellung, \u00c4nderung und Aufhebung der Bereitstellung von Anwendungskonten \u00fcberpr\u00fcft.",
@@ -2924,7 +2932,7 @@ const wstgData = [
                 "consequences_de": "Ein Angreifer kann sich als Mitarbeiter ausgeben, um andere Benutzer zu t\u00e4uschen, Social-Engineering-Angriffe auszuf\u00fchren oder m\u00f6glicherweise Gesch\u00e4ftslogiken zu umgehen, die eine Admin-Absicht voraussetzen."
             }
         ],
-        "title_de": "Kontoaufz\u00e4hlung (Account Enumeration) und erratbare Benutzerkonten",
+        "title_de": "Pr\u00fcfung auf Konto-Enumeration und erratbare Benutzerkonten",
         "category_de": "Testen des Identit\u00e4tsmanagements",
         "goal_de": "- \u00dcberpr\u00fcfen Sie Prozesse, die sich auf die Benutzeridentifizierung beziehen (*z. B.* Registrierung, Anmeldung usw.).\n- Z\u00e4hlen Sie Benutzer nach M\u00f6glichkeit durch Antwortanalyse auf.",
         "relevance_de": "Diskrepanzen in den Fehlermeldungen oder Antwortzeiten w\u00e4hrend der Anmeldung oder Passwortwiederherstellung k\u00f6nnen Aufschluss dar\u00fcber geben, ob ein Benutzername vorhanden ist. Dieser Test stellt sicher, dass die Anwendung verhindert, dass Angreifer g\u00fcltige Benutzerkonten f\u00fcr Brute-Force-Angriffe ausnutzen.",
@@ -2949,7 +2957,7 @@ const wstgData = [
         "reporting_hints": "The PoC must show the registered account and its disruptive effect. Remediation: Hardcoded blocklists for reserved names, strict special character restrictions, and proper string normalization.",
         "sysreptor_finding": "WSTG-IDNT-05: Testing for Weak or Unenforced Username Policy",
         "sysreptor_templates": [],
-        "title_de": "Schwache oder nicht durchgesetzte Benutzernamen-Richtlinien",
+        "title_de": "Pr\u00fcfung auf schwache oder nicht durchgesetzte Benutzernamen-Richtlinien",
         "category_de": "Testen des Identit\u00e4tsmanagements",
         "goal_de": "Kein Ziel definiert.",
         "relevance_de": "Ohne eine strenge Richtlinie f\u00fcr Benutzernamen w\u00e4hlen Benutzer m\u00f6glicherweise vorhersehbare oder leicht zu erratende Kennungen (z. B. \u201eadmin\u201c). Dieser Test bewertet die Durchsetzung von Namenskonventionen durch die Anwendung, um eine triviale Kontoerkennung zu verhindern.",
@@ -3002,7 +3010,7 @@ const wstgData = [
                 "consequences_de": "Angreifer erhalten eine umfassende Karte der Infrastruktur des Ziels und der zugeh\u00f6rigen Datenpunkte, wodurch Schwachstellen oder vergessene Assets identifiziert werden."
             }
         ],
-        "title_de": "Informationsbeschaffung \u00fcber Suchmaschinen (Search Engine Reconnaissance)",
+        "title_de": "Suchmaschinen-Aufkl\u00e4rung zur Entdeckung von Informationslecks (Dorking)",
         "category_de": "Informationsbeschaffung",
         "goal_de": "- Identifizieren Sie, welche vertraulichen Design- und Konfigurationsinformationen der Anwendung, des Systems oder der Organisation direkt (auf der Website der Organisation) oder indirekt (\u00fcber Dienste von Drittanbietern) offengelegt werden.",
         "relevance_de": "Suchmaschinen crawlen und indizieren aktiv Webinhalte und erfassen dabei manchmal unbeabsichtigt sensible Daten. Dieser Test nutzt erweiterte Suchoperatoren (z. B. Google Dorking), um durchgesickerte Konfigurationsdateien, Anmeldeinformationen oder versteckte Verzeichnisse zu entdecken.",
@@ -3046,7 +3054,7 @@ const wstgData = [
                 "consequences_de": "Selbst wenn normale Header verschleiert sind, k\u00f6nnen Angreifer den Webserver identifizieren, was die Entdeckung ungepatchter Schwachstellen erleichtert."
             }
         ],
-        "title_de": "Fingerprinting von Webservern",
+        "title_de": "Fingerprinting des Webservers",
         "category_de": "Informationsbeschaffung",
         "goal_de": "- Bestimmen Sie die Version und den Typ eines laufenden Webservers, um die weitere Erkennung bekannter Schwachstellen zu erm\u00f6glichen.",
         "relevance_de": "Durch die Identifizierung des spezifischen Webservers und seiner Version k\u00f6nnen Angreifer bekannte Schwachstellen ausnutzen. Dieser Test nutzt Bannergrabbing und fehlerhafte Anfragen, um festzustellen, auf welcher Serversoftware die Anwendung ausgef\u00fchrt wird.",
@@ -3117,7 +3125,7 @@ const wstgData = [
                 "consequences_de": "Liefert stark zielgerichtete Informationen f\u00fcr Social-Engineering-Kampagnen (Phishing) gegen bestimmte Entwickler oder Teams."
             }
         ],
-        "title_de": "Informationslecks in Webserver-Metadateien (robots.txt, Sitemap etc.)",
+        "title_de": "\u00dcberpr\u00fcfung von Webserver-Metadateien auf Informationslecks",
         "category_de": "Informationsbeschaffung",
         "goal_de": "- Identifizieren Sie versteckte oder verschleierte Pfade und Funktionen durch die Analyse von Metadatendateien.\n- Extrahieren und kartieren Sie weitere Informationen, die zu einem besseren Verst\u00e4ndnis der jeweiligen Systeme f\u00fchren k\u00f6nnten.",
         "relevance_de": "Metadateien wie robots.txt, sitemap.xml und .well-known-Verzeichnisse offenbaren oft versteckte Pfade, interne Endpunkte oder API-Details. Dieser Test analysiert diese Dateien, um verborgene Angriffsfl\u00e4chen der Anwendung aufzudecken.",
@@ -3179,7 +3187,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen veraltete Systeme, administrative Schnittstellen oder Staging-Umgebungen identifizieren und angreifen, bevor sie live gehen."
             }
         ],
-        "title_de": "Identifizierung der Angriffsfl\u00e4che",
+        "title_de": "Identifizierung der Angriffsfl\u00e4che (Attack Surface)",
         "category_de": "Informationsbeschaffung",
         "goal_de": "\u2013 Listen Sie alle Webanwendungen im Geltungsbereich auf.\n- Identifizieren Sie DNS-Namen, Dom\u00e4nen und virtuelle Hosts, die dem Ziel zugeordnet sind.\n- Entdecken Sie zus\u00e4tzliche Dom\u00e4nen und Subdom\u00e4nen mithilfe passiver und aktiver DNS-Techniken.\n- Analysieren Sie digitale Zertifikate und Zertifikatstransparenzprotokolle auf zus\u00e4tzliche Hostnamen.",
         "relevance_de": "F\u00fcr eine umfassende Bewertung muss die gesamte Angriffsfl\u00e4che identifiziert werden, einschlie\u00dflich Subdom\u00e4nen, virtuellen Hosts und exponierten Diensten. Dieser Test verwendet DNS-Aufz\u00e4hlungs- und Zertifikattransparenzprotokolle, um den gesamten Footprint des Ziels abzubilden.",
@@ -3250,7 +3258,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen die spezifische Softwareversion, die zur Generierung der Datei verwendet wurde, identifizieren und nach entsprechenden \u00f6ffentlichen Exploits (CVEs) suchen."
             }
         ],
-        "title_de": "Informationslecks in Webseiteninhalten",
+        "title_de": "\u00dcberpr\u00fcfung von Webseiteninhalten auf Informationslecks",
         "category_de": "Informationsbeschaffung",
         "goal_de": "- \u00dcberpr\u00fcfen Sie Webseitenkommentare, Metadaten und Weiterleitungstexte, um etwaige Informationslecks zu finden.\n- Sammeln Sie JavaScript-Dateien und \u00fcberpr\u00fcfen Sie den JS-Code, um die Anwendung besser zu verstehen und etwaige Informationslecks zu finden.\n\u2013 Identifizieren Sie, ob Quellzuordnungsdateien oder andere Frontend-Debugdateien vorhanden sind.",
         "relevance_de": "Entwickler hinterlassen h\u00e4ufig vertrauliche Informationen \u2013 wie API-Schl\u00fcssel, fest codierte Anmeldeinformationen oder Backend-Logik \u2013 in HTML-Kommentaren oder JavaScript-Quellzuordnungen. Bei diesem Test wird der clientseitige Code gr\u00fcndlich auf versehentliche Datenlecks \u00fcberpr\u00fcft.",
@@ -3294,7 +3302,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen diese Informationen nutzen, um Load-Balancer zu umgehen, Sitzungszust\u00e4nde zu f\u00e4lschen oder bestimmte interne Server direkt anzugreifen."
             }
         ],
-        "title_de": "Anwendungseintrittspunkte",
+        "title_de": "Identifizierung von Anwendungseinstiegspunkten",
         "category_de": "Informationsbeschaffung",
         "goal_de": "- Identifizieren Sie m\u00f6gliche Eintritts- und Injektionspunkte durch Anforderungs- und Antwortanalyse.",
         "relevance_de": "Das Erkennen aller Parameter, Header und API-Endpunkte ist von entscheidender Bedeutung, bevor mit aktiven Tests begonnen wird. Dieser Test bildet alle Anwendungseinstiegspunkte ab und unterscheidet zwischen GET- und POST-Anfragen, um potenzielle Injektionsvektoren zu identifizieren.",
@@ -3329,7 +3337,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen die wahre Struktur der Anwendung systematisch abbilden und so schlecht gesch\u00fctzte administrative oder Test-Ausf\u00fchrungspfade aufdecken."
             }
         ],
-        "title_de": "Ausf\u00fchrungspfade der Anwendung",
+        "title_de": "Nachvollziehen der Ausf\u00fchrungspfade durch die Anwendung",
         "category_de": "Informationsbeschaffung",
         "goal_de": "- Ordnen Sie die Zielanwendung zu und verstehen Sie die wichtigsten Arbeitsabl\u00e4ufe.",
         "relevance_de": "Um gr\u00fcndliche Tests sicherzustellen, ist es notwendig, die prim\u00e4ren Arbeitsabl\u00e4ufe und Entscheidungszweige der Anwendung zu verstehen. Dieser Test umfasst manuelles und automatisiertes Spidering, um Benutzerreisen und undokumentierte Codepfade abzubilden.",
@@ -3400,7 +3408,7 @@ const wstgData = [
                 "consequences_de": "Angreifer wissen genau, welche Syntax und Backend-Schwachstellen (wie spezifische SQLi-Techniken oder RCE-Payloads) sie ausprobieren m\u00fcssen."
             }
         ],
-        "title_de": "Fingerprinting von Webanwendungs-Frameworks",
+        "title_de": "Fingerprinting des Webanwendungs-Frameworks",
         "category_de": "Informationsbeschaffung",
         "goal_de": "- Fingerabdruck der von den Webanwendungen verwendeten Komponenten.",
         "relevance_de": "Anwendungen st\u00fctzen sich stark auf Frameworks von Drittanbietern, die bekannte Schwachstellen enthalten k\u00f6nnen. Dieser Test \u00fcberpr\u00fcft HTTP-Header, Cookies und Verzeichnisstrukturen, um einen genauen Fingerabdruck des zugrunde liegenden Webanwendungs-Frameworks (z. B. Spring, Laravel) zu erhalten.",
@@ -3453,7 +3461,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen das WAF-Regelwerk abbilden und spezifische Bypass-Payloads entwickeln oder sich direkt mit Backend-IPs verbinden, um die WAF vollst\u00e4ndig zu umgehen."
             }
         ],
-        "title_de": "Webanwendungs-Architektur",
+        "title_de": "Analyse der Anwendungsarchitektur",
         "category_de": "Informationsbeschaffung",
         "goal_de": "- Verstehen Sie die Architektur der Anwendung und die verwendeten Technologien.",
         "relevance_de": "Es ist wichtig, die zugrunde liegende Architektur der Anwendung zu verstehen \u2013 einschlie\u00dflich Datenbanken, Reverse-Proxys, WAFs und APIs von Drittanbietern. Dieser Test bildet den Technologie-Stack ab, um Testf\u00e4lle genau anzupassen und infrastrukturspezifische Schwachstellen zu identifizieren.",
@@ -3497,7 +3505,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen bestehende Sicherheitskontrollen (wie WAFs oder Eingabefilter) umgehen, um erfolgreich Cross-Site Scripting-Angriffe auszuf\u00fchren."
             }
         ],
-        "title_de": "Reflektiertes Cross-Site-Scripting (Reflected XSS)",
+        "title_de": "Pr\u00fcfung auf Reflected Cross-Site Scripting (XSS)",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie Variablen, die sich in den Antworten widerspiegeln.\n- Bewerten Sie die von ihnen akzeptierten Eingaben und die Codierung, die bei der R\u00fcckgabe angewendet wird (falls vorhanden).",
         "relevance_de": "Reflektiertes XSS tritt auf, wenn nicht validierte Benutzereingaben sofort vom Server zur\u00fcckgegeben und im Browser des Opfers ausgef\u00fchrt werden. Dieser Test stellt sicher, dass die Anwendung Eingaben ordnungsgem\u00e4\u00df bereinigt und kodiert, um das Einschleusen b\u00f6swilliger Skripte zu verhindern.",
@@ -3550,7 +3558,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen unbemerkt die Sitzungen hochprivilegierter Backend-Benutzer (Administratoren) \u00fcbernehmen, ohne die Ausf\u00fchrung der Payload direkt zu sehen."
             }
         ],
-        "title_de": "Gespeichertes Cross-Site-Scripting (Stored XSS)",
+        "title_de": "Pr\u00fcfung auf Stored Cross-Site Scripting (XSS)",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie gespeicherte Eingaben, die auf der Clientseite widergespiegelt werden.\n- Bewerten Sie die von ihnen akzeptierten Eingaben und die Codierung, die bei der R\u00fcckgabe angewendet wird (falls vorhanden).",
         "relevance_de": "Gespeichertes XSS ist eine schwerwiegende Sicherheitsl\u00fccke, bei der sch\u00e4dliche Skripte im Backend gespeichert und an nachfolgende Benutzer weitergegeben werden. Dieser Test stellt sicher, dass alle gespeicherten Daten vor dem Rendern bereinigt werden, um eine dauerhafte Codeausf\u00fchrung zu verhindern.",
@@ -3594,7 +3602,7 @@ const wstgData = [
                 "consequences_de": "Erm\u00f6glicht es Angreifern, die clientseitige Ausf\u00fchrungslogik zu untergraben, was potenziell zu DOM-basiertem XSS oder unautorisierten Aktionen durch den Browser des Opfers f\u00fchrt."
             }
         ],
-        "title_de": "HTTP Parameter Pollution",
+        "title_de": "Pr\u00fcfung auf HTTP Parameter Pollution (HPP)",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie das Backend und die verwendete Parsing-Methode.\n- Bewerten Sie Einspritzpunkte und versuchen Sie, Eingangsfilter mithilfe von HPP zu umgehen.",
         "relevance_de": "HTTP-Parameterverschmutzung tritt auf, wenn mehrere Parameter mit demselben Namen angegeben werden, was m\u00f6glicherweise zu einem anomalen Anwendungsverhalten f\u00fchrt. Dieser Test \u00fcberpr\u00fcft, ob das Backend doppelte Parameter sicher verarbeitet, ohne Gesch\u00e4ftslogik oder Sicherheitsfilter zu umgehen.",
@@ -3665,7 +3673,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen Exakt-Match-Logiken umgehen (wie die Validierung eines bestimmten Rabattcodes) oder Daten \u00fcber hochspezifische Wildcard-Suchen enumerieren."
             }
         ],
-        "title_de": "SQL-Injection",
+        "title_de": "Pr\u00fcfung auf SQL-Injection (SQLi)",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie SQL-Injection-Punkte.\n- Bewerten Sie den Schweregrad der Injektion und den Grad des dadurch erreichbaren Zugangs.",
         "relevance_de": "Mithilfe der SQL-Injection k\u00f6nnen Angreifer Datenbankabfragen manipulieren, um Daten zu stehlen, zu ver\u00e4ndern oder zu zerst\u00f6ren. Dieser Test stellt sicher, dass alle Benutzereingaben sicher parametrisiert und bereinigt werden, um unbefugte Datenbankinteraktionen zu verhindern.",
@@ -3709,7 +3717,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen sensible Informationen der Verzeichnisstruktur aufz\u00e4hlen und extrahieren, einschlie\u00dflich Benutzernamen, E-Mail-Adressen und versteckten Attributen."
             }
         ],
-        "title_de": "LDAP-Injection",
+        "title_de": "Pr\u00fcfung auf LDAP-Injection",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie LDAP-Injektionspunkte.\n- Beurteilen Sie den Schweregrad der Injektion.",
         "relevance_de": "Wenn eine Anwendung nicht validierte Eingaben verwendet, um ein LDAP-Verzeichnis abzufragen, k\u00f6nnen Angreifer die Abfrage \u00e4ndern, um die Authentifizierung zu umgehen oder vertrauliche Verzeichnisinformationen zu extrahieren. Dieser Test \u00fcberpr\u00fcft den Schutz der Anwendung gegen LDAP-Syntaxinjektion.",
@@ -3753,7 +3761,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen beliebige lokale Dateien lesen, interne Netzwerke per Server-Side Request Forgery (SSRF) abbilden oder einen Denial of Service (Billion Laughs-Angriff) verursachen."
             }
         ],
-        "title_de": "XML-Injection (inkl. XXE)",
+        "title_de": "Pr\u00fcfung auf XML-Injection",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie XML-Injektionspunkte.\n- Bewerten Sie die Arten von Exploits, die erreicht werden k\u00f6nnen, und deren Schwere.",
         "relevance_de": "In b\u00f6swilliger Absicht erstellte XML-Eingaben k\u00f6nnen die Anwendungslogik ver\u00e4ndern oder zu XXE-Angriffen (External Entity) f\u00fchren. Dieser Test \u00fcberpr\u00fcft, ob XML-Parser Eingaben ordnungsgem\u00e4\u00df validieren und gef\u00e4hrliche Funktionen wie die Auswertung externer Entit\u00e4ten einschr\u00e4nken.",
@@ -3788,7 +3796,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen b\u00f6sartige SSI-Direktiven injizieren (z. B. <!--#exec cmd=\"ls\" -->), um eine sofortige Remote Code Execution oder die Offenlegung lokaler Dateien zu erreichen."
             }
         ],
-        "title_de": "Server-Side Includes (SSI) Injection",
+        "title_de": "Pr\u00fcfung auf SSI-Injection (Server-Side Includes)",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie SSI-Injektionspunkte.\n- Beurteilen Sie den Schweregrad der Injektion.",
         "relevance_de": "Mit der Server-Side Includes (SSI)-Injection k\u00f6nnen Angreifer \u00fcber bestimmte HTML-Anweisungen beliebigen serverseitigen Code ausf\u00fchren oder Dateien lesen. Dieser Test identifiziert, ob Benutzereingaben unsicher in Dateien eingebettet sind, die auf SSI-Anweisungen analysiert werden.",
@@ -3832,7 +3840,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen die gesamten Inhalte der XML-Datenbank systematisch rekonstruieren und extrahieren, wodurch jegliche vorgesehenen Zugriffskontrollen umgangen werden."
             }
         ],
-        "title_de": "XPath-Injection",
+        "title_de": "Pr\u00fcfung auf XPath-Injection",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie XPATH-Injektionspunkte.",
         "relevance_de": "Mit der XPath-Injection k\u00f6nnen Angreifer Abfragen manipulieren, die zum Parsen von XML-Daten verwendet werden, wodurch m\u00f6glicherweise die Authentifizierung umgangen oder die gesamte XML-Struktur offengelegt wird. Dieser Test \u00fcberpr\u00fcft, ob XPath-Abfragen vom Benutzer eingegebene Eingaben korrekt neutralisieren.",
@@ -3867,7 +3875,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen beabsichtigte Operationen beenden und v\u00f6llig beliebige IMAP/SMTP-Befehle injizieren, um auf unautorisierte Postf\u00e4cher zuzugreifen, Nachrichten zu l\u00f6schen oder Spam weiterzuleiten."
             }
         ],
-        "title_de": "IMAP/SMTP-Injection",
+        "title_de": "Pr\u00fcfung auf IMAP/SMTP-Injection",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie IMAP/SMTP-Injektionspunkte.\n- Verstehen Sie den Datenfluss und die Bereitstellungsstruktur des Systems.\n- Bewerten Sie die Auswirkungen der Injektion.",
         "relevance_de": "Webmail-Anwendungen, die Eingaben nicht bereinigen, k\u00f6nnen gezwungen werden, beliebige IMAP- oder SMTP-Befehle auszuf\u00fchren. Dieser Test bewertet, ob Angreifer E-Mail-Einschr\u00e4nkungen umgehen, das Routing manipulieren oder \u00fcber Command Injection (CRLF) auf nicht autorisierte E-Mail-Funktionen zugreifen k\u00f6nnen.",
@@ -3911,7 +3919,7 @@ const wstgData = [
                 "consequences_de": "Erm\u00f6glicht es einem Angreifer, b\u00f6sartige serverseitige Skripte zu injizieren, die vom Webserver-Framework ausgef\u00fchrt werden."
             }
         ],
-        "title_de": "Code-Injection",
+        "title_de": "Pr\u00fcfung auf Code-Injection",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie Injektionspunkte, an denen Sie Code in die Anwendung einf\u00fcgen k\u00f6nnen.\n- Beurteilen Sie den Schweregrad der Injektion.",
         "relevance_de": "Code-Injection erfolgt, wenn Benutzereingaben direkt von der Skript-Engine des Servers ausgewertet werden (z. B. \u00fcber eval()). Dieser Test identifiziert Endpunkte, bei denen mangelnde Bereinigung zu einer schwerwiegenden Remotecodeausf\u00fchrung f\u00fchrt.",
@@ -3955,7 +3963,7 @@ const wstgData = [
                 "consequences_de": "Trotz fehlender sichtbarer Ausgabe k\u00f6nnen Angreifer Befehle ausf\u00fchren, Daten \u00fcber DNS/HTTP-Anfragen exfiltrieren oder Denial of Service durch Sleep-Befehle verursachen."
             }
         ],
-        "title_de": "Command-Injection",
+        "title_de": "Pr\u00fcfung auf Command-Injection (Befehlsinjektion)",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren und bewerten Sie Befehlsinjektionspunkte.\n- Umgehen Sie den Filter f\u00fcr Sonderzeichen und Betriebssystembefehle.",
         "relevance_de": "Mit OS Command Injection k\u00f6nnen Angreifer beliebige Systembefehle auf dem Hostserver ausf\u00fchren. Dieser Test stellt sicher, dass Benutzereingaben niemals unsicher an System-Shells oder Befehlsausf\u00fchrungs-APIs weitergeleitet werden.",
@@ -3990,7 +3998,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen sensible Speicherinhalte lesen, Anwendungsabst\u00fcrze ausl\u00f6sen oder in beliebige Speicherorte schreiben, um Code auszuf\u00fchren."
             }
         ],
-        "title_de": "Format-String-Injection",
+        "title_de": "Pr\u00fcfung auf Puffer\u00fcberl\u00e4ufe (Buffer Overflow) und Format-String-Injection",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "\u2013 Bewerten Sie, ob das Einf\u00fcgen von Konvertierungsspezifizierern f\u00fcr Formatzeichenfolgen in benutzergesteuerte Felder zu unerw\u00fcnschtem Verhalten der Anwendung f\u00fchrt.",
         "relevance_de": "Puffer\u00fcberlauf: Puffer\u00fcberl\u00e4ufe treten auf, wenn eine Anwendung mehr Daten empf\u00e4ngt, als ihr zugewiesener Speicher verarbeiten kann, was m\u00f6glicherweise zu Abst\u00fcrzen oder Remotecodeausf\u00fchrung f\u00fchrt. Dieser Test stellt sicher, dass f\u00fcr alle Eingabefelder eine strenge Grenzpr\u00fcfung erzwungen wird. Format-String-Injection: Das Einf\u00fcgen von Format-String-Bezeichnern (z. B. %x, %n) in eine Anwendung kann zu Laufzeitfehlern, Speicheroffenlegung oder Codeausf\u00fchrung f\u00fchren. Dieser Test \u00fcberpr\u00fcft, ob Benutzereingaben nicht unsicher an Formatierungsfunktionen weitergeleitet werden.",
@@ -4025,7 +4033,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen sensible Speicherinhalte lesen, Anwendungsabst\u00fcrze ausl\u00f6sen oder in beliebige Speicherorte schreiben, um Code auszuf\u00fchren."
             }
         ],
-        "title_de": "Format-String-Injection",
+        "title_de": "Pr\u00fcfung auf Puffer\u00fcberl\u00e4ufe (Buffer Overflow) und Format-String-Injection",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "\u2013 Bewerten Sie, ob das Einf\u00fcgen von Konvertierungsspezifizierern f\u00fcr Formatzeichenfolgen in benutzergesteuerte Felder zu unerw\u00fcnschtem Verhalten der Anwendung f\u00fchrt.",
         "relevance_de": "Puffer\u00fcberlauf: Puffer\u00fcberl\u00e4ufe treten auf, wenn eine Anwendung mehr Daten empf\u00e4ngt, als ihr zugewiesener Speicher verarbeiten kann, was m\u00f6glicherweise zu Abst\u00fcrzen oder Remotecodeausf\u00fchrung f\u00fchrt. Dieser Test stellt sicher, dass f\u00fcr alle Eingabefelder eine strenge Grenzpr\u00fcfung erzwungen wird. Format-String-Injection: Das Einf\u00fcgen von Format-String-Bezeichnern (z. B. %x, %n) in eine Anwendung kann zu Laufzeitfehlern, Speicheroffenlegung oder Codeausf\u00fchrung f\u00fchren. Dieser Test \u00fcberpr\u00fcft, ob Benutzereingaben nicht unsicher an Formatierungsfunktionen weitergeleitet werden.",
@@ -4060,7 +4068,7 @@ const wstgData = [
                 "consequences_de": "Erm\u00f6glicht ausgefeilte Watering-Hole-Angriffe, die interne Benutzer oder Administratoren kompromittieren, wenn diese die abgerufenen Daten anzeigen."
             }
         ],
-        "title_de": "Inkubierte Schwachstellen (Incubated Vulnerabilities)",
+        "title_de": "Pr\u00fcfung auf inkubierte Schwachstellen (Incubated Vulnerabilities)",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie gespeicherte Injektionen, f\u00fcr die ein R\u00fcckrufschritt f\u00fcr die gespeicherte Injektion erforderlich ist.\n- Verstehen Sie, wie ein R\u00fcckrufschritt ablaufen k\u00f6nnte.\n- Legen Sie H\u00f6rer fest oder aktivieren Sie den R\u00fcckrufschritt, wenn m\u00f6glich.",
         "relevance_de": "Bei inkubierten (persistenten) Schwachstellen handelt es sich um mehrstufige Angriffe, bei denen eine sch\u00e4dliche Nutzlast in einer Datenbank gespeichert und sp\u00e4ter von einem Opfer oder Administrator ausgef\u00fchrt wird. Dieser Test pr\u00fcft auf verz\u00f6gerte Ausf\u00fchrungsszenarien, die mehrere Eingabefehler kombinieren.",
@@ -4095,7 +4103,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen eine einzelne Antwort in zwei aufteilen und b\u00f6sartige Inhalte in die zweite Antwort injizieren, um Cache Poisoning oder XSS durchzuf\u00fchren."
             }
         ],
-        "title_de": "HTTP Response Splitting",
+        "title_de": "Pr\u00fcfung auf HTTP Response Splitting",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "\u2013 Identifizieren Sie benutzergesteuerte Eingaben, die sich in HTTP-Antwortheadern widerspiegeln.\n\u2013 Bewerten Sie, ob CR- ( `\\r` ) und LF- ( `\\n` ) Zeichen in Antwortheader eingef\u00fcgt werden k\u00f6nnen.\n- Ermitteln Sie die potenziellen Auswirkungen erfolgreicher HTTP Response Splitting-Angriffe, z. B. Cache-Poisoning oder clientseitige Ausnutzung.",
         "relevance_de": "HTTP Response Splitting erm\u00f6glicht es Angreifern, CRLF-Zeichen in Header einzuf\u00fcgen und so nachfolgende HTTP-Antworten zu f\u00e4lschen. Dieser Test stellt sicher, dass Eingaben bereinigt werden, um Cache-Poisoning, XSS und Session-Hijacking durch Header-Manipulation zu verhindern.",
@@ -4139,7 +4147,7 @@ const wstgData = [
                 "consequences_de": "F\u00fchrt zu Request Queue Poisoning, was Angreifern den Zugriff auf unbefugte Endpunkte erm\u00f6glicht oder Antworten offenlegt, die f\u00fcr andere Benutzer bestimmt sind."
             }
         ],
-        "title_de": "HTTP Request Smuggling",
+        "title_de": "Pr\u00fcfung auf HTTP Request Smuggling",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie Inkonsistenzen bei Anforderungsgrenzen zwischen Frontend- und Backend-Komponenten\n- Erkennen Sie klassische CL/TE-Desynchronisierungsschwachstellen\n- Bewerten Sie die Protokoll\u00fcbersetzungslogik (HTTP/2 \u2192 HTTP/1.1)\n- Bewerten Sie die H2C-Upgrade-Handhabung und die Downgrade-Sicherheit\n\u2013 Best\u00e4tigen Sie die Vergiftung der Backend-Anfragewarteschlange",
         "relevance_de": "Beim Anforderungsschmuggel werden Diskrepanzen bei der Analyse von HTTP-Grenzen durch Front-End- und Back-End-Server ausgenutzt (z. B. Content-Length vs. Transfer-Encoding). Dieser Test stellt sicher, dass Angreifer keine versteckten Anfragen an den Backend-Server schleichen k\u00f6nnen.",
@@ -4183,7 +4191,7 @@ const wstgData = [
                 "consequences_de": "Wenn ein Opfer ein Passwort-Reset anfordert, verweist der an seine E-Mail gesendete Link auf eine vom Angreifer kontrollierte Domain, wodurch dessen Reset-Token gestohlen wird."
             }
         ],
-        "title_de": "Host-Header-Injection",
+        "title_de": "Pr\u00fcfung auf Host-Header-Injection",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "\u2013 Beurteilen Sie, ob der Host-Header in der Anwendung dynamisch analysiert wird.\n- Umgehen Sie Sicherheitskontrollen, die auf dem Header basieren.",
         "relevance_de": "Anwendungen, die dem HTTP-Host-Header dynamisch vertrauen, k\u00f6nnen f\u00fcr Cache-Poisoning, Passwort-Reset-Hijacking oder den Zugriff auf interne virtuelle Hosts ausgenutzt werden. Dieser Test bewertet die sichere Handhabung des bereitgestellten Host-Werts durch die Anwendung.",
@@ -4218,7 +4226,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen beliebigen serverseitigen Code (RCE) ausf\u00fchren, indem sie durch die von der Template-Engine exponierte Objekthierarchie navigieren."
             }
         ],
-        "title_de": "Server-Side Template Injection (SSTI)",
+        "title_de": "Pr\u00fcfung auf serverseitige Template-Injection (SSTI)",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Erkennen Sie Schwachstellen bei der Template-Injection.\n- Identifizieren Sie die Template-Engine.\n- Erstellen Sie den Exploit.",
         "relevance_de": "Server-Side Template Injection (SSTI) erm\u00f6glicht es Angreifern, native Template-Syntax (z. B. Jinja2, Twig) einzuschleusen, was m\u00f6glicherweise zur Remote-Codeausf\u00fchrung f\u00fchrt. Dieser Test stellt sicher, dass Benutzereingaben strikt von den Vorlagenbewertungs-Engines getrennt werden.",
@@ -4262,7 +4270,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen weiterhin Aktionen bei internen Diensten ausl\u00f6sen (z.B. interne Zust\u00e4nde \u00e4ndern) oder Port-Scans basierend auf Zeitunterschieden durchf\u00fchren."
             }
         ],
-        "title_de": "Server-Side Request Forgery (SSRF)",
+        "title_de": "Pr\u00fcfung auf Server-Side Request Forgery (SSRF)",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie SSRF-Injektionspunkte.\n- Testen Sie, ob die Einspritzpunkte ausnutzbar sind.\n- Bewertet den Schweregrad der Schwachstelle.",
         "relevance_de": "SSRF bringt den Server dazu, im Namen des Angreifers beliebige HTTP-Anfragen zu stellen und so interne Dienste, Cloud-Metadaten oder lokale Dateien offenzulegen. Dieser Test \u00fcberpr\u00fcft, ob die f\u00fcr den externen Ressourcenabruf vorgesehene Eingabe stark eingeschr\u00e4nkt ist.",
@@ -4297,7 +4305,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen unerwartete Parameter (wie isAdmin=true) an Anfragen anh\u00e4ngen, um Privilegien zu erh\u00f6hen oder Gesch\u00e4ftsbeschr\u00e4nkungen zu umgehen."
             }
         ],
-        "title_de": "Mass Assignment",
+        "title_de": "Pr\u00fcfung auf Mass Assignment",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie Anforderungen, die Objekte \u00e4ndern\n- Pr\u00fcfen Sie, ob es m\u00f6glich ist, Felder zu \u00e4ndern, die niemals von au\u00dfen ge\u00e4ndert werden sollen",
         "relevance_de": "Eine Massenzuweisung erfolgt, wenn Frameworks Benutzereingaben automatisch an interne Objektmodelle binden. Dieser Test stellt sicher, dass Angreifer keine unerwarteten Parameter (z. B. isAdmin=true) bereitstellen k\u00f6nnen, um vertrauliche, eingeschr\u00e4nkte Felder zu \u00e4ndern.",
@@ -4332,7 +4340,7 @@ const wstgData = [
                 "consequences_de": "Wenn ein Opfer die exportierte Datei \u00f6ffnet, f\u00fchrt die Tabellenkalkulation b\u00f6sartige Formeln aus, was potenziell zu lokaler Befehlsausf\u00fchrung oder Datenexfiltration f\u00fchrt."
             }
         ],
-        "title_de": "CSV-Injection",
+        "title_de": "Pr\u00fcfung auf CSV-Injection",
         "category_de": "Eingabevalidierungstests",
         "goal_de": "- Identifizieren Sie CSV-/Tabellen-Exportfunktionen, die nicht vertrauensw\u00fcrdige Eingaben enthalten.\n\u2013 \u00dcberpr\u00fcfen Sie, ob vom Angreifer kontrollierte Werte als Formeln interpretiert werden, wenn der Export in g\u00e4ngigen Tabellenkalkulationsanwendungen ge\u00f6ffnet wird.\n- \u00dcberpr\u00fcfen Sie, ob durch Trennzeichen/Anf\u00fchrungszeichen-Injektion ein gef\u00e4hrliches Pr\u00e4fix an den Anfang einer Zelle verschoben werden kann.\n- \u00dcberpr\u00fcfen Sie, ob Abhilfema\u00dfnahmen in Microsoft Excel nach dem Speichern und erneuten \u00d6ffnen der CSV-Datei wirksam bleiben.\n- Bewerten Sie die praktischen Auswirkungen basierend darauf, wer den Export \u00f6ffnet und wie er verwendet wird.",
         "relevance_de": "CSV-Injection (Formula-Injection) erfolgt, wenn nicht vertrauensw\u00fcrdige Daten, die in eine Tabellenkalkulation exportiert werden, als Formel ausgef\u00fchrt werden. Dieser Test \u00fcberpr\u00fcft, ob gef\u00e4hrliche Pr\u00e4fixe (wie =, +, -, @) in Exportfunktionen ordnungsgem\u00e4\u00df bereinigt oder maskiert werden.",
@@ -4376,7 +4384,7 @@ const wstgData = [
                 "consequences_de": "Ein Angreifer kann g\u00fcltige Sitzungs-IDs vorhersagen oder generieren, um aktive Sitzungen legitimer Benutzer zu kapern, ohne deren Anmeldedaten zu ben\u00f6tigen."
             }
         ],
-        "title_de": "Sitzungsverwaltung (Session Management)",
+        "title_de": "Pr\u00fcfung des Sitzungsmanagementschemas",
         "category_de": "Sitzungsverwaltungstests",
         "goal_de": "- Sammeln Sie Sitzungstoken, f\u00fcr denselben Benutzer und nach M\u00f6glichkeit f\u00fcr verschiedene Benutzer.\n- Analysieren Sie und stellen Sie sicher, dass gen\u00fcgend Zuf\u00e4lligkeit vorhanden ist, um Session-Forging-Angriffe zu stoppen.\n- \u00c4ndern Sie Cookies, die nicht signiert sind und manipulierbare Informationen enthalten.",
         "relevance_de": "Eine sichere Sitzungsverwaltung ist entscheidend, um Sitzungshijacking und -f\u00e4lschung zu verhindern. Dieser Test bewertet die Zuf\u00e4lligkeit, Vorhersagbarkeit und Struktur von Sitzungstoken, um sicherzustellen, dass sie von Angreifern nicht erraten oder r\u00fcckentwickelt werden k\u00f6nnen.",
@@ -4438,7 +4446,7 @@ const wstgData = [
                 "consequences_de": "Die Anwendung ist deutlich anf\u00e4lliger f\u00fcr Cross-Site Request Forgery (CSRF) und dom\u00e4nen\u00fcbergreifende Informationsabfl\u00fcsse."
             }
         ],
-        "title_de": "Cookie-Attribute",
+        "title_de": "Pr\u00fcfung von Cookie-Attributen",
         "category_de": "Sitzungsverwaltungstests",
         "goal_de": "- Stellen Sie sicher, dass die richtige Sicherheitskonfiguration f\u00fcr Cookies eingestellt ist.",
         "relevance_de": "Cookies m\u00fcssen durch geeignete Attribute gesichert werden, um Diebstahl und Missbrauch zu verhindern. Dieser Test best\u00e4tigt die ordnungsgem\u00e4\u00dfe Verwendung der Flags Secure, HttpOnly und SameSite, um Sitzungscookies vor XSS, CSRF und unverschl\u00fcsseltem Abfangen zu sch\u00fctzen.",
@@ -4473,7 +4481,7 @@ const wstgData = [
                 "consequences_de": "Ein Angreifer kann dem Browser des Opfers eine bekannte Sitzungs-ID aufzwingen. Sobald sich das Opfer anmeldet, kann der Angreifer dieselbe Sitzungs-ID nutzen, um das Konto zu \u00fcbernehmen."
             }
         ],
-        "title_de": "Sitzungsfixierung (Session Fixation)",
+        "title_de": "Pr\u00fcfung auf Session Fixation (Sitzungs\u00fcbernahme)",
         "category_de": "Sitzungsverwaltungstests",
         "goal_de": "- Analysieren Sie den Authentifizierungsmechanismus und seinen Ablauf.\n- Cookies erzwingen und die Auswirkungen absch\u00e4tzen.",
         "relevance_de": "Eine Sitzungsfixierung tritt auf, wenn eine Anwendung bei einer erfolgreichen Anmeldung keine neue Sitzungskennung ausgibt. Dieser Test stellt sicher, dass die Anwendung das Risiko verringert, dass Angreifer die Sitzungs-ID eines Opfers voreinstellen, um dessen Konto sp\u00e4ter zu kapern.",
@@ -4517,7 +4525,7 @@ const wstgData = [
                 "consequences_de": "Benutzer an gemeinsam genutzten Computern oder hinter Unternehmens-Proxys k\u00f6nnten ihre Sitzungs-Tokens preisgeben, was eine \u00dcbernahme durch nachfolgende Benutzer erm\u00f6glicht."
             }
         ],
-        "title_de": "Offengelegte Sitzungsvariablen",
+        "title_de": "Pr\u00fcfung auf offengelegte Sitzungsvariablen",
         "category_de": "Sitzungsverwaltungstests",
         "goal_de": "- Stellen Sie sicher, dass eine ordnungsgem\u00e4\u00dfe Verschl\u00fcsselung implementiert ist.\n- \u00dcberpr\u00fcfen Sie die Caching-Konfiguration.\n- Bewerten Sie die Sicherheit des Kanals und der Methoden.",
         "relevance_de": "Das Offenlegen von Sitzungstokens in URLs (GET-Parametern), unverschl\u00fcsselten Kan\u00e4len oder Browser-Caches erh\u00f6ht das Abh\u00f6rrisiko erheblich. Dieser Test stellt sicher, dass Token ausschlie\u00dflich \u00fcber sichere POST-Anfragen und HTTPS \u00fcbertragen werden.",
@@ -4552,7 +4560,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen Opfer auf b\u00f6sartige Websites locken und deren Browser zwingen, unerw\u00fcnschte Aktionen (z. B. Passwort\u00e4nderungen, Geld\u00fcberweisungen) in der anf\u00e4lligen Anwendung auszuf\u00fchren."
             }
         ],
-        "title_de": "Cross-Site Request Forgery (CSRF)",
+        "title_de": "Pr\u00fcfung auf Cross-Site Request Forgery (CSRF)",
         "category_de": "Sitzungsverwaltungstests",
         "goal_de": "\u2013 Bestimmen Sie, ob es m\u00f6glich ist, im Namen eines Benutzers Anfragen zu initiieren, die nicht vom Benutzer initiiert wurden.",
         "relevance_de": "CSRF verleitet einen authentifizierten Benutzer dazu, unerw\u00fcnschte Aktionen auszuf\u00fchren. Dieser Test stellt sicher, dass die Anwendung die Absicht von Status\u00e4nderungsanforderungen durch Anti-CSRF-Tokens, SameSite-Cookie-Attribute oder erneute Authentifizierungspr\u00fcfungen validiert.",
@@ -4614,7 +4622,7 @@ const wstgData = [
                 "consequences_de": "Der Diebstahl des einzelnen Authentifizierungsartefakts gew\u00e4hrt Angreifern dauerhaften Zugriff, der die Logout-Aktionen des Opfers auf dem eigenen Ger\u00e4t \u00fcberlebt."
             }
         ],
-        "title_de": "Logout-Funktionalit\u00e4t",
+        "title_de": "Pr\u00fcfung der Logout-Funktion",
         "category_de": "Sitzungsverwaltungstests",
         "goal_de": "- Bewerten Sie die Abmelde-Benutzeroberfl\u00e4che.\n- Analysieren Sie das Sitzungszeitlimit und ob die Sitzung nach dem Abmelden ordnungsgem\u00e4\u00df beendet wird.",
         "relevance_de": "Die sichere Abmeldefunktion muss die Sitzung sowohl auf dem Client als auch auf dem Server vollst\u00e4ndig zerst\u00f6ren. Dieser Test stellt sicher, dass ung\u00fcltige Sitzungstoken nicht mehr wiederverwendet werden k\u00f6nnen, insbesondere auf mehreren Ger\u00e4ten in Single Sign-On (SSO)-\u00d6kosystemen.",
@@ -4649,7 +4657,7 @@ const wstgData = [
                 "consequences_de": "Erh\u00f6ht das Zeitfenster f\u00fcr einen Angreifer, eine Sitzung zu \u00fcbernehmen, wenn ein Benutzer vergisst, sich abzumelden, oder wenn das Token gestohlen wird."
             }
         ],
-        "title_de": "Sitzungs-Timeout",
+        "title_de": "Pr\u00fcfung des Sitzungsablaufs (Session Timeout)",
         "category_de": "Sitzungsverwaltungstests",
         "goal_de": "\u2013 \u00dcberpr\u00fcfen Sie, ob ein hartes Sitzungszeitlimit vorliegt.",
         "relevance_de": "Sitzungen, die auf unbestimmte Zeit aktiv bleiben, stellen ein erhebliches Sicherheitsrisiko dar, wenn ein Ger\u00e4t kompromittiert oder unbeaufsichtigt bleibt. Dieser Test stellt sicher, dass die Anwendung strikte serverseitige Leerlauf- und absolute Zeit\u00fcberschreitungen erzwingt, um das Angriffsfenster zu minimieren.",
@@ -4684,7 +4692,7 @@ const wstgData = [
                 "consequences_de": "Ein Angreifer kann auf einen \u00f6ffentlichen Endpunkt zugreifen, um die Sitzungsvariable zu bef\u00fcllen, und dann zu einem privilegierten Kontext navigieren, wodurch er sich als Benutzer ausgibt oder die Authentifizierung umgeht."
             }
         ],
-        "title_de": "Session Puzzling",
+        "title_de": "Pr\u00fcfung auf Session Puzzling (Sitzungsvariablen-\u00dcberladung)",
         "category_de": "Sitzungsverwaltungstests",
         "goal_de": "- Identifizieren Sie alle Sitzungsvariablen.\n- Unterbrechen Sie den logischen Fluss der Sitzungsgenerierung.",
         "relevance_de": "Session Puzzling (Variablen\u00fcberladung) tritt auf, wenn eine Anwendung dieselbe Sitzungsvariable f\u00fcr mehrere Zwecke verwendet. Dieser Test stellt sicher, dass Angreifer Zwischenschritte (wie einen Passwort-Reset-Flow) nicht manipulieren k\u00f6nnen, um die Authentifizierung b\u00f6swillig zu umgehen.",
@@ -4719,7 +4727,7 @@ const wstgData = [
                 "consequences_de": "Netzwerk-Angreifer k\u00f6nnen den Browser zwingen, Verbindungen herabzustufen, um die Sitzungs-Cookies im Klartext abzufangen und das Konto des Benutzers vollst\u00e4ndig zu kompromittieren."
             }
         ],
-        "title_de": "Session-Hijacking",
+        "title_de": "Pr\u00fcfung auf Session Hijacking (Sitzungskapern)",
         "category_de": "Sitzungsverwaltungstests",
         "goal_de": "- Identifizieren Sie anf\u00e4llige Sitzungscookies.\n- Kapern Sie anf\u00e4llige Cookies und bewerten Sie das Risikoniveau.",
         "relevance_de": "Beim Session-Hijacking stiehlt ein Angreifer ein g\u00fcltiges Sitzungscookie und verwendet es wieder. Dieser Test bewertet die allgemeine Widerstandsf\u00e4higkeit der Sitzungsarchitektur gegen Anmeldedatendiebstahl und konzentriert sich dabei auf HTTPS-Durchsetzung und Netzwerkangreifer-Szenarien.",
@@ -4790,7 +4798,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen die Anwendung zwingen, bekannte Schl\u00fcssel (wie eine leere Datei \u00fcber /dev/null) zu verwenden, um Tokens zu f\u00e4lschen, oder Daten extrahieren bzw. Befehle im Backend ausf\u00fchren."
             }
         ],
-        "title_de": "JSON Web Tokens (JWT)",
+        "title_de": "Pr\u00fcfung von JSON Web Tokens (JWT)",
         "category_de": "Sitzungsverwaltungstests",
         "goal_de": "\u2013 Stellen Sie fest, ob die JWTs vertrauliche Informationen offenlegen.\n- Stellen Sie fest, ob die JWTs manipuliert oder ge\u00e4ndert werden k\u00f6nnen.",
         "relevance_de": "JSON-Web-Tokens (JWT) k\u00f6nnen anf\u00e4llig f\u00fcr Signaturumgehungen, schwache HMAC-Schl\u00fcssel oder Verwirrung bei Algorithmen sein. Dieser Test stellt sicher, dass JWTs sicher signiert und streng validiert sind und keine vertraulichen Klartextdaten in der Nutzlast enthalten.",
@@ -4825,7 +4833,7 @@ const wstgData = [
                 "consequences_de": "Wenn ein Angreifer die Anmeldedaten des Benutzers erh\u00e4lt, kann er neben dem Opfer heimlichen, dauerhaften Zugriff aufrechterhalten, ohne sofort Verdacht zu erregen."
             }
         ],
-        "title_de": "Parallele Sitzungen (Concurrent Sessions)",
+        "title_de": "Pr\u00fcfung auf gleichzeitige Sitzungen (Concurrent Sessions)",
         "category_de": "Sitzungsverwaltungstests",
         "goal_de": "- Bewerten Sie die Sitzungsverwaltung der Anwendung, indem Sie die Handhabung mehrerer aktiver Sitzungen f\u00fcr ein einzelnes Benutzerkonto bewerten.",
         "relevance_de": "Das Zulassen unbegrenzter gleichzeitiger Sitzungen erh\u00f6ht das Risiko einer unbemerkten Kontokompromittierung. Dieser Test stellt sicher, dass die Anwendung fr\u00fchere aktive Sitzungen f\u00fcr ein einzelnes Benutzerkonto angemessen \u00fcberwacht, einschr\u00e4nkt oder ung\u00fcltig macht, um eine strenge Zugriffskontrolle aufrechtzuerhalten.",
