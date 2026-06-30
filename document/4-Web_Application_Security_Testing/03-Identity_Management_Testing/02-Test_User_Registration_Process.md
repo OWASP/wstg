@@ -41,6 +41,10 @@ In contrast, in the Google example below the identification requirements include
 ![Google Registration Page](images/Google_registration_page.jpg)\
 *Figure 4.3.2-2: Google Registration Page*
 
+Some applications may also automatically grant privileged roles to users when they register an account with an email address from a trusted domain. If ownership of the email address is not validated as part of the registration process, this could allow an attacker to gain access to a privileged account by registering a new user on that domain.
+
+Alternatively, if they only perform partial matching of the domain then it may be possible to register a privileged account using other similar domains. For example, if the application checks for email addresses ending in `example.org` then it may be possible to use the `notexample.org` domain; or if it checks for `@example.org` in the email address then it may be possible to use `@example.org.attacker.com`.
+
 ## Remediation
 
 Implement identification and verification requirements that correspond to the security requirements of the information the credentials protect.
