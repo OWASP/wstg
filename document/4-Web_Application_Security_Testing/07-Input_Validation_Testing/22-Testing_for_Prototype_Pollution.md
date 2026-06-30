@@ -8,7 +8,7 @@
 
 JavaScript is a prototype-based language. Almost every object inherits from `Object.prototype`, and any property that is not found directly on an object is looked up through the prototype chain. Prototype pollution occurs when an application uses attacker-controlled input to set the *keys* of an object during a recursive merge, clone, or path-based assignment, allowing the attacker to reach `Object.prototype` through a special key such as `__proto__`, `constructor`, or `prototype`. Because that prototype is shared by every object in the runtime, the injected property silently becomes visible to unrelated parts of the application.
 
-This is not the same as [HTTP Parameter Pollution](04-Testing_for_HTTP_Parameter_Pollution.md); despite the similar name, the two vulnerabilities are unrelated.
+> Note: This is not the same as [HTTP Parameter Pollution](04-Testing_for_HTTP_Parameter_Pollution.md); despite the similar name, the two vulnerabilities are unrelated.
 
 Pollution on its own rarely causes harm directly. Its impact depends on a *gadget*: existing code that later reads a property the attacker managed to plant and then uses it in a sensitive way. The same root cause appears in two contexts:
 
