@@ -852,6 +852,16 @@
             "Validate whether mitigations remain effective in Microsoft Excel after saving and re-opening the CSV.",
             "Assess practical impact based on who opens the export and how it is used."
           ]
+        },
+        {
+          "name": "Testing for Prototype Pollution",
+          "id": "WSTG-INPV-22",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/22-Testing_for_Prototype_Pollution",
+          "objectives": [
+            "Identify functions and libraries that recursively merge, clone, or assign user-controlled properties.",
+            "Determine whether user input can reach and modify `Object.prototype`.",
+            "Identify gadgets that turn prototype pollution into a concrete impact."
+          ]
         }
       ]
     },
