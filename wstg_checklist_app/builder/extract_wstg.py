@@ -3,7 +3,7 @@ import re
 import json
 from pathlib import Path
 
-def parse_wstg_file(filepath, custom_relevance=None, custom_evidence=None, custom_tools=None, sysreptor_templates=None):
+def parse_wstg_file(filepath, custom_relevance=None, custom_evidence=None, custom_tools=None, sysreptor_templates=None, de_translations=None):
     if custom_relevance is None:
         custom_relevance = {}
     if custom_evidence is None:
@@ -114,7 +114,7 @@ def parse_wstg_file(filepath, custom_relevance=None, custom_evidence=None, custo
     if sysreptor_templates and wstg_id in sysreptor_templates:
         templates = sysreptor_templates[wstg_id]
 
-    return {
+    module_data = {
         "id": wstg_id,
         "is_info": is_info,
         "title": title,
@@ -131,6 +131,18 @@ def parse_wstg_file(filepath, custom_relevance=None, custom_evidence=None, custo
         "sysreptor_finding": finding_title,
         "sysreptor_templates": templates
     }
+
+    if de_translations and wstg_id in de_translations:
+        de_data = de_translations[wstg_id]
+        for key in [
+            "title_de", "category_de", "goal_de", "relevance_de",
+            "full_summary_de", "full_text_de", "methodology_de",
+            "tools_de", "expected_evidence_de", "reporting_hints_de"
+        ]:
+            if key in de_data:
+                module_data[key] = de_data[key]
+
+    return module_data
 
 def main():
     base_dir = Path("/home/len/Festplatte/wstg/document/4-Web_Application_Security_Testing")
@@ -190,11 +202,22 @@ def main():
         except Exception as e:
             print(f"Failed to load SysReptor templates file: {e}")
 
+    # Load German translations if they exist
+    de_translations = {}
+    translations_file = Path("/home/len/Festplatte/wstg/wstg_checklist_app/builder/wstg_translations_de.json")
+    if translations_file.exists():
+        try:
+            with open(translations_file, 'r', encoding='utf-8') as f:
+                de_translations = json.load(f)
+            print(f"Loaded {len(de_translations)} German module translations.")
+        except Exception as e:
+            print(f"Failed to load German translations file: {e}")
+
     for root, _, files in os.walk(base_dir):
         for file in files:
             if file.endswith('.md'):
                 filepath = os.path.join(root, file)
-                module_data = parse_wstg_file(filepath, custom_relevance, custom_evidence, custom_tools, sysreptor_templates)
+                module_data = parse_wstg_file(filepath, custom_relevance, custom_evidence, custom_tools, sysreptor_templates, de_translations)
                 if module_data and module_data['id'] != "UNKNOWN-ID":
                     checklist.append(module_data)
 
