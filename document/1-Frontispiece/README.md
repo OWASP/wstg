@@ -42,6 +42,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Mark Clayton
 - Meysam Bal-afkan
 - Mohamed Bassia (0xBassia)
+- Mohammad Hossein Sadeghian
 - Omar Jezi
 - Or Asaf
 - Phu Nguyen (Tony)
