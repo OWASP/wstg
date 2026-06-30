@@ -46,6 +46,19 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0.75rem;
+    background-color: var(--bg-color);
+    z-index: 999;
+    pointer-events: none;
+    transition: background-color 0.3s ease;
+}
+
 a {
     color: var(--link-color);
     text-decoration: none;
@@ -73,10 +86,11 @@ a:hover {
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
     margin-bottom: 2rem;
-    position: relative;
-    z-index: 100;
-    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0.75rem;
+    z-index: 1000;
     border: 1px solid var(--border-color);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .header-left {
@@ -89,6 +103,7 @@ a:hover {
     width: 65px;
     height: auto;
     object-fit: contain;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 [data-theme="dark"] .header-logo {
@@ -103,19 +118,86 @@ a:hover {
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    transition: font-size 0.3s cubic-bezier(0.4, 0, 0.2, 1), margin-bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
 }
 
 .header-left p {
     color: var(--text-secondary);
     font-size: 0.875rem;
+    max-height: 40px;
+    opacity: 1;
+    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), margin 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .header-right {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 1rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1.5rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+/* Minimized Header on scroll */
+.app-header.minimized {
+    padding: 0.75rem 1.5rem;
+    box-shadow: var(--shadow-lg);
+    background-color: var(--surface-color);
+    margin-bottom: 1.5rem;
+    border-radius: var(--radius-md);
+}
+
+.app-header.minimized::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 2.5rem;
+    background: linear-gradient(to bottom, var(--bg-color), transparent);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.app-header.minimized .header-logo {
+    width: 40px;
+}
+
+.app-header.minimized .header-left h1 {
+    font-size: 1.25rem;
+    margin-bottom: 0;
+}
+
+.app-header.minimized .header-left p {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    overflow: hidden;
+}
+
+.app-header.minimized .header-right {
+    flex-grow: 1;
+    justify-content: space-between;
+    margin-left: 2rem;
+    gap: 1.5rem;
+}
+
+.app-header.minimized .progress-bar {
+    display: none;
+}
+
+.app-header.minimized .progress-container {
+    width: auto;
+}
+
+.app-header.minimized #progress-text {
+    margin-bottom: 0;
+    white-space: nowrap;
+}
+
 
 /* Progress Bar */
 .progress-container {

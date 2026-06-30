@@ -165,6 +165,18 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('theme', newTheme);
     });
 
+    // Sticky Minimized Header on Scroll
+    const appHeader = document.querySelector('.app-header');
+    if (appHeader) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 40) {
+                appHeader.classList.add('minimized');
+            } else {
+                appHeader.classList.remove('minimized');
+            }
+        });
+    }
+
     // Load Data
     const loadData = () => {
         try {
