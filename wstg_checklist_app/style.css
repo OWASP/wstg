@@ -821,6 +821,45 @@ a:hover {
     background: var(--primary-hover);
 }
 
+.sysreptor-custom-finding-input {
+    flex: 1;
+    height: 32px;
+    padding: 6px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--surface-color);
+    color: var(--text-color);
+    font-size: 0.85rem;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.sysreptor-custom-finding-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.sysreptor-add-custom-btn {
+    height: 32px;
+    padding: 0 12px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.sysreptor-add-custom-btn:hover {
+    background: var(--primary-hover);
+}
+
 .sysreptor-images-list {
     display: flex;
     gap: 12px;

@@ -486,57 +486,16 @@ document.addEventListener('DOMContentLoaded', () => {
                             <h4>${t.label_sysreptor}</h4>
                             <div class="detail-content">
 
-                                ${module.sysreptor_templates && module.sysreptor_templates.length > 0 ? `
                                 <div class="sysreptor-checklist-container">
                                     <label style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 8px;">${currentLang === 'de' ? 'Checkliste / Befunde' : 'Checklist / Findings'}:</label>
                                     <div class="sysreptor-checklist">
-                                        ${module.sysreptor_templates.map(tmpl => {
-                                            const mFindings = state[module.id + '_sysreptor_findings'] || {};
-                                            const fData = mFindings[tmpl.id] || {};
-                                            const isChecked = !!fData.checked;
-                                            
-                                            const defaultTitle = currentLang === 'de' ? tmpl.title_de : tmpl.title_en;
-                                            const defaultDesc = currentLang === 'de' ? tmpl.description_de : tmpl.description_en;
-                                            const defaultCons = currentLang === 'de' ? tmpl.consequences_de : tmpl.consequences_en;
-                                            
-                                            const activeTitle = fData.title !== undefined ? fData.title : defaultTitle;
-                                            const activeDesc = fData.description !== undefined ? fData.description : defaultDesc;
-                                            const activeCons = fData.consequences !== undefined ? fData.consequences : defaultCons;
-                                            const activeComment = fData.comment || '';
-                                            
-                                            return `
-                                            <div class="sysreptor-finding-card ${isChecked ? 'checked' : ''}" data-finding-id="${tmpl.id}">
-                                                <div class="sysreptor-finding-header">
-                                                    <div class="sysreptor-finding-header-left">
-                                                        <input type="checkbox" class="sysreptor-finding-checkbox" ${isChecked ? 'checked' : ''}>
-                                                        <span class="sysreptor-finding-title">${activeTitle.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</span>
-                                                    </div>
-                                                    <button class="sysreptor-finding-toggle" type="button">▼</button>
-                                                </div>
-                                                <div class="sysreptor-finding-details">
-                                                    <div class="sysreptor-field-group">
-                                                        <label class="sysreptor-field-label">${currentLang === 'de' ? 'Titel des Befunds' : 'Finding Title'}</label>
-                                                        <input type="text" class="sysreptor-input-minimal sysreptor-finding-title-input" value="${activeTitle.replace(/"/g, '&quot;')}">
-                                                    </div>
-                                                    <div class="sysreptor-field-group">
-                                                        <label class="sysreptor-field-label">${currentLang === 'de' ? 'Beschreibung' : 'Description'}</label>
-                                                        <textarea class="sysreptor-textarea-minimal sysreptor-finding-desc-input">${activeDesc}</textarea>
-                                                    </div>
-                                                    <div class="sysreptor-field-group">
-                                                        <label class="sysreptor-field-label">${currentLang === 'de' ? 'Konsequenzen' : 'Consequences'}</label>
-                                                        <textarea class="sysreptor-textarea-minimal sysreptor-finding-cons-input">${activeCons}</textarea>
-                                                    </div>
-                                                    <div class="sysreptor-field-group">
-                                                        <label class="sysreptor-field-label">${currentLang === 'de' ? 'Kommentar' : 'Comment'}</label>
-                                                        <textarea class="sysreptor-textarea-minimal sysreptor-finding-comment-input" placeholder="${currentLang === 'de' ? 'Kommentar oder Nachweis hinzufügen...' : 'Add comment or evidence...'}">${activeComment}</textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            `;
-                                        }).join('')}
+                                        <!-- Will be dynamically populated by renderSysReptorChecklist -->
+                                    </div>
+                                    <div class="sysreptor-add-custom-container" style="margin-top: 10px; display: flex; gap: 8px;">
+                                        <input type="text" class="sysreptor-custom-finding-input" placeholder="${currentLang === 'de' ? 'Neuen Befund hinzufügen...' : 'Add new finding...'}">
+                                        <button class="sysreptor-add-custom-btn">${currentLang === 'de' ? 'Hinzufügen' : 'Add'}</button>
                                     </div>
                                 </div>
-                                ` : ''}
 
                                 <div class="sysreptor-notes-container">
                                     <label style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-top: 4px; margin-bottom: 0;">${currentLang === 'de' ? 'Zusätzliche Hinweise & Medien' : 'Additional Notes & Media'}:</label>
@@ -672,88 +631,125 @@ document.addEventListener('DOMContentLoaded', () => {
                         return; // skip event listeners for this card
                     }
 
-                    // SysReptor Checklist Event Listeners
-                    const findingCards = card.querySelectorAll('.sysreptor-finding-card');
-                    findingCards.forEach(fCard => {
-                        const findingId = fCard.getAttribute('data-finding-id');
-                        const checkbox = fCard.querySelector('.sysreptor-finding-checkbox');
-                        const header = fCard.querySelector('.sysreptor-finding-header');
-                        const toggleBtn = fCard.querySelector('.sysreptor-finding-toggle');
-                        const details = fCard.querySelector('.sysreptor-finding-details');
+                    // SysReptor Checklist Render and Event Listeners
+                    const renderSysReptorChecklist = () => {
+                        const checklistEl = card.querySelector('.sysreptor-checklist');
+                        if (!checklistEl) return;
                         
-                        const titleInputEl = fCard.querySelector('.sysreptor-finding-title-input');
-                        const descInputEl = fCard.querySelector('.sysreptor-finding-desc-input');
-                        const consInputEl = fCard.querySelector('.sysreptor-finding-cons-input');
-                        const commentInputEl = fCard.querySelector('.sysreptor-finding-comment-input');
-                        const titleDisplayEl = fCard.querySelector('.sysreptor-finding-title');
+                        const mFindings = state[module.id + '_sysreptor_findings'] || {};
+                        
+                        // Predefined templates
+                        let html = (module.sysreptor_templates || []).map(tmpl => {
+                            const fData = mFindings[tmpl.id] || {};
+                            const isChecked = !!fData.checked;
+                            const title = currentLang === 'de' ? tmpl.title_de : tmpl.title_en;
+                            return `
+                            <div class="sysreptor-finding-card ${isChecked ? 'checked' : ''}" data-finding-id="${tmpl.id}">
+                                <div class="sysreptor-finding-header" style="cursor: default;">
+                                    <div class="sysreptor-finding-header-left">
+                                        <input type="checkbox" class="sysreptor-finding-checkbox" ${isChecked ? 'checked' : ''}>
+                                        <span class="sysreptor-finding-title">${title.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            `;
+                        }).join('');
+                        
+                        // Custom findings
+                        html += Object.entries(mFindings)
+                            .filter(([fid, fData]) => fData && fData.is_custom)
+                            .map(([fid, fData]) => {
+                                const isChecked = !!fData.checked;
+                                const title = fData.title || '';
+                                return `
+                                <div class="sysreptor-finding-card ${isChecked ? 'checked' : ''} custom-finding" data-finding-id="${fid}">
+                                    <div class="sysreptor-finding-header" style="cursor: default;">
+                                        <div class="sysreptor-finding-header-left">
+                                            <input type="checkbox" class="sysreptor-finding-checkbox" ${isChecked ? 'checked' : ''}>
+                                            <span class="sysreptor-finding-title">${title.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</span>
+                                        </div>
+                                        <button class="sysreptor-finding-delete-btn" type="button" style="background: none; border: none; color: var(--text-secondary); cursor: pointer; padding: 4px 8px; font-size: 1.1rem; line-height: 1;">&times;</button>
+                                    </div>
+                                </div>
+                                `;
+                            }).join('');
+                            
+                        checklistEl.innerHTML = html;
+                        
+                        // Bind events
+                        const findingCards = checklistEl.querySelectorAll('.sysreptor-finding-card');
+                        findingCards.forEach(fCard => {
+                            const findingId = fCard.getAttribute('data-finding-id');
+                            const checkbox = fCard.querySelector('.sysreptor-finding-checkbox');
+                            const deleteBtn = fCard.querySelector('.sysreptor-finding-delete-btn');
+                            
+                            const getFindingState = () => {
+                                if (!state[module.id + '_sysreptor_findings']) {
+                                    state[module.id + '_sysreptor_findings'] = {};
+                                }
+                                if (!state[module.id + '_sysreptor_findings'][findingId]) {
+                                    state[module.id + '_sysreptor_findings'][findingId] = {};
+                                }
+                                return state[module.id + '_sysreptor_findings'][findingId];
+                            };
+                            
+                            checkbox.addEventListener('change', (e) => {
+                                const fState = getFindingState();
+                                fState.checked = e.target.checked;
+                                if (e.target.checked) {
+                                    fCard.classList.add('checked');
+                                } else {
+                                    fCard.classList.remove('checked');
+                                }
+                                saveState();
+                            });
+                            
+                            if (deleteBtn) {
+                                deleteBtn.addEventListener('click', (e) => {
+                                    e.stopPropagation();
+                                    if (state[module.id + '_sysreptor_findings']) {
+                                        delete state[module.id + '_sysreptor_findings'][findingId];
+                                        saveState();
+                                        renderSysReptorChecklist();
+                                    }
+                                });
+                            }
+                        });
+                    };
 
-                        const getFindingState = () => {
+                    const addCustomInput = card.querySelector('.sysreptor-custom-finding-input');
+                    const addCustomBtn = card.querySelector('.sysreptor-add-custom-btn');
+                    
+                    if (addCustomInput && addCustomBtn) {
+                        const addCustomFinding = () => {
+                            const title = addCustomInput.value.trim();
+                            if (!title) return;
+                            
+                            const fid = 'custom_' + Date.now();
                             if (!state[module.id + '_sysreptor_findings']) {
                                 state[module.id + '_sysreptor_findings'] = {};
                             }
-                            if (!state[module.id + '_sysreptor_findings'][findingId]) {
-                                state[module.id + '_sysreptor_findings'][findingId] = {};
-                            }
-                            return state[module.id + '_sysreptor_findings'][findingId];
+                            state[module.id + '_sysreptor_findings'][fid] = {
+                                checked: true,
+                                title: title,
+                                is_custom: true
+                            };
+                            
+                            saveState();
+                            addCustomInput.value = '';
+                            renderSysReptorChecklist();
                         };
-
-                        // Checkbox logic
-                        checkbox.addEventListener('change', (e) => {
-                            const fState = getFindingState();
-                            fState.checked = e.target.checked;
-                            if (e.target.checked) {
-                                fCard.classList.add('checked');
-                            } else {
-                                fCard.classList.remove('checked');
+                        
+                        addCustomBtn.addEventListener('click', addCustomFinding);
+                        addCustomInput.addEventListener('keydown', (e) => {
+                            if (e.key === 'Enter') {
+                                e.preventDefault();
+                                addCustomFinding();
                             }
-                            saveState();
                         });
-
-                        // Expand/Collapse logic
-                        const toggleDetails = (e) => {
-                            if (e.target === checkbox) return;
-                            if (details.contains(e.target)) return;
-
-                            if (details.classList.contains('open')) {
-                                details.classList.remove('open');
-                                toggleBtn.textContent = '▼';
-                            } else {
-                                details.classList.add('open');
-                                toggleBtn.textContent = '▲';
-                            }
-                        };
-                        header.addEventListener('click', toggleDetails);
-                        toggleBtn.addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            toggleDetails(e);
-                        });
-
-                        // Input listeners
-                        titleInputEl.addEventListener('input', (e) => {
-                            const fState = getFindingState();
-                            fState.title = e.target.value;
-                            titleDisplayEl.textContent = e.target.value;
-                            saveState();
-                        });
-
-                        descInputEl.addEventListener('input', (e) => {
-                            const fState = getFindingState();
-                            fState.description = e.target.value;
-                            saveState();
-                        });
-
-                        consInputEl.addEventListener('input', (e) => {
-                            const fState = getFindingState();
-                            fState.consequences = e.target.value;
-                            saveState();
-                        });
-
-                        commentInputEl.addEventListener('input', (e) => {
-                            const fState = getFindingState();
-                            fState.comment = e.target.value;
-                            saveState();
-                        });
-                    });
+                    }
+                    
+                    renderSysReptorChecklist();
 
                     const renderNotes = () => {
                         const notes = state[module.id + '_notes'] || [];
@@ -959,26 +955,31 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Export SysReptor Checklist findings
                 if (hasCheckedFindings) {
                     const checkedFindings = [];
-                    for (const fid in mFindings) {
-                        if (mFindings[fid] && mFindings[fid].checked) {
-                            const tmpl = (module.sysreptor_templates || []).find(t => t.id === fid);
-                            if (tmpl) {
-                                checkedFindings.push({
-                                    id: fid,
-                                    title_en: tmpl.title_en,
-                                    title_de: tmpl.title_de,
-                                    title_custom: mFindings[fid].title !== undefined ? mFindings[fid].title : (currentLang === 'de' ? tmpl.title_de : tmpl.title_en),
-                                    description_en: tmpl.description_en,
-                                    description_de: tmpl.description_de,
-                                    description_custom: mFindings[fid].description !== undefined ? mFindings[fid].description : (currentLang === 'de' ? tmpl.description_de : tmpl.description_en),
-                                    consequences_en: tmpl.consequences_en,
-                                    consequences_de: tmpl.consequences_de,
-                                    consequences_custom: mFindings[fid].consequences !== undefined ? mFindings[fid].consequences : (currentLang === 'de' ? tmpl.consequences_de : tmpl.consequences_en),
-                                    comment: mFindings[fid].comment || ''
-                                });
-                            }
+                    let findingCounter = 1;
+                    
+                    // Export checked predefined findings
+                    (module.sysreptor_templates || []).forEach(tmpl => {
+                        const fState = mFindings[tmpl.id];
+                        if (fState && fState.checked) {
+                            checkedFindings.push({
+                                id: `${module.id}-${findingCounter}`,
+                                name: currentLang === 'de' ? tmpl.title_de : tmpl.title_en
+                            });
                         }
-                    }
+                        findingCounter++;
+                    });
+                    
+                    // Export checked custom findings
+                    Object.entries(mFindings)
+                        .filter(([fid, fState]) => fState && fState.is_custom && fState.checked)
+                        .forEach(([fid, fState]) => {
+                            checkedFindings.push({
+                                id: `${module.id}-${findingCounter}`,
+                                name: fState.title || ''
+                            });
+                            findingCounter++;
+                        });
+                    
                     if (checkedFindings.length > 0) {
                         exportData[module.id].sysreptor_findings = checkedFindings;
                     }
@@ -1030,6 +1031,39 @@ document.addEventListener('DOMContentLoaded', () => {
         const file = e.target.files[0];
         if (!file) return;
 
+        const parseImportedFindings = (findings, moduleId) => {
+            const mFindings = {};
+            const module = checklistData.find(m => m.id === moduleId);
+            (findings || []).forEach(f => {
+                let fid = f.id;
+                let title = f.name || f.title_custom || '';
+                let isCustom = false;
+                
+                // Check if it's new format "ModuleID-Number"
+                const match = f.id.match(new RegExp(`^${moduleId}-(\\d+)$`));
+                if (match) {
+                    const index = parseInt(match[1], 10) - 1;
+                    const templates = module ? module.sysreptor_templates : [];
+                    if (templates && index >= 0 && index < templates.length) {
+                        fid = templates[index].id;
+                    } else {
+                        isCustom = true;
+                    }
+                } else if (f.id.startsWith('custom_')) {
+                    isCustom = true;
+                }
+                
+                mFindings[fid] = {
+                    checked: true
+                };
+                if (isCustom) {
+                    mFindings[fid].is_custom = true;
+                    mFindings[fid].title = title;
+                }
+            });
+            return mFindings;
+        };
+
         if (file.name.endsWith('.zip')) {
             try {
                 const zip = await JSZip.loadAsync(file);
@@ -1050,17 +1084,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             newState[key + '_notes'] = importedData[key].notes;
                         }
                         if (importedData[key].sysreptor_findings) {
-                            const mFindings = {};
-                            importedData[key].sysreptor_findings.forEach(f => {
-                                mFindings[f.id] = {
-                                    checked: true,
-                                    title: f.title_custom !== undefined ? f.title_custom : undefined,
-                                    description: f.description_custom !== undefined ? f.description_custom : undefined,
-                                    consequences: f.consequences_custom !== undefined ? f.consequences_custom : undefined,
-                                    comment: f.comment || ''
-                                };
-                            });
-                            newState[key + '_sysreptor_findings'] = mFindings;
+                            newState[key + '_sysreptor_findings'] = parseImportedFindings(importedData[key].sysreptor_findings, key);
                         }
                         if (importedData[key].images) {
                             const images = [];
@@ -1115,17 +1139,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 newState[key + '_notes'] = importedData[key].notes;
                             }
                             if (importedData[key].sysreptor_findings) {
-                                const mFindings = {};
-                                importedData[key].sysreptor_findings.forEach(f => {
-                                    mFindings[f.id] = {
-                                        checked: true,
-                                        title: f.title_custom !== undefined ? f.title_custom : undefined,
-                                        description: f.description_custom !== undefined ? f.description_custom : undefined,
-                                        consequences: f.consequences_custom !== undefined ? f.consequences_custom : undefined,
-                                        comment: f.comment || ''
-                                    };
-                                });
-                                newState[key + '_sysreptor_findings'] = mFindings;
+                                newState[key + '_sysreptor_findings'] = parseImportedFindings(importedData[key].sysreptor_findings, key);
                             }
                             if (importedData[key].images) {
                                 newState[key + '_images'] = importedData[key].images;
