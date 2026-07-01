@@ -224,7 +224,7 @@ def main():
     # Sort by ID
     checklist.sort(key=lambda x: x['id'])
 
-    output_path = "/home/len/Festplatte/wstg/wstg_checklist_app/wstg_checklist_data.js"
+    output_path = "/home/len/Festplatte/wstg/wstg_checklist_app/data/wstg_checklist_data.js"
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write("const wstgData = ")
         json.dump(checklist, f, indent=4)
