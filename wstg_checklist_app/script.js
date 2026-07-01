@@ -414,6 +414,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const mExpectedEvidence = currentLang === 'de' && module.expected_evidence_de ? module.expected_evidence_de : module.expected_evidence;
                 const mReportingHints = currentLang === 'de' && module.reporting_hints_de ? module.reporting_hints_de : module.reporting_hints;
                 const mTools = currentLang === 'de' && module.tools_de ? module.tools_de : module.tools;
+                const isTop10 = (() => {
+                    if (!module.id) return false;
+                    const exactPrefixes = ['WSTG-IDENT-', 'WSTG-ATHZ-', 'WSTG-CRYP-', 'WSTG-BUSL-', 'WSTG-CONFIG-', 'WSTG-ATHN-', 'WSTG-SESS-', 'WSTG-ERR-'];
+                    if (exactPrefixes.some(prefix => module.id.startsWith(prefix))) return true;
+                    const allowedInpv = ['WSTG-INPV-01', 'WSTG-INPV-02', 'WSTG-INPV-05', 'WSTG-INPV-06', 'WSTG-INPV-07', 'WSTG-INPV-11', 'WSTG-INPV-12', 'WSTG-INPV-13', 'WSTG-INPV-14'];
+                    return allowedInpv.some(id => module.id.startsWith(id));
+                })();
 
                 card.innerHTML = `
                     <div class="module-header">
@@ -430,7 +437,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="module-title-area">
                             ${module.is_info ? 
                                 `<span>ℹ️ <strong>${t.label_information}</strong> ${mTitle}</span>` :
-                                `<span class="module-id">${module.id}</span>
+                                `<span class="module-id" ${isTop10 ? 'title="OWASP Top 10 Module"' : ''}>${module.id}${isTop10 ? ' ⭐' : ''}</span>
                                  <span class="module-name">${mTitle}</span>`
                             }
                         </div>
