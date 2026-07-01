@@ -30,6 +30,12 @@
                     </div>
                 </div>
                 <div class="actions">
+                    <button id="search-toggle-btn" class="search-toggle-btn" title="Search">
+                        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 1.25rem; height: 1.25rem; display: block;">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </button>
                     <button id="export-btn" class="btn primary" data-i18n="export_btn">Export State</button>
                     <button id="import-btn" class="btn secondary" data-i18n="import_btn">Import State</button>
                     <input type="file" id="import-file" style="display: none;" accept=".json,.zip">
@@ -53,6 +59,19 @@
                             <svg class="slider-icon moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                         </span>
                     </label>
+                </div>
+
+                <div class="search-overlay">
+                    <svg class="search-icon-inside" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 1.1rem; height: 1.1rem;">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" id="search-input" class="search-input" placeholder="Search (e.g. WSTG, API, XSS)..." data-i18n-placeholder="search_placeholder" autocomplete="off">
+                    <button id="search-close-btn" class="search-close-btn" title="Close search">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 1.1rem; height: 1.1rem; display: block;">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
                 </div>
             </div>
         </header>

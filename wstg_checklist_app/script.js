@@ -17,6 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let checklistData = [];
     let state = {};
     let currentLang = localStorage.getItem('lang') || 'en';
+    let previousQuery = '';
+    let lastActiveCategory = '';
     
     const i18n = {
         en: {
@@ -54,7 +56,9 @@ document.addEventListener('DOMContentLoaded', () => {
             alert_import_zip_success: "State imported successfully from ZIP!",
             alert_import_zip_error: "Error importing ZIP file.",
             alert_import_error: "Invalid JSON file.",
-            alert_export_error: "Error creating ZIP file."
+            alert_export_error: "Error creating ZIP file.",
+            search_placeholder: "Search (e.g. WSTG, API, XSS)...",
+            no_results: "No modules found matching your search."
         },
         de: {
             header_title: "OWASP WSTG Checkliste",
@@ -91,7 +95,9 @@ document.addEventListener('DOMContentLoaded', () => {
             alert_import_zip_success: "Status erfolgreich aus ZIP importiert!",
             alert_import_zip_error: "Fehler beim Importieren der ZIP-Datei.",
             alert_import_error: "Ungültige JSON-Datei.",
-            alert_export_error: "Fehler beim Erstellen der ZIP-Datei."
+            alert_export_error: "Fehler beim Erstellen der ZIP-Datei.",
+            search_placeholder: "Suche (z.B. WSTG, API, XSS)...",
+            no_results: "Keine passenden Module gefunden."
         }
     };
     
@@ -100,6 +106,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const key = el.getAttribute('data-i18n');
             if (i18n[currentLang][key]) {
                 el.textContent = i18n[currentLang][key];
+            }
+        });
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+            const key = el.getAttribute('data-i18n-placeholder');
+            if (i18n[currentLang][key]) {
+                el.setAttribute('placeholder', i18n[currentLang][key]);
             }
         });
     };
@@ -177,6 +189,83 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Search Functionality
+    const headerRight = document.querySelector('.header-right');
+    const searchInput = document.getElementById('search-input');
+    const searchToggleBtn = document.getElementById('search-toggle-btn');
+    const searchCloseBtn = document.getElementById('search-close-btn');
+
+    const openSearch = () => {
+        if (headerRight) {
+            headerRight.classList.add('search-active');
+        }
+        if (searchInput) {
+            searchInput.focus();
+        }
+    };
+
+    const closeSearch = () => {
+        if (headerRight) {
+            headerRight.classList.remove('search-active');
+        }
+        if (searchInput) {
+            searchInput.value = '';
+            searchInput.blur();
+        }
+        renderChecklist();
+    };
+
+    if (searchToggleBtn) {
+        searchToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (headerRight && !headerRight.classList.contains('search-active')) {
+                openSearch();
+            }
+        });
+    }
+
+    if (searchCloseBtn) {
+        searchCloseBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeSearch();
+        });
+    }
+
+    if (searchInput) {
+        searchInput.addEventListener('input', () => {
+            renderChecklist();
+        });
+        
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeSearch();
+            }
+        });
+    }
+
+    // Close search if clicking outside and input is empty
+    document.addEventListener('click', (e) => {
+        const searchContainer = document.querySelector('.search-overlay');
+        if (searchContainer && headerRight && headerRight.classList.contains('search-active')) {
+            if (!searchContainer.contains(e.target) && searchInput && searchInput.value.trim() === '') {
+                closeSearch();
+            }
+        }
+    });
+
+    // Track last active category
+    if (checklistContainer) {
+        const updateLastActive = (e) => {
+            const categorySection = e.target.closest('.category-section');
+            if (categorySection) {
+                lastActiveCategory = categorySection.getAttribute('data-category');
+            }
+        };
+        checklistContainer.addEventListener('click', updateLastActive);
+        checklistContainer.addEventListener('change', updateLastActive);
+        checklistContainer.addEventListener('input', updateLastActive);
+    }
+
     // Load Data
     const loadData = () => {
         try {
@@ -194,13 +283,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Render Logic
     const renderChecklist = () => {
-        // Save current expanded state
-        const openCategories = new Set(
-            Array.from(checklistContainer.querySelectorAll('.category-section')).filter(s => {
-                const content = s.querySelector('.category-content');
-                return content && content.classList.contains('open');
-            }).map(s => s.getAttribute('data-category'))
-        );
+        // Save current expanded state (declared below based on search status)
         
         const openModules = new Set(
             Array.from(checklistContainer.querySelectorAll('.module-details.open')).map(el => {
@@ -223,12 +306,60 @@ document.addEventListener('DOMContentLoaded', () => {
             })
         );
 
-        checklistContainer.innerHTML = '';
+        const query = document.getElementById('search-input')?.value.toLowerCase().trim() || '';
         
+        let openCategories;
+        if (!query && previousQuery) {
+            // Collapse all except the last active category when search is cleared
+            openCategories = new Set();
+            if (lastActiveCategory) {
+                openCategories.add(lastActiveCategory);
+            }
+        } else {
+            openCategories = new Set(
+                Array.from(checklistContainer.querySelectorAll('.category-section')).filter(s => {
+                    const content = s.querySelector('.category-content');
+                    return content && content.classList.contains('open');
+                }).map(s => s.getAttribute('data-category'))
+            );
+        }
+
+        const queryChangedToNonEmpty = query && !previousQuery;
+        previousQuery = query;
+
+        // Filter checklistData based on query
+        let filteredData = checklistData;
+        if (query) {
+            filteredData = checklistData.filter(module => {
+                const idMatch = module.id.toLowerCase().includes(query);
+                const titleMatch = module.title.toLowerCase().includes(query);
+                const titleDeMatch = module.title_de && module.title_de.toLowerCase().includes(query);
+                
+                return idMatch || titleMatch || titleDeMatch;
+            });
+        }
+
+        checklistContainer.innerHTML = '';
+
+        const t = i18n[currentLang];
+
+        if (filteredData.length === 0) {
+            checklistContainer.innerHTML = `
+                <div class="no-results-container" style="text-align: center; padding: 4rem 1rem; color: var(--text-secondary);">
+                    <svg class="no-results-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 3.5rem; height: 3.5rem; margin: 0 auto 1rem auto; opacity: 0.5;">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <p style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem;" data-i18n="no_results">${t.no_results}</p>
+                    <p style="font-size: 0.9rem; opacity: 0.7;">${currentLang === 'de' ? 'Versuche es mit anderen Begriffen.' : 'Try adjusting your search terms.'}</p>
+                </div>
+            `;
+            return;
+        }
+
         // Group by category
         const categories = {};
         const categoryOrder = {};
-        checklistData.forEach(module => {
+        filteredData.forEach(module => {
             if (!categories[module.category]) {
                 categories[module.category] = [];
                 categoryOrder[module.category] = module.category_index || 99;
@@ -237,8 +368,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         const sortedCategoryNames = Object.keys(categories).sort((a, b) => categoryOrder[a] - categoryOrder[b]);
-
-        const t = i18n[currentLang];
         
         for (const categoryName of sortedCategoryNames) {
             const modules = categories[categoryName];
@@ -751,7 +880,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             // Toggle Category Content
-            if (openCategories.has(categoryName)) {
+            if (openCategories.has(categoryName) || query) {
                 content.classList.add('open');
             }
             header.addEventListener('click', () => {
