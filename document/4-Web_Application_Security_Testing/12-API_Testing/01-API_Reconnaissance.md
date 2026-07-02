@@ -18,7 +18,7 @@ APIs can be public or private.
 
 Public APIs typically have their details published in a Swagger/OpenAPI document. Gaining access to this document is important to understand the attack surface. Equally important is finding older versions of this document that might show deprecated but still functional code that may have security vulnerabilities.
 
-Keep in mind that this document, however well intentioned, may not be accurate, and also may not dislose the complete API.
+Keep in mind that this document, however well intentioned, may not be accurate, and also may not disclose the complete API.
 
 Public APIs may also be documented on shared libraries or directories of APIs.
 
@@ -36,7 +36,7 @@ The visibility of private APIs depends on who the intended consumer is. An API c
 
 ### Find the Documentation
 
-In both public and private cases, the API documentation will be useful based on its level of the quality and accurracy. Public API documentaton is typically shared with everyone whereas private API documentation is only shared with the intended client. However, in both cases finding documentation, accidentally leaked or otherwise will be helpfull in your investigation.
+In both public and private cases, the API documentation will be useful based on its level of the quality and accuracy. Public API documentation is typically shared with everyone whereas private API documentation is only shared with the intended client. However, in both cases finding documentation, accidentally leaked or otherwise will be helpfull in your investigation.
 
 Regardless of the visibility of the API, searching for API documentation can find older, not-yet-published, or accidentally leaked API documentation. This documentation will be very helpfull in understanding what the attack surface the API exposes.
 

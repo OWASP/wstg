@@ -20,6 +20,8 @@ Video gambling/slot machines may take longer to process a transaction just prior
 
 Many system log on processes ask for the username and password. If you look closely you may be able to see that entering an invalid username and invalid user password takes more time to return an error than entering a valid username and invalid user password. This may allow the attacker to know if they have a valid username and not need to rely on the GUI message.
 
+A similar issue may be present in password reset functionality that would send an email to the user with a forgotten link or code, as sending emails can be significantly slower than just returning the HTTP response.
+
 ![Example Control Flow of Login Form](images/Control_Flow_of_Login_Form.jpg)\
 *Figure 4.10.4-1: Example Control Flow of Login Form*
 

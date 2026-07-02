@@ -117,7 +117,7 @@ If the payment gateway uses an IFRAME instead, it may be possible to perform a s
 <iframe src="https://example.org/payment_iframe?merchant_id=123&basket_total=22.00" />
 ```
 
-> Note: Payment gateways are usually run by a third-parties, and as such may not be included in the scope of testing. This means that while price tampering may be acceptable, other types of attacks (such as SQL injection) should not be performed without explicit written approval).
+> Note: Payment gateways are usually run by a third-parties, and as such may not be included in the scope of testing. This means that while price tampering may be acceptable, other types of attacks (such as SQL injection) should not be performed without explicit written approval.
 
 #### Encrypted Transaction Details
 
@@ -164,7 +164,7 @@ If the value of items on the site changes over time (for example on a currency e
 - Intercept and freeze the request.
 - Wait one minutes to check the price of gold again:
     - If it increases, allow the transaction to complete, and buy the gold for less than it's current value.
-    - If it decreases, drop the request request.
+    - If it decreases, drop the request.
 
 If the site allows the user to make payments using cryptocurrencies (which are usually far more volatile), it may be possible to exploit this by obtaining a fixed price in that cryptocurrency, and then waiting to see if the value rises or falls compared to the main currency used by the site.
 

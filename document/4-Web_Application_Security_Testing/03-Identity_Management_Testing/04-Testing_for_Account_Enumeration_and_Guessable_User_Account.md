@@ -14,6 +14,8 @@ The tester should interact with the authentication mechanism of the application 
 
 In some cases, a message is received that reveals if the provided credentials are wrong because an invalid username or an invalid password was used. Sometimes, testers can enumerate the existing users by sending a username and an empty password.
 
+> Note: Some applications do not consider usernames sensitive, and may provide functionality that lets you directly view or list usernames. Ensure that you understand the security requirements of the application before reporting issues around username enumeration.
+
 ## Test Objectives
 
 - Review processes that pertain to user identification (*e.g.* registration, login, etc.).
