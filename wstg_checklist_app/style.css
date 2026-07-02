@@ -493,22 +493,68 @@ a:hover {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    margin-right: 0.75rem;
+    transition: opacity 0.2s ease;
 }
 
-.status-select {
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-    border: 1px solid var(--border-color);
-    background-color: var(--surface-color);
-    color: var(--text-primary);
-    font-size: 0.875rem;
-    font-weight: 600;
+
+
+.status-icon-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-icon-btn {
+    background: none;
+    border: none;
+    padding: 6px;
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    opacity: 0.35;
+    transition: opacity 0.2s ease, transform 0.15s ease, color 0.2s ease;
+    border-radius: 50%;
 }
 
-.status-select.done { color: var(--success-color); border-color: var(--success-color); }
-.status-select.na { color: var(--text-secondary); }
-.status-select.finding { color: var(--danger-color); border-color: var(--danger-color); }
+.status-icon-btn svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+
+.status-icon-btn:hover {
+    opacity: 0.75;
+    transform: scale(1.1);
+    background-color: rgba(100, 116, 139, 0.08);
+}
+
+.status-icon-btn.active {
+    opacity: 1;
+    transform: scale(1.15);
+}
+
+/* Active colors and glowing effect */
+.status-icon-btn.pending.active {
+    color: var(--primary-color);
+    filter: drop-shadow(0 0 4px rgba(59, 130, 246, 0.4));
+}
+
+.status-icon-btn.done.active {
+    color: var(--success-color);
+    filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.4));
+}
+
+.status-icon-btn.finding.active {
+    color: var(--danger-color);
+    filter: drop-shadow(0 0 4px rgba(239, 68, 68, 0.4));
+}
+
+.status-icon-btn.na.active {
+    color: var(--text-secondary);
+}
 
 .module-title-area {
     flex-grow: 1;
@@ -825,8 +871,8 @@ a:hover {
     background: var(--primary-hover);
 }
 
-.sysreptor-custom-finding-input {
-    flex: 1;
+.sysreptor-custom-finding-input,
+.sysreptor-custom-uuid-input {
     height: 32px;
     padding: 6px 12px;
     border: 1px solid var(--border-color);
@@ -838,7 +884,16 @@ a:hover {
     box-sizing: border-box;
 }
 
-.sysreptor-custom-finding-input:focus {
+.sysreptor-custom-finding-input {
+    flex: 1;
+}
+
+.sysreptor-custom-uuid-input {
+    width: 250px;
+}
+
+.sysreptor-custom-finding-input:focus,
+.sysreptor-custom-uuid-input:focus {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
@@ -944,7 +999,6 @@ a:hover {
     border-radius: var(--radius-md);
     background: var(--surface-color);
     transition: all 0.2s ease;
-    overflow: hidden;
 }
 
 .sysreptor-finding-card:hover {
@@ -1229,6 +1283,42 @@ a:hover {
     .search-overlay {
         max-width: none;
     }
+}
+
+/* SysReptor Icon styling */
+.sysreptor-icon {
+    color: var(--text-secondary);
+}
+
+/* Tooltip styling for SysReptor icons */
+.sysreptor-icon-container {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.sysreptor-icon-container::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 125%;
+    right: 0;
+    background-color: var(--text-primary);
+    color: var(--surface-color);
+    padding: 6px 10px;
+    border-radius: var(--radius-md);
+    font-size: 0.75rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 100;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    transition: opacity 0.15s ease;
+}
+
+.sysreptor-icon-container:hover::after {
+    opacity: 1;
 }
 
 

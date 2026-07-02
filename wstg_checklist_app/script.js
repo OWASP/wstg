@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
             progress_text: "Geprüft",
             status_pending: "Ausstehend",
             status_done: "Erledigt",
-            status_finding: "Fundstelle!",
+            status_finding: "Fund!",
             status_na: "N/A",
             label_information: "Information:",
             label_relevance: "Relevanz",
@@ -399,7 +399,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             modules.forEach(module => {
                 const card = document.createElement('div');
-                card.className = 'module-card';
+                card.className = `module-card ${openModules.has(module.id) ? 'open' : ''}`;
                 card.setAttribute('data-id', module.id);
 
                 const moduleState = state[module.id] || 'pending';
@@ -427,12 +427,26 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="module-header">
                         ${module.is_info ? '' : `
                         <div class="module-status" onclick="event.stopPropagation()">
-                            <select class="status-select ${moduleState}" data-id="${module.id}">
-                                <option value="pending" ${moduleState === 'pending' ? 'selected' : ''}>${t.status_pending}</option>
-                                <option value="done" ${moduleState === 'done' ? 'selected' : ''}>${t.status_done}</option>
-                                <option value="finding" ${moduleState === 'finding' ? 'selected' : ''}>${t.status_finding}</option>
-                                <option value="na" ${moduleState === 'na' ? 'selected' : ''}>${t.status_na}</option>
-                            </select>
+                            <div class="status-icon-bar" data-id="${module.id}">
+                                <button class="status-icon-btn pending ${moduleState === 'pending' ? 'active' : ''}" data-value="pending" title="${t.status_pending}" type="button">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <polyline points="12 6 12 12 16 14"></polyline>
+                                    </svg>
+                                </button>
+                                <button class="status-icon-btn done ${moduleState === 'done' ? 'active' : ''}" data-value="done" title="${t.status_done}" type="button">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                </button>
+                                <button class="status-icon-btn finding ${moduleState === 'finding' ? 'active' : ''}" data-value="finding" title="${t.status_finding}" type="button">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                         `}
                         <div class="module-title-area">
@@ -442,7 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                  <span class="module-name">${mTitle}</span>`
                     }
                         </div>
-                        <div style="color: var(--text-secondary);">${openModules.has(module.id) ? '▲' : '▼'}</div>
+                        <div class="module-arrow" style="color: var(--text-secondary);">${openModules.has(module.id) ? '▲' : '▼'}</div>
                     </div>
                     <div class="module-details ${openModules.has(module.id) ? 'open' : ''}">
                         ${module.is_info ? `
@@ -499,8 +513,9 @@ document.addEventListener('DOMContentLoaded', () => {
                                     <div class="sysreptor-checklist">
                                         <!-- Will be dynamically populated by renderSysReptorChecklist -->
                                     </div>
-                                    <div class="sysreptor-add-custom-container" style="margin-top: 10px; display: flex; gap: 8px;">
-                                        <input type="text" class="sysreptor-custom-finding-input" placeholder="${currentLang === 'de' ? 'Neuen Befund hinzufügen...' : 'Add new finding...'}">
+                                    <div class="sysreptor-add-custom-container" style="margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap;">
+                                        <input type="text" class="sysreptor-custom-finding-input" style="flex: 1; min-width: 180px;" placeholder="${currentLang === 'de' ? 'Neuen Befund hinzufügen...' : 'Add new finding...'}">
+                                        <input type="text" class="sysreptor-custom-uuid-input" style="width: 250px;" placeholder="SysReptor ID (UUID, optional)...">
                                         <button class="sysreptor-add-custom-btn">${currentLang === 'de' ? 'Hinzufügen' : 'Add'}</button>
                                     </div>
                                 </div>
@@ -528,11 +543,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 modHeader.addEventListener('click', () => {
                     if (modDetails.classList.contains('open')) {
                         modDetails.classList.remove('open');
-                        const arrow = modHeader.querySelector('div:last-child');
+                        card.classList.remove('open');
+                        const arrow = modHeader.querySelector('.module-arrow');
                         arrow.textContent = '▼';
                     } else {
                         modDetails.classList.add('open');
-                        const arrow = modHeader.querySelector('div:last-child');
+                        card.classList.add('open');
+                        const arrow = modHeader.querySelector('.module-arrow');
                         arrow.textContent = '▲';
 
                         // Scroll module into view smoothly
@@ -617,16 +634,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Status Change
                 if (!module.is_info) {
-                    const select = card.querySelector('.status-select');
-                    select.addEventListener('change', (e) => {
-                        const newVal = e.target.value;
-                        state[module.id] = newVal;
+                    const iconBtns = card.querySelectorAll('.status-icon-btn');
+                    iconBtns.forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            const newVal = btn.getAttribute('data-value');
+                            state[module.id] = newVal;
 
-                        // Update class
-                        select.className = `status-select ${newVal}`;
+                            // Update active states
+                            iconBtns.forEach(b => {
+                                if (b.getAttribute('data-value') === newVal) {
+                                    b.classList.add('active');
+                                } else {
+                                    b.classList.remove('active');
+                                }
+                            });
 
-                        saveState();
-                        updateProgress();
+                            saveState();
+                            updateProgress();
+                        });
                     });
 
                     // SysReptor Logic
@@ -651,13 +676,24 @@ document.addEventListener('DOMContentLoaded', () => {
                             const fData = mFindings[tmpl.id] || {};
                             const isChecked = !!fData.checked;
                             const title = currentLang === 'de' ? tmpl.title_de : tmpl.title_en;
+                            const sysreptorIdVal = tmpl.sysreptor_id || '';
+                            const tooltipText = sysreptorIdVal ? `SysReptor ID: ${sysreptorIdVal}` : 'SysReptor';
+                            const sysreptorIconHtml = `
+                            <span class="sysreptor-icon-container" data-tooltip="${tooltipText}" data-sysreptor-id="${sysreptorIdVal}">
+                                <svg class="sysreptor-icon" viewBox="0 0 100 100" fill="currentColor" style="width: 16px; height: 16px; margin-left: 8px; vertical-align: middle; cursor: pointer; color: var(--text-secondary);">
+                                    <path d="M 10,16 C 25,11 75,10 93,31 C 80,34 30,34 10,24 C 8,22 8,18 10,16 Z" />
+                                    <path d="M 10,46 C 25,41 75,40 93,61 C 80,64 30,64 10,54 C 8,52 8,48 10,46 Z" />
+                                    <path d="M 12,73 C 27,68 77,67 95,88 C 82,91 32,91 12,81 C 10,79 10,75 12,73 Z" />
+                                </svg>
+                            </span>`;
                             return `
                             <div class="sysreptor-finding-card ${isChecked ? 'checked' : ''}" data-finding-id="${tmpl.id}">
-                                <div class="sysreptor-finding-header" style="cursor: default;">
-                                    <div class="sysreptor-finding-header-left">
+                                <div class="sysreptor-finding-header">
+                                    <div class="sysreptor-finding-header-left" style="display: flex; align-items: center; flex-wrap: wrap;">
                                         <input type="checkbox" class="sysreptor-finding-checkbox" ${isChecked ? 'checked' : ''}>
                                         <span class="sysreptor-finding-title">${title.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</span>
                                     </div>
+                                    ${sysreptorIconHtml}
                                 </div>
                             </div>
                             `;
@@ -669,14 +705,27 @@ document.addEventListener('DOMContentLoaded', () => {
                             .map(([fid, fData]) => {
                                 const isChecked = !!fData.checked;
                                 const title = fData.title || '';
+                                const sysreptorIdVal = fData.sysreptor_id || '';
+                                const tooltipText = sysreptorIdVal ? `SysReptor ID: ${sysreptorIdVal}` : 'SysReptor';
+                                const sysreptorIconHtml = `
+                                <span class="sysreptor-icon-container" data-tooltip="${tooltipText}" data-sysreptor-id="${sysreptorIdVal}">
+                                    <svg class="sysreptor-icon" viewBox="0 0 100 100" fill="currentColor" style="width: 16px; height: 16px; margin-left: 8px; vertical-align: middle; cursor: pointer; color: var(--text-secondary);">
+                                        <path d="M 10,16 C 25,11 75,10 93,31 C 80,34 30,34 10,24 C 8,22 8,18 10,16 Z" />
+                                        <path d="M 10,46 C 25,41 75,40 93,61 C 80,64 30,64 10,54 C 8,52 8,48 10,46 Z" />
+                                        <path d="M 12,73 C 27,68 77,67 95,88 C 82,91 32,91 12,81 C 10,79 10,75 12,73 Z" />
+                                    </svg>
+                                </span>`;
                                 return `
                                 <div class="sysreptor-finding-card ${isChecked ? 'checked' : ''} custom-finding" data-finding-id="${fid}">
-                                    <div class="sysreptor-finding-header" style="cursor: default;">
-                                        <div class="sysreptor-finding-header-left">
+                                    <div class="sysreptor-finding-header">
+                                        <div class="sysreptor-finding-header-left" style="display: flex; align-items: center; flex-wrap: wrap;">
                                             <input type="checkbox" class="sysreptor-finding-checkbox" ${isChecked ? 'checked' : ''}>
                                             <span class="sysreptor-finding-title">${title.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</span>
                                         </div>
-                                        <button class="sysreptor-finding-delete-btn" type="button" style="background: none; border: none; color: var(--text-secondary); cursor: pointer; padding: 4px 8px; font-size: 1.1rem; line-height: 1;">&times;</button>
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            ${sysreptorIconHtml}
+                                            <button class="sysreptor-finding-delete-btn" type="button" style="background: none; border: none; color: var(--text-secondary); cursor: pointer; padding: 4px 8px; font-size: 1.1rem; line-height: 1;">&times;</button>
+                                        </div>
                                     </div>
                                 </div>
                                 `;
@@ -690,6 +739,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             const findingId = fCard.getAttribute('data-finding-id');
                             const checkbox = fCard.querySelector('.sysreptor-finding-checkbox');
                             const deleteBtn = fCard.querySelector('.sysreptor-finding-delete-btn');
+                            const iconContainer = fCard.querySelector('.sysreptor-icon-container');
 
                             const getFindingState = () => {
                                 if (!state[module.id + '_sysreptor_findings']) {
@@ -712,6 +762,42 @@ document.addEventListener('DOMContentLoaded', () => {
                                 saveState();
                             });
 
+                            fCard.addEventListener('click', (e) => {
+                                if (e.target.closest('.sysreptor-finding-checkbox')) {
+                                    return;
+                                }
+                                if (e.target.closest('.sysreptor-finding-delete-btn') || e.target.closest('.sysreptor-icon-container')) {
+                                    return;
+                                }
+                                checkbox.checked = !checkbox.checked;
+                                const fState = getFindingState();
+                                fState.checked = checkbox.checked;
+                                if (checkbox.checked) {
+                                    fCard.classList.add('checked');
+                                } else {
+                                    fCard.classList.remove('checked');
+                                    }
+                                saveState();
+                            });
+
+                            if (iconContainer) {
+                                iconContainer.addEventListener('click', (e) => {
+                                    e.stopPropagation();
+                                    const id = iconContainer.getAttribute('data-sysreptor-id');
+                                    if (id) {
+                                        navigator.clipboard.writeText(id).then(() => {
+                                            const originalTooltip = iconContainer.getAttribute('data-tooltip');
+                                            iconContainer.setAttribute('data-tooltip', currentLang === 'de' ? 'Kopiert!' : 'Copied!');
+                                            setTimeout(() => {
+                                                iconContainer.setAttribute('data-tooltip', originalTooltip);
+                                            }, 2000);
+                                        }).catch(err => {
+                                            console.error('Could not copy text: ', err);
+                                        });
+                                    }
+                                });
+                            }
+
                             if (deleteBtn) {
                                 deleteBtn.addEventListener('click', (e) => {
                                     e.stopPropagation();
@@ -725,13 +811,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
                     };
 
+
                     const addCustomInput = card.querySelector('.sysreptor-custom-finding-input');
+                    const addCustomUuidInput = card.querySelector('.sysreptor-custom-uuid-input');
                     const addCustomBtn = card.querySelector('.sysreptor-add-custom-btn');
 
                     if (addCustomInput && addCustomBtn) {
                         const addCustomFinding = () => {
                             const title = addCustomInput.value.trim();
                             if (!title) return;
+                            const uuid = addCustomUuidInput ? addCustomUuidInput.value.trim() : '';
 
                             const fid = 'custom_' + Date.now();
                             if (!state[module.id + '_sysreptor_findings']) {
@@ -742,9 +831,13 @@ document.addEventListener('DOMContentLoaded', () => {
                                 title: title,
                                 is_custom: true
                             };
+                            if (uuid) {
+                                state[module.id + '_sysreptor_findings'][fid].sysreptor_id = uuid;
+                            }
 
                             saveState();
                             addCustomInput.value = '';
+                            if (addCustomUuidInput) addCustomUuidInput.value = '';
                             renderSysReptorChecklist();
                         };
 
@@ -755,6 +848,14 @@ document.addEventListener('DOMContentLoaded', () => {
                                 addCustomFinding();
                             }
                         });
+                        if (addCustomUuidInput) {
+                            addCustomUuidInput.addEventListener('keydown', (e) => {
+                                if (e.key === 'Enter') {
+                                    e.preventDefault();
+                                    addCustomFinding();
+                                }
+                            });
+                        }
                     }
 
                     renderSysReptorChecklist();
@@ -985,10 +1086,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     Object.entries(mFindings)
                         .filter(([fid, fState]) => fState && fState.is_custom && fState.checked)
                         .forEach(([fid, fState]) => {
-                            checkedFindings.push({
+                            const findingObj = {
                                 id: `${module.id}-${findingCounter}`,
                                 name: fState.title || ''
-                            });
+                            };
+                            if (fState.sysreptor_id) {
+                                findingObj.sysreptor_id = fState.sysreptor_id;
+                            }
+                            checkedFindings.push(findingObj);
                             findingCounter++;
                         });
 
@@ -1071,6 +1176,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (isCustom) {
                     mFindings[fid].is_custom = true;
                     mFindings[fid].title = title;
+                    if (f.sysreptor_id) {
+                        mFindings[fid].sysreptor_id = f.sysreptor_id;
+                    }
                 }
             });
             return mFindings;
