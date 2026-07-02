@@ -1,733 +1,771 @@
 [
-  {
-    "id": "WSTG-APIT-01",
-    "tools": [
-      "Postman",
-      "ZAP",
-      "Burp Suite",
-      "GitHub",
-      "GitLab",
-      "WayBackUrls",
-      "waymore",
-      "gau",
-      "Uproot",
-      "OpenAPI Support (ZAP Add-on)",
-      "OpenAPI Parser",
-      "JSParser",
-      "JSMiner",
-      "JSpector",
-      "Link Finder",
-      "JSLuice",
-      "Attack Surface Detector",
-      "Param Miner",
-      "xnLinkFinder",
-      "GAP",
-      "KiteRunner",
-      "FFUF",
-      "DirBuster",
-      "GoBuster"
-    ]
-  },
-  {
-    "id": "WSTG-APIT-02",
-    "tools": [
-      "Burp Suite",
-      "ZAP"
-    ]
-  },
-  {
-    "id": "WSTG-APIT-03",
-    "tools": [
-      "Burp Suite",
-      "ZAP"
-    ]
-  },
-  {
-    "id": "WSTG-APIT-99",
-    "tools": [
-      "GraphQL Voyager",
-      "GraphiQL",
-      "GraphQL Playground",
-      "Clairvoyance",
-      "sqlmap",
-      "graphql-constraint-directive"
-    ]
-  },
-  {
-    "id": "WSTG-ATHN-01",
-    "tools": []
-  },
-  {
-    "id": "WSTG-ATHN-02",
-    "tools": [
-      "CIRT.net",
-      "SecLists",
-      "DefaultCreds-cheat-sheet"
-    ]
-  },
-  {
-    "id": "WSTG-ATHN-03",
-    "tools": [
-      "Burp Suite Intruder"
-    ]
-  },
-  {
-    "id": "WSTG-ATHN-04",
-    "tools": [
-      "netcat (nc)",
-      "spaze/hashes"
-    ]
-  },
-  {
-    "id": "WSTG-ATHN-05",
-    "tools": []
-  },
-  {
-    "id": "WSTG-ATHN-06",
-    "tools": [
-      "ZAP",
-      "Burp Suite",
-      "Firefox Developer Tools",
-      "Chrome DevTools"
-    ]
-  },
-  {
-    "id": "WSTG-ATHN-07",
-    "tools": []
-  },
-  {
-    "id": "WSTG-ATHN-08",
-    "tools": [
-      "Google Search"
-    ]
-  },
-  {
-    "id": "WSTG-ATHN-09",
-    "tools": []
-  },
-  {
-    "id": "WSTG-ATHN-10",
-    "tools": [
-      "HTTP Proxy"
-    ]
-  },
-  {
-    "id": "WSTG-ATHN-11",
-    "tools": [
-      "OpenSSL (s_client)"
-    ]
-  },
-  {
-    "id": "WSTG-ATHZ-01",
-    "tools": [
-      "grep",
-      "Searchcode",
-      "PayloadsAllTheThings"
-    ]
-  },
-  {
-    "id": "WSTG-ATHZ-02",
-    "tools": [
-      "ffuf",
-      "gobuster",
-      "ZAP",
-      "Burp Suite Intruder",
-      "Autorize"
-    ]
-  },
-  {
-    "id": "WSTG-ATHZ-03",
-    "tools": []
-  },
-  {
-    "id": "WSTG-ATHZ-04",
-    "tools": []
-  },
-  {
-    "id": "WSTG-ATHZ-05",
-    "tools": [
-      "ZAP",
-      "curl"
-    ]
-  },
-  {
-    "id": "WSTG-BUSL-01",
-    "tools": [
-      "Intercepting Proxy"
-    ]
-  },
-  {
-    "id": "WSTG-BUSL-02",
-    "tools": [
-      "Intercepting Proxy"
-    ]
-  },
-  {
-    "id": "WSTG-BUSL-03",
-    "tools": [
-      "Intercepting Proxy"
-    ]
-  },
-  {
-    "id": "WSTG-BUSL-04",
-    "tools": [
-      "Automated Request Tools"
-    ]
-  },
-  {
-    "id": "WSTG-BUSL-05",
-    "tools": []
-  },
-  {
-    "id": "WSTG-BUSL-06",
-    "tools": []
-  },
-  {
-    "id": "WSTG-BUSL-07",
-    "tools": [
-      "Automation Tools"
-    ]
-  },
-  {
-    "id": "WSTG-BUSL-08",
-    "tools": []
-  },
-  {
-    "id": "WSTG-BUSL-09",
-    "tools": [
-      "Metasploit Framework",
-      "Social Engineer Toolkit (SET)",
-      "zip",
-      "unzip",
-      "exiftool",
-      "pdfinfo",
-      "strings",
-      "grep"
-    ]
-  },
-  {
-    "id": "WSTG-BUSL-10",
-    "tools": [
-      "openssl",
-      "curl",
-      "Burp Suite Turbo Intruder"
-    ]
-  },
-  {
-    "id": "WSTG-CLNT-01",
-    "tools": [
-      "Web Proxy"
-    ]
-  },
-  {
-    "id": "WSTG-CLNT-02",
-    "tools": []
-  },
-  {
-    "id": "WSTG-CLNT-03",
-    "tools": []
-  },
-  {
-    "id": "WSTG-CLNT-04",
-    "tools": []
-  },
-  {
-    "id": "WSTG-CLNT-05",
-    "tools": []
-  },
-  {
-    "id": "WSTG-CLNT-06",
-    "tools": []
-  },
-  {
-    "id": "WSTG-CLNT-07",
-    "tools": [
-      "ZAP"
-    ]
-  },
-  {
-    "id": "WSTG-CLNT-08",
-    "tools": [
-      "flare",
-      "OWASP SWFIntruder",
-      "Flasm",
-      "Swfmill"
-    ]
-  },
-  {
-    "id": "WSTG-CLNT-09",
-    "tools": [
-      "Browser Developer Tools"
-    ]
-  },
-  {
-    "id": "WSTG-CLNT-10",
-    "tools": [
-      "ZAP",
-      "Google Chrome Developer Tools",
-      "WebSocket Client"
-    ]
-  },
-  {
-    "id": "WSTG-CLNT-11",
-    "tools": []
-  },
-  {
-    "id": "WSTG-CLNT-12",
-    "tools": [
-      "Browser Developer Tools"
-    ]
-  },
-  {
-    "id": "WSTG-CLNT-13",
-    "tools": [
-      "DetectDynamicJS (Burp Proxy Plugin)"
-    ]
-  },
-  {
-    "id": "WSTG-CLNT-14",
-    "tools": []
-  },
-  {
-    "id": "WSTG-CLNT-15",
-    "tools": [
-      "DOMPurify"
-    ]
-  },
-  {
-    "id": "WSTG-CONF-01",
-    "tools": [
-      "Vulnerability Scanners"
-    ]
-  },
-  {
-    "id": "WSTG-CONF-02",
-    "tools": [
-      "CGI Scanners",
-      "CIS-CAT Lite",
-      "Microsoft Attack Surface Analyzer",
-      "NIST National Checklist Program"
-    ]
-  },
-  {
-    "id": "WSTG-CONF-03",
-    "tools": [
-      "Vulnerability Scanners",
-      "Spidering and Mirroring Tools",
-      "Search Engines"
-    ]
-  },
-  {
-    "id": "WSTG-CONF-04",
-    "tools": [
-      "Web Browser",
-      "Application Spidering Tool",
-      "netcat",
-      "grep"
-    ]
-  },
-  {
-    "id": "WSTG-CONF-05",
-    "tools": [
-      "Google Dorks",
-      "Brute Forcing Tools"
-    ]
-  },
-  {
-    "id": "WSTG-CONF-06",
-    "tools": [
-      "curl",
-      "Nmap (http-methods)"
-    ]
-  },
-  {
-    "id": "WSTG-CONF-07",
-    "tools": [
-      "Intercepting Proxy",
-      "curl",
-      "grep"
-    ]
-  },
-  {
-    "id": "WSTG-CONF-08",
-    "tools": []
-  },
-  {
-    "id": "WSTG-CONF-09",
-    "tools": [
-      "ls",
-      "namei"
-    ]
-  },
-  {
-    "id": "WSTG-CONF-10",
-    "tools": [
-      "subfinder",
-      "subzy",
-      "nuclei",
-      "dig",
-      "curl"
-    ]
-  },
-  {
-    "id": "WSTG-CONF-11",
-    "tools": [
-      "curl",
-      "aws-cli"
-    ]
-  },
-  {
-    "id": "WSTG-CONF-12",
-    "tools": []
-  },
-  {
-    "id": "WSTG-CONF-13",
-    "tools": []
-  },
-  {
-    "id": "WSTG-CONF-14",
-    "tools": [
-      "Burp Suite",
-      "curl",
-      "Browser Developer Tools"
-    ]
-  },
-  {
-    "id": "WSTG-CRYP-01",
-    "tools": [
-      "sslstrip"
-    ]
-  },
-  {
-    "id": "WSTG-CRYP-02",
-    "tools": []
-  },
-  {
-    "id": "WSTG-CRYP-03",
-    "tools": [
-      "curl",
-      "grep",
-      "Interception Proxy"
-    ]
-  },
-  {
-    "id": "WSTG-CRYP-04",
-    "tools": [
-      "grep"
-    ]
-  },
-  {
-    "id": "WSTG-ERRH-01",
-    "tools": []
-  },
-  {
-    "id": "WSTG-ERRH-02",
-    "tools": []
-  },
-  {
-    "id": "WSTG-IDNT-01",
-    "tools": []
-  },
-  {
-    "id": "WSTG-IDNT-02",
-    "tools": []
-  },
-  {
-    "id": "WSTG-IDNT-03",
-    "tools": []
-  },
-  {
-    "id": "WSTG-IDNT-04",
-    "tools": [
-      "Web Proxy",
-      "wget",
-      "curl"
-    ]
-  },
-  {
-    "id": "WSTG-IDNT-05",
-    "tools": []
-  },
-  {
-    "id": "WSTG-INFO-01",
-    "tools": [
-      "Baidu",
-      "Bing",
-      "binsearch.info",
-      "Common Crawl",
-      "DuckDuckGo",
-      "Google",
-      "Internet Archive Wayback Machine",
-      "Censys",
-      "Shodan",
-      "archive.ph",
-      "CachedView",
-      "DorkGPT",
-      "Google Hacking Database"
-    ]
-  },
-  {
-    "id": "WSTG-INFO-02",
-    "tools": [
-      "telnet",
-      "openssl",
-      "Netcraft",
-      "Nikto",
-      "Nmap",
-      "Zenmap"
-    ]
-  },
-  {
-    "id": "WSTG-INFO-03",
-    "tools": [
-      "wget",
-      "curl",
-      "Google Webmaster Tools",
-      "ZAP",
-      "Burp Suite"
-    ]
-  },
-  {
-    "id": "WSTG-INFO-04",
-    "tools": [
-      "Nmap",
-      "telnet",
-      "amass",
-      "subfinder",
-      "dnsrecon",
-      "fierce",
-      "dig",
-      "nslookup",
-      "host",
-      "MxToolbox",
-      "DNSstuff",
-      "Net Square",
-      "Google",
-      "OpenSSL"
-    ]
-  },
-  {
-    "id": "WSTG-INFO-05",
-    "tools": [
-      "Browser Developer Tools",
-      "ZAP",
-      "Burp Suite",
-      "Fiddler",
-      "Charles",
-      "exiftool",
-      "pdfinfo",
-      "strings",
-      "grep"
-    ]
-  },
-  {
-    "id": "WSTG-INFO-06",
-    "tools": [
-      "Intercepting Proxy",
-      "Attack Surface Detector (ASD)"
-    ]
-  },
-  {
-    "id": "WSTG-INFO-07",
-    "tools": [
-      "Spreadsheet Software",
-      "Zed Attack Proxy (ZAP)"
-    ]
-  },
-  {
-    "id": "WSTG-INFO-08",
-    "tools": [
-      "netcat (nc)",
-      "Burp Suite"
-    ]
-  },
-  {
-    "id": "WSTG-INFO-09",
-    "tools": []
-  },
-  {
-    "id": "WSTG-INFO-10",
-    "tools": [
-      "Port Scanner",
-      "Intercepting Proxy",
-      "sslstrip"
-    ]
-  },
-  {
-    "id": "WSTG-INPV-01",
-    "tools": [
-      "Web Proxy",
-      "Web Application Fuzzer"
-    ]
-  },
-  {
-    "id": "WSTG-INPV-02",
-    "tools": [
-      "BeEF",
-      "XSS Proxy",
-      "XSS Hunter",
-      "Web Proxy"
-    ]
-  },
-  {
-    "id": "WSTG-INPV-03",
-    "tools": []
-  },
-  {
-    "id": "WSTG-INPV-04",
-    "tools": [
-      "Intercepting Proxy"
-    ]
-  },
-  {
-    "id": "WSTG-INPV-05",
-    "tools": [
-      "SQLMap",
-      "Netcat (nc)"
-    ]
-  },
-  {
-    "id": "WSTG-INPV-06",
-    "tools": []
-  },
-  {
-    "id": "WSTG-INPV-07",
-    "tools": []
-  },
-  {
-    "id": "WSTG-INPV-08",
-    "tools": []
-  },
-  {
-    "id": "WSTG-INPV-09",
-    "tools": []
-  },
-  {
-    "id": "WSTG-INPV-10",
-    "tools": []
-  },
-  {
-    "id": "WSTG-INPV-11",
-    "tools": []
-  },
-  {
-    "id": "WSTG-INPV-12",
-    "tools": [
-      "ZAP",
-      "Burp Suite"
-    ]
-  },
-  {
-    "id": "WSTG-INPV-13",
-    "tools": [
-      "Flawfinder",
-      "FindSecurityBugs",
-      "phpsa",
-      "wfuzz"
-    ]
-  },
-  {
-    "id": "WSTG-INPV-14",
-    "tools": []
-  },
-  {
-    "id": "WSTG-INPV-15",
-    "tools": []
-  },
-  {
-    "id": "WSTG-INPV-16",
-    "tools": []
-  },
-  {
-    "id": "WSTG-INPV-17",
-    "tools": []
-  },
-  {
-    "id": "WSTG-INPV-18",
-    "tools": [
-      "Tplmap",
-      "Backslash Powered Scanner (Burp Extension)"
-    ]
-  },
-  {
-    "id": "WSTG-INPV-19",
-    "tools": []
-  },
-  {
-    "id": "WSTG-INPV-20",
-    "tools": [
-      "wfuzz",
-      "Burp Intruder",
-      "ZAP fuzzer",
-      "sqlmap"
-    ]
-  },
-  {
-    "id": "WSTG-INPV-21",
-    "tools": [
-      "Spreadsheet Applications (Microsoft Excel, LibreOffice Calc)",
-      "Text Editor"
-    ]
-  },
-  {
-    "id": "WSTG-SESS-01",
-    "tools": [
-      "Spreadsheet Software"
-    ]
-  },
-  {
-    "id": "WSTG-SESS-02",
-    "tools": [
-      "Intercepting Proxy",
-      "Browser Cookie Jar"
-    ]
-  },
-  {
-    "id": "WSTG-SESS-03",
-    "tools": []
-  },
-  {
-    "id": "WSTG-SESS-04",
-    "tools": []
-  },
-  {
-    "id": "WSTG-SESS-05",
-    "tools": []
-  },
-  {
-    "id": "WSTG-SESS-06",
-    "tools": [
-      "Intercepting Proxy"
-    ]
-  },
-  {
-    "id": "WSTG-SESS-07",
-    "tools": []
-  },
-  {
-    "id": "WSTG-SESS-08",
-    "tools": []
-  },
-  {
-    "id": "WSTG-SESS-09",
-    "tools": []
-  },
-  {
-    "id": "WSTG-SESS-10",
-    "tools": [
-      "crackjwt.py",
-      "John the Ripper",
-      "jwt2john.py",
-      "jwk-node-jose.py",
-      "jwt_tool",
-      "openssl"
-    ]
-  },
-  {
-    "id": "WSTG-SESS-11",
-    "tools": [
-      "Private Browsing mode",
-      "Multi-Account Containers"
-    ]
-  }
+    {
+        "id": "WSTG-APIT-01",
+        "tools": [
+            "Postman",
+            "ZAP",
+            "Burp Suite",
+            "GitHub",
+            "GitLab",
+            "WayBackUrls",
+            "waymore",
+            "gau",
+            "Uproot",
+            "OpenAPI Support (ZAP Add-on)",
+            "OpenAPI Parser",
+            "JSParser",
+            "JSMiner",
+            "JSpector",
+            "Link Finder",
+            "JSLuice",
+            "Attack Surface Detector",
+            "Param Miner",
+            "xnLinkFinder",
+            "GAP",
+            "KiteRunner",
+            "FFUF",
+            "DirBuster",
+            "GoBuster"
+        ]
+    },
+    {
+        "id": "WSTG-APIT-02",
+        "tools": [
+            "Burp Suite",
+            "ZAP"
+        ]
+    },
+    {
+        "id": "WSTG-APIT-03",
+        "tools": [
+            "Burp Suite",
+            "ZAP"
+        ]
+    },
+    {
+        "id": "WSTG-APIT-99",
+        "tools": [
+            "GraphQL Voyager",
+            "GraphiQL",
+            "GraphQL Playground",
+            "Clairvoyance",
+            "sqlmap",
+            "graphql-constraint-directive"
+        ]
+    },
+    {
+        "id": "WSTG-ATHN-01",
+        "tools": []
+    },
+    {
+        "id": "WSTG-ATHN-02",
+        "tools": [
+            "CIRT.net",
+            "SecLists",
+            "DefaultCreds-cheat-sheet"
+        ]
+    },
+    {
+        "id": "WSTG-ATHN-03",
+        "tools": [
+            "Burp Suite Intruder"
+        ]
+    },
+    {
+        "id": "WSTG-ATHN-04",
+        "tools": [
+            "netcat (nc)",
+            "spaze/hashes"
+        ]
+    },
+    {
+        "id": "WSTG-ATHN-05",
+        "tools": []
+    },
+    {
+        "id": "WSTG-ATHN-06",
+        "tools": [
+            "ZAP",
+            "Burp Suite",
+            "Firefox Developer Tools",
+            "Chrome DevTools"
+        ]
+    },
+    {
+        "id": "WSTG-ATHN-07",
+        "tools": []
+    },
+    {
+        "id": "WSTG-ATHN-08",
+        "tools": [
+            "Google Search"
+        ]
+    },
+    {
+        "id": "WSTG-ATHN-09",
+        "tools": []
+    },
+    {
+        "id": "WSTG-ATHN-10",
+        "tools": [
+            "HTTP Proxy"
+        ]
+    },
+    {
+        "id": "WSTG-ATHN-11",
+        "tools": [
+            "OpenSSL (s_client)"
+        ]
+    },
+    {
+        "id": "WSTG-ATHZ-01",
+        "tools": [
+            "grep",
+            "Searchcode",
+            "PayloadsAllTheThings"
+        ]
+    },
+    {
+        "id": "WSTG-ATHZ-02",
+        "tools": [
+            "ffuf",
+            "gobuster",
+            "ZAP",
+            "Burp Suite Intruder",
+            "Autorize"
+        ]
+    },
+    {
+        "id": "WSTG-ATHZ-03",
+        "tools": []
+    },
+    {
+        "id": "WSTG-ATHZ-04",
+        "tools": []
+    },
+    {
+        "id": "WSTG-ATHZ-05",
+        "tools": [
+            "ZAP",
+            "curl"
+        ]
+    },
+    {
+        "id": "WSTG-BUSL-01",
+        "tools": [
+            "Intercepting Proxy"
+        ]
+    },
+    {
+        "id": "WSTG-BUSL-02",
+        "tools": [
+            "Intercepting Proxy"
+        ]
+    },
+    {
+        "id": "WSTG-BUSL-03",
+        "tools": [
+            "Intercepting Proxy"
+        ]
+    },
+    {
+        "id": "WSTG-BUSL-04",
+        "tools": [
+            "Automated Request Tools"
+        ]
+    },
+    {
+        "id": "WSTG-BUSL-05",
+        "tools": []
+    },
+    {
+        "id": "WSTG-BUSL-06",
+        "tools": []
+    },
+    {
+        "id": "WSTG-BUSL-07",
+        "tools": [
+            "Automation Tools"
+        ]
+    },
+    {
+        "id": "WSTG-BUSL-08",
+        "tools": []
+    },
+    {
+        "id": "WSTG-BUSL-09",
+        "tools": [
+            "Metasploit Framework",
+            "Social Engineer Toolkit (SET)",
+            "zip",
+            "unzip",
+            "exiftool",
+            "pdfinfo",
+            "strings",
+            "grep"
+        ]
+    },
+    {
+        "id": "WSTG-BUSL-10",
+        "tools": [
+            "openssl",
+            "curl",
+            "Burp Suite Turbo Intruder"
+        ]
+    },
+    {
+        "id": "WSTG-CLNT-01",
+        "tools": [
+            "Web Proxy"
+        ]
+    },
+    {
+        "id": "WSTG-CLNT-02",
+        "tools": []
+    },
+    {
+        "id": "WSTG-CLNT-03",
+        "tools": []
+    },
+    {
+        "id": "WSTG-CLNT-04",
+        "tools": []
+    },
+    {
+        "id": "WSTG-CLNT-05",
+        "tools": []
+    },
+    {
+        "id": "WSTG-CLNT-06",
+        "tools": []
+    },
+    {
+        "id": "WSTG-CLNT-07",
+        "tools": [
+            "ZAP"
+        ]
+    },
+    {
+        "id": "WSTG-CLNT-08",
+        "tools": [
+            "flare",
+            "OWASP SWFIntruder",
+            "Flasm",
+            "Swfmill"
+        ]
+    },
+    {
+        "id": "WSTG-CLNT-09",
+        "tools": [
+            "Browser Developer Tools"
+        ]
+    },
+    {
+        "id": "WSTG-CLNT-10",
+        "tools": [
+            "ZAP",
+            "Google Chrome Developer Tools",
+            "WebSocket Client"
+        ]
+    },
+    {
+        "id": "WSTG-CLNT-11",
+        "tools": []
+    },
+    {
+        "id": "WSTG-CLNT-12",
+        "tools": [
+            "Browser Developer Tools"
+        ]
+    },
+    {
+        "id": "WSTG-CLNT-13",
+        "tools": [
+            "DetectDynamicJS (Burp Proxy Plugin)"
+        ]
+    },
+    {
+        "id": "WSTG-CLNT-14",
+        "tools": []
+    },
+    {
+        "id": "WSTG-CLNT-15",
+        "tools": [
+            "DOMPurify"
+        ]
+    },
+    {
+        "id": "WSTG-CONF-01",
+        "tools": [
+            "Vulnerability Scanners"
+        ]
+    },
+    {
+        "id": "WSTG-CONF-02",
+        "tools": [
+            "CGI Scanners",
+            "CIS-CAT Lite",
+            "Microsoft Attack Surface Analyzer",
+            "NIST National Checklist Program"
+        ]
+    },
+    {
+        "id": "WSTG-CONF-03",
+        "tools": [
+            "Vulnerability Scanners",
+            "Spidering and Mirroring Tools",
+            "Search Engines"
+        ]
+    },
+    {
+        "id": "WSTG-CONF-04",
+        "tools": [
+            "Web Browser",
+            "Application Spidering Tool",
+            "netcat",
+            "grep"
+        ]
+    },
+    {
+        "id": "WSTG-CONF-05",
+        "tools": [
+            "Google Dorks",
+            "Brute Forcing Tools"
+        ]
+    },
+    {
+        "id": "WSTG-CONF-06",
+        "tools": [
+            "curl",
+            "Nmap (http-methods)"
+        ]
+    },
+    {
+        "id": "WSTG-CONF-07",
+        "tools": [
+            "Intercepting Proxy",
+            "curl",
+            "grep"
+        ]
+    },
+    {
+        "id": "WSTG-CONF-08",
+        "tools": []
+    },
+    {
+        "id": "WSTG-CONF-09",
+        "tools": [
+            "ls",
+            "namei"
+        ]
+    },
+    {
+        "id": "WSTG-CONF-10",
+        "tools": [
+            "subfinder",
+            "subzy",
+            "nuclei",
+            "dig",
+            "curl"
+        ]
+    },
+    {
+        "id": "WSTG-CONF-11",
+        "tools": [
+            "curl",
+            "aws-cli"
+        ]
+    },
+    {
+        "id": "WSTG-CONF-12",
+        "tools": []
+    },
+    {
+        "id": "WSTG-CONF-13",
+        "tools": []
+    },
+    {
+        "id": "WSTG-CONF-14",
+        "tools": [
+            "Burp Suite",
+            "curl",
+            "Browser Developer Tools"
+        ]
+    },
+    {
+        "id": "WSTG-CRYP-01",
+        "tools": [
+            "sslstrip"
+        ]
+    },
+    {
+        "id": "WSTG-CRYP-02",
+        "tools": []
+    },
+    {
+        "id": "WSTG-CRYP-03",
+        "tools": [
+            "curl",
+            "grep",
+            "Interception Proxy"
+        ]
+    },
+    {
+        "id": "WSTG-CRYP-04",
+        "tools": [
+            "grep"
+        ]
+    },
+    {
+        "id": "WSTG-ERRH-01",
+        "tools": []
+    },
+    {
+        "id": "WSTG-ERRH-02",
+        "tools": []
+    },
+    {
+        "id": "WSTG-IDNT-01",
+        "tools": []
+    },
+    {
+        "id": "WSTG-IDNT-02",
+        "tools": []
+    },
+    {
+        "id": "WSTG-IDNT-03",
+        "tools": []
+    },
+    {
+        "id": "WSTG-IDNT-04",
+        "tools": [
+            "Web Proxy",
+            "wget",
+            "curl"
+        ]
+    },
+    {
+        "id": "WSTG-IDNT-05",
+        "tools": []
+    },
+    {
+        "id": "WSTG-INFO-01",
+        "tools": [
+            "Baidu",
+            "Bing",
+            "binsearch.info",
+            "Common Crawl",
+            "DuckDuckGo",
+            "Google",
+            "Internet Archive Wayback Machine",
+            "Censys",
+            "Shodan",
+            "archive.ph",
+            "CachedView",
+            "DorkGPT",
+            "Google Hacking Database"
+        ]
+    },
+    {
+        "id": "WSTG-INFO-02",
+        "tools": [
+            "telnet",
+            "openssl",
+            "Netcraft",
+            "Nikto",
+            "Nmap",
+            "Zenmap"
+        ]
+    },
+    {
+        "id": "WSTG-INFO-03",
+        "tools": [
+            "wget",
+            "curl",
+            "Google Webmaster Tools",
+            "ZAP",
+            "Burp Suite"
+        ]
+    },
+    {
+        "id": "WSTG-INFO-04",
+        "tools": [
+            "Nmap",
+            "telnet",
+            "amass",
+            "subfinder",
+            "dnsrecon",
+            "fierce",
+            "dig",
+            "nslookup",
+            "host",
+            "MxToolbox",
+            "DNSstuff",
+            "Net Square",
+            "Google",
+            "OpenSSL"
+        ]
+    },
+    {
+        "id": "WSTG-INFO-05",
+        "tools": [
+            "Browser Developer Tools",
+            "ZAP",
+            "Burp Suite",
+            "Fiddler",
+            "Charles",
+            "exiftool",
+            "pdfinfo",
+            "strings",
+            "grep"
+        ]
+    },
+    {
+        "id": "WSTG-INFO-06",
+        "tools": [
+            "Intercepting Proxy",
+            "Attack Surface Detector (ASD)"
+        ]
+    },
+    {
+        "id": "WSTG-INFO-07",
+        "tools": [
+            "Spreadsheet Software",
+            "Zed Attack Proxy (ZAP)"
+        ]
+    },
+    {
+        "id": "WSTG-INFO-08",
+        "tools": [
+            "netcat (nc)",
+            "Burp Suite"
+        ]
+    },
+    {
+        "id": "WSTG-INFO-09",
+        "tools": []
+    },
+    {
+        "id": "WSTG-INFO-10",
+        "tools": [
+            "Port Scanner",
+            "Intercepting Proxy",
+            "sslstrip"
+        ]
+    },
+    {
+        "id": "WSTG-INPV-01",
+        "tools": [
+            "Web Proxy",
+            "Web Application Fuzzer"
+        ]
+    },
+    {
+        "id": "WSTG-INPV-02",
+        "tools": [
+            "BeEF",
+            "XSS Proxy",
+            "XSS Hunter",
+            "Web Proxy"
+        ]
+    },
+    {
+        "id": "WSTG-INPV-03",
+        "tools": []
+    },
+    {
+        "id": "WSTG-INPV-04",
+        "tools": [
+            "Intercepting Proxy"
+        ]
+    },
+    {
+        "id": "WSTG-INPV-05",
+        "tools": [
+            "SQLMap",
+            "Netcat (nc)"
+        ]
+    },
+    {
+        "id": "WSTG-INPV-06",
+        "tools": []
+    },
+    {
+        "id": "WSTG-INPV-07",
+        "tools": []
+    },
+    {
+        "id": "WSTG-INPV-08",
+        "tools": []
+    },
+    {
+        "id": "WSTG-INPV-09",
+        "tools": []
+    },
+    {
+        "id": "WSTG-INPV-10",
+        "tools": []
+    },
+    {
+        "id": "WSTG-INPV-11",
+        "tools": []
+    },
+    {
+        "id": "WSTG-INPV-12",
+        "tools": [
+            "ZAP",
+            "Burp Suite"
+        ]
+    },
+    {
+        "id": "WSTG-INPV-13",
+        "tools": [
+            "Flawfinder",
+            "FindSecurityBugs",
+            "phpsa",
+            "wfuzz"
+        ]
+    },
+    {
+        "id": "WSTG-INPV-14",
+        "tools": []
+    },
+    {
+        "id": "WSTG-INPV-15",
+        "tools": []
+    },
+    {
+        "id": "WSTG-INPV-16",
+        "tools": []
+    },
+    {
+        "id": "WSTG-INPV-17",
+        "tools": []
+    },
+    {
+        "id": "WSTG-INPV-18",
+        "tools": [
+            "Tplmap",
+            "Backslash Powered Scanner (Burp Extension)"
+        ]
+    },
+    {
+        "id": "WSTG-INPV-19",
+        "tools": []
+    },
+    {
+        "id": "WSTG-INPV-20",
+        "tools": [
+            "wfuzz",
+            "Burp Intruder",
+            "ZAP fuzzer",
+            "sqlmap"
+        ]
+    },
+    {
+        "id": "WSTG-INPV-21",
+        "tools": [
+            "Spreadsheet Applications (Microsoft Excel, LibreOffice Calc)",
+            "Text Editor"
+        ]
+    },
+    {
+        "id": "WSTG-SESS-01",
+        "tools": [
+            "Spreadsheet Software"
+        ]
+    },
+    {
+        "id": "WSTG-SESS-02",
+        "tools": [
+            "Intercepting Proxy",
+            "Browser Cookie Jar"
+        ]
+    },
+    {
+        "id": "WSTG-SESS-03",
+        "tools": []
+    },
+    {
+        "id": "WSTG-SESS-04",
+        "tools": []
+    },
+    {
+        "id": "WSTG-SESS-05",
+        "tools": []
+    },
+    {
+        "id": "WSTG-SESS-06",
+        "tools": [
+            "Intercepting Proxy"
+        ]
+    },
+    {
+        "id": "WSTG-SESS-07",
+        "tools": []
+    },
+    {
+        "id": "WSTG-SESS-08",
+        "tools": []
+    },
+    {
+        "id": "WSTG-SESS-09",
+        "tools": []
+    },
+    {
+        "id": "WSTG-SESS-10",
+        "tools": [
+            "crackjwt.py",
+            "John the Ripper",
+            "jwt2john.py",
+            "jwk-node-jose.py",
+            "jwt_tool",
+            "openssl"
+        ]
+    },
+    {
+        "id": "WSTG-SESS-11",
+        "tools": [
+            "Private Browsing mode",
+            "Multi-Account Containers"
+        ]
+    },
+    {
+        "id": "WSTG-APT-01",
+        "tools": [
+            "Threat Dragon",
+            "draw.io"
+        ]
+    },
+    {
+        "id": "WSTG-APT-02",
+        "tools": [
+            "npm audit",
+            "OWASP Dependency-Check",
+            "Snyk",
+            "Trivy"
+        ]
+    },
+    {
+        "id": "WSTG-APT-03",
+        "tools": [
+            "ysoserial",
+            "Gitleaks",
+            "Burp Suite"
+        ]
+    },
+    {
+        "id": "WSTG-APT-04",
+        "tools": [
+            "Splunk",
+            "ELK"
+        ]
+    },
+    {
+        "id": "WSTG-APIT-05",
+        "tools": [
+            "Burp Suite",
+            "OWASP ZAP"
+        ]
+    }
 ]

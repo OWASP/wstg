@@ -1,7 +1,7 @@
-window.addEventListener('error', function(e) {
+window.addEventListener('error', function (e) {
     alert("JS Error: " + e.message + " at " + e.filename + ":" + e.lineno);
 });
-window.addEventListener('unhandledrejection', function(e) {
+window.addEventListener('unhandledrejection', function (e) {
     alert("Unhandled Promise Rejection: " + e.reason);
 });
 document.addEventListener('DOMContentLoaded', () => {
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentLang = localStorage.getItem('lang') || 'en';
     let previousQuery = '';
     let lastActiveCategory = '';
-    
+
     const i18n = {
         en: {
             header_title: "OWASP WSTG Checklist",
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
             no_results: "Keine passenden Module gefunden."
         }
     };
-    
+
     const applyTranslations = () => {
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
         searchInput.addEventListener('input', () => {
             renderChecklist();
         });
-        
+
         searchInput.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 closeSearch();
@@ -284,14 +284,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Render Logic
     const renderChecklist = () => {
         // Save current expanded state (declared below based on search status)
-        
+
         const openModules = new Set(
             Array.from(checklistContainer.querySelectorAll('.module-details.open')).map(el => {
                 const card = el.closest('.module-card');
                 return card.getAttribute('data-id');
             })
         );
-        
+
         const openDocs = new Set(
             Array.from(checklistContainer.querySelectorAll('.docs-content')).filter(el => el.style.display === 'block').map(el => {
                 const card = el.closest('.module-card');
@@ -307,7 +307,7 @@ document.addEventListener('DOMContentLoaded', () => {
         );
 
         const query = document.getElementById('search-input')?.value.toLowerCase().trim() || '';
-        
+
         let openCategories;
         if (!query && previousQuery) {
             // Collapse all except the last active category when search is cleared
@@ -334,7 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const idMatch = module.id.toLowerCase().includes(query);
                 const titleMatch = module.title.toLowerCase().includes(query);
                 const titleDeMatch = module.title_de && module.title_de.toLowerCase().includes(query);
-                
+
                 return idMatch || titleMatch || titleDeMatch;
             });
         }
@@ -368,7 +368,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         const sortedCategoryNames = Object.keys(categories).sort((a, b) => categoryOrder[a] - categoryOrder[b]);
-        
+
         for (const categoryName of sortedCategoryNames) {
             const modules = categories[categoryName];
             const section = document.createElement('section');
@@ -378,7 +378,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Category Header
             const header = document.createElement('div');
             header.className = 'category-header';
-            
+
             const title = document.createElement('h2');
             // Extract the first module to get the category index for numbering
             const firstModule = modules.length > 0 ? modules[0] : null;
@@ -389,7 +389,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const stats = document.createElement('span');
             stats.className = 'category-stats';
             stats.id = `stats-${categoryName.replace(/[^a-zA-Z0-9]/g, '-')}`;
-            
+
             header.appendChild(title);
             header.appendChild(stats);
 
@@ -403,7 +403,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.setAttribute('data-id', module.id);
 
                 const moduleState = state[module.id] || 'pending';
-                
+
                 // Content Fallback logic
                 const mTitle = currentLang === 'de' && module.title_de ? module.title_de : module.title;
                 const mFullText = currentLang === 'de' && module.full_text_de ? module.full_text_de : module.full_text;
@@ -416,6 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const mTools = currentLang === 'de' && module.tools_de ? module.tools_de : module.tools;
                 const isTop10 = (() => {
                     if (!module.id) return false;
+                    if (module.id.startsWith('TOP10-') || module.id.startsWith('WSTG-APT-')) return true;
                     const exactPrefixes = ['WSTG-IDENT-', 'WSTG-ATHZ-', 'WSTG-CRYP-', 'WSTG-BUSL-', 'WSTG-CONFIG-', 'WSTG-ATHN-', 'WSTG-SESS-', 'WSTG-ERR-'];
                     if (exactPrefixes.some(prefix => module.id.startsWith(prefix))) return true;
                     const allowedInpv = ['WSTG-INPV-01', 'WSTG-INPV-02', 'WSTG-INPV-05', 'WSTG-INPV-06', 'WSTG-INPV-07', 'WSTG-INPV-11', 'WSTG-INPV-12', 'WSTG-INPV-13', 'WSTG-INPV-14'];
@@ -435,11 +436,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         `}
                         <div class="module-title-area">
-                            ${module.is_info ? 
-                                `<span>ℹ️ <strong>${t.label_information}</strong> ${mTitle}</span>` :
-                                `<span class="module-id" ${isTop10 ? 'title="OWASP Top 10 Module"' : ''}>${module.id}${isTop10 ? ' ⭐' : ''}</span>
+                            ${module.is_info ?
+                        `<span>ℹ️ <strong>${t.label_information}</strong> ${mTitle}</span>` :
+                        `<span class="module-id" ${isTop10 ? 'title="OWASP Top 10 Module"' : ''}>${module.id}${isTop10 ? ' ⭐' : ''}</span>
                                  <span class="module-name">${mTitle}</span>`
-                            }
+                    }
                         </div>
                         <div style="color: var(--text-secondary);">${openModules.has(module.id) ? '▲' : '▼'}</div>
                     </div>
@@ -566,10 +567,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             // Calculate position BEFORE shrinking the card
                             targetY = card.getBoundingClientRect().top + window.scrollY - 120; // 120px offset for plenty of space
                         }
-                        
+
                         docsContent.style.display = 'none';
                         docsArrow.textContent = '▼';
-                        
+
                         if (scrollToTop) {
                             setTimeout(() => {
                                 window.scrollTo({ top: targetY, behavior: 'smooth' });
@@ -620,10 +621,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     select.addEventListener('change', (e) => {
                         const newVal = e.target.value;
                         state[module.id] = newVal;
-                        
+
                         // Update class
                         select.className = `status-select ${newVal}`;
-                        
+
                         saveState();
                         updateProgress();
                     });
@@ -642,9 +643,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     const renderSysReptorChecklist = () => {
                         const checklistEl = card.querySelector('.sysreptor-checklist');
                         if (!checklistEl) return;
-                        
+
                         const mFindings = state[module.id + '_sysreptor_findings'] || {};
-                        
+
                         // Predefined templates
                         let html = (module.sysreptor_templates || []).map(tmpl => {
                             const fData = mFindings[tmpl.id] || {};
@@ -661,7 +662,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                             `;
                         }).join('');
-                        
+
                         // Custom findings
                         html += Object.entries(mFindings)
                             .filter(([fid, fData]) => fData && fData.is_custom)
@@ -680,16 +681,16 @@ document.addEventListener('DOMContentLoaded', () => {
                                 </div>
                                 `;
                             }).join('');
-                            
+
                         checklistEl.innerHTML = html;
-                        
+
                         // Bind events
                         const findingCards = checklistEl.querySelectorAll('.sysreptor-finding-card');
                         findingCards.forEach(fCard => {
                             const findingId = fCard.getAttribute('data-finding-id');
                             const checkbox = fCard.querySelector('.sysreptor-finding-checkbox');
                             const deleteBtn = fCard.querySelector('.sysreptor-finding-delete-btn');
-                            
+
                             const getFindingState = () => {
                                 if (!state[module.id + '_sysreptor_findings']) {
                                     state[module.id + '_sysreptor_findings'] = {};
@@ -699,7 +700,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 }
                                 return state[module.id + '_sysreptor_findings'][findingId];
                             };
-                            
+
                             checkbox.addEventListener('change', (e) => {
                                 const fState = getFindingState();
                                 fState.checked = e.target.checked;
@@ -710,7 +711,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 }
                                 saveState();
                             });
-                            
+
                             if (deleteBtn) {
                                 deleteBtn.addEventListener('click', (e) => {
                                     e.stopPropagation();
@@ -726,12 +727,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const addCustomInput = card.querySelector('.sysreptor-custom-finding-input');
                     const addCustomBtn = card.querySelector('.sysreptor-add-custom-btn');
-                    
+
                     if (addCustomInput && addCustomBtn) {
                         const addCustomFinding = () => {
                             const title = addCustomInput.value.trim();
                             if (!title) return;
-                            
+
                             const fid = 'custom_' + Date.now();
                             if (!state[module.id + '_sysreptor_findings']) {
                                 state[module.id + '_sysreptor_findings'] = {};
@@ -741,12 +742,12 @@ document.addEventListener('DOMContentLoaded', () => {
                                 title: title,
                                 is_custom: true
                             };
-                            
+
                             saveState();
                             addCustomInput.value = '';
                             renderSysReptorChecklist();
                         };
-                        
+
                         addCustomBtn.addEventListener('click', addCustomFinding);
                         addCustomInput.addEventListener('keydown', (e) => {
                             if (e.key === 'Enter') {
@@ -755,7 +756,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             }
                         });
                     }
-                    
+
                     renderSysReptorChecklist();
 
                     const renderNotes = () => {
@@ -830,7 +831,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             if (!files || files.length === 0) return;
 
                             const images = state[module.id + '_images'] || [];
-                            
+
                             Array.from(files).forEach(file => {
                                 const reader = new FileReader();
                                 reader.onload = (event) => {
@@ -841,7 +842,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 };
                                 reader.readAsDataURL(file);
                             });
-                            
+
                             imageInput.value = '';
                         });
                     }
@@ -906,9 +907,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (module.is_info) return;
 
             total++;
-            if(!categoryCounts[module.category]) categoryCounts[module.category] = { total: 0, done: 0 };
+            if (!categoryCounts[module.category]) categoryCounts[module.category] = { total: 0, done: 0 };
             categoryCounts[module.category].total++;
-            
+
             const moduleState = state[module.id];
             if (moduleState && moduleState !== 'pending') {
                 completed++;
@@ -941,41 +942,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
         checklistData.forEach(module => {
             if (module.is_info) return;
-            
+
             const status = state[module.id] || 'pending';
             const title = state[module.id + '_title'];
             const notes = state[module.id + '_notes'];
             const images = state[module.id + '_images'];
-            
+
             const mFindings = state[module.id + '_sysreptor_findings'] || {};
             const hasCheckedFindings = Object.values(mFindings).some(f => f && f.checked);
 
             if (status !== 'pending' || title || (notes && notes.length > 0) || (images && images.length > 0) || hasCheckedFindings) {
                 exportData[module.id] = {
                     status: status,
-                    title: title || module.sysreptor_finding
+                    title: title || (currentLang === 'de' ? (module.title_de || module.title) : module.title)
                 };
                 if (notes && notes.length > 0) {
                     exportData[module.id].notes = notes;
                 }
-                
+
                 // Export SysReptor Checklist findings
                 if (hasCheckedFindings) {
                     const checkedFindings = [];
                     let findingCounter = 1;
-                    
+
                     // Export checked predefined findings
                     (module.sysreptor_templates || []).forEach(tmpl => {
                         const fState = mFindings[tmpl.id];
                         if (fState && fState.checked) {
-                            checkedFindings.push({
+                            const findingObj = {
                                 id: `${module.id}-${findingCounter}`,
                                 name: currentLang === 'de' ? tmpl.title_de : tmpl.title_en
-                            });
+                            };
+                            if (tmpl.sysreptor_id) {
+                                findingObj.sysreptor_id = tmpl.sysreptor_id;
+                            }
+                            checkedFindings.push(findingObj);
                         }
                         findingCounter++;
                     });
-                    
+
                     // Export checked custom findings
                     Object.entries(mFindings)
                         .filter(([fid, fState]) => fState && fState.is_custom && fState.checked)
@@ -986,7 +991,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             });
                             findingCounter++;
                         });
-                    
+
                     if (checkedFindings.length > 0) {
                         exportData[module.id].sysreptor_findings = checkedFindings;
                     }
@@ -1004,18 +1009,18 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                         const fileName = `${module.id}_${idx}.${ext}`;
                         exportData[module.id].images.push(fileName);
-                        
+
                         const base64Data = imgData.split(',')[1];
-                        imagesFolder.file(fileName, base64Data, {base64: true});
+                        imagesFolder.file(fileName, base64Data, { base64: true });
                     });
                 }
             }
         });
 
         zip.file("wstg_pentest_state.json", JSON.stringify(exportData, null, 2));
-        
+
         try {
-            const content = await zip.generateAsync({type: "blob"});
+            const content = await zip.generateAsync({ type: "blob" });
             const url = URL.createObjectURL(content);
             const downloadAnchorNode = document.createElement('a');
             downloadAnchorNode.setAttribute("href", url);
@@ -1045,7 +1050,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 let fid = f.id;
                 let title = f.name || f.title_custom || '';
                 let isCustom = false;
-                
+
                 // Check if it's new format "ModuleID-Number"
                 const match = f.id.match(new RegExp(`^${moduleId}-(\\d+)$`));
                 if (match) {
@@ -1059,7 +1064,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else if (f.id.startsWith('custom_')) {
                     isCustom = true;
                 }
-                
+
                 mFindings[fid] = {
                     checked: true
                 };
@@ -1076,11 +1081,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const zip = await JSZip.loadAsync(file);
                 const jsonFile = zip.file("wstg_pentest_state.json");
                 if (!jsonFile) throw new Error("Missing wstg_pentest_state.json in zip");
-                
+
                 const jsonContent = await jsonFile.async("string");
                 const importedData = JSON.parse(jsonContent);
                 const newState = {};
-                
+
                 for (const key in importedData) {
                     if (typeof importedData[key] === 'object' && !Array.isArray(importedData[key])) {
                         newState[key] = importedData[key].status || 'pending';
@@ -1119,7 +1124,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         newState[key] = importedData[key];
                     }
                 }
-                
+
                 state = newState;
                 saveState();
                 renderChecklist();
@@ -1135,7 +1140,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 try {
                     const importedData = JSON.parse(e.target.result);
                     const newState = {};
-                    
+
                     for (const key in importedData) {
                         if (typeof importedData[key] === 'object' && !Array.isArray(importedData[key])) {
                             newState[key] = importedData[key].status || 'pending';
@@ -1155,7 +1160,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             newState[key] = importedData[key];
                         }
                     }
-                    
+
                     state = newState;
                     saveState();
                     renderChecklist();

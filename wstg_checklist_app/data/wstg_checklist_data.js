@@ -22,8 +22,7 @@ const wstgData = [
         "full_summary_de": "Keine Zusammenfassung bereitgestellt.",
         "methodology_de": "Keine Methodik definiert.",
         "expected_evidence_de": "Ein funktionierender Proof of Concept (PoC), der die Schwachstelle demonstriert. Dazu sollten die genauen HTTP-Anfragen/Antworten, Screenshots oder Schritt-f\u00fcr-Schritt-Anleitungen geh\u00f6ren, die belegen, dass die Testziele erreicht werden k\u00f6nnen.",
-        "reporting_hints_de": "Dokumentieren Sie den betroffenen Endpunkt, die genauen verwendeten Nutzlasten/Parameter, die gesch\u00e4ftlichen Auswirkungen und stellen Sie klare Schritte zur Reproduktion bereit.",
-        "full_text_de": "## Einf\u00fchrung in Web-APIs\n\nEine Web Application Programming Interface (API) erleichtert die Kommunikation und den Datenaustausch zwischen verschiedenen Softwaresystemen \u00fcber ein Netzwerk oder das Internet. Web-APIs erm\u00f6glichen es verschiedenen Anwendungen, auf standardisierte und effiziente Weise miteinander zu interagieren, sodass sie die Funktionen und Daten der jeweils anderen nutzen k\u00f6nnen.\n\nDie Einf\u00fchrung verschiedener Technologien wie Cloud Computing, Microservice-Architekturen und Single-Page-Applications hat zur Etablierung von APIs als architektonische Bewegung beigetragen.\n\nWie bei der Einf\u00fchrung aller neuen Konzepte kann es Schwachstellen und Verwundbarkeiten geben, die Tests erforderlich machen. Andernfalls k\u00f6nnen schlecht gesicherte APIs einen uneingeschr\u00e4nkten direkten Zugang zu sensiblen Daten bieten.\n\nDieses Kapitel versucht, den Sicherheitsforscher in die Konzepte einzuf\u00fchren, die zum Testen von APIs erforderlich sind. Dieser Abschnitt untersucht insbesondere die verschiedenen API-Technologien und ihre Geschichte.\n\n## Welche API-Technologie?\n\nBevor wir Annahmen \u00fcber die Art der API treffen, die wir testen, kann es hilfreich sein, sich den vollen Umfang des Problemraums bewusst zu machen, auf den der Sicherheitsforscher sto\u00dfen kann. Diese umfassen:\n\n1. Representational State Transfer (REST) APIs\n2. Simple Object Access Protocol (SOAP) APIs\n3. GraphQL APIs\n4. gRPC Remote Procedure Calls (gRPC)\n5. WebSockets APIs\n\n## REST (Representational State Transfer) APIs\n\n### Was ist REST?\n\nREST ist eine Reihe von Regeln und Konventionen f\u00fcr die Interaktion mit Webressourcen. Die Schl\u00fcsselkomponenten von URI, HTTP-Methoden, Headern und Statuscodes unterst\u00fctzen die Prinzipien von REST.\n\n### Geschichte\n  \nAufgrund ihrer Einfachheit, Skalierbarkeit und Kompatibilit\u00e4t mit der bestehenden Web-Infrastruktur sind REST-basierte APIs zum Zeitpunkt der Verfassung dieses Dokuments die h\u00e4ufigste API-Architektur im Internet geworden. REST-basierte APIs sind nicht sofort in Erscheinung getreten, sondern haben einen langen Weg von der Forschung bis zur Einf\u00fchrung hinter sich.\n\n1994 begann Roy Fielding, einer der Hauptautoren der HTTP-Spezifikation, seine Arbeit an REST im Rahmen seiner Doktorarbeit an der University of California, Irvine. Im Jahr 2000 ver\u00f6ffentlichte er seine Dissertation, [Architectural Styles and the Design of Network-based Software Architectures](https://ics.uci.edu/~fielding/pubs/dissertation/top.htm), in der er REST als Architekturstil einf\u00fchrte und definierte. REST wurde entwickelt, um die vorhandenen Funktionen von HTTP zu nutzen, wobei Skalierbarkeit, zustandslose Interaktionen und eine einheitliche Schnittstelle im Vordergrund standen.\n\nIn den 2010er Jahren wurde REST zum De-facto-Standard f\u00fcr Web-APIs aufgrund seiner Einfachheit und Kompatibilit\u00e4t mit der zugrunde liegenden Architektur des Webs. Die weit verbreitete Nutzung von RESTful-APIs wurde durch das Wachstum von mobilen Anwendungen, Cloud Computing und Microservices-Architekturen vorangetrieben. Die Entwicklung von Tools und Frameworks wie Swagger/OpenAPI, RAML und API Blueprint erleichterte das Design, die Dokumentation und das Testen von REST-APIs.\n\nIn den 2020er Jahren entwickelten moderne Entwicklungen REST mit Technologien wie GraphQL weiter. Dar\u00fcber hinaus wurde die OpenAPI/Swagger-Spezifikation zu einem weithin akzeptierten Standard zur Beschreibung von REST-APIs, was eine bessere Integration und Automatisierung erm\u00f6glichte.\n\n### Uniform Resource Identifiers\n\nREST-APIs verwenden Uniform Resource Identifiers (URIs), um auf Ressourcen zuzugreifen. URIs sind ein entscheidendes Element einer REST-Architektur. Eine URI ist eine Zeichenfolge, die eine bestimmte Ressource eindeutig identifiziert. URIs werden im Internet ausgiebig genutzt, um Ressourcen wie Webseiten, Dateien und Dienste zu lokalisieren und mit ihnen zu interagieren.\n\nEine URI besteht aus mehreren Komponenten, die jeweils einem bestimmten Zweck dienen. Die in [RFC3986](https://tools.ietf.org/html/rfc3986) definierte allgemeine URI-Syntax lautet wie folgt:\n\n> `URI = scheme \"://\" authority \"/\" path [ \"?\" query ] [ \"#\" fragment ]`\n\nBei REST ist das **scheme** typischerweise `HTTP` oder `HTTPS`, gibt aber allgemein das Protokoll oder die Methode an, die zum Zugriff auf die Ressource verwendet wird. Andere g\u00e4ngige Schemata umfassen `ftp`, `mailto` und `file`.\n\nDie **authority** gibt den Dom\u00e4nennamen oder die IP-Adresse des Servers an, auf dem sich die Ressource befindet, und kann eine Portnummer enthalten. Sie kann auch userinfo als Unterkomponente beinhalten.\n\nDer **path** gibt den genauen Speicherort der Ressource auf dem Server an. Wir interessieren uns f\u00fcr den Pfad einer URI als Beziehung zwischen Benutzer und Ressourcen. Zum Beispiel k\u00f6nnte `https://api.example.com/admin/testing/report` einen Testbericht anzeigen. Es besteht eine Beziehung zwischen dem Benutzer admin und seinen Berichten.\n\nDer Pfad einer jeden URI definiert ein REST-API-Ressourcenmodell. Ressourcen werden durch einen Schr\u00e4gstrich getrennt und basieren auf einem Top-Down-Design.\n\nZum Beispiel:\n\n- `https://api.example.com/admin/testing/report`\n- `https://api.example.com/admin/testing/`\n- `https://api.example.com/admin/`\n\nDie **query** liefert zus\u00e4tzliche Parameter f\u00fcr die Ressource. Sie beginnt mit einem `?` und besteht aus Schl\u00fcssel-Wert-Paaren, die durch `&` getrennt sind.\n\nDas **fragment** zeigt auf einen bestimmten Teil der Ressource, wie z. B. einen Abschnitt innerhalb einer Webseite. Es beginnt mit einem `#`. Es ist erw\u00e4hnenswert, dass Fragmentbezeichner nur clientseitig verarbeitet und nicht an den Server gesendet werden.\n\n### HTTP-Methoden\n\nREST-APIs verwenden Standard-HTTP-Methoden, um Operationen an Ressourcen gem\u00e4\u00df den in [RFC7231](https://tools.ietf.org/html/rfc7231) definierten [HTTP Request Methods](https://tools.ietf.org/html/rfc7231#section-4) durchzuf\u00fchren. Diese Methoden lassen sich auf CRUD abbilden, die vier Grundfunktionen des persistenten Speichers in der Informatik. CRUD steht f\u00fcr Create (Erstellen), Read (Lesen), Update (Aktualisieren) und Delete (L\u00f6schen), was die vier Operationen sind, die mit Daten durchgef\u00fchrt werden k\u00f6nnen.\n\nHTTP-Anfragemethoden sind:\n\n| Methode | Beschreibung                                  |\n|---------|-----------------------------------------------|\n| GET     | Darstellung des Zustands einer Ressource abrufen |\n| POST    | Neue Ressource erstellen                      |\n| PUT     | Ressource aktualisieren                       |\n| DELETE  | Ressource entfernen                           |\n| HEAD    | Metadaten abrufen, die mit dem Zustand der Ressource verkn\u00fcpft sind |\n| OPTIONS | Verf\u00fcgbare Methoden auflisten                 |\n\n#### Header\n\nREST st\u00fctzt sich auf Header, um die \u00dcbermittlung zus\u00e4tzlicher Informationen innerhalb der Anfrage oder Antwort zu unterst\u00fctzen. Diese umfassen:\n\n- `Content-Type`: Gibt den Medientyp der Ressource an (z. B. `application/json`).\n- `Authorization`: Enth\u00e4lt Anmeldeinformationen f\u00fcr die Authentifizierung (z. B. Token).\n- `Accept`: Gibt die Medientypen an, die f\u00fcr die Antwort akzeptabel sind.\n\n#### Statuscodes\n\nAnwendungs-APIs, die den REST-Prinzipien entsprechen, verwenden den Antwort-Statuscode einer HTTP-Antwortnachricht, um den Client \u00fcber das Ergebnis seiner Anfrage zu informieren.\n\n| Antwortcode | Antwortnachricht      | Beschreibung  |\n|---------------|-----------------------|--------------------------------------------------------------------------------------------------------|\n| 200           | OK                    | Erfolg bei der Verarbeitung der Client-Anfrage                                                         |\n| 201           | Created               | Neue Ressource erstellt                                                                                |\n| 301           | Moved Permanently     | Dauerhafte Weiterleitung                                                                               |\n| 304           | Not Modified          | Caching-bezogene Antwort, die zur\u00fcckgegeben wird, wenn der Client \u00fcber die gleiche Kopie der Ressource verf\u00fcgt wie der Server |\n| 307           | Temporary Redirect    | Tempor\u00e4re Weiterleitung der Ressource                                                                  |\n| 400           | Bad Request           | Fehlerhafte Anfrage des Clients                                                                        |\n| 401           | Unauthorized          | Client ist nicht berechtigt, Anfragen zu stellen oder auf eine bestimmte Ressource zuzugreifen         |\n| 403           | Forbidden             | Dem Client ist der Zugriff auf die Ressource verboten                                                  |\n| 404           | Not Found             | Ressource existiert nicht oder ist basierend auf der Anfrage falsch                                    |\n| 405           | Method Not Allowed    | Ung\u00fcltige oder unbekannte Methode verwendet                                                            |\n| 500           | Internal Server Error | Server konnte die Anfrage aufgrund eines internen Fehlers nicht verarbeiten                            |\n\n## Referenzen\n\n1. [OWASP REST Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html)\n2. [OWASP REST Assessment Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/REST_Assessment_Cheat_Sheet.html)\n3. [OWASP API Security Project](https://owasp.org/www-project-api-security/)\n4. [OWASP API Security Tools](https://owasp.org/www-community/api_security_tools)"
+        "reporting_hints_de": "Dokumentieren Sie den betroffenen Endpunkt, die genauen verwendeten Nutzlasten/Parameter, die gesch\u00e4ftlichen Auswirkungen und stellen Sie klare Schritte zur Reproduktion bereit."
     },
     {
         "id": "INFO-Business-Logic-Testing",
@@ -41,16 +40,14 @@ const wstgData = [
         "reporting_hints": "Document the affected endpoint, the exact payload/parameters used, the business impact, and provide clear steps to reproduce.",
         "sysreptor_finding": "INFO-Business-Logic-Testing: Introduction to Business Logic",
         "sysreptor_templates": [],
-        "title_de": "Einführung in die Geschäftslogik",
-        "category_de": "Testen der Geschäftslogik",
+        "title_de": "Einf\u00fchrung in die Gesch\u00e4ftslogik",
+        "category_de": "Testen der Gesch\u00e4ftslogik",
         "goal_de": "Kein Ziel definiert.",
-        "relevance_de": "Keine Beschreibung verfügbar.",
+        "relevance_de": "Keine Beschreibung verf\u00fcgbar.",
         "full_summary_de": "Keine Zusammenfassung bereitgestellt.",
         "methodology_de": "Keine Methodik definiert.",
-        "expected_evidence_de": "Ein funktionierender Proof of Concept (PoC), der die Schwachstelle demonstriert. Dazu sollten die genauen HTTP-Anfragen/Antworten, Screenshots oder Schritt-für-Schritt-Anleitungen gehören, die belegen, dass die Testziele erreicht werden können.",
-        "reporting_hints_de": "Dokumentieren Sie den betroffenen Endpunkt, die genauen verwendeten Nutzlasten/Parameter, die geschäftlichen Auswirkungen und stellen Sie klare Schritte zur Reproduktion bereit.",
-        "tools_de": "Zwar gibt es Tools, um zu testen und zu verifizieren, dass Geschäftsprozesse in gültigen Situationen korrekt funktionieren, doch sind diese Tools nicht in der Lage, logische Schwachstellen zu erkennen. Beispielsweise haben Tools keine Möglichkeit zu erkennen, ob ein Benutzer den Geschäftsprozessfluss durch das Bearbeiten von Parametern, das Vorhersagen von Ressourcennamen oder die Ausweitung von Privilegien für den Zugriff auf eingeschränkte Ressourcen umgehen kann; ebenso verfügen sie über keinen Mechanismus, der den menschlichen Testern hilft, einen solchen Zustand zu vermuten.\n\nDie folgenden sind einige gängige Tool-Typen, die nützlich sein können, um Geschäftslogikprobleme zu identifizieren.\n\nBei der Installation von Add-ons sollten Sie immer sorgfältig die angeforderten Berechtigungen und Ihre Nutzungsgewohnheiten im Browser berücksichtigen.",
-        "full_text_de": "Das Testen auf Fehler in der Geschäftslogik in einer multifunktionalen, dynamischen Webanwendung erfordert das Denken in unkonventionellen Methoden. Wenn der Authentifizierungsmechanismus einer Anwendung in der Absicht entwickelt wurde, die Schritte 1, 2 und 3 genau in dieser Reihenfolge auszuführen, um einen Benutzer zu authentifizieren – was passiert dann, wenn der Benutzer von Schritt 1 direkt zu Schritt 3 springt? Gewährt die Anwendung in diesem vereinfachten Beispiel Zugriff, indem sie fehlschlägt (Fail Open), verweigert sie den Zugriff oder bricht sie einfach mit einer 500-Fehlermeldung ab?\n\nEs lassen sich viele Beispiele anführen, aber die ständige Lektion lautet: „Denken Sie außerhalb konventioneller Weisheiten“. Diese Art von Schwachstelle kann nicht von einem Schwachstellenscanner erkannt werden und beruht auf den Fähigkeiten und der Kreativität des Penetrationstesters. Darüber hinaus ist diese Art von Schwachstelle in der Regel eine der am schwersten zu erkennenden und meist anwendungsspezifisch, gleichzeitig jedoch eine der schädlichsten für die Anwendung, falls sie ausgenutzt wird.\n\nDie Klassifizierung von Fehlern in der Geschäftslogik ist bisher wenig erforscht; obwohl die Ausnutzung von Geschäftslogikfehlern in realen Systemen häufig vorkommt und viele Forscher für angewandte Schwachstellen diese untersuchen. Der größte Fokus liegt auf Webanwendungen. In der Community wird debattiert, ob diese Probleme besonders neue Konzepte darstellen oder ob sie Variationen bekannter Prinzipien sind.\n\nDas Testen von Fehlern in der Geschäftslogik ähnelt den Testarten, die von funktionalen Testern verwendet werden und sich auf das Testen von Logik oder endlichen Automaten (Finite State Testing) konzentrieren. Diese Testarten erfordern, dass Sicherheitsexperten ein wenig anders denken, Missbrauchs- und Fehlgebrauchsfälle entwickeln und viele der Testtechniken anwenden, die auch von funktionalen Testern genutzt werden. Die Automatisierung von Geschäftslogik-Missbrauchsfällen ist nicht möglich und bleibt eine manuelle Kunst, die von den Fähigkeiten des Testers und seinem Wissen über den vollständigen Geschäftsprozess und dessen Regeln abhängt.\n\n## Geschäftliche Grenzen und Einschränkungen\n\nBetrachten Sie die Regeln für die Geschäftsfunktion, die von der Anwendung bereitgestellt wird. Gibt es Grenzen oder Einschränkungen für das Verhalten von Personen? Überlegen Sie dann, ob die Anwendung diese Regeln durchsetzt. Es ist im Allgemeinen recht einfach, die Test- und Analysefälle zur Überprüfung der Anwendung zu identifizieren, wenn man mit dem Geschäft vertraut ist. Wenn Sie ein externer Tester sind, müssen Sie Ihren gesunden Menschenverstand nutzen oder das Unternehmen fragen, ob verschiedene Operationen von der Anwendung zugelassen werden sollten.\n\nBei sehr komplexen Anwendungen wird der Tester zu Beginn manchmal nicht jedes Detail der Anwendung vollständig verstehen. In diesen Situationen ist es am besten, wenn der Kunde den Tester durch die Anwendung führt, damit dieser vor dem eigentlichen Test ein besseres Verständnis für die Grenzen und die beabsichtigte Funktionalität der Anwendung erlangt. Darüber hinaus wird ein direkter Kontakt zu den Entwicklern (falls möglich) während des Testens sehr hilfreich sein, falls Fragen zur Funktionalität der Anwendung auftreten.\n\n## Herausforderungen beim Testen der Logik\n\nAutomatisierte Tools tun sich schwer damit, den Kontext zu verstehen, daher liegt es an einer Person, diese Art von Tests durchzuführen. Die folgenden zwei Beispiele verdeutlichen, wie das Verständnis der Funktionalität der Anwendung, der Absichten des Entwicklers und etwas kreatives „Out-of-the-Box“-Denken die Logik der Anwendung aushebeln können. Das erste Beispiel beginnt mit einer vereinfachten Parametermanipulation, während das zweite ein reales Beispiel eines mehrstufigen Prozesses ist, der zur vollständigen Unterwanderung der Anwendung führt.\n\n**Beispiel 1**:\n\nAngenommen, eine E-Commerce-Seite ermöglicht es Benutzern, Artikel für den Kauf auszuwählen, eine Zusammenfassungsseite anzuzeigen und dann den Verkauf abzuwickeln. Was wäre, wenn ein Angreifer in der Lage wäre, zur Zusammenfassungsseite zurückzukehren, seine gültige Sitzung beizubehalten, einen niedrigeren Preis für einen Artikel einzuschleusen, die Transaktion abzuschließen und dann auszuchecken?\n\n**Beispiel 2**:\n\nDas Reservieren/Sperren von Ressourcen, um andere davon abzuhalten, diese Artikel online zu kaufen, kann dazu führen, dass Angreifer Artikel zu einem niedrigeren Preis erwerben. Die Gegenmaßnahme zu diesem Problem besteht in der Implementierung von Timeouts und Mechanismen, die sicherstellen, dass nur der korrekte Preis berechnet werden kann.\n\n**Beispiel 3**:\n\nWas wäre, wenn ein Benutzer in der Lage wäre, eine mit seinem Club-/Treuekonto verknüpfte Transaktion zu starten und nach dem Hinzufügen von Punkten auf sein Konto die Transaktion abzubrechen? Werden die Punkte/Gutschriften weiterhin seinem Konto angerechnet?\n\n## Werkzeuge\n\nZwar gibt es Tools, um zu testen und zu verifizieren, dass Geschäftsprozesse in gültigen Situationen korrekt funktionieren, doch sind diese Tools nicht in der Lage, logische Schwachstellen zu erkennen. Beispielsweise haben Tools keine Möglichkeit zu erkennen, ob ein Benutzer den Geschäftsprozessfluss durch das Bearbeiten von Parametern, das Vorhersagen von Ressourcennamen oder die Ausweitung von Privilegien für den Zugriff auf eingeschränkte Ressourcen umgehen kann; ebenso verfügen sie über keinen Mechanismus, der den menschlichen Testern hilft, einen solchen Zustand zu vermuten.\n\nDie folgenden sind einige gängige Tool-Typen, die nützlich sein können, um Geschäftslogikprobleme zu identifizieren.\n\nBei der Installation von Add-ons sollten Sie immer sorgfältig die angeforderten Berechtigungen und Ihre Nutzungsgewohnheiten im Browser berücksichtigen.\n\n### Intercepting Proxy\n\nZum Beobachten der Anfrage- und Antwortblöcke des HTTP-Verkehrs\n\n- [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)\n- [Burp Proxy](https://portswigger.net/burp)\n\n### Webbrowser-Plug-ins\n\nZum Anzeigen und Ändern von HTTP/HTTPS-Headern, POST-Parametern und zur Beobachtung des DOM des Browsers\n\n- [Tamper Data for FF Quantum](https://addons.mozilla.org/en-US/firefox/addon/temper-data-for-ff-quantum)\n- [Tamper Chrome (für Google Chrome)](https://chrome.google.com/webstore/detail/tamper-chrome-extension/hifhgpdkfodlpnlmlnmhchnkepplebkb)\n\n## Diverse Testwerkzeuge\n\n- [Web Developer toolbar](https://chrome.google.com/webstore/detail/bfbameneiokkgbdmiekhjnmfkcnldhhm)\n    - Die Web Developer Extension fügt dem Browser eine Symbolleistenschaltfläche mit verschiedenen Webentwickler-Tools hinzu. Dies ist die offizielle Portierung der Web Developer Extension für Firefox.\n- [HTTP Request Maker for Chrome](https://chrome.google.com/webstore/detail/kajfghlhfkcocafkcjlajldicbikpgnp)\n- [HTTP Request Maker for Firefox](https://addons.mozilla.org/en-US/firefox/addon/http-request-maker)\n    - Request Maker ist ein Tool für Penetrationstests. Damit können Sie auf einfache Weise von Webseiten getätigte Anfragen erfassen, die URL, Header und POST-Daten verändern und natürlich neue Anfragen stellen.\n- [Cookie Editor for Chrome](https://chrome.google.com/webstore/detail/fngmhnnpilhplaeedifhccceomclgfbg)\n- [Cookie Editor for Firefox](https://addons.mozilla.org/en-US/firefox/addon/cookie-editor)\n    - Cookie Editor ist ein Cookie-Manager. Sie können Cookies hinzufügen, löschen, bearbeiten, suchen, schützen und blockieren.\n\n## Referenzen\n\n### Whitepapers\n\n- [The Common Misuse Scoring System (CMSS): Metrics for Software Feature Misuse Vulnerabilities - NISTIR 7864](https://csrc.nist.gov/publications/detail/nistir/7864/final)\n- [Finite State testing of Graphical User Interfaces, Fevzi Belli](https://pdfs.semanticscholar.org/b57c/6c8022abfd2cb17ec785d3622027b3edfaaf.pdf)\n- [Principles and Methods of Testing Finite State Testing Machines - A Survey, David Lee, Mihalis Yannakakis](https://ieeexplore.ieee.org/document/533956)\n- [Security Issues in Online Games, Jianxin Jeff Yan and Hyun-Jin Choi](https://www.researchgate.net/publication/220677013_Security_issues_in_online_games)\n- [Securing Virtual Worlds Against Real Attack, Dr. Igor Muttik, McAfee](https://www.info-point-security.com/open_downloads/2008/McAfee_wp_online_gaming_0808.pdf)\n- [Seven Business Logic Flaws That Put Your Website At Risk – Jeremiah Grossman Founder and CTO, WhiteHat Security](https://www.slideshare.net/jeremiahgrossman/seven-business-logic-flaws-that-put-your-website-at-risk-harvard-07062008)\n- [Toward Automated Detection of Logic Vulnerabilities in Web Applications - Viktoria Felmetsger Ludovico Cavedon Christopher Kruegel Giovanni Vigna](https://www.usenix.org/legacy/event/sec10/tech/full_papers/Felmetsger.pdf)\n\n### OWASP-bezogen\n\n- [How to Prevent Business Flaws Vulnerabilities in Web Applications, Marco Morana](https://www.slideshare.net/slideshow/issa-louisville-2010morana/5391600)\n\n### Nützliche Websites\n\n- [Business logic](https://en.wikipedia.org/wiki/Business_logic)\n- [Business Logic Flaws and Yahoo Games](https://blog.jeremiahgrossman.com/2006/12/business-logic-flaws.html)\n- [CWE-840: Business Logic Errors](https://cwe.mitre.org/data/definitions/840.html)\n- [Defying Logic: Theory, Design, and Implementation of Complex Systems for Testing Application Logic](https://pdfs.semanticscholar.org/d14a/18f08f6488f903f2f691a1d159e95d8ee04f.pdf)\n\n### Bücher\n\n- [The Decision Model: A Business Logic Framework Linking Business and Technology, By Barbara Von Halle, Larry Goldberg, Published by CRC Press, ISBN1420082817 (2010)](https://isbnsearch.org/isbn/1420082817)"
+        "expected_evidence_de": "Ein funktionierender Proof of Concept (PoC), der die Schwachstelle demonstriert. Dazu sollten die genauen HTTP-Anfragen/Antworten, Screenshots oder Schritt-f\u00fcr-Schritt-Anleitungen geh\u00f6ren, die belegen, dass die Testziele erreicht werden k\u00f6nnen.",
+        "reporting_hints_de": "Dokumentieren Sie den betroffenen Endpunkt, die genauen verwendeten Nutzlasten/Parameter, die gesch\u00e4ftlichen Auswirkungen und stellen Sie klare Schritte zur Reproduktion bereit."
     },
     {
         "id": "WSTG-APIT-01",
@@ -69,13 +66,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-APIT-01: API Reconnaissance",
         "sysreptor_templates": [
             {
-                "id": "apit_recon_documentation",
+                "id": "WSTG-APIT-01-1",
                 "title_en": "API Documentation / Endpoints Exposed",
                 "title_de": "API-Dokumentation / Endpunkte exponiert",
                 "description_en": "The API exposes swagger.json, /api-docs, or old API versions (v1) that reveal extensive details about the API structure and parameters.",
                 "description_de": "Die API gibt swagger.json, /api-docs oder alte API-Versionen (v1) preis, die umfangreiche Details \u00fcber die Struktur und Parameter der API verraten.",
                 "consequences_en": "Provides attackers with a comprehensive blueprint of the API, vastly accelerating the discovery of BOLA, BFLA, and Mass Assignment vulnerabilities.",
-                "consequences_de": "Liefert Angreifern eine umfassende Blaupause der API, was die Entdeckung von BOLA-, BFLA- und Mass-Assignment-Schwachstellen erheblich beschleunigt."
+                "consequences_de": "Liefert Angreifern eine umfassende Blaupause der API, was die Entdeckung von BOLA-, BFLA- und Mass-Assignment-Schwachstellen erheblich beschleunigt.",
+                "sysreptor_id": "cb2b06a1-a0a0-47ec-a16b-4ea1906afe5e"
             }
         ],
         "title_de": "API-Informationsbeschaffung (Reconnaissance)",
@@ -104,13 +102,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-APIT-02: API Broken Object Level Authorization",
         "sysreptor_templates": [
             {
-                "id": "apit_bola",
+                "id": "WSTG-APIT-02-1",
                 "title_en": "Broken Object Level Authorization (BOLA)",
                 "title_de": "Broken Object Level Authorization (BOLA / IDOR)",
                 "description_en": "The API does not enforce strict ownership validation when accessing objects via identifiers (e.g., /api/users/123).",
                 "description_de": "Die API erzwingt keine strenge Eigentumspr\u00fcfung, wenn \u00fcber Kennungen (z. B. /api/users/123) auf Objekte zugegriffen wird.",
                 "consequences_en": "Attackers can trivially manipulate the ID in the request to read, modify, or delete sensitive objects belonging to other users.",
-                "consequences_de": "Angreifer k\u00f6nnen die ID in der Anfrage trivial manipulieren, um sensible Objekte anderer Benutzer zu lesen, zu \u00e4ndern oder zu l\u00f6schen."
+                "consequences_de": "Angreifer k\u00f6nnen die ID in der Anfrage trivial manipulieren, um sensible Objekte anderer Benutzer zu lesen, zu \u00e4ndern oder zu l\u00f6schen.",
+                "sysreptor_id": "d9b69440-08f6-41d9-acf8-ef830d559093"
             }
         ],
         "title_de": "Fehlerhafte Autorisierung auf API-Objektebene (Broken Object Level Authorization / BOLA)",
@@ -139,13 +138,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-APIT-03: Testing for Excessive Data Exposure",
         "sysreptor_templates": [
             {
-                "id": "apit_excessive_data",
+                "id": "WSTG-APIT-03-1",
                 "title_en": "Excessive Data Exposure",
                 "title_de": "Excessive Data Exposure (\u00dcberm\u00e4\u00dfige Datenoffenlegung)",
                 "description_en": "The API endpoint returns entire database models (including fields like password hashes, SSNs, internal IDs) and relies on the client-side UI to filter out the sensitive data.",
                 "description_de": "Der API-Endpunkt gibt vollst\u00e4ndige Datenbankmodelle (einschlie\u00dflich Felder wie Passwort-Hashes, SSNs, interne IDs) zur\u00fcck und verl\u00e4sst sich darauf, dass die clientseitige UI die sensiblen Daten herausfiltert.",
                 "consequences_en": "Anyone intercepting the raw API traffic immediately gains access to highly confidential user or system data that was never meant to be exposed.",
-                "consequences_de": "Jeder, der den rohen API-Verkehr abf\u00e4ngt, erh\u00e4lt sofort Zugriff auf streng vertrauliche Benutzer- oder Systemdaten, die niemals offengelegt werden sollten."
+                "consequences_de": "Jeder, der den rohen API-Verkehr abf\u00e4ngt, erh\u00e4lt sofort Zugriff auf streng vertrauliche Benutzer- oder Systemdaten, die niemals offengelegt werden sollten.",
+                "sysreptor_id": "915a1654-1293-4a38-86df-915ed619e4cc"
             }
         ],
         "title_de": "Pr\u00fcfung auf \u00fcberm\u00e4\u00dfige Datenpreisgabe (Excessive Data Exposure)",
@@ -174,13 +174,23 @@ const wstgData = [
         "sysreptor_finding": "WSTG-APIT-04: API Broken Function Level Authorization",
         "sysreptor_templates": [
             {
-                "id": "apit_bfla",
+                "id": "WSTG-APIT-04-1",
                 "title_en": "Broken Function Level Authorization (BFLA)",
                 "title_de": "Broken Function Level Authorization (BFLA)",
                 "description_en": "The API fails to consistently verify user roles before granting access to sensitive or administrative functional endpoints (e.g., /api/admin/deleteUser).",
                 "description_de": "Die API vers\u00e4umt es, Benutzerrollen konsistent zu \u00fcberpr\u00fcfen, bevor sie Zugriff auf sensible oder administrative funktionale Endpunkte (z. B. /api/admin/deleteUser) gew\u00e4hrt.",
                 "consequences_en": "Low-privileged users or unauthenticated attackers can invoke critical administrative functions, leading to massive privilege escalation.",
-                "consequences_de": "Benutzer mit geringen Rechten oder unauthentifizierte Angreifer k\u00f6nnen kritische administrative Funktionen aufrufen, was zu massiver Privilegieneskalation f\u00fchrt."
+                "consequences_de": "Benutzer mit geringen Rechten oder unauthentifizierte Angreifer k\u00f6nnen kritische administrative Funktionen aufrufen, was zu massiver Privilegieneskalation f\u00fchrt.",
+                "sysreptor_id": "6dda8065-776f-4fc9-a7bf-78bf73232d29"
+            },
+            {
+                "id": "WSTG-APIT-04-2",
+                "title_en": "Missing API Authorization",
+                "title_de": "Fehlende API-Autorisierung",
+                "description_en": "API endpoints verify authentication but fail to enforce access controls (roles/ownership) on execution.",
+                "description_de": "API-Endpunkte verifizieren die Authentifizierung, erzwingen jedoch keine Zugriffskontrollen (Rollen/Besitz) bei der Ausf\u00fchrung.",
+                "consequences_en": "Can lead to horizontal or vertical privilege escalation.",
+                "consequences_de": "Kann zu horizontaler oder vertikaler Privilege Escalation f\u00fchren."
             }
         ],
         "title_de": "Fehlerhafte Autorisierung auf API-Funktionsebene (Broken Function Level Authorization)",
@@ -191,6 +201,42 @@ const wstgData = [
         "methodology_de": "Keine Methodik definiert.",
         "expected_evidence_de": "Ein funktionierender Proof of Concept (PoC), der die Schwachstelle demonstriert.",
         "reporting_hints_de": "Dokumentieren Sie den betroffenen Endpunkt, den Payload und die Reproduktionsschritte."
+    },
+    {
+        "id": "WSTG-APIT-05",
+        "is_info": false,
+        "title": "Testing API Authentication",
+        "category": "API Testing",
+        "category_index": 12,
+        "goal": "- Identify all API endpoints and their respective authentication mechanisms.\n- Test whether API endpoints can be accessed without valid authentication.\n- Verify the integrity, confidentiality, and security of the tokens and API keys in use.",
+        "relevance": "Authentication mechanisms protect the API endpoints. This module verifies that access is properly restricted to authenticated users.",
+        "full_summary": "APIs (Application Programming Interfaces) form the backbone of many modern web and mobile applications. Because APIs often provide direct access to sensitive data and core business logic, robust authentication is essential. Vulnerabilities in API authentication (such as insecure API keys, flawed JSON Web Token (JWT) implementations, or entirely unprotected endpoints) can allow attackers to take over accounts, steal data, or compromise the entire system.",
+        "full_text": "",
+        "methodology": "### Missing Authentication\n\nLook for API endpoints that should normally require authentication but still return a successful response even without or with invalid credentials.\n\n1. Intercept the API traffic (e.g., using Burp Suite or OWASP ZAP).\n2. Remove authentication headers (like `Authorization`) or session cookies from the request.\n3. Resend the request. Check if the API still executes the action (e.g., returns a `200 OK` status code) or leaks sensitive data.\n\n### API Key Exposure and Predictability\n\nAPI keys are often used to authenticate clients.\n\n- **Hardcoding:** Check if API keys are hardcoded in the source code (e.g., in JavaScript files, mobile apps, or public GitHub repositories).\n- **Structure:** Analyze the structure of the keys. Are they predictable, easily guessable, or generated sequentially?\n- **Transmission:** Check if the API keys are passed as URL parameters (e.g., `GET /api/data?apikey=123`). This is insecure because URLs are logged in web server logs, proxies, and browser histories. Keys should always be transmitted via HTTP headers.\n\n### JWT (JSON Web Token) Vulnerabilities\n\nIf the API uses JWTs, test for common implementation flaws:\n\n- **\"None\" Algorithm:** Change the `alg` header in the JWT to `none`, completely remove the signature, and send the token to the API.\n- **Weak Secret (Brute Force):** Attempt to crack the secret used to sign the token offline using brute-force tools.\n- **Algorithm Confusion:** If the API expects asymmetric encryption (like `RS256`), change the algorithm to symmetric (`HS256`) and sign the token using the application's public key.",
+        "tools": "- Burp Suite\n- OWASP ZAP",
+        "expected_evidence": "API response demonstrating access without credentials or weak auth bypass.",
+        "reporting_hints": "Enforce authentication on all endpoints.",
+        "sysreptor_finding": "WSTG-APIT-05: Testing API Authentication",
+        "sysreptor_templates": [
+            {
+                "id": "WSTG-APIT-05-1",
+                "title_en": "Missing API Authentication",
+                "title_de": "Fehlende API-Authentifizierung",
+                "description_en": "API endpoints containing sensitive logic or data do not require authentication credentials.",
+                "description_de": "API-Endpunkte, die sensible Logik oder Daten enthalten, erfordern keine Authentifizierungs-Anmeldedaten.",
+                "consequences_en": "Allows anonymous users to fetch records or execute business logic on API components.",
+                "consequences_de": "Erm\u00f6glicht es anonymen Benutzern, Datens\u00e4tze abzurufen oder Gesch\u00e4ftslogik auf API-Komponenten auszuf\u00fchren."
+            }
+        ],
+        "title_de": "Pr\u00fcfung der API-Authentifizierung",
+        "category_de": "API-Tests",
+        "goal_de": "- Identifikation aller API-Endpunkte und der verwendeten Authentifizierungsmechanismen.\n- Testen, ob API-Endpunkte auch ohne g\u00fcltige Authentifizierung aufgerufen werden k\u00f6nnen.\n- \u00dcberpr\u00fcfen der Integrit\u00e4t, Vertraulichkeit und Sicherheit der verwendeten Tokens und API-Schl\u00fcssel.",
+        "relevance_de": "APIs (Application Programming Interfaces) bilden das R\u00fcckgrat vieler moderner Web- und Mobile-Anwendungen. Da APIs oft direkten Zugriff auf sensible Daten und Kernfunktionen der Gesch\u00e4ftslogik bieten, ist eine robuste Authentifizierung unerl\u00e4sslich.",
+        "full_summary_de": "APIs (Application Programming Interfaces) bilden das R\u00fcckgrat vieler moderner Web- und Mobile-Anwendungen. Da APIs oft direkten Zugriff auf sensible Daten und Kernfunktionen der Gesch\u00e4ftslogik bieten, ist eine robuste Authentifizierung unerl\u00e4sslich. Schwachstellen in der API-Authentifizierung (wie z. B. unsichere API-Schl\u00fcssel, fehlerhafte Implementierungen von JSON Web Tokens (JWT) oder g\u00e4nzlich ungesch\u00fctzte Endpunkte) k\u00f6nnen es Angreifern erm\u00f6glichen, fremde Konten zu \u00fcbernehmen, Daten zu stehlen oder das gesamte System zu kompromittieren.",
+        "methodology_de": "### Missing Authentication\n\nSuchen Sie nach API-Endpunkten, die normalerweise eine Authentifizierung erfordern sollten, aber auch ohne oder mit ung\u00fcltigen Anmeldeinformationen eine erfolgreiche Antwort liefern.\n\n1. Erfassen Sie den API-Verkehr (z. B. mit Burp Suite oder OWASP ZAP).\n2. Entfernen Sie Authentifizierungs-Header (wie `Authorization`) oder Session-Cookies aus der Anfrage.\n3. Senden Sie die Anfrage erneut. Pr\u00fcfen Sie, ob die API die Aktion dennoch ausf\u00fchrt (z. B. Statuscode `200 OK`) oder sensible Daten zur\u00fcckgibt.\n\n### API Key Exposure and Predictability\n\nAPI-Schl\u00fcssel werden oft zur Authentifizierung von Clients verwendet.\n\n- **Hardcoding:** Pr\u00fcfen Sie, ob API-Schl\u00fcssel im Quellcode (z. B. in JavaScript-Dateien, Mobile-Apps oder GitHub-Repositories) hartkodiert sind.\n- **Struktur:** Analysieren Sie die Struktur der Schl\u00fcssel. Sind diese vorhersehbar, leicht zu erraten oder sequenziell aufgebaut?\n- **\u00dcbertragung:** Pr\u00fcfen Sie, ob die API-Schl\u00fcssel als URL-Parameter \u00fcbergeben werden (z. B. `GET /api/data?apikey=123`). Dies ist unsicher, da URLs in Webserver-Logs, Proxys und der Browser-Historie gespeichert werden. Schl\u00fcssel sollten immer in HTTP-Headern \u00fcbertragen werden.\n\n### JWT (JSON Web Token) Vulnerabilities\n\nWenn die API JWTs verwendet, testen Sie auf g\u00e4ngige Implementierungsfehler:\n\n- **\"None\" Algorithm:** \u00c4ndern Sie den `alg`-Header im JWT zu `none`, entfernen Sie die Signatur komplett und senden Sie das Token an die API.\n- **Weak Secret (Brute Force):** Versuchen Sie, das Geheimnis (Secret), mit dem das Token signiert wurde, mithilfe von Tools offline zu knacken.\n- **Algorithm Confusion:** Wenn die API asymmetrische Verschl\u00fcsselung (wie `RS256`) erwartet, \u00e4ndern Sie den Algorithmus auf symmetrisch (`HS256`) und signieren Sie das Token mit dem \u00f6ffentlichen Schl\u00fcssel der Anwendung.",
+        "tools_de": "- Burp Suite / OWASP ZAP\n- Postman\n- JWT_Tool / Hashcat",
+        "expected_evidence_de": "API-Antwort mit erfolgreichem Zugriff ohne Anmeldedaten.",
+        "reporting_hints_de": "Erzwingen Sie Authentifizierung an allen Endpunkten."
     },
     {
         "id": "WSTG-APIT-99",
@@ -209,16 +255,17 @@ const wstgData = [
         "sysreptor_finding": "WSTG-APIT-99: Testing GraphQL",
         "sysreptor_templates": [
             {
-                "id": "apit_graphql_introspection",
+                "id": "WSTG-APIT-99-1",
                 "title_en": "GraphQL Introspection Enabled",
                 "title_de": "GraphQL Introspection aktiviert",
                 "description_en": "The GraphQL endpoint allows the __schema introspection query in a production environment, or leaks schema details via 'Did you mean?' error suggestions.",
                 "description_de": "Der GraphQL-Endpunkt erlaubt die __schema Introspection-Abfrage in einer Produktionsumgebung oder gibt Schema-Details \u00fcber 'Meinten Sie?'-Fehlervorschl\u00e4ge preis.",
                 "consequences_en": "Attackers can dump the entire data schema (Types, Queries, Mutations), revealing hidden endpoints and backend structure.",
-                "consequences_de": "Angreifer k\u00f6nnen das gesamte Datenschema (Types, Queries, Mutations) ausgeben und so versteckte Endpunkte und die Backend-Struktur aufdecken."
+                "consequences_de": "Angreifer k\u00f6nnen das gesamte Datenschema (Types, Queries, Mutations) ausgeben und so versteckte Endpunkte und die Backend-Struktur aufdecken.",
+                "sysreptor_id": "aa6cf95e-5231-4cb4-b09b-fc44ab2994a6"
             },
             {
-                "id": "apit_graphql_dos",
+                "id": "WSTG-APIT-99-2",
                 "title_en": "GraphQL Denial of Service (Deep Nested Queries)",
                 "title_de": "GraphQL Denial of Service (Tief verschachtelte Abfragen)",
                 "description_en": "The GraphQL implementation does not limit query depth or complexity, allowing attackers to request recursively nested objects.",
@@ -227,13 +274,22 @@ const wstgData = [
                 "consequences_de": "Eine einzige b\u00f6sartige Abfrage kann die CPU- und Speicherressourcen im Backend ersch\u00f6pfen und so einen vollst\u00e4ndigen Denial of Service verursachen."
             },
             {
-                "id": "apit_graphql_batching",
+                "id": "WSTG-APIT-99-3",
                 "title_en": "GraphQL Batching Attack",
                 "title_de": "GraphQL Batching-Angriff",
                 "description_en": "The GraphQL endpoint permits batching multiple requests (via arrays or aliases) into a single HTTP request without strict rate-limiting.",
                 "description_de": "Der GraphQL-Endpunkt erlaubt das B\u00fcndeln mehrerer Anfragen (\u00fcber Arrays oder Aliase) in einer einzigen HTTP-Anfrage ohne strenge Ratenbegrenzung.",
                 "consequences_en": "Attackers can bypass external WAF or rate-limiting controls to brute-force OTPs, enumerate user data, or conduct massive credential stuffing rapidly.",
                 "consequences_de": "Angreifer k\u00f6nnen externe WAF- oder Ratenbegrenzungskontrollen umgehen, um OTPs per Brute-Force zu knacken, Benutzerdaten zu enumerieren oder schnell massives Credential Stuffing durchzuf\u00fchren."
+            },
+            {
+                "id": "WSTG-APIT-99-4",
+                "title_en": "GraphQL Authorization Bypass",
+                "title_de": "Umgehung der GraphQL-Autorisierung",
+                "description_en": "GraphQL query execution lacks proper role/field authorization verification in resolvers.",
+                "description_de": "Der GraphQL-Abfrageausf\u00fchrung fehlt die ordnungsgem\u00e4\u00dfe Autorisierungspr\u00fcfung auf Rollen-/Feldebene in den Resolvern.",
+                "consequences_en": "Allows unauthorized users to fetch or mutate sensitive properties through GraphQL schema queries.",
+                "consequences_de": "Erm\u00f6glicht es unbefugten Benutzern, sensible Eigenschaften \u00fcber GraphQL-Schema-Abfragen abzurufen oder zu ver\u00e4ndern."
             }
         ],
         "title_de": "Pr\u00fcfung von GraphQL",
@@ -244,6 +300,229 @@ const wstgData = [
         "methodology_de": "Das Testen von GraphQL-Knoten unterscheidet sich nicht wesentlich vom Testen anderer API-Technologien. Betrachten Sie die folgenden Schritte:\n\n### Introspektion-Abfragen\n\nIntrospektionsabfragen sind die Methode, mit der GraphQL Sie fragen l\u00e4sst, welche Abfragen unterst\u00fctzt werden, welche Datentypen verf\u00fcgbar sind und viele weitere Details, die Sie ben\u00f6tigen, wenn Sie sich einem Test einer GraphQL-Bereitstellung n\u00e4hern.\n\nDie [GraphQL-Website beschreibt Introspection](https://graphql.org/learn/introspection/):\n\n> \u201eEs ist oft n\u00fctzlich, ein GraphQL-Schema nach Informationen dar\u00fcber zu fragen, welche Abfragen es unterst\u00fctzt. GraphQL erm\u00f6glicht uns dies mithilfe des Introspektionssystems!\u201c\n\nEs gibt verschiedene M\u00f6glichkeiten, diese Informationen zu extrahieren und die Ausgabe zu visualisieren:\n\n#### Verwenden der nativen GraphQL-Introspektion\n\nDer einfachste Weg besteht darin, eine HTTP-Anfrage (unter Verwendung eines pers\u00f6nlichen Proxys) mit der folgenden Nutzlast zu senden, die einem Artikel auf [Medium](https://medium.com/@the.bilal.rizwan/graphql-common-vulnerabilities-how-to-exploit-them-464f9fdce696) entnommen ist:\n\n ```graphql\nquery IntrospectionQuery {\n  __schema {\n    queryType {\n      name\n    }\n    mutationType {\n      name\n    }\n    subscriptionType {\n      name\n    }\n    types {\n      ...FullType\n    }\n    directives {\n      name\n      description\n      locations\n      args {\n        ...InputValue\n      }\n    }\n  }\n}\nfragment FullType on __Type {\n  kind\n  name\n  description\n  fields(includeDeprecated: true) {\n    name\n    description\n    args {\n      ...InputValue\n    }\n    type {\n      ...TypeRef\n    }\n    isDeprecated\n    deprecationReason\n  }\n  inputFields {\n    ...InputValue\n  }\n  interfaces {\n    ...TypeRef\n  }\n  enumValues(includeDeprecated: true) {\n    name\n    description\n    isDeprecated\n    deprecationReason\n  }\n  possibleTypes {\n    ...TypeRef\n  }\n}\nfragment InputValue on __InputValue {\n  name\n  description\n  type {\n    ...TypeRef\n  }\n  defaultValue\n}\nfragment TypeRef on __Type {\n  kind\n  name\n  ofType {\n    kind\n    name\n    ofType {\n      kind\n      name\n      ofType {\n        kind\n        name\n        ofType {\n          kind\n          name\n          ofType {\n            kind\n            name\n            ofType {\n              kind\n              name\n              ofType {\n                kind\n                name\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n``` \n\nDas Ergebnis ist normalerweise sehr lang (und wurde daher hier gek\u00fcrzt) und enth\u00e4lt das gesamte Schema der GraphQL-Bereitstellung.\n\nAntwort:\n\n ```json\n{\n  \"data\": {\n    \"__schema\": {\n      \"queryType\": {\n        \"name\": \"Query\"\n      },\n      \"mutationType\": {\n        \"name\": \"Mutation\"\n      },\n      \"subscriptionType\": {\n        \"name\": \"Subscription\"\n      },\n      \"types\": [\n        {\n          \"kind\": \"ENUM\",\n          \"name\": \"__TypeKind\",\n          \"description\": \"An enum describing what kind of type a given __Type is\",\n          \"fields\": null,\n          \"inputFields\": null,\n          \"interfaces\": null,\n          \"enumValues\": [\n            {\n              \"name\": \"SCALAR\",\n              \"description\": \"Indicates this type is a scalar.\",\n              \"isDeprecated\": false,\n              \"deprecationReason\": null\n            },\n            {\n              \"name\": \"OBJECT\",\n              \"description\": \"Indicates this type is an object. `fields` and `interfaces` are valid fields.\",\n              \"isDeprecated\": false,\n              \"deprecationReason\": null\n            },\n            {\n              \"name\": \"INTERFACE\",\n              \"description\": \"Indicates this type is an interface. `fields` and `possibleTypes` are valid fields.\",\n              \"isDeprecated\": false,\n              \"deprecationReason\": null\n            },\n            {\n              \"name\": \"UNION\",\n              \"description\": \"Indicates this type is a union. `possibleTypes` is a valid field.\",\n              \"isDeprecated\": false,\n              \"deprecationReason\": null\n            },\n          ],\n          \"possibleTypes\": null\n        }\n      ]\n    }\n  }\n}\n``` \n\nEin Tool wie [GraphQL Voyager](https://apis.guru/graphql-voyager/) kann verwendet werden, um ein besseres Verst\u00e4ndnis des GraphQL-Endpunkts zu erhalten:\n\n![GraphQL Voyager](https://raw.githubusercontent.com/OWASP/wstg/master/document/4-Web_Application_Security_Testing/12-API_Testing/images/Voyager.png)\\\n*Abbildung 12.1-1: GraphQL Voyager*\n\nDieses Tool erstellt eine ERD-Darstellung (Entity Relationship Diagram) des GraphQL-Schemas, sodass Sie einen besseren Einblick in die beweglichen Teile des Systems erhalten, das Sie testen. Durch das Extrahieren von Informationen aus der Zeichnung k\u00f6nnen Sie sehen, dass Sie beispielsweise die Dog-Tabelle abfragen k\u00f6nnen. Es zeigt auch, welche Eigenschaften ein Hund hat:\n\n- Ausweis\n- Name\n- Veterin\u00e4r (Ausweis)\n\nDie Verwendung dieser Methode hat einen Nachteil: GraphQL Voyager zeigt nicht alles an, was mit GraphQL m\u00f6glich ist. Beispielsweise sind die verf\u00fcgbaren Mutationen in der obigen Zeichnung nicht aufgef\u00fchrt. Eine bessere Strategie w\u00e4re die Verwendung von Voyager und einer der unten aufgef\u00fchrten Methoden.\n\n#### Verwendung von GraphiQL\n\n[GraphiQL](https://github.com/graphql/graphiql) ist eine webbasierte IDE f\u00fcr GraphQL. Es ist Teil des GraphQL-Projekts und wird haupts\u00e4chlich f\u00fcr Debugging- oder Entwicklungszwecke verwendet. Die beste Vorgehensweise besteht darin, Benutzern in Produktionsbereitstellungen den Zugriff zu verbieten. Wenn Sie eine Staging-Umgebung testen, haben Sie m\u00f6glicherweise Zugriff darauf und k\u00f6nnen so etwas Zeit sparen, wenn Sie mit Introspektionsabfragen arbeiten (obwohl Sie Introspektion nat\u00fcrlich auch in der GraphiQL-Schnittstelle verwenden k\u00f6nnen).\n\nGraphiQL verf\u00fcgt \u00fcber einen Dokumentationsbereich, der die Daten aus dem Schema verwendet, um ein Dokument der verwendeten GraphQL-Instanz zu erstellen. Dieses Dokument enth\u00e4lt die Datentypen, Mutationen und im Grunde alle Informationen, die mithilfe der Selbstbeobachtung extrahiert werden k\u00f6nnen.\n\n#### Verwenden von GraphQL Playground\n\n[GraphQL Playground](https://github.com/graphql/graphql-playground) ist ein GraphQL-Client. Es kann verwendet werden, um verschiedene Abfragen zu testen sowie GraphQL-IDEs in verschiedene Spielbereiche zu unterteilen und sie nach Themen zu gruppieren oder ihnen einen Namen zuzuweisen. \u00c4hnlich wie GraphiQL kann Playground Dokumentationen f\u00fcr Sie erstellen, ohne dass manuell Introspektionsanfragen gesendet und die Antworten verarbeitet werden m\u00fcssen. Es hat einen weiteren gro\u00dfen Vorteil: Es muss nicht die GraphiQL-Schnittstelle verf\u00fcgbar sein. Sie k\u00f6nnen das Tool \u00fcber eine URL zum GraphQL-Knoten leiten oder es lokal mit einer Datendatei verwenden. Mit GraphQL Playground k\u00f6nnen Sie direkt auf Schwachstellen testen, sodass Sie keinen pers\u00f6nlichen Proxy zum Senden von HTTP-Anfragen verwenden m\u00fcssen. Dies bedeutet, dass Sie dieses Tool f\u00fcr die einfache Interaktion mit und die Bewertung von GraphQL verwenden k\u00f6nnen. F\u00fcr andere erweiterte Nutzlasten verwenden Sie einen pers\u00f6nlichen Proxy.\n\nIn einigen F\u00e4llen m\u00fcssen Sie die HTTP-Header unten festlegen, um die Sitzungs-ID oder einen anderen Authentifizierungsmechanismus einzuschlie\u00dfen. Dies erm\u00f6glicht weiterhin die Erstellung mehrerer \u201eIDEs\u201c mit unterschiedlichen Berechtigungen, um zu \u00fcberpr\u00fcfen, ob tats\u00e4chlich Autorisierungsprobleme vorliegen.\n\n![Playground1](https://raw.githubusercontent.com/OWASP/wstg/master/document/4-Web_Application_Security_Testing/12-API_Testing/images/Playground1.png)\\\n*Abbildung 12.1-2: High-Level-API-Dokumente f\u00fcr GraphQL Playground*\n\n![Playground2](https://raw.githubusercontent.com/OWASP/wstg/master/document/4-Web_Application_Security_Testing/12-API_Testing/images/Playground2.png)\\\n*Abbildung 12.1-3: GraphQL Playground API-Schema*\n\nSie k\u00f6nnen die Schemata sogar herunterladen, um sie in Voyager zu verwenden.\n\n#### Schemaleck durch Feldvorschl\u00e4ge\n\nViele GraphQL-Serverimplementierungen (einschlie\u00dflich Apollo Server und `graphql-js` ) geben \u201eMeinten Sie...?\u201c zur\u00fcck. Vorschl\u00e4ge werden standardm\u00e4\u00dfig immer dann angezeigt, wenn ein Client auf einen Feldnamen verweist, der nicht vorhanden ist. Dieses Verhalten unterst\u00fctzt die Entwicklung, l\u00e4sst jedoch Schemainformationen verloren, selbst wenn die Selbstpr\u00fcfung explizit deaktiviert wurde.\n\nSenden Sie einen leicht falsch geschriebenen Feldnamen, um dies zu testen. Wenn der Server in der Fehlerantwort einen Vorschlag zur\u00fcckgibt, gibt die Antwort den tats\u00e4chlichen Feldnamen offen, ohne dass eine Introspektionsabfrage ausgegeben wird.\n\nSenden Sie beispielsweise eine Anfrage mit einem nicht vorhandenen Feld `userss`:\n\n ```graphql\nquery {\n  userss {\n    id\n  }\n}\n``` \n\nEin anf\u00e4lliger Server gibt in seiner Antwort den tats\u00e4chlichen Feldnamen preis:\n\n ```json\n{\n  \"errors\": [\n    {\n      \"message\": \"Cannot query field \\\"userss\\\" on type \\\"Query\\\". Did you mean \\\"users\\\"?\",\n      \"locations\": [{ \"line\": 2, \"column\": 3 }]\n    }\n  ]\n}\n``` \n\nIterieren Sie Varianten erratener Namen (z. B. `userss`, `usesr`, `usres`), um g\u00fcltige Abfrage- und Mutationsnamen einzeln aufzuz\u00e4hlen",
         "expected_evidence_de": "GraphQL Introspection-Ausgabe (z. B. \u00fcber GraphQL Voyager), die ein Informationsleck beweist. Protokolle erfolgreicher Abfrage-Batching-Angriffe (Umgehung von Ratenbeschr\u00e4nkungen) oder Aliasing-Angriffe zur Umgehung schwacher Blocklisten. Beispiele f\u00fcr fehlende Zugriffskontrollen bei Mutationen.",
         "reporting_hints_de": "Der PoC muss die ausgef\u00fchrte GraphQL-Abfrage und die Antwort des Servers enthalten. Bei der Behebung muss dringend empfohlen werden, Introspektion und Feldvorschl\u00e4ge in der Produktion zu deaktivieren, maximale Abfragetiefe/Kostengrenzen durchzusetzen, um DoS zu verhindern, und eine strenge Autorisierung auf Feldebene in Resolvern zu implementieren."
+    },
+    {
+        "id": "WSTG-APT-01",
+        "is_info": false,
+        "title": "Testing for Insecure Design",
+        "category": "Architecture and Process Testing",
+        "category_index": 13,
+        "goal": "- Evaluate the application architecture and identify design flaws.\n- Identify missing security controls in critical business processes.\n- Test whether the application's business logic can be bypassed through unexpected usage.",
+        "relevance": "Insecure design cannot be fixed by a simple configuration or code patch. It requires reviewing the system's architecture, trust boundaries, and tenant isolation early in the lifecycle.",
+        "full_summary": "Insecure Design describes risks originating from architectural or design flaws. Even if an application is technically implemented perfectly, a flawed design can lead to critical security vulnerabilities. This includes the absence of necessary security controls (such as rate limiting or strict segregation of duties) or faulty business logic that can be abused by attackers.",
+        "full_text": "",
+        "methodology": "Testing for insecure design requires a deep understanding of the business logic, as automated scanners typically cannot detect these types of flaws.\n\n### Threat Modeling Analysis\n\nReview the application's Threat Model (if available):\n\n- Have potential threats to critical processes (e.g., password resets, checkout flows) been documented?\n- Are sufficient security controls designed to mitigate these threats?\n\n### Bypassing Business Logic\n\nLook for ways to manipulate the intended workflow of the application.\n\n- **Step Skipping:** If a process consists of multiple steps (e.g., E-commerce checkout: 1. Cart, 2. Shipping, 3. Payment, 4. Confirmation), try jumping directly from step 2 to step 4 without paying.\n- **Rate Limiting:** Check if attackers can perform critical actions an unlimited number of times (e.g., mass-reserving concert tickets to mark them as sold out).\n\n### Segregation of Duties\n\nReview the role concept:\n\n- Can a single user perform an action that should require multi-step approval (four-eyes principle)?\n- Is it possible for administrators to approve their own actions without an audit trail tracking it?",
+        "tools": "- Threat Dragon\n- draw.io",
+        "expected_evidence": "Missing threat modeling documentation or design bypass verification.",
+        "reporting_hints": "Recommend establishing threat modeling in the SDLC and enforcing strict tenant isolation at the database/API level.",
+        "sysreptor_finding": "WSTG-APT-01: Testing for Insecure Design",
+        "sysreptor_templates": [
+            {
+                "id": "WSTG-APT-01-1",
+                "title_en": "Missing Threat Modeling in the Design Phase",
+                "title_de": "Fehlendes Threat Modeling in der Designphase",
+                "description_en": "No formal threat modeling process (like STRIDE or PASTA) is conducted during the architecture and design phase of features.",
+                "description_de": "Es wird kein formaler Threat-Modeling-Prozess (wie STRIDE oder PASTA) w\u00e4hrend der Architektur- und Entwurfsphase von Funktionen durchgef\u00fchrt.",
+                "consequences_en": "Structural flaws are detected late or remain undiscovered until production, increasing remediation costs and exposure risks.",
+                "consequences_de": "Strukturelle M\u00e4ngel werden erst sp\u00e4t oder gar nicht vor der Produktion entdeckt, was die Behebungskosten und das Risiko erh\u00f6ht."
+            },
+            {
+                "id": "WSTG-APT-01-2",
+                "title_en": "Architectural Design Allows Bypassing Security Controls",
+                "title_de": "Architekturdesign erlaubt Umgehung von Sicherheitskontrollen",
+                "description_en": "The architecture allows clients or components to communicate directly with internal services, bypassing central gateways or proxies.",
+                "description_de": "Die Architektur erm\u00f6glicht es Clients oder Komponenten, direkt mit internen Diensten zu kommunizieren, wodurch zentrale Gateways oder Proxys umgangen werden.",
+                "consequences_en": "Attackers can bypass authentication, rate limiting, and input filtering by directly targeting backend microservices.",
+                "consequences_de": "Angreifer k\u00f6nnen Authentifizierung, Ratenbegrenzung und Eingabefilterung umgehen, indem sie Backend-Microservices direkt ansprechen."
+            },
+            {
+                "id": "WSTG-APT-01-3",
+                "title_en": "Missing Strict Tenant Isolation at Architecture Level",
+                "title_de": "Fehlende strikte Mandantentrennung (Tenant Isolation) auf Architektur-Ebene",
+                "description_en": "Multi-tenant system architecture does not enforce logical or physical separation of tenant data at database, cache, or queue levels.",
+                "description_de": "Die Multi-Tenant-Systemarchitektur erzwingt keine logische oder physische Trennung von Mandantendaten auf Datenbank-, Cache- oder Warteschlangenebene.",
+                "consequences_en": "Tenant data leaks can occur horizontally, allowing one tenant to access or modify data belonging to another tenant.",
+                "consequences_de": "Mandantendatenlecks k\u00f6nnen horizontal auftreten, wodurch ein Mandant auf Daten eines anderen Mandanten zugreifen oder diese \u00e4ndern kann.",
+                "sysreptor_id": "b23bdc69-fdff-4816-a641-315c3d544dd9"
+            }
+        ],
+        "title_de": "Pr\u00fcfung auf unsicheres Design (Insecure Design)",
+        "category_de": "Architektur- und Prozess-Tests",
+        "goal_de": "- Bewertung der Anwendungsarchitektur und Erkennung von Design-Schwachstellen.\n- Identifikation von fehlenden Sicherheitskontrollen in kritischen Gesch\u00e4ftsprozessen.\n- Testen, ob die Gesch\u00e4ftslogik der Anwendung durch unerwartete Nutzung umgangen werden kann.",
+        "relevance_de": "Insecure Design (Unsicheres Design) beschreibt Risiken, die auf Architektur- oder Designfehlern beruhen. Selbst wenn eine Anwendung technisch perfekt programmiert (implementiert) ist, kann ein fehlerhaftes Design zu kritischen Sicherheitsl\u00fccken f\u00fchren.",
+        "full_summary_de": "Insecure Design (Unsicheres Design) beschreibt Risiken, die auf Architektur- oder Designfehlern beruhen. Selbst wenn eine Anwendung technisch perfekt programmiert (implementiert) ist, kann ein fehlerhaftes Design zu kritischen Sicherheitsl\u00fccken f\u00fchren. Dies umfasst beispielsweise das Fehlen notwendiger Sicherheitskontrollen (wie Ratenlimitierung, strikte Funktionstrennung) oder fehlerhafte Gesch\u00e4ftslogiken, die von Angreifern missbraucht werden k\u00f6nnen.",
+        "methodology_de": "Die Pr\u00fcfung von Insecure Design erfordert ein tiefes Verst\u00e4ndnis der Gesch\u00e4ftslogik, da automatisierte Scanner solche Fehler meist nicht erkennen k\u00f6nnen.\n\n### Threat Modeling Analysis\n\n\u00dcberpr\u00fcfen Sie das Threat Model der Anwendung (falls vorhanden):\n- Wurden potenzielle Bedrohungen f\u00fcr kritische Prozesse (z. B. Passwort-Reset, Bezahlvorg\u00e4nge) dokumentiert?\n- Sind ausreichende Sicherheitsma\u00dfnahmen im Design vorgesehen, um diese Bedrohungen abzuwehren?\n\n### Bypassing Business Logic\n\nSuchen Sie nach Wegen, den vorgesehenen Ablauf (Workflow) der Anwendung zu manipulieren.\n- **Schritt-\u00dcberspringung:** Wenn ein Prozess aus mehreren Schritten besteht (z. B. E-Commerce Checkout: 1. Warenkorb, 2. Versand, 3. Zahlung, 4. Best\u00e4tigung), versuchen Sie, direkt von Schritt 2 zu Schritt 4 zu springen, ohne zu bezahlen.\n- **Ratenlimitierung:** Pr\u00fcfen Sie, ob Angreifer kritische Aktionen unbegrenzt oft ausf\u00fchren k\u00f6nnen (z. B. massenhaftes Reservieren von Konzerttickets, um diese auszuverkaufen).\n\n### Segregation of Duties\n\nPr\u00fcfen Sie das Rollenkonzept:\n- Kann ein Benutzer Aktionen durchf\u00fchren, die eigentlich eine mehrstufige Genehmigung (Vier-Augen-Prinzip) erfordern w\u00fcrden?\n- Ist es Administratoren m\u00f6glich, ihre eigenen Aktionen zu genehmigen, ohne dass ein Audit-Trail dies nachvollziehbar macht?",
+        "tools_de": "Keine speziellen Werkzeuge angegeben.",
+        "expected_evidence_de": "Fehlende Threat-Modeling-Dokumentation oder Nachweis von Design-Umgehungen.",
+        "reporting_hints_de": "Empfehlen Sie die Etablierung von Bedrohungsmodellierung im SDLC und die Durchsetzung einer strengen Mandantentrennung auf Datenbank-/API-Ebene."
+    },
+    {
+        "id": "WSTG-APT-02",
+        "is_info": false,
+        "title": "Testing for Vulnerable and Outdated Components",
+        "category": "Architecture and Process Testing",
+        "category_index": 13,
+        "goal": "- Inventory the client-side and server-side components in use.\n- Identify the exact versions of these components.\n- Check these versions against databases for known vulnerabilities.",
+        "relevance": "Using outdated libraries exposes the application to public CVE exploits, often leading to remote code execution or data breaches.",
+        "full_summary": "Modern applications are built using countless third-party components (libraries, frameworks, OS modules). When these components are outdated or contain known vulnerabilities (CVEs), attackers can exploit them to compromise the application. This can range from simple Cross-Site Scripting (XSS) in a frontend library to Remote Code Execution (RCE) in a backend framework.",
+        "full_text": "",
+        "methodology": "### Client-Side Component Analysis\n\nWeb applications often load numerous JavaScript libraries (e.g., jQuery, React, Angular) into the browser.\n\n- Analyze the page source code. Look for filenames or version numbers in URL paths (e.g., `jquery-3.2.1.min.js`).\n- Use browser extensions or automated scanners to detect outdated client libraries.\n\n### Server-Side Component Analysis\n\nDetecting server-side components is often more difficult unless the application voluntarily discloses them.\n\n- **HTTP Headers:** Analyze headers like `Server`, `X-Powered-By`, or `X-AspNet-Version`. These often provide exact details about the web server or framework.\n- **Error Messages:** Provoke server errors. Default error pages (e.g., from Tomcat, Nginx, Django) frequently display the exact version number.\n- **Software Bill of Materials (SBOM):** If testing in a white-box scenario, review dependency files (like `package.json`, `pom.xml`, `requirements.txt`).\n\n### Exploit Verification\n\nIf an outdated component is found:\n\n1. Search public databases (like NVD or Exploit-DB) for known CVEs affecting the identified version.\n2. (Optional, if in scope) Carefully test whether the specific vulnerability is actually exploitable given the target application's configuration.",
+        "tools": "- npm audit\n- OWASP Dependency-Check\n- Snyk\n- Trivy",
+        "expected_evidence": "List of dependencies with active CVEs, or missing SBOM files.",
+        "reporting_hints": "Update vulnerable libraries immediately and integrate SBOM generation and vulnerability scanning into the CI/CD pipeline.",
+        "sysreptor_finding": "WSTG-APT-02: Testing for Vulnerable and Outdated Components",
+        "sysreptor_templates": [
+            {
+                "id": "WSTG-APT-02-1",
+                "title_en": "Use of Third-Party Libraries with Known CVEs",
+                "title_de": "Verwendung von Drittanbieter-Bibliotheken mit bekannten CVEs",
+                "description_en": "The application imports third-party packages or frameworks that contain publicly known security vulnerabilities.",
+                "description_de": "Die Anwendung importiert Drittanbieter-Pakete oder -Frameworks, die \u00f6ffentlich bekannte Sicherheitsl\u00fccken aufweisen.",
+                "consequences_en": "Attackers can leverage public exploits to compromise the server (e.g. RCE) or steal application tokens.",
+                "consequences_de": "Angreifer k\u00f6nnen \u00f6ffentliche Exploits nutzen, um den Server zu kompromittieren (z. B. RCE) oder Anwendungs-Tokens zu stehlen.",
+                "sysreptor_id": "4541d0a2-6cdc-4b5f-bf43-7d726e245513"
+            },
+            {
+                "id": "WSTG-APT-02-2",
+                "title_en": "Missing Software Bill of Materials (SBOM)",
+                "title_de": "Fehlende Software Bill of Materials (SBOM)",
+                "description_en": "The organization does not generate or maintain an up-to-date Software Bill of Materials for tracking system dependencies.",
+                "description_de": "Die Organisation generiert oder pflegt keine aktuelle Software Bill of Materials (SBOM) zur Verfolgung von Systemabh\u00e4ngigkeiten.",
+                "consequences_en": "Makes it extremely difficult to identify if the application is vulnerable when new zero-day exploits in core libraries are published.",
+                "consequences_de": "Erschwert die Feststellung erheblich, ob die Anwendung betroffen ist, wenn neue Zero-Day-Exploits in Kernbibliotheken ver\u00f6ffentlicht werden."
+            }
+        ],
+        "title_de": "Pr\u00fcfung auf verwundbare und veraltete Komponenten",
+        "category_de": "Architektur- und Prozess-Tests",
+        "goal_de": "- Inventarisierung der verwendeten Client- und Server-Komponenten.\n- Identifizierung der genauen Versionen der verwendeten Komponenten.\n- \u00dcberpr\u00fcfung dieser Versionen gegen Datenbanken f\u00fcr bekannte Schwachstellen.",
+        "relevance_de": "Moderne Anwendungen bestehen aus unz\u00e4hligen Drittanbieter-Komponenten (Bibliotheken, Frameworks, Betriebssystemmodulen). Wenn diese Komponenten veraltet sind oder bekannte Schwachstellen (CVEs) aufweisen, k\u00f6nnen Angreifer diese ausnutzen, um die Anwendung zu kompromittieren.",
+        "full_summary_de": "Moderne Anwendungen bestehen aus unz\u00e4hligen Drittanbieter-Komponenten (Bibliotheken, Frameworks, Betriebssystemmodulen). Wenn diese Komponenten veraltet sind oder bekannte Schwachstellen (CVEs) aufweisen, k\u00f6nnen Angreifer diese ausnutzen, um die Anwendung zu kompromittieren. Dies kann von einfachem Cross-Site Scripting (XSS) in einer Frontend-Bibliothek bis hin zu Remote Code Execution (RCE) in einem Backend-Framework f\u00fchren.",
+        "methodology_de": "### Client-Side Component Analysis\n\nWebanwendungen laden oft zahlreiche JavaScript-Bibliotheken (z. B. jQuery, React, Angular) in den Browser.\n- Analysieren Sie den Quelltext der Webseite. Achten Sie auf Dateinamen oder Versionsnummern in den URL-Pfaden (z. B. `jquery-3.2.1.min.js`).\n- Verwenden Sie Browser-Erweiterungen oder automatisierte Scanner, um veraltete Client-Bibliotheken zu erkennen.\n\n### Server-Side Component Analysis\n\nDie Erkennung serverseitiger Komponenten ist oft schwieriger, es sei denn, die Anwendung gibt diese freiwillig preis.\n- **HTTP-Header:** Analysieren Sie Header wie `Server`, `X-Powered-By` oder `X-AspNet-Version`. Diese geben oft genaue Auskunft \u00fcber den Webserver oder das Framework.\n- **Fehlermeldungen:** Provozieren Sie Serverfehler. Standard-Fehlerseiten (z. B. von Tomcat, Nginx, Django) zeigen oft die genaue Versionsnummer an.\n- **Software Bill of Materials (SBOM):** Wenn Sie in einem White-Box-Szenario testen, \u00fcberpr\u00fcfen Sie die Abh\u00e4ngigkeitsdateien (wie `package.json`, `pom.xml`, `requirements.txt`).\n\n### Exploit Verification\n\nWenn eine veraltete Komponente gefunden wird:\n1. Suchen Sie in \u00f6ffentlichen Datenbanken (wie NVD oder Exploit-DB) nach bekannten CVEs f\u00fcr die identifizierte Version.\n2. (Optional, falls im Scope) Testen Sie vorsichtig, ob die spezifische Schwachstelle in der Konfiguration der Zielanwendung tats\u00e4chlich ausnutzbar ist.",
+        "tools_de": "- Retire.js / Wappalyzer\n- OWASP Dependency-Check\n- Snyk / npm audit / Dependabot",
+        "expected_evidence_de": "Liste von Abh\u00e4ngigkeiten mit aktiven CVEs oder fehlende SBOM-Dateien.",
+        "reporting_hints_de": "Aktualisieren Sie gef\u00e4hrdete Bibliotheken sofort und integrieren Sie SBOM-Generierung und Schwachstellenscans in die CI/CD-Pipeline."
+    },
+    {
+        "id": "WSTG-APT-03",
+        "is_info": false,
+        "title": "Testing for Software and Data Integrity Failures",
+        "category": "Architecture and Process Testing",
+        "category_index": 13,
+        "goal": "- Identify features that load or process data without integrity checks.\n- Test for insecure deserialization processes.\n- Verify client-side scripts for missing Subresource Integrity (SRI) controls.",
+        "relevance": "Integrity failures allow attackers to tamper with software code, updates, or serialized states to execute unauthorized commands.",
+        "full_summary": "Software and data integrity failures occur when code or infrastructure is not protected against manipulation. This happens when an application loads plugins, libraries, or modules from untrusted sources, repositories, or Content Delivery Networks (CDNs) without validation. Insecure CI/CD pipelines and the deserialization of untrusted data (Insecure Deserialization) also fall into this category. Attackers can exploit these flaws to inject malicious code, manipulate updates, or completely take over the system.",
+        "full_text": "",
+        "methodology": "### Insecure Deserialization\n\nLook for data that is serialized (e.g., as Java objects, PHP objects, XML, or YAML), sent to the server, and deserialized there.\n\n- Check cookies, hidden form fields, or API parameters for typical signatures of serialized objects (e.g., `rO0AB` for Java Base64, `O:4:\"User\"` in PHP).\n- Attempt to inject manipulated objects to trigger logic flaws or achieve Remote Code Execution (RCE) using tools like `ysoserial`.\n\n### Subresource Integrity (SRI) Check\n\nIf the application includes JavaScript or CSS from third parties (CDNs), check if Subresource Integrity (SRI) is implemented.\n\n- Analyze the `<script>` and `<link>` tags in the source code.\n- A secure tag must include the `integrity` attribute: `<script src=\"<https://cdn.example.com/script.js>\" integrity=\"sha384-...\" crossorigin=\"anonymous\"></script>`. Without this attribute, an attacker who compromises the CDN could maliciously modify the code unnoticed.\n\n### Unsigned Firmware/Update Mechanisms\n\nFor IoT devices, desktop clients, or mobile apps:\n\n- Examine the update mechanism. Are updates downloaded over unencrypted HTTP?\n- Does the application require and verify a cryptographic signature of the update payload before installing it?",
+        "tools": "- ysoserial\n- Gitleaks\n- Burp Suite",
+        "expected_evidence": "Manipulated updates being executed, untrusted deserialization leading to exceptions/execution, or exposed pipeline secrets.",
+        "reporting_hints": "Secure build environments, enforce cryptographic signatures on all update bundles, and migrate to safe data formats like JSON/Protobuf.",
+        "sysreptor_finding": "WSTG-APT-03: Testing for Software and Data Integrity Failures",
+        "sysreptor_templates": [
+            {
+                "id": "WSTG-APT-03-1",
+                "title_en": "Insecure CI/CD Pipeline (e.g. unprotected build servers, missing code signing)",
+                "title_de": "Unsichere CI/CD-Pipeline (z.B. ungesch\u00fctzte Build-Server, fehlende Code-Signierung)",
+                "description_en": "Build pipelines allow unauthorized changes, contain exposed credentials, or omit signing steps for build outputs.",
+                "description_de": "Build-Pipelines erm\u00f6glichen unbefugte \u00c4nderungen, enthalten offengelegte Anmeldedaten oder verzichten auf die Signierung von Build-Ergebnissen.",
+                "consequences_en": "Attackers can compromise release artifacts, inserting malware or backdoors directly into production code.",
+                "consequences_de": "Angreifer k\u00f6nnen Release-Artefakte manipulieren und Schadcode oder Backdoors direkt in den Produktionscode einschleusen.",
+                "sysreptor_id": "a66ae0a9-c2ad-42e5-bf57-aeb17c11844c"
+            },
+            {
+                "id": "WSTG-APT-03-2",
+                "title_en": "Deserialization of Untrusted Data (Insecure Deserialization)",
+                "title_de": "Deserialisierung von nicht vertrauensw\u00fcrdigen Daten (Insecure Deserialization)",
+                "description_en": "The application deserializes user-controlled inputs without performing verification of the reconstructed object types.",
+                "description_de": "Die Anwendung deserialisiert benutzergesteuerte Eingaben, ohne die rekonstruierten Objekttypen zu \u00fcberpr\u00fcfen.",
+                "consequences_en": "Can lead to arbitrary Remote Code Execution (RCE) on the server or privilege escalation.",
+                "consequences_de": "Kann zur beliebigen Remotecodeausf\u00fchrung (RCE) auf dem Server oder zur Ausweitung von Rechten f\u00fchren.",
+                "sysreptor_id": "074dab4c-6bb0-447d-aff7-e2084864b0ab"
+            },
+            {
+                "id": "WSTG-APT-03-3",
+                "title_en": "Automatic Updates without Integrity Verification (Signature Check)",
+                "title_de": "Automatische Updates ohne Integrit\u00e4tspr\u00fcfung (Signaturpr\u00fcfung)",
+                "description_en": "The client/software downloads and installs updates without checking a cryptographic signature of the file.",
+                "description_de": "Der Client/die Software l\u00e4dt Updates herunter und installiert sie, ohne eine kryptografische Signatur der Datei zu pr\u00fcfen.",
+                "consequences_en": "Allows Man-in-the-Middle (MITM) attackers or compromised update servers to deploy malicious code to users.",
+                "consequences_de": "Erm\u00f6glicht es Man-in-the-Middle-Angreifern (MITM) oder kompromittierten Update-Servern, Schadcode an Benutzer zu verteilen.",
+                "sysreptor_id": "5e8d2c71-0764-4f34-ac8d-cb6e424b44c1"
+            }
+        ],
+        "title_de": "Pr\u00fcfung auf Fehler in der Software- und Datenintegrit\u00e4t",
+        "category_de": "Architektur- und Prozess-Tests",
+        "goal_de": "- Identifikation von Funktionen, die Daten ohne Integrit\u00e4tspr\u00fcfung laden oder verarbeiten.\n- Pr\u00fcfung auf unsichere Deserialisierungsprozesse.\n- \u00dcberpr\u00fcfung clientseitiger Skripte auf fehlende Integrit\u00e4tskontrollen (SRI).",
+        "relevance_de": "Integrit\u00e4tsfehler bei Software und Daten treten auf, wenn Code oder Infrastruktur nicht vor Manipulation gesch\u00fctzt sind. Dies passiert, wenn eine Anwendung Plugins, Bibliotheken oder Module aus nicht vertrauensw\u00fcrdigen Quellen, Repositories oder Content Delivery Networks (CDNs) ohne Validierung l\u00e4dt.",
+        "full_summary_de": "Integrit\u00e4tsfehler bei Software und Daten treten auf, wenn Code oder Infrastruktur nicht vor Manipulation gesch\u00fctzt sind. Dies passiert, wenn eine Anwendung Plugins, Bibliotheken oder Module aus nicht vertrauensw\u00fcrdigen Quellen, Repositories oder Content Delivery Networks (CDNs) ohne Validierung l\u00e4dt. Auch unsichere CI/CD-Pipelines und die Deserialisierung von nicht vertrauensw\u00fcrdigen Daten (Insecure Deserialization) fallen in diese Kategorie. Angreifer k\u00f6nnen dies nutzen, um b\u00f6sartigen Code einzuschleusen, Updates zu manipulieren oder das System vollst\u00e4ndig zu \u00fcbernehmen.",
+        "methodology_de": "### Insecure Deserialization\n\nSuchen Sie nach Daten, die serialisiert (z. B. als Java-Objekte, PHP-Objekte, XML oder YAML) an den Server gesendet und dort deserialisiert werden.\n- Pr\u00fcfen Sie Cookies, versteckte Formularfelder oder API-Parameter auf typische Signaturen serialisierter Objekte (z. B. `rO0AB` f\u00fcr Java Base64, `O:4:\"User\"` in PHP).\n- Versuchen Sie, manipulierte Objekte einzuschleusen, um Logikfehler auszul\u00f6sen oder (mit Hilfe von Tools wie `ysoserial`) Remote Code Execution (RCE) zu erreichen.\n\n### Subresource Integrity (SRI) Check\n\nWenn die Anwendung JavaScript oder CSS von Drittanbietern (CDNs) einbindet, pr\u00fcfen Sie, ob Subresource Integrity (SRI) verwendet wird.\n- Analysieren Sie die `<script>`- und `<link>`-Tags im Quelltext.\n- Ein sicheres Tag muss das `integrity`-Attribut enthalten: `<script src=\"https://cdn.example.com/script.js\" integrity=\"sha384-...\" crossorigin=\"anonymous\"></script>`. Fehlt dieses Attribut, k\u00f6nnte ein Angreifer, der das CDN kompromittiert, den Code unbemerkt manipulieren.\n\n### Unsigned Firmware/Update Mechanisms\n\nBei IoT-Ger\u00e4ten, Desktop-Clients oder mobilen Apps:\n- Pr\u00fcfen Sie den Update-Mechanismus. Werden Updates \u00fcber unverschl\u00fcsseltes HTTP geladen?\n- Verlangt und \u00fcberpr\u00fcft die Anwendung eine kryptografische Signatur des Updates, bevor dieses installiert wird?",
+        "tools_de": "- ysoserial (f\u00fcr Java Deserialization)\n- Burp Suite Plugins (z. B. Java Deserialization Scanner)",
+        "expected_evidence_de": "Ausf\u00fchrung manipulierter Updates, unsichere Deserialisierung, die zu Fehlern/Ausf\u00fchrung f\u00fchrt, oder offengelegte Pipeline-Geheimnisse.",
+        "reporting_hints_de": "Sichern Sie Build-Umgebungen ab, erzwingen Sie kryptografische Signaturen f\u00fcr alle Update-Pakete und migrieren Sie auf sichere Datenformate wie JSON/Protobuf."
+    },
+    {
+        "id": "WSTG-APT-04",
+        "is_info": false,
+        "title": "Testing for Security Logging and Monitoring Failures",
+        "category": "Architecture and Process Testing",
+        "category_index": 13,
+        "goal": "- Verify whether critical security events (like authentication and authorization failures) are logged.\n- Test whether attackers can manipulate or obfuscate logs (Log Injection).\n- (If architectural access is granted) Validate whether the monitoring system detects unusual activities and triggers alerts.",
+        "relevance": "Without logs and alerting, active attacks remain invisible, allowing long-term silent compromise.",
+        "full_summary": "Insufficient logging and monitoring allow attackers to carry out their operations over extended periods unnoticed, infiltrate deeper systems, and destroy evidence. If an application fails to log critical security-relevant events (such as failed logins, access control failures, or server-side input errors), or if the monitoring system fails to generate timely alerts, defenders lack the visibility needed to respond to incidents quickly.",
+        "full_text": "",
+        "methodology": "### Triggering Security Events\n\nSince testers usually do not have direct access to backend logs, the application's behavior often must be evaluated indirectly (or in collaboration with the operations team).\n\n1. Intentionally provoke security-relevant errors, for example:\n    - Enter the wrong password multiple times during login.\n    - Try to access administrator endpoints (`/admin`) as a standard user (expecting HTTP 401/403).\n    - Manipulate parameters to provoke server errors (HTTP 500).\n2. Observe if the application reacts (e.g., by locking the account after several failed attempts). The absence of such a reaction is often a strong indicator of lacking monitoring and insufficient protection against automated attacks.\n\n### Log Injection Analysis\n\nIf user input is written to log files unfiltered, attackers can manipulate the logs.\n\n1. Send crafted text containing control characters like newlines (`\\n`, `\\r`) through login forms or HTTP headers (e.g., `User-Agent: Attacker\\n[CRITICAL] Admin access granted`).\n2. If the application logs this input without sanitization, the attacker can forge log entries, deceive administrators, or disrupt SIEM systems.\n\n### Log Exposure\n\nCheck if sensitive data is exposed in error messages or logs.\n\n- Send intentionally malformed requests and inspect the server's error messages.\n- If API keys, passwords, session IDs, or Personally Identifiable Information (PII) are transmitted in URL parameters, they will automatically be recorded in standard web server access logs.",
+        "tools": "- Splunk\n- ELK",
+        "expected_evidence": "Undetected password spraying or fake log lines injection.",
+        "reporting_hints": "Log all critical events, sanitize log inputs, and store logs in central tamper-proof environments.",
+        "sysreptor_finding": "WSTG-APT-04: Testing for Security Logging and Monitoring Failures",
+        "sysreptor_templates": [
+            {
+                "id": "WSTG-APT-04-1",
+                "title_en": "Insufficient Logging of Security-Relevant Events",
+                "title_de": "Unzureichende Protokollierung von sicherheitsrelevanten Ereignissen",
+                "description_en": "Failed logins, access denials, and high-privilege actions are not logged or contain insufficient details.",
+                "description_de": "Fehlgeschlagene Logins, verweigerte Zugriffe und Aktionen mit hohen Rechten werden nicht oder mit unzureichenden Details protokolliert.",
+                "consequences_en": "Prevents security teams from detecting ongoing brute-force attacks or diagnosing breach origins.",
+                "consequences_de": "Verhindert, dass Sicherheitsteams laufende Brute-Force-Angriffe erkennen oder die Ursache von Sicherheitsvorf\u00e4llen diagnostizieren.",
+                "sysreptor_id": "c825db86-7f31-417c-bfca-c1f0993228d8"
+            },
+            {
+                "id": "WSTG-APT-04-2",
+                "title_en": "Missing or Ineffective Alerting / Monitoring during Active Attacks",
+                "title_de": "Fehlendes oder unwirksames Alerting / Monitoring bei laufenden Angriffen",
+                "description_en": "The monitoring systems fail to trigger real-time alerts upon detecting security violations or abnormal access patterns.",
+                "description_de": "Die \u00dcberwachungssysteme l\u00f6sen keine Echtzeitarme aus, wenn Sicherheitsverletzungen oder anormale Zugriffsmuster erkannt werden.",
+                "consequences_en": "Enables attackers to maintain active presence and extract data over long periods without being noticed.",
+                "consequences_de": "Erm\u00f6glicht es Angreifern, \u00fcber lange Zeitr\u00e4ume hinweg unbemerkt eine aktive Pr\u00e4senz aufrechtzuerhalten und Daten abzuf\u00fchren.",
+                "sysreptor_id": "dcde3825-bed4-4225-a0ee-2394b9b59de2"
+            },
+            {
+                "id": "WSTG-APT-04-3",
+                "title_en": "Logs are Not Protected Against Tampering (e.g. Log-Injection)",
+                "title_de": "Logs sind nicht vor Manipulation gesch\u00fctzt (z. B. Log-Injection)",
+                "description_en": "The application fails to sanitize inputs before writing them to logs, allowing injection of control characters (CRLF).",
+                "description_de": "Die Anwendung bereinigt Eingaben nicht vor dem Schreiben ins Log, wodurch Steuerzeichen (CRLF) eingeschleust werden k\u00f6nnen.",
+                "consequences_en": "Attackers can write fake log entries to confuse responders, or exploit vulnerabilities in log parsing tools.",
+                "consequences_de": "Angreifer k\u00f6nnen gef\u00e4lschte Protokolleintr\u00e4ge schreiben, um Ermittler zu verwirren, oder Schwachstellen in Log-Parsing-Tools ausnutzen."
+            },
+            {
+                "id": "WSTG-APT-04-4",
+                "title_en": "Sensitive Information in Logs",
+                "title_de": "Sensible Informationen in Logs",
+                "description_en": "The application writes sensitive information (like credentials, credit cards, or PII) directly to log files.",
+                "description_de": "Die Anwendung schreibt sensible Informationen (wie Zugangsdaten, Kreditkarten oder PII) direkt in Logdateien.",
+                "consequences_en": "Exposes sensitive user data to anyone with access to the log storage or indexing platforms.",
+                "consequences_de": "Legt sensible Benutzerdaten f\u00fcr jeden offen, der Zugriff auf den Logspeicher oder die Indexierungsplattformen hat."
+            }
+        ],
+        "title_de": "Pr\u00fcfung auf unzureichendes Logging und Monitoring",
+        "category_de": "Architektur- und Prozess-Tests",
+        "goal_de": "- \u00dcberpr\u00fcfen, ob kritische Sicherheitsereignisse (wie Authentifizierungsfehler und Autorisierungsfehler) geloggt werden.\n- Testen, ob Angreifer die Logs manipulieren oder unlesbar machen k\u00f6nnen (Log Injection).\n- (Falls Zugriff auf die Architektur besteht) Validierung, ob das Monitoring ungew\u00f6hnliche Aktivit\u00e4ten erkennt und Alarm schl\u00e4gt.",
+        "relevance_de": "Unzureichendes Logging und Monitoring erlaubt es Angreifern, ihre Angriffe \u00fcber lange Zeitr\u00e4ume hinweg unentdeckt durchzuf\u00fchren, tiefere Systeme zu infiltrieren und Beweise zu vernichten. Wenn eine Anwendung kritische sicherheitsrelevante Ereignisse (wie fehlgeschlagene Logins, Zugriffsbeschr\u00e4nkungsfehler oder Servereingabefehler) nicht protokolliert oder das \u00dcberwachungssystem nicht rechtzeitig Alarme generiert, fehlt den Verteidigern die n\u00f6tige Sichtbarkeit, um schnell auf Vorf\u00e4lle reagieren zu k\u00f6nnen.",
+        "full_summary_de": "Unzureichendes Logging und Monitoring erlaubt es Angreifern, ihre Angriffe \u00fcber lange Zeitr\u00e4ume hinweg unentdeckt durchzuf\u00fchren, tiefere Systeme zu infiltrieren und Beweise zu vernichten. Wenn eine Anwendung kritische sicherheitsrelevante Ereignisse (wie fehlgeschlagene Logins, Zugriffsbeschr\u00e4nkungsfehler oder Servereingabefehler) nicht protokolliert oder das \u00dcberwachungssystem nicht rechtzeitig Alarme generiert, fehlt den Verteidigern die n\u00f6tige Sichtbarkeit, um schnell auf Vorf\u00e4lle reagieren zu k\u00f6nnen.",
+        "methodology_de": "### Triggering Security Events\n\nDa Tester ohne Backend-Zugriff die Logs nicht direkt einsehen k\u00f6nnen, muss das Verhalten der Anwendung oft indirekt bewertet werden (oder in Zusammenarbeit mit dem Betreiber-Team).\n1. Provozieren Sie absichtlich sicherheitsrelevante Fehler, z. B.:\n   - Geben Sie bei der Anmeldung mehrfach das falsche Passwort ein.\n   - Versuchen Sie, als normaler Benutzer auf Administrator-Endpunkte (`/admin`) zuzugreifen (HTTP 401/403).\n   - Manipulieren Sie Parameter, um Serverfehler (HTTP 500) zu provozieren.\n2. Beobachten Sie, ob die Anwendung reagiert (z. B. durch ein Account-Lockout nach Fehlversuchen). Fehlt eine solche Reaktion, ist dies oft ein Indikator f\u00fcr fehlendes Monitoring und unzureichenden Schutz gegen automatisierte Angriffe.\n\n### Log Injection Analysis\n\nWenn Anwendereingaben ungefiltert in Log-Dateien geschrieben werden, k\u00f6nnen Angreifer diese manipulieren.\n1. Senden Sie manipulierten Text, der Steuerzeichen wie Zeilenumbr\u00fcche (`\\n`, `\\r`) enth\u00e4lt, \u00fcber Anmeldeformulare oder HTTP-Header (z. B. `User-Agent: Attacker\\n[CRITICAL] Admin access granted`).\n2. Wenn die Anwendung diese Eingaben unvalidiert protokolliert, kann der Angreifer gef\u00e4lschte Log-Eintr\u00e4ge erzeugen und Administratoren t\u00e4uschen oder SIEM-Systeme st\u00f6ren.\n\n### Log Exposure\n\nPr\u00fcfen Sie, ob sensible Daten in Fehlermeldungen oder Logs offengelegt werden.\n- Senden Sie absichtlich defekte Anfragen und pr\u00fcfen Sie die Fehlermeldungen des Servers.\n- Werden API-Schl\u00fcssel, Passw\u00f6rter, Session-IDs oder pers\u00f6nliche Daten (PII) in URL-Parametern \u00fcbermittelt, landen diese automatisch in den Standard-Zugriffslogs des Webservers.",
+        "tools_de": "Keine speziellen Werkzeuge angegeben.",
+        "expected_evidence_de": "Unerkanntes Password Spraying oder Einschleusen gef\u00e4lschter Protokollzeilen.",
+        "reporting_hints_de": "Protokollieren Sie alle kritischen Ereignisse, bereinigen Sie Log-Eingaben und speichern Sie Protokolle in zentralen, manipulationssicheren Umgebungen."
     },
     {
         "id": "WSTG-ATHN-02",
@@ -262,16 +541,17 @@ const wstgData = [
         "sysreptor_finding": "WSTG-ATHN-02: Testing for Default Credentials",
         "sysreptor_templates": [
             {
-                "id": "athn_vendor_default_credentials",
+                "id": "WSTG-ATHN-02-1",
                 "title_en": "Vendor Default Credentials",
                 "title_de": "Hersteller-Standardanmeldedaten",
                 "description_en": "The application or underlying software components use publicly known vendor default credentials (e.g., admin/admin).",
                 "description_de": "Die Anwendung oder zugrunde liegende Softwarekomponenten verwenden \u00f6ffentlich bekannte Hersteller-Standardanmeldedaten (z. B. admin/admin).",
                 "consequences_en": "Attackers can use automated tools or public databases to easily guess these credentials and gain unauthorized access to the application.",
-                "consequences_de": "Angreifer k\u00f6nnen automatisierte Tools oder \u00f6ffentliche Datenbanken nutzen, um diese Anmeldedaten leicht zu erraten und unbefugten Zugriff auf die Anwendung zu erhalten."
+                "consequences_de": "Angreifer k\u00f6nnen automatisierte Tools oder \u00f6ffentliche Datenbanken nutzen, um diese Anmeldedaten leicht zu erraten und unbefugten Zugriff auf die Anwendung zu erhalten.",
+                "sysreptor_id": "a868a064-4664-4476-beb6-28b9e9608c9f"
             },
             {
-                "id": "athn_organization_default_passwords",
+                "id": "WSTG-ATHN-02-2",
                 "title_en": "Organization Default Passwords",
                 "title_de": "Organisations-Standardpassw\u00f6rter",
                 "description_en": "The organization uses predictable or default password patterns (e.g., 'Password123' or 'CompanyName2026') when manually creating new user accounts.",
@@ -280,7 +560,7 @@ const wstgData = [
                 "consequences_de": "Angreifer, die das Muster ableiten, k\u00f6nnen neu erstellte Konten kompromittieren, bevor die rechtm\u00e4\u00dfigen Benutzer ihre Passw\u00f6rter \u00e4ndern."
             },
             {
-                "id": "athn_app_generated_default_passwords",
+                "id": "WSTG-ATHN-02-3",
                 "title_en": "Application Generated Default Passwords",
                 "title_de": "Anwendungsgenerierte Standardpassw\u00f6rter",
                 "description_en": "The application automatically generates default passwords for new accounts using predictable algorithms (e.g., md5(username) or time-based seeds).",
@@ -315,31 +595,34 @@ const wstgData = [
         "sysreptor_finding": "WSTG-ATHN-03: Testing for Weak Lock Out Mechanism",
         "sysreptor_templates": [
             {
-                "id": "athn_lockout_mechanism_bypass",
+                "id": "WSTG-ATHN-03-1",
                 "title_en": "Missing or Weak Account Lockout Mechanism",
                 "title_de": "Fehlender oder schwacher Konto-Sperrmechanismus",
                 "description_en": "The application does not lock accounts or effectively throttle login requests after multiple failed authentication attempts.",
                 "description_de": "Die Anwendung sperrt Konten nicht oder drosselt Anmeldeversuche nicht effektiv nach mehreren fehlgeschlagenen Authentifizierungsversuchen.",
                 "consequences_en": "Attackers can perform unrestricted brute-force or credential stuffing attacks to guess valid passwords.",
-                "consequences_de": "Angreifer k\u00f6nnen uneingeschr\u00e4nkte Brute-Force- oder Credential-Stuffing-Angriffe durchf\u00fchren, um g\u00fcltige Passw\u00f6rter zu erraten."
+                "consequences_de": "Angreifer k\u00f6nnen uneingeschr\u00e4nkte Brute-Force- oder Credential-Stuffing-Angriffe durchf\u00fchren, um g\u00fcltige Passw\u00f6rter zu erraten.",
+                "sysreptor_id": "5349efbd-706b-4f81-b7c4-fd8daa3c9027"
             },
             {
-                "id": "athn_captcha_bypass",
+                "id": "WSTG-ATHN-03-2",
                 "title_en": "CAPTCHA Implementation Weakness",
                 "title_de": "Schw\u00e4che in der CAPTCHA-Implementierung",
                 "description_en": "The CAPTCHA mechanism used to mitigate brute-force attacks can be bypassed (e.g., by reusing solved tokens, manipulating parameters, or reading the solution from the page source).",
                 "description_de": "Der zur Abwehr von Brute-Force-Angriffen eingesetzte CAPTCHA-Mechanismus kann umgangen werden (z. B. durch Wiederverwendung gel\u00f6ster Tokens, Parametermanipulation oder Auslesen der L\u00f6sung aus dem Seitenquelltext).",
                 "consequences_en": "Automated scripts can bypass the anti-automation controls, enabling brute-force attacks on the login interface.",
-                "consequences_de": "Automatisierte Skripte k\u00f6nnen die Anti-Automatisierungskontrollen umgehen, was Brute-Force-Angriffe auf die Anmeldeschnittstelle erm\u00f6glicht."
+                "consequences_de": "Automatisierte Skripte k\u00f6nnen die Anti-Automatisierungskontrollen umgehen, was Brute-Force-Angriffe auf die Anmeldeschnittstelle erm\u00f6glicht.",
+                "sysreptor_id": "2d597a6e-de04-47fd-b8fe-6e4d49ceaa20"
             },
             {
-                "id": "athn_weak_unlock_mechanism",
+                "id": "WSTG-ATHN-03-3",
                 "title_en": "Weak Account Unlock Mechanism",
                 "title_de": "Schwacher Mechanismus zur Kontoentsperrung",
                 "description_en": "The process to unlock a locked account relies on weak verification (e.g., predictable unlock links or easily guessed security questions).",
                 "description_de": "Der Prozess zur Entsperrung eines gesperrten Kontos beruht auf schwachen \u00dcberpr\u00fcfungen (z. B. vorhersehbare Entsperr-Links oder leicht zu erratende Sicherheitsfragen).",
                 "consequences_en": "An attacker can maliciously lock an account and then independently unlock it to reset the password, or bypass the lockout restriction entirely.",
-                "consequences_de": "Ein Angreifer kann ein Konto b\u00f6swillig sperren und es dann unabh\u00e4ngig wieder entsperren, um das Passwort zur\u00fcckzusetzen oder die Sperrbeschr\u00e4nkung komplett zu umgehen."
+                "consequences_de": "Ein Angreifer kann ein Konto b\u00f6swillig sperren und es dann unabh\u00e4ngig wieder entsperren, um das Passwort zur\u00fcckzusetzen oder die Sperrbeschr\u00e4nkung komplett zu umgehen.",
+                "sysreptor_id": "9b5a6b68-fc9a-4cbe-902f-db4ed7a370ca"
             }
         ],
         "title_de": "Pr\u00fcfung auf schwache Sperrmechanismen (Lock Out Mechanism)",
@@ -368,16 +651,17 @@ const wstgData = [
         "sysreptor_finding": "WSTG-ATHN-04: Testing for Bypassing Authentication Schema",
         "sysreptor_templates": [
             {
-                "id": "athn_bypass_parameter_modification",
+                "id": "WSTG-ATHN-04-1",
                 "title_en": "Authentication Bypass via Parameter Modification",
                 "title_de": "Authentifizierungsumgehung durch Parameter-Manipulation",
                 "description_en": "The application relies on client-submitted parameters (e.g., authenticated=yes) to verify successful logins instead of secure server-side session tracking.",
                 "description_de": "Die Anwendung verl\u00e4sst sich auf clientseitig \u00fcbermittelte Parameter (z. B. authenticated=yes), um erfolgreiche Anmeldungen zu \u00fcberpr\u00fcfen, anstatt ein sicheres serverseitiges Sitzungstracking zu nutzen.",
                 "consequences_en": "Attackers can intercept and modify these parameters to instantly gain authenticated access without providing valid credentials.",
-                "consequences_de": "Angreifer k\u00f6nnen diese Parameter abfangen und \u00e4ndern, um sofort authentifizierten Zugriff zu erhalten, ohne g\u00fcltige Anmeldedaten anzugeben."
+                "consequences_de": "Angreifer k\u00f6nnen diese Parameter abfangen und \u00e4ndern, um sofort authentifizierten Zugriff zu erhalten, ohne g\u00fcltige Anmeldedaten anzugeben.",
+                "sysreptor_id": "af067e8e-3375-4ed6-a72e-b5ab27fe0135"
             },
             {
-                "id": "athn_bypass_session_prediction",
+                "id": "WSTG-ATHN-04-2",
                 "title_en": "Authentication Bypass via Session ID Prediction",
                 "title_de": "Authentifizierungsumgehung durch Vorhersage von Sitzungs-IDs",
                 "description_en": "The application manages authentication using session identifiers that are sequentially generated, linearly incremented, or otherwise predictable.",
@@ -386,7 +670,7 @@ const wstgData = [
                 "consequences_de": "Ein Angreifer kann g\u00fcltige aktive Sitzungs-IDs erraten oder per Brute-Force ermitteln, um authentifizierte Sitzungen anderer Benutzer zu \u00fcbernehmen."
             },
             {
-                "id": "athn_bypass_sql_injection",
+                "id": "WSTG-ATHN-04-3",
                 "title_en": "Authentication Bypass via SQL Injection",
                 "title_de": "Authentifizierungsumgehung durch SQL-Injection",
                 "description_en": "The login form incorporates user input directly into backend SQL queries without proper parameterization, allowing injections like ' OR '1'='1.",
@@ -395,22 +679,24 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen die Abfragelogik manipulieren, um sich als beliebiger Benutzer (oft der erste Benutzer, typischerweise ein Administrator) anzumelden, ohne das Passwort zu kennen."
             },
             {
-                "id": "athn_bypass_loose_comparison",
+                "id": "WSTG-ATHN-04-4",
                 "title_en": "Authentication Bypass via Loose Type Comparison / Magic Hashes",
                 "title_de": "Authentifizierungsumgehung durch schwache Typenvergleiche / Magic Hashes",
                 "description_en": "The application uses loose equality operators (e.g., == instead of === in PHP) when comparing authentication tokens or password hashes, leading to scientific notation logic errors (Magic Hashes).",
                 "description_de": "Die Anwendung verwendet lockere Gleichheitsoperatoren (z. B. == statt === in PHP) beim Vergleich von Authentifizierungs-Tokens oder Passwort-Hashes, was zu Logikfehlern durch wissenschaftliche Notation f\u00fchrt (Magic Hashes).",
                 "consequences_en": "An attacker can provide an alternative string that loosely evaluates as equal (e.g., '0e123' == '0e456'), successfully bypassing the authentication check.",
-                "consequences_de": "Ein Angreifer kann eine alternative Zeichenkette angeben, die bei lockerem Vergleich als gleich bewertet wird (z. B. '0e123' == '0e456'), und so die Authentifizierungspr\u00fcfung erfolgreich umgehen."
+                "consequences_de": "Ein Angreifer kann eine alternative Zeichenkette angeben, die bei lockerem Vergleich als gleich bewertet wird (z. B. '0e123' == '0e456'), und so die Authentifizierungspr\u00fcfung erfolgreich umgehen.",
+                "sysreptor_id": "e850873f-2580-4dbd-9ac5-f59ffaa9d292"
             },
             {
-                "id": "athn_bypass_same_length_password",
+                "id": "WSTG-ATHN-04-5",
                 "title_en": "Authentication Bypass via Same Length Password",
                 "title_de": "Authentifizierungsumgehung durch Passw\u00f6rter gleicher L\u00e4nge",
                 "description_en": "The application allows login by entering any password that simply matches the length of the actual password, often due to character encoding or wildcard interpretation errors.",
                 "description_de": "Die Anwendung erm\u00f6glicht die Anmeldung durch Eingabe eines beliebigen Passworts, das lediglich der L\u00e4nge des tats\u00e4chlichen Passworts entspricht, oft aufgrund von Zeichenkodierungs- oder Wildcard-Interpretationsfehlern.",
                 "consequences_en": "This critical flaw allows attackers to easily bypass authentication if the password length is known or brute-forced, implying passwords are not properly hashed.",
-                "consequences_de": "Dieser kritische Fehler erm\u00f6glicht es Angreifern, die Authentifizierung leicht zu umgehen, wenn die Passwortl\u00e4nge bekannt ist oder per Brute-Force ermittelt wurde, was darauf hindeutet, dass Passw\u00f6rter nicht richtig gehasht werden."
+                "consequences_de": "Dieser kritische Fehler erm\u00f6glicht es Angreifern, die Authentifizierung leicht zu umgehen, wenn die Passwortl\u00e4nge bekannt ist oder per Brute-Force ermittelt wurde, was darauf hindeutet, dass Passw\u00f6rter nicht richtig gehasht werden.",
+                "sysreptor_id": "fd13a20a-dd1b-4e94-80e8-b707f738f577"
             }
         ],
         "title_de": "Pr\u00fcfung auf Umgehung des Authentifizierungsschemas",
@@ -439,22 +725,24 @@ const wstgData = [
         "sysreptor_finding": "WSTG-ATHN-05: Testing for Vulnerable Remember Password",
         "sysreptor_templates": [
             {
-                "id": "athn_remember_me_insecure_storage",
+                "id": "WSTG-ATHN-05-1",
                 "title_en": "Insecure Storage of 'Remember Me' Credentials",
                 "title_de": "Unsichere Speicherung von 'Angemeldet bleiben'-Anmeldedaten",
                 "description_en": "The 'Remember Me' functionality stores user credentials in plaintext or a weakly encoded format in the browser's cookies or local storage.",
                 "description_de": "Die Funktion 'Angemeldet bleiben' speichert Benutzeranmeldedaten im Klartext oder in einem schwach kodierten Format in den Cookies oder im lokalen Speicher des Browsers.",
                 "consequences_en": "If a user's browser is compromised via XSS or physical access, the attacker can recover the actual password.",
-                "consequences_de": "Wenn der Browser eines Benutzers durch XSS oder physischen Zugriff kompromittiert wird, kann der Angreifer das tats\u00e4chliche Passwort wiederherstellen."
+                "consequences_de": "Wenn der Browser eines Benutzers durch XSS oder physischen Zugriff kompromittiert wird, kann der Angreifer das tats\u00e4chliche Passwort wiederherstellen.",
+                "sysreptor_id": "6e2f1a03-a815-433d-9479-df639c3e39ee"
             },
             {
-                "id": "athn_remember_me_infinite_lifetime",
+                "id": "WSTG-ATHN-05-2",
                 "title_en": "Excessive 'Remember Me' Token Lifetime",
                 "title_de": "\u00dcberm\u00e4\u00dfige Lebensdauer des 'Angemeldet bleiben'-Tokens",
                 "description_en": "Tokens used for the 'Remember Me' feature do not expire or have an excessively long lifetime without server-side validation or rotation.",
                 "description_de": "Tokens, die f\u00fcr die 'Angemeldet bleiben'-Funktion verwendet werden, laufen nicht ab oder haben eine \u00fcberm\u00e4\u00dfig lange Lebensdauer ohne serverseitige Validierung oder Rotation.",
                 "consequences_en": "Stolen tokens provide an attacker with a permanent, persistent backdoor into the victim's account.",
-                "consequences_de": "Gestohlene Tokens bieten einem Angreifer eine dauerhafte, persistente Hintert\u00fcr zum Konto des Opfers."
+                "consequences_de": "Gestohlene Tokens bieten einem Angreifer eine dauerhafte, persistente Hintert\u00fcr zum Konto des Opfers.",
+                "sysreptor_id": "baeb9110-d089-4e38-b381-de29e88f3aa8"
             }
         ],
         "title_de": "Pr\u00fcfung auf anf\u00e4llige \"Passwort merken\"-Funktionen",
@@ -483,22 +771,24 @@ const wstgData = [
         "sysreptor_finding": "WSTG-ATHN-06: Testing for Browser Cache Weaknesses",
         "sysreptor_templates": [
             {
-                "id": "athn_browser_history_exposure",
+                "id": "WSTG-ATHN-06-1",
                 "title_en": "Sensitive Information Exposure via Browser History",
                 "title_de": "Preisgabe sensibler Informationen \u00fcber den Browserverlauf",
                 "description_en": "The application allows previously viewed sensitive pages to be accessed via the browser's 'Back' button after the user has logged out.",
                 "description_de": "Die Anwendung erm\u00f6glicht den Zugriff auf zuvor angesehene sensible Seiten \u00fcber die 'Zur\u00fcck'-Schaltfl\u00e4che des Browsers, nachdem sich der Benutzer abgemeldet hat.",
                 "consequences_en": "Unauthorized users with physical access to a shared or public computer can view the previous user's sensitive data.",
-                "consequences_de": "Unbefugte Benutzer mit physischem Zugriff auf einen gemeinsam genutzten oder \u00f6ffentlichen Computer k\u00f6nnen die sensiblen Daten des vorherigen Benutzers einsehen."
+                "consequences_de": "Unbefugte Benutzer mit physischem Zugriff auf einen gemeinsam genutzten oder \u00f6ffentlichen Computer k\u00f6nnen die sensiblen Daten des vorherigen Benutzers einsehen.",
+                "sysreptor_id": "6169fc59-0cf0-41f2-ae6e-0f3212baa756"
             },
             {
-                "id": "athn_browser_cache_exposure",
+                "id": "WSTG-ATHN-06-2",
                 "title_en": "Sensitive Data Stored in Browser Cache",
                 "title_de": "Sensible Daten im Browser-Cache gespeichert",
                 "description_en": "The application fails to set appropriate HTTP cache-control headers (e.g., Cache-Control: no-store) on pages containing sensitive data.",
                 "description_de": "Die Anwendung setzt keine angemessenen HTTP-Cache-Control-Header (z. B. Cache-Control: no-store) auf Seiten, die sensible Daten enthalten.",
                 "consequences_en": "Sensitive user information is written to the local disk in the browser's cache directory, where it can be extracted by local malware or forensics.",
-                "consequences_de": "Sensible Benutzerinformationen werden auf der lokalen Festplatte im Cache-Verzeichnis des Browsers gespeichert, wo sie durch lokale Malware oder Forensik extrahiert werden k\u00f6nnen."
+                "consequences_de": "Sensible Benutzerinformationen werden auf der lokalen Festplatte im Cache-Verzeichnis des Browsers gespeichert, wo sie durch lokale Malware oder Forensik extrahiert werden k\u00f6nnen.",
+                "sysreptor_id": "cc1f285d-8698-4782-8da0-e75a49d2f8d5"
             }
         ],
         "title_de": "Pr\u00fcfung auf Schwachstellen im Browser-Cache",
@@ -527,22 +817,24 @@ const wstgData = [
         "sysreptor_finding": "WSTG-ATHN-07: Testing for Weak Authentication Methods",
         "sysreptor_templates": [
             {
-                "id": "athn_weak_password_policy",
+                "id": "WSTG-ATHN-07-1",
                 "title_en": "Weak Password Policy",
                 "title_de": "Schwache Passwortrichtlinie",
                 "description_en": "The application permits the use of overly simple passwords, lacking enforcement for minimum length, complexity, or prevention of common dictionary words.",
                 "description_de": "Die Anwendung erlaubt die Verwendung von allzu einfachen Passw\u00f6rtern, ohne Mindestl\u00e4nge, Komplexit\u00e4t oder den Ausschluss h\u00e4ufiger W\u00f6rterbuchbegriffe durchzusetzen.",
                 "consequences_en": "Attackers can easily compromise user accounts by carrying out automated password guessing or credential stuffing attacks.",
-                "consequences_de": "Angreifer k\u00f6nnen Benutzerkonten leicht kompromittieren, indem sie automatisierte Angriffe zum Erraten von Passw\u00f6rtern oder Credential Stuffing durchf\u00fchren."
+                "consequences_de": "Angreifer k\u00f6nnen Benutzerkonten leicht kompromittieren, indem sie automatisierte Angriffe zum Erraten von Passw\u00f6rtern oder Credential Stuffing durchf\u00fchren.",
+                "sysreptor_id": "06bd803b-5be3-46ae-80d4-4a95c9fc7633"
             },
             {
-                "id": "athn_weak_alternative_credentials",
+                "id": "WSTG-ATHN-07-2",
                 "title_en": "Use of Weak Alternative Credentials",
                 "title_de": "Verwendung schwacher alternativer Anmeldedaten",
                 "description_en": "The application uses easily obtainable personal data (such as birth dates, Social Security Numbers, or simple PINs) as the sole authentication mechanism in place of strong passwords.",
                 "description_de": "Die Anwendung verwendet leicht beschaffbare pers\u00f6nliche Daten (wie Geburtsdaten, Sozialversicherungsnummern oder einfache PINs) als alleinigen Authentifizierungsmechanismus anstelle starker Passw\u00f6rter.",
                 "consequences_en": "Attackers can gather this data via OSINT or public records and effortlessly impersonate victims without needing to brute-force a traditional password.",
-                "consequences_de": "Angreifer k\u00f6nnen diese Daten \u00fcber OSINT oder \u00f6ffentliche Aufzeichnungen sammeln und sich m\u00fchelos als Opfer ausgeben, ohne ein herk\u00f6mmliches Passwort per Brute-Force knacken zu m\u00fcssen."
+                "consequences_de": "Angreifer k\u00f6nnen diese Daten \u00fcber OSINT oder \u00f6ffentliche Aufzeichnungen sammeln und sich m\u00fchelos als Opfer ausgeben, ohne ein herk\u00f6mmliches Passwort per Brute-Force knacken zu m\u00fcssen.",
+                "sysreptor_id": "4143b53d-8f83-4fb9-a60b-883841e52c7b"
             }
         ],
         "title_de": "Pr\u00fcfung auf schwache Authentifizierungsmethoden",
@@ -571,31 +863,34 @@ const wstgData = [
         "sysreptor_finding": "WSTG-ATHN-08: Testing for Weak Security Question Answer",
         "sysreptor_templates": [
             {
-                "id": "athn_weak_pregenerated_security_questions",
+                "id": "WSTG-ATHN-08-1",
                 "title_en": "Weak Pre-generated Security Questions",
                 "title_de": "Schwache vorgefertigte Sicherheitsfragen",
                 "description_en": "The application provides pre-generated security questions with answers that are publicly discoverable (e.g., 'Favorite color?', 'High school name?').",
                 "description_de": "Die Anwendung bietet vorgefertigte Sicherheitsfragen an, deren Antworten \u00f6ffentlich auffindbar sind (z. B. 'Lieblingsfarbe?', 'Name der High School?').",
                 "consequences_en": "Attackers can easily research the answers via social media and bypass the password recovery or multi-factor authentication steps.",
-                "consequences_de": "Angreifer k\u00f6nnen die Antworten leicht \u00fcber soziale Medien recherchieren und so die Schritte zur Passwortwiederherstellung oder Multi-Faktor-Authentifizierung umgehen."
+                "consequences_de": "Angreifer k\u00f6nnen die Antworten leicht \u00fcber soziale Medien recherchieren und so die Schritte zur Passwortwiederherstellung oder Multi-Faktor-Authentifizierung umgehen.",
+                "sysreptor_id": "522ddf99-6d78-4a99-95cb-5b64b24d0001"
             },
             {
-                "id": "athn_weak_selfgenerated_security_questions",
+                "id": "WSTG-ATHN-08-2",
                 "title_en": "Insecure Self-Generated Security Questions",
                 "title_de": "Unsichere selbst erstellte Sicherheitsfragen",
                 "description_en": "The application allows users to create their own security questions without restrictions, leading to trivial questions (e.g., 'What is 1+1?').",
                 "description_de": "Die Anwendung erm\u00f6glicht es Benutzern, ihre eigenen Sicherheitsfragen ohne Einschr\u00e4nkungen zu erstellen, was zu trivialen Fragen f\u00fchrt (z. B. 'Was ist 1+1?').",
                 "consequences_en": "The entire security value of the challenge is nullified, making account takeover trivial for any attacker.",
-                "consequences_de": "Der gesamte Sicherheitswert der Abfrage wird zunichtegemacht, was eine Konto\u00fcbernahme f\u00fcr jeden Angreifer trivial macht."
+                "consequences_de": "Der gesamte Sicherheitswert der Abfrage wird zunichtegemacht, was eine Konto\u00fcbernahme f\u00fcr jeden Angreifer trivial macht.",
+                "sysreptor_id": "daceebaf-5cd0-4272-b200-ecbf87de8b3d"
             },
             {
-                "id": "athn_bruteforceable_security_answers",
+                "id": "WSTG-ATHN-08-3",
                 "title_en": "Brute-forcible Security Question Answers",
                 "title_de": "Durch Brute-Force ermittelbare Antworten auf Sicherheitsfragen",
                 "description_en": "The application does not implement a lockout mechanism or rate limiting when answering security questions.",
                 "description_de": "Die Anwendung implementiert keinen Sperrmechanismus oder keine Ratenbegrenzung bei der Beantwortung von Sicherheitsfragen.",
                 "consequences_en": "Attackers can perform automated brute-force attacks against security questions that have a limited number of possible answers.",
-                "consequences_de": "Angreifer k\u00f6nnen automatisierte Brute-Force-Angriffe gegen Sicherheitsfragen durchf\u00fchren, die eine begrenzte Anzahl m\u00f6glicher Antworten haben."
+                "consequences_de": "Angreifer k\u00f6nnen automatisierte Brute-Force-Angriffe gegen Sicherheitsfragen durchf\u00fchren, die eine begrenzte Anzahl m\u00f6glicher Antworten haben.",
+                "sysreptor_id": "0fa62b3b-562a-4d58-a0f1-c39f856c136c"
             }
         ],
         "title_de": "Pr\u00fcfung auf schwache Antworten bei Sicherheitsfragen",
@@ -624,25 +919,27 @@ const wstgData = [
         "sysreptor_finding": "WSTG-ATHN-09: Testing for Weak Password Change or Reset Functionalities",
         "sysreptor_templates": [
             {
-                "id": "athn_reset_new_password_sent_cleartext",
+                "id": "WSTG-ATHN-09-1",
                 "title_en": "New Password Sent in Cleartext via Email",
                 "title_de": "Neues Passwort im Klartext per E-Mail gesendet",
                 "description_en": "The password recovery mechanism generates a new password (or retrieves the existing one) and emails it to the user in plaintext without forcing a password change on next login.",
                 "description_de": "Der Mechanismus zur Passwortwiederherstellung generiert ein neues Passwort (oder ruft das bestehende ab) und sendet es dem Benutzer im Klartext per E-Mail, ohne eine Passwort\u00e4nderung bei der n\u00e4chsten Anmeldung zu erzwingen.",
                 "consequences_en": "Passwords sent via unencrypted email can be intercepted in transit or compromised if the user's email inbox is accessed.",
-                "consequences_de": "Passw\u00f6rter, die \u00fcber unverschl\u00fcsselte E-Mails gesendet werden, k\u00f6nnen bei der \u00dcbertragung abgefangen oder kompromittiert werden, wenn auf das E-Mail-Postfach des Benutzers zugegriffen wird."
+                "consequences_de": "Passw\u00f6rter, die \u00fcber unverschl\u00fcsselte E-Mails gesendet werden, k\u00f6nnen bei der \u00dcbertragung abgefangen oder kompromittiert werden, wenn auf das E-Mail-Postfach des Benutzers zugegriffen wird.",
+                "sysreptor_id": "617969ff-fedb-47e6-afaa-68549251d433"
             },
             {
-                "id": "athn_reset_token_predictability_host_injection",
+                "id": "WSTG-ATHN-09-2",
                 "title_en": "Insecure Password Reset Links (Predictable / Host Injection)",
                 "title_de": "Unsichere Links zum Zur\u00fccksetzen des Passworts (Vorhersehbar / Host-Injection)",
                 "description_en": "Password reset links use predictable/reusable tokens, lack expiration times, or are vulnerable to Host Header Injection, allowing the domain in the link to be spoofed.",
                 "description_de": "Links zum Zur\u00fccksetzen von Passw\u00f6rtern verwenden vorhersehbare/wiederverwendbare Tokens, haben keine Ablaufzeiten oder sind anf\u00e4llig f\u00fcr Host-Header-Injection, wodurch die Domain im Link gef\u00e4lscht werden kann.",
                 "consequences_en": "Attackers can forge reset tokens or poison the reset email to steal the token when the victim clicks the link, leading to account takeover.",
-                "consequences_de": "Angreifer k\u00f6nnen Reset-Tokens f\u00e4lschen oder die Reset-E-Mail manipulieren, um das Token zu stehlen, wenn das Opfer auf den Link klickt, was zu einer Konto\u00fcbernahme f\u00fchrt."
+                "consequences_de": "Angreifer k\u00f6nnen Reset-Tokens f\u00e4lschen oder die Reset-E-Mail manipulieren, um das Token zu stehlen, wenn das Opfer auf den Link klickt, was zu einer Konto\u00fcbernahme f\u00fchrt.",
+                "sysreptor_id": "4a47dffa-33a6-45c0-bdf6-71cad54d87eb"
             },
             {
-                "id": "athn_reset_sms_bruteforce",
+                "id": "WSTG-ATHN-09-3",
                 "title_en": "Brute-forcible SMS/Phone Reset Tokens",
                 "title_de": "Brute-Force-anf\u00e4llige SMS/Telefon-Reset-Tokens",
                 "description_en": "Short numeric OTPs sent via SMS or phone calls for password reset lack adequate rate-limiting or lockout protections.",
@@ -651,7 +948,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen den kurzen numerischen Schl\u00fcsselraum innerhalb des G\u00fcltigkeitsfensters des Tokens leicht per Brute-Force knacken, um den Reset-Mechanismus zu umgehen."
             },
             {
-                "id": "athn_missing_reauth_on_profile_change",
+                "id": "WSTG-ATHN-09-4",
                 "title_en": "Missing Re-authentication on Profile/Password Change",
                 "title_de": "Fehlende Re-Authentifizierung bei Profil-/Passwort\u00e4nderung",
                 "description_en": "The application allows users to change sensitive account settings, such as their password, email address, or MFA settings, without requiring re-authentication (e.g., entering the current password).",
@@ -686,13 +983,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-ATHN-10: Testing for Weaker Authentication in Alternative Channel",
         "sysreptor_templates": [
             {
-                "id": "athn_weaker_alternative_channels",
+                "id": "WSTG-ATHN-10-1",
                 "title_en": "Weaker Authentication in Alternative Channels",
                 "title_de": "Schw\u00e4chere Authentifizierung in alternativen Kan\u00e4len",
                 "description_en": "Alternative interfaces (e.g., mobile APIs, legacy sites, or call centers) enforce significantly weaker authentication controls than the main web application.",
                 "description_de": "Alternative Schnittstellen (z. B. mobile APIs, alte Webseiten oder Callcenter) setzen deutlich schw\u00e4chere Authentifizierungskontrollen durch als die Haupt-Webanwendung.",
                 "consequences_en": "Attackers can completely bypass the strong primary security controls (like MFA or complex passwords) by targeting the less secure alternative channels.",
-                "consequences_de": "Angreifer k\u00f6nnen die starken prim\u00e4ren Sicherheitskontrollen (wie MFA oder komplexe Passw\u00f6rter) vollst\u00e4ndig umgehen, indem sie die weniger sicheren alternativen Kan\u00e4le ins Visier nehmen."
+                "consequences_de": "Angreifer k\u00f6nnen die starken prim\u00e4ren Sicherheitskontrollen (wie MFA oder komplexe Passw\u00f6rter) vollst\u00e4ndig umgehen, indem sie die weniger sicheren alternativen Kan\u00e4le ins Visier nehmen.",
+                "sysreptor_id": "02e46712-0e3d-480d-8408-0d5033afbd7a"
             }
         ],
         "title_de": "Pr\u00fcfung auf schw\u00e4chere Authentifizierung \u00fcber alternative Kan\u00e4le",
@@ -721,40 +1019,44 @@ const wstgData = [
         "sysreptor_finding": "WSTG-ATHN-11: Testing Multi-Factor Authentication (MFA)",
         "sysreptor_templates": [
             {
-                "id": "athn_mfa_flow_bypass",
+                "id": "WSTG-ATHN-11-1",
                 "title_en": "MFA Flow Bypass",
                 "title_de": "Umgehung des MFA-Flusses",
                 "description_en": "The Multi-Factor Authentication process can be bypassed by force-browsing directly to authenticated endpoints, manipulating authentication flows (e.g., via federated logins), or abusing un-enforced IP exceptions.",
                 "description_de": "Der Multi-Faktor-Authentifizierungsprozess kann durch erzwungenes Surfen direkt zu authentifizierten Endpunkten, durch die Manipulation von Authentifizierungsabl\u00e4ufen (z.B. \u00fcber f\u00f6derierte Logins) oder durch den Missbrauch nicht durchgesetzter IP-Ausnahmen umgangen werden.",
                 "consequences_en": "Attackers possessing compromised passwords can access accounts without needing the second factor, rendering the MFA protection useless.",
-                "consequences_de": "Angreifer, die \u00fcber kompromittierte Passw\u00f6rter verf\u00fcgen, k\u00f6nnen auf Konten zugreifen, ohne den zweiten Faktor zu ben\u00f6tigen, was den MFA-Schutz nutzlos macht."
+                "consequences_de": "Angreifer, die \u00fcber kompromittierte Passw\u00f6rter verf\u00fcgen, k\u00f6nnen auf Konten zugreifen, ohne den zweiten Faktor zu ben\u00f6tigen, was den MFA-Schutz nutzlos macht.",
+                "sysreptor_id": "920b452f-81db-41cb-b397-3e496b3e0ce5"
             },
             {
-                "id": "athn_mfa_management_vulns",
+                "id": "WSTG-ATHN-11-2",
                 "title_en": "MFA Management Vulnerabilities",
                 "title_de": "Schwachstellen in der MFA-Verwaltung",
                 "description_en": "The functionality to configure, disable, or modify MFA settings is vulnerable to Cross-Site Request Forgery (CSRF) or Insecure Direct Object References (IDOR), or lacks re-authentication checks.",
                 "description_de": "Die Funktionalit\u00e4t zum Konfigurieren, Deaktivieren oder \u00c4ndern von MFA-Einstellungen ist anf\u00e4llig f\u00fcr Cross-Site Request Forgery (CSRF) oder Insecure Direct Object References (IDOR), oder es fehlen Pr\u00fcfungen zur erneuten Authentifizierung.",
                 "consequences_en": "An attacker can maliciously disable a victim's MFA or register an attacker-controlled device as a trusted second factor.",
-                "consequences_de": "Ein Angreifer kann b\u00f6swillig die MFA eines Opfers deaktivieren oder ein vom Angreifer kontrolliertes Ger\u00e4t als vertrauensw\u00fcrdigen zweiten Faktor registrieren."
+                "consequences_de": "Ein Angreifer kann b\u00f6swillig die MFA eines Opfers deaktivieren oder ein vom Angreifer kontrolliertes Ger\u00e4t als vertrauensw\u00fcrdigen zweiten Faktor registrieren.",
+                "sysreptor_id": "7f660069-c00b-4952-b177-7cd66c1ef5c2"
             },
             {
-                "id": "athn_mfa_insecure_recovery",
+                "id": "WSTG-ATHN-11-3",
                 "title_en": "Insecure MFA Recovery Options",
                 "title_de": "Unsichere MFA-Wiederherstellungsoptionen",
                 "description_en": "The fallback mechanisms for regaining access when a second factor is lost (e.g., backup codes or security questions) are significantly weaker than the MFA itself.",
                 "description_de": "Die Fallback-Mechanismen zur Wiedererlangung des Zugriffs bei Verlust eines zweiten Faktors (z. B. Backup-Codes oder Sicherheitsfragen) sind deutlich schw\u00e4cher als die MFA selbst.",
                 "consequences_en": "Attackers can bypass the strong MFA controls by attacking the weaker recovery mechanism, essentially downgrading the security of the account.",
-                "consequences_de": "Angreifer k\u00f6nnen die starken MFA-Kontrollen umgehen, indem sie den schw\u00e4cheren Wiederherstellungsmechanismus angreifen, was die Sicherheit des Kontos im Wesentlichen herabstuft."
+                "consequences_de": "Angreifer k\u00f6nnen die starken MFA-Kontrollen umgehen, indem sie den schw\u00e4cheren Wiederherstellungsmechanismus angreifen, was die Sicherheit des Kontos im Wesentlichen herabstuft.",
+                "sysreptor_id": "44e292e8-1430-4287-9b4b-927b283610e3"
             },
             {
-                "id": "athn_mfa_weak_otps",
+                "id": "WSTG-ATHN-11-4",
                 "title_en": "Weak or Brute-forcible One-Time Passwords (OTPs)",
                 "title_de": "Schwache oder durch Brute-Force ermittelbare Einmalpassw\u00f6rter (OTPs)",
                 "description_en": "OTP codes sent via SMS/Email are too short, have excessive validity periods, can be reused, or lack rate limiting and brute-force protection.",
                 "description_de": "\u00dcber SMS/E-Mail gesendete OTP-Codes sind zu kurz, haben \u00fcberm\u00e4\u00dfig lange G\u00fcltigkeitsdauern, k\u00f6nnen wiederverwendet werden oder weisen keine Ratenbegrenzung und keinen Brute-Force-Schutz auf.",
                 "consequences_en": "Attackers can brute-force the OTP code space within its valid timeframe to seamlessly bypass the second authentication factor.",
-                "consequences_de": "Angreifer k\u00f6nnen den OTP-Code-Raum innerhalb des g\u00fcltigen Zeitrahmens per Brute-Force knacken, um den zweiten Authentifizierungsfaktor nahtlos zu umgehen."
+                "consequences_de": "Angreifer k\u00f6nnen den OTP-Code-Raum innerhalb des g\u00fcltigen Zeitrahmens per Brute-Force knacken, um den zweiten Authentifizierungsfaktor nahtlos zu umgehen.",
+                "sysreptor_id": "80e2373f-f143-432f-b67c-c7ea6d384312"
             }
         ],
         "title_de": "Pr\u00fcfung der Multi-Faktor-Authentifizierung (MFA)",
@@ -783,25 +1085,27 @@ const wstgData = [
         "sysreptor_finding": "WSTG-ATHZ-01: Testing Directory Traversal File Include",
         "sysreptor_templates": [
             {
-                "id": "athz_lfi_path_traversal",
+                "id": "WSTG-ATHZ-01-1",
                 "title_en": "Local File Inclusion / Path Traversal",
                 "title_de": "Local File Inclusion / Path Traversal",
                 "description_en": "The application allows user-supplied input to dynamically dictate file paths without proper sanitization, enabling attackers to use 'dot-dot-slash' (../) sequences.",
                 "description_de": "Die Anwendung erm\u00f6glicht es, Dateipfade durch unzureichend bereinigte Benutzereingaben dynamisch zu steuern, was Angreifern die Verwendung von 'Dot-Dot-Slash' (../) Sequenzen erlaubt.",
                 "consequences_en": "Attackers can traverse the file system to read sensitive local files (e.g., /etc/passwd) or potentially achieve remote code execution if log files or uploads can be included.",
-                "consequences_de": "Angreifer k\u00f6nnen das Dateisystem durchqueren, um sensible lokale Dateien (z. B. /etc/passwd) zu lesen, oder potenziell Remote Code Execution erlangen, wenn Logdateien oder Uploads eingebunden werden k\u00f6nnen."
+                "consequences_de": "Angreifer k\u00f6nnen das Dateisystem durchqueren, um sensible lokale Dateien (z. B. /etc/passwd) zu lesen, oder potenziell Remote Code Execution erlangen, wenn Logdateien oder Uploads eingebunden werden k\u00f6nnen.",
+                "sysreptor_id": "1f9444b4-b343-48db-a9c1-858168622f5b"
             },
             {
-                "id": "athz_rfi_external_inclusion",
+                "id": "WSTG-ATHZ-01-2",
                 "title_en": "Remote File Inclusion (RFI)",
                 "title_de": "Remote File Inclusion (RFI)",
                 "description_en": "The application allows the inclusion of files from external sources (e.g., passing external URLs via parameters like 'file=http://attacker.com/malicious.txt').",
                 "description_de": "Die Anwendung erlaubt die Einbindung von Dateien aus externen Quellen (z. B. durch \u00dcbergabe externer URLs \u00fcber Parameter wie 'file=http://attacker.com/malicious.txt').",
                 "consequences_en": "Attackers can force the application to download and execute malicious scripts from remote servers, leading to full server compromise.",
-                "consequences_de": "Angreifer k\u00f6nnen die Anwendung zwingen, b\u00f6sartige Skripte von Remote-Servern herunterzuladen und auszuf\u00fchren, was zu einer vollst\u00e4ndigen Kompromittierung des Servers f\u00fchrt."
+                "consequences_de": "Angreifer k\u00f6nnen die Anwendung zwingen, b\u00f6sartige Skripte von Remote-Servern herunterzuladen und auszuf\u00fchren, was zu einer vollst\u00e4ndigen Kompromittierung des Servers f\u00fchrt.",
+                "sysreptor_id": "c9f7913b-638c-4e4f-9bf3-1c26e6a0e738"
             },
             {
-                "id": "athz_windows_specific_traversal",
+                "id": "WSTG-ATHZ-01-3",
                 "title_en": "Windows-Specific Path Traversal Constraints",
                 "title_de": "Windows-spezifische Path Traversal-Einschr\u00e4nkungen",
                 "description_en": "The application runs on a Windows environment and fails to filter Windows-specific path evasion techniques such as UNC filepaths, NT Device Namespaces, or discarded trailing dots/spaces.",
@@ -836,40 +1140,44 @@ const wstgData = [
         "sysreptor_finding": "WSTG-ATHZ-02: Testing for Bypassing Authorization Schema",
         "sysreptor_templates": [
             {
-                "id": "athz_unauthenticated_access",
+                "id": "WSTG-ATHZ-02-1",
                 "title_en": "Unauthenticated Access / Forced Browsing",
                 "title_de": "Unauthentifizierter Zugriff / Forced Browsing",
                 "description_en": "The application does not properly enforce access controls, allowing unauthenticated users to access protected resources simply by navigating directly to the URL.",
                 "description_de": "Die Anwendung setzt Zugriffskontrollen nicht ordnungsgem\u00e4\u00df durch, sodass unauthentifizierte Benutzer durch direkte Navigation zur URL auf gesch\u00fctzte Ressourcen zugreifen k\u00f6nnen.",
                 "consequences_en": "Sensitive pages, data, or functions are exposed to the public internet, bypassing the authentication mechanism entirely.",
-                "consequences_de": "Sensible Seiten, Daten oder Funktionen werden dem \u00f6ffentlichen Internet preisgegeben, wodurch der Authentifizierungsmechanismus vollst\u00e4ndig umgangen wird."
+                "consequences_de": "Sensible Seiten, Daten oder Funktionen werden dem \u00f6ffentlichen Internet preisgegeben, wodurch der Authentifizierungsmechanismus vollst\u00e4ndig umgangen wird.",
+                "sysreptor_id": "71c66b44-c240-4ac2-afd2-8d8f179ff811"
             },
             {
-                "id": "athz_horizontal_bypass",
+                "id": "WSTG-ATHZ-02-2",
                 "title_en": "Horizontal Authorization Bypass",
                 "title_de": "Horizontale Umgehung der Autorisierung",
                 "description_en": "The application allows users to access resources or perform functions on behalf of another user with an identical role/privilege level.",
                 "description_de": "Die Anwendung erlaubt es Benutzern, auf Ressourcen zuzugreifen oder Funktionen im Namen eines anderen Benutzers mit identischer Rolle/Rechte-Ebene auszuf\u00fchren.",
                 "consequences_en": "Attackers can perform lateral movement attacks, viewing or modifying private data belonging to other legitimate users.",
-                "consequences_de": "Angreifer k\u00f6nnen seitliche Bewegungsangriffe (Lateral Movement) durchf\u00fchren und private Daten anderer legitimer Benutzer einsehen oder \u00e4ndern."
+                "consequences_de": "Angreifer k\u00f6nnen seitliche Bewegungsangriffe (Lateral Movement) durchf\u00fchren und private Daten anderer legitimer Benutzer einsehen oder \u00e4ndern.",
+                "sysreptor_id": "0ff95f89-a761-47a4-99cd-6f38931219c9"
             },
             {
-                "id": "athz_vertical_bypass",
+                "id": "WSTG-ATHZ-02-3",
                 "title_en": "Vertical Authorization Bypass (Admin Functions)",
                 "title_de": "Vertikale Umgehung der Autorisierung (Admin-Funktionen)",
                 "description_en": "Standard or low-privileged users are able to access administrative functions or resources assigned to a higher-level role.",
                 "description_de": "Standardbenutzer oder Benutzer mit geringen Rechten k\u00f6nnen auf administrative Funktionen oder Ressourcen zugreifen, die einer h\u00f6herwertigen Rolle zugewiesen sind.",
                 "consequences_en": "An attacker can escalate their privileges, execute administrative commands, create users, or compromise the entire application's security structure.",
-                "consequences_de": "Ein Angreifer kann seine Privilegien eskalieren, administrative Befehle ausf\u00fchren, Benutzer erstellen oder die gesamte Sicherheitsstruktur der Anwendung kompromittieren."
+                "consequences_de": "Ein Angreifer kann seine Privilegien eskalieren, administrative Befehle ausf\u00fchren, Benutzer erstellen oder die gesamte Sicherheitsstruktur der Anwendung kompromittieren.",
+                "sysreptor_id": "217c563b-d4b2-475d-ad65-7888fd7af628"
             },
             {
-                "id": "athz_special_header_bypass",
+                "id": "WSTG-ATHZ-02-4",
                 "title_en": "Authorization Bypass via Special Request Headers",
                 "title_de": "Umgehung der Autorisierung durch spezielle Request-Header",
                 "description_en": "The application or proxy processes non-standard routing headers (e.g., X-Original-URL, X-Rewrite-URL, X-Forwarded-For) without validation, overriding the requested path or IP.",
                 "description_de": "Die Anwendung oder der Proxy verarbeitet nicht-standardisierte Routing-Header (z.B. X-Original-URL, X-Rewrite-URL, X-Forwarded-For) ohne Validierung und \u00fcberschreibt den angeforderten Pfad oder die IP.",
                 "consequences_en": "Attackers can trick the frontend proxy into allowing the request, bypassing path-based or IP-based access control restrictions intended to protect backend administrative panels.",
-                "consequences_de": "Angreifer k\u00f6nnen den Frontend-Proxy austricksen, um die Anfrage zuzulassen, und so pfad- oder IP-basierte Zugriffskontrollbeschr\u00e4nkungen umgehen, die administrative Backend-Panels sch\u00fctzen sollen."
+                "consequences_de": "Angreifer k\u00f6nnen den Frontend-Proxy austricksen, um die Anfrage zuzulassen, und so pfad- oder IP-basierte Zugriffskontrollbeschr\u00e4nkungen umgehen, die administrative Backend-Panels sch\u00fctzen sollen.",
+                "sysreptor_id": "f184fd0e-61ce-4441-8ad7-4b1c769bcaa0"
             }
         ],
         "title_de": "Pr\u00fcfung auf Umgehung des Autorisierungsschemas",
@@ -898,7 +1206,7 @@ const wstgData = [
         "sysreptor_finding": "WSTG-ATHZ-03: Testing for Privilege Escalation",
         "sysreptor_templates": [
             {
-                "id": "athz_privesc_group_manipulation",
+                "id": "WSTG-ATHZ-03-1",
                 "title_en": "Privilege Escalation via User Group Manipulation",
                 "title_de": "Privilegieneskalation durch Manipulation von Benutzergruppen",
                 "description_en": "The application relies on client-submitted parameters (e.g., groupID=grp001) to determine user group memberships for authorization purposes.",
@@ -907,7 +1215,7 @@ const wstgData = [
                 "consequences_de": "Ein Angreifer kann den Parameterwert \u00e4ndern, um sich als Mitglied einer anderen oder hochprivilegierten Gruppe auszugeben und unbefugten Datenzugriff zu erlangen."
             },
             {
-                "id": "athz_privesc_profile_manipulation",
+                "id": "WSTG-ATHZ-03-2",
                 "title_en": "Privilege Escalation via User Profile Manipulation",
                 "title_de": "Privilegieneskalation durch Manipulation von Benutzerprofilen",
                 "description_en": "Role indicators or profile attributes are passed in hidden HTML form fields, cookies, or headers (e.g., <input type='hidden' name='profile' value='SysAdmin'>) instead of securely enforced on the server.",
@@ -916,7 +1224,7 @@ const wstgData = [
                 "consequences_de": "Benutzer k\u00f6nnen die versteckten Profilvariablen manipulieren, um ihre Privilegien auf Administrator oder System-Admin zu erh\u00f6hen."
             },
             {
-                "id": "athz_privesc_condition_manipulation",
+                "id": "WSTG-ATHZ-03-3",
                 "title_en": "Privilege Escalation via Condition Value Manipulation",
                 "title_de": "Privilegieneskalation durch Manipulation von Bedingungswerten",
                 "description_en": "The application explicitly trusts client-side status codes or condition indicators (e.g., PVValid=-1 for error, 0 for success) returned in the request flow.",
@@ -951,7 +1259,7 @@ const wstgData = [
         "sysreptor_finding": "WSTG-ATHZ-04: Testing for Insecure Direct Object References",
         "sysreptor_templates": [
             {
-                "id": "athz_idor_database_record",
+                "id": "WSTG-ATHZ-04-1",
                 "title_en": "IDOR: Direct Retrieval of Database Records",
                 "title_de": "IDOR: Direkter Abruf von Datenbankeintr\u00e4gen",
                 "description_en": "The application uses parameter values (like ?invoice=12345) as a direct index to database records without checking if the user owns the record.",
@@ -960,7 +1268,7 @@ const wstgData = [
                 "consequences_de": "Ein Angreifer kann Kennungen sequenziell erraten oder durch Brute-Force ermitteln, um auf private Daten, Rechnungen oder pers\u00f6nliche Profile anderer Benutzer zuzugreifen."
             },
             {
-                "id": "athz_idor_system_operation",
+                "id": "WSTG-ATHZ-04-2",
                 "title_en": "IDOR: Unauthorized System Operations",
                 "title_de": "IDOR: Unautorisierte Systemoperationen",
                 "description_en": "The application references objects directly to execute operations (e.g., ?user=someuser to change a password) but fails to authorize if the requester is allowed to act on that object.",
@@ -969,7 +1277,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen unautorisierte Aktionen im Namen anderer Benutzer durchf\u00fchren, wie z.B. Kontopassw\u00f6rter \u00e4ndern, Einstellungen modifizieren oder Eintr\u00e4ge l\u00f6schen."
             },
             {
-                "id": "athz_idor_file_system",
+                "id": "WSTG-ATHZ-04-3",
                 "title_en": "IDOR: Direct Access to File System Resources",
                 "title_de": "IDOR: Direkter Zugriff auf Dateisystemressourcen",
                 "description_en": "Parameter values directly reference files on the server (e.g., ?img=img00011.jpg) without restricting access to authorized users.",
@@ -978,13 +1286,14 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen sensible Dateien oder Dokumente abrufen, die anderweitig gesch\u00fctzt sind, was oft in Verbindung mit Path-Traversal-Techniken ausnutzbar ist."
             },
             {
-                "id": "athz_idor_app_functionality",
+                "id": "WSTG-ATHZ-04-4",
                 "title_en": "IDOR: Access to Restricted Application Functionality",
                 "title_de": "IDOR: Zugriff auf eingeschr\u00e4nkte Anwendungsfunktionen",
                 "description_en": "Application features are accessed via numeric or string identifiers (e.g., ?menuitem=12). Modifying the identifier reveals hidden or restricted functionality.",
                 "description_de": "Auf Anwendungsfunktionen wird \u00fcber numerische oder textbasierte Kennungen zugegriffen (z. B. ?menuitem=12). Das \u00c4ndern der Kennung offenbart versteckte oder eingeschr\u00e4nkte Funktionen.",
                 "consequences_en": "Users can access menus, configurations, or administration panels that are visually hidden from their assigned profile but not technically restricted.",
-                "consequences_de": "Benutzer k\u00f6nnen auf Men\u00fcs, Konfigurationen oder Administrationspanels zugreifen, die in ihrem zugewiesenen Profil zwar visuell verborgen, aber nicht technisch eingeschr\u00e4nkt sind."
+                "consequences_de": "Benutzer k\u00f6nnen auf Men\u00fcs, Konfigurationen oder Administrationspanels zugreifen, die in ihrem zugewiesenen Profil zwar visuell verborgen, aber nicht technisch eingeschr\u00e4nkt sind.",
+                "sysreptor_id": "4082d305-c9c0-49c9-a788-966998870857"
             }
         ],
         "title_de": "Pr\u00fcfung auf unsichere direkte Objektverweise (Insecure Direct Object References / IDOR)",
@@ -1013,22 +1322,24 @@ const wstgData = [
         "sysreptor_finding": "WSTG-ATHZ-05: Testing for OAuth Weaknesses",
         "sysreptor_templates": [
             {
-                "id": "athz_oauth_deprecated_grants",
+                "id": "WSTG-ATHZ-05-1",
                 "title_en": "Usage of Deprecated OAuth Grant Types",
                 "title_de": "Verwendung veralteter OAuth Grant-Typen",
                 "description_en": "The implementation relies on obsolete, less secure OAuth flows, such as the Implicit Flow or Resource Owner Password Credentials (ROPC).",
                 "description_de": "Die Implementierung verl\u00e4sst sich auf veraltete, weniger sichere OAuth-Flows wie den Implicit Flow oder Resource Owner Password Credentials (ROPC).",
                 "consequences_en": "Increases the risk of token leakage in browser history or proxies, and exposes user credentials directly to client applications.",
-                "consequences_de": "Erh\u00f6ht das Risiko von Token-Leaks im Browserverlauf oder in Proxys und gibt Benutzeranmeldedaten direkt an Client-Anwendungen weiter."
+                "consequences_de": "Erh\u00f6ht das Risiko von Token-Leaks im Browserverlauf oder in Proxys und gibt Benutzeranmeldedaten direkt an Client-Anwendungen weiter.",
+                "sysreptor_id": "f7b8c006-4a33-415f-8ff8-d8c478305764"
             },
             {
-                "id": "athz_oauth_credential_leakage",
+                "id": "WSTG-ATHZ-05-2",
                 "title_en": "OAuth Credential Leakage via URLs or Referer Headers",
                 "title_de": "OAuth-Credential-Leakage \u00fcber URLs oder Referer-Header",
                 "description_en": "Sensitive OAuth parameters (like access tokens, authorization codes, or PKCE verifiers) are leaked through URL parameters, fragments, or HTTP Referer headers.",
                 "description_de": "Sensible OAuth-Parameter (wie Access-Tokens, Autorisierungscodes oder PKCE-Verifier) werden durch URL-Parameter, Fragmente oder HTTP-Referer-Header preisgegeben.",
                 "consequences_en": "Attackers can intercept leaked tokens from logs or external analytics services, enabling them to hijack active OAuth sessions.",
-                "consequences_de": "Angreifer k\u00f6nnen geleakte Tokens aus Logs oder externen Analysediensten abfangen und so aktive OAuth-Sitzungen \u00fcbernehmen."
+                "consequences_de": "Angreifer k\u00f6nnen geleakte Tokens aus Logs oder externen Analysediensten abfangen und so aktive OAuth-Sitzungen \u00fcbernehmen.",
+                "sysreptor_id": "b3d9a319-0aa2-418c-a906-964eeebb216a"
             }
         ],
         "title_de": "Pr\u00fcfung auf OAuth-Schwachstellen",
@@ -1057,13 +1368,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-BUSL-01: Test Business Logic Data Validation",
         "sysreptor_templates": [
             {
-                "id": "busl_data_validation",
+                "id": "WSTG-BUSL-01-1",
                 "title_en": "Business Logic Data Validation Failure",
                 "title_de": "Fehler in der Validierung von Gesch\u00e4ftslogik-Daten",
                 "description_en": "The application lacks proper backend checks for logically invalid data (e.g., impossible social security numbers, ordering negative items).",
                 "description_de": "Der Anwendung fehlen angemessene Backend-Pr\u00fcfungen auf logisch ung\u00fcltige Daten (z.B. unm\u00f6gliche Sozialversicherungsnummern, Bestellung negativer Artikelmengen).",
                 "consequences_en": "Attackers can manipulate the business state, causing financial loss, resource exhaustion, or exploiting downstream partner systems.",
-                "consequences_de": "Angreifer k\u00f6nnen den gesch\u00e4ftlichen Zustand manipulieren, was zu finanziellen Verlusten, Ressourcenersch\u00f6pfung oder der Ausnutzung nachgelagerter Partnersysteme f\u00fchrt."
+                "consequences_de": "Angreifer k\u00f6nnen den gesch\u00e4ftlichen Zustand manipulieren, was zu finanziellen Verlusten, Ressourcenersch\u00f6pfung oder der Ausnutzung nachgelagerter Partnersysteme f\u00fchrt.",
+                "sysreptor_id": "662aa666-d85d-43df-a19d-f7dd80b4aa08"
             }
         ],
         "title_de": "Pr\u00fcfung der Datenvalidierung in der Gesch\u00e4ftslogik",
@@ -1092,13 +1404,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-BUSL-02: Test Ability to Forge Requests",
         "sysreptor_templates": [
             {
-                "id": "busl_forge_requests_hidden",
+                "id": "WSTG-BUSL-02-1",
                 "title_en": "Ability to Forge Requests via Hidden Features",
                 "title_de": "M\u00f6glichkeit zur F\u00e4lschung von Anfragen \u00fcber versteckte Funktionen",
                 "description_en": "Attackers can bypass normal workflows by forging requests using predictable parameters or discovering hidden 'debug' variables (e.g., debug=1).",
                 "description_de": "Angreifer k\u00f6nnen normale Workflows umgehen, indem sie Anfragen mit vorhersehbaren Parametern f\u00e4lschen oder versteckte 'Debug'-Variablen entdecken (z.B. debug=1).",
                 "consequences_en": "Access to undocumented features allows attackers to bypass discounts, escalate privileges, or access unearned rewards in the system.",
-                "consequences_de": "Der Zugriff auf undokumentierte Funktionen erm\u00f6glicht es Angreifern, Rabatte zu umgehen, Privilegien zu eskalieren oder auf unverdiente Belohnungen im System zuzugreifen."
+                "consequences_de": "Der Zugriff auf undokumentierte Funktionen erm\u00f6glicht es Angreifern, Rabatte zu umgehen, Privilegien zu eskalieren oder auf unverdiente Belohnungen im System zuzugreifen.",
+                "sysreptor_id": "71a5c02a-9ab8-4ba9-b9ca-83b11c1c922d"
             }
         ],
         "title_de": "Pr\u00fcfung der M\u00f6glichkeit, Anfragen zu f\u00e4lschen (Forged Requests)",
@@ -1127,13 +1440,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-BUSL-03: Test Integrity Checks",
         "sysreptor_templates": [
             {
-                "id": "busl_integrity_hidden_fields",
+                "id": "WSTG-BUSL-03-1",
                 "title_en": "Integrity Check Bypass via Hidden/Non-editable Fields",
                 "title_de": "Umgehung der Integrit\u00e4tspr\u00fcfung \u00fcber versteckte/nicht bearbeitbare Felder",
                 "description_en": "The application relies on client-side constraints (like disabled inputs, dropdown menus, or hidden fields) to enforce business rules without validating them on the server.",
                 "description_de": "Die Anwendung verl\u00e4sst sich auf clientseitige Beschr\u00e4nkungen (wie deaktivierte Eingabefelder, Dropdown-Men\u00fcs oder versteckte Felder), um Gesch\u00e4ftsregeln durchzusetzen, ohne diese auf dem Server zu validieren.",
                 "consequences_en": "Attackers can intercept HTTP requests and submit arbitrary values, overriding critical constraints like pricing or user permissions.",
-                "consequences_de": "Angreifer k\u00f6nnen HTTP-Anfragen abfangen und beliebige Werte \u00fcbermitteln, wodurch kritische Beschr\u00e4nkungen wie Preise oder Benutzerberechtigungen \u00fcberschrieben werden."
+                "consequences_de": "Angreifer k\u00f6nnen HTTP-Anfragen abfangen und beliebige Werte \u00fcbermitteln, wodurch kritische Beschr\u00e4nkungen wie Preise oder Benutzerberechtigungen \u00fcberschrieben werden.",
+                "sysreptor_id": "74599e1f-7844-4e88-819e-e3d3dd03fff3"
             }
         ],
         "title_de": "Pr\u00fcfung von Integrit\u00e4tskontrollen",
@@ -1162,13 +1476,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-BUSL-04: Test for Process Timing",
         "sysreptor_templates": [
             {
-                "id": "busl_process_timing",
+                "id": "WSTG-BUSL-04-1",
                 "title_en": "Process Timing Vulnerabilities",
                 "title_de": "Prozess-Timing-Schwachstellen",
                 "description_en": "Attackers can monitor response times to infer hidden states (e.g., user existence) or delay requests to exploit time-of-check to time-of-use (TOCTOU) flaws (like fluctuating market prices).",
                 "description_de": "Angreifer k\u00f6nnen Antwortzeiten \u00fcberwachen, um auf verborgene Zust\u00e4nde zu schlie\u00dfen (z. B. Benutzerexistenz), oder Anfragen verz\u00f6gern, um TOCTOU-Fehler auszunutzen (wie schwankende Marktpreise).",
                 "consequences_en": "Information disclosure and financial manipulation resulting from predictable background process timing.",
-                "consequences_de": "Informationspreisgabe und finanzielle Manipulation als Folge vorhersehbarer Timing-Abl\u00e4ufe im Hintergrund."
+                "consequences_de": "Informationspreisgabe und finanzielle Manipulation als Folge vorhersehbarer Timing-Abl\u00e4ufe im Hintergrund.",
+                "sysreptor_id": "e3082723-ab62-4d8a-81c5-b044bc1d0b6a"
             }
         ],
         "title_de": "Pr\u00fcfung auf Timing-Angriffe im Prozessablauf (Process Timing)",
@@ -1197,13 +1512,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-BUSL-05: Test Number of Times a Function Can Be Used Limits",
         "sysreptor_templates": [
             {
-                "id": "busl_function_limits",
+                "id": "WSTG-BUSL-05-1",
                 "title_en": "Missing Function Use Limits",
                 "title_de": "Fehlende Beschr\u00e4nkungen der Funktionsnutzung",
                 "description_en": "The application fails to restrict how many times a user can execute a specific beneficial action (e.g., applying a single-use discount coupon multiple times).",
                 "description_de": "Die Anwendung vers\u00e4umt es, die H\u00e4ufigkeit einzuschr\u00e4nken, mit der ein Benutzer eine bestimmte vorteilhafte Aktion ausf\u00fchren kann (z. B. mehrfaches Einl\u00f6sen eines Einmal-Rabattgutscheins).",
                 "consequences_en": "Users can exploit the function for limitless personal gain at the expense of the business.",
-                "consequences_de": "Benutzer k\u00f6nnen die Funktion zum grenzenlosen pers\u00f6nlichen Vorteil auf Kosten des Unternehmens ausnutzen."
+                "consequences_de": "Benutzer k\u00f6nnen die Funktion zum grenzenlosen pers\u00f6nlichen Vorteil auf Kosten des Unternehmens ausnutzen.",
+                "sysreptor_id": "e9bed5f6-2c3d-4a3a-9352-4d01ffe9e319"
             }
         ],
         "title_de": "Pr\u00fcfung der Nutzungslimits einer Funktion (Rate Limiting)",
@@ -1232,13 +1548,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-BUSL-06: Testing for the Circumvention of Work Flows",
         "sysreptor_templates": [
             {
-                "id": "busl_workflow_circumvention",
+                "id": "WSTG-BUSL-06-1",
                 "title_en": "Workflow Circumvention / State Transition Abuse",
                 "title_de": "Umgehung von Workflows / Missbrauch von Zustands\u00fcberg\u00e4ngen",
                 "description_en": "The application lacks strict server-side state enforcement for multi-step processes, enabling an attacker to skip mandatory steps (e.g., skipping payment and going straight to order confirmation).",
                 "description_de": "Der Anwendung fehlt eine strikte serverseitige Zustandserzwingung f\u00fcr mehrstufige Prozesse, was es einem Angreifer erm\u00f6glicht, obligatorische Schritte zu \u00fcberspringen (z. B. Zahlung \u00fcberspringen und direkt zur Bestellbest\u00e4tigung gehen).",
                 "consequences_en": "Business logic is completely bypassed, leading to unauthorized actions such as obtaining items for free or gaining unearned access.",
-                "consequences_de": "Gesch\u00e4ftslogik wird vollst\u00e4ndig umgangen, was zu unautorisierten Aktionen f\u00fchrt, wie z.B. dem kostenlosen Erhalt von Artikeln oder unberechtigtem Zugang."
+                "consequences_de": "Gesch\u00e4ftslogik wird vollst\u00e4ndig umgangen, was zu unautorisierten Aktionen f\u00fchrt, wie z.B. dem kostenlosen Erhalt von Artikeln oder unberechtigtem Zugang.",
+                "sysreptor_id": "8822c86b-1146-44e4-9780-bfb7ebdc76db"
             }
         ],
         "title_de": "Pr\u00fcfung auf Umgehung von Arbeitsabl\u00e4ufen (Workflows)",
@@ -1267,13 +1584,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-BUSL-07: Test Defenses Against Application Misuse",
         "sysreptor_templates": [
             {
-                "id": "busl_missing_defenses",
+                "id": "WSTG-BUSL-07-1",
                 "title_en": "Missing Defenses Against Application Misuse",
                 "title_de": "Fehlende Abwehrma\u00dfnahmen gegen Anwendungs-Missbrauch",
                 "description_en": "The application does not detect or react to obvious malicious behavior (e.g., excessive request rates, malformed structured data, repeated authorization failures).",
                 "description_de": "Die Anwendung erkennt oder reagiert nicht auf offensichtlich b\u00f6sartiges Verhalten (z.B. \u00fcberm\u00e4\u00dfige Anfrage-Raten, fehlerhaft strukturierte Daten, wiederholte Autorisierungsfehler).",
                 "consequences_en": "Attackers can perform unrestricted reconnaissance, fuzzing, and brute-forcing without ever being blocked or slowed down.",
-                "consequences_de": "Angreifer k\u00f6nnen uneingeschr\u00e4nkt Aufkl\u00e4rung, Fuzzing und Brute-Forcing durchf\u00fchren, ohne jemals blockiert oder verlangsamt zu werden."
+                "consequences_de": "Angreifer k\u00f6nnen uneingeschr\u00e4nkt Aufkl\u00e4rung, Fuzzing und Brute-Forcing durchf\u00fchren, ohne jemals blockiert oder verlangsamt zu werden.",
+                "sysreptor_id": "601281ef-5348-43e8-b4ce-a0c1ea3be43e"
             }
         ],
         "title_de": "Pr\u00fcfung der Abwehrma\u00dfnahmen gegen Anwendungsmissbrauch",
@@ -1302,13 +1620,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-BUSL-08: Test Upload of Unexpected File Types",
         "sysreptor_templates": [
             {
-                "id": "busl_upload_unexpected_files",
+                "id": "WSTG-BUSL-08-1",
                 "title_en": "Upload of Unexpected File Types",
                 "title_de": "Upload von unerwarteten Dateitypen",
                 "description_en": "The file upload mechanism accepts file types that it should not (e.g., accepting an HTML file when an image is expected), relying solely on weak client-side or extension checks.",
                 "description_de": "Der Datei-Upload-Mechanismus akzeptiert Dateitypen, die er nicht sollte (z.B. eine HTML-Datei, wenn ein Bild erwartet wird), und verl\u00e4sst sich dabei ausschlie\u00dflich auf schwache clientseitige oder Erweiterungs-Pr\u00fcfungen.",
                 "consequences_en": "Allows for Cross-Site Scripting (if HTML is rendered) or corruption of application data parsers.",
-                "consequences_de": "Erm\u00f6glicht Cross-Site Scripting (wenn HTML gerendert wird) oder die Besch\u00e4digung von Anwendungsdaten-Parsern."
+                "consequences_de": "Erm\u00f6glicht Cross-Site Scripting (wenn HTML gerendert wird) oder die Besch\u00e4digung von Anwendungsdaten-Parsern.",
+                "sysreptor_id": "62d2caff-2881-4e28-b94f-d5ab70b57a09"
             }
         ],
         "title_de": "Pr\u00fcfung des Uploads unerwarteter Dateitypen",
@@ -1337,22 +1656,24 @@ const wstgData = [
         "sysreptor_finding": "WSTG-BUSL-09: Test Upload of Malicious Files",
         "sysreptor_templates": [
             {
-                "id": "busl_upload_malicious_files",
+                "id": "WSTG-BUSL-09-1",
                 "title_en": "Upload of Malicious Files (Web Shells)",
                 "title_de": "Upload von b\u00f6sartigen Dateien (Web Shells)",
                 "description_en": "The application permits the upload of executable scripts (like PHP, JSP) to a web-accessible directory without validating content or stripping execution permissions.",
                 "description_de": "Die Anwendung erlaubt das Hochladen ausf\u00fchrbarer Skripte (wie PHP, JSP) in ein webzug\u00e4ngliches Verzeichnis, ohne Inhalte zu validieren oder Ausf\u00fchrungsrechte zu entziehen.",
                 "consequences_en": "Attackers can upload and execute web shells, leading to total Remote Code Execution and server takeover.",
-                "consequences_de": "Angreifer k\u00f6nnen Web Shells hochladen und ausf\u00fchren, was zu einer vollst\u00e4ndigen Remote Code Execution und der \u00dcbernahme des Servers f\u00fchrt."
+                "consequences_de": "Angreifer k\u00f6nnen Web Shells hochladen und ausf\u00fchren, was zu einer vollst\u00e4ndigen Remote Code Execution und der \u00dcbernahme des Servers f\u00fchrt.",
+                "sysreptor_id": "62b3717e-553d-4112-b843-3a4f60a3f71e"
             },
             {
-                "id": "busl_upload_zip_slip",
+                "id": "WSTG-BUSL-09-2",
                 "title_en": "Archive Directory Traversal (Zip Slip / Zip Bomb)",
                 "title_de": "Archive Directory Traversal (Zip Slip / Zip-Bombe)",
                 "description_en": "The application extracts uploaded archives (ZIP, TAR) without validating internal file paths (allowing ../ sequences) or checking decompression size.",
                 "description_de": "Die Anwendung entpackt hochgeladene Archive (ZIP, TAR), ohne interne Dateipfade zu validieren (was ../ Sequenzen erlaubt) oder die Dekompressionsgr\u00f6\u00dfe zu \u00fcberpr\u00fcfen.",
                 "consequences_en": "Attackers can overwrite arbitrary files on the server (Zip Slip) or trigger severe Denial of Service by exhausting disk/memory resources (Zip Bomb).",
-                "consequences_de": "Angreifer k\u00f6nnen beliebige Dateien auf dem Server \u00fcberschreiben (Zip Slip) oder durch Ersch\u00f6pfung von Festplatten-/Speicherressourcen schwere Denial-of-Service-Angriffe ausl\u00f6sen (Zip-Bombe)."
+                "consequences_de": "Angreifer k\u00f6nnen beliebige Dateien auf dem Server \u00fcberschreiben (Zip Slip) oder durch Ersch\u00f6pfung von Festplatten-/Speicherressourcen schwere Denial-of-Service-Angriffe ausl\u00f6sen (Zip-Bombe).",
+                "sysreptor_id": "536112f2-2220-41a9-b1e3-246421ed02db"
             }
         ],
         "title_de": "Pr\u00fcfung des Uploads b\u00f6sartiger Dateien",
@@ -1381,22 +1702,24 @@ const wstgData = [
         "sysreptor_finding": "WSTG-BUSL-10: Test Payment Functionality",
         "sysreptor_templates": [
             {
-                "id": "busl_payment_tampering",
+                "id": "WSTG-BUSL-10-1",
                 "title_en": "Payment Gateway Price/Quantity Tampering",
                 "title_de": "Preis-/Mengenmanipulation am Payment-Gateway",
                 "description_en": "The e-commerce application relies on client-submitted values for item prices, shipping costs, or quantities when communicating with a payment gateway.",
                 "description_de": "Die E-Commerce-Anwendung verl\u00e4sst sich auf clientseitig \u00fcbermittelte Werte f\u00fcr Artikelpreise, Versandkosten oder Mengen bei der Kommunikation mit einem Zahlungs-Gateway.",
                 "consequences_en": "Attackers can modify hidden fields or API requests to purchase items for a fraction of the cost, or use negative quantities to reduce the total bill.",
-                "consequences_de": "Angreifer k\u00f6nnen versteckte Felder oder API-Anfragen \u00e4ndern, um Artikel zu einem Bruchteil der Kosten zu kaufen, oder negative Mengen verwenden, um die Gesamtrechnung zu reduzieren."
+                "consequences_de": "Angreifer k\u00f6nnen versteckte Felder oder API-Anfragen \u00e4ndern, um Artikel zu einem Bruchteil der Kosten zu kaufen, oder negative Mengen verwenden, um die Gesamtrechnung zu reduzieren.",
+                "sysreptor_id": "2045ca8b-d854-4eaa-9dd5-0bd650cd7a00"
             },
             {
-                "id": "busl_payment_race_conditions",
+                "id": "WSTG-BUSL-10-2",
                 "title_en": "Payment/Coupon Race Conditions (TOCTOU)",
                 "title_de": "Zahlung/Gutschein Race Conditions (TOCTOU)",
                 "description_en": "The application suffers from Time-of-Check to Time-of-Use flaws, allowing concurrent requests to redeem a single-use coupon multiple times or double-spend balances.",
                 "description_de": "Die Anwendung leidet unter Time-of-Check to Time-of-Use-Fehlern, die es erm\u00f6glichen, durch gleichzeitige Anfragen einen Einmal-Gutschein mehrfach einzul\u00f6sen oder Guthaben doppelt auszugeben.",
                 "consequences_en": "Attackers can massively exploit limited resources, duplicate balance spending, or apply extreme discounts.",
-                "consequences_de": "Angreifer k\u00f6nnen massiv eingeschr\u00e4nkte Ressourcen ausnutzen, Guthaben doppelt ausgeben oder extreme Rabatte anwenden."
+                "consequences_de": "Angreifer k\u00f6nnen massiv eingeschr\u00e4nkte Ressourcen ausnutzen, Guthaben doppelt ausgeben oder extreme Rabatte anwenden.",
+                "sysreptor_id": "1ecc5d1b-e034-4aa0-92cb-93f62b4b2c52"
             }
         ],
         "title_de": "Pr\u00fcfung der Zahlungsfunktion",
@@ -1425,13 +1748,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CLNT-01: Testing for DOM-Based Cross Site Scripting",
         "sysreptor_templates": [
             {
-                "id": "clnt_dom_xss",
+                "id": "WSTG-CLNT-01-1",
                 "title_en": "DOM-Based Cross-Site Scripting (XSS)",
                 "title_de": "DOM-basiertes Cross-Site Scripting (XSS)",
                 "description_en": "The application's client-side JavaScript extracts data from a controllable source (e.g., location.hash, URL parameters) and passes it directly to an execution sink (e.g., innerHTML, document.write) without sanitization.",
                 "description_de": "Das clientseitige JavaScript der Anwendung extrahiert Daten aus einer kontrollierbaren Quelle (z. B. location.hash, URL-Parameter) und \u00fcbergibt sie ohne Bereinigung direkt an eine Ausf\u00fchrungssenke (z. B. innerHTML, document.write).",
                 "consequences_en": "Malicious code is executed completely within the browser, bypassing server-side WAFs and XSS filters, allowing session theft and malicious actions.",
-                "consequences_de": "B\u00f6sartiger Code wird vollst\u00e4ndig im Browser ausgef\u00fchrt, umgeht serverseitige WAFs und XSS-Filter und erm\u00f6glicht Sitzungsdiebstahl und b\u00f6sartige Aktionen."
+                "consequences_de": "B\u00f6sartiger Code wird vollst\u00e4ndig im Browser ausgef\u00fchrt, umgeht serverseitige WAFs und XSS-Filter und erm\u00f6glicht Sitzungsdiebstahl und b\u00f6sartige Aktionen.",
+                "sysreptor_id": "ea1a8274-b7e1-4e1d-b71f-f9e0a831670d"
             }
         ],
         "title_de": "Pr\u00fcfung auf DOM-basiertes Cross-Site Scripting (XSS)",
@@ -1460,7 +1784,7 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CLNT-02: Testing for JavaScript Execution",
         "sysreptor_templates": [
             {
-                "id": "clnt_js_execution",
+                "id": "WSTG-CLNT-02-1",
                 "title_en": "JavaScript Execution / Injection",
                 "title_de": "JavaScript-Ausf\u00fchrung / Injection",
                 "description_en": "User input is directly passed to dangerous JavaScript functions (like eval(), setTimeout(), or setInterval()) allowing arbitrary code execution.",
@@ -1495,13 +1819,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CLNT-03: Testing for HTML Injection",
         "sysreptor_templates": [
             {
-                "id": "clnt_html_injection",
+                "id": "WSTG-CLNT-03-1",
                 "title_en": "HTML Injection",
                 "title_de": "HTML-Injection",
                 "description_en": "The application allows untrusted input to modify the DOM structure, injecting unauthorized HTML elements (e.g., fake login forms or <img> tags).",
                 "description_de": "Die Anwendung l\u00e4sst zu, dass nicht vertrauensw\u00fcrdige Eingaben die DOM-Struktur ver\u00e4ndern, indem unautorisierte HTML-Elemente (z. B. gef\u00e4lschte Login-Formulare oder <img>-Tags) injiziert werden.",
                 "consequences_en": "Attackers can deface the page or steal credentials by tricking users with spoofed content, even if full script execution is prevented.",
-                "consequences_de": "Angreifer k\u00f6nnen die Seite verunstalten oder Anmeldedaten stehlen, indem sie Benutzer mit gef\u00e4lschten Inhalten t\u00e4uschen, selbst wenn die vollst\u00e4ndige Skriptausf\u00fchrung verhindert wird."
+                "consequences_de": "Angreifer k\u00f6nnen die Seite verunstalten oder Anmeldedaten stehlen, indem sie Benutzer mit gef\u00e4lschten Inhalten t\u00e4uschen, selbst wenn die vollst\u00e4ndige Skriptausf\u00fchrung verhindert wird.",
+                "sysreptor_id": "a3360960-21ac-45ad-a0f2-e80b32943eff"
             }
         ],
         "title_de": "Pr\u00fcfung auf HTML-Injection",
@@ -1530,13 +1855,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CLNT-04: Testing for Client-side URL Redirect",
         "sysreptor_templates": [
             {
-                "id": "clnt_open_redirect",
+                "id": "WSTG-CLNT-04-1",
                 "title_en": "Client-Side URL Redirect (Open Redirect)",
                 "title_de": "Clientseitige URL-Weiterleitung (Open Redirect)",
                 "description_en": "JavaScript logic dynamically changes window.location based on user-supplied URL parameters or hashes without validating the target domain.",
                 "description_de": "Die JavaScript-Logik \u00e4ndert window.location dynamisch basierend auf vom Benutzer bereitgestellten URL-Parametern oder Hashes, ohne die Zieldomain zu validieren.",
                 "consequences_en": "Facilitates highly effective phishing campaigns, as the victim clicks a link belonging to a trusted domain but is instantly redirected to malware or fake login pages.",
-                "consequences_de": "Erleichtert hocheffektive Phishing-Kampagnen, da das Opfer auf einen Link klickt, der zu einer vertrauensw\u00fcrdigen Domain geh\u00f6rt, aber sofort auf Malware oder gef\u00e4lschte Login-Seiten weitergeleitet wird."
+                "consequences_de": "Erleichtert hocheffektive Phishing-Kampagnen, da das Opfer auf einen Link klickt, der zu einer vertrauensw\u00fcrdigen Domain geh\u00f6rt, aber sofort auf Malware oder gef\u00e4lschte Login-Seiten weitergeleitet wird.",
+                "sysreptor_id": "87c09b42-1c60-4842-9f70-322bcc0eb8eb"
             }
         ],
         "title_de": "Pr\u00fcfung auf clientseitige URL-Weiterleitungen (URL Redirects)",
@@ -1565,7 +1891,7 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CLNT-05: Testing for CSS Injection",
         "sysreptor_templates": [
             {
-                "id": "clnt_css_injection",
+                "id": "WSTG-CLNT-05-1",
                 "title_en": "CSS Injection",
                 "title_de": "CSS-Injection",
                 "description_en": "The application reflects untrusted input directly into <style> tags or inline style attributes.",
@@ -1600,13 +1926,22 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CLNT-06: Testing for Client-side Resource Manipulation",
         "sysreptor_templates": [
             {
-                "id": "clnt_resource_manipulation",
+                "id": "WSTG-CLNT-06-1",
                 "title_en": "Client-Side Resource Manipulation",
                 "title_de": "Clientseitige Ressourcen-Manipulation",
                 "description_en": "The application builds resource URLs (for <iframe>, <script>, or XMLHttpRequest) dynamically from unvalidated user input (like URL fragments).",
                 "description_de": "Die Anwendung erstellt Ressourcen-URLs (f\u00fcr <iframe>, <script> oder XMLHttpRequest) dynamisch aus unvalidierten Benutzereingaben (wie URL-Fragmenten).",
                 "consequences_en": "Attackers can force the victim's browser to load malicious external scripts or HTML, bypassing the intended application flow and leading to XSS.",
                 "consequences_de": "Angreifer k\u00f6nnen den Browser des Opfers zwingen, b\u00f6sartige externe Skripte oder HTML-Dateien zu laden, wodurch der vorgesehene Anwendungsablauf umgangen wird und XSS entsteht."
+            },
+            {
+                "id": "WSTG-CLNT-06-2",
+                "title_en": "Missing Subresource Integrity",
+                "title_de": "Fehlende Subresource Integrity (SRI)",
+                "description_en": "Externally hosted scripts are loaded without a cryptographic integrity hash verification.",
+                "description_de": "Extern gehostete Skripte werden ohne \u00dcberpr\u00fcfung eines kryptografischen Integrit\u00e4tshashes geladen.",
+                "consequences_en": "If the third-party host is compromised, attackers can inject malicious JavaScript into the application context.",
+                "consequences_de": "Wenn der Drittanbieter kompromittiert wird, k\u00f6nnen Angreifer b\u00f6sartiges JavaScript in den Anwendungskontext einschleusen."
             }
         ],
         "title_de": "Pr\u00fcfung auf clientseitige Ressourcenmanipulation",
@@ -1635,16 +1970,17 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CLNT-07: Testing Cross Origin Resource Sharing",
         "sysreptor_templates": [
             {
-                "id": "clnt_cors_wildcard",
+                "id": "WSTG-CLNT-07-1",
                 "title_en": "Insecure CORS Policy (Wildcard / Reflected Origin)",
                 "title_de": "Unsichere CORS-Richtlinie (Wildcard / Reflektierter Origin)",
                 "description_en": "The server's CORS configuration dynamically reflects the client's Origin header into Access-Control-Allow-Origin, or relies on an overly permissive wildcard with credentials.",
                 "description_de": "Die CORS-Konfiguration des Servers reflektiert den Origin-Header des Clients dynamisch in Access-Control-Allow-Origin oder st\u00fctzt sich auf einen zu freiz\u00fcgigen Wildcard in Kombination mit Credentials.",
                 "consequences_en": "Malicious sites visited by the authenticated user can read sensitive data via cross-origin XHR/Fetch requests, completely defeating the Same-Origin Policy.",
-                "consequences_de": "B\u00f6sartige Seiten, die vom authentifizierten Benutzer besucht werden, k\u00f6nnen sensible Daten \u00fcber dom\u00e4nen\u00fcbergreifende XHR/Fetch-Anfragen lesen und so die Same-Origin Policy vollst\u00e4ndig au\u00dfer Kraft setzen."
+                "consequences_de": "B\u00f6sartige Seiten, die vom authentifizierten Benutzer besucht werden, k\u00f6nnen sensible Daten \u00fcber dom\u00e4nen\u00fcbergreifende XHR/Fetch-Anfragen lesen und so die Same-Origin Policy vollst\u00e4ndig au\u00dfer Kraft setzen.",
+                "sysreptor_id": "202c86b0-02fb-4200-8cc4-4decb822a1e7"
             },
             {
-                "id": "clnt_cors_null_origin",
+                "id": "WSTG-CLNT-07-2",
                 "title_en": "CORS Policy Allowlisting 'null' Origin",
                 "title_de": "CORS-Richtlinie erlaubt 'null'-Origin",
                 "description_en": "The application explicitly trusts the 'null' origin, which can be easily spoofed by an attacker using a sandboxed iframe.",
@@ -1679,7 +2015,7 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CLNT-08: Testing for Cross Site Flashing",
         "sysreptor_templates": [
             {
-                "id": "clnt_cross_site_flashing",
+                "id": "WSTG-CLNT-08-1",
                 "title_en": "Cross Site Flashing (Legacy)",
                 "title_de": "Cross Site Flashing (Legacy)",
                 "description_en": "A legacy vulnerability where inadequately secured Flash (SWF) applications process untrusted FlashVars or execute unsafe methods like getURL.",
@@ -1714,13 +2050,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CLNT-09: Testing for Clickjacking",
         "sysreptor_templates": [
             {
-                "id": "clnt_clickjacking",
+                "id": "WSTG-CLNT-09-1",
                 "title_en": "Clickjacking (UI Redressing)",
                 "title_de": "Clickjacking (UI Redressing)",
                 "description_en": "The application lacks frame-busting mechanisms, X-Frame-Options, or CSP frame-ancestors, allowing it to be seamlessly embedded inside malicious iframes.",
                 "description_de": "Der Anwendung fehlen Frame-Busting-Mechanismen, X-Frame-Options oder CSP frame-ancestors, wodurch sie nahtlos in b\u00f6sartige Iframes eingebettet werden kann.",
                 "consequences_en": "Attackers can place invisible layers over the application to trick authenticated users into clicking buttons that execute state-changing actions.",
-                "consequences_de": "Angreifer k\u00f6nnen unsichtbare Schichten \u00fcber die Anwendung legen, um authentifizierte Benutzer dazu zu verleiten, auf Schaltfl\u00e4chen zu klicken, die zustands\u00e4ndernde Aktionen ausf\u00fchren."
+                "consequences_de": "Angreifer k\u00f6nnen unsichtbare Schichten \u00fcber die Anwendung legen, um authentifizierte Benutzer dazu zu verleiten, auf Schaltfl\u00e4chen zu klicken, die zustands\u00e4ndernde Aktionen ausf\u00fchren.",
+                "sysreptor_id": "52da968d-975a-40c4-b595-07f9a8aca1fd"
             }
         ],
         "title_de": "Pr\u00fcfung auf Clickjacking",
@@ -1749,7 +2086,7 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CLNT-10: Testing WebSockets",
         "sysreptor_templates": [
             {
-                "id": "clnt_cswsh",
+                "id": "WSTG-CLNT-10-1",
                 "title_en": "Cross-Site WebSocket Hijacking (CSWSH)",
                 "title_de": "Cross-Site WebSocket Hijacking (CSWSH)",
                 "description_en": "The WebSocket server does not validate the Origin header during the initial handshake.",
@@ -1784,7 +2121,7 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CLNT-11: Testing Web Messaging",
         "sysreptor_templates": [
             {
-                "id": "clnt_postmessage_origin",
+                "id": "WSTG-CLNT-11-1",
                 "title_en": "Insecure Web Messaging (postMessage)",
                 "title_de": "Unsicheres Web Messaging (postMessage)",
                 "description_en": "The application uses HTML5 postMessage but relies on the wildcard '*' target origin, or processes incoming messages without validating event.origin.",
@@ -1819,7 +2156,7 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CLNT-12: Testing Browser Storage",
         "sysreptor_templates": [
             {
-                "id": "clnt_browser_storage_sensitive",
+                "id": "WSTG-CLNT-12-1",
                 "title_en": "Sensitive Data in Browser Storage",
                 "title_de": "Sensible Daten in Browser-Speichern",
                 "description_en": "Highly sensitive data (such as access tokens, private keys, or PII) is persistently stored in LocalStorage, SessionStorage, or IndexedDB.",
@@ -1854,7 +2191,7 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CLNT-13: Testing for Cross Site Script Inclusion",
         "sysreptor_templates": [
             {
-                "id": "clnt_xssi",
+                "id": "WSTG-CLNT-13-1",
                 "title_en": "Cross Site Script Inclusion (XSSI)",
                 "title_de": "Cross Site Script Inclusion (XSSI)",
                 "description_en": "The application dynamically generates JavaScript, JSON, or CSV files that contain sensitive user data and responds to basic GET requests.",
@@ -1889,7 +2226,7 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CLNT-14: Testing for Reverse Tabnabbing",
         "sysreptor_templates": [
             {
-                "id": "clnt_reverse_tabnabbing",
+                "id": "WSTG-CLNT-14-1",
                 "title_en": "Reverse Tabnabbing",
                 "title_de": "Reverse Tabnabbing",
                 "description_en": "Links opened in a new tab via target='_blank' lack the 'noopener noreferrer' attributes in older/legacy browsers.",
@@ -1924,7 +2261,7 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CLNT-15: Testing for Client-side Template Injection",
         "sysreptor_templates": [
             {
-                "id": "clnt_csti",
+                "id": "WSTG-CLNT-15-1",
                 "title_en": "Client-Side Template Injection (CSTI)",
                 "title_de": "Client-Side Template Injection (CSTI)",
                 "description_en": "The application dynamically embeds user input directly into the DOM, where it is evaluated by client-side template engines (like Vue.js, Angular, or Alpine.js).",
@@ -1959,7 +2296,7 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CONF-01: Test Network Infrastructure Configuration",
         "sysreptor_templates": [
             {
-                "id": "conf_known_server_vulns",
+                "id": "WSTG-CONF-01-1",
                 "title_en": "Known Server Vulnerabilities Found",
                 "title_de": "Bekannte Server-Schwachstellen gefunden",
                 "description_en": "Vulnerability scanning or manual analysis revealed that the server software is outdated and susceptible to publicly known vulnerabilities.",
@@ -1968,7 +2305,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen leicht verf\u00fcgbaren Exploit-Code verwenden, um den Webserver, die Datenbank oder die umgebende Infrastruktur zu kompromittieren."
             },
             {
-                "id": "conf_admin_tools",
+                "id": "WSTG-CONF-01-2",
                 "title_en": "Administrative Tools Exposed",
                 "title_de": "Administrative Tools exponiert",
                 "description_en": "Administrative interfaces or management tools (e.g., WebDAV, Tomcat admin console, database managers) are publicly accessible.",
@@ -2003,16 +2340,17 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CONF-02: Test Application Platform Configuration",
         "sysreptor_templates": [
             {
-                "id": "conf_sample_files",
+                "id": "WSTG-CONF-02-1",
                 "title_en": "Sample and Known Files and Directories Exposed",
                 "title_de": "Beispieldateien und bekannte Verzeichnisse exponiert",
                 "description_en": "Default installation files, sample applications, or debugging pages are present in the deployed web application.",
                 "description_de": "Standard-Installationsdateien, Beispielanwendungen oder Debugging-Seiten sind in der bereitgestellten Webanwendung vorhanden.",
                 "consequences_en": "These files often contain historical vulnerabilities or disclose sensitive paths, providing attackers with stepping stones to compromise the system.",
-                "consequences_de": "Diese Dateien enthalten oft historische Schwachstellen oder geben sensible Pfade preis, was Angreifern als Sprungbrett zur Kompromittierung des Systems dient."
+                "consequences_de": "Diese Dateien enthalten oft historische Schwachstellen oder geben sensible Pfade preis, was Angreifern als Sprungbrett zur Kompromittierung des Systems dient.",
+                "sysreptor_id": "415046ac-6af7-44ef-8dfa-1bb9f777907a"
             },
             {
-                "id": "conf_comment_review",
+                "id": "WSTG-CONF-02-2",
                 "title_en": "Sensitive Information Leakage in Code Comments",
                 "title_de": "Sensible Informationspreisgabe in Code-Kommentaren",
                 "description_en": "Developer comments in the HTML or client-side code reveal internal business logic, old URLs, or commented-out configuration parameters.",
@@ -2021,22 +2359,32 @@ const wstgData = [
                 "consequences_de": "Angreifer erhalten Einblick in die Entwicklungsgeschichte und die interne Struktur der Anwendung, was genutzt werden kann, um versteckte Fehler zu finden."
             },
             {
-                "id": "conf_config_review",
+                "id": "WSTG-CONF-02-3",
                 "title_en": "Insecure System Configuration Found",
                 "title_de": "Unsichere Systemkonfiguration gefunden",
                 "description_en": "The application server exhibits poor configuration, such as exposing default error pages, running with excessive privileges, or lacking protection for configuration files.",
                 "description_de": "Der Anwendungsserver weist eine schlechte Konfiguration auf, z. B. durch die Offenlegung von Standard-Fehlerseiten, die Ausf\u00fchrung mit \u00fcberm\u00e4\u00dfigen Rechten oder den fehlenden Schutz von Konfigurationsdateien.",
                 "consequences_en": "Increases the attack surface and allows errors or misconfigurations to leak detailed stack traces and system properties to the attacker.",
-                "consequences_de": "Vergr\u00f6\u00dfert die Angriffsfl\u00e4che und erm\u00f6glicht es, dass Fehler oder Fehlkonfigurationen detaillierte Stack-Traces und Systemeigenschaften an den Angreifer preisgeben."
+                "consequences_de": "Vergr\u00f6\u00dfert die Angriffsfl\u00e4che und erm\u00f6glicht es, dass Fehler oder Fehlkonfigurationen detaillierte Stack-Traces und Systemeigenschaften an den Angreifer preisgeben.",
+                "sysreptor_id": "91895583-3adf-4a7d-83ae-2df40a481c8c"
             },
             {
-                "id": "conf_logging",
+                "id": "WSTG-CONF-02-4",
                 "title_en": "Inadequate Logging Mechanisms",
                 "title_de": "Unzureichende Protokollierungsmechanismen",
                 "description_en": "The application either fails to log security-relevant events, logs them inconsistently, or includes sensitive secrets directly in the log files.",
                 "description_de": "Die Anwendung vers\u00e4umt es entweder, sicherheitsrelevante Ereignisse zu protokollieren, protokolliert sie inkonsistent oder schlie\u00dft sensible Geheimnisse direkt in die Protokolldateien ein.",
                 "consequences_en": "Incident response is severely hindered, and if logs are accessible, attackers can steal stored credentials or sensitive user data.",
                 "consequences_de": "Die Reaktion auf Vorf\u00e4lle wird stark behindert, und wenn Protokolle zug\u00e4nglich sind, k\u00f6nnen Angreifer gespeicherte Anmeldedaten oder sensible Benutzerdaten stehlen."
+            },
+            {
+                "id": "WSTG-CONF-02-5",
+                "title_en": "Directory Listing Enabled",
+                "title_de": "Verzeichnisauflistung (Directory Listing) aktiviert",
+                "description_en": "The web server allows directory listing, exposing list of files inside directories without index pages.",
+                "description_de": "Der Webserver erm\u00f6glicht Directory Listing, wodurch Listen von Dateien in Verzeichnissen ohne Indexseiten offengelegt werden.",
+                "consequences_en": "Allows attackers to browse system directories to discover backups, config dumps, or hidden components.",
+                "consequences_de": "Erm\u00f6glicht es Angreifern, Systemverzeichnisse zu durchsuchen, um Backups, Konfigurations-Dumps oder versteckte Komponenten zu entdecken."
             }
         ],
         "title_de": "Pr\u00fcfung der Anwendungsplattform-Konfiguration",
@@ -2065,7 +2413,7 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CONF-03: Test File Extensions Handling for Sensitive Information",
         "sysreptor_templates": [
             {
-                "id": "conf_forced_browsing_extensions",
+                "id": "WSTG-CONF-03-1",
                 "title_en": "Sensitive File Extensions Exposed via Forced Browsing",
                 "title_de": "Sensible Dateierweiterungen durch Forced Browsing offengelegt",
                 "description_en": "Through forced browsing, files with sensitive extensions (e.g., .inc, .asa, .config, .bak) were found to be served by the web server instead of being blocked or executed.",
@@ -2074,7 +2422,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen Quellcode, Konfigurationsdateien und Backups herunterladen, was zur Offenlegung von Datenbankanmeldeinformationen oder interner Gesch\u00e4ftslogik f\u00fchrt."
             },
             {
-                "id": "conf_legacy_filename_handling",
+                "id": "WSTG-CONF-03-2",
                 "title_en": "File Exposure via Windows 8.3 Legacy Filename Handling",
                 "title_de": "Datei-Offenlegung durch Windows 8.3 Legacy-Dateinamen",
                 "description_en": "The web server resolves and serves sensitive files using their shortened Windows 8.3 legacy filenames (e.g., FILE~1.PHT).",
@@ -2109,16 +2457,17 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CONF-04: Review Old Backup and Unreferenced Files for Sensitive Information",
         "sysreptor_templates": [
             {
-                "id": "conf_predictable_backup_names",
+                "id": "WSTG-CONF-04-1",
                 "title_en": "Unreferenced Files Found via Predictable Naming Schemes",
                 "title_de": "Nicht referenzierte Dateien durch vorhersehbare Namensschemata gefunden",
                 "description_en": "Old, backup, or unreferenced files were discovered by inferring predictable naming schemes (e.g., guessing edituser.asp based on viewuser.asp, or appending .old / .bak).",
                 "description_de": "Alte, Backup- oder nicht referenzierte Dateien wurden durch das Ableiten vorhersehbarer Namensschemata entdeckt (z. B. durch Erraten von edituser.asp basierend auf viewuser.asp oder Anh\u00e4ngen von .old / .bak).",
                 "consequences_en": "Attackers can access older, vulnerable versions of scripts or retrieve source code and hardcoded credentials left behind by developers.",
-                "consequences_de": "Angreifer k\u00f6nnen auf \u00e4ltere, anf\u00e4llige Versionen von Skripten zugreifen oder Quellcode und hartkodierte Anmeldeinformationen abrufen, die von Entwicklern hinterlassen wurden."
+                "consequences_de": "Angreifer k\u00f6nnen auf \u00e4ltere, anf\u00e4llige Versionen von Skripten zugreifen oder Quellcode und hartkodierte Anmeldeinformationen abrufen, die von Entwicklern hinterlassen wurden.",
+                "sysreptor_id": "269297d0-a052-41c6-8a91-1e4e5e563a54"
             },
             {
-                "id": "conf_unreferenced_files_source_clues",
+                "id": "WSTG-CONF-04-2",
                 "title_en": "Hidden Content Discovered via Source Code Clues",
                 "title_de": "Versteckte Inhalte durch Quellcode-Hinweise entdeckt",
                 "description_en": "Comments, disabled form elements, or JavaScript within published web pages revealed the locations of unreferenced pages or administrative functionality.",
@@ -2127,7 +2476,7 @@ const wstgData = [
                 "consequences_de": "Liefert einem Angreifer eine direkte Karte zu versteckten, potenziell ungesch\u00fctzten oder administrativen Endpunkten."
             },
             {
-                "id": "conf_public_info_archives",
+                "id": "WSTG-CONF-04-3",
                 "title_en": "Old Content Exposed via Search Engine Archives",
                 "title_de": "Alte Inhalte durch Suchmaschinen-Archive exponiert",
                 "description_en": "Unreferenced pages or legacy endpoints were found by querying public search engine caches or the Wayback Machine.",
@@ -2162,16 +2511,17 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CONF-05: Enumerate Infrastructure and Application Admin Interfaces",
         "sysreptor_templates": [
             {
-                "id": "conf_admin_directory_bruteforce",
+                "id": "WSTG-CONF-05-1",
                 "title_en": "Admin Interfaces Found via Directory Enumeration",
                 "title_de": "Admin-Schnittstellen durch Verzeichnis-Enumeration gefunden",
                 "description_en": "Administrative interfaces were discovered by brute-forcing standard directory paths (e.g., /admin, /manager) or checking alternative server ports.",
                 "description_de": "Administrative Schnittstellen wurden durch Brute-Forcing von Standard-Verzeichnispfaden (z. B. /admin, /manager) oder das \u00dcberpr\u00fcfen alternativer Server-Ports entdeckt.",
                 "consequences_en": "Attackers can target the administrative interface to launch brute-force attacks against credentials or exploit known framework vulnerabilities.",
-                "consequences_de": "Angreifer k\u00f6nnen die administrative Schnittstelle ins Visier nehmen, um Brute-Force-Angriffe auf Anmeldeinformationen zu starten oder bekannte Framework-Schwachstellen auszunutzen."
+                "consequences_de": "Angreifer k\u00f6nnen die administrative Schnittstelle ins Visier nehmen, um Brute-Force-Angriffe auf Anmeldeinformationen zu starten oder bekannte Framework-Schwachstellen auszunutzen.",
+                "sysreptor_id": "b8c91414-5ce8-486c-9b12-4c0b169305ec"
             },
             {
-                "id": "conf_admin_parameter_tampering",
+                "id": "WSTG-CONF-05-2",
                 "title_en": "Admin Features Exposed via Parameter Tampering",
                 "title_de": "Admin-Funktionen durch Parameter-Manipulation exponiert",
                 "description_en": "Hidden administrative interfaces or debugging features could be activated by manipulating request parameters or cookies (e.g., changing 'admin=no' to 'admin=yes').",
@@ -2206,16 +2556,17 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CONF-06: Test HTTP Methods",
         "sysreptor_templates": [
             {
-                "id": "conf_dangerous_http_methods",
+                "id": "WSTG-CONF-06-1",
                 "title_en": "Dangerous HTTP Methods Supported (PUT, DELETE, TRACE)",
                 "title_de": "Gef\u00e4hrliche HTTP-Methoden unterst\u00fctzt (PUT, DELETE, TRACE)",
                 "description_en": "The web server responds affirmatively to potentially dangerous HTTP methods such as PUT, DELETE, or TRACE.",
                 "description_de": "Der Webserver antwortet positiv auf potenziell gef\u00e4hrliche HTTP-Methoden wie PUT, DELETE oder TRACE.",
                 "consequences_en": "Depending on server configuration, attackers may be able to upload arbitrary files, delete resources, or execute Cross-Site Tracing (XST) to bypass HttpOnly cookies.",
-                "consequences_de": "Je nach Serverkonfiguration k\u00f6nnen Angreifer m\u00f6glicherweise beliebige Dateien hochladen, Ressourcen l\u00f6schen oder Cross-Site Tracing (XST) ausf\u00fchren, um HttpOnly-Cookies zu umgehen."
+                "consequences_de": "Je nach Serverkonfiguration k\u00f6nnen Angreifer m\u00f6glicherweise beliebige Dateien hochladen, Ressourcen l\u00f6schen oder Cross-Site Tracing (XST) ausf\u00fchren, um HttpOnly-Cookies zu umgehen.",
+                "sysreptor_id": "e441539f-054f-4cea-b762-6d84a07cc988"
             },
             {
-                "id": "conf_http_method_access_bypass",
+                "id": "WSTG-CONF-06-2",
                 "title_en": "Access Control Bypass via HTTP Method Manipulation",
                 "title_de": "Umgehung der Zugriffskontrolle durch HTTP-Methoden-Manipulation",
                 "description_en": "Authentication or authorization checks on specific endpoints can be bypassed by using alternative HTTP methods (e.g., HEAD or a completely fabricated method like FOO instead of GET).",
@@ -2224,7 +2575,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen ohne g\u00fcltige Anmeldeinformationen eingeschr\u00e4nkte Seiten aufrufen oder zustands\u00e4ndernde administrative Aktionen ausl\u00f6sen."
             },
             {
-                "id": "conf_http_method_overriding",
+                "id": "WSTG-CONF-06-3",
                 "title_en": "HTTP Method Overriding Supported",
                 "title_de": "HTTP Method Overriding unterst\u00fctzt",
                 "description_en": "The application or framework accepts custom headers (like X-HTTP-Method-Override) to emulate blocked HTTP verbs.",
@@ -2259,13 +2610,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CONF-07: Test HTTP Strict Transport Security",
         "sysreptor_templates": [
             {
-                "id": "conf_hsts_missing",
+                "id": "WSTG-CONF-07-1",
                 "title_en": "HTTP Strict Transport Security (HSTS) Missing or Misconfigured",
                 "title_de": "HTTP Strict Transport Security (HSTS) fehlend oder fehlerhaft konfiguriert",
                 "description_en": "The HTTP Strict-Transport-Security header is entirely missing, has an insufficient max-age, or lacks the includeSubDomains directive.",
                 "description_de": "Der HTTP Strict-Transport-Security-Header fehlt komplett, hat eine unzureichende max-age oder es fehlt die includeSubDomains-Direktive.",
                 "consequences_en": "Browsers will not be forced to communicate over HTTPS, leaving users vulnerable to Man-in-the-Middle attacks and SSL stripping.",
-                "consequences_de": "Browser werden nicht gezwungen, \u00fcber HTTPS zu kommunizieren, wodurch Benutzer anf\u00e4llig f\u00fcr Man-in-the-Middle-Angriffe und SSL-Stripping bleiben."
+                "consequences_de": "Browser werden nicht gezwungen, \u00fcber HTTPS zu kommunizieren, wodurch Benutzer anf\u00e4llig f\u00fcr Man-in-the-Middle-Angriffe und SSL-Stripping bleiben.",
+                "sysreptor_id": "749c55bd-8b51-44fb-b1fb-6a2670548d64"
             }
         ],
         "title_de": "Pr\u00fcfung von HTTP Strict Transport Security (HSTS)",
@@ -2319,7 +2671,7 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CONF-09: Test File Permission",
         "sysreptor_templates": [
             {
-                "id": "conf_insecure_file_permissions",
+                "id": "WSTG-CONF-09-1",
                 "title_en": "Insecure File or Directory Permissions",
                 "title_de": "Unsichere Datei- oder Verzeichnisberechtigungen",
                 "description_en": "Critical application resources (e.g., configuration files, logs, temp folders, or upload directories) have overly permissive access rights (world-readable or world-writable).",
@@ -2354,7 +2706,7 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CONF-10: Test for Subdomain Takeover",
         "sysreptor_templates": [
             {
-                "id": "conf_dangling_dns_subdomain",
+                "id": "WSTG-CONF-10-1",
                 "title_en": "Subdomain Takeover via Dangling DNS Records",
                 "title_de": "Subdomain-\u00dcbernahme durch ungel\u00f6ste DNS-Eintr\u00e4ge (Dangling DNS)",
                 "description_en": "A DNS record points to an external resource (like a CNAME to a third-party service) that no longer exists or has been deprovisioned.",
@@ -2363,7 +2715,7 @@ const wstgData = [
                 "consequences_de": "Ein Angreifer kann die ungenutzte Ressource beim Drittanbieter registrieren, um die vollst\u00e4ndige Kontrolle \u00fcber die vertrauensw\u00fcrdige Subdomain zu erlangen, was Phishing oder Cookie-Diebstahl erm\u00f6glicht."
             },
             {
-                "id": "conf_cloud_provider_takeover",
+                "id": "WSTG-CONF-10-2",
                 "title_en": "Cloud-Specific Subdomain Takeover",
                 "title_de": "Cloud-spezifische Subdomain-\u00dcbernahme",
                 "description_en": "Specific cloud provider misconfigurations (e.g., AWS S3 NoSuchBucket, abandoned Azure App Services) were detected via automated fingerprint-based tools.",
@@ -2398,7 +2750,7 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CONF-11: Test Cloud Storage",
         "sysreptor_templates": [
             {
-                "id": "conf_cloud_storage_read",
+                "id": "WSTG-CONF-11-1",
                 "title_en": "Unauthorized Read Access to Cloud Storage",
                 "title_de": "Unautorisierter Lesezugriff auf Cloud-Speicher",
                 "description_en": "Cloud storage containers (e.g., S3 Buckets, Azure Blobs) are configured to allow unauthenticated public read access or directory listing.",
@@ -2407,7 +2759,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen systematisch interne Dokumente, Quellcode, Benutzer-Backups oder anderes hochsensibles geistiges Eigentum herunterladen."
             },
             {
-                "id": "conf_cloud_storage_write",
+                "id": "WSTG-CONF-11-2",
                 "title_en": "Unauthorized Write Access to Cloud Storage",
                 "title_de": "Unautorisierter Schreibzugriff auf Cloud-Speicher",
                 "description_en": "Cloud storage containers allow unauthenticated users to upload, overwrite, or delete arbitrary files via simple HTTP PUT/DELETE requests.",
@@ -2442,16 +2794,17 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CONF-12: Testing for Content Security Policy",
         "sysreptor_templates": [
             {
-                "id": "conf_csp_missing_or_report_only",
+                "id": "WSTG-CONF-12-1",
                 "title_en": "CSP Missing or in Report-Only Mode",
                 "title_de": "CSP fehlt oder ist im Report-Only-Modus",
                 "description_en": "The application lacks a Content-Security-Policy header entirely, or deploys it strictly using Content-Security-Policy-Report-Only indefinitely.",
                 "description_de": "Der Anwendung fehlt der Content-Security-Policy-Header vollst\u00e4ndig, oder sie setzt ihn auf unbestimmte Zeit ausschlie\u00dflich als Content-Security-Policy-Report-Only ein.",
                 "consequences_en": "The browser has no enforced baseline defense against content injection, leaving the application heavily reliant on perfect input validation to stop XSS.",
-                "consequences_de": "Der Browser verf\u00fcgt \u00fcber keine erzwungene Basisverteidigung gegen Inhaltsinjektion, wodurch die Anwendung stark auf perfekte Eingabevalidierung angewiesen ist, um XSS zu stoppen."
+                "consequences_de": "Der Browser verf\u00fcgt \u00fcber keine erzwungene Basisverteidigung gegen Inhaltsinjektion, wodurch die Anwendung stark auf perfekte Eingabevalidierung angewiesen ist, um XSS zu stoppen.",
+                "sysreptor_id": "8079cfa7-ee53-44dc-a091-d4f6283677dd"
             },
             {
-                "id": "conf_csp_unsafe_directives",
+                "id": "WSTG-CONF-12-2",
                 "title_en": "CSP Contains Unsafe Directives",
                 "title_de": "CSP enth\u00e4lt unsichere Direktiven",
                 "description_en": "The Content Security Policy allows highly risky directives such as 'unsafe-inline', 'unsafe-eval', or overly broad wildcard domains (e.g., https://*).",
@@ -2460,7 +2813,7 @@ const wstgData = [
                 "consequences_de": "Die CSP kann Cross-Site Scripting (XSS) nicht richtig eind\u00e4mmen, da Angreifer weiterhin Inline-Skripte ausf\u00fchren, dynamische Payloads auswerten oder Skripte von kompromittierten CDNs laden k\u00f6nnen."
             },
             {
-                "id": "conf_csp_nonce_reuse",
+                "id": "WSTG-CONF-12-3",
                 "title_en": "Predictable or Reused CSP Nonces",
                 "title_de": "Vorhersehbare oder wiederverwendete CSP-Nonces",
                 "description_en": "The application uses a nonce-based CSP, but the nonces are statically hardcoded, predictable, or reused across multiple requests.",
@@ -2495,13 +2848,23 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CONF-13: Test Path Confusion",
         "sysreptor_templates": [
             {
-                "id": "conf_path_confusion_cache_deception",
+                "id": "WSTG-CONF-13-1",
                 "title_en": "Web Cache Deception via Path Confusion",
                 "title_de": "Web Cache Deception durch Pfadverwirrung",
                 "description_en": "The application tolerates appended paths (e.g., /account/settings/nonexistent.css) and returns the original sensitive page, which is then cached by a CDN or reverse proxy due to the static file extension.",
                 "description_de": "Die Anwendung toleriert angeh\u00e4ngte Pfade (z. B. /account/settings/nonexistent.css) und gibt die urspr\u00fcngliche sensible Seite zur\u00fcck, die dann von einem CDN oder Reverse Proxy aufgrund der statischen Dateierweiterung zwischengespeichert wird.",
                 "consequences_en": "An attacker can trick an authenticated victim into visiting the malformed URL. The victim's sensitive account details are cached on the public edge server, where the attacker can subsequently download them.",
-                "consequences_de": "Ein Angreifer kann ein authentifiziertes Opfer dazu verleiten, die manipulierte URL zu besuchen. Die sensiblen Kontodaten des Opfers werden auf dem \u00f6ffentlichen Edge-Server zwischengespeichert, wo der Angreifer sie anschlie\u00dfend herunterladen kann."
+                "consequences_de": "Ein Angreifer kann ein authentifiziertes Opfer dazu verleiten, die manipulierte URL zu besuchen. Die sensiblen Kontodaten des Opfers werden auf dem \u00f6ffentlichen Edge-Server zwischengespeichert, wo der Angreifer sie anschlie\u00dfend herunterladen kann.",
+                "sysreptor_id": "28544843-688a-4619-85bc-a1b8e242222d"
+            },
+            {
+                "id": "WSTG-CONF-13-2",
+                "title_en": "Web Cache Poisoning",
+                "title_de": "Web Cache Poisoning",
+                "description_en": "The application allows injection of custom payloads into cache keys, leading to poisoned cached responses.",
+                "description_de": "Die Anwendung erm\u00f6glicht das Einschleusen benutzerdefinierter Payloads in Cache-Schl\u00fcssel, was zu vergifteten gecachten Antworten f\u00fchrt.",
+                "consequences_en": "Attackers can serve malicious JavaScript or content to other users visiting the cached resource.",
+                "consequences_de": "Angreifer k\u00f6nnen anderen Benutzern, die die gecachte Ressource besuchen, b\u00f6sartiges JavaScript oder Inhalte ausliefern."
             }
         ],
         "title_de": "Pr\u00fcfung auf Pfadverwechslung (Path Confusion)",
@@ -2530,22 +2893,50 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CONF-14: Test Other HTTP Security Header Misconfigurations",
         "sysreptor_templates": [
             {
-                "id": "conf_headers_overly_permissive",
+                "id": "WSTG-CONF-14-1",
                 "title_en": "Overly Permissive HTTP Security Headers",
                 "title_de": "Zu freiz\u00fcgige HTTP-Sicherheitsheader",
                 "description_en": "Security headers such as Access-Control-Allow-Origin or X-Permitted-Cross-Domain-Policies are configured with wildcards (*) or values that are unnecessarily broad.",
                 "description_de": "Sicherheitsheader wie Access-Control-Allow-Origin oder X-Permitted-Cross-Domain-Policies sind mit Platzhaltern (*) oder unn\u00f6tig weit gefassten Werten konfiguriert.",
                 "consequences_en": "Allows malicious external domains to make cross-origin requests and read sensitive data, bypassing the browser's Same-Origin Policy.",
-                "consequences_de": "Erm\u00f6glicht es b\u00f6swilligen externen Domains, Cross-Origin-Anfragen zu stellen und sensible Daten zu lesen, wodurch die Same-Origin-Policy des Browsers umgangen wird."
+                "consequences_de": "Erm\u00f6glicht es b\u00f6swilligen externen Domains, Cross-Origin-Anfragen zu stellen und sensible Daten zu lesen, wodurch die Same-Origin-Policy des Browsers umgangen wird.",
+                "sysreptor_id": "56ec86fb-6b40-4636-8914-ed41e87db105"
             },
             {
-                "id": "conf_headers_hop_by_hop_injection",
+                "id": "WSTG-CONF-14-2",
                 "title_en": "Header Stripping via Hop-by-Hop Injection",
                 "title_de": "Header Stripping durch Hop-by-Hop-Injection",
                 "description_en": "The application proxy incorrectly processes the 'Connection' header, allowing an attacker to instruct it to strip critical internal headers (like X-Forwarded-For or authentication markers) before reaching the backend.",
                 "description_de": "Der Anwendungs-Proxy verarbeitet den 'Connection'-Header falsch und erm\u00f6glicht es einem Angreifer, ihn anzuweisen, kritische interne Header (wie X-Forwarded-For oder Authentifizierungsmarker) zu entfernen, bevor sie das Backend erreichen.",
                 "consequences_en": "Attackers can bypass IP-based ACLs, disable backend security controls, or circumvent identity checks normally performed at the edge.",
                 "consequences_de": "Angreifer k\u00f6nnen IP-basierte ACLs umgehen, Backend-Sicherheitskontrollen deaktivieren oder Identit\u00e4tspr\u00fcfungen umgehen, die normalerweise am Edge durchgef\u00fchrt werden."
+            },
+            {
+                "id": "WSTG-CONF-14-3",
+                "title_en": "Missing Permissions-Policy",
+                "title_de": "Fehlender Permissions-Policy Header",
+                "description_en": "The Permissions-Policy HTTP header is missing, allowing the browser to access sensitive APIs like camera or geolocation.",
+                "description_de": "Der Permissions-Policy-HTTP-Header fehlt, wodurch der Browser auf sensible APIs wie Kamera oder Geolocation zugreifen kann.",
+                "consequences_en": "Enables malicious scripts inside the document context to abuse device hardware features.",
+                "consequences_de": "Erm\u00f6glicht es b\u00f6sartigen Skripten innerhalb des Dokumentenkontexts, Hardwarefunktionen des Ger\u00e4ts zu missbrauchen."
+            },
+            {
+                "id": "WSTG-CONF-14-4",
+                "title_en": "Missing Referrer-Policy",
+                "title_de": "Fehlender Referrer-Policy Header",
+                "description_en": "The Referrer-Policy HTTP header is missing or insecurely configured, leaking sensitive tokens or parameters via Referer header.",
+                "description_de": "Der Referrer-Policy-HTTP-Header fehlt oder ist unsicher konfiguriert, was zur Preisgabe sensibler Token oder Parameter \u00fcber den Referer-Header f\u00fchrt.",
+                "consequences_en": "Third-party sites can extract sensitive credentials or IDs from the referrer information.",
+                "consequences_de": "Drittanbieter-Websites k\u00f6nnen sensible Zugangsdaten oder IDs aus den Referrer-Informationen extrahieren."
+            },
+            {
+                "id": "WSTG-CONF-14-5",
+                "title_en": "Missing X-Content-Type-Options",
+                "title_de": "Fehlender X-Content-Type-Options Header",
+                "description_en": "The X-Content-Type-Options header is not set to nosniff, enabling MIME-sniffing attacks.",
+                "description_de": "Der X-Content-Type-Options-Header ist nicht auf 'nosniff' gesetzt, was MIME-Sniffing-Angriffe erm\u00f6glicht.",
+                "consequences_en": "Allows browser execution of user-controlled files as executable styles or scripts.",
+                "consequences_de": "Erm\u00f6glicht die Ausf\u00fchrung benutzergesteuerter Dateien im Browser als Stylesheets oder Skripte."
             }
         ],
         "title_de": "Pr\u00fcfung auf Fehlkonfigurationen sonstiger HTTP-Sicherheits-Header",
@@ -2574,31 +2965,34 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CRYP-01: Testing for Weak Transport Layer Security",
         "sysreptor_templates": [
             {
-                "id": "cryp_weak_tls_ciphers",
+                "id": "WSTG-CRYP-01-1",
                 "title_en": "Weak TLS Ciphers / Protocols",
                 "title_de": "Schwache TLS-Ciphers / Protokolle",
                 "description_en": "The server supports outdated protocols (TLS 1.0, TLS 1.1) or weak cipher suites (RC4, DES, CBC mode, EXPORT ciphers).",
                 "description_de": "Der Server unterst\u00fctzt veraltete Protokolle (TLS 1.0, TLS 1.1) oder schwache Cipher-Suites (RC4, DES, CBC-Modus, EXPORT-Ciphers).",
                 "consequences_en": "Communications can be intercepted or decrypted by attackers using techniques like POODLE, BEAST, or LOGJAM.",
-                "consequences_de": "Kommunikationen k\u00f6nnen von Angreifern mit Techniken wie POODLE, BEAST oder LOGJAM abgefangen oder entschl\u00fcsselt werden."
+                "consequences_de": "Kommunikationen k\u00f6nnen von Angreifern mit Techniken wie POODLE, BEAST oder LOGJAM abgefangen oder entschl\u00fcsselt werden.",
+                "sysreptor_id": "09d1f8ed-72c1-4b55-8dc1-042e4ece0bc0"
             },
             {
-                "id": "cryp_invalid_certificate",
+                "id": "WSTG-CRYP-01-2",
                 "title_en": "Invalid or Untrusted TLS Certificate",
                 "title_de": "Ung\u00fcltiges oder nicht vertrauensw\u00fcrdiges TLS-Zertifikat",
                 "description_en": "The TLS certificate is expired, self-signed, uses a weak signature algorithm (e.g., SHA-1), or the hostname does not match the SAN.",
                 "description_de": "Das TLS-Zertifikat ist abgelaufen, selbstsigniert, verwendet einen schwachen Signaturalgorithmus (z. B. SHA-1) oder der Hostname stimmt nicht mit dem SAN \u00fcberein.",
                 "consequences_en": "Clients receive security warnings, and the connection is highly vulnerable to Man-in-the-Middle (MitM) attacks.",
-                "consequences_de": "Clients erhalten Sicherheitswarnungen, und die Verbindung ist stark anf\u00e4llig f\u00fcr Man-in-the-Middle (MitM) Angriffe."
+                "consequences_de": "Clients erhalten Sicherheitswarnungen, und die Verbindung ist stark anf\u00e4llig f\u00fcr Man-in-the-Middle (MitM) Angriffe.",
+                "sysreptor_id": "fe674a78-e38d-41e0-b1b8-411dea08f94e"
             },
             {
-                "id": "cryp_mixed_content",
+                "id": "WSTG-CRYP-01-3",
                 "title_en": "Mixed Active Content",
                 "title_de": "Gemischte aktive Inhalte (Mixed Content)",
                 "description_en": "The application loads active resources (such as JavaScript or CSS) over unencrypted HTTP while the main page is loaded over HTTPS.",
                 "description_de": "Die Anwendung l\u00e4dt aktive Ressourcen (wie JavaScript oder CSS) \u00fcber unverschl\u00fcsseltes HTTP, w\u00e4hrend die Hauptseite \u00fcber HTTPS geladen wird.",
                 "consequences_en": "Attackers can perform a MitM attack to replace the unencrypted active content, executing arbitrary code within the secure context of the application.",
-                "consequences_de": "Angreifer k\u00f6nnen durch einen MitM-Angriff die unverschl\u00fcsselten aktiven Inhalte ersetzen und so beliebigen Code im sicheren Kontext der Anwendung ausf\u00fchren."
+                "consequences_de": "Angreifer k\u00f6nnen durch einen MitM-Angriff die unverschl\u00fcsselten aktiven Inhalte ersetzen und so beliebigen Code im sicheren Kontext der Anwendung ausf\u00fchren.",
+                "sysreptor_id": "30833f5d-2939-4a1e-911f-416712d77876"
             }
         ],
         "title_de": "Pr\u00fcfung auf schwache Transportschichtsicherheit (TLS)",
@@ -2627,13 +3021,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CRYP-02: Testing for Padding Oracle",
         "sysreptor_templates": [
             {
-                "id": "cryp_padding_oracle",
+                "id": "WSTG-CRYP-02-1",
                 "title_en": "Padding Oracle Attack",
                 "title_de": "Padding-Oracle-Angriff",
                 "description_en": "The application reveals the validity of cryptographic padding upon decryption errors (e.g., returning 'BadPaddingException' or differing response times).",
                 "description_de": "Die Anwendung verr\u00e4t die G\u00fcltigkeit von kryptografischem Padding bei Entschl\u00fcsselungsfehlern (z. B. durch die R\u00fcckgabe von 'BadPaddingException' oder abweichende Antwortzeiten).",
                 "consequences_en": "Allows attackers to decipher ciphertext byte-by-byte or encrypt arbitrary plaintext without knowing the symmetric key.",
-                "consequences_de": "Erm\u00f6glicht es Angreifern, Chiffretext Byte f\u00fcr Byte zu entschl\u00fcsseln oder beliebigen Klartext zu verschl\u00fcsseln, ohne den symmetrischen Schl\u00fcssel zu kennen."
+                "consequences_de": "Erm\u00f6glicht es Angreifern, Chiffretext Byte f\u00fcr Byte zu entschl\u00fcsseln oder beliebigen Klartext zu verschl\u00fcsseln, ohne den symmetrischen Schl\u00fcssel zu kennen.",
+                "sysreptor_id": "658f671b-2363-48de-950f-e78195d839f7"
             }
         ],
         "title_de": "Pr\u00fcfung auf Padding-Oracle-Angriffe",
@@ -2662,13 +3057,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CRYP-03: Testing for Sensitive Information Sent via Unencrypted Channels",
         "sysreptor_templates": [
             {
-                "id": "cryp_sensitive_data_http",
+                "id": "WSTG-CRYP-03-1",
                 "title_en": "Sensitive Data Transmitted via HTTP",
                 "title_de": "Sensible Daten \u00fcber HTTP \u00fcbertragen",
                 "description_en": "The application fails to force HTTPS and transmits credentials, session IDs, or PII over plaintext HTTP connections.",
                 "description_de": "Die Anwendung erzwingt kein HTTPS und \u00fcbertr\u00e4gt Anmeldedaten, Sitzungs-IDs oder PII \u00fcber unverschl\u00fcsselte HTTP-Verbindungen.",
                 "consequences_en": "Network eavesdroppers can capture the plaintext traffic to steal accounts and sensitive information.",
-                "consequences_de": "Lauscher im Netzwerk k\u00f6nnen den Klartextverkehr aufzeichnen, um Konten und sensible Informationen zu stehlen."
+                "consequences_de": "Lauscher im Netzwerk k\u00f6nnen den Klartextverkehr aufzeichnen, um Konten und sensible Informationen zu stehlen.",
+                "sysreptor_id": "a97499d9-91f1-4d42-bf4a-72e4e5d24992"
             }
         ],
         "title_de": "Pr\u00fcfung auf \u00dcbertragung sensibler Daten \u00fcber unverschl\u00fcsselte Kan\u00e4le",
@@ -2697,22 +3093,42 @@ const wstgData = [
         "sysreptor_finding": "WSTG-CRYP-04: Testing for Weak Cryptographic Primitives",
         "sysreptor_templates": [
             {
-                "id": "cryp_weak_algorithms",
+                "id": "WSTG-CRYP-04-1",
                 "title_en": "Use of Weak Cryptographic Algorithms",
                 "title_de": "Verwendung schwacher kryptografischer Algorithmen",
                 "description_en": "The application source code or implementation uses broken algorithms (e.g., MD5, SHA-1, DES) or insecure cipher modes (e.g., ECB instead of CBC/GCM).",
                 "description_de": "Der Quellcode oder die Implementierung der Anwendung verwendet gebrochene Algorithmen (z. B. MD5, SHA-1, DES) oder unsichere Cipher-Modi (z. B. ECB statt CBC/GCM).",
                 "consequences_en": "Cryptographic protections can be easily broken using modern computational power, leading to data exposure.",
-                "consequences_de": "Kryptografische Schutzma\u00dfnahmen k\u00f6nnen mit moderner Rechenleistung leicht gebrochen werden, was zur Offenlegung von Daten f\u00fchrt."
+                "consequences_de": "Kryptografische Schutzma\u00dfnahmen k\u00f6nnen mit moderner Rechenleistung leicht gebrochen werden, was zur Offenlegung von Daten f\u00fchrt.",
+                "sysreptor_id": "6afca0f2-0258-4e81-abd9-688ecec848d3"
             },
             {
-                "id": "cryp_weak_prng",
+                "id": "WSTG-CRYP-04-2",
                 "title_en": "Insecure Random Number Generation",
                 "title_de": "Unsichere Zufallszahlengenerierung",
                 "description_en": "The application uses non-cryptographically secure pseudo-random number generators (PRNGs) like java.util.Random for generating tokens or keys.",
                 "description_de": "Die Anwendung verwendet kryptografisch nicht sichere Pseudozufallszahlengeneratoren (PRNGs) wie java.util.Random zur Generierung von Tokens oder Schl\u00fcsseln.",
                 "consequences_en": "Attackers can predict the 'random' values, compromising tokens, password resets, or session keys.",
-                "consequences_de": "Angreifer k\u00f6nnen die 'zuf\u00e4lligen' Werte vorhersagen und so Tokens, Passwort-Resets oder Sitzungsschl\u00fcssel kompromittieren."
+                "consequences_de": "Angreifer k\u00f6nnen die 'zuf\u00e4lligen' Werte vorhersagen und so Tokens, Passwort-Resets oder Sitzungsschl\u00fcssel kompromittieren.",
+                "sysreptor_id": "524acd37-e9af-4561-8463-9858c4d8f450"
+            },
+            {
+                "id": "WSTG-CRYP-04-3",
+                "title_en": "Missing Encryption at Rest",
+                "title_de": "Fehlende Verschl\u00fcsselung im Ruhezustand (Data at Rest)",
+                "description_en": "Sensitive database records or files are stored in plain text without cryptographic encryption at rest.",
+                "description_de": "Sensible Datenbankeintr\u00e4ge oder Dateien werden im Ruhezustand (at Rest) im Klartext ohne kryptografische Verschl\u00fcsselung gespeichert.",
+                "consequences_en": "Compromise of the storage layer or physical drives immediately exposes all sensitive data.",
+                "consequences_de": "Die Kompromittierung der Speicherschicht oder physischer Laufwerke legt sofort alle sensiblen Daten offen."
+            },
+            {
+                "id": "WSTG-CRYP-04-4",
+                "title_en": "Weak Password Hashing",
+                "title_de": "Schwaches Passwort-Hashing",
+                "description_en": "Passwords are saved using weak or fast hashing algorithms (like MD5, SHA-1) instead of modern memory-hard functions.",
+                "description_de": "Passw\u00f6rter werden mit schwachen oder schnellen Hashing-Algorithmen (wie MD5, SHA-1) anstelle von modernen, speicherintensiven Funktionen gespeichert.",
+                "consequences_en": "Allows attackers to perform high-speed offline cracking of password databases if breached.",
+                "consequences_de": "Erm\u00f6glicht es Angreifern, Passwortdatenbanken im Falle eines Einbruchs extrem schnell offline zu cracken."
             }
         ],
         "title_de": "Pr\u00fcfung auf schwache kryptografische Primitive (Algorithmen)",
@@ -2741,13 +3157,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-ERRH-01: Testing for Improper Error Handling",
         "sysreptor_templates": [
             {
-                "id": "errh_information_disclosure",
+                "id": "WSTG-ERRH-01-1",
                 "title_en": "Improper Error Handling & Information Disclosure",
                 "title_de": "Fehlerhafte Fehlerbehandlung & Informationspreisgabe",
                 "description_en": "The application displays verbose error messages, such as stack traces, framework versions, or SQL errors when an exception occurs.",
                 "description_de": "Die Anwendung zeigt beim Auftreten einer Ausnahme ausf\u00fchrliche Fehlermeldungen an, wie Stack-Traces, Framework-Versionen oder SQL-Fehler.",
                 "consequences_en": "Attackers gain insight into the application's internal architecture, making it easier to craft targeted exploits.",
-                "consequences_de": "Angreifer erhalten Einblick in die interne Architektur der Anwendung, was die Erstellung gezielter Exploits erleichtert."
+                "consequences_de": "Angreifer erhalten Einblick in die interne Architektur der Anwendung, was die Erstellung gezielter Exploits erleichtert.",
+                "sysreptor_id": "6baaa6c8-54e9-478b-853f-f1ab7b0ee252"
             }
         ],
         "title_de": "Pr\u00fcfung auf unsachgem\u00e4\u00dfe Fehlerbehandlung",
@@ -2776,7 +3193,7 @@ const wstgData = [
         "sysreptor_finding": "WSTG-IDNT-01: Test Role Definitions",
         "sysreptor_templates": [
             {
-                "id": "idnt_role_manipulation",
+                "id": "WSTG-IDNT-01-1",
                 "title_en": "Role Manipulation via Client-Side Controls",
                 "title_de": "Rollenmanipulation durch clientseitige Kontrollen",
                 "description_en": "The application defines user roles via manipulatable parameters, cookies, or hidden form fields (e.g., role=admin or isAdmin=True) rather than maintaining role state securely on the backend.",
@@ -2785,7 +3202,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen diese Variablen w\u00e4hrend der \u00dcbertragung einfach \u00e4ndern, um ihre Privilegien sofort auf eine h\u00f6here Rolle, wie z.B. Administrator, zu erweitern."
             },
             {
-                "id": "idnt_permission_overlap",
+                "id": "WSTG-IDNT-01-2",
                 "title_en": "Inadequate Separation of Role Permissions",
                 "title_de": "Unzureichende Trennung von Rollenberechtigungen",
                 "description_en": "Lower-level roles (e.g., support engineers or customers) are mistakenly granted access to administrative or overly sensitive functionality due to flawed role definitions.",
@@ -2820,7 +3237,7 @@ const wstgData = [
         "sysreptor_finding": "WSTG-IDNT-02: Test User Registration Process",
         "sysreptor_templates": [
             {
-                "id": "idnt_weak_registration_verification",
+                "id": "WSTG-IDNT-02-1",
                 "title_en": "Weak Identity Verification During Registration",
                 "title_de": "Schwache Identit\u00e4tspr\u00fcfung bei der Registrierung",
                 "description_en": "The user registration process does not adequately verify the identity of the registrant (e.g., missing email confirmation, phone verification, or automated abuse protections like CAPTCHA).",
@@ -2829,7 +3246,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen massenhaft gef\u00e4lschte Konten automatisiert erstellen, um Systemressourcen zu ersch\u00f6pfen, Spam zu verbreiten oder Identit\u00e4ten zu f\u00e4lschen."
             },
             {
-                "id": "idnt_registration_identity_forgery",
+                "id": "WSTG-IDNT-02-2",
                 "title_en": "Registration Identity Forgery / Data Manipulation",
                 "title_de": "F\u00e4lschung der Registrierungsidentit\u00e4t / Datenmanipulation",
                 "description_en": "The registration process allows identity information (such as roles, permissions, or associated corporate domains) to be manipulated or forged during the HTTP request.",
@@ -2864,7 +3281,7 @@ const wstgData = [
         "sysreptor_finding": "WSTG-IDNT-03: Test Account Provisioning Process",
         "sysreptor_templates": [
             {
-                "id": "idnt_unauthorized_account_provisioning",
+                "id": "WSTG-IDNT-03-1",
                 "title_en": "Unauthorized Privilege Escalation during Account Provisioning",
                 "title_de": "Unautorisierte Privilegieneskalation bei der Kontobereitstellung",
                 "description_en": "The account provisioning process allows an administrator or standard user to provision an account with privileges greater than their own, without vetting or authorization checks.",
@@ -2899,16 +3316,17 @@ const wstgData = [
         "sysreptor_finding": "WSTG-IDNT-04: Testing for Account Enumeration and Guessable User Account",
         "sysreptor_templates": [
             {
-                "id": "idnt_enum_response_messages",
+                "id": "WSTG-IDNT-04-1",
                 "title_en": "User Enumeration via Differing Response Messages",
                 "title_de": "Benutzer-Aufz\u00e4hlung durch unterschiedliche Antwortmeldungen",
                 "description_en": "The application returns distinct, descriptive error messages (e.g., 'Invalid password' vs 'User not recognized') during login or password recovery processes.",
                 "description_de": "Die Anwendung gibt bei der Anmeldung oder Passwortwiederherstellung unterschiedliche, beschreibende Fehlermeldungen zur\u00fcck (z. B. 'Ung\u00fcltiges Passwort' vs. 'Benutzer nicht erkannt').",
                 "consequences_en": "Attackers can quickly compile lists of valid users by distinguishing between existing and non-existing accounts based on the text of the error messages.",
-                "consequences_de": "Angreifer k\u00f6nnen schnell Listen g\u00fcltiger Benutzer zusammenstellen, indem sie anhand des Textes der Fehlermeldungen zwischen existierenden und nicht existierenden Konten unterscheiden."
+                "consequences_de": "Angreifer k\u00f6nnen schnell Listen g\u00fcltiger Benutzer zusammenstellen, indem sie anhand des Textes der Fehlermeldungen zwischen existierenden und nicht existierenden Konten unterscheiden.",
+                "sysreptor_id": "43d86509-fc98-4036-8aa9-0de425945de4"
             },
             {
-                "id": "idnt_enum_response_times",
+                "id": "WSTG-IDNT-04-2",
                 "title_en": "User Enumeration via Response Timing",
                 "title_de": "Benutzer-Aufz\u00e4hlung durch Antwortzeiten",
                 "description_en": "The application takes noticeably different amounts of time to process requests for valid users compared to invalid users (e.g., executing a costly hashing algorithm only if the user exists).",
@@ -2917,7 +3335,7 @@ const wstgData = [
                 "consequences_de": "Selbst wenn die Fehlermeldungen identisch sind, k\u00f6nnen Angreifer durch eine Timing-Analyse g\u00fcltige Konten genau aufz\u00e4hlen."
             },
             {
-                "id": "idnt_enum_predictable_usernames",
+                "id": "WSTG-IDNT-04-3",
                 "title_en": "Predictable Username Structures",
                 "title_de": "Vorhersehbare Benutzernamen-Strukturen",
                 "description_en": "Usernames follow a strict, predictable sequential pattern (e.g., CN000100, CN000101) or formula (first initial + last name) making them easy to generate en masse.",
@@ -2926,7 +3344,7 @@ const wstgData = [
                 "consequences_de": "Angreifer ben\u00f6tigen keine komplexen Enumerationsangriffe; sie k\u00f6nnen mathematisch eine gezielte Liste von Benutzern generieren, um Brute-Force- oder Credential-Stuffing-Angriffe gegen diese zu starten."
             },
             {
-                "id": "idnt_enum_staff_impersonation",
+                "id": "WSTG-IDNT-04-4",
                 "title_en": "Failure to Restrict Reserved Usernames (Staff Impersonation)",
                 "title_de": "Fehlende Einschr\u00e4nkung reservierter Benutzernamen (Impersonation)",
                 "description_en": "The application registration or profile editing process allows users to claim reserved, high-privilege usernames like 'admin', 'administrator', or 'moderator'.",
@@ -2986,7 +3404,7 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INFO-01: Conduct Search Engine Discovery Reconnaissance for Information Leakage",
         "sysreptor_templates": [
             {
-                "id": "info_search_engines",
+                "id": "WSTG-INFO-01-1",
                 "title_en": "Sensitive Information Leakage via Search Engines",
                 "title_de": "Preisgabe sensibler Informationen \u00fcber Suchmaschinen",
                 "description_en": "Sensitive design, configuration, or credential information of the application or organization was found to be exposed directly via common search engines (e.g., Google, Bing, Baidu).",
@@ -2995,7 +3413,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen versteckte Endpunkte, Anmeldedaten oder sensible Dateien ohne direkte Interaktion entdecken, was zu weiteren gezielten Angriffen f\u00fchrt."
             },
             {
-                "id": "info_google_dorking",
+                "id": "WSTG-INFO-01-2",
                 "title_en": "Sensitive Information Leakage via Google Dorking",
                 "title_de": "Preisgabe sensibler Informationen durch Google Dorking",
                 "description_en": "Advanced search engine operators (Google Hacking/Dorking) revealed specific sensitive files, error messages, or juicy information related to the target.",
@@ -3004,7 +3422,7 @@ const wstgData = [
                 "consequences_de": "Erm\u00f6glicht es einem Angreifer, hochsensible Informationen wie Konfigurationsdateien mit Passw\u00f6rtern oder Datenbank-Dumps gezielt aufzusp\u00fcren und sofort auszunutzen."
             },
             {
-                "id": "info_osint_correlation",
+                "id": "WSTG-INFO-01-3",
                 "title_en": "Information Leakage via OSINT Correlation Tools",
                 "title_de": "Informationspreisgabe durch OSINT-Korrelationstools",
                 "description_en": "Dedicated OSINT frameworks and link analysis platforms (e.g., Maltego) were able to map relationships between domains, IPs, and email addresses, exposing the organization's attack surface.",
@@ -3039,7 +3457,7 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INFO-02: Fingerprint Web Server",
         "sysreptor_templates": [
             {
-                "id": "info_banner_grabbing",
+                "id": "WSTG-INFO-02-1",
                 "title_en": "Web Server Banner Disclosure via Banner Grabbing",
                 "title_de": "Preisgabe von Webserver-Bannern durch Banner Grabbing",
                 "description_en": "The exact software type and version of the web server are exposed in HTTP response headers (e.g., 'Server' header).",
@@ -3048,7 +3466,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen diese Informationen nutzen, um bekannte Schwachstellen schnell zu identifizieren und versionsspezifische Exploits zu entwickeln."
             },
             {
-                "id": "info_malformed_requests",
+                "id": "WSTG-INFO-02-2",
                 "title_en": "Web Server Disclosure via Malformed Requests",
                 "title_de": "Webserver-Preisgabe durch fehlerhafte Anfragen",
                 "description_en": "By sending intentionally incorrect or malformed requests, the server responds with default error pages that expose the server type and version.",
@@ -3083,16 +3501,17 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INFO-03: Review Webserver Metafiles for Information Leakage",
         "sysreptor_templates": [
             {
-                "id": "info_robots_txt",
+                "id": "WSTG-INFO-03-1",
                 "title_en": "Information Leakage via robots.txt",
                 "title_de": "Informationspreisgabe durch robots.txt",
                 "description_en": "The robots.txt file exposes hidden paths, administrative directories, or sensitive application functionalities.",
                 "description_de": "Die Datei robots.txt gibt versteckte Pfade, administrative Verzeichnisse oder sensible Anwendungsfunktionen preis.",
                 "consequences_en": "Attackers can directly navigate to the disallowed paths, bypassing intended application flows to access restricted areas.",
-                "consequences_de": "Angreifer k\u00f6nnen direkt zu den nicht erlaubten Pfaden navigieren und so vorgesehene Anwendungsabl\u00e4ufe umgehen, um auf eingeschr\u00e4nkte Bereiche zuzugreifen."
+                "consequences_de": "Angreifer k\u00f6nnen direkt zu den nicht erlaubten Pfaden navigieren und so vorgesehene Anwendungsabl\u00e4ufe umgehen, um auf eingeschr\u00e4nkte Bereiche zuzugreifen.",
+                "sysreptor_id": "9261d030-b3f8-45f3-a551-a4a65a08d217"
             },
             {
-                "id": "info_meta_tags",
+                "id": "WSTG-INFO-03-2",
                 "title_en": "Information Leakage via META Tags",
                 "title_de": "Informationspreisgabe durch META-Tags",
                 "description_en": "Informational META tags embedded in the web content leak valuable data regarding the technologies used, application identifiers, or author details.",
@@ -3101,7 +3520,7 @@ const wstgData = [
                 "consequences_de": "Unterst\u00fctzt Angreifer bei der Profilerstellung der Anwendung und der Identifizierung potenzieller Angriffsvektoren basierend auf den offengelegten Technologien."
             },
             {
-                "id": "info_sitemaps",
+                "id": "WSTG-INFO-03-3",
                 "title_en": "Information Leakage via Sitemaps",
                 "title_de": "Informationspreisgabe durch Sitemaps",
                 "description_en": "The sitemap.xml file exposes relationships between pages, videos, and other files, revealing deep links or unreferenced paths.",
@@ -3110,16 +3529,17 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen die gesamte Anwendung effizient abbilden und Endpunkte entdecken, die eigentlich verborgen bleiben sollten."
             },
             {
-                "id": "info_security_txt",
+                "id": "WSTG-INFO-03-4",
                 "title_en": "Information Gathering via security.txt",
                 "title_de": "Informationsbeschaffung \u00fcber security.txt",
                 "description_en": "The security.txt file (in the webroot or .well-known directory) provides organizational contacts, public keys, or policy details that can be used for profiling or social engineering.",
                 "description_de": "Die Datei security.txt liefert organisatorische Kontakte, \u00f6ffentliche Schl\u00fcssel oder Richtliniendetails, die f\u00fcr Profiling oder Social Engineering genutzt werden k\u00f6nnen.",
                 "consequences_en": "While intended for responsible disclosure, the metadata (e.g., OpenPGP key IDs, associated emails) can aid an attacker's reconnaissance phase.",
-                "consequences_de": "Obwohl f\u00fcr verantwortungsvolle Offenlegungen gedacht, k\u00f6nnen die Metadaten (z. B. OpenPGP-Schl\u00fcssel-IDs, zugeh\u00f6rige E-Mails) die Aufkl\u00e4rungsphase eines Angreifers unterst\u00fctzen."
+                "consequences_de": "Obwohl f\u00fcr verantwortungsvolle Offenlegungen gedacht, k\u00f6nnen die Metadaten (z. B. OpenPGP-Schl\u00fcssel-IDs, zugeh\u00f6rige E-Mails) die Aufkl\u00e4rungsphase eines Angreifers unterst\u00fctzen.",
+                "sysreptor_id": "bfd063b5-2020-4f87-8a1c-a4f49bb47dfe"
             },
             {
-                "id": "info_humans_txt",
+                "id": "WSTG-INFO-03-5",
                 "title_en": "Information Leakage via humans.txt",
                 "title_de": "Informationspreisgabe durch humans.txt",
                 "description_en": "The humans.txt file discloses information about the personnel, roles, and underlying technologies or tools used by the development team.",
@@ -3154,7 +3574,7 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INFO-04: Attack Surface Identification",
         "sysreptor_templates": [
             {
-                "id": "info_non_standard_urls",
+                "id": "WSTG-INFO-04-1",
                 "title_en": "Exposed Applications via Non-standard URLs",
                 "title_de": "Exponierte Anwendungen \u00fcber un\u00fcbliche URLs",
                 "description_en": "Web applications were found published at non-obvious or unadvertised URLs (e.g., /some-strange-URL or /webmail) on the target host.",
@@ -3163,7 +3583,7 @@ const wstgData = [
                 "consequences_de": "Diesen versteckten Anwendungen fehlen oft angemessene Sicherheitskontrollen oder es handelt sich um Altsysteme, was einen einfachen Einstiegspunkt f\u00fcr Angreifer darstellt."
             },
             {
-                "id": "info_non_standard_ports",
+                "id": "WSTG-INFO-04-2",
                 "title_en": "Exposed Applications via Non-standard Ports",
                 "title_de": "Exponierte Anwendungen \u00fcber un\u00fcbliche Ports",
                 "description_en": "HTTP/HTTPS services were discovered running on arbitrary, non-standard TCP ports (e.g., 8000, 8080, 20000) rather than standard ports 80/443.",
@@ -3172,7 +3592,7 @@ const wstgData = [
                 "consequences_de": "Angreifer, die den gesamten Portbereich scannen, k\u00f6nnen administrative Schnittstellen, Testumgebungen oder ungepatchte Dienste entdecken."
             },
             {
-                "id": "info_dns_enumeration",
+                "id": "WSTG-INFO-04-3",
                 "title_en": "Exposed Subdomains via DNS Enumeration",
                 "title_de": "Exponierte Subdomains durch DNS-Enumeration",
                 "description_en": "Passive or active DNS enumeration (e.g., zone transfers, brute-forcing) revealed additional subdomains or virtual hosts associated with the target IP.",
@@ -3181,7 +3601,7 @@ const wstgData = [
                 "consequences_de": "Legt Entwicklungs-, Staging- oder interne administrative Umgebungen offen, die die Infrastruktur teilen, aber schw\u00e4chere Sicherheitsma\u00dfnahmen aufweisen."
             },
             {
-                "id": "info_ct_logs",
+                "id": "WSTG-INFO-04-4",
                 "title_en": "Exposed Hostnames via Certificate Transparency Logs",
                 "title_de": "Exponierte Hostnamen durch Certificate Transparency Logs",
                 "description_en": "Reviewing public Certificate Transparency (CT) logs revealed hostnames and subdomains (e.g., staging.example.com) that are not directly discoverable via DNS.",
@@ -3216,7 +3636,7 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INFO-05: Review Web Page Content for Information Leakage",
         "sysreptor_templates": [
             {
-                "id": "info_comments_metadata",
+                "id": "WSTG-INFO-05-1",
                 "title_en": "Information Leakage in Web Page Comments and Metadata",
                 "title_de": "Informationspreisgabe in Webseiten-Kommentaren und Metadaten",
                 "description_en": "HTML source code contains developer comments or metadata leaking sensitive internal information, such as SQL queries, internal IP addresses, or debugging data.",
@@ -3225,25 +3645,27 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen diese Erkenntnisse nutzen, um die Backend-Logik zu verstehen, interne Strukturen abzubilden oder die erw\u00e4hnten Datenbankstrukturen auszunutzen."
             },
             {
-                "id": "info_javascript_variables",
+                "id": "WSTG-INFO-05-2",
                 "title_en": "Sensitive Information in JavaScript Variables",
                 "title_de": "Sensible Informationen in JavaScript-Variablen",
                 "description_en": "Frontend JavaScript files or inline scripts contain hardcoded sensitive information, such as private API keys, credentials, or paths to hidden administrative pages.",
                 "description_de": "Frontend-JavaScript-Dateien oder Inline-Skripte enthalten hartkodierte sensible Informationen, wie private API-Schl\u00fcssel, Anmeldedaten oder Pfade zu versteckten administrativen Seiten.",
                 "consequences_en": "Attackers can abuse the leaked API keys to consume paid services, authenticate to external services, or access administrative endpoints directly.",
-                "consequences_de": "Angreifer k\u00f6nnen die geleakten API-Schl\u00fcssel missbrauchen, um kostenpflichtige Dienste zu nutzen, sich bei externen Diensten zu authentifizieren oder direkt auf administrative Endpunkte zuzugreifen."
+                "consequences_de": "Angreifer k\u00f6nnen die geleakten API-Schl\u00fcssel missbrauchen, um kostenpflichtige Dienste zu nutzen, sich bei externen Diensten zu authentifizieren oder direkt auf administrative Endpunkte zuzugreifen.",
+                "sysreptor_id": "c3ae8c25-33b4-4b85-99ad-14ccb12ae6ab"
             },
             {
-                "id": "info_source_maps",
+                "id": "WSTG-INFO-05-3",
                 "title_en": "Sensitive Information in Source Map Files",
                 "title_de": "Sensible Informationen in Source Map-Dateien",
                 "description_en": "JavaScript source map files (.map) are accessible in the production environment, making minified frontend code human-readable and exposing internal file structures.",
                 "description_de": "JavaScript Source Map-Dateien (.map) sind in der Produktionsumgebung zug\u00e4nglich, was minimierten Frontend-Code f\u00fcr Menschen lesbar macht und interne Dateistrukturen offenlegt.",
                 "consequences_en": "Attackers can easily analyze the original application logic, discover hidden API routes, and find client-side vulnerabilities much faster.",
-                "consequences_de": "Angreifer k\u00f6nnen die urspr\u00fcngliche Anwendungslogik leicht analysieren, versteckte API-Routen entdecken und clientseitige Schwachstellen viel schneller finden."
+                "consequences_de": "Angreifer k\u00f6nnen die urspr\u00fcngliche Anwendungslogik leicht analysieren, versteckte API-Routen entdecken und clientseitige Schwachstellen viel schneller finden.",
+                "sysreptor_id": "ca4baf22-491b-44da-bbb6-fafd4abbec09"
             },
             {
-                "id": "info_redirect_responses",
+                "id": "WSTG-INFO-05-4",
                 "title_en": "Information Leakage in Redirect Responses",
                 "title_de": "Informationspreisgabe in Redirect-Antworten",
                 "description_en": "HTTP 3xx redirect responses unexpectedly contain content in the response body that leaks information about the application or authorization checks.",
@@ -3252,7 +3674,7 @@ const wstgData = [
                 "consequences_de": "Durch das Abfangen des Datenverkehrs k\u00f6nnen Angreifer sensible Daten lesen, die an den Client gesendet werden, auch wenn sie im Browser nie gerendert werden."
             },
             {
-                "id": "info_generated_files",
+                "id": "WSTG-INFO-05-5",
                 "title_en": "Metadata Leakage in Generated Files",
                 "title_de": "Metadatenpreisgabe in generierten Dateien",
                 "description_en": "Downloadable files generated by the application (PDFs, DOCX, etc.) contain embedded metadata revealing backend technologies, creator tools, or specific library versions.",
@@ -3287,7 +3709,7 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INFO-06: Identify Application Entry Points",
         "sysreptor_templates": [
             {
-                "id": "info_entry_requests",
+                "id": "WSTG-INFO-06-1",
                 "title_en": "Unprotected Application Entry Points in Requests",
                 "title_de": "Ungesch\u00fctzte Anwendungs-Einstiegspunkte in Anfragen",
                 "description_en": "Hidden or unvalidated parameters were identified in HTTP GET/POST requests, query strings, or custom headers.",
@@ -3296,7 +3718,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen diese versteckten Parameter manipulieren, um das Verhalten der Anwendung zu \u00e4ndern, die Gesch\u00e4ftslogik zu umgehen oder Injection-Angriffe durchzuf\u00fchren."
             },
             {
-                "id": "info_entry_responses",
+                "id": "WSTG-INFO-06-2",
                 "title_en": "Unprotected Application Entry Points in Responses",
                 "title_de": "Ungesch\u00fctzte Anwendungs-Einstiegspunkte in Antworten",
                 "description_en": "Analysis of HTTP responses revealed predictable cookies, unusual redirects, or custom server headers that expose internal load-balancing or routing mechanics.",
@@ -3331,7 +3753,7 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INFO-07: Map Execution Paths Through Application",
         "sysreptor_templates": [
             {
-                "id": "info_automatic_spidering",
+                "id": "WSTG-INFO-07-1",
                 "title_en": "Hidden Execution Paths Mapped via Spidering",
                 "title_de": "Versteckte Ausf\u00fchrungspfade durch Spidering aufgedeckt",
                 "description_en": "Automatic spidering successfully discovered deep links and undocumented resources/workflows that were not obviously linked from the main application.",
@@ -3366,7 +3788,7 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INFO-08: Fingerprint Web Application Framework",
         "sysreptor_templates": [
             {
-                "id": "info_framework_headers",
+                "id": "WSTG-INFO-08-1",
                 "title_en": "Framework Disclosure via HTTP Headers",
                 "title_de": "Framework-Preisgabe \u00fcber HTTP-Header",
                 "description_en": "The application framework and its specific version are exposed via HTTP headers such as X-Powered-By or X-Generator.",
@@ -3375,7 +3797,7 @@ const wstgData = [
                 "consequences_de": "Erm\u00f6glicht es einem Angreifer, schnell nach bekannten Schwachstellen zu suchen und pr\u00e4zise Exploits f\u00fcr diese spezifische Framework-Version zu erstellen."
             },
             {
-                "id": "info_framework_cookies",
+                "id": "WSTG-INFO-08-2",
                 "title_en": "Framework Disclosure via Cookies",
                 "title_de": "Framework-Preisgabe \u00fcber Cookies",
                 "description_en": "Framework-specific session cookies (e.g., CAKEPHP, laravel_session, JSESSIONID) reveal the underlying technology stack.",
@@ -3384,7 +3806,7 @@ const wstgData = [
                 "consequences_de": "Angreifer erhalten sofortigen Einblick in die Backend-Technologien und k\u00f6nnen framework-spezifische Schwachstellen im Sitzungsmanagement angreifen."
             },
             {
-                "id": "info_framework_html",
+                "id": "WSTG-INFO-08-3",
                 "title_en": "Framework Disclosure via HTML Source Code",
                 "title_de": "Framework-Preisgabe \u00fcber HTML-Quellcode",
                 "description_en": "HTML source code contains specific markers, generator meta tags, or recognizable paths (e.g., framework-specific CSS/JS directories) disclosing the application type.",
@@ -3393,7 +3815,7 @@ const wstgData = [
                 "consequences_de": "Vereinfacht die Aufkl\u00e4rungsphase des Angreifers und erm\u00f6glicht es ihm, sich auf Standard-Exploits f\u00fcr die offengelegte Software (z. B. WordPress, Drupal) zu konzentrieren."
             },
             {
-                "id": "info_framework_files",
+                "id": "WSTG-INFO-08-4",
                 "title_en": "Framework Disclosure via Specific Files and Folders",
                 "title_de": "Framework-Preisgabe \u00fcber spezifische Dateien und Ordner",
                 "description_en": "Dirbusting revealed predictable default file structures and folders (e.g., /wp-admin/, /wp-includes/) identifying the component or CMS in use.",
@@ -3402,7 +3824,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen direkt auf standardm\u00e4\u00dfige administrative Login-Seiten oder Verzeichnisse bekannter anf\u00e4lliger Plugins zugreifen."
             },
             {
-                "id": "info_framework_extensions",
+                "id": "WSTG-INFO-08-5",
                 "title_en": "Framework Disclosure via File Extensions",
                 "title_de": "Framework-Preisgabe \u00fcber Dateierweiterungen",
                 "description_en": "The URLs use visible file extensions (e.g., .php, .aspx, .jsp) that clearly identify the programming language processing the requests.",
@@ -3437,7 +3859,7 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INFO-10: Map Application Architecture",
         "sysreptor_templates": [
             {
-                "id": "info_app_components",
+                "id": "WSTG-INFO-10-1",
                 "title_en": "Architecture Disclosure via Application Components",
                 "title_de": "Architektur-Preisgabe \u00fcber Anwendungskomponenten",
                 "description_en": "The application architecture (e.g., use of Serverless functions, PaaS environments, specific databases, or third-party APIs) is disclosed to the client.",
@@ -3446,7 +3868,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen ihre Angriffe (wie das Abzielen auf falsch konfigurierte S3-Buckets oder spezifische Cloud-Provider-Header) auf die spezifische Architektur zuschneiden."
             },
             {
-                "id": "info_network_components",
+                "id": "WSTG-INFO-10-2",
                 "title_en": "Architecture Disclosure via Network Components",
                 "title_de": "Architektur-Preisgabe \u00fcber Netzwerkkomponenten",
                 "description_en": "The presence of network components like Reverse Proxies, Load Balancers, or CDNs is exposed via HTTP headers or error messages.",
@@ -3455,7 +3877,7 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen versuchen, Edge-Schutzma\u00dfnahmen zu umgehen, HTTP Request Smuggling auszuf\u00fchren oder gezielte Cache-Poisoning-Angriffe durchzuf\u00fchren."
             },
             {
-                "id": "info_security_components",
+                "id": "WSTG-INFO-10-3",
                 "title_en": "Architecture Disclosure via Security Components",
                 "title_de": "Architektur-Preisgabe \u00fcber Sicherheitskomponenten",
                 "description_en": "The behavior of the application allows the identification of underlying Web Application Firewalls (WAF), IDS/IPS, or network firewalls.",
@@ -3490,16 +3912,17 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INPV-01: Testing for Reflected Cross Site Scripting",
         "sysreptor_templates": [
             {
-                "id": "inpv_reflected_xss_generic",
+                "id": "WSTG-INPV-01-1",
                 "title_en": "Reflected Cross-Site Scripting (XSS)",
                 "title_de": "Reflektiertes Cross-Site Scripting (XSS)",
                 "description_en": "The application reflects unsanitized user input from HTTP requests (parameters, paths, headers) directly into the HTML response.",
                 "description_de": "Die Anwendung reflektiert unbereinigte Benutzereingaben aus HTTP-Anfragen (Parameter, Pfade, Header) direkt in die HTML-Antwort.",
                 "consequences_en": "Attackers can craft malicious links that execute arbitrary JavaScript in a victim's browser, leading to session hijacking or sensitive data theft.",
-                "consequences_de": "Angreifer k\u00f6nnen b\u00f6sartige Links erstellen, die beim Anklicken durch das Opfer beliebiges JavaScript im Browser ausf\u00fchren, was zu Session-Hijacking oder dem Diebstahl sensibler Daten f\u00fchrt."
+                "consequences_de": "Angreifer k\u00f6nnen b\u00f6sartige Links erstellen, die beim Anklicken durch das Opfer beliebiges JavaScript im Browser ausf\u00fchren, was zu Session-Hijacking oder dem Diebstahl sensibler Daten f\u00fchrt.",
+                "sysreptor_id": "2c29f84b-b204-455f-a10d-d164670918ab"
             },
             {
-                "id": "inpv_reflected_xss_filter_bypass",
+                "id": "WSTG-INPV-01-2",
                 "title_en": "Reflected XSS via Filter Evasion",
                 "title_de": "Reflektiertes XSS durch Filterumgehung",
                 "description_en": "The application employs flawed XSS filters that can be bypassed using alternative encoding, tag attribute manipulation, or non-recursive filtering (e.g., <scr<script>ipt>).",
@@ -3534,31 +3957,34 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INPV-02: Testing for Stored Cross Site Scripting",
         "sysreptor_templates": [
             {
-                "id": "inpv_stored_xss_generic",
+                "id": "WSTG-INPV-02-1",
                 "title_en": "Stored Cross-Site Scripting (XSS)",
                 "title_de": "Gespeichertes Cross-Site Scripting (XSS)",
                 "description_en": "The application stores user input (e.g., in forums, profiles, or comments) and later renders it to other users without proper context-aware output encoding.",
                 "description_de": "Die Anwendung speichert Benutzereingaben (z. B. in Foren, Profilen oder Kommentaren) und gibt diese sp\u00e4ter ohne ordnungsgem\u00e4\u00dfe, kontextbezogene Ausgabe-Kodierung an andere Benutzer aus.",
                 "consequences_en": "Any user viewing the affected page will automatically execute the attacker's script. It poses a massive threat if viewed by administrators, leading to full system compromise.",
-                "consequences_de": "Jeder Benutzer, der die betroffene Seite aufruft, f\u00fchrt automatisch das Skript des Angreifers aus. Es stellt eine massive Bedrohung dar, wenn Administratoren die Seite betrachten, was zur vollst\u00e4ndigen Kompromittierung des Systems f\u00fchren kann."
+                "consequences_de": "Jeder Benutzer, der die betroffene Seite aufruft, f\u00fchrt automatisch das Skript des Angreifers aus. Es stellt eine massive Bedrohung dar, wenn Administratoren die Seite betrachten, was zur vollst\u00e4ndigen Kompromittierung des Systems f\u00fchren kann.",
+                "sysreptor_id": "28862244-7a2a-42d7-b1e3-0d15ecdcd2af"
             },
             {
-                "id": "inpv_stored_xss_file_upload",
+                "id": "WSTG-INPV-02-2",
                 "title_en": "Stored XSS via File Upload (MIME Mishandling)",
                 "title_de": "Gespeichertes XSS durch Datei-Upload (MIME-Fehler)",
                 "description_en": "The application allows the upload of files (like SVG, HTML, or disguised TXT/GIF files) that contain XSS payloads, which are executed when directly accessed in the browser.",
                 "description_de": "Die Anwendung erlaubt das Hochladen von Dateien (wie SVG, HTML oder getarnte TXT/GIF-Dateien), die XSS-Payloads enthalten und beim direkten Aufruf im Browser ausgef\u00fchrt werden.",
                 "consequences_en": "Attackers can hide malicious scripts in seemingly benign file uploads, executing code in the origin context of the application when the file URL is shared.",
-                "consequences_de": "Angreifer k\u00f6nnen b\u00f6sartige Skripte in scheinbar harmlosen Datei-Uploads verstecken und Code im Ursprungskontext der Anwendung ausf\u00fchren, wenn die Datei-URL geteilt wird."
+                "consequences_de": "Angreifer k\u00f6nnen b\u00f6sartige Skripte in scheinbar harmlosen Datei-Uploads verstecken und Code im Ursprungskontext der Anwendung ausf\u00fchren, wenn die Datei-URL geteilt wird.",
+                "sysreptor_id": "98ab8593-b1f5-46af-88de-9a97c23d36ed"
             },
             {
-                "id": "inpv_blind_xss",
+                "id": "WSTG-INPV-02-3",
                 "title_en": "Blind Cross-Site Scripting (XSS)",
                 "title_de": "Blindes Cross-Site Scripting (Blind XSS)",
                 "description_en": "Malicious payloads are submitted through public-facing forms (like feedback or contact forms) and execute in backend administrative or support panels that lack output encoding.",
                 "description_de": "B\u00f6sartige Payloads werden \u00fcber \u00f6ffentliche Formulare (wie Feedback- oder Kontaktformulare) \u00fcbermittelt und in administrativen oder Support-Panels im Backend ausgef\u00fchrt, die keine Ausgabe-Kodierung aufweisen.",
                 "consequences_en": "Attackers can silently hijack the sessions of high-privileged backend users (administrators) without ever seeing the payload execution directly.",
-                "consequences_de": "Angreifer k\u00f6nnen unbemerkt die Sitzungen hochprivilegierter Backend-Benutzer (Administratoren) \u00fcbernehmen, ohne die Ausf\u00fchrung der Payload direkt zu sehen."
+                "consequences_de": "Angreifer k\u00f6nnen unbemerkt die Sitzungen hochprivilegierter Backend-Benutzer (Administratoren) \u00fcbernehmen, ohne die Ausf\u00fchrung der Payload direkt zu sehen.",
+                "sysreptor_id": "464a118a-aa46-4dde-8211-a34d20e6e27c"
             }
         ],
         "title_de": "Pr\u00fcfung auf Stored Cross-Site Scripting (XSS)",
@@ -3587,16 +4013,17 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INPV-04: Testing for HTTP Parameter Pollution",
         "sysreptor_templates": [
             {
-                "id": "inpv_hpp_server_side",
+                "id": "WSTG-INPV-04-1",
                 "title_en": "Server-Side HTTP Parameter Pollution (HPP)",
                 "title_de": "Serverseitige HTTP Parameter Pollution (HPP)",
                 "description_en": "The backend server processes multiple HTTP parameters with the same name inappropriately (e.g., concatenating them or prioritizing the last occurrence), bypassing security filters or logic checks.",
                 "description_de": "Der Backend-Server verarbeitet mehrere HTTP-Parameter mit demselben Namen fehlerhaft (z. B. durch Verkettung oder Priorisierung des letzten Vorkommens), wodurch Sicherheitsfilter oder Logikpr\u00fcfungen umgangen werden.",
                 "consequences_en": "Attackers can bypass Web Application Firewalls (WAF), alter database queries, or manipulate critical business logic variables (like overriding a target user ID).",
-                "consequences_de": "Angreifer k\u00f6nnen Web Application Firewalls (WAF) umgehen, Datenbankabfragen ver\u00e4ndern oder kritische Gesch\u00e4ftslogik-Variablen manipulieren (wie das \u00dcberschreiben einer Ziel-Benutzer-ID)."
+                "consequences_de": "Angreifer k\u00f6nnen Web Application Firewalls (WAF) umgehen, Datenbankabfragen ver\u00e4ndern oder kritische Gesch\u00e4ftslogik-Variablen manipulieren (wie das \u00dcberschreiben einer Ziel-Benutzer-ID).",
+                "sysreptor_id": "56cdae7d-a51f-411a-b3db-7e569ec2fc0e"
             },
             {
-                "id": "inpv_hpp_client_side",
+                "id": "WSTG-INPV-04-2",
                 "title_en": "Client-Side HTTP Parameter Pollution (HPP)",
                 "title_de": "Clientseitige HTTP Parameter Pollution (HPP)",
                 "description_en": "Duplicate URL parameters manipulate client-side components or URLs (e.g., injecting an unexpected parameter into an href attribute or AJAX request).",
@@ -3631,16 +4058,17 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INPV-05: Testing for SQL Injection",
         "sysreptor_templates": [
             {
-                "id": "inpv_sqli_auth_bypass",
+                "id": "WSTG-INPV-05-1",
                 "title_en": "SQL Injection (Authentication/Logic Bypass)",
                 "title_de": "SQL-Injection (Umgehung von Authentifizierung/Logik)",
                 "description_en": "User input is directly injected into authentication or logic queries (e.g., ' OR '1'='1), altering the original intent of the SQL statement.",
                 "description_de": "Benutzereingaben werden direkt in Authentifizierungs- oder Logikabfragen injiziert (z. B. ' OR '1'='1), wodurch die urspr\u00fcngliche Absicht der SQL-Anweisung ver\u00e4ndert wird.",
                 "consequences_en": "Attackers can bypass login screens entirely without a valid password or force application workflows into unintended states.",
-                "consequences_de": "Angreifer k\u00f6nnen Anmeldebildschirme ohne g\u00fcltiges Passwort vollst\u00e4ndig umgehen oder Anwendungs-Workflows in unbeabsichtigte Zust\u00e4nde zwingen."
+                "consequences_de": "Angreifer k\u00f6nnen Anmeldebildschirme ohne g\u00fcltiges Passwort vollst\u00e4ndig umgehen oder Anwendungs-Workflows in unbeabsichtigte Zust\u00e4nde zwingen.",
+                "sysreptor_id": "d50e3958-4270-4bb0-88c3-f7b8f6f88584"
             },
             {
-                "id": "inpv_sqli_union",
+                "id": "WSTG-INPV-05-2",
                 "title_en": "Union-Based SQL Injection",
                 "title_de": "Union-basierte SQL-Injection",
                 "description_en": "The application returns the result of the SQL query directly to the user. The attacker uses the UNION operator to combine the original query with a forged query.",
@@ -3649,7 +4077,7 @@ const wstgData = [
                 "consequences_de": "Erm\u00f6glicht es einem Angreifer, schnell und effizient beliebige Daten aus anderen Tabellen innerhalb der Datenbank zu extrahieren."
             },
             {
-                "id": "inpv_sqli_error",
+                "id": "WSTG-INPV-05-3",
                 "title_en": "Error-Based SQL Injection",
                 "title_de": "Fehlerbasierte SQL-Injection",
                 "description_en": "The application displays verbose database error messages. The attacker intentionally injects queries that cause type conversion or mathematical errors containing the desired data.",
@@ -3658,22 +4086,32 @@ const wstgData = [
                 "consequences_de": "Angreifer k\u00f6nnen Datenbankinhalte direkt \u00fcber die resultierenden Fehlermeldungen exfiltrieren, selbst wenn die regul\u00e4re Ausgabe nicht angezeigt wird."
             },
             {
-                "id": "inpv_sqli_blind",
+                "id": "WSTG-INPV-05-4",
                 "title_en": "Blind / Time-Based SQL Injection",
                 "title_de": "Blind / Time-Based SQL-Injection",
                 "description_en": "The application does not reflect data or errors, but an attacker can infer data bit-by-bit by injecting boolean conditions that alter the page content or force time delays (e.g., SLEEP/WAITFOR).",
                 "description_de": "Die Anwendung reflektiert keine Daten oder Fehler, aber ein Angreifer kann Daten Bit f\u00fcr Bit ableiten, indem er boolesche Bedingungen injiziert, die den Seiteninhalt \u00e4ndern oder Zeitverz\u00f6gerungen erzwingen (z. B. SLEEP/WAITFOR).",
                 "consequences_en": "Even without direct visual feedback, the entire database can be systematically extracted, albeit slower than in-band methods.",
-                "consequences_de": "Selbst ohne direktes visuelles Feedback kann die gesamte Datenbank systematisch extrahiert werden, wenn auch langsamer als bei In-Band-Methoden."
+                "consequences_de": "Selbst ohne direktes visuelles Feedback kann die gesamte Datenbank systematisch extrahiert werden, wenn auch langsamer als bei In-Band-Methoden.",
+                "sysreptor_id": "d96c43a4-1b02-4f41-a4e3-ce38f08dba1b"
             },
             {
-                "id": "inpv_sqli_wildcard",
+                "id": "WSTG-INPV-05-5",
                 "title_en": "SQL Wildcard Injection",
                 "title_de": "SQL Wildcard-Injection",
                 "description_en": "The application allows multi-character wildcards ('%') in input fields used within SQL 'LIKE' clauses, leading to excessive matching.",
                 "description_de": "Die Anwendung erlaubt Mehrzeichen-Platzhalter ('%') in Eingabefeldern, die innerhalb von SQL 'LIKE'-Klauseln verwendet werden, was zu \u00fcberm\u00e4\u00dfigen \u00dcbereinstimmungen f\u00fchrt.",
                 "consequences_en": "Attackers can bypass exact-match logic (like validating a specific discount code) or enumerate data via highly specific wildcard searches.",
                 "consequences_de": "Angreifer k\u00f6nnen Exakt-Match-Logiken umgehen (wie die Validierung eines bestimmten Rabattcodes) oder Daten \u00fcber hochspezifische Wildcard-Suchen enumerieren."
+            },
+            {
+                "id": "WSTG-INPV-05-6",
+                "title_en": "NoSQL Injection",
+                "title_de": "NoSQL-Injection",
+                "description_en": "The application constructs NoSQL queries (e.g. MongoDB) using unsanitized user inputs.",
+                "description_de": "Die Anwendung erstellt NoSQL-Abfragen (z. B. MongoDB) unter Verwendung unbereinigter Benutzereingaben.",
+                "consequences_en": "Allows attackers to bypass authentication, extract database records, or modify database values.",
+                "consequences_de": "Erm\u00f6glicht es Angreifern, Authentifizierungen zu umgehen, Datenbankeintr\u00e4ge zu extrahieren oder Werte zu ver\u00e4ndern."
             }
         ],
         "title_de": "Pr\u00fcfung auf SQL-Injection (SQLi)",
@@ -3702,16 +4140,17 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INPV-06: Testing for LDAP Injection",
         "sysreptor_templates": [
             {
-                "id": "inpv_ldap_auth_bypass",
+                "id": "WSTG-INPV-06-1",
                 "title_en": "LDAP Injection: Authentication Bypass",
                 "title_de": "LDAP-Injection: Umgehung der Authentifizierung",
                 "description_en": "The application inserts unsanitized user credentials into an LDAP search filter. Attackers can inject logical operators (e.g., ')(|uid=*)') to force a TRUE condition.",
                 "description_de": "Die Anwendung f\u00fcgt unbereinigte Benutzeranmeldedaten in einen LDAP-Suchfilter ein. Angreifer k\u00f6nnen logische Operatoren (z. B. ')(|uid=*)') injizieren, um eine WAHRE Bedingung zu erzwingen.",
                 "consequences_en": "Attackers can bypass the login mechanism entirely, usually gaining access as the first user defined in the LDAP tree (often an administrator).",
-                "consequences_de": "Angreifer k\u00f6nnen den Anmeldemechanismus vollst\u00e4ndig umgehen und erhalten meist Zugriff als der erste im LDAP-Baum definierte Benutzer (oft ein Administrator)."
+                "consequences_de": "Angreifer k\u00f6nnen den Anmeldemechanismus vollst\u00e4ndig umgehen und erhalten meist Zugriff als der erste im LDAP-Baum definierte Benutzer (oft ein Administrator).",
+                "sysreptor_id": "acee6d19-146d-4f2e-a350-82cdb217b463"
             },
             {
-                "id": "inpv_ldap_info_disclosure",
+                "id": "WSTG-INPV-06-2",
                 "title_en": "LDAP Injection: Information Disclosure",
                 "title_de": "LDAP-Injection: Informationspreisgabe",
                 "description_en": "Search functionality relying on LDAP queries is vulnerable to injection, allowing attackers to broaden search parameters using wildcard metacharacters (*).",
@@ -3746,22 +4185,24 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INPV-07: Testing for XML Injection",
         "sysreptor_templates": [
             {
-                "id": "inpv_xml_tag_injection",
+                "id": "WSTG-INPV-07-1",
                 "title_en": "XML Tag/Content Injection",
                 "title_de": "XML Tag/Inhalt-Injection",
                 "description_en": "The application dynamically constructs XML documents using unsanitized user input, allowing the insertion of structural metacharacters (<, >, <!--, ]]>).",
                 "description_de": "Die Anwendung erstellt XML-Dokumente dynamisch aus unbereinigten Benutzereingaben, was das Einf\u00fcgen struktureller Metazeichen (<, >, <!--, ]]>) erm\u00f6glicht.",
                 "consequences_en": "Attackers can alter the XML logic, escalate privileges by injecting unauthorized tags (e.g., <userid>0</userid>), or break out of CDATA sections to trigger XSS.",
-                "consequences_de": "Angreifer k\u00f6nnen die XML-Logik \u00e4ndern, durch Injektion unautorisierter Tags (z.B. <userid>0</userid>) Privilegien eskalieren oder aus CDATA-Bereichen ausbrechen, um XSS auszul\u00f6sen."
+                "consequences_de": "Angreifer k\u00f6nnen die XML-Logik \u00e4ndern, durch Injektion unautorisierter Tags (z.B. <userid>0</userid>) Privilegien eskalieren oder aus CDATA-Bereichen ausbrechen, um XSS auszul\u00f6sen.",
+                "sysreptor_id": "521751fb-943b-4655-8b0a-38aab60a00e2"
             },
             {
-                "id": "inpv_xml_xxe",
+                "id": "WSTG-INPV-07-2",
                 "title_en": "XML External Entity (XXE) Injection",
                 "title_de": "XML External Entity (XXE)-Injection",
                 "description_en": "The XML parser processes external entities securely configured DTDs, allowing attackers to define custom entities pointing to local files or external URLs.",
                 "description_de": "Der XML-Parser verarbeitet externe Entit\u00e4ten aus nicht sicher konfigurierten DTDs, wodurch Angreifer benutzerdefinierte Entit\u00e4ten definieren k\u00f6nnen, die auf lokale Dateien oder externe URLs verweisen.",
                 "consequences_en": "Attackers can read arbitrary local files, map internal networks via Server-Side Request Forgery (SSRF), or cause a Denial of Service (Billion Laughs attack).",
-                "consequences_de": "Angreifer k\u00f6nnen beliebige lokale Dateien lesen, interne Netzwerke per Server-Side Request Forgery (SSRF) abbilden oder einen Denial of Service (Billion Laughs-Angriff) verursachen."
+                "consequences_de": "Angreifer k\u00f6nnen beliebige lokale Dateien lesen, interne Netzwerke per Server-Side Request Forgery (SSRF) abbilden oder einen Denial of Service (Billion Laughs-Angriff) verursachen.",
+                "sysreptor_id": "3085e8c8-61cc-4242-8f75-3ad55dd8eae4"
             }
         ],
         "title_de": "Pr\u00fcfung auf XML-Injection",
@@ -3790,7 +4231,7 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INPV-08: Testing for SSI Injection",
         "sysreptor_templates": [
             {
-                "id": "inpv_ssi_injection",
+                "id": "WSTG-INPV-08-1",
                 "title_en": "Server-Side Includes (SSI) Injection",
                 "title_de": "Server-Side Includes (SSI) Injection",
                 "description_en": "The web server has Server-Side Includes enabled (e.g., handling .shtml files) and incorporates unfiltered user input into its directives.",
@@ -3825,16 +4266,17 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INPV-09: Testing for XPath Injection",
         "sysreptor_templates": [
             {
-                "id": "inpv_xpath_auth_bypass",
+                "id": "WSTG-INPV-09-1",
                 "title_en": "XPath Injection: Authentication Bypass",
                 "title_de": "XPath-Injection: Umgehung der Authentifizierung",
                 "description_en": "The application uses XPath queries for authentication and embeds user input without sanitization, permitting syntax like ' or '1' = '1.",
                 "description_de": "Die Anwendung verwendet XPath-Abfragen zur Authentifizierung und bettet Benutzereingaben ohne Bereinigung ein, was eine Syntax wie ' or '1' = '1 zul\u00e4sst.",
                 "consequences_en": "Similar to SQL injection, attackers can alter the query logic to evaluate to true, bypassing the login without knowing any valid credentials.",
-                "consequences_de": "\u00c4hnlich wie bei SQL-Injection k\u00f6nnen Angreifer die Abfragelogik so \u00e4ndern, dass sie als 'wahr' ausgewertet wird, und so das Login umgehen, ohne g\u00fcltige Anmeldedaten zu kennen."
+                "consequences_de": "\u00c4hnlich wie bei SQL-Injection k\u00f6nnen Angreifer die Abfragelogik so \u00e4ndern, dass sie als 'wahr' ausgewertet wird, und so das Login umgehen, ohne g\u00fcltige Anmeldedaten zu kennen.",
+                "sysreptor_id": "5d3cc328-2ca3-44a4-918c-77a5b01b1fb9"
             },
             {
-                "id": "inpv_xpath_blind",
+                "id": "WSTG-INPV-09-2",
                 "title_en": "Blind XPath Injection",
                 "title_de": "Blinde XPath-Injection",
                 "description_en": "The application does not reveal direct errors or data, but attackers can infer the underlying XML structure node-by-node by injecting boolean XPath functions.",
@@ -3869,13 +4311,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INPV-10: Testing for IMAP SMTP Injection",
         "sysreptor_templates": [
             {
-                "id": "inpv_imap_smtp_command",
+                "id": "WSTG-INPV-10-1",
                 "title_en": "IMAP/SMTP Command Injection",
                 "title_de": "IMAP/SMTP Command-Injection",
                 "description_en": "The application fails to filter CRLF (%0d%0a) characters in parameters used to interact with backend mail servers (e.g., mailboxes, message IDs, or subjects).",
                 "description_de": "Die Anwendung filtert keine CRLF-Zeichen (%0d%0a) in Parametern, die f\u00fcr die Interaktion mit Backend-Mailservern (z. B. Postf\u00e4cher, Nachrichten-IDs oder Betreffe) verwendet werden.",
                 "consequences_en": "Attackers can terminate intended operations and inject completely arbitrary IMAP/SMTP commands to access unauthorized mailboxes, delete messages, or relay spam.",
-                "consequences_de": "Angreifer k\u00f6nnen beabsichtigte Operationen beenden und v\u00f6llig beliebige IMAP/SMTP-Befehle injizieren, um auf unautorisierte Postf\u00e4cher zuzugreifen, Nachrichten zu l\u00f6schen oder Spam weiterzuleiten."
+                "consequences_de": "Angreifer k\u00f6nnen beabsichtigte Operationen beenden und v\u00f6llig beliebige IMAP/SMTP-Befehle injizieren, um auf unautorisierte Postf\u00e4cher zuzugreifen, Nachrichten zu l\u00f6schen oder Spam weiterzuleiten.",
+                "sysreptor_id": "82746a34-44ac-46c1-9ae6-89d944b13abf"
             }
         ],
         "title_de": "Pr\u00fcfung auf IMAP/SMTP-Injection",
@@ -3904,22 +4347,33 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INPV-11: Testing for Code Injection",
         "sysreptor_templates": [
             {
-                "id": "inpv_code_injection_php",
+                "id": "WSTG-INPV-11-1",
                 "title_en": "PHP Code Injection",
                 "title_de": "PHP-Code-Injection",
                 "description_en": "The application unsafely passes user input into PHP evaluation functions (like eval() or preg_replace() with the /e modifier).",
                 "description_de": "Die Anwendung \u00fcbergibt Benutzereingaben unsicher an PHP-Evaluierungsfunktionen (wie eval() oder preg_replace() mit dem /e-Modifikator).",
                 "consequences_en": "Attackers can execute arbitrary PHP code on the server, leading to complete server compromise and remote command execution.",
-                "consequences_de": "Angreifer k\u00f6nnen beliebigen PHP-Code auf dem Server ausf\u00fchren, was zu einer vollst\u00e4ndigen Kompromittierung des Servers und Remote-Befehlsausf\u00fchrung f\u00fchrt."
+                "consequences_de": "Angreifer k\u00f6nnen beliebigen PHP-Code auf dem Server ausf\u00fchren, was zu einer vollst\u00e4ndigen Kompromittierung des Servers und Remote-Befehlsausf\u00fchrung f\u00fchrt.",
+                "sysreptor_id": "892b5c1c-6eb9-4c96-82e8-f8717d412d35"
             },
             {
-                "id": "inpv_code_injection_asp",
+                "id": "WSTG-INPV-11-2",
                 "title_en": "ASP/.NET Code Injection",
                 "title_de": "ASP/.NET-Code-Injection",
                 "description_en": "User input is dynamically written to executable ASP/ASP.NET files or passed to execution functions (like Server.Execute) without validation.",
                 "description_de": "Benutzereingaben werden ohne Validierung dynamisch in ausf\u00fchrbare ASP/ASP.NET-Dateien geschrieben oder an Ausf\u00fchrungsfunktionen (wie Server.Execute) \u00fcbergeben.",
                 "consequences_en": "Allows an attacker to inject malicious server-side scripts that are executed by the web server framework.",
-                "consequences_de": "Erm\u00f6glicht es einem Angreifer, b\u00f6sartige serverseitige Skripte zu injizieren, die vom Webserver-Framework ausgef\u00fchrt werden."
+                "consequences_de": "Erm\u00f6glicht es einem Angreifer, b\u00f6sartige serverseitige Skripte zu injizieren, die vom Webserver-Framework ausgef\u00fchrt werden.",
+                "sysreptor_id": "d850f5f5-c5ac-418b-af85-1d31376b9ba2"
+            },
+            {
+                "id": "WSTG-INPV-11-3",
+                "title_en": "Prototype Pollution",
+                "title_de": "Prototype Pollution",
+                "description_en": "The application allows modification of JavaScript object prototypes through parameter injection.",
+                "description_de": "Die Anwendung erm\u00f6glicht die Modifikation von JavaScript-Objektprototypen durch Parameter-Injektion.",
+                "consequences_en": "Can lead to client-side logic bypasses, Cross-Site Scripting (XSS), or Remote Code Execution (RCE) on Node.js backends.",
+                "consequences_de": "Kann zu clientseitigen Logik-Bypasses, Cross-Site Scripting (XSS) oder Remotecodeausf\u00fchrung (RCE) auf Node.js-Backends f\u00fchren."
             }
         ],
         "title_de": "Pr\u00fcfung auf Code-Injection",
@@ -3948,22 +4402,24 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INPV-12: Testing for Command Injection",
         "sysreptor_templates": [
             {
-                "id": "inpv_command_injection_basic",
+                "id": "WSTG-INPV-12-1",
                 "title_en": "OS Command Injection",
                 "title_de": "OS Command-Injection",
                 "description_en": "The application passes unvalidated user input to a system shell (e.g., using | , ;, or && to chain commands).",
                 "description_de": "Die Anwendung \u00fcbergibt unvalidierte Benutzereingaben an eine System-Shell (z.B. durch Verwendung von | , ; oder && zur Verkettung von Befehlen).",
                 "consequences_en": "Attackers can execute arbitrary operating system commands, completely compromising the application host.",
-                "consequences_de": "Angreifer k\u00f6nnen beliebige Betriebssystembefehle ausf\u00fchren und so den Anwendungs-Host vollst\u00e4ndig kompromittieren."
+                "consequences_de": "Angreifer k\u00f6nnen beliebige Betriebssystembefehle ausf\u00fchren und so den Anwendungs-Host vollst\u00e4ndig kompromittieren.",
+                "sysreptor_id": "87c16914-7ae7-4889-b16e-723fbebb8e5e"
             },
             {
-                "id": "inpv_command_injection_blind",
+                "id": "WSTG-INPV-12-2",
                 "title_en": "Blind OS Command Injection",
                 "title_de": "Blinde OS Command-Injection",
                 "description_en": "The application is vulnerable to command injection, but the command output is not reflected in the HTTP response. Time delays or out-of-band channels must be used.",
                 "description_de": "Die Anwendung ist anf\u00e4llig f\u00fcr Command-Injection, aber die Befehlsausgabe wird nicht in der HTTP-Antwort reflektiert. Es m\u00fcssen Zeitverz\u00f6gerungen oder Out-of-Band-Kan\u00e4le genutzt werden.",
                 "consequences_en": "Despite the lack of visible output, attackers can still execute commands, exfiltrate data via DNS/HTTP requests, or cause Denial of Service via sleep commands.",
-                "consequences_de": "Trotz fehlender sichtbarer Ausgabe k\u00f6nnen Angreifer Befehle ausf\u00fchren, Daten \u00fcber DNS/HTTP-Anfragen exfiltrieren oder Denial of Service durch Sleep-Befehle verursachen."
+                "consequences_de": "Trotz fehlender sichtbarer Ausgabe k\u00f6nnen Angreifer Befehle ausf\u00fchren, Daten \u00fcber DNS/HTTP-Anfragen exfiltrieren oder Denial of Service durch Sleep-Befehle verursachen.",
+                "sysreptor_id": "17d93918-e84f-471a-b465-570793abb918"
             }
         ],
         "title_de": "Pr\u00fcfung auf Command-Injection (Befehlsinjektion)",
@@ -3992,13 +4448,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INPV-13: Testing for Buffer Overflow",
         "sysreptor_templates": [
             {
-                "id": "inpv_format_string",
+                "id": "WSTG-INPV-13-1",
                 "title_en": "Format String Injection",
                 "title_de": "Format String-Injection",
                 "description_en": "User input is improperly evaluated by formatting functions (e.g., printf in C/C++ or String.format in Java) containing format specifiers like %n or %s.",
                 "description_de": "Benutzereingaben werden durch Formatierungsfunktionen (z. B. printf in C/C++ oder String.format in Java), die Formatspezifikatoren wie %n oder %s enthalten, unsachgem\u00e4\u00df ausgewertet.",
                 "consequences_en": "Attackers can read sensitive memory contents, trigger application crashes, or write to arbitrary memory locations to achieve code execution.",
-                "consequences_de": "Angreifer k\u00f6nnen sensible Speicherinhalte lesen, Anwendungsabst\u00fcrze ausl\u00f6sen oder in beliebige Speicherorte schreiben, um Code auszuf\u00fchren."
+                "consequences_de": "Angreifer k\u00f6nnen sensible Speicherinhalte lesen, Anwendungsabst\u00fcrze ausl\u00f6sen oder in beliebige Speicherorte schreiben, um Code auszuf\u00fchren.",
+                "sysreptor_id": "0a8ff02c-75ed-42dc-a774-5d597e5e7807"
             }
         ],
         "title_de": "Pr\u00fcfung auf Puffer\u00fcberl\u00e4ufe (Buffer Overflow) und Format-String-Injection",
@@ -4027,13 +4484,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INPV-13: Testing for Format String Injection",
         "sysreptor_templates": [
             {
-                "id": "inpv_format_string",
+                "id": "WSTG-INPV-13-1",
                 "title_en": "Format String Injection",
                 "title_de": "Format String-Injection",
                 "description_en": "User input is improperly evaluated by formatting functions (e.g., printf in C/C++ or String.format in Java) containing format specifiers like %n or %s.",
                 "description_de": "Benutzereingaben werden durch Formatierungsfunktionen (z. B. printf in C/C++ oder String.format in Java), die Formatspezifikatoren wie %n oder %s enthalten, unsachgem\u00e4\u00df ausgewertet.",
                 "consequences_en": "Attackers can read sensitive memory contents, trigger application crashes, or write to arbitrary memory locations to achieve code execution.",
-                "consequences_de": "Angreifer k\u00f6nnen sensible Speicherinhalte lesen, Anwendungsabst\u00fcrze ausl\u00f6sen oder in beliebige Speicherorte schreiben, um Code auszuf\u00fchren."
+                "consequences_de": "Angreifer k\u00f6nnen sensible Speicherinhalte lesen, Anwendungsabst\u00fcrze ausl\u00f6sen oder in beliebige Speicherorte schreiben, um Code auszuf\u00fchren.",
+                "sysreptor_id": "0a8ff02c-75ed-42dc-a774-5d597e5e7807"
             }
         ],
         "title_de": "Pr\u00fcfung auf Puffer\u00fcberl\u00e4ufe (Buffer Overflow) und Format-String-Injection",
@@ -4062,13 +4520,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INPV-14: Testing for Incubated Vulnerability",
         "sysreptor_templates": [
             {
-                "id": "inpv_incubated_xss",
+                "id": "WSTG-INPV-14-1",
                 "title_en": "Incubated Vulnerability (Persistent Attack)",
                 "title_de": "Inkubierte Schwachstelle (Persistent Attack)",
                 "description_en": "A payload is stored in the persistence layer (e.g., via a flawed backend batch process or SQLi) and is later executed by a victim who accesses the affected component.",
                 "description_de": "Eine Payload wird in der Persistenzschicht gespeichert (z. B. \u00fcber einen fehlerhaften Backend-Batch-Prozess oder SQLi) und sp\u00e4ter von einem Opfer ausgef\u00fchrt, das auf die betroffene Komponente zugreift.",
                 "consequences_en": "Allows sophisticated watering hole attacks, compromising internal users or administrators when they view the recalled data.",
-                "consequences_de": "Erm\u00f6glicht ausgefeilte Watering-Hole-Angriffe, die interne Benutzer oder Administratoren kompromittieren, wenn diese die abgerufenen Daten anzeigen."
+                "consequences_de": "Erm\u00f6glicht ausgefeilte Watering-Hole-Angriffe, die interne Benutzer oder Administratoren kompromittieren, wenn diese die abgerufenen Daten anzeigen.",
+                "sysreptor_id": "1a4787db-a4aa-4409-83c8-adf09fd17405"
             }
         ],
         "title_de": "Pr\u00fcfung auf inkubierte Schwachstellen (Incubated Vulnerabilities)",
@@ -4097,13 +4556,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INPV-15: Testing for HTTP Response Splitting",
         "sysreptor_templates": [
             {
-                "id": "inpv_http_response_splitting",
+                "id": "WSTG-INPV-15-1",
                 "title_en": "HTTP Response Splitting (CRLF Injection)",
                 "title_de": "HTTP Response Splitting (CRLF-Injection)",
                 "description_en": "The application fails to sanitize Carriage Return (CR) and Line Feed (LF) characters from input before using it in HTTP headers (like Location or Set-Cookie).",
                 "description_de": "Die Anwendung vers\u00e4umt es, Carriage-Return (CR) und Line-Feed (LF) Zeichen aus Eingaben zu bereinigen, bevor sie in HTTP-Headern (wie Location oder Set-Cookie) verwendet werden.",
                 "consequences_en": "Attackers can split a single response into two, injecting malicious content into the second response to perform cache poisoning or XSS.",
-                "consequences_de": "Angreifer k\u00f6nnen eine einzelne Antwort in zwei aufteilen und b\u00f6sartige Inhalte in die zweite Antwort injizieren, um Cache Poisoning oder XSS durchzuf\u00fchren."
+                "consequences_de": "Angreifer k\u00f6nnen eine einzelne Antwort in zwei aufteilen und b\u00f6sartige Inhalte in die zweite Antwort injizieren, um Cache Poisoning oder XSS durchzuf\u00fchren.",
+                "sysreptor_id": "74561a14-b5b3-4209-8f73-d4a4a98562e1"
             }
         ],
         "title_de": "Pr\u00fcfung auf HTTP Response Splitting",
@@ -4132,16 +4592,17 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INPV-16: Testing for HTTP Request Smuggling",
         "sysreptor_templates": [
             {
-                "id": "inpv_request_smuggling_cl_te",
+                "id": "WSTG-INPV-16-1",
                 "title_en": "HTTP Request Smuggling (CL.TE / TE.CL)",
                 "title_de": "HTTP Request Smuggling (CL.TE / TE.CL)",
                 "description_en": "Discrepancies in handling Content-Length and Transfer-Encoding headers between frontend and backend servers allow attackers to smuggle hidden requests.",
                 "description_de": "Diskrepanzen bei der Behandlung von Content-Length- und Transfer-Encoding-Headern zwischen Frontend- und Backend-Servern erm\u00f6glichen es Angreifern, versteckte Anfragen einzuschmuggeln.",
                 "consequences_en": "Attackers can bypass security controls, steal other users' sessions, or poison web caches with malicious responses.",
-                "consequences_de": "Angreifer k\u00f6nnen Sicherheitskontrollen umgehen, Sitzungen anderer Benutzer stehlen oder Web-Caches mit b\u00f6sartigen Antworten vergiften."
+                "consequences_de": "Angreifer k\u00f6nnen Sicherheitskontrollen umgehen, Sitzungen anderer Benutzer stehlen oder Web-Caches mit b\u00f6sartigen Antworten vergiften.",
+                "sysreptor_id": "856592ea-fe6d-43e3-ae18-35a538bd324d"
             },
             {
-                "id": "inpv_request_smuggling_h2c",
+                "id": "WSTG-INPV-16-2",
                 "title_en": "HTTP/2 Downgrade Request Smuggling",
                 "title_de": "HTTP/2 Downgrade Request Smuggling",
                 "description_en": "Inconsistencies during protocol translation (from HTTP/2 to HTTP/1.1) or H2C upgrades allow requests to be smuggled out of sequence.",
@@ -4176,16 +4637,17 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INPV-17: Testing for Host Header Injection",
         "sysreptor_templates": [
             {
-                "id": "inpv_host_header_redirect",
+                "id": "WSTG-INPV-17-1",
                 "title_en": "Host Header Injection: Open Redirect",
                 "title_de": "Host-Header-Injection: Open Redirect",
                 "description_en": "The application redirects users based on the unvalidated Host header provided in the request.",
                 "description_de": "Die Anwendung leitet Benutzer basierend auf dem unvalidierten Host-Header, der in der Anfrage angegeben wurde, weiter.",
                 "consequences_en": "Attackers can trick users into visiting malicious sites by distributing URLs that appear legitimate but contain a tampered Host header.",
-                "consequences_de": "Angreifer k\u00f6nnen Benutzer dazu verleiten, b\u00f6sartige Seiten zu besuchen, indem sie URLs verteilen, die legitim aussehen, aber einen manipulierten Host-Header enthalten."
+                "consequences_de": "Angreifer k\u00f6nnen Benutzer dazu verleiten, b\u00f6sartige Seiten zu besuchen, indem sie URLs verteilen, die legitim aussehen, aber einen manipulierten Host-Header enthalten.",
+                "sysreptor_id": "72250d29-1afe-46eb-9a47-0ec77528ba73"
             },
             {
-                "id": "inpv_host_header_password_reset",
+                "id": "WSTG-INPV-17-2",
                 "title_en": "Host Header Injection: Password Reset Poisoning",
                 "title_de": "Host-Header-Injection: Password Reset Poisoning",
                 "description_en": "The application generates password reset links using the supplied Host header.",
@@ -4220,13 +4682,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INPV-18: Testing for Server-side Template Injection",
         "sysreptor_templates": [
             {
-                "id": "inpv_ssti_rce",
+                "id": "WSTG-INPV-18-1",
                 "title_en": "Server-Side Template Injection (SSTI)",
                 "title_de": "Server-Side Template Injection (SSTI)",
                 "description_en": "The application embeds untrusted input directly into a template engine (e.g., Jinja2, Twig) without proper escaping, allowing template directives to be evaluated.",
                 "description_de": "Die Anwendung bindet nicht vertrauensw\u00fcrdige Eingaben direkt in eine Template-Engine (z. B. Jinja2, Twig) ohne angemessenes Escaping ein, wodurch Template-Direktiven ausgewertet werden k\u00f6nnen.",
                 "consequences_en": "Attackers can execute arbitrary server-side code (RCE) by navigating the object hierarchy exposed by the template engine.",
-                "consequences_de": "Angreifer k\u00f6nnen beliebigen serverseitigen Code (RCE) ausf\u00fchren, indem sie durch die von der Template-Engine exponierte Objekthierarchie navigieren."
+                "consequences_de": "Angreifer k\u00f6nnen beliebigen serverseitigen Code (RCE) ausf\u00fchren, indem sie durch die von der Template-Engine exponierte Objekthierarchie navigieren.",
+                "sysreptor_id": "26f4d942-beca-4179-9f89-f84c12e1fb70"
             }
         ],
         "title_de": "Pr\u00fcfung auf serverseitige Template-Injection (SSTI)",
@@ -4255,22 +4718,24 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INPV-19: Testing for Server-Side Request Forgery",
         "sysreptor_templates": [
             {
-                "id": "inpv_ssrf_internal",
+                "id": "WSTG-INPV-19-1",
                 "title_en": "Server-Side Request Forgery (SSRF)",
                 "title_de": "Server-Side Request Forgery (SSRF)",
                 "description_en": "The application fetches external URLs provided by users without restricting access to internal, loopback, or private IP address ranges.",
                 "description_de": "Die Anwendung ruft externe URLs ab, die von Benutzern bereitgestellt wurden, ohne den Zugriff auf interne, Loopback- oder private IP-Adressbereiche zu beschr\u00e4nken.",
                 "consequences_en": "Attackers can access internal services, read local files (via file:// URI), or retrieve sensitive cloud metadata (e.g., AWS 169.254.169.254).",
-                "consequences_de": "Angreifer k\u00f6nnen auf interne Dienste zugreifen, lokale Dateien (via file:// URI) lesen oder sensible Cloud-Metadaten abrufen (z. B. AWS 169.254.169.254)."
+                "consequences_de": "Angreifer k\u00f6nnen auf interne Dienste zugreifen, lokale Dateien (via file:// URI) lesen oder sensible Cloud-Metadaten abrufen (z. B. AWS 169.254.169.254).",
+                "sysreptor_id": "95d77276-f806-4812-b1cc-9c7e9ba0c061"
             },
             {
-                "id": "inpv_blind_ssrf",
+                "id": "WSTG-INPV-19-2",
                 "title_en": "Blind Server-Side Request Forgery (SSRF)",
                 "title_de": "Blind Server-Side Request Forgery (SSRF)",
                 "description_en": "The application processes backend requests to user-supplied URLs but does not return the response directly to the attacker.",
                 "description_de": "Die Anwendung verarbeitet Backend-Anfragen an vom Benutzer bereitgestellte URLs, gibt die Antwort jedoch nicht direkt an den Angreifer zur\u00fcck.",
                 "consequences_en": "Attackers can still trigger actions on internal services (like changing internal states) or perform port scanning based on timing differences.",
-                "consequences_de": "Angreifer k\u00f6nnen weiterhin Aktionen bei internen Diensten ausl\u00f6sen (z.B. interne Zust\u00e4nde \u00e4ndern) oder Port-Scans basierend auf Zeitunterschieden durchf\u00fchren."
+                "consequences_de": "Angreifer k\u00f6nnen weiterhin Aktionen bei internen Diensten ausl\u00f6sen (z.B. interne Zust\u00e4nde \u00e4ndern) oder Port-Scans basierend auf Zeitunterschieden durchf\u00fchren.",
+                "sysreptor_id": "66210984-9784-49c8-9610-e926220698fe"
             }
         ],
         "title_de": "Pr\u00fcfung auf Server-Side Request Forgery (SSRF)",
@@ -4299,13 +4764,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INPV-20: Testing for Mass Assignment",
         "sysreptor_templates": [
             {
-                "id": "inpv_mass_assignment",
+                "id": "WSTG-INPV-20-1",
                 "title_en": "Mass Assignment / Autobinding",
                 "title_de": "Mass Assignment / Autobinding",
                 "description_en": "The application framework automatically binds client-supplied parameters to internal model attributes without enforcing strict allowlists (e.g., using Data Transfer Objects).",
                 "description_de": "Das Anwendungs-Framework bindet vom Client bereitgestellte Parameter automatisch an interne Modellattribute, ohne strenge Allowlisten (z. B. unter Verwendung von Data Transfer Objekten) durchzusetzen.",
                 "consequences_en": "Attackers can append unexpected parameters (like isAdmin=true) to requests to elevate privileges or bypass business constraints.",
-                "consequences_de": "Angreifer k\u00f6nnen unerwartete Parameter (wie isAdmin=true) an Anfragen anh\u00e4ngen, um Privilegien zu erh\u00f6hen oder Gesch\u00e4ftsbeschr\u00e4nkungen zu umgehen."
+                "consequences_de": "Angreifer k\u00f6nnen unerwartete Parameter (wie isAdmin=true) an Anfragen anh\u00e4ngen, um Privilegien zu erh\u00f6hen oder Gesch\u00e4ftsbeschr\u00e4nkungen zu umgehen.",
+                "sysreptor_id": "38a83b7f-e4ec-4ab4-9307-0c9da0af669a"
             }
         ],
         "title_de": "Pr\u00fcfung auf Mass Assignment",
@@ -4334,7 +4800,7 @@ const wstgData = [
         "sysreptor_finding": "WSTG-INPV-21: Testing for CSV Injection",
         "sysreptor_templates": [
             {
-                "id": "inpv_csv_formula_injection",
+                "id": "WSTG-INPV-21-1",
                 "title_en": "CSV / Formula Injection",
                 "title_de": "CSV / Formula-Injection",
                 "description_en": "User input is exported to CSV or Excel files without prepending neutralizing characters to input starting with formula triggers (=, +, -, @).",
@@ -4369,22 +4835,24 @@ const wstgData = [
         "sysreptor_finding": "WSTG-SESS-01: Testing for Session Management Schema",
         "sysreptor_templates": [
             {
-                "id": "sess_token_info_leakage",
+                "id": "WSTG-SESS-01-1",
                 "title_en": "Information Leakage in Session Tokens",
                 "title_de": "Informationspreisgabe in Sitzungs-Tokens",
                 "description_en": "The session ID or token contains encoded or cleartext sensitive data (e.g., usernames, IP addresses, or roles) instead of being a generic, opaque value.",
                 "description_de": "Die Sitzungs-ID oder das Token enth\u00e4lt kodierte oder im Klartext vorliegende sensible Daten (z. B. Benutzernamen, IP-Adressen oder Rollen), anstatt ein generischer, undurchsichtiger Wert zu sein.",
                 "consequences_en": "Attackers can decode the token to extract sensitive information or easily manipulate the fields to escalate privileges or impersonate other users.",
-                "consequences_de": "Angreifer k\u00f6nnen das Token dekodieren, um sensible Informationen zu extrahieren, oder die Felder leicht manipulieren, um Rechte auszuweiten oder sich als andere Benutzer auszugeben."
+                "consequences_de": "Angreifer k\u00f6nnen das Token dekodieren, um sensible Informationen zu extrahieren, oder die Felder leicht manipulieren, um Rechte auszuweiten oder sich als andere Benutzer auszugeben.",
+                "sysreptor_id": "19f86e86-8824-40e2-890e-8a879375118c"
             },
             {
-                "id": "sess_token_predictability",
+                "id": "WSTG-SESS-01-2",
                 "title_en": "Predictable Session Tokens",
                 "title_de": "Vorhersagbare Sitzungs-Tokens",
                 "description_en": "Session tokens lack sufficient randomness and exhibit recognizable patterns (e.g., sequential, time-based, or weak hashing), making them susceptible to statistical analysis and brute-force attacks.",
                 "description_de": "Sitzungs-Tokens weisen keine ausreichende Zuf\u00e4lligkeit auf und zeigen erkennbare Muster (z. B. sequenziell, zeitbasiert oder schwaches Hashing), was sie anf\u00e4llig f\u00fcr statistische Analysen und Brute-Force-Angriffe macht.",
                 "consequences_en": "An attacker can predict or generate valid session IDs to hijack active sessions of legitimate users without requiring their credentials.",
-                "consequences_de": "Ein Angreifer kann g\u00fcltige Sitzungs-IDs vorhersagen oder generieren, um aktive Sitzungen legitimer Benutzer zu kapern, ohne deren Anmeldedaten zu ben\u00f6tigen."
+                "consequences_de": "Ein Angreifer kann g\u00fcltige Sitzungs-IDs vorhersagen oder generieren, um aktive Sitzungen legitimer Benutzer zu kapern, ohne deren Anmeldedaten zu ben\u00f6tigen.",
+                "sysreptor_id": "9ff7fe4a-d836-4831-b2aa-e25fd8bb6ad8"
             }
         ],
         "title_de": "Pr\u00fcfung des Sitzungsmanagementschemas",
@@ -4413,40 +4881,44 @@ const wstgData = [
         "sysreptor_finding": "WSTG-SESS-02: Testing for Cookies Attributes",
         "sysreptor_templates": [
             {
-                "id": "sess_cookie_missing_secure",
+                "id": "WSTG-SESS-02-1",
                 "title_en": "Cookie Missing 'Secure' Attribute",
                 "title_de": "Fehlendes 'Secure'-Attribut bei Cookie",
                 "description_en": "Sensitive session cookies are issued without the 'Secure' attribute, meaning the browser can transmit them over unencrypted HTTP connections.",
                 "description_de": "Sensible Sitzungs-Cookies werden ohne das Attribut 'Secure' ausgestellt, was bedeutet, dass der Browser sie \u00fcber unverschl\u00fcsselte HTTP-Verbindungen \u00fcbertragen kann.",
                 "consequences_en": "Attackers on the same network can intercept the cookie in plaintext and hijack the user's session.",
-                "consequences_de": "Angreifer im selben Netzwerk k\u00f6nnen das Cookie im Klartext abfangen und die Sitzung des Benutzers \u00fcbernehmen."
+                "consequences_de": "Angreifer im selben Netzwerk k\u00f6nnen das Cookie im Klartext abfangen und die Sitzung des Benutzers \u00fcbernehmen.",
+                "sysreptor_id": "84605ad1-75b8-4724-91d2-844b042b5408"
             },
             {
-                "id": "sess_cookie_missing_httponly",
+                "id": "WSTG-SESS-02-2",
                 "title_en": "Cookie Missing 'HttpOnly' Attribute",
                 "title_de": "Fehlendes 'HttpOnly'-Attribut bei Cookie",
                 "description_en": "Session cookies lack the 'HttpOnly' attribute, allowing client-side scripts (e.g., JavaScript) to access their values.",
                 "description_de": "Sitzungs-Cookies verf\u00fcgen nicht \u00fcber das 'HttpOnly'-Attribut, wodurch clientseitige Skripte (z. B. JavaScript) auf ihre Werte zugreifen k\u00f6nnen.",
                 "consequences_en": "If the application is vulnerable to Cross-Site Scripting (XSS), attackers can easily extract the session cookies via malicious scripts.",
-                "consequences_de": "Wenn die Anwendung anf\u00e4llig f\u00fcr Cross-Site Scripting (XSS) ist, k\u00f6nnen Angreifer die Sitzungs-Cookies leicht \u00fcber b\u00f6sartige Skripte extrahieren."
+                "consequences_de": "Wenn die Anwendung anf\u00e4llig f\u00fcr Cross-Site Scripting (XSS) ist, k\u00f6nnen Angreifer die Sitzungs-Cookies leicht \u00fcber b\u00f6sartige Skripte extrahieren.",
+                "sysreptor_id": "6984ad3d-69ec-4f03-96f5-42e3021b946b"
             },
             {
-                "id": "sess_cookie_loose_domain_path",
+                "id": "WSTG-SESS-02-3",
                 "title_en": "Overly Permissive Cookie 'Domain' or 'Path' Attributes",
                 "title_de": "Zu weitreichende Cookie-Attribute ('Domain' oder 'Path')",
                 "description_en": "The cookie's 'Domain' or 'Path' attributes are scoped too broadly (e.g., set to the root domain or '/'), sending the session cookie to unintended or vulnerable subdomains and applications.",
                 "description_de": "Die Attribute 'Domain' oder 'Path' des Cookies sind zu weit gefasst (z. B. auf die Stammdom\u00e4ne oder '/' gesetzt), sodass das Sitzungs-Cookie an unbeabsichtigte oder anf\u00e4llige Subdomains und Anwendungen gesendet wird.",
                 "consequences_en": "A compromised or less secure application on a subdomain or different path can be used to harvest session cookies belonging to the main application.",
-                "consequences_de": "Eine kompromittierte oder weniger sichere Anwendung auf einer Subdomain oder einem anderen Pfad kann genutzt werden, um Sitzungs-Cookies der Hauptanwendung abzugreifen."
+                "consequences_de": "Eine kompromittierte oder weniger sichere Anwendung auf einer Subdomain oder einem anderen Pfad kann genutzt werden, um Sitzungs-Cookies der Hauptanwendung abzugreifen.",
+                "sysreptor_id": "4a46b69a-1d7e-40ee-a220-9a03d52105c3"
             },
             {
-                "id": "sess_cookie_missing_samesite",
+                "id": "WSTG-SESS-02-4",
                 "title_en": "Cookie Missing 'SameSite' Attribute",
                 "title_de": "Fehlendes 'SameSite'-Attribut bei Cookie",
                 "description_en": "The 'SameSite' attribute is either missing or explicitly set to 'None' without adequate mitigating controls, allowing the cookie to be sent in cross-site requests.",
                 "description_de": "Das 'SameSite'-Attribut fehlt entweder oder ist ausdr\u00fccklich auf 'None' gesetzt, ohne angemessene ausgleichende Kontrollen, sodass das Cookie bei Cross-Site-Anfragen gesendet wird.",
                 "consequences_en": "The application is significantly more vulnerable to Cross-Site Request Forgery (CSRF) and cross-origin information leakage.",
-                "consequences_de": "Die Anwendung ist deutlich anf\u00e4lliger f\u00fcr Cross-Site Request Forgery (CSRF) und dom\u00e4nen\u00fcbergreifende Informationsabfl\u00fcsse."
+                "consequences_de": "Die Anwendung ist deutlich anf\u00e4lliger f\u00fcr Cross-Site Request Forgery (CSRF) und dom\u00e4nen\u00fcbergreifende Informationsabfl\u00fcsse.",
+                "sysreptor_id": "38fa9dbe-b6f1-4d68-8b93-f85e5f02358e"
             }
         ],
         "title_de": "Pr\u00fcfung von Cookie-Attributen",
@@ -4475,13 +4947,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-SESS-03: Testing for Session Fixation",
         "sysreptor_templates": [
             {
-                "id": "sess_fixation",
+                "id": "WSTG-SESS-03-1",
                 "title_en": "Session Fixation",
                 "title_de": "Sitzungsfixierung (Session Fixation)",
                 "description_en": "The application preserves the same session cookie value before and after authentication, rather than issuing a new, secure token upon login.",
                 "description_de": "Die Anwendung beh\u00e4lt denselben Sitzungs-Cookie-Wert vor und nach der Authentifizierung bei, anstatt beim Login ein neues, sicheres Token auszustellen.",
                 "consequences_en": "An attacker can force a known session ID into the victim's browser. Once the victim logs in, the attacker can use the same session ID to hijack the authenticated account.",
-                "consequences_de": "Ein Angreifer kann dem Browser des Opfers eine bekannte Sitzungs-ID aufzwingen. Sobald sich das Opfer anmeldet, kann der Angreifer dieselbe Sitzungs-ID nutzen, um das Konto zu \u00fcbernehmen."
+                "consequences_de": "Ein Angreifer kann dem Browser des Opfers eine bekannte Sitzungs-ID aufzwingen. Sobald sich das Opfer anmeldet, kann der Angreifer dieselbe Sitzungs-ID nutzen, um das Konto zu \u00fcbernehmen.",
+                "sysreptor_id": "3e21cad0-e880-4ee2-8122-8e86693a3ecc"
             }
         ],
         "title_de": "Pr\u00fcfung auf Session Fixation (Sitzungs\u00fcbernahme)",
@@ -4510,22 +4983,24 @@ const wstgData = [
         "sysreptor_finding": "WSTG-SESS-04: Testing for Exposed Session Variables",
         "sysreptor_templates": [
             {
-                "id": "sess_exposed_url",
+                "id": "WSTG-SESS-04-1",
                 "title_en": "Session Tokens Exposed in URL (GET Requests)",
                 "title_de": "Sitzungs-Tokens in URL exponiert (GET-Anfragen)",
                 "description_en": "The application transmits session tokens as parameters within the URL query string (e.g., via GET requests) instead of in secure HTTP headers or cookies.",
                 "description_de": "Die Anwendung \u00fcbertr\u00e4gt Sitzungs-Tokens als Parameter im URL-Query-String (z. B. bei GET-Anfragen) anstatt in sicheren HTTP-Headern oder Cookies.",
                 "consequences_en": "Session IDs can be inadvertently leaked through browser history, proxy logs, or HTTP Referer headers, leading to session hijacking.",
-                "consequences_de": "Sitzungs-IDs k\u00f6nnen unbeabsichtigt durch den Browserverlauf, Proxy-Logs oder HTTP-Referer-Header geleakt werden, was zu Session-Hijacking f\u00fchrt."
+                "consequences_de": "Sitzungs-IDs k\u00f6nnen unbeabsichtigt durch den Browserverlauf, Proxy-Logs oder HTTP-Referer-Header geleakt werden, was zu Session-Hijacking f\u00fchrt.",
+                "sysreptor_id": "3c27d744-f44e-45d3-ab9b-29df8fce1d13"
             },
             {
-                "id": "sess_exposed_caching",
+                "id": "WSTG-SESS-04-2",
                 "title_en": "Session Tokens Exposed via Caching",
                 "title_de": "Sitzungs-Tokens durch Caching exponiert",
                 "description_en": "HTTP responses containing session IDs lack proper cache-control directives (like Cache-Control: no-store), allowing intermediate proxies or local browsers to cache the tokens.",
                 "description_de": "HTTP-Antworten, die Sitzungs-IDs enthalten, verf\u00fcgen \u00fcber keine ordnungsgem\u00e4\u00dfen Cache-Control-Direktiven (wie Cache-Control: no-store), was es Proxys oder lokalen Browsern erm\u00f6glicht, die Tokens zwischenzuspeichern.",
                 "consequences_en": "Users on shared computers or downstream from corporate proxies may have their session tokens exposed and hijacked by subsequent users.",
-                "consequences_de": "Benutzer an gemeinsam genutzten Computern oder hinter Unternehmens-Proxys k\u00f6nnten ihre Sitzungs-Tokens preisgeben, was eine \u00dcbernahme durch nachfolgende Benutzer erm\u00f6glicht."
+                "consequences_de": "Benutzer an gemeinsam genutzten Computern oder hinter Unternehmens-Proxys k\u00f6nnten ihre Sitzungs-Tokens preisgeben, was eine \u00dcbernahme durch nachfolgende Benutzer erm\u00f6glicht.",
+                "sysreptor_id": "0c51fbd2-755c-4ed9-b2d2-4b130e66651b"
             }
         ],
         "title_de": "Pr\u00fcfung auf offengelegte Sitzungsvariablen",
@@ -4554,13 +5029,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-SESS-05: Testing for Cross Site Request Forgery",
         "sysreptor_templates": [
             {
-                "id": "sess_csrf",
+                "id": "WSTG-SESS-05-1",
                 "title_en": "Cross-Site Request Forgery (CSRF)",
                 "title_de": "Cross-Site Request Forgery (CSRF)",
                 "description_en": "State-changing operations rely entirely on automatically submitted credentials (like cookies) without using unique, unpredictable anti-CSRF tokens.",
                 "description_de": "Zustands\u00e4ndernde Operationen verlassen sich vollst\u00e4ndig auf automatisch \u00fcbermittelte Anmeldeinformationen (wie Cookies), ohne einzigartige, unvorhersehbare Anti-CSRF-Tokens zu verwenden.",
                 "consequences_en": "Attackers can lure victims to malicious websites and force their browser to execute unwanted actions (e.g., changing passwords, transferring funds) on the vulnerable application.",
-                "consequences_de": "Angreifer k\u00f6nnen Opfer auf b\u00f6sartige Websites locken und deren Browser zwingen, unerw\u00fcnschte Aktionen (z. B. Passwort\u00e4nderungen, Geld\u00fcberweisungen) in der anf\u00e4lligen Anwendung auszuf\u00fchren."
+                "consequences_de": "Angreifer k\u00f6nnen Opfer auf b\u00f6sartige Websites locken und deren Browser zwingen, unerw\u00fcnschte Aktionen (z. B. Passwort\u00e4nderungen, Geld\u00fcberweisungen) in der anf\u00e4lligen Anwendung auszuf\u00fchren.",
+                "sysreptor_id": "22f23705-4a81-47be-affd-d2fdf622149d"
             }
         ],
         "title_de": "Pr\u00fcfung auf Cross-Site Request Forgery (CSRF)",
@@ -4589,40 +5065,44 @@ const wstgData = [
         "sysreptor_finding": "WSTG-SESS-06: Testing for Logout Functionality",
         "sysreptor_templates": [
             {
-                "id": "sess_logout_ui_missing",
+                "id": "WSTG-SESS-06-1",
                 "title_en": "Missing or Hidden Logout User Interface",
                 "title_de": "Fehlende oder versteckte Logout-Benutzeroberfl\u00e4che",
                 "description_en": "The application lacks a clear, accessible logout button, forcing users to simply close the browser or tab to end their session.",
                 "description_de": "Der Anwendung fehlt ein klarer, leicht zug\u00e4nglicher Logout-Button, was Benutzer dazu zwingt, einfach den Browser oder Tab zu schlie\u00dfen, um die Sitzung zu beenden.",
                 "consequences_en": "Users may leave active sessions unattended on shared devices, significantly increasing the risk of session hijacking.",
-                "consequences_de": "Benutzer k\u00f6nnten aktive Sitzungen an gemeinsam genutzten Ger\u00e4ten unbeaufsichtigt lassen, was das Risiko von Session-Hijacking erheblich erh\u00f6ht."
+                "consequences_de": "Benutzer k\u00f6nnten aktive Sitzungen an gemeinsam genutzten Ger\u00e4ten unbeaufsichtigt lassen, was das Risiko von Session-Hijacking erheblich erh\u00f6ht.",
+                "sysreptor_id": "364fdf43-c2c3-4ddb-b855-b4941efed46e"
             },
             {
-                "id": "sess_logout_server_side",
+                "id": "WSTG-SESS-06-2",
                 "title_en": "Incomplete Server-Side Session Termination",
                 "title_de": "Unvollst\u00e4ndige serverseitige Sitzungsbeendigung",
                 "description_en": "The logout functionality removes the session cookie from the client but fails to properly invalidate the session state on the server backend.",
                 "description_de": "Die Logout-Funktion entfernt das Sitzungs-Cookie vom Client, vers\u00e4umt es jedoch, den Sitzungsstatus im Server-Backend ordnungsgem\u00e4\u00df f\u00fcr ung\u00fcltig zu erkl\u00e4ren.",
                 "consequences_en": "An intercepted or previously saved session token remains fully valid and can be reused by an attacker even after the legitimate user has clicked 'logout'.",
-                "consequences_de": "Ein abgefangenes oder zuvor gespeichertes Sitzungs-Token bleibt voll g\u00fcltig und kann von einem Angreifer wiederverwendet werden, selbst nachdem der legitime Benutzer auf 'Logout' geklickt hat."
+                "consequences_de": "Ein abgefangenes oder zuvor gespeichertes Sitzungs-Token bleibt voll g\u00fcltig und kann von einem Angreifer wiederverwendet werden, selbst nachdem der legitime Benutzer auf 'Logout' geklickt hat.",
+                "sysreptor_id": "94372bcf-7173-4d5e-9c46-4a1d423817bc"
             },
             {
-                "id": "sess_logout_sso_flaws",
+                "id": "WSTG-SESS-06-3",
                 "title_en": "Single Sign-Off Failure in SSO Environments",
                 "title_de": "Fehlschlagen des Single Sign-Offs in SSO-Umgebungen",
                 "description_en": "Logging out of the target application fails to terminate the session in the central Single Sign-On (SSO) system, or vice versa.",
                 "description_de": "Das Abmelden in der Zielanwendung beendet die Sitzung im zentralen Single Sign-On (SSO)-System nicht oder umgekehrt.",
                 "consequences_en": "An attacker can navigate back to the application or portal and gain immediate authenticated access without entering credentials.",
-                "consequences_de": "Ein Angreifer kann zur\u00fcck zur Anwendung oder zum Portal navigieren und sofortigen authentifizierten Zugriff erhalten, ohne Anmeldedaten einzugeben."
+                "consequences_de": "Ein Angreifer kann zur\u00fcck zur Anwendung oder zum Portal navigieren und sofortigen authentifizierten Zugriff erhalten, ohne Anmeldedaten einzugeben.",
+                "sysreptor_id": "27641b1f-cd6f-420a-a6e2-4fb8f00a4522"
             },
             {
-                "id": "sess_logout_cross_device",
+                "id": "WSTG-SESS-06-4",
                 "title_en": "Cross-Device Session Reuse (Single-Value Dependency)",
                 "title_de": "Ger\u00e4te\u00fcbergreifende Sitzungswiederverwendung (Single-Value Dependency)",
                 "description_en": "The application relies on a single authentication artifact that can be replayed across different devices or browsers, and a logout on one device does not invalidate the artifact globally.",
                 "description_de": "Die Anwendung verl\u00e4sst sich auf ein einzelnes Authentifizierungsartefakt, das \u00fcber verschiedene Ger\u00e4te oder Browser hinweg wiederverwendet werden kann, und ein Logout auf einem Ger\u00e4t macht das Artefakt nicht global ung\u00fcltig.",
                 "consequences_en": "Theft of the single authentication artifact grants attackers persistent access that survives the victim's logout actions on their own device.",
-                "consequences_de": "Der Diebstahl des einzelnen Authentifizierungsartefakts gew\u00e4hrt Angreifern dauerhaften Zugriff, der die Logout-Aktionen des Opfers auf dem eigenen Ger\u00e4t \u00fcberlebt."
+                "consequences_de": "Der Diebstahl des einzelnen Authentifizierungsartefakts gew\u00e4hrt Angreifern dauerhaften Zugriff, der die Logout-Aktionen des Opfers auf dem eigenen Ger\u00e4t \u00fcberlebt.",
+                "sysreptor_id": "1bc13abe-779a-470b-b17c-302827bc4a2e"
             }
         ],
         "title_de": "Pr\u00fcfung der Logout-Funktion",
@@ -4651,13 +5131,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-SESS-07: Testing Session Timeout",
         "sysreptor_templates": [
             {
-                "id": "sess_timeout",
+                "id": "WSTG-SESS-07-1",
                 "title_en": "Missing or Weak Session Timeout",
                 "title_de": "Fehlendes oder schwaches Sitzungs-Timeout",
                 "description_en": "The application does not enforce a strict idle or absolute session timeout server-side, keeping sessions alive indefinitely or relying only on client-side controls.",
                 "description_de": "Die Anwendung erzwingt serverseitig kein striktes Inaktivit\u00e4ts- oder absolutes Sitzungs-Timeout, sodass Sitzungen auf unbestimmte Zeit aktiv bleiben oder sich nur auf clientseitige Kontrollen verlassen wird.",
                 "consequences_en": "Increases the window of opportunity for an attacker to hijack a session if a user forgets to log out or if the token is stolen.",
-                "consequences_de": "Erh\u00f6ht das Zeitfenster f\u00fcr einen Angreifer, eine Sitzung zu \u00fcbernehmen, wenn ein Benutzer vergisst, sich abzumelden, oder wenn das Token gestohlen wird."
+                "consequences_de": "Erh\u00f6ht das Zeitfenster f\u00fcr einen Angreifer, eine Sitzung zu \u00fcbernehmen, wenn ein Benutzer vergisst, sich abzumelden, oder wenn das Token gestohlen wird.",
+                "sysreptor_id": "ecb305dc-d5ce-4140-8bdc-5d79166a305a"
             }
         ],
         "title_de": "Pr\u00fcfung des Sitzungsablaufs (Session Timeout)",
@@ -4686,13 +5167,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-SESS-08: Testing for Session Puzzling",
         "sysreptor_templates": [
             {
-                "id": "sess_puzzling",
+                "id": "WSTG-SESS-08-1",
                 "title_en": "Session Puzzling / Session Variable Overloading",
                 "title_de": "Sitzungspuzzle / \u00dcberladung von Sitzungsvariablen",
                 "description_en": "The application uses the same session variable for more than one purpose across different contexts (e.g., password reset vs. authenticated session).",
                 "description_de": "Die Anwendung verwendet dieselbe Sitzungsvariable f\u00fcr mehr als einen Zweck in verschiedenen Kontexten (z. B. Passwort-Reset vs. authentifizierte Sitzung).",
                 "consequences_en": "An attacker can access a public endpoint to populate the session variable, and then navigate to a privileged context, effectively impersonating a user or bypassing authentication.",
-                "consequences_de": "Ein Angreifer kann auf einen \u00f6ffentlichen Endpunkt zugreifen, um die Sitzungsvariable zu bef\u00fcllen, und dann zu einem privilegierten Kontext navigieren, wodurch er sich als Benutzer ausgibt oder die Authentifizierung umgeht."
+                "consequences_de": "Ein Angreifer kann auf einen \u00f6ffentlichen Endpunkt zugreifen, um die Sitzungsvariable zu bef\u00fcllen, und dann zu einem privilegierten Kontext navigieren, wodurch er sich als Benutzer ausgibt oder die Authentifizierung umgeht.",
+                "sysreptor_id": "144e85f1-77c2-4d4b-b00b-bad3bc8ec995"
             }
         ],
         "title_de": "Pr\u00fcfung auf Session Puzzling (Sitzungsvariablen-\u00dcberladung)",
@@ -4721,13 +5203,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-SESS-09: Testing for Session Hijacking",
         "sysreptor_templates": [
             {
-                "id": "sess_hijacking",
+                "id": "WSTG-SESS-09-1",
                 "title_en": "Susceptibility to Session Hijacking",
                 "title_de": "Anf\u00e4lligkeit f\u00fcr Session Hijacking",
                 "description_en": "Session tokens are inadequately protected against network interception (e.g., missing full HSTS adoption), exposing them to disclosure over HTTP on subdomains or the apex domain.",
                 "description_de": "Sitzungs-Tokens sind unzureichend gegen Netzwerk-Intercepts gesch\u00fctzt (z.B. durch fehlende vollst\u00e4ndige HSTS-Adaption), wodurch sie \u00fcber HTTP auf Subdomains oder der Hauptdomain offengelegt werden.",
                 "consequences_en": "Network attackers can force the browser to downgrade connections to intercept the session cookies in cleartext and completely compromise the user's account.",
-                "consequences_de": "Netzwerk-Angreifer k\u00f6nnen den Browser zwingen, Verbindungen herabzustufen, um die Sitzungs-Cookies im Klartext abzufangen und das Konto des Benutzers vollst\u00e4ndig zu kompromittieren."
+                "consequences_de": "Netzwerk-Angreifer k\u00f6nnen den Browser zwingen, Verbindungen herabzustufen, um die Sitzungs-Cookies im Klartext abzufangen und das Konto des Benutzers vollst\u00e4ndig zu kompromittieren.",
+                "sysreptor_id": "20cb1873-57b2-403a-bf36-8c8d2fcf6f85"
             }
         ],
         "title_de": "Pr\u00fcfung auf Session Hijacking (Sitzungskapern)",
@@ -4756,49 +5239,54 @@ const wstgData = [
         "sysreptor_finding": "WSTG-SESS-10: Testing JSON Web Tokens",
         "sysreptor_templates": [
             {
-                "id": "sess_jwt_sensitive_payload",
+                "id": "WSTG-SESS-10-1",
                 "title_en": "Sensitive Data in JWT Payload",
                 "title_de": "Sensible Daten im JWT-Payload",
                 "description_en": "The JSON Web Token (JWT) payload contains unencrypted sensitive information, such as PII, internal object IDs, or administrative status.",
                 "description_de": "Der Payload des JSON Web Tokens (JWT) enth\u00e4lt unverschl\u00fcsselte sensible Informationen wie PII, interne Objekt-IDs oder Administratoren-Status.",
                 "consequences_en": "Because JWT payloads are simply Base64 encoded, anyone who obtains the token can decode it to view the sensitive information.",
-                "consequences_de": "Da JWT-Payloads lediglich Base64-kodiert sind, kann jeder, der das Token erh\u00e4lt, es dekodieren, um die sensiblen Informationen einzusehen."
+                "consequences_de": "Da JWT-Payloads lediglich Base64-kodiert sind, kann jeder, der das Token erh\u00e4lt, es dekodieren, um die sensiblen Informationen einzusehen.",
+                "sysreptor_id": "0d94925f-5e1e-4c33-8a12-48520a433965"
             },
             {
-                "id": "sess_jwt_none_alg",
+                "id": "WSTG-SESS-10-2",
                 "title_en": "JWT 'none' Algorithm Accepted",
                 "title_de": "JWT 'none'-Algorithmus wird akzeptiert",
                 "description_en": "The backend server fails to enforce strict algorithm checks and accepts JWTs where the 'alg' header is set to 'none' (or variations like 'NoNe').",
                 "description_de": "Der Backend-Server f\u00fchrt keine strengen Algorithmus-Pr\u00fcfungen durch und akzeptiert JWTs, bei denen der 'alg'-Header auf 'none' (oder Variationen wie 'NoNe') gesetzt ist.",
                 "consequences_en": "Attackers can trivially bypass signature verification, modifying the payload to escalate privileges or impersonate any user.",
-                "consequences_de": "Angreifer k\u00f6nnen die Signaturpr\u00fcfung trivial umgehen und den Payload modifizieren, um Privilegien zu eskalieren oder sich als beliebiger Benutzer auszugeben."
+                "consequences_de": "Angreifer k\u00f6nnen die Signaturpr\u00fcfung trivial umgehen und den Payload modifizieren, um Privilegien zu eskalieren oder sich als beliebiger Benutzer auszugeben.",
+                "sysreptor_id": "38c780ff-011a-4601-b62d-5ba72d74d71f"
             },
             {
-                "id": "sess_jwt_weak_hmac",
+                "id": "WSTG-SESS-10-3",
                 "title_en": "Weak JWT HMAC Key",
                 "title_de": "Schwacher JWT HMAC-Schl\u00fcssel",
                 "description_en": "The JWT is signed using an HMAC algorithm (e.g., HS256), but the secret key is weak, default, or easily guessable.",
                 "description_de": "Das JWT ist mit einem HMAC-Algorithmus (z. B. HS256) signiert, aber der geheime Schl\u00fcssel ist schwach, ein Standardwert oder leicht zu erraten.",
                 "consequences_en": "Attackers can crack the secret key offline using brute-force tools (like John the Ripper) and subsequently forge valid tokens with arbitrary privileges.",
-                "consequences_de": "Angreifer k\u00f6nnen den geheimen Schl\u00fcssel offline mit Brute-Force-Tools (wie John the Ripper) knacken und anschlie\u00dfend g\u00fcltige Tokens mit beliebigen Rechten f\u00e4lschen."
+                "consequences_de": "Angreifer k\u00f6nnen den geheimen Schl\u00fcssel offline mit Brute-Force-Tools (wie John the Ripper) knacken und anschlie\u00dfend g\u00fcltige Tokens mit beliebigen Rechten f\u00e4lschen.",
+                "sysreptor_id": "eebf071c-e596-4b6c-9e79-869486e426e5"
             },
             {
-                "id": "sess_jwt_alg_confusion",
+                "id": "WSTG-SESS-10-4",
                 "title_en": "JWT Algorithm Confusion (HMAC vs Public Key)",
                 "title_de": "JWT-Algorithmus-Verwirrung (HMAC vs. Public Key)",
                 "description_en": "The application expects an RSA/ECDSA signature but does not verify the algorithm. An attacker can sign the token using HMAC with the application's public key as the secret.",
                 "description_de": "Die Anwendung erwartet eine RSA/ECDSA-Signatur, \u00fcberpr\u00fcft aber den Algorithmus nicht. Ein Angreifer kann das Token mithilfe von HMAC und dem \u00f6ffentlichen Schl\u00fcssel der Anwendung als Geheimnis signieren.",
                 "consequences_en": "If the attacker can obtain the public key, they can forge entirely valid JWTs and completely compromise the application's authentication.",
-                "consequences_de": "Wenn der Angreifer den \u00f6ffentlichen Schl\u00fcssel erlangen kann, kann er vollst\u00e4ndig g\u00fcltige JWTs f\u00e4lschen und die Authentifizierung der Anwendung komplett kompromittieren."
+                "consequences_de": "Wenn der Angreifer den \u00f6ffentlichen Schl\u00fcssel erlangen kann, kann er vollst\u00e4ndig g\u00fcltige JWTs f\u00e4lschen und die Authentifizierung der Anwendung komplett kompromittieren.",
+                "sysreptor_id": "dbdbdf52-6bf0-4da2-9acb-b4cd36af9e6b"
             },
             {
-                "id": "sess_jwt_kid_manipulation",
+                "id": "WSTG-SESS-10-5",
                 "title_en": "JWT Key ID (kid) Manipulation",
                 "title_de": "Manipulation der JWT Key ID (kid)",
                 "description_en": "The 'kid' parameter in the JWT header is passed unsanitized into a database query or filesystem command, leading to Directory Traversal, SQLi, or Command Injection.",
                 "description_de": "Der 'kid'-Parameter im JWT-Header wird unbereinigt in eine Datenbankabfrage oder einen Dateisystembefehl \u00fcbergeben, was zu Directory Traversal, SQLi oder Command Injection f\u00fchrt.",
                 "consequences_en": "Attackers can force the application to use known keys (like an empty file via /dev/null) to forge tokens, or extract data/execute commands on the backend.",
-                "consequences_de": "Angreifer k\u00f6nnen die Anwendung zwingen, bekannte Schl\u00fcssel (wie eine leere Datei \u00fcber /dev/null) zu verwenden, um Tokens zu f\u00e4lschen, oder Daten extrahieren bzw. Befehle im Backend ausf\u00fchren."
+                "consequences_de": "Angreifer k\u00f6nnen die Anwendung zwingen, bekannte Schl\u00fcssel (wie eine leere Datei \u00fcber /dev/null) zu verwenden, um Tokens zu f\u00e4lschen, oder Daten extrahieren bzw. Befehle im Backend ausf\u00fchren.",
+                "sysreptor_id": "abbcb30f-439c-4740-9929-69345dd36e15"
             }
         ],
         "title_de": "Pr\u00fcfung von JSON Web Tokens (JWT)",
@@ -4827,13 +5315,14 @@ const wstgData = [
         "sysreptor_finding": "WSTG-SESS-11: Testing for Concurrent Sessions",
         "sysreptor_templates": [
             {
-                "id": "sess_concurrent_sessions",
+                "id": "WSTG-SESS-11-1",
                 "title_en": "Unrestricted Concurrent Sessions",
                 "title_de": "Uneingeschr\u00e4nkte gleichzeitige Sitzungen",
                 "description_en": "The application permits an unlimited number of simultaneous active sessions for a single user account without invalidating older sessions or notifying the user.",
                 "description_de": "Die Anwendung erlaubt eine unbegrenzte Anzahl gleichzeitiger aktiver Sitzungen f\u00fcr ein einzelnes Benutzerkonto, ohne \u00e4ltere Sitzungen f\u00fcr ung\u00fcltig zu erkl\u00e4ren oder den Benutzer zu benachrichtigen.",
                 "consequences_en": "If an attacker obtains the user's credentials, they can maintain stealthy, persistent access alongside the victim without raising immediate suspicion.",
-                "consequences_de": "Wenn ein Angreifer die Anmeldedaten des Benutzers erh\u00e4lt, kann er neben dem Opfer heimlichen, dauerhaften Zugriff aufrechterhalten, ohne sofort Verdacht zu erregen."
+                "consequences_de": "Wenn ein Angreifer die Anmeldedaten des Benutzers erh\u00e4lt, kann er neben dem Opfer heimlichen, dauerhaften Zugriff aufrechterhalten, ohne sofort Verdacht zu erregen.",
+                "sysreptor_id": "cf30c4f4-ff53-46ee-b30d-2163cae8a6c9"
             }
         ],
         "title_de": "Pr\u00fcfung auf gleichzeitige Sitzungen (Concurrent Sessions)",
