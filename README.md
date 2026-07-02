@@ -11,6 +11,7 @@ The `wstg_checklist_app` folder contains a client-side web application that allo
 - Read summaries, test objectives, methodologies, and tools directly within the app.
 - Add custom finding titles and notes.
 - Export and import your current testing state as a JSON file.
+- Generate a SysReptor report/project from the selected SysReptor findings.
 
 ### How to Use
 
@@ -19,6 +20,30 @@ Simply visit the live hosted application at [https://laurinengelen.github.io/OWA
 
 **Offline Version:**
 Alternatively, you can open the `wstg_checklist_app/index.html` file in any modern web browser locally. It runs entirely client-side, meaning no data is sent to any servers, making it safe for confidential assessments.
+
+**Local SysReptor Report Generation:**
+The SysReptor report button requires the local JavaScript server so the API token remains outside the browser.
+
+1. Create or edit `.env` in the repository root:
+
+```env
+SYSREPTOR_URL=https://sysreptor.example.com
+SYSREPTOR_TOKEN=replace-with-api-token
+SYSREPTOR_PROJECT_DESIGN=replace-with-project-design-id
+```
+
+2. Start the local server:
+
+```bash
+npm start
+```
+
+3. Open [http://localhost:3000](http://localhost:3000), select SysReptor findings, then use **Generate SysReptor Report**.
+
+Set `SYSREPTOR_PROJECT_ID` in `.env` to populate an existing report/project instead of creating a new one.
+Selected checklist findings are matched against current SysReptor finding templates tagged `web` by template title. Keep the checklist finding title equal to the SysReptor template title for automatic template import.
+If a selected finding has no matching template title, it is written to `sysreptor_missing_templates.md` and imported as a TODO fallback finding.
+If SysReptor rejects a matched template ID, the server retries without a forced language and then creates a TODO fallback finding by default.
 
 ### How it Works
 The checklist data is generated from the official OWASP WSTG markdown files. The python script `wstg_checklist_app/extract_wstg.py` parses the markdown documentation and compiles it into a static JavaScript file (`wstg_checklist_data.js`) used by the app.

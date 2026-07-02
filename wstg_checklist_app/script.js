@@ -9,10 +9,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const progressText = document.getElementById('progress-text');
     const progressFill = document.getElementById('progress-fill');
     const themeToggle = document.getElementById('theme-toggle-input');
+    const generateSysReptorBtn = document.getElementById('generate-sysreptor-btn');
+    const stateMenuContainer = document.getElementById('state-menu-container');
+    const stateMenuToggle = document.getElementById('state-menu-toggle');
+    const stateMenu = document.getElementById('state-menu');
     const exportBtn = document.getElementById('export-btn');
     const importBtn = document.getElementById('import-btn');
     const importFile = document.getElementById('import-file');
     const resetBtn = document.getElementById('reset-btn');
+    const sysreptorDialog = document.getElementById('sysreptor-report-dialog');
+    const sysreptorDialogClose = document.getElementById('sysreptor-dialog-close');
+    const sysreptorDialogCancel = document.getElementById('sysreptor-dialog-cancel');
+    const sysreptorReportForm = document.getElementById('sysreptor-report-form');
+    const sysreptorReportTitle = document.getElementById('sysreptor-report-title');
+    const sysreptorDialogStatus = document.getElementById('sysreptor-dialog-status');
+    const sysreptorDialogSubmit = document.getElementById('sysreptor-dialog-submit');
 
     let checklistData = [];
     let state = {};
@@ -25,6 +36,12 @@ document.addEventListener('DOMContentLoaded', () => {
         en: {
             header_title: "OWASP WSTG Checklist",
             header_subtitle: "Web Application Security Testing Guide Companion",
+            sysreptor_generate_btn: "Generate Report",
+            sysreptor_dialog_title: "Generate SysReptor Report",
+            sysreptor_report_title_label: "Report title",
+            sysreptor_cancel_btn: "Cancel",
+            sysreptor_submit_btn: "Generate",
+            state_menu_title: "Import / Export",
             export_btn: "Export State",
             import_btn: "Import State",
             reset_btn: "⚠️ Reset everything",
@@ -58,12 +75,24 @@ document.addEventListener('DOMContentLoaded', () => {
             alert_import_zip_error: "Error importing ZIP file.",
             alert_import_error: "Invalid JSON file.",
             alert_export_error: "Error creating ZIP file.",
+            alert_sysreptor_no_findings: "Select at least one SysReptor finding before generating a report.",
+            alert_sysreptor_title_required: "Enter a report title.",
+            alert_sysreptor_generating: "Generating report...",
+            alert_sysreptor_success: "Report generated.",
+            alert_sysreptor_error: "Could not generate the SysReptor report.",
+            alert_sysreptor_server_missing: "Start the local server with npm start before generating a SysReptor report.",
             search_placeholder: "Search (e.g. WSTG, API, XSS)...",
             no_results: "No modules found matching your search."
         },
         de: {
             header_title: "OWASP WSTG Checkliste",
             header_subtitle: "Web Application Security Testing Guide Begleiter",
+            sysreptor_generate_btn: "Report erstellen",
+            sysreptor_dialog_title: "SysReptor Report erstellen",
+            sysreptor_report_title_label: "Report-Titel",
+            sysreptor_cancel_btn: "Abbrechen",
+            sysreptor_submit_btn: "Erstellen",
+            state_menu_title: "Import / Export",
             export_btn: "Status exportieren",
             import_btn: "Status importieren",
             reset_btn: "⚠️ Alles zurücksetzen",
@@ -97,6 +126,12 @@ document.addEventListener('DOMContentLoaded', () => {
             alert_import_zip_error: "Fehler beim Importieren der ZIP-Datei.",
             alert_import_error: "Ungültige JSON-Datei.",
             alert_export_error: "Fehler beim Erstellen der ZIP-Datei.",
+            alert_sysreptor_no_findings: "Wähle mindestens einen SysReptor-Befund aus, bevor ein Report erstellt wird.",
+            alert_sysreptor_title_required: "Gib einen Report-Titel ein.",
+            alert_sysreptor_generating: "Report wird erstellt...",
+            alert_sysreptor_success: "Report wurde erstellt.",
+            alert_sysreptor_error: "Der SysReptor Report konnte nicht erstellt werden.",
+            alert_sysreptor_server_missing: "Starte zuerst den lokalen Server mit npm start, bevor ein SysReptor Report erstellt wird.",
             search_placeholder: "Suche (z.B. WSTG, API, XSS)...",
             no_results: "Keine passenden Module gefunden."
         }
@@ -113,6 +148,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const key = el.getAttribute('data-i18n-placeholder');
             if (i18n[currentLang][key]) {
                 el.setAttribute('placeholder', i18n[currentLang][key]);
+            }
+        });
+        document.querySelectorAll('[data-i18n-title]').forEach(el => {
+            const key = el.getAttribute('data-i18n-title');
+            if (i18n[currentLang][key]) {
+                el.setAttribute('title', i18n[currentLang][key]);
+            }
+        });
+        document.querySelectorAll('[data-i18n-aria-label]').forEach(el => {
+            const key = el.getAttribute('data-i18n-aria-label');
+            if (i18n[currentLang][key]) {
+                el.setAttribute('aria-label', i18n[currentLang][key]);
             }
         });
     };
@@ -133,13 +180,51 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    const closeStateMenu = () => {
+        if (stateMenu) {
+            stateMenu.classList.remove('open');
+        }
+        if (stateMenuToggle) {
+            stateMenuToggle.setAttribute('aria-expanded', 'false');
+        }
+    };
+
+    const toggleStateMenu = () => {
+        if (!stateMenu || !stateMenuToggle) return;
+        const isOpen = !stateMenu.classList.contains('open');
+        stateMenu.classList.toggle('open', isOpen);
+        stateMenuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    };
+
+    if (stateMenuToggle) {
+        stateMenuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            langDropdownMenu.classList.remove('open');
+            toggleStateMenu();
+        });
+    }
+
+    if (stateMenuContainer) {
+        stateMenuContainer.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+    }
+
     langToggleBtn.addEventListener('click', (e) => {
         e.stopPropagation();
+        closeStateMenu();
         langDropdownMenu.classList.toggle('open');
     });
 
     document.addEventListener('click', () => {
         langDropdownMenu.classList.remove('open');
+        closeStateMenu();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeStateMenu();
+        }
     });
 
     langOptions.forEach(opt => {
@@ -209,6 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (searchToggleBtn) {
         searchToggleBtn.addEventListener('click', (e) => {
             e.stopPropagation();
+            closeStateMenu();
             if (headerRight && !headerRight.classList.contains('search-active')) {
                 openSearch();
             }
@@ -1093,11 +1179,8 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('wstgState', JSON.stringify(state));
     };
 
-    // Export/Import State
-    exportBtn.addEventListener('click', async () => {
+    const buildExportData = ({ includeImages = true } = {}) => {
         const exportData = {};
-        const zip = new JSZip();
-        const imagesFolder = zip.folder("images");
 
         checklistData.forEach(module => {
             if (module.is_info) return;
@@ -1110,7 +1193,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const mFindings = state[module.id + '_sysreptor_findings'] || {};
             const hasCheckedFindings = Object.values(mFindings).some(f => f && f.checked);
 
-            if (status !== 'pending' || title || (notes && notes.length > 0) || (images && images.length > 0) || hasCheckedFindings) {
+            if (status !== 'pending' || title || (notes && notes.length > 0) || (includeImages && images && images.length > 0) || hasCheckedFindings) {
                 exportData[module.id] = {
                     status: status,
                     title: title || (currentLang === 'de' ? (module.title_de || module.title) : module.title)
@@ -1119,18 +1202,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     exportData[module.id].notes = notes;
                 }
 
-                // Export SysReptor Checklist findings
                 if (hasCheckedFindings) {
                     const checkedFindings = [];
                     let findingCounter = 1;
 
-                    // Export checked predefined findings
                     (module.sysreptor_templates || []).forEach(tmpl => {
                         const fState = mFindings[tmpl.id];
                         if (fState && fState.checked) {
                             const findingObj = {
                                 id: `${module.id}-${findingCounter}`,
-                                name: currentLang === 'de' ? tmpl.title_de : tmpl.title_en
+                                name: currentLang === 'de' ? tmpl.title_de : tmpl.title_en,
+                                title_en: tmpl.title_en,
+                                title_de: tmpl.title_de
                             };
                             if (tmpl.sysreptor_id) {
                                 findingObj.sysreptor_id = tmpl.sysreptor_id;
@@ -1140,10 +1223,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         findingCounter++;
                     });
 
-                    // Export checked custom findings
                     Object.entries(mFindings)
-                        .filter(([fid, fState]) => fState && fState.is_custom && fState.checked)
-                        .forEach(([fid, fState]) => {
+                        .filter(([, fState]) => fState && fState.is_custom && fState.checked)
+                        .forEach(([, fState]) => {
                             const findingObj = {
                                 id: `${module.id}-${findingCounter}`,
                                 name: fState.title || ''
@@ -1159,7 +1241,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         exportData[module.id].sysreptor_findings = checkedFindings;
                     }
                 }
-                if (images && images.length > 0) {
+
+                if (includeImages && images && images.length > 0) {
                     exportData[module.id].images = [];
                     images.forEach((imgData, idx) => {
                         const mimeMatch = imgData.match(/data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+).*,.*/);
@@ -1170,15 +1253,192 @@ document.addEventListener('DOMContentLoaded', () => {
                             else if (mime === "image/gif") ext = "gif";
                             else if (mime === "image/webp") ext = "webp";
                         }
-                        const fileName = `${module.id}_${idx}.${ext}`;
-                        exportData[module.id].images.push(fileName);
-
-                        const base64Data = imgData.split(',')[1];
-                        imagesFolder.file(fileName, base64Data, { base64: true });
+                        exportData[module.id].images.push(`${module.id}_${idx}.${ext}`);
                     });
                 }
             }
         });
+
+        return exportData;
+    };
+
+    const addImagesToZip = (zip, exportData) => {
+        const imagesFolder = zip.folder("images");
+
+        checklistData.forEach(module => {
+            const imageNames = exportData[module.id]?.images;
+            if (!imageNames || imageNames.length === 0) return;
+
+            const images = state[module.id + '_images'] || [];
+            images.forEach((imgData, idx) => {
+                const fileName = imageNames[idx];
+                if (!fileName) return;
+
+                const base64Data = imgData.split(',')[1];
+                if (base64Data) {
+                    imagesFolder.file(fileName, base64Data, { base64: true });
+                }
+            });
+        });
+    };
+
+    const countSysReptorFindings = (exportData) => Object.values(exportData).reduce((total, moduleData) => {
+        if (!moduleData || !Array.isArray(moduleData.sysreptor_findings)) return total;
+        return total + moduleData.sysreptor_findings.length;
+    }, 0);
+
+    const setSysReptorDialogStatus = (message, type = '') => {
+        if (!sysreptorDialogStatus) return;
+
+        sysreptorDialogStatus.className = `sysreptor-dialog-status ${type}`.trim();
+        sysreptorDialogStatus.textContent = message || '';
+    };
+
+    const setSysReptorDialogSuccess = (data) => {
+        if (!sysreptorDialogStatus) return;
+
+        sysreptorDialogStatus.className = 'sysreptor-dialog-status success';
+        sysreptorDialogStatus.textContent = '';
+
+        const summary = document.createElement('span');
+        const fallbackText = data.fallback ? `, ${data.fallback} fallback` : '';
+        const failedText = data.failed ? `, ${data.failed} failed` : '';
+        const missingText = data.missingTemplates ? `, ${data.missingTemplates} missing template${data.missingTemplates === 1 ? '' : 's'}` : '';
+        summary.textContent = `${i18n[currentLang].alert_sysreptor_success} ${data.projectName || ''} (${data.projectId || ''}). ${data.created || 0} created, ${data.skipped || 0} skipped${fallbackText}${failedText}${missingText}.`;
+        sysreptorDialogStatus.appendChild(summary);
+
+        if (data.missingTemplates && data.missingTemplatesFile) {
+            const missingInfo = document.createElement('span');
+            missingInfo.textContent = ` Missing list: ${data.missingTemplatesFile}.`;
+            sysreptorDialogStatus.appendChild(document.createTextNode(' '));
+            sysreptorDialogStatus.appendChild(missingInfo);
+        }
+
+        if (data.projectUrl) {
+            const link = document.createElement('a');
+            link.href = data.projectUrl;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            link.textContent = currentLang === 'de' ? 'In SysReptor öffnen' : 'Open in SysReptor';
+            sysreptorDialogStatus.appendChild(document.createTextNode(' '));
+            sysreptorDialogStatus.appendChild(link);
+        }
+    };
+
+    const openSysReptorDialog = () => {
+        if (!sysreptorDialog || !sysreptorReportTitle) return;
+
+        const defaultTitle = localStorage.getItem('sysreptorReportTitle') || 'OWASP WSTG Checklist Report';
+        sysreptorReportTitle.value = defaultTitle;
+        setSysReptorDialogStatus('');
+        sysreptorDialog.classList.add('open');
+        sysreptorDialog.setAttribute('aria-hidden', 'false');
+        setTimeout(() => {
+            sysreptorReportTitle.focus();
+            sysreptorReportTitle.select();
+        }, 0);
+    };
+
+    const closeSysReptorDialog = () => {
+        if (!sysreptorDialog) return;
+        sysreptorDialog.classList.remove('open');
+        sysreptorDialog.setAttribute('aria-hidden', 'true');
+    };
+
+    if (generateSysReptorBtn) {
+        generateSysReptorBtn.addEventListener('click', openSysReptorDialog);
+    }
+
+    if (sysreptorDialogClose) {
+        sysreptorDialogClose.addEventListener('click', closeSysReptorDialog);
+    }
+
+    if (sysreptorDialogCancel) {
+        sysreptorDialogCancel.addEventListener('click', closeSysReptorDialog);
+    }
+
+    if (sysreptorDialog) {
+        sysreptorDialog.addEventListener('click', (e) => {
+            if (e.target === sysreptorDialog) {
+                closeSysReptorDialog();
+            }
+        });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && sysreptorDialog && sysreptorDialog.classList.contains('open')) {
+            closeSysReptorDialog();
+        }
+    });
+
+    if (sysreptorReportForm) {
+        sysreptorReportForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const projectName = sysreptorReportTitle ? sysreptorReportTitle.value.trim() : '';
+            if (!projectName) {
+                setSysReptorDialogStatus(i18n[currentLang].alert_sysreptor_title_required, 'error');
+                return;
+            }
+
+            const checklist = buildExportData({ includeImages: false });
+            const findingCount = countSysReptorFindings(checklist);
+            if (findingCount === 0) {
+                setSysReptorDialogStatus(i18n[currentLang].alert_sysreptor_no_findings, 'error');
+                return;
+            }
+
+            localStorage.setItem('sysreptorReportTitle', projectName);
+            setSysReptorDialogStatus(i18n[currentLang].alert_sysreptor_generating, 'loading');
+
+            if (sysreptorDialogSubmit) {
+                sysreptorDialogSubmit.disabled = true;
+            }
+
+            try {
+                const response = await fetch('/api/sysreptor/report', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        projectName,
+                        checklist
+                    })
+                });
+
+                let responseData = {};
+                try {
+                    responseData = await response.json();
+                } catch (parseError) {
+                    responseData = {};
+                }
+
+                if (!response.ok) {
+                    const message = responseData.error || responseData.message || i18n[currentLang].alert_sysreptor_error;
+                    throw new Error(message);
+                }
+
+                setSysReptorDialogSuccess(responseData);
+            } catch (err) {
+                const message = err instanceof TypeError
+                    ? i18n[currentLang].alert_sysreptor_server_missing
+                    : (err.message || i18n[currentLang].alert_sysreptor_error);
+                setSysReptorDialogStatus(message, 'error');
+            } finally {
+                if (sysreptorDialogSubmit) {
+                    sysreptorDialogSubmit.disabled = false;
+                }
+            }
+        });
+    }
+
+    // Export/Import State
+    exportBtn.addEventListener('click', async () => {
+        closeStateMenu();
+        const exportData = buildExportData();
+        const zip = new JSZip();
+        addImagesToZip(zip, exportData);
 
         zip.file("wstg_pentest_state.json", JSON.stringify(exportData, null, 2));
 
@@ -1199,6 +1459,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     importBtn.addEventListener('click', () => {
+        closeStateMenu();
         importFile.click();
     });
 

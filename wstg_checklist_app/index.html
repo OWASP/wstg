@@ -36,8 +36,42 @@
                             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                         </svg>
                     </button>
-                    <button id="export-btn" class="btn primary" data-i18n="export_btn">Export State</button>
-                    <button id="import-btn" class="btn secondary" data-i18n="import_btn">Import State</button>
+                    <button id="generate-sysreptor-btn" class="btn primary sysreptor-report-btn" type="button">
+                        <svg class="sysreptor-report-icon" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true">
+                            <path d="M 10,16 C 25,11 75,10 93,31 C 80,34 30,34 10,24 C 8,22 8,18 10,16 Z" />
+                            <path d="M 10,46 C 25,41 75,40 93,61 C 80,64 30,64 10,54 C 8,52 8,48 10,46 Z" />
+                            <path d="M 12,73 C 27,68 77,67 95,88 C 82,91 32,91 12,81 C 10,79 10,75 12,73 Z" />
+                        </svg>
+                        <span data-i18n="sysreptor_generate_btn">Generate Report</span>
+                    </button>
+                    <div class="state-menu-container" id="state-menu-container">
+                        <button id="state-menu-toggle" class="state-menu-toggle" type="button" title="Import / Export" aria-label="Import / Export" aria-haspopup="true" aria-expanded="false" data-i18n-title="state_menu_title" data-i18n-aria-label="state_menu_title">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="state-menu-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <path d="M14 2v6h6"></path>
+                                <path d="M8 13h8"></path>
+                                <path d="M8 17h5"></path>
+                            </svg>
+                        </button>
+                        <div id="state-menu" class="state-menu" role="menu">
+                            <button id="export-btn" class="state-menu-item" type="button" role="menuitem">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="state-menu-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M12 3v12"></path>
+                                    <path d="m7 10 5 5 5-5"></path>
+                                    <path d="M5 21h14"></path>
+                                </svg>
+                                <span data-i18n="export_btn">Export State</span>
+                            </button>
+                            <button id="import-btn" class="state-menu-item" type="button" role="menuitem">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="state-menu-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M12 21V9"></path>
+                                    <path d="m7 14 5-5 5 5"></path>
+                                    <path d="M5 3h14"></path>
+                                </svg>
+                                <span data-i18n="import_btn">Import State</span>
+                            </button>
+                        </div>
+                    </div>
                     <input type="file" id="import-file" style="display: none;" accept=".json,.zip">
                     <div class="lang-dropdown-container" id="lang-dropdown-container">
                         <button id="lang-toggle" class="btn lang-btn" title="Change Language">
@@ -92,6 +126,26 @@
                 </p>
             </div>
         </footer>
+    </div>
+
+    <div id="sysreptor-report-dialog" class="sysreptor-dialog-overlay" aria-hidden="true">
+        <div class="sysreptor-dialog" role="dialog" aria-modal="true" aria-labelledby="sysreptor-dialog-title">
+            <button id="sysreptor-dialog-close" class="sysreptor-dialog-close" type="button" title="Close">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <form id="sysreptor-report-form" class="sysreptor-dialog-form">
+                <h2 id="sysreptor-dialog-title" data-i18n="sysreptor_dialog_title">Generate SysReptor Report</h2>
+                <label for="sysreptor-report-title" data-i18n="sysreptor_report_title_label">Report title</label>
+                <input id="sysreptor-report-title" name="report-title" type="text" required autocomplete="off">
+                <div id="sysreptor-dialog-status" class="sysreptor-dialog-status" role="status" aria-live="polite"></div>
+                <div class="sysreptor-dialog-actions">
+                    <button id="sysreptor-dialog-cancel" class="btn secondary" type="button" data-i18n="sysreptor_cancel_btn">Cancel</button>
+                    <button id="sysreptor-dialog-submit" class="btn primary" type="submit" data-i18n="sysreptor_submit_btn">Generate</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <script src="script.js?v=2"></script>

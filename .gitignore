@@ -148,6 +148,15 @@ typings/
 .env
 .env.test
 
+# Local SysReptor runtime output
+sysreptor_missing_templates.md
+sysreptor_template_id_map.txt
+sysreptor_templates_missing_from_checklist.md
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 

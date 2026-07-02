@@ -238,6 +238,8 @@ a:hover {
 .actions {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
     gap: 0.75rem;
 }
 
@@ -347,6 +349,234 @@ a:hover {
     font-size: 1.25rem;
     padding: 0.25rem 0.5rem;
     color: var(--text-primary);
+}
+
+.btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+    transform: none;
+    box-shadow: none;
+}
+
+.sysreptor-report-btn {
+    background-color: #0f766e;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.sysreptor-report-btn:hover {
+    background-color: #115e59;
+}
+
+.sysreptor-report-icon {
+    width: 1.1rem;
+    height: 1.1rem;
+    flex-shrink: 0;
+}
+
+.state-menu-container {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.state-menu-toggle {
+    background: none;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    background-color: var(--surface-color);
+    transition: all 0.2s ease;
+    padding: 0;
+}
+
+.state-menu-toggle:hover,
+.state-menu-toggle[aria-expanded="true"] {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.state-menu-toggle-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    display: block;
+}
+
+.state-menu {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    z-index: 1100;
+    display: none;
+    min-width: 180px;
+    padding: 0.35rem;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+}
+
+.state-menu.open {
+    display: grid;
+    gap: 0.25rem;
+}
+
+.state-menu-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.65rem 0.7rem;
+    border: 0;
+    border-radius: calc(var(--radius-md) - 2px);
+    background: transparent;
+    color: var(--text-primary);
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-align: left;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.state-menu-item:hover,
+.state-menu-item:focus-visible {
+    background: var(--bg-color);
+    color: var(--primary-color);
+    outline: none;
+}
+
+.state-menu-item-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+}
+
+.sysreptor-dialog-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: rgba(15, 23, 42, 0.58);
+}
+
+.sysreptor-dialog-overlay.open {
+    display: flex;
+}
+
+.sysreptor-dialog {
+    position: relative;
+    width: min(100%, 440px);
+    background: var(--surface-color);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 1.5rem;
+}
+
+.sysreptor-dialog-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 2rem;
+    height: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+.sysreptor-dialog-close:hover {
+    border-color: var(--border-color);
+    color: var(--text-primary);
+    background: var(--bg-color);
+}
+
+.sysreptor-dialog-close svg {
+    width: 1.1rem;
+    height: 1.1rem;
+}
+
+.sysreptor-dialog-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.sysreptor-dialog-form h2 {
+    margin: 0 2rem 0.5rem 0;
+    font-size: 1.2rem;
+    line-height: 1.25;
+}
+
+.sysreptor-dialog-form label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.sysreptor-dialog-form input {
+    width: 100%;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--bg-color);
+    color: var(--text-primary);
+    font: inherit;
+}
+
+.sysreptor-dialog-form input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    background: var(--surface-color);
+}
+
+.sysreptor-dialog-status {
+    min-height: 1.3rem;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    overflow-wrap: anywhere;
+}
+
+.sysreptor-dialog-status.error {
+    color: var(--danger-color);
+}
+
+.sysreptor-dialog-status.success {
+    color: var(--success-color);
+}
+
+.sysreptor-dialog-status.loading {
+    color: var(--primary-color);
+}
+
+.sysreptor-dialog-status a {
+    font-weight: 700;
+}
+
+.sysreptor-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 0.25rem;
 }
 
 /* Language Dropdown */
@@ -1510,5 +1740,3 @@ a:hover {
         overflow-y: visible;
     }
 }
-
-

@@ -1,0 +1,13 @@
+{
+  "name": "owasp-wstg-checklist-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "OWASP WSTG interactive checklist with SysReptor report generation.",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
