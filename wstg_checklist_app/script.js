@@ -578,8 +578,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                         <!-- Will be dynamically populated by renderSysReptorChecklist -->
                                     </div>
                                     <div class="sysreptor-add-custom-container" style="margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap;">
-                                        <input type="text" class="sysreptor-custom-finding-input" style="flex: 1; min-width: 180px;" placeholder="${currentLang === 'de' ? 'Neuen Befund hinzufügen...' : 'Add new finding...'}">
-                                        <input type="text" class="sysreptor-custom-uuid-input" style="width: 250px;" placeholder="SysReptor ID (UUID, optional)...">
+                                        <input type="text" class="sysreptor-custom-finding-input" style="flex: 1; min-width: 180px;" placeholder="${currentLang === 'de' ? 'Neuen Befund hinzufügen' : 'Add new finding'}">
+                                        <input type="text" class="sysreptor-custom-uuid-input" style="width: 250px;" placeholder="SysReptor ID (optional)">
                                         <button class="sysreptor-add-custom-btn">${currentLang === 'de' ? 'Hinzufügen' : 'Add'}</button>
                                     </div>
                                 </div>
