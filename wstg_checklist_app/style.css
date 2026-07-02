@@ -516,12 +516,14 @@ a:hover {
     opacity: 0.35;
     transition: opacity 0.2s ease, transform 0.15s ease, color 0.2s ease;
     border-radius: 50%;
+    pointer-events: auto !important;
 }
 
 .status-icon-btn svg {
     width: 18px;
     height: 18px;
     display: block;
+    pointer-events: none;
 }
 
 .status-icon-btn:hover {
@@ -533,6 +535,7 @@ a:hover {
 .status-icon-btn.active {
     opacity: 1;
     transform: scale(1.15);
+    pointer-events: auto !important;
 }
 
 /* Active colors and glowing effect */

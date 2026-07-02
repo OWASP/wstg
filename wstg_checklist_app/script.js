@@ -728,6 +728,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
 
                     // SysReptor Checklist Render and Event Listeners
+                    const updateModuleStatusFromCheckboxes = () => {
+                        const mFindings = state[module.id + '_sysreptor_findings'] || {};
+                        const hasChecked = Object.values(mFindings).some(f => f && f.checked);
+                        const newVal = hasChecked ? 'finding' : 'done';
+                        state[module.id] = newVal;
+
+                        const iconBtns = card.querySelectorAll('.status-icon-btn');
+                        iconBtns.forEach(b => {
+                            if (b.getAttribute('data-value') === newVal) {
+                                b.classList.add('active');
+                            } else {
+                                b.classList.remove('active');
+                            }
+                        });
+
+                        saveState();
+                        updateProgress();
+                    };
+
                     const renderSysReptorChecklist = () => {
                         const checklistEl = card.querySelector('.sysreptor-checklist');
                         if (!checklistEl) return;
@@ -823,6 +842,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     fCard.classList.remove('checked');
                                 }
                                 saveState();
+                                updateModuleStatusFromCheckboxes();
                             });
 
                             fCard.addEventListener('click', (e) => {
@@ -841,6 +861,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     fCard.classList.remove('checked');
                                 }
                                 saveState();
+                                updateModuleStatusFromCheckboxes();
                             });
 
                             if (iconContainer) {
@@ -868,6 +889,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                         delete state[module.id + '_sysreptor_findings'][findingId];
                                         saveState();
                                         renderSysReptorChecklist();
+                                        updateModuleStatusFromCheckboxes();
                                     }
                                 });
                             }
@@ -902,6 +924,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             addCustomInput.value = '';
                             if (addCustomUuidInput) addCustomUuidInput.value = '';
                             renderSysReptorChecklist();
+                            updateModuleStatusFromCheckboxes();
                         };
 
                         addCustomBtn.addEventListener('click', addCustomFinding);
