@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentLang = localStorage.getItem('lang') || 'en';
     let previousQuery = '';
     let lastActiveCategory = '';
+    let activeCategory = null;
 
     const i18n = {
         en: {
@@ -73,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
             status_na: "N/A",
             label_information: "Information:",
             label_relevance: "Relevanz",
-            label_goal: "Ziel / Ziele",
+            label_goal: "Ziele",
             label_documentation: "Dokumentation",
             label_summary: "Zusammenfassung",
             label_methodology: "Methodik",
@@ -177,17 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('theme', newTheme);
     });
 
-    // Sticky Minimized Header on Scroll
-    const appHeader = document.querySelector('.app-header');
-    if (appHeader) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 40) {
-                appHeader.classList.add('minimized');
-            } else {
-                appHeader.classList.remove('minimized');
-            }
-        });
-    }
+
 
     // Search Functionality
     const headerRight = document.querySelector('.header-right');
@@ -369,29 +360,102 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const sortedCategoryNames = Object.keys(categories).sort((a, b) => categoryOrder[a] - categoryOrder[b]);
 
-        for (const categoryName of sortedCategoryNames) {
+        if (sortedCategoryNames.length > 0) {
+            if (!activeCategory || !sortedCategoryNames.includes(activeCategory)) {
+                activeCategory = sortedCategoryNames[0];
+            }
+        } else {
+            activeCategory = null;
+        }
+
+        const getDisplayCategoryName = (categoryName, firstModule) => {
+            let name = (currentLang === 'de' && firstModule && firstModule.category_de) ? firstModule.category_de : categoryName;
+            if (currentLang === 'de' && (name === 'Tests des Konfigurations- und Bereitstellungsmanagements' || categoryName === 'Configuration and Deployment Management Testing')) {
+                return 'Konfigurations - und Bereitstellungsmanagement';
+            }
+            return name;
+        };
+
+        // Layout creation
+        const layout = document.createElement('div');
+        layout.className = 'checklist-layout';
+
+        const sidebarWrapper = document.createElement('div');
+        sidebarWrapper.className = 'checklist-sidebar-wrapper';
+
+        const sidebar = document.createElement('aside');
+        sidebar.className = 'checklist-sidebar';
+
+        const mainPanel = document.createElement('div');
+        mainPanel.className = 'checklist-main-panel';
+
+        sidebarWrapper.appendChild(sidebar);
+        layout.appendChild(sidebarWrapper);
+        layout.appendChild(mainPanel);
+        checklistContainer.appendChild(layout);
+
+        // Sidebar categories rendering
+        if (query) {
+            const searchItem = document.createElement('div');
+            searchItem.className = 'sidebar-category-item active search-results-item';
+            searchItem.innerHTML = `
+                <div class="sidebar-category-title">🔍 ${currentLang === 'de' ? 'Suchergebnisse' : 'Search Results'}</div>
+                <span class="sidebar-category-stats">${filteredData.length}</span>
+            `;
+            sidebar.appendChild(searchItem);
+
+            sortedCategoryNames.forEach(categoryName => {
+                const modules = categories[categoryName];
+                const firstModule = modules.length > 0 ? modules[0] : null;
+                const index = firstModule ? firstModule.category_index : '';
+                const displayCategoryName = getDisplayCategoryName(categoryName, firstModule);
+
+                const item = document.createElement('div');
+                item.className = 'sidebar-category-item';
+                item.innerHTML = `
+                    <div class="sidebar-category-title">${index}. ${displayCategoryName}</div>
+                    <span class="sidebar-category-stats" id="stats-${categoryName.replace(/[^a-zA-Z0-9]/g, '-')}">0 / 0</span>
+                `;
+                item.addEventListener('click', () => {
+                    const searchInput = document.getElementById('search-input');
+                    if (searchInput) searchInput.value = '';
+                    const headerRight = document.querySelector('.header-right');
+                    if (headerRight) headerRight.classList.remove('search-active');
+                    activeCategory = categoryName;
+                    renderChecklist();
+                });
+                sidebar.appendChild(item);
+            });
+        } else {
+            sortedCategoryNames.forEach(categoryName => {
+                const modules = categories[categoryName];
+                const firstModule = modules.length > 0 ? modules[0] : null;
+                const index = firstModule ? firstModule.category_index : '';
+                const displayCategoryName = getDisplayCategoryName(categoryName, firstModule);
+
+                const item = document.createElement('div');
+                item.className = `sidebar-category-item ${activeCategory === categoryName ? 'active' : ''}`;
+                item.innerHTML = `
+                    <div class="sidebar-category-title">${index}. ${displayCategoryName}</div>
+                    <span class="sidebar-category-stats" id="stats-${categoryName.replace(/[^a-zA-Z0-9]/g, '-')}">0 / 0</span>
+                `;
+                item.addEventListener('click', () => {
+                    activeCategory = categoryName;
+                    renderChecklist();
+                });
+                sidebar.appendChild(item);
+            });
+        }
+
+        const categoriesToRender = query ? sortedCategoryNames : [activeCategory].filter(Boolean);
+
+        for (const categoryName of categoriesToRender) {
             const modules = categories[categoryName];
             const section = document.createElement('section');
             section.className = 'category-section';
             section.setAttribute('data-category', categoryName);
 
-            // Category Header
-            const header = document.createElement('div');
-            header.className = 'category-header';
 
-            const title = document.createElement('h2');
-            // Extract the first module to get the category index for numbering
-            const firstModule = modules.length > 0 ? modules[0] : null;
-            const index = firstModule ? firstModule.category_index : '';
-            const displayCategoryName = (currentLang === 'de' && firstModule && firstModule.category_de) ? firstModule.category_de : categoryName;
-            title.textContent = `${index}. ${displayCategoryName}`;
-
-            const stats = document.createElement('span');
-            stats.className = 'category-stats';
-            stats.id = `stats-${categoryName.replace(/[^a-zA-Z0-9]/g, '-')}`;
-
-            header.appendChild(title);
-            header.appendChild(stats);
 
             // Category Content
             const content = document.createElement('div');
@@ -552,18 +616,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         const arrow = modHeader.querySelector('.module-arrow');
                         arrow.textContent = '▲';
 
-                        // Scroll module into view smoothly
+                        // Scroll module into view smoothly inside the container
                         setTimeout(() => {
-                            const rect = card.getBoundingClientRect();
-                            let targetY;
-                            if (rect.height > window.innerHeight - 100) {
-                                // If the module is too large to fit the screen, scroll to its top with a little margin
-                                targetY = rect.top + window.scrollY - 80;
-                            } else {
-                                // Otherwise, center it perfectly on the screen
-                                targetY = rect.top + window.scrollY - (window.innerHeight / 2) + (rect.height / 2);
+                            const container = card.closest('.category-content');
+                            if (container) {
+                                const containerRect = container.getBoundingClientRect();
+                                const cardRect = card.getBoundingClientRect();
+                                const targetScrollTop = container.scrollTop + (cardRect.top - containerRect.top) - 16;
+                                container.scrollTo({ top: targetScrollTop, behavior: 'smooth' });
                             }
-                            window.scrollTo({ top: targetY, behavior: 'smooth' });
                         }, 50);
                     }
                 });
@@ -579,18 +640,20 @@ document.addEventListener('DOMContentLoaded', () => {
                         docsContent.style.display = 'block';
                         docsArrow.textContent = '▲';
                     } else {
-                        let targetY = 0;
-                        if (scrollToTop) {
-                            // Calculate position BEFORE shrinking the card
-                            targetY = card.getBoundingClientRect().top + window.scrollY - 120; // 120px offset for plenty of space
+                        let targetScrollTop = 0;
+                        const container = card.closest('.category-content');
+                        if (scrollToTop && container) {
+                            const containerRect = container.getBoundingClientRect();
+                            const cardRect = card.getBoundingClientRect();
+                            targetScrollTop = container.scrollTop + (cardRect.top - containerRect.top) - 16;
                         }
 
                         docsContent.style.display = 'none';
                         docsArrow.textContent = '▼';
 
-                        if (scrollToTop) {
+                        if (scrollToTop && container) {
                             setTimeout(() => {
-                                window.scrollTo({ top: targetY, behavior: 'smooth' });
+                                container.scrollTo({ top: targetScrollTop, behavior: 'smooth' });
                             }, 10);
                         }
                     }
@@ -776,7 +839,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     fCard.classList.add('checked');
                                 } else {
                                     fCard.classList.remove('checked');
-                                    }
+                                }
                                 saveState();
                             });
 
@@ -985,17 +1048,12 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             // Toggle Category Content
-            if (openCategories.has(categoryName) || query) {
-                content.classList.add('open');
-            }
-            header.addEventListener('click', () => {
-                content.classList.toggle('open');
-            });
+            content.classList.add('open');
 
-            section.appendChild(header);
             section.appendChild(content);
-            checklistContainer.appendChild(section);
+            mainPanel.appendChild(section);
         }
+        updateProgress();
     };
 
     const updateProgress = () => {
