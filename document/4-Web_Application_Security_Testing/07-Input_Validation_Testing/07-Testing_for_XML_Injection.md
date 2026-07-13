@@ -34,7 +34,7 @@ Content-Type: application/xml
 </user>
 ```
 
-The backend application parses this XML payload and inserts the parsed values into the database or internal state. If the application dynamically constructs XML responses or forwards this XML data to another backend system by concatenating strings without proper sanitization, it becomes vulnerable to XML structural injection. Alternatively, if the XML parser itself is insecurely configured, it becomes vulnerable to entity-based attacks (XXE).
+The backend application parses this XML payload and inserts the parsed values into the database or internal state (often augmenting it with server-generated fields such as `userid`). If the application dynamically constructs XML responses or forwards this XML data to another backend system by concatenating strings without proper sanitization, it becomes vulnerable to XML structural injection. Alternatively, if the XML parser itself is insecurely configured, it becomes vulnerable to entity-based attacks (XXE).
 
 ### Discovery
 
@@ -48,7 +48,7 @@ For example, let's suppose an application uses single quotes for attributes:
 
 `<node attrib='$inputValue'/>`
 
-If the payload `inputValue = foo'` is provided, the resulting XML becomes:
+If the payload `$inputValue = foo'` is provided, the resulting XML becomes:
 
 `<node attrib='foo''/>`
 
@@ -153,9 +153,9 @@ Let's consider a concrete example. Suppose we have a node containing some text t
 
 Then, an attacker can provide the following input:
 
-```xml
-$HTMLCode = <![CDATA[<]]>script<![CDATA[>]]>alert('xss')<![CDATA[<]]>/script<![CDATA[>]]>
-```
+~~~txt
+<![CDATA[<]]>script<![CDATA[>]]>alert('xss')<![CDATA[<]]>/script<![CDATA[>]]>
+~~~
 
 and obtain the following node:
 
@@ -265,9 +265,9 @@ To test for basic XXE vulnerabilities, one can inject a `DOCTYPE` declaration wi
 </user>
 ```
 
-> Note: The `DOCTYPE` name (`user`) matches the document's actual root element, and the `ELEMENT` declaration refers to that same root element — a mismatched or leftover `DOCTYPE`/`ELEMENT` name from a different example (a common copypaste mistake when adapting XXE payloads to a new endpoint) will still be tolerated by most non-validating parsers, but keeping them consistent avoids failures against any parser that does perform DTD validation.
+> Note: The `DOCTYPE` name (`user`) matches the document's actual root element, and the `ELEMENT` declaration refers to that same root element — a mismatched or leftover `DOCTYPE`/`ELEMENT` name from a different example (a common copy-paste mistake when adapting XXE payloads to a new endpoint) will still be tolerated by most non-validating parsers, but keeping them consistent avoids failures against any parser that does perform DTD validation.
 
-This test could crash the web server (on a Unix system) if the XML parser attempts to substitute the entity with the infinite contents of the `/dev/random` file.
+This test can trigger a Denial of Service on Unix systems if the XML parser attempts to resolve the entity by reading from `/dev/random`, potentially blocking indefinitely (or consuming significant resources) while trying to substitute the entity value.
 
 Other useful payloads to test for local file disclosure include:
 
@@ -380,7 +380,7 @@ This loads the local DTD, overrides its `custom_entity` definition with the erro
 
 Sometimes the tester only controls a single value that is later embedded into a larger, server-generated XML document (for example, a form field that ends up inside a backend SOAP request). In that case the tester cannot control or inject a `<!DOCTYPE>` declaration, which rules out the classic entity-based attacks above. **XInclude** is a separate part of the XML specification that lets one XML document pull in content from another source, and it can be triggered from within an ordinary data value — no DOCTYPE required:
 
-```xml
+```txt
 productId=<foo xmlns:xi="http://www.w3.org/2001/XInclude"><xi:include parse="text" href="file:///etc/passwd"/></foo>&storeId=1
 ```
 
