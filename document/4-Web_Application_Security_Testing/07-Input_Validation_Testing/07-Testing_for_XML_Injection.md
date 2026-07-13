@@ -153,9 +153,9 @@ Let's consider a concrete example. Suppose we have a node containing some text t
 
 Then, an attacker can provide the following input:
 
-~~~txt
+```txt
 <![CDATA[<]]>script<![CDATA[>]]>alert('xss')<![CDATA[<]]>/script<![CDATA[>]]>
-~~~
+```
 
 and obtain the following node:
 
