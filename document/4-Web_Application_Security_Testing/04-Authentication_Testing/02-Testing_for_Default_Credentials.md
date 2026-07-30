@@ -59,7 +59,7 @@ The passwords may be based on:
 - A time-based algorithm.
 - A weak pseudo-random number generator (PRNG).
 
-This type of issue of often difficult to identify from a black-box perspective.
+This type of issue is often difficult to identify from a black-box perspective.
 
 ## Tools
 
