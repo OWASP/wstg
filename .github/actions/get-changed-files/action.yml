@@ -35,6 +35,11 @@ runs:
     id: compute
     working-directory: ${{ inputs.repo_path }}
     shell: bash
+    env:
+      BASE_REPO: ${{ inputs.base_repo }}
+      BASE_SHA: ${{ inputs.base_sha }}
+      HEAD_SHA: ${{ inputs.head_sha }}
+      EXCLUDE_PATTERN: ${{ inputs.exclude_pattern }}
     run: |
       set -euo pipefail
 
@@ -42,20 +47,20 @@ runs:
       # fetch the exact base SHA even when the PR comes from a fork (where
       # 'origin' only has the fork's commits).
       if ! git remote get-url upstream >/dev/null 2>&1; then
-        git remote add upstream "https://github.com/${{ inputs.base_repo }}.git"
+        git remote add upstream "https://github.com/${BASE_REPO}.git"
       fi
 
       # Fetch just the base commit so the diff is available without a full clone.
-      git fetch --no-tags --depth=1 upstream "${{ inputs.base_sha }}"
+      git fetch --no-tags --depth=1 upstream "${BASE_SHA}"
 
       # Defensively confirm the head SHA exists locally (it should via checkout).
-      git rev-parse --verify "${{ inputs.head_sha }}^{commit}" >/dev/null
+      git rev-parse --verify "${HEAD_SHA}^{commit}" >/dev/null
 
       # Compute the diff between base and head using the exact PR SHAs.
       # --diff-filter=d excludes deleted files; we only want changed/added files.
       CHANGED_ALL=$(git diff --name-only --diff-filter=d \
-        "${{ inputs.base_sha }}...${{ inputs.head_sha }}" \
-        | grep -v '${{ inputs.exclude_pattern }}' || true)
+        "${BASE_SHA}...${HEAD_SHA}" \
+        | grep -v "${EXCLUDE_PATTERN}" || true)
 
       FILES=$(echo "$CHANGED_ALL" | grep '\.md$' || true)
 
