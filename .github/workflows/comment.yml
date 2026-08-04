@@ -49,16 +49,36 @@ jobs:
               return;
             }
 
-            // PR number from workflow_run event
-            const pullRequests = context.payload.workflow_run.pull_requests || [];
-            if (pullRequests.length === 0) {
-              console.log('No pull_requests on workflow_run event; skipping');
-              return;
+            // Resolve PR number: workflow_run.pull_requests is often empty (forks / timing).
+            // Fall back to API lookups using trusted workflow_run head metadata (not artifacts).
+            const workflowRun = context.payload.workflow_run;
+            let issue_number = (workflowRun.pull_requests || [])[0]?.number;
+
+            if (!issue_number) {
+              const { data: associated } = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                commit_sha: workflowRun.head_sha,
+              });
+              const openAssociated = associated.find((p) => p.state === 'open');
+              issue_number = openAssociated?.number;
             }
 
-            const issue_number = pullRequests[0].number;
+            if (!issue_number && workflowRun.head_repository?.owner?.login && workflowRun.head_branch) {
+              const head = `${workflowRun.head_repository.owner.login}:${workflowRun.head_branch}`;
+              const { data: listed } = await github.rest.pulls.list({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                state: 'open',
+                head,
+                per_page: 10,
+              });
+              const match = listed.find((p) => p.head.sha === workflowRun.head_sha);
+              issue_number = match?.number;
+            }
+
             if (!Number.isInteger(issue_number) || issue_number < 1) {
-              console.log(`Invalid PR number from workflow_run: ${issue_number}`);
+              console.log(`Could not resolve PR for head ${workflowRun.head_sha}; skipping`);
               return;
             }
 
