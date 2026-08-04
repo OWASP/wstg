@@ -20,6 +20,7 @@ For building checklists and Create a PR with changes made in the master.
 For building PDF and EPUB e-Books at release.
 
 - Trigger: Tag applied to repository. Manual (`workflow_dispatch`), GitHub web UI.
+- On tag push: builds ebooks, uploads artifacts, then creates a prerelease with `gh release create` (no third-party release action).
 - See: `/.github/pdf/` in the root of the repository for PDF build specific configurations.
 - See: `/.github/epub/` in the root of the repository for EPUB build specific configurations.
 
@@ -32,13 +33,15 @@ Tiddies up old workflow runs.
 ## `comment.yml`
 
 Triggered by the completion of other workflows in order to comment lint or other results on PRs.
-The workflows which leverage it should create a `pr_number` text file and `artifact.txt` with the content to be commented, which are attached to their workflow runs as `artifact`.
+On failure, those workflows upload `artifact.txt` (attached as `artifact`) with the content to be commented.
+The PR number comes from the `workflow_run` event (not from the artifact).
 
 This workflow:
-- Minimizes (collapses) previous comments from the same workflow run with appropriate classifiers:
-  - `RESOLVED` when the workflow succeeds
-  - `OUTDATED` when the workflow fails
+- Minimizes (collapses) previous comments from the same workflow with appropriate classifiers:
+  - `RESOLVED` when the workflow succeeds (no artifact required)
+  - `OUTDATED` when the workflow fails and a new artifact is available
 - Only posts NEW comments on failure (not on success)
+- On failure, skips minimize/post if the artifact download fails, so prior feedback is not wiped
 - Uses GitHub Actions for artifact retrieval and PR comment management
 
 - Trigger: Other workflows `workflow_run`.
@@ -77,7 +80,7 @@ This workflow:
 - Checks out the **PR head** to the workspace root and the **base branch** (OWASP/wstg `master`) into `base/`
 - Uses the `.github/actions/get-changed-files` composite action with the exact `base.sha`/`head.sha` from the PR event for fork-safe changed-file detection, then runs `markdownlint-cli2` only on changed `.md` files
 - Uses `format_lint_output.py` from `base/.github/workflows/scripts/` to format output for PR comments
-- Uploads artifacts for both success and failure cases to work with `comment.yml`
+- On failure, uploads `artifact.txt` for `comment.yml`
 - Config and scripts are always taken from `base/` (the base branch), not from the PR
 
 - Trigger: Pull Requests (when `.md` files are changed, excluding `.github/**`).

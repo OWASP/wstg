@@ -20,16 +20,14 @@ jobs:
       with:
         ref: ${{ github.event.pull_request.head.sha }}
         fetch-depth: 0
+        persist-credentials: false
     - name: Checkout Base
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         repository: OWASP/wstg
         ref: master
         path: base
-    - name: Save PR Number
-      env:
-        PR_NUMBER: ${{ github.event.number }}
-      run: echo "$PR_NUMBER" > pr_number
+        persist-credentials: false
     - name: Setup Node
       uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v6
       with:
@@ -102,13 +100,5 @@ jobs:
       uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
       with:
         name: artifact
-        path: |
-          artifact.txt
-          pr_number
-    - name: Upload PR Number on Success
-      if: success()
-      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-      with:
-        name: artifact
-        path: pr_number
+        path: artifact.txt
 

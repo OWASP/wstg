@@ -23,10 +23,13 @@ jobs:
     steps:
     - name: Setup Action
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
     - name: Setup Node
       uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v6
       with:
         node-version: 24
+        package-manager-cache: false
     - name: SetUp python
       uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
       with:
@@ -60,14 +63,18 @@ jobs:
       run: echo "tag=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
     - name: Run Push Build
       if: github.event_name == 'push'
+      env:
+        VERSION: ${{ steps.vars.outputs.tag }}
       run: |
-        bash ./.github/pdf/scripts/make-pdf.sh "${{ steps.vars.outputs.tag }}"
-        bash ./.github/epub/scripts/make-epub.sh "${{ steps.vars.outputs.tag }}"
+        bash ./.github/pdf/scripts/make-pdf.sh "$VERSION"
+        bash ./.github/epub/scripts/make-epub.sh "$VERSION"
     - name: Run Workflow Build
       if: github.event_name == 'workflow_dispatch'
+      env:
+        VERSION: ${{ github.event.inputs.version }}
       run: |
-        bash ./.github/pdf/scripts/make-pdf.sh "${{ github.event.inputs.version }}"
-        bash ./.github/epub/scripts/make-epub.sh "${{ github.event.inputs.version }}"
+        bash ./.github/pdf/scripts/make-pdf.sh "$VERSION"
+        bash ./.github/epub/scripts/make-epub.sh "$VERSION"
     - name: Upload Ebooks for Release
       if: github.event_name == 'push'
       uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -99,12 +106,20 @@ jobs:
         name: wstg-${{ needs.build.outputs.tag }}-ebooks
         path: .
     - name: Create Release
-      id: create_release
-      uses: ncipollo/release-action@339a81892b84b4eeb0f6e744e4574d79d0d9b8dd # v1.21.0
-      with:
-        name: Release ${{ needs.build.outputs.tag }}
-        artifacts: "./build/wstg-${{ needs.build.outputs.tag }}.pdf, ./build/wstg-${{ needs.build.outputs.tag }}.epub"
-        artifactErrorsFailBuild: true
-        draft: false
-        prerelease: true
-        token: ${{ secrets.GITHUB_TOKEN }}
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_REPO: ${{ github.repository }}
+        TAG: ${{ needs.build.outputs.tag }}
+      run: |
+        set -euo pipefail
+        pdf="./build/wstg-${TAG}.pdf"
+        epub="./build/wstg-${TAG}.epub"
+        if [ ! -f "$pdf" ] || [ ! -f "$epub" ]; then
+          echo "Missing release artifacts: $pdf and/or $epub" >&2
+          exit 1
+        fi
+        gh release create "$TAG" \
+          --title "Release ${TAG}" \
+          --prerelease \
+          "$pdf" \
+          "$epub"

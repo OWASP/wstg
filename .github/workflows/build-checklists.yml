@@ -85,10 +85,13 @@ jobs:
         GDRIVESETTINGSFILE: ${{ secrets.GDRIVESETTINGSFILE }}
     - name: Publish XLSX file to Google Drive
       if: env.CHANGED == 'true'
+      env:
+        GDRIVE_FILE_ID: ${{ secrets.GDRIVEFILEID }}
+        VERSION: ${{ github.event.inputs.version }}
       run: |
-        if [ -n "${{ github.event.inputs.version }}" ]; then
-          python3 ./.github/xlsx/scripts/upload-to-google-drive.py "${{ secrets.GDRIVEFILEID }}" "${{ github.event.inputs.version }}"
+        if [ -n "$VERSION" ]; then
+          python3 ./.github/xlsx/scripts/upload-to-google-drive.py "$GDRIVE_FILE_ID" "$VERSION"
         else
-          python3 ./.github/xlsx/scripts/upload-to-google-drive.py "${{ secrets.GDRIVEFILEID }}"
+          python3 ./.github/xlsx/scripts/upload-to-google-drive.py "$GDRIVE_FILE_ID"
         fi
 
