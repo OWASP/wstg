@@ -81,7 +81,9 @@ jobs:
         python3 "$WSTG_BASE/.github/www/scripts/generate_nav.py" \
           "$WSTG_BASE/document/README.md" \
           --title "$TITLE" \
+          --collection stable \
           --yaml-out "$WWW_BASE/_data/stable.yaml" \
+          --html-out "$WWW_BASE/_includes/nav-tree-stable.html" \
           --chapter-toc-out /tmp/wstg-chapter-toc-stable.md
         cat "$WSTG_BASE/.github/www/stable/prepend.txt" /tmp/wstg-chapter-toc-stable.md \
           | sponge "$WWW_BASE/stable/README.md"
@@ -103,7 +105,9 @@ jobs:
         python3 "$WSTG_BASE/.github/www/scripts/generate_nav.py" \
           "$WSTG_BASE/document/README.md" \
           --title "$TITLE" \
+          --collection "$VERSION_PATH" \
           --yaml-out "$WWW_BASE/_data/$VERSION_PATH.yaml" \
+          --html-out "$WWW_BASE/_includes/nav-tree-$VERSION_PATH.html" \
           --chapter-toc-out /tmp/wstg-chapter-toc-versioned.md
         cat "$WSTG_BASE/.github/www/$VERSION_PATH/prepend.txt" /tmp/wstg-chapter-toc-versioned.md \
           | sponge "$WWW_BASE/$VERSION_PATH/README.md"

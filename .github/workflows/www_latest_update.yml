@@ -66,7 +66,9 @@ jobs:
         python3 "$WSTG_BASE/.github/www/scripts/generate_nav.py" \
           "$WSTG_BASE/document/README.md" \
           --title "$TITLE" \
+          --collection latest \
           --yaml-out "$WWW_BASE/_data/latest.yaml" \
+          --html-out "$WWW_BASE/_includes/nav-tree-latest.html" \
           --chapter-toc-out /tmp/wstg-chapter-toc.md
         # Landing page: chapter-level ToC only (full tree lives in the right menu)
         cat "$WSTG_BASE/.github/www/latest/prepend.txt" /tmp/wstg-chapter-toc.md \
