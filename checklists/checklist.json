@@ -652,7 +652,7 @@
           "id": "WSTG-INPV-04",
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/04-Testing_for_HTTP_Parameter_Pollution",
           "objectives": [
-            "Identify the backend and the parsing method used.",
+            "Identify the back end and the parsing method used.",
             "Assess injection points and try bypassing input filters using HPP."
           ],
           "cre_ids": [
@@ -1161,15 +1161,6 @@
           ],
           "cre_ids": [
             "316-272"
-          ]
-        },
-        {
-          "name": "Testing for Cross Site Flashing",
-          "id": "WSTG-CLNT-08",
-          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/08-Testing_for_Cross_Site_Flashing",
-          "objectives": [
-            "Decompile and analyze the application's code.",
-            "Assess sinks inputs and unsafe method usages."
           ]
         },
         {
