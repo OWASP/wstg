@@ -20,7 +20,7 @@ Security testing is no different. Unfortunately, measuring security is a notorio
 
 One aspect that should be emphasized is that security measurements are about both the specific technical issues (e.g., how prevalent a certain vulnerability is) and how these issues affect the economics of software. Most technical people will at least understand the basic issues, or they may have a deeper understanding of the vulnerabilities. Sadly, few are able to translate that technical knowledge into monetary terms and quantify the potential cost of vulnerabilities to the application owner's business. Until this happens, CIOs will not be able to develop an accurate return on security investment and, subsequently, assign appropriate budgets for software security.
 
-While estimating the cost of insecure software may appear a daunting task, there has been a significant amount of work in this direction. In 2020 the Consortium for IT Software Quality [summarized](https://www.it-cisq.org/the-cost-of-poor-software-quality-in-the-us-a-2020-report/):
+While estimating the cost of insecure software may appear a daunting task, there has been a significant amount of work in this direction. In its 2018 report, the Consortium for IT Software Quality [summarized](https://web.archive.org/web/20240204053816/https://www.it-cisq.org/wp-content/uploads/sites/6/2023/09/The-Cost-of-Poor-Quality-Software-in-the-US-2018-Report.pdf):
 
 > ...the cost of poor quality software in the US in 2018 is approximately $2.84 trillion...
 
