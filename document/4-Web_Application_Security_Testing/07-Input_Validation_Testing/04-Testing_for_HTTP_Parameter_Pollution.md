@@ -37,7 +37,7 @@ The flaw resided in the authentication mechanism used by the web application, as
 
 ### Expected Behavior by Application Server
 
-How duplicate parameters are handled depends on the framework, server, and how the application reads the value (for example, first value, last value, or the full collection). Treat any table of defaults as a starting point only: verify the actual behavior of the target stack, including reverse proxies, WAFs, and API gateways that may normalize query strings differently.
+How duplicate parameters are handled depends on the framework, server, and how the application reads the value (for example, first value, last value, or the full collection). Treat any table of defaults as a starting point only: verify the actual behavior of the target stack, including reverse proxies, web application firewalls (WAFs), and API gateways that may normalize query strings differently.
 
 Given the URL and query string: `https://example.com/?color=red&color=blue`
 
@@ -45,7 +45,7 @@ Given the URL and query string: `https://example.com/?color=red&color=blue`
 |---------------|------------------------|---------|
 | ASP.NET / IIS | All occurrences concatenated with a comma | `color=red,blue` |
 | ASP.NET Core / Kestrel | All occurrences available (`StringValues`; comma-joined when stringified) | `color=red,blue` |
-| PHP (Apache / php-fpm / nginx) | Last occurrence only | `color=blue` |
+| PHP (Apache / php-fpm / Nginx) | Last occurrence only | `color=blue` |
 | Java Servlet (Tomcat, Jetty, and similar) | First occurrence only | `color=red` |
 | Node.js / Express | First occurrence only | `color=red` |
 | Python (Django, Flask, and similar) | All occurrences in a list / MultiDict | `color=['red','blue']` |
@@ -54,7 +54,7 @@ Behaviors for other servers and older platforms vary; always confirm on the syst
 
 ## Test Objectives
 
-- Identify the backend and the parsing method used.
+- Identify the back end and the parsing method used.
 - Assess injection points and try bypassing input filters using HPP.
 
 ## How to Test
@@ -119,13 +119,13 @@ Similarly to server-side HPP, manual testing is the only reliable technique to a
 
 To test for HPP client-side vulnerabilities, identify any form or action that allows user input and shows a result of that input back to the user. A search page is ideal, but a login box might not work (as it might not show an invalid username back to the user).
 
-Similarly to server-side HPP, pollute each HTTP parameter with `%26HPP_TEST` and look for *url-decoded* occurrences of the user-supplied payload:
+Similarly to server-side HPP, pollute each HTTP parameter with `%26HPP_TEST` and look for *URL-decoded* occurrences of the user-supplied payload:
 
 - `&HPP_TEST`
 - `&amp;HPP_TEST`
 - etc.
 
-In particular, pay attention to responses having HPP vectors within `data`, `src`, `href` attributes or form actions. Again, whether or not this default behavior reveals a potential vulnerability depends on the specific input validation, filtering and application business logic. This can also affect query string parameters used in `XMLHttpRequest` (XHR), `fetch`, and runtime attribute creation.
+In particular, pay attention to responses having HPP vectors within `data`, `src`, `href` attributes or form actions. Again, whether or not this default behavior reveals a potential vulnerability depends on the specific input validation, filtering, and application business logic. This can also affect query string parameters used in `XMLHttpRequest` (XHR), `fetch`, and runtime attribute creation.
 
 ## Tools
 

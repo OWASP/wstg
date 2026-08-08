@@ -47,9 +47,9 @@ To Observe the Request and Response Blocks of HTTP Traffic
 
 ### Browser Developer Tools
 
-To view and modify HTTP/HTTPS headers, post parameters, and observe the DOM of the browser
+To View and Modify HTTP/HTTPS Headers, Post Parameters, and Observe the DOM of the Browser
 
-- Built-in browser developer tools (Network, Application or Storage, and Elements panels)
+- Built-in browser developer tools (Network, Application/Storage, and Elements panels)
 
 ## Miscellaneous Test Tools
 

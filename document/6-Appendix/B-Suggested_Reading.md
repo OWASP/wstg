@@ -5,7 +5,7 @@
 - [The Economic Impacts of Inadequate Infrastructure for Software Testing](https://www.nist.gov/system/files/documents/director/planning/report02-3.pdf)
 - [NIST Publications](https://csrc.nist.gov/publications/sp)
 - [Fundamental Practices for Secure Software Development](https://safecode.org/wp-content/uploads/2018/03/SAFECode_Fundamental_Practices_for_Secure_Software_Development_March_2018.pdf)
-- [The OWASP Guide Project](https://owasp.org/www-project-developer-guide/)
+- [OWASP Developer Guide](https://owasp.org/www-project-developer-guide/)
 
 ## Books
 
