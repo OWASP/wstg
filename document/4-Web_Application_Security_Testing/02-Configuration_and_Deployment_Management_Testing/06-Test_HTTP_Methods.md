@@ -248,7 +248,7 @@ HTTP/1.1 200 OK
 ## Tools
 
 - [Ncat](https://nmap.org/ncat/)
-- [curl](https://curl.haxx.se/)
+- [curl](https://curl.se/)
 - [Nmap http-methods NSE script](https://nmap.org/nsedoc/scripts/http-methods.html)
 
 ## References

@@ -24,8 +24,6 @@ The list contains only tools that are freely available to download and use (alth
     - View HTTP headers of a page and while browsing.
 - [Firefox Multi-Account Containers](https://addons.mozilla.org/en-GB/firefox/addon/multi-account-containers/)
     - Create multiple containers, each of which have their own isolated cookies and sessions. Useful for testing access control between different users.
-- [Firefox Tamper Data](https://addons.mozilla.org/en-US/firefox/addon/tamper-data-for-ff-quantum/)
-    - Use Tamper Data to view and modify HTTP/HTTPS headers and post parameters
 - [Firefox Web Developer](https://addons.mozilla.org/en-US/firefox/addon/web-developer/)
     - The Web Developer extension adds various web developer tools to the browser.
 
@@ -82,8 +80,7 @@ The list contains only tools that are freely available to download and use (alth
 ### Site Mirroring
 
 - [wget](https://www.gnu.org/software/wget/)
-- [wget for windows](https://gnuwin32.sourceforge.net/packages/wget.htm)
-- [curl](https://curl.haxx.se)
+- [curl](https://curl.se)
 
 ### Content Discovery
 

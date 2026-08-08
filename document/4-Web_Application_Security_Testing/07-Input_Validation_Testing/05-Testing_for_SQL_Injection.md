@@ -551,7 +551,7 @@ Consider also the request to a script that executes the query above:
 
 `https://www.example.com/product.php?id=10`
 
-The malicious request would be (e.g. Oracle 10g):
+The malicious request would be (for example, on Oracle):
 
 `https://www.example.com/product.php?id=10||UTL_INADDR.GET_HOST_NAME( (SELECT user FROM DUAL) )--`
 
@@ -800,7 +800,7 @@ For generic input validation security, refer to the [Input Validation CheatSheet
 
 ## References
 
-- [Top 10 2017-A1-Injection](https://owasp.org/www-project-top-ten/2017/A1_2017-Injection)
+- [A05:2025 Injection](https://owasp.org/Top10/2025/A05_2025-Injection/)
 - [SQL Injection](https://owasp.org/www-community/attacks/SQL_Injection)
 - [SQL Injection](https://www.w3schools.com/sql/sql_injection.asp)
 

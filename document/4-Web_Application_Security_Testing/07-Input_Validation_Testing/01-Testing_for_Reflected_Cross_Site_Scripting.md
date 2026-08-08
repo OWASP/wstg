@@ -203,7 +203,7 @@ If source code is available (white-box testing), all variables received from use
 ## Tools
 
 - [Hackvertor](https://hackvertor.co.uk/) is an online tool which allows many types of encoding and obfuscation of JavaScript (or any string input).
-- [XSS-Proxy](https://xss-proxy.sourceforge.net/) is an advanced Cross-Site-Scripting (XSS) attack tool.
+- [BeEF](https://beefproject.com) is the browser exploitation framework. A professional tool to demonstrate the real-time impact of browser vulnerabilities.
 - [ratproxy](https://code.google.com/archive/p/ratproxy/) is a semi-automated, largely passive web application security audit tool, optimized for an accurate and sensitive detection, and automatic annotation, of potential problems and security-relevant design patterns based on the observation of existing, user-initiated traffic in complex web 2.0 environments.
 - [Burp Proxy](https://portswigger.net/burp/) is an interactive HTTP/S proxy server for attacking and testing web applications.
 - [Zed Attack Proxy (ZAP)](https://www.zaproxy.org) is an interactive HTTP/S proxy server for attacking and testing web applications with a built-in scanner.

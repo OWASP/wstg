@@ -26,7 +26,7 @@ Stored XSS does not need the victim to click a malicious link - exploitation occ
 - The victim views the vulnerable page
 - Malicious code is executed by the victim's browser
 
-This type of attack can also be exploited with browser exploitation frameworks such as [BeEF](https://beefproject.com) and [XSS Proxy](https://xss-proxy.sourceforge.net/). These frameworks allow for complex JavaScript exploit development.
+This type of attack can also be exploited with browser exploitation frameworks such as [BeEF](https://beefproject.com). These frameworks allow for complex JavaScript exploit development.
 
 Stored XSS is particularly dangerous in application areas where users with high privileges have access. When the administrator visits the vulnerable page, the attack is automatically executed by their browser. This might expose sensitive information such as session authorization tokens.
 
@@ -100,7 +100,7 @@ Ensure the input is submitted through the application. This normally involves di
 
 #### Leverage Stored XSS with BeEF
 
-Stored XSS can be exploited by advanced JavaScript exploitation frameworks such as [BeEF](https://www.beefproject.com) and [XSS Proxy](https://xss-proxy.sourceforge.net/).
+Stored XSS can be exploited by advanced JavaScript exploitation frameworks such as [BeEF](https://beefproject.com).
 
 A typical BeEF exploitation scenario involves:
 
@@ -149,7 +149,7 @@ Content-Type: text/html
 <script>alert(document.cookie)</script>
 ```
 
-Also consider that Internet Explorer does not handle MIME types in the same way as Mozilla Firefox or other browsers do. For instance, Internet Explorer handles TXT files with HTML content as HTML content. For further information about MIME handling, refer to the whitepapers section at the bottom of this chapter.
+Also consider that legacy browsers such as Internet Explorer may not handle MIME types in the same way as Firefox, Chrome, or Edge. For instance, Internet Explorer treated some TXT files that contained HTML as HTML content. For further information about MIME handling, refer to the whitepapers section at the bottom of this chapter.
 
 ### Blind Cross-site Scripting
 
@@ -186,8 +186,7 @@ The following table summarizes some special variables and functions to look at w
 ## Tools
 
 - [Hackvertor](https://hackvertor.co.uk/public) is an online tool which allows many types of encoding and obfuscation of JavaScript (or any string input).
-- [BeEF](https://www.beefproject.com) is the browser exploitation framework. A professional tool to demonstrate the real-time impact of browser vulnerabilities.
-- [XSS-Proxy](https://xss-proxy.sourceforge.net/) is an advanced Cross-Site-Scripting (XSS) attack tool.
+- [BeEF](https://beefproject.com) is the browser exploitation framework. A professional tool to demonstrate the real-time impact of browser vulnerabilities.
 - [Burp Proxy](https://portswigger.net/burp/) is an interactive HTTP/S proxy server for attacking and testing web applications.
 - [XSS Assistant](https://www.greasespot.net/) Greasemonkey script that allow users to easily test any web application for cross-site-scripting flaws.
 - [Zed Attack Proxy (ZAP)](https://www.zaproxy.org) is an interactive HTTP/S proxy server for attacking and testing web applications with a built-in scanner.
