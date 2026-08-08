@@ -100,14 +100,23 @@ This workflow:
 
 ## `www_latest_update.yml`
 
-Publishes the latest web content using the @wstgbot account to `OWASP/www-project-web-security-testing-guide`.
+Publishes the latest web content using the @wstgbot account to
+`OWASP/www-project-web-security-testing-guide`.
 
-- Trigger: Push.
-- See: `/.github/www/latest/` in the root of the repository.
+- Trigger: Push to `master` when `document/**` changes, or manual (`workflow_dispatch`).
+- Copies `document/` into the www repo’s `latest/`, prepends front matter, copies `info.md`.
+- Runs `.github/www/scripts/generate_nav.py` to write:
+  - `_data/latest.yaml` (nested ToC + filter hints)
+  - `_includes/nav-tree-latest.html` (pre-rendered sidebar tree)
+  - Slim chapter-only `latest/README.md` / `index.md` landing ToC
+- See: `/.github/www/latest/` and `/.github/www/scripts/README.md`.
 
 ## `www_stable_update.yml`
 
-Publishes stable and versioned web content using the @wstgbot account to `OWASP/www-project-web-security-testing-guide`.
+Publishes stable and versioned web content using the @wstgbot account to
+`OWASP/www-project-web-security-testing-guide`.
 
 - Trigger: Tag applied to repository (format `v*`).
-- See: `/.github/www/` in the root of the repository.
+- Same nav generation as latest, for `stable` and the version folder (e.g. `v42`),
+  including `nav-tree-<collection>.html` and nested `_data/*.yaml`.
+- See: `/.github/www/` and `/.github/www/scripts/README.md`.
