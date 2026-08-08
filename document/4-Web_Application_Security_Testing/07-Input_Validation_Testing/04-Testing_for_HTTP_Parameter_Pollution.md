@@ -37,30 +37,20 @@ The flaw resided in the authentication mechanism used by the web application, as
 
 ### Expected Behavior by Application Server
 
-The following table illustrates how different web technologies behave in presence of multiple occurrences of the same HTTP parameter.
+How duplicate parameters are handled depends on the framework, server, and how the application reads the value (for example, first value, last value, or the full collection). Treat any table of defaults as a starting point only: verify the actual behavior of the target stack, including reverse proxies, WAFs, and API gateways that may normalize query strings differently.
 
-Given the URL and querystring: `https://example.com/?color=red&color=blue`
+Given the URL and query string: `https://example.com/?color=red&color=blue`
 
-  | Web Application Server Backend | Parsing Result | Example |
-  |--------------------------------|----------------|--------|
-  | ASP.NET / IIS | All occurrences concatenated with a comma |  color=red,blue |
-  | ASP / IIS     | All occurrences concatenated with a comma | color=red,blue |
-  | .NET Core 3.1 / Kestrel | All occurrences concatenated with a comma | color=red,blue |
-  | .NET 5 / Kestrel | All occurrences concatenated with a comma | color=red,blue |
-  | PHP / Apache  | Last occurrence only | color=blue |
-  | PHP / Zeus | Last occurrence only | color=blue |
-  | JSP, Servlet / Apache Tomcat | First occurrence only | color=red |
-  | JSP, Servlet / Oracle Application Server 10g | First occurrence only | color=red |
-  | JSP, Servlet / Jetty  | First occurrence only | color=red |
-  | IBM Lotus Domino | Last occurrence only | color=blue |
-  | IBM HTTP Server | First occurrence only | color=red |
-  | Node.js / express | First occurrence only | color=red |
-  | mod_perl, libapreq2 / Apache | First occurrence only | color=red |
-  | Perl CGI / Apache | First occurrence only | color=red |
-  | mod_wsgi (Python) / Apache | First occurrence only | color=red |
-  | Python / Zope | All occurrences in List data type | color=['red','blue'] |
+| Typical Stack | Common Default Parsing | Example |
+|---------------|------------------------|---------|
+| ASP.NET / IIS | All occurrences concatenated with a comma | `color=red,blue` |
+| ASP.NET Core / Kestrel | All occurrences available (`StringValues`; comma-joined when stringified) | `color=red,blue` |
+| PHP (Apache / php-fpm / nginx) | Last occurrence only | `color=blue` |
+| Java Servlet (Tomcat, Jetty, and similar) | First occurrence only | `color=red` |
+| Node.js / Express | First occurrence only | `color=red` |
+| Python (Django, Flask, and similar) | All occurrences in a list / MultiDict | `color=['red','blue']` |
 
-(Source: Appsec EU 2009 Carettoni & Paola)
+Behaviors for other servers and older platforms vary; always confirm on the system under test. Historical research on this topic includes AppSec EU 2009 (Carettoni & di Paola).
 
 ## Test Objectives
 
@@ -135,7 +125,7 @@ Similarly to server-side HPP, pollute each HTTP parameter with `%26HPP_TEST` and
 - `&amp;HPP_TEST`
 - etc.
 
-In particular, pay attention to responses having HPP vectors within `data`, `src`, `href` attributes or forms actions. Again, whether or not this default behavior reveals a potential vulnerability depends on the specific input validation, filtering and application business logic. In addition, it is important to notice that this vulnerability can also affect query string parameters used in XMLHttpRequest (XHR), runtime attribute creation and other plugin technologies (e.g. Adobe Flash’s flashvars variables).
+In particular, pay attention to responses having HPP vectors within `data`, `src`, `href` attributes or form actions. Again, whether or not this default behavior reveals a potential vulnerability depends on the specific input validation, filtering and application business logic. This can also affect query string parameters used in `XMLHttpRequest` (XHR), `fetch`, and runtime attribute creation.
 
 ## Tools
 
