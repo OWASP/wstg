@@ -41,7 +41,7 @@ Various types of information that must be protected, could be transmitted by the
 
 ### Example 1: Basic Authentication over HTTP
 
-A typical example is the usage of Basic Authentication over HTTP. When using Basic Authentication, user credentials are encoded rather than encrypted, and are sent as HTTP headers. In the example below the tester uses [curl](https://curl.haxx.se/) to test for this issue. Note how the application uses Basic authentication, and HTTP rather than HTTPS.
+A typical example is the usage of Basic Authentication over HTTP. When using Basic Authentication, user credentials are encoded rather than encrypted, and are sent as HTTP headers. In the example below the tester uses [curl](https://curl.se/) to test for this issue. Note how the application uses Basic authentication, and HTTP rather than HTTPS.
 
 ```bash
 $ curl -kis http://example.com/restricted/
@@ -127,7 +127,7 @@ Use HTTPS for the whole web site and redirect any HTTP requests to HTTPS.
 
 ## Tools
 
-- [curl](https://curl.haxx.se/)
+- [curl](https://curl.se/)
 - [grep](https://man7.org/linux/man-pages/man1/egrep.1.html)
 - [Wireshark](https://www.wireshark.org/)
 - [TCPDUMP](https://www.tcpdump.org/)

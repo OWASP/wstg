@@ -45,12 +45,11 @@ To Observe the Request and Response Blocks of HTTP Traffic
 - [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
 - [Burp Proxy](https://portswigger.net/burp)
 
-### Web Browser Plug-ins
+### Browser Developer Tools
 
-To view and modify HTTP/HTTPS headers, post parameters, and observe the DOM of the Browser
+To view and modify HTTP/HTTPS headers, post parameters, and observe the DOM of the browser
 
-- [Tamper Data for FF Quantum](https://addons.mozilla.org/en-US/firefox/addon/tamper-data-for-ff-quantum)
-- [Tamper Chrome (for Google Chrome)](https://chrome.google.com/webstore/detail/tamper-chrome-extension/hifhgpdkfodlpnlmlnmhchnkepplebkb)
+- Built-in browser developer tools (Network, Application or Storage, and Elements panels)
 
 ## Miscellaneous Test Tools
 

@@ -202,7 +202,7 @@ Ensure default system accounts and test accounts are deleted prior to releasing 
 ## Tools
 
 - [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
-- [curl](https://curl.haxx.se/)
+- [curl](https://curl.se/)
 - [PERL](https://www.perl.org)
 
 ## References

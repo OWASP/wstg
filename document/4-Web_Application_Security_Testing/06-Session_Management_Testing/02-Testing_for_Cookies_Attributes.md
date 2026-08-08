@@ -132,7 +132,7 @@ Putting all this together, we can define the most secure cookie attribute config
 
 ### Browser Plug-in
 
-- [Tamper Data for FF Quantum](https://addons.mozilla.org/en-US/firefox/addon/tamper-data-for-ff-quantum/)
+- Browser developer tools (Application or Storage panel)
 - ["FireSheep" for FireFox](https://github.com/codebutler/firesheep)
 - ["EditThisCookie" for Chrome](https://chrome.google.com/webstore/detail/editthiscookie/fngmhnnpilhplaeedifhccceomclgfbg?hl=en)
 - ["Cookiebro - Cookie Manager" for FireFox](https://addons.mozilla.org/en-US/firefox/addon/cookiebro/)

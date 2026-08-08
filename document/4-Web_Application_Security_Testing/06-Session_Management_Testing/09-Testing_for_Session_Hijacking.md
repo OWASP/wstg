@@ -57,4 +57,4 @@ We recommend using two different machines or browsers for the victim and the att
 ## Tools
 
 - [ZAP](https://www.zaproxy.org)
-- [JHijack - a numeric session hijacking tool](https://sourceforge.net/projects/jhijack/)
+- [JHijack](https://github.com/yehgdotnet/JHijack)

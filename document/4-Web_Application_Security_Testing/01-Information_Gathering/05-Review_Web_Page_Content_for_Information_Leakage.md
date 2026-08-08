@@ -199,7 +199,7 @@ Check metadata fields such as:
 - [Wget](https://www.gnu.org/software/wget/wget.html)
 - Browser "view source" function
 - Eyeballs
-- [Curl](https://curl.haxx.se/)
+- [Curl](https://curl.se/)
 - [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
 - [Burp Suite](https://portswigger.net/burp)
 - [Waybackurls](https://github.com/tomnomnom/waybackurls)
