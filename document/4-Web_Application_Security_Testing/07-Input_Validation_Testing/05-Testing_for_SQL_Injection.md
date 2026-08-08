@@ -551,7 +551,7 @@ Consider also the request to a script that executes the query above:
 
 `https://www.example.com/product.php?id=10`
 
-The malicious request would be (e.g. Oracle 10g):
+The malicious request would be (for example, on Oracle):
 
 `https://www.example.com/product.php?id=10||UTL_INADDR.GET_HOST_NAME( (SELECT user FROM DUAL) )--`
 
