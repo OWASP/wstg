@@ -1,5 +1,5 @@
 # Build website/ from master and publish the static site to the gh_pages branch.
-# Preview: https://owasp.github.io/wstg/
+# Live: https://wstg.owasp.org/
 #
 # Similar to www_latest_update / www_stable_update: master holds guide + site
 # source; the published artifact is pushed elsewhere (here: gh_pages).

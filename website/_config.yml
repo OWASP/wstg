@@ -2,8 +2,8 @@ title: OWASP Web Security Testing Guide
 description: >-
   The premier cybersecurity testing resource for web application developers
   and security professionals.
-url: "https://owasp.github.io"
-baseurl: "/wstg"
+url: "https://wstg.owasp.org"
+baseurl: ""
 
 # Canonical stable version path (with period). Used by channel banners.
 stable_version: v4.2

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Prepare channel content and serve the Jekyll site locally.
-# Open: http://127.0.0.1:4000/wstg/
+# Open: http://127.0.0.1:4000/
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -16,4 +16,4 @@ if [[ ! -d vendor/bundle ]]; then
   bundle install
 fi
 
-exec bundle exec jekyll serve --baseurl /wstg --livereload --host 127.0.0.1
+exec bundle exec jekyll serve --livereload --host 127.0.0.1

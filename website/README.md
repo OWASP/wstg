@@ -4,7 +4,7 @@ Preview site for the Web Security Testing Guide. Source guide content lives in
 `../document/` (latest) and release tags (stable / v4.x). This directory is the
 Jekyll shell (VWAD-inspired L&F).
 
-Published preview: `https://owasp.github.io/wstg/`
+Published preview: `https://wstg.owasp.org/`
 
 ## Branch roles
 
@@ -50,7 +50,7 @@ From the repository root:
 python3 website/scripts/prepare_site.py
 ```
 
-Then open `http://127.0.0.1:4000/wstg/`.
+Then open `http://127.0.0.1:4000/`.
 
 Requires Ruby 3.3+ (script defaults to `RBENV_VERSION=3.3.10`), Bundler, and
 git tags `v4.1` / `v4.2` available locally for versioned channels.
