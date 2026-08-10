@@ -342,7 +342,7 @@ while read line; do
         echo "BookmarkPageNumber:" $pagenumber >> build/bookmarks;
     else
         echo "BookmarkBegin" >> build/bookmarks;
-        echo "BookmarkTitle: Table of Contents"  >> build/bookmarks;
+        echo "BookmarkTitle: Contents"  >> build/bookmarks;
         echo "BookmarkLevel: 1"  >> build/bookmarks;
         echo "BookmarkPageNumber:" $pagenumber >> build/bookmarks;
     fi

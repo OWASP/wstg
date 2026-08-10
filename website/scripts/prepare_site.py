@@ -60,6 +60,14 @@ PATH_REDIRECTS = (
     ("v41", "v4.1"),
 )
 
+# Old content directory → new directory (within a channel). Applied only when the
+# new path exists and the old path does not (working-tree /latest/). Versioned
+# tag channels keep historical names (e.g. Frontispiece, "Table of Contents").
+# /stable/ follows whatever CURRENT_STABLE points at.
+CONTENT_RENAMES = (
+    ("1-Frontispiece", "1-About"),
+)
+
 
 def front_matter(key: str, label: str, path: str) -> str:
     return (
@@ -263,6 +271,7 @@ def prepare_channel(channel: dict) -> Path:
         rewrite_markdown_file_links(md)
     convert_readmes_to_redirects(dest, path)
     set_root_index_to_foreword(dest)
+    add_content_renames(dest, path)
     matter = front_matter(key, label, path)
     for md in dest.rglob("*.md"):
         prepend_front_matter(md, matter)
@@ -282,6 +291,19 @@ def write_redirect_page(path: Path, redirect_path: str) -> None:
         "---\n",
         encoding="utf-8",
     )
+
+
+def add_content_renames(channel_root: Path, channel_path: str) -> None:
+    """Redirect renamed content paths when the channel has the new name only."""
+    for old, new in CONTENT_RENAMES:
+        old_dir = channel_root / old
+        new_dir = channel_root / new
+        if not new_dir.is_dir() or old_dir.exists():
+            continue
+        target = f"/{channel_path}/{new}/"
+        write_redirect_page(old_dir / "index.md", target)
+        write_redirect_page(old_dir / "README.md", target)
+        print(f"  redirect /{channel_path}/{old}/ → {target}")
 
 
 def prepare_path_redirects(canonical_path: str, alias_path: str) -> None:

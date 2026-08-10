@@ -1,8 +1,8 @@
-# Table of Contents
+# Contents
 
 ## 0. [Foreword](0-Foreword/README.md)
 
-## 1. [Frontispiece](1-Frontispiece/)
+## 1. [About](1-About/)
 
 ## 2. [Introduction](2-Introduction/)
 
