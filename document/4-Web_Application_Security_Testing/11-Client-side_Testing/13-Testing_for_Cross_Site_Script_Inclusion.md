@@ -21,6 +21,12 @@ Older browser's vulnerabilities (IE9/10) allowed data leakage via JavaScript err
 
 ## How to Test
 
+### SameSite Cookie Considerations
+
+The examples below rely on the browser attaching the victim's authentication cookie to a cross-site `<script src="...">` request — a subresource load, not a top-level navigation. Per the [`SameSite`](../06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.md#samesite-attribute) behavior described in the Cookie Attributes section, `Lax` cookies are not sent on subresource requests, so by default these PoCs won't leak data in a browser that defaults to `Lax` (Chromium-based, since Chrome 80) unless the session cookie explicitly sets `SameSite=None; Secure`.
+
+This doesn't mean the underlying vulnerability is fixed — only that reproducing it now depends on the cookie's `SameSite` configuration and the browser under test. Check the `Set-Cookie` header directly, and retest in a browser that doesn't default to `Lax` (e.g. Firefox) if a PoC doesn't fire.
+
 ### Collect Data Using Authenticated and Unauthenticated User Sessions
 
 Identify which endpoints are responsible for sending sensitive data, what parameters are required, and identify all relevant dynamically and statically generated JavaScript responses using authenticated user sessions. Pay special attention to sensitive data sent using [JSONP](https://en.wikipedia.org/wiki/JSONP). To find dynamically generated JavaScript responses, generate authenticated and unauthenticated requests, then compare them. If they're different, it means the response is dynamic; otherwise it's static. To simplify this task, a tool such as [Veit Hailperin's Burp proxy plugin](https://github.com/luh2/DetectDynamicJS) can be used. Make sure to check other file types in addition to JavaScript; XSSI is not limited to JavaScript files alone.

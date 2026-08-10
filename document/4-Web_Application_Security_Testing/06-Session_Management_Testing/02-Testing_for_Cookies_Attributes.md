@@ -84,7 +84,9 @@ The `Strict` value is the most restrictive usage of `SameSite`, allowing the bro
 
 ##### Lax Value
 
-The `Lax` value is less restrictive than `Strict`. The cookie will be sent if the URL equals the cookie’s domain (first-party) even if the link is coming from a third-party domain. This value is considered by most browsers the default behavior since it provides a better user experience than the `Strict` value. It doesn't trigger for assets, such as images, where cookies might not be needed to access them.
+The `Lax` value is less restrictive than `Strict`. It allows the cookie to be sent on cross-site _top-level navigations_ that use a "safe" HTTP method (in practice, `GET`) — for example, when a user follows a link from another site. It does __not__ send the cookie on cross-site _subresource_ requests, such as those triggered by `<img>`, `<script>`, or `<iframe>` tags, `fetch()`, or `XMLHttpRequest`, and it does not send the cookie on cross-site navigations that use `POST` or other unsafe methods.
+
+Starting in early 2020, Chromium-based browsers (Chrome, Edge, Opera) treat any cookie set __without__ an explicit `SameSite` attribute as `SameSite=Lax` by default. Firefox and Safari do not apply that default. In those browsers a cookie that omits `SameSite` remains eligible to be sent on cross-site requests, subject instead to their own tracking-prevention and third-party-cookie controls (Firefox's Enhanced Tracking Protection / Total Cookie Protection, Safari's Intelligent Tracking Prevention). Note that omitting the attribute is not the same as setting [`SameSite=None`](#none-value), which is an explicit value that additionally requires the [`Secure`](#secure-attribute) attribute in order to be accepted. Those tracking-prevention controls are privacy mechanisms rather than a substitute for setting `SameSite`, and they behave differently from an explicit `SameSite=Lax` restriction. Testers should not assume a cookie is protected against CSRF just because a cross-site request appears to be blocked in Firefox or Safari — verify the actual `Set-Cookie` header rather than inferring protection from observed browser behavior.
 
 ##### None Value
 
