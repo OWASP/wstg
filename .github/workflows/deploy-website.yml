@@ -1,8 +1,8 @@
-# Build website/ from master and publish the static site to the gh_pages branch.
+# Build website/ from master and publish the static site to the gh-pages branch.
 # Live: https://wstg.owasp.org/
 #
 # Similar to www_latest_update / www_stable_update: master holds guide + site
-# source; the published artifact is pushed elsewhere (here: gh_pages).
+# source; the published artifact is pushed elsewhere (here: gh-pages).
 name: Deploy WSTG website
 
 on:
@@ -53,11 +53,14 @@ jobs:
           JEKYLL_ENV: production
         run: bundle exec jekyll build
 
-      - name: Publish to gh_pages
+      - name: Publish to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./website/_site
+          publish_branch: gh-pages
+          # Keeps Pages custom domain association across orphan publishes.
+          cname: wstg.owasp.org
           # Prebuilt HTML; do not let GitHub run Jekyll on the branch.
           enable_jekyll: false
           force_orphan: true
