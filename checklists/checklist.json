@@ -862,6 +862,19 @@
             "Determine whether user input can reach and modify `Object.prototype`.",
             "Identify gadgets that turn prototype pollution into a concrete impact."
           ]
+        },
+        {
+          "name": "Testing for Insecure Deserialization",
+          "id": "WSTG-INPV-23",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/23-Testing_for_Insecure_Deserialization",
+          "objectives": [
+            "Identify entry points where the application accepts serialized objects from untrusted",
+            "urces (for example, HTTP headers, parameters, or cookies).",
+            "Determine the serialization format used by the application.",
+            "Assess whether serialized input is validated or restricted prior to deserialization.",
+            "Evaluate whether manipulation of serialized data leads to unsafe behavior or security",
+            "pact."
+          ]
         }
       ]
     },
