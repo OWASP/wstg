@@ -29,8 +29,9 @@ GitHub Pages should deploy from branch **`gh-pages`** / root (not “GitHub Acti
 `CURRENT_STABLE` in `scripts/prepare_site.py` when the current release changes.
 
 Prepare also rewrites Markdown for the site: strip `.md` from links, map
-`README` → directory URLs, fix sibling `images/` paths on leaf pages, and turn
-`README.md` files into redirects to their directory index.
+`README` → directory URLs, add one extra `../` on leaf pages (pretty
+permalinks nest `/Page/` one level deeper than the repo file), lowercase
+fragments, and turn `README.md` files into redirects to their directory index.
 
 Canonical version URLs use a **period** (`v4.1`). The old owasp.org publish
 pipeline stripped periods (`v41`) for path/data-key safety; this site keeps

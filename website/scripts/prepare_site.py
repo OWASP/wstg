@@ -84,12 +84,23 @@ def prepend_front_matter(path: Path, matter: str) -> None:
 # Markdown hrefs that should not be rewritten (scheme / fragment-only / protocol-relative).
 _SKIP_HREF = re.compile(r"^(?:[a-z][a-z0-9+.-]*:|#|//)", re.IGNORECASE)
 _MD_LINK = re.compile(r"\]\(([^)]+)\)")
+# Real file assets keep their extension; dotted scenario names (05.1-foo) do not.
+_ASSET_EXT = re.compile(
+    r"\.(?:png|jpe?g|gif|svg|webp|pdf|html?|css|js)$", re.IGNORECASE
+)
 
 
 def rewrite_site_href(href: str, md_path: Path) -> str:
     """Adapt repo-relative markdown/image hrefs for Jekyll pretty permalinks."""
     href = href.strip()
-    if not href or _SKIP_HREF.match(href):
+    if not href:
+        return href
+
+    # Same-page anchors: kramdown ids are lowercase.
+    if href.startswith("#"):
+        return "#" + href[1:].lower()
+
+    if _SKIP_HREF.match(href):
         return href
 
     frag = ""
@@ -103,12 +114,19 @@ def rewrite_site_href(href: str, md_path: Path) -> str:
     if href == "README" or href.endswith("/README"):
         href = href[: -len("README")] or "./"
 
-    # Leaf pages render as /path/Page/; sibling images/ is one level up.
+    # Leaf pages render as /path/Page/ (one directory deeper than the .md file's
+    # folder). Every repo-relative href needs one extra ../ — same-folder
+    # siblings (01-foo.md, images/x.png) and existing ../cross/folder links.
     if md_path.name.lower() not in ("readme.md", "index.md"):
-        if href.startswith("images/") or href.startswith("./images/"):
-            parent_images = md_path.parent / "images"
-            if parent_images.is_dir():
-                href = "../" + href.removeprefix("./")
+        if href.startswith("./"):
+            href = href[2:]
+        if href and not href.startswith("/"):
+            href = "../" + href
+
+    # Pretty permalinks expect a trailing slash on directory-style paths.
+    # Do not treat dotted scenario slugs (05.1-foo) as file assets.
+    if href and not href.endswith("/") and not _ASSET_EXT.search(href):
+        href += "/"
 
     return href + frag
 
