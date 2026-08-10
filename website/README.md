@@ -11,9 +11,9 @@ Published preview: `https://wstg.owasp.org/`
 | Branch | Role |
 |--------|------|
 | `master` | Guide (`document/`) plus this site **source** and deploy workflow (same idea as `.github/www` + `www_*_update` workflows). |
-| `gh_pages` | **Built** static site only. Written by `.github/workflows/deploy-website.yml` (do not hand-edit). |
+| `gh-pages` | **Built** static site only. Written by `.github/workflows/deploy-website.yml` (do not hand-edit). |
 
-GitHub Pages should deploy from branch **`gh_pages`** / root (not “GitHub Actions”).
+GitHub Pages should deploy from branch **`gh-pages`** / root (not “GitHub Actions”), with custom domain `wstg.owasp.org`.
 
 ## Channels
 
