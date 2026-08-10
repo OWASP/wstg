@@ -1,0 +1,66 @@
+# Build website/ from master and publish the static site to the gh_pages branch.
+# Preview: https://owasp.github.io/wstg/
+#
+# Similar to www_latest_update / www_stable_update: master holds guide + site
+# source; the published artifact is pushed elsewhere (here: gh_pages).
+name: Deploy WSTG website
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "website/**"
+      - "document/**"
+      - ".github/workflows/deploy-website.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wstg-gh-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Full history + tags so prepare_site.py can archive v4.1 / v4.2.
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Prepare channel trees
+        run: python3 website/scripts/prepare_site.py
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+          working-directory: website
+
+      - name: Build Jekyll site
+        working-directory: website
+        env:
+          JEKYLL_ENV: production
+        run: bundle exec jekyll build
+
+      - name: Publish to gh_pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./website/_site
+          # Prebuilt HTML; do not let GitHub run Jekyll on the branch.
+          enable_jekyll: false
+          force_orphan: true
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          commit_message: "Deploy WSTG website"

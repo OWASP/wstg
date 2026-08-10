@@ -1,0 +1,11 @@
+<header class="project-header">
+  <div class="container container-wide">
+    <div class="project-header-top">
+      <h1 class="project-title">{{ include.title | default: site.title }}</h1>
+      <p class="project-subtitle">{{ include.subtitle | default: "An OWASP Flagship Project" }}</p>
+    </div>
+    {% if include.tagline %}
+    <p class="project-tagline">{{ include.tagline }}</p>
+    {% endif %}
+  </div>
+</header>

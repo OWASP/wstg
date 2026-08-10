@@ -1,0 +1,31 @@
+{% comment %}
+  Version channel banners — ported from www-project-web-security-testing-guide.
+  Colors match the existing owasp.org WSTG notices.
+  site.stable_version is the canonical path (e.g. v4.2). /stable/ redirects there.
+{% endcomment %}
+<div class="channel-banners" role="banner">
+  {% if page.url contains "/latest/" %}
+  <div class="channel-banner channel-banner--latest">
+    This content represents the latest contributions to the Web Security Testing Guide, and may frequently change.
+  </div>
+  {% endif %}
+
+  {% if page.url contains site.stable_version %}
+  <div class="channel-banner channel-banner--stable">
+    You're viewing the current stable version of the Web Security Testing Guide project.
+  </div>
+  {% endif %}
+
+  {% assign is_versioned = false %}
+  {% if page.url contains "/v4." or page.url contains "/v41/" or page.url contains "/v42/" or page.url contains "/v43/" %}
+    {% assign is_versioned = true %}
+  {% endif %}
+  {% if is_versioned %}
+    {% unless page.url contains site.stable_version %}
+    <div class="channel-banner channel-banner--past">
+      You're viewing a past version of the Web Security Testing Guide project.
+      For the latest stable version, <a href="{{ site.baseurl }}/stable/">visit /stable</a>.
+    </div>
+    {% endunless %}
+  {% endif %}
+</div>
