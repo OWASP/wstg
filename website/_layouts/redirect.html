@@ -1,0 +1,19 @@
+---
+# Minimal redirect page for alias / legacy URLs
+# (e.g. /stable/ → /v4.2/, /v41/ → /v4.1/).
+# page.redirect_path is site-absolute from baseurl root (starts with /).
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirecting…</title>
+  <link rel="canonical" href="{{ site.baseurl }}{{ page.redirect_path }}">
+  <meta http-equiv="refresh" content="0;url={{ site.baseurl }}{{ page.redirect_path }}">
+  <script>location.replace({{ site.baseurl | append: page.redirect_path | jsonify }});</script>
+</head>
+<body>
+  <p>This page has moved to <a href="{{ site.baseurl }}{{ page.redirect_path }}">{{ site.baseurl }}{{ page.redirect_path }}</a>.</p>
+</body>
+</html>

@@ -31,7 +31,10 @@ jobs:
       run: |
         cd base
         touch log err
-        find . -name \*.md -exec markdown-link-check -q -v --config .github/configs/markdown-link-check-config.json {} 1>> log 2>> err \;
+        find . -name \*.md \
+          ! -path './.github/*' \
+          ! -path './website/*' \
+          -exec markdown-link-check -q -v --config .github/configs/markdown-link-check-config.json {} 1>> log 2>> err \;
         if grep -q  "ERROR:" err ; then exit 1 ; else echo -e "No broken links found."; fi
         echo "--- markdown-link-check stdout (log) ---"
         cat log

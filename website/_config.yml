@@ -1,0 +1,60 @@
+title: OWASP Web Security Testing Guide
+description: >-
+  The premier cybersecurity testing resource for web application developers
+  and security professionals.
+url: "https://owasp.github.io"
+baseurl: "/wstg"
+
+# Canonical stable version path (with period). Used by channel banners.
+stable_version: v4.2
+
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - scripts
+  - README.md
+  - serve.sh
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+  - scope:
+      path: "latest"
+    values:
+      layout: document
+      collection_name: latest
+      channel_label: Latest
+      channel_path: latest
+  - scope:
+      path: "stable"
+    values:
+      layout: redirect
+  - scope:
+      path: "v4.2"
+    values:
+      layout: document
+      collection_name: v42
+      channel_label: v4.2
+      channel_path: v4.2
+  - scope:
+      path: "v4.1"
+    values:
+      layout: document
+      collection_name: v41
+      channel_label: v4.1
+      channel_path: v4.1
+  - scope:
+      path: "v42"
+    values:
+      layout: redirect
+  - scope:
+      path: "v41"
+    values:
+      layout: redirect

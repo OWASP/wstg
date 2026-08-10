@@ -18,11 +18,12 @@ inputs:
     default: ${{ github.repository }}
   exclude_pattern:
     description: Grep pattern for paths to exclude from changed-files output
-    default: '^\.github/'
+    # Guide checks target document/; skip tooling and Jekyll site source.
+    default: '^(\.github/|website/)'
 
 outputs:
   all_changed:
-    description: Newline-separated list of all changed/added non-.github files
+    description: Newline-separated list of all changed/added non-excluded files
     value: ${{ steps.compute.outputs.all_changed }}
   files_updated:
     description: Newline-separated list of changed/added .md files
@@ -58,9 +59,10 @@ runs:
 
       # Compute the diff between base and head using the exact PR SHAs.
       # --diff-filter=d excludes deleted files; we only want changed/added files.
+      # -E: exclude_pattern uses extended regex (e.g. ^(\.github/|website/)).
       CHANGED_ALL=$(git diff --name-only --diff-filter=d \
         "${BASE_SHA}...${HEAD_SHA}" \
-        | grep -v "${EXCLUDE_PATTERN}" || true)
+        | grep -Ev "${EXCLUDE_PATTERN}" || true)
 
       FILES=$(echo "$CHANGED_ALL" | grep '\.md$' || true)
 
