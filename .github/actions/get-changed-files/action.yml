@@ -59,9 +59,10 @@ runs:
 
       # Compute the diff between base and head using the exact PR SHAs.
       # --diff-filter=d excludes deleted files; we only want changed/added files.
+      # -E: exclude_pattern uses extended regex (e.g. ^(\.github/|website/)).
       CHANGED_ALL=$(git diff --name-only --diff-filter=d \
         "${BASE_SHA}...${HEAD_SHA}" \
-        | grep -v "${EXCLUDE_PATTERN}" || true)
+        | grep -Ev "${EXCLUDE_PATTERN}" || true)
 
       FILES=$(echo "$CHANGED_ALL" | grep '\.md$' || true)
 

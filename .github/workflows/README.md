@@ -5,6 +5,7 @@ This directory contains GitHub Actions workflows for the WSTG repository. Helper
 ## Version Information
 
 These workflows use:
+
 - Node.js and Python for various automation tasks
 - GitHub Actions for checkout, setup, artifact management, and API interactions
 
@@ -37,9 +38,10 @@ On failure, those workflows upload `artifact.txt` (attached as `artifact`) with 
 The PR number comes from the `workflow_run` event (not from the artifact).
 
 This workflow:
+
 - Minimizes (collapses) previous comments from the same workflow with appropriate classifiers:
-  - `RESOLVED` when the workflow succeeds (no artifact required)
-  - `OUTDATED` when the workflow fails and a new artifact is available
+    - `RESOLVED` when the workflow succeeds (no artifact required)
+    - `OUTDATED` when the workflow fails and a new artifact is available
 - Only posts NEW comments on failure (not on success)
 - On failure, skips minimize/post if the artifact download fails, so prior feedback is not wiped
 - Uses GitHub Actions for artifact retrieval and PR comment management
@@ -57,6 +59,7 @@ Utility action named "Markdown Lint Check" (same name as `md-lint-check.yml`) th
 Checks Pull Requests for broken links.
 
 This workflow:
+
 - Checks out the **PR head** to the workspace root (provides the composite action files and the PR's content) and the **base branch** (OWASP/wstg `master`) into `base/`
 - Uses the `.github/actions/get-changed-files` composite action with the exact `base.sha`/`head.sha` from the PR event for fork-safe changed-file detection
 - Copies **all** changed files (including images and other assets) into `base/` so link targets exist, then runs the link checker only on changed `.md` files so relative links resolve correctly
@@ -79,6 +82,7 @@ Checks all Markdown files in the repository for broken links.
 Checks Markdown files and flags style or syntax issues.
 
 This workflow:
+
 - Checks out the **PR head** to the workspace root and the **base branch** (OWASP/wstg `master`) into `base/`
 - Uses the `.github/actions/get-changed-files` composite action with the exact `base.sha`/`head.sha` from the PR event for fork-safe changed-file detection, then runs `markdownlint-cli2` only on changed `.md` files
 - Uses `format_lint_output.py` from `base/.github/workflows/scripts/` to format output for PR comments
@@ -94,6 +98,7 @@ This workflow:
 Checks Markdown files for spelling style and typo issues.
 
 This workflow:
+
 - Checks out the **PR head** to the workspace root and the **base branch** (OWASP/wstg `master`) into `base/`
 - Uses the `.github/actions/get-changed-files` composite action with the exact `base.sha`/`head.sha` from the PR event for fork-safe changed-file detection, then runs textlint only on changed `.md` files
 - Config is always taken from `base/` (the base branch), not from the PR
@@ -110,9 +115,9 @@ Publishes the latest web content using the @wstgbot account to
 - Trigger: Push to `master` when `document/**` changes, or manual (`workflow_dispatch`).
 - Copies `document/` into the www repo’s `latest/`, prepends front matter, copies `info.md`.
 - Runs `.github/www/scripts/generate_nav.py` to write:
-  - `_data/latest.yaml` (nested ToC + filter hints)
-  - `_includes/nav-tree-latest.html` (pre-rendered sidebar tree)
-  - Slim chapter-only `latest/README.md` / `index.md` landing ToC
+    - `_data/latest.yaml` (nested ToC + filter hints)
+    - `_includes/nav-tree-latest.html` (pre-rendered sidebar tree)
+    - Slim chapter-only `latest/README.md` / `index.md` landing ToC
 - See: `/.github/www/latest/` and `/.github/www/scripts/README.md`.
 
 ## `www_stable_update.yml`
