@@ -61,3 +61,5 @@
 4.7.21 [Testing for CSV Injection](21-Testing_for_CSV_Injection.md)
 
 4.7.22 [Testing for Prototype Pollution](22-Testing_for_Prototype_Pollution.md)
+
+4.7.23 [Testing for Insecure Deserialization](23-Testing_for_Insecure_Deserialization.md)
