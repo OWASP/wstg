@@ -103,12 +103,17 @@ def rewrite_site_href(href: str, md_path: Path) -> str:
     if href == "README" or href.endswith("/README"):
         href = href[: -len("README")] or "./"
 
-    # Leaf pages render as /path/Page/; sibling images/ is one level up.
+    # Leaf pages render as /path/Page/; relative targets that were siblings in
+    # the repo (same folder .md files, images/) must go up one level.
     if md_path.name.lower() not in ("readme.md", "index.md"):
-        if href.startswith("images/") or href.startswith("./images/"):
-            parent_images = md_path.parent / "images"
-            if parent_images.is_dir():
-                href = "../" + href.removeprefix("./")
+        if href.startswith("./"):
+            href = href[2:]
+        if href and not href.startswith("../") and not href.startswith("/"):
+            href = "../" + href
+
+    # Pretty permalinks expect a trailing slash on directory-style paths.
+    if href and not href.endswith("/") and "." not in Path(href).name:
+        href += "/"
 
     return href + frag
 
