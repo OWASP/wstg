@@ -235,10 +235,18 @@ def generate_yaml(title: str, nodes: list[dict]) -> str:
     return f"docs_list_title: {title}\ndocs:\n\n{body}\n"
 
 
-def chapter_toc_markdown(nodes: list[dict]) -> str:
+def toc_h1_title(readme_text: str) -> str:
+    """Use the channel ToC H1 (e.g. Contents on latest, Table of Contents on older tags)."""
+    for line in readme_text.splitlines():
+        if line.startswith("# "):
+            return line[2:].strip() or "Contents"
+    return "Contents"
+
+
+def chapter_toc_markdown(nodes: list[dict], *, heading: str = "Contents") -> str:
     """Chapter-level ToC for the web landing page (detail lives in the sidebar)."""
     lines = [
-        "# Table of Contents",
+        f"# {heading}",
         "",
         "Use the **WSTG Contents** menu on the right to browse sections and tests. "
         "Chapter landing pages are linked below.",
@@ -366,7 +374,10 @@ def main() -> None:
 
     if args.chapter_toc_out is not None:
         args.chapter_toc_out.parent.mkdir(parents=True, exist_ok=True)
-        args.chapter_toc_out.write_text(chapter_toc_markdown(nodes), encoding="utf-8")
+        args.chapter_toc_out.write_text(
+            chapter_toc_markdown(nodes, heading=toc_h1_title(text)),
+            encoding="utf-8",
+        )
 
 
 if __name__ == "__main__":

@@ -32,10 +32,10 @@ When adding articles and images, please place articles in the appropriate sub-se
 document/
  ├───0_Foreword/
  │   └───0_Foreword.md
- ├───1_Frontispiece/
+ ├───1_About/
  │   ├───images/
  │   │   └───example.jpg
- │   └───1_Frontispiece.md
+ │   └───1_About.md
  ├───2_Introduction/
  │   ├───images/
  │   │   └───example.jpg
