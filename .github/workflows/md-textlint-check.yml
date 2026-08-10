@@ -60,12 +60,12 @@ jobs:
         touch log.txt
         TEXTLINT_FATAL=0
         readarray -t files_arr <<< "$FILES"
-        # All markdown files, excluding .github
+        # All markdown files, excluding .github and website (same as get-changed-files)
         # Use fix flag so that it goes through all files
         # textlint: exit 0 = ok, 1 = rule violations (terminology here), >=2 = fatal (config, parse, etc.)
         for FILE in "${files_arr[@]}"; do
           [ -z "$FILE" ] && continue
-          if printf '%s\n' "$FILE" | grep -q '\.github'; then
+          if printf '%s\n' "$FILE" | grep -Eq '^(\.github/|website/)'; then
             continue
           fi
           textlint --config base/.github/configs/.textlintrc.json --fix "$FILE" 2>&1 | tee -a log.txt

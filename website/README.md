@@ -4,7 +4,7 @@ Preview site for the Web Security Testing Guide. Source guide content lives in
 `../document/` (latest) and release tags (stable / v4.x). This directory is the
 Jekyll shell (VWAD-inspired L&F).
 
-Published preview: https://owasp.github.io/wstg/
+Published preview: [https://owasp.github.io/wstg/](https://owasp.github.io/wstg/)
 
 ## Branch roles
 
@@ -28,7 +28,7 @@ GitHub Pages should deploy from branch **`gh_pages`** / root (not “GitHub Acti
 `/v4.2/` (etc.) for citations. Set `stable_version` in `_config.yml` and
 `CURRENT_STABLE` in `scripts/prepare_site.py` when the current release changes.
 
-Prepare also rewrites markdown for the site: strip `.md` from links, map
+Prepare also rewrites Markdown for the site: strip `.md` from links, map
 `README` → directory URLs, fix sibling `images/` paths on leaf pages, and turn
 `README.md` files into redirects to their directory index.
 
@@ -41,7 +41,7 @@ Generated (do not commit): channel trees under `website/{latest,stable,v4.*,v41,
 
 ## Local serve
 
-From the repo root:
+From the repository root:
 
 ```bash
 ./website/serve.sh

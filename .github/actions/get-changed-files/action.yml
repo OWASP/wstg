@@ -18,11 +18,12 @@ inputs:
     default: ${{ github.repository }}
   exclude_pattern:
     description: Grep pattern for paths to exclude from changed-files output
-    default: '^\.github/'
+    # Guide checks target document/; skip tooling and Jekyll site source.
+    default: '^(\.github/|website/)'
 
 outputs:
   all_changed:
-    description: Newline-separated list of all changed/added non-.github files
+    description: Newline-separated list of all changed/added non-excluded files
     value: ${{ steps.compute.outputs.all_changed }}
   files_updated:
     description: Newline-separated list of changed/added .md files

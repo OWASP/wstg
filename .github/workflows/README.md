@@ -63,6 +63,7 @@ This workflow:
 - Config is always taken from `base/` (the base branch), not from the PR
 
 - Trigger: Pull Requests (when `.md` files are changed, excluding `.github/**`).
+- Changed-file detection also skips `website/` (Jekyll site source: HTML/Liquid templates are not guide Markdown).
 - Config File: `markdown-link-check-config.json`
 
 ## `md-link-check-full.yml`
@@ -70,6 +71,7 @@ This workflow:
 Checks all Markdown files in the repository for broken links.
 
 - Trigger: Manual (`workflow_dispatch`), GitHub web UI.
+- Skips `.github/` and `website/`.
 - Config File: `markdown-link-check-config.json`
 
 ## `md-lint-check.yml`
@@ -84,6 +86,7 @@ This workflow:
 - Config and scripts are always taken from `base/` (the base branch), not from the PR
 
 - Trigger: Pull Requests (when `.md` files are changed, excluding `.github/**`).
+- Changed-file detection also skips `website/`.
 - Config File: `.markdownlint.json`
 
 ## `md-textlint-check.yml`
@@ -96,6 +99,7 @@ This workflow:
 - Config is always taken from `base/` (the base branch), not from the PR
 
 - Trigger: Pull Requests (when `.md` files are changed, excluding `.github/**`).
+- Changed-file detection also skips `website/`.
 - Config File: `.textlintrc`
 
 ## `www_latest_update.yml`
