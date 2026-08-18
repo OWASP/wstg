@@ -1,7 +1,7 @@
 /* WSTG site-specific layout on top of VWAD shell tokens */
 
 html {
-  scroll-padding-top: 7rem;
+  scroll-padding-top: 10rem;
 }
 
 .site-main {
@@ -477,7 +477,7 @@ html {
 .header-link {
   display: inline-flex;
   align-items: center;
-  margin-left: 0.5rem;
+  margin-left: 0.75rem;
   vertical-align: middle;
 }
 
