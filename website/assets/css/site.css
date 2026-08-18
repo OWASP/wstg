@@ -477,7 +477,7 @@ html {
 .header-link {
   display: inline-flex;
   align-items: center;
-  margin-left: 0.75rem;
+  margin-left: 0.5rem;
   vertical-align: middle;
 }
 
