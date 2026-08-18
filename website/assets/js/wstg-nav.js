@@ -92,6 +92,25 @@
     return out;
   }
 
+  function encodeFilterParams(filterValue) {
+    var params = new URLSearchParams();
+    if (filterValue && filterValue.trim()) {
+      params.set('filter', filterValue);
+    }
+    return params.toString();
+  }
+
+  function decodeFilterParams() {
+    var params = new URLSearchParams(window.location.search);
+    return params.get('filter') || '';
+  }
+
+  function updateFilterUrl(filterValue) {
+    var params = encodeFilterParams(filterValue);
+    var newUrl = params ? '?' + params : '?';
+    window.history.replaceState(null, '', newUrl);
+  }
+
   function initNav(nav) {
     var pagePath = normalizePath(window.location.pathname);
     var pageHash = (window.location.hash || "").replace(/^#/, "").toLowerCase();
@@ -158,8 +177,14 @@
 
     var filter = nav.querySelector(".wstg-nav-filter");
     if (filter) {
+      var savedFilterValue = decodeFilterParams();
+      if (savedFilterValue) {
+        filter.value = savedFilterValue;
+        applyFilter(nav, savedFilterValue);
+      }
       filter.addEventListener("input", function () {
         applyFilter(nav, filter.value);
+        updateFilterUrl(filter.value);
       });
     }
 
