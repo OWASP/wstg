@@ -1,5 +1,9 @@
 /* WSTG site-specific layout on top of VWAD shell tokens */
 
+html {
+  scroll-padding-top: 7rem;
+}
+
 .site-main {
   padding: 0 0 3rem;
   min-height: 40vh;
@@ -396,6 +400,11 @@
   color: var(--text);
 }
 
+.wstg-nav-filter:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--link);
+}
+
 .wstg-nav-controls button {
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -462,4 +471,22 @@
 
 .section-home .doc-layout {
   padding-top: 0;
+}
+
+/* Anchor links on headings */
+.header-link {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
+.header-link svg {
+  display: block;
+}
+
+.header-link:focus {
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+  border-radius: var(--radius);
 }
