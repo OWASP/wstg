@@ -16,7 +16,7 @@ CHANNELS = ("latest", "v4.1", "v4.2")
 
 
 def copy_channel_markdown(channel: str) -> int:
-    """Copy all .md files from a channel to _site/md/{channel}/."""
+    """Copy all .md files from a channel to _site/md/{channel}/ as .txt files."""
     source = WEBSITE / channel
     if not source.is_dir():
         return 0
@@ -28,15 +28,15 @@ def copy_channel_markdown(channel: str) -> int:
 
     count = 0
     for md_file in source.rglob("*.md"):
-        # Preserve directory structure
+        # Preserve directory structure, rename .md to .txt for text/plain delivery
         rel = md_file.relative_to(source)
-        dest = dest_base / rel
+        dest = dest_base / rel.with_suffix(".txt")
 
         dest.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(md_file, dest)
         count += 1
 
-    print(f"Copied {count} markdown files to {dest_base.relative_to(SITE)}/")
+    print(f"Copied {count} markdown files to {dest_base.relative_to(SITE)}/ (as .txt)")
     return count
 
 
