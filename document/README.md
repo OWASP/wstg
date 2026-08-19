@@ -1,8 +1,8 @@
-# Table of Contents
+# Contents
 
 ## 0. [Foreword](0-Foreword/README.md)
 
-## 1. [Frontispiece](1-Frontispiece/)
+## 1. [About](1-About/)
 
 ## 2. [Introduction](2-Introduction/)
 
@@ -99,6 +99,8 @@
 #### 4.2.12 [Test for Content Security Policy](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/12-Test_for_Content_Security_Policy.md)
 
 #### 4.2.13 [Test for Path Confusion](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/13-Test_for_Path_Confusion.md)
+
+#### 4.2.14 [Test Other HTTP Security Header Misconfigurations](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/14-Test_Other_HTTP_Security_Header_Misconfigurations.md)
 
 ### 4.3 [Identity Management Testing](4-Web_Application_Security_Testing/03-Identity_Management_Testing/README.md)
 
@@ -238,6 +240,10 @@
 
 #### 4.7.21 [Testing for CSV Injection](4-Web_Application_Security_Testing/07-Input_Validation_Testing/21-Testing_for_CSV_Injection.md)
 
+#### 4.7.22 [Testing for Prototype Pollution](4-Web_Application_Security_Testing/07-Input_Validation_Testing/22-Testing_for_Prototype_Pollution.md)
+
+#### 4.7.23 [Testing for Insecure Deserialization](4-Web_Application_Security_Testing/07-Input_Validation_Testing/23-Testing_for_Insecure_Deserialization.md)
+
 ### 4.8 [Testing for Error Handling](4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/README.md)
 
 #### 4.8.1 [Testing for Improper Error Handling](4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/01-Testing_For_Improper_Error_Handling.md)
@@ -252,7 +258,7 @@
 
 #### 4.9.3 [Testing for Sensitive Information Sent via Unencrypted Channels](4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/03-Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels.md)
 
-#### 4.9.4 [Testing for Weak Encryption](4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/04-Testing_for_Weak_Encryption.md)
+#### 4.9.4 [Testing for Weak Cryptographic Primitives](4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/04-Testing_for_Weak_Cryptographic_Primitives.md)
 
 ### 4.10 [Business Logic Testing](4-Web_Application_Security_Testing/10-Business_Logic_Testing/README.md)
 
@@ -319,6 +325,10 @@
 #### 4.12.1 [API Reconnaissance](4-Web_Application_Security_Testing/12-API_Testing/01-API_Reconnaissance.md)
 
 #### 4.12.2 [API Broken Object Level Authorization](4-Web_Application_Security_Testing/12-API_Testing/02-API_Broken_Object_Level_Authorization.md)
+
+#### 4.12.3 [Testing for Excessive Data Exposure](4-Web_Application_Security_Testing/12-API_Testing/03-Testing_for_Excessive_Data_Exposure.md)
+
+#### 4.12.4 [API Broken Function Level Authorization](4-Web_Application_Security_Testing/12-API_Testing/04-API_Broken_Function_Level_Authorization.md)
 
 #### 4.12.99 [Testing GraphQL](4-Web_Application_Security_Testing/12-API_Testing/99-Testing_GraphQL.md)
 

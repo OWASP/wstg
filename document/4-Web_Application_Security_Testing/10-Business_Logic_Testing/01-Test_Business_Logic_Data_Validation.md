@@ -16,7 +16,9 @@ The frontend and the backend of the application should be verifying and validati
 
 ### Example 1
 
-Suppose you manage a multi-tiered e-commerce site that allows users to order carpet. The user selects their carpet, enters the size, makes the payment, and the frontend application has verified that all entered information is correct and valid for contact information, size, make and color of the carpet. But, the business logic in the background has two paths, if the carpet is in stock it is directly shipped from your warehouse, but if it is out of stock in your warehouse a call is made to a partner’s system and if they have it in-stock they will ship the order from their warehouse and reimbursed by them. What happens if an attacker is able to continue a valid in-stock transaction and send it as out-of-stock to your partner? What happens if an attacker is able to get in the middle and send messages to the partner warehouse ordering carpet without payment?
+Suppose you manage a multi-tiered e-commerce site that allows users to order carpet. The user selects their carpet, enters the size, makes the payment, and the frontend application has verified that all entered information is correct and valid for contact information, size, make and color of the carpet. But, the business logic in the background has two paths, if the carpet is in stock it is directly shipped from your warehouse, but if it is out of stock in your warehouse a call is made to a partner’s system and if they have it in-stock they will ship the order from their warehouse and reimbursed by them.
+
+What happens if an attacker is able to continue a valid in-stock transaction and send it as out-of-stock to your partner? What happens if an attacker is able to get in the middle and send messages to the partner warehouse ordering carpet without payment?
 
 ### Example 2
 
@@ -42,7 +44,9 @@ The bank account to which the payments were directed had only 1000 free transfer
 
 - Review the project documentation and use exploratory testing looking for data entry points or hand off points between systems or software.
 - Once found try to insert logically invalid data into the application/system.
+
 Specific Testing Method:
+
 - Perform frontend GUI Functional Valid testing on the application to ensure that the only "valid" values are accepted.
 - Using an intercepting proxy observe the HTTP POST/GET looking for places that variables such as cost and quantity are passed. Specifically, look for "hand-offs" between application/systems that may be possible injection or tamper points.
 - Once variables are found start interrogating the field with logically "invalid" data, such as social security numbers or unique identifiers that do not exist or that do not fit the business logic. This testing verifies that the server functions properly and does not accept logically invalid data.

@@ -1,7 +1,7 @@
-This PR covers issue #<issue number>.
+<!-- If this PR relates to an issue, mention it here (for example: Fixes #123). An issue is not required. -->
 
-- [ ] This PR handles the issue and requires no additional PRs.
 - [ ] You have validated the need for this change.
+- [ ] If this PR is one of several related changes, note what remains.
 
 **What did this PR accomplish?**
 

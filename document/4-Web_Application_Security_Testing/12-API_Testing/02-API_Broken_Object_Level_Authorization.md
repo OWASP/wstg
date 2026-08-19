@@ -29,7 +29,7 @@ Examples:
 
 With the knowledge gained in the previous step, review and collect third-party object identifiers (e.g. user IDs, orders IDs etc) that can be used subsequently in the object identifiers manipulation.
 
-Additionaly, generate a list of potential object identifiers for brute-force. For example, if an API is retrieving a purchase order from an authenticated user, generate various purchase order IDs for testing.
+Additionally, generate a list of potential object identifiers for brute-force. For example, if an API is retrieving a purchase order from an authenticated user, generate various purchase order IDs for testing.
 
 ### Manipulate Object Identifiers in API Requests
 

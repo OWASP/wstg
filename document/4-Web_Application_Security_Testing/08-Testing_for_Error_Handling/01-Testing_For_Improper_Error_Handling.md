@@ -10,17 +10,18 @@ All types of applications (web apps, web servers, databases, etc.) will generate
 
 Errors sometimes rise as:
 
-- stack traces,
-- network timeouts,
-- input mismatch,
-- and memory dumps.
+- Stack traces
+- Network timeouts
+- Input mismatch
+- Memory dumps
 
 Improper error handling can allow attackers to:
 
 - Understand the APIs being used internally.
 - Map the various services integrating with each other by gaining insight on internal systems and frameworks used, which opens up doors to attack chaining.
 - Gather the versions and types of applications being used.
-- DoS the system by forcing the system into a deadlock or an unhandled exception that sends a panic signal to the engine running it.
+- Identify filesystem paths.
+- Cause a denial off service by forcing the system into a deadlock or an unhandled exception that sends a panic signal to the engine running it.
 - Controls bypass where a certain exception is not restricted by the logic set around the happy path.
 
 ## Test Objectives
@@ -36,7 +37,7 @@ By trying to send unexpected data, or forcing the system into certain edge cases
 
 ### Web Servers
 
-All web apps run on a web server, whether it was an integrated one or a fully fledged one. Web apps must handle and parse HTTP requests, and for that a web server is always part of the stack. Some of the most famous web servers are Nginx, Apache, and IIS.
+All web apps run on a web server, whether it was an integrated one or a fully fledged one. Web apps must handle and parse HTTP requests, and for that a web server is always part of the stack. Some of the most common web servers are Nginx, Apache, and IIS.
 
 Web servers have known error messages and formats. If one is not familiar with how they look, searching online for them would provide examples. Another way would be to look into their documentation, or simply setup a server locally and discover the errors by going through the pages that the web server uses.
 

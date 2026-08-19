@@ -162,6 +162,6 @@ An architectural approach to prevent the issue is to use the *Data Transfer Obje
 
 ## References
 
-- [OWASP: API Security](https://github.com/OWASP/API-Security/blob/master/2019/en/src/0xa6-mass-assignment.md)
+- [OWASP: API Security](https://github.com/OWASP/API-Security/blob/master/editions/2019/en/0xa6-mass-assignment.md)
 - [OWASP: Cheat Sheet Series](https://cheatsheetseries.owasp.org/cheatsheets/Mass_Assignment_Cheat_Sheet.html)
 - [CWE-915: Improperly Controlled Modification of Dynamically-Determined Object Attributes](https://cwe.mitre.org/data/definitions/915.html)

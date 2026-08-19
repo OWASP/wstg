@@ -1,0 +1,37 @@
+---
+layout: default
+---
+{% include project-header.html
+  title=page.project_title
+  subtitle=page.project_subtitle
+  tagline=page.project_tagline %}
+<main id="main-content" class="site-main">
+  <section class="section section-home">
+    <div class="container container-wide">
+      <div class="home-cta-row">
+        <a class="btn btn-secondary" href="{{ site.baseurl }}/latest/">Latest (Dev)</a>
+        <a class="btn btn-primary" href="{{ site.baseurl }}/stable/">Read the Stable Guide</a>
+        <a class="btn btn-secondary" href="https://github.com/OWASP/wstg">Contribute on GitHub</a>
+      </div>
+      <div class="doc-nav-bar">
+        <button type="button" id="doc-nav-toggle" class="doc-nav-toggle" aria-controls="doc-sidebar" aria-expanded="false">
+          <span class="doc-nav-toggle-icon" aria-hidden="true"></span>
+          Versions
+        </button>
+      </div>
+      <div class="doc-layout">
+        <div id="doc-nav-backdrop" class="doc-nav-backdrop" hidden></div>
+        <aside id="doc-sidebar" class="doc-sidebar" aria-label="Versions on This Site">
+          <button type="button" id="doc-nav-close" class="doc-nav-close" aria-label="Close versions">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {% include home-versions-nav.html %}
+        </aside>
+        <article class="doc-content">
+          {{ content }}
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+<script src="{{ site.baseurl }}/assets/js/doc-nav.js" defer></script>

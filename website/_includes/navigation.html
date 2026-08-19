@@ -1,0 +1,19 @@
+{% assign collection = include.collection | default: page.collection_name | default: "latest" %}
+{% assign nav = site.data[collection] %}
+{% assign channel_path = page.channel_path | default: collection %}
+<nav class="wstg-nav" id="wstg-nav-{{ collection }}" aria-label="{{ nav.docs_list_title | default: 'WSTG Contents' | escape }}">
+  <p class="wstg-nav-home"><a href="{{ site.baseurl }}/">← Home</a></p>
+  <h2 class="wstg-nav-title"><a href="{{ site.baseurl }}/{{ channel_path }}/">{{ nav.docs_list_title | default: "WSTG Contents" }}</a></h2>
+  <label class="visually-hidden" for="wstg-nav-filter-{{ collection }}">Filter contents</label>
+  <input id="wstg-nav-filter-{{ collection }}" class="wstg-nav-filter" type="search" placeholder="Filter (XSS, sqli, WSTG-INPV-01, 4.7)" autocomplete="off">
+  <div class="wstg-nav-controls">
+    <button type="button" data-wstg-expand>Expand All</button>
+    <button type="button" data-wstg-collapse>Collapse All</button>
+  </div>
+  <ul class="wstg-nav-list">
+    {% capture tree_include %}nav-tree-{{ collection }}.html{% endcapture %}
+    {% include {{ tree_include }} %}
+  </ul>
+</nav>
+<script src="{{ site.baseurl }}/assets/js/wstg-nav.js" defer></script>
+<script src="{{ site.baseurl }}/assets/js/anchor-links.js" defer></script>

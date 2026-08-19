@@ -25,7 +25,7 @@ JWTs are made up of three components:
 - The payload (or body)
 - The signature
 
-Each component is base64 encoded, and they are separated by periods (`.`). Note that the base64 encoding used in a JWT strips out the equals signs (`=`), so you may need to add these back in to decode the sections.
+Each component is base64 encoded, and they are separated by periods (`.`). Keep in mind the base64 encoding used in a JWT strips out the equals signs (`=`), so you may need to add these back in to decode the sections.
 
 ### Analyse the Contents
 
@@ -65,7 +65,7 @@ The payload of the JWT contains the actual data. An example payload is shown bel
 
 The payload is it not usually encrypted, so review it to determine whether there is any sensitive of potentially inappropriate data included within it.
 
-This JWT includes the username and administrative status of the user, as well as two standard claims (`iat` and `exp`). These claims are defined in [RFC 5719](https://tools.ietf.org/html/rfc7519#section-4.1), a brief summary of them is given in the table below:
+This JWT includes the username and administrative status of the user, as well as two standard claims (`iat` and `exp`). These claims are defined in [RFC 7519](https://tools.ietf.org/html/rfc7519#section-4.1), a brief summary of them is given in the table below:
 
 | Claim | Full Name | Description |
 |-------|-----------|-------------|

@@ -16,70 +16,66 @@ jobs:
   create_pr:
     name: Create Pull Request
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
     - name: Setup Action
-      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         persist-credentials: false
-    - name: Setup Node
-      uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6
-      with:
-        node-version: 24
-    - name: Install Dependencies
-      run: |
-        sudo apt update
-        sudo apt install moreutils
-    - name: Generate JSON Checklist
-      run: |
-        npm run-script jsongen
-        git update-index -q --refresh
-        if ! git diff-index --quiet HEAD --; then
-          echo "CHANGED=true" >> $GITHUB_ENV
-        fi
     - name: Setup Python
-      if: env.CHANGED == 'true'
-      uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6
+      uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
       with:
         python-version: "3.10"
     - name: Install Dependencies
       run: |
         pip install openpyxl pydrive
+    - name: Generate JSON Checklist
+      run: |
+        python3 ./.github/json/scripts/generate_checklist_json.py
+        git update-index -q --refresh
+        if ! git diff-index --quiet HEAD --; then
+          echo "CHANGED=true" >> "$GITHUB_ENV"
+        fi
     - name: Run XLSX Build
       if: env.CHANGED == 'true'
-      run: npm run-script xlsxgen
+      run: python3 ./.github/xlsx/scripts/build-checklist.py
     - name: Git Setup Global Config
       if: env.CHANGED == 'true'
       run: |
         # Git setup
         export GITHUB_USER=wstgbot
-        echo "GITHUB_USER=$GITHUB_USER" >> $GITHUB_ENV
-        echo "GITHUB_TOKEN=${{ secrets.wstg_deploy_token }}" >> $GITHUB_ENV
+        echo "GITHUB_USER=$GITHUB_USER" >> "$GITHUB_ENV"
         git config --global user.email "62450690+wstgbot@users.noreply.github.com"
-        git config --global user.name $GITHUB_USER
+        git config --global user.name "$GITHUB_USER"
     - name: Setup Environment Variables
       if: env.CHANGED == 'true'
-      run : |
+      run: |
         # Setup some env vars etc for future use
-        echo "SRC_BASE="OWASP/wstg@"$(git log -1 --format=format:%h)" >> $GITHUB_ENV
-        echo "BRANCH_STAMP=$(date +"%Y%m%d%H%M%S")" >> $GITHUB_ENV
-        echo "SHORT_DATE=$(date +"%Y-%m-%d")" >> $GITHUB_ENV
+        echo "SRC_BASE=OWASP/wstg@$(git log -1 --format=format:%h)" >> "$GITHUB_ENV"
+        echo "BRANCH_STAMP=$(date +"%Y%m%d%H%M%S")" >> "$GITHUB_ENV"
+        echo "SHORT_DATE=$(date +"%Y-%m-%d")" >> "$GITHUB_ENV"
     - name: Create Feature Branch
       if: env.CHANGED == 'true'
       run: |
         # Checkout what will be the new feature branch
-        git checkout -b $BRANCH_STAMP
+        git checkout -b "$BRANCH_STAMP"
     - name: Push Feature Branch and Raise PR
       if: env.CHANGED == 'true'
+      env:
+        GH_TOKEN: ${{ secrets.wstg_deploy_token }}
       run: |
         # If there are changes: add, commit, PR
+        gh auth setup-git
         git add checklists/
         if ! git diff-index --quiet HEAD --; then
-          git remote set-url origin https://$GITHUB_USER:${{ secrets.wstg_deploy_token }}@github.com/OWASP/wstg.git
+          git remote set-url origin "https://github.com/OWASP/wstg.git"
           git commit -m "Publish Latest checklists $SHORT_DATE" -m "Updates based on $SRC_BASE"
-          git push --set-upstream origin $BRANCH_STAMP
+          git push --set-upstream origin "$BRANCH_STAMP"
           gh pr create -R OWASP/wstg --fill
         fi
     - name: Set XLSX Publishing Secrets
+      if: env.CHANGED == 'true'
       run: |
         echo "$GDRIVECREDSFILE" | base64 -d > credentials.json
         echo "$GDRIVESETTINGSFILE" | base64 -d > settings.yaml
@@ -88,6 +84,14 @@ jobs:
         GDRIVECREDSFILE: ${{ secrets.GDRIVECREDSFILE }}
         GDRIVESETTINGSFILE: ${{ secrets.GDRIVESETTINGSFILE }}
     - name: Publish XLSX file to Google Drive
+      if: env.CHANGED == 'true'
+      env:
+        GDRIVE_FILE_ID: ${{ secrets.GDRIVEFILEID }}
+        VERSION: ${{ github.event.inputs.version }}
       run: |
-        npm run-script publishxlsx --  ${{ secrets.GDRIVEFILEID }}  ${{ github.event.inputs.version }}
+        if [ -n "$VERSION" ]; then
+          python3 ./.github/xlsx/scripts/upload-to-google-drive.py "$GDRIVE_FILE_ID" "$VERSION"
+        else
+          python3 ./.github/xlsx/scripts/upload-to-google-drive.py "$GDRIVE_FILE_ID"
+        fi
 

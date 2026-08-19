@@ -12,7 +12,7 @@ The DOM, or [Document Object Model](https://en.wikipedia.org/wiki/Document_Objec
 
 Not all XSS bugs require the attacker to control the content returned from the server, but can instead abuse poor JavaScript coding practices to achieve the same results. The consequences are the same as a typical XSS flaw, only the means of delivery is different.
 
-In comparison to other types of cross site scripting vulnerabilities ([reflected and stored](https://owasp.org/www-community/attacks/xss/), where an un-sanitized parameter is passed by the server then returned to the user and executed in the context of the user's browser, a DOM-based XSS vulnerability controls the flow of the code by using elements of the Document Object Model (DOM) along with code crafted by the attacker to change the flow.
+In comparison to other types of cross site scripting vulnerabilities ([reflected and stored](https://owasp.org/www-community/attacks/xss/), where an un-sanitized parameter is passed by the server then returned to the user and executed in the context of the user's browser), a DOM-based XSS vulnerability controls the flow of the code by using elements of the Document Object Model (DOM) along with code crafted by the attacker to change the flow.
 
 Due to their nature, DOM-based XSS vulnerabilities can be executed in many instances without the server being able to determine what is actually being executed. This may make many of the general XSS filtering and detection techniques impotent to such attacks.
 

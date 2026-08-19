@@ -6,50 +6,87 @@ on:
     types:
       - completed
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   comment:
-    permissions:
-     contents: read
-     pull-requests: write
-         
     runs-on: ubuntu-latest
+    if: >-
+      github.event.workflow_run.event == 'pull_request' &&
+      (github.event.workflow_run.conclusion == 'success' ||
+       github.event.workflow_run.conclusion == 'failure')
     steps:
       - name: Download Artifact
         id: download-artifact
+        if: github.event.workflow_run.conclusion == 'failure'
         continue-on-error: true
-        uses: actions/download-artifact@70fc10c6e5e1ce46ad2ea6f2b72d43f7d47b13c3 # v8.0.0
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: artifact
           github-token: ${{ secrets.GITHUB_TOKEN }}
           run-id: ${{ github.event.workflow_run.id }}
-      
+          path: ${{ runner.temp }}/artifact
+
       - name: Manage PR Comments
-        if: steps.download-artifact.outcome == 'success'
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          ARTIFACT_DIR: ${{ runner.temp }}/artifact
+          DOWNLOAD_OUTCOME: ${{ steps.download-artifact.outcome }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
-            
-            // Read PR number and validate
-            let issue_number;
-            try {
-              issue_number = Number(fs.readFileSync('./pr_number', 'utf8').trim());
-            } catch (error) {
-              console.log('Could not read PR number, skipping comment management');
+            const path = require('path');
+
+            const conclusion = context.payload.workflow_run.conclusion;
+            const downloadOk = process.env.DOWNLOAD_OUTCOME === 'success';
+
+            // On failure, only minimize/post when the new artifact is available.
+            // Otherwise keep the prior comment so feedback is not wiped.
+            if (conclusion === 'failure' && !downloadOk) {
+              console.log('Failure run but artifact download failed; skipping minimize and post');
               return;
             }
-            
-            // Validate PR number
-            if (!issue_number || issue_number < 1 || !Number.isInteger(issue_number)) {
-              console.log(`Invalid PR number: ${issue_number}`);
+
+            // Resolve PR number: workflow_run.pull_requests is often empty (forks / timing).
+            // Fall back to API lookups using trusted workflow_run head metadata (not artifacts).
+            const workflowRun = context.payload.workflow_run;
+            let issue_number = (workflowRun.pull_requests || [])[0]?.number;
+
+            if (!issue_number) {
+              const { data: associated } = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                commit_sha: workflowRun.head_sha,
+              });
+              const openAssociated = associated.find((p) => p.state === 'open');
+              issue_number = openAssociated?.number;
+            }
+
+            if (!issue_number && workflowRun.head_repository?.owner?.login && workflowRun.head_branch) {
+              const head = `${workflowRun.head_repository.owner.login}:${workflowRun.head_branch}`;
+              const { data: listed } = await github.rest.pulls.list({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                state: 'open',
+                head,
+                per_page: 10,
+              });
+              const match = listed.find((p) => p.head.sha === workflowRun.head_sha);
+              issue_number = match?.number;
+            }
+
+            if (!Number.isInteger(issue_number) || issue_number < 1) {
+              console.log(`Could not resolve PR for head ${workflowRun.head_sha}; skipping`);
               return;
             }
-            
+
             // Determine workflow identifier based on the triggering workflow
             const workflowName = context.payload.workflow_run.name;
             const workflowIdentifier = `<!-- workflow-comment: ${workflowName} -->`;
-            
+
             // Minimize previous comments from this workflow
             try {
               // Get all comments on the PR (paginate to handle more than one page)
@@ -62,7 +99,7 @@ jobs:
                   per_page: 100,
                 }
               );
-              
+
               // Find comments from this workflow authored by the GitHub Actions bot
               const workflowComments = comments.filter(comment =>
                 comment.body &&
@@ -70,10 +107,10 @@ jobs:
                 comment.user &&
                 comment.user.login === 'github-actions[bot]'
               );
-              
+
               // Minimize each previous comment with appropriate classifier
-              const classifier = context.payload.workflow_run.conclusion === 'success' ? 'RESOLVED' : 'OUTDATED';
-              
+              const classifier = conclusion === 'success' ? 'RESOLVED' : 'OUTDATED';
+
               for (const comment of workflowComments) {
                 try {
                   // Use GraphQL API to minimize comment with parameterized query
@@ -98,19 +135,32 @@ jobs:
             } catch (error) {
               console.log(`Error managing previous comments: ${error.message}`);
             }
-            
+
             // Post new comment only on failure
-            if (context.payload.workflow_run.conclusion === 'failure') {
+            if (conclusion === 'failure') {
               try {
                 // Check if artifact.txt exists before reading
-                if (!fs.existsSync('./artifact.txt')) {
+                const artifactPath = path.join(process.env.ARTIFACT_DIR, 'artifact.txt');
+                if (!fs.existsSync(artifactPath)) {
                   console.log('artifact.txt not found, skipping comment post');
                   return;
                 }
-                
-                const artifactString = fs.readFileSync('./artifact.txt', 'utf8').trimEnd();
+
+                const MAX_ARTIFACT_CHARS = 60000;
+                let artifactString = fs.readFileSync(artifactPath, 'utf8');
+                // Strip C0 controls except tab/LF/CR
+                artifactString = artifactString.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '');
+                artifactString = artifactString.trimEnd();
+                if (artifactString.length > MAX_ARTIFACT_CHARS) {
+                  artifactString = artifactString.slice(0, MAX_ARTIFACT_CHARS) + '\n\n…(truncated)';
+                }
+                if (!artifactString) {
+                  console.log('artifact.txt empty after sanitization, skipping comment post');
+                  return;
+                }
+
                 const commentBody = `${workflowIdentifier}\n${artifactString}`;
-                
+
                 await github.rest.issues.createComment({
                   owner: context.repo.owner,
                   repo: context.repo.repo,

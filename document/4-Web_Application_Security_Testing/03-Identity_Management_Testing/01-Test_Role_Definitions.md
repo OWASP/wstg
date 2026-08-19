@@ -8,10 +8,10 @@
 
 Applications have several types of functionalities and services, and those require access permissions based on the needs of the user. That user could be:
 
-- an administrator, where they manage the application functionalities.
-- an auditor, where they review the application transactions and provide a detailed report.
-- a support engineer, where they help customers debug and fix issues on their accounts.
-- a customer, where they interact with the application and benefit from its services.
+- An administrator, where they manage the application functionalities.
+- An auditor, where they review the application transactions and provide a detailed report.
+- A support engineer, where they help customers debug and fix issues on their accounts.
+- A customer, where they interact with the application and benefit from its services.
 
 In order to handle these uses and any other use case for that application, role definitions are setup (more commonly known as [RBAC](https://en.wikipedia.org/wiki/Role-based_access_control)). Based on these roles, the user is capable of accomplishing the required task.
 
@@ -31,22 +31,24 @@ The tester should start by identifying the application roles being tested throug
 - Guidance by the developers or administrators of the application.
 - Application comments.
 - Fuzz possible roles:
-    - cookie variable (*e.g.* `role=admin`, `isAdmin=True`)
-    - account variable (*e.g.* `Role: manager`)
-    - hidden directories or files (*e.g.* `/admin`, `/mod`, `/backups`)
-    - switching to well known users (*e.g.* `admin`, `backups`, etc.)
+    - Cookie variable (*e.g.* `role=admin`, `isAdmin=True`)
+    - Account variable (*e.g.* `Role: manager`)
+    - Hidden directories or files (*e.g.* `/admin`, `/mod`, `/backups`)
+    - Switching to well known users (*e.g.* `admin`, `backups`, etc.)
 
 ### Switching to Available Roles
 
 After identifying possible attack vectors, the tester needs to test and validate that they can access the available roles.
 
-> Some applications define the roles of the user on creation, through rigorous checks and policies, or by ensuring that the user's role is properly protected through a signature created by the backend. Finding that roles exist doesn't mean that they're a vulnerability.
+> Note: Some applications define the roles of the user on creation, through rigorous checks and policies, or by ensuring that the user's role is properly protected through a signature created by the backend. Finding that roles exist doesn't mean that they're a vulnerability.
 
 ### Review Roles Permissions
 
 After gaining access to the roles on the system, the tester must understand the permissions provided to each role.
 
-A support engineer shouldn't be able to conduct administrative functionalities, manage the backups, or conduct any transactions in the place of a user.
+For example, a support engineer generally shouldn't be able to conduct administrative functionalities, manage the backups, or conduct any transactions in the place of a user.
+
+Users should also not be able to perform actions that increase their own privileges (such as adding themselves to a more privileged role) outside of very specific circumstances.
 
 An administrator shouldn't have full powers on the system. Sensitive admin functionality should leverage a maker-checker principle, or use MFA to ensure that the administrator is conducting the transaction. A clear example on this was the [Twitter incident in 2020](https://blog.twitter.com/en_us/topics/company/2020/an-update-on-our-security-incident.html).
 

@@ -18,7 +18,7 @@ APIs can be public or private.
 
 Public APIs typically have their details published in a Swagger/OpenAPI document. Gaining access to this document is important to understand the attack surface. Equally important is finding older versions of this document that might show deprecated but still functional code that may have security vulnerabilities.
 
-Keep in mind that this document, however well intentioned, may not be accurate, and also may not dislose the complete API.
+Keep in mind that this document, however well intentioned, may not be accurate, and also may not disclose the complete API.
 
 Public APIs may also be documented on shared libraries or directories of APIs.
 
@@ -36,7 +36,7 @@ The visibility of private APIs depends on who the intended consumer is. An API c
 
 ### Find the Documentation
 
-In both public and private cases, the API documentation will be useful based on its level of the quality and accurracy. Public API documentaton is typically shared with everyone whereas private API documentation is only shared with the intended client. However, in both cases finding documentation, accidentally leaked or otherwise will be helpfull in your investigation.
+In both public and private cases, the API documentation will be useful based on its level of the quality and accuracy. Public API documentation is typically shared with everyone whereas private API documentation is only shared with the intended client. However, in both cases finding documentation, accidentally leaked or otherwise will be helpfull in your investigation.
 
 Regardless of the visibility of the API, searching for API documentation can find older, not-yet-published, or accidentally leaked API documentation. This documentation will be very helpfull in understanding what the attack surface the API exposes.
 
@@ -80,7 +80,7 @@ Even if you have the API documentation browsing the application is a good idea. 
 
 Browsing the application with an intercepting proxy such as ZAP or Burp Suite records endpoints for later inspection. In addition, using their built-in spidering functionality, intercepting proxies can help generate a comprehensive list of endpoints. From the spidered URLs look for links with obvious API URL naming schemes. These include:
 
-- `https://example.com/api/v1` (or v2 etc)
+- `https://example.com/api/v1` (or v2 etc)  
 - `https://example.com/graphql`
 
 Or subdomains the the applications may consume or depend upon:
@@ -90,6 +90,18 @@ Or subdomains the the applications may consume or depend upon:
 It is important that the pentester attempts to exercise as much functionality in the application as possible. This is not only to generate a comprehensive list of endpoints but also to avoid issues with lazy loading and code splitting. In addition, your pentest engagement should include sample accounts at different privilege levels so that your browser and spidering can access and expose endpoints for as much functionality as possible.
 
 Once completed, the endpoint information obtained from browsing and spidering of the application can help the pentester compose API documentation of the target using other tools such as Postman.
+
+### Analyze Intercepted Requests
+
+When auditing REST APIs, use an interception proxy to collect full HTTP requests. REST services utilize more than just URL parameters, so capturing the complete request body and headers is critical.
+
+Analyze the collected requests to identify non-standard or hidden parameters:
+
+- Identify HTTP headers that influence application behavior or resource selection.
+- Determine if a URL segment has a repeating pattern across multiple URLs. Patterns containing dates, numbers, or identifier values may indicate a URL-embedded parameter. For example, in the URL `https://api.example.com/user/2026-10-03/profile`, the date segment may represent a parameter value.
+- Identify structured parameter values formatted in JSON, XML, or other custom structures.
+- Examine the final element of a URL. If it lacks a file extension, it may be a parameter.
+- Look for highly varying URL segments. If a single segment changes frequently across hundreds of requests, it is more likely to represent a parameter value than a static path component.
 
 ### Google Dorking
 
@@ -123,7 +135,7 @@ An excellent source of API and other information is the HTML and JavaScript that
 
 There are a variety of tools that we can use to help us extract sensitive information from JavaScript transmitted to the browser. These tools are typically based on one of two approaches: Regular Expressions or Abstract Syntax Trees (AST). Then there are generalized tools that help us organize or manage JS files for investigation by AST and Regular Expression tools.
 
-Regex is more straightforward by searching JS or HTML content for known patterns. However, this approach can miss content not explicitly identified in the Regular Expression. Given the structure of some JS this approach can miss a lot. ASTs on the other hand are tree-like structures that represent the syntax of source code. Each node in the tree corresponds to a part of the code. For JavaScript, an AST breaks the code into basic components, allowing tools and compilers to understand and modify the code easily.
+Regular expression is more straightforward by searching JS or HTML content for known patterns. However, this approach can miss content not explicitly identified in the Regular Expression. Given the structure of some JS this approach can miss a lot. ASTs on the other hand are tree-like structures that represent the syntax of source code. Each node in the tree corresponds to a part of the code. For JavaScript, an AST breaks the code into basic components, allowing tools and compilers to understand and modify the code easily.
 
 #### General Tools
 
@@ -171,7 +183,7 @@ kr scan https://example.com/api -w /usr/share/wordlists/apis/routes-large.kite -
 
 All three of FFUF, DirBuster, and GoBuster are designed to discover hidden paths and files on web servers through brute-forcing techniques. All three use customizable wordlists to generate requests to the target web server, attempting to identify valid directories and files. All three support multi-threaded or highly efficient processing to speed up the brute-forcing process.
 
-Some common wordlist files for APIs include: [SecLists](https://github.com/danielmiessler/SecLists) in the Discovery/Web-Content/api section, [GraphQL Wordlist](https://github.com/Escape-Technologies/graphql-wordlist), and [Assetnote](https://wordlists.assetnote.io/).
+Some common wordlist files for APIs include: [SecLists](https://github.com/danielmiessler/SecLists) in the Discovery/Web-Content/API section, [GraphQL Wordlist](https://github.com/Escape-Technologies/graphql-wordlist), and [Assetnote](https://wordlists.assetnote.io/).
 
 GoBuster Example:
 

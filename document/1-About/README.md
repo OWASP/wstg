@@ -1,16 +1,16 @@
-# Frontispiece
+# About
 
 ## Welcome
 
 > As we focus on incremental improvement, this release introduces numerous updates. We've standardized scenario formats to create a better reading experience, added objectives for each testing scenario, merged sections, and added new scenarios on some modern testing topics.
 >
-> — Rick Mitchell
+> - Rick Mitchell
 
 OWASP thanks the many authors, reviewers, and editors for their hard work in bringing this guide to where it is today. If you have any comments or suggestions on the Testing Guide, please feel free to open an Issue or submit a fix/contribution via Pull Request to our [GitHub repository](https://github.com/OWASP/wstg/).
 
 ## Copyright and Licensee
 
-Copyright (c) 2025 The OWASP Foundation.
+Copyright © 2026 The OWASP® Foundation.
 
 This document is released under the [Creative Commons 4.0 License](https://creativecommons.org/licenses/by-sa/4.0/). Please read and understand the license and copyright conditions.
 
@@ -28,6 +28,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 
 - Aaron Williams
 - Alessia Michela Di Campi
+- Alexander Bas
 - Elie Saad
 - Felix Sieges
 - Himasree Kolathur
@@ -40,6 +41,8 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Manh Pham Tien
 - Mark Clayton
 - Meysam Bal-afkan
+- Mohamed Bassia (0xBassia)
+- Mohammad Hossein Sadeghian
 - Omar Jezi
 - Or Asaf
 - Phu Nguyen (Tony)

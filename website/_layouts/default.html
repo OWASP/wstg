@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include head.html %}
+</head>
+<body id="top" class="page-{{ page.layout | default: 'default' }}">
+  <div class="skip-links">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="#page-end" class="skip-link">Skip to bottom of page</a>
+  </div>
+  {% include header.html %}
+  {{ content }}
+  {% include footer.html %}
+  <script src="{{ site.baseurl }}/assets/js/theme.js" defer></script>
+</body>
+</html>

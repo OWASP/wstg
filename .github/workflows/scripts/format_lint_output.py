@@ -153,7 +153,7 @@ def format_file_block(block: Dict) -> str:
         Formatted file block as markdown
     """
     output = []
-    output.append(f"### `{block['file']}`\n")
+    output.append(f"#### `{block['file']}`\n")
     output.append(f"**Errors:** {block['count']}\n")
     
     for error in block['errors']:
@@ -175,7 +175,7 @@ def generate_formatted_output(file_blocks: List[Dict], total_error_count: int) -
         Formatted markdown output
     """
     output = []
-    output.append("## 📝 Markdown Linting Issues\n")
+    output.append("### 📝 Markdown Linting Issues\n")
     
     # Compute actual total from file_blocks as fallback if Summary parsing failed
     actual_total = sum(block['count'] for block in file_blocks)

@@ -78,9 +78,10 @@ The following examples can be used.
 `https://<webmail>/src/read_body.php?passed_id=46106&startMessage=1`
 
 The final result of the above testing gives the tester three possible situations:
-S1 - The application returns a error code/message
-S2 - The application does not return an error code/message, but it does not realize the requested operation
-S3 - The application does not return an error code/message and realizes the operation requested normally
+
+1. The application returns a error code/message
+2. The application does not return an error code/message, but it does not realize the requested operation
+3. The application does not return an error code/message and realizes the operation requested normally
 
 Situations S1 and S2 represent successful IMAP/SMTP injection.
 

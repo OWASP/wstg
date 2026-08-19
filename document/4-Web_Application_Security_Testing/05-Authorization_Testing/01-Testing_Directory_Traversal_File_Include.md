@@ -54,7 +54,7 @@ Here are some examples of the checks to be performed at this stage:
 
 The next stage of testing is analyzing the input validation functions present in the web application. Using the previous example, the dynamic page called `getUserProfile.jsp` loads static information from a file and shows the content to users. An attacker could insert the malicious string `../../../../etc/passwd` to include the password hash file of a Linux/UNIX system. Obviously, this kind of attack is possible only if the validation checkpoint fails; according to the file system privileges, the web application itself must be able to read the file.
 
-**Note:** To successfully test for this flaw, the tester needs to have knowledge of the system being tested and the location of the files being requested. There is no point requesting `/etc/passwd` from an IIS web server.
+> Note: To successfully test for this flaw, the tester needs to have knowledge of the system being tested and the location of the files being requested. There is no point requesting `/etc/passwd` from an IIS web server.
 
 ```text
 https://example.com/getUserProfile.jsp?item=../../../../etc/passwd
@@ -120,7 +120,7 @@ When the analysis is performed with a gray-box testing approach, testers have to
 
 Using online code search engines (e.g., [Searchcode](https://searchcode.com/)), it may also be possible to find path traversal flaws in Open Source software published on the internet.
 
-For PHP, testers can use the following regex:
+For PHP, testers can use the following regular expression:
 
 ```text
 (include|require)(_once)?\s*['"(]?\s*\$_(GET|POST|COOKIE)

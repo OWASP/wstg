@@ -79,8 +79,9 @@ Some applications block references to `localhost` and `127.0.0.1`. This can be c
     - Decimal notation: `2130706433`
     - Octal notation: `017700000001`
     - IP shortening: `127.1`
+    - Alternative IPs treated as loopback: `127.0.0.2`
 - String obfuscation
-- Registering your own domain that resolves to `127.0.0.1`
+- Creating a public DNS on a domain you own that resolves to `127.0.0.1`
 
 Sometimes the application allows input that matches a certain expression, like a domain. That can be circumvented if the URL schema parser is not properly implemented, resulting in attacks similar to [semantic attacks](https://tools.ietf.org/html/rfc3986#section-7.6).
 

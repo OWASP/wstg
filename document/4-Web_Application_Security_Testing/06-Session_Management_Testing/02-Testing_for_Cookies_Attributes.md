@@ -47,7 +47,7 @@ The [`HttpOnly`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-C
 
 The [`Domain`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#Scope_of_cookies) attribute is used to compare the cookie's domain against the domain of the server for which the HTTP request is being made. If the domain matches or if it is a subdomain, then the [`path`](#path-attribute) attribute will be checked next.
 
-Note that only hosts that belong to the specified domain can set a cookie for that domain. Additionally, the `domain` attribute cannot be a top level domain (such as `.gov` or `.com`) to prevent servers from setting arbitrary cookies for another domain (such as setting a cookie for `owasp.org`). If the domain attribute is not set, then the hostname of the server that generated the cookie is used as the default value of the `domain`.
+Only hosts that belong to the specified domain can set a cookie for that domain. Additionally, the `domain` attribute cannot be a top level domain (such as `.gov` or `.com`) to prevent servers from setting arbitrary cookies for another domain (such as setting a cookie for `owasp.org`). If the domain attribute is not set, then the hostname of the server that generated the cookie is used as the default value of the `domain`.
 
 For example, if a cookie is set by an application at `app.mydomain.com` with no domain attribute set, then the cookie would be resubmitted for all subsequent requests for `app.mydomain.com`, but not its subdomains (such as `hacker.app.mydomain.com`), or to `otherapp.mydomain.com`. (However, older versions of Edge/IE behave differently, and _do_ send these cookies to subdomains.) If a developer wanted to loosen this restriction, then they could set the `domain` attribute to `mydomain.com`. In this case the cookie would be sent to all requests for `app.mydomain.com` and `mydomain.com` subdomains, such as `hacker.app.mydomain.com`, and even `bank.mydomain.com`. If there was a vulnerable server on a subdomain (for example, `otherapp.mydomain.com`) and the `domain` attribute has been set too loosely (for example, `mydomain.com`), then the vulnerable server could be used to harvest cookies (such as session tokens) across the full scope of `mydomain.com`.
 
@@ -84,7 +84,9 @@ The `Strict` value is the most restrictive usage of `SameSite`, allowing the bro
 
 ##### Lax Value
 
-The `Lax` value is less restrictive than `Strict`. The cookie will be sent if the URL equals the cookie’s domain (first-party) even if the link is coming from a third-party domain. This value is considered by most browsers the default behavior since it provides a better user experience than the `Strict` value. It doesn't trigger for assets, such as images, where cookies might not be needed to access them.
+The `Lax` value is less restrictive than `Strict`. It allows the cookie to be sent on cross-site _top-level navigations_ that use a "safe" HTTP method (in practice, `GET`) - for example, when a user follows a link from another site. It does __not__ send the cookie on cross-site _subresource_ requests, such as those triggered by `<img>`, `<script>`, or `<iframe>` tags, `fetch()`, or `XMLHttpRequest`, and it does not send the cookie on cross-site navigations that use `POST` or other unsafe methods.
+
+Starting in early 2020, Chromium-based browsers (Chrome, Edge, Opera) treat any cookie set __without__ an explicit `SameSite` attribute as `SameSite=Lax` by default. Firefox and Safari do not apply that default. In those browsers a cookie that omits `SameSite` remains eligible to be sent on cross-site requests, subject instead to their own tracking-prevention and third-party-cookie controls (Firefox's Enhanced Tracking Protection / Total Cookie Protection, Safari's Intelligent Tracking Prevention). Note that omitting the attribute is not the same as setting [`SameSite=None`](#none-value), which is an explicit value that additionally requires the [`Secure`](#secure-attribute) attribute in order to be accepted. Those tracking-prevention controls are privacy mechanisms rather than a substitute for setting `SameSite`, and they behave differently from an explicit `SameSite=Lax` restriction. Testers should not assume a cookie is protected against CSRF just because a cross-site request appears to be blocked in Firefox or Safari - verify the actual `Set-Cookie` header rather than inferring protection from observed browser behavior.
 
 ##### None Value
 
@@ -132,7 +134,7 @@ Putting all this together, we can define the most secure cookie attribute config
 
 ### Browser Plug-in
 
-- [Tamper Data for FF Quantum](https://addons.mozilla.org/en-US/firefox/addon/tamper-data-for-ff-quantum/)
+- Browser developer tools (Application or Storage panel)
 - ["FireSheep" for FireFox](https://github.com/codebutler/firesheep)
 - ["EditThisCookie" for Chrome](https://chrome.google.com/webstore/detail/editthiscookie/fngmhnnpilhplaeedifhccceomclgfbg?hl=en)
 - ["Cookiebro - Cookie Manager" for FireFox](https://addons.mozilla.org/en-US/firefox/addon/cookiebro/)

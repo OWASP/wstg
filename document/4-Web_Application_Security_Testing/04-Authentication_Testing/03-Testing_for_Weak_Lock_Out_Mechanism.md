@@ -8,8 +8,9 @@
 
 Account lockout mechanisms are used to mitigate brute force attacks. Some of the attacks that can be defeated by using lockout mechanism:
 
-- Login password or username guessing attack.
-- Code guessing on any 2FA functionality or Security Questions.
+- Password guessing or brute-force attacks.
+- Security question guessing.
+- OTP code guessing for two-factor authentication (2FA/MFA).
 
 Account lockout mechanisms require a balance between protecting accounts from unauthorized access and protecting users from being denied authorized access. Accounts are typically locked after 3 to 5 unsuccessful attempts and can only be unlocked after a predetermined period of time, via a self-service unlock mechanism, or intervention by an administrator.
 
@@ -21,6 +22,38 @@ Despite it being easy to conduct brute force attacks, the result of a successful
 - Evaluate the unlock mechanism's resistance to unauthorized account unlocking.
 
 ## How to Test
+
+### Testing Credential Stuffing and Distributed Brute Force
+
+Credential stuffing uses previously leaked username and password pairs from data breaches to gain unauthorized access to accounts. Distributed brute force and password spraying send many authentication attempts from multiple IP addresses. Both can bypass lockout mechanisms that only count failures per IP.
+
+Many applications lock accounts based solely on repeated login attempts from a single IP address. Attackers avoid that control by spreading requests across botnets or rotating proxies.
+
+Verify whether the application uses account-based protections, not only IP-based restrictions, when handling these attacks.
+
+1. Obtain a controlled set of test accounts and credentials that you are authorized to use. For credential stuffing, use known username and password pairs. For distributed brute force or password spraying, use a password list against one or more test usernames.
+2. Send authentication requests with those credentials.
+3. Distribute the attempts across multiple IP addresses using proxies or VPN endpoints.
+4. Observe whether the application enforces account-based protections or only IP-based restrictions.
+5. Monitor responses for account lockout, CAPTCHA challenges, or rate limiting.
+
+Example authentication request:
+
+```http
+POST /login HTTP/1.1
+Host: example.com
+Content-Type: application/x-www-form-urlencoded
+
+username=user1@example.com&password=Password123
+```
+
+Example using ffuf to fuzz passwords against a single test account (distributed brute force or password spraying when combined with IP rotation):
+
+```bash
+ffuf -w passwords.txt -X POST -d "username=test&password=FUZZ" -u https://example.com/login
+```
+
+For credential stuffing, drive known username and password pairs with Burp Intruder, ZAP Fuzzer, Hydra, or a custom script that submits each pair and rotates source IPs.
 
 ### Lockout Mechanism
 
@@ -53,6 +86,7 @@ A CAPTCHA may hinder brute force attacks, but they can come with their own set o
 3. CAPTCHA server-side logic defaults to a successful solve.
 4. CAPTCHA challenge result is never validated server-side.
 5. CAPTCHA input field or parameter is manually processed, and is improperly validated or escaped.
+6. A single solved CAPTCHA can be re-used multiple times.
 
 To evaluate CAPTCHA effectiveness:
 
@@ -73,7 +107,7 @@ Repeat this process to every possible functionality that could require a lockout
 
 To evaluate the unlock mechanism's resistance to unauthorized account unlocking, initiate the unlock mechanism and look for weaknesses. Typical unlock mechanisms may involve secret questions or an emailed unlock link. The unlock link should be a unique one-time link, to stop an attacker from guessing or replaying the link and performing brute force attacks in batches.
 
-Note that an unlock mechanism should only be used for unlocking accounts. It is not the same as a password recovery mechanism, yet could follow the same security practices.
+Keep in mind an unlock mechanism should only be used for unlocking accounts. It is not the same as a password recovery mechanism, yet could follow the same security practices.
 
 ## Remediation
 
@@ -88,14 +122,22 @@ Factors to consider when implementing an account lockout mechanism:
 
 1. What is the risk of brute force password guessing against the application?
 2. Is a CAPTCHA sufficient to mitigate this risk?
-3. Is a client-side lockout mechanism being used (e.g., JavaScript)? (If so, disable the client-side code to test.)
+3. Is a client-side lockout mechanism being used (e.g., JavaScript)? (if so, disable the client-side code to test.)
 4. Number of unsuccessful log in attempts before lockout. If the lockout threshold is too low then valid users may be locked out too often. If the lockout threshold is too high then the more attempts an attacker can make to brute force the account before it will be locked. Depending on the application's purpose, a range of 5 to 10 unsuccessful attempts is a typical lockout threshold.
 5. How will accounts be unlocked?
     1. Manually by an administrator: this is the most secure lockout method, but may cause inconvenience to users and take up the administrator's "valuable" time.
-        1. Note that the administrator should also have a recovery method in case his account gets locked.
+        1. The administrator should also have a recovery method in case their account gets locked.
         2. This unlock mechanism may lead to a denial-of-service attack if an attacker's goal is to lock the accounts of all users of the web application.
     2. After a period of time: What is the lockout duration? Is this sufficient for the application being protected? E.g. a 5 to 30 minute lockout duration may be a good compromise between mitigating brute force attacks and inconveniencing valid users.
     3. Via a self-service mechanism: As stated before, this self-service mechanism must be secure enough to avoid that the attacker can unlock accounts himself.
+
+## Tools
+
+- Burp Suite Intruder
+- Zed Attack Proxy (ZAP) Fuzzer
+- Hydra
+- ffuf
+- Custom scripts using proxy rotation (e.g., Python + requests + proxy lists)
 
 ## References
 

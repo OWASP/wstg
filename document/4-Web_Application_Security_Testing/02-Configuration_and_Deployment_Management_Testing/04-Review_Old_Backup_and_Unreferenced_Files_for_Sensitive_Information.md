@@ -14,9 +14,9 @@ All these files may grant the tester access to inner workings, back doors, admin
 
 An important source of vulnerability is found in files unrelated to the application. These files may be created when editing application files, creating on-the-fly backup copies, or leaving old or unreferenced files in the web tree. Performing in-place editing or other administrative actions on production web servers may inadvertently leave backup copies, either generated automatically by the editor while editing files, or by the administrator who is zipping a set of files to create a backup.
 
-It is easy to forget such files and this may pose a serious security threat to the application. It happens because backup copies may be generated with file extensions differing from those of the original files. A `.tar`, `.zip` or `.gz` archive that we generate (and might forget) has obviously a different extension, and the same happens with automatic copies created by many editors (for example, emacs generates a backup copy named `file~` when editing `file`). Making a copy manually can produce a similar effect, such as when 'file' is copied as 'file.old'. The underlying file system the application is on could be making `snapshots` of your application at different points in time without your knowledge, which may also be accessible via the web, posing a similar but different `backup file` style threat to your application.
+It is easy to forget such files and this may pose a serious security threat to the application. It happens because backup copies may be generated with file extensions differing from those of the original files. A `.tar`, `.zip` or `.gz` archive that we generate (and might forget) has obviously a different extension, and the same happens with automatic copies created by many editors (for example, emacs generates a backup copy named `file~` when editing `file`). Making a copy manually can produce a similar effect, such as when `file` is copied as `file.old` or `file.bak`. The underlying file system the application is on could be making snapshots of your application at different points in time without your knowledge, which may also be accessible via the web, posing a similar but different backup file style threat to your application.
 
-As a result, these activities generate files that are not needed by the application and may be handled differently than the original file by the web server. For example, if we make a copy of login.asp and name it login.asp.old without proper security measures, it could potentially allow users to download the source code of login.asp. This is because `login.asp.old` will be typically served as text or plain, rather than being executed because of its extension. In other words, accessing `login.asp` causes the execution of the server-side code of `login.asp`, while accessing `login.asp.old` causes the content of `login.asp.old` (which is, again, server-side code) to be plainly returned to the user and displayed in the browser. This may pose security risks, since sensitive information may be revealed.
+As a result, these activities generate files that are not needed by the application and may be handled differently than the original file by the web server. For example, if we make a copy of `login.asp` and name it `login.asp.old` without proper security measures, it could potentially allow users to download the source code of login.asp. This is because `login.asp.old` will be typically served as text or plain, rather than being executed because of its extension. In other words, accessing `login.asp` causes the execution of the server-side code of `login.asp`, while accessing `login.asp.old` causes the content of `login.asp.old` (which is, again, server-side code) to be plainly returned to the user and displayed in the browser. This may pose security risks, since sensitive information may be revealed.
 
 Generally, exposing server-side code is a bad idea. Not only are you unnecessarily exposing business logic, but you may be unknowingly revealing application-related information which may help an attacker (path names, data structures, etc.). Not to mention the fact that there are too many scripts with embedded username and password in clear text (which is a careless and extremely dangerous practice).
 
@@ -47,7 +47,7 @@ Testing for unreferenced files uses both automated and manual techniques, and ty
 
 #### Inference from the Naming Scheme Used for Published Content
 
-Enumerate all of the application’s pages and functionality. This can be done manually using a browser, or using an application spidering tool. Most applications use a recognizable naming scheme, and organize resources into pages and directories using words that describe their function. It is often possible to infer the name and location of unreferenced pages from the naming scheme used for published content. For example, if a page titled viewuser.asp is found, one should also look for edituser.asp, adduser.asp, and deleteuser.asp. Similarly, if a directory /app/user is discovered, one should also search for /app/admin and /app/manager.
+Enumerate all of the application’s pages and functionality. This can be done manually using a browser, or using an application spidering tool. Most applications use a recognizable naming scheme, and organize resources into pages and directories using words that describe their function. It is often possible to infer the name and location of unreferenced pages from the naming scheme used for published content. For example, if a page titled `viewuser.asp` is found, one should also look for `edituser.asp`, `adduser.asp`, and `deleteuser.asp`. Similarly, if a directory `/app/user` is discovered, one should also search for `/app/admin` and `/app/manager`.
 
 #### Other Clues in Published Content
 
@@ -111,7 +111,7 @@ The basic guessing attack should be run against the webroot, and also against al
 - Identify the file extensions in use within known areas of the application (e.g. JSP, ASPX, HTML), and use a basic wordlist appended with each of these extensions (or use a longer list of common extensions if resources permit).
 - For each file identified through other enumeration techniques, create a custom wordlist derived from that filename. Get a list of common file extensions (including ~, bak, txt, src, dev, old, inc, orig, copy, tmp, swp, etc.) and use each extension before, after, and instead of, the extension of the actual filename.
 
-Note: Windows file copying operations generate filenames prefixed with "Copy of " or localized versions of this phrase, hence they do not change file extensions. While "Copy of " files typically do not disclose source code when accessed, they might yield valuable information in case they cause errors when invoked.
+> Note: Windows file copying operations generate filenames prefixed with "Copy of " or localized versions of this phrase, hence they do not change file extensions. While "Copy of " files typically do not disclose source code when accessed, they might yield valuable information in case they cause errors when invoked.
 
 #### Information Obtained Through Server Vulnerabilities and Misconfiguration
 
@@ -173,11 +173,17 @@ Vulnerability assessment tools tend to include checks to spot web directories ha
 - [Nessus](https://www.tenable.com/products/nessus)
 - [Nikto2](https://cirt.net/Nikto2)
 
-Web spider tools
+### Web spider tools
 
 - [wget](https://www.gnu.org/software/wget/)
-- [Spike proxy includes a site crawler function](https://www.spikeproxy.com/)
-- [Xenu](https://home.snafu.de/tilman/xenulink.html)
-- [curl](https://curl.haxx.se)
+- Spike Proxy (legacy – no longer maintained; replaced by tools such as Burp Suite)
+- Xenu (legacy – last updated in 2010, no active maintenance)
+- [curl](https://curl.se/)
+
+### Modern Alternatives
+
+- [Burp Suite](https://portswigger.net/burp) – widely used web security testing proxy
+- [ZAP](https://www.zaproxy.org/) – open-source web application security testing tool
+- [Screaming Frog SEO Spider](https://www.screamingfrog.co.uk/seo-spider/) – website crawler and broken link checker
 
 Some of them are also included in standard Linux distributions. Web development tools usually include facilities to identify broken links and unreferenced files.

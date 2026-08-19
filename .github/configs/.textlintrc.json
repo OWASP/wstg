@@ -580,6 +580,20 @@
         [
           "verion(s)?",
           "version$1"
+        ],
+        // Standarization
+        // Boo em-dash
+        [
+          "—",
+          "-"
+        ],
+        [
+          "([Gg])rey",
+          "$1ray"
+        ],
+        [
+          "([Pp])en-tester",
+          "$1entester"
         ]
       ]
     }

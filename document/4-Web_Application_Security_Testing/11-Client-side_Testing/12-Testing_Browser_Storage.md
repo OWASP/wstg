@@ -11,12 +11,11 @@ Browsers provide the following client-side storage mechanisms for developers to 
 - LocalStorage
 - SessionStorage
 - IndexedDB
-- Web SQL (Deprecated)
 - Cookies
 
 These storage mechanisms can be viewed and edited using the browser's developer tools, such as [Google Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/storage/localstorage) or [Firefox's Storage Inspector](https://developer.mozilla.org/en-US/docs/Tools/Storage_Inspector).
 
-Note: While cache is also a form of storage it is covered in a [separate section](../04-Authentication_Testing/06-Testing_for_Browser_Cache_Weaknesses.md) covering its own peculiarities and concerns.
+> Note: While cache is also a form of storage it is covered in a [separate section](../04-Authentication_Testing/06-Testing_for_Browser_Cache_Weaknesses.md) covering its own peculiarities and concerns.
 
 ## Test Objectives
 
@@ -104,10 +103,6 @@ const dumpIndexedDB = dbName => {
 
 indexedDB.databases().then(dbs => dbs.forEach(db => dumpIndexedDB(db.name)));
 ```
-
-### Web SQL
-
-Web SQL is deprecated since November 18, 2010 and it's recommended that web developers do not use it.
 
 ### Cookies
 
@@ -198,7 +193,6 @@ Applications should be storing sensitive data on the server-side, and not on the
 - [SessionStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage)
 - [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
 - [Web Crypto API: Key Storage](https://www.w3.org/TR/WebCryptoAPI/#concepts-key-storage)
-- [Web SQL](https://www.w3.org/TR/webdatabase/)
 - [Cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)
 
 For more OWASP resources on the HTML5 Web Storage API, see the [Session Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#html5-web-storage-api).
