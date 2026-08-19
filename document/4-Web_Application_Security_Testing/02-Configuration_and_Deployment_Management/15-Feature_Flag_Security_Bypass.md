@@ -66,7 +66,7 @@ Tools such as `source-map-explorer` or the webpack Bundle Analyzer can help loca
 
 #### Monitor Network Traffic
 
-Use an intercepting proxy (Burp Suite, OWASP ZAP) to capture requests made to feature flag services or internal configuration endpoints (for example, calls to `app.launchdarkly.com`, `/api/config`, or `/api/flags`). Review the response payloads for flag names, default values, and targeting rules.
+Use an intercepting proxy (Burp Suite, ZAP) to capture requests made to feature flag services or internal configuration endpoints (for example, calls to `app.launchdarkly.com`, `/api/config`, or `/api/flags`). Review the response payloads for flag names, default values, and targeting rules.
 
 #### Review API Responses and Configuration Endpoints
 
