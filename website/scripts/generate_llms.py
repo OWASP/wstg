@@ -80,10 +80,11 @@ def gather_content_tree(channel_key: str) -> dict:
             if md_file.name in ("README.md", "index.md") and md_file.parent == section_dir:
                 continue
 
-            rel_path = md_file.relative_to(section_dir)
+            # Get path relative to channel root (not section root)
+            rel_path = md_file.relative_to(channel_dir)
             title = get_section_title(md_file)
 
-            # Skip front matter from path for URL
+            # Build URL path with full directory structure
             url_path = str(rel_path.with_suffix("")).replace("README", "")
             if url_path.endswith("/"):
                 url_path = url_path[:-1]
