@@ -10,7 +10,7 @@ OWASP thanks the many authors, reviewers, and editors for their hard work in bri
 
 ## Copyright and Licensee
 
-Copyright (c) 2025 The OWASP Foundation.
+Copyright © 2026 The OWASP® Foundation.
 
 This document is released under the [Creative Commons 4.0 License](https://creativecommons.org/licenses/by-sa/4.0/). Please read and understand the license and copyright conditions.
 
