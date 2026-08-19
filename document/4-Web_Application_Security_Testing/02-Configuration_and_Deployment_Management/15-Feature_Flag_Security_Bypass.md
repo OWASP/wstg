@@ -53,7 +53,7 @@ Identify feature flags, kill-switches, and configuration values that control sec
 
 Inspect JavaScript bundles and other client-side resources for common feature flag patterns:
 
-```javascript
+```text
 featureFlags
 isFeatureEnabled
 featureEnabled
