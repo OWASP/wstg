@@ -1,7 +1,7 @@
 # Test for Feature Flag Security Bypass
 
-| ID          |
-|-------------|
+| ID         |
+|------------|
 |WSTG-CONF-15|
 
 ## Summary
