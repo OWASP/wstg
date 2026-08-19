@@ -4,10 +4,12 @@
 
 The OWASP Web Security Testing Guide (WSTG) is a comprehensive, open-source, community-maintained framework and set of practical techniques for testing the security of web applications and web services. It is not a rigid checklist or a compliance standard, but rather a methodology and technique reference designed to adapt to your organization's threat model, risk tolerance, and development practices.
 
+> "Security should not be a black art or closed secret that only a few can practice." - Eoin Keary
+
 The guide covers:
 
 - Traditional web applications and modern cloud-native services
-- Representational State Transfer (REST) APIs, GraphQL, and other application programming interfaces
+- API security and integration points
 - Client-side technologies and user interface security
 - Infrastructure configuration, cloud deployments, and containerization
 - Identity, authentication, authorization, and session management controls
@@ -16,7 +18,6 @@ The guide covers:
 - Cryptographic implementations
 - Error handling and exception management
 - Software supply chain and dependency security
-- API security and integration points
 
 The guide does not replace: formal risk frameworks such as [NIST Risk Management Framework](https://csrc.nist.gov/projects/risk-management/), comprehensive threat-modeling methodologies, detailed remediation guidance (see the [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/) for that), organization-specific security policies, or specialized AI/LLM application testing (see [OWASP AI Testing Guide](https://owasp.org/www-project-ai-testing-guide/) and [OWASP Top 10 for LLM Applications](https://genai.owasp.org/initiatives/top-10-for-llm-and-genai/)).
 
@@ -26,7 +27,7 @@ Web application security testing has become critical to managing risk in today's
 
 ### Economic Impact
 
-The [IBM Cost of a Data Breach Report 2026](https://www.ibm.com/reports/data-breach) found that the global average cost of a data breach has reached $4.99 million, with U.S. breaches averaging $11.5 million. AI-driven attacks - now present in over a quarter of reported breaches - add an average of $1 million per breach. Beyond direct costs, breaches cause operational disruption, regulatory fines, reputational damage, and loss of customer trust. The earlier a vulnerability is caught in the development lifecycle, the lower the cost to fix it; late-stage or purely reactive testing cannot keep pace with this economic risk.
+The [IBM Cost of a Data Breach Report 2026](https://www.ibm.com/reports/data-breach) found that the global average cost of a data breach has reached $4.99 million (USD), with U.S. breaches averaging $11.5 million (USD). AI-driven attacks - now present in over a quarter of reported breaches - add an average of $1 million (USD) per breach. Beyond direct costs, breaches cause operational disruption, regulatory fines, reputational damage, and loss of customer trust.
 
 ### Expanding Attack Surface
 
@@ -46,9 +47,9 @@ Two opposing forces create urgency:
 
 1. AI-assisted development accelerates code production. Higher code velocity, if not matched by security discipline, increases the likelihood that classic vulnerabilities (injection flaws, broken authentication, business logic errors) are introduced faster than traditional testing can catch them.
 
-2. AI-augmented testing tools accelerate certain detection tasks. Dynamic and static application security testing (DAST/SAST) tools powered by machine learning can find common, known vulnerabilities more efficiently. However, these tools do not replace skilled human analysis for business logic flaws, authorization bypass, and context-specific risks that require understanding the application's intended behavior.
+2. AI-augmented testing tools accelerate certain detection tasks. Dynamic and static application security testing (DAST/SAST) tools powered by machine learning can find common, known vulnerabilities more efficiently. However, these tools do not replace skilled human analysis for business logic flaws, authorization bypass, and context-specific risks that require understanding the application's intended behavior. Further, AI-assisted attacks enable adversaries to probe defenses faster and adapt to countermeasures in near real-time, which will certainly increase the pace of breaches.
 
-The solution is not to choose between human testing and tooling, but to layer both: automated scanning for low-hanging fruit, combined with strategic manual testing and code review to find design and logic flaws.
+The solution is not to choose between human testing and tooling, but to layer both: automated scanning for low-hanging fruit, combined with strategic manual testing (perhaps even AI supplemented), and code review to find design and logic flaws.
 
 ## Who Should Use This Guide
 
@@ -61,7 +62,7 @@ The WSTG is designed for:
 - Auditors and compliance officers who validate application security controls
 - Product owners and engineering managers who scope, resource, and prioritize testing efforts
 
-Secondary audiences include tool developers, security researchers, and organizations running public bug-bounty programs. The testing techniques and taxonomy in this guide are equally applicable to internal testing, third-party penetration tests, and coordinated-disclosure / bug-bounty engagements-the differences lie in authorization, rules of engagement, and how results are reported and remediated. Section 3 further explores these program integration patterns.
+Secondary audiences include tool developers and organizations running public bug-bounty programs. The testing techniques and taxonomy in this guide are equally applicable to internal testing, third-party penetration tests, and coordinated-disclosure / bug-bounty engagements-the differences lie in authorization, rules of engagement, and how results are reported and remediated. Section 3 further explores these program integration patterns.
 
 ## Core Principles of Effective Security Testing
 
@@ -91,7 +92,7 @@ Prioritize testing effort based on risk, not on finding counts. A single critica
 Effective security testing addresses three layers:
 
 1. People – Do developers understand secure coding principles? Is the security training current?
-2. Process – Are security policies and standards documented, communicated, and enforced? Do code review and change management processes include security gates/componenets?
+2. Process – Are security policies and standards documented, communicated, and enforced? Do code review and change management processes include security gates/components?
 3. Technology – Have security controls been implemented correctly and effectively? Are they being used as intended?
 
 Testing only technology (code and running systems) will miss process gaps and skill deficits that breed recurring vulnerabilities.
@@ -120,7 +121,7 @@ Test findings must be understandable and actionable for developers and business 
 
 ### Adaptability to Your Context
 
-There is no one-size-fits-all testing approach. The depth and breadth of testing must adapt to your application's architecture, data sensitivity, threat model, and risk tolerance. A small internal tool requires different testing rigor than a customer-facing financial application. A mature DevSecOps team can shift testing earlier into automated pipelines; a team new to security testing may start with lighter checklist-based approaches and mature from there. The WSTG provides both the framework and the flexibility to scale.
+There is no one-size-fits-all testing approach. The depth and breadth of testing must adapt to your application's architecture, data sensitivity, threat model, and risk tolerance. A small internal tool requires different testing rigor than a customer-facing financial application. A mature DevSecOps team can shift testing earlier into automated pipelines; a team new to security testing may start with lighter checklist-based approaches and mature from there. The WSTG provides the framework and the flexibility to help in a variety of application architectures.
 
 ## How the Guide Is Organized
 
