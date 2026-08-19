@@ -265,7 +265,7 @@ To test for basic XXE vulnerabilities, one can inject a `DOCTYPE` declaration wi
 </user>
 ```
 
-> Note: The `DOCTYPE` name (`user`) matches the document's actual root element, and the `ELEMENT` declaration refers to that same root element — a mismatched or leftover `DOCTYPE`/`ELEMENT` name from a different example (a common copy-paste mistake when adapting XXE payloads to a new endpoint) will still be tolerated by most non-validating parsers, but keeping them consistent avoids failures against any parser that does perform DTD validation.
+> Note: The `DOCTYPE` name (`user`) matches the document's actual root element, and the `ELEMENT` declaration refers to that same root element - a mismatched or leftover `DOCTYPE`/`ELEMENT` name from a different example (a common copy-paste mistake when adapting XXE payloads to a new endpoint) will still be tolerated by most non-validating parsers, but keeping them consistent avoids failures against any parser that does perform DTD validation.
 
 This test can trigger a Denial of Service on Unix systems if the XML parser attempts to resolve the entity by reading from `/dev/random`, potentially blocking indefinitely (or consuming significant resources) while trying to substitute the entity value.
 
@@ -321,11 +321,11 @@ Payload sent to the target application:
 <foo>test</foo>
 ```
 
-When the target parses this document, it fetches `evil.dtd`, reads the local file into the `%file;` entity, and then makes a second outbound request embedding the file contents as a query parameter — which the tester captures on their listener. Because URLs cannot safely carry arbitrary binary/newline data, this technique is normally limited to single-line, URL-safe text; for binary files or files containing characters that break the URL, testers commonly combine this with a language-specific wrapper (e.g. PHP's `php://filter/convert.base64-encode/resource=`) to base64-encode the file content before exfiltration, where the target stack supports it.
+When the target parses this document, it fetches `evil.dtd`, reads the local file into the `%file;` entity, and then makes a second outbound request embedding the file contents as a query parameter - which the tester captures on their listener. Because URLs cannot safely carry arbitrary binary/newline data, this technique is normally limited to single-line, URL-safe text; for binary files or files containing characters that break the URL, testers commonly combine this with a language-specific wrapper (e.g. PHP's `php://filter/convert.base64-encode/resource=`) to base64-encode the file content before exfiltration, where the target stack supports it.
 
 #### Error-Based Exfiltration via a Remote External DTD
 
-This variant still requires the target to make one outbound connection (to fetch the tester's DTD), but unlike the OOB technique above it does not require the attacker's server to receive a *second* request carrying the data — the file contents are leaked back through the application's own error response instead of a network callback. This is useful when outbound connections are allowed but the response body from the second exfiltration request would never reach the tester.
+This variant still requires the target to make one outbound connection (to fetch the tester's DTD), but unlike the OOB technique above it does not require the attacker's server to receive a *second* request carrying the data - the file contents are leaked back through the application's own error response instead of a network callback. This is useful when outbound connections are allowed but the response body from the second exfiltration request would never reach the tester.
 
 DTD hosted at `http://<tester-controlled-host>/error.dtd`:
 
@@ -347,15 +347,15 @@ Payload:
 <foo>test</foo>
 ```
 
-The parser fetches the DTD, attempts to resolve a nonexistent path built from the concatenation of the target file's contents, fails, and — depending on the parser and how verbose the application's error handling is — throws an exception whose message discloses the attempted (and therefore now file-content-bearing) path. If the application returns raw parser errors in its response, this reveals the file contents directly.
+The parser fetches the DTD, attempts to resolve a nonexistent path built from the concatenation of the target file's contents, fails, and - depending on the parser and how verbose the application's error handling is - throws an exception whose message discloses the attempted (and therefore now file-content-bearing) path. If the application returns raw parser errors in its response, this reveals the file contents directly.
 
 #### Error-Based Exfiltration by Repurposing a Local DTD (Zero Outbound Connectivity)
 
-The technique above still needs one outbound fetch. If the target environment truly has no outbound connectivity at all (fully egress-filtered), that is not an option either — and a fully *internal* DOCTYPE normally cannot redefine a parameter entity inside another parameter entity's definition (the XML spec permits this only within external DTDs, and most parsers enforce it).
+The technique above still needs one outbound fetch. If the target environment truly has no outbound connectivity at all (fully egress-filtered), that is not an option either - and a fully *internal* DOCTYPE normally cannot redefine a parameter entity inside another parameter entity's definition (the XML spec permits this only within external DTDs, and most parsers enforce it).
 
 A reliable workaround is to reference a DTD file that already exists on the target's own local filesystem as the "external" DTD (loaded via `file://` instead of `http://`), and then redefine one of the entities that DTD already declares. Because the reused DTD is technically still "external" from the parser's point of view (even though no network access occurs), the parameter-entity-redefinition trick becomes legal again, and the same error-based leak can be triggered with zero outbound connectivity.
 
-This requires knowing the path of a DTD file that is actually present on the server. Common candidates worth probing for include XML-processing libraries bundled with the application server (application/servlet DTDs shipped inside JARs), and OS-level DTDs such as the GNOME/Yelp documentation DTD on many Linux systems (`/usr/share/yelp/dtd/docbookx.dtd`). A tester can enumerate candidates by submitting a payload that only loads the DTD (without redefining anything) — if the file doesn't exist, the parser throws a file-not-found error, so a wordlist of known DTD paths can be probed one at a time.
+This requires knowing the path of a DTD file that is actually present on the server. Common candidates worth probing for include XML-processing libraries bundled with the application server (application/servlet DTDs shipped inside JARs), and OS-level DTDs such as the GNOME/Yelp documentation DTD on many Linux systems (`/usr/share/yelp/dtd/docbookx.dtd`). A tester can enumerate candidates by submitting a payload that only loads the DTD (without redefining anything) - if the file doesn't exist, the parser throws a file-not-found error, so a wordlist of known DTD paths can be probed one at a time.
 
 Example, assuming `/usr/local/app/schema.dtd` exists on the target and defines an entity called `custom_entity`:
 
@@ -372,13 +372,13 @@ Example, assuming `/usr/local/app/schema.dtd` exists on the target and defines a
 ]>
 ```
 
-Note the redefined value of `custom_entity` is written using numeric character references (`&#x25;` for `%`, `&#x26;` for `&`, `&#x27;` for `'`) rather than the literal characters. This is necessary, not stylistic: the replacement text is itself parsed as DTD markup once substituted in, so a literal `%` or `&` inside it would be expanded immediately instead of surviving intact until the redefinition actually takes effect — the numeric references defer that expansion to the correct stage.
+Note the redefined value of `custom_entity` is written using numeric character references (`&#x25;` for `%`, `&#x26;` for `&`, `&#x27;` for `'`) rather than the literal characters. This is necessary, not stylistic: the replacement text is itself parsed as DTD markup once substituted in, so a literal `%` or `&` inside it would be expanded immediately instead of surviving intact until the redefinition actually takes effect - the numeric references defer that expansion to the correct stage.
 
-This loads the local DTD, overrides its `custom_entity` definition with the error-based exfiltration payload, and then invokes `%local_dtd;` so the parser processes the redefined entity — triggering the same file-content-in-error-message leak as above, but without a single byte of network traffic leaving the server. Tools such as the [dtd-finder](https://github.com/GoSecure/dtd-finder) project maintain lists of known DTD file paths (and can scan a filesystem or container image for DTDs actually present) to speed up this search.
+This loads the local DTD, overrides its `custom_entity` definition with the error-based exfiltration payload, and then invokes `%local_dtd;` so the parser processes the redefined entity - triggering the same file-content-in-error-message leak as above, but without a single byte of network traffic leaving the server. Tools such as the [dtd-finder](https://github.com/GoSecure/dtd-finder) project maintain lists of known DTD file paths (and can scan a filesystem or container image for DTDs actually present) to speed up this search.
 
 ### XInclude Attacks
 
-Sometimes the tester only controls a single value that is later embedded into a larger, server-generated XML document (for example, a form field that ends up inside a backend SOAP request). In that case the tester cannot control or inject a `<!DOCTYPE>` declaration, which rules out the classic entity-based attacks above. **XInclude** is a separate part of the XML specification that lets one XML document pull in content from another source, and it can be triggered from within an ordinary data value — no DOCTYPE required:
+Sometimes the tester only controls a single value that is later embedded into a larger, server-generated XML document (for example, a form field that ends up inside a backend SOAP request). In that case the tester cannot control or inject a `<!DOCTYPE>` declaration, which rules out the classic entity-based attacks above. **XInclude** is a separate part of the XML specification that lets one XML document pull in content from another source, and it can be triggered from within an ordinary data value - no DOCTYPE required:
 
 ```txt
 productId=<foo xmlns:xi="http://www.w3.org/2001/XInclude"><xi:include parse="text" href="file:///etc/passwd"/></foo>&storeId=1
@@ -418,7 +418,7 @@ Example: editing `word/document.xml` inside a `.docx`:
 </w:document>
 ```
 
-The same approach applies to `xl/workbook.xml` in `.xlsx` files and to the equivalent parts in `.pptx` files. This is a useful check for any endpoint that ingests office documents for indexing, thumbnailing, or conversion — such pipelines are often built on older or loosely-configured XML libraries even when the main application's own API layer has been hardened.
+The same approach applies to `xl/workbook.xml` in `.xlsx` files and to the equivalent parts in `.pptx` files. This is a useful check for any endpoint that ingests office documents for indexing, thumbnailing, or conversion - such pipelines are often built on older or loosely-configured XML libraries even when the main application's own API layer has been hardened.
 
 #### Other XML-Based Formats
 
@@ -426,13 +426,13 @@ Testers should also consider less obvious XML-based formats that an application 
 
 ### Escalating Impact: SSRF and Credential Capture
 
-XXE is not limited to local file disclosure — the same external-entity mechanism is a request-forgery primitive, so testers should assess impact beyond `/etc/passwd`:
+XXE is not limited to local file disclosure - the same external-entity mechanism is a request-forgery primitive, so testers should assess impact beyond `/etc/passwd`:
 
-- **SSRF to cloud metadata services.** In cloud-hosted targets, pointing an entity at the instance metadata endpoint (e.g. `http://169.254.169.254/...` on AWS) can disclose temporary credentials — but note that AWS's current default, IMDSv2, requires a `PUT` request plus a custom header to obtain a session token before any `GET` will succeed, and XXE-driven SSRF (via a `SYSTEM` identifier) can typically only issue a plain `GET`. In practice this means a classic XXE->metadata credential grab now mostly only works against older or explicitly misconfigured instances that still have IMDSv1 enabled (`HttpTokens` not set to `required`) — check the instance's metadata options rather than assuming the endpoint is exploitable by default. Azure's and GCP's equivalent metadata endpoints similarly require specific headers (`Metadata: true` / `Metadata-Flavor: Google`) that a bare `SYSTEM "http://..."` entity cannot set, for the same reason. Even where direct credential theft is blocked, reaching the metadata endpoint at all is still useful for confirming SSRF and probing which cloud the target runs on.
+- **SSRF to cloud metadata services.** In cloud-hosted targets, pointing an entity at the instance metadata endpoint (e.g. `http://169.254.169.254/...` on AWS) can disclose temporary credentials - but note that AWS's current default, IMDSv2, requires a `PUT` request plus a custom header to obtain a session token before any `GET` will succeed, and XXE-driven SSRF (via a `SYSTEM` identifier) can typically only issue a plain `GET`. In practice this means a classic XXE->metadata credential grab now mostly only works against older or explicitly misconfigured instances that still have IMDSv1 enabled (`HttpTokens` not set to `required`) - check the instance's metadata options rather than assuming the endpoint is exploitable by default. Azure's and GCP's equivalent metadata endpoints similarly require specific headers (`Metadata: true` / `Metadata-Flavor: Google`) that a bare `SYSTEM "http://..."` entity cannot set, for the same reason. Even where direct credential theft is blocked, reaching the metadata endpoint at all is still useful for confirming SSRF and probing which cloud the target runs on.
 - **Internal network/port scanning.** Differences in response time or error messages between reachable and unreachable internal hosts/ports can be used to map internal network topology through the vulnerable server.
 - **Credential capture via UNC paths (Windows).** On Windows-hosted parsers, pointing an entity at a UNC path (`file://///attacker-ip/share/x`) can cause the server to attempt SMB authentication to a tester-controlled listener, leaking the service account's NTLM hash for offline cracking.
 
-These impacts should be reflected in how a finding's severity is scored, per the Test Objectives above — a blind, file-read-only XXE and an XXE that yields cloud credentials are very different findings even though the injection point is identical.
+These impacts should be reflected in how a finding's severity is scored, per the Test Objectives above - a blind, file-read-only XXE and an XXE that yields cloud credentials are very different findings even though the injection point is identical.
 
 ### Filter and WAF Bypass Techniques
 
@@ -443,11 +443,11 @@ If straightforward `<!DOCTYPE` payloads are being blocked or stripped, the follo
 - **Alternate protocol wrappers instead of `file://`:** On PHP-based stacks, wrappers such as `php://filter/convert.base64-encode/resource=` both bypass naive `file://`-string filters and solve the separate problem of exfiltrating binary/multi-line content (see the OOB exfiltration note above). On Java-based stacks, the `jar:` protocol can be used to reach files inside a ZIP/JAR archive, including one fetched from a remote URL, and is useful when direct `file://` access is blocked but archive-based access is not.
 - **Splitting the trust between two encodings:** A small number of parsers will decode numeric HTML character references inside an entity value before re-parsing it as a DTD fragment; where this applies, expressing the blocked keywords as numeric character references can slip past a filter that only recognizes the literal string.
 
-As always with filter bypasses, confirm the underlying parser/version actually exhibits the behavior being relied on rather than assuming any of the above works universally — these are leads to test, not guaranteed bypasses.
+As always with filter bypasses, confirm the underlying parser/version actually exhibits the behavior being relied on rather than assuming any of the above works universally - these are leads to test, not guaranteed bypasses.
 
 ### A Note on Modern Parser Defaults
 
-Many current XML parsing libraries and frameworks now ship with external entity resolution disabled by default, or provide a documented "secure processing" flag that testers should confirm is actually in use (this does **not** mean XXE testing can be skipped — see the [XML External Entity (XXE) Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html)). In practice, exploitable XXE today is most often found where:
+Many current XML parsing libraries and frameworks now ship with external entity resolution disabled by default, or provide a documented "secure processing" flag that testers should confirm is actually in use (this does **not** mean XXE testing can be skipped - see the [XML External Entity (XXE) Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html)). In practice, exploitable XXE today is most often found where:
 
 - A parser was configured securely for the application's primary API, but a secondary code path (file upload processing, document conversion, report generation, legacy SOAP endpoint) uses a different, unhardened parser instance.
 - DTDs are disabled but XInclude processing was left enabled (these are typically separate configuration flags).
@@ -506,9 +506,9 @@ Look for legacy or loosely configured libraries:
 The most reliable fix for XXE-class issues is to remove the parser's ability to resolve external resources at all, rather than trying to filter or sanitize XML input. General principles, in order of priority:
 
 - **Disable DTD processing entirely** wherever the application does not have a genuine business need for it. Most application XML (API payloads, config uploads, form submissions converted to XML) never legitimately needs a DOCTYPE.
-- If DTDs cannot be disabled outright, **disable resolution of external general and parameter entities**, and **disable XInclude processing** — these are usually separate flags from the DTD toggle, so turning one off does not guarantee the other is off.
+- If DTDs cannot be disabled outright, **disable resolution of external general and parameter entities**, and **disable XInclude processing** - these are usually separate flags from the DTD toggle, so turning one off does not guarantee the other is off.
 - Prefer parser APIs/configuration flags described as "secure processing" where available, but verify what that flag actually covers for the specific parser/version in use rather than assuming it disables everything above.
-- Apply this configuration to **every** parser instantiation in the codebase and its dependencies, not just the main API layer — file upload handling, document conversion/preview generation, import/export jobs, SOAP clients, and third-party libraries each create their own parser instances and must be checked independently.
+- Apply this configuration to **every** parser instantiation in the codebase and its dependencies, not just the main API layer - file upload handling, document conversion/preview generation, import/export jobs, SOAP clients, and third-party libraries each create their own parser instances and must be checked independently.
 - Where external entities are a genuine requirement, implement a strict **allow-list** of permitted URIs/schemes rather than relying on a **block-list** (deny-list) for dangerous protocols like `file://`, `ftp://`, etc.
 - Apply defense in depth: run XML-parsing processes with least privilege (no access to sensitive files, no outbound network access where not required), and keep XML libraries patched, since parser-level defaults and known bypasses change between versions.
 
@@ -517,7 +517,7 @@ Quick reference by ecosystem (verify against current documentation for the exact
 - **Java**: set `DocumentBuilderFactory`/`SAXParserFactory`/`XMLInputFactory`/`TransformerFactory` (and `Xerces`-based parsers) to disable DOCTYPE declarations, external general/parameter entities, and XInclude.
 - **.NET**: use `XmlReaderSettings` with `DtdProcessing` set to `Prohibit` and `XmlResolver` set to `null` (or a restrictive custom resolver).
 - **Python**: prefer a hardened parsing library (e.g. `defusedxml`) instead of the standard library's XML modules directly; for `lxml`, explicitly leave `resolve_entities` at its safe default (or set it to `False`) and avoid enabling network access on the parser.
-- **PHP**: on PHP 8.0+, `libxml_disable_entity_loader()` is deprecated and largely unnecessary — PHP now requires libxml >= 2.9.0, which disables external entity substitution by default, so a stock `DOMDocument`/`SimpleXML`/`libxml`-based parse on a current PHP version is not exploitable via the classic entity route unless the code explicitly re-enables it (e.g. via `LIBXML_NOENT` combined with `LIBXML_DTDLOAD`). Testers should therefore check for explicit opt-back-in flags on modern PHP rather than assuming the framework needs a disable call; on PHP < 8.0 with older libxml, the disable call is still required. Either way, treat file-upload/document-conversion features that call third-party libraries separately, since those may bundle their own, differently-configured parser.
+- **PHP**: on PHP 8.0+, `libxml_disable_entity_loader()` is deprecated and largely unnecessary - PHP now requires libxml >= 2.9.0, which disables external entity substitution by default, so a stock `DOMDocument`/`SimpleXML`/`libxml`-based parse on a current PHP version is not exploitable via the classic entity route unless the code explicitly re-enables it (e.g. via `LIBXML_NOENT` combined with `LIBXML_DTDLOAD`). Testers should therefore check for explicit opt-back-in flags on modern PHP rather than assuming the framework needs a disable call; on PHP < 8.0 with older libxml, the disable call is still required. Either way, treat file-upload/document-conversion features that call third-party libraries separately, since those may bundle their own, differently-configured parser.
 - **Node.js**: for `libxmljs`-based parsing, never set `noent: true` on untrusted input; prefer omitting the option (or setting it `false`) and pair with `nonet: true` to also block network-based entity resolution.
 - **C/C++ (libxml2)**: avoid the options that enable network/entity loading (e.g. `XML_PARSE_NOENT`, `XML_PARSE_DTDLOAD`) unless explicitly required.
 
@@ -526,7 +526,7 @@ For authoritative, parser-specific configuration snippets, defer to the [XML Ext
 ## Tools
 
 - [XML Injection Fuzz Strings (from wfuzz tool)](https://github.com/xmendez/wfuzz/blob/master/wordlist/Injections/XML.txt)
-- [dtd-finder](https://github.com/GoSecure/dtd-finder) — a list of known local DTD file paths, plus a scanner that can enumerate DTDs present on a filesystem or inside a container/Docker image, useful for the local-DTD-repurposing technique above.
+- [dtd-finder](https://github.com/GoSecure/dtd-finder) - a list of known local DTD file paths, plus a scanner that can enumerate DTDs present on a filesystem or inside a container/Docker image, useful for the local-DTD-repurposing technique above.
 
 ## References
 

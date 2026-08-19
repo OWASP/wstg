@@ -129,7 +129,7 @@ If you have [Node.js](https://nodejs.org/) installed (which includes `npm` and `
 
 From the root of your clone:
 
-**Markdown style ([Markdown Lint Check](.github/workflows/md-lint-check.yml))** — uses [markdownlint-cli2](https://github.com/DavidAnson/markdownlint-cli2) with the project config:
+**Markdown style ([Markdown Lint Check](.github/workflows/md-lint-check.yml))** - uses [markdownlint-cli2](https://github.com/DavidAnson/markdownlint-cli2) with the project config:
 
 ```bash
 npx --yes markdownlint-cli2 "document/**/*.md" --config .github/configs/.markdownlint.json
@@ -137,7 +137,7 @@ npx --yes markdownlint-cli2 "document/**/*.md" --config .github/configs/.markdow
 
 Narrow the glob (for example to a single path) when you only want feedback on files you edited.
 
-**Broken links ([Markdown Link Check](.github/workflows/md-link-check.yml))** — uses [markdown-link-check](https://github.com/tcort/markdown-link-check) at the same major version as CI:
+**Broken links ([Markdown Link Check](.github/workflows/md-link-check.yml))** - uses [markdown-link-check](https://github.com/tcort/markdown-link-check) at the same major version as CI:
 
 ```bash
 npx --yes markdown-link-check@3.11.0 -q -c .github/configs/markdown-link-check-config.json document/path/to/your_file.md
@@ -145,7 +145,7 @@ npx --yes markdown-link-check@3.11.0 -q -c .github/configs/markdown-link-check-c
 
 Relative links are easiest to validate when your branch includes the targets they point to (CI checks changed files in a layout similar to merging with `master`).
 
-**Terminology ([Markdown Terminology Lint Check](.github/workflows/md-textlint-check.yml))** — uses [textlint](https://textlint.github.io/) and the terminology rule:
+**Terminology ([Markdown Terminology Lint Check](.github/workflows/md-textlint-check.yml))** - uses [textlint](https://textlint.github.io/) and the terminology rule:
 
 ```bash
 npx --yes -p textlint -p textlint-rule-terminology textlint --config .github/configs/.textlintrc.json "document/**/*.md"

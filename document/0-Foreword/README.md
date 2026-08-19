@@ -47,4 +47,6 @@ Please consider [joining us](https://owasp.org/membership/) as an individual or 
 
 Thank you to all past and future contributors to this guide. Your work helps make applications worldwide more secure.
 
+---
+
 Open Worldwide Application Security Project and OWASP are registered trademarks of the OWASP Foundation, Inc.

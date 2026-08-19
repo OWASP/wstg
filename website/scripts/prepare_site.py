@@ -123,7 +123,7 @@ def rewrite_site_href(href: str, md_path: Path) -> str:
         href = href[: -len("README")] or "./"
 
     # Leaf pages render as /path/Page/ (one directory deeper than the .md file's
-    # folder). Every repo-relative href needs one extra ../ — same-folder
+    # folder). Every repo-relative href needs one extra ../ - same-folder
     # siblings (01-foo.md, images/x.png) and existing ../cross/folder links.
     if md_path.name.lower() not in ("readme.md", "index.md"):
         if href.startswith("./"):

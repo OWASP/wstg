@@ -582,6 +582,11 @@
           "version$1"
         ],
         // Standarization
+        // Boo em-dash
+        [
+          "—",
+          "-"
+        ],
         [
           "([Gg])rey",
           "$1ray"

@@ -377,7 +377,7 @@ def main() -> None:
     parser.add_argument(
         "--collection",
         required=True,
-        help="Data/nav key (latest, stable, v41, v42) — no dots (Jekyll data keys)",
+        help="Data/nav key (latest, stable, v41, v42) - no dots (Jekyll data keys)",
     )
     parser.add_argument(
         "--url-prefix",
