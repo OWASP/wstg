@@ -23,9 +23,9 @@ Older browser's vulnerabilities (IE9/10) allowed data leakage via JavaScript err
 
 ### SameSite Cookie Considerations
 
-The examples below rely on the browser attaching the victim's authentication cookie to a cross-site `<script src="...">` request — a subresource load, not a top-level navigation. Per the [`SameSite`](../06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.md#samesite-attribute) behavior described in the Cookie Attributes section, `Lax` cookies are not sent on subresource requests, so by default these PoCs won't leak data in a browser that defaults to `Lax` (Chromium-based, since Chrome 80) unless the session cookie explicitly sets `SameSite=None; Secure`.
+The examples below rely on the browser attaching the victim's authentication cookie to a cross-site `<script src="...">` request - a subresource load, not a top-level navigation. Per the [`SameSite`](../06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.md#samesite-attribute) behavior described in the Cookie Attributes section, `Lax` cookies are not sent on subresource requests, so by default these PoCs won't leak data in a browser that defaults to `Lax` (Chromium-based, since Chrome 80) unless the session cookie explicitly sets `SameSite=None; Secure`.
 
-This doesn't mean the underlying vulnerability is fixed — only that reproducing it now depends on the cookie's `SameSite` configuration and the browser under test. Check the `Set-Cookie` header directly, and retest in a browser that doesn't default to `Lax` (e.g. Firefox) if a PoC doesn't fire.
+This doesn't mean the underlying vulnerability is fixed - only that reproducing it now depends on the cookie's `SameSite` configuration and the browser under test. Check the `Set-Cookie` header directly, and retest in a browser that doesn't default to `Lax` (e.g. Firefox) if a PoC doesn't fire.
 
 ### Collect Data Using Authenticated and Unauthenticated User Sessions
 

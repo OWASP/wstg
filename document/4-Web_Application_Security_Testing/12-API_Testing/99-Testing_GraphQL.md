@@ -526,7 +526,7 @@ Batching attacks can be used to bypass many security measures enforced on sites.
 
 ### Query Denylist Bypass via Aliases
 
-GraphQL allows you to give any field in a query an alias — an alternative name used to label the result. This is a standard language feature, but it can be abused to evade poorly implemented security controls that look for specific field names.
+GraphQL allows you to give any field in a query an alias - an alternative name used to label the result. This is a standard language feature, but it can be abused to evade poorly implemented security controls that look for specific field names.
 
 Some deployments implement a query denylist using naive string or regular-expression matching on the raw GraphQL document (for example, rejecting any query that contains the field name `adminUsers` only when it appears as `adminUsers {` or `adminUsers(`, without fully parsing the syntax or building an AST). A robust implementation that searches for `adminUsers` as a substring anywhere in the request, or that correctly parses the query structure, will still detect aliased calls, because the underlying field name `adminUsers` remains present in the operation and is not renamed or removed by the alias. However, simplistic checks that do not handle the `aliasName: fieldName` syntax can be bypassed by issuing the same field under an alias, while the `adminUsers` resolver continues to execute on the server. In GraphQL terminology, `adminUsers` in the examples below is a field name; an operation name would appear after the `query` keyword (for example, `query GetAdmins { ... }`).
 
@@ -578,7 +578,7 @@ Response (denylist bypassed, data returned):
 }
 ```
 
-The server resolves `s` as `adminUsers` because aliases are a GraphQL-layer construct — the underlying resolver runs normally. A denylist that matches only on the literal field name in the request body will not catch aliased calls.
+The server resolves `s` as `adminUsers` because aliases are a GraphQL-layer construct - the underlying resolver runs normally. A denylist that matches only on the literal field name in the request body will not catch aliased calls.
 
 For every query that appears to be blocked or restricted, try prefixing it with an arbitrary alias (e.g., `x:`, `s:`, `bypass:`) and observe whether the response changes from an error to a successful data payload.
 

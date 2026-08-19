@@ -17,7 +17,7 @@ Each channel typically has `prepend.txt` (front matter + asset tags), `prepend.n
 
 Publish helpers. See [`scripts/README.md`](scripts/README.md).
 
-- `generate_nav.py` — nested sidebar YAML/HTML + filter hints from `document/README.md`
+- `generate_nav.py` - nested sidebar YAML/HTML + filter hints from `document/README.md`
 
 ## assets/
 

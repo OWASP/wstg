@@ -1,6 +1,6 @@
 /* WSTG sidebar contents: fixed-width panel with internal scroll */
 .wstg-nav {
-  /* Do not use position:sticky — later sidebar blocks (events, etc.)
+  /* Do not use position:sticky - later sidebar blocks (events, etc.)
      would scroll underneath the stuck menu. */
   position: relative;
   box-sizing: border-box;
