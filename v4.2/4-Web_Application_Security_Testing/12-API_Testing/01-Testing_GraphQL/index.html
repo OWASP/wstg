@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WSTG - v4.2 | OWASP Web Security Testing Guide</title>
+<meta name="description" content="The premier cybersecurity testing resource for web application developers and security professionals.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="WSTG - v4.2">
+<meta property="og:description" content="The premier cybersecurity testing resource for web application developers and security professionals.">
+<meta property="og:image" content="https://wstg.owasp.org/assets/images/wstg-cover.png">
+<meta property="og:url" content="https://wstg.owasp.org/v4.2/4-Web_Application_Security_Testing/12-API_Testing/01-Testing_GraphQL/">
+<meta property="og:site_name" content="OWASP Web Security Testing Guide">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="WSTG - v4.2">
+<meta name="twitter:description" content="The premier cybersecurity testing resource for web application developers and security professionals.">
+<meta name="twitter:image" content="https://wstg.owasp.org/assets/images/wstg-cover.png">
+<link rel="canonical" href="https://wstg.owasp.org/v4.2/4-Web_Application_Security_Testing/12-API_Testing/01-Testing_GraphQL/">
+<link rel="icon" href="/assets/images/wstg-shield.png" type="image/png">
+<link rel="apple-touch-icon" href="/assets/images/wstg-shield.png">
+<meta name="theme-color" content="#1a1d23">
+<script>
+(function () {
+  var t;
+  try { t = localStorage.getItem('wstg-theme'); } catch (e) {}
+  var effective;
+  if (!t || t === 'system') {
+    effective = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  } else {
+    effective = t;
+  }
+  document.documentElement.setAttribute('data-theme', effective);
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/shell.css">
+<link rel="stylesheet" href="/assets/css/buttons.css">
+<link rel="stylesheet" href="/assets/css/footer.css">
+<link rel="stylesheet" href="/assets/css/site.css">
+
+<link rel="stylesheet" href="/assets/css/wstg-nav.css">
+
+
+</head>
+<body id="top" class="page-document">
+  <div class="skip-links">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="#page-end" class="skip-link">Skip to bottom of page</a>
+  </div>
+  <header class="site-header">
+  <div class="container container-wide header-inner">
+    <div class="header-left">
+      <a href="/" class="header-brand" aria-label="WSTG home">
+        <img class="header-brand-shield" src="/assets/images/wstg-shield.png" width="40" height="40" alt="">
+        <span class="header-brand-name"><span class="wstg-wordmark">WSTG</span></span>
+      </a>
+    </div>
+    <div class="header-actions">
+      <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Theme: system. Click to switch." title="Theme">
+        <span class="theme-toggle-icon-wrap">
+          <svg class="theme-toggle-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path fill="currentColor" d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
+          </svg>
+        </span>
+        <span class="theme-toggle-label" aria-hidden="true">Theme</span>
+      </button>
+      <a href="https://owasp.org/" class="ext-link" rel="noopener noreferrer" target="_blank" aria-label="OWASP (external)">
+        <img class="owasp-wordmark-img" src="/assets/images/owasp-logo-header.svg" alt="" width="133" height="40">
+        <span class="sr-only"> (opens in new window)</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+  <header class="project-header">
+  <div class="container container-wide">
+    <div class="project-header-top">
+      <h1 class="project-title">OWASP Web Security Testing Guide</h1>
+      <p class="project-subtitle">v4.2</p>
+    </div>
+    
+    <p class="project-tagline">Web application security testing guidance.</p>
+    
+  </div>
+</header>
+
+
+<div class="channel-banners" role="banner">
+  
+
+  
+  <div class="channel-banner channel-banner--stable">
+    You're viewing the current stable version of the Web Security Testing Guide project.
+  </div>
+  
+
+  
+  
+  
+    
+  
+</div>
+
+<main id="main-content" class="site-main">
+  <div class="container container-wide">
+    <div class="doc-nav-bar">
+      <button type="button" id="doc-nav-toggle" class="doc-nav-toggle" aria-controls="doc-sidebar" aria-expanded="false">
+        <span class="doc-nav-toggle-icon" aria-hidden="true"></span>
+        Contents
+      </button>
+    </div>
+    <div class="doc-layout">
+      <div id="doc-nav-backdrop" class="doc-nav-backdrop" hidden></div>
+      <aside id="doc-sidebar" class="doc-sidebar" aria-label="Guide contents">
+        <button type="button" id="doc-nav-close" class="doc-nav-close" aria-label="Close contents">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        
+
+
+<nav class="wstg-nav" id="wstg-nav-v42" aria-label="WSTG Contents (v4.2)">
+  <p class="wstg-nav-home"><a href="/">← Home</a></p>
+  <h2 class="wstg-nav-title"><a href="/v4.2/">WSTG Contents (v4.2)</a></h2>
+  <label class="visually-hidden" for="wstg-nav-filter-v42">Filter contents</label>
+  <input id="wstg-nav-filter-v42" class="wstg-nav-filter" type="search" placeholder="Filter (XSS, sqli, WSTG-INPV-01, 4.7)" autocomplete="off">
+  <div class="wstg-nav-controls">
+    <button type="button" data-wstg-expand>Expand All</button>
+    <button type="button" data-wstg-collapse>Collapse All</button>
+  </div>
+  <ul class="wstg-nav-list">
+    
+    
+<li class="wstg-nav-item" data-title="0. Foreword by Eoin Keary">
+<a href="/v4.2/0-Foreword/" data-nav-url="0-Foreword/" title="0. Foreword by Eoin Keary">0. Foreword by Eoin Keary</a>
+</li>
+<li class="wstg-nav-item" data-title="1. Frontispiece">
+<a href="/v4.2/1-Frontispiece/" data-nav-url="1-Frontispiece/" title="1. Frontispiece">1. Frontispiece</a>
+</li>
+<li class="wstg-nav-item" data-title="2. Introduction">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/2-Introduction/" data-nav-url="2-Introduction/" title="2. Introduction">2. Introduction</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="2.1 The OWASP Testing Project">
+<a href="/v4.2/2-Introduction/#the-owasp-testing-project" data-nav-url="2-Introduction/#the-owasp-testing-project" title="2.1 The OWASP Testing Project">2.1 The OWASP Testing Project</a>
+</li>
+<li class="wstg-nav-item" data-title="2.2 Principles of Testing">
+<a href="/v4.2/2-Introduction/#principles-of-testing" data-nav-url="2-Introduction/#principles-of-testing" title="2.2 Principles of Testing">2.2 Principles of Testing</a>
+</li>
+<li class="wstg-nav-item" data-title="2.3 Testing Techniques Explained">
+<a href="/v4.2/2-Introduction/#testing-techniques-explained" data-nav-url="2-Introduction/#testing-techniques-explained" title="2.3 Testing Techniques Explained">2.3 Testing Techniques Explained</a>
+</li>
+<li class="wstg-nav-item" data-title="2.4 Manual Inspections and Reviews">
+<a href="/v4.2/2-Introduction/#manual-inspections-and-reviews" data-nav-url="2-Introduction/#manual-inspections-and-reviews" title="2.4 Manual Inspections and Reviews">2.4 Manual Inspections and Reviews</a>
+</li>
+<li class="wstg-nav-item" data-title="2.5 Threat Modeling">
+<a href="/v4.2/2-Introduction/#threat-modeling" data-nav-url="2-Introduction/#threat-modeling" title="2.5 Threat Modeling">2.5 Threat Modeling</a>
+</li>
+<li class="wstg-nav-item" data-title="2.6 Source Code Review">
+<a href="/v4.2/2-Introduction/#source-code-review" data-nav-url="2-Introduction/#source-code-review" title="2.6 Source Code Review">2.6 Source Code Review</a>
+</li>
+<li class="wstg-nav-item" data-title="2.7 Penetration Testing">
+<a href="/v4.2/2-Introduction/#penetration-testing" data-nav-url="2-Introduction/#penetration-testing" title="2.7 Penetration Testing">2.7 Penetration Testing</a>
+</li>
+<li class="wstg-nav-item" data-title="2.8 The Need for a Balanced Approach">
+<a href="/v4.2/2-Introduction/#the-need-for-a-balanced-approach" data-nav-url="2-Introduction/#the-need-for-a-balanced-approach" title="2.8 The Need for a Balanced Approach">2.8 The Need for a Balanced Approach</a>
+</li>
+<li class="wstg-nav-item" data-title="2.9 Deriving Security Test Requirements">
+<a href="/v4.2/2-Introduction/#deriving-security-test-requirements" data-nav-url="2-Introduction/#deriving-security-test-requirements" title="2.9 Deriving Security Test Requirements">2.9 Deriving Security Test Requirements</a>
+</li>
+<li class="wstg-nav-item" data-title="2.10 Security Tests Integrated in Development and Testing Workflows">
+<a href="/v4.2/2-Introduction/#security-tests-integrated-in-development-and-testing-workflows" data-nav-url="2-Introduction/#security-tests-integrated-in-development-and-testing-workflows" title="2.10 Security Tests Integrated in Development and Testing Workflows">2.10 Security Tests Integrated in Development and Testing Workflows</a>
+</li>
+<li class="wstg-nav-item" data-title="2.11 Security Test Data Analysis and Reporting">
+<a href="/v4.2/2-Introduction/#security-test-data-analysis-and-reporting" data-nav-url="2-Introduction/#security-test-data-analysis-and-reporting" title="2.11 Security Test Data Analysis and Reporting">2.11 Security Test Data Analysis and Reporting</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="3. The OWASP Testing Framework">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/3-The_OWASP_Testing_Framework/" data-nav-url="3-The_OWASP_Testing_Framework/" title="3. The OWASP Testing Framework">3. The OWASP Testing Framework</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="3.1 The Web Security Testing Framework">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework" title="3.1 The Web Security Testing Framework">3.1 The Web Security Testing Framework</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="3.2 Phase 1 Before Development Begins">
+<a href="/v4.2/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-1-before-development-begins" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-1-before-development-begins" title="3.2 Phase 1 Before Development Begins">3.2 Phase 1 Before Development Begins</a>
+</li>
+<li class="wstg-nav-item" data-title="3.3 Phase 2 During Definition and Design">
+<a href="/v4.2/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-2-during-definition-and-design" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-2-during-definition-and-design" title="3.3 Phase 2 During Definition and Design">3.3 Phase 2 During Definition and Design</a>
+</li>
+<li class="wstg-nav-item" data-title="3.4 Phase 3 During Development">
+<a href="/v4.2/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-3-during-development" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-3-during-development" title="3.4 Phase 3 During Development">3.4 Phase 3 During Development</a>
+</li>
+<li class="wstg-nav-item" data-title="3.5 Phase 4 During Deployment">
+<a href="/v4.2/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-4-during-deployment" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-4-during-deployment" title="3.5 Phase 4 During Deployment">3.5 Phase 4 During Deployment</a>
+</li>
+<li class="wstg-nav-item" data-title="3.6 Phase 5 During Maintenance and Operations">
+<a href="/v4.2/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-5-during-maintenance-and-operations" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-5-during-maintenance-and-operations" title="3.6 Phase 5 During Maintenance and Operations">3.6 Phase 5 During Maintenance and Operations</a>
+</li>
+<li class="wstg-nav-item" data-title="3.7 A Typical SDLC Testing Workflow">
+<a href="/v4.2/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#a-typical-sdlc-testing-workflow" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#a-typical-sdlc-testing-workflow" title="3.7 A Typical SDLC Testing Workflow">3.7 A Typical SDLC Testing Workflow</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="3.8 Penetration Testing Methodologies">
+<a href="/v4.2/3-The_OWASP_Testing_Framework/1-Penetration_Testing_Methodologies" data-nav-url="3-The_OWASP_Testing_Framework/1-Penetration_Testing_Methodologies" title="3.8 Penetration Testing Methodologies">3.8 Penetration Testing Methodologies</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4. Web Application Security Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/" data-nav-url="4-Web_Application_Security_Testing/" title="4. Web Application Security Testing">4. Web Application Security Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.0 Introduction and Objectives">
+<a href="/v4.2/4-Web_Application_Security_Testing/00-Introduction_and_Objectives/" data-nav-url="4-Web_Application_Security_Testing/00-Introduction_and_Objectives/" title="4.0 Introduction and Objectives">4.0 Introduction and Objectives</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1 Information Gathering">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/" title="4.1 Information Gathering">4.1 Information Gathering</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.1.1 Conduct Search Engine Discovery Reconnaissance for Information Leakage" data-hints="wstg-info-01 info-01">
+<a href="/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/01-Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/01-Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage" title="4.1.1 Conduct Search Engine Discovery Reconnaissance for Information Leakage">4.1.1 Conduct Search Engine Discovery Reconnaissance for Information Leakage</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.2 Fingerprint Web Server" data-hints="wstg-info-02 info-02">
+<a href="/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/02-Fingerprint_Web_Server" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/02-Fingerprint_Web_Server" title="4.1.2 Fingerprint Web Server">4.1.2 Fingerprint Web Server</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.3 Review Webserver Metafiles for Information Leakage" data-hints="robots robots.txt sitemap sitemap.xml wstg-info-03 info-03">
+<a href="/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/03-Review_Webserver_Metafiles_for_Information_Leakage" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/03-Review_Webserver_Metafiles_for_Information_Leakage" title="4.1.3 Review Webserver Metafiles for Information Leakage">4.1.3 Review Webserver Metafiles for Information Leakage</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.4 Enumerate Applications on Webserver" data-hints="wstg-info-04 info-04">
+<a href="/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/04-Enumerate_Applications_on_Webserver" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/04-Enumerate_Applications_on_Webserver" title="4.1.4 Enumerate Applications on Webserver">4.1.4 Enumerate Applications on Webserver</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.5 Review Webpage Content for Information Leakage" data-hints="wstg-info-05 info-05">
+<a href="/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/05-Review_Webpage_Content_for_Information_Leakage" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/05-Review_Webpage_Content_for_Information_Leakage" title="4.1.5 Review Webpage Content for Information Leakage">4.1.5 Review Webpage Content for Information Leakage</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.6 Identify Application Entry Points" data-hints="wstg-info-06 info-06">
+<a href="/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/06-Identify_Application_Entry_Points" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/06-Identify_Application_Entry_Points" title="4.1.6 Identify Application Entry Points">4.1.6 Identify Application Entry Points</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.7 Map Execution Paths Through Application" data-hints="wstg-info-07 info-07">
+<a href="/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/07-Map_Execution_Paths_Through_Application" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/07-Map_Execution_Paths_Through_Application" title="4.1.7 Map Execution Paths Through Application">4.1.7 Map Execution Paths Through Application</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.8 Fingerprint Web Application Framework" data-hints="wstg-info-08 info-08">
+<a href="/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/08-Fingerprint_Web_Application_Framework" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/08-Fingerprint_Web_Application_Framework" title="4.1.8 Fingerprint Web Application Framework">4.1.8 Fingerprint Web Application Framework</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.9 Fingerprint Web Application" data-hints="wstg-info-09 info-09">
+<a href="/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/09-Fingerprint_Web_Application" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/09-Fingerprint_Web_Application" title="4.1.9 Fingerprint Web Application">4.1.9 Fingerprint Web Application</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.10 Map Application Architecture" data-hints="wstg-info-10 info-10">
+<a href="/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/10-Map_Application_Architecture" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/10-Map_Application_Architecture" title="4.1.10 Map Application Architecture">4.1.10 Map Application Architecture</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.2 Configuration and Deployment Management Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/" title="4.2 Configuration and Deployment Management Testing">4.2 Configuration and Deployment Management Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.2.1 Test Network Infrastructure Configuration" data-hints="wstg-conf-01 conf-01">
+<a href="/v4.2/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/01-Test_Network_Infrastructure_Configuration" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/01-Test_Network_Infrastructure_Configuration" title="4.2.1 Test Network Infrastructure Configuration">4.2.1 Test Network Infrastructure Configuration</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.2 Test Application Platform Configuration" data-hints="wstg-conf-02 conf-02">
+<a href="/v4.2/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/02-Test_Application_Platform_Configuration" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/02-Test_Application_Platform_Configuration" title="4.2.2 Test Application Platform Configuration">4.2.2 Test Application Platform Configuration</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.3 Test File Extensions Handling for Sensitive Information" data-hints="wstg-conf-03 conf-03">
+<a href="/v4.2/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/03-Test_File_Extensions_Handling_for_Sensitive_Information" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/03-Test_File_Extensions_Handling_for_Sensitive_Information" title="4.2.3 Test File Extensions Handling for Sensitive Information">4.2.3 Test File Extensions Handling for Sensitive Information</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.4 Review Old Backup and Unreferenced Files for Sensitive Information" data-hints="wstg-conf-04 conf-04">
+<a href="/v4.2/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/04-Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/04-Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information" title="4.2.4 Review Old Backup and Unreferenced Files for Sensitive Information">4.2.4 Review Old Backup and Unreferenced Files for Sensitive Information</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.5 Enumerate Infrastructure and Application Admin Interfaces" data-hints="wstg-conf-05 conf-05">
+<a href="/v4.2/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/05-Enumerate_Infrastructure_and_Application_Admin_Interfaces" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/05-Enumerate_Infrastructure_and_Application_Admin_Interfaces" title="4.2.5 Enumerate Infrastructure and Application Admin Interfaces">4.2.5 Enumerate Infrastructure and Application Admin Interfaces</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.6 Test HTTP Methods" data-hints="wstg-conf-06 conf-06">
+<a href="/v4.2/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/06-Test_HTTP_Methods" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/06-Test_HTTP_Methods" title="4.2.6 Test HTTP Methods">4.2.6 Test HTTP Methods</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.7 Test HTTP Strict Transport Security" data-hints="hsts headers wstg-conf-07 conf-07">
+<a href="/v4.2/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/07-Test_HTTP_Strict_Transport_Security" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/07-Test_HTTP_Strict_Transport_Security" title="4.2.7 Test HTTP Strict Transport Security">4.2.7 Test HTTP Strict Transport Security</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.8 Test RIA Cross Domain Policy" data-hints="crossdomain.xml clientaccesspolicy wstg-conf-08 conf-08">
+<a href="/v4.2/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/08-Test_RIA_Cross_Domain_Policy" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/08-Test_RIA_Cross_Domain_Policy" title="4.2.8 Test RIA Cross Domain Policy">4.2.8 Test RIA Cross Domain Policy</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.9 Test File Permission" data-hints="wstg-conf-09 conf-09">
+<a href="/v4.2/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/09-Test_File_Permission" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/09-Test_File_Permission" title="4.2.9 Test File Permission">4.2.9 Test File Permission</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.10 Test for Subdomain Takeover" data-hints="wstg-conf-10 conf-10">
+<a href="/v4.2/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/10-Test_for_Subdomain_Takeover" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/10-Test_for_Subdomain_Takeover" title="4.2.10 Test for Subdomain Takeover">4.2.10 Test for Subdomain Takeover</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.11 Test Cloud Storage" data-hints="s3 bucket blob storage wstg-conf-11 conf-11">
+<a href="/v4.2/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/11-Test_Cloud_Storage" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/11-Test_Cloud_Storage" title="4.2.11 Test Cloud Storage">4.2.11 Test Cloud Storage</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.3 Identity Management Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/03-Identity_Management_Testing/" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/" title="4.3 Identity Management Testing">4.3 Identity Management Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.3.1 Test Role Definitions" data-hints="wstg-idnt-01 idnt-01">
+<a href="/v4.2/4-Web_Application_Security_Testing/03-Identity_Management_Testing/01-Test_Role_Definitions" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/01-Test_Role_Definitions" title="4.3.1 Test Role Definitions">4.3.1 Test Role Definitions</a>
+</li>
+<li class="wstg-nav-item" data-title="4.3.2 Test User Registration Process" data-hints="wstg-idnt-02 idnt-02">
+<a href="/v4.2/4-Web_Application_Security_Testing/03-Identity_Management_Testing/02-Test_User_Registration_Process" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/02-Test_User_Registration_Process" title="4.3.2 Test User Registration Process">4.3.2 Test User Registration Process</a>
+</li>
+<li class="wstg-nav-item" data-title="4.3.3 Test Account Provisioning Process" data-hints="wstg-idnt-03 idnt-03">
+<a href="/v4.2/4-Web_Application_Security_Testing/03-Identity_Management_Testing/03-Test_Account_Provisioning_Process" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/03-Test_Account_Provisioning_Process" title="4.3.3 Test Account Provisioning Process">4.3.3 Test Account Provisioning Process</a>
+</li>
+<li class="wstg-nav-item" data-title="4.3.4 Testing for Account Enumeration and Guessable User Account" data-hints="wstg-idnt-04 idnt-04">
+<a href="/v4.2/4-Web_Application_Security_Testing/03-Identity_Management_Testing/04-Testing_for_Account_Enumeration_and_Guessable_User_Account" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/04-Testing_for_Account_Enumeration_and_Guessable_User_Account" title="4.3.4 Testing for Account Enumeration and Guessable User Account">4.3.4 Testing for Account Enumeration and Guessable User Account</a>
+</li>
+<li class="wstg-nav-item" data-title="4.3.5 Testing for Weak or Unenforced Username Policy" data-hints="wstg-idnt-05 idnt-05">
+<a href="/v4.2/4-Web_Application_Security_Testing/03-Identity_Management_Testing/05-Testing_for_Weak_or_Unenforced_Username_Policy" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/05-Testing_for_Weak_or_Unenforced_Username_Policy" title="4.3.5 Testing for Weak or Unenforced Username Policy">4.3.5 Testing for Weak or Unenforced Username Policy</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.4 Authentication Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/04-Authentication_Testing/" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/" title="4.4 Authentication Testing">4.4 Authentication Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.4.1 Testing for Credentials Transported over an Encrypted Channel" data-hints="tls ssl https wstg-athn-01 athn-01">
+<a href="/v4.2/4-Web_Application_Security_Testing/04-Authentication_Testing/01-Testing_for_Credentials_Transported_over_an_Encrypted_Channel" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/01-Testing_for_Credentials_Transported_over_an_Encrypted_Channel" title="4.4.1 Testing for Credentials Transported over an Encrypted Channel">4.4.1 Testing for Credentials Transported over an Encrypted Channel</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.2 Testing for Default Credentials" data-hints="wstg-athn-02 athn-02">
+<a href="/v4.2/4-Web_Application_Security_Testing/04-Authentication_Testing/02-Testing_for_Default_Credentials" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/02-Testing_for_Default_Credentials" title="4.4.2 Testing for Default Credentials">4.4.2 Testing for Default Credentials</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.3 Testing for Weak Lock Out Mechanism" data-hints="rate limit bruteforce brute force account lockout wstg-athn-03 athn-03">
+<a href="/v4.2/4-Web_Application_Security_Testing/04-Authentication_Testing/03-Testing_for_Weak_Lock_Out_Mechanism" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/03-Testing_for_Weak_Lock_Out_Mechanism" title="4.4.3 Testing for Weak Lock Out Mechanism">4.4.3 Testing for Weak Lock Out Mechanism</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.4 Testing for Bypassing Authentication Schema" data-hints="wstg-athn-04 athn-04">
+<a href="/v4.2/4-Web_Application_Security_Testing/04-Authentication_Testing/04-Testing_for_Bypassing_Authentication_Schema" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/04-Testing_for_Bypassing_Authentication_Schema" title="4.4.4 Testing for Bypassing Authentication Schema">4.4.4 Testing for Bypassing Authentication Schema</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.5 Testing for Vulnerable Remember Password" data-hints="wstg-athn-05 athn-05">
+<a href="/v4.2/4-Web_Application_Security_Testing/04-Authentication_Testing/05-Testing_for_Vulnerable_Remember_Password" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/05-Testing_for_Vulnerable_Remember_Password" title="4.4.5 Testing for Vulnerable Remember Password">4.4.5 Testing for Vulnerable Remember Password</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.6 Testing for Browser Cache Weaknesses" data-hints="wstg-athn-06 athn-06">
+<a href="/v4.2/4-Web_Application_Security_Testing/04-Authentication_Testing/06-Testing_for_Browser_Cache_Weaknesses" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/06-Testing_for_Browser_Cache_Weaknesses" title="4.4.6 Testing for Browser Cache Weaknesses">4.4.6 Testing for Browser Cache Weaknesses</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.7 Testing for Weak Password Policy" data-hints="wstg-athn-07 athn-07">
+<a href="/v4.2/4-Web_Application_Security_Testing/04-Authentication_Testing/07-Testing_for_Weak_Password_Policy" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/07-Testing_for_Weak_Password_Policy" title="4.4.7 Testing for Weak Password Policy">4.4.7 Testing for Weak Password Policy</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.8 Testing for Weak Security Question Answer" data-hints="wstg-athn-08 athn-08">
+<a href="/v4.2/4-Web_Application_Security_Testing/04-Authentication_Testing/08-Testing_for_Weak_Security_Question_Answer" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/08-Testing_for_Weak_Security_Question_Answer" title="4.4.8 Testing for Weak Security Question Answer">4.4.8 Testing for Weak Security Question Answer</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.9 Testing for Weak Password Change or Reset Functionalities" data-hints="wstg-athn-09 athn-09">
+<a href="/v4.2/4-Web_Application_Security_Testing/04-Authentication_Testing/09-Testing_for_Weak_Password_Change_or_Reset_Functionalities" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/09-Testing_for_Weak_Password_Change_or_Reset_Functionalities" title="4.4.9 Testing for Weak Password Change or Reset Functionalities">4.4.9 Testing for Weak Password Change or Reset Functionalities</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.10 Testing for Weaker Authentication in Alternative Channel" data-hints="wstg-athn-10 athn-10">
+<a href="/v4.2/4-Web_Application_Security_Testing/04-Authentication_Testing/10-Testing_for_Weaker_Authentication_in_Alternative_Channel" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/10-Testing_for_Weaker_Authentication_in_Alternative_Channel" title="4.4.10 Testing for Weaker Authentication in Alternative Channel">4.4.10 Testing for Weaker Authentication in Alternative Channel</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.5 Authorization Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/05-Authorization_Testing/" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/" title="4.5 Authorization Testing">4.5 Authorization Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.5.1 Testing Directory Traversal File Include" data-hints="path traversal dotdot lfi wstg-athz-01 athz-01">
+<a href="/v4.2/4-Web_Application_Security_Testing/05-Authorization_Testing/01-Testing_Directory_Traversal_File_Include" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/01-Testing_Directory_Traversal_File_Include" title="4.5.1 Testing Directory Traversal File Include">4.5.1 Testing Directory Traversal File Include</a>
+</li>
+<li class="wstg-nav-item" data-title="4.5.2 Testing for Bypassing Authorization Schema" data-hints="wstg-athz-02 athz-02">
+<a href="/v4.2/4-Web_Application_Security_Testing/05-Authorization_Testing/02-Testing_for_Bypassing_Authorization_Schema" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/02-Testing_for_Bypassing_Authorization_Schema" title="4.5.2 Testing for Bypassing Authorization Schema">4.5.2 Testing for Bypassing Authorization Schema</a>
+</li>
+<li class="wstg-nav-item" data-title="4.5.3 Testing for Privilege Escalation" data-hints="privesc wstg-athz-03 athz-03">
+<a href="/v4.2/4-Web_Application_Security_Testing/05-Authorization_Testing/03-Testing_for_Privilege_Escalation" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/03-Testing_for_Privilege_Escalation" title="4.5.3 Testing for Privilege Escalation">4.5.3 Testing for Privilege Escalation</a>
+</li>
+<li class="wstg-nav-item" data-title="4.5.4 Testing for Insecure Direct Object References" data-hints="idor wstg-athz-04 athz-04">
+<a href="/v4.2/4-Web_Application_Security_Testing/05-Authorization_Testing/04-Testing_for_Insecure_Direct_Object_References" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/04-Testing_for_Insecure_Direct_Object_References" title="4.5.4 Testing for Insecure Direct Object References">4.5.4 Testing for Insecure Direct Object References</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.6 Session Management Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/06-Session_Management_Testing/" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/" title="4.6 Session Management Testing">4.6 Session Management Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.6.1 Testing for Session Management Schema" data-hints="wstg-sess-01 sess-01">
+<a href="/v4.2/4-Web_Application_Security_Testing/06-Session_Management_Testing/01-Testing_for_Session_Management_Schema" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/01-Testing_for_Session_Management_Schema" title="4.6.1 Testing for Session Management Schema">4.6.1 Testing for Session Management Schema</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.2 Testing for Cookies Attributes" data-hints="cookies set-cookie httponly samesite secure flag wstg-sess-02 sess-02">
+<a href="/v4.2/4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes" title="4.6.2 Testing for Cookies Attributes">4.6.2 Testing for Cookies Attributes</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.3 Testing for Session Fixation" data-hints="wstg-sess-03 sess-03">
+<a href="/v4.2/4-Web_Application_Security_Testing/06-Session_Management_Testing/03-Testing_for_Session_Fixation" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/03-Testing_for_Session_Fixation" title="4.6.3 Testing for Session Fixation">4.6.3 Testing for Session Fixation</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.4 Testing for Exposed Session Variables" data-hints="wstg-sess-04 sess-04">
+<a href="/v4.2/4-Web_Application_Security_Testing/06-Session_Management_Testing/04-Testing_for_Exposed_Session_Variables" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/04-Testing_for_Exposed_Session_Variables" title="4.6.4 Testing for Exposed Session Variables">4.6.4 Testing for Exposed Session Variables</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.5 Testing for Cross Site Request Forgery" data-hints="csrf xsrf wstg-sess-05 sess-05">
+<a href="/v4.2/4-Web_Application_Security_Testing/06-Session_Management_Testing/05-Testing_for_Cross_Site_Request_Forgery" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/05-Testing_for_Cross_Site_Request_Forgery" title="4.6.5 Testing for Cross Site Request Forgery">4.6.5 Testing for Cross Site Request Forgery</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.6 Testing for Logout Functionality" data-hints="wstg-sess-06 sess-06">
+<a href="/v4.2/4-Web_Application_Security_Testing/06-Session_Management_Testing/06-Testing_for_Logout_Functionality" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/06-Testing_for_Logout_Functionality" title="4.6.6 Testing for Logout Functionality">4.6.6 Testing for Logout Functionality</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.7 Testing Session Timeout" data-hints="wstg-sess-07 sess-07">
+<a href="/v4.2/4-Web_Application_Security_Testing/06-Session_Management_Testing/07-Testing_Session_Timeout" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/07-Testing_Session_Timeout" title="4.6.7 Testing Session Timeout">4.6.7 Testing Session Timeout</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.8 Testing for Session Puzzling" data-hints="wstg-sess-08 sess-08">
+<a href="/v4.2/4-Web_Application_Security_Testing/06-Session_Management_Testing/08-Testing_for_Session_Puzzling" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/08-Testing_for_Session_Puzzling" title="4.6.8 Testing for Session Puzzling">4.6.8 Testing for Session Puzzling</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.9 Testing for Session Hijacking" data-hints="wstg-sess-09 sess-09">
+<a href="/v4.2/4-Web_Application_Security_Testing/06-Session_Management_Testing/09-Testing_for_Session_Hijacking" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/09-Testing_for_Session_Hijacking" title="4.6.9 Testing for Session Hijacking">4.6.9 Testing for Session Hijacking</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.7 Input Validation Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/" title="4.7 Input Validation Testing">4.7 Input Validation Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.7.1 Testing for Reflected Cross Site Scripting" data-hints="xss wstg-inpv-01 inpv-01">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/01-Testing_for_Reflected_Cross_Site_Scripting" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/01-Testing_for_Reflected_Cross_Site_Scripting" title="4.7.1 Testing for Reflected Cross Site Scripting">4.7.1 Testing for Reflected Cross Site Scripting</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.2 Testing for Stored Cross Site Scripting" data-hints="xss wstg-inpv-02 inpv-02">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/02-Testing_for_Stored_Cross_Site_Scripting" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/02-Testing_for_Stored_Cross_Site_Scripting" title="4.7.2 Testing for Stored Cross Site Scripting">4.7.2 Testing for Stored Cross Site Scripting</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.3 Testing for HTTP Verb Tampering" data-hints="verb tampering wstg-inpv-03 inpv-03">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/03-Testing_for_HTTP_Verb_Tampering" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/03-Testing_for_HTTP_Verb_Tampering" title="4.7.3 Testing for HTTP Verb Tampering">4.7.3 Testing for HTTP Verb Tampering</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.4 Testing for HTTP Parameter Pollution" data-hints="hpp wstg-inpv-04 inpv-04">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/04-Testing_for_HTTP_Parameter_Pollution" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/04-Testing_for_HTTP_Parameter_Pollution" title="4.7.4 Testing for HTTP Parameter Pollution">4.7.4 Testing for HTTP Parameter Pollution</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5 Testing for SQL Injection" data-hints="sqli wstg-inpv-05 inpv-05">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection" title="4.7.5 Testing for SQL Injection">4.7.5 Testing for SQL Injection</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.7.5.1 Testing for Oracle">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.1-Testing_for_Oracle" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.1-Testing_for_Oracle" title="4.7.5.1 Testing for Oracle">4.7.5.1 Testing for Oracle</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.2 Testing for MySQL">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.2-Testing_for_MySQL" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.2-Testing_for_MySQL" title="4.7.5.2 Testing for MySQL">4.7.5.2 Testing for MySQL</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.3 Testing for SQL Server" data-hints="mssql sql server">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.3-Testing_for_SQL_Server" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.3-Testing_for_SQL_Server" title="4.7.5.3 Testing for SQL Server">4.7.5.3 Testing for SQL Server</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.4 Testing PostgreSQL">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.4-Testing_PostgreSQL" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.4-Testing_PostgreSQL" title="4.7.5.4 Testing PostgreSQL">4.7.5.4 Testing PostgreSQL</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.5 Testing for MS Access">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.5-Testing_for_MS_Access" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.5-Testing_for_MS_Access" title="4.7.5.5 Testing for MS Access">4.7.5.5 Testing for MS Access</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.6 Testing for NoSQL Injection" data-hints="sqli nosqli">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.6-Testing_for_NoSQL_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.6-Testing_for_NoSQL_Injection" title="4.7.5.6 Testing for NoSQL Injection">4.7.5.6 Testing for NoSQL Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.7 Testing for ORM Injection">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.7-Testing_for_ORM_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.7-Testing_for_ORM_Injection" title="4.7.5.7 Testing for ORM Injection">4.7.5.7 Testing for ORM Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.8 Testing for Client-side">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.8-Testing_for_Client-side" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.8-Testing_for_Client-side" title="4.7.5.8 Testing for Client-side">4.7.5.8 Testing for Client-side</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.7.6 Testing for LDAP Injection" data-hints="ldapi wstg-inpv-06 inpv-06">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/06-Testing_for_LDAP_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/06-Testing_for_LDAP_Injection" title="4.7.6 Testing for LDAP Injection">4.7.6 Testing for LDAP Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.7 Testing for XML Injection" data-hints="xxe xmli xml injection wstg-inpv-07 inpv-07">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/07-Testing_for_XML_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/07-Testing_for_XML_Injection" title="4.7.7 Testing for XML Injection">4.7.7 Testing for XML Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.8 Testing for SSI Injection" data-hints="ssi injection wstg-inpv-08 inpv-08">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/08-Testing_for_SSI_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/08-Testing_for_SSI_Injection" title="4.7.8 Testing for SSI Injection">4.7.8 Testing for SSI Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.9 Testing for XPath Injection" data-hints="xpathi xml wstg-inpv-09 inpv-09">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/09-Testing_for_XPath_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/09-Testing_for_XPath_Injection" title="4.7.9 Testing for XPath Injection">4.7.9 Testing for XPath Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.10 Testing for IMAP SMTP Injection" data-hints="email injection wstg-inpv-10 inpv-10">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/10-Testing_for_IMAP_SMTP_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/10-Testing_for_IMAP_SMTP_Injection" title="4.7.10 Testing for IMAP SMTP Injection">4.7.10 Testing for IMAP SMTP Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.11 Testing for Code Injection" data-hints="rce wstg-inpv-11 inpv-11">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11-Testing_for_Code_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/11-Testing_for_Code_Injection" title="4.7.11 Testing for Code Injection">4.7.11 Testing for Code Injection</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.7.11.1 Testing for Local File Inclusion" data-hints="lfi rfi">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.1-Testing_for_Local_File_Inclusion" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.1-Testing_for_Local_File_Inclusion" title="4.7.11.1 Testing for Local File Inclusion">4.7.11.1 Testing for Local File Inclusion</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.11.2 Testing for Remote File Inclusion" data-hints="lfi rfi">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.2-Testing_for_Remote_File_Inclusion" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.2-Testing_for_Remote_File_Inclusion" title="4.7.11.2 Testing for Remote File Inclusion">4.7.11.2 Testing for Remote File Inclusion</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.7.12 Testing for Command Injection" data-hints="rce cmdi os command wstg-inpv-12 inpv-12">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/12-Testing_for_Command_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/12-Testing_for_Command_Injection" title="4.7.12 Testing for Command Injection">4.7.12 Testing for Command Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.13 Testing for Format String Injection" data-hints="format string bug wstg-inpv-13 inpv-13">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/13-Testing_for_Format_String_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/13-Testing_for_Format_String_Injection" title="4.7.13 Testing for Format String Injection">4.7.13 Testing for Format String Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.14 Testing for Incubated Vulnerability" data-hints="wstg-inpv-14 inpv-14">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/14-Testing_for_Incubated_Vulnerability" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/14-Testing_for_Incubated_Vulnerability" title="4.7.14 Testing for Incubated Vulnerability">4.7.14 Testing for Incubated Vulnerability</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.15 Testing for HTTP Splitting Smuggling" data-hints="wstg-inpv-15 inpv-15">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/15-Testing_for_HTTP_Splitting_Smuggling" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/15-Testing_for_HTTP_Splitting_Smuggling" title="4.7.15 Testing for HTTP Splitting Smuggling">4.7.15 Testing for HTTP Splitting Smuggling</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.16 Testing for HTTP Incoming Requests" data-hints="wstg-inpv-16 inpv-16">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/16-Testing_for_HTTP_Incoming_Requests" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/16-Testing_for_HTTP_Incoming_Requests" title="4.7.16 Testing for HTTP Incoming Requests">4.7.16 Testing for HTTP Incoming Requests</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.17 Testing for Host Header Injection" data-hints="host header injection headers wstg-inpv-17 inpv-17">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/17-Testing_for_Host_Header_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/17-Testing_for_Host_Header_Injection" title="4.7.17 Testing for Host Header Injection">4.7.17 Testing for Host Header Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.18 Testing for Server-side Template Injection" data-hints="ssti wstg-inpv-18 inpv-18">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/18-Testing_for_Server-side_Template_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/18-Testing_for_Server-side_Template_Injection" title="4.7.18 Testing for Server-side Template Injection">4.7.18 Testing for Server-side Template Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.19 Testing for Server-Side Request Forgery" data-hints="ssrf wstg-inpv-19 inpv-19">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/19-Testing_for_Server-Side_Request_Forgery" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/19-Testing_for_Server-Side_Request_Forgery" title="4.7.19 Testing for Server-Side Request Forgery">4.7.19 Testing for Server-Side Request Forgery</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.8 Testing for Error Handling">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/" data-nav-url="4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/" title="4.8 Testing for Error Handling">4.8 Testing for Error Handling</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.8.1 Testing for Improper Error Handling" data-hints="wstg-errh-01 errh-01">
+<a href="/v4.2/4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/01-Testing_For_Improper_Error_Handling" data-nav-url="4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/01-Testing_For_Improper_Error_Handling" title="4.8.1 Testing for Improper Error Handling">4.8.1 Testing for Improper Error Handling</a>
+</li>
+<li class="wstg-nav-item" data-title="4.8.2 Testing for Stack Traces" data-hints="wstg-errh-02 errh-02">
+<a href="/v4.2/4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/02-Testing_for_Stack_Traces" data-nav-url="4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/02-Testing_for_Stack_Traces" title="4.8.2 Testing for Stack Traces">4.8.2 Testing for Stack Traces</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.9 Testing for Weak Cryptography">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/" data-nav-url="4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/" title="4.9 Testing for Weak Cryptography">4.9 Testing for Weak Cryptography</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.9.1 Testing for Weak Transport Layer Security" data-hints="tls ssl https wstg-cryp-01 cryp-01">
+<a href="/v4.2/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_Transport_Layer_Security" data-nav-url="4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_Transport_Layer_Security" title="4.9.1 Testing for Weak Transport Layer Security">4.9.1 Testing for Weak Transport Layer Security</a>
+</li>
+<li class="wstg-nav-item" data-title="4.9.2 Testing for Padding Oracle" data-hints="padding oracle attack wstg-cryp-02 cryp-02">
+<a href="/v4.2/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/02-Testing_for_Padding_Oracle" data-nav-url="4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/02-Testing_for_Padding_Oracle" title="4.9.2 Testing for Padding Oracle">4.9.2 Testing for Padding Oracle</a>
+</li>
+<li class="wstg-nav-item" data-title="4.9.3 Testing for Sensitive Information Sent via Unencrypted Channels" data-hints="tls ssl https cleartext wstg-cryp-03 cryp-03">
+<a href="/v4.2/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/03-Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels" data-nav-url="4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/03-Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels" title="4.9.3 Testing for Sensitive Information Sent via Unencrypted Channels">4.9.3 Testing for Sensitive Information Sent via Unencrypted Channels</a>
+</li>
+<li class="wstg-nav-item" data-title="4.9.4 Testing for Weak Encryption" data-hints="wstg-cryp-04 cryp-04">
+<a href="/v4.2/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/04-Testing_for_Weak_Encryption" data-nav-url="4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/04-Testing_for_Weak_Encryption" title="4.9.4 Testing for Weak Encryption">4.9.4 Testing for Weak Encryption</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.10 Business Logic Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/10-Business_Logic_Testing/" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/" title="4.10 Business Logic Testing">4.10 Business Logic Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.10.0 Introduction to Business Logic">
+<a href="/v4.2/4-Web_Application_Security_Testing/10-Business_Logic_Testing/00-Introduction_to_Business_Logic" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/00-Introduction_to_Business_Logic" title="4.10.0 Introduction to Business Logic">4.10.0 Introduction to Business Logic</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.1 Test Business Logic Data Validation" data-hints="wstg-busl-01 busl-01">
+<a href="/v4.2/4-Web_Application_Security_Testing/10-Business_Logic_Testing/01-Test_Business_Logic_Data_Validation" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/01-Test_Business_Logic_Data_Validation" title="4.10.1 Test Business Logic Data Validation">4.10.1 Test Business Logic Data Validation</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.2 Test Ability to Forge Requests" data-hints="wstg-busl-02 busl-02">
+<a href="/v4.2/4-Web_Application_Security_Testing/10-Business_Logic_Testing/02-Test_Ability_to_Forge_Requests" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/02-Test_Ability_to_Forge_Requests" title="4.10.2 Test Ability to Forge Requests">4.10.2 Test Ability to Forge Requests</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.3 Test Integrity Checks" data-hints="wstg-busl-03 busl-03">
+<a href="/v4.2/4-Web_Application_Security_Testing/10-Business_Logic_Testing/03-Test_Integrity_Checks" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/03-Test_Integrity_Checks" title="4.10.3 Test Integrity Checks">4.10.3 Test Integrity Checks</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.4 Test for Process Timing" data-hints="race condition toctou wstg-busl-04 busl-04">
+<a href="/v4.2/4-Web_Application_Security_Testing/10-Business_Logic_Testing/04-Test_for_Process_Timing" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/04-Test_for_Process_Timing" title="4.10.4 Test for Process Timing">4.10.4 Test for Process Timing</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.5 Test Number of Times a Function Can Be Used Limits" data-hints="rate limit bruteforce brute force wstg-busl-05 busl-05">
+<a href="/v4.2/4-Web_Application_Security_Testing/10-Business_Logic_Testing/05-Test_Number_of_Times_a_Function_Can_Be_Used_Limits" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/05-Test_Number_of_Times_a_Function_Can_Be_Used_Limits" title="4.10.5 Test Number of Times a Function Can Be Used Limits">4.10.5 Test Number of Times a Function Can Be Used Limits</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.6 Testing for the Circumvention of Work Flows" data-hints="wstg-busl-06 busl-06">
+<a href="/v4.2/4-Web_Application_Security_Testing/10-Business_Logic_Testing/06-Testing_for_the_Circumvention_of_Work_Flows" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/06-Testing_for_the_Circumvention_of_Work_Flows" title="4.10.6 Testing for the Circumvention of Work Flows">4.10.6 Testing for the Circumvention of Work Flows</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.7 Test Defenses Against Application Misuse" data-hints="wstg-busl-07 busl-07">
+<a href="/v4.2/4-Web_Application_Security_Testing/10-Business_Logic_Testing/07-Test_Defenses_Against_Application_Misuse" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/07-Test_Defenses_Against_Application_Misuse" title="4.10.7 Test Defenses Against Application Misuse">4.10.7 Test Defenses Against Application Misuse</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.8 Test Upload of Unexpected File Types" data-hints="wstg-busl-08 busl-08">
+<a href="/v4.2/4-Web_Application_Security_Testing/10-Business_Logic_Testing/08-Test_Upload_of_Unexpected_File_Types" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/08-Test_Upload_of_Unexpected_File_Types" title="4.10.8 Test Upload of Unexpected File Types">4.10.8 Test Upload of Unexpected File Types</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.9 Test Upload of Malicious Files" data-hints="wstg-busl-09 busl-09">
+<a href="/v4.2/4-Web_Application_Security_Testing/10-Business_Logic_Testing/09-Test_Upload_of_Malicious_Files" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/09-Test_Upload_of_Malicious_Files" title="4.10.9 Test Upload of Malicious Files">4.10.9 Test Upload of Malicious Files</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.11 Client-side Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/" title="4.11 Client-side Testing">4.11 Client-side Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.11.1 Testing for DOM-Based Cross Site Scripting" data-hints="xss dom xss domxss wstg-clnt-01 clnt-01">
+<a href="/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/01-Testing_for_DOM-based_Cross_Site_Scripting" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/01-Testing_for_DOM-based_Cross_Site_Scripting" title="4.11.1 Testing for DOM-Based Cross Site Scripting">4.11.1 Testing for DOM-Based Cross Site Scripting</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.2 Testing for JavaScript Execution" data-hints="wstg-clnt-02 clnt-02">
+<a href="/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/02-Testing_for_JavaScript_Execution" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/02-Testing_for_JavaScript_Execution" title="4.11.2 Testing for JavaScript Execution">4.11.2 Testing for JavaScript Execution</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.3 Testing for HTML Injection" data-hints="wstg-clnt-03 clnt-03">
+<a href="/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/03-Testing_for_HTML_Injection" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/03-Testing_for_HTML_Injection" title="4.11.3 Testing for HTML Injection">4.11.3 Testing for HTML Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.4 Testing for Client-side URL Redirect" data-hints="open redirect wstg-clnt-04 clnt-04">
+<a href="/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/04-Testing_for_Client-side_URL_Redirect" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/04-Testing_for_Client-side_URL_Redirect" title="4.11.4 Testing for Client-side URL Redirect">4.11.4 Testing for Client-side URL Redirect</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.5 Testing for CSS Injection" data-hints="wstg-clnt-05 clnt-05">
+<a href="/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/05-Testing_for_CSS_Injection" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/05-Testing_for_CSS_Injection" title="4.11.5 Testing for CSS Injection">4.11.5 Testing for CSS Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.6 Testing for Client-side Resource Manipulation" data-hints="wstg-clnt-06 clnt-06">
+<a href="/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/06-Testing_for_Client-side_Resource_Manipulation" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/06-Testing_for_Client-side_Resource_Manipulation" title="4.11.6 Testing for Client-side Resource Manipulation">4.11.6 Testing for Client-side Resource Manipulation</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.7 Testing Cross Origin Resource Sharing" data-hints="cors headers wstg-clnt-07 clnt-07">
+<a href="/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/07-Testing_Cross_Origin_Resource_Sharing" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/07-Testing_Cross_Origin_Resource_Sharing" title="4.11.7 Testing Cross Origin Resource Sharing">4.11.7 Testing Cross Origin Resource Sharing</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.8 Testing for Cross Site Flashing" data-hints="wstg-clnt-08 clnt-08">
+<a href="/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/08-Testing_for_Cross_Site_Flashing" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/08-Testing_for_Cross_Site_Flashing" title="4.11.8 Testing for Cross Site Flashing">4.11.8 Testing for Cross Site Flashing</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.9 Testing for Clickjacking" data-hints="ui redress ui redressing x-frame-options framing wstg-clnt-09 clnt-09">
+<a href="/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/09-Testing_for_Clickjacking" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/09-Testing_for_Clickjacking" title="4.11.9 Testing for Clickjacking">4.11.9 Testing for Clickjacking</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.10 Testing WebSockets" data-hints="ws wstg-clnt-10 clnt-10">
+<a href="/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/10-Testing_WebSockets" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/10-Testing_WebSockets" title="4.11.10 Testing WebSockets">4.11.10 Testing WebSockets</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.11 Testing Web Messaging" data-hints="postmessage post message wstg-clnt-11 clnt-11">
+<a href="/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/11-Testing_Web_Messaging" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/11-Testing_Web_Messaging" title="4.11.11 Testing Web Messaging">4.11.11 Testing Web Messaging</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.12 Testing Browser Storage" data-hints="localstorage sessionstorage wstg-clnt-12 clnt-12">
+<a href="/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/12-Testing_Browser_Storage" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/12-Testing_Browser_Storage" title="4.11.12 Testing Browser Storage">4.11.12 Testing Browser Storage</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.13 Testing for Cross Site Script Inclusion" data-hints="xssi wstg-clnt-13 clnt-13">
+<a href="/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/13-Testing_for_Cross_Site_Script_Inclusion" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/13-Testing_for_Cross_Site_Script_Inclusion" title="4.11.13 Testing for Cross Site Script Inclusion">4.11.13 Testing for Cross Site Script Inclusion</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.12 API Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/12-API_Testing/" data-nav-url="4-Web_Application_Security_Testing/12-API_Testing/" title="4.12 API Testing">4.12 API Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.12.1 Testing GraphQL" data-hints="gql wstg-apit-01 apit-01">
+<a href="/v4.2/4-Web_Application_Security_Testing/12-API_Testing/01-Testing_GraphQL" data-nav-url="4-Web_Application_Security_Testing/12-API_Testing/01-Testing_GraphQL" title="4.12.1 Testing GraphQL">4.12.1 Testing GraphQL</a>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="5. Reporting">
+<a href="/v4.2/5-Reporting/" data-nav-url="5-Reporting/" title="5. Reporting">5. Reporting</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix A. Testing Tools Resource">
+<a href="/v4.2/6-Appendix/A-Testing_Tools_Resource" data-nav-url="6-Appendix/A-Testing_Tools_Resource" title="Appendix A. Testing Tools Resource">Appendix A. Testing Tools Resource</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix B. Suggested Reading">
+<a href="/v4.2/6-Appendix/B-Suggested_Reading" data-nav-url="6-Appendix/B-Suggested_Reading" title="Appendix B. Suggested Reading">Appendix B. Suggested Reading</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix C. Fuzz Vectors">
+<a href="/v4.2/6-Appendix/C-Fuzz_Vectors" data-nav-url="6-Appendix/C-Fuzz_Vectors" title="Appendix C. Fuzz Vectors">Appendix C. Fuzz Vectors</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix D. Encoded Injection">
+<a href="/v4.2/6-Appendix/D-Encoded_Injection" data-nav-url="6-Appendix/D-Encoded_Injection" title="Appendix D. Encoded Injection">Appendix D. Encoded Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix E. History">
+<a href="/v4.2/6-Appendix/E-History" data-nav-url="6-Appendix/E-History" title="Appendix E. History">Appendix E. History</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix F. Leveraging Dev Tools">
+<a href="/v4.2/6-Appendix/F-Leveraging_Dev_Tools" data-nav-url="6-Appendix/F-Leveraging_Dev_Tools" title="Appendix F. Leveraging Dev Tools">Appendix F. Leveraging Dev Tools</a>
+</li>
+
+  </ul>
+</nav>
+<script src="/assets/js/wstg-nav.js" defer></script>
+<script src="/assets/js/anchor-links.js" defer></script>
+
+      </aside>
+      <article class="doc-content">
+        <h1 id="testing-graphql">Testing GraphQL</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>WSTG-APIT-01</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="summary">Summary</h2>
+
+<p>GraphQL has become very popular in modern APIs. It provides simplicity and nested objects, which facilitate faster development. While every technology has advantages, it can also expose the application to new attack surfaces. The purpose of this scenario is to provide some common misconfigurations and attack vectors on applications that utilize GraphQL. Some vectors are unique to GraphQL (e.g. <a href="#introspection-queries">Introspection Query</a>) and some are generic to APIs (e.g. <a href="#sql-injection">SQL injection</a>).</p>
+
+<p>Examples in this section will be based on a vulnerable GraphQL application <a href="https://github.com/righettod/poc-graphql">poc-graphql</a>, which is run in a docker container that maps <code class="language-plaintext highlighter-rouge">localhost:8080/GraphQL</code> as the vulnerable GraphQL node.</p>
+
+<h2 id="test-objectives">Test Objectives</h2>
+
+<ul>
+  <li>Assess that a secure and production-ready configuration is deployed.</li>
+  <li>Validate all input fields against generic attacks.</li>
+  <li>Ensure that proper access controls are applied.</li>
+</ul>
+
+<h2 id="how-to-test">How to Test</h2>
+
+<p>Testing GraphQL nodes is not very different than testing other API technologies. Consider the following steps:</p>
+
+<h3 id="introspection-queries">Introspection Queries</h3>
+
+<p>Introspection queries are the method by which GraphQL lets you ask what queries are supported, which data types are available, and many more details you will need when approaching a test of a GraphQL deployment.</p>
+
+<p>The <a href="https://graphql.org/learn/introspection/">GraphQL website describes Introspection</a>:</p>
+
+<blockquote>
+  <p>“It’s often useful to ask a GraphQL schema for information about what queries it supports. GraphQL allows us to do so using the introspection system!”</p>
+</blockquote>
+
+<p>There are a couple of ways to extract this information and visualize the output, as follows.</p>
+
+<h4 id="using-native-graphql-introspection">Using Native GraphQL Introspection</h4>
+
+<p>The most straightforward way is to send an HTTP request (using a personal proxy) with the following payload, taken from an article on <a href="https://medium.com/@the.bilal.rizwan/graphql-common-vulnerabilities-how-to-exploit-them-464f9fdce696">Medium</a>:</p>
+
+<div class="language-graphql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">query</span><span class="w"> </span><span class="n">IntrospectionQuery</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">__schema</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">queryType</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="n">name</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="n">mutationType</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="n">name</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="n">subscriptionType</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="n">name</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="n">types</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="p">...</span><span class="n">FullType</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="n">directives</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="n">name</span><span class="w">
+      </span><span class="n">description</span><span class="w">
+      </span><span class="n">locations</span><span class="w">
+      </span><span class="n">args</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="p">...</span><span class="n">InputValue</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="k">fragment</span><span class="w"> </span><span class="n">FullType</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">__Type</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">kind</span><span class="w">
+  </span><span class="n">name</span><span class="w">
+  </span><span class="n">description</span><span class="w">
+  </span><span class="n">fields</span><span class="p">(</span><span class="n">includeDeprecated</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">name</span><span class="w">
+    </span><span class="n">description</span><span class="w">
+    </span><span class="n">args</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="p">...</span><span class="n">InputValue</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="n">type</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="p">...</span><span class="n">TypeRef</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="n">isDeprecated</span><span class="w">
+    </span><span class="n">deprecationReason</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+  </span><span class="n">inputFields</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="p">...</span><span class="n">InputValue</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+  </span><span class="n">interfaces</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="p">...</span><span class="n">TypeRef</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+  </span><span class="n">enumValues</span><span class="p">(</span><span class="n">includeDeprecated</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">name</span><span class="w">
+    </span><span class="n">description</span><span class="w">
+    </span><span class="n">isDeprecated</span><span class="w">
+    </span><span class="n">deprecationReason</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+  </span><span class="n">possibleTypes</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="p">...</span><span class="n">TypeRef</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="k">fragment</span><span class="w"> </span><span class="n">InputValue</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">__InputValue</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">name</span><span class="w">
+  </span><span class="n">description</span><span class="w">
+  </span><span class="n">type</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="p">...</span><span class="n">TypeRef</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+  </span><span class="n">defaultValue</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="k">fragment</span><span class="w"> </span><span class="n">TypeRef</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">__Type</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">kind</span><span class="w">
+  </span><span class="n">name</span><span class="w">
+  </span><span class="n">ofType</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">kind</span><span class="w">
+    </span><span class="n">name</span><span class="w">
+    </span><span class="n">ofType</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="n">kind</span><span class="w">
+      </span><span class="n">name</span><span class="w">
+      </span><span class="n">ofType</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">kind</span><span class="w">
+        </span><span class="n">name</span><span class="w">
+        </span><span class="n">ofType</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="n">kind</span><span class="w">
+          </span><span class="n">name</span><span class="w">
+          </span><span class="n">ofType</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="n">kind</span><span class="w">
+            </span><span class="n">name</span><span class="w">
+            </span><span class="n">ofType</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="n">kind</span><span class="w">
+              </span><span class="n">name</span><span class="w">
+              </span><span class="n">ofType</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="n">kind</span><span class="w">
+                </span><span class="n">name</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The result will usually be very long (and hence has been shortened here), and it will contain the entire schema of the GraphQL deployment.</p>
+
+<p>Response:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"__schema"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"queryType"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Query"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"mutationType"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mutation"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"subscriptionType"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Subscription"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ENUM"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"__TypeKind"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"An enum describing what kind of type a given __Type is"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"fields"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"inputFields"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"interfaces"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"enumValues"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SCALAR"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Indicates this type is a scalar."</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"isDeprecated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"deprecationReason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OBJECT"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Indicates this type is an object. `fields` and `interfaces` are valid fields."</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"isDeprecated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"deprecationReason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INTERFACE"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Indicates this type is an interface. `fields` and `possibleTypes` are valid fields."</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"isDeprecated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"deprecationReason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UNION"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Indicates this type is a union. `possibleTypes` is a valid field."</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"isDeprecated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"deprecationReason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+          </span><span class="p">],</span><span class="w">
+          </span><span class="nl">"possibleTypes"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>A tool such as <a href="https://apis.guru/graphql-voyager/">GraphQL Voyager</a> can be used to get a better understanding of the GraphQL endpoint:</p>
+
+<p><img src="../images/Voyager.png" alt="GraphQL Voyager" /><br />
+<em>Figure 12.1-1: GraphQL Voyager</em></p>
+
+<p>This tool creates an Entity Relationship Diagram (ERD) representation of the GraphQL schema, allowing you to get a better look into the moving parts of the system you’re testing. Extracting information from the drawing allows you to see you can query the Dog table for example. It also shows which properties a Dog has:</p>
+
+<ul>
+  <li>ID</li>
+  <li>name</li>
+  <li>veterinary (ID)</li>
+</ul>
+
+<p>There is one downside to using this method: GraphQL Voyager does not display everything that can be done with GraphQL. For example, the mutations available are not listed in the drawing above. A better strategy would be to use both Voyager and one of the methods listed below.</p>
+
+<h4 id="using-graphiql">Using GraphiQL</h4>
+
+<p><a href="https://github.com/graphql/graphiql">GraphiQL</a> is a web-based IDE for GraphQL. It is part of the GraphQL project, and it is mainly used for debugging or development purposes. The best practice is to not allow users to access it on production deployments. If you are testing a staging environment, you might have access to it and can thus save some time when working with introspection queries (although you can, of course, use introspection in the GraphiQL interface).</p>
+
+<p>GraphiQL has a documentation section, which uses the data from the schema in order to create a document of the GraphQL instance that is being used. This document contains the data types, mutations, and basically every piece of information that can be extracted using introspection.</p>
+
+<h4 id="using-graphql-playground">Using GraphQL Playground</h4>
+
+<p><a href="https://github.com/graphql/graphql-playground">GraphQL Playground</a> is a GraphQL client. It can be used to test different queries, as well as divide GraphQL IDEs into different playgrounds, and group them by theme or by assigning a name to them. Much like GraphiQL, Playground can create documentation for you without the need for manually sending introspection queries and processing the response(s). It has another great advantage: It doesn’t need the GraphiQL interface to be available. You can direct the tool to the GraphQL node via a URL, or use it locally with a data file. GraphQL Playground can be used to test for vulnerabilities directly, so you don’t need to use a personal proxy to send HTTP requests. This means you can use this tool for simple interaction with and assessment of GraphQL. For other more advanced payloads, use a personal proxy.</p>
+
+<p>Note that in some cases, you will need to set the HTTP headers at the bottom, to include session ID or other mechanism of authentication. This still allows creating multiple “IDEs” with different permissions to verify if there are in fact authorization issues.</p>
+
+<p><img src="../images/Playground1.png" alt="Playground1" /><br />
+<em>Figure 12.1-2: GraphQL Playground High Level API Docs</em></p>
+
+<p><img src="../images/Playground2.png" alt="Playground2" /><br />
+<em>Figure 12.1-3: GraphQL Playground API Schema</em></p>
+
+<p>You can even download the schemas to use in Voyager.</p>
+
+<h4 id="introspection-conclusion">Introspection Conclusion</h4>
+
+<p>Introspection is a useful tool that allows users to gain more information about the GraphQL deployment. However, this will also allow malicious users to gain access to the same information. The best practice is to limit access to the introspection queries, since some tools or requests might fail if this feature is disabled altogether. As GraphQL usually bridges to the back end APIs of the system, it’s better to enforce strict access control.</p>
+
+<h3 id="authorization">Authorization</h3>
+
+<p>Introspection is the first place to look for authorization problems. As noted, access to introspection should be restricted as it allows for data extraction and data gathering. Once a tester has access to the schema and knowledge of the sensitive information there is to extract, they should then send queries that will not be blocked due to insufficient privileges. GraphQL does not enforce permissions by default, and so it is up to the application to perform authorization enforcement.</p>
+
+<p>In the earlier examples, the output of the introspection query shows there is a query called <code class="language-plaintext highlighter-rouge">auth</code>. This seems like a good place to extract sensitive information such as API tokens, passwords, etc.</p>
+
+<p><img src="../images/auth1.png" alt="Auth GraphQL Query" /><br />
+<em>Figure 12.1-4: GraphQL Auth Query API</em></p>
+
+<p>Testing the authorization implementation varies from deployment to deployment since each schema will have different sensitive information, and hence, different targets to focus on.</p>
+
+<p>In this vulnerable example, every user (even unauthenticated) can gain access to the auth tokens of every veterinarian listed in the database. These tokens can be used to perform additional actions the schema allows, such as associating or disassociating a dog from any specified veterinarian using mutations, even if there is no matching auth token for the veterinarian in the request.</p>
+
+<p>Here is an example in which the tester uses an extracted token they do not own to perform an action as the veterinarian “Benoit”:</p>
+
+<div class="language-graphql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">query</span><span class="w"> </span><span class="n">brokenAccessControl</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">myInfo</span><span class="p">(</span><span class="n">accessToken</span><span class="p">:</span><span class="s2">"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJwb2MiLCJzdWIiOiJKdWxpZW4iLCJpc3MiOiJBdXRoU3lzdGVtIiwiZXhwIjoxNjAzMjkxMDE2fQ.r3r0hRX_t7YLiZ2c2NronQ0eJp8fSs-sOUpLyK844ew"</span><span class="p">,</span><span class="w"> </span><span class="n">veterinaryId</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">){</span><span class="w">
+    </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">dogs</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="n">name</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>And the response:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"myInfo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Benoit"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"dogs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Babou"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Baboune"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Babylon"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>All of the Dogs in the list belong to Benoit, and not to the auth token owner. It’s possible to perform this type of action when proper authorization enforcement is not implemented.</p>
+
+<h3 id="injection">Injection</h3>
+
+<p>GraphQL is the implementation of the API layer of an application, and as such, it usually forwards the requests to a back end API or the database directly. This allows you to utilize any underlying vulnerability such as SQL injection, command injection, cross-site scripting, etc. Using GraphQL just changes the entry point of the malicious payload.</p>
+
+<p>You can refer to other scenarios within the OWASP testing guide to get some ideas.</p>
+
+<p>GraphQL also has scalars, which are usually used for custom data types that do not have native data types, such as DateTime. These types of data do not have out-of-the-box validation, making them good candidates for testing.</p>
+
+<h4 id="sql-injection">SQL Injection</h4>
+
+<p>The example application is vulnerable by design in the query <code class="language-plaintext highlighter-rouge">dogs(namePrefix: String, limit: Int = 500): [Dog!]</code>  since the parameter <code class="language-plaintext highlighter-rouge">namePrefix</code> is concatenated in the SQL query. Concatenating user input is a common malpractice of applications that can expose them to SQL injection.</p>
+
+<p>The following query extracts information from the <code class="language-plaintext highlighter-rouge">CONFIG</code> table within the database:</p>
+
+<div class="language-graphql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">query</span><span class="w"> </span><span class="n">sqli</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">dogs</span><span class="p">(</span><span class="n">namePrefix</span><span class="p">:</span><span class="w"> </span><span class="s2">"ab%' UNION ALL SELECT 50 AS ID, C.CFGVALUE AS NAME, NULL AS VETERINARY_ID FROM CONFIG C LIMIT ? -- "</span><span class="p">,</span><span class="w"> </span><span class="n">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">id</span><span class="w">
+    </span><span class="n">name</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The response to this query is:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"dogs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Abi"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Abime"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$Nf!S?(.}DtV2~:Txw6:?;D!M+Z34^"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The query contains the secret that signs JWTs in the example application, which is very sensitive information.</p>
+
+<p>In order to know what to look for in any particular application, it will be helpful to collect information about how the application is built and how the database tables are organized. You can also use tools like <code class="language-plaintext highlighter-rouge">sqlmap</code> to look for injection paths and even automate the extraction of data from the database.</p>
+
+<h4 id="cross-site-scripting-xss">Cross-Site Scripting (XSS)</h4>
+
+<p>Cross-site scripting occurs when an attacker injects executable code that is subsequently run by the browser. Learn about tests for XSS in the <a href="../../07-Input_Validation_Testing/">Input Validation</a> chapter. You may test for reflected XSS using a payload from <a href="../../07-Input_Validation_Testing/01-Testing_for_Reflected_Cross_Site_Scripting/">Testing for Reflected Cross Site Scripting</a>.</p>
+
+<p>In this example, errors might reflect the input and could cause XSS to occur.</p>
+
+<p>Payload:</p>
+
+<div class="language-graphql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">query</span><span class="w"> </span><span class="n">xss</span><span class="w">  </span><span class="p">{</span><span class="w">
+  </span><span class="n">myInfo</span><span class="p">(</span><span class="n">veterinaryId</span><span class="p">:</span><span class="s2">"&lt;script&gt;alert('1')&lt;/script&gt;"</span><span class="w"> </span><span class="p">,</span><span class="n">accessToken</span><span class="p">:</span><span class="s2">"&lt;script&gt;alert('1')&lt;/script&gt;"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">id</span><span class="w">
+    </span><span class="n">name</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Response:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Validation error of type WrongType: argument 'veterinaryId' with value 'StringValue{value='&lt;script&gt;alert('1')&lt;/script&gt;'}' is not a valid 'Int' @ 'myInfo'"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"locations"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"line"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"column"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"sourceName"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"argument 'veterinaryId' with value 'StringValue{value='&lt;script&gt;alert('1')&lt;/script&gt;'}' is not a valid 'Int'"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"validationErrorType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WrongType"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"queryPath"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"myInfo"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"errorType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ValidationError"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"extensions"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="denial-of-service-dos-queries">Denial of Service (DoS) Queries</h3>
+
+<p>GraphQL exposes a very simple interface to allow developers to use nested queries and nested objects. This ability can also be used in a malicious way, by calling a deep nested query similar to a recursive function and causing a denial of service by using up CPU, memory, or other compute resources.</p>
+
+<p>Looking back at <em>Figure 12.1-1</em>, you can see that it is possible to create a loop where a Dog object contains a Veterinary object. There could be an endless amount of nested objects.</p>
+
+<p>This allows for a deep query which has the potential to overload the application:</p>
+
+<div class="language-graphql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">query</span><span class="w"> </span><span class="n">dos</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">allDogs</span><span class="p">(</span><span class="n">onlyFree</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="n">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">1000000</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">id</span><span class="w">
+    </span><span class="n">name</span><span class="w">
+    </span><span class="n">veterinary</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="n">id</span><span class="w">
+      </span><span class="n">name</span><span class="w">
+      </span><span class="n">dogs</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">id</span><span class="w">
+        </span><span class="n">name</span><span class="w">
+        </span><span class="n">veterinary</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="n">id</span><span class="w">
+          </span><span class="n">name</span><span class="w">
+          </span><span class="n">dogs</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="n">id</span><span class="w">
+            </span><span class="n">name</span><span class="w">
+            </span><span class="n">veterinary</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="n">id</span><span class="w">
+              </span><span class="n">name</span><span class="w">
+              </span><span class="n">dogs</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="n">id</span><span class="w">
+                </span><span class="n">name</span><span class="w">
+                </span><span class="n">veterinary</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="n">id</span><span class="w">
+                  </span><span class="n">name</span><span class="w">
+                  </span><span class="n">dogs</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="n">id</span><span class="w">
+                    </span><span class="n">name</span><span class="w">
+                    </span><span class="n">veterinary</span><span class="w"> </span><span class="p">{</span><span class="w">
+                      </span><span class="n">id</span><span class="w">
+                      </span><span class="n">name</span><span class="w">
+                      </span><span class="n">dogs</span><span class="w"> </span><span class="p">{</span><span class="w">
+                        </span><span class="n">id</span><span class="w">
+                        </span><span class="n">name</span><span class="w">
+                      </span><span class="p">}</span><span class="w">
+                    </span><span class="p">}</span><span class="w">
+                  </span><span class="p">}</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>There are multiple security measures that can be implemented to prevent these types of queries, listed in the <a href="#remediation">Remediation</a> section. Abusive queries can cause issues like DoS for GraphQL deployments and should be included in testing.</p>
+
+<h3 id="batching-attacks">Batching Attacks</h3>
+
+<p>GraphQL supports batching of multiple queries into a single request. This allows users to request multiple objects or multiple instances of objects efficiently. However, an attacker can utilize this functionality in order to perform a batching attack. Sending more than a single query in one request looks like the following:</p>
+
+<div class="language-graphql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="n">query</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="err">0</span><span class="w"> </span><span class="err">&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="n">variables</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="err">0</span><span class="w"> </span><span class="err">&gt;</span><span class="p">,</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="n">query</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="err">1</span><span class="w"> </span><span class="err">&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="n">variables</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="err">1</span><span class="w"> </span><span class="err">&gt;</span><span class="p">,</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="n">query</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="err">&gt;</span><span class="w">
+    </span><span class="n">variables</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="err">&gt;</span><span class="p">,</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="err">]</span><span class="w">
+</span></code></pre></div></div>
+
+<p>In the example application, a single request can be sent in order to extract all of the veterinary names using the guessable ID (it’s an increasing integer). An attacker can then utilize the names in order to get access tokens. Instead of doing so in many requests, which might be blocked by a network security measure like a web application firewall or a rate limiter like Nginx, these requests may be batched. This means there would only be a couple of requests, which may allow for efficient brute forcing without being detected. Here is an example query:</p>
+
+<div class="language-graphql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">query</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">Veterinary</span><span class="p">(</span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">name</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+  </span><span class="n">second</span><span class="p">:</span><span class="n">Veterinary</span><span class="p">(</span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">name</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+  </span><span class="n">third</span><span class="p">:</span><span class="n">Veterinary</span><span class="p">(</span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">name</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>This will provide the attacker with the names of the veterinaries and, as shown before, the names can be used to batch multiple queries requesting the auth tokens of those veterinaries. For example:</p>
+
+<div class="language-graphql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">query</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">auth</span><span class="p">(</span><span class="n">veterinaryName</span><span class="p">:</span><span class="w"> </span><span class="s2">"Julien"</span><span class="p">)</span><span class="w">
+  </span><span class="n">second</span><span class="p">:</span><span class="w"> </span><span class="n">auth</span><span class="p">(</span><span class="n">veterinaryName</span><span class="p">:</span><span class="s2">"Benoit"</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Batching attacks can be used to bypass many security measures enforced on websites. It can also be used to enumerate objects and attempt to brute force multi-factor authentication or other sensitive information.</p>
+
+<h3 id="detailed-error-message">Detailed Error Message</h3>
+
+<p>GraphQL can encounter unexpected errors during runtime. When such an error occurs, the server may send an error response that may reveal internal error details or application configurations or data. This allows a malicious user to acquire more information about the application. As part of testing, error messages should be checked by sending unexpected data, a process known as fuzzing. The responses should be searched for potentially sensitive information that may be revealed using this technique.</p>
+
+<h3 id="exposure-of-underlying-api">Exposure of Underlying API</h3>
+
+<p>GraphQL is a relatively new technology, and some applications are transitioning from old APIs to GraphQL. In many cases, GraphQL is deployed as a standard API which translates requests (sent using GraphQL syntax) to an underlying API, as well as the responses. If requests to the underlying API are not properly checked for authorization, it could lead to a possible escalation of privileges.</p>
+
+<p>For example, a request containing the parameter <code class="language-plaintext highlighter-rouge">id=1/delete</code> might be interpreted as <code class="language-plaintext highlighter-rouge">/api/users/1/delete</code>. This could extend to the manipulation of other resources belonging to <code class="language-plaintext highlighter-rouge">user=1</code>. It is also possible that the request is interpreted to have the authorization given to the GraphQL node, instead of the true requester.</p>
+
+<p>A tester should try and gain access to underlying API methods as it may be possible to escalate privileges.</p>
+
+<h2 id="remediation">Remediation</h2>
+
+<ul>
+  <li>Restrict access to introspection queries.</li>
+  <li>Implement input validation.
+    <ul>
+      <li>GraphQL does not have a native way to validate input, however, there is an open source project called <a href="https://github.com/confuser/graphql-constraint-directive">“graphql-constraint-directive”</a> which allows for input validation as part of the schema definition.</li>
+      <li>Input validation alone is helpful, but it is not a complete solution and additional measures should be taken to mitigate injection attacks.</li>
+    </ul>
+  </li>
+  <li>Implement security measures to prevent abusive queries.
+    <ul>
+      <li>Timeouts: restrict the amount of time that a query is permitted to run.</li>
+      <li>Maximum query depth: limit the depth of allowed queries, which may prevent queries that are too deep from abusing resources.</li>
+      <li>Set maximum query complexity: limit the complexity of queries to mitigate the abuse of GraphQL resources.</li>
+      <li>Use server-time-based throttling: limit the amount of server time a user can consume.</li>
+      <li>Use query-complexity-based throttling: limit the total complexity of queries a user can consume.</li>
+    </ul>
+  </li>
+  <li>Send generic error messages: use generic error messages that do not reveal details of the deployment.</li>
+  <li>Mitigate batching attacks:
+    <ul>
+      <li>Add object request rate limiting in code.</li>
+      <li>Prevent batching for sensitive objects.</li>
+      <li>Limit the number of queries that can run at one time.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>For more on remediating GraphQL weaknesses, refer to the <a href="https://cheatsheetseries.owasp.org/cheatsheets/GraphQL_Cheat_Sheet.html">GraphQL Cheat Sheet</a>.</p>
+
+<h2 id="tools">Tools</h2>
+
+<ul>
+  <li><a href="https://github.com/prisma-labs/graphql-playground">GraphQL Playground</a></li>
+  <li><a href="https://apis.guru/graphql-voyager/">GraphQL Voyager</a></li>
+  <li><a href="https://github.com/sqlmapproject/sqlmap">sqlmap</a></li>
+  <li><a href="https://portswigger.net/bappstore/296e9a0730384be4b2fffef7b4e19b1f">InQL (Burp Extension)</a></li>
+  <li><a href="https://portswigger.net/bappstore/4841f0d78a554ca381c65b26d48207e6">GraphQL Raider (Burp Extension)</a></li>
+  <li><a href="https://www.zaproxy.org/blog/2020-08-28-introducing-the-graphql-add-on-for-zap/">GraphQL (Add-on for OWASP ZAP)</a></li>
+</ul>
+
+<h2 id="references">References</h2>
+
+<ul>
+  <li><a href="https://github.com/righettod/poc-graphql">poc-graphql</a></li>
+  <li><a href="https://graphql.org/learn/">GraphQL Official Site</a></li>
+  <li><a href="https://www.howtographql.com/advanced/4-security/">Howtographql - Security</a></li>
+  <li><a href="https://github.com/confuser/graphql-constraint-directive">GraphQL Constraint Directive</a></li>
+  <li><a href="../../11-Client-side_Testing/">Client-side Testing</a> (XSS and other vulnerabilities)</li>
+  <li><a href="https://carvesystems.com/news/the-5-most-common-graphql-security-vulnerabilities/">5 Common GraphQL Security Vulnerabilities</a></li>
+  <li><a href="https://medium.com/@the.bilal.rizwan/graphql-common-vulnerabilities-how-to-exploit-them-464f9fdce696">GraphQL common vulnerabilities and how to exploit them</a></li>
+  <li><a href="https://cheatsheetseries.owasp.org/cheatsheets/GraphQL_Cheat_Sheet.html">GraphQL CS</a></li>
+</ul>
+
+      </article>
+    </div>
+  </div>
+</main>
+<script src="/assets/js/doc-nav.js" defer></script>
+
+  <footer id="page-end" class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-standalone">
+      <a href="https://owasp.org/" class="footer-logo ext-link" rel="noopener noreferrer" aria-label="OWASP Foundation (external)">
+        <img src="/assets/images/owasp-logo-footer.svg" alt="OWASP Foundation" width="213" height="64" loading="lazy">
+      </a>
+      <p class="footer-tagline">An OWASP Foundation project. <a href="https://owasp.org/" class="ext-link" rel="noopener noreferrer">About OWASP</a></p>
+      <div class="footer-buttons">
+        <a href="https://github.com/OWASP/wstg" class="btn btn-primary btn-github btn-github--footer ext-link" rel="noopener noreferrer" target="_blank" aria-label="View on GitHub (opens in new window)">
+          <svg class="icon-github" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" width="16" height="16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 2.97-1.86 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          View on GitHub
+        </a>
+      </div>
+      <p class="footer-back-to-top"><a href="#top" class="footer-back-to-top-link">Back to top</a></p>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-legal">OWASP, the OWASP logo, and Global AppSec are registered trademarks and AppSec Days, AppSec California, AppSec Cali, SnowFROC, OWASP Boston Application Security Conference, and LASCON are trademarks of the OWASP Foundation, Inc.</p>
+      <p class="footer-copy">&copy; 2026, OWASP Foundation Inc. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<a href="#top" id="back-to-top" class="back-to-top" aria-label="Back to top" title="Back to top">
+  <svg class="back-to-top-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</a>
+
+  <script src="/assets/js/theme.js" defer></script>
+</body>
+</html>

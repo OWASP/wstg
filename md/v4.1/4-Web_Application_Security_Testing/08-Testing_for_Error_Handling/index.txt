@@ -1,0 +1,14 @@
+---
+layout: document
+title: WSTG - v4.1
+collection_name: v41
+channel_label: v4.1
+channel_path: v4.1
+render_with_liquid: false
+---
+
+# 4.8 Testing for Error Handling
+
+4.8.1 [Testing for Error Code](01-Testing_for_Error_Code/)
+
+4.8.2 [Testing for Stack Traces](02-Testing_for_Stack_Traces/)

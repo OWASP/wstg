@@ -1,0 +1,16 @@
+---
+layout: document
+title: WSTG - Latest
+collection_name: latest
+channel_label: Latest
+channel_path: latest
+render_with_liquid: false
+---
+
+# Testing for Cross Site Flashing
+
+|ID          |
+|------------|
+|WSTG-CLNT-08|
+
+This content has been removed.
