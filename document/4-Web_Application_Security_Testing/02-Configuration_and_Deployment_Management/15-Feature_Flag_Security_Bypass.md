@@ -53,15 +53,14 @@ Identify feature flags, kill-switches, and configuration values that control sec
 
 Inspect JavaScript bundles and other client-side resources for common feature flag patterns:
 
-    ```javascript
-    // Common patterns to search for:
-    featureFlags
-    isFeatureEnabled
-    featureEnabled
-    flags
-    killSwitch
-    securityFeature
-    ```
+```javascript
+featureFlags
+isFeatureEnabled
+featureEnabled
+flags
+killSwitch
+securityFeature
+```
 
 Tools such as `source-map-explorer` or the webpack Bundle Analyzer can help locate flag-related code inside minified bundles.
 
@@ -77,13 +76,13 @@ Check whether any endpoint returns the full set of flags evaluated for a session
 
 Where flags are evaluated or cached client-side (for example, in a JavaScript object, cookie, or local storage value), use a proxy to modify the flag value and replay the request:
 
-    ```http
-    PUT /api/user/settings HTTP/1.1
-    Host: example.com
-    Content-Type: application/json
+```http
+PUT /api/user/settings HTTP/1.1
+Host: example.com
+Content-Type: application/json
 
-    {"flags": {"betaAdminPanel": true}}
-    ```
+{"flags": {"betaAdminPanel": true}}
+```
 
 - **Vulnerable:** The application exposes hidden functionality, or the modified flag value is trusted without a corresponding server-side check.
 - **Secure:** The client-side value has no effect on what the server will authorize; the server re-evaluates the flag independently.
@@ -92,11 +91,11 @@ Where flags are evaluated or cached client-side (for example, in a JavaScript ob
 
 For every security-relevant flag identified, confirm that hiding a feature in the UI is matched by an equivalent restriction on the backend endpoint that feature calls. Attempt to call the underlying endpoint directly while the flag is disabled for the current user:
 
-    ```http
-    GET /api/admin/reports HTTP/1.1
-    Host: example.com
-    Authorization: Bearer {low-privilege-token}
-    ```
+```http
+GET /api/admin/reports HTTP/1.1
+Host: example.com
+Authorization: Bearer {low-privilege-token}
+```
 
 **Expected result:** The server must enforce authorization independently of client-side flag state — an unauthorized user must receive a `401 Unauthorized` or `403 Forbidden` response for this endpoint even if the flag is manipulated client-side. If the feature is disabled globally by design, the endpoint should remain inaccessible to all users (for example, `403`/`404`), rather than the flag only hiding the UI element while the endpoint remains reachable.
 
@@ -112,7 +111,7 @@ For every security-relevant flag identified, confirm that hiding a feature in th
 Block or throttle access to the feature flag service (for example, via proxy rules or DNS blackholing in a test environment) and observe how the application behaves when it cannot retrieve flag state.
 
 - **Vulnerable:** The application fails open, defaulting security-relevant flags to an enabled/permissive state.
-- **Secure:** The application fails closed for security-relevant functionality, or falls back to the most restrictive known-good configuration.
+- **Expected Result:** Security-relevant controls remain enforced or fall back to a documented secure configuration when the feature flag service is unavailable.
 
 ### Analyze Feature Flag Configurations for Information Disclosure
 
@@ -131,7 +130,7 @@ Search the codebase (where accessible) or ask for a list of flags no longer acti
 - Enforce all security-relevant authorization checks on the backend, independent of any client-supplied or client-visible flag state.
 - Ensure kill-switches remove trust in any parameter, token, or session claim that was only valid because the associated control was active.
 - Tie security configuration to the same deployment/version control as application code so rollbacks restore both together.
-- Ensure feature flag services fail closed for security-relevant flags, defaulting to the most restrictive behavior when unavailable.
+- Ensure feature flag services use a documented secure fallback for security-relevant flags when unavailable.
 - Avoid exposing the full flag configuration to the client; return only the flags relevant to the current user and context.
 - Periodically audit and remove stale flags, along with the code paths they gate, once a rollout is complete.
 - Apply consistent flag evaluation across all services and instances handling a given request.
