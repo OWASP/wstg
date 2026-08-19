@@ -12,6 +12,9 @@ markdown: kramdown
 highlighter: rouge
 permalink: pretty
 
+plugins:
+  - jekyll-sitemap
+
 exclude:
   - Gemfile
   - Gemfile.lock
