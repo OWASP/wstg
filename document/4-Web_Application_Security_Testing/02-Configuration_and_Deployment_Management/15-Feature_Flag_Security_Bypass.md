@@ -63,7 +63,7 @@ Inspect JavaScript bundles and other client-side resources for common feature fl
     securityFeature
     ```
 
-Tools such as `source-map-explorer` or the Webpack Bundle Analyzer can help locate flag-related code inside minified bundles.
+Tools such as `source-map-explorer` or the webpack Bundle Analyzer can help locate flag-related code inside minified bundles.
 
 #### Monitor Network Traffic
 
@@ -141,7 +141,7 @@ Search the codebase (where accessible) or ask for a list of flags no longer acti
 - [Burp Suite](https://portswigger.net/burp)
 - [OWASP ZAP](https://www.zaproxy.org/)
 - Browser Developer Tools (Chrome, Firefox, Edge)
-- [source-map-explorer](https://github.com/danvk/source-map-explorer) / Webpack Bundle Analyzer (for locating flag logic in minified JS bundles)
+- [source-map-explorer](https://github.com/danvk/source-map-explorer) / webpack Bundle Analyzer (for locating flag logic in minified JS bundles)
 
 ## References
 
