@@ -27,3 +27,5 @@
 4.2.13 [Test for Path Confusion](13-Test_for_Path_Confusion.md)
 
 4.2.14 [Test for Other HTTP Security Header Misconfigurations](14-Test_Other_HTTP_Security_Header_Misconfigurations.md)
+
+4.2.15 [Test for Feature Flag Security Bypass](15-Test_for_Feature_Flag_Security_Bypass.md)
