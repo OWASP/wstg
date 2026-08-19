@@ -138,7 +138,7 @@ Search the codebase (where accessible) or ask for a list of flags no longer acti
 ## Tools
 
 - [Burp Suite](https://portswigger.net/burp)
-- [OWASP ZAP](https://www.zaproxy.org/)
+- [ZAP](https://www.zaproxy.org/)
 - Browser Developer Tools (Chrome, Firefox, Edge)
 - [source-map-explorer](https://github.com/danvk/source-map-explorer) / webpack Bundle Analyzer (for locating flag logic in minified JS bundles)
 
