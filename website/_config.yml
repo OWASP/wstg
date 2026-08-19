@@ -23,6 +23,10 @@ exclude:
   - README.md
   - serve.sh
 
+include:
+  - llms.txt
+  - llms-full.txt
+
 defaults:
   - scope:
       path: ""

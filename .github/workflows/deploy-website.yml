@@ -53,6 +53,9 @@ jobs:
           JEKYLL_ENV: production
         run: bundle exec jekyll build
 
+      - name: Copy markdown for LLM agents
+        run: python3 website/scripts/copy_markdown_for_agents.py
+
       - name: Publish to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:

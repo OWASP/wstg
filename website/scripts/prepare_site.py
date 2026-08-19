@@ -374,6 +374,12 @@ def prepare(channels: list[str] | None = None) -> None:
     remove_stable_content_artifacts()
 
 
+def generate_llms_files() -> None:
+    """Generate llms.txt and llms-full.txt after channel preparation."""
+    generate_llms = Path(__file__).resolve().parent / "generate_llms.py"
+    subprocess.run([sys.executable, str(generate_llms)], check=True)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -383,6 +389,7 @@ def main() -> None:
     )
     args = parser.parse_args()
     prepare(args.channels or None)
+    generate_llms_files()
 
 
 if __name__ == "__main__":
