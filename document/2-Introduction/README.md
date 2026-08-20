@@ -48,18 +48,18 @@ Two opposing forces create urgency:
 
 2. AI-augmented testing tools accelerate certain detection tasks. Dynamic and static application security testing (DAST/SAST) tools powered by machine learning can find common, known vulnerabilities more efficiently. However, these tools do not replace skilled human analysis for business logic flaws, authorization bypass, and context-specific risks that require understanding the application's intended behavior. Further, AI-assisted attacks enable adversaries to probe defenses faster and adapt to countermeasures in near real-time, which will certainly increase the pace of breaches.
 
-The solution is not to choose between human testing and tooling, but to layer both: automated scanning for low-hanging fruit, combined with targetted manual testing (perhaps even AI supplemented), and code review to find design and logic flaws.
+The solution is not to choose between human testing and tooling, but to layer both: automated scanning for low-hanging fruit, combined with targeted manual testing (perhaps even AI supplemented), and code review to find design and logic flaws.
 
 ## Who Should Use This Guide
 
 The WSTG is designed for:
 
-- Penetration testers and security consultants who conduct application assessments
-- In-house security and quality assurance teams that test software throughout development
-- Developers and DevSecOps engineers who integrate security testing into CI/CD pipelines
-- Security architects who design testing strategies and compliance programs
-- Auditors and compliance officers who validate application security controls
-- Product owners and engineering managers who scope, resource, and prioritize testing efforts
+- Penetration testers and security consultants who conduct application assessments.
+- In-house security and quality assurance teams that test software throughout development.
+- Developers and DevSecOps engineers who integrate security testing into CI/CD pipelines.
+- Security architects who design testing strategies and compliance programs.
+- Auditors and compliance officers who validate application security controls.
+- Product owners and engineering managers who scope, resource, and prioritize testing efforts.
 
 Secondary audiences include tool developers and organizations running public bug-bounty programs. The testing techniques and taxonomy in this guide are equally applicable to internal testing, third-party penetration tests, and coordinated-disclosure / bug-bounty engagements.The differences lie in authorization, rules of engagement, and how results are reported and remediated.
 
@@ -75,24 +75,16 @@ Automated tools (DAST, SAST, dependency scanning) are necessary and valuable, bu
 
 The traditional approach-testing only after development is "complete" is wasteful and ineffective. The cost of fixing a security bug grows exponentially as it moves downstream: a flaw caught during design costs a fraction of one caught in production. Modern practices integrate security testing throughout the development lifecycle:
 
-- During design and architecture review (threat modeling)
-- During development (secure code review, unit-level security tests)
-- During integration and system testing (penetration testing, security acceptance tests)
-- In production (continuous monitoring, security regression testing)
+- During design and architecture review (threat modeling).
+- During development (secure code review, unit-level security tests).
+- During integration and system testing (penetration testing, security acceptance tests).
+- In production (continuous monitoring, security regression testing).
 
 Continuous integration and continuous deployment (CI/CD) pipelines provide an opportunity to automate baseline security checks (SAST, ßdependency scanning) at every build, keeping security front-of-mind for the entire team.
 
 ### Risk and Impact-Based Prioritization
 
 Prioritize testing effort based on risk, not on finding counts. A single critical authorization bypass affecting user data is more important than dozens of low-risk cross-site scripting (XSS) findings. Develop a risk model tailored to your application (e.g., confidentiality and integrity of customer data may dominate over availability), and focus testing on the controls and surfaces most critical to that risk.
-
-### Holistic View: People, Process, Technology
-
-Effective security testing addresses three layers:
-
-1. People – Do developers understand secure coding principles? Is the security training current?
-2. Process – Are security policies and standards documented, communicated, and enforced? Do code review and change management processes include security gates/components?
-3. Technology – Have security controls been implemented correctly and effectively? Are they being used as intended?
 
 ### Balanced Testing Approach
 
@@ -124,13 +116,13 @@ There is no one-size-fits-all testing approach. The depth and breadth of testing
 
 This document is structured as follows:
 
-- This Introduction: Sets context, scope, and principles
-- Section 3: The OWASP Testing Framework: Explains how the testing framework integrates with development phases (define, design, develop, test, deploy, maintain); covers continuous integration practices, bug-bounty program design, and AI-augmented testing workflows
-- Section 4: Web Application Security Testing Categories: Provides concrete, how-to-test procedures for each major testing area (e.g., authentication, input validation, business logic)
-- Section 5: Reporting: Guidance on test reporting formats, severity assessment, and communicating results to different audiences
-- Appendices: Testing tools, suggested reading, versioning history
+- This Introduction: Sets context, scope, and principles.
+- The OWASP Testing Framework: Explains how the testing framework integrates with development phases (define, design, develop, test, deploy, maintain); covers continuous integration practices, bug-bounty program design, and AI-augmented testing workflows.
+- Web Application Security Testing Categories: Provides concrete, how-to-test procedures for each major testing area (e.g., authentication, input validation, business logic).
+- Reporting: Guidance on test reporting formats, severity assessment, and communicating results to different audiences.
+- Appendices: Testing tools, suggested reading, versioning history.
 
-Readers new to security testing should start here and then progress to Section 3 for an understanding of when and how testing fits into modern development practices. Practitioners looking for specific test procedures should jump directly to Section 4.
+Readers new to security testing should start here and then progress to [Section 3](../3-The_OWASP_Testing_Framework/README.md) for an understanding of when and how testing fits into modern development practices. Practitioners looking for specific test procedures should jump directly to [Section 4](../4-Web_Application_Security_Testing/README.md).
 
 ## How to Reference WSTG Scenarios
 
