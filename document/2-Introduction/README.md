@@ -8,18 +8,17 @@ The OWASP Web Security Testing Guide (WSTG) is a comprehensive, open-source, com
 
 The guide covers:
 
-- Traditional web applications and modern cloud-native services
-- API security and integration points
-- Client-side technologies and user interface security
-- Infrastructure configuration, cloud deployments, and containerization
-- Identity, authentication, authorization, and session management controls
-- Input validation, encoding, and output handling
-- Business logic and workflow security
-- Cryptographic implementations
-- Error handling and exception management
-- Software supply chain and dependency security
+- Traditional web applications and modern cloud-native services.
+- Infrastructure configuration, cloud deployments, and containerization.
+- Identity, authentication, authorization, and session management controls.
+- Input validation, encoding, and output handling.
+- Error handling and exception management.
+- Cryptographic implementations.
+- Business logic and workflow security.
+- Client-side technologies and user interface security.
+- API security and integration points.
 
-The guide does not replace: formal risk frameworks such as [NIST Risk Management Framework](https://csrc.nist.gov/projects/risk-management/), comprehensive threat-modeling methodologies, detailed remediation guidance (see the [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/) for that), organization-specific security policies, or specialized AI/LLM application testing (see [OWASP AI Testing Guide](https://owasp.org/www-project-ai-testing-guide/) and [OWASP Top 10 for LLM Applications](https://genai.owasp.org/initiatives/top-10-for-llm-and-genai/)).
+The guide does not replace: formal risk frameworks such as [NIST Risk Management Framework](https://csrc.nist.gov/projects/risk-management/), comprehensive threat-modeling methodologies, detailed remediation guidance (see the [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/) for that), comprehensive source code security review (which requires white-box access and architectural knowledge beyond testing), organization-specific security policies, or specialized AI/LLM application testing (see [OWASP AI Testing Guide](https://owasp.org/www-project-ai-testing-guide/) and [OWASP Top 10 for LLM Applications](https://genai.owasp.org/initiatives/top-10-for-llm-and-genai/)).
 
 ## Why Web Application Security Testing Matters
 
@@ -49,7 +48,7 @@ Two opposing forces create urgency:
 
 2. AI-augmented testing tools accelerate certain detection tasks. Dynamic and static application security testing (DAST/SAST) tools powered by machine learning can find common, known vulnerabilities more efficiently. However, these tools do not replace skilled human analysis for business logic flaws, authorization bypass, and context-specific risks that require understanding the application's intended behavior. Further, AI-assisted attacks enable adversaries to probe defenses faster and adapt to countermeasures in near real-time, which will certainly increase the pace of breaches.
 
-The solution is not to choose between human testing and tooling, but to layer both: automated scanning for low-hanging fruit, combined with strategic manual testing (perhaps even AI supplemented), and code review to find design and logic flaws.
+The solution is not to choose between human testing and tooling, but to layer both: automated scanning for low-hanging fruit, combined with targetted manual testing (perhaps even AI supplemented), and code review to find design and logic flaws.
 
 ## Who Should Use This Guide
 
@@ -62,7 +61,7 @@ The WSTG is designed for:
 - Auditors and compliance officers who validate application security controls
 - Product owners and engineering managers who scope, resource, and prioritize testing efforts
 
-Secondary audiences include tool developers and organizations running public bug-bounty programs. The testing techniques and taxonomy in this guide are equally applicable to internal testing, third-party penetration tests, and coordinated-disclosure / bug-bounty engagements-the differences lie in authorization, rules of engagement, and how results are reported and remediated. Section 3 further explores these program integration patterns.
+Secondary audiences include tool developers and organizations running public bug-bounty programs. The testing techniques and taxonomy in this guide are equally applicable to internal testing, third-party penetration tests, and coordinated-disclosure / bug-bounty engagements.The differences lie in authorization, rules of engagement, and how results are reported and remediated.
 
 ## Core Principles of Effective Security Testing
 
@@ -74,7 +73,7 @@ Automated tools (DAST, SAST, dependency scanning) are necessary and valuable, bu
 
 ### Continuous Security Testing
 
-The traditional approach-testing only after development is "complete"-is wasteful and ineffective. The cost of fixing a security bug grows exponentially as it moves downstream: a flaw caught during design costs a fraction of one caught in production. Modern practices integrate security testing throughout the development lifecycle:
+The traditional approach-testing only after development is "complete" is wasteful and ineffective. The cost of fixing a security bug grows exponentially as it moves downstream: a flaw caught during design costs a fraction of one caught in production. Modern practices integrate security testing throughout the development lifecycle:
 
 - During design and architecture review (threat modeling)
 - During development (secure code review, unit-level security tests)
@@ -95,17 +94,15 @@ Effective security testing addresses three layers:
 2. Process – Are security policies and standards documented, communicated, and enforced? Do code review and change management processes include security gates/components?
 3. Technology – Have security controls been implemented correctly and effectively? Are they being used as intended?
 
-Testing only technology (code and running systems) will miss process gaps and skill deficits that breed recurring vulnerabilities.
-
 ### Balanced Testing Approach
 
 No single testing technique is sufficient. A mature program combines:
 
-- Manual inspection and design review: to assess policies, architecture, and security process
-- Threat modeling: to identify potential attack vectors early in the lifecycle
-- Source code review: to find subtle flaws (business logic errors, cryptographic weaknesses, race conditions) that tools often miss
-- Penetration testing: to validate that vulnerabilities can actually be exploited and understand their real-world impact
-- Automated scanning (SAST, DAST, SCA): to identify common, known vulnerabilities at scale
+- Manual inspection and design review: to assess policies, architecture, and security process.
+- Threat modeling: to identify potential attack vectors early in the lifecycle.
+- Source code review: to find subtle flaws (business logic errors, cryptographic weaknesses, race conditions) that tools often miss or that are hard to detect from a black-box perspective.
+- Penetration testing: to validate that vulnerabilities can actually be exploited and understand their real-world impact.
+- Automated scanning (SAST, DAST, SCA): to identify common, known vulnerabilities at scale.
 
 The relative effort devoted to each technique should shift based on the SDLC phase: emphasis on manual review and threat modeling early, automation and testing later.
 
@@ -113,11 +110,11 @@ The relative effort devoted to each technique should shift based on the SDLC pha
 
 Test findings must be understandable and actionable for developers and business stakeholders. A report should:
 
-- Explain *what* was tested and *how* it was tested (so results can be reproduced)
-- Describe the *root cause* of each issue (so developers know what to fix)
-- Provide *concrete remediation guidance* or reference to secure coding guidance
-- Assign a *severity or risk rating* to help prioritize remediation effort
-- Clearly communicate the *business impact* so non-technical stakeholders understand why remediation matters
+- Explain *what* was tested and *how* it was tested (so results can be reproduced).
+- Describe the *root cause* of each issue (so that they are hopefully less likely to reoccur in the future).
+- Provide *concrete remediation guidance* or reference to secure coding guidance (so developers know what to fix).
+- Assign a *severity or risk rating* to help prioritize remediation effort.
+- Clearly communicate the *business impact* so non-technical stakeholders understand why remediation matters.
 
 ### Adaptability to Your Context
 
