@@ -6,27 +6,21 @@
 
 ## 2. [Introduction](2-Introduction/)
 
-### 2.1 [The OWASP Testing Project](2-Introduction/README.md#The-OWASP-Testing-Project)
+### 2.1 [Purpose and Scope](2-Introduction/README.md#Purpose-and-Scope)
 
-### 2.2 [Principles of Testing](2-Introduction/README.md#Principles-of-Testing)
+### 2.2 [Why Web Application Security Testing Matters](2-Introduction/README.md#Why-Web-Application-Security-Testing-Matters)
 
-### 2.3 [Testing Techniques Explained](2-Introduction/README.md#Testing-Techniques-Explained)
+### 2.3 [Who Should Use This Guide](2-Introduction/README.md#Who-Should-Use-This-Guide)
 
-### 2.4 [Manual Inspections and Reviews](2-Introduction/README.md#Manual-Inspections-and-Reviews)
+### 2.4 [Core Principles of Effective Security Testing](2-Introduction/README.md#Core-Principles-of-Effective-Security-Testing)
 
-### 2.5 [Threat Modeling](2-Introduction/README.md#Threat-Modeling)
+### 2.5 [How the Guide Is Organized](2-Introduction/README.md#How-the-Guide-Is-Organized)
 
-### 2.6 [Source Code Review](2-Introduction/README.md#Source-Code-Review)
+### 2.6 [How to Reference WSTG Scenarios](2-Introduction/README.md#How-to-Reference-WSTG-Scenarios)
 
-### 2.7 [Penetration Testing](2-Introduction/README.md#Penetration-Testing)
+### 2.7 [Feedback and Comments](2-Introduction/README.md#Feedback-and-Comments)
 
-### 2.8 [The Need for a Balanced Approach](2-Introduction/README.md#The-Need-for-a-Balanced-Approach)
-
-### 2.9 [Deriving Security Test Requirements](2-Introduction/README.md#Deriving-Security-Test-Requirements)
-
-### 2.10 [Security Tests Integrated in Development and Testing Workflows](2-Introduction/README.md#Security-Tests-Integrated-in-Development-and-Testing-Workflows)
-
-### 2.11 [Security Test Data Analysis and Reporting](2-Introduction/README.md#Security-Test-Data-Analysis-and-Reporting)
+### 2.8 [Related OWASP Projects](2-Introduction/README.md#Related-OWASP-Projects)
 
 ## 3. [The OWASP Testing Framework](3-The_OWASP_Testing_Framework/)
 
