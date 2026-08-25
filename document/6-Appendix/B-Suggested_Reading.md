@@ -23,10 +23,22 @@
 
 ## Useful Sites
 
-- [CERT Secure Coding Standards](https://wiki.sei.cmu.edu/confluence/display/seccode/SEI+CERT+Coding+Standards)
+- [CERT Secure Coding Standards](https://cmu-sei.github.io/secure-coding-standards/)
 - [SANS Internet Storm Center (ISC)](https://isc.sans.edu/)
 - [The Open Worldwide Application Security Project (OWASP)](https://owasp.org)
 - [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/)
+
+### OWASP AI and GenAI Security Resources
+
+- [OWASP GenAI Red Teaming Guide](https://genai.owasp.org/resource/genai-red-teaming-guide/)
+- [OWASP AI Exchange](https://owaspai.org/)
+
+### OWASP Standards and Reference Frameworks
+
+- [OWASP Open Common Requirements Enumeration (OpenCRE)](https://www.opencre.org/)
+
+### General Security Resources
+
 - [Pentestmonkey - Pen Testing Cheat Sheets](https://pentestmonkey.net/cheat-sheet)
 - [Secure Coding Guidelines for .NET](https://learn.microsoft.com/en-us/dotnet/standard/security/secure-coding-guidelines)
 - [Secure Coding Guidelines for Java SE](https://www.oracle.com/java/technologies/javase/seccodeguide.html)

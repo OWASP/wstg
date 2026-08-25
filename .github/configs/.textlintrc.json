@@ -80,7 +80,14 @@
           "a npm",
           "an npm"
         ],
-
+        [
+          "OWASP (?:ZAP|ZAPROXY)",
+          "ZAP"
+        ],
+        [
+          "OWASP Zed Attack Proxy",
+          "Zed Attack Proxy (ZAP)"
+        ],
         // Abbreviations
         "3D",
         [
