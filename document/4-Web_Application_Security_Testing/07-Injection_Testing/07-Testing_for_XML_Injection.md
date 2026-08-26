@@ -216,10 +216,10 @@ Let's suppose the backend XML document is strictly specified by a DTD that enfor
 ```xml
 <!DOCTYPE user [
     <!ELEMENT user (username,password,userid,email) >
-    <!ELEMENT username (#PCDATA) >
-    <!ELEMENT password (#PCDATA) >
-    <!ELEMENT userid (#PCDATA) >
-    <!ELEMENT email (#PCDATA) >
+    <!ELEMENT username (#pcdata) >
+    <!ELEMENT password (#pcdata) >
+    <!ELEMENT userid (#pcdata) >
+    <!ELEMENT email (#pcdata) >
 ]>
 ```
 
