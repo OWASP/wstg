@@ -6,39 +6,47 @@
 
 ## 2. [Introduction](2-Introduction/)
 
-### 2.1 [Purpose and Scope](2-Introduction/README.md#Purpose-and-Scope)
+### 2.1 [Purpose and Scope](2-Introduction/README.md#purpose-and-scope)
 
-### 2.2 [Why Web Application Security Testing Matters](2-Introduction/README.md#Why-Web-Application-Security-Testing-Matters)
+### 2.2 [Why Web Application Security Testing Matters](2-Introduction/README.md#why-web-application-security-testing-matters)
 
-### 2.3 [Who Should Use This Guide](2-Introduction/README.md#Who-Should-Use-This-Guide)
+### 2.3 [Who Should Use This Guide](2-Introduction/README.md#who-should-use-this-guide)
 
-### 2.4 [Core Principles of Effective Security Testing](2-Introduction/README.md#Core-Principles-of-Effective-Security-Testing)
+### 2.4 [Core Principles of Effective Security Testing](2-Introduction/README.md#core-principles-of-effective-security-testing)
 
-### 2.5 [How the Guide Is Organized](2-Introduction/README.md#How-the-Guide-Is-Organized)
+### 2.5 [How the Guide Is Organized](2-Introduction/README.md#how-the-guide-is-organized)
 
-### 2.6 [How to Reference WSTG Scenarios](2-Introduction/README.md#How-to-Reference-WSTG-Scenarios)
+### 2.6 [How to Reference WSTG Scenarios](2-Introduction/README.md#how-to-reference-wstg-scenarios)
 
-### 2.7 [Feedback and Comments](2-Introduction/README.md#Feedback-and-Comments)
+### 2.7 [Feedback and Comments](2-Introduction/README.md#feedback-and-comments)
 
-### 2.8 [Related OWASP Projects](2-Introduction/README.md#Related-OWASP-Projects)
+### 2.8 [Related OWASP Projects](2-Introduction/README.md#related-owasp-projects)
 
 ## 3. [The OWASP Testing Framework](3-The_OWASP_Testing_Framework/)
 
 ### 3.1 [The Web Security Testing Framework](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md)
 
-### 3.2 [Phase 1 Before Development Begins](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#Phase-1-Before-Development-Begins)
+### 3.2 [Testing Activities](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#testing-activities)
 
-### 3.3 [Phase 2 During Definition and Design](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#Phase-2-During-Definition-and-Design)
+### 3.3 [Requirements and Policy Review](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#requirements-and-policy-review)
 
-### 3.4 [Phase 3 During Development](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#Phase-3-During-Development)
+### 3.4 [Design, Architecture, and Threat Modeling](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#design-architecture-and-threat-modeling)
 
-### 3.5 [Phase 4 During Deployment](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#Phase-4-During-Deployment)
+### 3.5 [Code-Level Review and Analysis](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#code-level-review-and-analysis)
 
-### 3.6 [Phase 5 During Maintenance and Operations](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#Phase-5-During-Maintenance-and-Operations)
+### 3.6 [Dynamic and Penetration Testing](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#dynamic-and-penetration-testing)
 
-### 3.7 [A Typical SDLC Testing Workflow](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#A-Typical-SDLC-Testing-Workflow)
+### 3.7 [Continuous Integration Pipeline Testing](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#continuous-integration-pipeline-testing)
 
-### 3.8 [Penetration Testing Methodologies](3-The_OWASP_Testing_Framework/1-Penetration_Testing_Methodologies.md)
+### 3.8 [Continuous and Crowd-Sourced Testing](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#continuous-and-crowd-sourced-testing)
+
+### 3.9 [Matching Activity to Cadence](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#matching-activity-to-cadence)
+
+### 3.10 [Where to Start](3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.md#where-to-start)
+
+### 3.11 [Bug Bounty Programs as a Testing Technique](3-The_OWASP_Testing_Framework/1-Bug_Bounty_Programs.md)
+
+### 3.12 [Human-AI Collaborative Testing](3-The_OWASP_Testing_Framework/2-Human-AI_Collaborative_Testing.md)
 
 ## 4. [Web Application Security Testing](4-Web_Application_Security_Testing/)
 
@@ -343,3 +351,5 @@
 ## Appendix E. [Encoded Injection](6-Appendix/E-Encoded_Injection.md)
 
 ## Appendix F. [Leveraging Dev Tools](6-Appendix/F-Leveraging_Dev_Tools.md)
+
+## Appendix G. [Penetration Testing Methodologies](6-Appendix/G-Penetration_Testing_Methodologies.md)
