@@ -332,14 +332,14 @@
 
 ### 5.2 [Naming Schemes](5-Reporting/02-Naming_Schemes.md)
 
-## Appendix A. [Testing Tools Resource](6-Appendix/A-Testing_Tools_Resource.md)
+## Appendix A. [History](6-Appendix/A-History.md)
 
-## Appendix B. [Suggested Reading](6-Appendix/B-Suggested_Reading.md)
+## Appendix B. [Testing Tools Resource](6-Appendix/B-Testing_Tools_Resource.md)
 
-## Appendix C. [Fuzzing](6-Appendix/C-Fuzzing.md)
+## Appendix C. [Suggested Reading](6-Appendix/C-Suggested_Reading.md)
 
-## Appendix D. [Encoded Injection](6-Appendix/D-Encoded_Injection.md)
+## Appendix D. [Fuzzing](6-Appendix/D-Fuzzing.md)
 
-## Appendix E. [History](6-Appendix/E-History.md)
+## Appendix E. [Encoded Injection](6-Appendix/E-Encoded_Injection.md)
 
 ## Appendix F. [Leveraging Dev Tools](6-Appendix/F-Leveraging_Dev_Tools.md)

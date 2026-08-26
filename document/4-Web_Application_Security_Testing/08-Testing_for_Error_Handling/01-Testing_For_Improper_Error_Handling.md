@@ -76,7 +76,7 @@ For remediation, check out the [Proactive Controls C10](https://owasp.org/www-pr
 
 ## References
 
-- [WSTG: Appendix C - Fuzzing](../../6-Appendix/C-Fuzzing.md)
+- [WSTG: Appendix D - Fuzzing](../../6-Appendix/D-Fuzzing.md)
 - [Proactive Controls C10: Handle All Errors and Exceptions](https://owasp.org/www-project-proactive-controls/v3/en/c10-errors-exceptions)
 - [ASVS v4.1 v7.4: Error handling](https://github.com/OWASP/ASVS/blob/master/4.0/en/0x15-V7-Error-Logging.md#v74-error-handling)
 - [CWE 728 - Improper Error Handling](https://cwe.mitre.org/data/definitions/728.html)
