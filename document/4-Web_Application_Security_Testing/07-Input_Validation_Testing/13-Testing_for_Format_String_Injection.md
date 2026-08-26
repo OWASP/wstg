@@ -59,7 +59,7 @@ Tests include analysis of the code and injecting conversion specifiers as user i
 Static analysis tools can find format string vulnerabilities in either the code or in binaries. Examples of tools include:
 
 - C and C++: [Flawfinder](https://dwheeler.com/flawfinder/)
-- Java: FindSecurityBugs rule [FORMAT_STRING_MANIPULATION](https://find-sec-bugs.github.io/bugs.htm#FORMAT_STRING_MANIPULATION)
+- Java: FindSecurityBugs rule [FORMAT_STRING_MANIPULATION](https://find-sec-bugs.github.io/bugs.htm#format_STRING_MANIPULATION)
 - PHP: String formatter Analyzer in [phpsa](https://github.com/ovr/phpsa/blob/master/docs/05_Analyzers.md#function_string_formater)
 
 ### Manual Code Inspection
