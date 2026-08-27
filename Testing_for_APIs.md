@@ -72,14 +72,14 @@ Step 2: Exploit bugs - As know how to list endpoints and examine endpoints with 
 
 Token-based authentication is implemented by sending a signed token (verified by the server) with each HTTP request.
 
-The most commonly used token format is the JSON Web Token (JWT), defined in [RFC7519](https://tools.ietf.org/html/rfc7519). The [Testing JSON Web Tokens](/document/4-Web_Application_Security_Testing/06-Session_Management_Testing/10-Testing_JSON_Web_Tokens.md) guide contains further details on how to test JWTs.
+The most commonly used token format is the JSON Web Token (JWT), defined in [RFC7519](https://tools.ietf.org/html/rfc7519). The [Testing JSON Web Tokens](https://github.com/OWASP/wstg/blob/master/document/4-Web_Application_Security_Testing/06-Session_Management_Testing/10-Testing_JSON_Web_Tokens.md) guide contains further details on how to test JWTs.
 
 ## Related Test Cases
 
 - [IDOR](https://github.com/OWASP/wstg/blob/master/document/4-Web_Application_Security_Testing/05-Authorization_Testing/04-Testing_for_Insecure_Direct_Object_References.md)
 - [Privilege escalation](https://github.com/OWASP/wstg/blob/master/document/4-Web_Application_Security_Testing/05-Authorization_Testing/03-Testing_for_Privilege_Escalation.md)
 - All [Session Management](https://github.com/OWASP/wstg/tree/master/document/4-Web_Application_Security_Testing/06-Session_Management_Testing) test cases
-- [Testing JSON Web Tokens](/document/4-Web_Application_Security_Testing/06-Session_Management_Testing/10-Testing_JSON_Web_Tokens.md)
+- [Testing JSON Web Tokens](https://github.com/OWASP/wstg/blob/master/document/4-Web_Application_Security_Testing/06-Session_Management_Testing/10-Testing_JSON_Web_Tokens.md)
 
 ## Tools
 
