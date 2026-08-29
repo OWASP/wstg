@@ -79,7 +79,7 @@ The following examples can be used.
 
 The final result of the above testing gives the tester three possible situations:
 
-1. The application returns a error code/message
+1. The application returns an error code/message
 2. The application does not return an error code/message, but it does not realize the requested operation
 3. The application does not return an error code/message and realizes the operation requested normally
 

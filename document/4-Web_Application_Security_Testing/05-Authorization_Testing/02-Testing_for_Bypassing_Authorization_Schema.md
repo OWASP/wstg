@@ -41,7 +41,7 @@ When a web application does not properly enforce access control mechanisms, sens
 
 This process can be automated if you have a list of all endpoints with tools like ffuf, gobuster, ZAP, and Burp Suite Intruder.
 
-For ZAP, using a adddon for [Access Control Testing](https://www.zaproxy.org/docs/desktop/addons/access-control-testing/) allows testers to determine which parts of the application are available to anonymous users, and identify potential access control issues.
+For ZAP, using an add-on for [Access Control Testing](https://www.zaproxy.org/docs/desktop/addons/access-control-testing/) allows testers to determine which parts of the application are available to anonymous users, and identify potential access control issues.
 
 For Burp Suite, built-in tools such as Intruder, and a number of plugins, including Autorize, help the tester automate testing authorization.
 
