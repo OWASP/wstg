@@ -158,4 +158,4 @@ Testing is simple: try and login to an account with a password that is incorrect
 ## References
 
 - [Niels Teusink: phpBB 2.0.12 authentication bypass](http://blog.teusink.net/2008/12/classic-bug-phpbb-2012-authentication.html)
-- [David Endler: "Session ID Brute Force Exploitation and Prediction"](https://www.cgisecurity.com/lib/SessionIDs.pdf)
+- [David Endler: "Session ID Brute Force Exploitation and Prediction"](https://web.archive.org/web/20250711045439/https://www.cgisecurity.com/lib/SessionIDs.pdf)
