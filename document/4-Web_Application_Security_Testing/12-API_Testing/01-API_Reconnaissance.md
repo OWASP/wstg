@@ -83,7 +83,7 @@ Browsing the application with an intercepting proxy such as ZAP or Burp Suite re
 - `https://example.com/api/v1` (or v2 etc)  
 - `https://example.com/graphql`
 
-Or subdomains the the applications may consume or depend upon:
+Or subdomains the applications may consume or depend upon:
 
 - `https://api.example.com/api/v1`
 

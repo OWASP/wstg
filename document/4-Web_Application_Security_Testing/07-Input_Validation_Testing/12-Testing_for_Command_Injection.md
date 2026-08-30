@@ -180,7 +180,7 @@ Here is a methodology we can use when we come across a filter:
 
 - Is the filter client-side or server-side ?
 - Is the filter applied on special characters, OS commands, or both ?
-- Is the webapp using a allowlist or blocklist filter ?
+- Is the webapp using an allowlist or blocklist filter ?
 - What OS is running on the web server? This allows us to have an idea of the commands and special characters we can use.
 
 ### Special Characters Filter Evasion
