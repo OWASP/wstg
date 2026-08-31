@@ -70,7 +70,7 @@ jobs:
           EOF
 
           echo "Compiling Typst to PDF..."
-          typst compile "$BUILD_DIR/build.typ" "$BUILD_DIR/wstg-typst-$VERSION.pdf"
+          typst compile --root . "$BUILD_DIR/build.typ" "$BUILD_DIR/wstg-typst-$VERSION.pdf"
 
           # --- EPUB Generation (Pandoc) ---
           echo "Generating EPUB via Pandoc..."
