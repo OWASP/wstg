@@ -40,7 +40,7 @@ jobs:
           fi
 
           # Every chapter dir so relative images/ resolve
-          FILTER=/.github/ebooks/filters/links.lua
+          FILTER=.github/ebooks/filters/links.lua
           RESOURCE_PATH=".:document:$(find document -type d | paste -sd: -)"
 
           # --- PDF ---
