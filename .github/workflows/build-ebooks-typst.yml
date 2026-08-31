@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Pandoc
-        run: sudo apt-get update && sudo apt-get install -y pandoc
+        run: sudo apt update && sudo apt install -y pandoc
 
       - name: Install Typst
         run: |
@@ -31,6 +31,7 @@ jobs:
           VERSION="${{ github.event.inputs.version }}"
           BUILD_DIR="build-ebooks"
           mkdir -p "$BUILD_DIR"
+          pwd
 
           echo "Collecting markdown files for version $VERSION..."
           MD_FILES=$(find document -name "*.md" | sort)
@@ -39,10 +40,13 @@ jobs:
               echo "Error: No markdown files found in document/"
               exit 1
           fi
+          pwd
 
           # --- PDF Generation (Typst) ---
           echo "Converting Markdown to Typst fragment..."
           pandoc $MD_FILES -o "$BUILD_DIR/content.typ"
+          pwd
+          ls
 
           echo "Creating Typst wrapper..."
           cat <<EOF > "$BUILD_DIR/build.typ"
