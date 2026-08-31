@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Install Pandoc
         run: sudo apt update && sudo apt install -y pandoc
@@ -85,7 +85,7 @@ jobs:
           pandoc $MD_FILES $CSS_ARG -o "$BUILD_DIR/wstg-typst-$VERSION.epub"
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: wstg-ebooks-${{ github.event.inputs.version }}
           path: build-ebooks/*
