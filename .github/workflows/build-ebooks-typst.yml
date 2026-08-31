@@ -40,10 +40,12 @@ jobs:
           fi
 
           # Every chapter dir so relative images/ resolve
+          FILTER=.github/ebooks/filters/links.lua
           RESOURCE_PATH=".:document:$(find document -type d | paste -sd: -)"
 
-          echo "Converting Markdown → Typst (${#MD_FILES[@]} files)..."
+          # --- PDF ---
           pandoc "${MD_FILES[@]}" \
+            --lua-filter="$FILTER" \
             --resource-path="$RESOURCE_PATH" \
             --extract-media="$BUILD_DIR/media" \
             -o "$BUILD_DIR/body.typ"
@@ -53,20 +55,18 @@ jobs:
             .github/ebooks/pandoc-defs.typ \
             "$BUILD_DIR/content.typ"
 
-          echo "Compiling Typst → PDF..."
-          typst compile \
-            --root . \
-            --input "version=${VERSION}" \
+          typst compile --root . --input "version=${VERSION}" \
             .github/ebooks/main.typ \
             "$BUILD_DIR/wstg-typst-${VERSION}.pdf"
 
-          echo "Generating EPUB..."
-          CSS_ARG=()
-          if [ -f .github/epub/assets/epub-style.css ]; then
-            CSS_ARG=(--css .github/epub/assets/epub-style.css)
-          fi
-          pandoc "${MD_FILES[@]}" "${CSS_ARG[@]}" \
+          # --- EPUB ---
+          pandoc "${MD_FILES[@]}" \
+            --lua-filter="$FILTER" \
             --resource-path="$RESOURCE_PATH" \
+            --toc --toc-depth=2 \
+            --split-level=1 \
+            --epub-cover-image=.github/pdf/assets/cover.jpg \
+            --css=.github/epub/assets/epub-style.css \
             -o "$BUILD_DIR/wstg-typst-${VERSION}.epub"
 
       - name: Upload Artifacts
