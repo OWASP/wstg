@@ -34,31 +34,39 @@ jobs:
           mkdir -p "$BUILD_DIR"
 
           mapfile -t MD_FILES < <(python3 .github/ebooks/list-chapters.py document)
-
           if [ ${#MD_FILES[@]} -eq 0 ]; then
             echo "Error: No markdown files found in document/"
             exit 1
           fi
 
-          echo "Converting Markdown to Typst fragment (${#MD_FILES[@]} files)..."
-          pandoc "${MD_FILES[@]}" \
-            --resource-path=.:document \
-            -o "$BUILD_DIR/content.typ"
+          # Every chapter dir so relative images/ resolve
+          RESOURCE_PATH=".:document:$(find document -type d | paste -sd: -)"
 
-          echo "Compiling Typst to PDF..."
+          echo "Converting Markdown → Typst (${#MD_FILES[@]} files)..."
+          pandoc "${MD_FILES[@]}" \
+            --resource-path="$RESOURCE_PATH" \
+            --extract-media="$BUILD_DIR/media" \
+            -o "$BUILD_DIR/body.typ"
+
+          python3 .github/ebooks/fix-typst-body.py \
+            "$BUILD_DIR/body.typ" \
+            .github/ebooks/pandoc-defs.typ \
+            "$BUILD_DIR/content.typ"
+
+          echo "Compiling Typst → PDF..."
           typst compile \
             --root . \
             --input "version=${VERSION}" \
             .github/ebooks/main.typ \
             "$BUILD_DIR/wstg-typst-${VERSION}.pdf"
 
-          echo "Generating EPUB via Pandoc..."
+          echo "Generating EPUB..."
           CSS_ARG=()
           if [ -f .github/epub/assets/epub-style.css ]; then
             CSS_ARG=(--css .github/epub/assets/epub-style.css)
           fi
           pandoc "${MD_FILES[@]}" "${CSS_ARG[@]}" \
-            --resource-path=.:document \
+            --resource-path="$RESOURCE_PATH" \
             -o "$BUILD_DIR/wstg-typst-${VERSION}.epub"
 
       - name: Upload Artifacts

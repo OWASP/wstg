@@ -24,7 +24,6 @@
     },
   )
 
-  // Fonts that exist on ubuntu-latest (or are bundled with Typst)
   set text(
     font: ("New Computer Modern", "Liberation Sans", "DejaVu Sans"),
     size: 11pt,
