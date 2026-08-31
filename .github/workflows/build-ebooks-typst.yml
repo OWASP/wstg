@@ -1,0 +1,88 @@
+name: Build Ebooks (Modern)
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version'
+        required: true
+        default: '4.x'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Pandoc
+        run: sudo apt-get update && sudo apt-get install -y pandoc
+
+      - name: Install Typst
+        run: |
+          TYPST_VERSION=$(curl -s https://api.github.com/repos/typst/typst/releases/latest | grep tag_name | cut -d '"' -f 4)
+          curl -L "https://github.com/typst/typst/releases/download/${TYPST_VERSION}/typst-x86_64-unknown-linux-musl.tar.xz" -o typst.tar.xz
+          tar -xJf typst.tar.xz
+          sudo mv typst-x86_64-unknown-linux-musl/typst /usr/local/bin/
+          rm -rf typst.tar.xz typst-x86_64-unknown-linux-musl
+
+      - name: Generate Ebooks
+        run: |
+          VERSION="${{ github.event.inputs.version }}"
+          BUILD_DIR="build-ebooks"
+          mkdir -p "$BUILD_DIR"
+
+          echo "Collecting markdown files for version $VERSION..."
+          MD_FILES=$(find document -name "*.md" | sort)
+
+          if [ -z "$MD_FILES" ]; then
+              echo "Error: No markdown files found in document/"
+              exit 1
+          fi
+
+          # --- PDF Generation (Typst) ---
+          echo "Converting Markdown to Typst fragment..."
+          pandoc $MD_FILES -o "$BUILD_DIR/content.typ"
+
+          echo "Creating Typst wrapper..."
+          cat <<EOF > "$BUILD_DIR/build.typ"
+          #import ".github/ebooks/template.typ": wstg_template
+
+          #let version = "$VERSION"
+
+          #page(margin: 0pt)[
+            #set align(center + horizon)
+            #image(".github/pdf/assets/cover.jpg", width: 100%, height: 100%, fit: "cover")
+          ]
+          #page(margin: 0pt)[
+            #set align(center + horizon)
+            #image(".github/pdf/assets/second-cover.png", width: 100%, height: 100%, fit: "cover")
+          ]
+
+          #show: x => wstg_template(x, version: version)
+
+          #include "content.typ"
+
+          #page(margin: 0pt)[
+            #set align(center + horizon)
+            #image(".github/pdf/assets/back-cover.png", width: 100%, height: 100%, fit: "cover")
+          ]
+          EOF
+
+          echo "Compiling Typst to PDF..."
+          typst compile "$BUILD_DIR/build.typ" "$BUILD_DIR/wstg-typst-$VERSION.pdf"
+
+          # --- EPUB Generation (Pandoc) ---
+          echo "Generating EPUB via Pandoc..."
+          CSS_ARG=""
+          if [ -f ".github/epub/assets/epub-style.css" ]; then
+              CSS_ARG="--css .github/epub/assets/epub-style.css"
+          fi
+
+          pandoc $MD_FILES $CSS_ARG -o "$BUILD_DIR/wstg-typst-$VERSION.epub"
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: wstg-ebooks-${{ github.event.inputs.version }}
+          path: build-ebooks/*
