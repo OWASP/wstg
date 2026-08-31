@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
-"""Emit Markdown paths under a tree in reading order.
+"""Emit Markdown chapter paths under a tree in reading order.
 
 Directories are sorted by name (WSTG numeric prefixes already sort correctly).
-Within each directory, README.md is first; other *.md files follow sorted.
+
+README.md files are excluded because they generally contain navigation or
+contents lists that would duplicate material in generated ebooks.
+
+The exception is 1-About/README.md, which contains substantive introductory
+content and must be included.
+
 No content is modified — paths only.
 """
 
@@ -13,18 +19,36 @@ import os
 import sys
 
 
+PRESERVED_READMES = {
+    os.path.normpath(os.path.join("1-About", "README.md")),
+}
+
+
 def list_chapters(root: str) -> list[str]:
     root = os.path.abspath(root)
     results: list[str] = []
 
     for dirpath, dirnames, filenames in os.walk(root, topdown=True):
         dirnames.sort()
-        md_files = sorted(f for f in filenames if f.lower().endswith(".md"))
-        if not md_files:
-            continue
-        readmes = [f for f in md_files if f.lower() == "readme.md"]
-        others = [f for f in md_files if f.lower() != "readme.md"]
-        for name in readmes + others:
+
+        md_files: list[str] = []
+
+        for filename in sorted(filenames):
+            if not filename.lower().endswith(".md"):
+                continue
+
+            full_path = os.path.join(dirpath, filename)
+            relative_path = os.path.normpath(os.path.relpath(full_path, root))
+
+            if (
+                filename.lower() == "readme.md"
+                and relative_path not in PRESERVED_READMES
+            ):
+                continue
+
+            md_files.append(filename)
+
+        for name in md_files:
             results.append(os.path.join(dirpath, name))
 
     return results
