@@ -1,4 +1,4 @@
-# Fuzzing
+# D. Fuzzing {#fuzzing}
 
 ## Introduction
 

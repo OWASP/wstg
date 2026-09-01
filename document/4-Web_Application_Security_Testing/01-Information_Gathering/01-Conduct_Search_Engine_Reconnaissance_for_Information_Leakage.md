@@ -1,4 +1,4 @@
-# Conduct Search Engine Discovery Reconnaissance for Information Leakage
+# Conduct Search Engine Reconnaissance for Information Leakage
 
 |ID          |
 |------------|

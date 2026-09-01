@@ -16,14 +16,22 @@ For building checklists and Create a PR with changes made in the master.
 - Trigger: Push, Only when files inside document directory is changed. Manual (`workflow_dispatch`), GitHub web UI.
 - See: `/.github/json/` for JSON checklist generation and `/.github/xlsx/` for XLSX build.
 
-## `build-ebooks.yml`
+## `build-ebooks-typst.yml`
 
-For building PDF and EPUB e-Books at release.
+Builds PDF and EPUB e-books using Typst (modern implementation).
 
-- Trigger: Tag applied to repository. Manual (`workflow_dispatch`), GitHub web UI.
-- On tag push: builds ebooks, uploads artifacts, then creates a prerelease with `gh release create` (no third-party release action).
-- See: `/.github/pdf/` in the root of the repository for PDF build specific configurations.
-- See: `/.github/epub/` in the root of the repository for EPUB build specific configurations.
+- Trigger: Manual (`workflow_dispatch`), GitHub web UI.
+- Pipeline:
+  1. **list-chapters.py**: Generates synthetic chapter headings and outputs files in reading order
+  2. **build-link-manifest.py**: Extracts real heading IDs from Pandoc AST for accurate cross-chapter links
+  3. **Pandoc filters**:
+     - `links.lua`: Resolves cross-chapter links using the manifest
+     - `demote-headings.lua`: Adjusts heading levels while preserving chapter hierarchy
+  4. **fix-typst-body.py**: Applies style conversions (images, ID badges, etc.)
+  5. **Typst compiler**: Generates final PDF
+  6. **Pandoc EPUB**: Generates EPUB with same filter pipeline
+- Uploads: PDF and EPUB as separate artifacts (uncompressed)
+- See: `/.github/ebooks/` for configuration, filters, and templates
 
 ## `clean-workflow-runs.yml`
 

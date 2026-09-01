@@ -1,5 +1,11 @@
 // OWASP WSTG Typst document template
 // Applied via: #show: doc => wstg_template(doc, version: version)
+//
+// Defines styling for WSTG ebook (PDF/EPUB):
+//   - Heading hierarchy with chapter breaks and nesting
+//   - OWASP branding colors and fonts
+//   - Code/link styling
+//   - Table formatting
 
 #let wstg_template(content, version: "4.x") = {
   // ---------------------------------------------------------------------------
@@ -42,7 +48,7 @@
   // Typography
   // ---------------------------------------------------------------------------
   set text(
-    font: ("New Computer Modern", "Liberation Sans", "DejaVu Sans"),
+    font: "DejaVu Sans",
     size: 11pt,
     lang: "en",
   )
@@ -84,12 +90,15 @@
   }
 
   // ---------------------------------------------------------------------------
-  // Headings — page break before each H1
+  // Headings — page break before each H1 (except Contents)
   // ---------------------------------------------------------------------------
   show heading.where(level: 1): it => {
-    pagebreak(weak: true)
+    if it.label != <contents> {
+      pagebreak()
+    }
     set text(fill: rgb("#004391"), size: 18pt, weight: "bold")
-    block(above: 0.5em, below: 0.8em, {
+    set par(leading: 0.9em, hanging-indent: 0em)
+    block(above: 0.5em, below: 0.8em, width: 100%, breakable: true, {
       it
       v(0.3em)
       line(length: 100%, stroke: 1pt + rgb("#7DC6E9"))
@@ -97,13 +106,16 @@
   }
 
   show heading.where(level: 2): it => {
+    pagebreak(weak: true)
     set text(fill: rgb("#007CBB"), size: 14pt, weight: "bold")
-    block(above: 1.4em, below: 0.5em, it)
+    set par(leading: 0.8em, hanging-indent: 0em)
+    block(above: 1.4em, below: 0.5em, width: 100%, breakable: true, it)
   }
 
   show heading.where(level: 3): it => {
     set text(fill: rgb("#007CBB"), size: 12pt, weight: "bold")
-    block(above: 1.0em, below: 0.4em, it)
+    set par(leading: 0.7em, hanging-indent: 0em)
+    block(above: 1.0em, below: 0.4em, width: 100%, breakable: true, it)
   }
 
   show heading.where(level: 4): it => {
