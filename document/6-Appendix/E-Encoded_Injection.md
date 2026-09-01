@@ -1,4 +1,4 @@
-# Encoded Injection
+# E. Encoded Injection {#encoded-injection}
 
 ## Background
 

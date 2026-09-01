@@ -33,19 +33,34 @@ jobs:
           BUILD_DIR="build-ebooks"
           mkdir -p "$BUILD_DIR"
 
-          mapfile -t MD_FILES < <(python3 .github/ebooks/list-chapters.py document)
+          # Step 1: Generate file list with synthetic chapter headings
+          # list-chapters.py walks the document tree, creates synthetic H1 headings for
+          # nav-only folders, and outputs all markdown files in reading order.
+          # Synthetic headings are marked with {.synthetic} class for filter identification.
+          mapfile -t MD_FILES < <(python3 .github/ebooks/list-chapters.py document --synthetic-dir "$BUILD_DIR/synthetic")
           if [ ${#MD_FILES[@]} -eq 0 ]; then
             echo "Error: No markdown files found in document/"
             exit 1
           fi
 
-          # Every chapter dir so relative images/ resolve
-          FILTER=.github/ebooks/filters/links.lua
+          # Step 2: Build manifest of real heading identifiers
+          # build-link-manifest.py runs pandoc on each file to extract actual heading IDs
+          # from the AST. This lets links.lua resolve cross-chapter references accurately.
+          MANIFEST_PATH="$BUILD_DIR/link-manifest.json"
+          python3 .github/ebooks/build-link-manifest.py document -o "$MANIFEST_PATH"
+
+          # Step 3: Set resource paths for image resolution
+          # Every chapter dir is added so relative image/ paths resolve correctly
           RESOURCE_PATH=".:document:$(find document -type d | paste -sd: -)"
 
-          # --- PDF ---
-          pandoc "${MD_FILES[@]}" \
-            --lua-filter="$FILTER" \
+          # Step 4: PDF generation
+          # Pandoc processes files through:
+          #   - links.lua: resolves cross-chapter links using the manifest
+          #   - demote-headings.lua: demotes content H1 to H2, preserves chapter H1s
+          # Output is Typst markup, then fix-typst-body.py applies style conversions
+          LINK_MANIFEST="$MANIFEST_PATH" pandoc "${MD_FILES[@]}" \
+            --lua-filter=".github/ebooks/filters/links.lua" \
+            --lua-filter=".github/ebooks/filters/demote-headings.lua" \
             --resource-path="$RESOURCE_PATH" \
             --extract-media="$BUILD_DIR/media" \
             -o "$BUILD_DIR/body.typ"
@@ -59,18 +74,33 @@ jobs:
             .github/ebooks/main.typ \
             "$BUILD_DIR/wstg-typst-${VERSION}.pdf"
 
-          # --- EPUB ---
-          pandoc "${MD_FILES[@]}" \
-            --lua-filter="$FILTER" \
+          # Step 5: EPUB generation
+          # Same filter pipeline as PDF, with EPUB-specific options:
+          #   --toc: generate table of contents
+          #   --toc-depth=2: show only chapters and first-level sections
+          #   --split-level=1: split on H1 headings (chapters)
+          #   -M toc-title=Contents: set TOC heading title
+          LINK_MANIFEST="$MANIFEST_PATH" pandoc "${MD_FILES[@]}" \
+            --lua-filter=".github/ebooks/filters/links.lua" \
+            --lua-filter=".github/ebooks/filters/demote-headings.lua" \
             --resource-path="$RESOURCE_PATH" \
             --toc --toc-depth=2 \
             --split-level=1 \
+            -M toc-title=Contents \
             --epub-cover-image=.github/pdf/assets/cover.jpg \
             --css=.github/epub/assets/epub-style.css \
             -o "$BUILD_DIR/wstg-typst-${VERSION}.epub"
 
-      - name: Upload Artifacts
+      - name: Upload PDF
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: wstg-ebooks-${{ github.event.inputs.version }}
-          path: build-ebooks/*
+          name: wstg-${{ github.event.inputs.version }}.pdf
+          path: build-ebooks/wstg-typst-${{ github.event.inputs.version }}.pdf
+          archive: false  # Disable zipping
+
+      - name: Upload EPUB
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: wstg-${{ github.event.inputs.version }}.epub
+          path: build-ebooks/wstg-typst-${{ github.event.inputs.version }}.epub
+          archive: false  # Disable zipping

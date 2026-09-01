@@ -1,4 +1,4 @@
-# Testing for Content Security Policy
+# Test for Content Security Policy
 
 |ID          |
 |------------|

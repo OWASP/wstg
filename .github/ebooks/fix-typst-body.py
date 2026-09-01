@@ -1,5 +1,14 @@
 #!/usr/bin/env python3
-"""Post-process Pandoc Typst body for inclusion under --root ."""
+"""Post-process Pandoc Typst output to apply ebook-specific style conversions.
+
+Transforms Pandoc's raw Typst markup for use in the WSTG ebook:
+  - Fixes image paths to point to extracted media directory
+  - Escapes backslashes in Windows paths
+  - Converts ID table syntax to styled blue badge blocks
+  - Prepends Pandoc definitions (fonts, utilities)
+
+Outputs the final content.typ ready for inclusion in main.typ.
+"""
 from __future__ import annotations
 
 import argparse
@@ -28,6 +37,28 @@ def main() -> None:
     # extract-media paths → root-absolute
     text = text.replace('#image("build-ebooks/media/', f'#image("{args.media_prefix}')
     text = text.replace('#image("media/', f'#image("{args.media_prefix}')
+
+    # Convert ID tables to styled badges
+    # Matches: #align(center)[#table(...[ID]...[WSTG-…]...)]
+    def replace_id_table(m: re.Match[str]) -> str:
+        id_val = m.group(1)
+        return f'''#block(
+  fill: rgb("#0080BD"),
+  stroke: none,
+  radius: 4pt,
+  inset: (x: 12pt, y: 8pt),
+  width: auto,
+)[
+  #set text(fill: white, weight: "medium")
+  ID #h(1.5em) {id_val}
+]'''
+
+    text = re.sub(
+        r'#align\(center\)\[#table\([^[]*\[ID\][^[]*\[(WSTG-[^\]]+)\][^]]*\)\s*\]',
+        replace_id_table,
+        text,
+        flags=re.DOTALL,
+    )
 
     defs = Path(args.defs).read_text(encoding="utf-8")
     Path(args.out).write_text(defs + "\n" + text, encoding="utf-8")

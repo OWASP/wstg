@@ -1,8 +1,14 @@
-// OWASP WSTG — Typst entrypoint
+// OWASP WSTG — Typst entrypoint for ebook generation
 //
-//   typst compile --root . --input version=4.x .github/ebooks/main.typ out.pdf
+// Assembles the complete ebook:
+//   1. Front matter (cover images)
+//   2. Table of contents (from heading structure)
+//   3. Content body (from Pandoc-generated content.typ)
+//   4. Back cover
 //
-// Expects /build-ebooks/content.typ (Pandoc body + pandoc-defs + link fixes).
+// Expects /build-ebooks/content.typ (Pandoc output with link/style fixes)
+//
+// Build: typst compile --root . --input version=4.x .github/ebooks/main.typ out.pdf
 
 #import "/.github/ebooks/template.typ": wstg_template
 
@@ -40,13 +46,13 @@
 #show: doc => wstg_template(doc, version: version)
 
 // Clickable PDF outline from heading structure (prefer over path-based MD ToC)
-#outline(
-  title: [Table of Contents],
-  depth: 2,
-  indent: 1.2em,
-)
+= Contents <contents>
 
-#pagebreak()
+#outline(
+  title: none,
+  depth: 2,
+  indent: 2em,
+)
 
 #include "/build-ebooks/content.typ"
 

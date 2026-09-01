@@ -1,5 +1,11 @@
 // OWASP WSTG Typst document template
 // Applied via: #show: doc => wstg_template(doc, version: version)
+//
+// Defines styling for WSTG ebook (PDF/EPUB):
+//   - Heading hierarchy with chapter breaks and nesting
+//   - OWASP branding colors and fonts
+//   - Code/link styling
+//   - Table formatting
 
 #let wstg_template(content, version: "4.x") = {
   // ---------------------------------------------------------------------------
@@ -42,7 +48,7 @@
   // Typography
   // ---------------------------------------------------------------------------
   set text(
-    font: ("New Computer Modern", "Liberation Sans", "DejaVu Sans"),
+    font: "DejaVu Sans",
     size: 11pt,
     lang: "en",
   )
@@ -84,10 +90,12 @@
   }
 
   // ---------------------------------------------------------------------------
-  // Headings — page break before each H1
+  // Headings — page break before each H1 (except Contents)
   // ---------------------------------------------------------------------------
   show heading.where(level: 1): it => {
-    pagebreak(weak: true)
+    if it.label != <contents> {
+      pagebreak()
+    }
     set text(fill: rgb("#004391"), size: 18pt, weight: "bold")
     block(above: 0.5em, below: 0.8em, {
       it
@@ -97,6 +105,7 @@
   }
 
   show heading.where(level: 2): it => {
+    pagebreak(weak: true)
     set text(fill: rgb("#007CBB"), size: 14pt, weight: "bold")
     block(above: 1.4em, below: 0.5em, it)
   }
