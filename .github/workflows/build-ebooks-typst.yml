@@ -1,6 +1,9 @@
 name: Build Ebooks (Modern)
 
 on:
+  push:
+    tags:
+      - 'v*'
   workflow_dispatch:
     inputs:
       version:
@@ -87,8 +90,7 @@ jobs:
             --toc --toc-depth=2 \
             --split-level=1 \
             -M toc-title=Contents \
-            --epub-cover-image=.github/pdf/assets/cover.jpg \
-            --css=.github/epub/assets/epub-style.css \
+            --epub-cover-image=.github/ebooks/assets/cover.jpg \
             -o "$BUILD_DIR/wstg-typst-${VERSION}.epub"
 
       - name: Upload PDF

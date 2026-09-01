@@ -20,7 +20,7 @@
 #page(margin: 0pt)[
   #set align(center + horizon)
   #image(
-    "/.github/pdf/assets/cover.jpg",
+    "/.github/ebooks/assets/cover.jpg",
     width: 100%,
     height: 100%,
     fit: "cover",
@@ -33,7 +33,7 @@
 #page(margin: 0pt)[
   #set align(center + horizon)
   #image(
-    "/.github/pdf/assets/second-cover.png",
+    "/.github/ebooks/assets/second-cover.png",
     width: 100%,
     height: 100%,
     fit: "cover",
@@ -51,7 +51,7 @@
 #outline(
   title: none,
   depth: 2,
-  indent: 2em,
+  indent: 1.5em,
 )
 
 #include "/build-ebooks/content.typ"
@@ -62,7 +62,7 @@
 #page(margin: 0pt)[
   #set align(center + horizon)
   #image(
-    "/.github/pdf/assets/back-cover.png",
+    "/.github/ebooks/assets/back-cover.png",
     width: 100%,
     height: 100%,
     fit: "cover",

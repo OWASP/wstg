@@ -97,7 +97,8 @@
       pagebreak()
     }
     set text(fill: rgb("#004391"), size: 18pt, weight: "bold")
-    block(above: 0.5em, below: 0.8em, {
+    set par(leading: 0.9em, hanging-indent: 0em)
+    block(above: 0.5em, below: 0.8em, width: 100%, breakable: true, {
       it
       v(0.3em)
       line(length: 100%, stroke: 1pt + rgb("#7DC6E9"))
@@ -107,12 +108,14 @@
   show heading.where(level: 2): it => {
     pagebreak(weak: true)
     set text(fill: rgb("#007CBB"), size: 14pt, weight: "bold")
-    block(above: 1.4em, below: 0.5em, it)
+    set par(leading: 0.8em, hanging-indent: 0em)
+    block(above: 1.4em, below: 0.5em, width: 100%, breakable: true, it)
   }
 
   show heading.where(level: 3): it => {
     set text(fill: rgb("#007CBB"), size: 12pt, weight: "bold")
-    block(above: 1.0em, below: 0.4em, it)
+    set par(leading: 0.7em, hanging-indent: 0em)
+    block(above: 1.0em, below: 0.4em, width: 100%, breakable: true, it)
   }
 
   show heading.where(level: 4): it => {
