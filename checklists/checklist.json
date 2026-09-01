@@ -4,9 +4,9 @@
       "id": "WSTG-INFO",
       "tests": [
         {
-          "name": "Conduct Search Engine Discovery Reconnaissance for Information Leakage",
+          "name": "Conduct Search Engine Reconnaissance for Information Leakage",
           "id": "WSTG-INFO-01",
-          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/01-Information_Gathering/01-Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/01-Information_Gathering/01-Conduct_Search_Engine_Reconnaissance_for_Information_Leakage",
           "objectives": [
             "Identify what sensitive design and configuration information of the application, system, or organization is exposed directly (on the organization's site) or indirectly (via third-party services)."
           ]
@@ -201,7 +201,7 @@
           ]
         },
         {
-          "name": "Testing for Content Security Policy",
+          "name": "Test for Content Security Policy",
           "id": "WSTG-CONF-12",
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/12-Test_for_Content_Security_Policy",
           "objectives": [
