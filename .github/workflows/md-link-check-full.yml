@@ -18,7 +18,7 @@ jobs:
           persist-credentials: false
 
       - name: Linkspector (full repository)
-        uses: UmbrellaDocs/action-linkspector@v1
+        uses: UmbrellaDocs/action-linkspector@568ec8d29fa92b31fd9ea5381e155c51e922af83
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           workdir: base
