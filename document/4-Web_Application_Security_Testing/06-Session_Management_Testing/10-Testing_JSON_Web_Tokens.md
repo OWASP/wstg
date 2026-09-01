@@ -153,7 +153,6 @@ If the application uses JWTs with public key based signatures, but does not chec
 2. The application must not check which algorithm the JWT is actually using for the signature.
 3. The public key used to verify the JWT must be available to the attacker.
 
-<!-- markdown-link-check-disable-next-line -->
 If all of these conditions are true, then an attacker can use the public key to sign the JWT using a HMAC based algorithm (such as `HS256`). For example, the [Node.js jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) library uses the same function for both public key and HMAC based tokens, as shown in the example below:
 
 ```javascript
