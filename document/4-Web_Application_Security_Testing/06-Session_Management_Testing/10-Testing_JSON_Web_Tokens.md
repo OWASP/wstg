@@ -153,6 +153,7 @@ If the application uses JWTs with public key based signatures, but does not chec
 2. The application must not check which algorithm the JWT is actually using for the signature.
 3. The public key used to verify the JWT must be available to the attacker.
 
+<!-- markdown-link-check-disable-next-line -->
 If all of these conditions are true, then an attacker can use the public key to sign the JWT using a HMAC based algorithm (such as `HS256`). For example, the [Node.js jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) library uses the same function for both public key and HMAC based tokens, as shown in the example below:
 
 ```javascript
@@ -240,7 +241,7 @@ The [JSON Web Signature (JWS) specification (RFC 7515 §4.1.2, §4.1.5)](https:/
 - `jku` (JWK Set URL): A URI referring to a resource for a set of JSON-encoded public keys.
 - `x5u` (X.509 URL): A URI referring to a resource for a set of X.509 public key certificates.
 
-If the verification library automatically fetches public keys from the URI specified in the header without enforcing a strict domain allowlist or TLS certificate validation, an attacker can supply an external URL under their control to sign arbitrary tokens.
+If the verification library automatically fetches public keys from the URI specified in the header without enforcing a strict domain allowlist, an attacker can point `jku`/`x5u` at a server they control, host their own key there, and sign forged tokens with the corresponding private key that the server will accept as valid.
 
 #### Test Procedure
 
@@ -280,6 +281,8 @@ If the verification library automatically fetches public keys from the URI speci
     - Check for URL parser discrepancies or path normalization flaws (e.g., `https://trusted.example.com@attacker.example.com/jwks.json`).
     - Check if the server attempts internal network resolution (SSRF) when pointing `jku` to loopback (`http://127.0.0.1/`) or cloud metadata endpoints (`http://169.254.169.254/`).
 
+The `x5u` parameter can be tested the same way: instead of hosting a JWKS document, host an X.509 certificate chain (PEM-encoded) signed with an attacker-controlled key at the target URL. Many libraries extract the public key from the leaf certificate without validating that the chain is trusted or terminates at a pinned root CA, so check whether a self-signed or otherwise untrusted chain is still accepted.
+
 ### Token Audience (aud) and Issuer (iss) Confusion
 
 In distributed microservice and multi-tenant architectures, multiple distinct services frequently share a centralized Identity Provider (IdP). A common authorization flaw occurs when a downstream service validates the cryptographic signature of the token against the IdP, but fails to assert that the token was explicitly issued for that specific service.
@@ -296,6 +299,7 @@ If Service B trusts the IdP signature but omits `aud` validation, an attacker wi
 3. Inspect the payload claims to identify the target `aud` (e.g., `aud: "client-portal"`) and `iss` (e.g., `iss: "https://auth.example.com/"`).
 4. Replay the unmodified token in a request against a high-privilege service, administrative API, or separate tenant (e.g., `https://internal-admin.example.com/api/v1/users`).
 5. If the high-privilege service accepts the token and performs the action, it is vulnerable to Cross-Service Token Replay due to missing audience validation.
+6. Test issuer confusion separately: if the IdP is multi-tenant or backs multiple environments (e.g., staging and production) with a shared JWKS endpoint, obtain a token issued for a different, lower-trust tenant or application and replay it against the target service. Acceptance indicates that `iss` is either not validated, or validated with a weak comparison (such as prefix or substring matching) instead of exact string equality against the expected trusted issuer.
 
 ## Related Test Cases
 
