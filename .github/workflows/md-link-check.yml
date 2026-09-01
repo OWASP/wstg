@@ -12,6 +12,7 @@ jobs:
   link-check:
     permissions:
       contents: read
+      checks: write
       pull-requests: write # reviewdog PR annotations / comments
     runs-on: ubuntu-latest
     steps:
