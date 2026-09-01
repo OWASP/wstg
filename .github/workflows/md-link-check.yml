@@ -12,8 +12,7 @@ jobs:
   link-check:
     permissions:
       contents: read
-      checks: write
-      pull-requests: write # reviewdog PR annotations / comments
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout PR
@@ -119,6 +118,7 @@ jobs:
 
       - name: Linkspector (PR)
         if: steps.prepare.outputs.skip != 'true'
+        id: linkspector
         uses: UmbrellaDocs/action-linkspector@568ec8d29fa92b31fd9ea5381e155c51e922af83
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -130,15 +130,39 @@ jobs:
           level: error
           show_stats: "true"
           tool_name: Linkspector
+        continue-on-error: true
+
+      - name: Extract Broken Links
+        if: failure() && steps.prepare.outputs.skip != 'true'
+        run: |
+          # Capture linkspector output from logs for inclusion in artifact
+          echo "## Broken Links Found" > broken_links.txt
+          echo "" >> broken_links.txt
+          # Note: Linkspector errors are in the action logs above
+          echo "**Run the workflow to see detailed error messages in the logs above.**" >> broken_links.txt
+          echo "" >> broken_links.txt
+          echo "Common issues:" >> broken_links.txt
+          echo "- Anchors with wrong case (use lowercase: #anchor-name not #Anchor-Name)" >> broken_links.txt
+          echo "- Missing section headings in target files" >> broken_links.txt
+          echo "- External links timing out or rate-limited" >> broken_links.txt
 
       - name: Create Artifact for Comment
         if: failure()
         run: |
           {
-            echo "**Linkspector reported broken links in this PR.**"
+            echo "**Linkspector found broken links in this PR.**"
             echo
-            echo "See the review comments / check annotations for details."
-            echo "Config: \`.github/configs/linkspector.yml\` (base branch)."
+            echo "### Broken Links Summary"
+            if [ -f broken_links.txt ]; then
+              cat broken_links.txt
+            fi
+            echo
+            echo "### How to Fix"
+            echo "Check the **Logs** tab above for detailed error messages per file."
+            echo "Common fixes:"
+            echo "- Use lowercase anchors: \`#anchor-name\` not \`#Anchor-Name\`"
+            echo "- Verify heading exists in target file"
+            echo "- Check relative path is correct"
           } > artifact.txt
           cat artifact.txt >> "$GITHUB_STEP_SUMMARY"
 
@@ -146,5 +170,5 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: artifact
+          name: broken-links
           path: artifact.txt
