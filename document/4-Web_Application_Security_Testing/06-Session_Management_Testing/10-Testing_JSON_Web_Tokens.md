@@ -175,11 +175,27 @@ Alternatively, the key may be available from a public file on the site at a comm
 
 In order to test this, modify the contents of the JWT, and then use the previously obtained public key to sign the JWT using the `HS256` algorithm. This is often difficult to perform when testing without access to the source code or implementation details, because the format of the key must be identical to the one used by the server, so issues such as empty space or CRLF encoding may result in the keys not matching.
 
-### Attacker Provided Public Key
+### Attacker Provided Public Key (Embedded jwk)
 
-The [JSON Web Signature (JWS) standard](https://tools.ietf.org/html/rfc7515) (which defines the header and signatures used by JWTs) allows the key used to sign the token to be embedded in the header. If the library used to validate the token supports this, and doesn't check the key against a list of approved keys, this allows an attacker to sign an JWT with an arbitrary key that they provide.
+The [JSON Web Signature (JWS) standard (RFC 7515 §4.1.3)](https://tools.ietf.org/html/rfc7515#section-4.1.3) allows the public key used to verify the signature to be embedded directly into the header using the `jwk` parameter. If the server-side verification library blindly accepts this embedded key without checking it against a truststore or allowlist of known public keys, an attacker can embed their own public key and sign forged tokens with the corresponding private key.
 
-There are a variety of scripts that can be used to do this, such as [jwk-node-jose.py](https://github.com/zi0Black/POC-CVE-2018-0114) or [jwt_tool](https://github.com/ticarpi/jwt_tool).
+For example, an attacker can embed their public key directly into the header:
+
+```json
+{
+  "alg": "RS256",
+  "typ": "JWT",
+  "jwk": {
+    "kty": "RSA",
+    "e": "AQAB",
+    "use": "sig",
+    "kid": "attacker-inline-key",
+    "n": "u1SucjA342W..."
+  }
+}
+```
+
+There are a variety of scripts and extensions that can be used to generate and inject inline `jwk` headers, such as [jwt_tool](https://github.com/ticarpi/jwt_tool) or the [JSON Web Tokens Burp Extension](https://portswigger.net/bappstore/f923cbf91698420890354c1d8958fee6).
 
 ### Key ID (kid) Manipulation
 
@@ -217,17 +233,84 @@ For example, an attacker can inject a SQL payload into the `kid` parameter to co
 
 This allows an attacker to force the application to use a known key (e.g., "attacker-controlled-key") for verification, enabling them to forge valid tokens.
 
+### JWKS URL (jku) and X.509 URL (x5u) Header Injection
+
+The [JSON Web Signature (JWS) specification (RFC 7515 §4.1.2, §4.1.5)](https://tools.ietf.org/html/rfc7515#section-4.1.2) supports header parameters that point to external public key stores:
+
+- `jku` (JWK Set URL): A URI referring to a resource for a set of JSON-encoded public keys.
+- `x5u` (X.509 URL): A URI referring to a resource for a set of X.509 public key certificates.
+
+If the verification library automatically fetches public keys from the URI specified in the header without enforcing a strict domain allowlist or TLS certificate validation, an attacker can supply an external URL under their control to sign arbitrary tokens.
+
+#### Test Procedure
+
+1. Generate an RSA keypair on a testing machine.
+2. Host the corresponding public key formatted as a JSON Web Key Set (JWKS) on a public server:
+
+```json
+{
+  "keys": [
+    {
+      "kty": "RSA",
+      "e": "AQAB",
+      "use": "sig",
+      "kid": "test-key-01",
+      "alg": "RS256",
+      "n": "u1SucjA342W..."
+    }
+  ]
+}
+```
+
+3. Modify the target JWT payload with altered claims (e.g., modifying `user_id` or `role`).
+4. Update the JWT header with the `jku` parameter pointing to the hosted JWKS endpoint and matching `kid`:
+
+```json
+{
+  "alg": "RS256",
+  "typ": "JWT",
+  "jku": "https://attacker.example.com/.well-known/jwks.json",
+  "kid": "test-key-01"
+}
+```
+
+5. Sign the forged token using the private key and submit it in an authenticated request.
+6. If direct external hostnames are blocked, evaluate URL filtering bypasses:
+   - Check for open redirect vulnerabilities on allowed domains (e.g., `https://trusted.example.com/oauth/redirect?url=https://attacker.example.com/jwks.json`).
+   - Check for URL parser discrepancies or path normalization flaws (e.g., `https://trusted.example.com@attacker.example.com/jwks.json`).
+   - Check if the server attempts internal network resolution (SSRF) when pointing `jku` to loopback (`http://127.0.0.1/`) or cloud metadata endpoints (`http://169.254.169.254/`).
+
+### Token Audience (aud) and Issuer (iss) Confusion
+
+In distributed microservice and multi-tenant architectures, multiple distinct services frequently share a centralized Identity Provider (IdP). A common authorization flaw occurs when a downstream service validates the cryptographic signature of the token against the IdP, but fails to assert that the token was explicitly issued for that specific service.
+
+- `aud` (Audience): Identifies the recipients that the JWT is intended for ([RFC 7519 §4.1.3](https://tools.ietf.org/html/rfc7519#section-4.1.3)).
+- `iss` (Issuer): Identifies the principal that issued the JWT ([RFC 7519 §4.1.1](https://tools.ietf.org/html/rfc7519#section-4.1.1)).
+
+If Service B trusts the IdP signature but omits `aud` validation, an attacker with valid credentials on a low-privilege Service A can capture their token and replay it against Service B.
+
+#### Test Procedure
+
+1. Authenticate to a low-privilege application or tenant registered under the target organization's Identity Provider.
+2. Intercept and extract the valid issued JWT.
+3. Inspect the payload claims to identify the target `aud` (e.g., `aud: "client-portal"`) and `iss` (e.g., `iss: "https://auth.example.com/"`).
+4. Replay the unmodified token in a request against a high-privilege service, administrative API, or separate tenant (e.g., `https://internal-admin.example.com/api/v1/users`).
+5. If the high-privilege service accepts the token and performs the action, it is vulnerable to Cross-Service Token Replay due to missing audience validation.
+
 ## Related Test Cases
 
 - [Testing for Sensitive Information Sent via Unencrypted Channels](../09-Testing_for_Weak_Cryptography/03-Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels.md).
 - [Testing for Cookie Attributes](../06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.md).
 - [Testing Browser Storage](../11-Client-side_Testing/12-Testing_Browser_Storage.md).
+- [Testing for Server-Side Request Forgery](../07-Input_Validation_Testing/19-Testing_for_Server-Side_Request_Forgery.md).
 
 ## Remediation
 
 - Use a secure and up to date library to handle JWTs.
 - Ensure that the signature is valid, and that it is using the expected algorithm.
-- Use a strong HMAC key or a unique private key to sign them.
+- Do not trust unverified header parameters such as `jku`, `x5u`, or `jwk` without matching against a strict domain/URI allowlist.
+- Always validate standard claims: ensure `exp` is in the future, `nbf` is in the past, `iss` matches the trusted authorization server, and `aud` strictly matches the expected service identifier.
+- Use a strong HMAC key or a unique private key to sign tokens.
 - Ensure that there is no sensitive information exposed in the payload.
 - Ensure that JWTs are securely stored and transmitted.
 - See the [OWASP JSON Web Tokens Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html).
@@ -239,9 +322,11 @@ This allows an attacker to force the application to use a known key (e.g., "atta
 - [jwt-cracker](https://github.com/brendan-rius/c-jwt-cracker)
 - [JSON Web Tokens Burp Extension](https://portswigger.net/bappstore/f923cbf91698420890354c1d8958fee6)
 - [ZAP JWT Add-on](https://github.com/SasanLabs/owasp-zap-jwt-addon)
+- [jwt_tool](https://github.com/ticarpi/jwt_tool)
 
 ## References
 
 - [RFC 7515 JSON Web Signature (JWS)](https://tools.ietf.org/html/rfc7515)
 - [RFC 7519 JSON Web Token (JWT)](https://tools.ietf.org/html/rfc7519)
+- [RFC 8725 JSON Web Token Best Current Practices](https://tools.ietf.org/html/rfc8725)
 - [OWASP JSON Web Token Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html)
