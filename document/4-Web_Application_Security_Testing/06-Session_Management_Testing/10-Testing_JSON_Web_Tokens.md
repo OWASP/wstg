@@ -176,7 +176,7 @@ Alternatively, the key may be available from a public file on the site at a comm
 
 In order to test this, modify the contents of the JWT, and then use the previously obtained public key to sign the JWT using the `HS256` algorithm. This is often difficult to perform when testing without access to the source code or implementation details, because the format of the key must be identical to the one used by the server, so issues such as empty space or CRLF encoding may result in the keys not matching.
 
-### Attacker Provided Public Key (Embedded jwk)
+### Attacker Provided Public Key (Embedded JWK)
 
 The [JSON Web Signature (JWS) standard (RFC 7515 §4.1.3)](https://tools.ietf.org/html/rfc7515#section-4.1.3) allows the public key used to verify the signature to be embedded directly into the header using the `jwk` parameter. If the server-side verification library blindly accepts this embedded key without checking it against a truststore or allowlist of known public keys, an attacker can embed their own public key and sign forged tokens with the corresponding private key.
 
