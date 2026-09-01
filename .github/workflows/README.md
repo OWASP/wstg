@@ -8,6 +8,7 @@ These workflows use:
 
 - Node.js and Python for various automation tasks
 - GitHub Actions for checkout, setup, artifact management, and API interactions
+- [Linkspector](https://github.com/UmbrellaDocs/linkspector) (via [action-linkspector](https://github.com/UmbrellaDocs/action-linkspector)) for Markdown link checking, with reviewdog for PR annotations
 
 ## `build-checklists.yml`
 
@@ -64,26 +65,33 @@ Utility action named "Markdown Lint Check" (same name as `md-lint-check.yml`) th
 
 ## `md-link-check.yml`
 
-Checks Pull Requests for broken links.
+Checks Pull Requests for broken links using [Linkspector](https://github.com/UmbrellaDocs/linkspector) (HTTP probe with Puppeteer/headless Chrome fallback to reduce false positives from Cloudflare and other bot protections).
 
 This workflow:
 
 - Checks out the **PR head** to the workspace root (provides the composite action files and the PR's content) and the **base branch** (OWASP/wstg `master`) into `base/`
 - Uses the `.github/actions/get-changed-files` composite action with the exact `base.sha`/`head.sha` from the PR event for fork-safe changed-file detection
-- Copies **all** changed files (including images and other assets) into `base/` so link targets exist, then runs the link checker only on changed `.md` files so relative links resolve correctly
+- Copies **all** changed files (including images and other assets) into `base/` so link targets exist, then runs Linkspector only on changed guide `.md` files so relative links resolve correctly
+- Builds a short-lived `linkspector.pr.yml` under `base/` that lists those files and reuses ignore/HTTP settings from the shared base config
 - Config is always taken from `base/` (the base branch), not from the PR
+- Reports failures via reviewdog as PR review comments (`github-pr-review`, `filter_mode: file`)
+- On failure, uploads `artifact.txt` for `comment.yml`
+- Requires `pull-requests: write` for reviewdog annotations
 
 - Trigger: Pull Requests (when `.md` files are changed, excluding `.github/**`).
 - Changed-file detection also skips `website/` (Jekyll site source: HTML/Liquid templates are not guide Markdown).
-- Config File: `markdown-link-check-config.json`
+- Config File: `/.github/configs/linkspector.yml`
+
+Inline disable comments from `markdown-link-check` (e.g. `<!-- markdown-link-check-disable -->`) remain supported.
 
 ## `md-link-check-full.yml`
 
-Checks all Markdown files in the repository for broken links.
+Checks all Markdown files in the repository for broken links using Linkspector.
 
 - Trigger: Manual (`workflow_dispatch`), GitHub web UI.
-- Skips `.github/` and `website/`.
-- Config File: `markdown-link-check-config.json`
+- Skips `.github/` and `website/` (via `excludedDirs` in the config).
+- Uses reviewdog with `github-check` reporter (no PR context on a manual run).
+- Config File: `/.github/configs/linkspector.yml`
 
 ## `md-lint-check.yml`
 
