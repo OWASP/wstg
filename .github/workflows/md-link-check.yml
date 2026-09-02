@@ -89,11 +89,11 @@ jobs:
           fi
         done
 
-        if grep -q  "ERROR:" err ; then exit 1 ; else echo -e "No broken links found."; fi
         echo "--- markdown-link-check stdout (log) ---"
         cat log
         echo "--- markdown-link-check stderr (err) ---"
         cat err
+        if grep -q  "ERROR:" err ; then exit 1 ; else echo -e "No broken links found."; fi
     - name: Show Broken Links
       if: failure()
       run: |
