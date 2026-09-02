@@ -29,7 +29,7 @@ jobs:
         path: base
         persist-credentials: false
     - name: Setup Node
-      uses: actions/setup-node@1e60f620b9541d2eac69368e1e3a0c0a0c42d489 # v6.5.0
+      uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
       with:
         node-version: 24
     - name: Cache npm Global
