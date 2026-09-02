@@ -41,7 +41,7 @@ Unlike native applications that utilize OS-managed heaps and stacks, a WebAssemb
 
 ### Tables
 
-A Table is an array of opaque values, typically function references. Because WebAssembly enforces Control-Flow Integrity (CFI) and does not allow direct code execution from Linear Memory, source-level function pointers (such as in C, C++, or Rust) and dynamic call targets are compiled into integer indices pointing to specific slots in a Table. Indirect calls (call_indirect) are subsequently executed using these indices.
+A Table is an array of opaque values, typically function references. Because WebAssembly enforces Control-Flow Integrity (CFI) and does not allow direct code execution from Linear Memory, source-level function pointers (such as in C, C++, or Rust) and dynamic call targets are compiled into integer indices pointing to specific slots in a Table. Indirect calls (`call_indirect`) are subsequently executed using these indices.
 
 ### Imports and Exports
 
@@ -54,11 +54,11 @@ WebAssembly cannot interact with the outside world autonomously.
 
 WebAssembly is inherently sandboxed; a module cannot escape its virtual machine to read arbitrary files or network sockets without the host explicitly importing those capabilities.
 
-However, **internal memory safety is not guaranteed.** When legacy C/C++ code is compiled to WebAssembly, standard binary mitigations are lost:
+However, **internal memory safety is not guaranteed.** When legacy C/C++ code is compiled to WebAssembly, some native hardening assumptions change:
 
-- **No ASLR (Address Space Layout Randomization):** Memory offsets are predictable.
-- **No Default Stack Protectors:** Stack frames lack canaries.
-- **No W^X (Write XOR Execute) isolation:** Control flow data (like table indices) and variables reside alongside user input buffers.
+- **No in-module ASLR:** Offsets within Linear Memory are deterministic, even if the host process uses ASLR.
+- **Stack protectors are build-dependent:** Canaries may be absent unless explicitly enabled in the toolchain.
+- **Linear Memory is non-executable, but not integrity-protected:** Memory corruption can alter data that influences control flow (e.g., function indices used in `call_indirect`) and application logic.
 
 Consequently, classic memory corruption vulnerabilities (Buffer Overflows, Use-After-Free, Format Strings) survive compilation. An attacker can overwrite adjacent data in Linear Memory to manipulate application logic, alter indirect call table indices (ret2win), or corrupt output buffers consumed by the host, translating a Wasm vulnerability into DOM-Based XSS or Server-Side Remote Code Execution (RCE).
 
