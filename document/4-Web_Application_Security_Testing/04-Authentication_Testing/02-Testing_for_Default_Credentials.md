@@ -65,7 +65,7 @@ This type of issue is often difficult to identify from a black-box perspective.
 
 - [Burp Intruder](https://portswigger.net/burp/documentation/desktop/tools/intruder)
 - [THC Hydra](https://github.com/vanhauser-thc/thc-hydra)
-- [Nikto 2](https://www.cirt.net/nikto2)
+- [Nikto 2](https://cirt.net/Nikto2)
 - [Nuclei](https://github.com/projectdiscovery/nuclei)
     - [Default Login - Nuclei Templates](https://github.com/projectdiscovery/nuclei-templates/tree/6b26c63d8f63b2a812a478f14c4c098b485d54b4/http/default-logins)
 

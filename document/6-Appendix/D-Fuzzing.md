@@ -63,4 +63,4 @@ In the examples above we have seen why we need a wordlist. Just wordlists are no
 - [EdOverflow Bug Bounty Cheat Sheet](https://github.com/EdOverflow/bugbounty-cheatsheet)
 - [Daniel Miessler - SecLists](https://github.com/danielmiessler/SecLists)
 - [XssPayloads Twitter Feed](https://twitter.com/XssPayloads)
-- [XssPayloads List](https://github.com/payloadbox/xss-payload-list)
+- [XssPayloads List](https://github.com/payload-box/xss-payload-list)
