@@ -38,7 +38,7 @@ jobs:
         path: ~/.npm
         key: ${{ runner.os }}-npm-global-markdown-link-check
     - name: Install Dependencies
-      run: npm install -g markdown-link-check@3.11.1
+      run: npm install -g markdown-link-check@3.11.0
     - name: Get Changed Files
       id: files
       uses: ./.github/actions/get-changed-files
@@ -80,13 +80,21 @@ jobs:
         if grep -q  "ERROR:" err ; then exit 1 ; else echo -e "No broken links found."; fi
         echo "--- markdown-link-check output ---"
         cat log err
+    - name: Show Broken Links
+      if: failure()
+      run: |
+        echo "## Broken Links" > brokenlinks.txt
+        echo "" >> brokenlinks.txt
+        # Extract broken link details from the log
+        grep -B 2 "ERROR:" log >> brokenlinks.txt || echo "See full logs for details" >> brokenlinks.txt
+        cat brokenlinks.txt
     - name: Create Artifact for Comment
       if: failure()
       run: |
         echo "**The following links are broken:**" > artifact.txt
         echo "" >> artifact.txt
-        grep "ERROR:" err >> artifact.txt || echo "See logs for details" >> artifact.txt
-        rm -f err log
+        cat brokenlinks.txt >> artifact.txt
+        rm -f err log brokenlinks.txt
         cat artifact.txt >> "$GITHUB_STEP_SUMMARY"
     - name: Upload List of Broken Links
       if: failure()
