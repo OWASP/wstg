@@ -25,7 +25,18 @@ jobs:
           path: ~/.npm
           key: ${{ runner.os }}-npm-global-markdown-link-check
       - name: Install Dependencies
-        run: npm install -g markdown-link-check@3.11.0
+        run: npm install -g markdown-link-check@3.15.0
+      - name: Verify Config
+        run: |
+          echo "Checking config file at .github/configs/markdown-link-check-config.json"
+          if [ -f ".github/configs/markdown-link-check-config.json" ]; then
+            echo "✓ Config file exists"
+            echo "Config content (aliveStatusCodes):"
+            cat .github/configs/markdown-link-check-config.json | jq '.aliveStatusCodes'
+          else
+            echo "✗ Config file NOT found"
+            ls -la .github/configs/ || echo "configs directory doesn't exist"
+          fi
       - name: Link Check (Full Repository)
         shell: bash
         run: |
@@ -33,7 +44,7 @@ jobs:
           echo "Checking all Markdown files in repository..."
           touch log err
           find . -name "*.md" -not -path "./.git/*" -not -path "./website/*" -not -path "./.github/*" | while read file; do
-            markdown-link-check -q -v -c ./.github/configs/markdown-link-check-config.json "$file" 1>> log 2>> err || true
+            markdown-link-check -v -c ./.github/configs/markdown-link-check-config.json "$file" 1>> log 2>> err || true
           done
           if grep -q "ERROR:" err ; then exit 1 ; else echo -e "No broken links found."; fi
           echo "--- markdown-link-check output ---"
@@ -42,12 +53,10 @@ jobs:
       - name: Create Summary
         if: failure()
         run: |
-          {
-            echo "**Broken links found in full repository check.**"
-            echo
-            echo "See the job logs above for details."
-            echo "Config: \`.github/configs/markdown-link-check-config.json\`"
-          } > artifact.txt
+          echo "**The following links are broken:**" > artifact.txt
+          # Copy to generic name for commenting
+          cat brokenlinks.txt | tee -a artifact.txt
+          rm -f err log
           cat artifact.txt >> "$GITHUB_STEP_SUMMARY"
       - name: Upload Report
         if: failure()

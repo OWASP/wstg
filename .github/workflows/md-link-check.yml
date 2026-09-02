@@ -48,6 +48,17 @@ jobs:
         head_sha: ${{ github.event.pull_request.head.sha }}
         base_repo: ${{ github.event.pull_request.base.repo.full_name }}
         repo_path: .
+    - name: Verify Config
+      run: |
+        echo "Checking config file at base/.github/configs/markdown-link-check-config.json"
+        if [ -f "base/.github/configs/markdown-link-check-config.json" ]; then
+          echo "✓ Config file exists"
+          echo "Config content:"
+          cat base/.github/configs/markdown-link-check-config.json | jq '.aliveStatusCodes'
+        else
+          echo "✗ Config file NOT found"
+          ls -la base/.github/configs/ || echo "configs directory doesn't exist"
+        fi
     - name: PR Link Check
       env:
         FILES: '${{ steps.files.outputs.files_updated }}'
@@ -55,21 +66,21 @@ jobs:
       shell: bash
       run: |
         set -euo pipefail
-        
+
         readarray -t files_arr <<< "$FILES"
         readarray -t all_arr   <<< "$ALL_CHANGED"
-        
+
         echo "The Following files were changed or created:"
         printf '%s\n' "${files_arr[@]}"
         touch log err
-        
+
         # Copy all changed files (md + images etc.) to base/ so link targets exist when we check .md files
         for FILE in "${all_arr[@]}"; do
           [ -z "$FILE" ] && continue
           mkdir -p "base/$(dirname "$FILE")"
           cp "$FILE" "base/$FILE"
         done
-        
+
         # Check only .md files in base/ where relative links can be resolved
         for FILE in "${files_arr[@]}"; do
           [ -z "$FILE" ] && continue
@@ -77,7 +88,7 @@ jobs:
             markdown-link-check -v -c base/.github/configs/markdown-link-check-config.json "base/$FILE" 1>> log 2>> err
           fi
         done
-        
+
         if grep -q  "ERROR:" err ; then exit 1 ; else echo -e "No broken links found."; fi
         echo "--- markdown-link-check stdout (log) ---"
         cat log
