@@ -71,6 +71,15 @@ a{{7*7}}
 {var} ${var} {{var}} <%var%> [% var %]
 ```
 
+Expression syntax is not the only reachable surface. Apache Velocity and FreeMarker also evaluate *directive* syntax, which none of the probes above will trigger. An assignment directive stores its result instead of printing it, so pair it with an interpolation to make the value observable:
+
+```text
+#set($x=7*7)$x
+<#assign x=7*7>${x}
+```
+
+Both render `49` where the directive was evaluated. Sent without the trailing interpolation they render nothing at all, which matters when building the exploit: an assignment such as `<#assign result=runner("id")>`, where `runner` is an object instantiated by an earlier directive rather than anything the engine provides, invokes the method and returns no output. An unchanged response is therefore not evidence that the payload was not executed. Where output is suppressed, confirm evaluation with an observable side effect instead, such as an out-of-band DNS lookup or a measurable delay.
+
 In this step an extensive [template expression test strings/payloads list](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Template%20Injection) is recommended.
 
 Testing for SSTI in code context is slightly different. First, the tester constructs the request that result either blank or error server responses. In the example below the HTTP GET parameter is inserted info the variable `personal_greeting` in a template statement:
@@ -96,7 +105,7 @@ Hello user01 <tag>
 
 ### Identify the Templating Engine
 
-Based on the information from the previous step now the tester has to identify which template engine is used by supplying various template expressions. Based on the server responses the tester deduces the template engine used. This manual approach is discussed in greater detail in [this](https://portswigger.net/blog/server-side-template-injection?#Identify) PortSwigger article. To automate the identification of the SSTI vulnerability and the templating engine various tools are available including [Tplmap](https://github.com/epinna/tplmap) or the [Backslash Powered Scanner Burp Suite extension](https://github.com/PortSwigger/backslash-powered-scanner).
+Based on the information from the previous step now the tester has to identify which template engine is used by supplying various template expressions. Based on the server responses the tester deduces the template engine used. This manual approach is discussed in greater detail in [this](https://portswigger.net/blog/server-side-template-injection?#Identify) PortSwigger article. To automate the identification of the SSTI vulnerability and the templating engine various tools are available including [SSTImap](https://github.com/vladko312/SSTImap) or the [Backslash Powered Scanner Burp Suite extension](https://github.com/PortSwigger/backslash-powered-scanner).
 
 ### Build the RCE Exploit
 
@@ -111,7 +120,8 @@ The tester can also identify what other objects, methods and properties can be e
 
 ## Tools
 
-- [Tplmap](https://github.com/epinna/tplmap)
+- [SSTImap](https://github.com/vladko312/SSTImap)
+- [Tplmap](https://github.com/epinna/tplmap) - no longer maintained; SSTImap is an actively developed fork
 - [Backslash Powered Scanner Burp Suite extension](https://github.com/PortSwigger/backslash-powered-scanner)
 - [Template expression test strings/payloads list](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Template%20Injection)
 
