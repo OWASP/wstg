@@ -85,7 +85,7 @@ jobs:
         for FILE in "${files_arr[@]}"; do
           [ -z "$FILE" ] && continue
           if printf '%s\n' "$FILE" | grep -q '.*\.md$'; then
-            markdown-link-check -v -c base/.github/configs/markdown-link-check-config.json "base/$FILE" 1>> log 2>> err
+            markdown-link-check -v -c base/.github/configs/markdown-link-check-config.json "base/$FILE" 1>> log 2>> err || true
           fi
         done
 
