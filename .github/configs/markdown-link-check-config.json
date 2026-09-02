@@ -18,5 +18,5 @@
             }
         }
     ],
-    "aliveStatusCodes": [200, 202]
+    "aliveStatusCodes": [200, 202, 403, 429]
 }
