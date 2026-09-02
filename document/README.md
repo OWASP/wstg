@@ -326,6 +326,10 @@
 
 #### 4.12.99 [Testing GraphQL](4-Web_Application_Security_Testing/12-API_Testing/99-Testing_GraphQL.md)
 
+### 4.13 [WebAssembly Testing](4-Web_Application_Security_Testing/13-WebAssembly_Testing/README.md)
+
+#### 4.13.0 [WebAssembly Testing Overview](4-Web_Application_Security_Testing/13-WebAssembly_Testing/00-WebAssembly_Testing_Overview.md)
+
 ## 5. [Reporting](5-Reporting/README.md)
 
 ### 5.1 [Reporting Structure](5-Reporting/01-Reporting_Structure.md)
