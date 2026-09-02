@@ -71,14 +71,14 @@ a{{7*7}}
 {var} ${var} {{var}} <%var%> [% var %]
 ```
 
-Expression syntax is not the only reachable surface. Apache Velocity and FreeMarker also evaluate *directive* syntax, which none of the probes above will trigger. A directive assigns rather than prints, so pair it with an interpolation to make the result observable:
+Expression syntax is not the only reachable surface. Apache Velocity and FreeMarker also evaluate *directive* syntax, which none of the probes above will trigger. An assignment directive stores its result instead of printing it, so pair it with an interpolation to make the value observable:
 
 ```text
 #set($x=7*7)$x
 <#assign x=7*7>${x}
 ```
 
-Both render `49` where the directive was evaluated. Sent without the trailing interpolation they render nothing at all, which matters when building the exploit: a directive such as `<#assign r=ex("id")>` invokes the method and returns no output, so an unchanged response does not mean the payload was not executed. Where output is suppressed, confirm evaluation with an observable side effect instead, such as an out-of-band DNS lookup or a measurable delay.
+Both render `49` where the directive was evaluated. Sent without the trailing interpolation they render nothing at all, which matters when building the exploit: an assignment such as `<#assign result=runner("id")>`, where `runner` is an object instantiated by an earlier directive rather than anything the engine provides, invokes the method and returns no output. An unchanged response is therefore not evidence that the payload was not executed. Where output is suppressed, confirm evaluation with an observable side effect instead, such as an out-of-band DNS lookup or a measurable delay.
 
 In this step an extensive [template expression test strings/payloads list](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Template%20Injection) is recommended.
 
