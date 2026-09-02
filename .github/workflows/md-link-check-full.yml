@@ -44,7 +44,9 @@ jobs:
           echo "Checking all Markdown files in repository..."
           touch log err
           find . -name "*.md" -not -path "./.git/*" -not -path "./website/*" -not -path "./.github/*" | while read file; do
+            echo $file
             markdown-link-check -v -c ./.github/configs/markdown-link-check-config.json "$file" 1>> log 2>> err || true
+            ls -lha log err
           done
           if grep -q "ERROR:" err ; then exit 1 ; else echo -e "No broken links found."; fi
           echo "--- markdown-link-check output ---"
