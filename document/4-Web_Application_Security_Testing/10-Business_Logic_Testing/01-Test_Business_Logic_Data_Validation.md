@@ -26,7 +26,7 @@ Many credit card systems are now downloading account balances nightly so the cus
 
 ### Example 3
 
-**[Distributed Denial of Dollar (DDo$)](https://news.hitb.org/content/pirate-bay-proposes-distributed-denial-dollars-attack-ddo):**
+**[Distributed Denial of Dollar (DDo$)](https://www.zdnet.com/article/pirate-bay-defendant-urges-ddo-attack-on-lawyer/):**
 This was a campaign that was proposed by the founder of the site "The Pirate Bay" against the law firm who brought prosecutions against "The Pirate Bay". The goal was to take advantage of errors in the design of business features and in the process of credit transfer validation.
 
 This attack was performed by sending very small amounts of money of 1 SEK ($0.13 USD) to the law firm.

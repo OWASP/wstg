@@ -63,5 +63,4 @@ To make things easier and more documented, one can use:
 
 ## References
 
-- [Role Engineering for Enterprise Security Management, E Coyne & J Davis, 2007](https://www.bookdepository.co.uk/Role-Engineering-for-Enterprise-Security-Management-Edward-Coyne/9781596932180)
 - [Role engineering and RBAC standards](https://csrc.nist.gov/projects/role-based-access-control#rbac-standard)
