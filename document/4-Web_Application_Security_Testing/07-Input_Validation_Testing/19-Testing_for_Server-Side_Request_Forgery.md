@@ -105,7 +105,7 @@ SSRF is known to be one of the hardest attacks to defeat without the use of allo
 - [OWASP Server Side Request Forgery Prevention Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html)
 - [Portswigger: SSRF](https://portswigger.net/web-security/ssrf)
 - [Portswigger: Blind SSRF](https://portswigger.net/web-security/ssrf/blind)
-- [Bugcrowd Webinar: SSRF](https://www.bugcrowd.com/resources/webinars/server-side-request-forgery/)
+- [Bugcrowd Webinar: SSRF](https://www.bugcrowd.com/resources/levelup/server-side-forgery-request/)
 - [Hackerone Blog: SSRF](https://www.hackerone.com/blog-How-To-Server-Side-Request-Forgery-SSRF)
 - [Hacker101: SSRF](https://www.hacker101.com/sessions/ssrf.html)
 - [URI Generic Syntax](https://tools.ietf.org/html/rfc3986)

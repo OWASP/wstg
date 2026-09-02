@@ -73,7 +73,6 @@ Verify that all places where encrypted data from the client, that should only be
 
 ## Tools
 
-- [Bletchley](https://code.blindspotsecurity.com/trac/bletchley)
 - [PadBuster](https://github.com/GDSSecurity/PadBuster)
 - [Poracle](https://github.com/iagox86/Poracle)
 - [python-paddingoracle](https://github.com/mwielgoszewski/python-paddingoracle)

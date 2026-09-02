@@ -175,7 +175,7 @@ Vulnerability assessment tools tend to include checks to spot web directories ha
 
 ### Web spider tools
 
-- [wget](https://www.gnu.org/software/wget/)
+- [wget](https://www.gnu.org/software/wget)
 - Spike Proxy (legacy – no longer maintained; replaced by tools such as Burp Suite)
 - Xenu (legacy – last updated in 2010, no active maintenance)
 - [curl](https://curl.se/)

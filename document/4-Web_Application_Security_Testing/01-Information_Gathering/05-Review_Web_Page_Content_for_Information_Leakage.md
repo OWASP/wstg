@@ -196,7 +196,7 @@ Check metadata fields such as:
 
 ## Tools
 
-- [Wget](https://www.gnu.org/software/wget/wget.html)
+- [wget](https://www.gnu.org/software/wget)
 - Browser "view source" function
 - Eyeballs
 - [Curl](https://curl.se/)

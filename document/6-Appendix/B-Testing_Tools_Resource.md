@@ -79,7 +79,7 @@ The list contains only tools that are freely available to download and use (alth
 
 ### Site Mirroring
 
-- [wget](https://www.gnu.org/software/wget/)
+- [wget](https://www.gnu.org/software/wget)
 - [curl](https://curl.se)
 
 ### Content Discovery

@@ -76,5 +76,4 @@ User-Agent: <!--#include virtual="/proc/version"-->
 - [Apache Tutorial: Introduction to Server-Side Includes](https://httpd.apache.org/docs/current/howto/ssi.html)
 - [Apache: Security Tips for Server Configuration](https://httpd.apache.org/docs/current/misc/security_tips.html#ssi)
 - [SSI Injection instead of JavaScript Malware](https://jeremiahgrossman.blogspot.com/2006/08/ssi-injection-instead-of-javascript.html)
-- [IIS: Notes on Server-Side Includes (SSI) syntax](https://blogs.iis.net/robert_mcmurray/archive/2010/12/28/iis-notes-on-server-side-includes-ssi-syntax-kb-203064-revisited.aspx)
 - [Header Based Exploitation](https://www.cgisecurity.com/papers/header-based-exploitation.txt)
