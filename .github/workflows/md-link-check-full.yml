@@ -25,7 +25,7 @@ jobs:
           path: ~/.npm
           key: ${{ runner.os }}-npm-global-markdown-link-check
       - name: Install Dependencies
-        run: npm install -g markdown-link-check@3.15.0
+        run: npm install -g markdown-link-check@3.11.0
       - name: Link Check (Full Repository)
         shell: bash
         run: |
