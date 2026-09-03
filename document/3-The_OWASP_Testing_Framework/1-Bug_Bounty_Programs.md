@@ -32,8 +32,7 @@ See the [Reporting](../5-Reporting/01-Reporting_Structure.md) section of this gu
 
 - **Minimum required**: reproduction steps (how to trigger the vulnerability, including how an attacker reaches the vulnerable endpoint or code), impact (what an attacker could do), and remediation guidance (what the developer should fix). Demonstrating reachability - not just the flaw itself - is critical; a valid vulnerability that an attacker cannot reach is often closed.
 - **Severity assessment**: many programs use CVSS scoring, while others define program-specific severity rubrics (Critical / High / Medium / Low). Clarify the rubric in your program's terms.
-
-- **Scope clarity**: a bounty report is only valuable if it falls clearly within the program's stated scope. A report on an out-of-scope third-party service, a staged/test environment, or a deprecated code branch will be rejected regardless of validity. Program scope can change mid-program; re-read the program's scope document reularly, not just on the day you start testing, to avoid findings being rejected retroactively.
+- **Scope clarity**: a bounty report is only valuable if it falls clearly within the program's stated scope. A report on an out-of-scope third-party service, a staged/test environment, or a deprecated code branch will be rejected regardless of validity. Program scope can change mid-program; re-read the program's scope document regularly, not just on the day you start testing, to avoid findings being rejected retroactively.
 
 The [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/) and [Reporting](../5-Reporting/) section provide guidance on writing clear, actionable findings.
 

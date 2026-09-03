@@ -50,7 +50,7 @@ AI-assisted testing introduces new risks:
 ## References
 
 - [Can AI invent new attack techniques? New research from James Kettle and PortSwigger Research](https://portswigger.net/blog/can-ai-invent-new-attack-techniques-new-research-from-james-kettle-and-portswigger-research)
-- [HackerOne 2025 Hacker-Powered Security Report](https://www.hackerone.com/)
+- [HackerOne 2025 Hacker-Powered Security Report](https://www.hackerone.com/resources/reports/hacker-powered-security-report-2025)
 - [OWASP AI Testing Guide](https://owasp.org/www-project-ai-testing-guide/)
 - [OWASP AI Exchange](https://owaspai.org/)
 - [OWASP Top 10 for Large Language Model Applications](https://genai.owasp.org/initiatives/top-10-for-llm-and-genai/)
