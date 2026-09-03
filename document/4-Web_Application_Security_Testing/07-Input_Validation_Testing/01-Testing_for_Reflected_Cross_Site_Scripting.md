@@ -64,7 +64,7 @@ Within the context of an HTML action or JavaScript code, a different set of spec
 - `\` (backslash)
 - `\uXXXX` (unicode values)
 
-For a more complete reference, see the [Mozilla JavaScript guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Values,_variables,_and_literals#Using_special_characters_in_strings).
+For a more complete reference, see the [Mozilla JavaScript guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Values,_variables,_and_literals#using_special_characters_in_strings).
 
 #### Example 1
 
