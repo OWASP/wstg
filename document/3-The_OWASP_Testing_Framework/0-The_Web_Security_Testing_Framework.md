@@ -8,7 +8,7 @@ Unlike a prescriptive methodology, this framework recognizes that the cadence, s
 
 ## Testing Activities
 
-The following six categories cover the main testing activities that contribute to application security. Each typically recurs on a cadence (triggered by requirements changes, architecture decisions, every commit, on a release schedule, or continuously) rather than happening once in a fixed sequence. They can and should also feed back into each other.
+The following six categories cover the main testing activities that contribute to application security. Each typically recurs on a cadence (triggered by requirements changes, architecture decisions, every commit, on a release schedule, or continuously) rather than happening once in a fixed sequence. They can and should also feed back into each other. For example, a penetration test may expose a vulnerability in business logic that was not identified during threat modeling, revealing a missing control that should be added to the threat model and design. Additionally, testing activities form their own feedback loop. During vulnerability testing, you may discover something that requires returning to earlier phases—reconnaissance may need to expand, or new information gathering targets may emerge—treating security testing as an iterative, ongoing cycle rather than a one-pass sequence.
 
 ### Requirements and Policy Review
 
@@ -35,7 +35,9 @@ Review design and architecture documentation (specifications, models, infrastruc
 - Microservices and APIs: service boundaries, inter-service authentication, API gateways
 - Cloud and containers: identity and access management (IAM) policies, network isolation, container provenance, secrets management
 - Client-side architectures: single-page applications (SPA), state handling, cross-origin resource sharing (CORS) policy
-- Third-party dependencies and managed services: trust boundaries, compliance responsibilities Undertake threat modeling to identify realistic attack scenarios and ensure each threat has been mitigated, accepted as residual risk, or transferred to a third party. Tools such as [OWASP Threat Dragon](https://owasp.org/www-project-threat-dragon/) and [Pythonic Threat Modeling](https://owasp.org/www-project-pytm/) can help structure this exercise. Repeat this activity whenever the application's architecture or threat model changes.
+- Third-party dependencies and managed services: trust boundaries, compliance responsibilities
+
+Undertake threat modeling to identify realistic attack scenarios and ensure each threat has been mitigated, accepted as residual risk, or transferred to a third party. This occurs at multiple levels: system-wide threat modeling when architecture changes, and work-item-level threat modeling (e.g., for individual user stories) to identify threats specific to new features or changes. Tools such as [OWASP Threat Dragon](https://owasp.org/www-project-threat-dragon/) and [Pythonic Threat Modeling](https://owasp.org/www-project-pytm/) can help structure this exercise.
 
 ### Code-Level Review and Analysis
 
@@ -74,7 +76,7 @@ The table below shows how testing activities typically fit into an organization'
 | Testing Activity | Typical Cadence | Typical Owner | Examples & References |
 |---|---|---|---|
 | Requirements & Policy Review | Triggered (new feature, regulatory change) | Product manager + security | OWASP ASVS, Cheat Sheet Series, compliance docs |
-| Design, Architecture & Threat Modeling | Triggered (architecture change) | Architects + security | Threat Dragon, pytm, STRIDE, NIST risk assessment |
+| Design, Architecture & Threat Modeling | Triggered (architecture change, new user story/work item) | Architects + security + developers | Threat Dragon, pytm, STRIDE, NIST risk assessment |
 | Code Review, SAST, SCA, Secret Scanning | Continuous (every commit / PR) | Developers + automated tooling | SonarQube, Semgrep, TruffleHog, Dependency-Check, Snyk |
 | DAST & Penetration Testing | Scheduled + triggered (release schedule, on-demand) | Internal security team or third party | ZAP, Burp Suite, manual testing |
 | Bug Bounty Programs | Continuous, always-on | External researchers | HackerOne, Bugcrowd, or self-hosted |
