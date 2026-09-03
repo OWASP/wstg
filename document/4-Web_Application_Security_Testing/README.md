@@ -25,3 +25,5 @@
 4.11 [Client-side Testing](11-Client-side_Testing/README.md)
 
 4.12 [API Testing](12-API_Testing/README.md)
+
+4.13 [WebAssembly Testing](13-WebAssembly_Testing/README.md)
