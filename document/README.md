@@ -198,7 +198,7 @@
 
 ##### 4.7.5.3 [SQL Server](4-Web_Application_Security_Testing/07-Injection/05.3-SQL_Server.md)
 
-##### 4.7.5.4 [PostgreSQL](4-Web_Application_Security_Testing/07-Injection/05.4-Testing_PostgreSQL.md)
+##### 4.7.5.4 [PostgreSQL](4-Web_Application_Security_Testing/07-Injection/05.4-PostgreSQL.md)
 
 ##### 4.7.5.5 [MS Access](4-Web_Application_Security_Testing/07-Injection/05.5-MS_Access.md)
 
