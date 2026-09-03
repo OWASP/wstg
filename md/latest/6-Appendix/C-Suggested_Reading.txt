@@ -1,0 +1,67 @@
+---
+layout: document
+title: WSTG - Latest
+collection_name: latest
+channel_label: Latest
+channel_path: latest
+render_with_liquid: false
+---
+
+# C. Suggested Reading
+
+## Whitepapers
+
+- [The Economic Impacts of Inadequate Infrastructure for Software Testing](https://www.nist.gov/system/files/documents/director/planning/report02-3.pdf)
+- [NIST Publications](https://csrc.nist.gov/publications/sp)
+- [Fundamental Practices for Secure Software Development](https://safecode.org/wp-content/uploads/2018/03/SAFECode_Fundamental_Practices_for_Secure_Software_Development_March_2018.pdf)
+- [OWASP Developer Guide](https://owasp.org/www-project-developer-guide/)
+
+## Books
+
+- The Web Application Hacker's Handbook: Finding and Exploiting Security Flaws, 2nd Edition, by Dafydd Stuttard and Marcus Pinto, ISBN 9781118026472 (2011)
+- The Tangled Web: A Guide to Securing Modern Web Applications, by Michal Zalewski, published by No Starch Press, ISBN 1593273886 (2011)
+- Hacking Exposed: Web Applications 3, by Joel Scambray, Vincent Liu, and Caleb Sima, published by McGraw-Hill Osborne Media, ISBN 007222438X (2010)
+- Secure Programming HOWTO, by David Wheeler (2015)
+    - [Online version](https://dwheeler.com/secure-programs/Secure-Programs-HOWTO/index.html)
+- The Art of Software Security Testing: Identifying Software Security Flaws, by Chris Wysopal, Lucas Nelson, Dino Dai Zovi, and Elfriede Dustin, published by Addison-Wesley, ISBN 0321304861 (2006)
+- Software Security: Building Security In, by Gary McGraw, published by Addison-Wesley Professional, ISBN 0321356705 (2006)
+- Building Secure Software: How to Avoid Security Problems the Right Way, by Gary McGraw and John Viega, published by Addison-Wesley, ISBN 020172152X (2002)
+- Web Security Testing Cookbook: Systematic Techniques to Find Problems Fast, by Paco Hope and Ben Walther, published by O’Reilly, ISBN 0596514832 (2008)
+- Writing Secure Code, by Mike Howard and David LeBlanc, published by Microsoft Press, ISBN 0735617228 (2004)
+- Secure Coding: Principles and Practices, by Mark Graff and Kenneth R. Van Wyk, published by O’Reilly, ISBN 0596002424 (2003)
+
+## Useful Sites
+
+- [CERT Secure Coding Standards](https://cmu-sei.github.io/secure-coding-standards/)
+- [SANS Internet Storm Center (ISC)](https://isc.sans.edu/)
+- [The Open Worldwide Application Security Project (OWASP)](https://owasp.org)
+- [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/)
+
+### OWASP AI and GenAI Security Resources
+
+- [OWASP GenAI Red Teaming Guide](https://genai.owasp.org/resource/genai-red-teaming-guide/)
+- [OWASP AI Exchange](https://owaspai.org/)
+
+### OWASP Standards and Reference Frameworks
+
+- [OWASP Open Common Requirements Enumeration (OpenCRE)](https://www.opencre.org/)
+
+### General Security Resources
+
+- [Pentestmonkey - Pen Testing Cheat Sheets](https://pentestmonkey.net/cheat-sheet)
+- [Secure Coding Guidelines for .NET](https://learn.microsoft.com/en-us/dotnet/standard/security/secure-coding-guidelines)
+- [Secure Coding Guidelines for Java SE](https://www.oracle.com/java/technologies/javase/seccodeguide.html)
+- [System Administration, Networking, and Security Institute (SANS)](https://www.sans.org)
+
+## Videos
+
+- [PentesterAcademy](https://www.pentesteracademy.com/)
+
+## Deliberately Insecure Web Applications
+
+- [OWASP Vulnerable Web Applications Directory Project](https://owasp.org/www-project-vulnerable-web-applications-directory/)
+- [OWASP Juice Shop](https://owasp-juice.shop)
+- [OWASP WebGoat](https://owasp.org/www-project-webgoat/)
+- [Damn Vulnerable Web App](https://github.com/digininja/DVWA)
+- [Xtreme Vulnerable Web Application](https://github.com/s4n7h0/xvwa)
+- [Mutillidae](https://www.irongeek.com/i.php?page=mutillidae/mutillidae-deliberately-vulnerable-php-owasp-top-10)

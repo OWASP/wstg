@@ -1,0 +1,18 @@
+---
+layout: document
+title: WSTG - Latest
+collection_name: latest
+channel_label: Latest
+channel_path: latest
+render_with_liquid: false
+---
+
+# Testing for Stack Traces
+
+|ID          |
+|------------|
+|WSTG-ERRH-02|
+
+This content has been merged into: [Testing for Improper Error Handling](../01-Testing_For_Improper_Error_Handling/).
+
+[merged]: # (WSTG-ERRH-01)

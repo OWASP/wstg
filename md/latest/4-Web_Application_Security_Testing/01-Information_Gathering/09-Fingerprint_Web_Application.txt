@@ -1,0 +1,18 @@
+---
+layout: document
+title: WSTG - Latest
+collection_name: latest
+channel_label: Latest
+channel_path: latest
+render_with_liquid: false
+---
+
+# Fingerprint Web Application
+
+|ID          |
+|------------|
+|WSTG-INFO-09|
+
+This content has been merged into: [Fingerprint Web Application Framework](../08-Fingerprint_Web_Application_Framework/).
+
+[merged]: # (WSTG-INFO-08)

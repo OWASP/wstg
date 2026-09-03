@@ -1,0 +1,344 @@
+---
+layout: document
+title: WSTG - Latest
+collection_name: latest
+channel_label: Latest
+channel_path: latest
+render_with_liquid: false
+---
+
+# Testing JSON Web Tokens
+
+|ID          |
+|------------|
+|WSTG-SESS-10|
+
+## Summary
+
+JSON Web Tokens (JWTs) are cryptographically signed JSON tokens, intended to share claims between systems. They are frequently used as authentication or session tokens, particularly on REST APIs.
+
+JWTs are a common source of vulnerabilities, both in how they are in implemented in applications, and in the underlying libraries. As they are used for authentication, a vulnerability can easily result in a complete compromise of the application.
+
+## Test Objectives
+
+- Determine whether the JWTs expose sensitive information.
+- Determine whether the JWTs can be tampered with or modified.
+
+## How to Test
+
+### Overview
+
+JWTs are made up of three components:
+
+- The header
+- The payload (or body)
+- The signature
+
+Each component is base64 encoded, and they are separated by periods (`.`). Keep in mind the base64 encoding used in a JWT strips out the equals signs (`=`), so you may need to add these back in to decode the sections.
+
+### Analyse the Contents
+
+#### Header
+
+The header defines the type of token (typically `JWT`), and the algorithm used for the signature. An example decoded header is shown below:
+
+```json
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+```
+
+There are three main types of algorithms that are used to calculate the signatures:
+
+| Algorithm | Description |
+|-----------|-------------|
+| HSxxx | HMAC using a secret key and SHA-xxx. |
+| RSxxx and PSxxx | Public key signature using RSA. |
+| ESxxx | Public key signature using ECDSA. |
+
+There are also a wide range of [other algorithms](https://www.iana.org/assignments/jose/jose.xhtml#web-signature-encryption-algorithms) which may be used for encrypted tokens (JWEs), although these are less common.
+
+#### Payload
+
+The payload of the JWT contains the actual data. An example payload is shown below:
+
+```json
+{
+  "username": "administrator",
+  "is_admin": true,
+  "iat": 1516239022,
+  "exp": 1516242622
+}
+```
+
+The payload is it not usually encrypted, so review it to determine whether there is any sensitive of potentially inappropriate data included within it.
+
+This JWT includes the username and administrative status of the user, as well as two standard claims (`iat` and `exp`). These claims are defined in [RFC 7519](https://tools.ietf.org/html/rfc7519#section-4.1), a brief summary of them is given in the table below:
+
+| Claim | Full Name | Description |
+|-------|-----------|-------------|
+| `iss` | Issuer | The identity of the party who issued the token. |
+| `iat` | Issued At | The Unix timestamp of when the token was issued. |
+| `nbf` | Not Before | The Unix timestamp of earliest date that the token can be used. |
+| `exp` | Expires | The Unix timestamp of when the token expires. |
+
+#### Signature
+
+The signature is calculated using the algorithm defined in the JWT header, and then base64 encoded and appended to the token. Modifying any part of the JWT should cause the signature to be invalid, and the token to be rejected by the server.
+
+### Review Usage
+
+As well as being cryptographically secure itself, the JWT also needs to be stored and sent in a secure manner. This should include checks that:
+
+- It is always [sent over encrypted (HTTPS) connections](../../09-Testing_for_Weak_Cryptography/03-Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels/).
+- If it is stored in a cookie, then it should be [marked with appropriate attributes](../../06-Session_Management_Testing/02-Testing_for_Cookies_Attributes/).
+
+The validity of the JWT should also be reviewed, based on the `iat`, `nbf` and `exp` claims, to determine that:
+
+- The JWT has a reasonable lifespan for the application.
+- Expired tokens are rejected by the application.
+
+### Signature Verification
+
+One of the most serious vulnerabilities encountered with JWTs is when the application fails to validate that the signature is correct. This usually occurs when a developer uses a function such as the Node.js `jwt.decode()` function, which simply decodes the body of the JWT, rather than `jwt.verify()`, which verifies the signature before decoding the JWT.
+
+This can be easily tested for by modifying the body of the JWT without changing anything in the header or signature, submitting it in a request to see if the application accepts it.
+
+#### The None Algorithm
+
+As well as the public key and HMAC-based algorithms, the JWT specification also defines a signature algorithm called `none`. As the name suggests, this means that there is no signature for the JWT, allowing it to be modified.
+
+This can be tested by modifying the signature algorithm (`alg`) in the JWT header to `none`, as shown in the example below:
+
+```json
+{
+        "alg": "none",
+        "typ": "JWT"
+}
+```
+
+The header and payload are then re-encoded with base64, and the signature is removed (leaving the trailing period). Using the header above, and the payload listed in the [payload](#payload) section, this would give the following JWT:
+
+```txt
+eyJhbGciOiAibm9uZSIsICJ0eXAiOiAiSldUIn0K.eyJ1c2VybmFtZSI6ImFkbWluaW5pc3RyYXRvciIsImlzX2FkbWluIjp0cnVlLCJpYXQiOjE1MTYyMzkwMjIsImV4cCI6MTUxNjI0MjYyMn0.
+```
+
+Some implementations try and avoid this by explicitly blocking the use of the `none` algorithm. If this is done in a case-insensitive way, it may be possible to bypass by specifying an algorithm such as `NoNe`.
+
+#### ECDSA "Psychic Signatures"
+
+A vulnerability was identified in Java version 15 to 18 where they did not correctly validate ECDSA signatures in some circumstances ([CVE-2022-21449](https://neilmadden.blog/2022/04/19/psychic-signatures-in-java/), known as "psychic signatures"). If one of these vulnerable versions is used to parse a JWT using the `ES256` algorithm, this can be used to completely bypass the signature verification by tampering the body and then replacing the signature with the following value:
+
+```txt
+MAYCAQACAQA
+```
+
+Resulting in a JWT which looks something like this:
+
+```txt
+eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6InRydWUifQ.MAYCAQACAQA
+```
+
+### Weak HMAC Keys
+
+If the JWT is signed using a HMAC-based algorithm (such as HS256), the security of the signature is entirely reliant on the strength of the secret key used in the HMAC.
+
+If the application is using off-the-shelf or open source software, the first step should be go investigate the code, and see whether there is default HMAC signing key that is used.
+
+If there isn't a default, then it may be possible to crack guess or brute-force they key. The simplest way to do this is to use the [crackjwt.py](https://github.com/Sjord/jwtcrack) script, which simply requires the JWT and a dictionary file.
+
+A more powerful option is to convert the JWT into a format that can be used by [John the Ripper](https://github.com/openwall/john) using the [jwt2john.py](https://github.com/Sjord/jwtcrack/blob/master/jwt2john.py) script. John can then be used to carry out much more advanced attacks against the key.
+
+If the JWT is large, it may exceed the maximum size supported by John. This can be worked around by increasing the value of the `SALT_LIMBS` variable in `/src/hmacSHA256_fmt_plug.c` (or the equivalent file for other HMAC formats) and recompiling John, as discussed in the following [GitHub issue](https://github.com/openwall/john/issues/1904).
+
+If this key can be obtained, then it is possible to create and sign arbitrary JWTs, which usually results in a complete compromise of the application.
+
+### HMAC vs Public Key Confusion
+
+If the application uses JWTs with public key based signatures, but does not check that the algorithm is correct, this can potentially exploit this in a signature type confusion attack. In order for this to be successful, the following conditions need to be met:
+
+1. The application must expect the JWT to be signed with a public key based algorithm (i.e, `RSxxx` or `ESxxx`).
+2. The application must not check which algorithm the JWT is actually using for the signature.
+3. The public key used to verify the JWT must be available to the attacker.
+
+If all of these conditions are true, then an attacker can use the public key to sign the JWT using a HMAC based algorithm (such as `HS256`). For example, the [Node.js jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) library uses the same function for both public key and HMAC based tokens, as shown in the example below:
+
+```javascript
+// Verify a JWT signed using RS256
+jwt.verify(token, publicKey);
+
+// Verify a JWT signed using HS256
+jwt.verify(token, secretKey);
+```
+
+This means that if the JWT is signed using `publicKey` as a secret key for the `HS256` algorithm, the signature will be considered valid.
+
+In order to exploit this issue, the public key must be obtained. The most common way this can happen is if the application re-uses the same key for both signing JWTs and as part of the TLS certificate. In this case, the key can be downloaded from the server using a command such as the following:
+
+```sh
+openssl s_client -connect example.org:443 | openssl x509 -pubkey -noout
+```
+
+Alternatively, the key may be available from a public file on the site at a common location such as `/.well-known/jwks.json`.
+
+In order to test this, modify the contents of the JWT, and then use the previously obtained public key to sign the JWT using the `HS256` algorithm. This is often difficult to perform when testing without access to the source code or implementation details, because the format of the key must be identical to the one used by the server, so issues such as empty space or CRLF encoding may result in the keys not matching.
+
+### Attacker Provided Public Key (Embedded JWK)
+
+The [JSON Web Signature (JWS) standard (RFC 7515 §4.1.3)](https://tools.ietf.org/html/rfc7515#section-4.1.3) allows the public key used to verify the signature to be embedded directly into the header using the `jwk` parameter. If the server-side verification library blindly accepts this embedded key without checking it against a truststore or allowlist of known public keys, an attacker can embed their own public key and sign forged tokens with the corresponding private key.
+
+For example, an attacker can embed their public key directly into the header:
+
+```json
+{
+  "alg": "RS256",
+  "typ": "JWT",
+  "jwk": {
+    "kty": "RSA",
+    "e": "AQAB",
+    "use": "sig",
+    "kid": "attacker-inline-key",
+    "n": "u1SucjA342W..."
+  }
+}
+```
+
+There are a variety of scripts and extensions that can be used to generate and inject inline `jwk` headers, such as [jwt_tool](https://github.com/ticarpi/jwt_tool) or the [JSON Web Tokens Burp Extension](https://portswigger.net/bappstore/f923cbf91698420890354c1d8958fee6).
+
+### Key ID (kid) Manipulation
+
+The `kid` header parameter is typically used to retrieve the key needed to verify the signature from a file system or database. It can be vulnerable to several injection attacks.
+
+#### Directory Traversal
+
+If the application uses the `kid` parameter to read a key file from the filesystem, an attacker might specify a path to a known empty file, such as `../../../../dev/null` (on Linux) or `nul` (on Windows).
+
+For example, an attacker can modify the header to point to an empty file:
+
+```json
+{
+  "alg": "HS256",
+  "typ": "JWT",
+  "kid": "../../../../../dev/null"
+}
+```
+
+Since the content of `/dev/null` is empty, the attacker can then sign the malicious token using an **empty string** as the secret key. If the server is vulnerable, it will read the empty file, use the empty string to verify the signature, and accept the forged token.
+
+#### Command/SQL Injection
+
+If the `kid` is passed unsanitized to a database query or a system command to retrieve the key, it may be vulnerable to SQL Injection or Command Injection.
+
+For example, an attacker can inject a SQL payload into the `kid` parameter to control the key returned by the database:
+
+```json
+{
+  "alg": "HS256",
+  "typ": "JWT",
+  "kid": "invalid-key' UNION SELECT 'attacker-controlled-key'--"
+}
+```
+
+This allows an attacker to force the application to use a known key (e.g., "attacker-controlled-key") for verification, enabling them to forge valid tokens.
+
+### JWKS URL (jku) and X.509 URL (x5u) Header Injection
+
+The [JSON Web Signature (JWS) specification (RFC 7515 §4.1.2, §4.1.5)](https://tools.ietf.org/html/rfc7515#section-4.1.2) supports header parameters that point to external public key stores:
+
+- `jku` (JWK Set URL): A URI referring to a resource for a set of JSON-encoded public keys.
+- `x5u` (X.509 URL): A URI referring to a resource for a set of X.509 public key certificates.
+
+If the verification library automatically fetches public keys from the URI specified in the header without enforcing a strict domain allowlist, an attacker can point `jku`/`x5u` at a server they control, host their own key there, and sign forged tokens with the corresponding private key that the server will accept as valid.
+
+#### Test Procedure
+
+1. Generate an RSA keypair on a testing machine.
+2. Host the corresponding public key formatted as a JSON Web Key Set (JWKS) on a public server:
+
+    ```json
+    {
+      "keys": [
+        {
+          "kty": "RSA",
+          "e": "AQAB",
+          "use": "sig",
+          "kid": "test-key-01",
+          "alg": "RS256",
+          "n": "u1SucjA342W..."
+        }
+      ]
+    }
+    ```
+
+3. Modify the target JWT payload with altered claims (e.g., modifying `user_id` or `role`).
+4. Update the JWT header with the `jku` parameter pointing to the hosted JWKS endpoint and matching `kid`:
+
+    ```json
+    {
+      "alg": "RS256",
+      "typ": "JWT",
+      "jku": "https://attacker.example.com/.well-known/jwks.json",
+      "kid": "test-key-01"
+    }
+    ```
+
+5. Sign the forged token using the private key and submit it in an authenticated request.
+6. If direct external hostnames are blocked, evaluate URL filtering bypasses:
+    - Check for open redirect vulnerabilities on allowed domains (e.g., `https://trusted.example.com/oauth/redirect?url=https://attacker.example.com/jwks.json`).
+    - Check for URL parser discrepancies or path normalization flaws (e.g., `https://trusted.example.com@attacker.example.com/jwks.json`).
+    - Check if the server attempts internal network resolution (SSRF) when pointing `jku` to loopback (`http://127.0.0.1/`) or cloud metadata endpoints (`http://169.254.169.254/`).
+
+The `x5u` parameter can be tested the same way: instead of hosting a JWKS document, host an X.509 certificate chain (PEM-encoded) signed with an attacker-controlled key at the target URL. Many libraries extract the public key from the leaf certificate without validating that the chain is trusted or terminates at a pinned root CA, so check whether a self-signed or otherwise untrusted chain is still accepted.
+
+### Token Audience (aud) and Issuer (iss) Confusion
+
+In distributed microservice and multi-tenant architectures, multiple distinct services frequently share a centralized Identity Provider (IdP). A common authorization flaw occurs when a downstream service validates the cryptographic signature of the token against the IdP, but fails to assert that the token was explicitly issued for that specific service.
+
+- `aud` (Audience): Identifies the recipients that the JWT is intended for ([RFC 7519 §4.1.3](https://tools.ietf.org/html/rfc7519#section-4.1.3)).
+- `iss` (Issuer): Identifies the principal that issued the JWT ([RFC 7519 §4.1.1](https://tools.ietf.org/html/rfc7519#section-4.1.1)).
+
+If Service B trusts the IdP signature but omits `aud` validation, an attacker with valid credentials on a low-privilege Service A can capture their token and replay it against Service B.
+
+#### Test Procedure
+
+1. Authenticate to a low-privilege application or tenant registered under the target organization's Identity Provider.
+2. Intercept and extract the valid issued JWT.
+3. Inspect the payload claims to identify the target `aud` (e.g., `aud: "client-portal"`) and `iss` (e.g., `iss: "https://auth.example.com/"`).
+4. Replay the unmodified token in a request against a high-privilege service, administrative API, or separate tenant (e.g., `https://internal-admin.example.com/api/v1/users`).
+5. If the high-privilege service accepts the token and performs the action, it is vulnerable to Cross-Service Token Replay due to missing audience validation.
+6. Test issuer confusion separately: if the IdP is multi-tenant or backs multiple environments (e.g., staging and production) with a shared JWKS endpoint, obtain a token issued for a different, lower-trust tenant or application and replay it against the target service. Acceptance indicates that `iss` is either not validated, or validated with a weak comparison (such as prefix or substring matching) instead of exact string equality against the expected trusted issuer.
+
+## Related Test Cases
+
+- [Testing for Sensitive Information Sent via Unencrypted Channels](../../09-Testing_for_Weak_Cryptography/03-Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels/).
+- [Testing for Cookie Attributes](../../06-Session_Management_Testing/02-Testing_for_Cookies_Attributes/).
+- [Testing Browser Storage](../../11-Client-side_Testing/12-Testing_Browser_Storage/).
+- [Testing for Server-Side Request Forgery](../../07-Input_Validation_Testing/19-Testing_for_Server-Side_Request_Forgery/).
+
+## Remediation
+
+- Use a secure and up to date library to handle JWTs.
+- Ensure that the signature is valid, and that it is using the expected algorithm.
+- Do not trust unverified header parameters such as `jku`, `x5u`, or `jwk` without matching against a strict domain/URI allowlist.
+- Always validate standard claims: ensure `exp` is in the future, `nbf` is in the past, `iss` matches the trusted authorization server, and `aud` strictly matches the expected service identifier.
+- Use a strong HMAC key or a unique private key to sign tokens.
+- Ensure that there is no sensitive information exposed in the payload.
+- Ensure that JWTs are securely stored and transmitted.
+- See the [OWASP JSON Web Tokens Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_Cheat_Sheet.html).
+
+## Tools
+
+- [John the Ripper](https://github.com/openwall/john)
+- [jwt2john](https://github.com/Sjord/jwtcrack)
+- [jwt-cracker](https://github.com/brendan-rius/c-jwt-cracker)
+- [JSON Web Tokens Burp Extension](https://portswigger.net/bappstore/f923cbf91698420890354c1d8958fee6)
+- [ZAP JWT Add-on](https://github.com/SasanLabs/owasp-zap-jwt-addon)
+- [jwt_tool](https://github.com/ticarpi/jwt_tool)
+
+## References
+
+- [RFC 7515 JSON Web Signature (JWS)](https://tools.ietf.org/html/rfc7515)
+- [RFC 7519 JSON Web Token (JWT)](https://tools.ietf.org/html/rfc7519)
+- [RFC 8725 JSON Web Token Best Current Practices](https://tools.ietf.org/html/rfc8725)
+- [OWASP JSON Web Token Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_Cheat_Sheet.html)

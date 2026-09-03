@@ -1,0 +1,459 @@
+/* Shared site shell and layout */
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  min-width: 0; /* allow shrink in flex contexts for reflow/zoom */
+}
+
+.container-wide {
+  max-width: 1200px;
+}
+
+/* Header inner: match owasp.community max-width and padding scale */
+.site-header .container-wide {
+  max-width: 1440px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .site-header .container-wide {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .site-header .container-wide {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .site-header .container-wide {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .site-header .container-wide {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  .site-header .container-wide {
+    padding-left: 120px;
+    padding-right: 120px;
+  }
+}
+
+/* Primary header - match owasp.community: sticky, backdrop-blur, bg #101820/95, h-20, border-white/10, shadow-sm */
+.site-header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 50;
+  background: rgba(16, 24, 32, 0.95);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  min-height: 5rem;
+  padding: 0;
+  transition: transform 0.3s ease-out;
+}
+
+.site-header .container,
+.site-header .container-wide {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 5rem;
+  gap: 0.5rem;
+}
+
+/* Logo: OWASP header SVG - h-10 (2.5rem), fixed width, shrink-0, hover opacity 90% (community) */
+.logo {
+  display: block;
+  flex-shrink: 0;
+  height: 2.5rem;
+  width: 132.894px;
+  text-decoration: none;
+}
+
+.logo.logo-wasp {
+  width: 2.5rem;
+  height: 2.5rem;
+  transition: opacity 0.2s ease;
+}
+
+/* Left group: brand + Suggest app (contribute to directory) */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+/* Left-side brand: wasp logo + VWAD wordmark SVG. Sizing: wasp and VWAD both 2.5rem height (viewBox 40×40 and 72×40). */
+.header-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: var(--header-text);
+  flex-shrink: 0;
+}
+
+.header-brand:hover {
+  opacity: 0.9;
+}
+
+.header-brand-name {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+  color: inherit;
+}
+
+/* VWAD wordmark: inline SVG with viewBox 0 0 72 40 (extra right padding so D does not clip on small screens); height matches wasp (2.5rem). */
+.header-brand-name .vwad-wordmark {
+  display: block;
+  height: 2.5rem;
+  width: auto;
+}
+
+/* OWASP wordmark in header-actions: viewBox 44 0 90 40 (letterforms + left padding so O not clipped); 2.5rem to match VWAD/wasp. */
+.header-actions .owasp-wordmark {
+  display: block;
+  height: 2.5rem;
+  width: auto;
+  color: inherit;
+}
+
+@media (max-width: 450px) {
+  .header-brand {
+    gap: 0.4rem;
+  }
+
+  .logo.logo-wasp,
+  .header-brand-name .vwad-wordmark,
+  .header-actions .owasp-wordmark {
+    height: 1.65rem;
+  }
+
+  .logo.logo-wasp {
+    width: 1.65rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .logo.logo-wasp,
+  .header-brand-name .vwad-wordmark,
+  .header-actions .owasp-wordmark {
+    height: 1.32rem;
+  }
+
+  .logo.logo-wasp {
+    width: 1.32rem;
+  }
+}
+
+.logo:hover {
+  opacity: 0.9;
+}
+
+.header-logo {
+  display: block;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  color: var(--header-text);
+}
+
+/* OWASP logo wasp wing flap on hover (from owasp.community) */
+@keyframes owaspWingFlap {
+  0%   { transform: rotate(0); }
+  20%  { transform: rotate(-12deg); }
+  40%  { transform: rotate(9deg); }
+  60%  { transform: rotate(-6deg); }
+  100% { transform: rotate(0); }
+}
+
+.owasp-logo #wasp-wings {
+  transform-origin: 52% 34%;
+  transform-box: fill-box;
+  will-change: transform;
+}
+
+.owasp-logo:hover #wasp-wings {
+  animation: 0.9s ease-in-out owaspWingFlap;
+}
+
+.header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.header-actions a {
+  color: var(--header-text-muted);
+  text-decoration: none;
+  font-weight: 500;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+}
+
+.header-actions a:hover {
+  color: var(--header-text);
+}
+
+/* Create Account: outline button (community) - border #757575, hover cyan */
+.header-actions a.nav-create-account {
+  color: var(--header-text);
+  border: 2px solid var(--neutral-3);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+}
+
+.header-actions a.nav-create-account:hover {
+  border-color: rgba(0, 167, 225, 0.6);
+  background: rgba(0, 167, 225, 0.1);
+  color: var(--accent-cyan);
+}
+
+.header-actions a.nav-cta {
+  color: var(--header-text);
+  background: linear-gradient(to right, var(--btn-primary-start), var(--btn-primary-end));
+  padding: 0.35rem 0.75rem;
+  border-radius: 0.5rem; /* rounded-lg to match community */
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.header-actions a.nav-cta:hover {
+  background: linear-gradient(to right, var(--btn-primary-hover-start), var(--btn-primary-hover-end));
+  color: var(--header-text);
+  box-shadow: 0 10px 15px -3px rgba(0, 53, 148, 0.3), 0 4px 6px -4px rgba(0, 53, 148, 0.3);
+}
+
+.theme-toggle {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.35rem 0.5rem;
+  margin: 0;
+  border: none;
+  background: none;
+  color: var(--header-text-muted);
+  cursor: pointer;
+  border-radius: var(--radius);
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.theme-toggle:hover {
+  color: var(--header-text);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+  outline-offset: 2px;
+}
+
+.theme-toggle-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.theme-toggle-icon {
+  display: block;
+  flex-shrink: 0;
+}
+
+.theme-toggle-label {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+}
+
+/* Header "Suggest app" link - matches theme-toggle layout (icon + label) */
+.header-suggest {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.35rem 0.5rem;
+  color: var(--header-text-muted);
+  text-decoration: none;
+  border-radius: var(--radius);
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.header-suggest:hover {
+  color: var(--header-text);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.header-suggest:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+  outline-offset: 2px;
+}
+
+.header-suggest-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.header-suggest .icon-plus {
+  display: block;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+}
+
+.header-suggest-label {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+}
+
+[data-theme="dark"] .project-header {
+  /* Same gradient as light so header matches live site */
+  background: linear-gradient(to bottom right, #1a237e 0%, #303f9f 50%, #42a5f5 100%);
+}
+
+/* Secondary header - gradient matches live (from-[#1a237e] via-[#303f9f] to-[#42a5f5]) */
+.project-header {
+  background: var(--gradient-band);
+  padding: clamp(1rem, 2vw, 1.25rem) 0 clamp(1.25rem, 2.5vw, 1.5rem);
+  margin-bottom: 0;
+}
+
+.project-header .container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem 0;
+}
+
+.project-header-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  width: 100%;
+}
+
+.project-title {
+  margin: 0;
+  font-size: clamp(1.35rem, 3.5vw, 1.85rem);
+  font-weight: 600;
+  font-family: var(--font-heading);
+  color: #fff;
+  letter-spacing: -0.03em;
+  width: 100%;
+  line-height: 1.3;
+}
+
+.project-header-top .project-title {
+  width: auto;
+}
+
+.project-subtitle {
+  margin: 0;
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  color: rgba(255, 255, 255, 0.85);
+  font-family: var(--font-body);
+  text-align: right;
+}
+
+/* Tagline on gradient: light text like title (#fff) and subtitle (white/0.85) */
+.project-header .project-tagline {
+  margin: 0;
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: var(--font-body);
+  max-width: 56ch;
+}
+
+.project-header-contributors {
+  margin: 0.25rem 0 0;
+  font-size: clamp(0.85rem, 1.4vw, 0.95rem);
+  color: rgba(255, 255, 255, 0.85);
+  font-family: var(--font-body);
+}
+
+.project-header-contributors a,
+.project-header-contributors a:link,
+.project-header-contributors a:visited {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.project-header-contributors a:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.section {
+  padding: 2.5rem 0;
+}
+
+.section-alt {
+  background: var(--bg-alt);
+}
+
+.section h2 {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: var(--font-heading);
+  color: var(--text);
+}
+
+.section p {
+  margin: 0 0 1rem;
+}
+
+.section p:last-child {
+  margin-bottom: 0;
+}
+
+.section-desc {
+  color: var(--text-muted);
+  margin: 0 0 1rem;
+}

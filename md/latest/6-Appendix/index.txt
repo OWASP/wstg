@@ -1,0 +1,22 @@
+---
+layout: document
+title: WSTG - Latest
+collection_name: latest
+channel_label: Latest
+channel_path: latest
+render_with_liquid: false
+---
+
+# Appendix
+
+Appendix A. [History](A-History/)
+
+Appendix B. [Testing Tools Resource](B-Testing_Tools_Resource/)
+
+Appendix C. [Suggested Reading](C-Suggested_Reading/)
+
+Appendix D. [Fuzzing](D-Fuzzing/)
+
+Appendix E. [Encoded Injection](E-Encoded_Injection/)
+
+Appendix F. [Leveraging Dev Tools](F-Leveraging_Dev_Tools/)

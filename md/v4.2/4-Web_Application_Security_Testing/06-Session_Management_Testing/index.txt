@@ -1,0 +1,28 @@
+---
+layout: document
+title: WSTG - v4.2
+collection_name: v42
+channel_label: v4.2
+channel_path: v4.2
+render_with_liquid: false
+---
+
+# 4.6 Session Management Testing
+
+4.6.1 [Testing for Session Management Schema](01-Testing_for_Session_Management_Schema/)
+
+4.6.2 [Testing for Cookies Attributes](02-Testing_for_Cookies_Attributes/)
+
+4.6.3 [Testing for Session Fixation](03-Testing_for_Session_Fixation/)
+
+4.6.4 [Testing for Exposed Session Variables](04-Testing_for_Exposed_Session_Variables/)
+
+4.6.5 [Testing for Cross Site Request Forgery](05-Testing_for_Cross_Site_Request_Forgery/)
+
+4.6.6 [Testing for Logout Functionality](06-Testing_for_Logout_Functionality/)
+
+4.6.7 [Testing Session Timeout](07-Testing_Session_Timeout/)
+
+4.6.8 [Testing for Session Puzzling](08-Testing_for_Session_Puzzling/)
+
+4.6.9 [Testing for Session Hijacking](09-Testing_for_Session_Hijacking/)

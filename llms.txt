@@ -1,0 +1,118 @@
+# OWASP Web Security Testing Guide
+
+> Comprehensive testing resource for web application security
+
+## Latest
+
+Latest development version
+
+- [Interactive Guide](https://wstg.owasp.org/latest/)
+- [Markdown Version](https://wstg.owasp.org/md/latest/README.md)
+
+### 5-Reporting
+
+- [Reporting](https://wstg.owasp.org/md/latest/5-Reporting/01-Reporting_Structure.txt)
+- [Vulnerability Naming Schemes](https://wstg.owasp.org/md/latest/5-Reporting/02-Naming_Schemes.txt)
+
+### 6-Appendix
+
+- [A. History](https://wstg.owasp.org/md/latest/6-Appendix/A-History.txt)
+- [B. Testing Tools Resource](https://wstg.owasp.org/md/latest/6-Appendix/B-Testing_Tools_Resource.txt)
+- [C. Suggested Reading](https://wstg.owasp.org/md/latest/6-Appendix/C-Suggested_Reading.txt)
+- [D. Fuzzing {#fuzzing}](https://wstg.owasp.org/md/latest/6-Appendix/D-Fuzzing.txt)
+- [E. Encoded Injection {#encoded-injection}](https://wstg.owasp.org/md/latest/6-Appendix/E-Encoded_Injection.txt)
+- [F. Leveraging Dev Tools {#leveraging-dev-tools}](https://wstg.owasp.org/md/latest/6-Appendix/F-Leveraging_Dev_Tools.txt)
+
+### Testing Framework
+
+- [The Web Security Testing Framework](https://wstg.owasp.org/md/latest/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.txt)
+- [Penetration Testing Methodologies](https://wstg.owasp.org/md/latest/3-The_OWASP_Testing_Framework/1-Penetration_Testing_Methodologies.txt)
+
+### Web Application Testing
+
+- [README](https://wstg.owasp.org/md/latest/4-Web_Application_Security_Testing/00-Introduction_and_Objectives/)
+- [Introduction and Objectives](https://wstg.owasp.org/md/latest/4-Web_Application_Security_Testing/00-Introduction_and_Objectives/index.txt)
+- [Conduct Search Engine Reconnaissance for Information Leakage](https://wstg.owasp.org/md/latest/4-Web_Application_Security_Testing/01-Information_Gathering/01-Conduct_Search_Engine_Reconnaissance_for_Information_Leakage.txt)
+- [Fingerprint Web Server](https://wstg.owasp.org/md/latest/4-Web_Application_Security_Testing/01-Information_Gathering/02-Fingerprint_Web_Server.txt)
+- [Review Webserver Metafiles for Information Leakage](https://wstg.owasp.org/md/latest/4-Web_Application_Security_Testing/01-Information_Gathering/03-Review_Webserver_Metafiles_for_Information_Leakage.txt)
+- [Attack Surface Identification](https://wstg.owasp.org/md/latest/4-Web_Application_Security_Testing/01-Information_Gathering/04-Attack_Surface_Identification.txt)
+- [Review Web Page Content for Information Leakage](https://wstg.owasp.org/md/latest/4-Web_Application_Security_Testing/01-Information_Gathering/05-Review_Web_Page_Content_for_Information_Leakage.txt)
+- [Identify Application Entry Points](https://wstg.owasp.org/md/latest/4-Web_Application_Security_Testing/01-Information_Gathering/06-Identify_Application_Entry_Points.txt)
+- [Map Execution Paths Through Application](https://wstg.owasp.org/md/latest/4-Web_Application_Security_Testing/01-Information_Gathering/07-Map_Execution_Paths_Through_Application.txt)
+- [Fingerprint Web Application Framework](https://wstg.owasp.org/md/latest/4-Web_Application_Security_Testing/01-Information_Gathering/08-Fingerprint_Web_Application_Framework.txt)
+- ... and 146 more
+
+## v4.2 (Stable)
+
+Current stable release
+
+- [Interactive Guide](https://wstg.owasp.org/v4.2/)
+- [Markdown Version](https://wstg.owasp.org/md/v4.2/README.md)
+
+### 6-Appendix
+
+- [Testing Tools Resource](https://wstg.owasp.org/md/v4.2/6-Appendix/A-Testing_Tools_Resource.txt)
+- [Suggested Reading](https://wstg.owasp.org/md/v4.2/6-Appendix/B-Suggested_Reading.txt)
+- [Fuzz Vectors](https://wstg.owasp.org/md/v4.2/6-Appendix/C-Fuzz_Vectors.txt)
+- [Encoded Injection](https://wstg.owasp.org/md/v4.2/6-Appendix/D-Encoded_Injection.txt)
+- [History](https://wstg.owasp.org/md/v4.2/6-Appendix/E-History.txt)
+- [Leveraging Dev Tools](https://wstg.owasp.org/md/v4.2/6-Appendix/F-Leveraging_Dev_Tools.txt)
+
+### Testing Framework
+
+- [The Web Security Testing Framework](https://wstg.owasp.org/md/v4.2/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.txt)
+- [Penetration Testing Methodologies](https://wstg.owasp.org/md/v4.2/3-The_OWASP_Testing_Framework/1-Penetration_Testing_Methodologies.txt)
+
+### Web Application Testing
+
+- [README](https://wstg.owasp.org/md/v4.2/4-Web_Application_Security_Testing/00-Introduction_and_Objectives/)
+- [4.0 Introduction and Objectives](https://wstg.owasp.org/md/v4.2/4-Web_Application_Security_Testing/00-Introduction_and_Objectives/index.txt)
+- [Conduct Search Engine Discovery Reconnaissance for Information Leakage](https://wstg.owasp.org/md/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/01-Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage.txt)
+- [Fingerprint Web Server](https://wstg.owasp.org/md/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/02-Fingerprint_Web_Server.txt)
+- [Review Webserver Metafiles for Information Leakage](https://wstg.owasp.org/md/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/03-Review_Webserver_Metafiles_for_Information_Leakage.txt)
+- [Enumerate Applications on Webserver](https://wstg.owasp.org/md/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/04-Enumerate_Applications_on_Webserver.txt)
+- [Review Webpage Content for Information Leakage](https://wstg.owasp.org/md/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/05-Review_Webpage_Content_for_Information_Leakage.txt)
+- [Identify Application Entry Points](https://wstg.owasp.org/md/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/06-Identify_Application_Entry_Points.txt)
+- [Map Execution Paths Through Application](https://wstg.owasp.org/md/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/07-Map_Execution_Paths_Through_Application.txt)
+- [Fingerprint Web Application Framework](https://wstg.owasp.org/md/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/08-Fingerprint_Web_Application_Framework.txt)
+- ... and 125 more
+
+## v4.1 (Archived)
+
+Previous release (archived)
+
+- [Interactive Guide](https://wstg.owasp.org/v4.1/)
+- [Markdown Version](https://wstg.owasp.org/md/v4.1/README.md)
+
+### 6-Appendix
+
+- [Testing Tools Resource](https://wstg.owasp.org/md/v4.1/6-Appendix/A-Testing_Tools_Resource.txt)
+- [Suggested Reading](https://wstg.owasp.org/md/v4.1/6-Appendix/B-Suggested_Reading.txt)
+- [Fuzz Vectors](https://wstg.owasp.org/md/v4.1/6-Appendix/C-Fuzz_Vectors.txt)
+- [Encoded Injection](https://wstg.owasp.org/md/v4.1/6-Appendix/D-Encoded_Injection.txt)
+- [History](https://wstg.owasp.org/md/v4.1/6-Appendix/E-History.txt)
+
+### Testing Framework
+
+- [The Web Security Testing Framework](https://wstg.owasp.org/md/v4.1/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.txt)
+- [Penetration Testing Methodologies](https://wstg.owasp.org/md/v4.1/3-The_OWASP_Testing_Framework/1-Penetration_Testing_Methodologies.txt)
+
+### Web Application Testing
+
+- [README](https://wstg.owasp.org/md/v4.1/4-Web_Application_Security_Testing/00-Introduction_and_Objectives/)
+- [4.0 Introduction and Objectives](https://wstg.owasp.org/md/v4.1/4-Web_Application_Security_Testing/00-Introduction_and_Objectives/index.txt)
+- [Conduct Search Engine Discovery Reconnaissance for Information Leakage](https://wstg.owasp.org/md/v4.1/4-Web_Application_Security_Testing/01-Information_Gathering/01-Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage.txt)
+- [Fingerprint Web Server](https://wstg.owasp.org/md/v4.1/4-Web_Application_Security_Testing/01-Information_Gathering/02-Fingerprint_Web_Server.txt)
+- [Review Webserver Metafiles for Information Leakage](https://wstg.owasp.org/md/v4.1/4-Web_Application_Security_Testing/01-Information_Gathering/03-Review_Webserver_Metafiles_for_Information_Leakage.txt)
+- [Enumerate Applications on Webserver](https://wstg.owasp.org/md/v4.1/4-Web_Application_Security_Testing/01-Information_Gathering/04-Enumerate_Applications_on_Webserver.txt)
+- [Review Webpage Comments and Metadata for Information Leakage](https://wstg.owasp.org/md/v4.1/4-Web_Application_Security_Testing/01-Information_Gathering/05-Review_Webpage_Comments_and_Metadata_for_Information_Leakage.txt)
+- [Identify Application Entry Points](https://wstg.owasp.org/md/v4.1/4-Web_Application_Security_Testing/01-Information_Gathering/06-Identify_Application_Entry_Points.txt)
+- [Map Execution Paths Through Application](https://wstg.owasp.org/md/v4.1/4-Web_Application_Security_Testing/01-Information_Gathering/07-Map_Execution_Paths_Through_Application.txt)
+- [Fingerprint Web Application Framework](https://wstg.owasp.org/md/v4.1/4-Web_Application_Security_Testing/01-Information_Gathering/08-Fingerprint_Web_Application_Framework.txt)
+- ... and 122 more
+
+## Resources
+
+- [GitHub Repository](https://github.com/OWASP/wstg)
+- [Contribution Guide](https://github.com/OWASP/wstg/blob/master/CONTRIBUTING.md)
+- [Code of Conduct](https://github.com/OWASP/wstg/blob/master/CODE_OF_CONDUCT.md)

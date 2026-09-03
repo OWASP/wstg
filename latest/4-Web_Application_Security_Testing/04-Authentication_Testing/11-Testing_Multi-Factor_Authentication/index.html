@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WSTG - Latest | OWASP Web Security Testing Guide</title>
+<meta name="description" content="The premier cybersecurity testing resource for web application developers and security professionals.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="WSTG - Latest">
+<meta property="og:description" content="The premier cybersecurity testing resource for web application developers and security professionals.">
+<meta property="og:image" content="https://wstg.owasp.org/assets/images/wstg-cover.png">
+<meta property="og:url" content="https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/11-Testing_Multi-Factor_Authentication/">
+<meta property="og:site_name" content="OWASP Web Security Testing Guide">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="WSTG - Latest">
+<meta name="twitter:description" content="The premier cybersecurity testing resource for web application developers and security professionals.">
+<meta name="twitter:image" content="https://wstg.owasp.org/assets/images/wstg-cover.png">
+<link rel="canonical" href="https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/11-Testing_Multi-Factor_Authentication/">
+<link rel="icon" href="/assets/images/wstg-shield.png" type="image/png">
+<link rel="apple-touch-icon" href="/assets/images/wstg-shield.png">
+<meta name="theme-color" content="#1a1d23">
+<script>
+(function () {
+  var t;
+  try { t = localStorage.getItem('wstg-theme'); } catch (e) {}
+  var effective;
+  if (!t || t === 'system') {
+    effective = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  } else {
+    effective = t;
+  }
+  document.documentElement.setAttribute('data-theme', effective);
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/shell.css">
+<link rel="stylesheet" href="/assets/css/buttons.css">
+<link rel="stylesheet" href="/assets/css/footer.css">
+<link rel="stylesheet" href="/assets/css/site.css">
+
+<link rel="stylesheet" href="/assets/css/wstg-nav.css">
+
+
+</head>
+<body id="top" class="page-document">
+  <div class="skip-links">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="#page-end" class="skip-link">Skip to bottom of page</a>
+  </div>
+  <header class="site-header">
+  <div class="container container-wide header-inner">
+    <div class="header-left">
+      <a href="/" class="header-brand" aria-label="WSTG home">
+        <img class="header-brand-shield" src="/assets/images/wstg-shield.png" width="40" height="40" alt="">
+        <span class="header-brand-name"><span class="wstg-wordmark">WSTG</span></span>
+      </a>
+    </div>
+    <div class="header-actions">
+      <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Theme: system. Click to switch." title="Theme">
+        <span class="theme-toggle-icon-wrap">
+          <svg class="theme-toggle-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path fill="currentColor" d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
+          </svg>
+        </span>
+        <span class="theme-toggle-label" aria-hidden="true">Theme</span>
+      </button>
+      <a href="https://owasp.org/" class="ext-link" rel="noopener noreferrer" target="_blank" aria-label="OWASP (external)">
+        <img class="owasp-wordmark-img" src="/assets/images/owasp-logo-header.svg" alt="" width="133" height="40">
+        <span class="sr-only"> (opens in new window)</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+  <header class="project-header">
+  <div class="container container-wide">
+    <div class="project-header-top">
+      <h1 class="project-title">OWASP Web Security Testing Guide</h1>
+      <p class="project-subtitle">Latest</p>
+    </div>
+    
+    <p class="project-tagline">Web application security testing guidance.</p>
+    
+  </div>
+</header>
+
+
+<div class="channel-banners" role="banner">
+  
+  <div class="channel-banner channel-banner--latest">
+    This content represents the latest contributions to the Web Security Testing Guide, and may frequently change.
+  </div>
+  
+
+  
+
+  
+  
+  
+</div>
+
+<main id="main-content" class="site-main">
+  <div class="container container-wide">
+    <div class="doc-nav-bar">
+      <button type="button" id="doc-nav-toggle" class="doc-nav-toggle" aria-controls="doc-sidebar" aria-expanded="false">
+        <span class="doc-nav-toggle-icon" aria-hidden="true"></span>
+        Contents
+      </button>
+    </div>
+    <div class="doc-layout">
+      <div id="doc-nav-backdrop" class="doc-nav-backdrop" hidden></div>
+      <aside id="doc-sidebar" class="doc-sidebar" aria-label="Guide contents">
+        <button type="button" id="doc-nav-close" class="doc-nav-close" aria-label="Close contents">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        
+
+
+<nav class="wstg-nav" id="wstg-nav-latest" aria-label="WSTG Contents">
+  <p class="wstg-nav-home"><a href="/">← Home</a></p>
+  <h2 class="wstg-nav-title"><a href="/latest/">WSTG Contents</a></h2>
+  <label class="visually-hidden" for="wstg-nav-filter-latest">Filter contents</label>
+  <input id="wstg-nav-filter-latest" class="wstg-nav-filter" type="search" placeholder="Filter (XSS, sqli, WSTG-INPV-01, 4.7)" autocomplete="off">
+  <div class="wstg-nav-controls">
+    <button type="button" data-wstg-expand>Expand All</button>
+    <button type="button" data-wstg-collapse>Collapse All</button>
+  </div>
+  <ul class="wstg-nav-list">
+    
+    
+<li class="wstg-nav-item" data-title="0. Foreword">
+<a href="/latest/0-Foreword/" data-nav-url="0-Foreword/" title="0. Foreword">0. Foreword</a>
+</li>
+<li class="wstg-nav-item" data-title="1. About">
+<a href="/latest/1-About/" data-nav-url="1-About/" title="1. About">1. About</a>
+</li>
+<li class="wstg-nav-item" data-title="2. Introduction">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/2-Introduction/" data-nav-url="2-Introduction/" title="2. Introduction">2. Introduction</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="2.1 Purpose and Scope">
+<a href="/latest/2-Introduction/#purpose-and-scope" data-nav-url="2-Introduction/#purpose-and-scope" title="2.1 Purpose and Scope">2.1 Purpose and Scope</a>
+</li>
+<li class="wstg-nav-item" data-title="2.2 Why Web Application Security Testing Matters">
+<a href="/latest/2-Introduction/#why-web-application-security-testing-matters" data-nav-url="2-Introduction/#why-web-application-security-testing-matters" title="2.2 Why Web Application Security Testing Matters">2.2 Why Web Application Security Testing Matters</a>
+</li>
+<li class="wstg-nav-item" data-title="2.3 Who Should Use This Guide">
+<a href="/latest/2-Introduction/#who-should-use-this-guide" data-nav-url="2-Introduction/#who-should-use-this-guide" title="2.3 Who Should Use This Guide">2.3 Who Should Use This Guide</a>
+</li>
+<li class="wstg-nav-item" data-title="2.4 Core Principles of Effective Security Testing">
+<a href="/latest/2-Introduction/#core-principles-of-effective-security-testing" data-nav-url="2-Introduction/#core-principles-of-effective-security-testing" title="2.4 Core Principles of Effective Security Testing">2.4 Core Principles of Effective Security Testing</a>
+</li>
+<li class="wstg-nav-item" data-title="2.5 How the Guide Is Organized">
+<a href="/latest/2-Introduction/#how-the-guide-is-organized" data-nav-url="2-Introduction/#how-the-guide-is-organized" title="2.5 How the Guide Is Organized">2.5 How the Guide Is Organized</a>
+</li>
+<li class="wstg-nav-item" data-title="2.6 How to Reference WSTG Scenarios">
+<a href="/latest/2-Introduction/#how-to-reference-wstg-scenarios" data-nav-url="2-Introduction/#how-to-reference-wstg-scenarios" title="2.6 How to Reference WSTG Scenarios">2.6 How to Reference WSTG Scenarios</a>
+</li>
+<li class="wstg-nav-item" data-title="2.7 Feedback and Comments">
+<a href="/latest/2-Introduction/#feedback-and-comments" data-nav-url="2-Introduction/#feedback-and-comments" title="2.7 Feedback and Comments">2.7 Feedback and Comments</a>
+</li>
+<li class="wstg-nav-item" data-title="2.8 Related OWASP Projects">
+<a href="/latest/2-Introduction/#related-owasp-projects" data-nav-url="2-Introduction/#related-owasp-projects" title="2.8 Related OWASP Projects">2.8 Related OWASP Projects</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="3. The OWASP Testing Framework">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/3-The_OWASP_Testing_Framework/" data-nav-url="3-The_OWASP_Testing_Framework/" title="3. The OWASP Testing Framework">3. The OWASP Testing Framework</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="3.1 The Web Security Testing Framework">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework" title="3.1 The Web Security Testing Framework">3.1 The Web Security Testing Framework</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="3.2 Phase 1 Before Development Begins">
+<a href="/latest/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-1-before-development-begins" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-1-before-development-begins" title="3.2 Phase 1 Before Development Begins">3.2 Phase 1 Before Development Begins</a>
+</li>
+<li class="wstg-nav-item" data-title="3.3 Phase 2 During Definition and Design">
+<a href="/latest/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-2-during-definition-and-design" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-2-during-definition-and-design" title="3.3 Phase 2 During Definition and Design">3.3 Phase 2 During Definition and Design</a>
+</li>
+<li class="wstg-nav-item" data-title="3.4 Phase 3 During Development">
+<a href="/latest/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-3-during-development" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-3-during-development" title="3.4 Phase 3 During Development">3.4 Phase 3 During Development</a>
+</li>
+<li class="wstg-nav-item" data-title="3.5 Phase 4 During Deployment">
+<a href="/latest/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-4-during-deployment" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-4-during-deployment" title="3.5 Phase 4 During Deployment">3.5 Phase 4 During Deployment</a>
+</li>
+<li class="wstg-nav-item" data-title="3.6 Phase 5 During Maintenance and Operations">
+<a href="/latest/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-5-during-maintenance-and-operations" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-5-during-maintenance-and-operations" title="3.6 Phase 5 During Maintenance and Operations">3.6 Phase 5 During Maintenance and Operations</a>
+</li>
+<li class="wstg-nav-item" data-title="3.7 A Typical SDLC Testing Workflow">
+<a href="/latest/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#a-typical-sdlc-testing-workflow" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#a-typical-sdlc-testing-workflow" title="3.7 A Typical SDLC Testing Workflow">3.7 A Typical SDLC Testing Workflow</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="3.8 Penetration Testing Methodologies">
+<a href="/latest/3-The_OWASP_Testing_Framework/1-Penetration_Testing_Methodologies" data-nav-url="3-The_OWASP_Testing_Framework/1-Penetration_Testing_Methodologies" title="3.8 Penetration Testing Methodologies">3.8 Penetration Testing Methodologies</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4. Web Application Security Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/" data-nav-url="4-Web_Application_Security_Testing/" title="4. Web Application Security Testing">4. Web Application Security Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.0 Introduction and Objectives">
+<a href="/latest/4-Web_Application_Security_Testing/00-Introduction_and_Objectives/" data-nav-url="4-Web_Application_Security_Testing/00-Introduction_and_Objectives/" title="4.0 Introduction and Objectives">4.0 Introduction and Objectives</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1 Information Gathering">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/01-Information_Gathering/" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/" title="4.1 Information Gathering">4.1 Information Gathering</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.1.1 Conduct Search Engine Reconnaissance for Information Leakage" data-hints="wstg-info-01 info-01">
+<a href="/latest/4-Web_Application_Security_Testing/01-Information_Gathering/01-Conduct_Search_Engine_Reconnaissance_for_Information_Leakage" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/01-Conduct_Search_Engine_Reconnaissance_for_Information_Leakage" title="4.1.1 Conduct Search Engine Reconnaissance for Information Leakage">4.1.1 Conduct Search Engine Reconnaissance for Information Leakage</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.2 Fingerprint Web Server" data-hints="wstg-info-02 info-02">
+<a href="/latest/4-Web_Application_Security_Testing/01-Information_Gathering/02-Fingerprint_Web_Server" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/02-Fingerprint_Web_Server" title="4.1.2 Fingerprint Web Server">4.1.2 Fingerprint Web Server</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.3 Review Webserver Metafiles for Information Leakage" data-hints="robots robots.txt sitemap sitemap.xml wstg-info-03 info-03">
+<a href="/latest/4-Web_Application_Security_Testing/01-Information_Gathering/03-Review_Webserver_Metafiles_for_Information_Leakage" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/03-Review_Webserver_Metafiles_for_Information_Leakage" title="4.1.3 Review Webserver Metafiles for Information Leakage">4.1.3 Review Webserver Metafiles for Information Leakage</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.4 Attack Surface Identification" data-hints="wstg-info-04 info-04">
+<a href="/latest/4-Web_Application_Security_Testing/01-Information_Gathering/04-Attack_Surface_Identification" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/04-Attack_Surface_Identification" title="4.1.4 Attack Surface Identification">4.1.4 Attack Surface Identification</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.5 Review Web Page Content for Information Leakage" data-hints="wstg-info-05 info-05">
+<a href="/latest/4-Web_Application_Security_Testing/01-Information_Gathering/05-Review_Web_Page_Content_for_Information_Leakage" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/05-Review_Web_Page_Content_for_Information_Leakage" title="4.1.5 Review Web Page Content for Information Leakage">4.1.5 Review Web Page Content for Information Leakage</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.6 Identify Application Entry Points" data-hints="wstg-info-06 info-06">
+<a href="/latest/4-Web_Application_Security_Testing/01-Information_Gathering/06-Identify_Application_Entry_Points" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/06-Identify_Application_Entry_Points" title="4.1.6 Identify Application Entry Points">4.1.6 Identify Application Entry Points</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.7 Map Execution Paths Through Application" data-hints="wstg-info-07 info-07">
+<a href="/latest/4-Web_Application_Security_Testing/01-Information_Gathering/07-Map_Execution_Paths_Through_Application" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/07-Map_Execution_Paths_Through_Application" title="4.1.7 Map Execution Paths Through Application">4.1.7 Map Execution Paths Through Application</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.8 Fingerprint Web Application Framework" data-hints="wstg-info-08 info-08">
+<a href="/latest/4-Web_Application_Security_Testing/01-Information_Gathering/08-Fingerprint_Web_Application_Framework" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/08-Fingerprint_Web_Application_Framework" title="4.1.8 Fingerprint Web Application Framework">4.1.8 Fingerprint Web Application Framework</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.9 Fingerprint Web Application" data-hints="wstg-info-09 info-09 wstg-info-08 info-08">
+<a href="/latest/4-Web_Application_Security_Testing/01-Information_Gathering/09-Fingerprint_Web_Application" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/09-Fingerprint_Web_Application" title="4.1.9 Fingerprint Web Application">4.1.9 Fingerprint Web Application</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.10 Map Application Architecture" data-hints="wstg-info-10 info-10">
+<a href="/latest/4-Web_Application_Security_Testing/01-Information_Gathering/10-Map_Application_Architecture" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/10-Map_Application_Architecture" title="4.1.10 Map Application Architecture">4.1.10 Map Application Architecture</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.2 Configuration and Deployment Management Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/" title="4.2 Configuration and Deployment Management Testing">4.2 Configuration and Deployment Management Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.2.1 Test Network Infrastructure Configuration" data-hints="wstg-conf-01 conf-01">
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/01-Test_Network_Infrastructure_Configuration" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/01-Test_Network_Infrastructure_Configuration" title="4.2.1 Test Network Infrastructure Configuration">4.2.1 Test Network Infrastructure Configuration</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.2 Test Application Platform Configuration" data-hints="wstg-conf-02 conf-02">
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/02-Test_Application_Platform_Configuration" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/02-Test_Application_Platform_Configuration" title="4.2.2 Test Application Platform Configuration">4.2.2 Test Application Platform Configuration</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.3 Test File Extensions Handling for Sensitive Information" data-hints="wstg-conf-03 conf-03">
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/03-Test_File_Extensions_Handling_for_Sensitive_Information" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/03-Test_File_Extensions_Handling_for_Sensitive_Information" title="4.2.3 Test File Extensions Handling for Sensitive Information">4.2.3 Test File Extensions Handling for Sensitive Information</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.4 Review Old Backup and Unreferenced Files for Sensitive Information" data-hints="wstg-conf-04 conf-04">
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/04-Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/04-Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information" title="4.2.4 Review Old Backup and Unreferenced Files for Sensitive Information">4.2.4 Review Old Backup and Unreferenced Files for Sensitive Information</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.5 Enumerate Infrastructure and Application Admin Interfaces" data-hints="wstg-conf-05 conf-05">
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/05-Enumerate_Infrastructure_and_Application_Admin_Interfaces" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/05-Enumerate_Infrastructure_and_Application_Admin_Interfaces" title="4.2.5 Enumerate Infrastructure and Application Admin Interfaces">4.2.5 Enumerate Infrastructure and Application Admin Interfaces</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.6 Test HTTP Methods" data-hints="wstg-conf-06 conf-06">
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/06-Test_HTTP_Methods" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/06-Test_HTTP_Methods" title="4.2.6 Test HTTP Methods">4.2.6 Test HTTP Methods</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.7 Test HTTP Strict Transport Security" data-hints="hsts headers wstg-conf-07 conf-07">
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/07-Test_HTTP_Strict_Transport_Security" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/07-Test_HTTP_Strict_Transport_Security" title="4.2.7 Test HTTP Strict Transport Security">4.2.7 Test HTTP Strict Transport Security</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.8 Test RIA Cross Domain Policy" data-hints="crossdomain.xml clientaccesspolicy wstg-conf-08 conf-08">
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/08-Test_RIA_Cross_Domain_Policy" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/08-Test_RIA_Cross_Domain_Policy" title="4.2.8 Test RIA Cross Domain Policy">4.2.8 Test RIA Cross Domain Policy</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.9 Test File Permission" data-hints="wstg-conf-09 conf-09">
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/09-Test_File_Permission" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/09-Test_File_Permission" title="4.2.9 Test File Permission">4.2.9 Test File Permission</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.10 Test for Subdomain Takeover" data-hints="wstg-conf-10 conf-10">
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/10-Test_for_Subdomain_Takeover" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/10-Test_for_Subdomain_Takeover" title="4.2.10 Test for Subdomain Takeover">4.2.10 Test for Subdomain Takeover</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.11 Test Cloud Storage" data-hints="s3 bucket blob storage wstg-conf-11 conf-11">
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/11-Test_Cloud_Storage" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/11-Test_Cloud_Storage" title="4.2.11 Test Cloud Storage">4.2.11 Test Cloud Storage</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.12 Test for Content Security Policy" data-hints="csp headers wstg-conf-12 conf-12">
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/12-Test_for_Content_Security_Policy" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/12-Test_for_Content_Security_Policy" title="4.2.12 Test for Content Security Policy">4.2.12 Test for Content Security Policy</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.13 Test for Path Confusion" data-hints="wstg-conf-13 conf-13">
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/13-Test_for_Path_Confusion" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/13-Test_for_Path_Confusion" title="4.2.13 Test for Path Confusion">4.2.13 Test for Path Confusion</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.14 Test Other HTTP Security Header Misconfigurations" data-hints="headers wstg-conf-14 conf-14">
+<a href="/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/14-Test_Other_HTTP_Security_Header_Misconfigurations" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/14-Test_Other_HTTP_Security_Header_Misconfigurations" title="4.2.14 Test Other HTTP Security Header Misconfigurations">4.2.14 Test Other HTTP Security Header Misconfigurations</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.3 Identity Management Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/03-Identity_Management_Testing/" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/" title="4.3 Identity Management Testing">4.3 Identity Management Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.3.1 Test Role Definitions" data-hints="wstg-idnt-01 idnt-01">
+<a href="/latest/4-Web_Application_Security_Testing/03-Identity_Management_Testing/01-Test_Role_Definitions" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/01-Test_Role_Definitions" title="4.3.1 Test Role Definitions">4.3.1 Test Role Definitions</a>
+</li>
+<li class="wstg-nav-item" data-title="4.3.2 Test User Registration Process" data-hints="wstg-idnt-02 idnt-02">
+<a href="/latest/4-Web_Application_Security_Testing/03-Identity_Management_Testing/02-Test_User_Registration_Process" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/02-Test_User_Registration_Process" title="4.3.2 Test User Registration Process">4.3.2 Test User Registration Process</a>
+</li>
+<li class="wstg-nav-item" data-title="4.3.3 Test Account Provisioning Process" data-hints="wstg-idnt-03 idnt-03">
+<a href="/latest/4-Web_Application_Security_Testing/03-Identity_Management_Testing/03-Test_Account_Provisioning_Process" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/03-Test_Account_Provisioning_Process" title="4.3.3 Test Account Provisioning Process">4.3.3 Test Account Provisioning Process</a>
+</li>
+<li class="wstg-nav-item" data-title="4.3.4 Testing for Account Enumeration and Guessable User Account" data-hints="wstg-idnt-04 idnt-04">
+<a href="/latest/4-Web_Application_Security_Testing/03-Identity_Management_Testing/04-Testing_for_Account_Enumeration_and_Guessable_User_Account" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/04-Testing_for_Account_Enumeration_and_Guessable_User_Account" title="4.3.4 Testing for Account Enumeration and Guessable User Account">4.3.4 Testing for Account Enumeration and Guessable User Account</a>
+</li>
+<li class="wstg-nav-item" data-title="4.3.5 Testing for Weak or Unenforced Username Policy" data-hints="wstg-idnt-05 idnt-05 wstg-idnt-04 idnt-04">
+<a href="/latest/4-Web_Application_Security_Testing/03-Identity_Management_Testing/05-Testing_for_Weak_or_Unenforced_Username_Policy" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/05-Testing_for_Weak_or_Unenforced_Username_Policy" title="4.3.5 Testing for Weak or Unenforced Username Policy">4.3.5 Testing for Weak or Unenforced Username Policy</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.4 Authentication Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/" title="4.4 Authentication Testing">4.4 Authentication Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.4.1 Testing for Credentials Transported over an Encrypted Channel" data-hints="tls ssl https wstg-athn-01 athn-01 wstg-cryp-03 cryp-03">
+<a href="/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/01-Testing_for_Credentials_Transported_over_an_Encrypted_Channel" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/01-Testing_for_Credentials_Transported_over_an_Encrypted_Channel" title="4.4.1 Testing for Credentials Transported over an Encrypted Channel">4.4.1 Testing for Credentials Transported over an Encrypted Channel</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.2 Testing for Default Credentials" data-hints="wstg-athn-02 athn-02">
+<a href="/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/02-Testing_for_Default_Credentials" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/02-Testing_for_Default_Credentials" title="4.4.2 Testing for Default Credentials">4.4.2 Testing for Default Credentials</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.3 Testing for Weak Lock Out Mechanism" data-hints="rate limit bruteforce brute force account lockout wstg-athn-03 athn-03">
+<a href="/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/03-Testing_for_Weak_Lock_Out_Mechanism" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/03-Testing_for_Weak_Lock_Out_Mechanism" title="4.4.3 Testing for Weak Lock Out Mechanism">4.4.3 Testing for Weak Lock Out Mechanism</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.4 Testing for Bypassing Authentication Schema" data-hints="wstg-athn-04 athn-04">
+<a href="/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/04-Testing_for_Bypassing_Authentication_Schema" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/04-Testing_for_Bypassing_Authentication_Schema" title="4.4.4 Testing for Bypassing Authentication Schema">4.4.4 Testing for Bypassing Authentication Schema</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.5 Testing for Vulnerable Remember Password" data-hints="wstg-athn-05 athn-05">
+<a href="/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/05-Testing_for_Vulnerable_Remember_Password" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/05-Testing_for_Vulnerable_Remember_Password" title="4.4.5 Testing for Vulnerable Remember Password">4.4.5 Testing for Vulnerable Remember Password</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.6 Testing for Browser Cache Weaknesses" data-hints="wstg-athn-06 athn-06">
+<a href="/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/06-Testing_for_Browser_Cache_Weaknesses" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/06-Testing_for_Browser_Cache_Weaknesses" title="4.4.6 Testing for Browser Cache Weaknesses">4.4.6 Testing for Browser Cache Weaknesses</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.7 Testing for Weak Authentication Methods" data-hints="wstg-athn-07 athn-07">
+<a href="/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/07-Testing_for_Weak_Authentication_Methods" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/07-Testing_for_Weak_Authentication_Methods" title="4.4.7 Testing for Weak Authentication Methods">4.4.7 Testing for Weak Authentication Methods</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.8 Testing for Weak Security Question Answer" data-hints="wstg-athn-08 athn-08">
+<a href="/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/08-Testing_for_Weak_Security_Question_Answer" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/08-Testing_for_Weak_Security_Question_Answer" title="4.4.8 Testing for Weak Security Question Answer">4.4.8 Testing for Weak Security Question Answer</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.9 Testing for Weak Password Change or Reset Functionalities" data-hints="wstg-athn-09 athn-09">
+<a href="/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/09-Testing_for_Weak_Password_Change_or_Reset_Functionalities" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/09-Testing_for_Weak_Password_Change_or_Reset_Functionalities" title="4.4.9 Testing for Weak Password Change or Reset Functionalities">4.4.9 Testing for Weak Password Change or Reset Functionalities</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.10 Testing for Weaker Authentication in Alternative Channel" data-hints="wstg-athn-10 athn-10">
+<a href="/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/10-Testing_for_Weaker_Authentication_in_Alternative_Channel" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/10-Testing_for_Weaker_Authentication_in_Alternative_Channel" title="4.4.10 Testing for Weaker Authentication in Alternative Channel">4.4.10 Testing for Weaker Authentication in Alternative Channel</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.11 Testing Multi-Factor Authentication" data-hints="mfa 2fa totp wstg-athn-11 athn-11">
+<a href="/latest/4-Web_Application_Security_Testing/04-Authentication_Testing/11-Testing_Multi-Factor_Authentication" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/11-Testing_Multi-Factor_Authentication" title="4.4.11 Testing Multi-Factor Authentication">4.4.11 Testing Multi-Factor Authentication</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.5 Authorization Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/05-Authorization_Testing/" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/" title="4.5 Authorization Testing">4.5 Authorization Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.5.1 Testing Directory Traversal File Include" data-hints="path traversal dotdot lfi wstg-athz-01 athz-01">
+<a href="/latest/4-Web_Application_Security_Testing/05-Authorization_Testing/01-Testing_Directory_Traversal_File_Include" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/01-Testing_Directory_Traversal_File_Include" title="4.5.1 Testing Directory Traversal File Include">4.5.1 Testing Directory Traversal File Include</a>
+</li>
+<li class="wstg-nav-item" data-title="4.5.2 Testing for Bypassing Authorization Schema" data-hints="wstg-athz-02 athz-02">
+<a href="/latest/4-Web_Application_Security_Testing/05-Authorization_Testing/02-Testing_for_Bypassing_Authorization_Schema" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/02-Testing_for_Bypassing_Authorization_Schema" title="4.5.2 Testing for Bypassing Authorization Schema">4.5.2 Testing for Bypassing Authorization Schema</a>
+</li>
+<li class="wstg-nav-item" data-title="4.5.3 Testing for Privilege Escalation" data-hints="privesc wstg-athz-03 athz-03">
+<a href="/latest/4-Web_Application_Security_Testing/05-Authorization_Testing/03-Testing_for_Privilege_Escalation" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/03-Testing_for_Privilege_Escalation" title="4.5.3 Testing for Privilege Escalation">4.5.3 Testing for Privilege Escalation</a>
+</li>
+<li class="wstg-nav-item" data-title="4.5.4 Testing for Insecure Direct Object References" data-hints="idor wstg-athz-04 athz-04">
+<a href="/latest/4-Web_Application_Security_Testing/05-Authorization_Testing/04-Testing_for_Insecure_Direct_Object_References" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/04-Testing_for_Insecure_Direct_Object_References" title="4.5.4 Testing for Insecure Direct Object References">4.5.4 Testing for Insecure Direct Object References</a>
+</li>
+<li class="wstg-nav-item" data-title="4.5.5 Testing for OAuth Weaknesses" data-hints="oauth2 wstg-athz-05 athz-05">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/05-Authorization_Testing/05-Testing_for_OAuth_Weaknesses" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/05-Testing_for_OAuth_Weaknesses" title="4.5.5 Testing for OAuth Weaknesses">4.5.5 Testing for OAuth Weaknesses</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.5.5.1 Testing for OAuth Authorization Server Weaknesses" data-hints="oauth2">
+<a href="/latest/4-Web_Application_Security_Testing/05-Authorization_Testing/05.1-Testing_for_OAuth_Authorization_Server_Weaknesses" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/05.1-Testing_for_OAuth_Authorization_Server_Weaknesses" title="4.5.5.1 Testing for OAuth Authorization Server Weaknesses">4.5.5.1 Testing for OAuth Authorization Server Weaknesses</a>
+</li>
+<li class="wstg-nav-item" data-title="4.5.5.2 Testing for OAuth Client Weaknesses" data-hints="oauth2">
+<a href="/latest/4-Web_Application_Security_Testing/05-Authorization_Testing/05.2-Testing_for_OAuth_Client_Weaknesses" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/05.2-Testing_for_OAuth_Client_Weaknesses" title="4.5.5.2 Testing for OAuth Client Weaknesses">4.5.5.2 Testing for OAuth Client Weaknesses</a>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.6 Session Management Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/" title="4.6 Session Management Testing">4.6 Session Management Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.6.1 Testing for Session Management Schema" data-hints="wstg-sess-01 sess-01">
+<a href="/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/01-Testing_for_Session_Management_Schema" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/01-Testing_for_Session_Management_Schema" title="4.6.1 Testing for Session Management Schema">4.6.1 Testing for Session Management Schema</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.2 Testing for Cookies Attributes" data-hints="cookies set-cookie httponly samesite secure flag wstg-sess-02 sess-02">
+<a href="/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes" title="4.6.2 Testing for Cookies Attributes">4.6.2 Testing for Cookies Attributes</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.3 Testing for Session Fixation" data-hints="wstg-sess-03 sess-03">
+<a href="/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/03-Testing_for_Session_Fixation" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/03-Testing_for_Session_Fixation" title="4.6.3 Testing for Session Fixation">4.6.3 Testing for Session Fixation</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.4 Testing for Exposed Session Variables" data-hints="wstg-sess-04 sess-04">
+<a href="/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/04-Testing_for_Exposed_Session_Variables" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/04-Testing_for_Exposed_Session_Variables" title="4.6.4 Testing for Exposed Session Variables">4.6.4 Testing for Exposed Session Variables</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.5 Testing for Cross Site Request Forgery" data-hints="csrf xsrf wstg-sess-05 sess-05">
+<a href="/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/05-Testing_for_Cross_Site_Request_Forgery" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/05-Testing_for_Cross_Site_Request_Forgery" title="4.6.5 Testing for Cross Site Request Forgery">4.6.5 Testing for Cross Site Request Forgery</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.6 Testing for Logout Functionality" data-hints="wstg-sess-06 sess-06">
+<a href="/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/06-Testing_for_Logout_Functionality" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/06-Testing_for_Logout_Functionality" title="4.6.6 Testing for Logout Functionality">4.6.6 Testing for Logout Functionality</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.7 Testing Session Timeout" data-hints="wstg-sess-07 sess-07">
+<a href="/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/07-Testing_Session_Timeout" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/07-Testing_Session_Timeout" title="4.6.7 Testing Session Timeout">4.6.7 Testing Session Timeout</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.8 Testing for Session Puzzling" data-hints="wstg-sess-08 sess-08">
+<a href="/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/08-Testing_for_Session_Puzzling" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/08-Testing_for_Session_Puzzling" title="4.6.8 Testing for Session Puzzling">4.6.8 Testing for Session Puzzling</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.9 Testing for Session Hijacking" data-hints="wstg-sess-09 sess-09">
+<a href="/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/09-Testing_for_Session_Hijacking" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/09-Testing_for_Session_Hijacking" title="4.6.9 Testing for Session Hijacking">4.6.9 Testing for Session Hijacking</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.10 Testing JSON Web Tokens" data-hints="jwt wstg-sess-10 sess-10">
+<a href="/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/10-Testing_JSON_Web_Tokens" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/10-Testing_JSON_Web_Tokens" title="4.6.10 Testing JSON Web Tokens">4.6.10 Testing JSON Web Tokens</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.11 Testing for Concurrent Sessions" data-hints="wstg-sess-11 sess-11">
+<a href="/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/11-Testing_for_Concurrent_Sessions" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/11-Testing_for_Concurrent_Sessions" title="4.6.11 Testing for Concurrent Sessions">4.6.11 Testing for Concurrent Sessions</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.7 Input Validation Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/" title="4.7 Input Validation Testing">4.7 Input Validation Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.7.1 Testing for Reflected Cross Site Scripting" data-hints="xss wstg-inpv-01 inpv-01">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/01-Testing_for_Reflected_Cross_Site_Scripting" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/01-Testing_for_Reflected_Cross_Site_Scripting" title="4.7.1 Testing for Reflected Cross Site Scripting">4.7.1 Testing for Reflected Cross Site Scripting</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.2 Testing for Stored Cross Site Scripting" data-hints="xss wstg-inpv-02 inpv-02">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/02-Testing_for_Stored_Cross_Site_Scripting" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/02-Testing_for_Stored_Cross_Site_Scripting" title="4.7.2 Testing for Stored Cross Site Scripting">4.7.2 Testing for Stored Cross Site Scripting</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.3 Testing for HTTP Verb Tampering" data-hints="verb tampering wstg-inpv-03 inpv-03 wstg-conf-06 conf-06">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/03-Testing_for_HTTP_Verb_Tampering" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/03-Testing_for_HTTP_Verb_Tampering" title="4.7.3 Testing for HTTP Verb Tampering">4.7.3 Testing for HTTP Verb Tampering</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.4 Testing for HTTP Parameter Pollution" data-hints="hpp wstg-inpv-04 inpv-04">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/04-Testing_for_HTTP_Parameter_Pollution" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/04-Testing_for_HTTP_Parameter_Pollution" title="4.7.4 Testing for HTTP Parameter Pollution">4.7.4 Testing for HTTP Parameter Pollution</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5 Testing for SQL Injection" data-hints="sqli wstg-inpv-05 inpv-05">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection" title="4.7.5 Testing for SQL Injection">4.7.5 Testing for SQL Injection</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.7.5.1 Testing for Oracle">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.1-Testing_for_Oracle" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.1-Testing_for_Oracle" title="4.7.5.1 Testing for Oracle">4.7.5.1 Testing for Oracle</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.2 Testing for MySQL">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.2-Testing_for_MySQL" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.2-Testing_for_MySQL" title="4.7.5.2 Testing for MySQL">4.7.5.2 Testing for MySQL</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.3 Testing for SQL Server" data-hints="mssql sql server">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.3-Testing_for_SQL_Server" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.3-Testing_for_SQL_Server" title="4.7.5.3 Testing for SQL Server">4.7.5.3 Testing for SQL Server</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.4 Testing PostgreSQL">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.4-Testing_PostgreSQL" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.4-Testing_PostgreSQL" title="4.7.5.4 Testing PostgreSQL">4.7.5.4 Testing PostgreSQL</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.5 Testing for MS Access">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.5-Testing_for_MS_Access" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.5-Testing_for_MS_Access" title="4.7.5.5 Testing for MS Access">4.7.5.5 Testing for MS Access</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.6 Testing for NoSQL Injection" data-hints="sqli nosqli">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.6-Testing_for_NoSQL_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.6-Testing_for_NoSQL_Injection" title="4.7.5.6 Testing for NoSQL Injection">4.7.5.6 Testing for NoSQL Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.7 Testing for ORM Injection">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.7-Testing_for_ORM_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.7-Testing_for_ORM_Injection" title="4.7.5.7 Testing for ORM Injection">4.7.5.7 Testing for ORM Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.8 Testing for Client-side">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.8-Testing_for_Client-side" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.8-Testing_for_Client-side" title="4.7.5.8 Testing for Client-side">4.7.5.8 Testing for Client-side</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.7.6 Testing for LDAP Injection" data-hints="ldapi wstg-inpv-06 inpv-06">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/06-Testing_for_LDAP_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/06-Testing_for_LDAP_Injection" title="4.7.6 Testing for LDAP Injection">4.7.6 Testing for LDAP Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.7 Testing for XML Injection" data-hints="xxe xmli xml injection wstg-inpv-07 inpv-07">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/07-Testing_for_XML_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/07-Testing_for_XML_Injection" title="4.7.7 Testing for XML Injection">4.7.7 Testing for XML Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.8 Testing for SSI Injection" data-hints="ssi injection wstg-inpv-08 inpv-08">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/08-Testing_for_SSI_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/08-Testing_for_SSI_Injection" title="4.7.8 Testing for SSI Injection">4.7.8 Testing for SSI Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.9 Testing for XPath Injection" data-hints="xpathi xml wstg-inpv-09 inpv-09">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/09-Testing_for_XPath_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/09-Testing_for_XPath_Injection" title="4.7.9 Testing for XPath Injection">4.7.9 Testing for XPath Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.10 Testing for IMAP SMTP Injection" data-hints="email injection wstg-inpv-10 inpv-10">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/10-Testing_for_IMAP_SMTP_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/10-Testing_for_IMAP_SMTP_Injection" title="4.7.10 Testing for IMAP SMTP Injection">4.7.10 Testing for IMAP SMTP Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.11 Testing for Code Injection" data-hints="rce wstg-inpv-11 inpv-11">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11-Testing_for_Code_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/11-Testing_for_Code_Injection" title="4.7.11 Testing for Code Injection">4.7.11 Testing for Code Injection</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.7.11.1 Testing for File Inclusion" data-hints="lfi rfi">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.1-Testing_for_File_Inclusion" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.1-Testing_for_File_Inclusion" title="4.7.11.1 Testing for File Inclusion">4.7.11.1 Testing for File Inclusion</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.7.12 Testing for Command Injection" data-hints="rce cmdi os command wstg-inpv-12 inpv-12">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/12-Testing_for_Command_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/12-Testing_for_Command_Injection" title="4.7.12 Testing for Command Injection">4.7.12 Testing for Command Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.13 Testing for Format String Injection" data-hints="format string bug wstg-inpv-13 inpv-13">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/13-Testing_for_Format_String_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/13-Testing_for_Format_String_Injection" title="4.7.13 Testing for Format String Injection">4.7.13 Testing for Format String Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.14 Testing for Incubated Vulnerability" data-hints="wstg-inpv-14 inpv-14">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/14-Testing_for_Incubated_Vulnerability" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/14-Testing_for_Incubated_Vulnerability" title="4.7.14 Testing for Incubated Vulnerability">4.7.14 Testing for Incubated Vulnerability</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.15 Testing for HTTP Response Splitting" data-hints="crlf response splitting wstg-inpv-15 inpv-15">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/15-Testing_for_HTTP_Response_Splitting" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/15-Testing_for_HTTP_Response_Splitting" title="4.7.15 Testing for HTTP Response Splitting">4.7.15 Testing for HTTP Response Splitting</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.16 Testing for HTTP Request Smuggling" data-hints="http smuggling wstg-inpv-16 inpv-16">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/16-Testing_for_HTTP_Request_Smuggling" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/16-Testing_for_HTTP_Request_Smuggling" title="4.7.16 Testing for HTTP Request Smuggling">4.7.16 Testing for HTTP Request Smuggling</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.17 Testing for Host Header Injection" data-hints="host header injection headers wstg-inpv-17 inpv-17">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/17-Testing_for_Host_Header_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/17-Testing_for_Host_Header_Injection" title="4.7.17 Testing for Host Header Injection">4.7.17 Testing for Host Header Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.18 Testing for Server-side Template Injection" data-hints="ssti wstg-inpv-18 inpv-18">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/18-Testing_for_Server-side_Template_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/18-Testing_for_Server-side_Template_Injection" title="4.7.18 Testing for Server-side Template Injection">4.7.18 Testing for Server-side Template Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.19 Testing for Server-Side Request Forgery" data-hints="ssrf wstg-inpv-19 inpv-19">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/19-Testing_for_Server-Side_Request_Forgery" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/19-Testing_for_Server-Side_Request_Forgery" title="4.7.19 Testing for Server-Side Request Forgery">4.7.19 Testing for Server-Side Request Forgery</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.20 Testing for Mass Assignment" data-hints="mass assign wstg-inpv-20 inpv-20">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/20-Testing_for_Mass_Assignment" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/20-Testing_for_Mass_Assignment" title="4.7.20 Testing for Mass Assignment">4.7.20 Testing for Mass Assignment</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.21 Testing for CSV Injection" data-hints="formula injection wstg-inpv-21 inpv-21">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/21-Testing_for_CSV_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/21-Testing_for_CSV_Injection" title="4.7.21 Testing for CSV Injection">4.7.21 Testing for CSV Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.22 Testing for Prototype Pollution" data-hints="pp wstg-inpv-22 inpv-22">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/22-Testing_for_Prototype_Pollution" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/22-Testing_for_Prototype_Pollution" title="4.7.22 Testing for Prototype Pollution">4.7.22 Testing for Prototype Pollution</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.23 Testing for Insecure Deserialization" data-hints="wstg-inpv-23 inpv-23">
+<a href="/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/23-Testing_for_Insecure_Deserialization" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/23-Testing_for_Insecure_Deserialization" title="4.7.23 Testing for Insecure Deserialization">4.7.23 Testing for Insecure Deserialization</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.8 Testing for Error Handling">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/" data-nav-url="4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/" title="4.8 Testing for Error Handling">4.8 Testing for Error Handling</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.8.1 Testing for Improper Error Handling" data-hints="wstg-errh-01 errh-01">
+<a href="/latest/4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/01-Testing_For_Improper_Error_Handling" data-nav-url="4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/01-Testing_For_Improper_Error_Handling" title="4.8.1 Testing for Improper Error Handling">4.8.1 Testing for Improper Error Handling</a>
+</li>
+<li class="wstg-nav-item" data-title="4.8.2 Testing for Stack Traces" data-hints="wstg-errh-02 errh-02 wstg-errh-01 errh-01">
+<a href="/latest/4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/02-Testing_for_Stack_Traces" data-nav-url="4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/02-Testing_for_Stack_Traces" title="4.8.2 Testing for Stack Traces">4.8.2 Testing for Stack Traces</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.9 Testing for Weak Cryptography">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/" data-nav-url="4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/" title="4.9 Testing for Weak Cryptography">4.9 Testing for Weak Cryptography</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.9.1 Testing for Weak Transport Layer Security" data-hints="tls ssl https wstg-cryp-01 cryp-01">
+<a href="/latest/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_Transport_Layer_Security" data-nav-url="4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_Transport_Layer_Security" title="4.9.1 Testing for Weak Transport Layer Security">4.9.1 Testing for Weak Transport Layer Security</a>
+</li>
+<li class="wstg-nav-item" data-title="4.9.2 Testing for Padding Oracle" data-hints="padding oracle attack wstg-cryp-02 cryp-02">
+<a href="/latest/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/02-Testing_for_Padding_Oracle" data-nav-url="4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/02-Testing_for_Padding_Oracle" title="4.9.2 Testing for Padding Oracle">4.9.2 Testing for Padding Oracle</a>
+</li>
+<li class="wstg-nav-item" data-title="4.9.3 Testing for Sensitive Information Sent via Unencrypted Channels" data-hints="tls ssl https cleartext wstg-cryp-03 cryp-03">
+<a href="/latest/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/03-Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels" data-nav-url="4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/03-Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels" title="4.9.3 Testing for Sensitive Information Sent via Unencrypted Channels">4.9.3 Testing for Sensitive Information Sent via Unencrypted Channels</a>
+</li>
+<li class="wstg-nav-item" data-title="4.9.4 Testing for Weak Cryptographic Primitives" data-hints="wstg-cryp-04 cryp-04">
+<a href="/latest/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/04-Testing_for_Weak_Cryptographic_Primitives" data-nav-url="4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/04-Testing_for_Weak_Cryptographic_Primitives" title="4.9.4 Testing for Weak Cryptographic Primitives">4.9.4 Testing for Weak Cryptographic Primitives</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.10 Business Logic Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/10-Business_Logic_Testing/" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/" title="4.10 Business Logic Testing">4.10 Business Logic Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.10.0 Introduction to Business Logic">
+<a href="/latest/4-Web_Application_Security_Testing/10-Business_Logic_Testing/00-Introduction_to_Business_Logic" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/00-Introduction_to_Business_Logic" title="4.10.0 Introduction to Business Logic">4.10.0 Introduction to Business Logic</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.1 Test Business Logic Data Validation" data-hints="wstg-busl-01 busl-01">
+<a href="/latest/4-Web_Application_Security_Testing/10-Business_Logic_Testing/01-Test_Business_Logic_Data_Validation" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/01-Test_Business_Logic_Data_Validation" title="4.10.1 Test Business Logic Data Validation">4.10.1 Test Business Logic Data Validation</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.2 Test Ability to Forge Requests" data-hints="wstg-busl-02 busl-02">
+<a href="/latest/4-Web_Application_Security_Testing/10-Business_Logic_Testing/02-Test_Ability_to_Forge_Requests" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/02-Test_Ability_to_Forge_Requests" title="4.10.2 Test Ability to Forge Requests">4.10.2 Test Ability to Forge Requests</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.3 Test Integrity Checks" data-hints="wstg-busl-03 busl-03">
+<a href="/latest/4-Web_Application_Security_Testing/10-Business_Logic_Testing/03-Test_Integrity_Checks" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/03-Test_Integrity_Checks" title="4.10.3 Test Integrity Checks">4.10.3 Test Integrity Checks</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.4 Test for Process Timing" data-hints="race condition toctou wstg-busl-04 busl-04">
+<a href="/latest/4-Web_Application_Security_Testing/10-Business_Logic_Testing/04-Test_for_Process_Timing" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/04-Test_for_Process_Timing" title="4.10.4 Test for Process Timing">4.10.4 Test for Process Timing</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.5 Test Number of Times a Function Can Be Used Limits" data-hints="rate limit bruteforce brute force wstg-busl-05 busl-05">
+<a href="/latest/4-Web_Application_Security_Testing/10-Business_Logic_Testing/05-Test_Number_of_Times_a_Function_Can_Be_Used_Limits" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/05-Test_Number_of_Times_a_Function_Can_Be_Used_Limits" title="4.10.5 Test Number of Times a Function Can Be Used Limits">4.10.5 Test Number of Times a Function Can Be Used Limits</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.6 Testing for the Circumvention of Work Flows" data-hints="wstg-busl-06 busl-06">
+<a href="/latest/4-Web_Application_Security_Testing/10-Business_Logic_Testing/06-Testing_for_the_Circumvention_of_Work_Flows" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/06-Testing_for_the_Circumvention_of_Work_Flows" title="4.10.6 Testing for the Circumvention of Work Flows">4.10.6 Testing for the Circumvention of Work Flows</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.7 Test Defenses Against Application Misuse" data-hints="wstg-busl-07 busl-07">
+<a href="/latest/4-Web_Application_Security_Testing/10-Business_Logic_Testing/07-Test_Defenses_Against_Application_Misuse" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/07-Test_Defenses_Against_Application_Misuse" title="4.10.7 Test Defenses Against Application Misuse">4.10.7 Test Defenses Against Application Misuse</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.8 Test Upload of Unexpected File Types" data-hints="wstg-busl-08 busl-08">
+<a href="/latest/4-Web_Application_Security_Testing/10-Business_Logic_Testing/08-Test_Upload_of_Unexpected_File_Types" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/08-Test_Upload_of_Unexpected_File_Types" title="4.10.8 Test Upload of Unexpected File Types">4.10.8 Test Upload of Unexpected File Types</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.9 Test Upload of Malicious Files" data-hints="wstg-busl-09 busl-09">
+<a href="/latest/4-Web_Application_Security_Testing/10-Business_Logic_Testing/09-Test_Upload_of_Malicious_Files" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/09-Test_Upload_of_Malicious_Files" title="4.10.9 Test Upload of Malicious Files">4.10.9 Test Upload of Malicious Files</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.10 Test Payment Functionality" data-hints="wstg-busl-10 busl-10">
+<a href="/latest/4-Web_Application_Security_Testing/10-Business_Logic_Testing/10-Test-Payment-Functionality" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/10-Test-Payment-Functionality" title="4.10.10 Test Payment Functionality">4.10.10 Test Payment Functionality</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.11 Client-side Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/" title="4.11 Client-side Testing">4.11 Client-side Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.11.1 Testing for DOM-Based Cross Site Scripting" data-hints="xss dom xss domxss wstg-clnt-01 clnt-01">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/01-Testing_for_DOM-based_Cross_Site_Scripting" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/01-Testing_for_DOM-based_Cross_Site_Scripting" title="4.11.1 Testing for DOM-Based Cross Site Scripting">4.11.1 Testing for DOM-Based Cross Site Scripting</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.11.1.1 Testing for Self DOM Based Cross-Site Scripting" data-hints="xss dom xss domxss">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/01.1-Testing_for_Self_DOM_Based_Cross_Site_Scripting" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/01.1-Testing_for_Self_DOM_Based_Cross_Site_Scripting" title="4.11.1.1 Testing for Self DOM Based Cross-Site Scripting">4.11.1.1 Testing for Self DOM Based Cross-Site Scripting</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.11.2 Testing for JavaScript Execution" data-hints="wstg-clnt-02 clnt-02">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/02-Testing_for_JavaScript_Execution" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/02-Testing_for_JavaScript_Execution" title="4.11.2 Testing for JavaScript Execution">4.11.2 Testing for JavaScript Execution</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.3 Testing for HTML Injection" data-hints="wstg-clnt-03 clnt-03">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/03-Testing_for_HTML_Injection" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/03-Testing_for_HTML_Injection" title="4.11.3 Testing for HTML Injection">4.11.3 Testing for HTML Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.4 Testing for Client-side URL Redirect" data-hints="open redirect wstg-clnt-04 clnt-04">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/04-Testing_for_Client-side_URL_Redirect" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/04-Testing_for_Client-side_URL_Redirect" title="4.11.4 Testing for Client-side URL Redirect">4.11.4 Testing for Client-side URL Redirect</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.5 Testing for CSS Injection" data-hints="wstg-clnt-05 clnt-05">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/05-Testing_for_CSS_Injection" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/05-Testing_for_CSS_Injection" title="4.11.5 Testing for CSS Injection">4.11.5 Testing for CSS Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.6 Testing for Client-side Resource Manipulation" data-hints="wstg-clnt-06 clnt-06">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/06-Testing_for_Client-side_Resource_Manipulation" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/06-Testing_for_Client-side_Resource_Manipulation" title="4.11.6 Testing for Client-side Resource Manipulation">4.11.6 Testing for Client-side Resource Manipulation</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.7 Testing Cross Origin Resource Sharing" data-hints="cors headers wstg-clnt-07 clnt-07">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/07-Testing_Cross_Origin_Resource_Sharing" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/07-Testing_Cross_Origin_Resource_Sharing" title="4.11.7 Testing Cross Origin Resource Sharing">4.11.7 Testing Cross Origin Resource Sharing</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.8 Testing for Cross Site Flashing" data-hints="wstg-clnt-08 clnt-08">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/08-Testing_for_Cross_Site_Flashing" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/08-Testing_for_Cross_Site_Flashing" title="4.11.8 Testing for Cross Site Flashing">4.11.8 Testing for Cross Site Flashing</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.9 Testing for Clickjacking" data-hints="ui redress ui redressing x-frame-options framing wstg-clnt-09 clnt-09">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/09-Testing_for_Clickjacking" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/09-Testing_for_Clickjacking" title="4.11.9 Testing for Clickjacking">4.11.9 Testing for Clickjacking</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.10 Testing WebSockets" data-hints="ws wstg-clnt-10 clnt-10">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/10-Testing_WebSockets" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/10-Testing_WebSockets" title="4.11.10 Testing WebSockets">4.11.10 Testing WebSockets</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.11 Testing Web Messaging" data-hints="postmessage post message wstg-clnt-11 clnt-11">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/11-Testing_Web_Messaging" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/11-Testing_Web_Messaging" title="4.11.11 Testing Web Messaging">4.11.11 Testing Web Messaging</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.12 Testing Browser Storage" data-hints="localstorage sessionstorage wstg-clnt-12 clnt-12">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/12-Testing_Browser_Storage" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/12-Testing_Browser_Storage" title="4.11.12 Testing Browser Storage">4.11.12 Testing Browser Storage</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.13 Testing for Cross Site Script Inclusion" data-hints="xssi wstg-clnt-13 clnt-13">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/13-Testing_for_Cross_Site_Script_Inclusion" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/13-Testing_for_Cross_Site_Script_Inclusion" title="4.11.13 Testing for Cross Site Script Inclusion">4.11.13 Testing for Cross Site Script Inclusion</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.14 Testing for Reverse Tabnabbing" data-hints="tabnabbing window.opener wstg-clnt-14 clnt-14">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/14-Testing_for_Reverse_Tabnabbing" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/14-Testing_for_Reverse_Tabnabbing" title="4.11.14 Testing for Reverse Tabnabbing">4.11.14 Testing for Reverse Tabnabbing</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.15 Testing for Client-side Template Injection" data-hints="csti wstg-clnt-15 clnt-15">
+<a href="/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/15-Testing_for_Client-Side_Template_Injection" data-nav-url="4-Web_Application_Security_Testing/11-Client-side_Testing/15-Testing_for_Client-Side_Template_Injection" title="4.11.15 Testing for Client-side Template Injection">4.11.15 Testing for Client-side Template Injection</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.12 API Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/4-Web_Application_Security_Testing/12-API_Testing/" data-nav-url="4-Web_Application_Security_Testing/12-API_Testing/" title="4.12 API Testing">4.12 API Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.12.0 API Testing Overview">
+<a href="/latest/4-Web_Application_Security_Testing/12-API_Testing/00-API_Testing_Overview" data-nav-url="4-Web_Application_Security_Testing/12-API_Testing/00-API_Testing_Overview" title="4.12.0 API Testing Overview">4.12.0 API Testing Overview</a>
+</li>
+<li class="wstg-nav-item" data-title="4.12.1 API Reconnaissance" data-hints="wstg-apit-01 apit-01">
+<a href="/latest/4-Web_Application_Security_Testing/12-API_Testing/01-API_Reconnaissance" data-nav-url="4-Web_Application_Security_Testing/12-API_Testing/01-API_Reconnaissance" title="4.12.1 API Reconnaissance">4.12.1 API Reconnaissance</a>
+</li>
+<li class="wstg-nav-item" data-title="4.12.2 API Broken Object Level Authorization" data-hints="bola idor wstg-apit-02 apit-02">
+<a href="/latest/4-Web_Application_Security_Testing/12-API_Testing/02-API_Broken_Object_Level_Authorization" data-nav-url="4-Web_Application_Security_Testing/12-API_Testing/02-API_Broken_Object_Level_Authorization" title="4.12.2 API Broken Object Level Authorization">4.12.2 API Broken Object Level Authorization</a>
+</li>
+<li class="wstg-nav-item" data-title="4.12.3 Testing for Excessive Data Exposure" data-hints="wstg-apit-03 apit-03">
+<a href="/latest/4-Web_Application_Security_Testing/12-API_Testing/03-Testing_for_Excessive_Data_Exposure" data-nav-url="4-Web_Application_Security_Testing/12-API_Testing/03-Testing_for_Excessive_Data_Exposure" title="4.12.3 Testing for Excessive Data Exposure">4.12.3 Testing for Excessive Data Exposure</a>
+</li>
+<li class="wstg-nav-item" data-title="4.12.4 API Broken Function Level Authorization" data-hints="bfla wstg-apit-04 apit-04">
+<a href="/latest/4-Web_Application_Security_Testing/12-API_Testing/04-API_Broken_Function_Level_Authorization" data-nav-url="4-Web_Application_Security_Testing/12-API_Testing/04-API_Broken_Function_Level_Authorization" title="4.12.4 API Broken Function Level Authorization">4.12.4 API Broken Function Level Authorization</a>
+</li>
+<li class="wstg-nav-item" data-title="4.12.99 Testing GraphQL" data-hints="gql wstg-apit-99 apit-99">
+<a href="/latest/4-Web_Application_Security_Testing/12-API_Testing/99-Testing_GraphQL" data-nav-url="4-Web_Application_Security_Testing/12-API_Testing/99-Testing_GraphQL" title="4.12.99 Testing GraphQL">4.12.99 Testing GraphQL</a>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="5. Reporting">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/5-Reporting/" data-nav-url="5-Reporting/" title="5. Reporting">5. Reporting</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="5.1 Reporting Structure">
+<a href="/latest/5-Reporting/01-Reporting_Structure" data-nav-url="5-Reporting/01-Reporting_Structure" title="5.1 Reporting Structure">5.1 Reporting Structure</a>
+</li>
+<li class="wstg-nav-item" data-title="5.2 Naming Schemes">
+<a href="/latest/5-Reporting/02-Naming_Schemes" data-nav-url="5-Reporting/02-Naming_Schemes" title="5.2 Naming Schemes">5.2 Naming Schemes</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="Appendix A. History">
+<a href="/latest/6-Appendix/A-History" data-nav-url="6-Appendix/A-History" title="Appendix A. History">Appendix A. History</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix B. Testing Tools Resource">
+<a href="/latest/6-Appendix/B-Testing_Tools_Resource" data-nav-url="6-Appendix/B-Testing_Tools_Resource" title="Appendix B. Testing Tools Resource">Appendix B. Testing Tools Resource</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix C. Suggested Reading">
+<a href="/latest/6-Appendix/C-Suggested_Reading" data-nav-url="6-Appendix/C-Suggested_Reading" title="Appendix C. Suggested Reading">Appendix C. Suggested Reading</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix D. Fuzzing">
+<a href="/latest/6-Appendix/D-Fuzzing" data-nav-url="6-Appendix/D-Fuzzing" title="Appendix D. Fuzzing">Appendix D. Fuzzing</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix E. Encoded Injection">
+<a href="/latest/6-Appendix/E-Encoded_Injection" data-nav-url="6-Appendix/E-Encoded_Injection" title="Appendix E. Encoded Injection">Appendix E. Encoded Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix F. Leveraging Dev Tools">
+<a href="/latest/6-Appendix/F-Leveraging_Dev_Tools" data-nav-url="6-Appendix/F-Leveraging_Dev_Tools" title="Appendix F. Leveraging Dev Tools">Appendix F. Leveraging Dev Tools</a>
+</li>
+
+  </ul>
+</nav>
+<script src="/assets/js/wstg-nav.js" defer></script>
+<script src="/assets/js/anchor-links.js" defer></script>
+
+      </aside>
+      <article class="doc-content">
+        <h1 id="testing-multi-factor-authentication-mfa">Testing Multi-Factor Authentication (MFA)</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>WSTG-ATHN-11</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="summary">Summary</h2>
+
+<p>Many applications implement Multi-Factor Authentication (MFA) as an additional layer of security to protect the login process. This is also known as two-factor authentication (2FA) or two-step verification (2SV) - although these are not strictly the same thing. MFA means asking the user to provide <em>at least</em> two different <a href="#types-of-mfa">authentication factors</a> when logging in.</p>
+
+<p>MFA adds additional complexity to both the authentication functionality, and also to other security-related areas (such as credential management and password recovery), meaning that it is critical for it to be implemented in a correct and robust manner.</p>
+
+<h2 id="test-objectives">Test Objectives</h2>
+
+<ul>
+  <li>Identify the type of MFA used by the application.</li>
+  <li>Determine whether the MFA implementation is robust and secure.</li>
+  <li>Attempt to bypass the MFA.</li>
+</ul>
+
+<h2 id="how-to-test">How to Test</h2>
+
+<h3 id="types-of-mfa">Types of MFA</h3>
+
+<p>MFA means that <em>at least</em> two of the following factors are required to authentication:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Factor</th>
+      <th>Examples</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Something You Know</td>
+      <td>Passwords, PINs and security questions.</td>
+    </tr>
+    <tr>
+      <td>Something You Have</td>
+      <td>Hardware or software tokens, certificates, email*, SMS, and phone calls.</td>
+    </tr>
+    <tr>
+      <td>Something You Are</td>
+      <td>Fingerprints, facial recognition, iris scans, handprint scans and behavioural factors.</td>
+    </tr>
+    <tr>
+      <td>Location</td>
+      <td>Source IP ranges, and geolocation.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>* Email only really constitutes “something you have” if the email account itself is protected with MFA. As such, it should be considered weaker than other alternatives such as certificates or TOTP, and may not be accepted as MFA under some definitions.</p>
+
+<p>It’s worth noting that requiring multiple examples of a single factor (such as needing both a password and a PIN) <strong>does not constitute MFA</strong>, although it may provide some security benefits over a simple password, and may be considered two-step verification (2SV).</p>
+
+<p>Due to the complexity of implementing biometrics in a browser-based environment, “Something You Are” is rarely used for web applications, although it is starting to be adopted using standards such as WebAuthn. The most common second factor is “Something You Have”.</p>
+
+<h3 id="check-for-mfa-bypasses">Check for MFA Bypasses</h3>
+
+<p>The first step for testing MFA is to identify all of the authentication functionality in the application, which may include:</p>
+
+<ul>
+  <li>The main login page.</li>
+  <li>Security critical functionality (such as disabling MFA or changing a password).</li>
+  <li>Federated login providers.</li>
+  <li>API endpoints (from both the main web interface and mobile apps).</li>
+  <li>Alternative (non-HTTP) protocols.</li>
+  <li>Test or debug functionality.</li>
+</ul>
+
+<p>All of the different login methods should be reviewed, to ensure that MFA is enforced consistently. If some methods do not require MFA, then these can provide a simple method to bypass them.</p>
+
+<p>If the authentication is done in multiple steps then it may be possible to bypass it by completing the first step of the authentication process (entering the username and password), and then force-browsing to the application or making direct API requests without completing the second stage (entering the MFA code).</p>
+
+<p>If the authentication is using a OpenID Connect (OIDC) provider that allows custom authentication flows (or policies) such as Azure B2C, there may be multiple flows defined, some of which may not require MFA. For example if the application authenticates with a flow called <code class="language-plaintext highlighter-rouge">B2C_1_SignInWithMFA</code>, then try tampering that to <code class="language-plaintext highlighter-rouge">B2C_1_SignIn</code>, <code class="language-plaintext highlighter-rouge">B2C_1_SignInWithoutMFA</code> or other similar values.</p>
+
+<p>In some cases, there may also be intentional MFA bypasses implemented, such as not requiring MFA:</p>
+
+<ul>
+  <li>From specific IP addresses (which may be spoofable using the <code class="language-plaintext highlighter-rouge">X-Forwarded-For</code> HTTP header).</li>
+  <li>When a specific HTTP header is set (such as a non-standard header like <code class="language-plaintext highlighter-rouge">X-Debug</code>).</li>
+  <li>For a specific hard-coded account (such as a “root” or “breakglass” account).</li>
+</ul>
+
+<p>Where an application supports both local and federated logins, it may be possible to bypass the MFA if there is no strong separation between these two types of accounts. For example, if a user registers a local account and configures MFA for it, but does not have MFA configured on their account on the federated login provider, it may be possible for an attacker to re-register (or link) a federated account on the target application with the same email address by compromising the user’s account on the federated login provider.</p>
+
+<p>Finally, if the MFA is implemented on a different system to the main application (such as on a reverse proxy, in order to protect a legacy application that does not natively support MFA), then it may be possible to bypass it by connecting directly to the backend application server, as discussed in the guide on how to <a href="../../01-Information_Gathering/10-Map_Application_Architecture/#content-delivery-network-cdn">map the application architecture</a>.</p>
+
+<h3 id="check-mfa-management">Check MFA Management</h3>
+
+<p>The functionality used to manage MFA from inside the user’s account should be tested for vulnerabilities, including:</p>
+
+<ul>
+  <li>Is the user required to re-authenticate to remove or change MFA settings?</li>
+  <li>Is the MFA management functionality vulnerable to <a href="../../06-Session_Management_Testing/05-Testing_for_Cross_Site_Request_Forgery/">cross-site request forgery</a>?</li>
+  <li>Can other users’ MFA setting be modified through <a href="../../05-Authorization_Testing/04-Testing_for_Insecure_Direct_Object_References/">IDOR vulnerabilities</a>?</li>
+</ul>
+
+<h3 id="check-mfa-recovery-options">Check MFA Recovery Options</h3>
+
+<p>Many applications will provide users with a way to regain access to their account if they are unable to authenticate with their second factor (for example if they have lost their phone). These mechanisms can often represent a significant weakness in the application, as they effectively allow the second authentication factor to be bypassed.</p>
+
+<h4 id="recovery-codes">Recovery Codes</h4>
+
+<p>Some applications will provide the user with a list of recovery or backup codes when they enable MFA, which can be used to login. These should be checked to ensure:</p>
+
+<ul>
+  <li>They are sufficiently long and complex to protect against brute-force attacks.</li>
+  <li>They are securely generated.</li>
+  <li>They can only be used once.</li>
+  <li>Brute-force protection is in place (such as account lockout).</li>
+  <li>The user is notified (via email, SMS, etc) when a code is used.</li>
+</ul>
+
+<p>See the <a href="https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html#backup-codes">“Backup Codes” section in the Forgotten Password Cheat Sheet</a> for further details.</p>
+
+<h4 id="mfa-reset-process">MFA Reset Process</h4>
+
+<p>If the application implements an MFA reset process, this should be tested in the same way that the <a href="../09-Testing_for_Weak_Password_Change_or_Reset_Functionalities/">password reset process</a> is tested. It is important that this process is <em>at least</em> as strong as the MFA implementation for the application.</p>
+
+<h4 id="alternative-authentication">Alternative Authentication</h4>
+
+<p>Some applications will allow the user to prove their identity through other means, such as the use of <a href="../08-Testing_for_Weak_Security_Question_Answer/">security questions</a>. This usually represents a significant weakness, as security questions provide a far lower level of security than MFA.</p>
+
+<h3 id="one-time-passwords">One-Time Passwords</h3>
+
+<p>The most common form of MFA is the one of One-Time Passwords (OTPs), which are typically six-digit numeric codes (although they can be longer or shorter). These can either be generated by both the server and the user (for example, with an authenticator app), or can be generated on the server and sent to the user. There are various ways that this OTP can be provided to the user, including:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>HMAC One-Time Password (HOTP)</td>
+      <td>Generates a code based on the HMAC of a secret and a shared counter.</td>
+    </tr>
+    <tr>
+      <td>Time-based One-Time Password (TOTP)</td>
+      <td>Generates a code based on HMAC of a secret and the current time.</td>
+    </tr>
+    <tr>
+      <td>Email</td>
+      <td>Sends a code via email.</td>
+    </tr>
+    <tr>
+      <td>SMS</td>
+      <td>Sends a code via SMS.</td>
+    </tr>
+    <tr>
+      <td>Phone</td>
+      <td>Sends a code via a voice call to a phone number.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The OTP is typically entered after the user has provided their username and password. There are various checks that should be performed, including:</p>
+
+<ul>
+  <li>Is the account locked out after multiple failed MFA attempts?</li>
+  <li>Is the user’s IP address blocked after multiple failed MFA attempts across different accounts?</li>
+  <li>Are failed MFA attempts logged?</li>
+  <li>Is the form vulnerable to injection attacks, including <a href="../../07-Input_Validation_Testing/05-Testing_for_SQL_Injection/#sql-wildcard-injection">SQL wildcard injection</a>?</li>
+</ul>
+
+<p>Depending on the type of OTPs used, there are also some other specific checks that should be performed:</p>
+
+<ul>
+  <li>How are OTPs sent to user (email, SMS, phone, etc)
+    <ul>
+      <li>Is there rate limiting to prevent SMS/phone spam costing money?</li>
+    </ul>
+  </li>
+  <li>How strong are OTPs (length and keyspace)?</li>
+  <li>How long are OTPs valid for?</li>
+  <li>Are multiple OTPs valid at once?</li>
+  <li>Can the OTPs be used more than once?</li>
+  <li>Are the OTPs tied to the correct user account or is it possible to authenticate with them on other accounts?</li>
+</ul>
+
+<h4 id="hotp-and-totp">HOTP and TOTP</h4>
+
+<p>HOTP and TOTP codes are both based on a secret that is shared between the server and the user. For TOTP codes, this is usually provided to the user in the form of a QR code that they scan with an authenticator app (although it can also be provided as a text secret for them to manually enter).</p>
+
+<p>Where the secret is generated on the server, it should be checked to ensure that it is sufficiently long and complex (<a href="https://www.rfc-editor.org/rfc/rfc4226#section-4">RFC 4226</a> recommends at least 160 bits), and that it is generated using a <a href="https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html#secure-random-number-generation">secure random function</a>.</p>
+
+<p>Where the secret can be provided by the user, an appropriate minimum length should be enforced, and the input should be checked for the usual injection attacks.</p>
+
+<p>TOTP codes are typically valid for 30 seconds, but some applications choose to accept multiple codes (such as the previous, current, and next codes) in order to deal with differences between the system time on the server and on the user’s device. Some applications may allow multiple codes on either side of the current one, which may make it easier for an attacker to guess or brute-force the code. The table below shows the chance of successfully brute-forcing an OTP code based on an attacker being able to make 10 requests a second, for applications that accept either only the current code, or multiple codes (see <a href="https://www.codasecurity.co.uk/articles/mfa-testing#case-study---brute-forcing-totp">this article</a> for the calculations behind the table).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Valid Codes</th>
+      <th>Success rate after 1 hour</th>
+      <th>Success rate after 4 hours</th>
+      <th>Success rate after 12 hours</th>
+      <th>Success rate after 24 hours</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>4%</td>
+      <td>13%</td>
+      <td>35%</td>
+      <td>58%</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>10%</td>
+      <td>35%</td>
+      <td>72%</td>
+      <td>92%</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>16%</td>
+      <td>51%</td>
+      <td>88%</td>
+      <td>99%</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>22%</td>
+      <td>63%</td>
+      <td>95%</td>
+      <td>99%</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="email-sms-and-phone">Email, SMS, and Phone</h4>
+
+<p>Where codes are generated by the server and sent to the client, the following areas should be considered:</p>
+
+<ul>
+  <li>Is the transport mechanism (email, SMS, or voice) secure enough for the application?</li>
+  <li>Are the codes sufficiently long and complex?</li>
+  <li>Are the codes generated using a <a href="https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html#secure-random-number-generation">secure random function</a>?</li>
+  <li>How long are the codes valid for?</li>
+  <li>Are multiple codes valid at once, or does generating a new code invalidate the previous one?
+    <ul>
+      <li>Could this be used to block access to an account by repeatedly requesting codes?</li>
+    </ul>
+  </li>
+  <li>Is there sufficient rate-limiting to prevent an attacker requesting large numbers of codes?
+    <ul>
+      <li>Large numbers of emailed code may get the server blocked for sending spam.</li>
+      <li>Large numbers of SMS or voice calls may cost money, or be used to harass a user.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="mobile-apps-and-push-notifications">Mobile Apps and Push Notifications</h3>
+
+<p>An alternative approach to OTP codes is to send a push notification to the user’s mobile phone, which they can either approve or deny. This method is less common, as it requires the user to install an application-specific authenticator.</p>
+
+<p>Properly evaluating the security of this requires the scope of testing to be expanded to cover both the mobile app, and any supporting APIs or services used by it; meaning that it would often be outside of the scope of a traditional web application test. However, there are a couple of simple checks that can be performed without testing the mobile app, including:</p>
+
+<ul>
+  <li>Does the notification provide sufficient context (IP addresses, location, etc) for the user to make an informed decision about whether to approve or deny it?</li>
+  <li>Is there any kind of challenge and response mechanism (such as providing a code on the site that the user needs to enter into the app - often called “number matching” or “number challenge”)?</li>
+  <li>Is there any rate limiting or mechanisms to prevent the user from being spammed with notifications in the hope that they will just blindly accept one?</li>
+</ul>
+
+<h3 id="ip-address-and-location-filtering">IP Address and Location Filtering</h3>
+
+<p>One of the factors that is sometimes used with MFA is location (“somewhere you are”), although whether this constitutes a proper authentication factor is debatable. In the context of a web application, this typically means restricting access to specific IP addresses, or not prompting the user for a second factor as long as they are connecting from a specific trusted IP address. A common scenario for this would be to authenticate users with just their password when connecting from the office IP ranges, but requiring an OTP code when they connect from elsewhere.</p>
+
+<p>Depending on the implementation, it may be possible for a user to spoof a trusted IP address by setting the <code class="language-plaintext highlighter-rouge">X-Forwarded-For</code> header, which could allow them to bypass this check. Also consider  that if the application does not correctly sanitize the contents of this header, it may also be possible to carry out attack such as SQL injection here. If the application supports IPv6, then this should also be checked to ensure that appropriate restrictions are applied to those connections.</p>
+
+<p>Additionally, the trusted IP addresses should be reviewed to ensure that they do not present any weaknesses, such as if they include:</p>
+
+<ul>
+  <li>IP addresses that could be accessible by untrusted users (such as the guest wireless networks in an office).</li>
+  <li>Dynamically assigned IP address that could change.</li>
+  <li>Public network ranges where an attacker could host their own system (such as Azure or AWS).</li>
+</ul>
+
+<h3 id="certificates-and-smartcards">Certificates and Smartcards</h3>
+
+<p>Transport Layer Security (TLS) is commonly used to encrypt traffic between the client and the server, and to provide a mechanism for the client to confirm the identity of the server (by comparing Common Name (CN) or Subject Alternative Name (SAN) on the certificate to the requested domain). However, it can also provide a mechanism for the server to confirm the identity of the client, known as client certificate authentication or mutual TLS (mTLS). A full discussion of client certificate authentication is outside of the scope of this guide, but the key principle is that the user presents a digital certificate (stored either on their machine or on a smartcard), which is validated by the server.</p>
+
+<p>The first step when testing is to determine whether the target application restricts the Certificate Authorities (CAs) that are trusted to issue certificates. This information can be obtained using various tools, or by manually examining the TLS handshake. The simplest way is to use OpenSSL’s <code class="language-plaintext highlighter-rouge">s_client</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>openssl s_client <span class="nt">-connect</span> example:443
+<span class="o">[</span>...]
+Acceptable client certificate CA names
+C <span class="o">=</span> US, ST <span class="o">=</span> Example, L <span class="o">=</span> Example, O <span class="o">=</span> Example Org, CN <span class="o">=</span> Example Org Root Certificate Authority
+Client Certificate Types: RSA sign, DSA sign, ECDSA sign
+</code></pre></div></div>
+
+<p>If there are no restrictions, then it may be possible to authenticate using a certificate from a different CA. If there are restrictions but they are badly implemented, it may be possible to create a local CA with the correct name (“Example Org Root Certificate Authority” in the example above), and to use this new CA to sign client certificates.</p>
+
+<p>If a valid certificate can be obtained, then it should also be verified that the certificate can only be used for the user that it is issued for (i.e, that you can’t use a certificate issued to Alice to authenticate on Bob’s account). Additionally, certificates should be checked to ensure that they have neither expired nor been revoked.</p>
+
+<h2 id="related-test-cases">Related Test Cases</h2>
+
+<ul>
+  <li><a href="../03-Testing_for_Weak_Lock_Out_Mechanism/">Testing for Weak Lock Out Mechanism</a></li>
+  <li><a href="../09-Testing_for_Weak_Password_Change_or_Reset_Functionalities/">Testing for Weak Password Change or Reset Functionalities</a></li>
+</ul>
+
+<h2 id="remediation">Remediation</h2>
+
+<p>Ensure that:</p>
+
+<ul>
+  <li>MFA is implemented for all relevant accounts and functionality on the applications.</li>
+  <li>The support MFA methods are appropriate for the application.</li>
+  <li>The mechanisms used to implement MFA are appropriately secured and protected against brute-force attacks.</li>
+  <li>There is appropriate auditing and logging for all MFA-related activity.</li>
+</ul>
+
+<p>See the <a href="https://cheatsheetseries.owasp.org/cheatsheets/Multifactor_Authentication_Cheat_Sheet.html">OWASP Multi-Factor Authentication Cheat Sheet</a> for further recommendations.</p>
+
+<h2 id="references">References</h2>
+
+<ul>
+  <li><a href="https://cheatsheetseries.owasp.org/cheatsheets/Multifactor_Authentication_Cheat_Sheet.html">OWASP Multi-Factor Authentication Cheat Sheet</a></li>
+</ul>
+
+      </article>
+    </div>
+  </div>
+</main>
+<script src="/assets/js/doc-nav.js" defer></script>
+
+  <footer id="page-end" class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-standalone">
+      <a href="https://owasp.org/" class="footer-logo ext-link" rel="noopener noreferrer" aria-label="OWASP Foundation (external)">
+        <img src="/assets/images/owasp-logo-footer.svg" alt="OWASP Foundation" width="213" height="64" loading="lazy">
+      </a>
+      <p class="footer-tagline">An OWASP Foundation project. <a href="https://owasp.org/" class="ext-link" rel="noopener noreferrer">About OWASP</a></p>
+      <div class="footer-buttons">
+        <a href="https://github.com/OWASP/wstg" class="btn btn-primary btn-github btn-github--footer ext-link" rel="noopener noreferrer" target="_blank" aria-label="View on GitHub (opens in new window)">
+          <svg class="icon-github" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" width="16" height="16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 2.97-1.86 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          View on GitHub
+        </a>
+      </div>
+      <p class="footer-back-to-top"><a href="#top" class="footer-back-to-top-link">Back to top</a></p>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-legal">OWASP, the OWASP logo, and Global AppSec are registered trademarks and AppSec Days, AppSec California, AppSec Cali, SnowFROC, OWASP Boston Application Security Conference, and LASCON are trademarks of the OWASP Foundation, Inc.</p>
+      <p class="footer-copy">&copy; 2026, OWASP Foundation Inc. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<a href="#top" id="back-to-top" class="back-to-top" aria-label="Back to top" title="Back to top">
+  <svg class="back-to-top-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</a>
+
+  <script src="/assets/js/theme.js" defer></script>
+</body>
+</html>
