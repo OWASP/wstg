@@ -8,6 +8,7 @@
         { "pattern": "^https://www.kali.org" },
         { "pattern": "^https://.*\\.linkedin\\.com" },
         { "pattern": "^https://www\\.shodan\\.io" },
+        { "pattern": "^https://www\\.baidu\\.com" },
         { "pattern": "^https://developer\\.android\\.com" },
         { "pattern": "^https://github\\.com" }
     ],
