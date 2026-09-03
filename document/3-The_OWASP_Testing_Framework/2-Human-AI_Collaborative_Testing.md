@@ -16,8 +16,6 @@ In August 2026, PortSwigger Research's "HTTP Terminator" system generated 30,000
 
 **What doesn't change**: judgment, accountability, and scope. A tester must still decide what application to test, what data to probe, what results matter, and what gets reported. The WSTG's testing framework, categories, and reporting standards remain unchanged. An AI tool cannot decide whether a finding is in scope, whether it violates the rules of engagement, or whether the business accepts the risk.
 
-This guide covers testing *with* AI tools, not testing AI or LLM applications themselves.
-
 ## Where AI Assists Today
 
 Modern security tools augmented by machine learning or large language models are improving specific tasks:
@@ -47,10 +45,11 @@ AI-assisted testing introduces new risks:
 - **Over-trusting automated triage**: Severity or priority scores from an AI tool are suggestions, not facts. A critical business logic vulnerability might score lower than a cosmetic XSS in the algorithm.
 - **Prompt injection and adversarial input**: If a testing tool ingests application responses as part of its own reasoning or prompt input, an attacker could craft responses designed to mislead the tool (e.g., embedding instructions in error messages). Validate that your tools are not vulnerable to this.
 - **Tool opacity**: some AI tools are black-box (you cannot see why a finding was flagged). Prefer tools that explain their reasoning, and always validate findings by hand if you cannot understand the tool's logic.
+- **Program policies on AI-generated reports**: Bug bounty programs and vulnerability disclosure initiatives increasingly define policies on AI-generated or AI-assisted submissions. Some require explicit disclosure of AI involvement, others reject AI-written reports outright, and some ban participants who submit undisclosed AI-generated content. Always check the program's terms before submitting an AI-assisted finding.
 
 ## References
 
-- [PortSwigger: Can AI Do Novel Security Research? Meet the HTTP Terminator](https://portswigger.net/blog/can-ai-invent-new-attack-techniques-new-research-from-james-kettle-and-portswigger-research)
+- [Can AI invent new attack techniques? New research from James Kettle and PortSwigger Research](https://portswigger.net/blog/can-ai-invent-new-attack-techniques-new-research-from-james-kettle-and-portswigger-research)
 - [HackerOne 2025 Hacker-Powered Security Report](https://www.hackerone.com/)
 - [OWASP AI Testing Guide](https://owasp.org/www-project-ai-testing-guide/)
 - [OWASP AI Exchange](https://owaspai.org/)

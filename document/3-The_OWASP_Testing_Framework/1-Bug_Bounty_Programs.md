@@ -23,16 +23,17 @@ The [2025 HackerOne Hacker-Powered Security Report](https://www.hackerone.com/re
 The testing techniques described in [Section 4](../4-Web_Application_Security_Testing/README.md) of the WSTG - from information gathering to business logic testing - remain fully applicable within a bug bounty program. What changes is how and when you select them:
 
 - A penetration tester given an SOW and architecture documentation can plan a testing roadmap. A bounty researcher works reactively, discovering the application as they go, within the published scope.
-- A consultant may spend hours on deep business logic analysis. A bounty researcher may submit dozens of findings across multiple severity levels and take the highest-impact ones.
+- A consultant generally focuses deeply on a single area or target (e.g., payment flow authorization). A bounty researcher casts a wider net, discovering vulnerabilities across multiple attack surfaces and reporting the highest-impact findings.
 - Pentest methodology is structured and sequential. Bounty researchers often run automated tools in parallel and follow promising leads.
 
 ## Reporting Under a Bounty Program
 
 See the [Reporting](../5-Reporting/01-Reporting_Structure.md) section of this guide for general reporting guidance. Bug bounty submissions typically differ in format and context:
 
-- **Minimum required**: reproduction steps (how to trigger the vulnerability), impact (what an attacker could do), and remediation guidance (what the developer should fix).
+- **Minimum required**: reproduction steps (how to trigger the vulnerability, including how an attacker reaches the vulnerable endpoint or code), impact (what an attacker could do), and remediation guidance (what the developer should fix). Demonstrating reachability - not just the flaw itself - is critical; a valid vulnerability that an attacker cannot reach is often closed.
 - **Severity assessment**: many programs use CVSS scoring, while others define program-specific severity rubrics (Critical / High / Medium / Low). Clarify the rubric in your program's terms.
-- **Scope clarity**: a bounty report is only valuable if it falls clearly within the program's stated scope. A report on an out-of-scope third-party service, a staged/test environment, or a deprecated code branch will be rejected regardless of validity.
+
+- **Scope clarity**: a bounty report is only valuable if it falls clearly within the program's stated scope. A report on an out-of-scope third-party service, a staged/test environment, or a deprecated code branch will be rejected regardless of validity. Program scope can change mid-program; re-read the program's scope document reularly, not just on the day you start testing, to avoid findings being rejected retroactively.
 
 The [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/) and [Reporting](../5-Reporting/) section provide guidance on writing clear, actionable findings.
 
@@ -40,9 +41,9 @@ The [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/) and [Reporti
 
 A successful bug bounty program starts with a clear, published scope document that answers:
 
-- **In-scope targets**: which domains, applications, APIs, and infrastructure are researchers allowed to test? (e.g., "api.example.com and all subdomains; NOT example-staging.com or third-party integrations").
+- **In-scope targets**: which domains, applications, APIs, and infrastructure are researchers allowed to test? (e.g., "api.example.com and all subdomains; NOT example-staging.com or third-party integrations"). Scope changes mid-program are common, but should be clearly communicated to active researchers with guidance on how the change affects pending submissions and previously-tested assets.
 - **Authorization and legal safe harbor**: researchers acting in good faith within scope are authorized and will not face legal action (explicitly granted in the program terms).
-- **Rules of engagement**: what testing techniques are permitted? (most programs allow reconnaissance and vulnerability testing, but prohibit social engineering, DoS attacks, and destruction/data exfiltration beyond proof-of-concept).
+- **Rules of engagement**: what testing techniques are permitted? (most programs allow reconnaissance and vulnerability testing, but prohibit social engineering, DoS attacks, and destruction/data exfiltration beyond proof-of-concept). Increasingly, programs also define policies on AI-generated or AI-assisted reports. Some require disclosure, others reject AI-written submissions outright. Clarify your program's stance explicitly.
 - **Disclosure timeline**: how much time does the organization have to remediate before the researcher may disclose publicly? (typical: 30-90 days).
 - **Reward tiers**: what is the bounty payout for Critical / High / Medium / Low findings? (amount varies by organization size and risk tolerance; may also vary by finding type, e.g., authentication bypass pays more than XSS).
 
