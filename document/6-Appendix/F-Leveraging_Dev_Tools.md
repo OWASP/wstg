@@ -1,4 +1,4 @@
-# Leveraging Dev Tools
+# F. Leveraging Dev Tools {#leveraging-dev-tools}
 
 This appendix outlines various details for use of in browser Developer Tool functionality to aid in security testing activities.
 
@@ -158,8 +158,8 @@ Later click on the garbage can `Delete` button to the right of the `general.user
 
 All major browsers support manipulating CSS leveraging the Dev Tools Console and JavaScript functionality:
 
-- To remove all external style-sheets: `$('style,link[rel="stylesheet"]').remove();`
-- To remove all internal style-sheets: `$('style').remove();`
+- To remove all external style sheets: `$('style,link[rel="stylesheet"]').remove();`
+- To remove all internal style sheets: `$('style').remove();`
 - To remove all in-line styles: `Array.prototype.forEach.call(document.querySelectorAll('*'),function(el){el.removeAttribute('style');});`
 - To remove everything from head tag: `$('head').remove();`
 

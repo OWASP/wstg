@@ -41,7 +41,7 @@ When a web application does not properly enforce access control mechanisms, sens
 
 This process can be automated if you have a list of all endpoints with tools like ffuf, gobuster, ZAP, and Burp Suite Intruder.
 
-For ZAP, using a adddon for [Access Control Testing](https://www.zaproxy.org/docs/desktop/addons/access-control-testing/) allows testers to determine which parts of the application are available to anonymous users, and identify potential access control issues.
+For ZAP, using an add-on for [Access Control Testing](https://www.zaproxy.org/docs/desktop/addons/access-control-testing/) allows testers to determine which parts of the application are available to anonymous users, and identify potential access control issues.
 
 For Burp Suite, built-in tools such as Intruder, and a number of plugins, including Autorize, help the tester automate testing authorization.
 
@@ -182,7 +182,7 @@ Often admin panels or administrative related bits of functionality are only acce
         - `192.168.0.0/16`
     - Link local addresses: `169.254.0.0/16`
 
-Note: Including a port element along with the address or hostname may also help bypass edge protections such as web application firewalls, etc.
+> Note: Including a port element along with the address or hostname may also help bypass edge protections such as web application firewalls, etc.
 For example: `127.0.0.4:80`, `127.0.0.4:443`, `127.0.0.4:43982`
 
 ## Remediation

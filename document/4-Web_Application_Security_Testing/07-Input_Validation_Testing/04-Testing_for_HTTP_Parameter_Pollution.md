@@ -37,39 +37,31 @@ The flaw resided in the authentication mechanism used by the web application, as
 
 ### Expected Behavior by Application Server
 
-The following table illustrates how different web technologies behave in presence of multiple occurrences of the same HTTP parameter.
+How duplicate parameters are handled depends on the framework, server, and how the application reads the value (for example, first value, last value, or the full collection). Treat any table of defaults as a starting point only: verify the actual behavior of the target stack, including reverse proxies, web application firewalls (WAFs), and API gateways that may normalize query strings differently.
 
-Given the URL and querystring: `https://example.com/?color=red&color=blue`
+Given the URL and query string: `https://example.com/?color=red&color=blue`
 
-  | Web Application Server Backend | Parsing Result | Example |
-  |--------------------------------|----------------|--------|
-  | ASP.NET / IIS | All occurrences concatenated with a comma |  color=red,blue |
-  | ASP / IIS     | All occurrences concatenated with a comma | color=red,blue |
-  | .NET Core 3.1 / Kestrel | All occurrences concatenated with a comma | color=red,blue |
-  | .NET 5 / Kestrel | All occurrences concatenated with a comma | color=red,blue |
-  | PHP / Apache  | Last occurrence only | color=blue |
-  | PHP / Zeus | Last occurrence only | color=blue |
-  | JSP, Servlet / Apache Tomcat | First occurrence only | color=red |
-  | JSP, Servlet / Oracle Application Server 10g | First occurrence only | color=red |
-  | JSP, Servlet / Jetty  | First occurrence only | color=red |
-  | IBM Lotus Domino | Last occurrence only | color=blue |
-  | IBM HTTP Server | First occurrence only | color=red |
-  | Node.js / express | First occurrence only | color=red |
-  | mod_perl, libapreq2 / Apache | First occurrence only | color=red |
-  | Perl CGI / Apache | First occurrence only | color=red |
-  | mod_wsgi (Python) / Apache | First occurrence only | color=red |
-  | Python / Zope | All occurrences in List data type | color=['red','blue'] |
+| Typical Stack | Common Default Parsing | Example |
+|---------------|------------------------|---------|
+| ASP.NET / IIS | All occurrences concatenated with a comma | `color=red,blue` |
+| ASP.NET Core / Kestrel | All occurrences available (`StringValues`; comma-joined when stringified) | `color=red,blue` |
+| PHP (Apache / php-fpm / Nginx) | Last occurrence only | `color=blue` |
+| Java Servlet (Tomcat, Jetty, and similar) | First occurrence only | `color=red` |
+| Node.js / Express | First occurrence only | `color=red` |
+| Python (Django, Flask, and similar) | All occurrences in a list / MultiDict | `color=['red','blue']` |
 
-(Source: Appsec EU 2009 Carettoni & Paola)
+Behaviors for other servers and older platforms vary; always confirm on the system under test. Historical research on this topic includes AppSec EU 2009 (Carettoni & di Paola).
 
 ## Test Objectives
 
-- Identify the backend and the parsing method used.
+- Identify the back end and the parsing method used.
 - Assess injection points and try bypassing input filters using HPP.
 
 ## How to Test
 
-Luckily, because the assignment of HTTP parameters is typically handled via the web application server, and not the application code itself, testing the response to parameter pollution should be standard across all pages and actions. However, as in-depth business logic knowledge is necessary, testing HPP requires manual testing. Automatic tools can only partially assist auditors as they tend to generate too many false positives. In addition, HPP can manifest itself in client-side and server-side components.
+Whether an specific page or API endpoint is vulnerable to HPP will depend on the interaction between multiple components, including the application, the web server, the web application firewall and any middleware. Where these vary for different parts of an application (such as a microservice architecture), this can result in some parts of the application being vulnerable and not others.
+
+As in-depth business logic knowledge is necessary, testing HPP requires manual testing. Automatic tools can only partially assist auditors as they tend to generate too many false positives. In addition, HPP can manifest itself in client-side and server-side components.
 
 ### Server-Side HPP
 
@@ -110,7 +102,7 @@ and submit the new request.
 
 Analyze the response page to determine which value(s) were parsed. In the above example, the search results may show `kittens`, `puppies`, some combination of both (`kittens,puppies` or `kittens~puppies` or `['kittens','puppies']`), may give an empty result, or error page.
 
-This behavior, whether using the first, last, or combination of input parameters with the same name, is very likely to be consistent across the entire application. Whether or not this default behavior reveals a potential vulnerability depends on the specific input validation and filtering specific to a particular application. As a general rule: if existing input validation and other security mechanisms are sufficient on single inputs, and if the server assigns only the first or last polluted parameters, then parameter pollution does not reveal a vulnerability. If the duplicate parameters are concatenated, different web application components use different occurrences or testing generates an error, there is an increased likelihood of being able to use parameter pollution to trigger security vulnerabilities.
+Whether or not this default behavior reveals a potential vulnerability depends on the specific input validation and filtering specific to a particular application. As a general rule: if existing input validation and other security mechanisms are sufficient on single inputs, and if the server assigns only the first or last polluted parameters, then parameter pollution does not reveal a vulnerability. If the duplicate parameters are concatenated, different web application components use different occurrences or testing generates an error, there is an increased likelihood of being able to use parameter pollution to trigger security vulnerabilities.
 
 A more in-depth analysis would require three HTTP requests for each HTTP parameter:
 
@@ -127,13 +119,13 @@ Similarly to server-side HPP, manual testing is the only reliable technique to a
 
 To test for HPP client-side vulnerabilities, identify any form or action that allows user input and shows a result of that input back to the user. A search page is ideal, but a login box might not work (as it might not show an invalid username back to the user).
 
-Similarly to server-side HPP, pollute each HTTP parameter with `%26HPP_TEST` and look for *url-decoded* occurrences of the user-supplied payload:
+Similarly to server-side HPP, pollute each HTTP parameter with `%26HPP_TEST` and look for *URL-decoded* occurrences of the user-supplied payload:
 
 - `&HPP_TEST`
 - `&amp;HPP_TEST`
 - etc.
 
-In particular, pay attention to responses having HPP vectors within `data`, `src`, `href` attributes or forms actions. Again, whether or not this default behavior reveals a potential vulnerability depends on the specific input validation, filtering and application business logic. In addition, it is important to notice that this vulnerability can also affect query string parameters used in XMLHttpRequest (XHR), runtime attribute creation and other plugin technologies (e.g. Adobe Flash’s flashvars variables).
+In particular, pay attention to responses having HPP vectors within `data`, `src`, `href` attributes or form actions. Again, whether or not this default behavior reveals a potential vulnerability depends on the specific input validation, filtering, and application business logic. This can also affect query string parameters used in `XMLHttpRequest` (XHR), `fetch`, and runtime attribute creation.
 
 ## Tools
 

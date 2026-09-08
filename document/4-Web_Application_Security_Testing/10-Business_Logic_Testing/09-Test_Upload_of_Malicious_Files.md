@@ -80,7 +80,7 @@ If the filtering is performed on the server-side, then various techniques can be
 - In badly configured versions of Nginx, uploading a file as `test.jpg/x.php` may allow it to be executed as `x.php`.
 - Upload an `.htaccess` file with the following content: `AddType application/x-httpd-php .png`. This will cause the Apache server to execute `.png` images as if they were `.php` resources.
 
-**Note that in some situations, you may need to combine the different filter evasion techniques discussed above in order to successfully bypass server-side filters.**
+In some situations, you may need to combine the different filter evasion techniques discussed above in order to successfully bypass server-side filters.**
 
 ### Malicious File Contents
 
@@ -160,7 +160,7 @@ If the backend extracts this archive without validating or rejecting symbolic li
 
 #### ZIP Bombs
 
-A [ZIP bomb](https://en.wikipedia.org/wiki/zip_bomb) (more generally known as a decompression bomb) is an archive file that contains a large volume of data. It's intended to cause a denial of service by exhausting the disk space or memory of the target system that tries to extract the archive. Note that although the ZIP format is the most used example for this, other formats are also affected, including gzip (which is frequently used to compress data in transit).
+A [ZIP bomb](https://en.wikipedia.org/wiki/zip_bomb) (more generally known as a decompression bomb) is an archive file that contains a large volume of data. It's intended to cause a denial of service by exhausting the disk space or memory of the target system that tries to extract the archive. Although the ZIP format is the most used example for this, other formats are also affected, including gzip (which is frequently used to compress data in transit).
 
 At its simplest level, a ZIP bomb can be created by compressing a large file consisting of a single character. The example below shows how to create a 1MB file that will decompress to 1GB:
 

@@ -5,8 +5,10 @@ This directory contains GitHub Actions workflows for the WSTG repository. Helper
 ## Version Information
 
 These workflows use:
+
 - Node.js and Python for various automation tasks
 - GitHub Actions for checkout, setup, artifact management, and API interactions
+- [markdown-link-check](https://github.com/tcort/markdown-link-check) for Markdown link checking
 
 ## `build-checklists.yml`
 
@@ -15,13 +17,22 @@ For building checklists and Create a PR with changes made in the master.
 - Trigger: Push, Only when files inside document directory is changed. Manual (`workflow_dispatch`), GitHub web UI.
 - See: `/.github/json/` for JSON checklist generation and `/.github/xlsx/` for XLSX build.
 
-## `build-ebooks.yml`
+## `build-ebooks-typst.yml`
 
-For building PDF and EPUB e-Books at release.
+Builds PDF and EPUB e-books using Typst (modern implementation).
 
-- Trigger: Tag applied to repository. Manual (`workflow_dispatch`), GitHub web UI.
-- See: `/.github/pdf/` in the root of the repository for PDF build specific configurations.
-- See: `/.github/epub/` in the root of the repository for EPUB build specific configurations.
+- Trigger: Manual (`workflow_dispatch`), GitHub web UI.
+- Pipeline:
+  1. **list-chapters.py**: Generates synthetic chapter headings and outputs files in reading order
+  2. **build-link-manifest.py**: Extracts real heading IDs from Pandoc AST for accurate cross-chapter links
+  3. **Pandoc filters**:
+     - `links.lua`: Resolves cross-chapter links using the manifest
+     - `demote-headings.lua`: Adjusts heading levels while preserving chapter hierarchy
+  4. **fix-typst-body.py**: Applies style conversions (images, ID badges, etc.)
+  5. **Typst compiler**: Generates final PDF
+  6. **Pandoc EPUB**: Generates EPUB with same filter pipeline
+- Uploads: PDF and EPUB as separate artifacts (uncompressed)
+- See: `/.github/ebooks/` for configuration, filters, and templates
 
 ## `clean-workflow-runs.yml`
 
@@ -32,13 +43,16 @@ Tiddies up old workflow runs.
 ## `comment.yml`
 
 Triggered by the completion of other workflows in order to comment lint or other results on PRs.
-The workflows which leverage it should create a `pr_number` text file and `artifact.txt` with the content to be commented, which are attached to their workflow runs as `artifact`.
+On failure, those workflows upload `artifact.txt` (attached as `artifact`) with the content to be commented.
+The PR number comes from the `workflow_run` event (not from the artifact).
 
 This workflow:
-- Minimizes (collapses) previous comments from the same workflow run with appropriate classifiers:
-  - `RESOLVED` when the workflow succeeds
-  - `OUTDATED` when the workflow fails
+
+- Minimizes (collapses) previous comments from the same workflow with appropriate classifiers:
+    - `RESOLVED` when the workflow succeeds (no artifact required)
+    - `OUTDATED` when the workflow fails and a new artifact is available
 - Only posts NEW comments on failure (not on success)
+- On failure, skips minimize/post if the artifact download fails, so prior feedback is not wiped
 - Uses GitHub Actions for artifact retrieval and PR comment management
 
 - Trigger: Other workflows `workflow_run`.
@@ -51,36 +65,48 @@ Utility action named "Markdown Lint Check" (same name as `md-lint-check.yml`) th
 
 ## `md-link-check.yml`
 
-Checks Pull Requests for broken links.
+Checks Pull Requests for broken links using [markdown-link-check](https://github.com/tcort/markdown-link-check).
 
 This workflow:
-- Checks out the **PR head** to the workspace root (provides the composite action files and the PR's content) and the **base branch** (OWASP/wstg `master`) into `base/`
+
+- Checks out the **PR head** to the workspace root and the **base branch** (OWASP/wstg `master`) into `base/`
 - Uses the `.github/actions/get-changed-files` composite action with the exact `base.sha`/`head.sha` from the PR event for fork-safe changed-file detection
-- Copies **all** changed files (including images and other assets) into `base/` so link targets exist, then runs the link checker only on changed `.md` files so relative links resolve correctly
-- Config is always taken from `base/` (the base branch), not from the PR
+- Copies **all** changed files (including images and other assets) into `base/` so link targets exist, then runs markdown-link-check only on changed guide `.md` files so relative links resolve correctly
+- Runs markdown-link-check with config from `base/.github/configs/markdown-link-check-config.json`
+- On failure, parses output to show broken links with file paths and line numbers
+- Uploads `artifact.txt` with summary for `comment.yml` workflow to post on PR
+- Requires `pull-requests: write` for artifact upload
 
 - Trigger: Pull Requests (when `.md` files are changed, excluding `.github/**`).
-- Config File: `markdown-link-check-config.json`
+- Changed-file detection also skips `website/` (Jekyll site source: HTML/Liquid templates are not guide Markdown).
+- Config File: `/.github/configs/markdown-link-check-config.json`
+- Tool: `markdown-link-check@3.15.0` (npm package)
+
+Inline disable comments (e.g. `<!-- markdown-link-check-disable -->`) are supported.
 
 ## `md-link-check-full.yml`
 
-Checks all Markdown files in the repository for broken links.
+Checks all Markdown files in the repository for broken links using markdown-link-check.
 
 - Trigger: Manual (`workflow_dispatch`), GitHub web UI.
-- Config File: `markdown-link-check-config.json`
+- Checks all `.md` files in the repository for broken links (no filtering).
+- Config File: `/.github/configs/markdown-link-check-config.json`
+- Note: This workflow is not currently active and may be removed in future; use `md-link-check.yml` for PR validation.
 
 ## `md-lint-check.yml`
 
 Checks Markdown files and flags style or syntax issues.
 
 This workflow:
+
 - Checks out the **PR head** to the workspace root and the **base branch** (OWASP/wstg `master`) into `base/`
 - Uses the `.github/actions/get-changed-files` composite action with the exact `base.sha`/`head.sha` from the PR event for fork-safe changed-file detection, then runs `markdownlint-cli2` only on changed `.md` files
 - Uses `format_lint_output.py` from `base/.github/workflows/scripts/` to format output for PR comments
-- Uploads artifacts for both success and failure cases to work with `comment.yml`
+- On failure, uploads `artifact.txt` for `comment.yml`
 - Config and scripts are always taken from `base/` (the base branch), not from the PR
 
 - Trigger: Pull Requests (when `.md` files are changed, excluding `.github/**`).
+- Changed-file detection also skips `website/`.
 - Config File: `.markdownlint.json`
 
 ## `md-textlint-check.yml`
@@ -88,23 +114,34 @@ This workflow:
 Checks Markdown files for spelling style and typo issues.
 
 This workflow:
+
 - Checks out the **PR head** to the workspace root and the **base branch** (OWASP/wstg `master`) into `base/`
 - Uses the `.github/actions/get-changed-files` composite action with the exact `base.sha`/`head.sha` from the PR event for fork-safe changed-file detection, then runs textlint only on changed `.md` files
 - Config is always taken from `base/` (the base branch), not from the PR
 
 - Trigger: Pull Requests (when `.md` files are changed, excluding `.github/**`).
+- Changed-file detection also skips `website/`.
 - Config File: `.textlintrc`
 
 ## `www_latest_update.yml`
 
-Publishes the latest web content using the @wstgbot account to `OWASP/www-project-web-security-testing-guide`.
+Publishes the latest web content using the @wstgbot account to
+`OWASP/www-project-web-security-testing-guide`.
 
-- Trigger: Push.
-- See: `/.github/www/latest/` in the root of the repository.
+- Trigger: Push to `master` when `document/**` changes, or manual (`workflow_dispatch`).
+- Copies `document/` into the www repo’s `latest/`, prepends front matter, copies `info.md`.
+- Runs `.github/www/scripts/generate_nav.py` to write:
+    - `_data/latest.yaml` (nested ToC + filter hints)
+    - `_includes/nav-tree-latest.html` (pre-rendered sidebar tree)
+    - Slim chapter-only `latest/README.md` / `index.md` landing ToC
+- See: `/.github/www/latest/` and `/.github/www/scripts/README.md`.
 
 ## `www_stable_update.yml`
 
-Publishes stable and versioned web content using the @wstgbot account to `OWASP/www-project-web-security-testing-guide`.
+Publishes stable and versioned web content using the @wstgbot account to
+`OWASP/www-project-web-security-testing-guide`.
 
 - Trigger: Tag applied to repository (format `v*`).
-- See: `/.github/www/` in the root of the repository.
+- Same nav generation as latest, for `stable` and the version folder (e.g. `v42`),
+  including `nav-tree-<collection>.html` and nested `_data/*.yaml`.
+- See: `/.github/www/` and `/.github/www/scripts/README.md`.

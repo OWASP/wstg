@@ -67,7 +67,7 @@ These storage accounts can often expose sensitive files, as discussed in the [Te
 Most non-trivial web applications use some kind of database to store dynamic content. In some cases, it's possible to determine the database. This can often be done by:
 
 - Port scanning the server and looking for any open ports associated with specific databases
-- Triggering SQL (or NoSQL) related error messages (or finding existing errors from a [search engine](../01-Information_Gathering/01-Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage.md)
+- Triggering SQL (or NoSQL) related error messages (or finding existing errors from a [search engine](../01-Information_Gathering/01-Conduct_Search_Engine_Reconnaissance_for_Information_Leakage.md)
 
 When it's not possible to conclusively determine the database, the tester can often make an educated guess based on other aspects of the application:
 

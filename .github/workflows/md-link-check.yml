@@ -2,6 +2,8 @@ name: Markdown Link Check
 
 on:
   pull_request:
+    branches:
+    - master
     paths:
     - '**.md'
     - '!.github/**'
@@ -13,31 +15,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout PR
-      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         ref: ${{ github.event.pull_request.head.sha }}
         fetch-depth: 0
+        persist-credentials: false
     - name: Checkout Base
-      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         repository: OWASP/wstg
         ref: master
         path: base
-    - name: Save PR Number
-      env:
-        PR_NUMBER: ${{ github.event.number }}
-      run: echo $PR_NUMBER > pr_number
+        persist-credentials: false
     - name: Setup Node
-      uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6
+      uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
       with:
         node-version: 24
     - name: Cache npm Global
-      uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
       with:
         path: ~/.npm
         key: ${{ runner.os }}-npm-global-markdown-link-check
     - name: Install Dependencies
-      run: npm install -g markdown-link-check@3.11.0
+      run: npm install -g markdown-link-check@3.15.0
     - name: Get Changed Files
       # Use base/head SHAs from the PR event for fork-safe, PR-accurate changed-file detection.
       # github.base_ref resolves differently for forks, while base.sha/head.sha are always correct.
@@ -48,6 +48,17 @@ jobs:
         head_sha: ${{ github.event.pull_request.head.sha }}
         base_repo: ${{ github.event.pull_request.base.repo.full_name }}
         repo_path: .
+    - name: Verify Config
+      run: |
+        echo "Checking config file at base/.github/configs/markdown-link-check-config.json"
+        if [ -f "base/.github/configs/markdown-link-check-config.json" ]; then
+          echo "✓ Config file exists"
+          echo "Config content:"
+          cat base/.github/configs/markdown-link-check-config.json | jq '.aliveStatusCodes'
+        else
+          echo "✗ Config file NOT found"
+          ls -la base/.github/configs/ || echo "configs directory doesn't exist"
+        fi
     - name: PR Link Check
       env:
         FILES: '${{ steps.files.outputs.files_updated }}'
@@ -55,32 +66,34 @@ jobs:
       shell: bash
       run: |
         set -euo pipefail
-        
+
         readarray -t files_arr <<< "$FILES"
         readarray -t all_arr   <<< "$ALL_CHANGED"
-        
+
         echo "The Following files were changed or created:"
         printf '%s\n' "${files_arr[@]}"
         touch log err
-        
+
         # Copy all changed files (md + images etc.) to base/ so link targets exist when we check .md files
         for FILE in "${all_arr[@]}"; do
           [ -z "$FILE" ] && continue
           mkdir -p "base/$(dirname "$FILE")"
           cp "$FILE" "base/$FILE"
         done
-        
+
         # Check only .md files in base/ where relative links can be resolved
         for FILE in "${files_arr[@]}"; do
           [ -z "$FILE" ] && continue
           if printf '%s\n' "$FILE" | grep -q '.*\.md$'; then
-            markdown-link-check -q -v -c base/.github/configs/markdown-link-check-config.json "base/$FILE" 1>> log 2>> err
+            markdown-link-check -v -c base/.github/configs/markdown-link-check-config.json "base/$FILE" 1>> log 2>> err || true
           fi
         done
-        
+
+        echo "--- markdown-link-check stdout (log) ---"
+        cat log
+        echo "--- markdown-link-check stderr (err) ---"
+        cat err
         if grep -q  "ERROR:" err ; then exit 1 ; else echo -e "No broken links found."; fi
-        echo $(cat log)
-        echo $(cat err)
     - name: Show Broken Links
       if: failure()
       run: |
@@ -94,18 +107,10 @@ jobs:
         # Copy to generic name for commenting
         cat brokenlinks.txt | tee -a artifact.txt
         rm -f err log
-        cat artifact.txt >> $GITHUB_STEP_SUMMARY
+        cat artifact.txt >> "$GITHUB_STEP_SUMMARY"
     - name: Upload List of Broken Links
       if: failure()
       uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
       with:
         name: artifact
-        path: |
-          artifact.txt
-          pr_number
-    - name: Upload PR Number on Success
-      if: success()
-      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-      with:
-        name: artifact
-        path: pr_number
+        path: artifact.txt

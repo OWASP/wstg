@@ -18,8 +18,8 @@ A known example is where an Amazon S3 bucket is misconfigured, although the othe
 
 First, identify the URL to access the data in the storage service, and then consider the following tests:
 
-- read unauthorized data
-- upload a new arbitrary file
+- Read unauthorized data
+- Upload a new arbitrary file
 
 You may use curl for the tests with the following commands and see if unauthorized actions can be performed successfully.
 

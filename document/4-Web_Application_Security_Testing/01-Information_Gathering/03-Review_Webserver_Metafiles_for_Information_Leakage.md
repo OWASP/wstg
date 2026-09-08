@@ -59,6 +59,12 @@ Allow: /search/howsearchworks
 ...
 ```
 
+#### AI Crawlers
+
+Many AI crawlers, used by AI companies to collect training data, have been observed ignoring `robots.txt` directives. Developers and site owners have explored countermeasures to protect their content; as described in [a 2025 TechCrunch article](https://techcrunch.com/2025/03/27/open-source-devs-are-fighting-ai-crawlers-with-cleverness-and-vengeance/), the open-source community has responded with tactics such as generating endless fake content to consume crawler resources, or serving misleading data to degrade the quality of AI training sets. The [Free Software Foundation](https://www.fsf.org/blogs/sysadmin/our-small-team-vs-millions-of-bots) has also documented the operational burden that large volumes of AI crawlers impose on small teams, highlighting how even well-intentioned `robots.txt` rules are routinely disregarded.
+
+From a testing perspective, `robots.txt` entries intended to block AI crawlers (e.g., `User-Agent: GPTBot`, `User-Agent: ClaudeBot`) may be ineffective and sensitive paths listed in `robots.txt` remain discoverable by any crawler that ignores the protocol.
+
 #### Analyze robots.txt Using Google Webmaster Tools
 
 Site owners can use the Google "Analyze robots.txt" function to analyze the site as part of its [Google Webmaster Tools](https://www.google.com/webmasters/tools). This tool can assist with testing and the procedure is as follows:
@@ -199,7 +205,7 @@ It would be fairly simple for a tester to review the RFC/drafts and create a lis
 ## Tools
 
 - Browser (View Source or Dev Tools functionality)
-- cURL
+- curl
 - wget
 - Burp Suite
 - ZAP

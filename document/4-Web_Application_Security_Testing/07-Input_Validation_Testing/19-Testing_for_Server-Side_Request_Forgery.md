@@ -79,8 +79,9 @@ Some applications block references to `localhost` and `127.0.0.1`. This can be c
     - Decimal notation: `2130706433`
     - Octal notation: `017700000001`
     - IP shortening: `127.1`
+    - Alternative IPs treated as loopback: `127.0.0.2`
 - String obfuscation
-- Registering your own domain that resolves to `127.0.0.1`
+- Creating a public DNS on a domain you own that resolves to `127.0.0.1`
 
 Sometimes the application allows input that matches a certain expression, like a domain. That can be circumvented if the URL schema parser is not properly implemented, resulting in attacks similar to [semantic attacks](https://tools.ietf.org/html/rfc3986#section-7.6).
 
@@ -104,7 +105,7 @@ SSRF is known to be one of the hardest attacks to defeat without the use of allo
 - [OWASP Server Side Request Forgery Prevention Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html)
 - [Portswigger: SSRF](https://portswigger.net/web-security/ssrf)
 - [Portswigger: Blind SSRF](https://portswigger.net/web-security/ssrf/blind)
-- [Bugcrowd Webinar: SSRF](https://www.bugcrowd.com/resources/webinars/server-side-request-forgery/)
+- [Bugcrowd Webinar: SSRF](https://www.bugcrowd.com/resources/levelup/server-side-forgery-request/)
 - [Hackerone Blog: SSRF](https://www.hackerone.com/blog-How-To-Server-Side-Request-Forgery-SSRF)
 - [Hacker101: SSRF](https://www.hacker101.com/sessions/ssrf.html)
 - [URI Generic Syntax](https://tools.ietf.org/html/rfc3986)

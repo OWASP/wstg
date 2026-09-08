@@ -80,7 +80,14 @@
           "a npm",
           "an npm"
         ],
-
+        [
+          "OWASP (?:ZAP|ZAPROXY)",
+          "ZAP"
+        ],
+        [
+          "OWASP Zed Attack Proxy",
+          "Zed Attack Proxy (ZAP)"
+        ],
         // Abbreviations
         "3D",
         [
@@ -580,6 +587,20 @@
         [
           "verion(s)?",
           "version$1"
+        ],
+        // Standarization
+        // Boo em-dash
+        [
+          "—",
+          "-"
+        ],
+        [
+          "([Gg])rey",
+          "$1ray"
+        ],
+        [
+          "([Pp])en-tester",
+          "$1entester"
         ]
       ]
     }

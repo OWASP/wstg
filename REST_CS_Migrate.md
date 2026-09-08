@@ -38,7 +38,7 @@ This information will ensure fuller coverage of the attack surface. Such informa
 
 Collect full requests using a [proxy](https://www.zaproxy.org/) - while always an important pen testing step, this is more important for REST based applications as the application UI may not give clues on the actual attack surface.
 
-Note that the proxy must be able to collect full requests and not just URLs as REST services utilize more than just GET parameters.
+Be mindful that the proxy must be able to collect full requests and not just URLs as REST services utilize more than just GET parameters.
 
 Analyze collected requests to determine the attack surface:
 

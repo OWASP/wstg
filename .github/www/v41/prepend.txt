@@ -5,3 +5,6 @@ title: WSTG - v4.1
 tags: WSTG
 
 ---
+
+<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/wstg-nav.css">
+<script src="{{ site.baseurl }}/assets/js/wstg-nav.js" defer></script>

@@ -15,7 +15,7 @@ The worst case for format strings vulnerabilities occur in languages that don't 
 
 These format string functions cannot write to memory, but attackers can still cause information disclosure by changing format strings to output values the developers did not intend to send:
 
-- Python 2.6 and 2.7 [str.format](https://docs.python.org/2/library/string.html) and Python 3 unicode [str.format](https://docs.python.org/3/library/stdtypes.html#str.format) can be modified by injecting strings that can point to [other variables](https://lucumr.pocoo.org/2016/12/29/careful-with-str-format/) in memory
+- Python [str.format](https://docs.python.org/3/library/stdtypes.html#str.format) can be abused by injecting format strings that reach [other variables](https://lucumr.pocoo.org/2016/12/29/careful-with-str-format/) in the formatting context
 
 The following format string functions can cause runtime errors if the attacker adds conversion specifiers:
 
@@ -78,7 +78,7 @@ The examples in the following subsections have a URL of this form:
 
 #### Manual Injection
 
-Testers can perform a manual test using a web browser or other web API debugging tools. Browse to the web application or site such that the query has conversion specifiers. Note that most conversion specifiers need [encoding](https://tools.ietf.org/html/rfc3986#section-2.1) if sent inside a URL because they contain special characters including `%` and `{`. The test can introduce a string of specifiers `%s%s%s%n` by browsing with the following URL:
+Testers can perform a manual test using a web browser or other web API debugging tools. Browse to the web application or site such that the query has conversion specifiers. Consider that most conversion specifiers need [encoding](https://tools.ietf.org/html/rfc3986#section-2.1) if sent inside a URL because they contain special characters including `%` and `{`. The test can introduce a string of specifiers `%s%s%s%n` by browsing with the following URL:
 
 `https://vulnerable_host/userinfo?username=%25s%25s%25s%25n`
 

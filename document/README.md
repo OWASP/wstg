@@ -1,32 +1,26 @@
-# Table of Contents
+# Contents
 
 ## 0. [Foreword](0-Foreword/README.md)
 
-## 1. [Frontispiece](1-Frontispiece/)
+## 1. [About](1-About/)
 
 ## 2. [Introduction](2-Introduction/)
 
-### 2.1 [The OWASP Testing Project](2-Introduction/README.md#The-OWASP-Testing-Project)
+### 2.1 [Purpose and Scope](2-Introduction/README.md#Purpose-and-Scope)
 
-### 2.2 [Principles of Testing](2-Introduction/README.md#Principles-of-Testing)
+### 2.2 [Why Web Application Security Testing Matters](2-Introduction/README.md#Why-Web-Application-Security-Testing-Matters)
 
-### 2.3 [Testing Techniques Explained](2-Introduction/README.md#Testing-Techniques-Explained)
+### 2.3 [Who Should Use This Guide](2-Introduction/README.md#Who-Should-Use-This-Guide)
 
-### 2.4 [Manual Inspections and Reviews](2-Introduction/README.md#Manual-Inspections-and-Reviews)
+### 2.4 [Core Principles of Effective Security Testing](2-Introduction/README.md#Core-Principles-of-Effective-Security-Testing)
 
-### 2.5 [Threat Modeling](2-Introduction/README.md#Threat-Modeling)
+### 2.5 [How the Guide Is Organized](2-Introduction/README.md#How-the-Guide-Is-Organized)
 
-### 2.6 [Source Code Review](2-Introduction/README.md#Source-Code-Review)
+### 2.6 [How to Reference WSTG Scenarios](2-Introduction/README.md#How-to-Reference-WSTG-Scenarios)
 
-### 2.7 [Penetration Testing](2-Introduction/README.md#Penetration-Testing)
+### 2.7 [Feedback and Comments](2-Introduction/README.md#Feedback-and-Comments)
 
-### 2.8 [The Need for a Balanced Approach](2-Introduction/README.md#The-Need-for-a-Balanced-Approach)
-
-### 2.9 [Deriving Security Test Requirements](2-Introduction/README.md#Deriving-Security-Test-Requirements)
-
-### 2.10 [Security Tests Integrated in Development and Testing Workflows](2-Introduction/README.md#Security-Tests-Integrated-in-Development-and-Testing-Workflows)
-
-### 2.11 [Security Test Data Analysis and Reporting](2-Introduction/README.md#Security-Test-Data-Analysis-and-Reporting)
+### 2.8 [Related OWASP Projects](2-Introduction/README.md#Related-OWASP-Projects)
 
 ## 3. [The OWASP Testing Framework](3-The_OWASP_Testing_Framework/)
 
@@ -52,7 +46,7 @@
 
 ### 4.1 [Information Gathering](4-Web_Application_Security_Testing/01-Information_Gathering/README.md)
 
-#### 4.1.1 [Conduct Search Engine Discovery Reconnaissance for Information Leakage](4-Web_Application_Security_Testing/01-Information_Gathering/01-Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage.md)
+#### 4.1.1 [Conduct Search Engine Reconnaissance for Information Leakage](4-Web_Application_Security_Testing/01-Information_Gathering/01-Conduct_Search_Engine_Reconnaissance_for_Information_Leakage.md)
 
 #### 4.1.2 [Fingerprint Web Server](4-Web_Application_Security_Testing/01-Information_Gathering/02-Fingerprint_Web_Server.md)
 
@@ -99,6 +93,8 @@
 #### 4.2.12 [Test for Content Security Policy](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/12-Test_for_Content_Security_Policy.md)
 
 #### 4.2.13 [Test for Path Confusion](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/13-Test_for_Path_Confusion.md)
+
+#### 4.2.14 [Test Other HTTP Security Header Misconfigurations](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/14-Test_Other_HTTP_Security_Header_Misconfigurations.md)
 
 ### 4.3 [Identity Management Testing](4-Web_Application_Security_Testing/03-Identity_Management_Testing/README.md)
 
@@ -238,6 +234,10 @@
 
 #### 4.7.21 [Testing for CSV Injection](4-Web_Application_Security_Testing/07-Input_Validation_Testing/21-Testing_for_CSV_Injection.md)
 
+#### 4.7.22 [Testing for Prototype Pollution](4-Web_Application_Security_Testing/07-Input_Validation_Testing/22-Testing_for_Prototype_Pollution.md)
+
+#### 4.7.23 [Testing for Insecure Deserialization](4-Web_Application_Security_Testing/07-Input_Validation_Testing/23-Testing_for_Insecure_Deserialization.md)
+
 ### 4.8 [Testing for Error Handling](4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/README.md)
 
 #### 4.8.1 [Testing for Improper Error Handling](4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/01-Testing_For_Improper_Error_Handling.md)
@@ -332,14 +332,14 @@
 
 ### 5.2 [Naming Schemes](5-Reporting/02-Naming_Schemes.md)
 
-## Appendix A. [Testing Tools Resource](6-Appendix/A-Testing_Tools_Resource.md)
+## Appendix A. [History](6-Appendix/A-History.md)
 
-## Appendix B. [Suggested Reading](6-Appendix/B-Suggested_Reading.md)
+## Appendix B. [Testing Tools Resource](6-Appendix/B-Testing_Tools_Resource.md)
 
-## Appendix C. [Fuzzing](6-Appendix/C-Fuzzing.md)
+## Appendix C. [Suggested Reading](6-Appendix/C-Suggested_Reading.md)
 
-## Appendix D. [Encoded Injection](6-Appendix/D-Encoded_Injection.md)
+## Appendix D. [Fuzzing](6-Appendix/D-Fuzzing.md)
 
-## Appendix E. [History](6-Appendix/E-History.md)
+## Appendix E. [Encoded Injection](6-Appendix/E-Encoded_Injection.md)
 
 ## Appendix F. [Leveraging Dev Tools](6-Appendix/F-Leveraging_Dev_Tools.md)

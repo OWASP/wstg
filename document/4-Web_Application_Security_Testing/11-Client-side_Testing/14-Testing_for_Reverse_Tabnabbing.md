@@ -45,5 +45,5 @@ It is recommended to make sure that the `rel` HTML attribute is set with the `no
 - [Tabnabbing - HTML5 Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/HTML5_Security_Cheat_Sheet.html#tabnabbing)
 - [The target="_blank" vulnerability by example](https://dev.to/ben/the-targetblank-vulnerability-by-example)
 - [About rel=noopener](https://mathiasbynens.github.io/rel-noopener/)
-- [Target=”_blank” — the most underestimated vulnerability ever](https://medium.com/@jitbit/target-blank-the-most-underestimated-vulnerability-ever-96e328301f4c)
+- [Target=”_blank” - the most underestimated vulnerability ever](https://medium.com/@jitbit/target-blank-the-most-underestimated-vulnerability-ever-96e328301f4c)
 - [Reverse tabnabbing vulnerability affects IBM Business Automation Workflow and IBM Business Process Manager](https://www.ibm.com/support/pages/security-bulletin-reverse-tabnabbing-vulnerability-affects-ibm-business-automation-workflow-and-ibm-business-process-manager-bpm-cve-2020-4490-0)

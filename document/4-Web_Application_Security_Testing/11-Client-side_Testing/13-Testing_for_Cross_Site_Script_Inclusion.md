@@ -8,7 +8,7 @@
 
 Cross Site Script Inclusion (XSSI) vulnerability allows sensitive data leakage across-origin or cross-domain boundaries. Sensitive data could include authentication-related data (login states, cookies, auth tokens, session IDs, etc.) or user's personal or sensitive personal data (email addresses, phone numbers, credit card details, social security numbers, etc.). XSSI is a client-side attack similar to Cross Site Request Forgery (CSRF) but has a different purpose. Where CSRF uses the authenticated user context to execute certain state-changing actions inside a victim’s page (e.g. transfer money to the attacker's account, modify privileges, reset password, etc.), XSSI instead uses JavaScript on the client-side to leak sensitive data from authenticated sessions.
 
-By default, websites are only allowed to access data if they are from the same origin. This is a key application security principle and governed by the same-origin policy (defined by [RFC 6454](https://tools.ietf.org/html/rfc6454)). An origin is defined as the combination of URI scheme (HTTP or HTTPS), host name, and port number. However, this policy is not applicable for HTML `<script>` tag inclusions. This exception is necessary, as without it websites would not be able to consume third party services, perform traffic analysis, or use advertisement platforms, etc.
+By default, websites are only allowed to access data if they are from the same origin. This is a key application security principle and governed by the same-origin policy (defined by [RFC 6454](https://tools.ietf.org/html/rfc6454)). An origin is defined as the combination of URI scheme (HTTP or HTTPS), hostname, and port number. However, this policy is not applicable for HTML `<script>` tag inclusions. This exception is necessary, as without it websites would not be able to consume third party services, perform traffic analysis, or use advertisement platforms, etc.
 
 When the browser opens a website with `<script>` tags, the resources are fetched from the cross-origin domain. The resources then run in the same context as the including site or browser, which presents the opportunity to leak sensitive data. In most cases, this is achieved using JavaScript, however, the script source doesn't have to be a JavaScript file with type `text/javascript` or `.js` extension.
 
@@ -20,6 +20,12 @@ Older browser's vulnerabilities (IE9/10) allowed data leakage via JavaScript err
 - Assess the leakage of sensitive data through various techniques.
 
 ## How to Test
+
+### SameSite Cookie Considerations
+
+The examples below rely on the browser attaching the victim's authentication cookie to a cross-site `<script src="...">` request - a subresource load, not a top-level navigation. Per the [`SameSite`](../06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.md#samesite-attribute) behavior described in the Cookie Attributes section, `Lax` cookies are not sent on subresource requests, so by default these PoCs won't leak data in a browser that defaults to `Lax` (Chromium-based, since Chrome 80) unless the session cookie explicitly sets `SameSite=None; Secure`.
+
+This doesn't mean the underlying vulnerability is fixed - only that reproducing it now depends on the cookie's `SameSite` configuration and the browser under test. Check the `Set-Cookie` header directly, and retest in a browser that doesn't default to `Lax` (e.g. Firefox) if a PoC doesn't fire.
 
 ### Collect Data Using Authenticated and Unauthenticated User Sessions
 

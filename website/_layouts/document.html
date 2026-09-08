@@ -1,0 +1,31 @@
+---
+layout: default
+---
+{% include project-header.html
+  title="OWASP Web Security Testing Guide"
+  subtitle=page.channel_label
+  tagline="Web application security testing guidance." %}
+{% include banner.html %}
+<main id="main-content" class="site-main">
+  <div class="container container-wide">
+    <div class="doc-nav-bar">
+      <button type="button" id="doc-nav-toggle" class="doc-nav-toggle" aria-controls="doc-sidebar" aria-expanded="false">
+        <span class="doc-nav-toggle-icon" aria-hidden="true"></span>
+        Contents
+      </button>
+    </div>
+    <div class="doc-layout">
+      <div id="doc-nav-backdrop" class="doc-nav-backdrop" hidden></div>
+      <aside id="doc-sidebar" class="doc-sidebar" aria-label="Guide contents">
+        <button type="button" id="doc-nav-close" class="doc-nav-close" aria-label="Close contents">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        {% include navigation.html collection=page.collection_name %}
+      </aside>
+      <article class="doc-content">
+        {{ content }}
+      </article>
+    </div>
+  </div>
+</main>
+<script src="{{ site.baseurl }}/assets/js/doc-nav.js" defer></script>

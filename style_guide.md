@@ -32,10 +32,10 @@ When adding articles and images, please place articles in the appropriate sub-se
 document/
  ├───0_Foreword/
  │   └───0_Foreword.md
- ├───1_Frontispiece/
+ ├───1_About/
  │   ├───images/
  │   │   └───example.jpg
- │   └───1_Frontispiece.md
+ │   └───1_About.md
  ├───2_Introduction/
  │   ├───images/
  │   │   └───example.jpg
@@ -205,17 +205,17 @@ As a descriptive adverb, use the hyphenated *front-end* and *back-end*.
 
 > Both front-end developers and back-end developers are responsible for application security.
 
-#### *whitebox*, *blackbox*, *greybox*
+#### *whitebox*, *blackbox*, *graybox*
 
 These are not words.
 
-As nouns, use *white box*, *black box*, and *grey box*. These nouns rarely appear in connection with cybersecurity.
+As nouns, use *white box*, *black box*, and *gray box*. These nouns rarely appear in connection with cybersecurity.
 
-> My cat enjoys jumping into that grey box.
+> My cat enjoys jumping into that gray box.
 
-As adverbs, use the hyphenated *white-box*, *black-box*, and *grey-box*. Do not use capitalization unless the words are in a title.
+As adverbs, use the hyphenated *white-box*, *black-box*, and *gray-box*. Do not use capitalization unless the words are in a title.
 
-> While white-box testing involves knowledge of source code, black-box testing does not. A grey-box test is somewhere in-between.
+> While white-box testing involves knowledge of source code, black-box testing does not. A gray-box test is somewhere in-between.
 
 #### *ie*, *eg*
 

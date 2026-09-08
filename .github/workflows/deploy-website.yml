@@ -1,0 +1,72 @@
+# Build website/ from master and publish the static site to the gh-pages branch.
+# Live: https://wstg.owasp.org/
+#
+# Similar to www_latest_update / www_stable_update: master holds guide + site
+# source; the published artifact is pushed elsewhere (here: gh-pages).
+name: Deploy WSTG website
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "website/**"
+      - "document/**"
+      - ".github/workflows/deploy-website.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wstg-gh-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # Full history + tags so prepare_site.py can archive v4.1 / v4.2.
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Prepare channel trees
+        run: python3 website/scripts/prepare_site.py
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+          working-directory: website
+
+      - name: Build Jekyll site
+        working-directory: website
+        env:
+          JEKYLL_ENV: production
+        run: bundle exec jekyll build
+
+      - name: Copy markdown for LLM agents
+        run: python3 website/scripts/copy_markdown_for_agents.py
+
+      - name: Publish to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./website/_site
+          publish_branch: gh-pages
+          # Keeps Pages custom domain association across orphan publishes.
+          cname: wstg.owasp.org
+          # Prebuilt HTML; do not let GitHub run Jekyll on the branch.
+          enable_jekyll: false
+          force_orphan: true
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          commit_message: "Deploy WSTG website"

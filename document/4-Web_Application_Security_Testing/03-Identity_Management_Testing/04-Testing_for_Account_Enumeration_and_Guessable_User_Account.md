@@ -14,6 +14,8 @@ The tester should interact with the authentication mechanism of the application 
 
 In some cases, a message is received that reveals if the provided credentials are wrong because an invalid username or an invalid password was used. Sometimes, testers can enumerate the existing users by sending a username and an empty password.
 
+> Note: Some applications do not consider usernames sensitive, and may provide functionality that lets you directly view or list usernames. Ensure that you understand the security requirements of the application before reporting issues around username enumeration.
+
 ## Test Objectives
 
 - Review processes that pertain to user identification (*e.g.* registration, login, etc.).
@@ -157,7 +159,7 @@ Sometimes the usernames are created with a REALM alias and then a sequential num
 - R1001 – user 001 for REALM1
 - R2001 – user 001 for REALM2
 
-In the above sample we can create simple shell scripts that compose user IDs and submit a request with tool like wget to automate a web query to discern valid user IDs. To create a script we can also use Perl and cURL.
+In the above sample we can create simple shell scripts that compose user IDs and submit a request with tool like wget to automate a web query to discern valid user IDs. To create a script we can also use Perl and curl.
 
 Other possibilities are: - user IDs associated with credit card numbers, or in general numbers with a pattern. - user IDs associated with real names, e.g. if Freddie Mercury has a user ID of "fmercury", then you might guess Roger Taylor to have the user ID of "rtaylor".
 
@@ -200,7 +202,7 @@ Ensure default system accounts and test accounts are deleted prior to releasing 
 ## Tools
 
 - [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
-- [cURL](https://curl.haxx.se/)
+- [curl](https://curl.se/)
 - [PERL](https://www.perl.org)
 
 ## References

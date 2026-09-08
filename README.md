@@ -47,7 +47,7 @@ This project is only possible thanks to the work of many dedicated volunteers. E
 
 To learn how to contribute successfully, read the [contribution guide](CONTRIBUTING.md).
 
-Successful contributors appear on [the project's list of authors, reviewers, or editors](document/1-Frontispiece/README.md).
+Successful contributors appear on [the project's list of authors, reviewers, or editors](document/1-About/README.md).
 
 ## Chat With Us
 

@@ -109,7 +109,7 @@ The transfer to the gateway may be performed using a cross-domain POST to the ga
 </form>
 ```
 
-By modifying the HTML form or intercepting the POST request, it may be possible to modify the prices of items, and to effectively purchase them for less. Note that many payment gateways will reject a transaction with a value of zero, so a total of 0.01 is more likely to succeed. However, some payment gateways may accept negative values (used to process refunds). Where there are multiple values (such as item prices, a shipping cost, and the total basket cost), all of these should be tested.
+By modifying the HTML form or intercepting the POST request, it may be possible to modify the prices of items, and to effectively purchase them for less. Consider many payment gateways will reject a transaction with a value of zero, so a total of 0.01 is more likely to succeed. However, some payment gateways may accept negative values (used to process refunds). Where there are multiple values (such as item prices, a shipping cost, and the total basket cost), all of these should be tested.
 
 If the payment gateway uses an IFRAME instead, it may be possible to perform a similar type of attack by modifying the IFRAME URL:
 
@@ -117,7 +117,7 @@ If the payment gateway uses an IFRAME instead, it may be possible to perform a s
 <iframe src="https://example.org/payment_iframe?merchant_id=123&basket_total=22.00" />
 ```
 
-> Note: Payment gateways are usually run by a third-parties, and as such may not be included in the scope of testing. This means that while price tampering may be acceptable, other types of attacks (such as SQL injection) should not be performed without explicit written approval).
+> Note: Payment gateways are usually run by a third-parties, and as such may not be included in the scope of testing. This means that while price tampering may be acceptable, other types of attacks (such as SQL injection) should not be performed without explicit written approval.
 
 #### Encrypted Transaction Details
 
@@ -157,14 +157,14 @@ If it's not possible to tamper with the actual prices, it may be possible to cha
 
 #### Time Delayed Requests
 
-If the value of items on the site changes over time (for example on a currency exchange), then it may be possible to buy or sell at an old price by intercepting requests using a local proxy and delaying them. In order for this to be exploitable, the price would need to either be included in the request, or linked to something in the request (such as session or transaction ID). The example below shows how this could potentially be exploited on a application that allows users to buy and sell gold:
+If the value of items on the site changes over time (for example on a currency exchange), then it may be possible to buy or sell at an old price by intercepting requests using a local proxy and delaying them. In order for this to be exploitable, the price would need to either be included in the request, or linked to something in the request (such as session or transaction ID). The example below shows how this could potentially be exploited on an application that allows users to buy and sell gold:
 
 - View the current price of gold on the site.
 - Initiate a buy request for 1oz of gold.
 - Intercept and freeze the request.
 - Wait one minutes to check the price of gold again:
     - If it increases, allow the transaction to complete, and buy the gold for less than it's current value.
-    - If it decreases, drop the request request.
+    - If it decreases, drop the request.
 
 If the site allows the user to make payments using cryptocurrencies (which are usually far more volatile), it may be possible to exploit this by obtaining a fixed price in that cryptocurrency, and then waiting to see if the value rises or falls compared to the main currency used by the site.
 

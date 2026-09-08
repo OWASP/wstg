@@ -1,0 +1,261 @@
+/* Active site footer */
+
+.site-footer {
+  background: var(--neutral-1);
+  padding: 2rem 1rem 2rem;
+  margin-top: 0;
+}
+
+.site-footer .footer-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+@media (min-width: 640px) {
+  .site-footer {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .site-footer {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .site-footer {
+    padding: 3rem 3rem 3rem;
+  }
+
+  .site-footer .footer-inner {
+    gap: 3rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .site-footer {
+    padding-left: 4rem;
+    padding-right: 4rem;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .site-footer .footer-inner {
+    gap: 4rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  .site-footer {
+    padding-left: 120px;
+    padding-right: 120px;
+  }
+}
+
+.footer-standalone {
+  padding: 1.5rem 1.5rem 1.25rem;
+  width: 100%;
+}
+
+.footer-logo {
+  display: block;
+  text-decoration: none;
+  margin-bottom: 0.75rem;
+  width: 160px;
+  height: 3rem;
+  flex-shrink: 0;
+}
+
+.footer-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: left center;
+}
+
+@media (min-width: 640px) {
+  .footer-logo {
+    width: 186px;
+    height: 3.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-logo {
+    width: 213px;
+    height: 4rem;
+  }
+}
+
+.footer-logo:hover {
+  opacity: 0.9;
+}
+
+.footer-tagline {
+  margin: 0;
+  max-width: none;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+@media (min-width: 640px) {
+  .footer-tagline {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
+.footer-standalone .footer-tagline a {
+  color: #00a7e1;
+  text-decoration: none;
+}
+
+.footer-standalone .footer-tagline a:hover {
+  text-decoration: underline;
+}
+
+/* Footer buttons row (Suggest an app + View on GitHub) */
+.footer-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+/* Footer: View on GitHub ~20% smaller */
+.site-footer .btn-github--footer {
+  font-size: 0.8em;
+  padding: 0.4rem 0.8rem;
+  gap: 0.4rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.site-footer .footer-buttons .btn-github--footer,
+.site-footer .footer-buttons .btn-suggest--footer {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.site-footer .btn-github--footer .icon-github {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.site-footer .btn-suggest--footer {
+  font-size: 0.8em;
+  padding: 0.4rem 0.8rem;
+  gap: 0.4rem;
+}
+
+.site-footer .btn-suggest--footer .icon-plus {
+  width: 0.9rem;
+  height: 0.9rem;
+  stroke-width: 4;
+}
+
+.footer-back-to-top {
+  margin: 0.75rem 0 0;
+  font-size: 0.875rem;
+}
+
+.footer-back-to-top-link {
+  color: var(--link);
+  text-decoration: underline;
+}
+
+.footer-back-to-top-link:hover {
+  color: var(--link-hover);
+}
+
+/* Bottom row - trademark + copyright, text #d7d7d7 */
+.footer-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  align-items: flex-start;
+}
+
+@media (min-width: 1024px) {
+  .footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 4rem;
+  }
+}
+
+.footer-legal {
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: -0.2px;
+  line-height: 14px;
+  color: #d7d7d7;
+  margin: 0;
+  order: 2;
+}
+
+@media (min-width: 640px) {
+  .footer-legal {
+    font-size: 11px;
+    letter-spacing: -0.22px;
+    line-height: 15px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-legal {
+    font-size: 12px;
+    letter-spacing: -0.24px;
+    line-height: 16px;
+    order: 1;
+    flex: 1;
+  }
+}
+
+.footer-copy {
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: -0.2px;
+  line-height: 14px;
+  color: #d7d7d7;
+  margin: 0;
+  order: 1;
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .footer-copy {
+    font-size: 11px;
+    letter-spacing: -0.22px;
+    line-height: 15px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-copy {
+    font-size: 12px;
+    letter-spacing: -0.24px;
+    line-height: 16px;
+    order: 2;
+  }
+}
+
+.site-footer .btn {
+  margin: 0;
+}
