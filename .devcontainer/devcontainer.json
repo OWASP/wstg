@@ -1,0 +1,38 @@
+{
+	"image": "mcr.microsoft.com/devcontainers/universal:2",
+	"features": {
+		"ghcr.io/cirolosapio/devcontainers-features/alpine-bottom:0": {},
+		"ghcr.io/cirolosapio/devcontainers-features/alpine-broot:0": {},
+		"ghcr.io/cirolosapio/devcontainers-features/alpine-bun:0": {},
+		"ghcr.io/cirolosapio/devcontainers-features/alpine-ctop:0": {},
+		"ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
+			"upgradePackages": true,
+			"packages": "curl,nano"
+		},
+		"ghcr.io/wxw-matt/devcontainer-features/apt:0": {
+			"clean_cache": true,
+			"local_mirror": true
+		},
+		"ghcr.io/devcontainers-extra/features/ant-sdkman:2": {
+			"version": "latest",
+			"jdkVersion": "8",
+			"jdkDistro": "oracle"
+		},
+		"ghcr.io/devcontainers-extra/features/apt-get-packages:1": {
+			"clean_ppas": true,
+			"preserve_apt_list": true,
+			"force_ppas_on_non_ubuntu": true,
+			"packages": "curl,ca-certificates",
+			"ppas": "ppa:deadsnakes/ppa"
+		},
+		"ghcr.io/devcontainers-extra/features/apt-packages:1": {
+			"clean_ppas": true,
+			"preserve_apt_list": true,
+			"force_ppas_on_non_ubuntu": true,
+			"packages": "build-essential",
+			"ppas": "ppa:deadsnakes/ppa"
+		},
+		"ghcr.io/aquaproj/devcontainer-features/aqua-installer:0": {},
+		"ghcr.io/devcontainer-community/devcontainer-features/apt-build-essential:1": {}
+	}
+}
