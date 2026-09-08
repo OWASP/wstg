@@ -15,5 +15,8 @@
   "markdown.preview.fontSize": 21,
   "markdownlint.config": {
     "extends": ".github/configs/.markdownlint.json"
-  }
+  },
+  "githubPullRequests.ignoredPullRequestBranches": [
+    "master"
+  ]
 }
