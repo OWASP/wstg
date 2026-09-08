@@ -606,102 +606,75 @@
         }
       ]
     },
-    "Input Validation Testing": {
-      "id": "WSTG-INPV",
+    "Injection Testing": {
+      "id": "WSTG-INJT",
       "tests": [
         {
           "name": "Testing for Reflected Cross Site Scripting",
-          "id": "WSTG-INPV-01",
-          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/01-Testing_for_Reflected_Cross_Site_Scripting",
+          "id": "WSTG-INJT-01",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Injection_Testing/01-Testing_for_Reflected_Cross_Site_Scripting",
           "objectives": [
             "Identify variables that are reflected in responses.",
             "Assess the input they accept and the encoding that gets applied on return (if any)."
-          ],
-          "cre_ids": [
-            "257-668",
-            "065-388",
-            "366-835"
           ]
         },
         {
           "name": "Testing for Stored Cross Site Scripting",
-          "id": "WSTG-INPV-02",
-          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/02-Testing_for_Stored_Cross_Site_Scripting",
+          "id": "WSTG-INJT-02",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Injection_Testing/02-Testing_for_Stored_Cross_Site_Scripting",
           "objectives": [
             "Identify stored input that is reflected on the client-side.",
             "Assess the input they accept and the encoding that gets applied on return (if any)."
-          ],
-          "cre_ids": [
-            "257-668",
-            "065-388"
           ]
         },
         {
           "name": "Testing for HTTP Verb Tampering",
-          "id": "WSTG-INPV-03",
-          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/03-Testing_for_HTTP_Verb_Tampering",
+          "id": "WSTG-INJT-03",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Injection_Testing/03-Testing_for_HTTP_Verb_Tampering",
           "objectives": [
             ""
-          ],
-          "cre_ids": [
-            "532-878"
           ]
         },
         {
           "name": "Testing for HTTP Parameter Pollution",
-          "id": "WSTG-INPV-04",
-          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/04-Testing_for_HTTP_Parameter_Pollution",
+          "id": "WSTG-INJT-04",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Injection_Testing/04-Testing_for_HTTP_Parameter_Pollution",
           "objectives": [
             "Identify the back end and the parsing method used.",
             "Assess injection points and try bypassing input filters using HPP."
-          ],
-          "cre_ids": [
-            "743-237"
           ]
         },
         {
           "name": "Testing for SQL Injection",
-          "id": "WSTG-INPV-05",
-          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection",
+          "id": "WSTG-INJT-05",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Injection_Testing/05-Testing_for_SQL_Injection",
           "objectives": [
             "Identify SQL injection points.",
             "Assess the severity of the injection and the level of access that can be achieved through it."
-          ],
-          "cre_ids": [
-            "064-808",
-            "732-873"
           ]
         },
         {
           "name": "Testing for LDAP Injection",
-          "id": "WSTG-INPV-06",
-          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/06-Testing_for_LDAP_Injection",
+          "id": "WSTG-INJT-06",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Injection_Testing/06-Testing_for_LDAP_Injection",
           "objectives": [
             "Identify LDAP injection points.",
             "Assess the severity of the injection."
-          ],
-          "cre_ids": [
-            "531-558"
           ]
         },
         {
           "name": "Testing for XML Injection",
-          "id": "WSTG-INPV-07",
-          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/07-Testing_for_XML_Injection",
+          "id": "WSTG-INJT-07",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Injection_Testing/07-Testing_for_XML_Injection",
           "objectives": [
             "Identify XML injection points.",
             "Assess the types of exploits that can be attained and their severities."
-          ],
-          "cre_ids": [
-            "611-051",
-            "134-207",
-            "764-507"
           ]
         },
         {
           "name": "Testing for SSI Injection",
-          "id": "WSTG-INPV-08",
-          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/08-Testing_for_SSI_Injection",
+          "id": "WSTG-INJT-08",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Injection_Testing/08-Testing_for_SSI_Injection",
           "objectives": [
             "Identify SSI injection points.",
             "Assess the severity of the injection."
@@ -709,69 +682,52 @@
         },
         {
           "name": "Testing for XPath Injection",
-          "id": "WSTG-INPV-09",
-          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/09-Testing_for_XPath_Injection",
+          "id": "WSTG-INJT-09",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Injection_Testing/09-Testing_for_XPath_Injection",
           "objectives": [
             "Identify XPATH injection points."
-          ],
-          "cre_ids": [
-            "134-207"
           ]
         },
         {
           "name": "Testing for IMAP SMTP Injection",
-          "id": "WSTG-INPV-10",
-          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/10-Testing_for_IMAP_SMTP_Injection",
+          "id": "WSTG-INJT-10",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Injection_Testing/10-Testing_for_IMAP_SMTP_Injection",
           "objectives": [
             "Identify IMAP/SMTP injection points.",
             "Understand the data flow and deployment structure of the system.",
             "Assess the injection impacts."
-          ],
-          "cre_ids": [
-            "881-434"
           ]
         },
         {
           "name": "Testing for Code Injection",
-          "id": "WSTG-INPV-11",
-          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11-Testing_for_Code_Injection",
+          "id": "WSTG-INJT-11",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Injection_Testing/11-Testing_for_Code_Injection",
           "objectives": [
             "Identify injection points where you can inject code into the application.",
             "Assess the injection severity."
-          ],
-          "cre_ids": [
-            "547-283",
-            "657-084"
           ]
         },
         {
           "name": "Testing for Command Injection",
-          "id": "WSTG-INPV-12",
-          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/12-Testing_for_Command_Injection",
+          "id": "WSTG-INJT-12",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Injection_Testing/12-Testing_for_Command_Injection",
           "objectives": [
             "Identify and assess command injection points.",
             "Bypass special characters and OS commands filter."
-          ],
-          "cre_ids": [
-            "683-722",
-            "857-718"
           ]
         },
         {
           "name": "Testing for Format String Injection",
-          "id": "WSTG-INPV-13",
-          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/13-Testing_for_Format_String_Injection",
+          "id": "WSTG-INJT-13",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Injection_Testing/13-Testing_for_Format_String_Injection",
           "objectives": [
             "Assess whether injecting format string conversion specifiers into user-controlled fields causes undesired behavior from the application."
-          ],
-          "cre_ids": [
-            "831-570"
           ]
         },
         {
           "name": "Testing for Incubated Vulnerability",
-          "id": "WSTG-INPV-14",
-          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/14-Testing_for_Incubated_Vulnerability",
+          "id": "WSTG-INJT-14",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Injection_Testing/14-Testing_for_Incubated_Vulnerability",
           "objectives": [
             "Identify injections that are stored and require a recall step to the stored injection.",
             "Understand how a recall step could occur.",
@@ -780,8 +736,8 @@
         },
         {
           "name": "Testing for HTTP Response Splitting",
-          "id": "WSTG-INPV-15",
-          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/15-Testing_for_HTTP_Response_Splitting",
+          "id": "WSTG-INJT-15",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Injection_Testing/15-Testing_for_HTTP_Response_Splitting",
           "objectives": [
             "Identify user-controlled input that is reflected into HTTP response headers.",
             "Assess whether CR (`\\r`) and LF (`\\n`) characters can be injected into response headers.",
@@ -790,8 +746,8 @@
         },
         {
           "name": "Testing for HTTP Request Smuggling",
-          "id": "WSTG-INPV-16",
-          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/16-Testing_for_HTTP_Request_Smuggling",
+          "id": "WSTG-INJT-16",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Injection_Testing/16-Testing_for_HTTP_Request_Smuggling",
           "objectives": [
             "Identify request boundary inconsistencies between frontend and backend components",
             "Detect classic CL/TE desynchronization vulnerabilities",
@@ -802,8 +758,8 @@
         },
         {
           "name": "Testing for Host Header Injection",
-          "id": "WSTG-INPV-17",
-          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/17-Testing_for_Host_Header_Injection",
+          "id": "WSTG-INJT-17",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Injection_Testing/17-Testing_for_Host_Header_Injection",
           "objectives": [
             "Assess if the Host header is being parsed dynamically in the application.",
             "Bypass security controls that rely on the header."
@@ -811,21 +767,18 @@
         },
         {
           "name": "Testing for Server-side Template Injection",
-          "id": "WSTG-INPV-18",
-          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/18-Testing_for_Server-side_Template_Injection",
+          "id": "WSTG-INJT-18",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Injection_Testing/18-Testing_for_Server-side_Template_Injection",
           "objectives": [
             "Detect template injection vulnerability points.",
             "Identify the templating engine.",
             "Build the exploit."
-          ],
-          "cre_ids": [
-            "422-005"
           ]
         },
         {
           "name": "Testing for Server-Side Request Forgery",
-          "id": "WSTG-INPV-19",
-          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/19-Testing_for_Server-Side_Request_Forgery",
+          "id": "WSTG-INJT-19",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Injection_Testing/19-Testing_for_Server-Side_Request_Forgery",
           "objectives": [
             "Identify SSRF injection points.",
             "Test if the injection points are exploitable.",
@@ -834,8 +787,8 @@
         },
         {
           "name": "Testing for Mass Assignment",
-          "id": "WSTG-INPV-20",
-          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/20-Testing_for_Mass_Assignment",
+          "id": "WSTG-INJT-20",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Injection_Testing/20-Testing_for_Mass_Assignment",
           "objectives": [
             "Identify requests that modify objects",
             "Assess if it is possible to modify fields never intended to be modified from outside"
@@ -843,8 +796,8 @@
         },
         {
           "name": "Testing for CSV Injection",
-          "id": "WSTG-INPV-21",
-          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/21-Testing_for_CSV_Injection",
+          "id": "WSTG-INJT-21",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Injection_Testing/21-Testing_for_CSV_Injection",
           "objectives": [
             "Identify CSV/spreadsheet export features that include untrusted input.",
             "Verify whether attacker-controlled values are interpreted as formulas when the export is opened in common spreadsheet applications.",
@@ -855,8 +808,8 @@
         },
         {
           "name": "Testing for Prototype Pollution",
-          "id": "WSTG-INPV-22",
-          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/22-Testing_for_Prototype_Pollution",
+          "id": "WSTG-INJT-22",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Injection_Testing/22-Testing_for_Prototype_Pollution",
           "objectives": [
             "Identify functions and libraries that recursively merge, clone, or assign user-controlled properties.",
             "Determine whether user input can reach and modify `Object.prototype`.",
@@ -865,8 +818,8 @@
         },
         {
           "name": "Testing for Insecure Deserialization",
-          "id": "WSTG-INPV-23",
-          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/23-Testing_for_Insecure_Deserialization",
+          "id": "WSTG-INJT-23",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Injection_Testing/23-Testing_for_Insecure_Deserialization",
           "objectives": [
             "Identify entry points where the application accepts serialized objects from untrusted",
             "urces (for example, HTTP headers, parameters, or cookies).",
