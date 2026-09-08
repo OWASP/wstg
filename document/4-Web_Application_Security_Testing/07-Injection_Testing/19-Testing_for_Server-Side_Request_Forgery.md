@@ -2,7 +2,7 @@
 
 |ID          |
 |------------|
-|WSTG-INPV-19|
+|WSTG-INJT-19|
 
 ## Summary
 

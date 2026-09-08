@@ -374,7 +374,7 @@ In order to know what to look for in any particular application, it will be help
 
 #### Cross-Site Scripting (XSS)
 
-Cross-site scripting occurs when an attacker injects executable code that is subsequently run by the browser. Learn about tests for XSS in the [Input Validation](../07-Input_Validation_Testing/README.md) chapter. You may test for reflected XSS using a payload from [Testing for Reflected Cross Site Scripting](../07-Input_Validation_Testing/01-Testing_for_Reflected_Cross_Site_Scripting.md).
+Cross-site scripting occurs when an attacker injects executable code that is subsequently run by the browser. Learn about tests for XSS in the [Injection Testing](../07-Injection_Testing/README.md) chapter. You may test for reflected XSS using a payload from [Testing for Reflected Cross Site Scripting](../07-Injection_Testing/01-Testing_for_Reflected_Cross_Site_Scripting.md).
 
 In this example, errors might reflect the input and could cause XSS to occur.
 

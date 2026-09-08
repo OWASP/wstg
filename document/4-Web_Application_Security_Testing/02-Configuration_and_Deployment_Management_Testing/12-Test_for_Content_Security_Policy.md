@@ -173,7 +173,7 @@ Teams should adapt strict policies carefully, ensuring compatibility with applic
 - [CSP Auditor - Burp Suite Extension](https://portswigger.net/bappstore/35237408a06043e9945a11016fcbac18)
 - [CSP Generator Chrome](https://chrome.google.com/webstore/detail/content-security-policy-c/ahlnecfloencbkpfnpljbojmjkfgnmdc) / [Firefox](https://addons.mozilla.org/en-US/firefox/addon/csp-generator/)
 - [CSP Validator](https://cspvalidator.netlify.app/)
-- [OWASP ZAP](https://www.zaproxy.org/) – Includes automated and passive analysis for CSP misconfigurations.
+- [ZAP](https://www.zaproxy.org/) – Includes automated and passive analysis for CSP misconfigurations.
 - [CSPBypass](https://cspbypass.com/) – Tool designed to help security testers analyze and attempt bypass techniques against restrictive CSP implementations.
 
 ## References

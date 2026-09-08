@@ -19,7 +19,7 @@ Builds the website sidebar navigation from `document/README.md`.
 - **A.** Title alias rules (e.g. Cross Site Scripting → `xss`, XML Injection → `xxe`,
   XPath → `xml` / `xpathi`, SQL Injection → `sqli`)
 - **B.** Primary `WSTG-*-*` IDs scraped from each page’s header ID table
-  (first ~40 lines), plus short forms (`WSTG-INPV-01` → `inpv-01`)
+  (first ~40 lines), plus short forms (`WSTG-INJT-01` → `injt-01`)
 
 Hints are emitted as `data-hints` on each nav item; the site JS matches filter
 input against `data-title` and `data-hints`.

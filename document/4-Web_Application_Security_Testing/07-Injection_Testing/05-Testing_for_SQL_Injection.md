@@ -2,7 +2,7 @@
 
 |ID          |
 |------------|
-|WSTG-INPV-05|
+|WSTG-INJT-05|
 
 ## Summary
 

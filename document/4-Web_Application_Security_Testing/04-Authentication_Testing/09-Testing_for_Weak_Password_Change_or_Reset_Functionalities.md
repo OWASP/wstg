@@ -109,7 +109,7 @@ In this model, the user is emailed a link that contains a token. They can then c
 
 - Can you inject a different host header?
 
-  If the application trusts the value of the `Host` header and uses this to generate the password reset link, it may be possible to steal tokens by injecting a modified `Host` header into the request. See the [Testing for Host Header Injection](../07-Input_Validation_Testing/17-Testing_for_Host_Header_Injection.md) guide for further information.
+  If the application trusts the value of the `Host` header and uses this to generate the password reset link, it may be possible to steal tokens by injecting a modified `Host` header into the request. See the [Testing for Host Header Injection](../07-Injection_Testing/17-Testing_for_Host_Header_Injection.md) guide for further information.
 
 - Is the link exposed to third parties?
 
@@ -120,7 +120,7 @@ In this model, the user is emailed a link that contains a token. They can then c
   Verify whether the reset token is leaked to external domains by inspecting network requests made by the reset page.
 
   1. Trigger a password reset request and open the reset link.
-  2. Inspect network requests using browser developer tools or an intercepting proxy such as Burp Suite or OWASP ZAP.
+  2. Inspect network requests using browser developer tools or an intercepting proxy such as Burp Suite or ZAP.
   3. Identify requests made to external domains.
   4. Check whether the full reset URL, including the token, appears in the `Referer` header of these requests.
   5. Check whether the reset page sets an appropriate `Referrer-Policy` response header.

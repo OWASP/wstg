@@ -70,7 +70,7 @@ Later click on the garbage can `Delete` button to the right of the `general.user
 - [Authentication Testing](../4-Web_Application_Security_Testing/04-Authentication_Testing/README.md)
 - [Authorization Testing](../4-Web_Application_Security_Testing/05-Authorization_Testing/README.md)
 - [Session Management Testing](../4-Web_Application_Security_Testing/06-Session_Management_Testing/README.md)
-- [Input Validation Testing](../4-Web_Application_Security_Testing/07-Input_Validation_Testing/README.md)
+- [Injection Testing](../4-Web_Application_Security_Testing/07-Injection_Testing/README.md)
 - [Business Logic Testing](../4-Web_Application_Security_Testing/10-Business_Logic_Testing/README.md)
 
 ### Mozilla Firefox
