@@ -53,7 +53,7 @@ Specific Testing Method:
 
 ## Related Test Cases
 
-- All [Input Validation](../07-Input_Validation_Testing/README.md) test cases.
+- All [Injection Testing](../07-Injection_Testing/README.md) test cases.
 - [Testing for Account Enumeration and Guessable User Account](../03-Identity_Management_Testing/04-Testing_for_Account_Enumeration_and_Guessable_User_Account.md).
 - [Testing for Bypassing Session Management Schema](../06-Session_Management_Testing/01-Testing_for_Session_Management_Schema.md).
 - [Testing for Exposed Session Variables](../06-Session_Management_Testing/04-Testing_for_Exposed_Session_Variables.md).

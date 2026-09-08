@@ -2,7 +2,7 @@
 
 |ID          |
 |------------|
-|WSTG-INPV-22|
+|WSTG-INJT-22|
 
 ## Summary
 

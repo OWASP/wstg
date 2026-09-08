@@ -54,7 +54,7 @@ Some sites may also provide a drop-down menu of valid quantities (such as items 
 
 If the full basket details are passed to the payment gateway (rather than simply passing a total value), it may also be possible to tamper the values at that stage.
 
-Finally, if the application is vulnerable to [HTTP parameter pollution](../07-Input_Validation_Testing/04-Testing_for_HTTP_Parameter_Pollution.md) then it may be possible to cause unexpected behavior by passing a parameter multiple times, such as:
+Finally, if the application is vulnerable to [HTTP parameter pollution](../07-Injection_Testing/04-Testing_for_HTTP_Parameter_Pollution.md) then it may be possible to cause unexpected behavior by passing a parameter multiple times, such as:
 
 ```http
 POST /api/basket/add
@@ -177,7 +177,7 @@ If the application supports discount codes, then there are various checks that s
 - Is there any brute-force protection?
 - Can multiple discount codes be applied at once?
 - Can discount codes be applied multiple times?
-- Can you [inject wildcard characters](../07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#sql-wildcard-injection) such as `%` or `*`?
+- Can you [inject wildcard characters](../07-Injection_Testing/05-Testing_for_SQL_Injection.md#sql-wildcard-injection) such as `%` or `*`?
 - Are discount codes exposed in the HTML source or hidden `<input>` fields anywhere on the application?
 
 In addition to these, the usual vulnerabilities such as SQL injection should be tested for.
@@ -323,8 +323,8 @@ Ensure that the application correctly handles such cases and prevents exploitati
 
 ## Related Test Cases
 
-- [Testing for HTTP Parameter Pollution](../07-Input_Validation_Testing/04-Testing_for_HTTP_Parameter_Pollution.md)
-- [Testing for SQL Injection](../07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md)
+- [Testing for HTTP Parameter Pollution](../07-Injection_Testing/04-Testing_for_HTTP_Parameter_Pollution.md)
+- [Testing for SQL Injection](../07-Injection_Testing/05-Testing_for_SQL_Injection.md)
 - [Testing for the Circumvention of Work Flows](06-Testing_for_the_Circumvention_of_Work_Flows.md)
 
 ## Remediation

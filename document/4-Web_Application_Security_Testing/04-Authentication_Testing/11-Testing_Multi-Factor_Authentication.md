@@ -111,7 +111,7 @@ The OTP is typically entered after the user has provided their username and pass
 - Is the account locked out after multiple failed MFA attempts?
 - Is the user's IP address blocked after multiple failed MFA attempts across different accounts?
 - Are failed MFA attempts logged?
-- Is the form vulnerable to injection attacks, including [SQL wildcard injection](../07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#sql-wildcard-injection)?
+- Is the form vulnerable to injection attacks, including [SQL wildcard injection](../07-Injection_Testing/05-Testing_for_SQL_Injection.md#sql-wildcard-injection)?
 
 Depending on the type of OTPs used, there are also some other specific checks that should be performed:
 

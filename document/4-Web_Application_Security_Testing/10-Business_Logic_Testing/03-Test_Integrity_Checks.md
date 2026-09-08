@@ -56,7 +56,7 @@ Many systems include logging for auditing and troubleshooting purposes. But, how
 
 ## Related Test Cases
 
-All [Input Validation](../07-Input_Validation_Testing/README.md) test cases.
+All [Injection Testing](../07-Injection_Testing/README.md) test cases.
 
 ## Remediation
 

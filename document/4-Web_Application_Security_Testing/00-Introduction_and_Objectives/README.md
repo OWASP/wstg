@@ -70,7 +70,7 @@ The set of active tests have been split into 12 categories:
 - Authentication Testing
 - Authorization Testing
 - Session Management Testing
-- Input Validation Testing
+- Injection Testing
 - Testing for Error Handling
 - Testing for Weak Cryptography
 - Business Logic Testing
