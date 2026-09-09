@@ -34,7 +34,7 @@ How to Test section.
 
 When a web application does not properly enforce access control mechanisms, sensitive resources become exposed, allowing unauthenticated users to view them. For example, if a user directly requests a different page via forced browsing, that page may not check the authorization of the anonymous user before granting access. Attempt to directly access a protected page through the address bar in your browser to test using this method.
 
-![Direct Request to Protected Page](images/Basm-directreq.jpg)\
+![Direct Request to Protected Page](images/05-basm-directreq.jpg)\
 *Figure 4.5.2-1: Direct Request to Protected Page*
 
 #### Using Automation

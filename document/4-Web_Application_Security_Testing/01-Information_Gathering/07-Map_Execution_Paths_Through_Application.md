@@ -30,7 +30,7 @@ To demonstrate code coverage to the application owner, the tester can start by d
 
 An automatic spider is a tool that is used to discover new resources (URLs) on a specific site automatically. It begins with a list of URLs to visit, called the seeds, which depends on how the Spider is started. While there are a lot of Spidering tools, the following example uses the [Zed Attack Proxy (ZAP)](https://github.com/zaproxy/zaproxy):
 
-![Zed Attack Proxy Screen](images/OWASPZAPSP.png)\
+![Zed Attack Proxy Screen](images/01-owaspzapsp.png)\
 *Figure 4.1.7-1: Zed Attack Proxy Screen*
 
 [ZAP](https://github.com/zaproxy/zaproxy) offers various automatic spidering options, which can be leveraged based on the tester's needs:

@@ -22,7 +22,7 @@ Many system log on processes ask for the username and password. If you look clos
 
 A similar issue may be present in password reset functionality that would send an email to the user with a forgotten link or code, as sending emails can be significantly slower than just returning the HTTP response.
 
-![Example Control Flow of Login Form](images/Control_Flow_of_Login_Form.jpg)\
+![Example Control Flow of Login Form](images/10-control_flow_of_login_form.jpg)\
 *Figure 4.10.4-1: Example Control Flow of Login Form*
 
 ### Example 3

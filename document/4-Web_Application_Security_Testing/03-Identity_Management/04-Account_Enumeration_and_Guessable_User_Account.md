@@ -39,7 +39,7 @@ Now, the tester should try to insert a valid user ID and a wrong password and re
 
 > The browser should display a message similar to the following one:
 >
-> ![Authentication Failed](images/AuthenticationFailed.png)\
+> ![Authentication Failed](images/03-authenticationfailed.png)\
 > *Figure 4.3.4-1: Authentication Failed*
 >
 > Unlike any message that reveals the existence of the user like the following:
@@ -54,7 +54,7 @@ Now, the tester should try to insert an invalid user ID and a wrong password and
 
 > If the tester enters a nonexistent user ID, they can receive a message similar to:
 >
-> ![This User is Not Active](images/Userisnotactive.png)\
+> ![This User is Not Active](images/03-userisnotactive.png)\
 > *Figure 4.3.4-3: This User is Not Active*
 >
 > or a message like the following one:

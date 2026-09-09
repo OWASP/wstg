@@ -71,11 +71,27 @@ Use code fences with syntax highlighting for snippets. For example:
 
 Caption images and figures using title case. Use the section and sub-section numbers, followed by the figure position in the document. Use the format `Figure <section>.<sub-section>-<position>: Caption Title`.
 
-For example, caption the first image shown in section 4.8, sub-section 19 as follows:
+#### Image Naming
+
+- Use **lowercase filenames** for all images (e.g., `example.jpg`, not `Example.jpg`)
+- Prefix images with the **section identifier** (01, 02, 03, etc.) using a hyphen to indicate ownership (e.g., `07-ssti_xvwa.jpeg` for section 4.7)
+- For images used by a single document across multiple sections (e.g., Appendix), use the appendix identifier (e.g., `f-` prefix for Appendix F)
+- Use descriptive, readable names after the prefix (e.g., `04-basm-parammod.jpg`)
+
+#### Captions
+
+For example, caption the first image shown in section 4.7, sub-section 18 as follows:
 
 ```md
-![SSTI XVWA Example](images/SSTI_XVWA.jpeg)\
-*Figure 4.7.19-1: SSTI XVWA Example*
+![SSTI XVWA Example](images/07-ssti_xvwa.jpeg)\
+*Figure 4.7.18-1: SSTI XVWA Example*
+```
+
+Another example, caption the first image in section 4.4, sub-section 4 as follows:
+
+```md
+![Authentication Bypass](images/04-basm-parammod.jpg)\
+*Figure 4.4.4-1: Authentication Bypass Example*
 ```
 
 ### Inline Links

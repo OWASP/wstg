@@ -33,12 +33,12 @@ Validate the registration process:
 
 In the WordPress example below, the only identification requirement is an email address that is accessible to the registrant.
 
-![WordPress Registration Page](images/Wordpress_registration_page.jpg)\
+![WordPress Registration Page](images/03-wordpress_registration_page.jpg)\
 *Figure 4.3.2-1: WordPress Registration Page*
 
 In contrast, in the Google example below the identification requirements include name, date of birth, country, mobile phone number, email address and CAPTCHA response. While only two of these can be verified (email address and mobile number), the identification requirements are stricter than WordPress.
 
-![Google Registration Page](images/Google_registration_page.jpg)\
+![Google Registration Page](images/03-google_registration_page.jpg)\
 *Figure 4.3.2-2: Google Registration Page*
 
 Some applications may also automatically grant privileged roles to users when they register an account with an email address from a trusted domain. If ownership of the email address is not validated as part of the registration process, this could allow an attacker to gain access to a privileged account by registering a new user on that domain.

@@ -58,7 +58,7 @@ For example, to find the web content of owasp.org as indexed by a typical search
 site:owasp.org
 ```
 
-![Google Site Operation Search Result Example](images/Google_site_Operator_Search_Results_Example_20200406.png)\
+![Google Site Operation Search Result Example](images/01-google_site_operator_search_results.png)\
 *Figure 4.1.1-1: Google Site Operation Search Result Example*
 
 #### Internet Archive Wayback Machine

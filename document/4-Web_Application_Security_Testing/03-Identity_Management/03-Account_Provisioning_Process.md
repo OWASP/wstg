@@ -27,12 +27,12 @@ Determine which roles are able to provision users and what sort of accounts they
 
 In WordPress, only a user's name and email address are required to provision the user, as shown below:
 
-![WordPress User Add](images/Wordpress_useradd.png)\
+![WordPress User Add](images/03-wordpress_useradd.png)\
 *Figure 4.3.3-1: WordPress User Add*
 
 De-provisioning of users requires the administrator to select the users to be de-provisioned, select Delete from the dropdown menu (circled) and then applying this action. The administrator is then presented with a dialog box asking what to do with the user's posts (delete or transfer them).
 
-![WordPress Auth and Users](images/Wordpress_authandusers.png)\
+![WordPress Auth and Users](images/03-wordpress_authandusers.png)\
 *Figure 4.3.3-2: WordPress Auth and Users*
 
 ## Tools
