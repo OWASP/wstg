@@ -41,6 +41,23 @@ Use an [active voice](../../style_guide.md#active-voice) to describe the goal of
 
 Provide specific instructions for performing one or more tests that satisfy the stated objective above. Use individual headings for different tests or methods. Be concise and complete. Use code snippets or images where necessary.
 
+### Images
+
+When adding images to articles:
+
+1. **Place images in the `images/` directory** within the article folder
+2. **Use lowercase filenames** (e.g., `example.jpg`, not `Example.jpg`)
+3. **Prefix with the section ID using a hyphen** to indicate ownership (e.g., `04-basm-parammod.jpg` for section 4.4). Hyphens work reliably across all publishing platforms (web, PDF, Windows).
+4. **Use descriptive names** after the prefix (e.g., `07-ssti_xvwa.jpeg`)
+5. **Reference images in captions** following the style guide format: `![Description](images/04-imagename.jpg)`
+
+Example from section 4.4:
+
+```md
+![Authentication Bypass](images/04-basm-parammod.jpg)
+*Figure 4.4.4-1: Authentication Bypass Example*
+```
+
 ## Remediation
 
 Give a short overview of preventative measures. You may use bullet points. Provide leads to solutions that the reader can follow, but do not try to describe the entire solution itself. Remediation is outside the scope of the testing guide project.

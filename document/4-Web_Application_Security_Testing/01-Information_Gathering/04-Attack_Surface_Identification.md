@@ -249,7 +249,7 @@ One common approach to querying CT logs is to use publicly available search port
 
 For instance: `https://crt.sh/?q=%25.example.com`
 
-![CT Log Search Example](images/Figure-4.1.4-CT-logs-example.png)  
+![CT Log Search Example](images/01-figure-4.1.4-ct-logs-example.png)  
 
 *Figure 4.1.4-1: Example of Certificate Transparency log search results.*
 
