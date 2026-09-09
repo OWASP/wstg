@@ -32,12 +32,12 @@ Use a search engine to search for potentially sensitive information. This may in
 
 Do not limit testing to just one search engine provider, as different search engines may generate different results. Search engine results can vary in a few ways, depending on when the engine last crawled content, and the algorithm the engine uses to determine relevant pages. Consider using the following (alphabetically listed) search engines:
 
-- [Baidu](https://www.baidu.com/), China's [most popular](https://en.wikipedia.org/wiki/Web_search_engine#Market_share) search engine.
-- [Bing](https://www.bing.com/), a search engine owned and operated by Microsoft, and the second [most popular](https://en.wikipedia.org/wiki/Web_search_engine#Market_share) worldwide. Supports [advanced search keywords](https://help.bing.microsoft.com/#apex/18/en-US/10001/-1).
+- [Baidu](https://www.baidu.com/), China's [most popular](https://en.wikipedia.org/wiki/Web_search_engine#market_share) search engine.
+- [Bing](https://www.bing.com/), a search engine owned and operated by Microsoft, and the second [most popular](https://en.wikipedia.org/wiki/Web_search_engine#market_share) worldwide. Supports [advanced search keywords](https://help.bing.microsoft.com/#apex/18/en-US/10001/-1).
 - [binsearch.info](https://binsearch.info/), a search engine for binary Usenet newsgroups.
 - [Common Crawl](https://commoncrawl.org/), "an open repository of web crawl data that can be accessed and analyzed by anyone."
 - [DuckDuckGo](https://duckduckgo.com/), a privacy-focused search engine that compiles results from many different [sources](https://help.duckduckgo.com/results/sources/). Supports [search syntax](https://help.duckduckgo.com/duckduckgo-help-pages/results/syntax/).
-- [Google](https://www.google.com/), which offers the world's [most popular](https://en.wikipedia.org/wiki/Web_search_engine#Market_share) search engine, and uses a ranking system to attempt to return the most relevant results. Supports [search operators](https://support.google.com/websearch/answer/2466433).
+- [Google](https://www.google.com/), which offers the world's [most popular](https://en.wikipedia.org/wiki/Web_search_engine#market_share) search engine, and uses a ranking system to attempt to return the most relevant results. Supports [search operators](https://support.google.com/websearch/answer/2466433).
 - [Internet Archive Wayback Machine](https://archive.org/web/), "building a digital library of internet sites and other cultural artifacts in digital form."
 - [Censys](https://censys.io) is a security-focused search engine that indexes internet-connected infrastructure including servers, certificates,and open services. It offers a free community tier with limited monthly credits and paid plans for enterprise use.
 - [Shodan](https://www.shodan.io/), a service for searching internet-connected devices and services. Usage options include a limited free plan as well as paid subscription plans.
