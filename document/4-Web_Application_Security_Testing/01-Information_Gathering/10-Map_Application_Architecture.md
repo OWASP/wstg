@@ -60,7 +60,7 @@ Many applications store static content on dedicated storage platforms, rather th
 - `BUCKET.s3.amazonaws.com` or `s3.REGION.amazonaws.com/BUCKET` for Amazon S3 Buckets
 - `ACCOUNT.blob.core.windows.net` for Azure Storage Accounts
 
-These storage accounts can often expose sensitive files, as discussed in the [Testing Cloud Storage Guide](../02-Configuration_and_Deployment_Management_Testing/11-Test_Cloud_Storage.md) section.
+These storage accounts can often expose sensitive files, as discussed in the [Testing Cloud Storage Guide](../02-Configuration_and_Deployment_Management/11-Cloud_Storage.md) section.
 
 #### Database
 
@@ -134,7 +134,7 @@ Load balancers can be difficult to detect, but can sometimes be identified by ma
 
 - Inconsistent system times
 - Different internal IP addresses or hostnames in detailed error messages
-- Different addresses returned from [Server-Side Request Forgery (SSRF)](../07-Injection_Testing/19-Testing_for_Server-Side_Request_Forgery.md)
+- Different addresses returned from [Server-Side Request Forgery (SSRF)](../07-Injection/19-Server-Side_Request_Forgery.md)
 
 They may also be indicated by the presence of specific cookies (for example, F5 BIG-IP load balancers will create a cookie called `BIGipServer`.
 
@@ -157,7 +157,7 @@ If the site is behind a CDN, it could be useful to identify the backend servers.
 - Emails sent by the application may come direct from the backend server, which could reveal it's IP address
 - DNS grinding, zone transfers or certificate transparency lists for a domain may reveal it on a subdomain
 - Scanning the IP ranges known to be used by the company may help identify the backend server
-- Exploiting [Server-Side Request Forgery (SSRF)](../07-Injection_Testing/19-Testing_for_Server-Side_Request_Forgery.md) may reveal the IP address
+- Exploiting [Server-Side Request Forgery (SSRF)](../07-Injection/19-Server-Side_Request_Forgery.md) may reveal the IP address
 - Detailed error messages from the application may expose IP addresses or hostnames
 
 ### Security Components

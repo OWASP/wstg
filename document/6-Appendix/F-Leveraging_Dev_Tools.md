@@ -40,7 +40,7 @@ Opening Dev Tools can be accomplished in a number of ways.
 
 ### Related Testing
 
-- [Testing for Browser Cache Weaknesses](../4-Web_Application_Security_Testing/04-Authentication_Testing/06-Testing_for_Browser_Cache_Weaknesses.md)
+- [Testing for Browser Cache Weaknesses](../4-Web_Application_Security_Testing/04-Authentication/06-Browser_Cache_Weaknesses.md)
 
 ### Google Chrome
 
@@ -67,11 +67,11 @@ Later click on the garbage can `Delete` button to the right of the `general.user
 
 ### Related Testing
 
-- [Authentication Testing](../4-Web_Application_Security_Testing/04-Authentication_Testing/README.md)
-- [Authorization Testing](../4-Web_Application_Security_Testing/05-Authorization_Testing/README.md)
-- [Session Management Testing](../4-Web_Application_Security_Testing/06-Session_Management_Testing/README.md)
-- [Injection Testing](../4-Web_Application_Security_Testing/07-Injection_Testing/README.md)
-- [Business Logic Testing](../4-Web_Application_Security_Testing/10-Business_Logic_Testing/README.md)
+- [Authentication Testing](../4-Web_Application_Security_Testing/04-Authentication/README.md)
+- [Authorization Testing](../4-Web_Application_Security_Testing/05-Authorization/README.md)
+- [Session Management Testing](../4-Web_Application_Security_Testing/06-Session_Management/README.md)
+- [Injection Testing](../4-Web_Application_Security_Testing/07-Injection/README.md)
+- [Business Logic Testing](../4-Web_Application_Security_Testing/10-Business_Logic/README.md)
 
 ### Mozilla Firefox
 
@@ -93,10 +93,10 @@ Later click on the garbage can `Delete` button to the right of the `general.user
 
 ### Related Testing
 
-- [Authentication Testing](../4-Web_Application_Security_Testing/04-Authentication_Testing/README.md)
-- [Authorization Testing](../4-Web_Application_Security_Testing/05-Authorization_Testing/README.md)
-- [Session Management Testing](../4-Web_Application_Security_Testing/06-Session_Management_Testing/README.md)
-- [Testing for Cookie Attributes](../4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.md)
+- [Authentication Testing](../4-Web_Application_Security_Testing/04-Authentication/README.md)
+- [Authorization Testing](../4-Web_Application_Security_Testing/05-Authorization/README.md)
+- [Session Management Testing](../4-Web_Application_Security_Testing/06-Session_Management/README.md)
+- [Testing for Cookie Attributes](../4-Web_Application_Security_Testing/06-Session_Management/02-Cookies_Attributes.md)
 
 ### Google Chrome
 
@@ -123,7 +123,7 @@ Later click on the garbage can `Delete` button to the right of the `general.user
 
 ### Related Testing
 
-- [Testing Browser Storage](../4-Web_Application_Security_Testing/11-Client-side_Testing/12-Testing_Browser_Storage.md)
+- [Testing Browser Storage](../4-Web_Application_Security_Testing/11-Client-side/12-Browser_Storage.md)
 
 ### Google Chrome
 
@@ -152,7 +152,7 @@ Later click on the garbage can `Delete` button to the right of the `general.user
 
 ### Related Testing
 
-- [Testing for Client-side Resource Manipulation](../4-Web_Application_Security_Testing/11-Client-side_Testing/06-Testing_for_Client-side_Resource_Manipulation.md)
+- [Testing for Client-side Resource Manipulation](../4-Web_Application_Security_Testing/11-Client-side/06-Client-side_Resource_Manipulation.md)
 
 ### General
 
@@ -250,9 +250,9 @@ All major browsers support encoding and decoding strings in various ways leverag
 
 ### Related Testing
 
-- [Testing for Browser Cache Weaknesses](../4-Web_Application_Security_Testing/04-Authentication_Testing/06-Testing_for_Browser_Cache_Weaknesses.md)
-- [Testing for Weaker Authentication in Alternative Channel](../4-Web_Application_Security_Testing/04-Authentication_Testing/10-Testing_for_Weaker_Authentication_in_Alternative_Channel.md)
-- [Testing for Clickjacking](../4-Web_Application_Security_Testing/11-Client-side_Testing/09-Testing_for_Clickjacking.md)
+- [Testing for Browser Cache Weaknesses](../4-Web_Application_Security_Testing/04-Authentication/06-Browser_Cache_Weaknesses.md)
+- [Testing for Weaker Authentication in Alternative Channel](../4-Web_Application_Security_Testing/04-Authentication/10-Weaker_Authentication_in_Alternative_Channel.md)
+- [Testing for Clickjacking](../4-Web_Application_Security_Testing/11-Client-side/09-Clickjacking.md)
 
 ### Google Chrome
 

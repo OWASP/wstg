@@ -1,0 +1,23 @@
+# 4.4 Authentication
+
+4.4.1 [Credentials Transported over an Encrypted Channel](01-Credentials_Transported_over_an_Encrypted_Channel.md)
+
+4.4.2 [Default Credentials](02-Default_Credentials.md)
+
+4.4.3 [Weak Lock Out Mechanism](03-Weak_Lock_Out_Mechanism.md)
+
+4.4.4 [Bypassing Authentication Schema](04-Bypassing_Authentication_Schema.md)
+
+4.4.5 [Vulnerable Remember Password](05-Vulnerable_Remember_Password.md)
+
+4.4.6 [Browser Cache Weaknesses](06-Browser_Cache_Weaknesses.md)
+
+4.4.7 [Weak Authentication Methods](07-Weak_Authentication_Methods.md)
+
+4.4.8 [Weak Security Question Answer](08-Weak_Security_Question_Answer.md)
+
+4.4.9 [Weak Password Change or Reset Functionalities](09-Weak_Password_Change_or_Reset_Functionalities.md)
+
+4.4.10 [Weaker Authentication in Alternative Channel](10-Weaker_Authentication_in_Alternative_Channel.md)
+
+4.4.11 [Multi-Factor Authentication](11-Multi-Factor_Authentication.md)

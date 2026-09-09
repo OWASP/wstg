@@ -49,7 +49,7 @@ Test various **HTTP methods** for BOLA vulnerabilities:
 
 ### Test BOLA in GraphQL APIs
 
-For **GraphQL APIs**, send a query with a modified object ID in the query parameters (see [Testing GraphQL](https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/12-API_Testing/01-Testing_GraphQL)):
+For **GraphQL APIs**, send a query with a modified object ID in the query parameters (see [GraphQL](99-GraphQL.md)):
 
 Example: `query { user(id: "124") { name, email } }`.
 
@@ -82,5 +82,5 @@ Example: `GET /api/users` returns data for all users instead of only the authent
 ## References
 
 - [OWASP API Security Top 10: BOLA](https://owasp.org/API-Security/editions/2023/en/0xa1-broken-object-level-authorization/)
-- [OWASP Testing Guide: Testing for Insecure Direct Object References (IDOR)](https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/05-Authorization_Testing/04-Testing_for_Insecure_Direct_Object_References)
-- [OWASP Testing Guide: Testing for GraphQL](https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/12-API_Testing/01-Testing_GraphQL)  
+- [Insecure Direct Object References (IDOR)](../05-Authorization/04-Insecure_Direct_Object_References.md)
+- [GraphQL](99-GraphQL.md)
