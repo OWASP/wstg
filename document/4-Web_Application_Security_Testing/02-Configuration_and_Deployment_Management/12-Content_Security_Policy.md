@@ -16,7 +16,7 @@ Content Security Policy supports directives which allow granular control to the 
 
 ## How to Test
 
-Testing for Content Security Policy (CSP) weaknesses requires more than verifying the presence of the header. The tester should evaluate whether the policy meaningfully reduces the attack surface and is properly enforced.
+Identifying Content Security Policy (CSP) weaknesses requires more than verifying the presence of the header. The tester should evaluate whether the policy meaningfully reduces the attack surface and is properly enforced.
 
 ### Identify and Confirm CSP Enforcement
 

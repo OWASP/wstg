@@ -144,9 +144,9 @@
 
 #### 4.5.5 [OAuth Weaknesses](4-Web_Application_Security_Testing/05-Authorization/05-OAuth_Weaknesses.md)
 
-##### 4.5.5.1 [OAuth Authorization Server Weaknesses](4-Web_Application_Security_Testing/05-Authorization/05.1-Testing_for_OAuth_Authorization_Server_Weaknesses.md)
+##### 4.5.5.1 [OAuth Authorization Server Weaknesses](4-Web_Application_Security_Testing/05-Authorization/05.1-OAuth_Authorization_Server_Weaknesses.md)
 
-##### 4.5.5.2 [OAuth Client Weaknesses](4-Web_Application_Security_Testing/05-Authorization/05.2-Testing_for_OAuth_Client_Weaknesses.md)
+##### 4.5.5.2 [OAuth Client Weaknesses](4-Web_Application_Security_Testing/05-Authorization/05.2-OAuth_Client_Weaknesses.md)
 
 ### 4.6 [Session Management](4-Web_Application_Security_Testing/06-Session_Management/README.md)
 
@@ -184,21 +184,21 @@
 
 #### 4.7.5 [SQL Injection](4-Web_Application_Security_Testing/07-Injection/05-SQL_Injection.md)
 
-##### 4.7.5.1 [Oracle](4-Web_Application_Security_Testing/07-Injection/05.1-Testing_for_Oracle.md)
+##### 4.7.5.1 [Oracle](4-Web_Application_Security_Testing/07-Injection/05.1-Oracle.md)
 
-##### 4.7.5.2 [MySQL](4-Web_Application_Security_Testing/07-Injection/05.2-Testing_for_MySQL.md)
+##### 4.7.5.2 [MySQL](4-Web_Application_Security_Testing/07-Injection/05.2-MySQL.md)
 
-##### 4.7.5.3 [SQL Server](4-Web_Application_Security_Testing/07-Injection/05.3-Testing_for_SQL_Server.md)
+##### 4.7.5.3 [SQL Server](4-Web_Application_Security_Testing/07-Injection/05.3-SQL_Server.md)
 
 ##### 4.7.5.4 [PostgreSQL](4-Web_Application_Security_Testing/07-Injection/05.4-Testing_PostgreSQL.md)
 
-##### 4.7.5.5 [MS Access](4-Web_Application_Security_Testing/07-Injection/05.5-Testing_for_MS_Access.md)
+##### 4.7.5.5 [MS Access](4-Web_Application_Security_Testing/07-Injection/05.5-MS_Access.md)
 
-##### 4.7.5.6 [NoSQL Injection](4-Web_Application_Security_Testing/07-Injection/05.6-Testing_for_NoSQL_Injection.md)
+##### 4.7.5.6 [NoSQL Injection](4-Web_Application_Security_Testing/07-Injection/05.6-NoSQL_Injection.md)
 
-##### 4.7.5.7 [ORM Injection](4-Web_Application_Security_Testing/07-Injection/05.7-Testing_for_ORM_Injection.md)
+##### 4.7.5.7 [ORM Injection](4-Web_Application_Security_Testing/07-Injection/05.7-ORM_Injection.md)
 
-##### 4.7.5.8 [Client-side](4-Web_Application_Security_Testing/07-Injection/05.8-Testing_for_Client-side.md)
+##### 4.7.5.8 [Client-side](4-Web_Application_Security_Testing/07-Injection/05.8-Client-side.md)
 
 #### 4.7.6 [LDAP Injection](4-Web_Application_Security_Testing/07-Injection/06-LDAP_Injection.md)
 
@@ -212,7 +212,7 @@
 
 #### 4.7.11 [Code Injection](4-Web_Application_Security_Testing/07-Injection/11-Code_Injection.md)
 
-##### 4.7.11.1 [File Inclusion](4-Web_Application_Security_Testing/07-Injection/11.1-Testing_for_File_Inclusion.md)
+##### 4.7.11.1 [File Inclusion](4-Web_Application_Security_Testing/07-Injection/11.1-File_Inclusion.md)
 
 #### 4.7.12 [Command Injection](4-Web_Application_Security_Testing/07-Injection/12-Command_Injection.md)
 
@@ -282,7 +282,7 @@
 
 #### 4.11.1 [DOM-Based Cross Site Scripting](4-Web_Application_Security_Testing/11-Client-side/01-DOM-based_Cross_Site_Scripting.md)
 
-##### 4.11.1.1 [Self DOM Based Cross-Site Scripting](4-Web_Application_Security_Testing/11-Client-side/01.1-Testing_for_Self_DOM_Based_Cross_Site_Scripting.md)
+##### 4.11.1.1 [Self DOM Based Cross-Site Scripting](4-Web_Application_Security_Testing/11-Client-side/01.1-Self_DOM_Based_Cross_Site_Scripting.md)
 
 #### 4.11.2 [JavaScript Execution](4-Web_Application_Security_Testing/11-Client-side/02-JavaScript_Execution.md)
 

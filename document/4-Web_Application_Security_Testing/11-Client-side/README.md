@@ -2,7 +2,7 @@
 
 4.11.1 [DOM-Based Cross Site Scripting](01-DOM-based_Cross_Site_Scripting.md)
 
-- 4.11.1.1 [Self DOM Based Cross Site Scripting](01.1-Testing_for_Self_DOM_Based_Cross_Site_Scripting.md)
+- 4.11.1.1 [Self DOM Based Cross Site Scripting](01.1-Self_DOM_Based_Cross_Site_Scripting.md)
 
 4.11.2 [JavaScript Execution](02-JavaScript_Execution.md)
 

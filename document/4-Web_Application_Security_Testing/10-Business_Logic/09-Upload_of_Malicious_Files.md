@@ -176,7 +176,7 @@ A successful ZIP bomb attack will result in a denial of service, and can also le
 
 XML files have a number of potential vulnerabilities such as XML eXternal Entities (XXE) and denial of service attacks such as the [billion laughs attack](https://en.wikipedia.org/wiki/Billion_laughs_attack).
 
-These are discussed further in the [Testing for XML Injection](../07-Injection/07-XML_Injection.md) guide.
+These are discussed further in the [XML Injection](../07-Injection/07-XML_Injection.md) guide.
 
 #### Other File Formats
 
@@ -200,7 +200,7 @@ When there is file upload feature supported, the following API/methods are commo
 ## Related Test Cases
 
 - [File Extensions Handling for Sensitive Information](../02-Configuration_and_Deployment_Management/03-File_Extensions_Handling_for_Sensitive_Information.md)
-- [Testing for XML Injection](../07-Injection/07-XML_Injection.md)
+- [XML Injection](../07-Injection/07-XML_Injection.md)
 - [Test Upload of Unexpected File Types](08-Upload_of_Unexpected_File_Types.md)
 
 ## Remediation

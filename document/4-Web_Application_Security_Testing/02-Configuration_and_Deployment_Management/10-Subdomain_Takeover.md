@@ -33,7 +33,7 @@ If the subdomain takeover is successful, a wide variety of attacks are possible 
 
 ### Black-Box Testing
 
-Testing for subdomain takeover follows three phases: subdomain enumeration, automated fingerprint-based detection, and manual validation.
+Subdomain takeover testing follows three phases: subdomain enumeration, automated fingerprint-based detection, and manual validation.
 
 A dangling DNS record occurs when a DNS entry points to an external resource that no longer exists or has been deprovisioned. For example, a CNAME record pointing to a GitHub Pages site that the owner deleted still resolves, but the underlying resource is unclaimed. An attacker can register that resource and take control of the subdomain.
 

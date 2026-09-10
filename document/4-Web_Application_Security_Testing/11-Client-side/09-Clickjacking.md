@@ -70,7 +70,7 @@ Applications running on acessibility mode should also be tested against clickjac
 
 The HTTP Content-Security-Policy (CSP) response header allows web page administrators to control resources the user agent is allowed to load for a given web page. The `frame-ancestors` directive in the HTTP CSP specifies the acceptable parents that may embed a web page using the `<frame>`, `<iframe>`, `<object>`, `<embed>`, or `<applet>` tags.
 
-#### Testing Content Security Policy Response Header
+#### Content Security Policy Response Header
 
 - Using a browser, open developer tools and access the target web page. Navigate to the Network tab.
 - Look for the request that loads the web page. It should have the same domain as the web page - usually be the first item on the Network tab.

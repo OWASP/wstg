@@ -806,14 +806,14 @@ For generic input validation security, refer to the [Input Validation CheatSheet
 
 Technology-specific Testing Guide pages have been created for the following DBMSs:
 
-- [Oracle](05.1-Testing_for_Oracle.md)
-- [MySQL](05.2-Testing_for_MySQL.md)
-- [SQL Server](05.3-Testing_for_SQL_Server.md)
+- [Oracle](05.1-Oracle.md)
+- [MySQL](05.2-MySQL.md)
+- [SQL Server](05.3-SQL_Server.md)
 - [PostgreSQL](05.4-Testing_PostgreSQL.md)
-- [MS Access](05.5-Testing_for_MS_Access.md)
-- [NoSQL](05.6-Testing_for_NoSQL_Injection.md)
-- [ORM](05.7-Testing_for_ORM_Injection.md)
-- [Client-side](05.8-Testing_for_Client-side.md)
+- [MS Access](05.5-MS_Access.md)
+- [NoSQL](05.6-NoSQL_Injection.md)
+- [ORM](05.7-ORM_Injection.md)
+- [Client-side](05.8-Client-side.md)
 
 ### Whitepapers
 

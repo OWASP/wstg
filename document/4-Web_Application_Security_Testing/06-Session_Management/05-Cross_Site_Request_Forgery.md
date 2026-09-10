@@ -124,7 +124,7 @@ In short: the `img`-tag PoC is a subresource request, and the auto-submitting fo
 
 Don't conclude an application is safe from CSRF just because a PoC fails to fire in one browser - check the actual `Set-Cookie` header for the session cookie, and, if needed, retest in a browser that doesn't default to `Lax` (e.g. Firefox) to confirm whether the underlying vulnerability exists.
 
-### Testing Session Management
+### Session Management
 
 Audit the application to ascertain if its session management is vulnerable. If session management relies only on client-side values (information available to the browser), then the application is vulnerable. "Client-side values" refers to cookies and HTTP authentication credentials (Basic Authentication and other forms of HTTP authentication; not form-based authentication, which is an application-level authentication).
 

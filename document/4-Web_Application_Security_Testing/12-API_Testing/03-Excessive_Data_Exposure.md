@@ -186,4 +186,4 @@ Trigger error responses by sending malformed input, invalid authentication, or r
 
 - [OWASP API Security Top 10: API3:2023 Broken Object Property Level Authorization](https://owasp.org/API-Security/editions/2023/en/0xa3-broken-object-property-level-authorization/)
 - [OWASP ASVS V5: API and Web Service](https://github.com/OWASP/ASVS/blob/v5.0.0/5.0/en/0x13-V4-API-and-Web-Service.md)
-- [Testing for Insecure Direct Object References (IDOR)](../05-Authorization/04-Insecure_Direct_Object_References.md)
+- [Insecure Direct Object References (IDOR)](../05-Authorization/04-Insecure_Direct_Object_References.md)

@@ -23,7 +23,7 @@ Despite it being easy to conduct brute force attacks, the result of a successful
 
 ## How to Test
 
-### Testing Credential Stuffing and Distributed Brute Force
+### Credential Stuffing and Distributed Brute Force
 
 Credential stuffing uses previously leaked username and password pairs from data breaches to gain unauthorized access to accounts. Distributed brute force and password spraying send many authentication attempts from multiple IP addresses. Both can bypass lockout mechanisms that only count failures per IP.
 

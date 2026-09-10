@@ -55,7 +55,7 @@ Prototype pollution is reachable through any input whose keys end up as object p
 - JSON request bodies that are deserialized and then merged or cloned (configuration, profile, or settings endpoints are common candidates).
 - Other structured inputs parsed into nested objects, such as form data or cookies.
 
-#### Testing for Client-Side Prototype Pollution
+#### Client-Side Prototype Pollution
 
 Submit a probe that attempts to set a uniquely-named property on the prototype through a candidate source. The two encodings below express the same intent:
 
@@ -74,7 +74,7 @@ Then confirm in the browser developer console whether the property leaked onto t
 
 If the value is returned, the source is exploitable and the next step is to find a gadget that turns the polluted property into DOM XSS (for example, a property a library reads when building markup or configuring script behavior). Browser tooling that scans for both sources and gadgets, such as DOM Invader (see Tools), significantly speeds up this phase.
 
-#### Testing for Server-Side Prototype Pollution
+#### Server-Side Prototype Pollution
 
 The tester cannot read the prototype from a console here, so detection is indirect: pollute a property and observe an externally visible change in behavior. Send a JSON body that nests the special key inside an otherwise normal object, targeting an endpoint that merges or clones request data:
 

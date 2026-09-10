@@ -17,7 +17,7 @@ Additionally, when new users are created on the applications, these may have pre
 
 ## How to Test
 
-### Testing for Vendor Default Credentials
+### Vendor Default Credentials
 
 The first step to identifying default passwords is to identify the software that is in use. This is covered in detail in the [Information Gathering](../01-Information_Gathering/README.md) section of the guide.
 
@@ -36,9 +36,9 @@ If a default password can't be found, try common options such as:
 - An empty or blank password.
 - The serial number or MAC address of the device.
 
-If the username is unknown, there are various options for enumerating users, discussed in the [Testing for Account Enumeration](../03-Identity_Management/04-Account_Enumeration_and_Guessable_User_Account.md) guide. Alternatively, try common options such as "admin", "root", or "system".
+If the username is unknown, there are various options for enumerating users, discussed in the [Account Enumeration](../03-Identity_Management/04-Account_Enumeration_and_Guessable_User_Account.md) guide. Alternatively, try common options such as "admin", "root", or "system".
 
-### Testing for Organization Default Passwords
+### Organization Default Passwords
 
 When staff within an organization manually create passwords for new accounts, they may do so in a predictable way. This can often be:
 
@@ -48,7 +48,7 @@ When staff within an organization manually create passwords for new accounts, th
 
 These types of passwords are often difficult to identify from a black-box perspective, unless they can successfully be guessed or brute-forced. However, they are easy to identify when performing gray-box or white-box testing.
 
-### Testing for Application Generated Default Passwords
+### Application Generated Default Passwords
 
 If the application automatically generates passwords for new user accounts, these may also be predictable. In order to test these, create multiple accounts on the application with similar details at the same time, and compare the passwords that are given for them.
 

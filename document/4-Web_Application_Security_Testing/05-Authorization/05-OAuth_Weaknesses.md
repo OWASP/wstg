@@ -42,7 +42,7 @@ Two flows will be deprecated in the release of [OAuth2.1](https://oauth.net/2.1/
 
 ## How to Test
 
-### Testing for Deprecated Grant Types
+### Deprecated Grant Types
 
 Deprecated grant types were obsoleted for security and functionality reasons. Identifying if they're being used allows us to quickly review if they're susceptible to any of the threats pertaining to their usage. Some might be out of scope to the attacker, such as the way a client might be using the users' credentials. This should be documented and raised to the internal engineering teams.
 

@@ -37,7 +37,7 @@ curl -X PUT -d 'test' 'https://<cloud-storage-service>/test.txt'
 
 In the above command, it is recommended to replace the single quotes (') with double quotes (") when running the command on a Windows machine.
 
-### Testing for Amazon S3 Bucket Misconfiguration
+### Amazon S3 Bucket Misconfiguration
 
 The Amazon S3 bucket URLs follow one of two formats, either virtual host style or path-style.
 
@@ -91,7 +91,7 @@ For black-box testing, S3 URLs can be found in the HTTP messages. The following 
 
 For gray-box testing, you can obtain bucket URLs from Amazon's web interface, documents, source code, and any other available sources.
 
-#### Testing with AWS-CLI
+#### AWS-CLI
 
 In addition to testing with curl, you can also test with the AWS command-line tool. In this case `s3://` URI scheme is used.
 

@@ -186,7 +186,7 @@ If the tester has access to the session management schema implementation, they c
     - secure (set only on HTTPS channel): `Set-Cookie: cookie=data; path=/; domain=.aaa.it; secure`
     - [HTTPOnly](https://owasp.org/www-community/HttpOnly) (not readable by a script): `Set-Cookie: cookie=data; path=/; domain=.aaa.it; HttpOnly`
 
-More information here: [Testing for cookies attributes](02-Cookies_Attributes.md)
+More information here: [cookies attributes](02-Cookies_Attributes.md)
 
 ## Tools
 

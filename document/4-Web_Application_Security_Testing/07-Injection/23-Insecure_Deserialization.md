@@ -142,7 +142,7 @@ If the application relies on this object for authorization decisions, change `b:
 object. When editing string or array lengths, keep the PHP serialization length prefixes
 consistent or the parser will reject the payload.
 
-#### Testing for Dangerous Side Effects
+#### Dangerous Side Effects
 
 Check whether deserialization triggers unintended behavior, such as:
 
