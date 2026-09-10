@@ -174,12 +174,12 @@
 }
 
 .footer-back-to-top-link {
-  color: var(--link);
+  color: var(--accent-cyan);
   text-decoration: underline;
 }
 
 .footer-back-to-top-link:hover {
-  color: var(--link-hover);
+  opacity: 0.8;
 }
 
 /* Bottom row - trademark + copyright, text #d7d7d7 */
