@@ -6,7 +6,7 @@
 
 ## Summary
 
-Often called "secret" questions and answers, security questions and answers are often used to recover forgotten passwords (see [Testing for weak password change or reset functionalities](09-Weak_Password_Change_or_Reset_Functionalities.md), or as extra security on top of the password.
+Often called "secret" questions and answers, security questions and answers are often used to recover forgotten passwords (see [weak password change or reset functionalities](09-Weak_Password_Change_or_Reset_Functionalities.md), or as extra security on top of the password.
 
 They are typically generated upon account creation and require the user to select from some pre-generated questions and supply an appropriate answer. They may allow the user to generate their own question and answer pairs. Both methods are prone to insecurities. Ideally, security questions should generate answers that are only known by the user, and not guessable or discoverable by anybody else. This is harder than it sounds.
 Security questions and answers rely on the secrecy of the answer. Questions and answers should be chosen so that the answers are only known by the account holder. However, although a lot of answers may not be publicly known, most of the questions that sites implement promote answers that are pseudo-private.
@@ -35,17 +35,17 @@ The problem with having users to generate their own questions is that it allows 
 
 ## How to Test
 
-### Testing for Weak Pre-generated Questions
+### Weak Pre-generated Questions
 
 Try to obtain a list of security questions by creating a new account or by following the "I don’t remember my password"-process. Try to generate as many questions as possible to get a good idea of the type of security questions that are asked. If any of the security questions fall in the categories described above, they are vulnerable to being attacked (guessed, brute-forced, available on social media, etc.).
 
-### Testing for Weak Self-Generated Questions
+### Weak Self-Generated Questions
 
-Try to create security questions by creating a new account or by configuring your existing account’s password recovery properties. If the system allows the user to generate their own security questions, it is vulnerable to having insecure questions created. If the system uses the self-generated security questions during the forgotten password functionality and if usernames can be enumerated (see [Testing for Account Enumeration and Guessable User Account](../03-Identity_Management/04-Account_Enumeration_and_Guessable_User_Account.md), then it should be easy for the tester to enumerate a number of self-generated questions. It should be expected to find several weak self-generated questions using this method.
+Try to create security questions by creating a new account or by configuring your existing account’s password recovery properties. If the system allows the user to generate their own security questions, it is vulnerable to having insecure questions created. If the system uses the self-generated security questions during the forgotten password functionality and if usernames can be enumerated (see [Account Enumeration and Guessable User Account](../03-Identity_Management/04-Account_Enumeration_and_Guessable_User_Account.md), then it should be easy for the tester to enumerate a number of self-generated questions. It should be expected to find several weak self-generated questions using this method.
 
-### Testing for Brute-forcible Answers
+### Brute-forcible Answers
 
-Use the methods described in [Testing for Weak lock out mechanism](03-Weak_Lock_Out_Mechanism.md) to determine if a number of incorrectly supplied security answers trigger a lockout mechanism.
+Use the methods described in [Weak lock out mechanism](03-Weak_Lock_Out_Mechanism.md) to determine if a number of incorrectly supplied security answers trigger a lockout mechanism.
 
 The first thing to take into consideration when trying to exploit security questions is the number of questions that need to be answered. The majority of applications only need the user to answer a single question, whereas some critical applications may require the user to answer two or even more questions.
 

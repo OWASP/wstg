@@ -34,7 +34,7 @@ These behaviors can lead to persistent desynchronization, cache poisoning, crede
 
 ### Black-Box Testing
 
-#### Testing for CL.TE Desynchronization
+#### CL.TE Desynchronization
 
 In a CL.TE scenario, the frontend uses `Content-Length` to determine request size, while the backend honors `Transfer-Encoding`.
 
@@ -56,7 +56,7 @@ Expected Result:
 - Smuggled request remains buffered
 - Subsequent legitimate requests are corrupted or return unexpected responses (e.g., 404)
 
-#### Testing for TE.CL Desynchronization
+#### TE.CL Desynchronization
 
 In a TE.CL scenario, the frontend processes chunked encoding correctly, but the backend relies on `Content-Length`.
 
@@ -79,7 +79,7 @@ Expected Result:
 - Remaining payload is interpreted as a new request
 - Unauthorized endpoint access or request poisoning may occur
 
-#### Testing for TE.TE (Obfuscated Transfer-Encoding)
+#### TE.TE (Obfuscated Transfer-Encoding)
 
 If both servers support `Transfer-Encoding`, header obfuscation may cause one parser to ignore it.
 

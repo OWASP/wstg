@@ -28,8 +28,8 @@ Suppose an eCommerce site allows users to take advantage of any one of many disc
 
 ## Related Test Cases
 
-- [Testing for Account Enumeration and Guessable User Account](../03-Identity_Management/04-Account_Enumeration_and_Guessable_User_Account.md)
-- [Testing for Weak lock out mechanism](../04-Authentication/03-Weak_Lock_Out_Mechanism.md)
+- [Account Enumeration and Guessable User Account](../03-Identity_Management/04-Account_Enumeration_and_Guessable_User_Account.md)
+- [Weak lock out mechanism](../04-Authentication/03-Weak_Lock_Out_Mechanism.md)
 
 ## Remediation
 

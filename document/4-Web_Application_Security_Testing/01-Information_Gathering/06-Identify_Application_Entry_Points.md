@@ -105,7 +105,7 @@ You can also generate a JSON output file using the `-json` flag, which can be us
 - [Home of ASD Plugin for ZAP](https://github.com/secdec/attack-surface-detector-zap/wiki)
 - [Home of ASD Plugin for PortSwigger Burp](https://github.com/secdec/attack-surface-detector-burp/wiki)
 
-### Testing for Application Entry Points
+### Application Entry Points
 
 The following are two examples on how to check for application entry points.
 

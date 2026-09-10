@@ -10,21 +10,21 @@
 
 4.7.5 [SQL Injection](05-SQL_Injection.md)
 
-- 4.7.5.1 [Oracle](05.1-Testing_for_Oracle.md)
+- 4.7.5.1 [Oracle](05.1-Oracle.md)
 
-- 4.7.5.2 [MySQL](05.2-Testing_for_MySQL.md)
+- 4.7.5.2 [MySQL](05.2-MySQL.md)
 
-- 4.7.5.3 [SQL Server](05.3-Testing_for_SQL_Server.md)
+- 4.7.5.3 [SQL Server](05.3-SQL_Server.md)
 
-- 4.7.5.4 [PostgreSQL](05.4-Testing_PostgreSQL.md)
+- 4.7.5.4 [PostgreSQL](05.4-PostgreSQL.md)
 
-- 4.7.5.5 [MS Access](05.5-Testing_for_MS_Access.md)
+- 4.7.5.5 [MS Access](05.5-MS_Access.md)
 
-- 4.7.5.6 [NoSQL Injection](05.6-Testing_for_NoSQL_Injection.md)
+- 4.7.5.6 [NoSQL Injection](05.6-NoSQL_Injection.md)
 
-- 4.7.5.7 [ORM Injection](05.7-Testing_for_ORM_Injection.md)
+- 4.7.5.7 [ORM Injection](05.7-ORM_Injection.md)
 
-- 4.7.5.8 [Client-side](05.8-Testing_for_Client-side.md)
+- 4.7.5.8 [Client-side](05.8-Client-side.md)
 
 4.7.6 [LDAP Injection](06-LDAP_Injection.md)
 
@@ -38,7 +38,7 @@
 
 4.7.11 [Code Injection](11-Code_Injection.md)
 
-- 4.7.11.1 [File Inclusion](11.1-Testing_for_File_Inclusion.md)
+- 4.7.11.1 [File Inclusion](11.1-File_Inclusion.md)
 
 4.7.12 [Command Injection](12-Command_Injection.md)
 

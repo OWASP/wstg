@@ -21,7 +21,7 @@ Usually, people refer to *vertical escalation* when it is possible to access res
 
 ## How to Test
 
-### Testing for Role/Privilege Manipulation
+### Role/Privilege Manipulation
 
 In every portion of the application where a user can create information in the database (e.g., making a payment, adding a contact, or sending a message), can receive information (statement of account, order details, etc.), or delete information (drop users, messages, etc.), it is necessary to record that functionality. The tester should try to access such functions as another user in order to verify if it is possible to access a function that should not be permitted by the user's role/privilege (but might be permitted as another user).
 
@@ -94,7 +94,7 @@ X-Forwarded-For: 8.1.1.1
 
 In this case, if the site uses the value of `X-forwarded-For` as client IP address, tester may change the IP value of the `X-forwarded-For` HTTP header to workaround the IP source identification.
 
-### Testing for Vertical Bypassing Authorization Schema
+### Vertical Bypass
 
 A vertical authorization bypass is specific to the case that an attacker obtains a role higher than their own. Testing for this bypass focuses on verifying how the vertical authorization schema has been implemented for each role. For every function, page, specific role, or request that the application executes, it is necessary to verify if it is possible to:
 

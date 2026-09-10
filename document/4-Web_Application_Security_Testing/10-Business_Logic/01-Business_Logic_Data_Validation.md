@@ -54,9 +54,9 @@ Specific Testing Method:
 ## Related Test Cases
 
 - All [Injection Testing](../07-Injection/README.md) test cases.
-- [Testing for Account Enumeration and Guessable User Account](../03-Identity_Management/04-Account_Enumeration_and_Guessable_User_Account.md).
-- [Testing for Bypassing Session Management Schema](../06-Session_Management/01-Session_Management_Schema.md).
-- [Testing for Exposed Session Variables](../06-Session_Management/04-Exposed_Session_Variables.md).
+- [Account Enumeration and Guessable User Account](../03-Identity_Management/04-Account_Enumeration_and_Guessable_User_Account.md).
+- [Bypassing Session Management Schema](../06-Session_Management/01-Session_Management_Schema.md).
+- [Exposed Session Variables](../06-Session_Management/04-Exposed_Session_Variables.md).
 
 ## Remediation
 

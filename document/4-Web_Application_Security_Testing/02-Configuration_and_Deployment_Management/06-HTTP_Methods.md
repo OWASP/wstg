@@ -173,7 +173,7 @@ Host: example.org
 
 As with the `PUT` method, this functionality may have access control weaknesses or other vulnerabilities. Additionally, applications may not perform the same level of input validation when modifying an object as they do when creating one. This could potentially allow malicious values to be injected (such as in a stored cross-site scripting attack), or could allow broken or invalid objects that may result in business logic related issues.
 
-### Testing for Access Control Bypass
+### Access Control Bypass
 
 If a page on the application redirects users to a login page with a 302 code when they attempt to access it directly, it may be possible to bypass this by making a request with a different HTTP method, such as `HEAD`, `POST` or even a made up method such as `FOO`. If the web application responds with a `HTTP/1.1 200 OK` rather than the expected `HTTP/1.1 302 Found`, it may then be possible to bypass the authentication or authorization. The example below shows how a `HEAD` request may result in a page setting administrative cookies, rather than redirecting the user to a login page:
 
@@ -205,7 +205,7 @@ Content-Length: 36
 username=foo&password=bar&role=admin
 ```
 
-### Testing for HTTP Method Overriding
+### HTTP Method Overriding
 
 Some web frameworks provide a way to override the actual HTTP method in the request. They achieve this by emulating the missing HTTP verbs and passing some custom headers in the requests. The main purpose of this is to circumvent a middleware application (such as a proxy or web application firewall) which blocks specific methods. The following alternative HTTP headers could potentially be used:
 

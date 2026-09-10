@@ -196,8 +196,8 @@ If a valid certificate can be obtained, then it should also be verified that the
 
 ## Related Test Cases
 
-- [Testing for Weak Lock Out Mechanism](03-Weak_Lock_Out_Mechanism.md)
-- [Testing for Weak Password Change or Reset Functionalities](09-Weak_Password_Change_or_Reset_Functionalities.md)
+- [Weak Lock Out Mechanism](03-Weak_Lock_Out_Mechanism.md)
+- [Weak Password Change or Reset Functionalities](09-Weak_Password_Change_or_Reset_Functionalities.md)
 
 ## Remediation
 

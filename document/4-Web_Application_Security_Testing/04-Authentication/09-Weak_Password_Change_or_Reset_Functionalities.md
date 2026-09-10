@@ -44,7 +44,7 @@ Regardless of the specific methods used to reset passwords, there are a number o
 
 - Does the reset process allow user enumeration?
 
-  See the [Testing for Account Enumeration](../03-Identity_Management/04-Account_Enumeration_and_Guessable_User_Account.md) guide for further information.
+  See the [Account Enumeration](../03-Identity_Management/04-Account_Enumeration_and_Guessable_User_Account.md) guide for further information.
 
 ### Email - New Password Sent
 
@@ -109,7 +109,7 @@ In this model, the user is emailed a link that contains a token. They can then c
 
 - Can you inject a different host header?
 
-  If the application trusts the value of the `Host` header and uses this to generate the password reset link, it may be possible to steal tokens by injecting a modified `Host` header into the request. See the [Testing for Host Header Injection](../07-Injection/17-Host_Header_Injection.md) guide for further information.
+  If the application trusts the value of the `Host` header and uses this to generate the password reset link, it may be possible to steal tokens by injecting a modified `Host` header into the request. See the [Host Header Injection](../07-Injection/17-Host_Header_Injection.md) guide for further information.
 
 - Is the link exposed to third parties?
 
@@ -173,7 +173,7 @@ Rather than sending a token in an email, an alternative approach is to send it v
 
 Rather than sending them a link or new password, security questions can be used as a mechanism to authenticate the user. This is considered to be a weak approach, and should not be used if better options are available.
 
-See the [Testing for Weak Security Questions](08-Weak_Security_Question_Answer.md) guide for further information.
+See the [Weak Security Questions](08-Weak_Security_Question_Answer.md) guide for further information.
 
 ### Authenticated Identity and Configuration Changes
 
@@ -195,11 +195,11 @@ Once the user has proved their identity (either through a password reset link, a
 
 - Is the password change form vulnerable to CSRF?
 
-  If the user isn't required to re-authenticate, then it may be possible to carry out a CSRF attack against the password reset form, allowing their account to be compromised. See the [Testing for Cross-Site Request Forgery](../06-Session_Management/05-Cross_Site_Request_Forgery.md) guide for further information.
+  If the user isn't required to re-authenticate, then it may be possible to carry out a CSRF attack against the password reset form, allowing their account to be compromised. See the [Cross-Site Request Forgery](../06-Session_Management/05-Cross_Site_Request_Forgery.md) guide for further information.
 
 - Is a strong and effective password policy applied?
 
-  The password policy should be consistent across the registration, password change, and password reset functionality. See the [Testing for Weak Authentication Methods](07-Weak_Authentication_Methods.md) guide for further information.
+  The password policy should be consistent across the registration, password change, and password reset functionality. See the [Weak Authentication Methods](07-Weak_Authentication_Methods.md) guide for further information.
 
 ## Remediation
 
@@ -207,7 +207,7 @@ Ensure that:
 
 - Password change and reset flows are at least as strong as normal authentication and cannot bypass MFA.
 - Reset tokens are high-entropy, single-use, short-lived, and stored hashed; reset links use HTTPS and are not built from an untrusted `Host` header.
-- Reset pages do not leak tokens to third parties via the `Referer` header; set an appropriate `Referrer-Policy` and avoid third-party resources on those pages. See [Testing for Other HTTP Security Header Misconfigurations](../02-Configuration_and_Deployment_Management/14-Other_HTTP_Security_Header_Misconfigurations.md).
+- Reset pages do not leak tokens to third parties via the `Referer` header; set an appropriate `Referrer-Policy` and avoid third-party resources on those pages. See [Other HTTP Security Header Misconfigurations](../02-Configuration_and_Deployment_Management/14-Other_HTTP_Security_Header_Misconfigurations.md).
 - Rate limiting, re-authentication for sensitive account changes, CSRF protection, and a consistent password policy are applied.
 
 ## References

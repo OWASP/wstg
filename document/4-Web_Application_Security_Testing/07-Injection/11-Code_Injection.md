@@ -19,7 +19,7 @@ In [Code Injection](https://owasp.org/www-community/attacks/Code_Injection) test
 
 ### Black-Box Testing
 
-#### Testing for PHP Injection Vulnerabilities
+#### PHP Injection Vulnerabilities
 
 Using the querystring, the tester can inject code (in this example, a malicious URL) to be processed as part of the included file:
 
@@ -29,7 +29,7 @@ Using the querystring, the tester can inject code (in this example, a malicious 
 
 ### Gray-Box Testing
 
-#### Testing for ASP Code Injection Vulnerabilities
+#### ASP Code Injection Vulnerabilities
 
 Examine ASP code for user input used in execution functions. Can the user enter commands into the Data input field? Here, the ASP code will save the input to a file and then execute it:
 

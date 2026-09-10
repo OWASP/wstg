@@ -26,7 +26,7 @@ Each time Session ID data is passed between the client and the server, the proto
 
 ## How to Test
 
-### Testing for Encryption & Reuse of Session Tokens Vulnerabilities
+### Encryption & Reuse of Session Tokens Vulnerabilities
 
 Protection from eavesdropping is often provided by TLS encryption, but may incorporate other tunneling or encryption. It should be noted that encryption or cryptographic hashing of the Session ID should be considered separately from transport encryption, as it is the Session ID itself being protected, not the data that may be represented by it.
 
@@ -39,7 +39,7 @@ Be mindful that if there is also an element to the site where the user is tracke
 > - A different session token
 > - A token sent via encrypted channel every time they make an HTTP Request
 
-### Testing for Proxies & Caching Vulnerabilities
+### Proxies & Caching Vulnerabilities
 
 Proxies must also be considered when reviewing application security. In many cases, clients will access the application through corporate, ISP, or other proxies or protocol aware gateways (e.g., Firewalls). The HTTP protocol provides directives to control the behavior of downstream proxies, and the correct implementation of these directives should also be assessed.
 
@@ -49,7 +49,7 @@ The application should also be configured to secure data in caches over both HTT
 
 > The `Expires: 0` and `Cache-Control: max-age=0` directives should be used to further ensure caches do not expose the data. Each request/response passing Session ID data should be examined to ensure appropriate cache directives are in use.
 
-### Testing for GET & POST Vulnerabilities
+### GET & POST Vulnerabilities
 
 In general, GET requests should not be used, as the Session ID may be exposed in Proxy or Firewall logs. They are also far more easily manipulated than other types of transport, although it should be noted that almost any mechanism can be manipulated by the client with the right tools. Furthermore, [Cross-site Scripting (XSS)](https://owasp.org/www-community/attacks/xss/) attacks are most easily exploited by sending a specially constructed link to the victim. This is far less likely if data is sent from the client as POSTs.
 
@@ -69,7 +69,7 @@ If login.asp is badly implemented, it may be possible to log in using the follow
 
 Potentially insecure server-side scripts may be identified by checking each POST in this way.
 
-### Testing for Transport Vulnerabilities
+### Transport Vulnerabilities
 
 All interaction between the Client and Application should be tested at least against the following criteria.
 

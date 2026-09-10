@@ -39,7 +39,7 @@ As with any data originating from untrusted sources, the data should be properly
    - Using a WebSocket client (one can be found in the Tools section below) attempt to connect to the remote WebSocket server. If a connection is established the server may not be checking the origin header of the WebSocket handshake.
 3. Confidentiality and Integrity.
    - Check that the WebSocket connection is using TLS to transport sensitive information `wss://`.
-   - Check the HTTPS Implementation for security issues (Valid Certificate, BEAST, CRIME, RC4, etc). Refer to the [Testing for Weak Transport Layer Security](../09-Weak_Cryptography/01-Weak_Transport_Layer_Security.md) section of this guide.
+   - Check the HTTPS Implementation for security issues (Valid Certificate, BEAST, CRIME, RC4, etc). Refer to the [Weak Transport Layer Security](../09-Weak_Cryptography/01-Weak_Transport_Layer_Security.md) section of this guide.
 4. Authentication.
    - WebSockets do not handle authentication, normal black-box authentication tests should be carried out. Refer to the [Authentication Testing](../04-Authentication/README.md) sections of this guide.
 5. Authorization.

@@ -43,9 +43,9 @@ Also, if an attacker was able to see through a proxy that the application has a 
 
 ## Related Test Cases
 
-- [Testing for Exposed Session Variables](../06-Session_Management/04-Exposed_Session_Variables.md)
-- [Testing for Cross Site Request Forgery (CSRF)](../06-Session_Management/05-Cross_Site_Request_Forgery.md)
-- [Testing for Account Enumeration and Guessable User Account](../03-Identity_Management/04-Account_Enumeration_and_Guessable_User_Account.md)
+- [Exposed Session Variables](../06-Session_Management/04-Exposed_Session_Variables.md)
+- [Cross Site Request Forgery (CSRF)](../06-Session_Management/05-Cross_Site_Request_Forgery.md)
+- [Account Enumeration and Guessable User Account](../03-Identity_Management/04-Account_Enumeration_and_Guessable_User_Account.md)
 
 ## Remediation
 

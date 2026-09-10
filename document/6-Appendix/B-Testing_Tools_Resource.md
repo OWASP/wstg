@@ -34,13 +34,13 @@ The list contains only tools that are freely available to download and use (alth
 - [Cookie Editor](https://chromewebstore.google.com/detail/cookie-editor/hlkenndednhfkekhgcdicdfddnkalmdm)
     - A powerful and easy to use browser extension that allows you to quickly create, edit and delete cookies for the current tab. Useful for developing, testing, or manually managing cookies.
 
-### Testing for Specific Vulnerabilities
+### Specific Vulnerabilities
 
-#### Testing for SQL Injection
+#### SQL Injection
 
 - [sqlmap](https://sqlmap.org)
 
-#### Testing TLS
+#### TLS
 
 - [OWASP O-Saft](https://owasp.org/www-project-o-saft/)
 - [sslyze](https://github.com/nabla-c0d3/sslyze)
@@ -48,7 +48,7 @@ The list contains only tools that are freely available to download and use (alth
 - [SSLScan](https://github.com/rbsec/sslscan)
 - [SSLLabs](https://www.ssllabs.com/ssltest/)
 
-#### Testing for Brute Force Attacks
+#### Brute Force Attacks
 
 ##### Hash Crackers
 

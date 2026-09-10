@@ -28,7 +28,7 @@ How to Test section.
 - Access resources and conduct operations horizontally.
 - Access resources and conduct operations vertically.
 
-### Testing for Basic Unauthenticated Access
+### Basic Unauthenticated Access
 
 #### Using a Browser Manually
 
@@ -45,7 +45,7 @@ For ZAP, using an add-on for [Access Control Testing](https://www.zaproxy.org/do
 
 For Burp Suite, built-in tools such as Intruder, and a number of plugins, including Autorize, help the tester automate testing authorization.
 
-### Testing for Horizontal Bypassing Authorization Schema
+### Horizontal Bypass
 
 For every function, specific role, or request that the application executes, it is necessary to verify:
 
@@ -96,7 +96,7 @@ username=example_user
 
 If the attacker's response contain the data of the `example_user`, then the application is vulnerable for lateral movement attacks, where a user can read or write other user's data.
 
-### Testing for Access to Administrative Functions
+### Access to Administrative Functions
 
 For example, suppose that the `addUser` function is part of the administrative menu of the application, and it is possible to access it by requesting the following URL `https://www.example.com/admin/addUser`.
 
@@ -116,13 +116,13 @@ Further questions or considerations would go in the following direction:
 - Will the user be created?
 - If so, can the new user use their privileges?
 
-### Testing for Access to Resources Assigned to a Different Role
+### Access to Resources Assigned to a Different Role
 
 Various applications setup resource controls based on user roles. Let's take an example resumes or CVs (curriculum vitae) uploaded on a careers form to an S3 bucket.
 
 As a normal user, try accessing the location of those files. If you are able to retrieve them, modify them, or delete them, then the application is vulnerable.
 
-### Testing for Special Request Header Handling
+### Special Request Header Handling
 
 Some applications support non-standard headers such as `X-Original-URL` or `X-Rewrite-URL` in order to allow overriding the target URL in requests with the one specified in the header value.
 

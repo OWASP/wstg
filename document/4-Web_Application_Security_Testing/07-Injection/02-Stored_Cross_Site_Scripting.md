@@ -39,7 +39,7 @@ Stored XSS is particularly dangerous in application areas where users with high 
 
 ### Black-Box Testing
 
-The process for identifying stored XSS vulnerabilities is similar to the process described during the [testing for reflected XSS](01-Reflected_Cross_Site_Scripting.md).
+The process for identifying stored XSS vulnerabilities is similar to the process described for [reflected XSS](01-Reflected_Cross_Site_Scripting.md).
 
 #### Input Forms
 
@@ -78,7 +78,7 @@ In this case, the tester needs to find a way to inject code outside the `<input>
 <input class="inputbox" type="text" name="email" size="40" value="aaa@aa.com"> MALICIOUS CODE <!-- />
 ```
 
-#### Testing for Stored XSS
+#### Stored XSS
 
 This involves testing the input validation and filtering controls of the application. Basic injection examples in this case:
 
@@ -96,7 +96,7 @@ Ensure the input is submitted through the application. This normally involves di
 > <input class="inputbox" type="text" name="email" size="40" value="aaa@aa.com"><script>alert(document.cookie)</script>
 > ```
 >
-> The input is stored and the XSS payload is executed by the browser when reloading the page. If the input is escaped by the application, testers should test the application for XSS filters. For instance, if the string "SCRIPT" is replaced by a space or by a NULL character then this could be a potential sign of XSS filtering in action. Many techniques exist in order to evade input filters (see [testing for reflected XSS](01-Reflected_Cross_Site_Scripting.md)) chapter). It is strongly recommended that testers refer to [XSS Filter Evasion](https://owasp.org/www-community/xss-filter-evasion-cheatsheet) and other XSS Cheat pages, which provide an extensive list of XSS attacks and filtering bypasses. Refer to the whitepapers and tools section for more detailed information.
+> The input is stored and the XSS payload is executed by the browser when reloading the page. If the input is escaped by the application, testers should test the application for XSS filters. For instance, if the string "SCRIPT" is replaced by a space or by a NULL character then this could be a potential sign of XSS filtering in action. Many techniques exist in order to evade input filters (see [reflected XSS](01-Reflected_Cross_Site_Scripting.md)) chapter). It is strongly recommended that testers refer to [XSS Filter Evasion](https://owasp.org/www-community/xss-filter-evasion-cheatsheet) and other XSS Cheat pages, which provide an extensive list of XSS attacks and filtering bypasses. Refer to the whitepapers and tools section for more detailed information.
 
 #### Leverage Stored XSS with BeEF
 

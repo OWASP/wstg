@@ -218,7 +218,7 @@ Examples of these test details for various payment gateways are listed below:
 - [Globalpay - Test Cards](https://developer.globalpay.com/resources/test-card-numbers)
 - [Stripe - Basic Test Card Numbers](https://stripe.com/docs/testing#cards)
 
-### Testing Logistics
+### Logistics
 
 Testing payment functionality on applications can introduce additional complexity, especially if a live site is being tested. Areas that need to be considered include:
 
@@ -323,9 +323,9 @@ Ensure that the application correctly handles such cases and prevents exploitati
 
 ## Related Test Cases
 
-- [Testing for HTTP Parameter Pollution](../07-Injection/04-HTTP_Parameter_Pollution.md)
-- [Testing for SQL Injection](../07-Injection/05-SQL_Injection.md)
-- [Testing for the Circumvention of Work Flows](06-Circumvention_of_Work_Flows.md)
+- [HTTP Parameter Pollution](../07-Injection/04-HTTP_Parameter_Pollution.md)
+- [SQL Injection](../07-Injection/05-SQL_Injection.md)
+- [the Circumvention of Work Flows](06-Circumvention_of_Work_Flows.md)
 
 ## Remediation
 
