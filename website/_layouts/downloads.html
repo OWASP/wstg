@@ -1,0 +1,38 @@
+---
+layout: default
+---
+{% include project-header.html
+  title="OWASP Web Security Testing Guide"
+  subtitle="Past Releases"
+  tagline="Download previous versions in PDF, EPUB, and other formats." %}
+{% include banner.html %}
+<main id="main-content" class="site-main">
+  <div class="container container-wide">
+    <div class="doc-nav-bar">
+      <button type="button" id="doc-nav-toggle" class="doc-nav-toggle" aria-controls="doc-sidebar" aria-expanded="false">
+        <span class="doc-nav-toggle-icon" aria-hidden="true"></span>
+        Versions
+      </button>
+    </div>
+    <div class="doc-layout">
+      <div id="doc-nav-backdrop" class="doc-nav-backdrop" hidden></div>
+      <aside id="doc-sidebar" class="doc-sidebar" aria-label="Versions">
+        <button type="button" id="doc-nav-close" class="doc-nav-close" aria-label="Close versions">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <nav class="wstg-nav" aria-label="Page navigation">
+          <p class="wstg-nav-home"><a href="{{ site.baseurl }}/">← Home</a></p>
+          <h2 class="wstg-nav-title">On This Page</h2>
+          <ul class="wstg-nav-list">
+            <li class="wstg-nav-item"><a href="#version-42">Version 4.2</a></li>
+            <li class="wstg-nav-item"><a href="#historical-releases">Historical Releases</a></li>
+          </ul>
+        </nav>
+      </aside>
+      <article class="doc-content">
+        {{ content }}
+      </article>
+    </div>
+  </div>
+</main>
+<script src="{{ site.baseurl }}/assets/js/doc-nav.js" defer></script>
