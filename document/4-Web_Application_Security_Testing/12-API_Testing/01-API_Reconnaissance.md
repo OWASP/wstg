@@ -40,7 +40,7 @@ In both public and private cases, the API documentation will be useful based on 
 
 Regardless of the visibility of the API, searching for API documentation can find older, not-yet-published, or accidentally leaked API documentation. This documentation will be very helpfull in understanding what the attack surface the API exposes.
 
-For time-boxed engagements, request parseable API artifacts from the customer as early as possible. Ask for OpenAPI/Swagger definitions, GraphQL schemas, WADL files, and up-to-date request collections (for example Postman, Bruno, and Hurl). This is especially useful for private, internal, or newly deployed APIs where public documentation may not exist.
+For time-boxed engagements, request parseable API artifacts from the customer as early as possible. Ask for OpenAPI/Swagger definitions, GraphQL schemas, and up-to-date request collections (for example Postman, Bruno, and Hurl). If the API is older, WADL files can also appear in some environments. This is especially useful for private, internal, or newly deployed APIs where public documentation may not exist.
 
 ### API Directories
 
@@ -104,7 +104,7 @@ Analyze the collected requests to identify non-standard or hidden parameters:
 - Identify structured parameter values formatted in JSON, XML, or other custom structures.
 - Examine the final element of a URL. If it lacks a file extension, it may be a parameter.
 - Look for highly varying URL segments. If a single segment changes frequently across hundreds of requests, it is more likely to represent a parameter value than a static path component.
-- Verify suspected URL-segment parameters by setting them to an obviously invalid value. A web server level `404` usually indicates a path element, while an application-level validation error often indicates a real parameter.
+- Verify suspected URL-segment parameters by setting them to an obviously invalid value. A web server level `404` can indicate a path element, while an application-level validation error can indicate a real parameter. Treat this as a heuristic and correlate the response source with observed routing behavior.
 
 ### Google Dorking
 
@@ -200,7 +200,7 @@ GoBuster Example:
 
 #### Authenticated Fuzzing
 
-When fuzzing authenticated APIs, replay the same authentication and session handling that the target expects. Include custom tokens, non-standard authorization headers, signed request metadata, or cookies exactly as required, otherwise tools may produce false negatives by never reaching the application logic.
+When fuzzing authenticated APIs, replay the same authentication and session handling that the target expects. Include custom tokens, non-standard authorization headers, signed request metadata, or cookies as required, otherwise tools may produce false negatives by never reaching the application logic. If the mechanism uses dynamic fields (for example timestamps, nonces, or body-bound signatures), recompute those values for each mutated request.
 
 ## References
 
