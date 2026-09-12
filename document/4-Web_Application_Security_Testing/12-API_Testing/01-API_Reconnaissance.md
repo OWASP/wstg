@@ -40,7 +40,7 @@ In both public and private cases, the API documentation will be useful based on 
 
 Regardless of the visibility of the API, searching for API documentation can find older, not-yet-published, or accidentally leaked API documentation. This documentation will be very helpful in understanding what attack surface the API exposes.
 
-For time-boxed engagements, request machine-readable API artifacts from the customer as early as possible so testing tools can import or process them directly. Ask for OpenAPI definitions, legacy Swagger 2.0 specifications, and up-to-date request collections (for example Postman or Bruno). For GraphQL APIs in scope, request GraphQL schemas (or exported schemas when introspection is disabled). Request replay definitions (for example Hurl) are also useful. If the API is older, WSDL or WADL files can appear as legacy artifacts in some environments. This is especially useful for private, internal, or newly deployed APIs where public documentation may not exist.
+For time-boxed engagements, request machine-readable API artifacts from the customer as early as possible so testing tools can import or process them directly. Ask for OpenAPI definitions, legacy Swagger 2.0 specifications, and up-to-date request collections (for example Postman or Bruno). For non-REST APIs in scope (for example GraphQL), request schemas or exported schemas when introspection is disabled. Request replay definitions (for example Hurl) are also useful. If the API is older, WSDL or WADL files can appear as legacy artifacts in some environments. This is especially useful for private, internal, or newly deployed APIs where public documentation may not exist.
 
 ### API Directories
 
@@ -104,7 +104,7 @@ Analyze the collected requests to identify non-standard or hidden parameters:
 - Identify structured parameter values formatted in JSON, XML, or other custom structures.
 - Examine the final element of a URL. If it lacks a file extension, it may be a parameter.
 - Look for highly varying URL segments. If a single segment changes frequently across hundreds of requests, it is more likely to represent a parameter value than a static path component.
-- Verify suspected URL-segment parameters by setting them to an obviously invalid value. A routing-level `404` before application processing can indicate a static path segment. Application-generated `404` responses are not enough on their own to make that distinction. If the request reaches application logic and returns a resource-not-found or validation error, the segment may be application-routed and parameterized. Treat this as a heuristic and correlate the response source with observed routing behavior.
+- Verify suspected variable URL segments by setting them to an obviously invalid value. This applies to intermediate segments that look dynamic as well as terminal segments without file extensions. A routing-level `404` before application processing can indicate a static path segment. Application-generated `404` responses are not enough on their own to make that distinction. If the request reaches application logic and returns a resource-not-found or validation error, the segment may be application-routed and parameterized. Treat this as a heuristic and correlate the response source with observed routing behavior.
 
 ### Google Dorking
 
