@@ -40,7 +40,7 @@ In both public and private cases, the API documentation will be useful based on 
 
 Regardless of the visibility of the API, searching for API documentation can find older, not-yet-published, or accidentally leaked API documentation. This documentation will be very helpfull in understanding what the attack surface the API exposes.
 
-For time-boxed engagements, request parseable API artifacts from the customer as early as possible. Ask for OpenAPI/Swagger definitions, GraphQL schemas, and up-to-date request collections (for example Postman, Bruno, and Hurl). If the API is older, WADL files can also appear in some environments. This is especially useful for private, internal, or newly deployed APIs where public documentation may not exist.
+For time-boxed engagements, request parseable API artifacts from the customer as early as possible. In this context, parseable means machine-readable formats that testing tools can import or process directly. Ask for OpenAPI/Swagger definitions, GraphQL schemas, and up-to-date request collections (for example Postman, Bruno, and Hurl). If the API is older, WADL files can also appear in some environments. This is especially useful for private, internal, or newly deployed APIs where public documentation may not exist.
 
 ### API Directories
 
