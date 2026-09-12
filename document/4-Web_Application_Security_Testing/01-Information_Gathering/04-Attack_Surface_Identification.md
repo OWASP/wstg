@@ -118,6 +118,14 @@ This confirms that in fact it is an HTTP server. Alternatively, testers could ha
 
 The same task may be performed by vulnerability scanners, but first check that the scanner of choice is able to identify HTTP[S] services running on non-standard ports. For example, Nessus is capable of identifying them on arbitrary ports (provided it is instructed to scan all the ports), and will provide, with respect to Nmap, a number of tests on known web server vulnerabilities, as well as on the TLS/SSL configuration of HTTPS services. As hinted before, Nessus is also able to spot popular applications or web interfaces which could otherwise go unnoticed (for example, a Tomcat administrative interface).
 
+A full 65535-port Nmap scan with service detection can be slow across many hosts. [naabu](https://github.com/projectdiscovery/naabu) is a fast port scanner that can be used to quickly identify open ports across a large host list, and can pipe its results straight into Nmap for service detection on just the open ports it found:
+
+```bash
+naabu -p - -rate 2000 -c 50 -retries 2 -warm-up-time 1 -silent -host 192.168.1.100 -nmap-cli 'nmap -sV -oX scan.xml'
+```
+
+This combination scans all ports with naabu first, then only runs the slower Nmap service-detection scan against the ports naabu found open, considerably reducing total scan time.
+
 ### Approaches to Address Issue 3 - Virtual Hosts
 
 There are a number of techniques which may be used to identify DNS names associated to a given IP address `x.y.z.t`.
@@ -140,6 +148,8 @@ Passive techniques do not directly interact with the target infrastructure and i
 
 Passive techniques are preferred during early reconnaissance phases to avoid detection.
 
+[Chaos](https://chaos.projectdiscovery.io/) and its [chaos-client](https://github.com/projectdiscovery/chaos-client) provide access to a curated dataset of subdomains that ProjectDiscovery has already crawled, primarily sourced from public bug bounty program scopes. It can be a useful, fast supplement to passive DNS enumeration for domains it has already indexed, but it requires an API key, only covers domains within its dataset, and should not be relied on as a substitute for active tools such as `subfinder` or `amass` against arbitrary engagement targets.
+
 #### Active DNS Enumeration
 
 Active techniques directly query the target's DNS infrastructure and may generate logs on the target systems. These include:
@@ -157,7 +167,38 @@ Common tools used for DNS enumeration include:
 - `dig`
 - `nslookup`
 
-Example using `dig`: `dig example.com ANY`
+Example using `dig`:
+
+```bash
+dig example.com ANY
+```
+
+```text
+; <<>> DiG 9.10.6 <<>> example.com ANY
+;; QUESTION SECTION:
+;example.com.                  IN      ANY
+
+;; ANSWER SECTION:
+example.com.            86400   IN      A       93.184.216.34
+example.com.            86400   IN      MX      10 mail.example.com.
+example.com.            86400   IN      NS      ns1.secure.net.
+example.com.            86400   IN      NS      ns2.secure.net.
+example.com.            86400   IN      TXT     "v=spf1 -all"
+```
+
+Example using `subfinder`:
+
+```bash
+subfinder -d example.com -silent
+```
+
+```text
+www.example.com
+dev.example.com
+staging.example.com
+mail.example.com
+api.example.com
+```
 
 #### DNS Zone Transfers
 
@@ -205,6 +246,8 @@ Reverse-IP services are similar to DNS inverse queries, with the difference that
 - [DNSstuff](https://www.dnsstuff.com/) (multiple services available)
 - [Net Square](https://web.archive.org/web/20190515092354/https://www.net-square.com/mspawn.html) (multiple queries on domains and IP addresses, requires installation)
 
+Internet asset search engines such as [Shodan](https://www.shodan.io/), [Censys](https://censys.io), and [FOFA](https://fofa.info) index internet-connected hosts and services and can also be searched by IP, certificate, or banner content to reveal other hostnames and services hosted on the same address. FOFA in particular has extensive coverage of infrastructure in China and Asia-Pacific, which can complement the coverage of Shodan and Censys. For example, an IP-based FOFA search: `ip="192.168.1.100"`, or a search for a specific title or header: `title="Example App"`. As with the other reverse-IP services above, a free tier with limited queries is available, with paid plans for more comprehensive access.
+
 #### Googling
 
 Following information gathering from the previous techniques, testers can rely on search engines to possibly refine and increment their analysis. This may yield evidence of additional symbolic names belonging to the target, or applications accessible via non-obvious URLs.
@@ -249,18 +292,55 @@ One common approach to querying CT logs is to use publicly available search port
 
 For instance: `https://crt.sh/?q=%25.example.com`
 
+> Note: [crt.sh](https://crt.sh) has occasional periods of downtime or high latency. [Merklemap](https://www.merklemap.com/) and [SSLMate's Cert Spotter](https://sslmate.com/certspotter/) are alternative Certificate Transparency search services worth having as a fallback.
+
 ![CT Log Search Example](images/01-figure-4.1.4-ct-logs-example.png)  
 
 *Figure 4.1.4-1: Example of Certificate Transparency log search results.*
 
 The results may list subdomains such as `dev.example.com`, `staging.example.com`, or other hostnames that are not directly referenced from the primary site. Discovered hostnames should be validated through DNS resolution before further testing.
 
+### Example Modern Passive-to-Active Workflow
+
+A common lightweight pipeline used in contemporary assessments:
+
+```bash
+# Passive subdomain discovery
+subfinder -d example.com -silent | tee subs.txt
+amass enum -passive -d example.com -o amass.txt
+
+# Resolve and probe live hosts
+cat subs.txt amass.txt | sort -u | dnsx -silent | httpx -silent -title -tech-detect -status-code -o live.txt
+
+# Historical URLs (feed interesting hosts later)
+cat live.txt | unfurl domains | sort -u | gau --subs | tee archive-urls.txt
+
+# Screenshot live hosts for visual triage of a large host list
+gowitness scan file -f live.txt
+```
+
+With a large number of discovered hosts, screenshotting each one provides a quick way to visually triage results, for example spotting login pages, admin panels, default install pages, or error pages without visiting every host manually. [gowitness](https://github.com/sensepost/gowitness) is a current, actively maintained tool for this; `httpx` also supports a built-in `-screenshot` flag for the same purpose without adding another tool to the chain.
+
+Always respect scope, rate limits, and engagement rules of engagement. Validate ownership of newly discovered assets before deeper testing.
+
 ## Tools
 
 - DNS lookup tools such as `nslookup`, `dig`, and `host`
-- Subdomain enumeration tools such as `amass`, `subfinder`, `dnsrecon`, and `fierce`
+- Subdomain enumeration and attack-surface mapping tools:
+    - [Amass](https://github.com/owasp-amass/amass) (OWASP project – passive + active, graph output)
+    - [subfinder](https://github.com/projectdiscovery/subfinder)
+    - [Chaos](https://chaos.projectdiscovery.io/) / [chaos-client](https://github.com/projectdiscovery/chaos-client) (curated subdomain dataset, API key required)
+    - [dnsx](https://github.com/projectdiscovery/dnsx)
+    - [httpx](https://github.com/projectdiscovery/httpx) (live host probing, tech detection, titles)
+    - [gowitness](https://github.com/sensepost/gowitness) (screenshotting for visual triage of live hosts)
+    - `dnsrecon`, `fierce`
 - Search engines (Google, Bing, and other major search engines)
 - Reverse IP lookup services
+- Internet asset search engines: [Shodan](https://www.shodan.io/), [Censys](https://censys.io), [FOFA](https://fofa.info)
+- Certificate Transparency search portals: [crt.sh](https://crt.sh), [Merklemap](https://www.merklemap.com/), [SSLMate's Cert Spotter](https://sslmate.com/certspotter/)
+- Archive / historical URL collectors: [gau](https://github.com/lc/gau), [waybackurls](https://github.com/tomnomnom/waybackurls), [waymore](https://github.com/xnl-h4ck3r/waymore)
 - [Nmap](https://nmap.org/)
+- [naabu](https://github.com/projectdiscovery/naabu) (fast port scanning, can pipe results into Nmap)
 - [Nessus Vulnerability Scanner](https://www.tenable.com/products/nessus)
 - [Nikto](https://github.com/sullo/nikto)
+- Content / virtual-host discovery: [ffuf](https://github.com/ffuf/ffuf), [feroxbuster](https://github.com/epi052/feroxbuster), [gobuster](https://github.com/OJ/gobuster)

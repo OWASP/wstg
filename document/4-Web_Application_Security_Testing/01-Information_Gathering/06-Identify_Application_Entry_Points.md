@@ -109,7 +109,7 @@ You can also generate a JSON output file using the `-json` flag, which can be us
 
 The following are two examples on how to check for application entry points.
 
-#### Example 1
+#### GET Requests
 
 This example shows a GET request that would purchase an item from an online shopping application.
 
@@ -121,7 +121,7 @@ Cookie: SESSIONID=Z29vZCBqb2IgcGFkYXdhIG15IHVzZXJuYW1lIGlzIGZvbyBhbmQgcGFzc3dvc
 
 > All the parameters of the request such as CUSTOMERID, ITEM, PRICE, IP, and the Cookie, which could just be encoded parameters or parameters used for session state.
 
-#### Example 2
+#### POST Requests
 
 This example shows a POST request that would log you into an application.
 
@@ -146,6 +146,10 @@ Having a variety of injection locations provides the attacker with chaining poss
 - [Zed Attack Proxy (ZAP)](https://www.zaproxy.org/)
 - [Burp Suite](https://www.portswigger.net/burp/)
 - [Fiddler](https://www.telerik.com/fiddler)
+- Content and parameter discovery: [ffuf](https://github.com/ffuf/ffuf), [feroxbuster](https://github.com/epi052/feroxbuster), [Arjun](https://github.com/s0md3v/Arjun)
+- Crawlers: [katana](https://github.com/projectdiscovery/katana), [hakrawler](https://github.com/hakluke/hakrawler)
+- Historical URL sources: [gau](https://github.com/lc/gau), [waybackurls](https://github.com/tomnomnom/waybackurls), [waymore](https://github.com/xnl-h4ck3r/waymore)
+- See also the tooling listed in [API Reconnaissance](../12-API_Testing/01-API_Reconnaissance.md) (Kiterunner, LinkFinder, jsluice, xnLinkFinder, Param Miner, etc.)
 
 ## References
 

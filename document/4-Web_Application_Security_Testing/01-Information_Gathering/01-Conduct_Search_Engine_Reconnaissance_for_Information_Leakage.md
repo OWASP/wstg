@@ -81,6 +81,78 @@ Additional services for viewing cached or archived web pages include:
 - [archive.ph](https://archive.ph) (also known as archive.md) - On-demand archiving service that creates permanent snapshots
 - [CachedView](https://cachedview.com/) - Aggregates cached pages from multiple sources including Google Cache historical data, Wayback Machine, and others
 
+### Automated Archive URL Collection
+
+In addition to browsing the Wayback Machine calendar view, testers commonly automate the collection of historical URLs. These URLs frequently reveal forgotten endpoints, old API paths, backup files, and parameters that are no longer linked from the live application.
+
+- [gau](https://github.com/lc/gau) - Aggregates known URLs from AlienVault OTX, the Wayback Machine, and Common Crawl.
+- [waybackurls](https://github.com/tomnomnom/waybackurls) - Fetches URLs known to the Wayback Machine for a domain.
+- [waymore](https://github.com/xnl-h4ck3r/waymore) - Expands coverage across Wayback Machine, Common Crawl, AlienVault OTX, URLScan, and VirusTotal, and can also retrieve historical responses.
+
+Example workflow:
+
+```bash
+gau example.com --verbose --threads 8 | tee gau.txt
+```
+
+```text
+WARN[0000] error reading config: Config file /Users/whoever/.gau.toml not found, using default config
+INFO[0000] fetching example.com                          page=0 provider=wayback
+INFO[0000] fetching example.com                          page=0 provider=urlscan
+INFO[0000] fetching example.com                          page=0 provider=otx
+https://code.example.com/team/content.git@
+https://code.example.com/team/content.git
+https://example.com/smoke-slug
+https://example.com/pay
+https://app.example.com
+...
+```
+
+```bash
+waybackurls example.com | tee wayback.txt
+```
+
+```text
+https://example.com/
+https://example.com/robots.txt
+https://example.com/sitemap.xml
+https://example.com/old-api/v1/users
+https://backup.example.com/db.sql
+...
+```
+
+```bash
+waymore -i example.com -mode U -o waymore.txt
+```
+
+```text
+waymore v0.10 by Xnl-h4ck3r
+[+] Getting URLs from Wayback Machine, Common Crawl, AlienVault OTX, URLScan and VirusTotal
+https://example.com/
+https://example.com/careers
+https://staging.example.com/login
+https://example.com/backup.zip
+...
+```
+
+[unfurl](https://github.com/tomnomnom/unfurl) is useful for extracting components (keys, paths, domains, etc.) from large URL lists produced by the tools above.
+
+```bash
+# Expand and clean URLs (optional)
+cat gau.txt wayback.txt waymore.txt | unfurl --unique keys | sort -u > urls.txt
+```
+
+```text
+db.sql
+login
+old-api
+robots.txt
+sitemap.xml
+...
+```
+
+The resulting URL list can be filtered for interesting extensions, parameters, or status codes and later fed into content-discovery or vulnerability scanners. Always validate that discovered hosts and paths remain in scope.
+
 ### Google Hacking or Dorking
 
 Searching with operators can be a very effective discovery technique when combined with the creativity of the tester. Operators can be chained to effectively discover specific kinds of sensitive files and information. This technique, called [Google hacking](https://en.wikipedia.org/wiki/Google_hacking) or Dorking, is also possible using other search engines, as long as the search operators are supported.
@@ -105,6 +177,12 @@ Some categories of dorks available on this database include:
 Beyond individual search engines, testers can use dedicated OSINT frameworks to correlate and visualize relationships between discovered entities:
 
 [Maltego](https://maltego.com) is an industry-standard OSINT and link analysis platform that maps relationships between domains, IP addresses, email addresses, and organizations through automated data transforms. Testers use it to visualize an organization's attack surface by pivoting from a single entity to discover related infrastructure and associated data points. A free Community Edition is available for non-commercial use.
+
+Additional modern OSINT tools commonly used alongside search-engine reconnaissance include:
+
+- [theHarvester](https://github.com/laramies/theHarvester): Emails, subdomains and names Harvester - OSINT.
+- [Amass](https://github.com/owasp-amass/amass) (passive mode): In-depth attack surface mapping and asset discovery.
+- [subfinder](https://github.com/projectdiscovery/subfinder): Fast passive subdomain enumeration tool.
 
 ## Remediation
 

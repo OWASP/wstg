@@ -164,6 +164,18 @@ Regular expression is more straightforward by searching JS or HTML content for k
 3. [xnLinkFinder](https://github.com/xnl-h4ck3r/xnLinkFinder). A python tool used to discover endpoints, potential parameters, and a target specific wordlist for a given target.
 4. [GAP](https://github.com/xnl-h4ck3r/GAP-Burp-Extension). Burp Extension to find potential endpoints, parameters, and generate a custom target wordlist.
 
+### Port Scanning
+
+API servers are often deployed on non-standard ports, or alongside other exposed services (internal admin panels, gRPC or WebSocket listeners, debug/metrics endpoints) that a documentation-only review would miss. [naabu](https://github.com/projectdiscovery/naabu) is a fast port scanner that can quickly enumerate open ports across the identified hosts, and can pipe its results directly into Nmap for service detection on just the ports found open:
+
+```bash
+naabu -p - -rate 2000 -c 50 -retries 2 -warm-up-time 1 -silent -host api.example.com -nmap-cli 'nmap -sV -oX scan.xml'
+```
+
+Running this scan first, and Nmap's slower full service-detection scan only against the ports naabu reports as open, considerably reduces total scan time compared to a direct full-range Nmap scan. See [Improving Port Scans Against API Servers](https://danaepp.com/improving-port-scans-against-api-servers) for further tuning guidance specific to API targets, including why CONNECT scans can outperform SYN scans under high concurrency, and how to avoid missing services due to rate-limiting or firewalling.
+
+Also see [Attack Surface Identification](../01-Information_Gathering/04-Attack_Surface_Identification.md) for further discussion of non-standard port discovery.
+
 ### Active Fuzzing
 
 Active Fuzzing involves using tools with wordlists and filtering requests results to bruteforce endpoint discovery.
