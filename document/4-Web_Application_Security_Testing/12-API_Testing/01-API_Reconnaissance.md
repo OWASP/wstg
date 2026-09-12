@@ -40,7 +40,7 @@ In both public and private cases, the API documentation will be useful based on 
 
 Regardless of the visibility of the API, searching for API documentation can find older, not-yet-published, or accidentally leaked API documentation. This documentation will be very helpfull in understanding what the attack surface the API exposes.
 
-For time-boxed engagements, request machine-readable API artifacts from the customer as early as possible so testing tools can import or process them directly. Ask for OpenAPI definitions (including legacy Swagger 2.0 specs), GraphQL schemas, and up-to-date request collections (for example Postman, Bruno, and Hurl). If the API is older, WADL files can also appear in some environments. This is especially useful for private, internal, or newly deployed APIs where public documentation may not exist.
+For time-boxed engagements, request machine-readable API artifacts from the customer as early as possible so testing tools can import or process them directly. Ask for OpenAPI definitions (including legacy Swagger 2.0 specs), GraphQL schemas (or exported schemas when introspection is disabled), and up-to-date request collections (for example Postman, Bruno, and Hurl). If the API is older, WADL files can also appear in some environments. This is especially useful for private, internal, or newly deployed APIs where public documentation may not exist.
 
 ### API Directories
 
@@ -91,7 +91,7 @@ Or subdomains the applications may consume or depend upon:
 
 It is important that the pentester attempts to exercise as much functionality in the application as possible. This is not only to generate a comprehensive list of endpoints but also to avoid issues with lazy loading and code splitting. In addition, your pentest engagement should include sample accounts at different privilege levels so that your browser and spidering can access and expose endpoints for as much functionality as possible.
 
-Once completed, the endpoint information obtained from browsing and spidering of the application can help the pentester compose API documentation of the target using tools such as Postman, Bruno, and Hurl. Some clients, such as Postman and Bruno, can also use pre-request and post-request scripts, which can help replay realistic flows when testing stateful APIs.
+Once completed, the endpoint information obtained from browsing and spidering of the application can help the pentester compose API documentation and collections using tools such as Postman and Bruno. Request replay tools such as Hurl can then use that information to automate repeatable test flows. Some clients, such as Postman and Bruno, can also use pre-request and post-request scripts, which can help replay realistic flows when testing stateful APIs.
 
 ### Analyze Intercepted Requests
 
@@ -200,7 +200,7 @@ GoBuster Example:
 
 #### Authenticated Fuzzing
 
-When fuzzing authenticated APIs, replay the same authentication and session handling that the target expects. Include custom tokens, non-standard authorization headers, signed request metadata, or cookies as required, otherwise tools may produce false negatives by never reaching the application logic. If the mechanism uses dynamic fields (for example timestamps, nonces, or body-bound signatures), recompute those values for each mutated request.
+When fuzzing authenticated APIs, replay the same authentication and session handling that the target expects. Include custom tokens, non-standard authorization headers, signed request metadata, or cookies as required, otherwise tools may produce false negatives by never reaching the application logic. If the mechanism uses dynamic fields (for example timestamps, nonces, or body-bound signatures), recompute those values for each mutated request, typically through pre-request scripting or proxy/request interceptors.
 
 ## References
 
