@@ -39,17 +39,7 @@ Examples for Personal Identifying Information (PII) are:
 
 Various types of information that must be protected, could be transmitted by the application in clear text. To check if this information is transmitted over HTTP instead of HTTPS, capture traffic between a client and web application server that needs credentials. For any message containing sensitive data, verify the exchange occurred using HTTPS. See more information about insecure transmission of credentials [A04:2025 Cryptographic Failures](https://owasp.org/Top10/2025/A04_2025-Cryptographic_Failures/) or [Transport Layer Protection Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html).
 
-If forced browsing to an HTTP endpoint is not possible in a browser (for example due to HSTS or cache behavior), request the same endpoint with [curl](https://curl.se/) and inspect the response directly. A properly protected endpoint should immediately return a 3XX response that redirects to an HTTPS URL.
-
-```bash
-$ curl -kis -o /dev/null -D - http://example.com/login
-HTTP/1.1 301 Moved Permanently
-Location: https://example.com/login
-```
-
-If the server responds with 200, serves content over HTTP, or redirects to another HTTP endpoint, then sensitive information may still be exposed over unencrypted transport.
-
-### Example 1: Basic Authentication over HTTP
+### Basic Authentication over HTTP
 
 A typical example is the usage of Basic Authentication over HTTP. When using Basic Authentication, user credentials are encoded rather than encrypted, and are sent as HTTP headers. In the example below the tester uses [curl](https://curl.se/) to test for this issue. Note how the application uses Basic authentication, and HTTP rather than HTTPS.
 
@@ -66,7 +56,7 @@ Content-Type: text/html
 <body bgcolor=white> <h1>401 Authorization Required</h1>  Invalid login credentials!  </body></html>
 ```
 
-### Example 2: Form-Based Authentication Performed over HTTP
+### Form-Based Authentication Performed over HTTP
 
 Another typical example is authentication forms which transmit user authentication credentials over HTTP. In the example below one can see HTTP being used in the `action` attribute of the form. It is also possible to see this issue by examining the HTTP traffic with an intercepting proxy.
 
@@ -78,7 +68,17 @@ Another typical example is authentication forms which transmit user authenticati
 </form>
 ```
 
-### Example 3: Cookie Containing Session ID Sent over HTTP
+If forced browsing to an HTTP endpoint is not possible in a browser (for example due to HSTS or cache behavior), request the same endpoint with [curl](https://curl.se/) and inspect the response directly. A properly protected endpoint should immediately return a 3XX response that redirects to an HTTPS URL.
+
+```bash
+$ curl -kis -o /dev/null -D - http://example.com/login
+HTTP/1.1 301 Moved Permanently
+Location: https://example.com/login
+```
+
+If the server responds with 200, serves content over HTTP, or redirects to another HTTP endpoint, then sensitive information may still be exposed over unencrypted transport.
+
+### Cookie Containing Session ID Sent over HTTP
 
 The Session ID Cookie must be transmitted over protected channels. If the cookie does not have the [Secure flag](../06-Session_Management/02-Cookies_Attributes.md) set, it is permitted for the application to transmit it unencrypted. Note below the setting of the cookie is done without the Secure flag, and the entire login process is performed in HTTP and not HTTPS.
 
@@ -111,7 +111,7 @@ HTTP/1.1 200 OK
 [...]
 ```
 
-### Example 4: Password Reset, Change Password or Other Account Manipulation over HTTP
+### Password Reset, Change Password, or Other Account Manipulation over HTTP
 
 If the web application has features that allow a user to change an account or call a different service with credentials, verify all of those interactions use HTTPS. The interactions to test include forms that:
 
@@ -119,7 +119,7 @@ If the web application has features that allow a user to change an account or ca
 - Allow users to edit credentials.
 - Require the user to authenticate with another provider (for example, payment processing).
 
-### Example 5: Testing Password Sensitive Information in Source Code or Logs
+### Testing Password Sensitive Information in Source Code or Logs
 
 Use one of the following techniques to search for sensitive information.
 
