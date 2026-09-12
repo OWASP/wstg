@@ -40,7 +40,7 @@ In both public and private cases, the API documentation will be useful based on 
 
 Regardless of the visibility of the API, searching for API documentation can find older, not-yet-published, or accidentally leaked API documentation. This documentation will be very helpful in understanding what attack surface the API exposes.
 
-For time-boxed engagements, request machine-readable API artifacts from the customer as early as possible so testing tools can import or process them directly. Ask for OpenAPI definitions, legacy Swagger 2.0 specifications, and up-to-date request collections (for example Postman or Bruno). For non-REST APIs in scope (for example GraphQL), request schemas or exported schemas when introspection is disabled. Request replay definitions (for example Hurl) are also useful. If the API is older, WSDL or WADL files can appear as legacy artifacts in some environments. This is especially useful for private, internal, or newly deployed APIs where public documentation may not exist.
+For time-boxed engagements, request machine-readable API artifacts from the customer as early as possible so testing tools can import or process them directly. Ask for OpenAPI definitions, legacy Swagger 2.0 specifications, and up-to-date request collections (for example [Postman](https://www.postman.com/) or [Bruno](https://www.usebruno.com/)). For non-REST APIs in scope (for example GraphQL), request schemas or exported schemas when introspection is disabled. Request replay definitions (for example [Hurl](https://hurl.dev/)) are also useful. If the API is older, WSDL or WADL files can appear as legacy artifacts in some environments. This is especially useful for private, internal, or newly deployed APIs where public documentation may not exist.
 
 ### API Directories
 
@@ -91,7 +91,7 @@ Or subdomains the applications may consume or depend upon:
 
 It is important that the pentester attempts to exercise as much functionality in the application as possible. This is not only to generate a comprehensive list of endpoints but also to avoid issues with lazy loading and code splitting. In addition, your pentest engagement should include sample accounts at different privilege levels so that your browser and spidering can access and expose endpoints for as much functionality as possible.
 
-Once completed, the endpoint information obtained from browsing and spidering of the application can help the pentester compose API documentation and collections using tools such as Postman and Bruno. Request replay tools such as Hurl can then use that information to automate repeatable test flows. Some clients, such as Postman and Bruno, can also use pre-request and post-request scripts, which can help replay realistic flows when testing stateful APIs.
+Once completed, the endpoint information obtained from browsing and spidering of the application can help the pentester compose API documentation and collections using tools such as [Postman](https://www.postman.com/) and [Bruno](https://www.usebruno.com/). Request replay tools such as [Hurl](https://hurl.dev/) can then use that information to automate repeatable test flows. Some clients, such as Postman and Bruno, can also use pre-request and post-request scripts, which can help replay realistic flows when testing stateful APIs.
 
 ### Analyze Intercepted Requests
 
