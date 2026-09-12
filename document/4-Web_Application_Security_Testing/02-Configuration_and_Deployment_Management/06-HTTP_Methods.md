@@ -21,6 +21,7 @@ HTTP offers a number of methods (or verbs) that can be used to perform actions o
 | [`OPTIONS`](https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.7) | List supported HTTP methods. | Perform a [CORS Preflight](https://developer.mozilla.org/en-US/docs/Glossary/Preflight_request) request. |
 | [`TRACE`](https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.8) | Echo the HTTP request for debug purposes. | |
 | [`PATCH`](https://datatracker.ietf.org/doc/html/rfc5789#section-2) |  | Modify an object. |
+| [`QUERY`](https://datatracker.ietf.org/doc/html/rfc9110#section-9.3.7) | Safe retrieval of data with a request body. | Query objects or resources with complex parameters. |
 
 ## Test Objectives
 
@@ -173,6 +174,32 @@ Host: example.org
 
 As with the `PUT` method, this functionality may have access control weaknesses or other vulnerabilities. Additionally, applications may not perform the same level of input validation when modifying an object as they do when creating one. This could potentially allow malicious values to be injected (such as in a stored cross-site scripting attack), or could allow broken or invalid objects that may result in business logic related issues.
 
+### QUERY
+
+The `QUERY` method is a relatively newer HTTP method defined in [RFC 9110](https://datatracker.ietf.org/doc/html/rfc9110), designed for safe retrieval operations that require a request body. Like `POST`, it accepts structured data in the request body; unlike `POST`, it is safe and idempotent, meaning it does not modify server state and can be cached. This makes it semantically similar to `GET` but allows the expressiveness of complex filter parameters etc that would be unwieldy in a URL.
+
+For example, the `QUERY` method could be used to submit a complex search query with multiple filter criteria:
+
+```http
+QUERY /api/users/search HTTP/1.1
+Host: example.org
+Content-Type: application/json
+
+{
+    "filters": {
+        "role": "admin",
+        "status": "active",
+        "lastLogin": {"after": "2024-01-01"}
+    }
+}
+```
+
+The `QUERY` method is designed to be cacheable and safe (read-only), making it distinct from `POST`. It should not be used for operations that modify state on the server. Testers should verify that:
+
+- The server correctly treats `QUERY` as a safe operation and does not modify server state.
+- Access control is properly enforced for `QUERY` requests.
+- The method is not used as a workaround to bypass security controls that restrict other methods.
+
 ### Access Control Bypass
 
 If a page on the application redirects users to a login page with a 302 code when they attempt to access it directly, it may be possible to bypass this by making a request with a different HTTP method, such as `HEAD`, `POST` or even a made up method such as `FOO`. If the web application responds with a `HTTP/1.1 200 OK` rather than the expected `HTTP/1.1 302 Found`, it may then be possible to bypass the authentication or authorization. The example below shows how a `HEAD` request may result in a page setting administrative cookies, rather than redirecting the user to a login page:
@@ -255,6 +282,7 @@ HTTP/1.1 200 OK
 
 - [RFC 7231 - Hypertext Transfer Protocol (HTTP/1.1)](https://datatracker.ietf.org/doc/html/rfc7231)
 - [RFC 5789 - PATCH Method for HTTP](https://datatracker.ietf.org/doc/html/rfc5789)
+- [RFC 9110 - HTTP Semantics](https://datatracker.ietf.org/doc/html/rfc9110)
 - [HTACCESS: BILBAO Method Exposed](https://web.archive.org/web/20160616172703/https://www.kernelpanik.org/docs/kernelpanik/bme.eng.pdf)
 - [Fortify - Misused HTTP Method Override](https://vulncat.fortify.com/en/detail?id=desc.dynamic.xtended_preview.often_misused_http_method_override)
 - [Mozilla Developer Network - Safe HTTP Methods](https://developer.mozilla.org/en-US/docs/Glossary/Safe/HTTP)

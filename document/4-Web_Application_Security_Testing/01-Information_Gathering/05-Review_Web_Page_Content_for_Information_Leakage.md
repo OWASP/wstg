@@ -105,7 +105,6 @@ When an API Key is found, testers can check if the API Key restrictions are set 
 For example, if testers find a Google Map API Key, they can check if this API Key is restricted by IP or restricted only per the Google Map APIs. If the Google API Key is restricted only per the Google Map APIs, attackers can still use that API Key to query unrestricted Google Map APIs and the application owner must pay for that.
 
 ```html
-
 <script type="application/json">
 ...
 {"GOOGLE_MAP_API_KEY":"AIzaSyDUEBnKgwiqMNpDplT6ozE4Z0XxuAbqDi4", "RECAPTCHA_KEY":"6LcPscEUiAAAAHOwwM3fGvIx9rsPYUq62uRhGjJ0"}
@@ -122,6 +121,21 @@ In some cases, testers may find sensitive routes from JavaScript code, such as l
 ...
 </script>
 ```
+
+#### JavaScript and Client-Side Source Analysis
+
+Modern single-page applications and heavy client-side code frequently embed API endpoints, feature flags, and occasionally secrets. After collecting JavaScript files (manually, via proxy, or with tools such as Uproot), testers can extract interesting data with:
+
+```bash
+# Example with jsluice
+jsluice urls bundle.js
+jsluice secrets bundle.js
+
+# Example with LinkFinder
+python linkfinder.py -i bundle.js -o cli
+```
+
+Cross-reference extracted endpoints and parameters with the results of archive URL collection (gau / waybackurls / waymore) and the techniques described in [Identify Application Entry Points](06-Identify_Application_Entry_Points.md), and the [API Reconnaissance](../12-API_Testing/01-API_Reconnaissance.md) chapter.
 
 ### Identifying Source Map Files
 
@@ -203,6 +217,13 @@ Check metadata fields such as:
 - [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
 - [Burp Suite](https://portswigger.net/burp)
 - [Waybackurls](https://github.com/tomnomnom/waybackurls)
+- [gau](https://github.com/lc/gau)
+- [waymore](https://github.com/xnl-h4ck3r/waymore)
+- JavaScript endpoint / secret extraction:
+    - [LinkFinder](https://github.com/GerbenJavado/LinkFinder)
+    - [xnLinkFinder](https://github.com/xnl-h4ck3r/xnLinkFinder)
+    - [jsluice](https://github.com/BishopFox/jsluice)
+    - [SecretFinder](https://github.com/m4ll0k/SecretFinder) (or similar regex-based tools)
 - [Google Maps API Scanner](https://github.com/ozguralp/gmapsapiscanner/)
 - [exiftool](https://exiftool.org/)
 
