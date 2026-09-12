@@ -39,6 +39,16 @@ Examples for Personal Identifying Information (PII) are:
 
 Various types of information that must be protected, could be transmitted by the application in clear text. To check if this information is transmitted over HTTP instead of HTTPS, capture traffic between a client and web application server that needs credentials. For any message containing sensitive data, verify the exchange occurred using HTTPS. See more information about insecure transmission of credentials [A04:2025 Cryptographic Failures](https://owasp.org/Top10/2025/A04_2025-Cryptographic_Failures/) or [Transport Layer Protection Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html).
 
+If forced browsing to an HTTP endpoint is not possible in a browser (for example due to HSTS or cache behavior), request the same endpoint with [curl](https://curl.se/) and inspect the response directly. A properly protected endpoint should immediately return a 3XX response that redirects to an HTTPS URL.
+
+```bash
+$ curl -kis -o /dev/null -D - http://example.com/login
+HTTP/1.1 301 Moved Permanently
+Location: https://example.com/login
+```
+
+If the server responds with 200, serves content over HTTP, or redirects to another HTTP endpoint, then sensitive information may still be exposed over unencrypted transport.
+
 ### Example 1: Basic Authentication over HTTP
 
 A typical example is the usage of Basic Authentication over HTTP. When using Basic Authentication, user credentials are encoded rather than encrypted, and are sent as HTTP headers. In the example below the tester uses [curl](https://curl.se/) to test for this issue. Note how the application uses Basic authentication, and HTTP rather than HTTPS.
