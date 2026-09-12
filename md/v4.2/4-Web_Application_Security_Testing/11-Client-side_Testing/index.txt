@@ -1,0 +1,36 @@
+---
+layout: document
+title: WSTG - v4.2
+collection_name: v42
+channel_label: v4.2
+channel_path: v4.2
+render_with_liquid: false
+---
+
+# 4.11 Client-Side Testing
+
+4.11.1 [Testing for DOM-Based Cross Site Scripting](01-Testing_for_DOM-based_Cross_Site_Scripting/)
+
+4.11.2 [Testing for JavaScript Execution](02-Testing_for_JavaScript_Execution/)
+
+4.11.3 [Testing for HTML Injection](03-Testing_for_HTML_Injection/)
+
+4.11.4 [Testing for Client-side URL Redirect](04-Testing_for_Client-side_URL_Redirect/)
+
+4.11.5 [Testing for CSS Injection](05-Testing_for_CSS_Injection/)
+
+4.11.6 [Testing for Client-side Resource Manipulation](06-Testing_for_Client-side_Resource_Manipulation/)
+
+4.11.7 [Testing Cross Origin Resource Sharing](07-Testing_Cross_Origin_Resource_Sharing/)
+
+4.11.8 [Testing for Cross Site Flashing](08-Testing_for_Cross_Site_Flashing/)
+
+4.11.9 [Testing for Clickjacking](09-Testing_for_Clickjacking/)
+
+4.11.10 [Testing WebSockets](10-Testing_WebSockets/)
+
+4.11.11 [Testing Web Messaging](11-Testing_Web_Messaging/)
+
+4.11.12 [Testing Browser Storage](12-Testing_Browser_Storage/)
+
+4.11.13 [Testing for Cross Site Script Inclusion](13-Testing_for_Cross_Site_Script_Inclusion/)

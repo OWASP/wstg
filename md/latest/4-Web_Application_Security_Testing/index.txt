@@ -1,0 +1,36 @@
+---
+layout: document
+title: WSTG - Latest
+collection_name: latest
+channel_label: Latest
+channel_path: latest
+render_with_liquid: false
+---
+
+# Web Application Security Testing
+
+4.0 [Introduction and Objectives](00-Introduction_and_Objectives/)
+
+4.1 [Information Gathering](01-Information_Gathering/)
+
+4.2 [Configuration and Deployment Management](02-Configuration_and_Deployment_Management/)
+
+4.3 [Identity Management](03-Identity_Management/)
+
+4.4 [Authentication](04-Authentication/)
+
+4.5 [Authorization](05-Authorization/)
+
+4.6 [Session Management](06-Session_Management/)
+
+4.7 [Injection](07-Injection/)
+
+4.8 [Error Handling](08-Error_Handling/)
+
+4.9 [Weak Cryptography](09-Weak_Cryptography/)
+
+4.10 [Business Logic](10-Business_Logic/)
+
+4.11 [Client-side](11-Client-side/)
+
+4.12 [API Testing](12-API_Testing/)

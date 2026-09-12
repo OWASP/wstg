@@ -1,0 +1,80 @@
+/* Shared button primitives and variants */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font: inherit;
+  font-weight: 600;
+  font-family: var(--font-body);
+  text-decoration: none;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.btn-primary {
+  background: linear-gradient(to right, var(--btn-primary-start), var(--btn-primary-end));
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(to right, var(--btn-primary-hover-start), var(--btn-primary-hover-end));
+  color: #ffffff;
+}
+
+.btn-secondary {
+  background: var(--bg-card);
+  color: var(--text);
+  border: 2px solid #757575;
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent-cyan);
+  color: var(--link);
+}
+
+/* View on GitHub - white button, same blue in light/dark (no theme shift) */
+.btn-github {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #ffffff !important;
+  color: #003594 !important;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.btn-github:hover {
+  background: rgba(255, 255, 255, 0.95) !important;
+  color: #004bbb !important;
+}
+
+.btn-github .icon-github {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex-shrink: 0;
+}
+
+/* Suggest an app - same style as View on GitHub (white button, blue text) */
+.btn-suggest {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #ffffff !important;
+  color: #003594 !important;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.btn-suggest:hover {
+  background: rgba(255, 255, 255, 0.95) !important;
+  color: #004bbb !important;
+}
+
+.btn-suggest .icon-plus {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex-shrink: 0;
+}

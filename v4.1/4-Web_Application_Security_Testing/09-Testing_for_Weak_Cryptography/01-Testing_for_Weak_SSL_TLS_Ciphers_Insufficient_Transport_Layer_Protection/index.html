@@ -1,0 +1,2063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WSTG - v4.1 | OWASP Web Security Testing Guide</title>
+<meta name="description" content="The premier cybersecurity testing resource for web application developers and security professionals.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="WSTG - v4.1">
+<meta property="og:description" content="The premier cybersecurity testing resource for web application developers and security professionals.">
+<meta property="og:image" content="https://wstg.owasp.org/assets/images/wstg-cover.png">
+<meta property="og:url" content="https://wstg.owasp.org/v4.1/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_SSL_TLS_Ciphers_Insufficient_Transport_Layer_Protection/">
+<meta property="og:site_name" content="OWASP Web Security Testing Guide">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="WSTG - v4.1">
+<meta name="twitter:description" content="The premier cybersecurity testing resource for web application developers and security professionals.">
+<meta name="twitter:image" content="https://wstg.owasp.org/assets/images/wstg-cover.png">
+<link rel="canonical" href="https://wstg.owasp.org/v4.1/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_SSL_TLS_Ciphers_Insufficient_Transport_Layer_Protection/">
+<link rel="icon" href="/assets/images/wstg-shield.png" type="image/png">
+<link rel="apple-touch-icon" href="/assets/images/wstg-shield.png">
+<meta name="theme-color" content="#1a1d23">
+<script>
+(function () {
+  var t;
+  try { t = localStorage.getItem('wstg-theme'); } catch (e) {}
+  var effective;
+  if (!t || t === 'system') {
+    effective = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  } else {
+    effective = t;
+  }
+  document.documentElement.setAttribute('data-theme', effective);
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/shell.css">
+<link rel="stylesheet" href="/assets/css/buttons.css">
+<link rel="stylesheet" href="/assets/css/footer.css">
+<link rel="stylesheet" href="/assets/css/site.css">
+
+<link rel="stylesheet" href="/assets/css/wstg-nav.css">
+
+
+</head>
+<body id="top" class="page-document">
+  <div class="skip-links">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="#page-end" class="skip-link">Skip to bottom of page</a>
+  </div>
+  <header class="site-header">
+  <div class="container container-wide header-inner">
+    <div class="header-left">
+      <a href="/" class="header-brand" aria-label="WSTG home">
+        <img class="header-brand-shield" src="/assets/images/wstg-shield.png" width="40" height="40" alt="">
+        <span class="header-brand-name"><span class="wstg-wordmark">WSTG</span></span>
+      </a>
+    </div>
+    <div class="header-actions">
+      <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Theme: system. Click to switch." title="Theme">
+        <span class="theme-toggle-icon-wrap">
+          <svg class="theme-toggle-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path fill="currentColor" d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
+          </svg>
+        </span>
+        <span class="theme-toggle-label" aria-hidden="true">Theme</span>
+      </button>
+      <a href="https://owasp.org/" class="ext-link" rel="noopener noreferrer" target="_blank" aria-label="OWASP (external)">
+        <img class="owasp-wordmark-img" src="/assets/images/owasp-logo-header.svg" alt="" width="133" height="40">
+        <span class="sr-only"> (opens in new window)</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+  <header class="project-header">
+  <div class="container container-wide">
+    <div class="project-header-top">
+      <h1 class="project-title">OWASP Web Security Testing Guide</h1>
+      <p class="project-subtitle">v4.1</p>
+    </div>
+    
+    <p class="project-tagline">Web application security testing guidance.</p>
+    
+  </div>
+</header>
+
+
+<div class="channel-banners" role="banner">
+  
+
+  
+
+  
+  
+  
+    
+    <div class="channel-banner channel-banner--past">
+      You're viewing a past version of the Web Security Testing Guide project.
+      For the latest stable version, <a href="/stable/">visit /stable</a>.
+    </div>
+    
+  
+</div>
+
+<main id="main-content" class="site-main">
+  <div class="container container-wide">
+    <div class="doc-nav-bar">
+      <button type="button" id="doc-nav-toggle" class="doc-nav-toggle" aria-controls="doc-sidebar" aria-expanded="false">
+        <span class="doc-nav-toggle-icon" aria-hidden="true"></span>
+        Contents
+      </button>
+    </div>
+    <div class="doc-layout">
+      <div id="doc-nav-backdrop" class="doc-nav-backdrop" hidden></div>
+      <aside id="doc-sidebar" class="doc-sidebar" aria-label="Guide contents">
+        <button type="button" id="doc-nav-close" class="doc-nav-close" aria-label="Close contents">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        
+
+
+<nav class="wstg-nav" id="wstg-nav-v41" aria-label="WSTG Contents (v4.1)">
+  <p class="wstg-nav-home"><a href="/">← Home</a></p>
+  <h2 class="wstg-nav-title"><a href="/v4.1/">WSTG Contents (v4.1)</a></h2>
+  <label class="visually-hidden" for="wstg-nav-filter-v41">Filter contents</label>
+  <input id="wstg-nav-filter-v41" class="wstg-nav-filter" type="search" placeholder="Filter (XSS, sqli, WSTG-INPV-01, 4.7)" autocomplete="off">
+  <div class="wstg-nav-controls">
+    <button type="button" data-wstg-expand>Expand All</button>
+    <button type="button" data-wstg-collapse>Collapse All</button>
+  </div>
+  <ul class="wstg-nav-list">
+    
+    
+<li class="wstg-nav-item" data-title="0. Foreword by Eoin Keary">
+<a href="/v4.1/0-Foreword/" data-nav-url="0-Foreword/" title="0. Foreword by Eoin Keary">0. Foreword by Eoin Keary</a>
+</li>
+<li class="wstg-nav-item" data-title="1. Frontispiece">
+<a href="/v4.1/1-Frontispiece/" data-nav-url="1-Frontispiece/" title="1. Frontispiece">1. Frontispiece</a>
+</li>
+<li class="wstg-nav-item" data-title="2. Introduction">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.1/2-Introduction/" data-nav-url="2-Introduction/" title="2. Introduction">2. Introduction</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="2.1 The OWASP Testing Project">
+<a href="/v4.1/2-Introduction/#the-owasp-testing-project" data-nav-url="2-Introduction/#the-owasp-testing-project" title="2.1 The OWASP Testing Project">2.1 The OWASP Testing Project</a>
+</li>
+<li class="wstg-nav-item" data-title="2.2 Principles of Testing">
+<a href="/v4.1/2-Introduction/#principles-of-testing" data-nav-url="2-Introduction/#principles-of-testing" title="2.2 Principles of Testing">2.2 Principles of Testing</a>
+</li>
+<li class="wstg-nav-item" data-title="2.3 Testing Techniques Explained">
+<a href="/v4.1/2-Introduction/#testing-techniques-explained" data-nav-url="2-Introduction/#testing-techniques-explained" title="2.3 Testing Techniques Explained">2.3 Testing Techniques Explained</a>
+</li>
+<li class="wstg-nav-item" data-title="2.4 Manual Inspections and Reviews">
+<a href="/v4.1/2-Introduction/#manual-inspections-and-reviews" data-nav-url="2-Introduction/#manual-inspections-and-reviews" title="2.4 Manual Inspections and Reviews">2.4 Manual Inspections and Reviews</a>
+</li>
+<li class="wstg-nav-item" data-title="2.5 Threat Modeling">
+<a href="/v4.1/2-Introduction/#threat-modeling" data-nav-url="2-Introduction/#threat-modeling" title="2.5 Threat Modeling">2.5 Threat Modeling</a>
+</li>
+<li class="wstg-nav-item" data-title="2.6 Source Code Review">
+<a href="/v4.1/2-Introduction/#source-code-review" data-nav-url="2-Introduction/#source-code-review" title="2.6 Source Code Review">2.6 Source Code Review</a>
+</li>
+<li class="wstg-nav-item" data-title="2.7 Penetration Testing">
+<a href="/v4.1/2-Introduction/#penetration-testing" data-nav-url="2-Introduction/#penetration-testing" title="2.7 Penetration Testing">2.7 Penetration Testing</a>
+</li>
+<li class="wstg-nav-item" data-title="2.8 The Need for a Balanced Approach">
+<a href="/v4.1/2-Introduction/#the-need-for-a-balanced-approach" data-nav-url="2-Introduction/#the-need-for-a-balanced-approach" title="2.8 The Need for a Balanced Approach">2.8 The Need for a Balanced Approach</a>
+</li>
+<li class="wstg-nav-item" data-title="2.9 Deriving Security Test Requirements">
+<a href="/v4.1/2-Introduction/#deriving-security-test-requirements" data-nav-url="2-Introduction/#deriving-security-test-requirements" title="2.9 Deriving Security Test Requirements">2.9 Deriving Security Test Requirements</a>
+</li>
+<li class="wstg-nav-item" data-title="2.10 Security Tests Integrated in Development and Testing Workflows">
+<a href="/v4.1/2-Introduction/#security-tests-integrated-in-development-and-testing-workflows" data-nav-url="2-Introduction/#security-tests-integrated-in-development-and-testing-workflows" title="2.10 Security Tests Integrated in Development and Testing Workflows">2.10 Security Tests Integrated in Development and Testing Workflows</a>
+</li>
+<li class="wstg-nav-item" data-title="2.11 Security Test Data Analysis and Reporting">
+<a href="/v4.1/2-Introduction/#security-test-data-analysis-and-reporting" data-nav-url="2-Introduction/#security-test-data-analysis-and-reporting" title="2.11 Security Test Data Analysis and Reporting">2.11 Security Test Data Analysis and Reporting</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="3. The OWASP Testing Framework">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.1/3-The_OWASP_Testing_Framework/" data-nav-url="3-The_OWASP_Testing_Framework/" title="3. The OWASP Testing Framework">3. The OWASP Testing Framework</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="3.1 The Web Security Testing Framework">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.1/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework" title="3.1 The Web Security Testing Framework">3.1 The Web Security Testing Framework</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="3.2 Phase 1 Before Development Begins">
+<a href="/v4.1/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-1-before-development-begins" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-1-before-development-begins" title="3.2 Phase 1 Before Development Begins">3.2 Phase 1 Before Development Begins</a>
+</li>
+<li class="wstg-nav-item" data-title="3.3 Phase 2 During Definition and Design">
+<a href="/v4.1/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-2-during-definition-and-design" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-2-during-definition-and-design" title="3.3 Phase 2 During Definition and Design">3.3 Phase 2 During Definition and Design</a>
+</li>
+<li class="wstg-nav-item" data-title="3.4 Phase 3 During Development">
+<a href="/v4.1/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-3-during-development" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-3-during-development" title="3.4 Phase 3 During Development">3.4 Phase 3 During Development</a>
+</li>
+<li class="wstg-nav-item" data-title="3.5 Phase 4 During Deployment">
+<a href="/v4.1/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-4-during-deployment" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-4-during-deployment" title="3.5 Phase 4 During Deployment">3.5 Phase 4 During Deployment</a>
+</li>
+<li class="wstg-nav-item" data-title="3.6 Phase 5 During Maintenance and Operations">
+<a href="/v4.1/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-5-during-maintenance-and-operations" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#phase-5-during-maintenance-and-operations" title="3.6 Phase 5 During Maintenance and Operations">3.6 Phase 5 During Maintenance and Operations</a>
+</li>
+<li class="wstg-nav-item" data-title="3.7 A Typical SDLC Testing Workflow">
+<a href="/v4.1/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#a-typical-sdlc-testing-workflow" data-nav-url="3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#a-typical-sdlc-testing-workflow" title="3.7 A Typical SDLC Testing Workflow">3.7 A Typical SDLC Testing Workflow</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="3.8 Penetration Testing Methodologies">
+<a href="/v4.1/3-The_OWASP_Testing_Framework/1-Penetration_Testing_Methodologies" data-nav-url="3-The_OWASP_Testing_Framework/1-Penetration_Testing_Methodologies" title="3.8 Penetration Testing Methodologies">3.8 Penetration Testing Methodologies</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4. Web Application Security Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.1/4-Web_Application_Security_Testing/" data-nav-url="4-Web_Application_Security_Testing/" title="4. Web Application Security Testing">4. Web Application Security Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.0 Introduction and Objectives">
+<a href="/v4.1/4-Web_Application_Security_Testing/00-Introduction_and_Objectives/" data-nav-url="4-Web_Application_Security_Testing/00-Introduction_and_Objectives/" title="4.0 Introduction and Objectives">4.0 Introduction and Objectives</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1 Information Gathering">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.1/4-Web_Application_Security_Testing/01-Information_Gathering/" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/" title="4.1 Information Gathering">4.1 Information Gathering</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.1.1 Conduct Search Engine Discovery Reconnaissance for Information Leakage" data-hints="wstg-info-01 info-01">
+<a href="/v4.1/4-Web_Application_Security_Testing/01-Information_Gathering/01-Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/01-Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage" title="4.1.1 Conduct Search Engine Discovery Reconnaissance for Information Leakage">4.1.1 Conduct Search Engine Discovery Reconnaissance for Information Leakage</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.2 Fingerprint Web Server" data-hints="wstg-info-02 info-02">
+<a href="/v4.1/4-Web_Application_Security_Testing/01-Information_Gathering/02-Fingerprint_Web_Server" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/02-Fingerprint_Web_Server" title="4.1.2 Fingerprint Web Server">4.1.2 Fingerprint Web Server</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.3 Review Webserver Metafiles for Information Leakage" data-hints="robots robots.txt sitemap sitemap.xml wstg-info-03 info-03">
+<a href="/v4.1/4-Web_Application_Security_Testing/01-Information_Gathering/03-Review_Webserver_Metafiles_for_Information_Leakage" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/03-Review_Webserver_Metafiles_for_Information_Leakage" title="4.1.3 Review Webserver Metafiles for Information Leakage">4.1.3 Review Webserver Metafiles for Information Leakage</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.4 Enumerate Applications on Webserver" data-hints="wstg-info-04 info-04">
+<a href="/v4.1/4-Web_Application_Security_Testing/01-Information_Gathering/04-Enumerate_Applications_on_Webserver" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/04-Enumerate_Applications_on_Webserver" title="4.1.4 Enumerate Applications on Webserver">4.1.4 Enumerate Applications on Webserver</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.5 Review Webpage Comments and Metadata for Information Leakage" data-hints="wstg-info-05 info-05">
+<a href="/v4.1/4-Web_Application_Security_Testing/01-Information_Gathering/05-Review_Webpage_Comments_and_Metadata_for_Information_Leakage" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/05-Review_Webpage_Comments_and_Metadata_for_Information_Leakage" title="4.1.5 Review Webpage Comments and Metadata for Information Leakage">4.1.5 Review Webpage Comments and Metadata for Information Leakage</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.6 Identify Application Entry Points" data-hints="wstg-info-06 info-06">
+<a href="/v4.1/4-Web_Application_Security_Testing/01-Information_Gathering/06-Identify_Application_Entry_Points" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/06-Identify_Application_Entry_Points" title="4.1.6 Identify Application Entry Points">4.1.6 Identify Application Entry Points</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.7 Map Execution Paths Through Application" data-hints="wstg-info-07 info-07">
+<a href="/v4.1/4-Web_Application_Security_Testing/01-Information_Gathering/07-Map_Execution_Paths_Through_Application" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/07-Map_Execution_Paths_Through_Application" title="4.1.7 Map Execution Paths Through Application">4.1.7 Map Execution Paths Through Application</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.8 Fingerprint Web Application Framework" data-hints="wstg-info-08 info-08">
+<a href="/v4.1/4-Web_Application_Security_Testing/01-Information_Gathering/08-Fingerprint_Web_Application_Framework" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/08-Fingerprint_Web_Application_Framework" title="4.1.8 Fingerprint Web Application Framework">4.1.8 Fingerprint Web Application Framework</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.9 Fingerprint Web Application" data-hints="wstg-info-09 info-09">
+<a href="/v4.1/4-Web_Application_Security_Testing/01-Information_Gathering/09-Fingerprint_Web_Application" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/09-Fingerprint_Web_Application" title="4.1.9 Fingerprint Web Application">4.1.9 Fingerprint Web Application</a>
+</li>
+<li class="wstg-nav-item" data-title="4.1.10 Map Application Architecture" data-hints="wstg-info-10 info-10">
+<a href="/v4.1/4-Web_Application_Security_Testing/01-Information_Gathering/10-Map_Application_Architecture" data-nav-url="4-Web_Application_Security_Testing/01-Information_Gathering/10-Map_Application_Architecture" title="4.1.10 Map Application Architecture">4.1.10 Map Application Architecture</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.2 Configuration and Deployment Management Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.1/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/" title="4.2 Configuration and Deployment Management Testing">4.2 Configuration and Deployment Management Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.2.1 Test Network Infrastructure Configuration" data-hints="wstg-conf-01 conf-01">
+<a href="/v4.1/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/01-Test_Network_Infrastructure_Configuration" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/01-Test_Network_Infrastructure_Configuration" title="4.2.1 Test Network Infrastructure Configuration">4.2.1 Test Network Infrastructure Configuration</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.2 Test Application Platform Configuration" data-hints="wstg-conf-02 conf-02">
+<a href="/v4.1/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/02-Test_Application_Platform_Configuration" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/02-Test_Application_Platform_Configuration" title="4.2.2 Test Application Platform Configuration">4.2.2 Test Application Platform Configuration</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.3 Test File Extensions Handling for Sensitive Information" data-hints="wstg-conf-03 conf-03">
+<a href="/v4.1/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/03-Test_File_Extensions_Handling_for_Sensitive_Information" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/03-Test_File_Extensions_Handling_for_Sensitive_Information" title="4.2.3 Test File Extensions Handling for Sensitive Information">4.2.3 Test File Extensions Handling for Sensitive Information</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.4 Review Old Backup and Unreferenced Files for Sensitive Information" data-hints="wstg-conf-04 conf-04">
+<a href="/v4.1/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/04-Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/04-Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information" title="4.2.4 Review Old Backup and Unreferenced Files for Sensitive Information">4.2.4 Review Old Backup and Unreferenced Files for Sensitive Information</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.5 Enumerate Infrastructure and Application Admin Interfaces" data-hints="wstg-conf-05 conf-05">
+<a href="/v4.1/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/05-Enumerate_Infrastructure_and_Application_Admin_Interfaces" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/05-Enumerate_Infrastructure_and_Application_Admin_Interfaces" title="4.2.5 Enumerate Infrastructure and Application Admin Interfaces">4.2.5 Enumerate Infrastructure and Application Admin Interfaces</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.6 Test HTTP Methods" data-hints="wstg-conf-06 conf-06">
+<a href="/v4.1/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/06-Test_HTTP_Methods" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/06-Test_HTTP_Methods" title="4.2.6 Test HTTP Methods">4.2.6 Test HTTP Methods</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.7 Test HTTP Strict Transport Security" data-hints="hsts headers wstg-conf-07 conf-07">
+<a href="/v4.1/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/07-Test_HTTP_Strict_Transport_Security" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/07-Test_HTTP_Strict_Transport_Security" title="4.2.7 Test HTTP Strict Transport Security">4.2.7 Test HTTP Strict Transport Security</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.8 Test RIA Cross Domain Policy" data-hints="crossdomain.xml clientaccesspolicy wstg-conf-08 conf-08">
+<a href="/v4.1/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/08-Test_RIA_Cross_Domain_Policy" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/08-Test_RIA_Cross_Domain_Policy" title="4.2.8 Test RIA Cross Domain Policy">4.2.8 Test RIA Cross Domain Policy</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.9 Test File Permission" data-hints="wstg-conf-09 conf-09">
+<a href="/v4.1/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/09-Test_File_Permission" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/09-Test_File_Permission" title="4.2.9 Test File Permission">4.2.9 Test File Permission</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.10 Test for Subdomain Takeover" data-hints="wstg-conf-10 conf-10">
+<a href="/v4.1/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/10-Test_for_Subdomain_Takeover" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/10-Test_for_Subdomain_Takeover" title="4.2.10 Test for Subdomain Takeover">4.2.10 Test for Subdomain Takeover</a>
+</li>
+<li class="wstg-nav-item" data-title="4.2.11 Test Cloud Storage" data-hints="s3 bucket blob storage wstg-conf-11 conf-11">
+<a href="/v4.1/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/11-Test_Cloud_Storage" data-nav-url="4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/11-Test_Cloud_Storage" title="4.2.11 Test Cloud Storage">4.2.11 Test Cloud Storage</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.3 Identity Management Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.1/4-Web_Application_Security_Testing/03-Identity_Management_Testing/" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/" title="4.3 Identity Management Testing">4.3 Identity Management Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.3.1 Test Role Definitions" data-hints="wstg-idnt-01 idnt-01">
+<a href="/v4.1/4-Web_Application_Security_Testing/03-Identity_Management_Testing/01-Test_Role_Definitions" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/01-Test_Role_Definitions" title="4.3.1 Test Role Definitions">4.3.1 Test Role Definitions</a>
+</li>
+<li class="wstg-nav-item" data-title="4.3.2 Test User Registration Process" data-hints="wstg-idnt-02 idnt-02">
+<a href="/v4.1/4-Web_Application_Security_Testing/03-Identity_Management_Testing/02-Test_User_Registration_Process" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/02-Test_User_Registration_Process" title="4.3.2 Test User Registration Process">4.3.2 Test User Registration Process</a>
+</li>
+<li class="wstg-nav-item" data-title="4.3.3 Test Account Provisioning Process" data-hints="wstg-idnt-03 idnt-03">
+<a href="/v4.1/4-Web_Application_Security_Testing/03-Identity_Management_Testing/03-Test_Account_Provisioning_Process" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/03-Test_Account_Provisioning_Process" title="4.3.3 Test Account Provisioning Process">4.3.3 Test Account Provisioning Process</a>
+</li>
+<li class="wstg-nav-item" data-title="4.3.4 Testing for Account Enumeration and Guessable User Account" data-hints="wstg-idnt-04 idnt-04">
+<a href="/v4.1/4-Web_Application_Security_Testing/03-Identity_Management_Testing/04-Testing_for_Account_Enumeration_and_Guessable_User_Account" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/04-Testing_for_Account_Enumeration_and_Guessable_User_Account" title="4.3.4 Testing for Account Enumeration and Guessable User Account">4.3.4 Testing for Account Enumeration and Guessable User Account</a>
+</li>
+<li class="wstg-nav-item" data-title="4.3.5 Testing for Weak or Unenforced Username Policy" data-hints="wstg-idnt-05 idnt-05">
+<a href="/v4.1/4-Web_Application_Security_Testing/03-Identity_Management_Testing/05-Testing_for_Weak_or_Unenforced_Username_Policy" data-nav-url="4-Web_Application_Security_Testing/03-Identity_Management_Testing/05-Testing_for_Weak_or_Unenforced_Username_Policy" title="4.3.5 Testing for Weak or Unenforced Username Policy">4.3.5 Testing for Weak or Unenforced Username Policy</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.4 Authentication Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.1/4-Web_Application_Security_Testing/04-Authentication_Testing/" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/" title="4.4 Authentication Testing">4.4 Authentication Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.4.1 Testing for Credentials Transported over an Encrypted Channel" data-hints="tls ssl https wstg-athn-01 athn-01">
+<a href="/v4.1/4-Web_Application_Security_Testing/04-Authentication_Testing/01-Testing_for_Credentials_Transported_over_an_Encrypted_Channel" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/01-Testing_for_Credentials_Transported_over_an_Encrypted_Channel" title="4.4.1 Testing for Credentials Transported over an Encrypted Channel">4.4.1 Testing for Credentials Transported over an Encrypted Channel</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.2 Testing for Default Credentials" data-hints="wstg-athn-02 athn-02">
+<a href="/v4.1/4-Web_Application_Security_Testing/04-Authentication_Testing/02-Testing_for_Default_Credentials" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/02-Testing_for_Default_Credentials" title="4.4.2 Testing for Default Credentials">4.4.2 Testing for Default Credentials</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.3 Testing for Weak Lock Out Mechanism" data-hints="rate limit bruteforce brute force account lockout wstg-athn-03 athn-03">
+<a href="/v4.1/4-Web_Application_Security_Testing/04-Authentication_Testing/03-Testing_for_Weak_Lock_Out_Mechanism" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/03-Testing_for_Weak_Lock_Out_Mechanism" title="4.4.3 Testing for Weak Lock Out Mechanism">4.4.3 Testing for Weak Lock Out Mechanism</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.4 Testing for Bypassing Authentication Schema" data-hints="wstg-athn-04 athn-04">
+<a href="/v4.1/4-Web_Application_Security_Testing/04-Authentication_Testing/04-Testing_for_Bypassing_Authentication_Schema" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/04-Testing_for_Bypassing_Authentication_Schema" title="4.4.4 Testing for Bypassing Authentication Schema">4.4.4 Testing for Bypassing Authentication Schema</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.5 Testing for Vulnerable Remember Password" data-hints="wstg-athn-05 athn-05">
+<a href="/v4.1/4-Web_Application_Security_Testing/04-Authentication_Testing/05-Testing_for_Vulnerable_Remember_Password" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/05-Testing_for_Vulnerable_Remember_Password" title="4.4.5 Testing for Vulnerable Remember Password">4.4.5 Testing for Vulnerable Remember Password</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.6 Testing for Browser Cache Weaknesses" data-hints="wstg-athn-06 athn-06">
+<a href="/v4.1/4-Web_Application_Security_Testing/04-Authentication_Testing/06-Testing_for_Browser_Cache_Weaknesses" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/06-Testing_for_Browser_Cache_Weaknesses" title="4.4.6 Testing for Browser Cache Weaknesses">4.4.6 Testing for Browser Cache Weaknesses</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.7 Testing for Weak Password Policy" data-hints="wstg-athn-07 athn-07">
+<a href="/v4.1/4-Web_Application_Security_Testing/04-Authentication_Testing/07-Testing_for_Weak_Password_Policy" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/07-Testing_for_Weak_Password_Policy" title="4.4.7 Testing for Weak Password Policy">4.4.7 Testing for Weak Password Policy</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.8 Testing for Weak Security Question Answer" data-hints="wstg-athn-08 athn-08">
+<a href="/v4.1/4-Web_Application_Security_Testing/04-Authentication_Testing/08-Testing_for_Weak_Security_Question_Answer" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/08-Testing_for_Weak_Security_Question_Answer" title="4.4.8 Testing for Weak Security Question Answer">4.4.8 Testing for Weak Security Question Answer</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.9 Testing for Weak Password Change or Reset Functionalities" data-hints="wstg-athn-09 athn-09">
+<a href="/v4.1/4-Web_Application_Security_Testing/04-Authentication_Testing/09-Testing_for_Weak_Password_Change_or_Reset_Functionalities" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/09-Testing_for_Weak_Password_Change_or_Reset_Functionalities" title="4.4.9 Testing for Weak Password Change or Reset Functionalities">4.4.9 Testing for Weak Password Change or Reset Functionalities</a>
+</li>
+<li class="wstg-nav-item" data-title="4.4.10 Testing for Weaker Authentication in Alternative Channel" data-hints="wstg-athn-10 athn-10">
+<a href="/v4.1/4-Web_Application_Security_Testing/04-Authentication_Testing/10-Testing_for_Weaker_Authentication_in_Alternative_Channel" data-nav-url="4-Web_Application_Security_Testing/04-Authentication_Testing/10-Testing_for_Weaker_Authentication_in_Alternative_Channel" title="4.4.10 Testing for Weaker Authentication in Alternative Channel">4.4.10 Testing for Weaker Authentication in Alternative Channel</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.5 Authorization Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.1/4-Web_Application_Security_Testing/05-Authorization_Testing/" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/" title="4.5 Authorization Testing">4.5 Authorization Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.5.1 Testing Directory Traversal File Include" data-hints="path traversal dotdot lfi wstg-athz-01 athz-01">
+<a href="/v4.1/4-Web_Application_Security_Testing/05-Authorization_Testing/01-Testing_Directory_Traversal_File_Include" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/01-Testing_Directory_Traversal_File_Include" title="4.5.1 Testing Directory Traversal File Include">4.5.1 Testing Directory Traversal File Include</a>
+</li>
+<li class="wstg-nav-item" data-title="4.5.2 Testing for Bypassing Authorization Schema" data-hints="wstg-athz-02 athz-02">
+<a href="/v4.1/4-Web_Application_Security_Testing/05-Authorization_Testing/02-Testing_for_Bypassing_Authorization_Schema" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/02-Testing_for_Bypassing_Authorization_Schema" title="4.5.2 Testing for Bypassing Authorization Schema">4.5.2 Testing for Bypassing Authorization Schema</a>
+</li>
+<li class="wstg-nav-item" data-title="4.5.3 Testing for Privilege Escalation" data-hints="privesc wstg-athz-03 athz-03">
+<a href="/v4.1/4-Web_Application_Security_Testing/05-Authorization_Testing/03-Testing_for_Privilege_Escalation" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/03-Testing_for_Privilege_Escalation" title="4.5.3 Testing for Privilege Escalation">4.5.3 Testing for Privilege Escalation</a>
+</li>
+<li class="wstg-nav-item" data-title="4.5.4 Testing for Insecure Direct Object References" data-hints="idor wstg-athz-04 athz-04">
+<a href="/v4.1/4-Web_Application_Security_Testing/05-Authorization_Testing/04-Testing_for_Insecure_Direct_Object_References" data-nav-url="4-Web_Application_Security_Testing/05-Authorization_Testing/04-Testing_for_Insecure_Direct_Object_References" title="4.5.4 Testing for Insecure Direct Object References">4.5.4 Testing for Insecure Direct Object References</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.6 Session Management Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.1/4-Web_Application_Security_Testing/06-Session_Management_Testing/" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/" title="4.6 Session Management Testing">4.6 Session Management Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.6.1 Testing for Session Management Schema" data-hints="wstg-sess-01 sess-01">
+<a href="/v4.1/4-Web_Application_Security_Testing/06-Session_Management_Testing/01-Testing_for_Session_Management_Schema" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/01-Testing_for_Session_Management_Schema" title="4.6.1 Testing for Session Management Schema">4.6.1 Testing for Session Management Schema</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.2 Testing for Cookies Attributes" data-hints="cookies set-cookie httponly samesite secure flag wstg-sess-02 sess-02">
+<a href="/v4.1/4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes" title="4.6.2 Testing for Cookies Attributes">4.6.2 Testing for Cookies Attributes</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.3 Testing for Session Fixation" data-hints="wstg-sess-03 sess-03">
+<a href="/v4.1/4-Web_Application_Security_Testing/06-Session_Management_Testing/03-Testing_for_Session_Fixation" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/03-Testing_for_Session_Fixation" title="4.6.3 Testing for Session Fixation">4.6.3 Testing for Session Fixation</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.4 Testing for Exposed Session Variables" data-hints="wstg-sess-04 sess-04">
+<a href="/v4.1/4-Web_Application_Security_Testing/06-Session_Management_Testing/04-Testing_for_Exposed_Session_Variables" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/04-Testing_for_Exposed_Session_Variables" title="4.6.4 Testing for Exposed Session Variables">4.6.4 Testing for Exposed Session Variables</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.5 Testing for Cross Site Request Forgery" data-hints="csrf xsrf wstg-sess-05 sess-05">
+<a href="/v4.1/4-Web_Application_Security_Testing/06-Session_Management_Testing/05-Testing_for_Cross_Site_Request_Forgery" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/05-Testing_for_Cross_Site_Request_Forgery" title="4.6.5 Testing for Cross Site Request Forgery">4.6.5 Testing for Cross Site Request Forgery</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.6 Testing for Logout Functionality" data-hints="wstg-sess-06 sess-06">
+<a href="/v4.1/4-Web_Application_Security_Testing/06-Session_Management_Testing/06-Testing_for_Logout_Functionality" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/06-Testing_for_Logout_Functionality" title="4.6.6 Testing for Logout Functionality">4.6.6 Testing for Logout Functionality</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.7 Testing Session Timeout" data-hints="wstg-sess-07 sess-07">
+<a href="/v4.1/4-Web_Application_Security_Testing/06-Session_Management_Testing/07-Testing_Session_Timeout" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/07-Testing_Session_Timeout" title="4.6.7 Testing Session Timeout">4.6.7 Testing Session Timeout</a>
+</li>
+<li class="wstg-nav-item" data-title="4.6.8 Testing for Session Puzzling" data-hints="wstg-sess-08 sess-08">
+<a href="/v4.1/4-Web_Application_Security_Testing/06-Session_Management_Testing/08-Testing_for_Session_Puzzling" data-nav-url="4-Web_Application_Security_Testing/06-Session_Management_Testing/08-Testing_for_Session_Puzzling" title="4.6.8 Testing for Session Puzzling">4.6.8 Testing for Session Puzzling</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.7 Input Validation Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/" title="4.7 Input Validation Testing">4.7 Input Validation Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.7.1 Testing for Reflected Cross Site Scripting" data-hints="xss wstg-inpv-01 inpv-01">
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/01-Testing_for_Reflected_Cross_Site_Scripting" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/01-Testing_for_Reflected_Cross_Site_Scripting" title="4.7.1 Testing for Reflected Cross Site Scripting">4.7.1 Testing for Reflected Cross Site Scripting</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.2 Testing for Stored Cross Site Scripting" data-hints="xss wstg-inpv-02 inpv-02">
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/02-Testing_for_Stored_Cross_Site_Scripting" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/02-Testing_for_Stored_Cross_Site_Scripting" title="4.7.2 Testing for Stored Cross Site Scripting">4.7.2 Testing for Stored Cross Site Scripting</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.3 Testing for HTTP Verb Tampering" data-hints="verb tampering wstg-inpv-03 inpv-03">
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/03-Testing_for_HTTP_Verb_Tampering" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/03-Testing_for_HTTP_Verb_Tampering" title="4.7.3 Testing for HTTP Verb Tampering">4.7.3 Testing for HTTP Verb Tampering</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.4 Testing for HTTP Parameter Pollution" data-hints="hpp wstg-inpv-04 inpv-04">
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/04-Testing_for_HTTP_Parameter_Pollution" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/04-Testing_for_HTTP_Parameter_Pollution" title="4.7.4 Testing for HTTP Parameter Pollution">4.7.4 Testing for HTTP Parameter Pollution</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5 Testing for SQL Injection" data-hints="sqli wstg-inpv-05 inpv-05">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection" title="4.7.5 Testing for SQL Injection">4.7.5 Testing for SQL Injection</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.7.5.1 Testing for Oracle">
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.1-Testing_for_Oracle" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.1-Testing_for_Oracle" title="4.7.5.1 Testing for Oracle">4.7.5.1 Testing for Oracle</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.2 Testing for MySQL">
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.2-Testing_for_MySQL" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.2-Testing_for_MySQL" title="4.7.5.2 Testing for MySQL">4.7.5.2 Testing for MySQL</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.3 Testing for SQL Server" data-hints="mssql sql server">
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.3-Testing_for_SQL_Server" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.3-Testing_for_SQL_Server" title="4.7.5.3 Testing for SQL Server">4.7.5.3 Testing for SQL Server</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.4 Testing PostgreSQL">
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.4-Testing_PostgreSQL" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.4-Testing_PostgreSQL" title="4.7.5.4 Testing PostgreSQL">4.7.5.4 Testing PostgreSQL</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.5 Testing for MS Access">
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.5-Testing_for_MS_Access" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.5-Testing_for_MS_Access" title="4.7.5.5 Testing for MS Access">4.7.5.5 Testing for MS Access</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.6 Testing for NoSQL Injection" data-hints="sqli nosqli">
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.6-Testing_for_NoSQL_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.6-Testing_for_NoSQL_Injection" title="4.7.5.6 Testing for NoSQL Injection">4.7.5.6 Testing for NoSQL Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.7 Testing for ORM Injection">
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.7-Testing_for_ORM_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.7-Testing_for_ORM_Injection" title="4.7.5.7 Testing for ORM Injection">4.7.5.7 Testing for ORM Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.5.8 Testing for Client Side">
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.8-Testing_for_Client_Side" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.8-Testing_for_Client_Side" title="4.7.5.8 Testing for Client Side">4.7.5.8 Testing for Client Side</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.7.6 Testing for LDAP Injection" data-hints="ldapi wstg-inpv-06 inpv-06">
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/06-Testing_for_LDAP_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/06-Testing_for_LDAP_Injection" title="4.7.6 Testing for LDAP Injection">4.7.6 Testing for LDAP Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.7 Testing for XML Injection" data-hints="xxe xmli xml injection wstg-inpv-07 inpv-07">
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/07-Testing_for_XML_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/07-Testing_for_XML_Injection" title="4.7.7 Testing for XML Injection">4.7.7 Testing for XML Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.8 Testing for SSI Injection" data-hints="ssi injection wstg-inpv-08 inpv-08">
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/08-Testing_for_SSI_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/08-Testing_for_SSI_Injection" title="4.7.8 Testing for SSI Injection">4.7.8 Testing for SSI Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.9 Testing for XPath Injection" data-hints="xpathi xml wstg-inpv-09 inpv-09">
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/09-Testing_for_XPath_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/09-Testing_for_XPath_Injection" title="4.7.9 Testing for XPath Injection">4.7.9 Testing for XPath Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.10 Testing for IMAP SMTP Injection" data-hints="email injection wstg-inpv-10 inpv-10">
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/10-Testing_for_IMAP_SMTP_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/10-Testing_for_IMAP_SMTP_Injection" title="4.7.10 Testing for IMAP SMTP Injection">4.7.10 Testing for IMAP SMTP Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.11 Testing for Code Injection" data-hints="rce wstg-inpv-11 inpv-11">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11-Testing_for_Code_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/11-Testing_for_Code_Injection" title="4.7.11 Testing for Code Injection">4.7.11 Testing for Code Injection</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.7.11.1 Testing for Local File Inclusion" data-hints="lfi rfi">
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.1-Testing_for_Local_File_Inclusion" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.1-Testing_for_Local_File_Inclusion" title="4.7.11.1 Testing for Local File Inclusion">4.7.11.1 Testing for Local File Inclusion</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.11.2 Testing for Remote File Inclusion" data-hints="lfi rfi">
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.2-Testing_for_Remote_File_Inclusion" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.2-Testing_for_Remote_File_Inclusion" title="4.7.11.2 Testing for Remote File Inclusion">4.7.11.2 Testing for Remote File Inclusion</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.7.12 Testing for Command Injection" data-hints="rce cmdi os command wstg-inpv-12 inpv-12">
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/12-Testing_for_Command_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/12-Testing_for_Command_Injection" title="4.7.12 Testing for Command Injection">4.7.12 Testing for Command Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.13 Testing for Buffer Overflow" data-hints="wstg-inpv-13 inpv-13">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/13-Testing_for_Buffer_Overflow" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/13-Testing_for_Buffer_Overflow" title="4.7.13 Testing for Buffer Overflow">4.7.13 Testing for Buffer Overflow</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.7.13.1 Testing for Heap Overflow">
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/13.1-Testing_for_Heap_Overflow" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/13.1-Testing_for_Heap_Overflow" title="4.7.13.1 Testing for Heap Overflow">4.7.13.1 Testing for Heap Overflow</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.13.2 Testing for Stack Overflow">
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/13.2-Testing_for_Stack_Overflow" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/13.2-Testing_for_Stack_Overflow" title="4.7.13.2 Testing for Stack Overflow">4.7.13.2 Testing for Stack Overflow</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.13.3 Testing for Format String" data-hints="format string bug">
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/13.3-Testing_for_Format_String" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/13.3-Testing_for_Format_String" title="4.7.13.3 Testing for Format String">4.7.13.3 Testing for Format String</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.7.14 Testing for Incubated Vulnerability" data-hints="wstg-inpv-14 inpv-14">
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/14-Testing_for_Incubated_Vulnerability" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/14-Testing_for_Incubated_Vulnerability" title="4.7.14 Testing for Incubated Vulnerability">4.7.14 Testing for Incubated Vulnerability</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.15 Testing for HTTP Splitting Smuggling" data-hints="wstg-inpv-15 inpv-15">
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/15-Testing_for_HTTP_Splitting_Smuggling" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/15-Testing_for_HTTP_Splitting_Smuggling" title="4.7.15 Testing for HTTP Splitting Smuggling">4.7.15 Testing for HTTP Splitting Smuggling</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.16 Testing for HTTP Incoming Requests" data-hints="wstg-inpv-16 inpv-16">
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/16-Testing_for_HTTP_Incoming_Requests" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/16-Testing_for_HTTP_Incoming_Requests" title="4.7.16 Testing for HTTP Incoming Requests">4.7.16 Testing for HTTP Incoming Requests</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.17 Testing for Host Header Injection" data-hints="host header injection headers wstg-inpv-17 inpv-17">
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/17-Testing_for_Host_Header_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/17-Testing_for_Host_Header_Injection" title="4.7.17 Testing for Host Header Injection">4.7.17 Testing for Host Header Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.7.18 Testing for Server Side Template Injection" data-hints="ssti wstg-inpv-18 inpv-18">
+<a href="/v4.1/4-Web_Application_Security_Testing/07-Input_Validation_Testing/18-Testing_for_Server_Side_Template_Injection" data-nav-url="4-Web_Application_Security_Testing/07-Input_Validation_Testing/18-Testing_for_Server_Side_Template_Injection" title="4.7.18 Testing for Server Side Template Injection">4.7.18 Testing for Server Side Template Injection</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.8 Testing for Error Handling">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.1/4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/" data-nav-url="4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/" title="4.8 Testing for Error Handling">4.8 Testing for Error Handling</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.8.1 Testing for Error Code" data-hints="wstg-errh-01 errh-01">
+<a href="/v4.1/4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/01-Testing_for_Error_Code" data-nav-url="4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/01-Testing_for_Error_Code" title="4.8.1 Testing for Error Code">4.8.1 Testing for Error Code</a>
+</li>
+<li class="wstg-nav-item" data-title="4.8.2 Testing for Stack Traces" data-hints="wstg-errh-02 errh-02">
+<a href="/v4.1/4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/02-Testing_for_Stack_Traces" data-nav-url="4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/02-Testing_for_Stack_Traces" title="4.8.2 Testing for Stack Traces">4.8.2 Testing for Stack Traces</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.9 Testing for Weak Cryptography">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.1/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/" data-nav-url="4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/" title="4.9 Testing for Weak Cryptography">4.9 Testing for Weak Cryptography</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.9.1 Testing for Weak SSL TLS Ciphers Insufficient Transport Layer Protection" data-hints="wstg-cryp-01 cryp-01">
+<a href="/v4.1/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_SSL_TLS_Ciphers_Insufficient_Transport_Layer_Protection" data-nav-url="4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_SSL_TLS_Ciphers_Insufficient_Transport_Layer_Protection" title="4.9.1 Testing for Weak SSL TLS Ciphers Insufficient Transport Layer Protection">4.9.1 Testing for Weak SSL TLS Ciphers Insufficient Transport Layer Protection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.9.2 Testing for Padding Oracle" data-hints="padding oracle attack wstg-cryp-02 cryp-02">
+<a href="/v4.1/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/02-Testing_for_Padding_Oracle" data-nav-url="4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/02-Testing_for_Padding_Oracle" title="4.9.2 Testing for Padding Oracle">4.9.2 Testing for Padding Oracle</a>
+</li>
+<li class="wstg-nav-item" data-title="4.9.3 Testing for Sensitive Information Sent via Unencrypted Channels" data-hints="tls ssl https cleartext wstg-cryp-03 cryp-03">
+<a href="/v4.1/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/03-Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels" data-nav-url="4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/03-Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels" title="4.9.3 Testing for Sensitive Information Sent via Unencrypted Channels">4.9.3 Testing for Sensitive Information Sent via Unencrypted Channels</a>
+</li>
+<li class="wstg-nav-item" data-title="4.9.4 Testing for Weak Encryption" data-hints="wstg-cryp-04 cryp-04">
+<a href="/v4.1/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/04-Testing_for_Weak_Encryption" data-nav-url="4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/04-Testing_for_Weak_Encryption" title="4.9.4 Testing for Weak Encryption">4.9.4 Testing for Weak Encryption</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.10 Business Logic Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.1/4-Web_Application_Security_Testing/10-Business_Logic_Testing/" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/" title="4.10 Business Logic Testing">4.10 Business Logic Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.10.0 Introduction to Business Logic">
+<a href="/v4.1/4-Web_Application_Security_Testing/10-Business_Logic_Testing/00-Introduction_to_Business_Logic" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/00-Introduction_to_Business_Logic" title="4.10.0 Introduction to Business Logic">4.10.0 Introduction to Business Logic</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.1 Test Business Logic Data Validation" data-hints="wstg-busl-01 busl-01">
+<a href="/v4.1/4-Web_Application_Security_Testing/10-Business_Logic_Testing/01-Test_Business_Logic_Data_Validation" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/01-Test_Business_Logic_Data_Validation" title="4.10.1 Test Business Logic Data Validation">4.10.1 Test Business Logic Data Validation</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.2 Test Ability to Forge Requests" data-hints="wstg-busl-02 busl-02">
+<a href="/v4.1/4-Web_Application_Security_Testing/10-Business_Logic_Testing/02-Test_Ability_to_Forge_Requests" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/02-Test_Ability_to_Forge_Requests" title="4.10.2 Test Ability to Forge Requests">4.10.2 Test Ability to Forge Requests</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.3 Test Integrity Checks" data-hints="wstg-busl-03 busl-03">
+<a href="/v4.1/4-Web_Application_Security_Testing/10-Business_Logic_Testing/03-Test_Integrity_Checks" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/03-Test_Integrity_Checks" title="4.10.3 Test Integrity Checks">4.10.3 Test Integrity Checks</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.4 Test for Process Timing" data-hints="race condition toctou wstg-busl-04 busl-04">
+<a href="/v4.1/4-Web_Application_Security_Testing/10-Business_Logic_Testing/04-Test_for_Process_Timing" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/04-Test_for_Process_Timing" title="4.10.4 Test for Process Timing">4.10.4 Test for Process Timing</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.5 Test Number of Times a Function Can Be Used Limits" data-hints="rate limit bruteforce brute force wstg-busl-05 busl-05">
+<a href="/v4.1/4-Web_Application_Security_Testing/10-Business_Logic_Testing/05-Test_Number_of_Times_a_Function_Can_Be_Used_Limits" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/05-Test_Number_of_Times_a_Function_Can_Be_Used_Limits" title="4.10.5 Test Number of Times a Function Can Be Used Limits">4.10.5 Test Number of Times a Function Can Be Used Limits</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.6 Testing for the Circumvention of Work Flows" data-hints="wstg-busl-06 busl-06">
+<a href="/v4.1/4-Web_Application_Security_Testing/10-Business_Logic_Testing/06-Testing_for_the_Circumvention_of_Work_Flows" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/06-Testing_for_the_Circumvention_of_Work_Flows" title="4.10.6 Testing for the Circumvention of Work Flows">4.10.6 Testing for the Circumvention of Work Flows</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.7 Test Defenses Against Application Misuse" data-hints="wstg-busl-07 busl-07">
+<a href="/v4.1/4-Web_Application_Security_Testing/10-Business_Logic_Testing/07-Test_Defenses_Against_Application_Misuse" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/07-Test_Defenses_Against_Application_Misuse" title="4.10.7 Test Defenses Against Application Misuse">4.10.7 Test Defenses Against Application Misuse</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.8 Test Upload of Unexpected File Types" data-hints="wstg-busl-08 busl-08">
+<a href="/v4.1/4-Web_Application_Security_Testing/10-Business_Logic_Testing/08-Test_Upload_of_Unexpected_File_Types" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/08-Test_Upload_of_Unexpected_File_Types" title="4.10.8 Test Upload of Unexpected File Types">4.10.8 Test Upload of Unexpected File Types</a>
+</li>
+<li class="wstg-nav-item" data-title="4.10.9 Test Upload of Malicious Files" data-hints="wstg-busl-09 busl-09">
+<a href="/v4.1/4-Web_Application_Security_Testing/10-Business_Logic_Testing/09-Test_Upload_of_Malicious_Files" data-nav-url="4-Web_Application_Security_Testing/10-Business_Logic_Testing/09-Test_Upload_of_Malicious_Files" title="4.10.9 Test Upload of Malicious Files">4.10.9 Test Upload of Malicious Files</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4.11 Client Side Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/v4.1/4-Web_Application_Security_Testing/11-Client_Side_Testing/" data-nav-url="4-Web_Application_Security_Testing/11-Client_Side_Testing/" title="4.11 Client Side Testing">4.11 Client Side Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="4.11.1 Testing for DOM-Based Cross Site Scripting" data-hints="xss dom xss domxss wstg-clnt-01 clnt-01">
+<a href="/v4.1/4-Web_Application_Security_Testing/11-Client_Side_Testing/01-Testing_for_DOM-based_Cross_Site_Scripting" data-nav-url="4-Web_Application_Security_Testing/11-Client_Side_Testing/01-Testing_for_DOM-based_Cross_Site_Scripting" title="4.11.1 Testing for DOM-Based Cross Site Scripting">4.11.1 Testing for DOM-Based Cross Site Scripting</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.2 Testing for JavaScript Execution" data-hints="wstg-clnt-02 clnt-02">
+<a href="/v4.1/4-Web_Application_Security_Testing/11-Client_Side_Testing/02-Testing_for_JavaScript_Execution" data-nav-url="4-Web_Application_Security_Testing/11-Client_Side_Testing/02-Testing_for_JavaScript_Execution" title="4.11.2 Testing for JavaScript Execution">4.11.2 Testing for JavaScript Execution</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.3 Testing for HTML Injection" data-hints="wstg-clnt-03 clnt-03">
+<a href="/v4.1/4-Web_Application_Security_Testing/11-Client_Side_Testing/03-Testing_for_HTML_Injection" data-nav-url="4-Web_Application_Security_Testing/11-Client_Side_Testing/03-Testing_for_HTML_Injection" title="4.11.3 Testing for HTML Injection">4.11.3 Testing for HTML Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.4 Testing for Client Side URL Redirect" data-hints="open redirect wstg-clnt-04 clnt-04">
+<a href="/v4.1/4-Web_Application_Security_Testing/11-Client_Side_Testing/04-Testing_for_Client_Side_URL_Redirect" data-nav-url="4-Web_Application_Security_Testing/11-Client_Side_Testing/04-Testing_for_Client_Side_URL_Redirect" title="4.11.4 Testing for Client Side URL Redirect">4.11.4 Testing for Client Side URL Redirect</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.5 Testing for CSS Injection" data-hints="wstg-clnt-05 clnt-05">
+<a href="/v4.1/4-Web_Application_Security_Testing/11-Client_Side_Testing/05-Testing_for_CSS_Injection" data-nav-url="4-Web_Application_Security_Testing/11-Client_Side_Testing/05-Testing_for_CSS_Injection" title="4.11.5 Testing for CSS Injection">4.11.5 Testing for CSS Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.6 Testing for Client Side Resource Manipulation" data-hints="wstg-clnt-06 clnt-06">
+<a href="/v4.1/4-Web_Application_Security_Testing/11-Client_Side_Testing/06-Testing_for_Client_Side_Resource_Manipulation" data-nav-url="4-Web_Application_Security_Testing/11-Client_Side_Testing/06-Testing_for_Client_Side_Resource_Manipulation" title="4.11.6 Testing for Client Side Resource Manipulation">4.11.6 Testing for Client Side Resource Manipulation</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.7 Testing Cross Origin Resource Sharing" data-hints="cors headers wstg-clnt-07 clnt-07">
+<a href="/v4.1/4-Web_Application_Security_Testing/11-Client_Side_Testing/07-Testing_Cross_Origin_Resource_Sharing" data-nav-url="4-Web_Application_Security_Testing/11-Client_Side_Testing/07-Testing_Cross_Origin_Resource_Sharing" title="4.11.7 Testing Cross Origin Resource Sharing">4.11.7 Testing Cross Origin Resource Sharing</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.8 Testing for Cross Site Flashing" data-hints="wstg-clnt-08 clnt-08">
+<a href="/v4.1/4-Web_Application_Security_Testing/11-Client_Side_Testing/08-Testing_for_Cross_Site_Flashing" data-nav-url="4-Web_Application_Security_Testing/11-Client_Side_Testing/08-Testing_for_Cross_Site_Flashing" title="4.11.8 Testing for Cross Site Flashing">4.11.8 Testing for Cross Site Flashing</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.9 Testing for Clickjacking" data-hints="ui redress ui redressing x-frame-options framing wstg-clnt-09 clnt-09">
+<a href="/v4.1/4-Web_Application_Security_Testing/11-Client_Side_Testing/09-Testing_for_Clickjacking" data-nav-url="4-Web_Application_Security_Testing/11-Client_Side_Testing/09-Testing_for_Clickjacking" title="4.11.9 Testing for Clickjacking">4.11.9 Testing for Clickjacking</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.10 Testing WebSockets" data-hints="ws wstg-clnt-10 clnt-10">
+<a href="/v4.1/4-Web_Application_Security_Testing/11-Client_Side_Testing/10-Testing_WebSockets" data-nav-url="4-Web_Application_Security_Testing/11-Client_Side_Testing/10-Testing_WebSockets" title="4.11.10 Testing WebSockets">4.11.10 Testing WebSockets</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.11 Testing Web Messaging" data-hints="postmessage post message wstg-clnt-11 clnt-11">
+<a href="/v4.1/4-Web_Application_Security_Testing/11-Client_Side_Testing/11-Testing_Web_Messaging" data-nav-url="4-Web_Application_Security_Testing/11-Client_Side_Testing/11-Testing_Web_Messaging" title="4.11.11 Testing Web Messaging">4.11.11 Testing Web Messaging</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.12 Testing Browser Storage" data-hints="localstorage sessionstorage wstg-clnt-12 clnt-12">
+<a href="/v4.1/4-Web_Application_Security_Testing/11-Client_Side_Testing/12-Testing_Browser_Storage" data-nav-url="4-Web_Application_Security_Testing/11-Client_Side_Testing/12-Testing_Browser_Storage" title="4.11.12 Testing Browser Storage">4.11.12 Testing Browser Storage</a>
+</li>
+<li class="wstg-nav-item" data-title="4.11.13 Testing for Cross Site Script Inclusion" data-hints="xssi wstg-clnt-13 clnt-13">
+<a href="/v4.1/4-Web_Application_Security_Testing/11-Client_Side_Testing/13-Testing_for_Cross_Site_Script_Inclusion" data-nav-url="4-Web_Application_Security_Testing/11-Client_Side_Testing/13-Testing_for_Cross_Site_Script_Inclusion" title="4.11.13 Testing for Cross Site Script Inclusion">4.11.13 Testing for Cross Site Script Inclusion</a>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="5. Reporting">
+<a href="/v4.1/5-Reporting/" data-nav-url="5-Reporting/" title="5. Reporting">5. Reporting</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix A. Testing Tools Resource">
+<a href="/v4.1/6-Appendix/A-Testing_Tools_Resource" data-nav-url="6-Appendix/A-Testing_Tools_Resource" title="Appendix A. Testing Tools Resource">Appendix A. Testing Tools Resource</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix B. Suggested Reading">
+<a href="/v4.1/6-Appendix/B-Suggested_Reading" data-nav-url="6-Appendix/B-Suggested_Reading" title="Appendix B. Suggested Reading">Appendix B. Suggested Reading</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix C. Fuzz Vectors">
+<a href="/v4.1/6-Appendix/C-Fuzz_Vectors" data-nav-url="6-Appendix/C-Fuzz_Vectors" title="Appendix C. Fuzz Vectors">Appendix C. Fuzz Vectors</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix D. Encoded Injection">
+<a href="/v4.1/6-Appendix/D-Encoded_Injection" data-nav-url="6-Appendix/D-Encoded_Injection" title="Appendix D. Encoded Injection">Appendix D. Encoded Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix E. History">
+<a href="/v4.1/6-Appendix/E-History" data-nav-url="6-Appendix/E-History" title="Appendix E. History">Appendix E. History</a>
+</li>
+
+  </ul>
+</nav>
+<script src="/assets/js/wstg-nav.js" defer></script>
+<script src="/assets/js/anchor-links.js" defer></script>
+
+      </aside>
+      <article class="doc-content">
+        <h1 id="testing-for-weak-ssl-tls-ciphers-insufficient-transport-layer-protection">Testing for Weak SSL TLS Ciphers Insufficient Transport Layer Protection</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>WSTG-CRYP-01</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="summary">Summary</h2>
+
+<p>Sensitive data must be protected when it is transmitted through the network. Such data can include user credentials and credit cards. As a rule of thumb, if data must be protected when it is stored, it must be protected also during transmission.</p>
+
+<p>HTTP is a clear-text protocol and it is normally secured via an SSL/TLS tunnel, resulting in <a href="https://tools.ietf.org/html/rfc8446">HTTPS traffic</a>. The use of this protocol ensures not only confidentiality, but also authentication. Servers are authenticated using digital certificates and it is also possible to use client certificate for mutual authentication.</p>
+
+<p>Even if high grade ciphers are today supported and normally used, some misconfiguration in the server can be used to force the use of a weak cipher - or at worst no encryption - permitting to an attacker to gain access to the supposed secure communication channel. Other misconfiguration can be used for a Denial of Service attack.</p>
+
+<h3 id="common-issues">Common Issues</h3>
+
+<p>A vulnerability occurs if the HTTP protocol is used to <a href="../03-Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels/">transmit sensitive information</a> (e.g. <a href="../../04-Authentication_Testing/01-Testing_for_Credentials_Transported_over_an_Encrypted_Channel/">credentials transmitted over HTTP</a>).</p>
+
+<p>When the SSL/TLS service is present it is good but it increments the attack surface and the following vulnerabilities exist:</p>
+
+<ul>
+  <li>SSL/TLS protocols, ciphers, keys and renegotiation must be properly configured.</li>
+  <li>Certificate validity must be ensured.</li>
+</ul>
+
+<p>Other vulnerabilities linked to this are:</p>
+
+<ul>
+  <li>Software exposed must be updated due to possibility of <a href="../../02-Configuration_and_Deployment_Management_Testing/01-Test_Network_Infrastructure_Configuration/">known vulnerabilities</a>.</li>
+  <li>Usage of <a href="../../06-Session_Management_Testing/02-Testing_for_Cookies_Attributes/">Secure flag for Session Cookies</a>.</li>
+  <li>Usage of <a href="../../02-Configuration_and_Deployment_Management_Testing/07-Test_HTTP_Strict_Transport_Security/">HTTP Strict Transport Security (HSTS)</a>.</li>
+  <li>The presence of both <a href="https://resources.enablesecurity.com/resources/Surf%20Jacking.pdf">HTTP</a> and <a href="https://moxie.org/software/sslstrip/">HTTPS</a>, which can be used to intercept traffic.</li>
+  <li>The presence of mixed HTTPS and HTTP content in the same page, which can be used to Leak information.</li>
+</ul>
+
+<h3 id="sensitive-data-transmitted-in-clear-text">Sensitive Data Transmitted in Clear-Text</h3>
+
+<p>The application should not transmit sensitive information via unencrypted channels. Typically it is possible to find basic authentication over HTTP, input password or session cookie sent via HTTP and, in general, other information considered by regulations, laws or organization policy.</p>
+
+<h3 id="weak-ssltls-ciphersprotocolskeys">Weak SSL/TLS Ciphers/Protocols/Keys</h3>
+
+<p>Historically, there have been limitations set in place by the U.S. government to allow cryptosystems to be exported only for key sizes of at most 40 bits, a key length which could be broken and would allow the decryption of communications. Since then cryptographic export regulations have been relaxed the maximum key size is 128 bits.</p>
+
+<p>It is important to check the SSL configuration being used to avoid putting in place cryptographic support which could be easily defeated. To reach this goal SSL-based services should not offer the possibility to choose weak cipher suite. A cipher suite is specified by an encryption protocol (e.g. DES, RC4, AES), the encryption key length (e.g. 40, 56, or 128 bits), and a hash algorithm (e.g. SHA, MD5) used for integrity checking.</p>
+
+<p>Briefly, the key points for the cipher suite determination are the following:</p>
+
+<ol>
+  <li>The client sends to the server a ClientHello message specifying, among other information, the protocol and the cipher suites that it is able to handle. Note that a client is usually a web browser (most popular SSL client nowadays), but not necessarily, since it can be any SSL-enabled application; the same holds for the server, which needs not to be a web server, though this is the most common case. (See also: <a href="https://www.stunnel.org">stunnel</a>.)</li>
+  <li>The server responds with a ServerHello message, containing the chosen protocol and cipher suite that will be used for that session (in general the server selects the strongest protocol and cipher suite supported by both the client and server).</li>
+</ol>
+
+<p>It is possible (for example, by means of configuration directives) to specify which cipher suites the server will honor. In this way you may control whether or not conversations with clients will support 40-bit encryption only.</p>
+
+<ol>
+  <li>The server sends its Certificate message and, if client authentication is required, also sends a CertificateRequest message to the client.</li>
+  <li>The server sends a ServerHelloDone message and waits for a client response.</li>
+  <li>Upon receipt of the ServerHelloDone message, the client verifies the validity of the server’s digital certificate.</li>
+</ol>
+
+<h3 id="tlsssl-certificate-validity--client-and-server">TLS/SSL Certificate Validity – Client and Server</h3>
+
+<p>When accessing a web application via the HTTPS protocol, a secure channel is established between the client and the server. The identity of one (the server) or both parties (client and server) is then established by means of digital certificates. So, once the cipher suite is determined, the “SSL Handshake” continues with the exchange of the certificates:</p>
+
+<ol>
+  <li>The server sends its Certificate message and, if client authentication is required, also sends a CertificateRequest message to the client.</li>
+  <li>The server sends a ServerHelloDone message and waits for a client response.</li>
+  <li>Upon receipt of the ServerHelloDone message, the client verifies the validity of the server’s digital certificate.</li>
+</ol>
+
+<p>In order for the communication to be set up, a number of checks on the certificates must be passed. While discussing SSL and certificate based authentication is beyond the scope of this guide, this section will focus on the main criteria involved in ascertaining certificate validity:</p>
+
+<ul>
+  <li>Checking if the Certificate Authority (CA) is a known one (meaning one considered trusted);</li>
+  <li>Checking that the certificate is currently valid;</li>
+  <li>Checking that the name of the site and the name reported in the certificate match.</li>
+</ul>
+
+<p>Let’s examine each check more in detail.</p>
+
+<ul>
+  <li>Each browser comes with a pre-loaded list of trusted CAs, against which the certificate signing CA is compared (this list can be customized and expanded at will). During the initial negotiations with an HTTPS server, if the server certificate relates to a CA unknown to the browser, a warning is usually raised. This happens most often because a web application relies on a certificate signed by a self-established CA. Whether this is to be considered a concern depends on several factors. For example, this may be fine for an Intranet environment (think of corporate web email being provided via HTTPS; here, obviously all users recognize the internal CA as a trusted CA). When a service is provided to the general public via the Internet, however (i.e. when it is important to positively verify the identity of the server we are talking to), it is usually imperative to rely on a trusted CA, one which is recognized by all the user base (and here we stop with our considerations; we won’t delve deeper in the implications of the trust model being used by digital certificates).</li>
+  <li>Certificates have an associated period of validity, therefore they may expire. Again, we are warned by the browser about this. A public service needs a temporally valid certificate; otherwise, it means we are talking with a server whose certificate was issued by someone we trust, but has expired without being renewed.</li>
+  <li>What if the name on the certificate and the name of the server do not match? If this happens, it might sound suspicious. For a number of reasons, this is not so rare to see. A system may host a number of name-based virtual hosts, which share the same IP address and are identified by means of the HTTP 1.1 Host: header information. In this case, since the SSL handshake checks the server certificate before the HTTP request is processed, it is not possible to assign different certificates to each virtual server. Therefore, if the name of the site and the name reported in the certificate do not match, we have a condition which is typically signaled by the browser. To avoid this, IP-based virtual servers must be used. <a href="https://github.com/nabla-c0d3/sslyze">sslyze</a> and <a href="https://www.ietf.org/rfc/rfc6066.txt">RFC: TLS Extensions</a> describe techniques to deal with this problem and allow name-based virtual hosts to be correctly referenced.</li>
+</ul>
+
+<h3 id="other-vulnerabilities">Other Vulnerabilities</h3>
+
+<p>The presence of a new service, listening in a separate tcp port may introduce vulnerabilities such as infrastructure vulnerabilities if the <a href="../../02-Configuration_and_Deployment_Management_Testing/01-Test_Network_Infrastructure_Configuration/">software is not up to date</a>. Furthermore, for the correct protection of data during transmission the Session Cookie must use the <a href="../../06-Session_Management_Testing/02-Testing_for_Cookies_Attributes/">Secure flag</a> and some directives should be sent to the browser to accept only secure traffic (e.g. <a href="../../02-Configuration_and_Deployment_Management_Testing/07-Test_HTTP_Strict_Transport_Security/">HSTS</a>, CSP).</p>
+
+<p>Also there are some attacks that can be used to intercept traffic if the web server exposes the application on both <a href="../../02-Configuration_and_Deployment_Management_Testing/07-Test_HTTP_Strict_Transport_Security/">HTTP</a> and <a href="https://resources.enablesecurity.com/resources/Surf%20Jacking.pdf">HTTPS</a> or in case of mixed HTTP and HTTPS resources in the same page.</p>
+
+<h2 id="how-to-test">How to Test</h2>
+
+<h3 id="testing-for-sensitive-data-transmitted-in-clear-text">Testing for Sensitive Data Transmitted in Clear-Text</h3>
+
+<p>Various types of information which must be protected can be also transmitted in clear text. It is possible to check if this information is transmitted over HTTP instead of HTTPS. Please refer to specific tests for full details, for <a href="../../04-Authentication_Testing/01-Testing_for_Credentials_Transported_over_an_Encrypted_Channel/">credentials</a> and other kind of <a href="../03-Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels/">data</a>.</p>
+
+<h4 id="example-1-basic-authentication-over-http">Example 1. Basic Authentication Over HTTP</h4>
+
+<p>A typical example is the usage of Basic Authentication over HTTP because with Basic Authentication, after log in, credentials are encoded - and not encrypted - into HTTP Headers.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>curl <span class="nt">-kis</span> http://example.com/restricted/
+HTTP/1.1 401 Authorization Required
+Date: Fri, 01 Aug 2013 00:00:00 GMT
+WWW-Authenticate: Basic <span class="nv">realm</span><span class="o">=</span><span class="s2">"Restricted Area"</span>
+Accept-Ranges: bytes
+Vary: Accept-Encoding
+Content-Length: 162
+Content-Type: text/html
+
+&lt;html&gt;&lt;<span class="nb">head</span><span class="o">&gt;</span>&lt;title&gt;401 Authorization Required&lt;/title&gt;&lt;/head&gt;
+&lt;body <span class="nv">bgcolor</span><span class="o">=</span>white&gt;
+&lt;h1&gt;401 Authorization Required&lt;/h1&gt;
+
+Invalid login credentials!
+
+&lt;/body&gt;&lt;/html&gt;
+</code></pre></div></div>
+
+<h3 id="testing-for-weak-ssltls-ciphersprotocolskeys-vulnerabilities">Testing for Weak SSL/TLS Ciphers/Protocols/Keys Vulnerabilities</h3>
+
+<p>The large number of available cipher suites and quick progress in cryptanalysis makes testing an SSL server a non-trivial task.</p>
+
+<p>At the time of writing these criteria are widely recognized as minimum checklist:</p>
+
+<ul>
+  <li>Weak ciphers must not be used (e.g. less than <a href="https://www.ssllabs.com/projects/best-practices/index.html">128 bits</a>; no NULL ciphers suite, due to no encryption used; no Anonymous Diffie-Hellmann, due to not provides authentication).</li>
+  <li>Weak protocols must be disabled (e.g. SSLv2 must be disabled, due to known weaknesses in protocol design).</li>
+  <li>Renegotiation must be properly configured (e.g. Insecure Renegotiation must be disabled, due to <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2009-3555">MiTM attacks</a> and Client-initiated Renegotiation must be disabled, due to <a href="https://community.qualys.com/blogs/securitylabs/2011/10/31/tls-renegotiation-and-denial-of-service-attacks">Denial of Service vulnerability</a>).</li>
+  <li>No Export (EXP) level cipher suites, due to can be <a href="https://www.ssllabs.com/projects/best-practices/index.html">easily broken</a>.</li>
+  <li>X.509 certificates key length must be strong (e.g. if RSA or DSA is used the key must be at least 1024 bits).</li>
+  <li>X.509 certificates must be signed only with secure hashing algoritms (e.g. not signed using MD5 hash, due to known collision attacks on this hash).</li>
+  <li><a href="https://www.ssllabs.com/projects/rating-guide/index.html">Keys must be generated with proper entropy</a> (e.g, Weak Key Generated with Debian).</li>
+</ul>
+
+<p>A more complete checklist includes:</p>
+
+<ul>
+  <li>Secure Renegotiation should be enabled.</li>
+  <li>MD5 should not be used, due to <a href="https://link.springer.com/chapter/10.1007/11426639_2">known collision attacks</a>.</li>
+  <li>RC4 should not be used, due to <a href="https://community.qualys.com/blogs/securitylabs/2013/03/19/rc4-in-tls-is-broken-now-what">crypto-analytical attacks</a>.</li>
+  <li>Server should be protected from <a href="https://community.qualys.com/blogs/securitylabs/2011/10/17/mitigating-the-beast-attack-on-tls">BEAST Attack</a>.</li>
+  <li>Server should be protected from <a href="https://community.qualys.com/blogs/securitylabs/2012/09/14/crime-information-leakage-attack-against-ssltls">CRIME attack</a>, TLS compression must be disabled.</li>
+  <li>Server should support <a href="https://community.qualys.com/blogs/securitylabs/2013/06/25/ssl-labs-deploying-forward-secrecy">Forward Secrecy</a>.</li>
+</ul>
+
+<p>The following standards can be used as reference while assessing SSL servers:</p>
+
+<ul>
+  <li><a href="https://www.pcisecuritystandards.org/security_standards/documents.php">PCI-DSS</a> requires compliant parties to use “strong cryptography” without precisely defining key lengths and algorithms. Common interpretation, partially based on previous versions of the standard, is that at least 128 bit key cipher, no export strength algorithms and no SSLv2 should be used.</li>
+  <li><a href="https://www.ssllabs.com/projects/rating-guide/index.html">Qualsys SSL Labs Server Rating Guide</a>, <a href="https://www.ssllabs.com/projects/best-practices/index.html">Deployment best practice</a>, and <a href="https://www.ssllabs.com/projects/ssl-threat-model/index.html">SSL Threat Model</a> has been proposed to standardize SSL server assessment and configuration. But is less updated than the <a href="https://www.ssllabs.com/ssltest/index.html">SSL Server tool</a>.</li>
+  <li>OWASP has a lot of resources about SSL/TLS Security:
+    <ul>
+      <li><a href="https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html">Transport Layer Protection Cheat Sheet</a>.</li>
+      <li><a href="https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure">OWASP Top 10 2017 A3-Sensitive Data Exposure</a>.</li>
+      <li><a href="https://github.com/OWASP/ASVS/blob/master/4.0/en/0x17-V9-Communications.md">OWASP ASVS - Verification V9</a>.</li>
+      <li><a href="https://owasp.org/www-community/OWASP_Application_Security_FAQ#cryptographyssl">OWASP Application Security FAQ - Cryptography/SSL</a>.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Some tools and scanners both free (e.g. <a href="https://code.google.com/p/sslaudit/">SSLAudit</a> or <a href="https://sourceforge.net/projects/sslscan/">SSLScan</a>) and commercial (e.g. <a href="https://www.tenable.com/products/nessus">Tenable Nessus</a>), can be used to assess SSL/TLS vulnerabilities. But due to evolution of these vulnerabilities a good way to test is to check them manually with <a href="https://www.openssl.org/">OpenSSL</a> or use the tool’s output as an input for manual evaluation using the references.</p>
+
+<p>Sometimes the SSL/TLS enabled service is not directly accessible and the tester can access it only via a HTTP proxy using <a href="https://tools.ietf.org/html/rfc2817">CONNECT method</a>. Most of the tools will try to connect to desired tcp port to start SSL/TLS handshake. This will not work since desired port is accessible only via HTTP proxy. The tester can easily circumvent this by using relaying software such as <a href="https://linux.die.net/man/1/socat">socat</a>.</p>
+
+<h4 id="example-1-tlsssl-service-recognition-via-nmap">Example 1. TLS/SSL Service Recognition via Nmap</h4>
+
+<p>The first step is to identify ports which have SSL/TLS wrapped services. Typically tcp ports with SSL for web and mail services are - but not limited to - 443 (https), 465 (ssmtp), 585 (imap4-ssl), 993 (imaps), 995 (ssl-pop).</p>
+
+<p>In this example we search for SSL services using <a href="https://nmap.org/">nmap with “-sV” option</a>, used to identify services and it is also able to identify SSL services. Other options are for this particular example and must be customized. Often in a Web Application Penetration Test scope is limited to port 80 and 443.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>nmap <span class="nt">-sV</span> <span class="nt">--reason</span> <span class="nt">-PN</span> <span class="nt">-n</span> <span class="nt">--top-ports</span> 100 www.example.com
+Starting Nmap 6.25 <span class="o">(</span> http://nmap.org <span class="o">)</span> at 2013-01-01 00:00 CEST
+Nmap scan report <span class="k">for </span>www.example.com <span class="o">(</span>127.0.0.1<span class="o">)</span>
+Host is up, received user-set <span class="o">(</span>0.20s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 89 filtered ports
+Reason: 89 no-responses
+PORT    STATE SERVICE  REASON  VERSION
+21/tcp  open  ftp      syn-ack Pure-FTPd
+22/tcp  open  ssh      syn-ack OpenSSH 5.3 <span class="o">(</span>protocol 2.0<span class="o">)</span>
+25/tcp  open  smtp     syn-ack Exim smtpd 4.80
+26/tcp  open  smtp     syn-ack Exim smtpd 4.80
+80/tcp  open  http     syn-ack
+110/tcp open  pop3     syn-ack Dovecot pop3d
+143/tcp open  imap     syn-ack Dovecot imapd
+443/tcp open  ssl/http syn-ack Apache
+465/tcp open  ssl/smtp syn-ack Exim smtpd 4.80
+993/tcp open  ssl/imap syn-ack Dovecot imapd
+995/tcp open  ssl/pop3 syn-ack Dovecot pop3d
+Service Info: Hosts: example.com
+Service detection performed. Please report any incorrect results at http://nmap.org/submit/ <span class="nb">.</span>
+Nmap <span class="k">done</span>: 1 IP address <span class="o">(</span>1 host up<span class="o">)</span> scanned <span class="k">in </span>131.38 seconds
+</code></pre></div></div>
+
+<h4 id="example-2-checking-for-certificate-information-weak-ciphers-and-sslv2-via-nmap">Example 2. Checking for Certificate Information, Weak Ciphers and SSLv2 via Nmap</h4>
+
+<p>Nmap has two scripts for checking Certificate information, <a href="https://nmap.org/">Weak Ciphers and SSLv2</a>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>nmap <span class="nt">--script</span> ssl-cert,ssl-enum-ciphers <span class="nt">-p</span> 443,465,993,995 www.example.com
+Starting Nmap 6.25 <span class="o">(</span> http://nmap.org <span class="o">)</span> at 2013-01-01 00:00 CEST
+Nmap scan report <span class="k">for </span>www.example.com <span class="o">(</span>127.0.0.1<span class="o">)</span>
+Host is up <span class="o">(</span>0.090s latency<span class="o">)</span><span class="nb">.</span>
+rDNS record <span class="k">for </span>127.0.0.1: www.example.com
+PORT    STATE SERVICE
+443/tcp open  https
+| ssl-cert: Subject: <span class="nv">commonName</span><span class="o">=</span>www.example.org
+| Issuer: <span class="nv">commonName</span><span class="o">=</span><span class="k">*******</span>
+| Public Key <span class="nb">type</span>: rsa
+| Public Key bits: 1024
+| Not valid before: 2010-01-23T00:00:00+00:00
+| Not valid after:  2020-02-28T23:59:59+00:00
+| MD5:   <span class="k">*******</span>
+|_SHA-1: <span class="k">*******</span>
+| ssl-enum-ciphers:
+|   SSLv3:
+|     ciphers:
+|       TLS_RSA_WITH_CAMELLIA_128_CBC_SHA - strong
+|       TLS_RSA_WITH_CAMELLIA_256_CBC_SHA - strong
+|       TLS_RSA_WITH_RC4_128_SHA - strong
+|     compressors:
+|       NULL
+|   TLSv1.0:
+|     ciphers:
+|       TLS_RSA_WITH_CAMELLIA_128_CBC_SHA - strong
+|       TLS_RSA_WITH_CAMELLIA_256_CBC_SHA - strong
+|       TLS_RSA_WITH_RC4_128_SHA - strong
+|     compressors:
+|       NULL
+|_  least strength: strong
+465/tcp open  smtps
+| ssl-cert: Subject: <span class="nv">commonName</span><span class="o">=</span><span class="k">*</span>.exapmple.com
+| Issuer: <span class="nv">commonName</span><span class="o">=</span><span class="k">*******</span>
+| Public Key <span class="nb">type</span>: rsa
+| Public Key bits: 2048
+| Not valid before: 2010-01-23T00:00:00+00:00
+| Not valid after:  2020-02-28T23:59:59+00:00
+| MD5:   <span class="k">*******</span>
+|_SHA-1: <span class="k">*******</span>
+| ssl-enum-ciphers:
+|   SSLv3:
+|     ciphers:
+|       TLS_RSA_WITH_CAMELLIA_128_CBC_SHA - strong
+|       TLS_RSA_WITH_CAMELLIA_256_CBC_SHA - strong
+|       TLS_RSA_WITH_RC4_128_SHA - strong
+|     compressors:
+|       NULL
+|   TLSv1.0:
+|     ciphers:
+|       TLS_RSA_WITH_CAMELLIA_128_CBC_SHA - strong
+|       TLS_RSA_WITH_CAMELLIA_256_CBC_SHA - strong
+|       TLS_RSA_WITH_RC4_128_SHA - strong
+|     compressors:
+|       NULL
+|_  least strength: strong
+993/tcp open  imaps
+| ssl-cert: Subject: <span class="nv">commonName</span><span class="o">=</span><span class="k">*</span>.exapmple.com
+| Issuer: <span class="nv">commonName</span><span class="o">=</span><span class="k">*******</span>
+| Public Key <span class="nb">type</span>: rsa
+| Public Key bits: 2048
+| Not valid before: 2010-01-23T00:00:00+00:00
+| Not valid after:  2020-02-28T23:59:59+00:00
+| MD5:   <span class="k">*******</span>
+|_SHA-1: <span class="k">*******</span>
+| ssl-enum-ciphers:
+|   SSLv3:
+|     ciphers:
+|       TLS_RSA_WITH_CAMELLIA_128_CBC_SHA - strong
+|       TLS_RSA_WITH_CAMELLIA_256_CBC_SHA - strong
+|       TLS_RSA_WITH_RC4_128_SHA - strong
+|     compressors:
+|       NULL
+|   TLSv1.0:
+|     ciphers:
+|       TLS_RSA_WITH_CAMELLIA_128_CBC_SHA - strong
+|       TLS_RSA_WITH_CAMELLIA_256_CBC_SHA - strong
+|       TLS_RSA_WITH_RC4_128_SHA - strong
+|     compressors:
+|       NULL
+|_  least strength: strong
+995/tcp open  pop3s
+| ssl-cert: Subject: <span class="nv">commonName</span><span class="o">=</span><span class="k">*</span>.exapmple.com
+| Issuer: <span class="nv">commonName</span><span class="o">=</span><span class="k">*******</span>
+| Public Key <span class="nb">type</span>: rsa
+| Public Key bits: 2048
+| Not valid before: 2010-01-23T00:00:00+00:00
+| Not valid after:  2020-02-28T23:59:59+00:00
+| MD5:   <span class="k">*******</span>
+|_SHA-1: <span class="k">*******</span>
+| ssl-enum-ciphers:
+|   SSLv3:
+|     ciphers:
+|       TLS_RSA_WITH_CAMELLIA_128_CBC_SHA - strong
+|       TLS_RSA_WITH_CAMELLIA_256_CBC_SHA - strong
+|       TLS_RSA_WITH_RC4_128_SHA - strong
+|     compressors:
+|       NULL
+|   TLSv1.0:
+|     ciphers:
+|       TLS_RSA_WITH_CAMELLIA_128_CBC_SHA - strong
+|       TLS_RSA_WITH_CAMELLIA_256_CBC_SHA - strong
+|       TLS_RSA_WITH_RC4_128_SHA - strong
+|     compressors:
+|       NULL
+|_  least strength: strong
+Nmap <span class="k">done</span>: 1 IP address <span class="o">(</span>1 host up<span class="o">)</span> scanned <span class="k">in </span>8.64 seconds
+</code></pre></div></div>
+
+<h4 id="example-3-checking-for-client-initiated-renegotiation-and-secure-renegotiation-via-openssl-manually">Example 3 Checking for Client-Initiated Renegotiation and Secure Renegotiation Via OpenSSL (Manually)</h4>
+
+<p><a href="https://www.openssl.org/">OpenSSL</a> can be used for testing manually SSL/TLS. In this example the tester tries to initiate a renegotiation by client <code class="language-plaintext highlighter-rouge">m</code> connecting to server with OpenSSL. The tester then writes the fist line of an HTTP request and types <code class="language-plaintext highlighter-rouge">R</code> in a new line. He then waits for renegotiation and completion of the HTTP request and checks if secure renegotiation is supported by looking at the server output. Using manual requests it is also possible to see if Compression is enabled for TLS and to check for <a href="https://community.qualys.com/blogs/securitylabs/2011/10/31/tls-renegotiation-and-denial-of-service-attacks">CRIME</a>, for ciphers and for other vulnerabilities.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>openssl s_client <span class="nt">-connect</span> www2.example.com:443
+CONNECTED<span class="o">(</span>00000003<span class="o">)</span>
+<span class="nv">depth</span><span class="o">=</span>2 <span class="k">******</span>
+verify error:num<span class="o">=</span>20:unable to get <span class="nb">local </span>issuer certificate
+verify <span class="k">return</span>:0
+<span class="nt">---</span>
+Certificate chain
+ 0 s:<span class="k">******</span>
+   i:<span class="k">******</span>
+ 1 s:<span class="k">******</span>
+   i:<span class="k">******</span>
+ 2 s:<span class="k">******</span>
+   i:<span class="k">******</span>
+<span class="nt">---</span>
+Server certificate
+<span class="nt">-----BEGIN</span> CERTIFICATE-----
+<span class="k">******</span>
+<span class="nt">-----END</span> CERTIFICATE-----
+<span class="nv">subject</span><span class="o">=</span><span class="k">******</span>
+<span class="nv">issuer</span><span class="o">=</span><span class="k">******</span>
+<span class="nt">---</span>
+No client certificate CA names sent
+<span class="nt">---</span>
+SSL handshake has <span class="nb">read </span>3558 bytes and written 640 bytes
+<span class="nt">---</span>
+New, TLSv1/SSLv3, Cipher is DES-CBC3-SHA
+Server public key is 2048 bit
+Secure Renegotiation IS NOT supported
+Compression: NONE
+Expansion: NONE
+SSL-Session:
+    Protocol  : TLSv1
+    Cipher    : DES-CBC3-SHA
+    Session-ID: <span class="k">******</span>
+    Session-ID-ctx:
+    Master-Key: <span class="k">******</span>
+    Key-Arg   : None
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    Start Time: <span class="k">******</span>
+    Timeout   : 300 <span class="o">(</span>sec<span class="o">)</span>
+    Verify <span class="k">return </span>code: 20 <span class="o">(</span>unable to get <span class="nb">local </span>issuer certificate<span class="o">)</span>
+<span class="nt">---</span>
+</code></pre></div></div>
+
+<p>Now the tester can write the first line of an HTTP request and then R in a new line.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HEAD / HTTP/1.1
+R
+</code></pre></div></div>
+
+<p>Server is renegotiating</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RENEGOTIATING
+<span class="nv">depth</span><span class="o">=</span>2 C<span class="k">******</span>
+verify error:num<span class="o">=</span>20:unable to get <span class="nb">local </span>issuer certificate
+verify <span class="k">return</span>:0
+</code></pre></div></div>
+
+<p>And the tester can complete our request, checking for response.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HEAD / HTTP/1.1
+
+HTTP/1.1 403 Forbidden <span class="o">(</span> The server denies the specified Uniform Resource Locator <span class="o">(</span>URL<span class="o">)</span><span class="nb">.</span> Contact the server administrator.  <span class="o">)</span>
+Connection: close
+Pragma: no-cache
+Cache-Control: no-cache
+Content-Type: text/html
+Content-Length: 1792  
+
+<span class="nb">read</span>:errno<span class="o">=</span>0
+</code></pre></div></div>
+
+<p>Even if the HEAD is not permitted, client-initiated renegotiation is permitted.</p>
+
+<h4 id="example-4-testing-supported-cipher-suites-beast-and-crime-attacks-via-testsslserver">Example 4. Testing Supported Cipher Suites, BEAST and CRIME Attacks via TestSSLServer</h4>
+
+<p><a href="https://www.bolet.org/TestSSLServer/">TestSSLServer</a> is a script which permits the tester to check the cipher suite and also for BEAST and CRIME attacks. BEAST (Browser Exploit Against SSL/TLS) exploits a vulnerability of CBC in TLS 1.0. CRIME (Compression Ratio Info-leak Made Easy) exploits a vulnerability of TLS Compression, that should be disabled. What is interesting is that the first fix for BEAST was the use of RC4, but this is now discouraged due to a <a href="https://community.qualys.com/blogs/securitylabs/2013/03/19/rc4-in-tls-is-broken-now-what">crypto-analytical attack to RC4</a>.</p>
+
+<p>An online tool to check for these attacks is SSL Labs, but can be used only for Internet facing servers. Also consider that target data will be stored on SSL Labs server and also will result some connection from <a href="https://www.ssllabs.com/ssltest/index.html">SSL Labs server</a>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>java <span class="nt">-jar</span> TestSSLServer.jar www3.example.com 443
+Supported versions: SSLv3 TLSv1.0 TLSv1.1 TLSv1.2
+Deflate compression: no
+Supported cipher suites <span class="o">(</span>ORDER IS NOT SIGNIFICANT<span class="o">)</span>:
+  SSLv3
+     RSA_WITH_RC4_128_SHA
+     RSA_WITH_3DES_EDE_CBC_SHA
+     DHE_RSA_WITH_3DES_EDE_CBC_SHA
+     RSA_WITH_AES_128_CBC_SHA
+     DHE_RSA_WITH_AES_128_CBC_SHA
+     RSA_WITH_AES_256_CBC_SHA
+     DHE_RSA_WITH_AES_256_CBC_SHA
+     RSA_WITH_CAMELLIA_128_CBC_SHA
+     DHE_RSA_WITH_CAMELLIA_128_CBC_SHA
+     RSA_WITH_CAMELLIA_256_CBC_SHA
+     DHE_RSA_WITH_CAMELLIA_256_CBC_SHA
+     TLS_RSA_WITH_SEED_CBC_SHA
+     TLS_DHE_RSA_WITH_SEED_CBC_SHA
+  <span class="o">(</span>TLSv1.0: idem<span class="o">)</span>
+  <span class="o">(</span>TLSv1.1: idem<span class="o">)</span>
+  TLSv1.2
+     RSA_WITH_RC4_128_SHA
+     RSA_WITH_3DES_EDE_CBC_SHA
+     DHE_RSA_WITH_3DES_EDE_CBC_SHA
+     RSA_WITH_AES_128_CBC_SHA
+     DHE_RSA_WITH_AES_128_CBC_SHA
+     RSA_WITH_AES_256_CBC_SHA
+     DHE_RSA_WITH_AES_256_CBC_SHA
+     RSA_WITH_AES_128_CBC_SHA256
+     RSA_WITH_AES_256_CBC_SHA256
+     RSA_WITH_CAMELLIA_128_CBC_SHA
+     DHE_RSA_WITH_CAMELLIA_128_CBC_SHA
+     DHE_RSA_WITH_AES_128_CBC_SHA256
+     DHE_RSA_WITH_AES_256_CBC_SHA256
+     RSA_WITH_CAMELLIA_256_CBC_SHA
+     DHE_RSA_WITH_CAMELLIA_256_CBC_SHA
+     TLS_RSA_WITH_SEED_CBC_SHA
+     TLS_DHE_RSA_WITH_SEED_CBC_SHA
+     TLS_RSA_WITH_AES_128_GCM_SHA256
+     TLS_RSA_WITH_AES_256_GCM_SHA384
+     TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
+     TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
+<span class="nt">----------------------</span>
+Server certificate<span class="o">(</span>s<span class="o">)</span>:
+  <span class="k">******</span>
+<span class="nt">----------------------</span>
+Minimal encryption strength:     strong encryption <span class="o">(</span>96-bit or more<span class="o">)</span>
+Achievable encryption strength:  strong encryption <span class="o">(</span>96-bit or more<span class="o">)</span>
+BEAST status: vulnerable
+CRIME status: protected
+</code></pre></div></div>
+
+<h4 id="example-5-testing-ssltls-vulnerabilities-with-sslyze">Example 5. Testing SSL/TLS Vulnerabilities with sslyze</h4>
+
+<p><a href="https://github.com/nabla-c0d3/sslyze">sslyze</a> is a python script which permits mass scanning and XML output. The following is an example of a regular scan. It is one of the most complete and versatile tools for SSL/TLS testing.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>./sslyze.py <span class="nt">--regular</span> example.com:443
+REGISTERING AVAILABLE PLUGINS
+<span class="nt">-----------------------------</span>
+
+PluginHSTS
+PluginSessionRenegotiation
+PluginCertInfo
+PluginSessionResumption
+PluginOpenSSLCipherSuites
+PluginCompression
+
+
+
+CHECKING HOST<span class="o">(</span>S<span class="o">)</span> AVAILABILITY
+<span class="nt">-----------------------------</span>
+
+example.com:443                      <span class="o">=&gt;</span> 127.0.0.1:443
+
+
+
+SCAN RESULTS FOR EXAMPLE.COM:443 - 127.0.0.1:443
+<span class="nt">---------------------------------------------------</span>
+
+<span class="k">*</span> Compression :
+      Compression Support:      Disabled
+
+<span class="k">*</span> Session Renegotiation :
+    Client-initiated Renegotiations:    Rejected
+    Secure Renegotiation:               Supported
+
+<span class="k">*</span> Certificate :
+    Validation w/ Mozilla<span class="s1">'s CA Store:  Certificate is NOT Trusted: unable to get local issuer certificate
+    Hostname Validation:               MISMATCH
+    SHA1 Fingerprint:                  ******
+
+    Common Name:                       www.example.com
+    Issuer:                            ******
+    Serial Number:                     ****
+    Not Before:                        Sep 26 00:00:00 2010 GMT
+    Not After:                         Sep 26 23:59:59 2020 GMT
+
+    Signature Algorithm:               sha1WithRSAEncryption
+    Key Size:                          1024 bit
+    X509v3 Subject Alternative Name:   {'</span>othername<span class="s1">': ['</span>&lt;unsupported&gt;<span class="s1">'], '</span>DNS<span class="s1">': ['</span>www.example.com<span class="s1">']}
+
+* OCSP Stapling :
+    Server did not send back an OCSP response.
+
+* Session Resumption :
+    With Session IDs:           Supported (5 successful, 0 failed, 0 errors, 5 total attempts).
+    With TLS Session Tickets:   Supported
+
+* SSLV2 Cipher Suites :
+
+    Rejected Cipher Suite(s): Hidden
+
+    Preferred Cipher Suite: None
+
+    Accepted Cipher Suite(s): None
+
+    Undefined - An unexpected error happened: None
+
+* SSLV3 Cipher Suites :
+
+    Rejected Cipher Suite(s): Hidden
+
+    Preferred Cipher Suite:
+      RC4-SHA                       128 bits      HTTP 200 OK
+
+    Accepted Cipher Suite(s):
+      CAMELLIA256-SHA               256 bits      HTTP 200 OK
+      RC4-SHA                       128 bits      HTTP 200 OK
+      CAMELLIA128-SHA               128 bits      HTTP 200 OK
+
+    Undefined - An unexpected error happened: None
+
+* TLSV1_1 Cipher Suites :
+
+    Rejected Cipher Suite(s): Hidden
+
+    Preferred Cipher Suite: None
+
+    Accepted Cipher Suite(s): None
+
+    Undefined - An unexpected error happened:
+      ECDH-RSA-AES256-SHA             socket.timeout - timed out
+      ECDH-ECDSA-AES256-SHA           socket.timeout - timed out
+
+* TLSV1_2 Cipher Suites :
+
+    Rejected Cipher Suite(s): Hidden
+
+    Preferred Cipher Suite: None
+
+    Accepted Cipher Suite(s): None
+
+    Undefined - An unexpected error happened:
+      ECDH-RSA-AES256-GCM-SHA384      socket.timeout - timed out
+      ECDH-ECDSA-AES256-GCM-SHA384    socket.timeout - timed out
+
+* TLSV1 Cipher Suites :
+
+    Rejected Cipher Suite(s): Hidden
+
+    Preferred Cipher Suite:
+      RC4-SHA                       128 bits      Timeout on HTTP GET
+
+    Accepted Cipher Suite(s):
+      CAMELLIA256-SHA               256 bits      HTTP 200 OK
+      RC4-SHA                       128 bits      HTTP 200 OK
+      CAMELLIA128-SHA               128 bits      HTTP 200 OK
+
+    Undefined - An unexpected error happened:
+      ADH-CAMELLIA256-SHA             socket.timeout - timed out
+
+
+
+SCAN COMPLETED IN 9.68 S
+------------------------
+</span></code></pre></div></div>
+
+<h4 id="example-6-testing-ssltls-with-testsslsh">Example 6. Testing SSL/TLS with testssl.sh</h4>
+
+<p><a href="https://github.com/drwetter/testssl.sh">Testssl.sh</a> is a Linux shell script which provides clear output to facilitate good decision making. It can not only check web servers but also services on other ports, supports STARTTLS, SNI, SPDY and does a few check on the HTTP header as well.</p>
+
+<p>It’s a very easy to use tool. Here’s some sample output (without colors):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>testssl.sh owasp.org
+<span class="c">########################################################</span>
+testssl.sh v2.0rc3  <span class="o">(</span>https://testssl.sh<span class="o">)</span>
+<span class="o">(</span><span class="nv">$Id</span>: testssl.sh,v 1.97 2014/04/15 21:54:29 dirkw Exp <span class="nv">$)</span>
+
+   This program is free software. Redistribution +
+   modification under GPLv2 is permitted.
+   USAGE w/o ANY WARRANTY. USE IT AT YOUR OWN RISK!
+
+ Note you can only check the server against what is
+ available <span class="o">(</span>ciphers/protocols<span class="o">)</span> locally on your machine
+<span class="c">########################################################</span>
+
+Using <span class="s2">"OpenSSL 1.0.2-beta1 24 Feb 2014"</span> on
+      <span class="s2">"myhost:/&lt;mypath&gt;/bin/openssl64"</span>
+
+
+Testing now <span class="o">(</span>2014-04-17 15:06<span class="o">)</span> <span class="nt">---</span><span class="o">&gt;</span> owasp.org:443 &lt;<span class="nt">---</span>
+<span class="o">(</span><span class="s2">"owasp.org"</span> resolves to <span class="s2">"192.237.166.62 / 2001:4801:7821:77:cd2c:d9de:ff10:170e"</span><span class="o">)</span>
+
+
+<span class="nt">--</span><span class="o">&gt;</span> Testing Protocols
+
+ SSLv2     NOT offered <span class="o">(</span>ok<span class="o">)</span>
+ SSLv3     offered
+ TLSv1     offered <span class="o">(</span>ok<span class="o">)</span>
+ TLSv1.1   offered <span class="o">(</span>ok<span class="o">)</span>
+ TLSv1.2   offered <span class="o">(</span>ok<span class="o">)</span>
+
+ SPDY/NPN  not offered
+
+<span class="nt">--</span><span class="o">&gt;</span> Testing standard cipher lists
+
+ Null Cipher              NOT offered <span class="o">(</span>ok<span class="o">)</span>
+ Anonymous NULL Cipher    NOT offered <span class="o">(</span>ok<span class="o">)</span>
+ Anonymous DH Cipher      NOT offered <span class="o">(</span>ok<span class="o">)</span>
+ 40 Bit encryption        NOT offered <span class="o">(</span>ok<span class="o">)</span>
+ 56 Bit encryption        NOT offered <span class="o">(</span>ok<span class="o">)</span>
+ Export Cipher <span class="o">(</span>general<span class="o">)</span>  NOT offered <span class="o">(</span>ok<span class="o">)</span>
+ Low <span class="o">(</span>&lt;<span class="o">=</span>64 Bit<span class="o">)</span>           NOT offered <span class="o">(</span>ok<span class="o">)</span>
+ DES Cipher               NOT offered <span class="o">(</span>ok<span class="o">)</span>
+ Triple DES Cipher        offered
+ Medium grade encryption  offered
+ High grade encryption    offered <span class="o">(</span>ok<span class="o">)</span>
+
+<span class="nt">--</span><span class="o">&gt;</span> Testing server defaults <span class="o">(</span>Server Hello<span class="o">)</span>
+
+ Negotiated protocol       TLSv1.2
+ Negotiated cipher         AES128-GCM-SHA256
+
+ Server key size           2048 bit
+ TLS server extensions:    server name, renegotiation info, session ticket, heartbeat
+ Session Tickets RFC 5077  300 seconds
+
+<span class="nt">--</span><span class="o">&gt;</span> Testing specific vulnerabilities
+
+ Heartbleed <span class="o">(</span>CVE-2014-0160<span class="o">)</span>, experimental  NOT vulnerable <span class="o">(</span>ok<span class="o">)</span>
+ Renegotiation <span class="o">(</span>CVE 2009-3555<span class="o">)</span>             NOT vulnerable <span class="o">(</span>ok<span class="o">)</span>
+ CRIME, TLS <span class="o">(</span>CVE-2012-4929<span class="o">)</span>                NOT vulnerable <span class="o">(</span>ok<span class="o">)</span>  
+
+<span class="nt">--</span><span class="o">&gt;</span> Checking RC4 Ciphers
+
+RC4 seems generally available. Now testing specific ciphers...
+
+ Hexcode    Cipher Name                   KeyExch.  Encryption Bits
+<span class="nt">--------------------------------------------------------------------</span>
+ <span class="o">[</span>0x05]     RC4-SHA                       RSA         RC4      128
+
+RC4 is kind of broken, <span class="k">for </span>e.g. IE6 consider 0x13 or 0x0a
+
+<span class="nt">--</span><span class="o">&gt;</span> Testing HTTP Header response
+
+ HSTS        no
+ Server      Apache
+ Application <span class="o">(</span>None<span class="o">)</span>
+
+<span class="nt">--</span><span class="o">&gt;</span> Testing <span class="o">(</span>Perfect<span class="o">)</span> Forward Secrecy  <span class="o">(</span>P<span class="o">)</span>FS<span class="o">)</span>
+
+no PFS available
+
+Done now <span class="o">(</span>2014-04-17 15:07<span class="o">)</span> <span class="nt">---</span><span class="o">&gt;</span> owasp.org:443 &lt;<span class="nt">---</span>
+
+user@myhost: %
+</code></pre></div></div>
+
+<p>STARTTLS would be tested via <code class="language-plaintext highlighter-rouge">testssl.sh -t smtp.gmail.com:587 smtp</code>, each ciphers with <code class="language-plaintext highlighter-rouge">testssl -e &lt;target&gt;</code>, each ciphers per protocol with <code class="language-plaintext highlighter-rouge">testssl -E &lt;target&gt;</code>. To just display what local ciphers that are installed for OpenSSL see <code class="language-plaintext highlighter-rouge">testssl -V</code>. For a thorough check it is best to dump the supplied OpenSSL binaries in the path or the one of <code class="language-plaintext highlighter-rouge">testssl.sh</code>.</p>
+
+<p>The interesting thing is if a tester looks at the sources they learn how features are tested, see e.g. <a href="#example-4-testing-supported-cipher-suites-beast-and-crime-attacks-via-testsslserver">Example 4</a>. What is even better is that it does the whole handshake for heartbleed in pure <code class="language-plaintext highlighter-rouge">/bin/bash</code> with <code class="language-plaintext highlighter-rouge">/dev/tcp</code> sockets – no piggyback perl/python/you name it.</p>
+
+<p>Additionally it provides a prototype (via <code class="language-plaintext highlighter-rouge">testssl.sh -V</code>) of mapping to RFC cipher suite names to OpenSSL ones. The tester needs the file <code class="language-plaintext highlighter-rouge">mapping-rfc.txt</code> in same directory.</p>
+
+<h4 id="example-7-testing-ssltls-with-ssl-breacher">Example 7. Testing SSL/TLS with SSL Breacher</h4>
+
+<p><a href="http://bl0g.yehg.net/2014/07/ssl-breacher-yet-another-ssl-test-tool.html">SSL Breacher</a> is combination of several other tools plus some additional checks in complementing most comprehensive SSL tests. It supports the following checks:</p>
+
+<ol>
+  <li>HeartBleed</li>
+  <li>ChangeCipherSpec Injection</li>
+  <li>BREACH</li>
+  <li>BEAST</li>
+  <li>Forward Secrecy support</li>
+  <li>RC4 support</li>
+  <li>CRIME &amp; TIME (If CRIME is detected, TIME will also be reported)</li>
+  <li>Lucky13</li>
+  <li>HSTS: Check for implementation of HSTS header</li>
+  <li>HSTS: Reasonable duration of MAX-AGE</li>
+  <li>HSTS: Check for SubDomains support</li>
+  <li>Certificate expiration</li>
+  <li>Insufficient public key-length</li>
+  <li>Host-name mismatch</li>
+  <li>Weak/Insecure Hashing Algorithm (MD2, MD4, MD5, SHA1)</li>
+  <li>SSLv2 support</li>
+  <li>Weak ciphers check (Low, Anon, Null, Export)</li>
+  <li>Null Prefix in certificate</li>
+  <li>HTTPS Stripping</li>
+  <li>Surf Jacking</li>
+  <li>Non-SSL elements/contents embedded in SSL page</li>
+  <li>Cache-Control</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>breacher.sh https://localhost/login.php
+Host Info:
+<span class="o">==============</span>
+Host : localhost
+Port : 443
+Path : /login.php
+
+
+
+Certificate Info:
+<span class="o">==================</span>
+Type: Domain Validation Certificate <span class="o">(</span>i.e. NON-Extended Validation Certificate<span class="o">)</span>
+Expiration Date: Sat Nov 09 07:48:47 SGT 2019
+Signature Hash Algorithm: SHA1withRSA
+Public key: Sun RSA public key, 1024 bits
+  modulus: 135632964843555009910164098161004086259135236815846778903941582882908611097021488277565732851712895057227849656364886898196239901879569635659861770850920241178222686670162318147175328086853962427921575656093414000691131757099663322369656756090030190369923050306668778534926124693591013220754558036175189121517
+  public exponent: 65537
+Signed <span class="k">for</span>: <span class="nv">CN</span><span class="o">=</span>localhost
+Signed by: <span class="nv">CN</span><span class="o">=</span>localhost
+Total certificate chain: 1
+
+<span class="o">(</span>Use <span class="nt">-Djavax</span>.net.debug<span class="o">=</span>ssl:handshake:verbose <span class="k">for </span>debugged output.<span class="o">)</span>
+
+<span class="o">=====================================</span>
+
+Certificate Validation:
+<span class="o">===============================</span>
+<span class="o">[!]</span> Signed using Insufficient public key length 1024 bits
+    <span class="o">(</span>Refer to http://www.keylength.com/ <span class="k">for </span>details<span class="o">)</span>
+<span class="o">[!]</span> Certificate Signer: Self-signed/Untrusted CA  - verified with Firefox &amp; Java ROOT CAs.
+
+<span class="o">=====================================</span>
+
+Loading module: Hut3 Cardiac Arrest ...
+
+Checking localhost:443 <span class="k">for </span>Heartbleed bug <span class="o">(</span>CVE-2014-0160<span class="o">)</span> ...
+
+<span class="o">[</span>-] Connecting to 127.0.0.1:443 using SSLv3
+<span class="o">[</span>-] Sending ClientHello
+<span class="o">[</span>-] ServerHello received
+<span class="o">[</span>-] Sending Heartbeat
+<span class="o">[</span>Vulnerable] Heartbeat response was 16384 bytes instead of 3! 127.0.0.1:443 is vulnerable over SSLv3
+<span class="o">[</span>-] Displaying response <span class="o">(</span>lines consisting entirely of null bytes are removed<span class="o">)</span>:
+
+  0000: 02 FF FF 08 03 00 53 48 73 F0 7C CA C1 D9 02 04  ......SHs.|.....
+  0010: F2 1D 2D 49 F5 12 BF 40 1B 94 D9 93 E4 C4 F4 F0  ..-I...@........
+  0020: D0 42 CD 44 A2 59 00 02 96 00 00 00 01 00 02 00  .B.D.Y..........
+  0060: 1B 00 1C 00 1D 00 1E 00 1F 00 20 00 21 00 22 00  .......... .!.<span class="s2">".
+  0070: 23 00 24 00 25 00 26 00 27 00 28 00 29 00 2A 00  #.</span><span class="nv">$.</span><span class="s2">%.&amp;.'.(.).*.
+  0080: 2B 00 2C 00 2D 00 2E 00 2F 00 30 00 31 00 32 00  +.,.-.../.0.1.2.
+  0090: 33 00 34 00 35 00 36 00 37 00 38 00 39 00 3A 00  3.4.5.6.7.8.9.:.
+  00a0: 3B 00 3C 00 3D 00 3E 00 3F 00 40 00 41 00 42 00  ;.&lt;.=.&gt;.?.@.A.B.
+  00b0: 43 00 44 00 45 00 46 00 60 00 61 00 62 00 63 00  C.D.E.F.</span><span class="sb">`</span>.a.b.c.
+  00c0: 64 00 65 00 66 00 67 00 68 00 69 00 6A 00 6B 00  d.e.f.g.h.i.j.k.
+  00d0: 6C 00 6D 00 80 00 81 00 82 00 83 00 84 00 85 00  l.m.............
+  01a0: 20 C0 21 C0 22 C0 23 C0 24 C0 25 C0 26 C0 27 C0   .!.<span class="s2">".#.</span><span class="nv">$.</span><span class="s2">%.&amp;.'.
+  01b0: 28 C0 29 C0 2A C0 2B C0 2C C0 2D C0 2E C0 2F C0  (.).*.+.,.-.../.
+  01c0: 30 C0 31 C0 32 C0 33 C0 34 C0 35 C0 36 C0 37 C0  0.1.2.3.4.5.6.7.
+  01d0: 38 C0 39 C0 3A C0 3B C0 3C C0 3D C0 3E C0 3F C0  8.9.:.;.&lt;.=.&gt;.?.
+  01e0: 40 C0 41 C0 42 C0 43 C0 44 C0 45 C0 46 C0 47 C0  @.A.B.C.D.E.F.G.
+  01f0: 48 C0 49 C0 4A C0 4B C0 4C C0 4D C0 4E C0 4F C0  H.I.J.K.L.M.N.O.
+  0200: 50 C0 51 C0 52 C0 53 C0 54 C0 55 C0 56 C0 57 C0  P.Q.R.S.T.U.V.W.
+  0210: 58 C0 59 C0 5A C0 5B C0 5C C0 5D C0 5E C0 5F C0  X.Y.Z.[.</span><span class="se">\.</span><span class="s2">].^._.
+  0220: 60 C0 61 C0 62 C0 63 C0 64 C0 65 C0 66 C0 67 C0  </span><span class="sb">`</span>.a.b.c.d.e.f.g.
+  0230: 68 C0 69 C0 6A C0 6B C0 6C C0 6D C0 6E C0 6F C0  h.i.j.k.l.m.n.o.
+  0240: 70 C0 71 C0 72 C0 73 C0 74 C0 75 C0 76 C0 77 C0  p.q.r.s.t.u.v.w.
+  0250: 78 C0 79 C0 7A C0 7B C0 7C C0 7D C0 7E C0 7F C0  x.y.z.<span class="o">{</span>.|.<span class="o">}</span>.~...
+  02c0: 00 00 49 00 0B 00 04 03 00 01 02 00 0A 00 34 00  ..I...........4.
+  02d0: 32 00 0E 00 0D 00 19 00 0B 00 0C 00 18 00 09 00  2...............
+  0300: 10 00 11 00 23 00 00 00 0F 00 01 01 00 00 00 00  ....#...........
+  0bd0: 00 00 00 00 00 00 00 00 00 12 7D 01 00 10 00 02  ..........<span class="o">}</span>.....
+
+<span class="o">[</span>-] Closing connection
+
+<span class="o">[</span>-] Connecting to 127.0.0.1:443 using TLSv1.0
+<span class="o">[</span>-] Sending ClientHello
+<span class="o">[</span>-] ServerHello received
+<span class="o">[</span>-] Sending Heartbeat
+<span class="o">[</span>Vulnerable] Heartbeat response was 16384 bytes instead of 3! 127.0.0.1:443 is vulnerable over TLSv1.0
+<span class="o">[</span>-] Displaying response <span class="o">(</span>lines consisting entirely of null bytes are removed<span class="o">)</span>:
+
+  0000: 02 FF FF 08 03 01 53 48 73 F0 7C CA C1 D9 02 04  ......SHs.|.....
+  0010: F2 1D 2D 49 F5 12 BF 40 1B 94 D9 93 E4 C4 F4 F0  ..-I...@........
+  0020: D0 42 CD 44 A2 59 00 02 96 00 00 00 01 00 02 00  .B.D.Y..........
+  0060: 1B 00 1C 00 1D 00 1E 00 1F 00 20 00 21 00 22 00  .......... .!.<span class="s2">".
+  0070: 23 00 24 00 25 00 26 00 27 00 28 00 29 00 2A 00  #.</span><span class="nv">$.</span><span class="s2">%.&amp;.'.(.).*.
+  0080: 2B 00 2C 00 2D 00 2E 00 2F 00 30 00 31 00 32 00  +.,.-.../.0.1.2.
+  0090: 33 00 34 00 35 00 36 00 37 00 38 00 39 00 3A 00  3.4.5.6.7.8.9.:.
+  00a0: 3B 00 3C 00 3D 00 3E 00 3F 00 40 00 41 00 42 00  ;.&lt;.=.&gt;.?.@.A.B.
+  00b0: 43 00 44 00 45 00 46 00 60 00 61 00 62 00 63 00  C.D.E.F.</span><span class="sb">`</span>.a.b.c.
+  00c0: 64 00 65 00 66 00 67 00 68 00 69 00 6A 00 6B 00  d.e.f.g.h.i.j.k.
+  00d0: 6C 00 6D 00 80 00 81 00 82 00 83 00 84 00 85 00  l.m.............
+  01a0: 20 C0 21 C0 22 C0 23 C0 24 C0 25 C0 26 C0 27 C0   .!.<span class="s2">".#.</span><span class="nv">$.</span><span class="s2">%.&amp;.'.
+  01b0: 28 C0 29 C0 2A C0 2B C0 2C C0 2D C0 2E C0 2F C0  (.).*.+.,.-.../.
+  01c0: 30 C0 31 C0 32 C0 33 C0 34 C0 35 C0 36 C0 37 C0  0.1.2.3.4.5.6.7.
+  01d0: 38 C0 39 C0 3A C0 3B C0 3C C0 3D C0 3E C0 3F C0  8.9.:.;.&lt;.=.&gt;.?.
+  01e0: 40 C0 41 C0 42 C0 43 C0 44 C0 45 C0 46 C0 47 C0  @.A.B.C.D.E.F.G.
+  01f0: 48 C0 49 C0 4A C0 4B C0 4C C0 4D C0 4E C0 4F C0  H.I.J.K.L.M.N.O.
+  0200: 50 C0 51 C0 52 C0 53 C0 54 C0 55 C0 56 C0 57 C0  P.Q.R.S.T.U.V.W.
+  0210: 58 C0 59 C0 5A C0 5B C0 5C C0 5D C0 5E C0 5F C0  X.Y.Z.[.</span><span class="se">\.</span><span class="s2">].^._.
+  0220: 60 C0 61 C0 62 C0 63 C0 64 C0 65 C0 66 C0 67 C0  </span><span class="sb">`</span>.a.b.c.d.e.f.g.
+  0230: 68 C0 69 C0 6A C0 6B C0 6C C0 6D C0 6E C0 6F C0  h.i.j.k.l.m.n.o.
+  0240: 70 C0 71 C0 72 C0 73 C0 74 C0 75 C0 76 C0 77 C0  p.q.r.s.t.u.v.w.
+  0250: 78 C0 79 C0 7A C0 7B C0 7C C0 7D C0 7E C0 7F C0  x.y.z.<span class="o">{</span>.|.<span class="o">}</span>.~...
+  02c0: 00 00 49 00 0B 00 04 03 00 01 02 00 0A 00 34 00  ..I...........4.
+  02d0: 32 00 0E 00 0D 00 19 00 0B 00 0C 00 18 00 09 00  2...............
+  0300: 10 00 11 00 23 00 00 00 0F 00 01 01 00 00 00 00  ....#...........
+  0bd0: 00 00 00 00 00 00 00 00 00 12 7D 01 00 10 00 02  ..........<span class="o">}</span>.....
+
+<span class="o">[</span>-] Closing connection
+
+<span class="o">[</span>-] Connecting to 127.0.0.1:443 using TLSv1.1
+<span class="o">[</span>-] Sending ClientHello
+<span class="o">[</span>-] ServerHello received
+<span class="o">[</span>-] Sending Heartbeat
+<span class="o">[</span>Vulnerable] Heartbeat response was 16384 bytes instead of 3! 127.0.0.1:443 is vulnerable over TLSv1.1
+<span class="o">[</span>-] Displaying response <span class="o">(</span>lines consisting entirely of null bytes are removed<span class="o">)</span>:
+
+  0000: 02 FF FF 08 03 02 53 48 73 F0 7C CA C1 D9 02 04  ......SHs.|.....
+  0010: F2 1D 2D 49 F5 12 BF 40 1B 94 D9 93 E4 C4 F4 F0  ..-I...@........
+  0020: D0 42 CD 44 A2 59 00 02 96 00 00 00 01 00 02 00  .B.D.Y..........
+  0060: 1B 00 1C 00 1D 00 1E 00 1F 00 20 00 21 00 22 00  .......... .!.<span class="s2">".
+  0070: 23 00 24 00 25 00 26 00 27 00 28 00 29 00 2A 00  #.</span><span class="nv">$.</span><span class="s2">%.&amp;.'.(.).*.
+  0080: 2B 00 2C 00 2D 00 2E 00 2F 00 30 00 31 00 32 00  +.,.-.../.0.1.2.
+  0090: 33 00 34 00 35 00 36 00 37 00 38 00 39 00 3A 00  3.4.5.6.7.8.9.:.
+  00a0: 3B 00 3C 00 3D 00 3E 00 3F 00 40 00 41 00 42 00  ;.&lt;.=.&gt;.?.@.A.B.
+  00b0: 43 00 44 00 45 00 46 00 60 00 61 00 62 00 63 00  C.D.E.F.</span><span class="sb">`</span>.a.b.c.
+  00c0: 64 00 65 00 66 00 67 00 68 00 69 00 6A 00 6B 00  d.e.f.g.h.i.j.k.
+  00d0: 6C 00 6D 00 80 00 81 00 82 00 83 00 84 00 85 00  l.m.............
+  01a0: 20 C0 21 C0 22 C0 23 C0 24 C0 25 C0 26 C0 27 C0   .!.<span class="s2">".#.</span><span class="nv">$.</span><span class="s2">%.&amp;.'.
+  01b0: 28 C0 29 C0 2A C0 2B C0 2C C0 2D C0 2E C0 2F C0  (.).*.+.,.-.../.
+  01c0: 30 C0 31 C0 32 C0 33 C0 34 C0 35 C0 36 C0 37 C0  0.1.2.3.4.5.6.7.
+  01d0: 38 C0 39 C0 3A C0 3B C0 3C C0 3D C0 3E C0 3F C0  8.9.:.;.&lt;.=.&gt;.?.
+  01e0: 40 C0 41 C0 42 C0 43 C0 44 C0 45 C0 46 C0 47 C0  @.A.B.C.D.E.F.G.
+  01f0: 48 C0 49 C0 4A C0 4B C0 4C C0 4D C0 4E C0 4F C0  H.I.J.K.L.M.N.O.
+  0200: 50 C0 51 C0 52 C0 53 C0 54 C0 55 C0 56 C0 57 C0  P.Q.R.S.T.U.V.W.
+  0210: 58 C0 59 C0 5A C0 5B C0 5C C0 5D C0 5E C0 5F C0  X.Y.Z.[.</span><span class="se">\.</span><span class="s2">].^._.
+  0220: 60 C0 61 C0 62 C0 63 C0 64 C0 65 C0 66 C0 67 C0  </span><span class="sb">`</span>.a.b.c.d.e.f.g.
+  0230: 68 C0 69 C0 6A C0 6B C0 6C C0 6D C0 6E C0 6F C0  h.i.j.k.l.m.n.o.
+  0240: 70 C0 71 C0 72 C0 73 C0 74 C0 75 C0 76 C0 77 C0  p.q.r.s.t.u.v.w.
+  0250: 78 C0 79 C0 7A C0 7B C0 7C C0 7D C0 7E C0 7F C0  x.y.z.<span class="o">{</span>.|.<span class="o">}</span>.~...
+  02c0: 00 00 49 00 0B 00 04 03 00 01 02 00 0A 00 34 00  ..I...........4.
+  02d0: 32 00 0E 00 0D 00 19 00 0B 00 0C 00 18 00 09 00  2...............
+  0300: 10 00 11 00 23 00 00 00 0F 00 01 01 00 00 00 00  ....#...........
+  0bd0: 00 00 00 00 00 00 00 00 00 12 7D 01 00 10 00 02  ..........<span class="o">}</span>.....
+
+<span class="o">[</span>-] Closing connection
+
+<span class="o">[</span>-] Connecting to 127.0.0.1:443 using TLSv1.2
+<span class="o">[</span>-] Sending ClientHello
+<span class="o">[</span>-] ServerHello received
+<span class="o">[</span>-] Sending Heartbeat
+<span class="o">[</span>Vulnerable] Heartbeat response was 16384 bytes instead of 3! 127.0.0.1:443 is vulnerable over TLSv1.2
+<span class="o">[</span>-] Displaying response <span class="o">(</span>lines consisting entirely of null bytes are removed<span class="o">)</span>:
+
+  0000: 02 FF FF 08 03 03 53 48 73 F0 7C CA C1 D9 02 04  ......SHs.|.....
+  0010: F2 1D 2D 49 F5 12 BF 40 1B 94 D9 93 E4 C4 F4 F0  ..-I...@........
+  0020: D0 42 CD 44 A2 59 00 02 96 00 00 00 01 00 02 00  .B.D.Y..........
+  0060: 1B 00 1C 00 1D 00 1E 00 1F 00 20 00 21 00 22 00  .......... .!.<span class="s2">".
+  0070: 23 00 24 00 25 00 26 00 27 00 28 00 29 00 2A 00  #.</span><span class="nv">$.</span><span class="s2">%.&amp;.'.(.).*.
+  0080: 2B 00 2C 00 2D 00 2E 00 2F 00 30 00 31 00 32 00  +.,.-.../.0.1.2.
+  0090: 33 00 34 00 35 00 36 00 37 00 38 00 39 00 3A 00  3.4.5.6.7.8.9.:.
+  00a0: 3B 00 3C 00 3D 00 3E 00 3F 00 40 00 41 00 42 00  ;.&lt;.=.&gt;.?.@.A.B.
+  00b0: 43 00 44 00 45 00 46 00 60 00 61 00 62 00 63 00  C.D.E.F.</span><span class="sb">`</span>.a.b.c.
+  00c0: 64 00 65 00 66 00 67 00 68 00 69 00 6A 00 6B 00  d.e.f.g.h.i.j.k.
+  00d0: 6C 00 6D 00 80 00 81 00 82 00 83 00 84 00 85 00  l.m.............
+  01a0: 20 C0 21 C0 22 C0 23 C0 24 C0 25 C0 26 C0 27 C0   .!.<span class="s2">".#.</span><span class="nv">$.</span><span class="s2">%.&amp;.'.
+  01b0: 28 C0 29 C0 2A C0 2B C0 2C C0 2D C0 2E C0 2F C0  (.).*.+.,.-.../.
+  01c0: 30 C0 31 C0 32 C0 33 C0 34 C0 35 C0 36 C0 37 C0  0.1.2.3.4.5.6.7.
+  01d0: 38 C0 39 C0 3A C0 3B C0 3C C0 3D C0 3E C0 3F C0  8.9.:.;.&lt;.=.&gt;.?.
+  01e0: 40 C0 41 C0 42 C0 43 C0 44 C0 45 C0 46 C0 47 C0  @.A.B.C.D.E.F.G.
+  01f0: 48 C0 49 C0 4A C0 4B C0 4C C0 4D C0 4E C0 4F C0  H.I.J.K.L.M.N.O.
+  0200: 50 C0 51 C0 52 C0 53 C0 54 C0 55 C0 56 C0 57 C0  P.Q.R.S.T.U.V.W.
+  0210: 58 C0 59 C0 5A C0 5B C0 5C C0 5D C0 5E C0 5F C0  X.Y.Z.[.</span><span class="se">\.</span><span class="s2">].^._.
+  0220: 60 C0 61 C0 62 C0 63 C0 64 C0 65 C0 66 C0 67 C0  </span><span class="sb">`</span>.a.b.c.d.e.f.g.
+  0230: 68 C0 69 C0 6A C0 6B C0 6C C0 6D C0 6E C0 6F C0  h.i.j.k.l.m.n.o.
+  0240: 70 C0 71 C0 72 C0 73 C0 74 C0 75 C0 76 C0 77 C0  p.q.r.s.t.u.v.w.
+  0250: 78 C0 79 C0 7A C0 7B C0 7C C0 7D C0 7E C0 7F C0  x.y.z.<span class="o">{</span>.|.<span class="o">}</span>.~...
+  02c0: 00 00 49 00 0B 00 04 03 00 01 02 00 0A 00 34 00  ..I...........4.
+  02d0: 32 00 0E 00 0D 00 19 00 0B 00 0C 00 18 00 09 00  2...............
+  0300: 10 00 11 00 23 00 00 00 0F 00 01 01 00 00 00 00  ....#...........
+  0bd0: 00 00 00 00 00 00 00 00 00 12 7D 01 00 10 00 02  ..........<span class="o">}</span>.....
+
+<span class="o">[</span>-] Closing connection
+
+
+
+<span class="o">[!]</span> Vulnerable to Heartbleed bug <span class="o">(</span>CVE-2014-0160<span class="o">)</span> mentioned <span class="k">in </span>http://heartbleed.com/
+<span class="o">[!]</span> Vulnerability Status: VULNERABLE
+
+
+<span class="o">=====================================</span>
+
+Loading module: CCS Injection script by TripWire VERT ...
+
+Checking localhost:443 <span class="k">for </span>OpenSSL ChangeCipherSpec <span class="o">(</span>CCS<span class="o">)</span> Injection bug <span class="o">(</span>CVE-2014-0224<span class="o">)</span> ...
+
+<span class="o">[!]</span> The target may allow early CCS on TLSv1.2
+<span class="o">[!]</span> The target may allow early CCS on TLSv1.1
+<span class="o">[!]</span> The target may allow early CCS on TLSv1
+<span class="o">[!]</span> The target may allow early CCS on SSLv3
+
+
+<span class="o">[</span>-] This is an experimental detection script and does not definitively determine vulnerable server status.
+
+<span class="o">[!]</span> Potentially vulnerable to OpenSSL ChangeCipherSpec <span class="o">(</span>CCS<span class="o">)</span> Injection vulnerability <span class="o">(</span>CVE-2014-0224<span class="o">)</span> mentioned <span class="k">in </span>http://ccsinjection.lepidum.co.jp/
+<span class="o">[!]</span> Vulnerability Status: Possible
+
+
+<span class="o">=====================================</span>
+
+Checking localhost:443 <span class="k">for </span>HTTP Compression support against BREACH vulnerability <span class="o">(</span>CVE-2013-3587<span class="o">)</span> ...
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> HTTP Compression: DISABLED
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Immune from BREACH attack mentioned <span class="k">in </span>https://media.blackhat.com/us-13/US-13-Prado-SSL-Gone-in-30-seconds-A-BREACH-beyond-CRIME-WP.pdf
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Vulnerability Status: No
+
+
+<span class="nt">---------------</span> RAW HTTP RESPONSE <span class="nt">---------------</span>
+
+HTTP/1.1 200 OK
+Date: Wed, 23 Jul 2014 13:48:07 GMT
+Server: Apache/2.4.3 <span class="o">(</span>Win32<span class="o">)</span> OpenSSL/1.0.1c PHP/5.4.7
+X-Powered-By: PHP/5.4.7
+Set-Cookie: <span class="nv">SessionID</span><span class="o">=</span>xxx<span class="p">;</span> <span class="nv">expires</span><span class="o">=</span>Wed, 23-Jul-2014 12:48:07 GMT<span class="p">;</span> <span class="nv">path</span><span class="o">=</span>/<span class="p">;</span> secure
+Set-Cookie: <span class="nv">SessionChallenge</span><span class="o">=</span>yyy<span class="p">;</span> <span class="nv">expires</span><span class="o">=</span>Wed, 23-Jul-2014 12:48:07 GMT<span class="p">;</span> <span class="nv">path</span><span class="o">=</span>/
+Content-Length: 193
+Connection: close
+Content-Type: text/html
+
+&lt;html&gt;
+&lt;<span class="nb">head</span><span class="o">&gt;</span>
+&lt;title&gt;Login page &lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;script <span class="nv">src</span><span class="o">=</span><span class="s2">"http://othersite/test.js"</span><span class="o">&gt;</span>&lt;/script&gt;
+
+&lt;<span class="nb">link </span><span class="nv">rel</span><span class="o">=</span><span class="s2">"stylesheet"</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"text/css"</span> <span class="nv">href</span><span class="o">=</span><span class="s2">"http://somesite/test.css"</span><span class="o">&gt;</span>
+
+
+<span class="o">=====================================</span>
+
+Checking localhost:443 <span class="k">for </span>correct use of Strict Transport Security <span class="o">(</span>STS<span class="o">)</span> response header <span class="o">(</span>RFC6797<span class="o">)</span> ...
+
+<span class="o">[!]</span> STS response header: NOT PRESENT
+<span class="o">[!]</span> Vulnerable to MITM threats mentioned <span class="k">in </span>https://www.owasp.org/index.php/HTTP_Strict_Transport_Security#Threats
+<span class="o">[!]</span> Vulnerability Status: VULNERABLE
+
+
+<span class="nt">---------------</span> RAW HTTP RESPONSE <span class="nt">---------------</span>
+
+HTTP/1.1 200 OK
+Date: Wed, 23 Jul 2014 13:48:07 GMT
+Server: Apache/2.4.3 <span class="o">(</span>Win32<span class="o">)</span> OpenSSL/1.0.1c PHP/5.4.7
+X-Powered-By: PHP/5.4.7
+Set-Cookie: <span class="nv">SessionID</span><span class="o">=</span>xxx<span class="p">;</span> <span class="nv">expires</span><span class="o">=</span>Wed, 23-Jul-2014 12:48:07 GMT<span class="p">;</span> <span class="nv">path</span><span class="o">=</span>/<span class="p">;</span> secure
+Set-Cookie: <span class="nv">SessionChallenge</span><span class="o">=</span>yyy<span class="p">;</span> <span class="nv">expires</span><span class="o">=</span>Wed, 23-Jul-2014 12:48:07 GMT<span class="p">;</span> <span class="nv">path</span><span class="o">=</span>/
+Content-Length: 193
+Connection: close
+Content-Type: text/html
+
+&lt;html&gt;
+&lt;<span class="nb">head</span><span class="o">&gt;</span>
+&lt;title&gt;Login page &lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;script <span class="nv">src</span><span class="o">=</span><span class="s2">"http://othersite/test.js"</span><span class="o">&gt;</span>&lt;/script&gt;
+
+&lt;<span class="nb">link </span><span class="nv">rel</span><span class="o">=</span><span class="s2">"stylesheet"</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"text/css"</span> <span class="nv">href</span><span class="o">=</span><span class="s2">"http://somesite/test.css"</span><span class="o">&gt;</span>
+
+
+<span class="o">=====================================</span>
+
+Checking localhost <span class="k">for </span>HTTP support against HTTPS Stripping attack ...
+
+<span class="o">[!]</span> HTTP Support on port <span class="o">[</span>80] : SUPPORTED
+<span class="o">[!]</span> Vulnerable to HTTPS Stripping attack mentioned <span class="k">in </span>https://www.blackhat.com/presentations/bh-dc-09/Marlinspike/BlackHat-DC-09-Marlinspike-Defeating-SSL.pdf
+<span class="o">[!]</span> Vulnerability Status: VULNERABLE
+
+
+<span class="o">=====================================</span>
+
+Checking localhost:443 <span class="k">for </span>HTTP elements embedded <span class="k">in </span>SSL page ...
+
+<span class="o">[!]</span> HTTP elements embedded <span class="k">in </span>SSL page: PRESENT
+<span class="o">[!]</span> Vulnerable to MITM malicious content injection attack
+<span class="o">[!]</span> Vulnerability Status: VULNERABLE
+
+
+<span class="nt">---------------</span> HTTP RESOURCES EMBEDDED <span class="nt">---------------</span>
+ - http://othersite/test.js
+ - http://somesite/test.css
+
+<span class="o">=====================================</span>
+
+Checking localhost:443 <span class="k">for </span>ROBUST use of anti-caching mechanism ...
+
+<span class="o">[!]</span> Cache Control Directives: NOT PRESENT
+<span class="o">[!]</span> Browsers, Proxies and other Intermediaries will cache SSL page and sensitive information will be leaked.
+<span class="o">[!]</span> Vulnerability Status: VULNERABLE
+
+
+<span class="nt">-------------------------------------------------</span>
+
+Robust Solution:
+
+    - Cache-Control: no-cache, no-store, must-revalidate, pre-check<span class="o">=</span>0, post-check<span class="o">=</span>0, max-age<span class="o">=</span>0, s-maxage<span class="o">=</span>0
+    - Ref: https://wiki.owasp.org/index.php/Testing_for_Browser_cache_weakness_<span class="o">(</span>OTG-AUTHN-006<span class="o">)</span>
+           https://docs.microsoft.com/en-us/iis/configuration/system.webserver/staticcontent/clientcache
+
+<span class="o">=====================================</span>
+
+Checking localhost:443 <span class="k">for </span>Surf Jacking vulnerability <span class="o">(</span>due to Session Cookie missing secure flag<span class="o">)</span> ...
+
+<span class="o">[!]</span> Secure Flag <span class="k">in </span>Set-Cookie:  PRESENT BUT NOT IN ALL COOKIES
+<span class="o">[!]</span> Vulnerable to Surf Jacking attack mentioned <span class="k">in </span>https://resources.enablesecurity.com/resources/Surf%20Jacking.pdf
+<span class="o">[!]</span> Vulnerability Status: VULNERABLE
+
+<span class="nt">---------------</span> RAW HTTP RESPONSE <span class="nt">---------------</span>
+
+HTTP/1.1 200 OK
+Date: Wed, 23 Jul 2014 13:48:07 GMT
+Server: Apache/2.4.3 <span class="o">(</span>Win32<span class="o">)</span> OpenSSL/1.0.1c PHP/5.4.7
+X-Powered-By: PHP/5.4.7
+Set-Cookie: <span class="nv">SessionID</span><span class="o">=</span>xxx<span class="p">;</span> <span class="nv">expires</span><span class="o">=</span>Wed, 23-Jul-2014 12:48:07 GMT<span class="p">;</span> <span class="nv">path</span><span class="o">=</span>/<span class="p">;</span> secure
+Set-Cookie: <span class="nv">SessionChallenge</span><span class="o">=</span>yyy<span class="p">;</span> <span class="nv">expires</span><span class="o">=</span>Wed, 23-Jul-2014 12:48:07 GMT<span class="p">;</span> <span class="nv">path</span><span class="o">=</span>/
+Content-Length: 193
+Connection: close
+Content-Type: text/html
+
+<span class="o">=====================================</span>
+
+Checking localhost:443 <span class="k">for </span>ECDHE/DHE ciphers against FORWARD SECRECY support ...
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Forward Secrecy: SUPPORTED
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Connected using cipher - TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA on protocol - TLSv1
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Attackers will NOT be able to decrypt sniffed SSL packets even <span class="k">if </span>they have compromised private keys.
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Vulnerability Status: No
+
+<span class="o">=====================================</span>
+
+Checking localhost:443 <span class="k">for </span>RC4 support <span class="o">(</span>CVE-2013-2566<span class="o">)</span> ...
+
+<span class="o">[!]</span> RC4: SUPPORTED
+<span class="o">[!]</span> Vulnerable to MITM attack described <span class="k">in </span>http://www.isg.rhul.ac.uk/tls/
+<span class="o">[!]</span> Vulnerability Status: VULNERABLE
+
+
+
+<span class="o">=====================================</span>
+
+Checking localhost:443 <span class="k">for </span>TLS 1.1 support ...
+
+Checking localhost:443 <span class="k">for </span>TLS 1.2 support ...
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> TLS 1.1, TLS 1.2: SUPPORTED
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Immune from BEAST attack mentioned <span class="k">in </span>https://www.infoworld.com/article/2620383/red-alert--https-has-been-hacked.html
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Vulnerability Status: No
+
+
+
+<span class="o">=====================================</span>
+
+Loading module: sslyze by iSecPartners ...
+
+Checking localhost:443 <span class="k">for </span>Session Renegotiation support <span class="o">(</span>CVE-2009-3555,CVE-2011-1473,CVE-2011-5094<span class="o">)</span> ...
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Secure Client-Initiated Renegotiation : NOT SUPPORTED
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Mitigated from DOS attack <span class="o">(</span>CVE-2011-1473,CVE-2011-5094<span class="o">)</span> mentioned <span class="k">in </span>https://www.thc.org/thc-ssl-dos/
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Vulnerability Status: No
+
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> INSECURE Client-Initiated Renegotiation : NOT SUPPORTED
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Immune from TLS Plain-text Injection attack <span class="o">(</span>CVE-2009-3555<span class="o">)</span> - https://cve.mitre.org/cgi-bin/cvename.cgi?name<span class="o">=</span>CVE-2009-3555  
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Vulnerability Status: No
+
+
+<span class="o">=====================================</span>
+
+Loading module: TestSSLServer by Thomas Pornin ...
+
+Checking localhost:443 <span class="k">for </span>SSL version 2 support ...
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> SSL version 2 : NOT SUPPORTED
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Immune from SSLv2-based MITM attack
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Vulnerability Status: No
+
+
+<span class="o">=====================================</span>
+
+Checking localhost:443 <span class="k">for </span>LANE <span class="o">(</span>LOW,ANON,NULL,EXPORT<span class="o">)</span> weak ciphers support ...
+
+Supported LANE cipher suites:
+  SSLv3
+     RSA_EXPORT_WITH_RC4_40_MD5
+     RSA_EXPORT_WITH_RC2_CBC_40_MD5
+     RSA_EXPORT_WITH_DES40_CBC_SHA
+     RSA_WITH_DES_CBC_SHA
+     DHE_RSA_EXPORT_WITH_DES40_CBC_SHA
+     DHE_RSA_WITH_DES_CBC_SHA
+     TLS_ECDH_anon_WITH_RC4_128_SHA
+     TLS_ECDH_anon_WITH_3DES_EDE_CBC_SHA
+     TLS_ECDH_anon_WITH_AES_256_CBC_SHA
+  <span class="o">(</span>TLSv1.0: same as above<span class="o">)</span>
+  <span class="o">(</span>TLSv1.1: same as above<span class="o">)</span>
+  <span class="o">(</span>TLSv1.2: same as above<span class="o">)</span>
+
+
+<span class="o">[!]</span> LANE ciphers : SUPPORTED
+<span class="o">[!]</span> Attackers may be ABLE to recover encrypted packets.
+<span class="o">[!]</span> Vulnerability Status: VULNERABLE
+
+
+<span class="o">=====================================</span>
+
+Checking localhost:443 <span class="k">for </span>GCM/CCM ciphers support against Lucky13 attack <span class="o">(</span>CVE-2013-0169<span class="o">)</span> ...
+
+Supported GCM cipher suites against Lucky13 attack:
+  TLSv1.2
+     TLS_RSA_WITH_AES_128_GCM_SHA256
+     TLS_RSA_WITH_AES_256_GCM_SHA384
+     TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
+     TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
+     TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+     TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> GCM/CCM ciphers : SUPPORTED
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Immune from Lucky13 attack mentioned <span class="k">in </span>http://www.isg.rhul.ac.uk/tls/Lucky13.html
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Vulnerability Status: No
+
+
+<span class="o">=====================================</span>
+
+Checking localhost:443 <span class="k">for </span>TLS Compression support against CRIME <span class="o">(</span>CVE-2012-4929<span class="o">)</span> &amp; TIME attack  ...
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> TLS Compression : DISABLED
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Immune from CRIME &amp; TIME attack mentioned <span class="k">in </span>https://media.blackhat.com/eu-13/briefings/Beery/bh-eu-13-a-perfect-crime-beery-wp.pdf
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Vulnerability Status: No
+
+
+<span class="o">=====================================</span>
+
+<span class="o">[</span>+] Breacher finished scanning <span class="k">in </span>12 seconds.
+<span class="o">[</span>+] Get your latest copy at http://yehg.net/
+</code></pre></div></div>
+
+<h4 id="example-8-testing-o-saft---owasp-ssl-advanced-forensic-tool">Example 8. Testing O-Saft - OWASP SSL Advanced Forensic Tool</h4>
+
+<p><a href="https://github.com/OWASP/O-Saft">O-Saft</a> is most comprehensive SSL tests. It supports the following checks:</p>
+
+<ol>
+  <li>BEAST</li>
+  <li>BREACH</li>
+  <li>CRIME</li>
+  <li>FREAK</li>
+  <li>HeartBleed</li>
+  <li>TIME</li>
+  <li>PFS: Forward Secrecy support</li>
+  <li>HSTS: Check for implementation of HSTS header</li>
+  <li>SNI support</li>
+  <li>Certificate: Host-name mismatch</li>
+  <li>Certificate expiration</li>
+  <li>Certificate extension</li>
+  <li>Weak/Insecure Hashing Algorithm (MD2, MD4, MD5, SHA1)</li>
+  <li>SSLv2, SSLv3 support</li>
+  <li>Weak ciphers check (Low, Anon, Null, Export)</li>
+  <li>RC4 support</li>
+  <li>Checks any cipher independent of SSL libriray</li>
+  <li>supports proxy connections</li>
+  <li>supported protokols: HTTPS, SMTP, POP3, IMAP, LDAP, RDP, XMPP, IRC</li>
+</ol>
+
+<h3 id="testing-ssl-certificate-validity--client-and-server">Testing SSL Certificate Validity – Client and Server</h3>
+
+<p>Firstly upgrade the browser because CA certs expire and in every release of the browser these are renewed. Examine the validity of the certificates used by the application. Browsers will issue a warning when encountering expired certificates, certificates issued by untrusted CAs, and certificates which do not match name wise with the site to which they should refer.</p>
+
+<p>By clicking on the padlock that appears in the browser window when visiting an HTTPS site, testers can look at information related to the certificate – including the issuer, period of validity, encryption characteristics, etc. If the application requires a client certificate, that tester has probably installed one to access it. Certificate information is available in the browser by inspecting the relevant certificate(s) in the list of the installed certificates.</p>
+
+<p>These checks must be applied to all visible SSL-wrapped communication channels used by the application. Though this is the usual HTTPS service running on port 443, there may be additional services involved depending on the web application architecture and on deployment issues (an HTTPS administrative port left open, HTTPS services on non-standard ports, etc.). Therefore, apply these checks to all SSL-wrapped ports which have been discovered. For example, the nmap scanner features a scanning mode (enabled by the –sV command line switch) which identifies SSL-wrapped services. The Nessus vulnerability scanner has the capability of performing SSL checks on all SSL/TLS-wrapped services.</p>
+
+<h4 id="example-1-testing-for-certificate-validity-manually">Example 1. Testing for Certificate Validity (Manually)</h4>
+
+<p>Rather than providing a fictitious example, this guide includes an anonymized real-life example to stress how frequently one stumbles on HTTPS sites whose certificates are inaccurate with respect to naming. The following screenshots refer to a regional site of a high-profile IT company.</p>
+
+<p>We are visiting a .it site and the certificate was issued to a .com site. Internet Explorer warns that the name on the certificate does not match the name of the site.</p>
+
+<p><img src="../images/SSL_Certificate_Validity_Testing_IE_Warning.gif" alt="IE SSL Certificate Validity Warning" /> <br />
+<em>Figure 4.9.1-1: Warning issued by Microsoft Internet Explorer</em></p>
+
+<p>The message issued by Firefox is different. Firefox complains because it cannot ascertain the identity of the .com site the certificate refers to because it does not know the CA which signed the certificate. In fact, Internet Explorer and Firefox do not come pre-loaded with the same list of CAs. Therefore, the behavior experienced with various browsers may differ.</p>
+
+<p><img src="../images/SSL_Certificate_Validity_Testing_Firefox_Warning.gif" alt="FF SSL Certificate Validity Warning" /> <br />
+<em>Figure 4.9.1-2: Warning issued by Mozilla Firefox</em></p>
+
+<h3 id="testing-for-other-vulnerabilities">Testing for Other Vulnerabilities</h3>
+
+<p>As mentioned previously, there are other types of vulnerabilities that are not related with the SSL/TLS protocol used, the cipher suites or Certificates. Apart from other vulnerabilities discussed in other parts of this guide, a vulnerability exists when the server provides the website both with the HTTP and HTTPS protocols, and permits an attacker to force a victim into using a non-secure channel instead of a secure one.</p>
+
+<h4 id="surf-jacking">Surf Jacking</h4>
+
+<p>The <a href="https://resources.enablesecurity.com/resources/Surf%20Jacking.pdf">Surf Jacking attack</a> was first presented by Sandro Gauci and permits to an attacker to hijack an HTTP session even when the victim’s connection is encrypted using SSL or TLS.</p>
+
+<p>The following is a scenario of how the attack can take place:</p>
+
+<ul>
+  <li>Victim logs into the secure website at <code class="language-plaintext highlighter-rouge">https://somesecuresite/</code>.</li>
+  <li>The secure site issues a session cookie as the client logs in.</li>
+  <li>While logged in, the victim opens a new browser window and goes to <code class="language-plaintext highlighter-rouge">http://examplesite/</code></li>
+  <li>An attacker sitting on the same network is able to see the clear text traffic to <code class="language-plaintext highlighter-rouge">http://examplesite</code>.</li>
+  <li>The attacker sends back a <code class="language-plaintext highlighter-rouge">301 Moved Permanently</code> in response to the clear text traffic to <code class="language-plaintext highlighter-rouge">http://examplesite</code>. The response contains the header <code class="language-plaintext highlighter-rouge">Location: http://somesecuresite/</code>, which makes it appear that examplesite is sending the web browser to somesecuresite. Notice that the URL scheme is HTTP not HTTPS.</li>
+  <li>The victim’s browser starts a new clear text connection to <code class="language-plaintext highlighter-rouge">http://somesecuresite/</code> and sends an HTTP request containing the cookie in the HTTP header in clear text</li>
+  <li>The attacker sees this traffic and logs the cookie for later use.</li>
+</ul>
+
+<p>To test if a website is vulnerable carry out the following tests:</p>
+
+<ol>
+  <li>Check if website supports both HTTP and HTTPS protocols</li>
+  <li>Check if cookies do not have the <code class="language-plaintext highlighter-rouge">Secure</code> flag</li>
+</ol>
+
+<h4 id="ssl-strip">SSL Strip</h4>
+
+<p>Some applications supports both HTTP and HTTPS, either for usability or so users can type both addresses and get to the site. Often users go into an HTTPS website from link or a redirect. Typically personal banking sites have a similar configuration with an iframed log in or a form with action attribute over HTTPS but the page under HTTP.</p>
+
+<p>An attacker in a privileged position - as described in <a href="https://moxie.org/software/sslstrip/">SSL strip</a> - can intercept traffic when the user is in the HTTP site and manipulate it to get a Man-In-The-Middle attack under HTTPS. An application is vulnerable if it supports both HTTP and HTTPS.</p>
+
+<h3 id="testing-via-http-proxy">Testing via HTTP Proxy</h3>
+
+<p>Inside corporate environments testers can see services that are not directly accessible and they can access them only via HTTP proxy using the <a href="https://tools.ietf.org/html/rfc2817">CONNECT method</a>. Most of the tools will not work in this scenario because they try to connect to the desired tcp port to start the SSL/TLS handshake. With the help of relaying software such as <a href="https://linux.die.net/man/1/socat">socat</a> testers can enable those tools for use with services behind an HTTP proxy.</p>
+
+<h4 id="example-1-testing-via-http-proxy">Example 1. Testing via HTTP Proxy</h4>
+
+<p>To connect to <code class="language-plaintext highlighter-rouge">destined.application.lan:443</code> via proxy <code class="language-plaintext highlighter-rouge">10.13.37.100:3128</code> run <code class="language-plaintext highlighter-rouge">socat</code> as follows:</p>
+
+<p><code class="language-plaintext highlighter-rouge">$ socat TCP-LISTEN:9999,reuseaddr,fork PROXY:10.13.37.100:destined.application.lan:443,proxyport=3128</code></p>
+
+<p>Then the tester can target all other tools to <code class="language-plaintext highlighter-rouge">localhost:9999</code>:</p>
+
+<p><code class="language-plaintext highlighter-rouge">$ openssl s_client -connect localhost:9999</code></p>
+
+<p>All connections to <code class="language-plaintext highlighter-rouge">localhost:9999</code> will be effectively relayed by socat via proxy to <code class="language-plaintext highlighter-rouge">destined.application.lan:443</code>.</p>
+
+<h2 id="configuration-review">Configuration Review</h2>
+
+<h3 id="testing-for-weak-ssltls-cipher-suites">Testing for Weak SSL/TLS Cipher Suites</h3>
+
+<p>Check the configuration of the web servers that provide HTTPS services. If the web application provides other SSL/TLS wrapped services, these should be checked as well.</p>
+
+<h4 id="example-1-windows-server">Example 1. Windows Server</h4>
+
+<p>Check the configuration on a Microsoft Windows Server (2000, 2003 and 2008) using the registry key:</p>
+
+<p><code class="language-plaintext highlighter-rouge">HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\</code></p>
+
+<p>that has some sub-keys including Ciphers, Protocols and KeyExchangeAlgorithms.</p>
+
+<h4 id="example-2-apache">Example 2. Apache</h4>
+
+<p>To check the cipher suites and protocols supported by the Apache2 web server, open the <code class="language-plaintext highlighter-rouge">ssl.conf</code> file and search for the <code class="language-plaintext highlighter-rouge">SSLCipherSuite</code>, <code class="language-plaintext highlighter-rouge">SSLProtocol</code>, <code class="language-plaintext highlighter-rouge">SSLHonorCipherOrder</code>,<code class="language-plaintext highlighter-rouge">SSLInsecureRenegotiation</code> and <code class="language-plaintext highlighter-rouge">SSLCompression</code> directives.</p>
+
+<h3 id="testing-ssl-certificate-validity--client-and-server-review">Testing SSL Certificate Validity – Client and Server Review</h3>
+
+<p>Examine the validity of the certificates used by the application at both server and client levels. The usage of certificates is primarily at the web server level, however, there may be additional communication paths protected by SSL (for example, towards the DBMS). Testers should check the application architecture to identify all SSL protected channels.</p>
+
+      </article>
+    </div>
+  </div>
+</main>
+<script src="/assets/js/doc-nav.js" defer></script>
+
+  <footer id="page-end" class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-standalone">
+      <a href="https://owasp.org/" class="footer-logo ext-link" rel="noopener noreferrer" aria-label="OWASP Foundation (external)">
+        <img src="/assets/images/owasp-logo-footer.svg" alt="OWASP Foundation" width="213" height="64" loading="lazy">
+      </a>
+      <p class="footer-tagline">An OWASP Foundation project. <a href="https://owasp.org/" class="ext-link" rel="noopener noreferrer">About OWASP</a></p>
+      <div class="footer-buttons">
+        <a href="https://github.com/OWASP/wstg" class="btn btn-primary btn-github btn-github--footer ext-link" rel="noopener noreferrer" target="_blank" aria-label="View on GitHub (opens in new window)">
+          <svg class="icon-github" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" width="16" height="16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 2.97-1.86 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          View on GitHub
+        </a>
+      </div>
+      <p class="footer-back-to-top"><a href="#top" class="footer-back-to-top-link">Back to top</a></p>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-legal">OWASP, the OWASP logo, and Global AppSec are registered trademarks and AppSec Days, AppSec California, AppSec Cali, SnowFROC, OWASP Boston Application Security Conference, and LASCON are trademarks of the OWASP Foundation, Inc.</p>
+      <p class="footer-copy">&copy; 2026, OWASP Foundation Inc. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<a href="#top" id="back-to-top" class="back-to-top" aria-label="Back to top" title="Back to top">
+  <svg class="back-to-top-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</a>
+
+  <script src="/assets/js/theme.js" defer></script>
+</body>
+</html>
