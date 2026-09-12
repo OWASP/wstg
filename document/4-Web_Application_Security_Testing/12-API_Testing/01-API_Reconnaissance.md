@@ -36,9 +36,11 @@ The visibility of private APIs depends on who the intended consumer is. An API c
 
 ### Find the Documentation
 
-In both public and private cases, the API documentation will be useful based on its level of the quality and accuracy. Public API documentation is typically shared with everyone whereas private API documentation is only shared with the intended client. However, in both cases finding documentation, accidentally leaked or otherwise will be helpfull in your investigation.
+In both public and private cases, the API documentation will be useful based on its level of quality and accuracy. Public API documentation is typically shared with everyone whereas private API documentation is only shared with the intended client. However, in both cases finding documentation, accidentally leaked or otherwise will be helpful in your investigation.
 
-Regardless of the visibility of the API, searching for API documentation can find older, not-yet-published, or accidentally leaked API documentation. This documentation will be very helpfull in understanding what the attack surface the API exposes.
+Regardless of the visibility of the API, searching for API documentation can find older, not-yet-published, or accidentally leaked API documentation. This documentation will be very helpful in understanding what attack surface the API exposes.
+
+For time-boxed engagements, request machine-readable API artifacts from the customer as early as possible so testing tools can import or process them directly. Ask for OpenAPI definitions, legacy Swagger 2.0 specifications, and up-to-date request collections (for example [Postman](https://www.postman.com/) or [Bruno](https://www.usebruno.com/)). For non-REST APIs in scope (for example GraphQL), request schemas or exported schemas when introspection is disabled. Request replay definitions (for example [Hurl](https://hurl.dev/)) are also useful. If the API is older, WSDL or WADL files can appear as legacy artifacts in some environments. This is especially useful for private, internal, or newly deployed APIs where public documentation may not exist.
 
 ### API Directories
 
@@ -89,7 +91,7 @@ Or subdomains the applications may consume or depend upon:
 
 It is important that the pentester attempts to exercise as much functionality in the application as possible. This is not only to generate a comprehensive list of endpoints but also to avoid issues with lazy loading and code splitting. In addition, your pentest engagement should include sample accounts at different privilege levels so that your browser and spidering can access and expose endpoints for as much functionality as possible.
 
-Once completed, the endpoint information obtained from browsing and spidering of the application can help the pentester compose API documentation of the target using other tools such as Postman.
+Once completed, the endpoint information obtained from browsing and spidering of the application can help the pentester compose API documentation and collections using tools such as [Postman](https://www.postman.com/) and [Bruno](https://www.usebruno.com/). Request replay tools such as [Hurl](https://hurl.dev/) can then use that information to automate repeatable test flows. Some clients, such as Postman and Bruno, can also use pre-request and post-request scripts, which can help replay realistic flows when testing stateful APIs.
 
 ### Analyze Intercepted Requests
 
@@ -102,6 +104,7 @@ Analyze the collected requests to identify non-standard or hidden parameters:
 - Identify structured parameter values formatted in JSON, XML, or other custom structures.
 - Examine the final element of a URL. If it lacks a file extension, it may be a parameter.
 - Look for highly varying URL segments. If a single segment changes frequently across hundreds of requests, it is more likely to represent a parameter value than a static path component.
+- Verify suspected variable URL segments by setting them to an obviously invalid value. This applies to intermediate segments that look dynamic as well as terminal segments without file extensions. A routing-level `404` before application processing can indicate a static path segment. Application-generated `404` responses are not enough on their own to make that distinction. If the request reaches application logic and returns a resource-not-found or validation error, the segment may be application-routed and parameterized. Treat this as a heuristic and correlate the response source with observed routing behavior.
 
 ### Google Dorking
 
@@ -165,6 +168,12 @@ Regular expression is more straightforward by searching JS or HTML content for k
 
 Active Fuzzing involves using tools with wordlists and filtering requests results to bruteforce endpoint discovery.
 
+After endpoint and parameter discovery, use collected request values to optimize value-level fuzzing:
+
+- Compare observed values to identify likely valid versus invalid ranges and formats.
+- Start with marginal invalid values (for example `0` for fields that are always positive integers).
+- Look for sequences so you can test values outside the range currently allocated to the authenticated user.
+
 #### Kiterunner
 
 [KiteRunner](https://github.com/assetnote/kiterunner) is a tool that performs traditional content discovery and bruteforcing routes/endpoints in modern applications and APIs.
@@ -188,6 +197,10 @@ Some common wordlist files for APIs include: [SecLists](https://github.com/danie
 GoBuster Example:
 
 `gobuster dir -u <target url> -w <wordlist file>`
+
+#### Authenticated Fuzzing
+
+When fuzzing authenticated APIs, replay the same authentication and session handling that the target expects. Include custom tokens, non-standard authorization headers, signed request metadata, or cookies as required, otherwise tools may produce false negatives by never reaching the application logic. If the mechanism uses dynamic fields (for example timestamps, nonces, or body-bound signatures), recompute those values for each mutated request, typically through pre-request scripting or proxy/request interceptors.
 
 ## References
 
