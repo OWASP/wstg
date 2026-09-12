@@ -36,7 +36,7 @@ The visibility of private APIs depends on who the intended consumer is. An API c
 
 ### Find the Documentation
 
-In both public and private cases, the API documentation will be useful based on its level of the quality and accuracy. Public API documentation is typically shared with everyone whereas private API documentation is only shared with the intended client. However, in both cases finding documentation, accidentally leaked or otherwise will be helpful in your investigation.
+In both public and private cases, the API documentation will be useful based on its level of quality and accuracy. Public API documentation is typically shared with everyone whereas private API documentation is only shared with the intended client. However, in both cases finding documentation, accidentally leaked or otherwise will be helpful in your investigation.
 
 Regardless of the visibility of the API, searching for API documentation can find older, not-yet-published, or accidentally leaked API documentation. This documentation will be very helpful in understanding what attack surface the API exposes.
 
@@ -104,7 +104,7 @@ Analyze the collected requests to identify non-standard or hidden parameters:
 - Identify structured parameter values formatted in JSON, XML, or other custom structures.
 - Examine the final element of a URL. If it lacks a file extension, it may be a parameter.
 - Look for highly varying URL segments. If a single segment changes frequently across hundreds of requests, it is more likely to represent a parameter value than a static path component.
-- Verify suspected URL-segment parameters by setting them to an obviously invalid value. A web-server-level `404` can indicate a static path segment, while an application-level validation error can indicate an application-routed parameterized segment. Treat this as a heuristic and correlate the response source with observed routing behavior.
+- Verify suspected URL-segment parameters by setting them to an obviously invalid value. A routing-level `404` before application processing can indicate a static path segment. If the request reaches application logic and returns a resource-not-found or validation error, the segment may be application-routed and parameterized. Treat this as a heuristic and correlate the response source with observed routing behavior.
 
 ### Google Dorking
 
