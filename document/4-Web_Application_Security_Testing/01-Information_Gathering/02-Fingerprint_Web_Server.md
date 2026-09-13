@@ -20,15 +20,21 @@ Techniques used for web server fingerprinting include [banner grabbing](https://
 
 ### Banner Grabbing
 
-A banner grab is performed by sending an HTTP request to the web server and examining its [response header](https://developer.mozilla.org/en-US/docs/Glossary/Response_header). This can be accomplished using a variety of tools, including `telnet` for HTTP requests, or `openssl` for requests over TLS/SSL.
+A banner grab is performed by sending an HTTP request to the web server and examining its [response header](https://developer.mozilla.org/en-US/docs/Glossary/Response_header). This can be done with  `curl -I` (which sends a `HEAD` request and displays only the response headers), [httpx](https://github.com/projectdiscovery/httpx) for probing large host lists at scale, or `openssl s_client` for requests over TLS/SSL.
+
+As an example, the following command retrieves only the response headers from a server:
+
+```bash
+curl -I https://example.org
+```
 
 For example, here is the response to a request sent to an Apache server.
 
 ```http
 HTTP/1.1 200 OK
 Date: Thu, 05 Sep 2019 17:42:39 GMT
-Server: Apache/2.4.41 (Unix)
-Last-Modified: Thu, 05 Sep 2019 17:40:42 GMT
+Server: Apache/2.4.43 (Unix)
+Last-Modified: Thu, 05 Sep 2026 17:40:42 GMT
 ETag: "75-591d1d21b6167"
 Accept-Ranges: bytes
 Content-Length: 117
@@ -41,11 +47,11 @@ Here is another response, this time sent by Nginx.
 
 ```http
 HTTP/1.1 200 OK
-Server: nginx/1.17.3
-Date: Thu, 05 Sep 2019 17:50:24 GMT
+Server: nginx/1.31.5
+Date: Thu, 05 Sep 2026 17:50:24 GMT
 Content-Type: text/html
 Content-Length: 117
-Last-Modified: Thu, 05 Sep 2019 17:40:42 GMT
+Last-Modified: Thu, 05 Sep 2026 17:40:42 GMT
 Connection: close
 ETag: "5d71489a-75"
 Accept-Ranges: bytes
@@ -54,16 +60,17 @@ Accept-Ranges: bytes
 
 Here's what a response sent by lighttpd looks like.
 
-```sh
-HTTP/1.0 200 OK
+```http
+HTTP/1.1 200 OK
 Content-Type: text/html
 Accept-Ranges: bytes
 ETag: "4192788355"
-Last-Modified: Thu, 05 Sep 2019 17:40:42 GMT
+Last-Modified: Thu, 05 Sep 2026 17:40:42 GMT
 Content-Length: 117
 Connection: close
-Date: Thu, 05 Sep 2019 17:57:57 GMT
-Server: lighttpd/1.4.54
+Date: Thu, 05 Sep 2026 17:57:57 GMT
+Server: lighttpd/1.4.85
+...
 ```
 
 In these examples, the server type and version is clearly exposed. However, security-conscious applications may obfuscate their server information by modifying the header. For example, here is an excerpt from the response to a request for a site with a modified header:

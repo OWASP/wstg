@@ -28,20 +28,27 @@ To demonstrate code coverage to the application owner, the tester can start by d
 
 ### Automatic Spidering
 
-An automatic spider is a tool that is used to discover new resources (URLs) on a specific site automatically. It begins with a list of URLs to visit, called the seeds, which depends on how the Spider is started. While there are a lot of Spidering tools, the following example uses the [Zed Attack Proxy (ZAP)](https://github.com/zaproxy/zaproxy):
+An automatic spider is a tool that is used to discover new resources (URLs) on a specific site automatically. It begins with a list of URLs to visit, called the seeds, which depends on how the Spider is started. While there are a lot of Spidering tools, the following example uses the [Zed Attack Proxy (ZAP)](https://www.zaproxy.org):
 
-![Zed Attack Proxy Screen](images/01-owaspzapsp.png)\
+![Zed Attack Proxy Screen](images/07-zapsp.png)\
 *Figure 4.1.7-1: Zed Attack Proxy Screen*
 
-[ZAP](https://github.com/zaproxy/zaproxy) offers various automatic spidering options, which can be leveraged based on the tester's needs:
+ZAP offers various automatic spidering options, which can be leveraged based on the tester's needs:
 
 - [Spider](https://www.zaproxy.org/docs/desktop/start/features/spider/)
-- [Ajax Spider](https://www.zaproxy.org/docs/desktop/addons/ajax-spider/)
+- [Client Spider](https://www.zaproxy.org/docs/desktop/addons/client-side-integration/spider/)
 - [OpenAPI Support](https://www.zaproxy.org/docs/desktop/addons/openapi-support/)
+- [GraphQL Support](https://www.zaproxy.org/docs/desktop/addons/graphql-support/)
+
+### Crawling Modern, JavaScript-Heavy Applications
+
+Naive spidering often under-covers modern applications, since many routes and decision paths are only reachable via client-side routing, dynamically rendered content, or API calls triggered by user interaction rather than by following `<a href>` links. This means a significant portion of the application's execution paths may never be discovered by a spider that only parses static HTML.
+
+To improve coverage of these applications, consider crawlers capable of executing JavaScript and following client-side navigation, such as [katana](https://github.com/projectdiscovery/katana) (which supports a headless mode for this purpose), ZAP's [Client Spider](https://www.zaproxy.org/docs/desktop/addons/client-side-integration/spider/), or Burp Suite's crawler. Manually exercising the application's workflows through an intercepting proxy, as described in [Identify Application Entry Points](06-Identify_Application_Entry_Points.md), remains important to reach paths gated behind multi-step flows, authentication states, or conditional logic that automated crawlers may not trigger on their own.
 
 ## Tools
 
-- [Zed Attack Proxy (ZAP)](https://github.com/zaproxy/zaproxy)
+- [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
 - [List of spreadsheet software](https://en.wikipedia.org/wiki/List_of_spreadsheet_software)
 - [Diagramming software](https://en.wikipedia.org/wiki/List_of_concept-_and_mind-mapping_software)
 

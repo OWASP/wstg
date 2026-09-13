@@ -19,18 +19,31 @@ This section describes how to test various metadata files for information leakag
 
 ### Robots
 
-Web Spiders, Robots, or Crawlers retrieve a web page and then recursively traverse hyperlinks to retrieve further web content. Their accepted behavior is specified by the [Robots Exclusion Protocol](https://www.robotstxt.org) of the [robots.txt](https://www.robotstxt.org/) file in the web root directory.
+Web Spiders, Robots, or Crawlers retrieve a web page and then recursively traverse hyperlinks to retrieve further web content. Their accepted behavior is specified by the [Robots Exclusion Protocol](https://datatracker.ietf.org/doc/html/rfc9309) ([RFC 9309](https://datatracker.ietf.org/doc/html/rfc9309)) via a `robots.txt` file in the web root directory.
 
-As an example, the beginning of the `robots.txt` file from [Google](https://www.google.com/robots.txt) sampled on 2020 May 5 is quoted below:
+As an example, a sample of the `robots.txt` file from [Google](https://www.google.com/robots.txt) sampled on 2026 Sept 13 is quoted below:
 
 ```text
 User-agent: *
+User-agent: Yandex
 Disallow: /search
 Allow: /search/about
-Allow: /search/static
 Allow: /search/howsearchworks
 Disallow: /sdch
+Disallow: /groups
 ...
+# Crawlers of certain social media sites are allowed to access page markup when
+# google.com/imgres* links are shared. To learn more, please contact
+# images-robots-allowlist@google.com.
+User-agent: facebookexternalhit
+User-agent: Twitterbot
+Allow: /imgres
+Allow: /search
+Disallow: /groups
+Disallow: /hosted/images/
+Disallow: /m/
+
+Sitemap: https://www.google.com/sitemap.xml
 ```
 
 The [User-Agent](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent) directive refers to the specific web spider/robot/crawler. For example, the `User-Agent: Googlebot` refers to the spider from Google while `User-Agent: bingbot` refers to a crawler from Microsoft. `User-Agent: *` in the example above applies to all [web spiders/robots/crawlers](https://support.google.com/webmasters/answer/6062608?visit_id=637173940975499736-3548411022&rd=1).
@@ -75,7 +88,7 @@ Site owners can use the Google "Analyze robots.txt" function to analyze the site
 
 ### META Tags
 
-`<META>` tags are located within the `HEAD` section of each HTML document and should be consistent across a site in the event that the robot/spider/crawler start point does not begin from a document link other than webroot i.e. a [deep link](https://en.wikipedia.org/wiki/Deep_linking). The Robots directive can also be specified using a specific [META tag](https://www.robotstxt.org/meta.html).
+`<META>` tags are located within the `HEAD` section of each HTML document and should be consistent across a site in the event that the robot/spider/crawler start point does not begin from a document link other than webroot i.e. a [deep link](https://en.wikipedia.org/wiki/Deep_linking). The Robots directive can also be specified using a specific [META tag](https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag).
 
 #### Robots META Tag
 
@@ -85,30 +98,28 @@ Based on the Disallow directive(s) listed within the `robots.txt` file in webroo
 
 #### Miscellaneous META Information Tags
 
-Organizations often embed informational META tags in web content to support various technologies such as screen readers, social networking previews, search engine indexing, etc. Such meta-information can be of value to testers in identifying technologies used, and additional paths/functionality to explore and test. The following meta information was retrieved from `www.whitehouse.gov` via View Page Source on 2020 May 05:
+Organizations often embed informational META tags in web content to support various technologies such as screen readers, social networking previews, search engine indexing, etc. Such meta-information can be of value to testers in identifying technologies used, and additional paths/functionality to explore and test. The following meta information was retrieved from `www.whitehouse.gov` via View Page Source on 2026 Sept 13:
 
 ```html
 ...
+<meta name="description" content="President Donald J. Trump and Vice President JD Vance are committed to lowering costs for all Americans, securing our borders, unleashing American energy dominance, restoring peace through strength, and making all Americans safe and secure once again." />
+<link rel="canonical" href="https://www.whitehouse.gov/" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="The White House" />
-<meta property="og:description" content="We, the citizens of America, are now joined in a great national effort to rebuild our country and to restore its promise for all. – President Donald Trump." />
+<meta property="og:description" content="President Donald J. Trump and Vice President JD Vance are committed to lowering costs for all Americans, securing our borders, unleashing American energy dominance, restoring peace through strength, and making all Americans safe and secure once again." />
 <meta property="og:url" content="https://www.whitehouse.gov/" />
 <meta property="og:site_name" content="The White House" />
-<meta property="fb:app_id" content="1790466490985150" />
-<meta property="og:image" content="https://www.whitehouse.gov/wp-content/uploads/2017/12/wh.gov-share-img_03-1024x538.png" />
-<meta property="og:image:secure_url" content="https://www.whitehouse.gov/wp-content/uploads/2017/12/wh.gov-share-img_03-1024x538.png" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:description" content="We, the citizens of America, are now joined in a great national effort to rebuild our country and to restore its promise for all. – President Donald Trump." />
-<meta name="twitter:title" content="The White House" />
-<meta name="twitter:site" content="@whitehouse" />
-<meta name="twitter:image" content="https://www.whitehouse.gov/wp-content/uploads/2017/12/wh.gov-share-img_03-1024x538.png" />
-<meta name="twitter:creator" content="@whitehouse" />
+<meta property="article:publisher" content="https://www.facebook.com/WhiteHouse/" />
+<meta property="article:modified_time" content="2026-07-22T13:21:31+00:00" />
+<meta property="og:image" content="https://www.whitehouse.gov/wp-content/uploads/2025/03/WH47-Social-Share-Card.jpg" />
 ...
-<meta name="apple-mobile-web-app-title" content="The White House">
-<meta name="application-name" content="The White House">
-<meta name="msapplication-TileColor" content="#0c2644">
-<meta name="theme-color" content="#f5f5f5">
+<meta property="og:image:type" content="image/jpeg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="The White House" />
+...
+<meta name="twitter:image" content="https://www.whitehouse.gov/wp-content/uploads/2025/03/WH47-Social-Share-Card.jpg" />
+<meta name="twitter:site" content="@whitehouse" />
 ...
 ```
 
