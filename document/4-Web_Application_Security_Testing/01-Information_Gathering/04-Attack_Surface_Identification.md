@@ -200,6 +200,12 @@ mail.example.com
 api.example.com
 ```
 
+#### Subdomain Permutation
+
+After an initial set of subdomains has been collected, permutation (or alteration) techniques can generate additional candidates by combining known labels with common prefixes/suffixes or by applying mutations (e.g. `dev-` → `staging-`, inserting numbers, etc.). Tools such as [altdns](https://github.com/infosec-au/altdns), [dnsgen](https://github.com/ProjectAnte/dnsgen), or [gotator](https://github.com/Josue87/gotator) are commonly used for this purpose. Generated candidates should then be resolved (`dnsx` / [MassDNS](https://github.com/blechschmidt/massdns)) and probed (`httpx`).
+
+MassDNS is a high-speed DNS resolver, useful for quickly resolving the large candidate lists produced by permutation tools or wordlist-based brute forcing.
+
 #### DNS Zone Transfers
 
 This technique has limited use nowadays, given the fact that zone transfers are largely not honored by DNS servers. However, it could still be worth attempting. First of all, testers must determine the name servers serving `x.y.z.t`. If a symbolic name is known for `x.y.z.t` (let it be `www.example.com`), its name servers can be determined by means of tools such as `nslookup`, `host`, or `dig`, by requesting DNS NS records.
@@ -294,7 +300,7 @@ For instance: `https://crt.sh/?q=%25.example.com`
 
 > Note: [crt.sh](https://crt.sh) has occasional periods of downtime or high latency. [Merklemap](https://www.merklemap.com/) and [SSLMate's Cert Spotter](https://sslmate.com/certspotter/) are alternative Certificate Transparency search services worth having as a fallback.
 
-![CT Log Search Example](images/01-figure-4.1.4-ct-logs-example.png)  
+![CT Log Search Example](images/01-ct_logs_example.png)  
 
 *Figure 4.1.4-1: Example of Certificate Transparency log search results.*
 
@@ -334,6 +340,8 @@ Always respect scope, rate limits, and engagement rules of engagement. Validate 
     - [httpx](https://github.com/projectdiscovery/httpx) (live host probing, tech detection, titles)
     - [gowitness](https://github.com/sensepost/gowitness) (screenshotting for visual triage of live hosts)
     - `dnsrecon`, `fierce`
+- Subdomain permutation: [altdns](https://github.com/infosec-au/altdns), [dnsgen](https://github.com/ProjectAnte/dnsgen), [gotator](https://github.com/Josue87/gotator)
+- [MassDNS](https://github.com/blechschmidt/massdns) (high-speed resolver for wordlist / permutation output)
 - Search engines (Google, Bing, and other major search engines)
 - Reverse IP lookup services
 - Internet asset search engines: [Shodan](https://www.shodan.io/), [Censys](https://censys.io), [FOFA](https://fofa.info)
