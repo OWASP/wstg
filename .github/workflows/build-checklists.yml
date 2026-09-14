@@ -40,6 +40,9 @@ jobs:
     - name: Run XLSX Build
       if: env.CHANGED == 'true'
       run: python3 ./.github/xlsx/scripts/build-checklist.py
+    - name: Run Markdown Build
+      if: env.CHANGED == 'true'
+      run: python3 ./.github/md/scripts/build-checklist-md.py
     - name: Git Setup Global Config
       if: env.CHANGED == 'true'
       run: |
