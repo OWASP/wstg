@@ -95,10 +95,7 @@ From this example, one can see that:
 - Another unspecified service on port 8000; this might possibly be HTTP, since it is not uncommon to find HTTP servers on this port. Let's examine this issue:
 
 ```bash
-$ telnet 192.168.10.100 8000
-Trying 192.168.1.100...
-Connected to 192.168.1.100.
-Escape character is '^]'.
+$ ncat 192.168.10.100 8000
 GET / HTTP/1.0
 
 HTTP/1.0 200 OK
@@ -250,7 +247,6 @@ Reverse-IP services are similar to DNS inverse queries, with the difference that
 
 - [MxToolbox Reverse IP](https://mxtoolbox.com/ReverseLookup.aspx)
 - [DNSstuff](https://www.dnsstuff.com/) (multiple services available)
-- [Net Square](https://web.archive.org/web/20190515092354/https://www.net-square.com/mspawn.html) (multiple queries on domains and IP addresses, requires installation)
 
 Internet asset search engines such as [Shodan](https://www.shodan.io/), [Censys](https://censys.io), and [FOFA](https://fofa.info) index internet-connected hosts and services and can also be searched by IP, certificate, or banner content to reveal other hostnames and services hosted on the same address. FOFA in particular has extensive coverage of infrastructure in China and Asia-Pacific, which can complement the coverage of Shodan and Censys. For example, an IP-based FOFA search: `ip="192.168.1.100"`, or a search for a specific title or header: `title="Example App"`. As with the other reverse-IP services above, a free tier with limited queries is available, with paid plans for more comprehensive access.
 

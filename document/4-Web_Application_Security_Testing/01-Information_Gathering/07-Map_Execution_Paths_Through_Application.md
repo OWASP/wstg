@@ -49,7 +49,6 @@ To improve coverage of these applications, consider crawlers capable of executin
 ## Tools
 
 - [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
-- [List of spreadsheet software](https://en.wikipedia.org/wiki/List_of_spreadsheet_software)
 - [Diagramming software](https://en.wikipedia.org/wiki/List_of_concept-_and_mind-mapping_software)
 
 ## References
