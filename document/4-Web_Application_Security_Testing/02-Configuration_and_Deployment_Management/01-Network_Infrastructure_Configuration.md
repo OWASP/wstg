@@ -6,26 +6,21 @@
 
 ## Summary
 
-The intrinsic complexity of interconnected and heterogeneous web server infrastructure, which can include hundreds of web applications, makes configuration management and review a fundamental step in testing and deploying every single application. It takes only a single vulnerability to undermine the security of the entire infrastructure, and even small and seemingly unimportant problems may evolve into severe risks for another application on the same server. In order to address these problems, it is of utmost importance to perform an in-depth review of configuration and known security issues, after having mapped the entire architecture.
+A web application's infrastructure - web/application servers, databases, authentication servers, load balancers/CDNs, and (in modern deployments) cloud network controls and container/orchestration layers - is only as secure as its weakest, most poorly configured element. A single unreviewed or vulnerable component can compromise the application itself, even if the application's own code is sound; for example, a web server flaw disclosing source code hands an attacker information to attack the application directly.
 
-Proper configuration management of the web server infrastructure is very important in order to preserve the security of the application itself. If elements such as the web server software, the backend database servers, or the authentication servers are not properly reviewed and secured, they might introduce undesired risks or introduce new vulnerabilities that might compromise the application itself.
+After mapping the infrastructure (see [Map Network and Application Architecture](../01-Information_Gathering/10-Map_Application_Architecture.md)), testing should:
 
-For example, a web server vulnerability that would allow a remote attacker to disclose the source code of the application itself (a vulnerability that has arisen a number of times in both web servers and application servers) could compromise the application, as anonymous users could use the information disclosed in the source code to leverage attacks against the application or its users.
-
-The following steps need to be taken to test the configuration management infrastructure:
-
-- The different elements that make up the infrastructure need to be determined in order to understand how they interact with a web application and how they affect its security.
-- All the elements of the infrastructure need to be reviewed in order to make sure that they don't contain any known vulnerabilities.
-- A review needs to be made of the administrative tools used to maintain all the different elements.
-- The authentication systems need to be reviewed in order to assure that they serve the needs of the application and that they cannot be manipulated by external users to leverage access.
-- A list of defined ports which are required for the application should be maintained and kept under change control.
-
-After having mapped the different elements that make up the infrastructure (see [Map Network and Application Architecture](../01-Information_Gathering/10-Map_Application_Architecture.md)), it is possible to review the configuration of each element founded and test for any known vulnerabilities.
+- Identify every element and how it affects the application's security.
+- Review each element for known vulnerabilities.
+- Review the administrative tools used to maintain them.
+- Review authentication systems for manipulation by external users.
+- Maintain and check against a change-controlled list of ports required by the application.
 
 ## Test Objectives
 
 - Review the applications' configurations set across the network and validate that they are not vulnerable.
 - Validate that used frameworks and systems are secure and not susceptible to known vulnerabilities due to unmaintained software or default settings and credentials.
+- Where the infrastructure is cloud-hosted or containerized, review network isolation controls (security groups/NSGs, VPC/subnet layout, load balancer/CDN configuration, service mesh policies, Kubernetes `NetworkPolicy`) for unintended exposure or overly permissive rules.
 
 ## How to Test
 
@@ -35,19 +30,38 @@ Vulnerabilities in various areas of the application architecture, whether in the
 
 Reviewing server vulnerabilities can be hard to do if the test needs to be done through a blind penetration test. In these cases, vulnerabilities need to be tested from a remote site, typically using an automated tool. However, testing for some vulnerabilities can have unpredictable results on the web server, and testing for others (like those directly involved in denial of service attacks) might not be possible due to the service downtime involved if the test was successful.
 
-Some automated tools will flag vulnerabilities depending on the version of the web server they retrieve. This leads to both false positives and false negatives. On one hand, if the web server version has been removed or obscured by the local site administrator the scan tool will not flag the server as vulnerable even if it is. On the other hand, if the vendor providing the software does not update the web server version when vulnerabilities are fixed, the scan tool will flag vulnerabilities that do not exist. The latter case is actually very common as some operating system vendors back port patches of security vulnerabilities to the software they provide in the operating system, but do not do a full upload to the latest software version. This happens in most GNU/Linux distributions such as Debian, Red Hat, and SuSE. In most cases, vulnerability scanning of an application architecture will only find vulnerabilities associated with the "exposed" elements of the architecture (such as the web server) and will usually be unable to find vulnerabilities associated to elements which are not directly exposed, such as the authentication backend, the backend database, or reverse proxies [1] in use.
+Some automated tools will flag vulnerabilities depending on the version of the web server they retrieve. This leads to both false positives and false negatives. On one hand, if the web server version has been removed or obscured by the local site administrator the scan tool will not flag the server as vulnerable even if it is. On the other hand, if the vendor providing the software does not update the web server version when vulnerabilities are fixed, the scan tool will flag vulnerabilities that do not exist. The latter case is actually very common as some operating system vendors back port patches of security vulnerabilities to the software they provide in the operating system, but do not do a full upload to the latest software version. This happens in most GNU/Linux distributions such as Debian, Red Hat, and SuSE. In most cases, vulnerability scanning of an application architecture will only find vulnerabilities associated with the "exposed" elements of the architecture (such as the web server) and will usually be unable to find vulnerabilities associated to elements which are not directly exposed, such as the authentication backend, the backend database, or reverse proxies in use.
 
-Finally, not all software vendors publicly disclose vulnerabilities, which means these weaknesses may not be registered within known vulnerability databases [2]. This information is only disclosed to customers or published through fixes that do not have accompanying advisories. This reduces the effectiveness of vulnerability scanning tools. Typically, vulnerability coverage of these tools will be very good for common products (such as the Apache web server, Microsoft IIS, or IBM's Lotus Domino) but will be lacking for lesser known products.
+Finally, not all software vendors publicly disclose vulnerabilities, which means these weaknesses may not be registered within known vulnerability databases (such as [NVD](https://nvd.nist.gov/), or vendor-specific advisories). This information is only disclosed to customers or published through fixes that do not have accompanying advisories. This reduces the effectiveness of vulnerability scanning tools. Typically, vulnerability coverage of these tools will be very good for common products (such as the Apache web server, Microsoft IIS, or IBM's Lotus Domino) but will be lacking for lesser known products.
 
 This is why reviewing vulnerabilities is best done when the tester is provided with internal information about the software, including versions, releases, and patches applied. With this information, the tester can retrieve data from the vendor and analyze potential vulnerabilities in the architecture, as well as their potential impact on the application. When possible, these vulnerabilities can be tested to determine their real effects and to detect if there might be any external elements (such as intrusion detection or prevention systems) that might reduce or negate the possibility of successful exploitation. Testers might even determine through a configuration review that the vulnerability is not actually present since it affects a software component that is not in use.
 
 It is also worthwhile to note that vendors will sometimes silently fix vulnerabilities and make the fixes available with new software releases. Different vendors have varying release cycles that determine the support they may provide for older releases. A tester with detailed information about the software versions used by the architecture can analyse the risk associated with the use of old software releases that might be unsupported in the short term or are already unsupported. This is critical because if a vulnerability emerges in an unsupported older software version, the systems personnel may not be directly aware of it. No patches will be ever made available for it and advisories might not list that version as vulnerable as it is no longer supported. Even if they are aware of the vulnerability and the associated system risks, a full upgrade to a new software release will be necessary, potentially introducing significant downtime in the application architecture or necessitating application re-coding due to incompatibilities with the latest software version.
 
+### Cloud and Container Network Configuration
+
+The same network-configuration-review principle applies where the "network infrastructure" is defined in cloud provider config or container/orchestration manifests rather than physical routers, switches, and firewalls. Misconfiguration here is one of the most common causes of unintended internet exposure of otherwise internal systems. The table below separates what can be checked without credentials (black-box) from what requires access to the provider's configuration (gray-box), and states the evidence that actually supports a finding - for all of these, a black-box result (a port answering, a service reachable) is the evidence; the configuration setting itself, seen gray-box, is the explanation of why.
+
+| Control | Black-box test | Gray-box test | Evidence a finding requires |
+|---------|----------------|----------------|------------------------------|
+| Security groups / NSGs / cloud firewall rules | Port scan the target's public IPs for ports beyond the intended public listeners (especially SSH/RDP/database ports). | Read the security group/NSG/firewall rule set directly (`aws ec2 describe-security-groups`, Azure/GCP equivalents) for `0.0.0.0/0` ingress or unrestricted egress. | The black-box scan shows the port actually answering (not just filtered/no-response), or the gray-box rule set shows a specific rule granting that access with no compensating control. |
+| VPC/subnet isolation | Attempt to reach backend-tier hosts (database ports, internal admin paths) directly from the internet, using addresses/hostnames found via reconnaissance. | Review the VPC/subnet layout and route tables to confirm backend tiers sit in private subnets with no route to an internet gateway. | A direct connection from outside the VPC succeeds, or the route table shows a route to an internet/NAT gateway from a subnet that should be private. |
+| Load balancer/CDN configuration | Attempt to reach the origin server directly (bypassing the load balancer/CDN hostname), using an IP found via DNS history, certificate transparency logs, or leaked headers. | Review listener rules, origin configuration, and origin-restriction settings (e.g. an origin security group scoped to only the CDN's IP ranges, or an origin-verification header/secret). | The origin responds directly to the bypass attempt (not just to traffic via the intended load balancer/CDN hostname). |
+| Service mesh policies | Not directly testable from outside the mesh in most deployments; note as gray-box-only unless the tester has a foothold inside the cluster/mesh. | Review `AuthorizationPolicy` (or equivalent) resources and mTLS mode for services that should require mesh-internal authentication. | An `ALLOW-ALL` policy or permissive mTLS mode found in configuration, ideally confirmed by an unauthenticated in-mesh call succeeding where the design intended it to be denied. |
+| Kubernetes `NetworkPolicy` | From a pod already inside the cluster (if in scope), attempt a connection from an unauthorized pod to a sensitive workload (e.g. a database pod). | Confirm which CNI plugin is installed and whether it enforces `NetworkPolicy`; review policy objects for the sensitive workload and whether namespace-level default-deny is applied. | The in-cluster connection attempt succeeds despite an apparently-restrictive `NetworkPolicy` being present (proving the CNI isn't enforcing it), or no `NetworkPolicy` exists at all for a sensitive workload. |
+
+A few things to keep in mind that apply across all five rows:
+
+- These are illustrative checks, not an exhaustive list - the exact API calls, CLI commands, and console paths differ by provider and by version, and change over time. Adapt to the actual deployment (AWS vs. Azure vs. GCP, which CNI plugin, which service mesh) rather than treating the commands above as universal.
+- Black-box results are the primary evidence for a finding; gray-box configuration review explains the cause and helps confirm the fix, but a black-box test that fails to reproduce the exposure (e.g. the port is filtered despite a permissive-looking rule, because another control blocks it) means the finding needs re-scoping, not that the configuration review was wrong.
+
+For example: a security group meant to allow the load balancer to reach the application on port 443 also has an inbound rule for port 3306 (MySQL) open to `0.0.0.0/0`, put there temporarily for a one-off migration script and never removed.
+
 ### Administrative Tools
 
-Any web server infrastructure requires the existence of administrative tools to maintain and update the information used by the application. This information includes static content (web pages, graphic files), application source code, user authentication databases, etc. The type of administrative tools used can vary depending on the specific site, technology, or software in use. For example, some web servers will be managed using administrative interfaces which are themselves web servers (such as the iPlanet web server) or will be administrated by plain text configuration files (such as in the Apache case [3]) or use operating-system GUI tools (such as when using Microsoft's IIS server or ASP.Net).
+Any web server infrastructure requires the existence of administrative tools to maintain and update the information used by the application. This information includes static content (web pages, graphic files), application source code, user authentication databases, etc. The type of administrative tools used can vary depending on the specific site, technology, or software in use: some are web-based administrative consoles (see also [Enumerate Infrastructure and Application Admin Interfaces](05-Enumerate_Infrastructure_and_Application_Admin_Interfaces.md), which covers this in more depth, including modern cloud, Kubernetes, and CI/CD consoles), some are plain-text configuration files (as with Apache), and some are OS-native GUI/CLI tools (as with Microsoft's IIS server or `kubectl`/cloud CLIs in modern deployments).
 
-In most cases, the server configuration is managed with various file maintenance tools, administered through FTP servers, WebDAV, network file systems (NFS, CIFS), or other mechanisms. Obviously, the operating system of the elements that make up the application architecture will also be managed using other tools. Applications may also contain embedded administrative interfaces for managing application data (users, content, etc.).
+In most cases, the server configuration is managed with various file maintenance tools, administered through SSH/SFTP, WebDAV, network file systems (NFS, CIFS), infrastructure-as-code pipelines (Terraform/CloudFormation/Ansible), or GitOps tooling that pushes configuration changes automatically. Obviously, the operating system of the elements that make up the application architecture will also be managed using other tools. Applications may also contain embedded administrative interfaces for managing application data (users, content, etc.).
 
 After mapping the administrative interfaces used to manage different parts of the architecture, it is important to review them. If an attacker gains access to any of these interfaces, they could potentially compromise or damage the application architecture. To accomplish this, it's important to:
 
@@ -56,8 +70,20 @@ After mapping the administrative interfaces used to manage different parts of th
 
 Some companies choose not to manage all aspects of their web server applications and may delegate content management to other parties. This external company might provide only certain parts of the content (such as news updates or promotions), or it might completely manage the web server (including content and code). It is common to find administrative interfaces available from the internet in these situations, since using the internet is cheaper than providing a dedicated line that will connect the external company to the application infrastructure through a management-only interface. In such situations, it's crucial to test whether the administrative interfaces are vulnerable to attacks.
 
+## Tools
+
+- [nmap](https://nmap.org/) – network/port scanning and service fingerprinting.
+- [ScoutSuite](https://github.com/nccgroup/ScoutSuite) – multi-cloud (AWS/Azure/GCP) security configuration auditing, including security groups/NSGs and network exposure.
+- [Prowler](https://github.com/prowler-cloud/prowler) – AWS/Azure/GCP security assessment, including network and firewall rule checks.
+- [kube-bench](https://github.com/aquasecurity/kube-bench) – CIS Kubernetes Benchmark scanner.
+- [kube-hunter](https://github.com/aquasecurity/kube-hunter) – identifies exposed Kubernetes network-facing components.
+- [Shodan](https://www.shodan.io/) / [Censys](https://censys.io/) – internet-wide scan data useful for identifying unintentionally exposed infrastructure during black-box assessments.
+
 ## References
 
-- [1] WebSEAL, also known as Tivoli Authentication Manager, is a reverse proxy from IBM which is part of the Tivoli framework.
-- [2] Such as Symantec's Bugtraq, ISS' X-Force, or NIST's National Vulnerability Database (NVD).
-- [3] There are some GUI-based administration tools for Apache (like NetLoony) but they are not in widespread use yet.
+- [NIST National Vulnerability Database (NVD)](https://nvd.nist.gov/)
+- [CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks) – hardening baselines for common web/application servers, cloud providers, and Kubernetes.
+- [AWS: Security Groups for Your VPC](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html)
+- [Azure Network Security Groups](https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview)
+- [Kubernetes: Network Policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/)
+- [Istio: Authorization Policy](https://istio.io/latest/docs/reference/config/security/authorization-policy/)

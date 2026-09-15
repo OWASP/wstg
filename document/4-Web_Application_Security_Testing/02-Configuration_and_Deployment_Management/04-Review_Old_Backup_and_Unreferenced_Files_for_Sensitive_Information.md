@@ -6,52 +6,82 @@
 
 ## Summary
 
-While most of the files within a web server are directly handled by the server itself, it isn't uncommon to find unreferenced or forgotten files that can be used to obtain important information about the infrastructure or the credentials.
-
-Most common scenarios include the presence of renamed old versions of modified files, inclusion files that are loaded into the language of choice and downloaded as source, and even automatic or manual backups in the form of compressed archives. Backup files can also be generated automatically by the underlying file system the application is hosted on, a feature usually referred to as "snapshots".
-
-All these files may grant the tester access to inner workings, back doors, administrative interfaces, or even credentials to connect to the administrative interface or the database server.
-
-An important source of vulnerability is found in files unrelated to the application. These files may be created when editing application files, creating on-the-fly backup copies, or leaving old or unreferenced files in the web tree. Performing in-place editing or other administrative actions on production web servers may inadvertently leave backup copies, either generated automatically by the editor while editing files, or by the administrator who is zipping a set of files to create a backup.
-
-It is easy to forget such files and this may pose a serious security threat to the application. It happens because backup copies may be generated with file extensions differing from those of the original files. A `.tar`, `.zip` or `.gz` archive that we generate (and might forget) has obviously a different extension, and the same happens with automatic copies created by many editors (for example, emacs generates a backup copy named `file~` when editing `file`). Making a copy manually can produce a similar effect, such as when `file` is copied as `file.old` or `file.bak`. The underlying file system the application is on could be making snapshots of your application at different points in time without your knowledge, which may also be accessible via the web, posing a similar but different backup file style threat to your application.
-
-As a result, these activities generate files that are not needed by the application and may be handled differently than the original file by the web server. For example, if we make a copy of `login.asp` and name it `login.asp.old` without proper security measures, it could potentially allow users to download the source code of login.asp. This is because `login.asp.old` will be typically served as text or plain, rather than being executed because of its extension. In other words, accessing `login.asp` causes the execution of the server-side code of `login.asp`, while accessing `login.asp.old` causes the content of `login.asp.old` (which is, again, server-side code) to be plainly returned to the user and displayed in the browser. This may pose security risks, since sensitive information may be revealed.
-
-Generally, exposing server-side code is a bad idea. Not only are you unnecessarily exposing business logic, but you may be unknowingly revealing application-related information which may help an attacker (path names, data structures, etc.). Not to mention the fact that there are too many scripts with embedded username and password in clear text (which is a careless and extremely dangerous practice).
-
-Other causes of unreferenced files are due to design or configuration choices when they allow diverse kind of application-related files such as data files, configuration files, log files, to be stored in file system directories that can be accessed by the web server. These files have normally no reason to be in a file system space that could be accessed via web, since they should be accessed only at the application level, by the application itself (and not by the casual user browsing around).
+Web servers commonly accumulate unreferenced or forgotten files: renamed old versions, editor/manual backups (`file~`, `file.old`, `.bak`), archives, and file-system "snapshots". Because these often keep a different extension or name than the original (e.g. `login.asp.old` alongside `login.asp`), they tend to be served as plain text/source rather than executed, exposing server-side code, credentials, and internal details. The same problem now also shows up as forgotten objects left in cloud object storage (buckets/containers) backing an application or its deployment pipeline.
 
 ### Threats
 
-Old, backup and unreferenced files present various threats to the security of a web application:
-
-- Unreferenced files may disclose sensitive information that can facilitate a focused attack against the application; for example, include files containing database credentials, configuration files containing references to other hidden content, absolute file paths, etc.
-- Unreferenced pages may contain powerful functionality that can be used to attack the application; for example, an administration page that is not linked from published content but can be accessed by any user who knows where to find it.
-- Old and backup files may contain vulnerabilities that have been fixed in more recent versions; for example, `viewdoc.old.jsp` may contain a directory traversal vulnerability that has been fixed in `viewdoc.jsp` but can still be exploited by anyone who finds the old version.
-- Backup files may disclose the source code for pages designed to execute on the server; for example, requesting `viewdoc.bak` may return the source code for `viewdoc.jsp`, which can be reviewed for vulnerabilities that may be difficult to find by making blind requests to the executable page. While this threat applies to scripting languages such as Perl, PHP, ASP, shell scripts, JSP, etc., it is not limited to them, as shown in the example provided in the next point.
-- Backup archives may contain copies of all files within (or even outside) the webroot. This allows an attacker to quickly enumerate the entire application, including unreferenced pages, source code, include files, etc. For example, if you forget a file named `myservlets.jar.old` containing a backup copy of your servlet implementation classes, you are exposing a lot of sensitive information which can be decompiled and reverse engineered.
-- In some cases, copying or editing a file modifies the filename but leaves the file extension intact. This is common in Windows environments, where file copying operations generate filenames prefixed with "Copy of " or localized versions of this string. Since the file extension is left unchanged, this is not a case where an executable file is returned as plain text by the web server, and therefore not a case of source code disclosure. However, these files are dangerous too because there is a chance that they include obsolete and incorrect logic that, when invoked, could trigger application errors, which might yield valuable information to an attacker if diagnostic message display is enabled.
-- Log files may contain sensitive information about the activities of application users, for example, sensitive data passed in URL parameters, session IDs, URLs visited (which may disclose additional unreferenced content), etc. Other log files (e.g. ftp logs) may contain sensitive information about the maintenance of the application by system administrators.
-- File system snapshots may contain copies of the code that contain vulnerabilities that have been fixed in more recent versions. For example, `/.snapshot/monthly.1/view.php` may contain a directory traversal vulnerability that has been fixed in `/view.php` but can still be exploited by anyone who finds the old version.
+- Disclosure of credentials, internal paths, or other sensitive data via unreferenced include/config files.
+- Access to powerful unreferenced functionality (e.g. an unlinked admin page).
+- Exposure of vulnerabilities already fixed in the current version, via an old/backup copy that still contains them.
+- Source code disclosure when a backup/copy of an executable file is served as plain text instead of executed.
+- Bulk disclosure via backup archives containing many files at once (source, includes, compiled classes for decompilation).
+- Sensitive data in log files (session IDs, URL parameters, admin activity).
+- Cloud storage objects (buckets/containers) left with public read/listing, reachable directly without going through the application at all - see [Cloud Object Storage Artifacts](#cloud-object-storage-artifacts).
 
 ## Test Objectives
 
-- Find and analyse unreferenced files that might contain sensitive information.
+- Find and analyze old, backup, and unreferenced files - including files exposed only through their extension, and objects left in cloud storage - that might contain sensitive information.
+- Validate that no system or framework bypasses exist for any rules put in place to prevent these files from being served.
 
 ## How to Test
 
 ### Black-Box Testing
 
-Testing for unreferenced files uses both automated and manual techniques, and typically involves a combination of the following:
+Testing for old, backup, and unreferenced files uses both automated and manual techniques, and typically involves a combination of the following. As a general principle, treat automated discovery as a way to generate a candidate list cheaply at scale, and always manually verify a sample of hits - automated tools report on status codes and fingerprints, not on whether a file actually contains sensitive data, and both false positives (custom "not found" pages returning `200`) and false negatives (sensitive content behind an unexpected response code) are common.
+
+#### Sensitive File Extensions
+
+Submit requests with different file extensions and verify how they are handled, on a per-directory basis, since directories may be configured differently (for example, one directory may execute `.php` files while another serves them as plain text). Web server directories can be identified by scanning tools which look for well-known directories, and mirroring the site structure helps reconstruct the directory tree served by the application.
+
+If the web application architecture is load-balanced or otherwise heterogeneous (for example, a mix of IIS and Apache nodes), assess all of the servers, since configuration may vary slightly between nodes and introduce asymmetric behavior or vulnerabilities.
+
+##### Example
+
+The tester has identified the existence of a file named `connection.inc`. Trying to access it directly gives back its contents, which are:
+
+```php
+<?
+    mysql_connect("127.0.0.1", "root", "password")
+        or die("Could not connect");
+?>
+```
+
+The tester determines the existence of a MySQL DBMS backend and the weak credentials used by the web application to access it.
+
+The extensions and paths worth checking for fall into different categories, which matter because they carry different levels of risk and require different handling once found. A hit in any category is a candidate finding only - confirm the response actually returns the file's content (not a custom 404 or an access-denied page), and read enough of that content to confirm it is genuinely sensitive, before reporting it. This is especially important for the "may be legitimately served" and "sensitivity depends on content" categories below, where the mere presence of the extension is not itself a finding.
+
+| Type | Category | Examples |
+|------|----------|----------|
+| Credentials and secrets | Should generally never be publicly served | `.env`, `.pem`, `.key`, `.p12`, `.pfx`, `.tfstate`, `.tfvars`, `.kdbx`, `.htpasswd`, `.npmrc`, `.dockercfg`/`.docker/config.json`, `.asa`, `.inc`, `.config` |
+| Source/configuration | Should generally never be publicly served | `.java` source files, `.yaml`/`.yml` and `.json` outside expected API paths (Kubernetes manifests, CI pipeline definitions, `docker-compose.yml`) |
+| Backups and archives | Should generally never be publicly served | `.bak`, `.old`, `.orig`, `.save`, `.swp`, `~` (editor backups), `.zip`, `.tar`, `.gz`, `.tgz`, `.rar`, `.7z` |
+| Data artifacts | Sensitivity depends heavily on content | `.db`, `.sqlite`, `.sqlite3`, `.parquet`, `.avro`, `.csv`, `.ipynb` (notebooks in particular can contain hardcoded credentials in cell output, but frequently don't) |
+| May be legitimately served | May be legitimately served | `.txt`, `.md`, `.log`, `.pdf`, `.docx`, `.rtf`, `.xlsx`, `.pptx` |
+| Special paths (not file extensions) | Directory names and paths, not extensions | `.git/`, `.docker/` |
+
+The list given above details only a few examples, since file extensions and filenames worth checking are too numerous to be comprehensively treated here. Refer to [FILExt](https://filext.com/) for a more thorough extension database, and see [SecLists' raft/common backup/config wordlists](https://github.com/danielmiessler/SecLists/tree/master/Discovery/Web-Content) for maintained, up-to-date filename lists to drive automated discovery.
+
+To identify files with a given extension, use a mix of vulnerability scanners, spidering/mirroring tools, search-engine queries (see [Testing: Spidering and googling](../01-Information_Gathering/01-Conduct_Search_Engine_Reconnaissance_for_Information_Leakage.md)), and manual inspection, since manual review overcomes gaps in automated spidering (for example, links that only appear after client-side JavaScript execution).
+
+##### Windows 8.3 Legacy Filename Handling
+
+On Windows-based systems, legacy 8.3 short filename generation can affect how files are resolved and accessed by the web server, independent of any file-upload logic. In environments where 8.3 filename generation is enabled, sensitive files that are not directly reachable by their long filename may still be reachable through their shortened equivalent, which can disclose source code or configuration files even when access controls correctly block the long filename.
+
+Examples of 8.3 filename resolution behavior that may lead to unintended file exposure:
+
+1. A file such as `file.phtml` may be processed as PHP code.
+2. A corresponding shortened filename (for example, `FILE~1.PHT`) may be accessible depending on server and handler configuration.
+3. Files with misleading or extended filenames may still resolve to executable handlers once expanded by the operating system.
+
+Testing should focus on whether legacy filename handling allows access to sensitive files that were not intended to be served this way; testing of file upload mechanisms themselves is covered separately under File Upload and Business Logic test cases.
 
 #### Inference from the Naming Scheme Used for Published Content
 
-Enumerate all of the application’s pages and functionality. This can be done manually using a browser, or using an application spidering tool. Most applications use a recognizable naming scheme, and organize resources into pages and directories using words that describe their function. It is often possible to infer the name and location of unreferenced pages from the naming scheme used for published content. For example, if a page titled `viewuser.asp` is found, one should also look for `edituser.asp`, `adduser.asp`, and `deleteuser.asp`. Similarly, if a directory `/app/user` is discovered, one should also search for `/app/admin` and `/app/manager`.
+Enumerate all of the application's pages and functionality, manually or with a spidering tool. Most applications use a recognizable naming scheme and organize resources into pages and directories using words that describe their function, so it is often possible to infer the name and location of unreferenced pages from the naming scheme used for published content. For example, if a page titled `viewuser.asp` is found, one should also look for `edituser.asp`, `adduser.asp`, and `deleteuser.asp`. Similarly, if a directory `/app/user` is discovered, one should also search for `/app/admin` and `/app/manager`.
 
 #### Other Clues in Published Content
 
-Many web applications leave clues in published content that can lead to the discovery of hidden pages and functionality. These clues can often be found in the source code of HTML and JavaScript files. The source code for all published content should be manually reviewed to identify clues about other pages and functionality. For example:
+Many web applications leave clues in published content that can lead to the discovery of hidden pages and functionality. These clues can often be found in the source code of HTML and JavaScript files, which should be manually reviewed to identify such clues. For example:
 
 Programmers' comments and commented-out sections of source code may refer to hidden content:
 
@@ -60,7 +90,7 @@ Programmers' comments and commented-out sections of source code may refer to hid
 <!-- Link removed while bugs in uploadfile.jsp are fixed          -->
 ```
 
-JavaScript may contain page links that are only rendered within the user’s GUI under certain circumstances:
+JavaScript may contain page links that are only rendered within the user's GUI under certain circumstances:
 
 ```javascript
 var adminUser=false;
@@ -109,7 +139,7 @@ Depending upon the server, GET may be replaced with HEAD for faster results. The
 The basic guessing attack should be run against the webroot, and also against all directories that have been identified through other enumeration techniques. More advanced/effective guessing attacks can be performed as follows:
 
 - Identify the file extensions in use within known areas of the application (e.g. JSP, ASPX, HTML), and use a basic wordlist appended with each of these extensions (or use a longer list of common extensions if resources permit).
-- For each file identified through other enumeration techniques, create a custom wordlist derived from that filename. Get a list of common file extensions (including ~, bak, txt, src, dev, old, inc, orig, copy, tmp, swp, etc.) and use each extension before, after, and instead of, the extension of the actual filename.
+- For each file identified through other enumeration techniques, create a custom wordlist derived from that filename. Get a list of common file extensions (including `~`, `bak`, `txt`, `src`, `dev`, `old`, `inc`, `orig`, `copy`, `tmp`, `swp`, `env`, `save`, etc.) and use each extension before, after, and instead of, the extension of the actual filename.
 
 > Note: Windows file copying operations generate filenames prefixed with "Copy of " or localized versions of this phrase, hence they do not change file extensions. While "Copy of " files typically do not disclose source code when accessed, they might yield valuable information in case they cause errors when invoked.
 
@@ -119,7 +149,7 @@ The most obvious way in which a misconfigured server may disclose unreferenced p
 
 Numerous vulnerabilities have been found in individual web servers which allow an attacker to enumerate unreferenced content, for example:
 
-- Apache ?M=D directory listing vulnerability.
+- Apache `?M=D` directory listing vulnerability.
 - Various IIS script source disclosure vulnerabilities.
 - IIS WebDAV directory listing vulnerabilities.
 
@@ -127,15 +157,16 @@ Numerous vulnerabilities have been found in individual web servers which allow a
 
 Pages and functionality in internet-facing web applications that are not referenced from within the application itself may be referenced from other public domain sources. There are various sources of these references:
 
-- Pages that used to be referenced may still appear in the archives of internet search engines. For example, `1998results.asp` may no longer be linked from a company’s site, but may remain on the server and in search engine databases. This old script may contain vulnerabilities that could be used to compromise the entire site. The `site:` Google search operator may be used to run a query only against the domain of choice, such as in: `site:www.example.com`. Using search engines in this way has led to a broad array of techniques which you may find useful, and are described in the `Google Hacking` section of this Guide. Check it to hone your testing skills via Google. Backup files are not likely to be referenced by any other files and therefore may have not been indexed by Google, but if they lie in browsable directories the search engine might know about them.
-- In addition, Google and Yahoo keep cached versions of pages found by their robots. Even if `1998results.asp` has been removed from the target server, a version of its output may still be stored by these search engines. The cached version may contain references to, or clues about, additional hidden content that still remains on the server.
+- Pages that used to be referenced may still appear in the archives of internet search engines. For example, `1998results.asp` may no longer be linked from a company's site, but may remain on the server and in search engine databases. The `site:` Google search operator may be used to run a query only against the domain of choice, such as in: `site:www.example.com`. Using search engines in this way has led to a broad array of techniques described in the `Google Hacking` section of this Guide. Backup files are not likely to be referenced by any other files and therefore may not have been indexed, but if they lie in browsable directories the search engine might know about them.
+- Google and other search engines keep cached versions of pages found by their crawlers, which may still reference or hint at additional hidden content even after the original page is removed.
 - Content that is not referenced from within a target application may be linked to by third-party sites. For example, an application which processes online payments on behalf of third-party traders may contain a variety of bespoke functionality which can (normally) only be found by following links within the sites of its customers.
+- Public code-hosting and CI/CD build-log search (GitHub/GitLab code search, and cached CI logs) can surface references to internal filenames, paths, or bucket names committed by mistake.
 
 #### Filename Filter Bypass
 
-Because deny list filters are based on regular expressions, one can sometimes take advantage of obscure OS filename expansion features which work in ways the developer didn't expect. The tester can sometimes exploit differences in ways that filenames are parsed by the application, web server, and underlying OS and it's filename conventions.
+Because deny list filters are based on regular expressions, one can sometimes take advantage of obscure OS filename expansion features which work in ways the developer didn't expect. The tester can sometimes exploit differences in ways that filenames are parsed by the application, web server, and underlying OS and its filename conventions.
 
-Example: Windows 8.3 filename expansion `c:\\program files` becomes `C:\\PROGRA\~1`
+Example: Windows 8.3 filename expansion `c:\program files` becomes `C:\PROGRA~1`
 
 - Remove incompatible characters
 - Convert spaces to underscores
@@ -145,19 +176,34 @@ Example: Windows 8.3 filename expansion `c:\\program files` becomes `C:\\PROGRA\
 - Truncate file extension to three characters
 - Make all the characters uppercase
 
+#### Cloud Object Storage Artifacts
+
+The same "forgotten file" problem reappears in cloud object storage backing a web application, its static assets, or its deployment pipeline (AWS S3, Azure Blob Storage, Google Cloud Storage). Because these are reachable directly over the internet, a misconfigured bucket/container skips the web application entirely:
+
+- Identify buckets/containers associated with the target through naming conventions (`<company>-backup`, `<company>-assets`, `<company>-logs`, `<company>-dev`, `<app>-uploads`), DNS records (CNAMEs pointing at storage endpoints - see also [Subdomain Takeover](10-Subdomain_Takeover.md)), and references found in JS bundles, error messages, or CI configuration.
+- Check whether the bucket/container itself allows public listing (not just public read of a known object); a listable bucket turns this into the cloud equivalent of directory listing, exposing backups, database dumps (`.sql`, `.sql.gz`), and credentials files placed there for deployment.
+- Common forgotten artifact types in buckets mirror the extension list above, with a few storage-specific additions: `terraform.tfstate` files, `.env` files uploaded as part of a deploy step, database snapshot exports, and CI/CD build artifacts (compiled binaries or archives containing embedded secrets).
+- Once a candidate object or listing is found, manually verify content before reporting - an object named `backup.sql` that turns out to be empty or a placeholder is not a finding; confirm the actual data present is sensitive.
+- Tools such as [S3Scanner](https://github.com/sa7mon/S3Scanner), [cloud_enum](https://github.com/initstring/cloud_enum), and search engines for exposed buckets (e.g. GrayhatWarfare) automate discovery across the major providers, but as with on-server discovery, treat hits as candidates requiring manual confirmation, not findings in themselves.
+
 ### Gray-Box Testing
 
-Performing gray-box testing against old and backup files necessitates the examination of files within directories that belong to the set of web directories served by the web server(s) comprising the web application infrastructure. Theoretically the examination should be performed by hand to be thorough. However, since in most cases copies of files or backup files tend to be created by using the same naming conventions, the search can be easily scripted. For example, editors leave behind backup copies by naming them with a recognizable extension or ending and humans tend to leave behind files with a `.old` or similar predictable extensions. A useful strategy would be to periodically schedule a background job to check for files with extensions that are likely to be identified as copies or backup files, while also performing manual checks on a longer time basis.
+Gray-box testing against old and backup files, and against file extension handling, involves examining the server/application configuration directly rather than only probing from outside:
+
+- Examine files within the directories served by the web server(s) comprising the application infrastructure. Since copies/backup files tend to follow predictable naming conventions (editor-specific backup suffixes, `.old`/`.bak`-style human-made copies), this search can be scripted; a useful strategy is a periodically scheduled job checking for such extensions, combined with less frequent manual checks.
+- Review server configuration to confirm which extensions are served as which content type/handler, on a per-directory basis, and confirm this matches intent (for example, that a directory containing `.inc` or `.config` files is not web-accessible at all).
+- If the application relies on load-balanced or heterogeneous infrastructure, determine whether this introduces inconsistent behavior between nodes.
+- Where the tester has access to cloud infrastructure configuration, review bucket/container policies and ACLs directly (see [File Permissions](09-File_Permissions.md) for the equivalent cloud object ACL/IAM checks) rather than relying solely on external probing.
 
 ## Remediation
 
 For an effective protection strategy, testing should be combined with a security policy that clearly forbids dangerous practices, including:
 
-- Editing files in-place on the web server or application server file systems. This is a particularly bad habit, since it is likely to generate backup or temporary files by the editors. It is amazing to see how often this is done, even in large organizations. If you absolutely need to edit files on a production system, do ensure that you don’t leave behind anything that is not explicitly intended, and keep in mind that you are doing it at your own risk.
-- Carefully check any other activity performed on file systems exposed by the web server, such as spot administration activities. For example, if you occasionally need to take a snapshot of a couple of directories (which you should not do on a production system), you may be tempted to zip them first. Be careful not to leave behind such archive files.
-- Appropriate configuration management policies should help prevent obsolete and un-referenced files.
-- Applications should be designed not to create (or rely on) files stored under the web directory trees served by the web server. Data files, log files, configuration files, etc. should be stored in directories not accessible by the web server to counter the possibility of information disclosure, not to mention the potential for data modification if web directory permissions allow writing.
-- File system snapshots should not be accessible via the web if the document root is on a file system using this technology. Configure your web server to deny access to such directories, for example, under Apache, a location directive like this should be used:
+- Editing files in-place on the web server or application server file systems. This is a particularly bad habit, since it is likely to generate backup or temporary files by the editors. If you absolutely need to edit files on a production system, ensure that you don't leave behind anything that is not explicitly intended, and keep in mind that you are doing it at your own risk.
+- Carefully check any other activity performed on file systems exposed by the web server, such as ad hoc administration activities (for example, zipping directories for a quick backup and leaving the archive behind).
+- Adopt configuration management policies that prevent obsolete and unreferenced files from accumulating in served directories.
+- Design applications so they do not create or rely on files stored under the web directory trees served by the web server. Data files, log files, configuration files, etc. should be stored in directories not accessible by the web server, to prevent both information disclosure and, where permissions allow writing, data modification.
+- Ensure file system snapshots are not accessible via the web if the document root is on a file system using this technology. For example, under Apache, a location directive like this should be used:
 
 ```xml
 <Location ~ ".snapshot">
@@ -165,6 +211,9 @@ For an effective protection strategy, testing should be combined with a security
     Deny from all
 </Location>
 ```
+
+- Configure web servers/directories to serve each file extension with the intended handler (or not at all), on a per-directory basis, and validate this after infrastructure changes in load-balanced/heterogeneous environments.
+- For cloud object storage, disable public listing and public read by default, and use scoped IAM policies rather than bucket-wide public grants; treat any bucket used for backups, logs, or deployment artifacts as sensitive by default.
 
 ## Tools
 
@@ -176,14 +225,23 @@ Vulnerability assessment tools tend to include checks to spot web directories ha
 ### Web spider tools
 
 - [wget](https://www.gnu.org/software/wget)
-- Spike Proxy (legacy - no longer maintained; replaced by tools such as Burp Suite)
-- Xenu (legacy - last updated in 2010, no active maintenance)
 - [curl](https://curl.se/)
 
 ### Modern Alternatives
 
-- [Burp Suite](https://portswigger.net/burp) - widely used web security testing proxy
-- [ZAP](https://www.zaproxy.org/) - open-source web application security testing tool
-- [Screaming Frog SEO Spider](https://www.screamingfrog.co.uk/seo-spider/) - website crawler and broken link checker
+- [Burp Suite](https://portswigger.net/burp) – widely used web security testing proxy
+- [ZAP](https://www.zaproxy.org/) – open-source web application security testing tool, including forced browse/spidering for this class of issue
+- [ffuf](https://github.com/ffuf/ffuf) – fast web fuzzer, well suited to backup/extension wordlist-based discovery
+- [Screaming Frog SEO Spider](https://www.screamingfrog.co.uk/seo-spider/) – website crawler and broken link checker
 
-Some of them are also included in standard Linux distributions. Web development tools usually include facilities to identify broken links and unreferenced files.
+### Cloud Object Storage Discovery
+
+- [S3Scanner](https://github.com/sa7mon/S3Scanner)
+- [cloud_enum](https://github.com/initstring/cloud_enum)
+
+Some of these are also included in standard Linux distributions. Web development tools usually include facilities to identify broken links and unreferenced files.
+
+## References
+
+- [FILExt - File Extension Database](https://filext.com/)
+- [SecLists - Discovery/Web-Content wordlists](https://github.com/danielmiessler/SecLists/tree/master/Discovery/Web-Content)

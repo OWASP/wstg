@@ -14,13 +14,26 @@ Security headers play a vital role in protecting web applications from a wide ra
 - Assess the impact of misconfigured security headers.
 - Validate the correct implementation of required security headers.
 
+## Headers Covered by This Section
+
+Per the [OWASP Secure Headers Project](https://owasp.org/www-project-secure-headers/), this section covers the security headers not addressed elsewhere in this guide's other CONF tests:
+
+- X-Frame-Options (and its successor, the `frame-ancestors` CSP directive): clickjacking protection.
+- X-Content-Type-Options: prevents MIME-sniffing.
+- Referrer-Policy: controls referrer leakage.
+- Permissions-Policy: restricts browser feature/API access.
+- Cross-Origin-Opener-Policy (COOP) and Cross-Origin-Embedder-Policy (COEP): process isolation, required for cross-origin isolation.
+- Clear-Site-Data: clears browsing data (cache, cookies, storage) on logout/sensitive transitions.
+
+Deprecated, do not recommend: `X-XSS-Protection` is deprecated and disabled or removed in modern browsers; it can itself introduce XSS in older browsers. Use CSP instead. Similarly, `Public-Key-Pins` (HPKP) is deprecated; see the Legacy/Deprecated Headers bullet below.
+
 ## Common Security Header Misconfigurations
 
 - **Security Header with an Empty Value:** Headers that are present but lack a value may be ignored by browsers, making them ineffective.
 - **Security Header with an Invalid Value or Name (Typos):** Incorrect header names or misspellings result in headers not being recognized or enforced.
 - **Overpermissive Security Headers:** Headers configured too broadly (e.g., using wildcard characters `*` or overly permissive directives) can leak information or allow access to resources beyond the intended scope.
 - **Duplicate Security Headers:** Multiple occurrences of the same header with conflicting values can lead to unpredictable browser behavior, potentially disabling the security measures entirely.
-- **Legacy or Deprecated Headers:** Inclusion of obsolete headers (e.g., HPKP) or directives (e.g., `ALLOW-FROM` in X-Frame-Options) that are no longer supported by modern browsers may create unnecessary risks.
+- **Legacy or Deprecated Headers:** Inclusion of obsolete headers (e.g., HPKP, `X-XSS-Protection`) or directives (e.g., `ALLOW-FROM` in X-Frame-Options) that are no longer supported by modern browsers may create unnecessary risks.
 - **Invalid Placement of Security Headers:** Some headers are only effective under specific conditions. For example, headers like HSTS must be delivered over HTTPS; if sent over HTTP, they become ineffective.
 - **META Tag Handling Mistakes:** In cases where security policies such as Content-Security-Policy (CSP) are enforced via both HTTP headers and META tags (using `http-equiv`), there is a risk that the META tag value might override or conflict with the secure logic defined in the HTTP header. This can lead to a scenario where an insecure policy inadvertently takes precedence, weakening the overall security posture.
 - **Hop-by-Hop Header Injection:** Occurs when intermediaries incorrectly process the `Connection` header, allowing attackers to list and "strip" sensitive internal security headers (like `X-Forwarded-For`) before the request reaches the backend.
@@ -43,6 +56,24 @@ To inspect the security headers used by an application, employ the following met
     - Some Firewalls may block curl's default User-Agent and some TLS/SSL errors will also prevent it from returning the correct information, in this case you could try to use the following command:
     `curl -I -L -k --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36" https://example.com`
 - **Browser Developer Tools:** Open developer tools (F12), navigate to the **Network** tab, select a request, and view the **Headers** section.
+
+### Check Individual Headers Against Recommended Values
+
+For each header, confirm it is present and its value matches current guidance (see [OWASP Secure Headers Project](https://owasp.org/www-project-secure-headers/) for the authoritative reference table):
+
+```http
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+Referrer-Policy: strict-origin-when-cross-origin
+Permissions-Policy: geolocation=(), camera=(), microphone=()
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Embedder-Policy: require-corp
+Clear-Site-Data: "cache","cookies","storage"
+```
+
+- Flag `X-XSS-Protection` if present - it is deprecated; confirm CSP is used instead for XSS mitigation.
+- Flag `X-Frame-Options: ALLOW-FROM ...` - unsupported by modern browsers; recommend the CSP `frame-ancestors` directive.
+- Confirm `Clear-Site-Data` is only sent where appropriate (e.g., logout endpoints), since it is destructive to client-side state.
 
 ### Check for Overly Permissive Security Headers
 
