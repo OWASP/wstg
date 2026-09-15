@@ -41,7 +41,7 @@ Inspect the policy for insecure or overly permissive directives:
 - Review usage of `require-trusted-types-for` and `trusted-types`. In high-risk applications, absence of Trusted Types may leave DOM-based injection sinks exposed. If `trusted-types` policies are defined, ensure they are not overly permissive.
 - Check for duplicate directives or conflicting policy definitions that may result in unintended enforcement behavior.
 
-### Validate Nonce and strict-dynamic Usage
+### Validate Nonce, Hash, and strict-dynamic Usage
 
 If the policy uses nonces:
 
@@ -49,18 +49,44 @@ If the policy uses nonces:
 - Verify that nonces are regenerated per response and not reused.
 - Ensure that legacy inline script patterns are not inadvertently trusted.
 
+If the policy uses hash-based sources (e.g. `'sha256-...'`, `'sha384-...'`, `'sha512-...'`) instead of, or alongside, nonces:
+
+- Confirm the hash matches the exact inline script/style content, including whitespace - any change to the inline content invalidates the hash (this is a maintenance cost, not a bypass, but is worth noting if teams have worked around it by widening the policy elsewhere).
+- Check whether `unsafe-hashes` is used to permit hashed inline event handlers (e.g. `onclick="..."`) - this extends trust to attribute-based sinks and should be scoped tightly.
+- Determine whether an attacker-findable "hash gadget" exists: an existing, hash-allowlisted inline script that can be reused or whose behavior can be influenced (e.g. via a DOM sink) to execute attacker logic without needing a new hash.
+
 If `strict-dynamic` is used:
 
 - Understand that trust propagates from nonce- or hash-based scripts.
 - Confirm that no unsafe trust chain allows attacker-controlled script loading.
+- Note that browsers ignoring `strict-dynamic` (legacy browsers) fall back to the listed `script-src` hosts/schemes - check that this fallback list is not itself overly permissive.
+
+### Review Trusted Types Interaction
+
+[Trusted Types](https://w3c.github.io/trusted-types/dist/spec/) is a browser API, enforced via CSP (`require-trusted-types-for 'script'` and `trusted-types <policy-names>`), that mitigates DOM-based XSS by requiring dangerous DOM sinks (`innerHTML`, `document.write`, `Function()`, `eval()`, etc.) to receive a `TrustedHTML`/`TrustedScript`/`TrustedScriptURL` object rather than a raw string.
+
+- Confirm whether `require-trusted-types-for 'script'` is present. Without it, Trusted Types is not enforced even if `trusted-types` policy names are declared.
+- Enumerate the named policies allowed by `trusted-types` (e.g. `trusted-types policyA policyB;`). Review each policy's `createHTML`/`createScript`/`createScriptURL` implementation (typically in application JavaScript) for sanitization gaps - a permissive or pass-through policy defeats the protection.
+- Check for `trusted-types *` or a `default` policy that is overly permissive, since either can allow arbitrary strings through.
+- Because Trusted Types only covers DOM XSS sinks reachable from script, cross-reference this with [DOM-based Cross-Site Scripting](../11-Client-side/01-DOM-based_Cross_Site_Scripting.md) testing - CSP/Trusted Types is a mitigating control there, not a substitute for fixing the underlying sink.
+- Trusted Types does not cover markup-based injection (e.g. HTML injection via server-rendered templates); cross-reference [HTML Injection](../11-Client-side/03-HTML_Injection.md) for that class of issue.
 
 ### Evaluate CSP Reporting Mechanisms
 
 If `report-uri` or `report-to` is configured:
 
 - Verify that reporting endpoints are reachable and functional.
-- Determine whether sensitive information is exposed in reports.
-- Confirm that reporting does not create new injection or denial-of-service vectors.
+- Determine whether sensitive information is exposed in reports (e.g. full URLs with query strings or tokens in `blocked-uri`/`document-uri`).
+- Confirm that reporting does not create new injection or denial-of-service vectors (e.g. an internal endpoint that parses reports unsafely, or lack of rate limiting allowing report-flooding).
+- For `report-to` (CSP Level 3, Reporting API), confirm the referenced endpoint group is actually declared via a `Reporting-Endpoints` header (or legacy `Report-To` header), for example:
+
+    ```http
+    Reporting-Endpoints: csp-endpoint="https://example.com/csp-reports"
+    Content-Security-Policy: default-src 'self'; report-to csp-endpoint
+    ```
+
+    If the `report-to` group name in the CSP does not match a declared endpoint, violations are silently dropped - this is a common misconfiguration when migrating from `report-uri`.
+- Where both `report-uri` and `report-to` are present for backward compatibility, confirm they point to equivalent destinations and that testers/monitoring don't rely on only one.
 
 ### Attempt Controlled Bypass Techniques
 
@@ -72,6 +98,10 @@ Where appropriate and authorized, attempt to validate enforcement by testing con
 - DOM-based gadget chaining using trusted script sources.
 
 Successful execution of injected JavaScript indicates CSP misconfiguration or ineffective enforcement.
+
+Tools such as [CSPBypass](https://cspbypass.com/) ([source](https://github.com/renniepak/CSPBypass)) automate this check: paste a candidate policy in and it reports known bypass techniques applicable to that policy (e.g. allowlisted JSONP/AngularJS/CDN hosts, permissive schemes). Treat its output as a starting point, not proof of exploitability - confirm any flagged bypass actually executes attacker-controlled JavaScript in the target application's context before reporting it as a finding.
+
+These bypass attempts overlap with, and should be validated alongside, [Client-Side Testing](../11-Client-side/README.md) - a CSP bypass is typically only impactful if it lands in an actual injection point covered there (DOM XSS, HTML Injection, JavaScript Execution).
 
 ### Assess Policy Strength
 
@@ -185,3 +215,5 @@ Teams should adapt strict policies carefully, ensuring compatibility with applic
 - [Content-Security-Policy](https://content-security-policy.com/)
 - [CSP A Successful Mess Between Hardening And Mitigation](https://speakerdeck.com/lweichselbaum/csp-a-successful-mess-between-hardening-and-mitigation)
 - [The unsafe-hashes Source List Keyword](https://content-security-policy.com/unsafe-hashes/)
+- [Trusted Types W3C](https://w3c.github.io/trusted-types/dist/spec/)
+- [Reporting API W3C](https://www.w3.org/TR/reporting-1/)
