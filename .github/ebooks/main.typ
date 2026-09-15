@@ -1,4 +1,4 @@
-// OWASP WSTG — Typst entrypoint for ebook generation
+// OWASP WSTG - Typst entrypoint for ebook generation
 //
 // Assembles the complete ebook:
 //   1. Front matter (cover images)

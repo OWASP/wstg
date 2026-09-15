@@ -90,7 +90,7 @@
   }
 
   // ---------------------------------------------------------------------------
-  // Headings — page break before each H1 (except Contents)
+  // Headings - page break before each H1 (except Contents)
   // ---------------------------------------------------------------------------
   show heading.where(level: 1): it => {
     if it.label != <contents> {
