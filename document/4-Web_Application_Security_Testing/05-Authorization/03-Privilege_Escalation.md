@@ -193,3 +193,4 @@ startswith(), endswith(), contains(), indexOf()
 ## Tools
 
 - [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
+- RAGE (Relational Attack Graph Exchange) - portable NDJSON format and taxonomy for modeling identity/access attack paths and privilege-escalation chains, especially useful when the application sits on cloud IAM or multi-account environments. See [RAGE](https://rage.fail/).
