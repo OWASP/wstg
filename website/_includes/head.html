@@ -29,14 +29,9 @@
   document.documentElement.setAttribute('data-theme', effective);
 })();
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/base.css">
-<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/shell.css">
-<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/buttons.css">
-<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/footer.css">
-<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/site.css">
+<link rel="preload" href="{{ site.baseurl }}/assets/fonts/poppins-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ site.baseurl }}/assets/fonts/barlow-500.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/main.css">
 {% if page.layout == 'document' %}
 <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/wstg-nav.css">
 {% endif %}
