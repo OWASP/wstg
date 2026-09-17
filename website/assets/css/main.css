@@ -63,7 +63,7 @@
   color-scheme: light;
   /* Community design system (neutral-1, blue-3, accent-blue-4, accent-gold-4, blue-7) */
   --neutral-1: #101820;
-  --neutral-2: #e2e5e9;
+  --neutral-2: #d7d7d7; /* matches live owasp.org --neutral-5 border gray */
   --neutral-3: #757575;
   --blue-7: #f1f6fe;
   --blue-3: #003594;
@@ -88,13 +88,14 @@
   --btn-primary-hover-start: #004bbb;
   --btn-primary-hover-end: #0056cc;
   /* Secondary header gradient - matches live (from-[#1a237e] via-[#303f9f] to-[#42a5f5]) */
+  /* Intentionally no hero image here (unlike owasp.org's photographic hero) - keep it a plain gradient band on a lighter section */
   --gradient-band: linear-gradient(to bottom right, #1a237e 0%, #303f9f 50%, #42a5f5 100%);
   --bg-page: #ffffff;
   --bg-alt: var(--blue-7);
   --bg-card: #ffffff;
   --text: var(--neutral-1);
   --text-muted: var(--neutral-3);
-  --border: #e2e5e9;
+  --border: var(--neutral-2);
   --border-focus: var(--accent-cyan);
   --radius: 0.5rem; /* community uses .5rem (rounded-lg) */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
