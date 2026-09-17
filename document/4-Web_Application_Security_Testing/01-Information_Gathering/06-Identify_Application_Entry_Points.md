@@ -107,7 +107,7 @@ You can also generate a JSON output file using the `-json` flag, which can be us
 
 ### OWASP Noir
 
-[OWASP Noir](https://owasp.org/www-project-noir/) is a command-line tool that finds the endpoints of a web application by analyzing its source code. For each endpoint it reports the HTTP method and the parameters read from the query string, request body, path, headers, and cookies. This includes endpoints that no page links to and parameters that the client-side code never sends, which a spider would miss. Noir supports many languages and frameworks, including Rails, Django, Express, Spring, and Laravel. See the [supported languages and frameworks](https://owasp-noir.github.io/noir/usage/supported/language_and_frameworks/) for the full list.
+[OWASP Noir](https://owasp.org/projects/noir) is a command-line tool that finds the endpoints of a web application by analyzing its source code. For each endpoint it reports the HTTP method and the parameters read from the query string, request body, path, headers, and cookies. This includes endpoints that no page links to and parameters that the client-side code never sends, which a spider would miss. Noir supports many languages and frameworks, including Rails, Django, Express, Spring, and Laravel. See the [supported languages and frameworks](https://owasp-noir.github.io/noir/usage/supported/language_and_frameworks/) for the full list.
 
 Noir writes its results in many [output formats](https://owasp-noir.github.io/noir/usage/output_formats/), including plain text, JSON, OpenAPI, and curl commands. It can also replay the discovered endpoints through an intercepting proxy such as ZAP or Burp Suite, so they appear in the proxy history with the rest of the captured traffic.
 
@@ -272,4 +272,4 @@ Having a variety of injection locations provides the attacker with chaining poss
 
 - [RFC 2616 – Hypertext Transfer Protocol – HTTP 1.1](https://tools.ietf.org/html/rfc2616)
 - [OWASP Attack Surface Detector](https://owasp.org/www-project-attack-surface-detector/)
-- [OWASP Noir](https://owasp.org/www-project-noir/)
+- [OWASP Noir](https://owasp.org/projects/noir)

@@ -166,7 +166,7 @@ Regular expression is more straightforward by searching JS or HTML content for k
 
 ### Server-Side Source Code
 
-If you have access to the server-side source code, extract the endpoints from it. [OWASP Noir](https://owasp.org/www-project-noir/) parses the routing code of many web frameworks and lists every endpoint with its methods and parameters, including internal or deprecated APIs that no current client calls. See [Identify Application Entry Points](../01-Information_Gathering/06-Identify_Application_Entry_Points.md#owasp-noir) for a walkthrough of the tool.
+If you have access to the server-side source code, extract the endpoints from it. [OWASP Noir](https://owasp.org/projects/noir) parses the routing code of many web frameworks and lists every endpoint with its methods and parameters, including internal or deprecated APIs that no current client calls. See [Identify Application Entry Points](../01-Information_Gathering/06-Identify_Application_Entry_Points.md#owasp-noir) for a walkthrough of the tool.
 
 For API testing, export the results as OpenAPI. This command writes an OpenAPI 3.0 document for every endpoint in the [OWASP RailsGoat](https://github.com/OWASP/railsgoat) source code:
 
