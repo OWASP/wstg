@@ -78,6 +78,35 @@ This JWT includes the username and administrative status of the user, as well as
 
 The signature is calculated using the algorithm defined in the JWT header, and then base64 encoded and appended to the token. Modifying any part of the JWT should cause the signature to be invalid, and the token to be rejected by the server.
 
+To read these three parts from a token, decode it with a JWT tool. Gori's JWT tab decodes a token as you paste it and keeps the claims editable for re-signing. `gori run jwt` prints the same decode:
+
+```text
+$ gori run jwt "$TOKEN"
+// header
+{
+  "typ": "JWT",
+  "alg": "RS256"
+}
+
+// payload
+{
+  "data": {
+    "id": 25,
+    "email": "alice@wstg.test",
+    "password": "646e613efcfc1317061b1df9340e3726",
+    "role": "customer",
+    // ... profile fields omitted
+  },
+  "bid": 6,
+  "iat": 1789655485
+}
+
+// signature (not verified)
+wcaY3SC6taMCJUH8F4CEcF2a1rUa8bjYetKAo3s8DO3yjt3D4GFmz2SyJR3151np…
+```
+
+This token was issued by OWASP Juice Shop. Its payload carries the user's role and a password hash. Because the payload is not encrypted, treat every value in it as readable by anyone who holds the token.
+
 ### Review Usage
 
 As well as being cryptographically secure itself, the JWT also needs to be stored and sent in a secure manner. This should include checks that:
@@ -95,6 +124,27 @@ The validity of the JWT should also be reviewed, based on the `iat`, `nbf` and `
 One of the most serious vulnerabilities encountered with JWTs is when the application fails to validate that the signature is correct. This usually occurs when a developer uses a function such as the Node.js `jwt.decode()` function, which simply decodes the body of the JWT, rather than `jwt.verify()`, which verifies the signature before decoding the JWT.
 
 This can be easily tested for by modifying the body of the JWT without changing anything in the header or signature, submitting it in a request to see if the application accepts it.
+
+Gori's JWT tab also lists ready-to-send payloads for the weaknesses described below. `gori run jwt --attacks` prints the same set: `none` algorithm variants, weak-secret guesses, and header injection payloads.
+
+```text
+$ gori run jwt "$TOKEN" --attacks
+[none]      alg=none                  unsigned; accepted if the server trusts alg=none from the token
+    eyJ0eXAiOiJKV1QiLCJhbGciOiJub25lIn0.eyJkYXRhIjp7ImlkIjoyNSwidXNlcm5hbWUiOiIiLCJlbWFpbCI6…
+... snipped: alg=None, alg=NONE, signature stripped ...
+[weak-secret] HS256 secret=(empty)      verifies if the server's HMAC key is empty
+    eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImlkIjoyNSwidXNlcm5hbWUiOiIiLCJlbWFpbCI…
+[weak-secret] HS256 secret=secret       verifies if the server's HMAC key is "secret"
+    eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImlkIjoyNSwidXNlcm5hbWUiOiIiLCJlbWFpbCI…
+... snipped: more weak-secret candidates ...
+[header-inject] kid=/dev/null             kid path-traversal to an empty file → HMAC with an empty key verifies
+    eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6Ii4uLy4uLy4uLy4uLy4uLy4uLy4uLy4uL2Rldi9udWxs…
+[header-inject] kid SQLi                  kid used in a SQL key lookup; craft the UNION to return a known key
+    eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IngnIFVOSU9OIFNFTEVDVCAnYXR0YWNrZXIifQ.eyJkY…
+... snipped: jku, x5u, jwk header injections ...
+```
+
+Submit each candidate to the application and watch for one that is accepted.
 
 #### The None Algorithm
 
@@ -326,6 +376,8 @@ If Service B trusts the IdP signature but omits `aud` validation, an attacker wi
 - [JSON Web Tokens Burp Extension](https://portswigger.net/bappstore/f923cbf91698420890354c1d8958fee6)
 - [ZAP JWT Add-on](https://github.com/SasanLabs/owasp-zap-jwt-addon)
 - [jwt_tool](https://github.com/ticarpi/jwt_tool)
+- [Gori](https://github.com/hahwul/gori)
+    - The JWT tab decodes tokens and generates signature attack payloads, and is scriptable as `gori run jwt`.
 
 ## References
 

@@ -193,6 +193,7 @@ More information here: [cookies attributes](02-Cookies_Attributes.md)
 - [Zed Attack Proxy Project (ZAP)](https://www.zaproxy.org) - features a session token analysis mechanism.
 - [Burp Sequencer](https://portswigger.net/burp/documentation/desktop/tools/sequencer)
 - [YEHG's JHijack](https://github.com/yehgdotnet/JHijack)
+- [Gori](https://github.com/hahwul/gori) - includes a Sequencer for analyzing session token randomness.
 
 ## References
 
