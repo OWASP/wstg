@@ -16,7 +16,7 @@ Web servers commonly accumulate unreferenced or forgotten files: renamed old ver
 - Source code disclosure when a backup/copy of an executable file is served as plain text instead of executed.
 - Bulk disclosure via backup archives containing many files at once (source, includes, compiled classes for decompilation).
 - Sensitive data in log files (session IDs, URL parameters, admin activity).
-- Cloud storage objects (buckets/containers) left with public read/listing, reachable directly without going through the application at all - see [Cloud Object Storage Artifacts](#cloud-object-storage-artifacts).
+- Forgotten backup/deployment artifacts (database dumps, `.tfstate`, `.env` files) left in cloud object storage (buckets/containers), reachable directly without going through the application at all - see [Cloud Object Storage Artifacts](#cloud-object-storage-artifacts).
 
 ## Test Objectives
 
@@ -178,13 +178,12 @@ Example: Windows 8.3 filename expansion `c:\program files` becomes `C:\PROGRA~1`
 
 #### Cloud Object Storage Artifacts
 
-The same "forgotten file" problem reappears in cloud object storage backing a web application, its static assets, or its deployment pipeline (AWS S3, Azure Blob Storage, Google Cloud Storage). Because these are reachable directly over the internet, a misconfigured bucket/container skips the web application entirely:
+The same "forgotten file" problem reappears in cloud object storage backing a web application, its static assets, or its deployment pipeline (AWS S3, Azure Blob Storage, Google Cloud Storage). This subsection covers only the forgotten-artifact discovery angle; for bucket/container ACL, IAM policy, and signed-URL depth, see [Cloud Storage](11-Cloud_Storage.md).
 
 - Identify buckets/containers associated with the target through naming conventions (`<company>-backup`, `<company>-assets`, `<company>-logs`, `<company>-dev`, `<app>-uploads`), DNS records (CNAMEs pointing at storage endpoints - see also [Subdomain Takeover](10-Subdomain_Takeover.md)), and references found in JS bundles, error messages, or CI configuration.
-- Check whether the bucket/container itself allows public listing (not just public read of a known object); a listable bucket turns this into the cloud equivalent of directory listing, exposing backups, database dumps (`.sql`, `.sql.gz`), and credentials files placed there for deployment.
 - Common forgotten artifact types in buckets mirror the extension list above, with a few storage-specific additions: `terraform.tfstate` files, `.env` files uploaded as part of a deploy step, database snapshot exports, and CI/CD build artifacts (compiled binaries or archives containing embedded secrets).
 - Once a candidate object or listing is found, manually verify content before reporting - an object named `backup.sql` that turns out to be empty or a placeholder is not a finding; confirm the actual data present is sensitive.
-- Tools such as [S3Scanner](https://github.com/sa7mon/S3Scanner), [cloud_enum](https://github.com/initstring/cloud_enum), and search engines for exposed buckets (e.g. GrayhatWarfare) automate discovery across the major providers, but as with on-server discovery, treat hits as candidates requiring manual confirmation, not findings in themselves.
+- Tools such as [S3Scanner](https://github.com/sa7mon/S3Scanner) and [cloud_enum](https://github.com/initstring/cloud_enum) automate discovery across the major providers, but as with on-server discovery, treat hits as candidates requiring manual confirmation, not findings in themselves.
 
 ### Gray-Box Testing
 
@@ -193,7 +192,7 @@ Gray-box testing against old and backup files, and against file extension handli
 - Examine files within the directories served by the web server(s) comprising the application infrastructure. Since copies/backup files tend to follow predictable naming conventions (editor-specific backup suffixes, `.old`/`.bak`-style human-made copies), this search can be scripted; a useful strategy is a periodically scheduled job checking for such extensions, combined with less frequent manual checks.
 - Review server configuration to confirm which extensions are served as which content type/handler, on a per-directory basis, and confirm this matches intent (for example, that a directory containing `.inc` or `.config` files is not web-accessible at all).
 - If the application relies on load-balanced or heterogeneous infrastructure, determine whether this introduces inconsistent behavior between nodes.
-- Where the tester has access to cloud infrastructure configuration, review bucket/container policies and ACLs directly (see [File Permissions](09-File_Permissions.md) for the equivalent cloud object ACL/IAM checks) rather than relying solely on external probing.
+- Where the tester has access to cloud infrastructure configuration, review bucket/container policies and ACLs directly (see [Cloud Storage](11-Cloud_Storage.md) for the dedicated ACL/IAM/signed-URL checks) rather than relying solely on external probing.
 
 ## Remediation
 

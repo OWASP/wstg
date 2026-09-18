@@ -52,6 +52,23 @@ Container images frequently bake in overly broad permissions on files that end u
 - Review `automountServiceAccountToken` and whether the projected service-account token volume is more widely readable/mountable than needed by the workload.
 - `kubectl auth can-i --list --as=system:serviceaccount:<ns>:<sa>` helps confirm the effective access tied to a pod's identity is not broader than the file/volume permissions imply.
 
+#### SecurityContext and Container-Hardening Checklist
+
+The fields above are the permission-specific subset of a broader `securityContext`/container-hardening review. The following checklist covers the fields most often left at their insecure default, for use as a compact reference across container and Kubernetes testing in this section and in [Application Platform Configuration](02-Application_Platform_Configuration.md#container-images):
+
+| Field/setting | Insecure default | What to check |
+|---|---|---|
+| `runAsNonRoot` / container `USER` | Unset; container runs as root (UID 0) | Pod spec `securityContext.runAsNonRoot: true` and `runAsUser` set to a non-zero UID, or `docker inspect --format '{{.Config.User}}' <image>` non-empty and non-zero. |
+| `readOnlyRootFilesystem` | Unset; root filesystem writable | Pod spec sets `readOnlyRootFilesystem: true`, with any paths the process genuinely needs to write mounted as separate volumes. |
+| `allowPrivilegeEscalation` | Unset; defaults to allowing escalation | Pod spec sets `allowPrivilegeEscalation: false`. |
+| `privileged` | Unset; container is not privileged by default, but check explicit opt-in | Confirm `privileged: true` is not set except where genuinely required (rare for application workloads). |
+| Linux capabilities | Container keeps the full default capability set | Pod spec `capabilities.drop: ["ALL"]`, with only the specific capabilities the workload needs re-added via `capabilities.add`. |
+| `seccompProfile` | Unset on older clusters; unconfined | Pod or container `securityContext.seccompProfile.type: RuntimeDefault` (or a stricter custom profile). |
+| Host namespaces (`hostNetwork`, `hostPID`, `hostIPC`) | Unset; namespaces are isolated by default, but check explicit opt-in | Confirm none of these are set to `true` unless the workload genuinely needs host-level access. |
+| Volume `defaultMode` / image layer permissions | Covered above under filesystem and volume permissions | See [Container Filesystem Permissions](#container-filesystem-permissions) and [Kubernetes Volume Mounts and securityContext](#kubernetes-volume-mounts-and-securitycontext) above. |
+
+As with the other checks in this document, treat a missing/insecure setting as a candidate finding to confirm against the workload's actual behavior (for example, an unnecessary capability that the running process doesn't actually use is still worth flagging, but demonstrating it is exploitable, such as via a container breakout using a retained capability, is a stronger finding than the configuration observation alone).
+
 ### Cloud Object ACLs and IAM
 
 Cloud storage misconfigurations are a direct analogue of file permissions and should be tested the same way:

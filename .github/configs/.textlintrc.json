@@ -589,9 +589,14 @@
           "version$1"
         ],
         // Standarization
-        // Boo em-dash
+        // Boo em-dash and en-dash (also covers en-dash, which wasn't previously listed).
+        // Plain "—" alone gets auto-wrapped in \b...\b by this rule's default matcher,
+        // but \b never fires next to a dash (both the dash and its usual space-neighbor
+        // are non-word characters, so there's no word/non-word transition to anchor on).
+        // Using our own lookbehind/lookahead on whitespace-or-string-edge instead of \b
+        // sidesteps that: a pattern starting with "(?<" skips the automatic \b wrapping.
         [
-          "—",
+          "(?<=^|\\s)[—–](?=\\s|$)",
           "-"
         ],
         [

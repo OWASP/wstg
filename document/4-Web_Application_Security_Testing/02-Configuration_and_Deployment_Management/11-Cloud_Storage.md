@@ -18,182 +18,47 @@ Beyond bucket-level public access, this class of issue also covers: ACL/IAM poli
 
 ## How to Test
 
-First, identify the URL to access the data in the storage service, and then consider the following tests:
+First, identify the bucket/container URL, typically found via references in HTTP responses (`<img>`/`<script>` tags, JS bundles, API responses) for black-box testing, or via provider console/source code/documentation for gray-box testing. Then run the same three probes against each provider: list (does the bucket/container expose its contents without authentication?), get (can a specific/guessed object be read?), and write (can an arbitrary object be uploaded or overwritten?). Test list and get even when the bucket name isn't already known; guessable and common names are covered under [Cloud Object Storage Artifacts](04-Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information.md#cloud-object-storage-artifacts) rather than duplicated here.
 
-- Read unauthorized data
-- Upload a new arbitrary file
+The tables below show both black-box probes (curl, no authentication assumed) and gray-box probes (provider command-line tools where credentials are available). Use curl for unauthenticated access testing; use provider CLIs where credentials are in scope to confirm configured permissions directly.
 
-You may use curl for the tests with the following commands and see if unauthorized actions can be performed successfully.
+### Amazon S3
 
-To test the ability to read an object:
+URL formats: virtual-hosted style (`https://<bucket>.s3.<region>.amazonaws.com/<key>`) or path-style (`https://s3.<region>.amazonaws.com/<bucket>/<key>`); the legacy global endpoint (no region) also works for some regions.
 
-```bash
-curl -X GET https://<cloud-storage-service>/<object>
-```
+| Probe | curl | AWS CLI |
+|---|---|---|
+| List | `curl "https://<bucket>.s3.amazonaws.com/"` | `aws s3 ls s3://<bucket>` |
+| Get | `curl "https://<bucket>.s3.amazonaws.com/<key>"` | `aws s3 cp s3://<bucket>/<key> -` |
+| Write | `curl -X PUT -d 'test' "https://<bucket>.s3.amazonaws.com/test.txt"` | `aws s3 cp test.txt s3://<bucket>/test.txt` |
 
-To test the ability to upload a file:
-
-```bash
-curl -X PUT -d 'test' 'https://<cloud-storage-service>/test.txt'
-```
-
-In the above command, it is recommended to replace the single quotes (') with double quotes (") when running the command on a Windows machine.
+A successful unauthenticated list returns an XML `<ListBucketResult>` body; a failed write returns `AccessDenied` in the response body/CLI error.
 
 ### Azure Blob Storage
 
-Azure Blob Storage URLs follow the format:
+URL format: `https://<account-name>.blob.core.windows.net/<container-name>/<blob-name>`.
 
-```text
-https://<account-name>.blob.core.windows.net/<container-name>/<blob-name>
-```
+| Probe | curl | Azure CLI (gray-box) |
+|---|---|---|
+| List | `curl "https://<account>.blob.core.windows.net/<container>?restype=container&comp=list"` | `az storage blob list --container-name <container>` |
+| Get | `curl "https://<account>.blob.core.windows.net/<container>/<blob>"` | `az storage blob download --container-name <container> --name <blob>` |
+| Write | `curl -X PUT -d 'test' -H "x-ms-blob-type: BlockBlob" -H "x-ms-version: <current>" "https://<account>.blob.core.windows.net/<container>/test.txt"` | `az storage blob upload --container-name <container> --name test.txt` |
 
-To test public read access to a blob directly:
-
-```bash
-curl -X GET "https://<account-name>.blob.core.windows.net/<container>/<blob-name>"
-```
-
-To test whether the container itself allows public, unauthenticated listing (equivalent to S3 bucket listing), use the List Blobs REST API:
-
-```bash
-curl -X GET "https://<account-name>.blob.core.windows.net/<container>?restype=container&comp=list"
-```
-
-A `200` response with an XML `<EnumerationResults>` body indicates the container's public access level is set to `Container` (public read + list), rather than `Private` or `Blob` (public read of known blob names only, no listing).
-
-To test upload/overwrite (requires the appropriate permission, which is normally not granted by "public" access levels, but should still be tested since misconfigured SAS tokens or overly permissive anonymous access can allow it):
-
-```bash
-curl -X PUT -d 'test' -H "x-ms-blob-type: BlockBlob" -H "x-ms-version: 2023-11-03" "https://<account-name>.blob.core.windows.net/<container>/test.txt"
-```
-
-The [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/storage) (`az storage blob list`, `az storage blob upload`) or `az storage container show-permission` can be used where credentials are available (gray-box) to confirm the configured access level directly.
+A `200` with an XML `<EnumerationResults>` body on the list probe means the container's public access level is `Container` (public read + list), not `Private` or `Blob` (read of known names only). `az storage container show-permission` confirms the configured level directly where credentials are available.
 
 ### Google Cloud Storage (GCS)
 
-GCS objects are reachable through either the JSON API or the public `storage.googleapis.com` XML-style endpoint:
+URL format (public XML-style endpoint): `https://storage.googleapis.com/<bucket-name>/<object-name>`.
 
-```text
-https://storage.googleapis.com/<bucket-name>/<object-name>
-```
+| Probe | curl | gsutil (gray-box) |
+|---|---|---|
+| List | `curl "https://storage.googleapis.com/storage/v1/b/<bucket>/o"` | `gsutil ls gs://<bucket>` |
+| Get | `curl "https://storage.googleapis.com/<bucket>/<object>"` | `gsutil cat gs://<bucket>/<object>` |
+| Write | `curl -X POST --data-binary @test.txt "https://storage.googleapis.com/upload/storage/v1/b/<bucket>/o?uploadType=media&name=test.txt"` | `gsutil cp test.txt gs://<bucket>/test.txt` |
 
-To test public read access:
+A `200` with a JSON object list on the list probe means public listing is enabled, commonly via an `allUsers`/`allAuthenticatedUsers` IAM binding or legacy ACL rather than GCS's default. `gsutil iam get gs://<bucket>` confirms the binding directly where credentials are available.
 
-```bash
-curl -X GET "https://storage.googleapis.com/<bucket-name>/<object-name>"
-```
-
-To test whether the bucket allows public, unauthenticated listing:
-
-```bash
-curl -X GET "https://storage.googleapis.com/storage/v1/b/<bucket-name>/o"
-```
-
-A `200` response with a JSON list of objects indicates public listing is enabled (commonly via an `allUsers`/`allAuthenticatedUsers` IAM binding or legacy ACL, rather than being GCS's default).
-
-To test upload:
-
-```bash
-curl -X POST --data-binary @test.txt "https://storage.googleapis.com/upload/storage/v1/b/<bucket-name>/o?uploadType=media&name=test.txt"
-```
-
-Where credentials are available, [`gsutil`](https://cloud.google.com/storage/docs/gsutil) (`gsutil ls gs://<bucket>`, `gsutil iam get gs://<bucket>`) or the equivalent `gcloud storage` commands can confirm the configured IAM bindings and legacy ACLs directly.
-
-### Amazon S3 Bucket Misconfiguration
-
-The Amazon S3 bucket URLs follow one of two formats, either virtual host style or path-style.
-
-- Virtual Hosted Style Access
-
-```text
-https://bucket-name.s3.Region.amazonaws.com/key-name
-```
-
-In the following example, `my-bucket` is the bucket name, `us-west-2` is the region, and `puppy.png` is the key-name:
-
-```text
-https://my-bucket.s3.us-west-2.amazonaws.com/puppy.png
-```
-
-- Path-Style Access
-
-```text
-https://s3.Region.amazonaws.com/bucket-name/key-name
-```
-
-As above, in the following example, `my-bucket` is the bucket name, `us-west-2` is the region, and `puppy.png` is the key-name:
-
-```text
-https://s3.us-west-2.amazonaws.com/my-bucket/puppy.png
-```
-
-For some regions, the legacy global endpoint that does not specify a region-specific endpoint can be used. Its format is also either virtual hosted style or path-style.
-
-- Virtual Hosted Style Access
-
-```text
-https://bucket-name.s3.amazonaws.com
-```
-
-- Path-Style Access
-
-```text
-https://s3.amazonaws.com/bucket-name
-```
-
-#### Identify Bucket URL
-
-For black-box testing, S3 URLs can be found in the HTTP messages. The following example shows a bucket URL is sent in the `img` tag in an HTTP response.
-
-```html
-...
-<img src="https://my-bucket.s3.us-west-2.amazonaws.com/puppy.png">
-...
-```
-
-For gray-box testing, you can obtain bucket URLs from Amazon's web interface, documents, source code, and any other available sources.
-
-#### AWS-CLI
-
-In addition to testing with curl, you can also test with the AWS command-line tool. In this case `s3://` URI scheme is used.
-
-##### List
-
-The following command lists all the objects of the bucket when it is configured public:
-
-```bash
-aws s3 ls s3://<bucket-name>
-```
-
-##### Upload
-
-The following is the command to upload a file:
-
-```bash
-aws s3 cp arbitrary-file s3://bucket-name/path-to-save
-```
-
-This example shows the result when the upload has been successful.
-
-```bash
-$ aws s3 cp test.txt s3://bucket-name/test.txt
-upload: ./test.txt to s3://bucket-name/test.txt
-```
-
-This example shows the result when the upload has failed.
-
-```bash
-$ aws s3 cp test.txt s3://bucket-name/test.txt
-upload failed: ./test2.txt to s3://bucket-name/test2.txt An error occurred (AccessDenied) when calling the PutObject operation: Access Denied
-```
-
-##### Remove
-
-The following is the command to remove an object:
-
-```bash
-aws s3 rm s3://bucket-name/object-to-remove
-```
+On Windows, replace single quotes (`'`) with double quotes (`"`) in the curl commands above.
 
 ### ACL and IAM Policy Misconfigurations
 

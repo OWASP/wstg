@@ -132,10 +132,15 @@ Beyond classic application/framework admin paths, modern deployments commonly ex
 
 #### Kubernetes and Container Orchestration Dashboards
 
-- Kubernetes Dashboard: historically exposed without authentication or with an overprivileged `service-account-token` login, allowing full cluster control. Check for `/api/v1/namespaces/kubernetes-dashboard/...` or a dedicated dashboard ingress/NodePort, and confirm it requires authentication and uses a least-privilege service account rather than `cluster-admin`.
+- Kubernetes Dashboard: historically exposed without authentication or with an overprivileged `service-account-token` login, allowing full cluster control. Check for `/api/v1/namespaces/kubernetes-dashboard/...` or a dedicated dashboard ingress/NodePort, and confirm it requires authentication and uses a least-privilege service account rather than `cluster-admin` (`kubectl auth can-i --list --as=system:serviceaccount:<ns>:<sa>`, per [File Permissions](09-File_Permissions.md#kubernetes-volume-mounts-and-securitycontext)).
 - `kubelet` read-only API (port `10255`, deprecated) and the authenticated kubelet API (port `10250`): check whether either is reachable from outside the cluster network and whether anonymous access is enabled.
 - etcd (port `2379`/`2380`): if reachable, unauthenticated access exposes the entire cluster state including Secrets.
 - Container platform UIs such as Portainer, Rancher, or a cloud provider's managed-Kubernetes console proxy: check for default admin credentials and whether initial-setup/registration endpoints are still reachable post-deployment (some tools allow anyone to claim the first admin account if setup wasn't completed).
+
+#### Application Management/Actuator Endpoints
+
+- Spring Boot Actuator: `/actuator`, `/actuator/env`, `/actuator/heapdump`, `/actuator/httptrace`, and `/actuator/mappings` are management interfaces in their own right, not just debug output - `/actuator/env` can expose credentials, and some Actuator versions/configurations allow reconfiguration (e.g. `/actuator/loggers` changing log levels) rather than pure read access. See [Debug Endpoints and Debug Modes](02-Application_Platform_Configuration.md#debug-endpoints-and-debug-modes) for the full endpoint list; treat any reachable, unauthenticated Actuator endpoint as an admin-interface exposure finding here, not only an information leak.
+- Equivalent framework management endpoints: ASP.NET Core health-check/diagnostics middleware, Django admin (`/admin/` with `DEBUG=True` or a weak/default superuser), and similar framework-native admin blueprints/modules that ship enabled by default.
 
 #### API Management Consoles
 
