@@ -228,9 +228,9 @@ Object versioning (keeping prior versions of an object after it is overwritten o
 - [AWS CLI](https://aws.amazon.com/cli/)
 - [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/) / [Azure Storage Explorer](https://azure.microsoft.com/en-us/products/storage/storage-explorer)
 - [gsutil](https://cloud.google.com/storage/docs/gsutil) / [gcloud storage](https://cloud.google.com/sdk/gcloud/reference/storage)
-- [S3Scanner](https://github.com/sa7mon/S3Scanner) – bucket discovery and permission enumeration
-- [cloud_enum](https://github.com/initstring/cloud_enum) – multi-cloud (AWS/Azure/GCP) storage enumeration
-- [ScoutSuite](https://github.com/nccgroup/ScoutSuite) / [Prowler](https://github.com/prowler-cloud/prowler) – broader cloud security posture review, including storage ACL/IAM findings
+- [S3Scanner](https://github.com/sa7mon/S3Scanner) - bucket discovery and permission enumeration
+- [cloud_enum](https://github.com/initstring/cloud_enum) - multi-cloud (AWS/Azure/GCP) storage enumeration
+- [ScoutSuite](https://github.com/nccgroup/ScoutSuite) / [Prowler](https://github.com/prowler-cloud/prowler) - broader cloud security posture review, including storage ACL/IAM findings
 
 ## References
 

@@ -229,10 +229,10 @@ Vulnerability assessment tools tend to include checks to spot web directories ha
 
 ### Modern Alternatives
 
-- [Burp Suite](https://portswigger.net/burp) – widely used web security testing proxy
-- [ZAP](https://www.zaproxy.org/) – open-source web application security testing tool, including forced browse/spidering for this class of issue
-- [ffuf](https://github.com/ffuf/ffuf) – fast web fuzzer, well suited to backup/extension wordlist-based discovery
-- [Screaming Frog SEO Spider](https://www.screamingfrog.co.uk/seo-spider/) – website crawler and broken link checker
+- [Burp Suite](https://portswigger.net/burp) - widely used web security testing proxy
+- [ZAP](https://www.zaproxy.org/) - open-source web application security testing tool, including forced browse/spidering for this class of issue
+- [ffuf](https://github.com/ffuf/ffuf) - fast web fuzzer, well suited to backup/extension wordlist-based discovery
+- [Screaming Frog SEO Spider](https://www.screamingfrog.co.uk/seo-spider/) - website crawler and broken link checker
 
 ### Cloud Object Storage Discovery
 
