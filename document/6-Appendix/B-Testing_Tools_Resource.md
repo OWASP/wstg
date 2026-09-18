@@ -113,7 +113,7 @@ unfurl "https://example.com/page?query=123"
 
 - [OWASP Noir](https://github.com/owasp-noir/noir)
     - Noir analyzes source code to list endpoints, methods, and parameters for many languages and frameworks. It outputs plain text, JSON, OpenAPI, or curl commands, and can replay the discovered endpoints through ZAP or Burp Suite.
-- [OWASP Attack Surface Detector](https://owasp.org/www-project-attack-surface-detector/)
+- [OWASP Attack Surface Detector](https://owasp.org/projects/attack-surface-detector)
     - The Attack Surface Detector uses static code analysis to identify endpoints and parameters, and is available as a command-line tool and as plugins for ZAP and Burp Suite.
 
 ### Port and Service Discovery
