@@ -123,6 +123,6 @@ Search the codebase (where accessible) or ask for a list of flags no longer acti
 
 - [Feature Toggles (aka Feature Flags) - Martin Fowler](https://martinfowler.com/articles/feature-toggles.html)
 - [LaunchDarkly Account Security](https://launchdarkly.com/docs/home/account/secure)
-- [OWASP ASVS - Configuration](https://owasp.org/www-project-application-security-verification-standard/)
+- [OWASP ASVS - Configuration](https://owasp.org/projects/asvs)
 - [CWE-284: Improper Access Control](https://cwe.mitre.org/data/definitions/284.html)
 - [CWE-863: Incorrect Authorization](https://cwe.mitre.org/data/definitions/863.html)
