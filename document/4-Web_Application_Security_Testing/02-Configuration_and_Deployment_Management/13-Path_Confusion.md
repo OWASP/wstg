@@ -6,15 +6,18 @@
 
 ## Summary
 
-Proper configuration of application paths is important because, if paths are not configured correctly, they allow an attacker to exploit other vulnerabilities at a later stage using this misconfiguration.
+Path Confusion occurs when different components in the request path (routers, proxies, caches, WAFs, the application itself) disagree on what a given URL path identifies, due to path normalization, trailing slashes, case sensitivity, or encoding differences. This mismatch lets an attacker cause one component to treat a path one way while another treats it differently, bypassing a security control that relies on path matching (e.g. an access-control rule, a route handler, or a cache key).
 
-For example, if the routes are not configured correctly and the target also uses a CDN, the attacker can use this misconfiguration to execute web cache deception attacks.
+For example, if routes are not configured correctly and the target also uses a CDN, an attacker can exploit the mismatch between what the origin serves and what the cache stores/keys on to execute web cache deception attacks.
+
+Scope note: this test is about identity confusion over the path string itself between components that should agree on it - it is not about supplying `../` or encoded traversal sequences to escape a directory (that is path traversal, covered under Input Validation / Injection testing, e.g. WSTG-ATHZ-01 / directory traversal tests). Path Confusion findings typically involve a path that is syntactically valid and does not attempt to leave the intended directory, but is interpreted inconsistently by different layers.
 
 As a result, to prevent other attacks, this configuration should be evaluated by the tester.
 
 ## Test Objectives
 
-- Make sure application paths are configured correctly.
+- Make sure application paths are configured and normalized consistently across all components (application, proxy, cache, CDN, WAF) that make decisions based on the path.
+- Identify cases where trailing slashes, case sensitivity, or encoding differences cause a security control (auth/access rules, routing, cache keying) to be bypassed or behave inconsistently.
 
 ## How To Test
 
@@ -25,6 +28,16 @@ In a black-box testing scenario, the tester should replace all the existing path
 For example, there is a path in the application that is a dashboard and shows the amount of the user's account balance (money, game credits, etc).
 
 Assume the path is `https://example.com/user/dashboard`, the tester should test the different modes that the developer may have considered for this path. For Web Cache Deception vulnerabilities the analyst should consider a path such as `https:// example.com/user/dashboard/non.js` if dashboard information is visible, and the target uses a CDN (or other web cache), then Web Cache Deception attacks are likely applicable.
+
+For each protected or routed path, also test the following variants and compare status code, response body, and which control (if any) is applied, against the baseline path:
+
+- Trailing slash: `/user/dashboard` vs `/user/dashboard/` - check whether an access-control rule, route, or cache key applies to only one variant.
+- Case sensitivity: `/user/dashboard` vs `/User/Dashboard` - check whether the origin and any front-end proxy/cache/WAF normalize case consistently.
+- Path normalization / dot-segments that stay within scope: `/user/dashboard/./` or `/user//dashboard` (repeated slashes) - not traversal outside the directory, just alternate encodings of the same resource.
+- Percent-encoding of path separators or reserved characters: `/user%2Fdashboard`, `/user/dashboard%2F..%2F` (where the decoded result still resolves inside scope) - check whether the component enforcing the security control decodes before or after matching.
+- Mixed encoding/case combinations to see if a WAF or access-control layer matches on the raw string while the application matches on the decoded/normalized string (or vice versa).
+
+A finding exists when any variant reaches a different outcome (bypasses auth, hits a different route handler, or is cached/served) than the canonical path, due to the components disagreeing on path identity - not because the path escaped its intended directory.
 
 ### White-Box Testing
 
@@ -55,6 +68,8 @@ If the path `https://example.com/dashboard/none.js` is also opened by the user i
 - Refrain from classify/handling cached based on file extension or path (leverage content-type).
 - Ensure the caching mechanism(s) adhere to cache-control headers specified by your application.
 - Implement RFC compliant File Not Found handling and redirects.
+- Normalize paths (case, trailing slash, encoding, repeated separators) consistently, and to the same canonical form, in every component that makes a security decision based on the path (application, reverse proxy, cache, CDN, WAF).
+- Perform security-relevant path matching (access control, routing) after normalization/decoding, not on the raw request-line string.
 
 ## References
 

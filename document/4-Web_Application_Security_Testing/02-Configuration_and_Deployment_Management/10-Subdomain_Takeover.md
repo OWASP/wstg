@@ -43,6 +43,8 @@ Use [subfinder](https://github.com/projectdiscovery/subfinder) to discover subdo
 
 This produces a list of subdomains to use in the detection phase.
 
+Resolve and filter the list to only subdomains with a `CNAME`, `NS`, or `MX` record before fingerprinting, since these are the record types most commonly left dangling. [dnsx](https://github.com/projectdiscovery/dnsx) can do this in bulk: `dnsx -l subdomains.txt -cname -resp -o resolved.txt`
+
 #### Fingerprint-Based Detection
 
 Fingerprint-based detection works by comparing each subdomain's HTTP response against a database of known vulnerable service responses. The [can-i-take-over-xyz](https://github.com/EdOverflow/can-i-take-over-xyz) project maintains this database, cataloging the specific response strings returned by service providers such as GitHub Pages, AWS S3, Heroku, and Fastly when a resource is unclaimed.
@@ -73,13 +75,20 @@ Automated tools produce false positives. Validate each finding manually before r
 
 1. Confirm the resource is unclaimed on the service provider's platform. Do not claim it.
 
+For `NS` records specifically, check whether a delegated nameserver is unregistered: `dig NS subdomain.victim.com`, then check whether the returned nameserver's own domain is available for registration. An unregistered nameserver domain means anyone can register it and answer DNS queries for the delegated zone, the highest-impact takeover variant.
+
 #### Cloud-Specific Takeovers
 
-Major cloud providers have distinct takeover patterns worth specific attention:
+Major cloud providers and PaaS/JAMstack services have distinct takeover patterns worth specific attention. This list changes as providers patch verification gaps, so cross-check current status against [can-i-take-over-xyz](https://github.com/EdOverflow/can-i-take-over-xyz) before reporting:
 
 - AWS S3: A CNAME pointing to an S3 bucket URL (for example, `bucket.s3.amazonaws.com`) where the bucket no longer exists returns a `NoSuchBucket` response. Anyone who creates a bucket with the same name in any AWS account can claim the subdomain.
-- Azure: Dangling CNAMEs pointing to deprovisioned Azure resources such as App Services or Traffic Manager endpoints can be claimed by registering the same resource name in a different Azure subscription.
+- Azure: Dangling CNAMEs pointing to deprovisioned Azure resources such as App Services, Azure CDN/Front Door endpoints, or Traffic Manager profiles can be claimed by registering the same resource name in a different Azure subscription.
 - GCP: Similar patterns exist for Cloud Storage buckets and Firebase Hosting endpoints.
+- GitHub Pages: covered above under [GitHub](#github); still one of the most common findings in the wild.
+- Vercel and Netlify: A CNAME pointing to a project domain (e.g. `*.vercel.app`, `*.netlify.app`) that has been deleted or renamed can typically be re-claimed by creating a new project with the matching name.
+- Cloudflare Pages / Workers custom domains: dangling CNAMEs to `*.pages.dev` can sometimes be claimed depending on account-level protections; verify current behavior, as Cloudflare has tightened this over time.
+- Heroku: A CNAME to `*.herokuapp.com` for an app that has been deleted returns a "No such app" response and can be re-claimed by creating an app with the matching name (subject to Heroku's naming rules).
+- Fastly and Shopify: both have historically appeared in takeover reports for dangling custom-domain configurations; treat any hit against their fingerprints in can-i-take-over-xyz the same as the providers above.
 
 ### Gray-Box Testing
 
@@ -92,6 +101,7 @@ To mitigate the risk of subdomain takeover, the vulnerable DNS resource record(s
 ## Tools
 
 - [subfinder - Subdomain enumeration tool](https://github.com/projectdiscovery/subfinder)
+- [dnsx - Fast bulk DNS resolution and filtering](https://github.com/projectdiscovery/dnsx)
 - [subzy - Subdomain takeover detection tool](https://github.com/LukaSikic/subzy)
 - [nuclei - Vulnerability scanner with takeover templates](https://github.com/projectdiscovery/nuclei)
 - [nuclei-templates - Community takeover templates](https://github.com/projectdiscovery/nuclei-templates)
@@ -105,4 +115,4 @@ To mitigate the risk of subdomain takeover, the vulnerable DNS resource record(s
 - [Subdomain Takeover: Basics](https://0xpatrik.com/subdomain-takeover-basics/)
 - [Subdomain Takeover: Going beyond CNAME](https://0xpatrik.com/subdomain-takeover-ns/)
 - [can-i-take-over-xyz - A list of vulnerable services](https://github.com/EdOverflow/can-i-take-over-xyz/)
-- [OWASP AppSec Europe 2017 - Frans Rosén: DNS hijacking using cloud providers – no verification needed](https://2017.appsec.eu/presos/Developer/DNS%20hijacking%20using%20cloud%20providers%20%E2%80%93%20no%20verification%20needed%20-%20Frans%20Rosen%20-%20OWASP_AppSec-Eu_2017.pdf)
+- [OWASP AppSec Europe 2017 - Frans Rosén: DNS hijacking using cloud providers - no verification needed](https://2017.appsec.eu/presos/Developer/DNS%20hijacking%20using%20cloud%20providers%20%E2%80%93%20no%20verification%20needed%20-%20Frans%20Rosen%20-%20OWASP_AppSec-Eu_2017.pdf)

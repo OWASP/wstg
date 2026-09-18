@@ -192,6 +192,15 @@ For lists in a sentence, use serial or [Oxford commas](https://www.grammarly.com
 
 > Test the application using automated tests, static code review, and penetration tests.
 
+#### Lead-in Terms
+
+When a bulleted list item leads with a term or short phrase before explaining it, separate the term from the explanation with a colon. Do not bold the term: the colon and the list structure already set it apart, and bolding it violates the [no bold, italic, or underline for emphasis](#bold-italic-and-underline) rule. For example:
+
+> - Trailing slash: a path served with and without a trailing slash may hit different route handlers.
+> - Case sensitivity: some components normalize path case and others do not.
+
+Reserve bold for the rare case where the WSTG needs to quote a literal UI string, such as a button label or setting name a reader must click or type exactly (for example, **Save Changes**).
+
 ### Use Correct Words
 
 The following section covers some frequently misused words and instructions on how to correctly use them.

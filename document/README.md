@@ -84,7 +84,7 @@
 
 #### 4.2.8 [RIA Cross Domain Policy](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/08-RIA_Cross_Domain_Policy.md)
 
-#### 4.2.9 [File Permission](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/09-File_Permission.md)
+#### 4.2.9 [File Permissions](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/09-File_Permissions.md)
 
 #### 4.2.10 [Subdomain Takeover](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/10-Subdomain_Takeover.md)
 
