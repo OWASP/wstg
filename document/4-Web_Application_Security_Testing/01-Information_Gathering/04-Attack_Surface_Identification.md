@@ -348,4 +348,4 @@ Always respect scope, rate limits, and engagement rules of engagement. Validate 
 - [Nessus Vulnerability Scanner](https://www.tenable.com/products/nessus)
 - [Nikto](https://github.com/sullo/nikto)
 - Content / virtual-host discovery: [ffuf](https://github.com/ffuf/ffuf), [feroxbuster](https://github.com/epi052/feroxbuster), [gobuster](https://github.com/OJ/gobuster)
-- Source code analysis for endpoint discovery (white-box or gray-box engagements): [OWASP Noir](https://github.com/owasp-noir/noir), [OWASP Attack Surface Detector](https://owasp.org/www-project-attack-surface-detector/)
+- Source code analysis for endpoint discovery (white-box or gray-box engagements): [OWASP Noir](https://github.com/owasp-noir/noir), [OWASP Attack Surface Detector](https://owasp.org/projects/attack-surface-detector)
