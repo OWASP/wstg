@@ -96,6 +96,32 @@ username=example_user
 
 If the attacker's response contain the data of the `example_user`, then the application is vulnerable for lateral movement attacks, where a user can read or write other user's data.
 
+You can automate steps 3 and 4. Gori's Authorize tab replays a captured request under several identities and compares each response against a baseline. An identity is a named set of header changes: keep the captured session for the victim, swap in a second user's token, or drop the session headers for an anonymous client.
+
+`gori run authorize` performs the same replay for scripting, taking the identities from a file:
+
+```json
+[
+  { "name": "victim (baseline)", "baseline": true },
+  { "name": "other-user", "set": [{ "name": "Authorization", "value": "Bearer <other-user-jwt>" }] },
+  { "name": "anonymous", "remove": ["Authorization"] }
+]
+```
+
+Running it against a request for one user's shopping basket in OWASP Juice Shop:
+
+```text
+$ gori run authorize --query "path:/rest/basket/6" --identities identities.json
+authorizing 1 request × 3 identities (victim (baseline), other-user, anonymous) = 3 requests
+[!] BYPASS    #1     GET    http://localhost:3000/rest/basket/6  · 1 of 2 identities matched the baseline
+      victim (baseline)   baseline  200  154B     —
+      other-user          same      200  154B     Δ status 200 · size same · time -11 ms
+      anonymous           different 401  984B     Δ status 200 → 401 · size +830 B · time -22 ms
+done · 1 request replayed · 3 sends · 1 possible bypass
+```
+
+The `other-user` identity is served the same `200` response as the victim, so the endpoint does not check that the basket belongs to the caller. The `anonymous` identity is correctly rejected with `401`.
+
 ### Access to Administrative Functions
 
 For example, suppose that the `addUser` function is part of the administrative menu of the application, and it is possible to access it by requesting the following URL `https://www.example.com/admin/addUser`.
@@ -196,6 +222,8 @@ Employ the least privilege principles on the users, roles, and resources to ensu
 - [Port Swigger Burp Suite](https://portswigger.net/burp)
     - [Burp extension: AuthMatrix](https://github.com/SecurityInnovation/AuthMatrix/)
     - [Burp extension: Autorize](https://github.com/Quitten/Autorize)
+- [Gori](https://github.com/hahwul/gori)
+    - The Authorize tab replays a request under multiple identities to find access control bypasses, and is scriptable as `gori run authorize`.
 
 ## References
 

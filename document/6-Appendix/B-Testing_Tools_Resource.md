@@ -17,6 +17,8 @@ The list contains only tools that are freely available to download and use (alth
     - Burp Suite is an intercepting proxy for security testing. It allows intercepting and modifying all HTTP(S) traffic passing in both directions, it can work with custom TLS certificates and non-proxy-aware clients.
 - [Telerik Fiddler](https://www.telerik.com/fiddler)
     - Fiddler is an intercepting web proxy that is primarily aimed at developers rather than penetration testers, but still provides useful functionality. It also hooks directly into the Windows HTTP APIs, allowing it to intercept traffic from some software that doesn't allow custom proxies to be set.
+- [Gori](https://github.com/hahwul/gori)
+    - Gori is an intercepting proxy driven from a terminal user interface (TUI), with tabs for history, repeater and fuzzer, access control replay, JWT, session token analysis, and out-of-band testing. The same project is scriptable through `gori run` and reachable by AI tools through a Model Context Protocol server.
 
 ### Firefox Extensions
 
