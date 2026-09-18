@@ -44,11 +44,11 @@ The same network-configuration-review principle applies where the "network infra
 
 | Control | Black-box test | Gray-box test | Evidence a finding requires |
 |---------|----------------|----------------|------------------------------|
-| Security groups / NSGs / cloud firewall rules | Port scan the target's public IPs for ports beyond the intended public listeners (especially SSH/RDP/database ports). | Read the security group/NSG/firewall rule set directly (`aws ec2 describe-security-groups`, Azure/GCP equivalents) for `0.0.0.0/0` ingress or unrestricted egress. | The black-box scan shows the port actually answering (not just filtered/no-response), or the gray-box rule set shows a specific rule granting that access with no compensating control. |
-| VPC/subnet isolation | Attempt to reach backend-tier hosts (database ports, internal admin paths) directly from the internet, using addresses/hostnames found via reconnaissance. | Review the VPC/subnet layout and route tables to confirm backend tiers sit in private subnets with no route to an internet gateway. | A direct connection from outside the VPC succeeds, or the route table shows a route to an internet/NAT gateway from a subnet that should be private. |
+| Security groups / NSGs / cloud firewall rules | Port scan the target's public IPs for ports beyond the intended public listeners (especially SSH/RDP/database ports). | Read the rule set directly: `aws ec2 describe-security-groups` (AWS), `az network nsg rule list --nsg-name <nsg>` (Azure), or `gcloud compute firewall-rules list` (GCP), checking for `0.0.0.0/0` ingress or unrestricted egress. | The black-box scan shows the port actually answering (not just filtered/no-response), or the gray-box rule set shows a specific rule granting that access with no compensating control. |
+| VPC/subnet isolation | Attempt to reach backend-tier hosts (database ports, internal admin paths) directly from the internet, using addresses/hostnames found via reconnaissance. | Review the VPC/subnet layout and route tables: `aws ec2 describe-route-tables` (AWS), `az network vnet subnet list` plus route table inspection (Azure), or `gcloud compute networks subnets list` / `gcloud compute routes list` (GCP), confirming backend tiers sit in private subnets with no route to an internet gateway. | A direct connection from outside the VPC succeeds, or the route table shows a route to an internet/NAT gateway from a subnet that should be private. |
 | Load balancer/CDN configuration | Attempt to reach the origin server directly (bypassing the load balancer/CDN hostname), using an IP found via DNS history, certificate transparency logs, or leaked headers. | Review listener rules, origin configuration, and origin-restriction settings (e.g. an origin security group scoped to only the CDN's IP ranges, or an origin-verification header/secret). | The origin responds directly to the bypass attempt (not just to traffic via the intended load balancer/CDN hostname). |
-| Service mesh policies | Not directly testable from outside the mesh in most deployments; note as gray-box-only unless the tester has a foothold inside the cluster/mesh. | Review `AuthorizationPolicy` (or equivalent) resources and mTLS mode for services that should require mesh-internal authentication. | An `ALLOW-ALL` policy or permissive mTLS mode found in configuration, ideally confirmed by an unauthenticated in-mesh call succeeding where the design intended it to be denied. |
-| Kubernetes `NetworkPolicy` | From a pod already inside the cluster (if in scope), attempt a connection from an unauthorized pod to a sensitive workload (e.g. a database pod). | Confirm which CNI plugin is installed and whether it enforces `NetworkPolicy`; review policy objects for the sensitive workload and whether namespace-level default-deny is applied. | The in-cluster connection attempt succeeds despite an apparently-restrictive `NetworkPolicy` being present (proving the CNI isn't enforcing it), or no `NetworkPolicy` exists at all for a sensitive workload. |
+| Service mesh policies | Not directly testable from outside the mesh in most deployments; note as gray-box-only unless the tester has a foothold inside the cluster/mesh. | For Istio: `kubectl get authorizationpolicy --all-namespaces` and `kubectl get peerauthentication --all-namespaces -o yaml` (checking `mtls.mode`) to review authorization policies and mTLS mode for services that should require mesh-internal authentication. | An `ALLOW-ALL` policy or `PERMISSIVE`/absent mTLS mode found in configuration, ideally confirmed by an unauthenticated in-mesh call succeeding where the design intended it to be denied. |
+| Kubernetes `NetworkPolicy` | From a pod already inside the cluster (if in scope), attempt a connection from an unauthorized pod to a sensitive workload (e.g. a database pod). | Confirm which CNI plugin is installed (`kubectl get pods -n kube-system` to identify the CNI's own pods, e.g. `calico-node` or `cilium`) and whether it enforces `NetworkPolicy`; run `kubectl get networkpolicy --all-namespaces` and `kubectl describe networkpolicy <name> -n <namespace>` to review policy objects for the sensitive workload and whether namespace-level default-deny is applied. | The in-cluster connection attempt succeeds despite an apparently-restrictive `NetworkPolicy` being present (proving the CNI isn't enforcing it), or `kubectl get networkpolicy` returns nothing at all for a namespace containing a sensitive workload. |
 
 A few things to keep in mind that apply across all five rows:
 
@@ -72,17 +72,17 @@ Some companies choose not to manage all aspects of their web server applications
 
 ## Tools
 
-- [nmap](https://nmap.org/) – network/port scanning and service fingerprinting.
-- [ScoutSuite](https://github.com/nccgroup/ScoutSuite) – multi-cloud (AWS/Azure/GCP) security configuration auditing, including security groups/NSGs and network exposure.
-- [Prowler](https://github.com/prowler-cloud/prowler) – AWS/Azure/GCP security assessment, including network and firewall rule checks.
-- [kube-bench](https://github.com/aquasecurity/kube-bench) – CIS Kubernetes Benchmark scanner.
-- [kube-hunter](https://github.com/aquasecurity/kube-hunter) – identifies exposed Kubernetes network-facing components.
-- [Shodan](https://www.shodan.io/) / [Censys](https://censys.io/) – internet-wide scan data useful for identifying unintentionally exposed infrastructure during black-box assessments.
+- [nmap](https://nmap.org/) - network/port scanning and service fingerprinting.
+- [ScoutSuite](https://github.com/nccgroup/ScoutSuite) - multi-cloud (AWS/Azure/GCP) security configuration auditing, including security groups/NSGs and network exposure.
+- [Prowler](https://github.com/prowler-cloud/prowler) - AWS/Azure/GCP security assessment, including network and firewall rule checks.
+- [kube-bench](https://github.com/aquasecurity/kube-bench) - CIS Kubernetes Benchmark scanner.
+- [kube-hunter](https://github.com/aquasecurity/kube-hunter) - identifies exposed Kubernetes network-facing components.
+- [Shodan](https://www.shodan.io/) / [Censys](https://censys.io/) - internet-wide scan data useful for identifying unintentionally exposed infrastructure during black-box assessments.
 
 ## References
 
 - [NIST National Vulnerability Database (NVD)](https://nvd.nist.gov/)
-- [CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks) – hardening baselines for common web/application servers, cloud providers, and Kubernetes.
+- [CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks) - hardening baselines for common web/application servers, cloud providers, and Kubernetes.
 - [AWS: Security Groups for Your VPC](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html)
 - [Azure Network Security Groups](https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview)
 - [Kubernetes: Network Policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/)

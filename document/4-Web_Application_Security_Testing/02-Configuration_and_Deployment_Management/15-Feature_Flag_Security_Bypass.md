@@ -74,14 +74,14 @@ Host: example.com
 Authorization: Bearer {low-privilege-token}
 ```
 
-**Expected result:** The server must enforce authorization independently of client-side flag state — an unauthorized user must be denied access (for example, `401 Unauthorized` or `403 Forbidden`) even if the flag is manipulated client-side. If the feature is disabled globally by design, the functionality should remain inaccessible to all users, rather than the flag only hiding the UI element while the underlying functionality remains reachable.
+**Expected result:** The server must enforce authorization independently of client-side flag state - an unauthorized user must be denied access (for example, `401 Unauthorized` or `403 Forbidden`) even if the flag is manipulated client-side. If the feature is disabled globally by design, the functionality should remain inaccessible to all users, rather than the flag only hiding the UI element while the underlying functionality remains reachable.
 
 ### Test Behavior During Flag Transitions and Rollbacks
 
 - **Kill-switch bypass:** Disable a security-relevant flag (fraud check, rate limit, step-up authentication) and replay a request captured *before* the flag was disabled, which contains a parameter, token, or session claim previously set by that control (e.g. `fraud_checked=true`). Confirm the backend does not still trust that stale assertion.
-- **Rollback:** Simulate or observe an application rollback and confirm that any security configuration tied to the rolled-back version is also restored — not left in its prior (potentially disabled) state.
+- **Rollback:** Simulate or observe an application rollback and confirm that any security configuration tied to the rolled-back version is also restored - not left in its prior (potentially disabled) state.
 - **Partial rollout / canary:** Where multiple instances or services may be running different flag states simultaneously, send repeated requests and compare responses across instances to detect inconsistent enforcement.
-- **Second scenario — MFA kill-switch:** Disable step-up/MFA verification for a subset of users via a kill-switch. Confirm that a downstream service does not continue trusting an existing session claim (e.g. `mfa_verified=true`) that was only valid because MFA was previously enforced. If the claim is trusted after the control is disabled, an attacker with a stale session can bypass step-up verification entirely.
+- **Second scenario - MFA kill-switch:** Disable step-up/MFA verification for a subset of users via a kill-switch. Confirm that a downstream service does not continue trusting an existing session claim (e.g. `mfa_verified=true`) that was only valid because MFA was previously enforced. If the claim is trusted after the control is disabled, an attacker with a stale session can bypass step-up verification entirely.
 
 ### Evaluate Fail-Safe Behavior When the Flag Service Is Unavailable
 

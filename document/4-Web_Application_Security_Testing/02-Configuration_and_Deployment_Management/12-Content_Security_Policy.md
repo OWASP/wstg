@@ -93,7 +93,7 @@ If `report-uri` or `report-to` is configured:
 Where appropriate and authorized, attempt to validate enforcement by testing controlled payloads:
 
 - Inline script injection attempts.
-- Data URL–based payloads.
+- Data URL-based payloads.
 - JSONP callback manipulation from allowlisted domains.
 - DOM-based gadget chaining using trusted script sources.
 
@@ -203,8 +203,8 @@ Teams should adapt strict policies carefully, ensuring compatibility with applic
 - [CSP Auditor - Burp Suite Extension](https://portswigger.net/bappstore/35237408a06043e9945a11016fcbac18)
 - [CSP Generator Chrome](https://chrome.google.com/webstore/detail/content-security-policy-c/ahlnecfloencbkpfnpljbojmjkfgnmdc) / [Firefox](https://addons.mozilla.org/en-US/firefox/addon/csp-generator/)
 - [CSP Validator](https://cspvalidator.netlify.app/)
-- [ZAP](https://www.zaproxy.org/) – Includes automated and passive analysis for CSP misconfigurations.
-- [CSPBypass](https://cspbypass.com/) – Tool designed to help security testers analyze and attempt bypass techniques against restrictive CSP implementations.
+- [ZAP](https://www.zaproxy.org/) - Includes automated and passive analysis for CSP misconfigurations.
+- [CSPBypass](https://cspbypass.com/) - Tool designed to help security testers analyze and attempt bypass techniques against restrictive CSP implementations.
 
 ## References
 
