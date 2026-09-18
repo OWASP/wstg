@@ -84,6 +84,6 @@ The methodology for testing is equivalent to the black-box case, as in both scen
 
 ### Whitepapers
 
-- [MDN – Cache-Control](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control)
+- [MDN - Cache-Control](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control)
 - [Euthanize Pragma no-cache](https://www.veggiespam.com/euthanize-pragma-no-cache/)
 - [Caching in HTTP](https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html)

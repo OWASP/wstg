@@ -144,7 +144,7 @@ def url_path_key(url: str) -> str:
 def nest_fragment_siblings(nodes: list[dict]) -> list[dict]:
     """Nest path#fragment entries under the sibling that owns that path.
 
-    ToC lists in-page sections (e.g. 3.2–3.7) as peers of their page (3.1).
+    ToC lists in-page sections (e.g. 3.2-3.7) as peers of their page (3.1).
     For the sidebar, those belong under the page node.
     """
     result: list[dict] = []

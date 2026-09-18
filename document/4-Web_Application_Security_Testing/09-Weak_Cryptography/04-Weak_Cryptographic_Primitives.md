@@ -26,7 +26,7 @@ In addition to the right choices of secure encryption or hash algorithms, the ri
 - Minimum Key length requirements:
 
 ```text
-Key exchange: Diffie–Hellman key exchange with minimum 2048 bits
+Key exchange: Diffie-Hellman key exchange with minimum 2048 bits
 Message Integrity: HMAC-SHA2
 Message Hash: SHA2 256 bits
 Asymmetric encryption: RSA 2048 bits
@@ -141,6 +141,6 @@ CWE-780: Use of RSA Algorithm without OAEP
 - [Insufficient Session-ID Length](https://owasp.org/www-community/vulnerabilities/Insufficient_Session-ID_Length)
 - [Using a broken or risky cryptographic algorithm](https://owasp.org/www-community/vulnerabilities/Using_a_broken_or_risky_cryptographic_algorithm)
 - [Javax.crypto.cipher API](https://docs.oracle.com/javase/8/docs/api/javax/crypto/Cipher.html)
-- ISO 18033-1:2015 – Encryption Algorithms
-- ISO 18033-2:2015 – Asymmetric Ciphers
-- ISO 18033-3:2015 – Block Ciphers
+- ISO 18033-1:2015 - Encryption Algorithms
+- ISO 18033-2:2015 - Asymmetric Ciphers
+- ISO 18033-3:2015 - Block Ciphers

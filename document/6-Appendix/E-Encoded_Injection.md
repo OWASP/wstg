@@ -6,11 +6,11 @@ Character encoding is the process of mapping characters, numbers and other symbo
 
 In the space of application security and due to the plethora of encoding schemes available, character encoding has a popular misuse. It is being used for encoding malicious injection strings in a way that obfuscates them. This can lead to the bypass of input validation filters, or take advantage of particular ways in which browsers render encoded text.
 
-## Input Encoding – Filter Evasion
+## Input Encoding - Filter Evasion
 
 Web applications usually employ different types of input filtering mechanisms to limit the input that can be submitted by the user. If these input filters are not implemented sufficiently well, it is possible to slip a character or two through these filters. For instance, a `/` can be represented as `2F` (hex) in ASCII, while the same character (`/`) is encoded as `C0` `AF` in Unicode (2 byte sequence). Therefore, it is important for the input filtering control to be aware of the encoding scheme used. If the filter is found to be detecting only `UTF-8` encoded injections, a different encoding scheme may be employed to bypass this filter.
 
-## Output Encoding – Server & Browser Consensus
+## Output Encoding - Server & Browser Consensus
 
 Web browsers need to be aware of the encoding scheme used to coherently display a web page. Ideally, this information should be provided to the browser in the HTTP header (`Content-Type`) field, as shown below:
 

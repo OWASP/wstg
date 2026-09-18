@@ -65,9 +65,9 @@ Another option is to probe for URLs which might be likely candidates for non-pub
 
 It is easy to check for the existence of web applications on non-standard ports. A port scanner such as Nmap is capable of performing service recognition by means of the `-sV` option, and will identify http[s] services on arbitrary ports. What is required is a full scan of the whole 64k TCP port address space.
 
-For example, the following command will look up, with a TCP connect scan, all the open ports on IP `192.168.1.100` and will try to determine what services are bound to them (only *essential* switches are shown – Nmap features a broad set of options, whose discussion is out of scope):
+For example, the following command will look up, with a TCP connect scan, all the open ports on IP `192.168.1.100` and will try to determine what services are bound to them (only *essential* switches are shown - Nmap features a broad set of options, whose discussion is out of scope):
 
-`nmap –Pn –sT –sV –p0-65535 192.168.1.100`
+`nmap -Pn -sT -sV -p0-65535 192.168.1.100`
 
 It is sufficient to examine the output and look for HTTP or the indication of TLS-wrapped services (which should be probed to confirm that they are HTTPS). For example, the output of the previous command could look like:
 
@@ -329,7 +329,7 @@ Always respect scope, rate limits, and engagement rules of engagement. Validate 
 
 - DNS lookup tools such as `nslookup`, `dig`, and `host`
 - Subdomain enumeration and attack-surface mapping tools:
-    - [Amass](https://github.com/owasp-amass/amass) (OWASP project – passive + active, graph output)
+    - [Amass](https://github.com/owasp-amass/amass) (OWASP project - passive + active, graph output)
     - [subfinder](https://github.com/projectdiscovery/subfinder)
     - [Chaos](https://chaos.projectdiscovery.io/) / [chaos-client](https://github.com/projectdiscovery/chaos-client) (curated subdomain dataset, API key required)
     - [dnsx](https://github.com/projectdiscovery/dnsx)

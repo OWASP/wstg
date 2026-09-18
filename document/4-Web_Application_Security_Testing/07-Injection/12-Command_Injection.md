@@ -284,7 +284,7 @@ General deny list to be included for command injection can be `|` `;` `&` `$` `>
 
 Escape or filter special characters for windows, `(` `)` `<` `>` `&` `*` `‘` `|` `=` `?` `;` `[` `]` `^` `~` `!` `.` `"` `%` `@` `/` `\` `:` `+` `,`  ``` ` ```  
 
-Escape or filter special characters for Linux, `{` `}` `(` `)` `>` `<` `&` `*` `‘` `|` `=` `?` `;` `[` `]` `$` `–` `#` `~` `!` `.` `"` `%`  `/` `\` `:` `+` `,` ``` ` ```  
+Escape or filter special characters for Linux, `{` `}` `(` `)` `>` `<` `&` `*` `‘` `|` `=` `?` `;` `[` `]` `$` `-` `#` `~` `!` `.` `"` `%`  `/` `\` `:` `+` `,` ``` ` ```  
 
 Moreover, avoid using functions that execute operating system commands in your application unless absolutely necessary. For instance, instead of using `system("cp /path/to/file1.txt /path/to/file2.txt")` to copy a file, you can directly use the php built-in function `copy("cp /path/to/file1.txt, /path/to/file2.txt")` which does exactly the same thing. It's worth noting that other development languages/frameworks generally offer similar built-in functionality.
 

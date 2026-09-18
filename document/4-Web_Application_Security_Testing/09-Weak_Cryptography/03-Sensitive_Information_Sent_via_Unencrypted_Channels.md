@@ -125,7 +125,7 @@ Use one of the following techniques to search for sensitive information.
 
 Checking if password or encryption key is hardcoded in the source code or configuration files.
 
-`grep -r –E "Pass | password | pwd |user | guest| admin | encry | key | decrypt | sharekey " ./PathToSearch/`
+`grep -r -E "Pass | password | pwd |user | guest| admin | encry | key | decrypt | sharekey " ./PathToSearch/`
 
 Checking if logs or source code may contain phone number, email address, ID or any other PII. Change the regular expression based on the format of the PII.
 

