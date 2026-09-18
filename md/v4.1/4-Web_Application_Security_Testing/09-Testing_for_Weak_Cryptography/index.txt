@@ -1,0 +1,18 @@
+---
+layout: document
+title: WSTG - v4.1
+collection_name: v41
+channel_label: v4.1
+channel_path: v4.1
+render_with_liquid: false
+---
+
+# 4.9 Testing for Weak Cryptography
+
+4.9.1 [Testing for Weak SSL TLS Ciphers Insufficient Transport Layer Protection](01-Testing_for_Weak_SSL_TLS_Ciphers_Insufficient_Transport_Layer_Protection/)
+
+4.9.2 [Testing for Padding Oracle](02-Testing_for_Padding_Oracle/)
+
+4.9.3 [Testing for Sensitive Information Sent via Unencrypted Channels](03-Testing_for_Sensitive_Information_Sent_via_Unencrypted_Channels/)
+
+4.9.4 [Testing for Weak Encryption](04-Testing_for_Weak_Encryption/)
