@@ -105,6 +105,122 @@ You can also generate a JSON output file using the `-json` flag, which can be us
 - [Home of ASD Plugin for ZAP](https://github.com/secdec/attack-surface-detector-zap/wiki)
 - [Home of ASD Plugin for PortSwigger Burp](https://github.com/secdec/attack-surface-detector-burp/wiki)
 
+### OWASP Noir
+
+[OWASP Noir](https://owasp.org/projects/noir) is a command-line tool that finds the endpoints of a web application by analyzing its source code. For each endpoint it reports the HTTP method and the parameters read from the query string, request body, path, headers, and cookies. This includes endpoints that no page links to and parameters that the client-side code never sends, which a spider would miss. Noir supports many languages and frameworks, including Rails, Django, Express, Spring, and Laravel. See the [supported languages and frameworks](https://owasp-noir.github.io/noir/usage/supported/language_and_frameworks/) for the full list.
+
+Noir writes its results in many [output formats](https://owasp-noir.github.io/noir/usage/output_formats/), including plain text, JSON, OpenAPI, and curl commands. It can also replay the discovered endpoints through an intercepting proxy such as ZAP or Burp Suite, so they appear in the proxy history with the rest of the captured traffic.
+
+#### How to Use
+
+Install Noir by following the [installation guide](https://owasp-noir.github.io/noir/get_started/installation/), then run the `scan` command against the root directory of the source code:
+
+`noir scan <source-code-path> [flags]`
+
+Here is an example of running the command against [OWASP RailsGoat](https://github.com/OWASP/railsgoat), the same application used in the Attack Surface Detector example above. Without `--no-log`, Noir also prints a progress log with the detected technologies (`ruby_rails` here) and timing.
+
+```text
+$ noir scan railsgoat --no-log
+GET /api/v1/mobile/1?class=
+  ○ path: id
+
+GET /api/v1/mobile?class=
+
+GET /api/v1/users
+
+GET /api/v1/users/1
+
+GET /users/1/benefit_forms
+
+GET /users/1/messages
+
+GET /users/1/messages/1
+  ○ path: id
+
+DELETE /users/1/messages/1
+  ○ path: id
+
+POST /users/1/messages
+  ○ body: {"creator_id":"","message":"","read":"","receiver_id":""}
+
+GET /users/1/paid_time_off
+
+GET /users/1/pay
+
+GET /users/1/pay/1
+
+DELETE /users/1/pay/1
+  ○ path: id
+
+GET /users/1/performance
+
+GET /users/1/retirement
+
+POST /schedule
+  ○ body: {"schedule":"","date_range1":"","date_begin":"","date_end":"","event_desc":"","event_name":"","event_type":""}
+
+POST /sessions
+  ○ body: 
+    ├── url
+    ├── email
+    ├── password
+    └── remember_me
+
+... snipped ...
+
+POST /admin/1/delete_user
+  ○ body: 
+    └── admin_id
+
+PATCH /admin/1/update_user
+  ○ body: 
+    ├── admin_id
+    └── user
+
+GET /admin/1/get_all_users
+
+GET /admin/1/analytics?field=&ip=
+
+GET /dashboard/home?font=
+  ○ cookies: 
+    └── font
+
+GET /dashboard/change_graph?graph=
+
+GET /?url=
+
+GET /404.html
+
+GET /422.html
+
+GET /500.html
+
+GET /robots.txt
+```
+
+Noir identified 56 endpoints. Each entry lists the method, the path, and the parameters grouped by location (`path`, `body`, `cookies`). Some of these are easy to miss while browsing, such as the `font` cookie read by `/dashboard/home`.
+
+Change the output format with `-f` to feed the results into other tools. The `curl` format prints one request per endpoint, and `-u` sets the base URL:
+
+```text
+$ noir scan railsgoat --no-log -f curl -u http://localhost:3000
+curl -i -X 'GET' 'http://localhost:3000/api/v1/mobile/1?class='
+curl -i -X 'GET' 'http://localhost:3000/api/v1/mobile?class='
+curl -i -X 'GET' 'http://localhost:3000/api/v1/users'
+curl -i -X 'GET' 'http://localhost:3000/api/v1/users/1'
+curl -i -X 'GET' 'http://localhost:3000/users/1/benefit_forms'
+curl -i -X 'GET' 'http://localhost:3000/users/1/messages'
+... snipped ...
+```
+
+To send every endpoint through an intercepting proxy for manual testing, add `--probe-via` with the proxy address:
+
+```bash
+noir scan railsgoat -u http://localhost:3000 --probe-via http://127.0.0.1:8080
+```
+
+Noir can also export an OpenAPI document for import into ZAP or Burp Suite. See [API Reconnaissance](../12-API_Testing/01-API_Reconnaissance.md#server-side-source-code) for an example.
+
 ### Application Entry Points
 
 The following are two examples on how to check for application entry points.
@@ -146,6 +262,7 @@ Having a variety of injection locations provides the attacker with chaining poss
 - [Zed Attack Proxy (ZAP)](https://www.zaproxy.org/)
 - [Burp Suite](https://www.portswigger.net/burp/)
 - [Fiddler](https://www.telerik.com/fiddler)
+- [OWASP Noir](https://github.com/owasp-noir/noir)
 - Content and parameter discovery: [ffuf](https://github.com/ffuf/ffuf), [feroxbuster](https://github.com/epi052/feroxbuster), [Arjun](https://github.com/s0md3v/Arjun)
 - Crawlers: [katana](https://github.com/projectdiscovery/katana), [hakrawler](https://github.com/hakluke/hakrawler)
 - Historical URL sources: [gau](https://github.com/lc/gau), [waybackurls](https://github.com/tomnomnom/waybackurls), [waymore](https://github.com/xnl-h4ck3r/waymore)
