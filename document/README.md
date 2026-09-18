@@ -96,6 +96,8 @@
 
 #### 4.2.14 [Other HTTP Security Header Misconfigurations](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/14-Other_HTTP_Security_Header_Misconfigurations.md)
 
+#### 4.2.15 [Feature Flag Security Bypass](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/15-Feature_Flag_Security_Bypass.md)
+
 ### 4.3 [Identity Management](4-Web_Application_Security_Testing/03-Identity_Management/README.md)
 
 #### 4.3.1 [Role Definitions](4-Web_Application_Security_Testing/03-Identity_Management/01-Role_Definitions.md)

@@ -6,40 +6,21 @@
 
 ## Summary
 
-Feature flags are commonly used to control application functionality and enable progressive delivery. They allow features to be enabled, disabled, or gradually rolled out without a full application deployment. Modern applications increasingly use feature flags and kill-switches to gate security-relevant functionality such as authentication, authorization, fraud detection, rate limiting, and risk controls.
+Feature flags are commonly used to control application functionality and enable progressive delivery. They allow features to be enabled, disabled, or gradually rolled out without a full application deployment. Modern applications increasingly use feature flags and kill-switches to gate security-relevant functionality such as authentication, authorization, fraud detection, rate limiting, and risk controls, whether implemented through feature flag services (LaunchDarkly, Split, Flagsmith, ConfigCat) or custom solutions.
 
 When security controls depend on feature flags, inconsistent flag states can introduce vulnerabilities. A control may be enabled in one service while disabled in another, or a rollback may restore application code without restoring the corresponding security configuration. Client-side flags may also be manipulated to reveal functionality that should remain protected.
 
-A common failure pattern occurs when a kill-switch disables enforcement logic but leaves a trusted assertion behind. For example, a fraud-prevention control may be disabled due to performance issues while a backend service continues trusting a `fraud_checked=true` parameter that is no longer being set by the (now-disabled) control. An attacker can replay a previously captured request containing that parameter and bypass the fraud check entirely.
+A common failure pattern occurs when a kill-switch disables enforcement logic but leaves a trusted assertion behind. For example, a fraud-prevention control may be disabled due to performance issues, yet a backend service continues to trust a `fraud_checked=true` parameter that the (now-disabled) control would previously have set. An attacker can replay a previously captured request containing that parameter to make the backend treat an unchecked request as though it had passed the fraud check.
 
 This test evaluates whether security controls remain consistently enforced across all feature flag states, including enablement, disablement, rollback, partial rollout, canary deployment, and feature-flag-service failure.
 
 ## Test Objectives
 
 - Identify feature flags and kill-switches that control security-relevant functionality.
-- Determine whether feature flag states can be manipulated by an unauthorized client.
-- Verify that backend security controls remain enforced independently of client-side flag state.
-- Test security behavior when flags are toggled on and off.
-- Test security behavior during flag transitions, rollbacks, and staged deployments.
-- Verify that security controls remain consistent across services and application instances.
-- Determine whether stale security assertions or session state can be reused after a flag transition.
+- Determine whether feature flag states can be manipulated by an unauthorized client, and verify that backend security controls remain enforced independently of client-side flag state.
+- Verify that security controls remain consistently enforced across flag transitions, rollbacks, staged deployments, and services or instances, including whether stale security assertions or session state can be reused after a transition.
 - Evaluate fail-safe behavior when the feature flag service is unavailable.
-- Identify sensitive information exposed through feature flag configurations.
-- Identify stale feature flags that may expose deprecated or unpatched code paths.
-
-## Common Security Issues
-
-- **Client-side manipulation:** Flags evaluated in the browser can be modified by an attacker to enable restricted functionality.
-- **Authorization bypass:** Hidden UI elements may still have accessible backend endpoints.
-- **Security control state drift:** Different application components may use different flag states, so a control is enforced by one component but bypassed by another.
-- **Kill-switch bypass:** Disabling a control may leave trusted parameters, tokens, or session claims behind that allow the disabled control to be bypassed.
-- **Rollback vulnerabilities:** A rollback may restore application code without restoring the corresponding security configuration.
-- **Partial rollout vulnerabilities:** Canary or staged deployments may expose different security behavior depending on which instance or service handles a request.
-- **Insecure defaults:** Fallback values used when the feature flag service is unavailable may fail open.
-- **Information disclosure:** Feature flag configurations may reveal unreleased features, internal services, security controls, or implementation details.
-- **Stale flag vulnerabilities:** Unused flags may continue to reference deprecated code paths that contain unpatched vulnerabilities.
-
-Modern applications increasingly rely on feature flag services (LaunchDarkly, Split, Flagsmith, ConfigCat) or custom implementations to manage rollouts, which makes security testing of these mechanisms essential.
+- Identify sensitive information exposed through feature flag configurations, and stale flags that may expose deprecated or unpatched code paths.
 
 ## How to Test
 
@@ -64,13 +45,9 @@ securityFeature
 
 Tools such as `source-map-explorer` or the webpack Bundle Analyzer can help locate flag-related code inside minified bundles.
 
-#### Monitor Network Traffic
+#### Monitor Network Traffic and API Responses
 
-Use an intercepting proxy (Burp Suite, ZAP) to capture requests made to feature flag services or internal configuration endpoints (for example, calls to `app.launchdarkly.com`, `/api/config`, or `/api/flags`). Review the response payloads for flag names, default values, and targeting rules.
-
-#### Review API Responses and Configuration Endpoints
-
-Check whether any endpoint returns the full set of flags evaluated for a session, including flags unrelated to the current page. Overly broad flag payloads are a common source of information disclosure (see below).
+Use an intercepting proxy (Burp Suite, ZAP) to capture requests made to feature flag services or internal configuration endpoints (for example, calls to `app.launchdarkly.com`, `/api/config`, or `/api/flags`). Review the response payloads for flag names, default values, and targeting rules, and check whether any endpoint returns the full set of flags evaluated for a session, including flags unrelated to the current page. Overly broad flag payloads are a common source of information disclosure (see below).
 
 ### Test for Client-Side Flag Manipulation
 
@@ -89,7 +66,7 @@ Content-Type: application/json
 
 ### Verify Backend Authorization Independence
 
-For every security-relevant flag identified, confirm that hiding a feature in the UI is matched by an equivalent restriction on the backend endpoint that feature calls. Attempt to call the underlying endpoint directly while the flag is disabled for the current user:
+For every security-relevant flag identified, confirm that hiding functionality in the UI is matched by an equivalent restriction wherever that functionality is actually implemented (an API endpoint, a backend service call, a message handler, and so on). Attempt to invoke the underlying functionality directly while the flag is disabled for the current user, for example:
 
 ```http
 GET /api/admin/reports HTTP/1.1
@@ -97,7 +74,7 @@ Host: example.com
 Authorization: Bearer {low-privilege-token}
 ```
 
-**Expected result:** The server must enforce authorization independently of client-side flag state — an unauthorized user must receive a `401 Unauthorized` or `403 Forbidden` response for this endpoint even if the flag is manipulated client-side. If the feature is disabled globally by design, the endpoint should remain inaccessible to all users (for example, `403`/`404`), rather than the flag only hiding the UI element while the endpoint remains reachable.
+**Expected result:** The server must enforce authorization independently of client-side flag state — an unauthorized user must be denied access (for example, `401 Unauthorized` or `403 Forbidden`) even if the flag is manipulated client-side. If the feature is disabled globally by design, the functionality should remain inaccessible to all users, rather than the flag only hiding the UI element while the underlying functionality remains reachable.
 
 ### Test Behavior During Flag Transitions and Rollbacks
 
@@ -139,7 +116,7 @@ Search the codebase (where accessible) or ask for a list of flags no longer acti
 
 - [Burp Suite](https://portswigger.net/burp)
 - [ZAP](https://www.zaproxy.org/)
-- Browser Developer Tools (Chrome, Firefox, Edge)
+- [Browser Developer Tools](../../6-Appendix/F-Leveraging_Dev_Tools.md)
 - [source-map-explorer](https://github.com/danvk/source-map-explorer) / webpack Bundle Analyzer (for locating flag logic in minified JS bundles)
 
 ## References
