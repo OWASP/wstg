@@ -225,6 +225,18 @@
             "Assess the impact of misconfigured security headers.",
             "Validate the correct implementation of required security headers."
           ]
+        },
+        {
+          "name": "Feature Flag Security Bypass",
+          "id": "WSTG-CONF-15",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/15-Feature_Flag_Security_Bypass",
+          "objectives": [
+            "Identify feature flags and kill-switches that control security-relevant functionality.",
+            "Determine whether feature flag states can be manipulated by an unauthorized client, and verify that backend security controls remain enforced independently of client-side flag state.",
+            "Verify that security controls remain consistently enforced across flag transitions, rollbacks, staged deployments, and services or instances, including whether stale security assertions or session state can be reused after a transition.",
+            "Evaluate fail-safe behavior when the feature flag service is unavailable.",
+            "Identify sensitive information exposed through feature flag configurations, and stale flags that may expose deprecated or unpatched code paths."
+          ]
         }
       ]
     },
