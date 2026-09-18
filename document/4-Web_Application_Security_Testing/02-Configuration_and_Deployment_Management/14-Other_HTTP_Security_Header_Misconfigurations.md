@@ -16,7 +16,7 @@ Security headers play a vital role in protecting web applications from a wide ra
 
 ## Headers Covered by This Section
 
-Per the [OWASP Secure Headers Project](https://owasp.org/www-project-secure-headers/), this section covers the security headers not addressed elsewhere in this guide's other CONF tests:
+Per the [OWASP Secure Headers Project](https://owasp.org/projects/secure-headers-project), this section covers the security headers not addressed elsewhere in this guide's other CONF tests:
 
 - X-Frame-Options (and its successor, the `frame-ancestors` CSP directive): clickjacking protection.
 - X-Content-Type-Options: prevents MIME-sniffing.
@@ -59,7 +59,7 @@ To inspect the security headers used by an application, employ the following met
 
 ### Check Individual Headers Against Recommended Values
 
-For each header, confirm it is present and its value matches current guidance (see [OWASP Secure Headers Project](https://owasp.org/www-project-secure-headers/) for the authoritative reference table):
+For each header, confirm it is present and its value matches current guidance (see [OWASP Secure Headers Project](https://owasp.org/projects/secure-headers-project) for the authoritative reference table):
 
 ```http
 X-Frame-Options: DENY
@@ -173,7 +173,7 @@ Connection: close, X-Authenticated-User
 
 ## References
 
-- [OWASP Secure Headers Project](https://owasp.org/www-project-secure-headers/)
+- [OWASP Secure Headers Project](https://owasp.org/projects/secure-headers-project)
 - [Mozilla Developer Network: Security Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers)
 - [RFC 6797 - HTTP Strict Transport Security (HSTS)](https://datatracker.ietf.org/doc/html/rfc6797)
 - [Google Web Security Guidelines](https://web.dev/security-headers/)

@@ -36,7 +36,7 @@ Strict-Transport-Security: max-age=31536000
     - Check whether `preload` is present, and if so, confirm the domain actually appears on the [Chromium HSTS preload list](https://hstspreload.org/) that Chrome, Firefox, Safari, and Edge all consume (the `preload` directive itself has no browser effect; only actual list membership matters):
 
 ```bash
-$ curl -s "https://hstspreload.org/api/v2/status?domain=example.com"
+curl -s "https://hstspreload.org/api/v2/status?domain=example.com"
 ```
 
   If `preload` is present but the domain is not yet listed (or was removed), confirm this is an in-progress submission rather than a stale/no-op directive.
@@ -44,7 +44,7 @@ $ curl -s "https://hstspreload.org/api/v2/status?domain=example.com"
 - Check the first-request/redirect path: HSTS only protects requests made after the browser has already seen the header once for that host (Trust On First Use), so a user's very first visit - or any visit after the cached policy has expired - is still made over plain HTTP unless the host is preloaded, and that first request/redirect can be intercepted or stripped before the browser ever learns about HSTS. Test it directly:
 
 ```bash
-$ curl -s -D- http://example.com | head -n 5
+curl -s -D- http://example.com | head -n 5
 ```
 
   Confirm this returns a redirect (`301`/`308`) to the HTTPS equivalent, and that the resulting HTTPS response carries the HSTS header (the header itself is ignored by browsers if sent over plain HTTP, per spec, so it must be re-asserted on the HTTPS side of the redirect). `preload` is the only mechanism that closes this gap entirely, since the policy is then shipped inside the browser rather than learned from a prior response.
