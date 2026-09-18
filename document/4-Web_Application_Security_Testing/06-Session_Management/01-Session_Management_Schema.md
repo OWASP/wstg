@@ -86,7 +86,7 @@ Having identified the type of obfuscation, it may be possible to decode back to 
 
 Hybrid tokens may include information such as IP address or User ID together with an encoded portion, such as `owaspuser:192.168.100.1:a7656fafe94dae72b1e1487670148412`.
 
-Having analyzed a single session token, the representative sample should be examined. A simple analysis of the tokens should immediately reveal any obvious patterns. For example, a 32 bit token may include 16 bits of static data and 16 bits of variable data. This may indicate that the first 16 bits represent a fixed attribute of the user – e.g. the username or IP address. If the second 16 bit chunk is incrementing at a regular rate, it may indicate a sequential or even time-based element to the token generation. See examples.
+Having analyzed a single session token, the representative sample should be examined. A simple analysis of the tokens should immediately reveal any obvious patterns. For example, a 32 bit token may include 16 bits of static data and 16 bits of variable data. This may indicate that the first 16 bits represent a fixed attribute of the user - e.g. the username or IP address. If the second 16 bit chunk is incrementing at a regular rate, it may indicate a sequential or even time-based element to the token generation. See examples.
 
 If static elements to the Tokens are identified, further samples should be gathered, varying one potential input element at a time. For example, log in attempts through a different user account or from a different IP address may yield a variance in the previously static portion of the session token.
 
@@ -101,7 +101,7 @@ The following areas should be addressed during the single and multiple Session I
 
 #### Session ID Predictability and Randomness
 
-Analysis of the variable areas (if any) of the Session ID should be undertaken to establish the existence of any recognizable or predictable patterns. These analyses may be performed manually and with bespoke or OTS statistical or cryptanalytic tools to deduce any patterns in the Session ID content. Manual checks should include comparisons of Session IDs issued for the same login conditions – e.g., the same username, password, and IP address.
+Analysis of the variable areas (if any) of the Session ID should be undertaken to establish the existence of any recognizable or predictable patterns. These analyses may be performed manually and with bespoke or OTS statistical or cryptanalytic tools to deduce any patterns in the Session ID content. Manual checks should include comparisons of Session IDs issued for the same login conditions - e.g., the same username, password, and IP address.
 
 Time is an important factor which must also be controlled. High numbers of simultaneous connections should be made in order to gather samples in the same time window and keep that variable constant. Even a quantization of 50ms or less may be too coarse and a sample taken in this way may reveal time-based components that would otherwise be missed.
 
@@ -148,10 +148,10 @@ ID=5a0acfc7ffeb919:CR=1:TM=1120514521:LM=1120514521:S=j3am5KzC4v01ba3q
 
 This example shows 5 different fields, carrying different types of data:
 
-- ID – hexadecimal
-- CR – small integer
-- TM and LM – large integer. (And curiously they hold the same value. Worth to see what happens modifying one of them)
-- S – alphanumeric
+- ID - hexadecimal
+- CR - small integer
+- TM and LM - large integer. (And curiously they hold the same value. Worth to see what happens modifying one of them)
+- S - alphanumeric
 
 Even when no delimiters are used, having enough samples can help understand the structure.
 

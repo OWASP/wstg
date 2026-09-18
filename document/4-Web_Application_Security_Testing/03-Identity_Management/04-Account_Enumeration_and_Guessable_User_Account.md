@@ -156,8 +156,8 @@ CN000101
 
 Sometimes the usernames are created with a REALM alias and then a sequential numbers:
 
-- R1001 – user 001 for REALM1
-- R2001 – user 001 for REALM2
+- R1001 - user 001 for REALM1
+- R2001 - user 001 for REALM2
 
 In the above sample we can create simple shell scripts that compose user IDs and submit a request with tool like wget to automate a web query to discern valid user IDs. To create a script we can also use Perl and curl.
 

@@ -114,7 +114,7 @@ Running it against a request for one user's shopping basket in OWASP Juice Shop:
 $ gori run authorize --query "path:/rest/basket/6" --identities identities.json
 authorizing 1 request × 3 identities (victim (baseline), other-user, anonymous) = 3 requests
 [!] BYPASS    #1     GET    http://localhost:3000/rest/basket/6  · 1 of 2 identities matched the baseline
-      victim (baseline)   baseline  200  154B     —
+      victim (baseline)   baseline  200  154B     -
       other-user          same      200  154B     Δ status 200 · size same · time -11 ms
       anonymous           different 401  984B     Δ status 200 → 401 · size +830 B · time -22 ms
 done · 1 request replayed · 3 sends · 1 possible bypass

@@ -79,7 +79,7 @@ Testers should evaluate whether:
 
 Test Procedure:
 
-- Step 1 – Authenticate and Capture All Issued Authentication Artifact
+- Step 1 - Authenticate and Capture All Issued Authentication Artifact
 
 1. Log in on Device 1 using valid credentials and complete MFA.
 2. Intercept the authentication response.
@@ -87,7 +87,7 @@ Test Procedure:
 
 For example: `auth-cookie=XYZ123`, `session_meta=ABC456`, `tracking_id=DEF789`...
 
-- Step 2 – Identify Authentication-Critical Artifact(s)
+- Step 2 - Identify Authentication-Critical Artifact(s)
 
 The purpose of this step is to determine whether the SSO implementation depends on a single authentication artifact (e.g., cookie, header, or bearer token).
 
@@ -100,7 +100,7 @@ If only one authentication artifact (e.g., auth-cookie) is required to sustain a
 > Security Note:
 When a single authentication artifact represents the entire authenticated state, it becomes a high-value target. An attacker who obtains that single-value may not require any additional session metadata or device context to gain access.
 
-- Step 3 – Cross-Device Session Injection
+- Step 3 - Cross-Device Session Injection
 
 1. Copy the authentication-critical artifact value (e.g., auth-cookie=XYZ123).
 2. Open a different browser or device (Device 2).
@@ -111,7 +111,7 @@ When a single authentication artifact represents the entire authenticated state,
 
 If Device 2 gains authenticated access without credential entry or MFA, the artifact is reusable across contexts.
 
-- Step 4 – Logout Validation Across Devices
+- Step 4 - Logout Validation Across Devices
 
 1. On Device 1, perform logout.
 2. On Device 2, refresh or access protected resources using the same injected authenticaton artifact value.
