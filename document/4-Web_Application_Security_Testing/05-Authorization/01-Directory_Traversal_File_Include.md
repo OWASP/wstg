@@ -110,9 +110,9 @@ You can find encoding techniques and ready to use directory traversal payloads a
     - May be equivalent to a drive letter such as `c:\`, or even a drive volume without an assigned letter: `\\.\GLOBALROOT\Device\HarddiskVolume1\`
     - Refers to the first disc drive on the machine: `\\.\CdRom0\`
 
-### Gray-Box Testing
+### White-Box Testing
 
-When the analysis is performed with a gray-box testing approach, testers have to follow the same methodology as in black-box testing. However, since they can review the source code, it is possible to search the input vectors more easily and accurately. During a source code review, they can use simple tools (such as the *grep* command) to search for one or more common patterns within the application code: inclusion functions/methods, filesystem operations, and so on.
+When the analysis is performed with a white-box testing approach, testers have to follow the same methodology as in black-box testing. However, since they can review the source code, it is possible to search the input vectors more easily and accurately. During a source code review, they can use simple tools (such as the *grep* command) to search for one or more common patterns within the application code: inclusion functions/methods, filesystem operations, and so on.
 
 - `PHP: include(), include_once(), require(), require_once(), fopen(), readfile(), ...`
 - `JSP/Servlet: java.io.File(), java.io.FileReader(), ...`
@@ -126,7 +126,7 @@ For PHP, testers can use the following regular expression:
 (include|require)(_once)?\s*['"(]?\s*\$_(GET|POST|COOKIE)
 ```
 
-Using the gray-box testing method, it is possible to discover vulnerabilities that are usually harder to discover, or even impossible to find during a standard black-box assessment.
+Using the white-box testing method, it is possible to discover vulnerabilities that are usually harder to discover, or even impossible to find during a standard black-box assessment.
 
 Some web applications generate dynamic pages using values and parameters stored in a database. It may be possible to insert specially crafted path traversal strings when the application adds data to the database. This kind of security problem is difficult to discover due to the fact the parameters inside the inclusion functions seem internal and **safe** but are not in reality.
 
