@@ -100,7 +100,8 @@
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/01-Network_Infrastructure_Configuration",
           "objectives": [
             "Review the applications' configurations set across the network and validate that they are not vulnerable.",
-            "Validate that used frameworks and systems are secure and not susceptible to known vulnerabilities due to unmaintained software or default settings and credentials."
+            "Validate that used frameworks and systems are secure and not susceptible to known vulnerabilities due to unmaintained software or default settings and credentials.",
+            "Where the infrastructure is cloud-hosted or containerized, review network isolation controls (security groups/NSGs, VPC/subnet layout, load balancer/CDN configuration, service mesh policies, Kubernetes `NetworkPolicy`) for unintended exposure or overly permissive rules."
           ]
         },
         {
@@ -108,9 +109,10 @@
           "id": "WSTG-CONF-02",
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/02-Application_Platform_Configuration",
           "objectives": [
-            "Ensure that default and known files have been removed.",
-            "Validate that no debugging code or extensions are left in the production environments.",
-            "Review the logging mechanisms set in place for the application."
+            "Ensure that default, sample, and known files have been removed from the deployed platform, container image, or serverless package.",
+            "Validate that no debugging code, debug endpoints, debug modes, or unused modules/dependencies are left enabled in production environments.",
+            "Review the logging mechanisms set in place for the application, including what sensitive data may be captured and who/what can access or retain it.",
+            "Confirm framework-, container-, and serverless-specific production hardening settings are applied rather than left at insecure defaults."
           ],
           "cre_ids": [
             "843-841",
@@ -122,8 +124,7 @@
           "id": "WSTG-CONF-03",
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/03-File_Extensions_Handling_for_Sensitive_Information",
           "objectives": [
-            "Enumerate sensitive file extensions that might contain raw data such as scripts or credentials",
-            "Validate that no system framework bypasses exist for the rules that have been set"
+            ""
           ],
           "cre_ids": [
             "615-744"
@@ -134,7 +135,8 @@
           "id": "WSTG-CONF-04",
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/04-Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information",
           "objectives": [
-            "Find and analyse unreferenced files that might contain sensitive information."
+            "Find and analyze old, backup, and unreferenced files - including files exposed only through their extension, and objects left in cloud storage - that might contain sensitive information.",
+            "Validate that no system or framework bypasses exist for any rules put in place to prevent these files from being served."
           ],
           "cre_ids": [
             "462-245"
@@ -145,7 +147,8 @@
           "id": "WSTG-CONF-05",
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/05-Enumerate_Infrastructure_and_Application_Admin_Interfaces",
           "objectives": [
-            "Identify hidden administrator interfaces and functionality."
+            "Identify hidden administrator interfaces and functionality, including cloud, container-orchestration, API-management, and CI/CD management consoles.",
+            "Check any discovered interface for default, weak, or reused credentials, and for exposure to networks/users beyond those intended."
           ]
         },
         {
@@ -166,18 +169,22 @@
           "id": "WSTG-CONF-07",
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/07-HTTP_Strict_Transport_Security",
           "objectives": [
-            "Review the HSTS header and its validity."
+            "Review the HSTS header, its directives, and their values for consistency with current best practice.",
+            "Confirm the site is protected against the first-request trust gap, either via preload or an otherwise hardened HTTP-to-HTTPS path.",
+            "Confirm HSTS is applied consistently across the domain and relevant subdomains, and does not mask mixed-content issues."
           ],
           "cre_ids": [
             "036-147"
           ]
         },
         {
-          "name": "File Permission",
+          "name": "File Permissions",
           "id": "WSTG-CONF-09",
-          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/09-File_Permission",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/09-File_Permissions",
           "objectives": [
-            "Review and identify any rogue file permissions."
+            "Review and identify any rogue file permissions on the host filesystem, in container images/filesystems, and on cloud storage objects.",
+            "Assess whether Kubernetes volume mounts and `securityContext` settings enforce least-privilege access to files and secrets.",
+            "Identify secrets stored with overly broad permissions, wherever they are held (filesystem, container image, orchestration secret store, cloud secrets manager export, CI artifacts)."
           ]
         },
         {
@@ -185,8 +192,9 @@
           "id": "WSTG-CONF-10",
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/10-Subdomain_Takeover",
           "objectives": [
-            "Enumerate all possible domains (previous and current).",
-            "Identify any forgotten or misconfigured domains."
+            "Enumerate all possible domains (previous and current), including wildcard-covered names.",
+            "Identify any forgotten or misconfigured domains, and any dangling-service signature not covered by a known response fingerprint.",
+            "Where a takeover is confirmed feasible, assess whether the parent application's cookies, CORS policy, OAuth redirect validation, or CSP allowlist extend trust to the claimed subdomain."
           ],
           "cre_ids": [
             "336-512"
@@ -197,7 +205,9 @@
           "id": "WSTG-CONF-11",
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/11-Cloud_Storage",
           "objectives": [
-            "Assess that the access control configuration for the storage services is properly in place."
+            "Assess that the access control configuration for the storage services (bucket/container-level public access, and object/principal-level ACLs or IAM policies) is properly in place.",
+            "Assess whether signed/presigned URLs are scoped, time-limited, and handled appropriately.",
+            "Assess whether object versioning and lifecycle configuration could expose old or supposedly-removed sensitive data."
           ]
         },
         {
@@ -213,7 +223,8 @@
           "id": "WSTG-CONF-13",
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/13-Path_Confusion",
           "objectives": [
-            "Make sure application paths are configured correctly."
+            "Make sure application paths are configured and normalized consistently across all components (application, proxy, cache, CDN, WAF) that make decisions based on the path.",
+            "Identify cases where trailing slashes, case sensitivity, or encoding differences cause a security control (auth/access rules, routing, cache keying) to be bypassed or behave inconsistently."
           ]
         },
         {
