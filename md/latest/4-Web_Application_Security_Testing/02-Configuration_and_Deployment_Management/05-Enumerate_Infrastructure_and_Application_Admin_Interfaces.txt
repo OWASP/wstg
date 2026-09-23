@@ -1,0 +1,194 @@
+---
+layout: document
+title: WSTG - Latest
+collection_name: latest
+channel_label: Latest
+channel_path: latest
+render_with_liquid: false
+---
+
+# Enumerate Infrastructure and Application Admin Interfaces
+
+|ID          |
+|------------|
+|WSTG-CONF-05|
+
+## Summary
+
+Administrator interfaces may be present in the application or on the application server to allow certain users to perform privileged activities on the site. Tests should be undertaken to reveal if and how this privileged functionality can be accessed by an unauthorized or standard user.
+
+An application may require an administrator interface to enable a privileged user to access functionality that may make changes to how the site functions. Such changes may include:
+
+- User account provisioning
+- Site design and layout
+- Data manipulation
+- Configuration changes
+
+In many instances, such interfaces do not have sufficient controls to protect them from unauthorized access. Testing is aimed at discovering these administrator interfaces and accessing functionality intended for the privileged users.
+
+## Test Objectives
+
+- Identify hidden administrator interfaces and functionality, including cloud, container-orchestration, API-management, and CI/CD management consoles.
+- Check any discovered interface for default, weak, or reused credentials, and for exposure to networks/users beyond those intended.
+
+## How to Test
+
+### Black Box Testing
+
+The following section describes vectors that may be used to test for the presence of administrative interfaces. These techniques may also be used to test for related issues including privilege escalation, and are described elsewhere in this guide (for example, [bypassing authorization schema](../../05-Authorization/02-Bypassing_Authorization_Schema/) and [Insecure Direct Object References](../../05-Authorization/04-Insecure_Direct_Object_References/)) in greater detail.
+
+- Directory and file enumeration: An administrative interface may be present but not visibly available to the tester. The path of the administrative interface may be guessed by simple requests such as /admin or /administrator. In some scenarios, these paths can be revealed within seconds using advanced Google search techniques - [Google dorks](https://www.exploit-db.com/google-hacking-database). There are many tools available to perform brute forcing of server contents, see the tools section below for more information. A tester may have to also identify the filename of the administration page. Forcibly browsing to the identified page may provide access to the interface.
+- Comments and links in source code: Many sites use common code that is loaded for all site users. By examining all source sent to the client, links to administrator functionality may be discovered and should be investigated.
+- Reviewing server and application documentation: If the application server or application is deployed in its default configuration it may be possible to access the administration interface using information described in configuration or help documentation. Default password lists should be consulted if an administrative interface is found and credentials are required.
+- Publicly available information: Many applications, such as WordPress, have administrative interfaces that are available by default.
+- Alternative server port: Administration interfaces may be seen on a different port on the host than the main application. For example, Apache Tomcat's Administration interface can often be seen on port 8080.
+- Parameter tampering: A GET or POST parameter, or a cookie may be required to enable the administrator functionality. Clues to this include the presence of hidden fields such as:
+
+```html
+<input type="hidden" name="admin" value="no">
+```
+
+or in a cookie:
+
+`Cookie: session_cookie; useradmin=0`
+
+Once an administrative interface has been discovered, a combination of the above techniques may be used to attempt to bypass authentication. If this fails, the tester may wish to attempt a brute force attack. In such an instance, the tester should be aware of the potential for administrative account lockout if such functionality is present.
+
+### Gray Box Testing
+
+A more detailed examination of the server and application components should be undertaken to ensure hardening (i.e. administrator pages are not accessible to everyone through the use of IP filtering or other controls), and where applicable, verification that all components do not use default credentials or configurations.
+Source code should be reviewed to ensure that the authorization and authentication model ensures clear separation of duties between normal users and site administrators. User interface functions shared between normal and administrator users should be reviewed to ensure clear separation between the rendering of such components and the information leakage from such shared functionality.
+
+Each web framework may have its own default admin pages or paths, as in the following examples:
+
+PHP:
+
+```html
+/phpinfo
+/phpmyadmin/
+/phpMyAdmin/
+/mysqladmin/
+/MySQLadmin
+/MySQLAdmin
+/login.php
+/logon.php
+/xmlrpc.php
+/dbadmin
+```
+
+WordPress:
+
+```html
+wp-admin/
+wp-admin/about.php
+wp-admin/admin-ajax.php
+wp-admin/admin-db.php
+wp-admin/admin-footer.php
+wp-admin/admin-functions.php
+wp-admin/admin-header.php
+```
+
+Joomla:
+
+```html
+/administrator/index.php
+/administrator/index.php?option=com_login
+/administrator/index.php?option=com_content
+/administrator/index.php?option=com_users
+/administrator/index.php?option=com_menus
+/administrator/index.php?option=com_installer
+/administrator/index.php?option=com_config
+```
+
+Tomcat:
+
+```html
+/manager/html
+/host-manager/html
+/manager/text
+/tomcat-users.xml
+```
+
+Apache:
+
+```html
+/index.html
+/httpd.conf
+/apache2.conf
+/server-status
+```
+
+Nginx:
+
+```html
+/index.html
+/index.htm
+/index.php
+/nginx_status
+/index.php
+/nginx.conf
+/html/error
+```
+
+### Modern Admin, API Management, Container, and CI/CD Interfaces
+
+Beyond classic application/framework admin paths, modern deployments commonly expose additional privileged interfaces that testers should specifically enumerate for and check for default credentials or unintended exposure:
+
+#### Cloud Provider Consoles
+
+- Cloud web consoles themselves (AWS, Azure, GCP) are not directly reachable via the application's attack surface, but leaked/misconfigured access often surfaces through the application: check for exposed cloud credentials in client-side JS, config files, or error messages, and confirm they don't grant console/API access beyond what the application needs.
+- Self-hosted management UIs for cloud-adjacent services are commonly found exposed: object storage browsers, database admin consoles (e.g. RDS/Cloud SQL proxies with exposed admin UIs), and IaaS-provided monitoring dashboards. Treat any discovered instance as an admin interface subject to the same credential/exposure checks below.
+
+#### Kubernetes and Container Orchestration Dashboards
+
+- Kubernetes Dashboard: historically exposed without authentication or with an overprivileged `service-account-token` login, allowing full cluster control. Check for `/api/v1/namespaces/kubernetes-dashboard/...` or a dedicated dashboard ingress/NodePort, and confirm it requires authentication and uses a least-privilege service account rather than `cluster-admin` (`kubectl auth can-i --list --as=system:serviceaccount:<ns>:<sa>`, per [File Permissions](../09-File_Permissions/#kubernetes-volume-mounts-and-securitycontext)).
+- `kubelet` read-only API (port `10255`, deprecated) and the authenticated kubelet API (port `10250`): check whether either is reachable from outside the cluster network and whether anonymous access is enabled.
+- etcd (port `2379`/`2380`): if reachable, unauthenticated access exposes the entire cluster state including Secrets.
+- Container platform UIs such as Portainer, Rancher, or a cloud provider's managed-Kubernetes console proxy: check for default admin credentials and whether initial-setup/registration endpoints are still reachable post-deployment (some tools allow anyone to claim the first admin account if setup wasn't completed).
+
+#### Application Management/Actuator Endpoints
+
+- Spring Boot Actuator: `/actuator`, `/actuator/env`, `/actuator/heapdump`, `/actuator/httptrace`, and `/actuator/mappings` are management interfaces in their own right, not just debug output - `/actuator/env` can expose credentials, and some Actuator versions/configurations allow reconfiguration (e.g. `/actuator/loggers` changing log levels) rather than pure read access. See [Debug Endpoints and Debug Modes](../02-Application_Platform_Configuration/#debug-endpoints-and-debug-modes) for the full endpoint list; treat any reachable, unauthenticated Actuator endpoint as an admin-interface exposure finding here, not only an information leak.
+- Equivalent framework management endpoints: ASP.NET Core health-check/diagnostics middleware, Django admin (`/admin/` with `DEBUG=True` or a weak/default superuser), and similar framework-native admin blueprints/modules that ship enabled by default.
+
+#### API Management Consoles
+
+- API gateway/management admin UIs (e.g. Kong Admin API, Apigee, AWS API Gateway console access via leaked keys, Tyk Dashboard) often listen on a separate port or path from the public API and may have no authentication by default (for example, the Kong Admin API historically defaulted to unauthenticated access on port `8001`).
+- Check for exposed API documentation/developer portals that also expose management functionality (key generation, quota changes) rather than just documentation, and confirm these require authentication proportional to the actions available.
+
+#### CI/CD Management UIs
+
+- Common self-hosted CI/CD consoles to enumerate for: Jenkins (`/login`, `/script` console, `/asynchPeople/`), GitLab CI/CD admin area, TeamCity, Argo CD, and self-hosted GitHub/GitLab Actions runners' management endpoints.
+- These interfaces are especially high-impact if exposed, since CI/CD systems typically hold deployment credentials, source code access, and the ability to execute arbitrary build steps. Check for:
+    - Default or documented-default credentials that were never rotated (e.g. Jenkins' initial admin password file left readable, or setup wizards left incomplete).
+    - Anonymous/guest access left enabled (Jenkins historically allows this by an "anonymous read/build" configuration).
+    - Script consoles or arbitrary pipeline/job creation reachable without full authentication, since these are typically equivalent to remote code execution.
+
+#### Default Credential and Exposure Checks
+
+For any admin-type interface found via the above (classic or modern), perform the same baseline checks:
+
+- Attempt documented default credentials for that specific product/version (consult the vendor's docs and lists such as [Cirt: Default Password list](https://cirt.net/passwords) or [SecLists](https://github.com/danielmiessler/SecLists/tree/master/Passwords/Default-Credentials)) - do not brute force beyond a small, documented default list without authorization.
+- Confirm the interface is not reachable from the public internet when it is only intended for internal/operator use (check via direct IP/port scan as well as hostname, since it may be reachable by IP even if not linked anywhere).
+- Confirm TLS is enforced and that the interface isn't accepting plaintext HTTP for credential submission.
+- Where the interface exposes a setup/first-run wizard, confirm it cannot be re-triggered or reached post-deployment to claim an admin account.
+
+## Tools
+
+Several tools can assist in identifying hidden administrator interfaces and functionality, including:
+
+- [ZAP - Forced Browse](https://www.zaproxy.org/docs/desktop/addons/forced-browse/) is a currently maintained use of OWASP's previous DirBuster project.
+- [THC-HYDRA](https://github.com/vanhauser-thc/thc-hydra) is a tool that allows brute-forcing of many interfaces, including form-based HTTP authentication.
+- A brute forcer is much more effective when it uses a good dictionary, such as the [Netsparker](https://www.netsparker.com/blog/web-security/svn-digger-better-lists-for-forced-browsing/) dictionary.
+- [nuclei](https://github.com/projectdiscovery/nuclei) with the `exposed-panels` and `default-logins` template sets can fingerprint many of the modern admin/CI/CD/orchestration interfaces described above at scale.
+- [kube-hunter](https://github.com/aquasecurity/kube-hunter) - identifies exposed Kubernetes API server, kubelet, and dashboard endpoints.
+- [SecLists - Default Credentials](https://github.com/danielmiessler/SecLists/tree/master/Passwords/Default-Credentials)
+
+## References
+
+- [Cirt: Default Password list](https://cirt.net/passwords)
+- [FuzzDB can be used to do brute force browsing admin login path](https://github.com/fuzzdb-project/fuzzdb/blob/master/discovery/predictable-filepaths/login-file-locations/Logins.txt)
+- [Common admin or debugging parameters](https://github.com/fuzzdb-project/fuzzdb/blob/master/attack/business-logic/CommonDebugParamNames.txt)
+- [Kubernetes Dashboard Security](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/)
+- [Kong Admin API - Securing the Admin API](https://docs.konghq.com/gateway/latest/production/running-kong/secure-admin-api/)
+- [Jenkins: Securing Jenkins](https://www.jenkins.io/doc/book/security/)
