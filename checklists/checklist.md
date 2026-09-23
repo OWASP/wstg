@@ -25,7 +25,7 @@ The following is the list of items to test during the assessment:
 | WSTG-CONF-05      | Enumerate Infrastructure and Application Admin Interfaces                  |        |       |
 | WSTG-CONF-06      | HTTP Methods                                                               |        |       |
 | WSTG-CONF-07      | HTTP Strict Transport Security                                             |        |       |
-| WSTG-CONF-09      | File Permission                                                            |        |       |
+| WSTG-CONF-09      | File Permissions                                                           |        |       |
 | WSTG-CONF-10      | Subdomain Takeover                                                         |        |       |
 | WSTG-CONF-11      | Cloud Storage                                                              |        |       |
 | WSTG-CONF-12      | Content Security Policy                                                    |        |       |
