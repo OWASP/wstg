@@ -155,7 +155,7 @@ URLs may include file extensions that can also help identify the web platform or
 For example, the old OWASP wiki used PHP:
 
 ```text
-https://wiki.owasp.org/index.php?title=Fingerprint_Web_Application_Framework&action=edit&section=4
+https://example.owasp.org/index.php?title=Fingerprint_Web_Application_Framework&action=edit&section=4
 ```
 
 Here are some common web file extensions and associated technologies:
