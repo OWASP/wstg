@@ -809,7 +809,7 @@ Technology-specific Testing Guide pages have been created for the following DBMS
 - [Oracle](05.1-Oracle.md)
 - [MySQL](05.2-MySQL.md)
 - [SQL Server](05.3-SQL_Server.md)
-- [PostgreSQL](05.4-Testing_PostgreSQL.md)
+- [PostgreSQL](05.4-PostgreSQL.md)
 - [MS Access](05.5-MS_Access.md)
 - [NoSQL](05.6-NoSQL_Injection.md)
 - [ORM](05.7-ORM_Injection.md)
