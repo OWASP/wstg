@@ -19,7 +19,8 @@ In many instances, such interfaces do not have sufficient controls to protect th
 
 ## Test Objectives
 
-- Identify hidden administrator interfaces and functionality.
+- Identify hidden administrator interfaces and functionality, including cloud, container-orchestration, API-management, and CI/CD management consoles.
+- Check any discovered interface for default, weak, or reused credentials, and for exposure to networks/users beyond those intended.
 
 ## How to Test
 
@@ -120,6 +121,49 @@ Nginx:
 /html/error
 ```
 
+### Modern Admin, API Management, Container, and CI/CD Interfaces
+
+Beyond classic application/framework admin paths, modern deployments commonly expose additional privileged interfaces that testers should specifically enumerate for and check for default credentials or unintended exposure:
+
+#### Cloud Provider Consoles
+
+- Cloud web consoles themselves (AWS, Azure, GCP) are not directly reachable via the application's attack surface, but leaked/misconfigured access often surfaces through the application: check for exposed cloud credentials in client-side JS, config files, or error messages, and confirm they don't grant console/API access beyond what the application needs.
+- Self-hosted management UIs for cloud-adjacent services are commonly found exposed: object storage browsers, database admin consoles (e.g. RDS/Cloud SQL proxies with exposed admin UIs), and IaaS-provided monitoring dashboards. Treat any discovered instance as an admin interface subject to the same credential/exposure checks below.
+
+#### Kubernetes and Container Orchestration Dashboards
+
+- Kubernetes Dashboard: historically exposed without authentication or with an overprivileged `service-account-token` login, allowing full cluster control. Check for `/api/v1/namespaces/kubernetes-dashboard/...` or a dedicated dashboard ingress/NodePort, and confirm it requires authentication and uses a least-privilege service account rather than `cluster-admin` (`kubectl auth can-i --list --as=system:serviceaccount:<ns>:<sa>`, per [File Permissions](09-File_Permissions.md#kubernetes-volume-mounts-and-securitycontext)).
+- `kubelet` read-only API (port `10255`, deprecated) and the authenticated kubelet API (port `10250`): check whether either is reachable from outside the cluster network and whether anonymous access is enabled.
+- etcd (port `2379`/`2380`): if reachable, unauthenticated access exposes the entire cluster state including Secrets.
+- Container platform UIs such as Portainer, Rancher, or a cloud provider's managed-Kubernetes console proxy: check for default admin credentials and whether initial-setup/registration endpoints are still reachable post-deployment (some tools allow anyone to claim the first admin account if setup wasn't completed).
+
+#### Application Management/Actuator Endpoints
+
+- Spring Boot Actuator: `/actuator`, `/actuator/env`, `/actuator/heapdump`, `/actuator/httptrace`, and `/actuator/mappings` are management interfaces in their own right, not just debug output - `/actuator/env` can expose credentials, and some Actuator versions/configurations allow reconfiguration (e.g. `/actuator/loggers` changing log levels) rather than pure read access. See [Debug Endpoints and Debug Modes](02-Application_Platform_Configuration.md#debug-endpoints-and-debug-modes) for the full endpoint list; treat any reachable, unauthenticated Actuator endpoint as an admin-interface exposure finding here, not only an information leak.
+- Equivalent framework management endpoints: ASP.NET Core health-check/diagnostics middleware, Django admin (`/admin/` with `DEBUG=True` or a weak/default superuser), and similar framework-native admin blueprints/modules that ship enabled by default.
+
+#### API Management Consoles
+
+- API gateway/management admin UIs (e.g. Kong Admin API, Apigee, AWS API Gateway console access via leaked keys, Tyk Dashboard) often listen on a separate port or path from the public API and may have no authentication by default (for example, the Kong Admin API historically defaulted to unauthenticated access on port `8001`).
+- Check for exposed API documentation/developer portals that also expose management functionality (key generation, quota changes) rather than just documentation, and confirm these require authentication proportional to the actions available.
+
+#### CI/CD Management UIs
+
+- Common self-hosted CI/CD consoles to enumerate for: Jenkins (`/login`, `/script` console, `/asynchPeople/`), GitLab CI/CD admin area, TeamCity, Argo CD, and self-hosted GitHub/GitLab Actions runners' management endpoints.
+- These interfaces are especially high-impact if exposed, since CI/CD systems typically hold deployment credentials, source code access, and the ability to execute arbitrary build steps. Check for:
+    - Default or documented-default credentials that were never rotated (e.g. Jenkins' initial admin password file left readable, or setup wizards left incomplete).
+    - Anonymous/guest access left enabled (Jenkins historically allows this by an "anonymous read/build" configuration).
+    - Script consoles or arbitrary pipeline/job creation reachable without full authentication, since these are typically equivalent to remote code execution.
+
+#### Default Credential and Exposure Checks
+
+For any admin-type interface found via the above (classic or modern), perform the same baseline checks:
+
+- Attempt documented default credentials for that specific product/version (consult the vendor's docs and lists such as [Cirt: Default Password list](https://cirt.net/passwords) or [SecLists](https://github.com/danielmiessler/SecLists/tree/master/Passwords/Default-Credentials)) - do not brute force beyond a small, documented default list without authorization.
+- Confirm the interface is not reachable from the public internet when it is only intended for internal/operator use (check via direct IP/port scan as well as hostname, since it may be reachable by IP even if not linked anywhere).
+- Confirm TLS is enforced and that the interface isn't accepting plaintext HTTP for credential submission.
+- Where the interface exposes a setup/first-run wizard, confirm it cannot be re-triggered or reached post-deployment to claim an admin account.
+
 ## Tools
 
 Several tools can assist in identifying hidden administrator interfaces and functionality, including:
@@ -127,9 +171,15 @@ Several tools can assist in identifying hidden administrator interfaces and func
 - [ZAP - Forced Browse](https://www.zaproxy.org/docs/desktop/addons/forced-browse/) is a currently maintained use of OWASP's previous DirBuster project.
 - [THC-HYDRA](https://github.com/vanhauser-thc/thc-hydra) is a tool that allows brute-forcing of many interfaces, including form-based HTTP authentication.
 - A brute forcer is much more effective when it uses a good dictionary, such as the [Netsparker](https://www.netsparker.com/blog/web-security/svn-digger-better-lists-for-forced-browsing/) dictionary.
+- [nuclei](https://github.com/projectdiscovery/nuclei) with the `exposed-panels` and `default-logins` template sets can fingerprint many of the modern admin/CI/CD/orchestration interfaces described above at scale.
+- [kube-hunter](https://github.com/aquasecurity/kube-hunter) - identifies exposed Kubernetes API server, kubelet, and dashboard endpoints.
+- [SecLists - Default Credentials](https://github.com/danielmiessler/SecLists/tree/master/Passwords/Default-Credentials)
 
 ## References
 
 - [Cirt: Default Password list](https://cirt.net/passwords)
 - [FuzzDB can be used to do brute force browsing admin login path](https://github.com/fuzzdb-project/fuzzdb/blob/master/discovery/predictable-filepaths/login-file-locations/Logins.txt)
 - [Common admin or debugging parameters](https://github.com/fuzzdb-project/fuzzdb/blob/master/attack/business-logic/CommonDebugParamNames.txt)
+- [Kubernetes Dashboard Security](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/)
+- [Kong Admin API - Securing the Admin API](https://docs.konghq.com/gateway/latest/production/running-kong/secure-admin-api/)
+- [Jenkins: Securing Jenkins](https://www.jenkins.io/doc/book/security/)

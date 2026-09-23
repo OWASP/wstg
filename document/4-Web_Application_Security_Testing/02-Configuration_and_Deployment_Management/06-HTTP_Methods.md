@@ -66,6 +66,14 @@ curl -X FOO https://example.org
 
 There are also a variety of automated tools that can attempt to determine supported methods, such as the [`http-methods`](https://nmap.org/nsedoc/scripts/http-methods.html) Nmap script. However, these tools may not test for dangerous methods (i.e., methods that may cause changes such as `PUT` or `DELETE`), or may unintentionally cause changes to the web server if these methods are supported. As such, they should be used with care.
 
+#### Testing Through Proxies and CDNs
+
+When the application sits behind a reverse proxy, load balancer, CDN, or WAF, method handling at the edge can differ from the origin, and results should be compared:
+
+- Many CDNs cache and forward only a limited set of methods by default (typically `GET`/`HEAD`, sometimes `OPTIONS`), and may reject or strip others (`TRACE`, `CONNECT`, sometimes `PUT`/`DELETE`) before they reach the origin. An `Allow` header or `OPTIONS` response observed at the edge therefore does not necessarily reflect what the origin itself supports.
+- Where feasible (e.g. in a gray-box test with origin access, or via a `Host` header/IP-based direct connection), test the origin directly as well as through the edge, since a method blocked at the edge but supported at the origin is exploitable if the origin is ever reachable directly (misconfigured firewall rules, SSRF, other virtual hosts sharing the origin, etc.).
+- Some proxies/WAFs normalize or case-fold the method token before matching against a blocklist; testing mixed-case (`DeLeTe`) or non-standard whitespace can reveal inconsistent enforcement between the proxy and the origin.
+
 ### PUT and DELETE
 
 The `PUT` and `DELETE` methods can have different effects, depending on whether they are being interpreted by the web server or by the application running on it.
@@ -174,6 +182,22 @@ Host: example.org
 
 As with the `PUT` method, this functionality may have access control weaknesses or other vulnerabilities. Additionally, applications may not perform the same level of input validation when modifying an object as they do when creating one. This could potentially allow malicious values to be injected (such as in a stored cross-site scripting attack), or could allow broken or invalid objects that may result in business logic related issues.
 
+### WebDAV Methods
+
+Where the web server has WebDAV enabled (e.g. IIS with the WebDAV Publishing role, or Apache's `mod_dav`), additional methods such as `PROPFIND`, `PROPPATCH`, `MKCOL`, `COPY`, `MOVE`, `LOCK`, and `UNLOCK` may be exposed. WebDAV support is legacy and rarely required by modern web applications, so its presence is itself worth flagging, independent of any specific vulnerability.
+
+`PROPFIND` can be used to enumerate directory listings and resource metadata even when directory browsing is otherwise disabled:
+
+```http
+PROPFIND /uploads/ HTTP/1.1
+Host: example.org
+Depth: 1
+```
+
+`MKCOL`, `COPY`, and `MOVE` can be used to create directories or relocate/duplicate files, which - combined with a permissive `PUT` - has historically enabled file-upload restriction bypasses (e.g. uploading a file with a blocked extension, then using `MOVE`/`COPY` to rename it to an executable extension). Test whether extension-based upload filters are enforced consistently across `PUT`, `MOVE`, and `COPY`.
+
+If WebDAV is present but not required, recommend disabling it; if required, ensure it is scoped to only the paths that need it and is not reachable on paths serving the main application.
+
 ### QUERY
 
 The `QUERY` method is a relatively newer HTTP method defined in [RFC 9110](https://datatracker.ietf.org/doc/html/rfc9110), designed for safe retrieval operations that require a request body. Like `POST`, it accepts structured data in the request body; unlike `POST`, it is safe and idempotent, meaning it does not modify server state and can be cached. This makes it semantically similar to `GET` but allows the expressiveness of complex filter parameters etc that would be unwieldy in a URL.
@@ -242,6 +266,10 @@ Some web frameworks provide a way to override the actual HTTP method in the requ
 
 To test this, consider scenarios where restricted verbs like `PUT` or `DELETE` return a `405 Method not allowed`. In such cases, replay the same request, but add the alternative headers for HTTP method overriding. Then, observe the system's response. The application should respond with a different status code (*e.g.* `200 OK`) in cases where method overriding is supported.
 
+Several frameworks also support method overriding via a request parameter instead of (or in addition to) a header, commonly `_method` in the query string or form body (e.g. `POST /resource.html?_method=DELETE`) - test this alongside the header-based variants, since a filter that only inspects headers may miss it.
+
+Because the purpose of method overriding is usually to get a request past a middlebox, always compare behavior at the edge (proxy/CDN/WAF) against the origin: a method that is blocked at the edge but overridden and honored at the origin indicates the origin trusts client-supplied override signals that the edge did not intend to allow through.
+
 The web server in the following example does not allow the `DELETE` method and blocks it:
 
 ```http
@@ -271,6 +299,8 @@ HTTP/1.1 200 OK
 
 - Ensure that only the required methods are allowed and that these methods are properly configured.
 - Ensure that no workarounds are implemented to bypass security measures implemented by user-agents, frameworks, or web servers.
+- Disable WebDAV (`mod_dav`, IIS WebDAV Publishing) unless explicitly required, and scope it narrowly if it is.
+- Ensure method restrictions are enforced consistently between any edge proxy/CDN/WAF and the origin server, and that the origin does not trust client-supplied method-override headers or parameters unless the edge explicitly relies on them.
 
 ## Tools
 

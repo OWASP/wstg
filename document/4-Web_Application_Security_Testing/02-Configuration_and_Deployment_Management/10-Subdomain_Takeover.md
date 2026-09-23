@@ -26,8 +26,9 @@ If the subdomain takeover is successful, a wide variety of attacks are possible 
 
 ## Test Objectives
 
-- Enumerate all possible domains (previous and current).
-- Identify any forgotten or misconfigured domains.
+- Enumerate all possible domains (previous and current), including wildcard-covered names.
+- Identify any forgotten or misconfigured domains, and any dangling-service signature not covered by a known response fingerprint.
+- Where a takeover is confirmed feasible, assess whether the parent application's cookies, CORS policy, OAuth redirect validation, or CSP allowlist extend trust to the claimed subdomain.
 
 ## How to Test
 
@@ -42,6 +43,8 @@ A dangling DNS record occurs when a DNS entry points to an external resource tha
 Use [subfinder](https://github.com/projectdiscovery/subfinder) to discover subdomains for the target domain: `subfinder -d victim.com -o subdomains.txt`
 
 This produces a list of subdomains to use in the detection phase.
+
+Resolve and filter the list to only subdomains with a `CNAME`, `NS`, or `MX` record before fingerprinting, since these are the record types most commonly left dangling. [dnsx](https://github.com/projectdiscovery/dnsx) can do this in bulk: `dnsx -l subdomains.txt -cname -resp -o resolved.txt`
 
 #### Fingerprint-Based Detection
 
@@ -68,18 +71,46 @@ This specific string is listed in can-i-take-over-xyz as the GitHub Pages finger
 Automated tools produce false positives. Validate each finding manually before reporting it.
 
 1. Confirm the DNS record and where it points: `dig CNAME subdomain.victim.com`
+2. Confirm the response matches the expected fingerprint for that service provider as listed in [can-i-take-over-xyz](https://github.com/EdOverflow/can-i-take-over-xyz): `curl -i http://subdomain.victim.com`
+3. Confirm the resource is unclaimed on the service provider's platform. Do not claim it.
 
-1. Confirm the response matches the expected fingerprint for that service provider as listed in [can-i-take-over-xyz](https://github.com/EdOverflow/can-i-take-over-xyz): `curl -i http://subdomain.victim.com`
-
-1. Confirm the resource is unclaimed on the service provider's platform. Do not claim it.
+For `NS` records specifically, check whether a delegated nameserver is unregistered: `dig NS subdomain.victim.com`, then check whether the returned nameserver's own domain is available for registration. An unregistered nameserver domain means anyone can register it and answer DNS queries for the delegated zone, the highest-impact takeover variant.
 
 #### Cloud-Specific Takeovers
 
-Major cloud providers have distinct takeover patterns worth specific attention:
+Major cloud providers and PaaS/JAMstack services have distinct takeover patterns worth specific attention. This list changes as providers patch verification gaps, so cross-check current status against [can-i-take-over-xyz](https://github.com/EdOverflow/can-i-take-over-xyz) before reporting:
 
 - AWS S3: A CNAME pointing to an S3 bucket URL (for example, `bucket.s3.amazonaws.com`) where the bucket no longer exists returns a `NoSuchBucket` response. Anyone who creates a bucket with the same name in any AWS account can claim the subdomain.
-- Azure: Dangling CNAMEs pointing to deprovisioned Azure resources such as App Services or Traffic Manager endpoints can be claimed by registering the same resource name in a different Azure subscription.
+- Azure: Dangling CNAMEs pointing to deprovisioned Azure resources such as App Services, Azure CDN/Front Door endpoints, or Traffic Manager profiles can be claimed by registering the same resource name in a different Azure subscription.
 - GCP: Similar patterns exist for Cloud Storage buckets and Firebase Hosting endpoints.
+- GitHub Pages: covered above under [GitHub](#github); still one of the most common findings in the wild.
+- Vercel and Netlify: A CNAME pointing to a project domain (e.g. `*.vercel.app`, `*.netlify.app`) that has been deleted or renamed can typically be re-claimed by creating a new project with the matching name.
+- Cloudflare Pages / Workers custom domains: dangling CNAMEs to `*.pages.dev` can sometimes be claimed depending on account-level protections; verify current behavior, as Cloudflare has tightened this over time.
+- Heroku: A CNAME to `*.herokuapp.com` for an app that has been deleted returns a "No such app" response and can be re-claimed by creating an app with the matching name (subject to Heroku's naming rules).
+- Fastly and Shopify: both have historically appeared in takeover reports for dangling custom-domain configurations; treat any hit against their fingerprints in can-i-take-over-xyz the same as the providers above.
+
+#### Dangling Service Signatures
+
+Beyond the response-string fingerprints already covered above, a dangling record can also surface through signals that are not themselves an HTTP body match:
+
+- A `NXDOMAIN`, `SERVFAIL`, or empty `A` record answer when resolving a service's own hostname that a target's CNAME points to (for example, the CNAME target itself fails to resolve) is a stronger signal than an HTTP fingerprint match, since it shows the upstream resource is gone entirely rather than just returning a "not found" page.
+- TLS certificate errors (hostname mismatch, certificate for an unrelated domain) on a subdomain that should be served by a specific provider can indicate the provider no longer has a certificate provisioned for that hostname, consistent with a deprovisioned resource.
+- Provider-specific error pages that don't match a known can-i-take-over-xyz fingerprint yet (new or less common services) still warrant manual investigation using the same dig/curl validation steps; treat the fingerprint database as a starting point, not an exhaustive list.
+
+#### Wildcard CNAME Risk
+
+A wildcard DNS record (for example, `*.victim.com CNAME target.example-paas.com`) that points to a takeover-prone service multiplies the impact of a single dangling configuration: any subdomain an attacker chooses to request (`anything.victim.com`, `admin.victim.com`, `login.victim.com`) resolves through the wildcard, so claiming the target resource grants control over an unbounded set of subdomains rather than one. When enumerating, check for wildcard records explicitly (`dig CNAME nonexistent-random-string.victim.com`, comparing the result against a known real subdomain), since wildcard-covered names are often absent from passive-recon subdomain lists and only appear by testing an arbitrary label directly.
+
+#### Impact Beyond Content Control
+
+A successful takeover is not limited to serving attacker-controlled content on the reclaimed subdomain; because the subdomain shares the parent domain's trust boundary in several browser and protocol mechanisms, the impact can extend to:
+
+- Cookies: a cookie scoped without the `Secure`/host-only restriction (for example, set with a `Domain` attribute covering the parent, or without one and thus scoped to a sibling subdomain via related-domain behavior) can be read or overwritten from the claimed subdomain, enabling session hijacking against the main application.
+- CORS: if the main application's CORS policy allows the origin pattern that includes the claimed subdomain (a wildcard subdomain match, or a reflected `Origin` check that trusts `*.victim.com`), the attacker can make authenticated cross-origin requests against the real application from the claimed subdomain.
+- OAuth: an OAuth client configuration with a redirect URI on the claimed subdomain (or a redirect URI validation that only checks the parent domain suffix) lets the attacker receive authorization codes or tokens intended for the legitimate application.
+- CSP: a Content-Security-Policy on the main application that allowlists the parent domain with a wildcard (`*.victim.com`) as a script or connect source lets the attacker serve script or exfiltrate data from a trusted-by-policy origin.
+
+When reporting a takeover finding, check whether any of these apply to the specific subdomain claimed, since they change the finding from "content spoofing on an isolated subdomain" to "compromise of the main application's session/authorization/script trust."
 
 ### Gray-Box Testing
 
@@ -92,6 +123,7 @@ To mitigate the risk of subdomain takeover, the vulnerable DNS resource record(s
 ## Tools
 
 - [subfinder - Subdomain enumeration tool](https://github.com/projectdiscovery/subfinder)
+- [dnsx - Fast bulk DNS resolution and filtering](https://github.com/projectdiscovery/dnsx)
 - [subzy - Subdomain takeover detection tool](https://github.com/LukaSikic/subzy)
 - [nuclei - Vulnerability scanner with takeover templates](https://github.com/projectdiscovery/nuclei)
 - [nuclei-templates - Community takeover templates](https://github.com/projectdiscovery/nuclei-templates)
