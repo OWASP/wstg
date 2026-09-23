@@ -656,7 +656,7 @@ This will result in the report running and all users’ passwords being updated.
 
 #### Automated Exploitation
 
-Most of the situations and techniques presented here can be performed in an automated way using some tools. In this article, the tester can find information on how to perform automated auditing using [SQLMap](https://wiki.owasp.org/index.php/Automated_Audit_using_SQLMap)
+Most of the situations and techniques presented here can be performed in an automated way using some tools. In this article, the tester can find information on how to perform automated auditing using [SQLMap](https://sqlmap.org/).
 
 ### SQL Injection Signature Evasion Techniques
 

@@ -182,8 +182,7 @@ When this data is sent as a POST request, the server will happily accept the nam
 ## Tools
 
 - [ZAP](https://www.zaproxy.org/)
-- [CSRF Tester](https://wiki.owasp.org/index.php/Category:OWASP_CSRFTester_Project)
-- [Pinata-csrf-tool](https://code.google.com/archive/p/pinata-csrf-tool/)
+- [CSRFShark](https://csrfshark.github.io/) - Generate Proof-of-Concept for Cross-Site Request Forgery attacks with the ability to share the result.
 
 ## References
 
