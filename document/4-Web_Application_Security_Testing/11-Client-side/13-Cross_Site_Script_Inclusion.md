@@ -12,7 +12,7 @@ By default, websites are only allowed to access data if they are from the same o
 
 When the browser opens a website with `<script>` tags, the resources are fetched from the cross-origin domain. The resources then run in the same context as the including site or browser, which presents the opportunity to leak sensitive data. In most cases, this is achieved using JavaScript, however, the script source doesn't have to be a JavaScript file with type `text/javascript` or `.js` extension.
 
-Older browser's vulnerabilities (IE9/10) allowed data leakage via JavaScript error messages at runtime, but those vulnerabilities have now been patched by vendors and are considered less relevant. By setting the charset attribute of the `<script>` tag, an attacker or tester can enforce UTF-16 encoding, allowing data leakage for other data formats (e.g. JSON) in some cases. For more on these attacks, see [Identifier based XSSI attacks](https://www.mbsd.jp/Whitepaper/xssi.pdf).
+Historical browser vulnerabilities (such as in IE9/10) allowed data leakage via detailed runtime error messages. This technique is no longer representative of modern browser behavior. By setting the charset attribute of the `<script>` tag, an attacker or tester can enforce UTF-16 encoding, allowing data leakage for other data formats (e.g. JSON) in some cases. For more on these attacks, see [Identifier based XSSI attacks](https://www.mbsd.jp/Whitepaper/xssi.pdf).
 
 ## Test Objectives
 
@@ -38,8 +38,7 @@ Testers should analyze code for the following vehicles for data leakage via XSSI
 1. Global variables
 2. Global function parameters
 3. CSV (Comma Separated Values) with quotations theft
-4. JavaScript runtime errors
-5. Prototype chaining using `this`
+4. Prototype chaining using `this`
 
 ### 1. Sensitive Data Leakage via Global Variables
 
@@ -159,34 +158,7 @@ In this example, using the `___` columns as injection points and inserting JavaS
 </html>
 ```
 
-### 4. Sensitive Data Leakage via JavaScript Runtime Errors
-
-Browsers normally present standardized [JavaScript error messages](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors). However, in the case of IE9/10, runtime error messages provided additional details that could be used to leak data. For example, a website `victim.com` serves the following content at the URI `https://victim.com/service/csvendpoint` for authenticated users:
-
-```text
-HTTP/1.1 200 OK
-Content-Type: text/csv
-Content-Disposition: attachment; filename="a.csv"
-Content-Length: 13
-
-1,abc,def,ghi
-```
-
-This vulnerability could be exploited with the following:
-
-```html
-<!--error handler -->
-<script>window.onerror = function(err) {alert(err)}</script>
-<!--load target CSV -->
-<script src="https://victim.com/service/csvendpoint"></script>
-```
-
-When the browser tries to render the CSV content as JavaScript, it fails and leaks the sensitive data:
-
-![JavaScript runtime error message ](images/11-xssi1.jpeg)\
-*Figure 4.11.13-1: JavaScript runtime error message*
-
-### 5. Sensitive Data Leakage via Prototype Chaining Using `this`
+### 4. Sensitive Data Leakage via Prototype Chaining Using `this`
 
 In JavaScript, the `this` keyword is dynamically scoped. This means if a function is called upon an object, `this` will point to this object even though the called function might not belong to the object itself. This behavior can be used to leak data. In the following example from [Sebastian Leike's demonstration page](http://sebastian-lekies.de/leak/), the sensitive data is stored in an Array. An attacker can override `Array.prototype.forEach` with an attacker-controlled function. If some code calls the `forEach` function on an array instance that contains sensitive values, the attacker-controlled function will be invoked with `this` pointing to the object that contains the sensitive data.
 
