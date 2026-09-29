@@ -67,7 +67,7 @@ Host: www.example.com
 [other HTTP headers]
 Cookie: SessionID=USER_SESSION
 
-username=example_user
+username=victim_user
 ```
 
 Valid and legitimate response:
@@ -77,8 +77,8 @@ HTTP1.1 200 OK
 [other HTTP headers]
 
 {
-  "username": "example_user",
-  "email": "example@email.com",
+  "username": "victim_user",
+  "email": "victim@email.com",
   "address": "Example Address"
 }
 ```
@@ -86,15 +86,15 @@ HTTP1.1 200 OK
 The attacker may try and execute that request with the same `username` parameter:
 
 ```html
-POST /account/viewCCpincode HTTP/1.1
+POST /account/viewSettings HTTP/1.1
 Host: www.example.com
 [other HTTP headers]
 Cookie: SessionID=ATTACKER_SESSION
 
-username=example_user
+username=victim_user
 ```
 
-If the attacker's response contain the data of the `example_user`, then the application is vulnerable for lateral movement attacks, where a user can read or write other user's data.
+If the attacker's response contains the data of the `victim_user`, then the application is vulnerable to lateral movement attacks, where a user can read or write another user's data.
 
 ### Testing for Access to Administrative Functions
 
