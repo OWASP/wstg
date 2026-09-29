@@ -78,7 +78,7 @@ HTTP1.1 200 OK
 
 {
   "username": "victim_user",
-  "email": "viktim@email.com",
+  "email": "victim@email.com",
   "address": "Example Address"
 }
 ```
