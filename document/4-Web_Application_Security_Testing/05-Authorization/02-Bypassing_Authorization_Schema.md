@@ -67,7 +67,7 @@ Host: www.example.com
 [other HTTP headers]
 Cookie: SessionID=USER_SESSION
 
-username=victim_user
+username=example_user
 ```
 
 Valid and legitimate response:
@@ -77,13 +77,13 @@ HTTP1.1 200 OK
 [other HTTP headers]
 
 {
-  "username": "victim_user",
-  "email": "victim@email.com",
+  "username": "example_user",
+  "email": "example@email.com",
   "address": "Example Address"
 }
 ```
 
-The attacker may try and execute that request with the same `username` parameter:
+The attacker may try and execute that request with the same `username` parameter, but different user:
 
 ```html
 POST /account/viewSettings HTTP/1.1
