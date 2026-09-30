@@ -83,18 +83,18 @@ HTTP1.1 200 OK
 }
 ```
 
-The attacker may try and execute that request with the same `username` parameter:
+The attacker may try and execute that request with the same `username` parameter, but different user:
 
 ```html
-POST /account/viewCCpincode HTTP/1.1
+POST /account/viewSettings HTTP/1.1
 Host: www.example.com
 [other HTTP headers]
 Cookie: SessionID=ATTACKER_SESSION
 
-username=example_user
+username=victim_user
 ```
 
-If the attacker's response contain the data of the `example_user`, then the application is vulnerable for lateral movement attacks, where a user can read or write other user's data.
+If the attacker's response contains the data of the `victim_user`, then the application is vulnerable to lateral movement attacks, where a user can read or write another user's data.
 
 You can automate steps 3 and 4. Gori's Authorize tab replays a captured request under several identities and compares each response against a baseline. An identity is a named set of header changes: keep the captured session for the victim, swap in a second user's token, or drop the session headers for an anonymous client.
 

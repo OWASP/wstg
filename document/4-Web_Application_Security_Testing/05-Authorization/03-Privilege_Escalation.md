@@ -59,7 +59,7 @@ Expires: Thu, 01 Jan 1970 00:00:00 GMT
 Connection: close
 
 <form  name="autoriz" method="POST" action = "visual.jsp">
-<input type="hidden" name="profile" value="SysAdmin">\
+<input type="hidden" name="profile" value="SysGuest">\
 
 <body onload="document.forms.autoriz.submit()">
 </td>
