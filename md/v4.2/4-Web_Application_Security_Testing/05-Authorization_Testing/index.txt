@@ -1,0 +1,18 @@
+---
+layout: document
+title: WSTG - v4.2
+collection_name: v42
+channel_label: v4.2
+channel_path: v4.2
+render_with_liquid: false
+---
+
+# 4.5 Authorization Testing
+
+4.5.1 [Testing Directory Traversal File Include](01-Testing_Directory_Traversal_File_Include/)
+
+4.5.2 [Testing for Bypassing Authorization Schema](02-Testing_for_Bypassing_Authorization_Schema/)
+
+4.5.3 [Testing for Privilege Escalation](03-Testing_for_Privilege_Escalation/)
+
+4.5.4 [Testing for Insecure Direct Object References](04-Testing_for_Insecure_Direct_Object_References/)

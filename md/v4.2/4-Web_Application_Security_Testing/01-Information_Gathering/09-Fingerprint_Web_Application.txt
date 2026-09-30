@@ -1,0 +1,16 @@
+---
+layout: document
+title: WSTG - v4.2
+collection_name: v42
+channel_label: v4.2
+channel_path: v4.2
+render_with_liquid: false
+---
+
+# Fingerprint Web Application
+
+|ID          |
+|------------|
+|WSTG-INFO-09|
+
+This content has been merged into: [Fingerprint Web Application Framework](../08-Fingerprint_Web_Application_Framework/).
