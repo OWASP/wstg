@@ -371,7 +371,7 @@ $result1 = odbc_exec($conn, $query2);
                                         ||
                                         \/
                                  the payload that
-                                  get's injected
+                                  gets injected
                                into the second query
   \________________________________________________________/
                               ||

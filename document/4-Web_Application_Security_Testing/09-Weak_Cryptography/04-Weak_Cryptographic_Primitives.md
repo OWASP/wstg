@@ -104,7 +104,7 @@ private static byte[] pbkdf2(char[] password, byte[] salt, int iteration
 
 ```text
 User related keywords: name, root, su, sudo, admin, superuser, login, username, uid
-Key related keywords: public key, AK, SK, secret key, private key, passwd, password, pwd, share key, shared key, cryto, base64
+Key related keywords: public key, AK, SK, secret key, private key, passwd, password, pwd, share key, shared key, crypto, base64
 Other common sensitive keywords: sysadmin, root, privilege, pass, key, code, master, admin, uname, session, token, Oauth, privatekey, shared secret
 ```
 

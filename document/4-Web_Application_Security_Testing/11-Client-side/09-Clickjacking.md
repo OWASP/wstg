@@ -64,7 +64,7 @@ Example:
 ### Test Application on Compatibility and Accessibility Mode
 
 Mobile versions of the web page are usually smaller and faster than the desktop ones, and they have to be less complex than the main application. Mobile variants often have less protection. However, an attacker can fake the real origin given by a web browser, and a non-mobile victim may be able to visit an application made for mobile users. This scenario could allow the attacker to exploit a mobile version of the web page.
-Applications running on acessibility mode should also be tested against clickjacking, because site framming could be affected.
+Applications running on accessibility mode should also be tested against clickjacking, because site framing could be affected.
 
 ### Server-Side Protection: Using Frame-Ancestors Directive of Content Security Policy
 
