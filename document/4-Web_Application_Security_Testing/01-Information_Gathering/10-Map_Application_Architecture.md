@@ -144,7 +144,7 @@ A Content Delivery Network (CDN) is a geographically distributed set of caching 
 
 It is typically configured by pointing the publicly facing domain to the CDN's servers, and then configuring the CDN to connect to the correct backend servers (sometimes known as the "origin").
 
-The easiest way to detect a CDN is to perform a WHOIS lookup for the IP addresses that the domain resolves to. If they belong to a CDN company (such as Akamai, Cloudflare or Fastly - see [Wikipedia](https://en.wikipedia.org/wiki/Content_delivery_network#Notable_content_delivery_service_providers) for a more complete list), it is then likely that a CDN is in use.
+The easiest way to detect a CDN is to perform a WHOIS lookup for the IP addresses that the domain resolves to. If they belong to a CDN company (such as Akamai, Cloudflare or Fastly - see [Wikipedia](https://en.wikipedia.org/wiki/Content_delivery_network#notable_content_delivery_service_providers) for a more complete list), it is then likely that a CDN is in use.
 
 When testing a site behind a CDN, you should bear in mind the following points:
 
