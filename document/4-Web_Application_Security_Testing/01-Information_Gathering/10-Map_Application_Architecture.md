@@ -144,7 +144,7 @@ A Content Delivery Network (CDN) is a geographically distributed set of caching 
 
 It is typically configured by pointing the publicly facing domain to the CDN's servers, and then configuring the CDN to connect to the correct backend servers (sometimes known as the "origin").
 
-The easiest way to detect a CDN is to perform a WHOIS lookup for the IP addresses that the domain resolves to. If they belong to a CDN company (such as Akamai, Cloudflare or Fastly - see [Wikipedia](https://en.wikipedia.org/wiki/Content_delivery_network#Notable_content_delivery_service_providers) for a more complete list), it is then likely that a CDN is in use.
+The easiest way to detect a CDN is to perform a WHOIS lookup for the IP addresses that the domain resolves to. If they belong to a CDN company (such as Akamai, Cloudflare or Fastly - see [Wikipedia](https://en.wikipedia.org/wiki/Content_delivery_network#notable_content_delivery_service_providers) for a more complete list), it is then likely that a CDN is in use.
 
 When testing a site behind a CDN, you should bear in mind the following points:
 
@@ -178,7 +178,7 @@ An IPS can usually be detected by running automated scanning tools (such as a po
 
 #### Web Application Firewall (WAF)
 
-A Web Application Firewall (WAF) inspects the contents of HTTP requests and blocks those that appear to be suspicious or malicious. They can also be used to dynamically apply other controls such as CAPTCHA or rate limiting. They usually utilize a set of known bad signatures and regular expressions, such as the [OWASP Core Rule Set](https://owasp.org/www-project-modsecurity-core-rule-set/), to identify malicious traffic. WAFs can be effective at protecting against certain types of attacks such as SQL injection or cross-site scripting, but are less effective against other types such as access control or business logic related issues.
+A Web Application Firewall (WAF) inspects the contents of HTTP requests and blocks those that appear to be suspicious or malicious. They can also be used to dynamically apply other controls such as CAPTCHA or rate limiting. They usually utilize a set of known bad signatures and regular expressions, such as the [OWASP Core Rule Set](https://owasp.org/projects/crs), to identify malicious traffic. WAFs can be effective at protecting against certain types of attacks such as SQL injection or cross-site scripting, but are less effective against other types such as access control or business logic related issues.
 
 A WAF can be deployed in multiple locations, including:
 
