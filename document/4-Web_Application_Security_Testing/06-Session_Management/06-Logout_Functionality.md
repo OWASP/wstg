@@ -114,7 +114,7 @@ If Device 2 gains authenticated access without credential entry or MFA, the arti
 - Step 4 - Logout Validation Across Devices
 
 1. On Device 1, perform logout.
-2. On Device 2, refresh or access protected resources using the same injected authenticaton artifact value.
+2. On Device 2, refresh or access protected resources using the same injected authentication artifact value.
 
 Expected Result:
 

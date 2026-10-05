@@ -99,7 +99,7 @@ You can find encoding techniques and ready to use directory traversal payloads a
         - `file.txt""""`
         - `file.txt<<<>>><`
         - `./././file.txt`
-        - `nonexistant/../file.txt`
+        - `nonexistent/../file.txt`
 - Windows API: The following items are discarded when used in any shell command or API call where a string is taken as a filename:
     - periods
     - spaces

@@ -44,7 +44,7 @@ For time-boxed engagements, request machine-readable API artifacts from the cust
 
 ### API Directories
 
-Alternatives sources of API documentation can incluide API Directories, such as:
+Alternative sources of API documentation can include API Directories, such as:
 
 - GitHub in general
 - [GitHub Public APIs Repository](https://github.com/public-apis/public-apis)
