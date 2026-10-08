@@ -66,4 +66,4 @@ Consequently, classic memory corruption vulnerabilities (Buffer Overflows, Use-A
 
 - [W3C WebAssembly Core Specification](https://webassembly.github.io/spec/core/)
 - [WebAssembly System Interface (WASI)](https://wasi.dev/)
-- [MDN Web Docs: WebAssembly Concepts](https://developer.mozilla.org/en-US/docs/WebAssembly/Concepts)
+- [MDN Web Docs: WebAssembly Concepts](https://developer.mozilla.org/en-US/docs/WebAssembly/Guides/Concepts)

@@ -46,7 +46,7 @@ Disallow: /m/
 Sitemap: https://www.google.com/sitemap.xml
 ```
 
-The [User-Agent](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent) directive refers to the specific web spider/robot/crawler. For example, the `User-Agent: Googlebot` refers to the spider from Google while `User-Agent: bingbot` refers to a crawler from Microsoft. `User-Agent: *` in the example above applies to all [web spiders/robots/crawlers](https://support.google.com/webmasters/answer/6062608?visit_id=637173940975499736-3548411022&rd=1).
+The [User-Agent](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/User-Agent) directive refers to the specific web spider/robot/crawler. For example, the `User-Agent: Googlebot` refers to the spider from Google while `User-Agent: bingbot` refers to a crawler from Microsoft. `User-Agent: *` in the example above applies to all [web spiders/robots/crawlers](https://developers.google.com/search/docs/crawling-indexing/robots/intro).
 
 The `Disallow` directive specifies which resources are prohibited by spiders/robots/crawlers. In the example above, the following are prohibited:
 
@@ -80,7 +80,7 @@ From a testing perspective, `robots.txt` entries intended to block AI crawlers (
 
 #### Analyze robots.txt Using Google Webmaster Tools
 
-Site owners can use the Google "Analyze robots.txt" function to analyze the site as part of its [Google Webmaster Tools](https://www.google.com/webmasters/tools). This tool can assist with testing and the procedure is as follows:
+Site owners can use the Google "Analyze robots.txt" function to analyze the site as part of its [Google Webmaster Tools](https://search.google.com/search-console/about). This tool can assist with testing and the procedure is as follows:
 
 1. Sign into Google Webmaster Tools with a Google account.
 2. On the dashboard, enter the URL for the site to be analyzed.

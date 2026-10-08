@@ -50,7 +50,7 @@ For example, a support engineer generally shouldn't be able to conduct administr
 
 Users should also not be able to perform actions that increase their own privileges (such as adding themselves to a more privileged role) outside of very specific circumstances.
 
-An administrator shouldn't have full powers on the system. Sensitive admin functionality should leverage a maker-checker principle, or use MFA to ensure that the administrator is conducting the transaction. A clear example on this was the [Twitter incident in 2020](https://blog.twitter.com/en_us/topics/company/2020/an-update-on-our-security-incident.html).
+An administrator shouldn't have full powers on the system. Sensitive admin functionality should leverage a maker-checker principle, or use MFA to ensure that the administrator is conducting the transaction. A clear example on this was the [Twitter incident in 2020](https://blog.x.com/en_us/topics/company/2020/an-update-on-our-security-incident).
 
 ## Tools
 

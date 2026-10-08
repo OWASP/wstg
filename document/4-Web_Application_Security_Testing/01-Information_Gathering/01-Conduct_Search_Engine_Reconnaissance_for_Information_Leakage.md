@@ -39,7 +39,7 @@ Do not limit testing to just one search engine provider, as different search eng
 - [DuckDuckGo](https://duckduckgo.com/), a privacy-focused search engine that compiles results from many different [sources](https://help.duckduckgo.com/results/sources/). Supports [search syntax](https://help.duckduckgo.com/duckduckgo-help-pages/results/syntax/).
 - [Google](https://www.google.com/), which offers the world's [most popular](https://en.wikipedia.org/wiki/Web_search_engine#Market_share) search engine, and uses a ranking system to attempt to return the most relevant results. Supports [search operators](https://support.google.com/websearch/answer/2466433).
 - [Internet Archive Wayback Machine](https://archive.org/web/), "building a digital library of internet sites and other cultural artifacts in digital form."
-- [Censys](https://censys.io) is a security-focused search engine that indexes internet-connected infrastructure including servers, certificates,and open services. It offers a free community tier with limited monthly credits and paid plans for enterprise use.
+- [Censys](https://censys.com) is a security-focused search engine that indexes internet-connected infrastructure including servers, certificates,and open services. It offers a free community tier with limited monthly credits and paid plans for enterprise use.
 - [Shodan](https://www.shodan.io/), a service for searching internet-connected devices and services. Usage options include a limited free plan as well as paid subscription plans.
 
 ### Search Operators

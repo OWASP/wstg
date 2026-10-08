@@ -13,7 +13,7 @@ Browsers provide the following client-side storage mechanisms for developers to 
 - IndexedDB
 - Cookies
 
-These storage mechanisms can be viewed and edited using the browser's developer tools, such as [Google Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/storage/localstorage) or [Firefox's Storage Inspector](https://developer.mozilla.org/en-US/docs/Tools/Storage_Inspector).
+These storage mechanisms can be viewed and edited using the browser's developer tools, such as [Google Chrome DevTools](https://developer.chrome.com/docs/devtools/storage/localstorage) or [Firefox's Storage Inspector](https://firefox-source-docs.mozilla.org/devtools-user/storage_inspector/index.html).
 
 > Note: While cache is also a form of storage it is covered in a [separate section](../04-Authentication/06-Browser_Cache_Weaknesses.md) covering its own peculiarities and concerns.
 
@@ -193,6 +193,6 @@ Applications should be storing sensitive data on the server-side, and not on the
 - [SessionStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage)
 - [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
 - [Web Crypto API: Key Storage](https://www.w3.org/TR/WebCryptoAPI/#concepts-key-storage)
-- [Cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)
+- [Cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Cookies)
 
 For more OWASP resources on the HTML5 Web Storage API, see the [Session Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#html5-web-storage-api).

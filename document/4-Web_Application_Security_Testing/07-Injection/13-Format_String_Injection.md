@@ -6,7 +6,7 @@
 
 ## Summary
 
-A format string is a null-terminated character sequence that also contains conversion specifiers interpreted or converted at runtime. If server-side code [concatenates a user's input with a format string](https://www.netsparker.com/blog/web-security/string-concatenation-format-string-vulnerabilities/), an attacker can append additional conversion specifiers to cause a runtime error, information disclosure, or buffer overflow.
+A format string is a null-terminated character sequence that also contains conversion specifiers interpreted or converted at runtime. If server-side code [concatenates a user's input with a format string](https://www.invicti.com/blog/web-security/string-concatenation-format-string-vulnerabilities), an attacker can append additional conversion specifiers to cause a runtime error, information disclosure, or buffer overflow.
 
 The worst case for format strings vulnerabilities occur in languages that don't check arguments and also include a `%n` specifier that writes to memory. These functions, if exploited by an attacker modifying a format string, could cause [information disclosure and code execution](https://www.veracode.com/security/format-string):
 

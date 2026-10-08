@@ -12,7 +12,7 @@ Traditionally, the HTTP protocol only allows one request/response per TCP connec
 
 ### Origin
 
-It is the server’s responsibility to verify the [`Origin` header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin) in the initial HTTP WebSocket handshake. If the server does not validate the origin header in the initial WebSocket handshake, the WebSocket server may accept connections from any origin. This could allow attackers to communicate with the WebSocket server cross-domain allowing for CSRF-like issues. See also [A01:2025 Broken Access Control](https://owasp.org/Top10/2025/A01_2025-Broken_Access_Control/). The exploit for this weakness is called Cross-Site Websocket Hijacking (CSWH or CSWSH).
+It is the server’s responsibility to verify the [`Origin` header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Origin) in the initial HTTP WebSocket handshake. If the server does not validate the origin header in the initial WebSocket handshake, the WebSocket server may accept connections from any origin. This could allow attackers to communicate with the WebSocket server cross-domain allowing for CSRF-like issues. See also [A01:2025 Broken Access Control](https://owasp.org/Top10/2025/A01_2025-Broken_Access_Control/). The exploit for this weakness is called Cross-Site Websocket Hijacking (CSWH or CSWSH).
 
 ### Confidentiality and Integrity
 
@@ -69,11 +69,10 @@ Gray-box testing is similar to black-box testing. In gray-box testing, the pente
 
 - [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
 - [WebSocket Client](https://github.com/ethicalhack3r/scripts/blob/master/WebSockets.html)
-- [Google Chrome Simple WebSocket Client](https://chrome.google.com/webstore/detail/simple-websocket-client/pfdhoblngboilpfeibdedpjgfnlcodoo?hl=en)
 
 ## References
 
-- [HTML5 Rocks - Introducing WebSockets: Bringing Sockets to the Web](https://www.html5rocks.com/en/tutorials/websockets/basics/)
+- [HTML5 Rocks - Introducing WebSockets: Bringing Sockets to the Web](https://web.dev/articles/websockets-basics)
 - [W3C - The WebSocket API](https://html.spec.whatwg.org/multipage/web-sockets.html#network)
 - [IETF - The WebSocket Protocol](https://tools.ietf.org/html/rfc6455)
 - [CWE-1385: Missing Origin Validation in WebSockets](https://cwe.mitre.org/data/definitions/1385.html)

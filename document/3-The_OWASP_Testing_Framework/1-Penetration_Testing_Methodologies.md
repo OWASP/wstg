@@ -20,7 +20,7 @@
 In terms of technical security testing execution, the OWASP testing guides are highly recommended. Depending on the types of the applications, the testing guides are listed below for the web/cloud services, Mobile app (Android/iOS), or IoT firmware respectively.
 
 - [OWASP Web Security Testing Guide](https://owasp.org/www-project-web-security-testing-guide/)
-- [OWASP Mobile Security Testing Guide](https://owasp.org/www-project-mobile-security-testing-guide/)
+- [OWASP Mobile Security Testing Guide](https://mas.owasp.org/)
 - [OWASP Firmware Security Testing Methodology](https://github.com/scriptingxss/owasp-fstm)
 
 ## Penetration Testing Execution Standard
@@ -126,6 +126,6 @@ OSSTMM includes the following key sections:
 - [Technical Guide to Information Security Testing and Assessment NIST SP 800-115](https://csrc.nist.gov/publications/detail/sp/800-115/final)
 - [HIPAA Security Testing Guidance](https://www.hhs.gov/hipaa/for-professionals/security/guidance/cybersecurity/index.html)
 - [Penetration Testing Framework 0.59 (Archived)](https://web.archive.org/web/20130925044437/http://www.vulnerabilityassessment.co.uk/Penetration%20Test.html)
-- [OWASP Mobile Security Testing Guide](https://owasp.org/www-project-mobile-security-testing-guide/)
+- [OWASP Mobile Security Testing Guide](https://mas.owasp.org/)
 - [Kali Linux](https://www.kali.org/)
 - [Information Supplement: Requirement 11.3 Penetration Testing](https://www.pcisecuritystandards.org/pdfs/infosupp_11_3_penetration_testing.pdf)
