@@ -68,6 +68,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Abhi M Balakrishnan
 - Asharaf Ali
 - Elie Saad
+- Enes Baldemir
 - Eoin Murphy
 - Evan Read (alp1n3-eth)
 - Francisco Bustos
