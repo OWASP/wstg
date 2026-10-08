@@ -64,11 +64,11 @@ The exact location where that information is stored depends on the client operat
 
 Firefox provides functionality for viewing cached information, which may be to your benefit as a tester. Of course the industry has also produced various extensions, and external apps which you may prefer or need for Chrome, Internet Explorer, or Edge.
 
-Cache details are also available via developer tools in most modern browsers, such as [Firefox](https://developer.mozilla.org/en-US/docs/Tools/Storage_Inspector#Cache_Storage), [Chrome](https://developers.google.com/web/tools/chrome-devtools/storage/cache), and Edge. With Firefox it is also possible to use the URL `about:cache` to check cache details.
+Cache details are also available via developer tools in most modern browsers, such as [Firefox](https://firefox-source-docs.mozilla.org/devtools-user/storage_inspector/index.html), [Chrome](https://developer.chrome.com/docs/devtools/storage/cache), and Edge. With Firefox it is also possible to use the URL `about:cache` to check cache details.
 
 #### Check Handling for Mobile Browsers
 
-Handling of cache directives may be completely different for mobile browsers. Therefore, testers should start a new browsing session with clean caches and take advantage of features like Chrome's [Device Mode](https://developers.google.com/web/tools/chrome-devtools/device-mode) or Firefox's [Responsive Design Mode](https://developer.mozilla.org/en-US/docs/Tools/Responsive_Design_Mode) to re-test or separately test the concepts outlined above.
+Handling of cache directives may be completely different for mobile browsers. Therefore, testers should start a new browsing session with clean caches and take advantage of features like Chrome's [Device Mode](https://developer.chrome.com/docs/devtools/device-mode) or Firefox's [Responsive Design Mode](https://firefox-source-docs.mozilla.org/devtools-user/responsive_design_mode/index.html) to re-test or separately test the concepts outlined above.
 
 Additionally, personal proxies such as ZAP and Burp Suite allow the tester to specify which `User-Agent` should be sent by their spiders/crawlers. This could be set to match a mobile browser `User-Agent` string and used to see which caching directives are sent by the application being tested.
 
@@ -84,6 +84,6 @@ The methodology for testing is equivalent to the black-box case, as in both scen
 
 ### Whitepapers
 
-- [MDN - Cache-Control](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control)
+- [MDN - Cache-Control](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cache-Control)
 - [Euthanize Pragma no-cache](https://www.veggiespam.com/euthanize-pragma-no-cache/)
 - [Caching in HTTP](https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html)

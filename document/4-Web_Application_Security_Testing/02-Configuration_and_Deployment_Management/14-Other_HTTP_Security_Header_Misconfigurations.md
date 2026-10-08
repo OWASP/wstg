@@ -95,12 +95,12 @@ Clear-Site-Data: "cache","cookies","storage"
     Referrer-Policy: no-referrer
     ```
 
-- **Cross-Reference Documentation:** Use resources such as the [Mozilla Developer Network: Security Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers) to review secure and insecure directives.
+- **Cross-Reference Documentation:** Use resources such as the [Mozilla Developer Network: Security Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers) to review secure and insecure directives.
 
 ### Check for Duplicate, Deprecated / Obsolete Headers
 
 - **Duplicate Headers:** Ensure that the same header is not defined multiple times with conflicting values.
-- **Obsolete Headers:** Identify and remove deprecated headers (e.g., HPKP) and outdated directives (e.g., `ALLOW-FROM` in X-Frame-Options). Refer to sources like [Mozilla Developer Network: X-Frame-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) for current standards.
+- **Obsolete Headers:** Identify and remove deprecated headers (e.g., HPKP) and outdated directives (e.g., `ALLOW-FROM` in X-Frame-Options). Refer to sources like [Mozilla Developer Network: X-Frame-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/X-Frame-Options) for current standards.
 
 ### Confirm Proper Placement of Security Headers
 
@@ -166,7 +166,7 @@ Connection: close, X-Authenticated-User
 
 ## Tools
 
-- [Mozilla Observatory](https://observatory.mozilla.org/)
+- [Mozilla Observatory](https://developer.mozilla.org/en-US/observatory)
 - [ZAP](https://www.zaproxy.org/)
 - [Burp Suite](https://portswigger.net/burp)
 - Browser Developer Tools (Chrome, Firefox, Edge)
@@ -174,7 +174,7 @@ Connection: close, X-Authenticated-User
 ## References
 
 - [OWASP Secure Headers Project](https://owasp.org/projects/secure-headers-project)
-- [Mozilla Developer Network: Security Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers)
+- [Mozilla Developer Network: Security Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers)
 - [RFC 6797 - HTTP Strict Transport Security (HSTS)](https://datatracker.ietf.org/doc/html/rfc6797)
 - [Google Web Security Guidelines](https://web.dev/security-headers/)
 - [HPKP is No More](https://scotthelme.co.uk/hpkp-is-no-more/)

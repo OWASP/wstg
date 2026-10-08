@@ -131,11 +131,11 @@ CWE-780: Use of RSA Algorithm without OAEP
 
 - [NIST FIPS Standards](https://csrc.nist.gov/publications/fips)
 - [Wikipedia: Initialization Vector](https://en.wikipedia.org/wiki/Initialization_vector)
-- [Secure Coding - Generating Strong Random Numbers](https://www.securecoding.cert.org/confluence/display/java/MSC02-J.+Generate+strong+random+numbers)
+- [Secure Coding - Generating Strong Random Numbers](https://cmu-sei.github.io/secure-coding-standards/sei-cert-oracle-coding-standard-for-java/rules/miscellaneous-msc/msc02-j)
 - [Optimal Asymmetric Encryption Padding](https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding)
 - [Cryptographic Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)
 - [Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)
-- [Secure Coding - Do not use insecure or weak cryptographic algorithms](https://www.securecoding.cert.org/confluence/display/java/MSC61-J.+Do+not+use+insecure+or+weak+cryptographic+algorithms)
+- [Secure Coding - Do not use insecure or weak cryptographic algorithms](https://cmu-sei.github.io/secure-coding-standards/sei-cert-oracle-coding-standard-for-java/recommendations/miscellaneous-msc/msc61-j)
 - [Insecure Randomness](https://owasp.org/www-community/vulnerabilities/Insecure_Randomness)
 - [Insufficient Entropy](https://owasp.org/www-community/vulnerabilities/Insufficient_Entropy)
 - [Insufficient Session-ID Length](https://owasp.org/www-community/vulnerabilities/Insufficient_Session-ID_Length)

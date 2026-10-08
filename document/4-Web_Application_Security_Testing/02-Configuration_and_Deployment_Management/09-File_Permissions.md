@@ -95,8 +95,8 @@ Regardless of where secrets live (filesystem, container image, Kubernetes `Secre
 
 ## Tools
 
-- [Windows AccessEnum](https://technet.microsoft.com/en-us/sysinternals/accessenum)
-- [Windows AccessChk](https://technet.microsoft.com/en-us/sysinternals/accesschk)
+- [Windows AccessEnum](https://learn.microsoft.com/en-us/sysinternals/downloads/accessenum)
+- [Windows AccessChk](https://learn.microsoft.com/en-us/sysinternals/downloads/accesschk)
 - [Linux namei](https://linux.die.net/man/1/namei)
 - [dive - Docker image layer/permission explorer](https://github.com/wagoodman/dive)
 - [kube-bench - CIS Kubernetes Benchmark scanner](https://github.com/aquasecurity/kube-bench)

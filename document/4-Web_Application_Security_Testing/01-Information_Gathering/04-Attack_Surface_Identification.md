@@ -248,7 +248,7 @@ Reverse-IP services are similar to DNS inverse queries, with the difference that
 - [MxToolbox Reverse IP](https://mxtoolbox.com/ReverseLookup.aspx)
 - [DNSstuff](https://www.dnsstuff.com/) (multiple services available)
 
-Internet asset search engines such as [Shodan](https://www.shodan.io/), [Censys](https://censys.io), and [FOFA](https://fofa.info) index internet-connected hosts and services and can also be searched by IP, certificate, or banner content to reveal other hostnames and services hosted on the same address. FOFA in particular has extensive coverage of infrastructure in China and Asia-Pacific, which can complement the coverage of Shodan and Censys. For example, an IP-based FOFA search: `ip="192.168.1.100"`, or a search for a specific title or header: `title="Example App"`. As with the other reverse-IP services above, a free tier with limited queries is available, with paid plans for more comprehensive access.
+Internet asset search engines such as [Shodan](https://www.shodan.io/), [Censys](https://censys.com), and [FOFA](https://fofa.info) index internet-connected hosts and services and can also be searched by IP, certificate, or banner content to reveal other hostnames and services hosted on the same address. FOFA in particular has extensive coverage of infrastructure in China and Asia-Pacific, which can complement the coverage of Shodan and Censys. For example, an IP-based FOFA search: `ip="192.168.1.100"`, or a search for a specific title or header: `title="Example App"`. As with the other reverse-IP services above, a free tier with limited queries is available, with paid plans for more comprehensive access.
 
 #### Googling
 
@@ -340,7 +340,7 @@ Always respect scope, rate limits, and engagement rules of engagement. Validate 
 - [MassDNS](https://github.com/blechschmidt/massdns) (high-speed resolver for wordlist / permutation output)
 - Search engines (Google, Bing, and other major search engines)
 - Reverse IP lookup services
-- Internet asset search engines: [Shodan](https://www.shodan.io/), [Censys](https://censys.io), [FOFA](https://fofa.info)
+- Internet asset search engines: [Shodan](https://www.shodan.io/), [Censys](https://censys.com), [FOFA](https://fofa.info)
 - Certificate Transparency search portals: [crt.sh](https://crt.sh), [Merklemap](https://www.merklemap.com/), [SSLMate's Cert Spotter](https://sslmate.com/certspotter/)
 - Archive / historical URL collectors: [gau](https://github.com/lc/gau), [waybackurls](https://github.com/tomnomnom/waybackurls), [waymore](https://github.com/xnl-h4ck3r/waymore)
 - [Nmap](https://nmap.org/)

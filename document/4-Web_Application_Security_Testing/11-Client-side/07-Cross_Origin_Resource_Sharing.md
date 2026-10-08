@@ -6,7 +6,7 @@
 
 ## Summary
 
-[Cross Origin Resource Sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) (CORS) is a mechanism that enables a web browser to perform cross-domain requests using the XMLHttpRequest (XHR) Level 2 (L2) API in a controlled manner. In the past, the XHR L1 API only allowed requests to be sent within the same origin as it was restricted by the [Same Origin Policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy) (SOP).
+[Cross Origin Resource Sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) (CORS) is a mechanism that enables a web browser to perform cross-domain requests using the XMLHttpRequest (XHR) Level 2 (L2) API in a controlled manner. In the past, the XHR L1 API only allowed requests to be sent within the same origin as it was restricted by the [Same Origin Policy](https://developer.mozilla.org/en-US/docs/Web/Security/Defenses/Same-origin_policy) (SOP).
 
 Cross-origin requests have an `Origin` header that identifies the domain initiating the request and is always sent to the server. CORS defines the protocol to use between a web browser and a server to determine whether a cross-origin request is allowed. HTTP [headers](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing#Headers) are used to accomplish this.
 
@@ -14,7 +14,7 @@ The [W3C CORS specification](https://www.w3.org/TR/cors/) mandates that for non 
 
 ### Origin & Access-Control-Allow-Origin
 
-The `Origin` request header is always sent by the browser in a CORS request and indicates the origin of the request. The Origin header cannot be changed from JavaScript as [the browser (the user-agent) blocks its modification](https://developer.mozilla.org/en-US/docs/Glossary/Forbidden_header_name); however, relying on this header for Access Control checks is not a good idea as it may be spoofed outside the browser, for example by using a proxy, so you still need to check that application-level protocols are used to protect sensitive data.
+The `Origin` request header is always sent by the browser in a CORS request and indicates the origin of the request. The Origin header cannot be changed from JavaScript as [the browser (the user-agent) blocks its modification](https://developer.mozilla.org/en-US/docs/Glossary/Forbidden_request_header); however, relying on this header for Access Control checks is not a good idea as it may be spoofed outside the browser, for example by using a proxy, so you still need to check that application-level protocols are used to protect sensitive data.
 
 `Access-Control-Allow-Origin` is a response header used by a server to indicate which domains are allowed to read the response. Based on the CORS W3 Specification it is up to the client to determine and enforce the restriction of whether the client has access to the response data based on this header.
 
@@ -45,7 +45,7 @@ XHR L2 introduces the possibility of creating a cross-domain request using the X
 
 There are other headers involved like `Access-Control-Max-Age` that determines the time a preflight request can be cached in the browser, or `Access-Control-Expose-Headers` that indicates which headers are safe to expose to the API of a CORS API specification.
 
-To review CORS headers, refer to the [CORS MDN document](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#The_HTTP_response_headers).
+To review CORS headers, refer to the [CORS MDN document](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS#The_HTTP_response_headers).
 
 ## Test Objectives
 
@@ -247,4 +247,4 @@ Injected Content from attacker.bar <img src="#" onerror="alert('Domain: '+docume
 ## References
 
 - [OWASP HTML5 Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/HTML5_Security_Cheat_Sheet.html#cross-origin-resource-sharing)
-- [MDN Cross-Origin Resources Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
+- [MDN Cross-Origin Resources Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS)

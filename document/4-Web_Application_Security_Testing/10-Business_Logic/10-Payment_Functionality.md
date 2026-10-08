@@ -215,8 +215,8 @@ Most payment gateways have a set of defined test card details, which can be used
 Examples of these test details for various payment gateways are listed below:
 
 - [Adyen - Test Card Numbers](https://docs.adyen.com/development-resources/test-cards-and-credentials/test-card-numbers)
-- [Globalpay - Test Cards](https://developer.globalpay.com/resources/test-card-numbers)
-- [Stripe - Basic Test Card Numbers](https://stripe.com/docs/testing#cards)
+- [Globalpay - Test Cards](https://developer.globalpayments.com/resources/test-cards)
+- [Stripe - Basic Test Card Numbers](https://docs.stripe.com/testing#cards)
 
 ### Logistics
 

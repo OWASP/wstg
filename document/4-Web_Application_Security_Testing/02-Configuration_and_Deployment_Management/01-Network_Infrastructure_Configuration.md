@@ -77,7 +77,7 @@ Some companies choose not to manage all aspects of their web server applications
 - [Prowler](https://github.com/prowler-cloud/prowler) - AWS/Azure/GCP security assessment, including network and firewall rule checks.
 - [kube-bench](https://github.com/aquasecurity/kube-bench) - CIS Kubernetes Benchmark scanner.
 - [kube-hunter](https://github.com/aquasecurity/kube-hunter) - identifies exposed Kubernetes network-facing components.
-- [Shodan](https://www.shodan.io/) / [Censys](https://censys.io/) - internet-wide scan data useful for identifying unintentionally exposed infrastructure during black-box assessments.
+- [Shodan](https://www.shodan.io/) / [Censys](https://censys.com/) - internet-wide scan data useful for identifying unintentionally exposed infrastructure during black-box assessments.
 
 ## References
 

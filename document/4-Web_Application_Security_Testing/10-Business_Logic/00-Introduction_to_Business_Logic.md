@@ -53,12 +53,11 @@ To View and Modify HTTP/HTTPS Headers, Post Parameters, and Observe the DOM of t
 
 ## Miscellaneous Test Tools
 
-- [Web Developer toolbar](https://chrome.google.com/webstore/detail/bfbameneiokkgbdmiekhjnmfkcnldhhm)
+- [Web Developer toolbar](https://chromewebstore.google.com/detail/bfbameneiokkgbdmiekhjnmfkcnldhhm)
     - The Web Developer extension adds a toolbar button to the browser with various web developer tools. This is the official port of the Web Developer extension for Firefox.
-- [HTTP Request Maker for Chrome](https://chrome.google.com/webstore/detail/kajfghlhfkcocafkcjlajldicbikpgnp)
 - [HTTP Request Maker for Firefox](https://addons.mozilla.org/en-US/firefox/addon/http-request-maker)
     - Request Maker is a tool for penetration testing. With it you can easily capture requests made by web pages, tamper with the URL, headers and POST data and, of course, make new requests
-- [Cookie Editor for Chrome](https://chrome.google.com/webstore/detail/fngmhnnpilhplaeedifhccceomclgfbg)
+- [Cookie Editor for Chrome](https://chromewebstore.google.com/detail/cookie-editor/hlkenndednhfkekhgcdicdfddnkalmdm)
 - [Cookie Editor for Firefox](https://addons.mozilla.org/en-US/firefox/addon/cookie-editor)
     - Cookie Editor is a cookie manager. You can add, delete, edit, search, protect, and block cookies
 
@@ -67,10 +66,10 @@ To View and Modify HTTP/HTTPS Headers, Post Parameters, and Observe the DOM of t
 ### Whitepapers
 
 - [The Common Misuse Scoring System (CMSS): Metrics for Software Feature Misuse Vulnerabilities - NISTIR 7864](https://csrc.nist.gov/publications/detail/nistir/7864/final)
-- [Finite State testing of Graphical User Interfaces, Fevzi Belli](https://pdfs.semanticscholar.org/b57c/6c8022abfd2cb17ec785d3622027b3edfaaf.pdf)
+- [Finite State testing of Graphical User Interfaces, Fevzi Belli](https://www.semanticscholar.org/paper/b57c6c8022abfd2cb17ec785d3622027b3edfaaf)
 - [Principles and Methods of Testing Finite State Machines - A Survey, David Lee, Mihalis Yannakakis](https://ieeexplore.ieee.org/document/533956)
 - [Security Issues in Online Games, Jianxin Jeff Yan and Hyun-Jin Choi](https://www.researchgate.net/publication/220677013_Security_issues_in_online_games)
-- [Securing Virtual Worlds Against Real Attack, Dr. Igor Muttik, McAfee](https://www.info-point-security.com/open_downloads/2008/McAfee_wp_online_gaming_0808.pdf)
+- [Securing Virtual Worlds Against Real Attack, Dr. Igor Muttik, McAfee](https://www.infopoint-security.de/open_downloads/2008/McAfee_wp_online_gaming_0808.pdf)
 - [Seven Business Logic Flaws That Put Your Website At Risk - Jeremiah Grossman Founder and CTO, WhiteHat Security](https://www.slideshare.net/jeremiahgrossman/seven-business-logic-flaws-that-put-your-website-at-risk-harvard-07062008)
 - [Toward Automated Detection of Logic Vulnerabilities in Web Applications - Viktoria Felmetsger Ludovico Cavedon Christopher Kruegel Giovanni Vigna](https://www.usenix.org/legacy/event/sec10/tech/full_papers/Felmetsger.pdf)
 
@@ -83,7 +82,7 @@ To View and Modify HTTP/HTTPS Headers, Post Parameters, and Observe the DOM of t
 - [Business logic](https://en.wikipedia.org/wiki/Business_logic)
 - [Business Logic Flaws and Yahoo Games](https://blog.jeremiahgrossman.com/2006/12/business-logic-flaws.html)
 - [CWE-840: Business Logic Errors](https://cwe.mitre.org/data/definitions/840.html)
-- [Defying Logic: Theory, Design, and Implementation of Complex Systems for Testing Application Logic](https://pdfs.semanticscholar.org/d14a/18f08f6488f903f2f691a1d159e95d8ee04f.pdf)
+- [Defying Logic: Theory, Design, and Implementation of Complex Systems for Testing Application Logic](https://www.semanticscholar.org/paper/d14a18f08f6488f903f2f691a1d159e95d8ee04f)
 
 ### Books
 

@@ -170,7 +170,7 @@ Several tools can assist in identifying hidden administrator interfaces and func
 
 - [ZAP - Forced Browse](https://www.zaproxy.org/docs/desktop/addons/forced-browse/) is a currently maintained use of OWASP's previous DirBuster project.
 - [THC-HYDRA](https://github.com/vanhauser-thc/thc-hydra) is a tool that allows brute-forcing of many interfaces, including form-based HTTP authentication.
-- A brute forcer is much more effective when it uses a good dictionary, such as the [Netsparker](https://www.netsparker.com/blog/web-security/svn-digger-better-lists-for-forced-browsing/) dictionary.
+- A brute forcer is much more effective when it uses a good dictionary, such as the [Netsparker](https://www.invicti.com/blog/web-security/svn-digger-better-lists-for-forced-browsing) dictionary.
 - [nuclei](https://github.com/projectdiscovery/nuclei) with the `exposed-panels` and `default-logins` template sets can fingerprint many of the modern admin/CI/CD/orchestration interfaces described above at scale.
 - [kube-hunter](https://github.com/aquasecurity/kube-hunter) - identifies exposed Kubernetes API server, kubelet, and dashboard endpoints.
 - [SecLists - Default Credentials](https://github.com/danielmiessler/SecLists/tree/master/Passwords/Default-Credentials)
@@ -181,5 +181,5 @@ Several tools can assist in identifying hidden administrator interfaces and func
 - [FuzzDB can be used to do brute force browsing admin login path](https://github.com/fuzzdb-project/fuzzdb/blob/master/discovery/predictable-filepaths/login-file-locations/Logins.txt)
 - [Common admin or debugging parameters](https://github.com/fuzzdb-project/fuzzdb/blob/master/attack/business-logic/CommonDebugParamNames.txt)
 - [Kubernetes Dashboard Security](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/)
-- [Kong Admin API - Securing the Admin API](https://docs.konghq.com/gateway/latest/production/running-kong/secure-admin-api/)
+- [Kong Admin API - Securing the Admin API](https://developer.konghq.com/gateway/secure-the-admin-api/)
 - [Jenkins: Securing Jenkins](https://www.jenkins.io/doc/book/security/)

@@ -59,7 +59,7 @@ Various tools, documents, or checklists can be used to give IT and security prof
 
 - [CIS-CAT Lite](https://www.cisecurity.org/blog/introducing-cis-cat-lite/)
 - [Microsoft's Attack Surface Analyzer](https://github.com/microsoft/AttackSurfaceAnalyzer)
-- [NIST's National Checklist Program](https://nvd.nist.gov/ncp/repository)
+- [NIST's National Checklist Program](https://ncp.nist.gov/repository)
 
 ### Gray-Box Testing
 

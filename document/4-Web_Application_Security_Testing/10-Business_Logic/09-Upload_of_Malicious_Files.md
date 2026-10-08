@@ -96,7 +96,7 @@ When this file is uploaded, it should be detected and quarantined or deleted by 
 
 #### Archive Directory Traversal
 
-If the application extracts archives (such as ZIP files), then it may be possible to write to unintended locations using directory traversal. This can be exploited by uploading a malicious ZIP file that contains paths that traverse the file system using sequences such as `..\..\..\..\shell.php`. This technique is discussed further in the [snyk advisory](https://snyk.io/research/zip-slip-vulnerability).
+If the application extracts archives (such as ZIP files), then it may be possible to write to unintended locations using directory traversal. This can be exploited by uploading a malicious ZIP file that contains paths that traverse the file system using sequences such as `..\..\..\..\shell.php`. This technique is discussed further in the [snyk advisory](https://security.snyk.io/research/zip-slip-vulnerability).
 
 A test against Archive Directory Traversal should include two parts:
 
@@ -222,5 +222,5 @@ Fully protecting against malicious file upload can be complex, and the exact ste
 - [How to Tell if a File is Malicious](https://web.archive.org/web/20210710090809/https://www.techsupportalert.com/content/how-tell-if-file-malicious.htm)
 - [CWE-434: Unrestricted Upload of File with Dangerous Type](https://cwe.mitre.org/data/definitions/434.html)
 - [Implementing Secure File Upload](https://infosecauditor.wordpress.com/tag/malicious-file-upload/)
-- [Metasploit Generating Payloads](https://www.offensive-security.com/metasploit-unleashed/Generating_Payloads)
+- [Metasploit Generating Payloads](https://www.offsec.com/metasploit-unleashed/generating-payloads/)
 - [List of file signatures](https://en.wikipedia.org/wiki/List_of_file_signatures)

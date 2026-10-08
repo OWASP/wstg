@@ -29,7 +29,7 @@ In order to provide access to a client application, OAuth relies on several [aut
 
 Two flows will be deprecated in the release of [OAuth2.1](https://oauth.net/2.1/), and their usage is not recommended:
 
-- [Implicit Flow*](https://oauth.net/2/grant-types/implicit/): PKCE's secure implementation renders this flow obsolete. Prior to PKCE, the implicit flow was used by client-side applications such as [single page applications](https://en.wikipedia.org/wiki/Single-page_application) since [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) relaxed the [same-origin policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy) for sites to inter-communicate. For more information on why the implicit grant is not recommended, review this [section](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics#section-2.1.2).
+- [Implicit Flow*](https://oauth.net/2/grant-types/implicit/): PKCE's secure implementation renders this flow obsolete. Prior to PKCE, the implicit flow was used by client-side applications such as [single page applications](https://en.wikipedia.org/wiki/Single-page_application) since [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS) relaxed the [same-origin policy](https://developer.mozilla.org/en-US/docs/Web/Security/Defenses/Same-origin_policy) for sites to inter-communicate. For more information on why the implicit grant is not recommended, review this [section](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics#section-2.1.2).
 - [Resource Owner Password Credentials](https://oauth.net/2/grant-types/password/):used to exchange users' credentials directly with the client, which then sends them to the authorization to exchange them for an access token. For information on why this flow is not recommended, review this [section](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics#section-2.4).
 
 *: The implicit flow in OAuth only is deprecated, yet is still a viable solution within Open ID Connect (OIDC) to retrieve `id_tokens`. Be careful to understand how the implicit flow is being used, which can be identified if only the `/authorization` endpoint is being used to gain an access token, without relying on `/token` endpoint in any way. An example on this can be found [here](https://auth0.com/docs/get-started/authentication-and-authorization-flow/implicit-flow-with-form-post).
@@ -162,7 +162,7 @@ In order to test this scenario, make use of an HTTP intercepting proxy such as Z
 
 After stepping through the OAuth flow and using the application, a few requests are captured in the request history of an HTTP intercepting proxy. Search for the HTTP referrer header (e.g. `Referer: https://idp.example.com/`) containing the authorization server and client URL in the request history.
 
-Reviewing the HTML meta tags (although this tag is [not supported](https://caniuse.com/mdn-html_elements_meta_name_referrer) on all browsers), or the [Referrer-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy) could help assess if any credential leakage is happening through the referrer header.
+Reviewing the HTML meta tags (although this tag is [not supported](https://caniuse.com/mdn-html_elements_meta_name_referrer) on all browsers), or the [Referrer-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Referrer-Policy) could help assess if any credential leakage is happening through the referrer header.
 
 ## Related Test Cases
 
@@ -188,4 +188,4 @@ Reviewing the HTML meta tags (although this tag is [not supported](https://caniu
 - [The OAuth 2.0 Authorization Framework: Bearer Token Usage](https://datatracker.ietf.org/doc/html/rfc6750)
 - [OAuth 2.0 Threat Model and Security Considerations](https://datatracker.ietf.org/doc/html/rfc6819)
 - [OAuth 2.0 Security Best Current Practice](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics-16)
-- [Authorization Code Flow with Proof Key for Code Exchange](https://auth0.com/docs/authorization/flows/authorization-code-flow-with-proof-key-for-code-exchange-pkce)
+- [Authorization Code Flow with Proof Key for Code Exchange](https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow-with-pkce)

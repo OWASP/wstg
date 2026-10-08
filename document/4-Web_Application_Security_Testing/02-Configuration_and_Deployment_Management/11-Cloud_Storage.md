@@ -104,6 +104,6 @@ Object versioning (keeping prior versions of an object after it is overwritten o
 - [Azure: Configure Anonymous Public Read Access for Containers and Blobs](https://learn.microsoft.com/en-us/azure/storage/blobs/anonymous-read-access-configure)
 - [Azure: Grant Limited Access with Shared Access Signatures (SAS)](https://learn.microsoft.com/en-us/azure/storage/common/storage-sas-overview)
 - [Google Cloud Storage: Access Control](https://cloud.google.com/storage/docs/access-control)
-- [Google Cloud Storage: Signed URLs](https://cloud.google.com/storage/docs/access-control/signed-urls)
+- [Google Cloud Storage: Signed URLs](https://docs.cloud.google.com/storage/docs/access-control/signed-urls)
 - [flAWS 2 - Learn AWS Security](http://flaws2.cloud)
 - [curl Tutorial](https://curl.se/docs/manual.html)

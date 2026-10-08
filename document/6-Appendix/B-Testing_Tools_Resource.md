@@ -31,7 +31,7 @@ The list contains only tools that are freely available to download and use (alth
 
 ### Chrome Extensions
 
-- [Chrome Web Developer](https://chrome.google.com/webstore/detail/bfbameneiokkgbdmiekhjnmfkcnldhhm)
+- [Chrome Web Developer](https://chromewebstore.google.com/detail/bfbameneiokkgbdmiekhjnmfkcnldhhm)
     - The Web Developer extension adds a toolbar button to the browser with various web developer tools. This is the official port of the Web Developer extension for Chrome.
 - [Cookie Editor](https://chromewebstore.google.com/detail/cookie-editor/hlkenndednhfkekhgcdicdfddnkalmdm)
     - A powerful and easy to use browser extension that allows you to quickly create, edit and delete cookies for the current tab. Useful for developing, testing, or manually managing cookies.
@@ -148,8 +148,8 @@ unfurl "https://example.com/page?query=123"
 - [Find Security Bugs](https://find-sec-bugs.github.io)
 - [phpcs-security-audit](https://github.com/squizlabs/PHP_CodeSniffer)
 - [PMD](https://pmd.github.io)
-- [Microsoft's .NET Analyzers](https://docs.microsoft.com/en-us/visualstudio/code-quality/install-net-analyzers)
-- [SonarQube Community Edition](https://www.sonarqube.org)
+- [Microsoft's .NET Analyzers](https://learn.microsoft.com/en-us/visualstudio/code-quality/install-net-analyzers)
+- [SonarQube Community Edition](https://www.sonarsource.com/products/sonarqube/)
 
 ## Browser Automation Tools
 

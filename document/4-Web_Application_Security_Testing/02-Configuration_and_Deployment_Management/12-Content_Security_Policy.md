@@ -201,7 +201,7 @@ Teams should adapt strict policies carefully, ensuring compatibility with applic
 
 - [Google CSP Evaluator](https://csp-evaluator.withgoogle.com/)
 - [CSP Auditor - Burp Suite Extension](https://portswigger.net/bappstore/35237408a06043e9945a11016fcbac18)
-- [CSP Generator Chrome](https://chrome.google.com/webstore/detail/content-security-policy-c/ahlnecfloencbkpfnpljbojmjkfgnmdc) / [Firefox](https://addons.mozilla.org/en-US/firefox/addon/csp-generator/)
+- [CSP Generator Chrome](https://chromewebstore.google.com/detail/ahlnecfloencbkpfnpljbojmjkfgnmdc) / [Firefox](https://addons.mozilla.org/en-US/firefox/addon/csp-generator/)
 - [CSP Validator](https://cspvalidator.netlify.app/)
 - [ZAP](https://www.zaproxy.org/) - Includes automated and passive analysis for CSP misconfigurations.
 - [CSPBypass](https://cspbypass.com/) - Tool designed to help security testers analyze and attempt bypass techniques against restrictive CSP implementations.
@@ -209,7 +209,7 @@ Teams should adapt strict policies carefully, ensuring compatibility with applic
 ## References
 
 - [OWASP Content Security Policy Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html)
-- [Mozilla Developer Network: Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)
+- [Mozilla Developer Network: Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP)
 - [CSP Level 3 W3C](https://www.w3.org/TR/CSP3/)
 - [CSP with Google](https://csp.withgoogle.com/docs/index.html)
 - [Content-Security-Policy](https://content-security-policy.com/)
