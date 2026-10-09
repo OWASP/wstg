@@ -44,10 +44,6 @@
 - [Secure Coding Guidelines for Java SE](https://www.oracle.com/java/technologies/javase/seccodeguide.html)
 - [System Administration, Networking, and Security Institute (SANS)](https://www.sans.org)
 
-## Videos
-
-- [PentesterAcademy](https://www.pentesteracademy.com/)
-
 ## Deliberately Insecure Web Applications
 
 - [OWASP Vulnerable Web Applications Directory Project](https://owasp.org/www-project-vulnerable-web-applications-directory/)
