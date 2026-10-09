@@ -6,15 +6,17 @@
 
 ## Summary
 
-WebAssembly (Wasm) is a binary instruction format delivered to the browser as a compiled module. Because it is not human-readable at first glance, it is often wrongly assumed to be protected by "security by obscurity." Just like traditional desktop binaries, WebAssembly modules can be located, fingerprinted, and analyzed.
+WebAssembly (Wasm) is a binary instruction format delivered to the browser as a compiled module. Because it is not human-readable at first glance, it is often treated as opaque and therefore safer than JavaScript. In practice, just like traditional desktop binaries, Wasm modules can be located, fingerprinted, and analyzed.
 
 Reconnaissance is the first step in WebAssembly security testing. This phase focuses on locating Wasm modules within the web application, identifying the toolchain that produced them, checking for exposed debugging artifacts (source maps, DWARF, the `name` section), and mapping the infrastructure attack surface (URLs, API endpoints, hosts) that the modules reveal.
 
 This phase only **collects information** about the target. It deliberately stops before decompiling the code, reading its logic, or running the module under a debugger. Successfully gathering this intelligence provides the foundational map required for the subsequent testing phases.
 
+This chapter focuses on **browser-delivered** Wasm modules. Reconnaissance of Wasm running outside the browser (WASI runtimes, edge or serverless platforms) differs, because modules are usually not served to the client and must be obtained through other means. See the [WebAssembly Testing Overview](README.md) for the distinction.
+
 ## Test Objectives
 
-- Find all WebAssembly modules loaded by the target application, including those not named `.wasm`, lazy-loaded, or embedded in JavaScript.
+- Find all WebAssembly modules loaded by the target application, including those not named `.wasm`, compressed, lazy-loaded, loaded through `fetch` and manual instantiation, or embedded in JavaScript.
 - Identify the compiler toolchain and source language (e.g., C/C++, Rust, Go, .NET) from section metadata, imports, exports, and glue code.
 - Detect exposed debugging artifacts: source maps, DWARF information, and the `name` custom section.
 - Map the infrastructure attack surface by extracting embedded URLs, API endpoints, and internal hostnames or IP addresses.
@@ -40,11 +42,38 @@ If the application uses lazy loading or bundling, search the JavaScript files fo
 - `WebAssembly.compile` / `WebAssembly.compileStreaming`
 - `new WebAssembly.Module` / `new WebAssembly.Instance`
 
-Wasm binaries may also be embedded directly in JavaScript to avoid an extra HTTP request. Look for large Base64 strings passed through `atob` or a custom decoder into a `Uint8Array`, and for `data:` URIs such as `data:application/octet-stream;base64,`. Emscripten builds with the `SINGLE_FILE` option do this. Recent Emscripten versions embed the binary with a custom UTF-8 string encoding by default (Base64 is used only if `SINGLE_FILE_BINARY_ENCODE` is disabled), so also look for large string literals that are decoded and passed to the APIs above.
+Applications do not always load Wasm through a plain `.wasm` URL. A module may be fetched with `fetch` or `XMLHttpRequest` and then instantiated manually from an `ArrayBuffer`, decompressed in JavaScript before instantiation, or assembled from several chunks. In these cases the Network tab shows only a generic request, so searching for the loading APIs above is the more reliable approach.
+
+If a module is created at runtime and never appears as a downloadable request, it can be captured at the point of instantiation. For example, a script injected before the application code runs (using DevTools Local Overrides, a snippet run before page load, or a user-script extension) can wrap the API and keep a copy of the bytes:
+
+```js
+const _instantiate = WebAssembly.instantiate;
+window.__wasmDumps = [];
+WebAssembly.instantiate = function (source, ...rest) {
+  if (source instanceof ArrayBuffer || ArrayBuffer.isView(source)) {
+    window.__wasmDumps.push(new Uint8Array(source.buffer || source).slice());
+  }
+  return _instantiate.call(this, source, ...rest);
+};
+```
+
+The same wrapping approach applies to `WebAssembly.compile`, `WebAssembly.Module`, and the streaming variants (which receive a `Response` rather than bytes and require cloning it). The captured bytes can then be saved to a file for the analysis steps below.
+
+#### Embedded Modules
+
+Wasm binaries may also be embedded directly in JavaScript to avoid an extra HTTP request. Look for:
+
+- Large Base64 strings passed through `atob` or a custom decoder into a `Uint8Array`.
+- `data:` URIs such as `data:application/octet-stream;base64,`.
+- Very long string literals, often containing many escaped or non-ASCII characters, that are decoded by a helper function at startup and passed to one of the APIs above.
+
+Emscripten builds with the `SINGLE_FILE` option do this. Recent Emscripten versions embed the binary with a custom UTF-8 string encoding by default (Base64 is used only if `SINGLE_FILE_BINARY_ENCODE` is disabled), so the second and third patterns are the ones most likely to be seen in current builds. See the [Emscripten settings reference](https://emscripten.org/docs/tools_reference/settings_reference.html#single-file-binary-encode) for details. Because the encoding differs between versions, the instantiation-time capture shown above is often easier than decoding the string by hand.
 
 #### Identifying Wasm Files by Content
 
-Do not rely on the file extension or the MIME type alone. Modules may be served as `.bin`, `.dat`, or with no extension, or compressed as `.wasm.gz` or `.wasm.br`. Every Wasm binary starts with the same 8-byte header (the magic bytes `\0asm` followed by the version):
+Do not rely on the file extension or the MIME type alone. Modules may be served as `.bin`, `.dat`, or with no extension, or compressed as `.wasm.gz` or `.wasm.br`. Compressed files must be decompressed first (for example with `gunzip` or `brotli -d`) before the header can be checked. Browsers decompress `Content-Encoding` responses transparently, so a file saved from DevTools is usually already decompressed, while one fetched with a command-line tool may not be.
+
+Every Wasm binary starts with the same 8-byte header (the magic bytes `\0asm` followed by the version):
 
 ```text
 00 61 73 6D 01 00 00 00
@@ -75,7 +104,11 @@ Custom sections are optional and can be removed at any time. A module with no cu
 
 ### Identifying the Compiler and Toolchain
 
-Knowing whether a module was compiled from C/C++, Rust, Go, or another language helps the tester understand its memory model, calling conventions, runtime behavior, and expected JavaScript glue code. This information can also help prioritize subsequent security testing. For example, identifying a native-language toolchain may indicate that memory safety, linear-memory handling, unsafe operations, and native-to-JavaScript boundary interactions deserve closer examination, while framework-specific toolchains can point to their corresponding runtime and integration surfaces. Compiler identification should therefore be used to guide test selection and prioritization, not as evidence that a particular vulnerability is present.
+Knowing whether a module was compiled from C/C++, Rust, Go, or another language helps the tester understand its memory model, calling conventions, runtime behavior, and expected JavaScript glue code.
+
+This information can also help prioritize subsequent security testing. For example, a native-language toolchain may indicate that memory safety, linear-memory handling, unsafe operations, and native-to-JavaScript boundary interactions deserve closer examination, while framework-specific toolchains can point to their corresponding runtime and integration surfaces.
+
+Compiler identification should be used to guide test selection and prioritization, not as evidence that a particular vulnerability is present.
 
 #### Automated Detection
 
@@ -108,6 +141,8 @@ The `producers` section is optional and is often missing from optimized or harde
 
 No single marker should be considered conclusive. The strongest identification comes from combining multiple independent indicators, such as `producers` metadata, runtime symbols, imports/exports, glue code, and deployment artifacts.
 
+Stripping and obfuscation can defeat most of the markers above. Removing the `producers` and `name` sections, minifying import and export names, and tree-shaking runtime helpers are common in release builds, and a tester may be unable to identify the toolchain at all. An inconclusive result is a valid outcome of this phase and should be recorded as such, rather than guessed.
+
 ### Testing for Source Maps and Debugging Symbols
 
 Developers sometimes leave debugging artifacts in production builds. This is a finding by itself, and it also gives the tester a large amount of context.
@@ -139,18 +174,49 @@ Names from Rust and C++ are usually mangled. Recovered names such as `check_lice
 
 ### Attack Surface Mapping (URLs, APIs, and IPs)
 
-WebAssembly modules often contain hardcoded infrastructure details, such as backend API endpoints, absolute URLs, and internal hostnames or IP addresses. Extracting this routing information maps the application's backend architecture.
+WebAssembly modules often contain hardcoded infrastructure details. Typical examples include:
 
-Testers can extract these assets directly from the compiled binary. For example, `wasm-hunter` can be used to automate this extraction from a local file or a remote URL:
+- Backend API base URLs and paths (`https://api.example.com/v2/`, `/internal/admin/`).
+- WebSocket and other non-HTTP endpoints (`wss://realtime.example.com`).
+- Staging, development, or internal hostnames (`build-server.corp.local`, `staging-api.example.com`).
+- Private IP addresses and ports (`10.x.x.x`, `172.16-31.x.x`, `192.168.x.x`).
+- Third-party service URLs, such as analytics, license-check, or update servers.
+
+Extracting this routing information maps the application's backend architecture and can reveal endpoints that are not referenced anywhere in the visible JavaScript.
+
+#### Automated Extraction
+
+`wasm-hunter` can automate this extraction from a local file or a remote URL:
 
 ```sh
 wasm-hunter -i target_module.wasm
 ```
 
+#### Manual Extraction
+
+The same information can be collected with generic tools, which is useful when a dedicated tool is unavailable. String literals are stored in the module's data segments, so they can be searched directly in the binary:
+
+```sh
+# URLs and endpoints
+strings -n 6 module.wasm | grep -Eio '(https?|wss?|ftp)://[^[:space:]"'"'"']+'
+
+# Common internal hostname patterns and API paths
+strings -n 6 module.wasm | grep -Ei '\.(internal|local|corp|lan)\b|/api/|/v[0-9]+/'
+
+# Private IPv4 addresses
+strings -n 6 module.wasm | grep -Eo '\b(10\.[0-9]{1,3}|172\.(1[6-9]|2[0-9]|3[01])|192\.168)\.[0-9]{1,3}\.[0-9]{1,3}\b'
+
+# Same search for UTF-16 strings (used by some toolchains such as .NET)
+strings -n 6 -el module.wasm | grep -Ei 'https?://'
+```
+
+The raw data segments can also be dumped for manual review with `wasm-objdump -s -j Data module.wasm`. Strings that are compressed, encrypted, or assembled at runtime will not appear in these results, and strings found in the JavaScript glue code or in accompanying configuration files should be collected as well.
+
 (Note: Extracting actual credentials, tokens, and cryptographic keys from the binary is outside the scope of reconnaissance.)
 
 ## Related Test Cases
 
+- [WebAssembly Testing Overview](README.md)
 - [Review Web Page Content for Information Leakage (WSTG-INFO-05)](../01-Information_Gathering/05-Review_Web_Page_Content_for_Information_Leakage.md)
 
 ## Remediation
@@ -162,8 +228,11 @@ wasm-hunter -i target_module.wasm
 
 ## Tools
 
-- [WebAssembly Binary Toolkit (WABT)](https://github.com/WebAssembly/wabt) - Includes `wasm-objdump` for listing sections, imports, exports, and names, and `wasm-strip`.
+- [WebAssembly Binary Toolkit (WABT)](https://github.com/WebAssembly/wabt) - Includes `wasm-objdump` for listing sections, imports, exports, and names, and `wasm-strip`. Also provides `wasm2wat` and `wasm-decompile`, which belong to later analysis phases.
+- [wasm-tools](https://github.com/bytecodealliance/wasm-tools) - Bytecode Alliance toolkit with a section and structure dump (`wasm-tools objdump`) and a parser that can serve as an alternative to WABT.
+- [Binaryen](https://github.com/WebAssembly/binaryen) - Provides `wasm-opt`, used for stripping debug information and the `producers` section, and `wasm-dis` for disassembly.
 - [WASM-Hunter](https://github.com/Galaxy-sc/WASM-Hunter) - Static analysis tool for Attack Surface Mapping and fast-path compiler detection, with direct remote URL scanning.
+- `strings`, `xxd`, `file`, `grep` - Generic utilities sufficient for header checks and basic string extraction.
 
 ## References
 
@@ -171,3 +240,4 @@ wasm-hunter -i target_module.wasm
 - [WebAssembly tool-conventions: Debugging (sourceMappingURL, external_debug_info, DWARF)](https://github.com/WebAssembly/tool-conventions/blob/main/Debugging.md)
 - [WebAssembly tool-conventions: Producers Section](https://github.com/WebAssembly/tool-conventions/blob/main/ProducersSection.md)
 - [WebAssembly DWARF Debugging Standard](https://yurydelendik.github.io/webassembly-dwarf/)
+- [Emscripten Settings Reference: SINGLE_FILE_BINARY_ENCODE](https://emscripten.org/docs/tools_reference/settings_reference.html#single-file-binary-encode)
