@@ -66,11 +66,11 @@ For every parameter observed in the previous steps, replay the request with a mo
 
 - **Range and sign:** values below the minimum or above the maximum offered by the interface, zero, negative numbers, and very large numbers (for example a rating of `-1` or `1000`, a quantity of `0`, or a transfer of `-50`).
 - **Allowed set:** values that are not in the list the interface offers, such as a role, country, plan, status, or currency that is not in the drop-down, or a different valid value that belongs to another user or tenant.
-- **Type and format:** a different data type than expected (string instead of number, array or object instead of string, `null`, an empty value, `true` instead of `1`), or the same field with a different format (a URL where the application expects a `data:` URI or a file name, a date in another format, or Unicode digits).
+- **Type and format:** a different data type than expected (string instead of number, array or object instead of string, `null`, an empty value, `true` instead of `1`), or the same field with a different format (a URL where the application expects a `data:` URI or a filename, a date in another format, or Unicode digits).
 - **Length and encoding:** empty values, values longer than the length enforced by the frontend, and values containing characters that the interface filters out.
 - **Relationships between fields:** values that are individually valid but inconsistent together, for example an end date before a start date, a discount that is larger than the price, or a shipping country that does not match the payment country.
 - **Missing and additional parameters:** remove parameters that look mandatory and add parameters the interface never sends (see [Mass Assignment](../07-Injection/20-Mass_Assignment.md)), and repeat a parameter with different values (see [HTTP Parameter Pollution](../07-Injection/04-HTTP_Parameter_Pollution.md)).
-- **Hand-off values:** values that are later passed to another system, such as an e-mail address, a URL, or a file path (see [Server-Side Request Forgery](../07-Injection/19-Server-Side_Request_Forgery.md)). Use a unique value that you control, so that you can detect when and where it is used, including by a delayed or out-of-band request.
+- **Hand-off values:** values that are later passed to another system, such as an email address, a URL, or a file path (see [Server-Side Request Forgery](../07-Injection/19-Server-Side_Request_Forgery.md)). Use a unique value that you control, so that you can detect when and where it is used, including by a delayed or out-of-band request.
 
 Record which of the variations were accepted, because the impact depends on how the application uses the value afterwards and not only on whether it was rejected.
 
