@@ -79,7 +79,17 @@ Every Wasm binary starts with the same 8-byte header (the magic bytes `\0asm` fo
 00 61 73 6D 01 00 00 00
 ```
 
-A downloaded file can be checked with `file module.bin` or `xxd module.bin | head -n 1`. In JavaScript source, the same header appears as the Base64 prefix `AGFzbQ`.
+A downloaded file can be checked with `file module.bin` or `od -An -tx1 -N8 module.bin`. In JavaScript source, the same header appears as the Base64 prefix `AGFzbQ`.
+
+If a file that the application loads as a module does not start with these bytes and is not compressed, the application may encode or encrypt it and decode it in JavaScript before loading it. In that case, read the decoding routine in the glue code and apply it to the downloaded file to obtain the real binary.
+
+Once the header is confirmed, check that the module is valid:
+
+```sh
+wasm-validate module.wasm
+```
+
+If validation fails because the module uses newer language features (for example garbage collection), retry with `--enable-all`.
 
 Note that `WebAssembly.instantiateStreaming` and `WebAssembly.compileStreaming` require the server to send the `application/wasm` MIME type, so a Wasm file served with a different type may indicate a server misconfiguration.
 
@@ -232,7 +242,7 @@ The raw data segments can also be dumped for manual review with `wasm-objdump -s
 - [wasm-tools](https://github.com/bytecodealliance/wasm-tools) - Bytecode Alliance toolkit with a section and structure dump (`wasm-tools objdump`) and a parser that can serve as an alternative to WABT.
 - [Binaryen](https://github.com/WebAssembly/binaryen) - Provides `wasm-opt`, used for stripping debug information and the `producers` section, and `wasm-dis` for disassembly.
 - [WASM-Hunter](https://github.com/Galaxy-sc/WASM-Hunter) - Static analysis tool for Attack Surface Mapping and fast-path compiler detection, with direct remote URL scanning.
-- `strings`, `xxd`, `file`, `grep` - Generic utilities sufficient for header checks and basic string extraction.
+- `strings`, `od`, `file`, `grep` - Generic utilities sufficient for header checks and basic string extraction.
 
 ## References
 
