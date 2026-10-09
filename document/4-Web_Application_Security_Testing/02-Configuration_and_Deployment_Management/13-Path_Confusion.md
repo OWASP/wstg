@@ -74,5 +74,5 @@ If the path `https://example.com/dashboard/none.js` is also opened by the user i
 ## References
 
 - [Bypassing Web Cache Poisoning Countermeasures](https://portswigger.net/research/bypassing-web-cache-poisoning-countermeasures)
-- [Path confusion: Web cache deception threatens user information online](https://portswigger.net/daily-swig/path-confusion-web-cache-deception-threatens-user-information-online)
+- [Path confusion: Web cache deception threatens user information online](https://web.archive.org/web/20230120114007/https://portswigger.net/daily-swig/path-confusion-web-cache-deception-threatens-user-information-online)
 - [Web Cache Deception Attack](https://omergil.blogspot.com/2017/02/web-cache-deception-attack.html)

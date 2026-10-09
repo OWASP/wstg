@@ -634,7 +634,7 @@ For more on remediating GraphQL weaknesses, refer to the [GraphQL Cheat Sheet](h
 - [Howtographql - Security](https://www.howtographql.com/advanced/4-security/)
 - [GraphQL Constraint Directive](https://github.com/confuser/graphql-constraint-directive)
 - [Client-side Testing](../11-Client-side/README.md) (XSS and other vulnerabilities)
-- [5 Common GraphQL Security Vulnerabilities](https://carvesystems.com/news/the-5-most-common-graphql-security-vulnerabilities/)
+- [5 Common GraphQL Security Vulnerabilities](https://web.archive.org/web/20210126172623/https://carvesystems.com/news/the-5-most-common-graphql-security-vulnerabilities/)
 - [GraphQL common vulnerabilities and how to exploit them](https://medium.com/@the.bilal.rizwan/graphql-common-vulnerabilities-how-to-exploit-them-464f9fdce696)
 - [GraphQL CS](https://cheatsheetseries.owasp.org/cheatsheets/GraphQL_Cheat_Sheet.html)
 - [GraphQL Enumeration Basics](https://blog.cyberadvisors.com/technical-blog/blog/graphql-apis-enumeration-basics)

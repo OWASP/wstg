@@ -160,7 +160,7 @@ In this example, using the `___` columns as injection points and inserting JavaS
 
 ### 4. Sensitive Data Leakage via Prototype Chaining Using `this`
 
-In JavaScript, the `this` keyword is dynamically scoped. This means if a function is called upon an object, `this` will point to this object even though the called function might not belong to the object itself. This behavior can be used to leak data. In the following example from [Sebastian Leike's demonstration page](http://sebastian-lekies.de/leak/), the sensitive data is stored in an Array. An attacker can override `Array.prototype.forEach` with an attacker-controlled function. If some code calls the `forEach` function on an array instance that contains sensitive values, the attacker-controlled function will be invoked with `this` pointing to the object that contains the sensitive data.
+In JavaScript, the `this` keyword is dynamically scoped. This means if a function is called upon an object, `this` will point to this object even though the called function might not belong to the object itself. This behavior can be used to leak data. In the following example from [Sebastian Leike's demonstration page](https://web.archive.org/web/20210107144812/http://sebastian-lekies.de/leak/), the sensitive data is stored in an Array. An attacker can override `Array.prototype.forEach` with an attacker-controlled function. If some code calls the `forEach` function on an array instance that contains sensitive values, the attacker-controlled function will be invoked with `this` pointing to the object that contains the sensitive data.
 
 Here is an excerpt of a JavaScript file containing sensitive data, `javascript.js`:
 

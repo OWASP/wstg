@@ -191,5 +191,5 @@ When this data is sent as a POST request, the server will happily accept the nam
 - [Oldest known post](https://web.archive.org/web/20000622042229/https://www.zope.org/Members/jim/ZopeSecurity/ClientSideTrojan)
 - [Cross-site Request Forgery FAQ](https://www.cgisecurity.com/csrf-faq.html)
 - [A Most-Neglected Fact About Cross Site Request Forgery (CSRF)](https://yehg.net/lab/pr0js/view.php/A_Most-Neglected_Fact_About_CSRF.pdf)
-- [Multi-POST CSRF](https://www.lanmaster53.com/2013/07/17/multi-post-csrf/)
+- [Multi-POST CSRF](https://web.archive.org/web/20210516151741/https://www.lanmaster53.com/2013/07/17/multi-post-csrf/)
 - [SANS Pen Test Webcast: Complete Application pwnage via Multi POST XSRF](https://www.youtube.com/watch?v=EOs5PZiiwug)
