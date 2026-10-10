@@ -1,0 +1,16 @@
+---
+layout: document
+title: WSTG - Latest
+collection_name: latest
+channel_label: Latest
+channel_path: latest
+render_with_liquid: false
+---
+
+# Buffer Overflow
+
+|ID          |
+|------------|
+|WSTG-INJT-13|
+
+This content has been removed

@@ -1,0 +1,32 @@
+---
+layout: document
+title: WSTG - Latest
+collection_name: latest
+channel_label: Latest
+channel_path: latest
+render_with_liquid: false
+---
+
+# 4.6 Session Management
+
+4.6.1 [Session Management Schema](01-Session_Management_Schema/)
+
+4.6.2 [Cookies Attributes](02-Cookies_Attributes/)
+
+4.6.3 [Session Fixation](03-Session_Fixation/)
+
+4.6.4 [Exposed Session Variables](04-Exposed_Session_Variables/)
+
+4.6.5 [Cross Site Request Forgery](05-Cross_Site_Request_Forgery/)
+
+4.6.6 [Logout Functionality](06-Logout_Functionality/)
+
+4.6.7 [Session Timeout](07-Session_Timeout/)
+
+4.6.8 [Session Puzzling](08-Session_Puzzling/)
+
+4.6.9 [Session Hijacking](09-Session_Hijacking/)
+
+4.6.10 [JSON Web Tokens](10-JSON_Web_Tokens/)
+
+4.6.11 [Concurrent Sessions](11-Concurrent_Sessions/)
