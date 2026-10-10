@@ -152,7 +152,7 @@ Multiple appendices can be added, such as:
 
 This section is not part of the suggested report format. The below links provide more guidance to writing your reports.
 
-- [NIST SP 800-63: Digital Identity Guidelines](https://pages.nist.gov/800-63-3/) - identity proofing & authentication.
+- [NIST SP 800-63: Digital Identity Guidelines](https://pages.nist.gov/800-63-4/) - identity proofing & authentication.
 - [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org) - consider linking relevant cheat sheets on phishing, authentication, and social engineering prevention.
 - [SANS: Tips for Creating a Strong Cybersecurity Assessment Report](https://www.sans.org/blog/tips-for-creating-a-strong-cybersecurity-assessment-report/)
 - [SANS: Writing a Penetration Testing Report](https://www.sans.org/reading-room/whitepapers/bestprac/paper/33343)
