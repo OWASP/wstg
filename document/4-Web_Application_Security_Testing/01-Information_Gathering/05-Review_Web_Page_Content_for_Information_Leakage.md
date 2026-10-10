@@ -236,4 +236,4 @@ Check metadata fields such as:
 
 - [HTML version 4.01](https://www.w3.org/TR/1999/REC-html401-19991224)
 - [XHTML](https://www.w3.org/TR/2010/REC-xhtml-basic-20101123/)
-- [HTML version 5](https://www.w3.org/TR/html5/)
+- [WHATWG HTML Living Standard](https://html.spec.whatwg.org/multipage/)
