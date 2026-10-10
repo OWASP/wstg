@@ -86,4 +86,4 @@ Because preload-list changes ship inside browser releases and are difficult/slow
 - [hstspreload.org - Preload List Submission Requirements](https://hstspreload.org/)
 - [Chromium HSTS Preload List Source](https://chromium.googlesource.com/chromium/src/+/main/net/http/transport_security_state_static.json)
 - [MDN: Strict-Transport-Security](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Strict-Transport-Security)
-- [Enable HTTP Strict Transport Security In Nginx](https://www.nginx.com/blog/http-strict-transport-security-hsts-and-nginx/)
+- [Enable HTTP Strict Transport Security In Nginx](https://blog.nginx.org/blog/http-strict-transport-security-hsts-and-nginx)

@@ -339,5 +339,5 @@ Ensure that the application correctly handles such cases and prevents exploitati
 
 ## References
 
-- [Payment Card Industry Data Security Standard (PCI DSS)](https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf)
+- [Payment Card Industry Data Security Standard (PCI DSS)](https://www.pcisecuritystandards.org/document_library/)
 - [Visa Processing E-Commerce Payments guidance](https://web.archive.org/web/2023/https://www.visa.co.uk/dam/VCOM/regional/ve/unitedkingdom/PDF/risk/processing-e-commerce-payments-guide-73-17337.pdf)
