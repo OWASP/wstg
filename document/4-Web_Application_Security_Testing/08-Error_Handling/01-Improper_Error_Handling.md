@@ -68,7 +68,7 @@ Error messages are sometimes the main weakness in mapping out systems, especiall
 
 ## Remediation
 
-For remediation, check out the [Proactive Controls C10](https://owasp.org/www-project-proactive-controls/v3/en/c10-errors-exceptions) and the [Error Handling Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html).
+For remediation, check out the [OWASP Top 10 Proactive Controls C3: Validate Input and Handle Exceptions](https://top10proactive.owasp.org/archive/2024/the-top-10/c3-validate-input-and-handle-exceptions/) and the [Error Handling Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html).
 
 ## Playgrounds
 
@@ -77,7 +77,7 @@ For remediation, check out the [Proactive Controls C10](https://owasp.org/www-pr
 ## References
 
 - [WSTG: Appendix D - Fuzzing](../../6-Appendix/D-Fuzzing.md)
-- [Proactive Controls C10: Handle All Errors and Exceptions](https://owasp.org/www-project-proactive-controls/v3/en/c10-errors-exceptions)
+- [OWASP Top 10 Proactive Controls (2024) C3: Validate Input and Handle Exceptions](https://top10proactive.owasp.org/archive/2024/the-top-10/c3-validate-input-and-handle-exceptions/)
 - [ASVS v4.1 v7.4: Error handling](https://github.com/OWASP/ASVS/blob/master/4.0/en/0x15-V7-Error-Logging.md#v74-error-handling)
 - [CWE 728 - Improper Error Handling](https://cwe.mitre.org/data/definitions/728.html)
 - [Cheat Sheet Series: Error Handling](https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html)
