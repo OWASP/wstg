@@ -38,7 +38,8 @@ pipeline stripped periods (`v41`) for path/data-key safety; this site keeps
 dot-free keys (`v41.yaml`, `nav-tree-v41.html`) while serving pretty paths.
 
 Generated (do not commit): channel trees under `website/{latest,stable,v4.*,v41,v42}/`,
-`_data/*.yaml`, and `_includes/nav-tree-*.html`.
+`_data/*.yaml` (including `_data/version_map.yaml`, which powers the per-page
+version switcher in the site header), and `_includes/nav-tree-*.html`.
 
 ## Local serve
 

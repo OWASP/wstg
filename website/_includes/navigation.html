@@ -4,8 +4,12 @@
 <nav class="wstg-nav" id="wstg-nav-{{ collection }}" aria-label="{{ nav.docs_list_title | default: 'WSTG Contents' | escape }}">
   <p class="wstg-nav-home"><a href="{{ site.baseurl }}/">← Home</a></p>
   <h2 class="wstg-nav-title"><a href="{{ site.baseurl }}/{{ channel_path }}/">{{ nav.docs_list_title | default: "WSTG Contents" }}</a></h2>
-  <label class="visually-hidden" for="wstg-nav-filter-{{ collection }}">Filter contents</label>
+  <label class="wstg-nav-filter-label" for="wstg-nav-filter-{{ collection }}">Filter Contents</label>
   <input id="wstg-nav-filter-{{ collection }}" class="wstg-nav-filter" type="search" placeholder="Filter (XSS, sqli, WSTG-INPV-01, 4.7)" autocomplete="off">
+  <div class="wstg-nav-filter-controls">
+    <button type="button" class="wstg-nav-filter-clear" hidden>Clear Filter</button>
+    <div class="wstg-nav-filter-count" hidden></div>
+  </div>
   <div class="wstg-nav-controls">
     <button type="button" data-wstg-expand>Expand All</button>
     <button type="button" data-wstg-collapse>Collapse All</button>

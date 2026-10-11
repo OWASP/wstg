@@ -10,7 +10,7 @@
   </div>
   {% endif %}
 
-  {% if page.url contains site.stable_version %}
+  {% if page.url contains site.stable_version or page.url contains "/stable/" %}
   <div class="channel-banner channel-banner--stable">
     You're viewing the current stable version of the Web Security Testing Guide project.
   </div>

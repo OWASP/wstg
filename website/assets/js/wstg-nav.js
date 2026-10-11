@@ -186,6 +186,22 @@
         applyFilter(nav, filter.value);
         updateFilterUrl(filter.value);
       });
+
+      // Reveal / hide the clear button and count as the filter changes.
+      var clearBtn = nav.querySelector(".wstg-nav-filter-clear");
+      // Run once at boot to populate the UI for a pre-filled filter.
+      if (filter.value) {
+        applyFilter(nav, filter.value);
+      }
+
+      if (clearBtn) {
+        clearBtn.addEventListener("click", function () {
+          filter.value = "";
+          applyFilter(nav, "");
+          updateFilterUrl("");
+          filter.focus();
+        });
+      }
     }
 
     var expandBtn = nav.querySelector("[data-wstg-expand]");
@@ -215,17 +231,51 @@
     }
   }
 
+  function syncFilterUI(nav, query, totalVisible, totalItems) {
+    var clearBtn = nav.querySelector(".wstg-nav-filter-clear");
+    var countEl = nav.querySelector(".wstg-nav-filter-count");
+    if (clearBtn) {
+      clearBtn.hidden = !query || query.trim() === "";
+    }
+    if (countEl) {
+      if (query && query.trim()) {
+        countEl.textContent = totalVisible === totalItems
+          ? "All " + totalItems + " items shown"
+          : totalVisible + " of " + totalItems + " items";
+        countEl.hidden = false;
+        countEl.classList.add("wstg-nav-filter-count--active");
+      } else {
+        countEl.hidden = true;
+        countEl.classList.remove("wstg-nav-filter-count--active");
+      }
+    }
+  }
+
   function applyFilter(nav, rawQuery) {
     var query = (rawQuery || "").trim().toLowerCase();
     var items = nav.querySelectorAll(".wstg-nav-item");
     var i;
 
     if (!query) {
+      nav.classList.remove("wstg-nav--filtering");
       for (i = 0; i < items.length; i++) {
         items[i].classList.remove("is-filtered-out");
+        items[i].classList.remove("wstg-nav-item--match");
+        items[i].classList.remove("wstg-nav-item--visible");
+      }
+      syncFilterUI(nav, query, items.length, items.length);
+      // Re-compress branches the filter auto-opened; leave user-opened ones alone.
+      var details = nav.querySelectorAll("details");
+      for (i = 0; i < details.length; i++) {
+        if (details[i]._wstgFilterTouched) {
+          details[i].open = details[i]._wstgFilterWasOpen;
+          details[i]._wstgFilterTouched = false;
+        }
       }
       return;
     }
+
+    nav.classList.add("wstg-nav--filtering");
 
     // Mark self-matches, then walk bottom-up so parents of matches stay visible.
     var ordered = [];
@@ -240,6 +290,7 @@
       return depth(b) - depth(a);
     });
 
+    var visibleCount = 0;
     for (i = 0; i < ordered.length; i++) {
       var node = ordered[i];
       var visible = !!node._wstgSelfMatch;
@@ -251,7 +302,15 @@
         }
       }
       node.classList.toggle("is-filtered-out", !visible);
+      node.classList.toggle("wstg-nav-item--visible", visible);
       if (visible) {
+        visibleCount += 1;
+        // Highlight nodes that match the query so users see what came up.
+        if (node._wstgSelfMatch) {
+          node.classList.add("wstg-nav-item--match");
+        } else {
+          node.classList.remove("wstg-nav-item--match");
+        }
         var details = null;
         for (var t = 0; t < node.children.length; t++) {
           if (node.children[t].tagName === "DETAILS") {
@@ -259,11 +318,17 @@
             break;
           }
         }
-        if (details) {
+        if (details && !details.open) {
+          // Remember pre-filter state so clearing the filter can restore it.
+          if (!details._wstgFilterTouched) {
+            details._wstgFilterTouched = true;
+            details._wstgFilterWasOpen = details.open;
+          }
           details.open = true;
         }
       }
     }
+    syncFilterUI(nav, query, visibleCount, items.length);
   }
 
   function depth(el) {
