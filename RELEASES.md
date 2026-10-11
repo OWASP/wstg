@@ -18,11 +18,11 @@ The new website at `https://wstg.owasp.org/` rebuilds automatically when `websit
 
 Before tagging, prepare version configuration files that must exist in the tagged commit.
 
-See [PR #613](https://github.com/OWASP/wstg/pull/613) for a complete example of pre-tag prep work (v4.2).
+See [PR #613](https://github.com/OWASP/wstg/pull/613) for a complete example of pretag prep work (v4.2).
 
 #### Content Updates
 
-File: `README.md` (repo root)
+File: `README.md` (repository root)
 
 - Update "currently working on" version (e.g., from "4.2" to "5.0").
 - Update "last stable release" version and link.
@@ -141,7 +141,7 @@ This merge automatically triggers `deploy-website.yml` (because `website/` chang
 After both PRs are merged and workflows succeed:
 
 1. Go to **GitHub → Releases → "Draft a new release"**.
-2. Tag: `v5.0` (auto-complete from existing tag).
+2. Tag: `v5.0` (autocomplete from existing tag).
 3. Release title: "WSTG v5.0" (example).
 4. Description: Summary of major changes (optional).
 5. Attach assets (optional):
@@ -177,9 +177,10 @@ See `.github/workflows/build-ebooks-typst.yml` for details. The workflow checks 
 
 **Trigger:** Tag `v*` pushed to OWASP/wstg by authorized actor.
 
-**Output repo:** `OWASP/www-project-web-security-testing-guide` (main branch).
+**Output repository:** `OWASP/www-project-web-security-testing-guide` (main branch).
 
 **Deployment:** Maintained by OWASP; changes to main are served at versioned URLs:
+
 - `https://owasp.org/www-project-web-security-testing-guide/v50/` (v5.0, no period)
 - `https://owasp.org/www-project-web-security-testing-guide/stable/` (floating pointer)
 
@@ -191,11 +192,12 @@ See `.github/workflows/build-ebooks-typst.yml` for details. The workflow checks 
 
 **Trigger:** Manual merge of post-tag PR (touches `website/`), or manual `workflow_dispatch` on `deploy-website.yml`.
 
-**Output:** Pushes to `gh-pages` branch (same repo).
+**Output:** Pushes to `gh-pages` branch (same repository).
 
 **Deployment:** GitHub Pages configured on `gh-pages` / root with custom domain `wstg.owasp.org`.
 
 **Channels:** Generated at:
+
 - `/latest/` - working tree `document/`
 - `/v5.0/`, `/v4.2/`, `/v4.1/` - from git tags (pretty URLs with period)
 - `/stable/` - path-preserving redirects to current stable version
@@ -224,7 +226,7 @@ Example for v5.0:
 | CHANNELS path | `v5.0` | Pretty URL on wstg.owasp.org |
 | CHANNELS key | `v50` | Jekyll data key (no dot) |
 | .github/www directory | `v50/` | Legacy pipeline config |
-| www repo directory | `v50/` | Published to OWASP/www-project |
+| www repository directory | `v50/` | Published to OWASP/www-project |
 | wstg.owasp.org URL | `/v5.0/` | User-facing path (pretty) |
 | owasp.org URL | `/v50/` | Legacy site (no period) |
 
@@ -241,7 +243,7 @@ Example for v5.0:
 
 ### Gotchas
 
-**Tag pattern `v*` is broad.** `v5.0-rc1` will match and trigger workflows. Pre-release tags should NOT match `v*` (use non-`v` names like `20250101` or `v5.0-rc1` on a feature branch). Tag `20230928` is an example of a non-matching name.
+**Tag pattern `v*` is broad.** `v5.0-rc1` will match and trigger workflows. Prerelease tags should NOT match `v*` (use non-`v` names like `20250101` or `v5.0-rc1` on a feature branch). Tag `20230928` is an example of a non-matching name.
 
 **Only four authorized actors.** If you are not one of the four, tagging must be delegated to a maintainer (push on their behalf, or temporary write access).
 
