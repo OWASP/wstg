@@ -8,7 +8,7 @@
   max-width: 100%;
   min-width: 0;
   max-height: min(70vh, 36rem);
-  overflow-x: auto;
+  overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
   font-size: 0.9em;
@@ -39,6 +39,39 @@
   box-sizing: border-box;
   margin: 0 0 0.5rem;
   padding: 0.35rem 0.5rem;
+  border: 1.5px solid rgba(0, 0, 0, 0.15);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  color: var(--text);
+}
+
+.wstg-nav-filter-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.5rem;
+  font-size: 0.85em;
+}
+
+[data-theme="light"] .wstg-nav-filter {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .wstg-nav-filter {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.wstg-nav-filter:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--link);
+}
+
+.wstg-nav--filtering .wstg-nav-item {
+  display: none;
+}
+
+.wstg-nav--filtering .wstg-nav-item.wstg-nav-item--visible {
+  display: block;
 }
 
 .wstg-nav-controls {
@@ -52,6 +85,43 @@
 .wstg-nav-controls button {
   padding: 0.15rem 0.4rem;
   cursor: pointer;
+  border: 1.5px solid rgba(0, 0, 0, 0.15);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  color: var(--text);
+}
+
+[data-theme="light"] .wstg-nav-controls button {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .wstg-nav-controls button {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.wstg-nav-filter-clear {
+  padding: 0.15rem 0.4rem;
+  cursor: pointer;
+  border: 1.5px solid rgba(0, 0, 0, 0.15);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  color: var(--text);
+}
+
+.wstg-nav-filter-count {
+  margin-left: auto;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.85em;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+[data-theme="light"] .wstg-nav-filter-clear {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .wstg-nav-filter-clear {
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 .wstg-nav-list,
@@ -62,10 +132,9 @@
 }
 
 /* Indent nested levels without forcing the sidebar column wider;
-   horizontal overflow is handled by .wstg-nav. */
+   long names wrap so the panel never scrolls sideways. */
 .wstg-nav-list {
-  width: max-content;
-  min-width: 100%;
+  width: 100%;
   box-sizing: border-box;
 }
 
@@ -87,7 +156,8 @@
 .wstg-nav-summary-row > a {
   display: inline-block;
   vertical-align: top;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
   text-decoration: none;
 }
 
@@ -101,6 +171,14 @@
 .wstg-nav a[aria-current="page"] {
   font-weight: 700;
   text-decoration: underline;
+}
+
+/* Links and buttons sit flush with the panel edge; draw focus inside so
+   the overflow-x clipping never cuts the outline's left side. */
+.wstg-nav a:focus-visible,
+.wstg-nav-controls button:focus-visible,
+.wstg-nav-filter-clear:focus-visible {
+  outline-offset: -2px;
 }
 
 .wstg-nav details {
@@ -120,8 +198,8 @@
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  width: max-content;
-  max-width: none;
+  width: 100%;
+  max-width: 100%;
 }
 
 .wstg-nav-chevron {

@@ -144,4 +144,26 @@
   } else {
     initBackToTop();
   }
+  /* Version switcher: re-hide the dropdown on outside click or Escape */
+  function initVersionSwitcher() {
+    var sw = document.querySelector(".version-switcher");
+    if (!sw) return;
+    document.addEventListener("click", function (e) {
+      if (sw.open && !sw.contains(e.target)) {
+        sw.open = false;
+      }
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && sw.open) {
+        sw.open = false;
+        sw.querySelector("summary").focus();
+      }
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initVersionSwitcher);
+  } else {
+    initVersionSwitcher();
+  }
 })();

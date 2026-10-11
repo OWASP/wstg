@@ -247,7 +247,7 @@ body > .skip-link:focus {
   cursor: pointer;
   text-decoration: none;
   opacity: 1;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease, box-shadow 0.15s ease;
 }
 
 .back-to-top.visible {
@@ -261,6 +261,35 @@ body > .skip-link:focus {
 .back-to-top:focus-visible {
   outline: 2px solid var(--border-focus);
   outline-offset: 2px;
+}
+
+/* Light theme: filled navy circle so the button pops on the white page. */
+[data-theme="light"] .back-to-top {
+  background: var(--blue-3);
+  color: #fff;
+  border: none;
+  box-shadow: var(--shadow-md);
+}
+
+[data-theme="light"] .back-to-top:hover {
+  background: var(--link-hover);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="light"] .back-to-top:focus-visible {
+  outline-color: var(--accent-cyan);
+}
+
+/* Dark theme: keep the circle from vanishing on the dark page. */
+[data-theme="dark"] .back-to-top {
+  background: var(--bg-card);
+  color: var(--text);
+}
+
+[data-theme="dark"] .back-to-top:hover {
+  background: var(--neutral-2);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35), inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
 }
 
 .back-to-top-icon {
@@ -1230,8 +1259,10 @@ html {
 }
 
 .channel-banner--latest {
-  background-color: #ffbaba;
-  color: #6a0e0e;
+  --banner-bg: #ffbaba;
+  --banner-fg: #6a0e0e;
+  background-color: var(--banner-bg);
+  color: var(--banner-fg);
 }
 
 .channel-banner--latest a {
@@ -1239,8 +1270,10 @@ html {
 }
 
 .channel-banner--stable {
-  background-color: #9ce37d;
-  color: #344d2a;
+  --banner-bg: #9ce37d;
+  --banner-fg: #344d2a;
+  background-color: var(--banner-bg);
+  color: var(--banner-fg);
 }
 
 .channel-banner--stable a {
@@ -1248,8 +1281,10 @@ html {
 }
 
 .channel-banner--past {
-  background-color: #f7ee7f;
-  color: #666334;
+  --banner-bg: #f7ee7f;
+  --banner-fg: #666334;
+  background-color: var(--banner-bg);
+  color: var(--banner-fg);
 }
 
 .channel-banner--past a {
@@ -1257,8 +1292,10 @@ html {
 }
 
 [data-theme="dark"] .channel-banner--latest {
-  background-color: #5c1a1a;
-  color: #ffc9c9;
+  --banner-bg: #5c1a1a;
+  --banner-fg: #ffc9c9;
+  background-color: var(--banner-bg);
+  color: var(--banner-fg);
 }
 
 [data-theme="dark"] .channel-banner--latest a {
@@ -1266,8 +1303,10 @@ html {
 }
 
 [data-theme="dark"] .channel-banner--stable {
-  background-color: #2a4a22;
-  color: #c6f0b0;
+  --banner-bg: #2a4a22;
+  --banner-fg: #c6f0b0;
+  background-color: var(--banner-bg);
+  color: var(--banner-fg);
 }
 
 [data-theme="dark"] .channel-banner--stable a {
@@ -1275,12 +1314,124 @@ html {
 }
 
 [data-theme="dark"] .channel-banner--past {
-  background-color: #5a5320;
-  color: #f5eeb0;
+  --banner-bg: #5a5320;
+  --banner-fg: #f5eeb0;
+  background-color: var(--banner-bg);
+  color: var(--banner-fg);
 }
 
 [data-theme="dark"] .channel-banner--past a {
   color: #f5eeb0;
+}
+
+/* Version switcher (site header, document pages only).
+   Badge tones reuse the channel banner colours (latest/stable/past). */
+.version-switcher {
+  position: relative;
+}
+
+.version-switcher-summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 44px;
+  padding: 0.35rem 0.65rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: var(--radius);
+  color: var(--header-text);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  list-style: none;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.version-switcher-summary::-webkit-details-marker {
+  display: none;
+}
+
+.version-switcher-summary:hover,
+.version-switcher[open] .version-switcher-summary {
+  border-color: var(--accent-cyan);
+}
+
+.version-switcher-summary:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+  outline-offset: 2px;
+}
+
+/* Tone comes from the channel banner classes on the summary; the vars are
+   defined by the same tone selectors (light + dark), so no values repeat. */
+.version-switcher-summary.channel-banner--latest,
+.version-switcher-summary.channel-banner--stable,
+.version-switcher-summary.channel-banner--past {
+  background-color: var(--banner-bg);
+  color: var(--banner-fg);
+}
+
+.version-switcher-caret {
+  font-size: 0.7em;
+  line-height: 1;
+}
+
+.version-switcher-panel {
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  left: 0;
+  z-index: 70;
+  min-width: 17rem;
+  max-width: min(22rem, calc(100vw - 2rem));
+  padding: 0.75rem;
+  background: var(--bg-card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md, 0 10px 15px -3px rgba(0, 0, 0, 0.2));
+}
+
+.version-switcher-heading {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.version-switcher-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.version-switcher-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem;
+  padding: 0.3rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.version-switcher-item:first-child {
+  border-top: none;
+}
+
+.version-switcher-version {
+  font-weight: 600;
+  color: var(--link);
+}
+
+a.version-switcher-version:hover {
+  color: var(--link-hover);
+}
+
+.version-switcher-item.is-current .version-switcher-version {
+  color: var(--text);
+}
+
+.version-switcher-note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
 }
 
 /* Document two-column layout */
@@ -1309,8 +1460,10 @@ html {
   position: sticky;
   top: calc(5rem + 2.5rem);
   max-height: calc(100vh - 8rem);
-  overflow-x: auto;
+  overflow-x: hidden;
   overflow-y: auto;
+  /* Scroll the panel alone; don't lurch the page when its scroll ends. */
+  overscroll-behavior: contain;
   min-width: 0;
 }
 
@@ -1543,19 +1696,7 @@ html {
   }
 }
 
-/* Nav filter/controls tuned to VWAD tokens */
-.wstg-nav-filter {
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--bg-card);
-  color: var(--text);
-}
-
-.wstg-nav-filter:focus {
-  outline: none;
-  box-shadow: inset 0 0 0 2px var(--link);
-}
-
+/* Nav controls tuned to VWAD tokens (filter field styles live in wstg-nav.css) */
 .wstg-nav-controls button {
   border: 1px solid var(--border);
   border-radius: var(--radius);
