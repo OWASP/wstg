@@ -404,7 +404,7 @@
    * Keyboard shortcuts: ? for help, / for filter focus
    */
   function setupKeyboardShortcuts() {
-    var helpMessage = 'Keyboard shortcuts:\n? - Show this help\n/ - Focus search filter';
+    var helpMessage = 'Keyboard shortcuts:\n? - Show this help\n/ - Focus contents filter';
 
     document.addEventListener('keydown', function(e) {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
