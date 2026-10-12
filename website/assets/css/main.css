@@ -104,6 +104,15 @@
   --font-body: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-heading: "Barlow", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-logo: "Barlow", sans-serif;
+  /* Syntax highlighting tokens - light theme (minimal, readable) */
+  --tok-keyword: #008000;
+  --tok-string: #a31515;
+  --tok-comment: #008000;
+  --tok-number: #098658;
+  --tok-attr-name: #e50000;
+  --tok-attr-value: #0451a5;
+  --tok-operator: #000000;
+  --tok-punctuation: #000000;
 }
 
 /* Dark mode - main content area (preference stored in localStorage, no tracking) */
@@ -115,12 +124,21 @@
   --neutral-2: #343a44;
   --text: #e6e8eb;
   --text-muted: #9ca3af;
-  --border: #3d424a;
+  --border: #4b525d;
   --link: #00a7e1;
   --link-hover: #33b8eb;
   --link-visited: #00a7e1; /* keep visited links readable on dark bg (no dark purple) */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  /* Syntax highlighting tokens - dark theme */
+  --tok-keyword: #569cd6;
+  --tok-string: #ce9178;
+  --tok-comment: #608b4e;
+  --tok-number: #b5cea8;
+  --tok-attr-name: #9cdcfe;
+  --tok-attr-value: #ce9178;
+  --tok-operator: #d4d4d4;
+  --tok-punctuation: #d4d4d4;
 }
 
 [data-theme="dark"] .site-main a:not(.btn):not(.btn-404):visited,
@@ -148,12 +166,21 @@
     --neutral-2: #343a44;
     --text: #e6e8eb;
     --text-muted: #9ca3af;
-    --border: #3d424a;
+    --border: #4b525d;
     --link: #00a7e1;
     --link-hover: #33b8eb;
     --link-visited: #00a7e1;
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    /* Syntax highlighting tokens - dark theme */
+    --tok-keyword: #569cd6;
+    --tok-string: #ce9178;
+    --tok-comment: #608b4e;
+    --tok-number: #b5cea8;
+    --tok-attr-name: #9cdcfe;
+    --tok-attr-value: #ce9178;
+    --tok-operator: #d4d4d4;
+    --tok-punctuation: #d4d4d4;
   }
 }
 
@@ -166,6 +193,8 @@
 html {
   font-size: 100%;
   scroll-behavior: smooth;
+  scrollbar-color: var(--text) var(--bg-page);
+  scrollbar-width: thin;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -316,6 +345,12 @@ select:focus-visible,
 textarea:focus-visible {
   outline: 2px solid var(--border-focus);
   outline-offset: 2px;
+}
+
+/* Text selection - themed for both light and dark */
+::selection {
+  background: var(--accent-cyan);
+  color: var(--bg-page);
 }
 
 /* External link utility */
@@ -875,6 +910,20 @@ h6 {
   color: var(--link);
 }
 
+.btn-secondary:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+[data-theme="dark"] .btn-secondary {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+  border-color: var(--accent-cyan);
+  color: var(--link);
+}
+
 /* View on GitHub - white button, same blue in light/dark (no theme shift) */
 .btn-github {
   display: inline-flex;
@@ -888,6 +937,27 @@ h6 {
 .btn-github:hover {
   background: rgba(255, 255, 255, 0.95) !important;
   color: #004bbb !important;
+}
+
+.btn-github:focus-visible {
+  outline: 2px solid #003594;
+  outline-offset: 2px;
+}
+
+[data-theme="dark"] .btn-github {
+  background: #2d2d2d !important;
+  color: #64b5f6 !important;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .btn-github:hover {
+  background: #3d3d3d !important;
+  color: #90caf9 !important;
+}
+
+[data-theme="dark"] .btn-github:focus-visible {
+  outline: 2px solid #64b5f6;
+  outline-offset: 2px;
 }
 
 .btn-github .icon-github {
@@ -909,6 +979,27 @@ h6 {
 .btn-suggest:hover {
   background: rgba(255, 255, 255, 0.95) !important;
   color: #004bbb !important;
+}
+
+.btn-suggest:focus-visible {
+  outline: 2px solid #003594;
+  outline-offset: 2px;
+}
+
+[data-theme="dark"] .btn-suggest {
+  background: #2d2d2d !important;
+  color: #64b5f6 !important;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .btn-suggest:hover {
+  background: #3d3d3d !important;
+  color: #90caf9 !important;
+}
+
+[data-theme="dark"] .btn-suggest:focus-visible {
+  outline: 2px solid #64b5f6;
+  outline-offset: 2px;
 }
 
 .btn-suggest .icon-plus {
@@ -1500,11 +1591,27 @@ a.version-switcher-version:hover {
   margin: 1rem 0;
 }
 
-.doc-content th,
+.doc-content th {
+  background: var(--bg-alt);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.6rem;
+  text-align: left;
+  font-weight: 600;
+}
+
 .doc-content td {
   border: 1px solid var(--border);
   padding: 0.4rem 0.6rem;
   text-align: left;
+}
+
+.doc-content tbody tr:nth-child(even) {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+[data-theme="dark"] .doc-content tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .doc-content pre {
@@ -1513,6 +1620,8 @@ a.version-switcher-version:hover {
   background: var(--bg-alt);
   border-radius: var(--radius);
   border: 1px solid var(--border);
+  scrollbar-color: var(--text) var(--bg-alt);
+  scrollbar-width: thin;
 }
 
 .doc-content code {
@@ -1524,6 +1633,81 @@ a.version-switcher-version:hover {
   padding: 0.25rem 1rem;
   border-left: 4px solid var(--accent-cyan);
   color: var(--text-muted);
+}
+
+/* Horizontal rules */
+.doc-content hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 1.5rem 0;
+}
+
+/* Rouge syntax highlighting tokens - light theme */
+.highlight .k,  /* keyword */
+.highlight .kc, /* keyword constant */
+.highlight .kd, /* keyword declaration */
+.highlight .kn, /* keyword namespace */
+.highlight .kp, /* keyword pseudo */
+.highlight .kr, /* keyword reserved */
+.highlight .kt { /* keyword type */
+  color: var(--tok-keyword);
+}
+
+.highlight .s,  /* string */
+.highlight .sa, /* string affix */
+.highlight .sb, /* string backtick */
+.highlight .sc, /* string char */
+.highlight .sd, /* string doc */
+.highlight .s1, /* string single */
+.highlight .s2, /* string double */
+.highlight .se, /* string escape */
+.highlight .sh, /* string heredoc */
+.highlight .si, /* string interpolation */
+.highlight .sx, /* string other */
+.highlight .sr, /* string regex */
+.highlight .ss { /* string symbol */
+  color: var(--tok-string);
+}
+
+.highlight .c,  /* comment */
+.highlight .c1, /* comment single */
+.highlight .cd, /* comment doc */
+.highlight .cm, /* comment multiline */
+.highlight .cp  /* comment preproc */ {
+  color: var(--tok-comment);
+}
+
+.highlight .m,  /* number */
+.highlight .mb, /* number bin */
+.highlight .mf, /* number float */
+.highlight .mh, /* number hex */
+.highlight .mi, /* number integer */
+.highlight .mo, /* number octal */ {
+  color: var(--tok-number);
+}
+
+.highlight .na, /* name attribute */
+.highlight .nb, /* name builtin */
+.highlight .nc, /* name class */
+.highlight .no, /* name constant */
+.highlight .nd, /* name decorator */
+.highlight .ne, /* name exception */
+.highlight .nf, /* name function */
+.highlight .ni, /* name entity */
+.highlight .nl, /* name label */
+.highlight .nn, /* name namespace */
+.highlight .nx, /* name other */ {
+  color: var(--tok-attr-name);
+}
+
+.highlight .o,  /* operator */
+.highlight .ow { /* operator word */
+  color: var(--tok-operator);
+}
+
+.highlight .p,  /* punctuation */
+.highlight .py, /* punctuation marker */ {
+  color: var(--tok-punctuation);
 }
 
 @media (max-width: 900px) {
