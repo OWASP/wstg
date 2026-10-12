@@ -138,6 +138,25 @@
   color: #33b8eb;
 }
 
+/* CSS-only dark mode fallback: when no JS runs or prefers-color-scheme: dark without localStorage */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg-page: #1a1d23;
+    --bg-alt: #252830;
+    --bg-card: #252830;
+    --neutral-2: #343a44;
+    --text: #e6e8eb;
+    --text-muted: #9ca3af;
+    --border: #3d424a;
+    --link: #00a7e1;
+    --link-hover: #33b8eb;
+    --link-visited: #00a7e1;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+}
+
 *,
 *::before,
 *::after {
@@ -234,20 +253,25 @@ body > .skip-link:focus {
   bottom: 1.5rem;
   right: 1.5rem;
   z-index: 90;
-  width: 2.75rem;
-  height: 2.75rem;
   min-width: 44px;
   min-height: 44px;
-  padding: 0;
-  border: none;
-  border-radius: 50%;
+  padding: 0.15rem 0.4rem;
+  border: 1.5px solid rgba(0, 0, 0, 0.15);
+  border-radius: var(--radius);
   background: var(--bg-card);
   color: var(--text);
-  box-shadow: var(--shadow-md);
   cursor: pointer;
   text-decoration: none;
   opacity: 1;
-  transition: opacity 0.2s ease, box-shadow 0.15s ease;
+  transition: opacity 0.2s ease, border-color 0.15s ease;
+}
+
+[data-theme="light"] .back-to-top {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .back-to-top {
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 .back-to-top.visible {
@@ -255,7 +279,7 @@ body > .skip-link:focus {
 }
 
 .back-to-top:hover {
-  background: var(--neutral-2);
+  border-color: var(--border-focus);
 }
 
 .back-to-top:focus-visible {
@@ -263,33 +287,11 @@ body > .skip-link:focus {
   outline-offset: 2px;
 }
 
-/* Light theme: filled navy circle so the button pops on the white page. */
-[data-theme="light"] .back-to-top {
-  background: var(--blue-3);
-  color: #fff;
-  border: none;
-  box-shadow: var(--shadow-md);
-}
-
-[data-theme="light"] .back-to-top:hover {
-  background: var(--link-hover);
-  color: #fff;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-}
-
-[data-theme="light"] .back-to-top:focus-visible {
-  outline-color: var(--accent-cyan);
-}
-
-/* Dark theme: keep the circle from vanishing on the dark page. */
-[data-theme="dark"] .back-to-top {
-  background: var(--bg-card);
-  color: var(--text);
-}
-
-[data-theme="dark"] .back-to-top:hover {
-  background: var(--neutral-2);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35), inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+/* CSS-only dark mode fallback for back-to-top */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .back-to-top {
+    border-color: rgba(255, 255, 255, 0.15);
+  }
 }
 
 .back-to-top-icon {
@@ -297,6 +299,7 @@ body > .skip-link:focus {
   width: 1.25rem;
   height: 1.25rem;
   margin: 0 auto;
+  font-weight: bold;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1240,8 +1243,7 @@ html {
 
 /* Version channel banners (from www banner.html) */
 .channel-banners {
-  position: sticky;
-  top: 5rem;
+  position: static;
   z-index: 40;
   width: 100%;
   text-align: center;
@@ -1478,6 +1480,7 @@ a.version-switcher-version:hover {
 
 .doc-content {
   min-width: 0;
+  max-width: 75ch;
 }
 
 .doc-content > *:first-child {
@@ -1765,6 +1768,69 @@ a.version-switcher-version:hover {
   padding-top: 0;
 }
 
+/* Home page how-to card */
+.home-how-to-card {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background-color: var(--bg-alt);
+}
+
+.home-how-to-card strong {
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.home-how-to-card ul {
+  margin: 0;
+  padding: 0 0 0 1.25rem;
+  list-style: disc;
+}
+
+.home-how-to-card li {
+  margin: 0.5rem 0;
+}
+
+/* Focus mode: hide sidebar, wider content */
+.focus-mode .doc-sidebar {
+  display: none !important;
+}
+
+.focus-mode .doc-content {
+  max-width: 100%;
+}
+
+/* Focus mode toggle button */
+.doc-focus-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.4rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: border-color 0.2s;
+}
+
+.doc-focus-toggle:hover {
+  border-color: var(--border-focus);
+}
+
+.doc-focus-toggle:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.doc-focus-toggle svg {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+}
+
 /* Anchor links on headings */
 .header-link {
   display: inline-flex;
@@ -1781,4 +1847,410 @@ a.version-switcher-version:hover {
   outline: 2px solid var(--link);
   outline-offset: 2px;
   border-radius: var(--radius);
+}
+
+/* Document tools: breadcrumb, copy buttons */
+.doc-breadcrumb {
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.doc-breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.doc-breadcrumb-item {
+  display: flex;
+  align-items: center;
+}
+
+.doc-breadcrumb-item:not(:last-child)::after {
+  content: "→";
+  margin-left: 0.5rem;
+  color: var(--text-muted);
+}
+
+.doc-breadcrumb-item a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+.doc-breadcrumb-item a:hover {
+  text-decoration: underline;
+}
+
+.doc-breadcrumb-current {
+  font-weight: 500;
+  color: var(--text);
+}
+
+/* Doc tools buttons: copy ID, permalink, prev/next */
+.doc-content > h1 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.doc-tools-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.15rem 0.4rem;
+  border: 1.5px solid rgba(0, 0, 0, 0.15);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  color: var(--text);
+  font-size: 0.85rem;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color 0.15s;
+}
+
+[data-theme="light"] .doc-tools-btn {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .doc-tools-btn {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.doc-tools-btn:hover {
+  border-color: var(--border-focus);
+}
+
+.doc-tools-btn:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.doc-tools-btn svg {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+}
+
+/* CSS-only dark mode fallback for doc tools */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .doc-tools-btn {
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+}
+
+/* Hide button text on small screens, show icon only */
+@media (max-width: 640px) {
+  .doc-tools-btn-text {
+    display: none;
+  }
+
+  .doc-tools-btn {
+    min-width: 32px;
+    padding: 0.25rem;
+    justify-content: center;
+  }
+}
+
+/* Floating prev/next navigation buttons */
+.doc-prev-next-floating {
+  position: fixed;
+  left: 1.5rem;
+  right: calc(44px + 3rem);
+  bottom: 1.5rem;
+  z-index: 85;
+  pointer-events: none;
+}
+
+.doc-prev-next-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.15rem 0.4rem;
+  border: 1.5px solid rgba(0, 0, 0, 0.15);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  color: var(--text);
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 0.15s;
+  pointer-events: auto;
+}
+
+.doc-prev-next-prev {
+  left: 0;
+}
+
+.doc-prev-next-next {
+  right: 0;
+}
+
+[data-theme="light"] .doc-prev-next-btn {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .doc-prev-next-btn {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.doc-prev-next-btn:hover {
+  border-color: var(--border-focus);
+}
+
+.doc-prev-next-btn:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.doc-prev-next-arrow {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.doc-prev-next-tooltip {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 0.5rem);
+  transform: translateY(-50%);
+  white-space: nowrap;
+  background: var(--bg-page);
+  color: var(--text);
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  font-weight: 500;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+  z-index: 1;
+  box-shadow: var(--shadow-md);
+}
+
+.doc-prev-next-next .doc-prev-next-tooltip {
+  left: auto;
+  right: calc(100% + 0.5rem);
+}
+
+.doc-prev-next-btn:hover .doc-prev-next-tooltip {
+  opacity: 1;
+}
+
+/* CSS-only dark mode fallback for prev/next buttons */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .doc-prev-next-btn {
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+}
+
+@media (max-width: 768px) {
+  .doc-prev-next-floating {
+    left: 1rem;
+    right: 1rem;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .doc-prev-next-floating {
+    left: 0.5rem;
+    right: 0.5rem;
+    bottom: 5rem;
+    gap: 0.25rem;
+  }
+
+  .doc-prev-next-btn {
+    min-width: 40px;
+    min-height: 40px;
+    padding: 0.1rem 0.3rem;
+  }
+
+  .doc-prev-next-tooltip {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    bottom: calc(100% + 0.35rem);
+  }
+}
+
+/* Print: hide doc tools and floating nav */
+@media print {
+  .doc-breadcrumb,
+  .doc-tools-btn,
+  .doc-prev-next-floating {
+    display: none !important;
+  }
+}
+
+/* Print stylesheet */
+@page {
+  margin: 1in;
+  size: letter;
+}
+
+@media print {
+  /* Color scheme */
+  :root {
+    color-scheme: print;
+    --bg-page: #ffffff;
+    --bg-alt: #f5f5f5;
+    --bg-card: #ffffff;
+    --text: #000000;
+    --text-muted: #333333;
+    --border: #cccccc;
+  }
+
+  /* Reset body and page margins */
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Hide interactive elements and navigation */
+  .site-header,
+  .project-header,
+  .channel-banners,
+  .doc-nav-bar,
+  .doc-nav-toggle,
+  .doc-nav-backdrop,
+  .doc-nav-close,
+  .doc-sidebar,
+  .back-to-top,
+  .version-switcher,
+  .site-footer,
+  .header-link,
+  .anchor-links {
+    display: none !important;
+  }
+
+  /* Single column layout without sidebar */
+  .doc-layout {
+    grid-template-columns: 1fr;
+    padding-top: 0 !important;
+  }
+
+  /* Reduce container padding for print */
+  .container,
+  .container-wide {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  main {
+    margin: 0;
+    padding: 0;
+  }
+
+  .doc-sidebar::after {
+    content: "";
+    display: block;
+    margin-top: 2rem;
+    border-top: 2px solid var(--border);
+  }
+
+  /* Content: single column, expand width */
+  .doc-content {
+    max-width: none;
+  }
+
+  /* Force collapsible sections open */
+  details {
+    all: revert;
+  }
+
+  details > summary {
+    display: list-item;
+    list-style: none;
+  }
+
+  details > summary::marker {
+    display: none;
+  }
+
+  details[open] {
+    all: revert;
+  }
+
+  /* Tables and code: print-friendly */
+  .doc-content pre {
+    background: #f5f5f5;
+    border: 1px solid var(--border);
+    page-break-inside: avoid;
+  }
+
+  .doc-content code {
+    background: transparent;
+  }
+
+  .doc-content table {
+    page-break-inside: avoid;
+    border-collapse: collapse;
+  }
+
+  .doc-content th,
+  .doc-content td {
+    border: 1px solid var(--border);
+    page-break-inside: avoid;
+  }
+
+  /* Images */
+  .doc-content img {
+    max-width: 100%;
+    page-break-inside: avoid;
+  }
+
+  /* Sections: avoid breaking in middle */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    page-break-after: avoid;
+    page-break-before: avoid;
+    orphans: 3;
+    widows: 3;
+  }
+
+  /* Links: show URLs in print */
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    color: var(--text-muted);
+  }
+
+  /* Skip anchors on links  */
+  a[href^="#"]::after {
+    content: none;
+  }
+
+  /* External link icon hidden */
+  .ext-link::after {
+    display: none;
+  }
+
+  /* Background colors and images: remove for print */
+  body,
+  .site-main,
+  .container,
+  .container-wide {
+    background: white !important;
+    color: black !important;
+  }
+
+  /* Preserve inline code styling for readability */
+  .doc-content code {
+    font-family: monospace;
+    font-size: 0.9em;
+  }
 }

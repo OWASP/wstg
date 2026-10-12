@@ -253,3 +253,22 @@
   clip: rect(1px, 1px, 1px, 1px);
   white-space: nowrap;
 }
+
+/* CSS-only dark mode fallback for navigation */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .wstg-nav-filter {
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  :root:not([data-theme="light"]) .wstg-nav-controls button {
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  :root:not([data-theme="light"]) .wstg-nav-filter-clear {
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  :root:not([data-theme="light"]) .wstg-nav-list ul {
+    border-left-color: rgba(255, 255, 255, 0.18);
+  }
+}
