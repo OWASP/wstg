@@ -1768,6 +1768,69 @@ a.version-switcher-version:hover {
   padding-top: 0;
 }
 
+/* Home page how-to card */
+.home-how-to-card {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background-color: var(--bg-alt);
+}
+
+.home-how-to-card strong {
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.home-how-to-card ul {
+  margin: 0;
+  padding: 0 0 0 1.25rem;
+  list-style: disc;
+}
+
+.home-how-to-card li {
+  margin: 0.5rem 0;
+}
+
+/* Focus mode: hide sidebar, wider content */
+.focus-mode .doc-sidebar {
+  display: none !important;
+}
+
+.focus-mode .doc-content {
+  max-width: 100%;
+}
+
+/* Focus mode toggle button */
+.doc-focus-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.4rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: border-color 0.2s;
+}
+
+.doc-focus-toggle:hover {
+  border-color: var(--border-focus);
+}
+
+.doc-focus-toggle:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.doc-focus-toggle svg {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+}
+
 /* Anchor links on headings */
 .header-link {
   display: inline-flex;

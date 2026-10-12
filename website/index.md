@@ -16,6 +16,10 @@ used by penetration testers and organizations all over the world.
 Contributions to the guide should be made via the
 [OWASP/wstg](https://github.com/OWASP/wstg) repository.
 
+## How to Use This Guide
+
+{% include home-how-to-card.html %}
+
 ## Citing Scenarios
 
 Prefer versioned links when citing scenarios. Identifiers use the form `WSTG-<category>-<number>` (for example `WSTG-INFO-02`).

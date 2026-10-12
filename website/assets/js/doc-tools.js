@@ -401,6 +401,93 @@
   }
 
   /**
+   * Keyboard shortcuts: ? for help, / for filter focus
+   */
+  function setupKeyboardShortcuts() {
+    var helpMessage = 'Keyboard shortcuts:\n? - Show this help\n/ - Focus search filter';
+
+    document.addEventListener('keydown', function(e) {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+      if (e.key === '?') {
+        e.preventDefault();
+        alert(helpMessage);
+      } else if (e.key === '/') {
+        e.preventDefault();
+        var filter = document.querySelector('.wstg-nav-filter');
+        if (filter) {
+          filter.focus();
+        }
+      }
+    });
+  }
+
+  /**
+   * Focus mode: hide sidebar, wider content, toggle with localStorage
+   */
+  function setupFocusMode() {
+    var focusModeClass = 'focus-mode';
+    var storageKey = 'wstg-focus-mode';
+
+    // Check if focus mode was enabled before
+    var isFocusMode = localStorage.getItem(storageKey) === 'true';
+    if (isFocusMode) {
+      document.documentElement.classList.add(focusModeClass);
+    }
+
+    // Add toggle button to doc-nav-bar
+    var navBar = document.querySelector('.doc-nav-bar');
+    if (navBar) {
+      var focusBtn = document.createElement('button');
+      focusBtn.type = 'button';
+      focusBtn.className = 'doc-focus-toggle';
+      focusBtn.setAttribute('title', 'Toggle focus mode');
+      focusBtn.setAttribute('aria-label', 'Toggle focus mode');
+      focusBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="1.25em" height="1.25em" aria-hidden="true"><circle cx="12" cy="12" r="1"/><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>';
+
+      focusBtn.addEventListener('click', function() {
+        document.documentElement.classList.toggle(focusModeClass);
+        var isNowFocusMode = document.documentElement.classList.contains(focusModeClass);
+        localStorage.setItem(storageKey, isNowFocusMode);
+      });
+
+      navBar.appendChild(focusBtn);
+    }
+  }
+
+  /**
+   * Mark external links with icon and attributes
+   */
+  function markExternalLinks() {
+    var docContent = document.querySelector('.doc-content');
+    if (!docContent) return;
+
+    var links = docContent.querySelectorAll('a[href]');
+    links.forEach(function(link) {
+      var href = link.getAttribute('href');
+      if (!href) return;
+
+      // Check if external (not same domain, not fragment, not relative)
+      var isExternal = false;
+      if (href.startsWith('http://') || href.startsWith('https://')) {
+        try {
+          var linkUrl = new URL(href);
+          var currentUrl = new URL(window.location.href);
+          isExternal = linkUrl.hostname !== currentUrl.hostname;
+        } catch (e) {
+          // Invalid URL, treat as internal
+        }
+      }
+
+      if (isExternal) {
+        link.classList.add('ext-link');
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'noopener noreferrer');
+      }
+    });
+  }
+
+  /**
    * Initialize all doc tools when DOM is ready
    */
   function init() {
@@ -416,6 +503,9 @@
     addCopyIdButton();
     addPermalinkButton();
     addPrevNext();
+    setupKeyboardShortcuts();
+    setupFocusMode();
+    markExternalLinks();
   }
 
   init();
