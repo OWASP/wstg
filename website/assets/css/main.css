@@ -1965,10 +1965,6 @@ a.version-switcher-version:hover {
   right: calc(44px + 3rem);
   bottom: 1.5rem;
   z-index: 85;
-  display: flex;
-  gap: 1rem;
-  justify-content: space-between;
-  align-items: flex-end;
   pointer-events: none;
 }
 
@@ -1976,7 +1972,8 @@ a.version-switcher-version:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
+  position: absolute;
+  bottom: 0;
   min-width: 44px;
   min-height: 44px;
   padding: 0.15rem 0.4rem;
@@ -1988,6 +1985,14 @@ a.version-switcher-version:hover {
   cursor: pointer;
   transition: border-color 0.15s;
   pointer-events: auto;
+}
+
+.doc-prev-next-prev {
+  left: 0;
+}
+
+.doc-prev-next-next {
+  right: 0;
 }
 
 [data-theme="light"] .doc-prev-next-btn {
