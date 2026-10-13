@@ -257,7 +257,7 @@
   }
 
   /**
-   * Extract nav items from the wstg-nav tree and find prev/next for current page
+   * Extract nav items from the wstg-nav tree
    */
   function extractNavItems() {
     var nav = document.querySelector('.wstg-nav');
@@ -268,15 +268,13 @@
 
     for (var i = 0; i < links.length; i++) {
       var link = links[i];
-      var url = link.getAttribute('data-nav-url');
-      if (!url) continue;
-
-      // Normalize URL: remove fragment, trailing slashes, .html, /index
-      var normalized = normalizeUrl(url);
+      var href = link.getAttribute('href');
+      var navUrl = link.getAttribute('data-nav-url');
+      if (!navUrl) continue;
 
       items.push({
-        url: url,
-        normalizedUrl: normalized,
+        href: href,  // Full href from the HTML
+        navUrl: navUrl,  // data-nav-url attribute
         title: link.textContent.trim()
       });
     }
@@ -287,13 +285,17 @@
   /**
    * Normalize URL for comparison
    */
-  function normalizeUrl(url) {
+  function normalizeUrl(url, preserveFragment) {
     if (!url) return '';
-    return (url || '')
-      .split('#')[0]  // Remove fragment
+    var normalized = (url || '')
       .replace(/\/+$/, '')  // Remove trailing slashes
       .replace(/\/index(?:\.html)?$/i, '')  // Remove /index or /index.html
       .replace(/\.html?$/i, '');  // Remove .html or .htm
+
+    if (!preserveFragment) {
+      normalized = normalized.split('#')[0];  // Remove fragment
+    }
+    return normalized;
   }
 
   /**
@@ -303,50 +305,27 @@
     var items = extractNavItems();
     if (items.length < 2) return null;
 
-    var currentPath = window.location.pathname;
-    // Remove collection prefix (latest, v4.2, v42, v4.1, v41, stable) and normalize
-    currentPath = currentPath.replace(/^\/(latest|v4\.2|v42|v4\.1|v41|stable)\//, '');
-    currentPath = normalizeUrl(currentPath);
-
+    var currentLocation = window.location.pathname + window.location.hash;
     var currentIndex = -1;
 
-    // Find current page in nav items (exact match)
+    // Extract nav path from current location (remove /latest/ or /v4.2/ etc and trailing slashes)
+    var currentNavPath = currentLocation.replace(/^\/(latest|v4\.2|v42|v4\.1|v41|stable)\//, '').replace(/\/+$/, '').replace(/\/#/, '#');
+    var currentPagePath = currentNavPath.split('#')[0];  // Page without fragment
+
+    // Match against navUrl (exact match with fragment)
     for (var i = 0; i < items.length; i++) {
-      if (items[i].normalizedUrl === currentPath) {
+      var itemNavUrl = items[i].navUrl.replace(/\/+$/, '').replace(/\/#/, '#');
+      if (itemNavUrl === currentNavPath) {
         currentIndex = i;
         break;
       }
     }
 
-    // Strategy 2: Match by segment comparison if exact match fails
-    if (currentIndex === -1) {
-      var currentSegments = currentPath.split('/').filter(function(s) { return s; });
-
-      for (var i = 0; i < items.length; i++) {
-        var itemSegments = items[i].normalizedUrl.split('/').filter(function(s) { return s; });
-
-        // If same number of segments and all match, it's a hit
-        if (currentSegments.length === itemSegments.length) {
-          var allMatch = true;
-          for (var j = 0; j < currentSegments.length; j++) {
-            if (currentSegments[j] !== itemSegments[j]) {
-              allMatch = false;
-              break;
-            }
-          }
-          if (allMatch) {
-            currentIndex = i;
-            break;
-          }
-        }
-      }
-    }
-
-    // Strategy 3: Partial match as last resort
+    // Fallback: match by page path only (without fragment)
     if (currentIndex === -1) {
       for (var i = 0; i < items.length; i++) {
-        if (currentPath.endsWith('/' + items[i].normalizedUrl) ||
-            items[i].normalizedUrl.endsWith(currentPath)) {
+        var itemPagePath = items[i].navUrl.replace(/\/+$/, '').replace(/\/#/, '#').split('#')[0];
+        if (itemPagePath === currentPagePath) {
           currentIndex = i;
           break;
         }
@@ -362,23 +341,37 @@
   }
 
   /**
-   * Add floating prev/next navigation buttons (left/right arrows)
+   * Update floating prev/next navigation buttons
    */
-  function addPrevNext() {
+  function updatePrevNext() {
     var nav = findPrevNext();
-    if (!nav || (!nav.prev && !nav.next)) return;
-
     var collection = getPageCollection();
     if (!collection) return;
 
-    var navContainer = document.createElement('nav');
-    navContainer.className = 'doc-prev-next-floating';
-    navContainer.setAttribute('aria-label', 'Page navigation');
+    var navContainer = document.querySelector('.doc-prev-next-floating');
+
+    // Create container if it doesn't exist
+    if (!navContainer) {
+      navContainer = document.createElement('nav');
+      navContainer.className = 'doc-prev-next-floating';
+      navContainer.setAttribute('aria-label', 'Page navigation');
+      document.body.appendChild(navContainer);
+    }
+
+    // Clear existing buttons
+    navContainer.innerHTML = '';
+
+    if (!nav || (!nav.prev && !nav.next)) {
+      navContainer.style.display = 'none';
+      return;
+    }
+
+    navContainer.style.display = '';
 
     // Previous button
     if (nav.prev) {
       var prevBtn = document.createElement('a');
-      prevBtn.href = '/' + collection + '/' + nav.prev.url;
+      prevBtn.href = '/' + collection + '/' + nav.prev.navUrl;
       prevBtn.className = 'doc-prev-next-btn doc-prev-next-prev';
       prevBtn.setAttribute('title', 'Previous: ' + (nav.prev.title || 'Previous'));
       prevBtn.setAttribute('aria-label', 'Previous: ' + (nav.prev.title || 'Previous'));
@@ -389,15 +382,23 @@
     // Next button
     if (nav.next) {
       var nextBtn = document.createElement('a');
-      nextBtn.href = '/' + collection + '/' + nav.next.url;
+      nextBtn.href = '/' + collection + '/' + nav.next.navUrl;
       nextBtn.className = 'doc-prev-next-btn doc-prev-next-next';
       nextBtn.setAttribute('title', 'Next: ' + (nav.next.title || 'Next'));
       nextBtn.setAttribute('aria-label', 'Next: ' + (nav.next.title || 'Next'));
       nextBtn.innerHTML = '<span class="doc-prev-next-arrow">→</span><span class="doc-prev-next-tooltip">' + (nav.next.title || 'Next') + '</span>';
       navContainer.appendChild(nextBtn);
     }
+  }
 
-    document.body.appendChild(navContainer);
+  /**
+   * Add floating prev/next navigation buttons (left/right arrows)
+   */
+  function addPrevNext() {
+    updatePrevNext();
+
+    // Update buttons when hash changes (H2 anchors)
+    window.addEventListener('hashchange', updatePrevNext);
   }
 
   /**
@@ -425,36 +426,6 @@
   /**
    * Focus mode: hide sidebar, wider content, toggle with localStorage
    */
-  function setupFocusMode() {
-    var focusModeClass = 'focus-mode';
-    var storageKey = 'wstg-focus-mode';
-
-    // Check if focus mode was enabled before
-    var isFocusMode = localStorage.getItem(storageKey) === 'true';
-    if (isFocusMode) {
-      document.documentElement.classList.add(focusModeClass);
-    }
-
-    // Add toggle button to doc-nav-bar
-    var navBar = document.querySelector('.doc-nav-bar');
-    if (navBar) {
-      var focusBtn = document.createElement('button');
-      focusBtn.type = 'button';
-      focusBtn.className = 'doc-focus-toggle';
-      focusBtn.setAttribute('title', 'Toggle focus mode');
-      focusBtn.setAttribute('aria-label', 'Toggle focus mode');
-      focusBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="1.25em" height="1.25em" aria-hidden="true"><circle cx="12" cy="12" r="1"/><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>';
-
-      focusBtn.addEventListener('click', function() {
-        document.documentElement.classList.toggle(focusModeClass);
-        var isNowFocusMode = document.documentElement.classList.contains(focusModeClass);
-        localStorage.setItem(storageKey, isNowFocusMode);
-      });
-
-      navBar.appendChild(focusBtn);
-    }
-  }
-
   /**
    * Mark external links with icon and attributes
    */
@@ -504,7 +475,6 @@
     addPermalinkButton();
     addPrevNext();
     setupKeyboardShortcuts();
-    setupFocusMode();
     markExternalLinks();
   }
 
