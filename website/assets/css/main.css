@@ -63,8 +63,9 @@
   color-scheme: light;
   /* Community design system (neutral-1, blue-3, accent-blue-4, accent-gold-4, blue-7) */
   --neutral-1: #101820;
-  --neutral-2: #d7d7d7; /* matches live owasp.org --neutral-5 border gray */
+  --neutral-2: #d1d5db; /* owasp.org line color */
   --neutral-3: #757575;
+  --text-secondary: #5b616e;
   --blue-7: #f1f6fe;
   --blue-3: #003594;
   --accent-blue-4: #00a7e1;
@@ -75,12 +76,13 @@
   --header-text-muted: rgba(255, 255, 255, 0.8);
   /* Standard links: dark blue */
   --link: var(--blue-3);
-  --link-hover: #004bbb;
+  --link-hover: #0056b3;
   /* Cyan accent */
   --accent-cyan: var(--accent-blue-4);
+  --accent-cyan-rgb: 0, 167, 225;
   /* Yellow: footer "Make a Donation" only */
   --btn-yellow: var(--accent-gold-4);
-  --btn-yellow-hover: #ffc947;
+  --btn-yellow-hover: #ffd476;
   --btn-yellow-text: var(--neutral-1);
   /* Primary blue buttons */
   --btn-primary-start: var(--blue-3);
@@ -93,6 +95,8 @@
   --bg-page: #ffffff;
   --bg-alt: var(--blue-7);
   --bg-card: #ffffff;
+  --bg-sunken: #f4f4f4;
+  --bg-hover: #eff1f3;
   --text: var(--neutral-1);
   --text-muted: var(--neutral-3);
   --border: var(--neutral-2);
@@ -119,18 +123,22 @@
 /* Dark mode - main content area (preference stored in localStorage, no tracking) */
 [data-theme="dark"] {
   color-scheme: dark;
-  --bg-page: #1a1d23;
-  --bg-alt: #252830;
-  --bg-card: #252830;
-  --neutral-2: #343a44;
-  --text: #e6e8eb;
-  --text-muted: #9ca3af;
-  --border: #4b525d;
-  --link: #00a7e1;
-  --link-hover: #33b8eb;
-  --link-visited: #00a7e1; /* keep visited links readable on dark bg (no dark purple) */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --bg-page: #0b0f14;
+  --bg-alt: #131a23;
+  --bg-card: #131a23;
+  --bg-sunken: #1b222c;
+  --bg-hover: #232b37;
+  --neutral-2: #303a48;
+  --text: #e6edf6;
+  --text-muted: #97a3b4;
+  --text-secondary: #afbaca;
+  --border: #303a48;
+  --link: #7fb3ff;
+  --link-hover: #a8cbff;
+  --link-visited: #7fb3ff; /* keep visited links readable on dark bg (no dark purple) */
+  --header-bg: #1f2834;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
   /* Syntax highlighting tokens - dark theme */
   --tok-keyword: #569cd6;
   --tok-string: #ce9178;
@@ -150,29 +158,33 @@
 /* Keep dark-mode visited styling on text links without recoloring CTA buttons. */
 [data-theme="dark"] .not-found a:not(.btn-404),
 [data-theme="dark"] .not-found a:not(.btn-404):visited {
-  color: #00a7e1;
+  color: #7fb3ff;
 }
 
 [data-theme="dark"] .not-found a:not(.btn-404):hover {
-  color: #33b8eb;
+  color: #a8cbff;
 }
 
 /* CSS-only dark mode fallback: when no JS runs or prefers-color-scheme: dark without localStorage */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --bg-page: #1a1d23;
-    --bg-alt: #252830;
-    --bg-card: #252830;
-    --neutral-2: #343a44;
-    --text: #e6e8eb;
-    --text-muted: #9ca3af;
-    --border: #4b525d;
-    --link: #00a7e1;
-    --link-hover: #33b8eb;
-    --link-visited: #00a7e1;
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --bg-page: #0b0f14;
+    --bg-alt: #131a23;
+    --bg-card: #131a23;
+    --bg-sunken: #1b222c;
+    --bg-hover: #232b37;
+    --neutral-2: #303a48;
+    --text: #e6edf6;
+    --text-muted: #97a3b4;
+    --text-secondary: #afbaca;
+    --border: #303a48;
+    --link: #7fb3ff;
+    --link-hover: #a8cbff;
+    --link-visited: #7fb3ff;
+    --header-bg: #1f2834;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
     /* Syntax highlighting tokens - dark theme */
     --tok-keyword: #569cd6;
     --tok-string: #ce9178;
@@ -297,7 +309,7 @@ body > .skip-link:focus {
 }
 
 [data-theme="light"] .back-to-top {
-  border-color: rgba(0, 0, 0, 0.2);
+  border: 2px solid var(--blue-3);
 }
 
 [data-theme="dark"] .back-to-top {
@@ -649,8 +661,8 @@ h6 {
 }
 
 .header-actions a.nav-create-account:hover {
-  border-color: rgba(0, 167, 225, 0.6);
-  background: rgba(0, 167, 225, 0.1);
+  border-color: rgba(var(--accent-cyan-rgb), 0.6);
+  background: rgba(var(--accent-cyan-rgb), 0.1);
   color: var(--accent-cyan);
 }
 
@@ -951,18 +963,18 @@ h6 {
 }
 
 [data-theme="dark"] .btn-github {
-  background: #2d2d2d !important;
-  color: #64b5f6 !important;
-  border-color: rgba(255, 255, 255, 0.2);
+  background: #ffffff !important;
+  color: #003594 !important;
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 [data-theme="dark"] .btn-github:hover {
-  background: #3d3d3d !important;
-  color: #90caf9 !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  color: #004bbb !important;
 }
 
 [data-theme="dark"] .btn-github:focus-visible {
-  outline: 2px solid #64b5f6;
+  outline: 2px solid #003594;
   outline-offset: 2px;
 }
 
@@ -1137,8 +1149,13 @@ h6 {
 }
 
 .footer-standalone .footer-tagline a {
-  color: #00a7e1;
+  color: var(--accent-cyan);
   text-decoration: none;
+}
+
+[data-theme="dark"] .footer-standalone .footer-tagline a:visited,
+[data-theme="light"] .footer-standalone .footer-tagline a:visited {
+  color: var(--accent-cyan);
 }
 
 .footer-standalone .footer-tagline a:hover {
@@ -2311,7 +2328,7 @@ a.version-switcher-version:hover {
 
 .focus-mode-toggle.active {
   color: var(--accent-cyan);
-  background: rgba(0, 167, 225, 0.1);
+  background: rgba(var(--accent-cyan-rgb), 0.1);
 }
 
 html.focus-mode .doc-sidebar {
