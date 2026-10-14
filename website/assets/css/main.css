@@ -2258,6 +2258,15 @@ a.version-switcher-version:hover {
 /* Focus mode: distraction-free reading */
 .focus-mode-toggle {
   display: none;
+}
+
+@media (min-width: 901px) {
+  .focus-mode-toggle {
+    display: inline-flex;
+  }
+}
+
+.focus-mode-toggle {
   flex-direction: column;
   align-items: center;
   justify-content: center;

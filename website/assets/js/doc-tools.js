@@ -484,11 +484,6 @@
     var toggle = document.getElementById('focus-mode-toggle');
     if (!toggle) return;
 
-    // Show button only on desktop
-    var mq = window.matchMedia('(min-width: 901px)');
-    if (!mq.matches) return;
-
-    toggle.style.display = 'inline-flex';
 
     var storageKey = 'wstg-focus-mode';
     var focusModeClass = 'focus-mode';
