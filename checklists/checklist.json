@@ -959,7 +959,8 @@
           "objectives": [
             "Identify data injection points.",
             "Validate that all checks are occurring on the backend and can't be bypassed.",
-            "Attempt to break the format of the expected data and analyze how the application is handling it."
+            "Attempt to break the format of the expected data and analyze how the application is handling it.",
+            "Determine whether parameters that the frontend restricts (type, range, set of allowed values, or relationship to other fields) are restricted again on the server."
           ]
         },
         {
