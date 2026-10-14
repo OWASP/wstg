@@ -2261,7 +2261,7 @@ a.version-switcher-version:hover {
 }
 
 @media (min-width: 901px) {
-  .focus-mode-toggle {
+  .page-document .focus-mode-toggle {
     display: inline-flex;
   }
 }
