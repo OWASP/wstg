@@ -32,11 +32,20 @@ This was a campaign that was proposed by the founder of the site "The Pirate Bay
 This attack was performed by sending very small amounts of money of 1 SEK ($0.13 USD) to the law firm.
 The bank account to which the payments were directed had only 1000 free transfers, after which any transfers have a surcharge for the account holder (2 SEK). After the first thousand internet transactions every 1 SEK donation to the law firm will actually end up costing it 1 SEK instead.
 
+### Example 4
+
+A profile page lets users pick an avatar. The frontend always sends the image as a base64 `data:` URI, so the developers never validate what the `avatar` parameter contains. An attacker intercepts the request and replaces the value with `http://attacker.example/pixel.png`. The application accepts it and, later, a server-side job or an administrator's browser fetches that URL. The request reaches the attacker, who learns that the input was never validated and may use it to reach internal hosts or to track other users.
+
+### Example 5
+
+A product review form offers a rating from 1 to 5 stars through a set of radio buttons. If the backend only checks that the value is a number, `rating=-100` or `rating=99999` is stored and skews the average score, and a value such as `rating=NaN` may break the pages that display it.
+
 ## Test Objectives
 
 - Identify data injection points.
 - Validate that all checks are occurring on the backend and can't be bypassed.
 - Attempt to break the format of the expected data and analyze how the application is handling it.
+- Determine whether parameters that the frontend restricts (type, range, set of allowed values, or relationship to other fields) are restricted again on the server.
 
 ## How to Test
 
@@ -51,9 +60,27 @@ Specific Testing Method:
 - Using an intercepting proxy observe the HTTP POST/GET looking for places that variables such as cost and quantity are passed. Specifically, look for "hand-offs" between application/systems that may be possible injection or tamper points.
 - Once variables are found start interrogating the field with logically "invalid" data, such as social security numbers or unique identifiers that do not exist or that do not fit the business logic. This testing verifies that the server functions properly and does not accept logically invalid data.
 
+### Parameter-Based Test Cases
+
+For every parameter observed in the previous steps, replay the request with a modified value and compare the response, the stored data, and any later behavior (emails, background jobs, other users' views) with those of the valid request. The aim is to find values that the frontend would never send but that the server accepts. Useful variations are:
+
+- **Range and sign:** values below the minimum or above the maximum offered by the interface, zero, negative numbers, and very large numbers (for example a rating of `-1` or `1000`, a quantity of `0`, or a transfer of `-50`).
+- **Allowed set:** values that are not in the list the interface offers, such as a role, country, plan, status, or currency that is not in the drop-down, or a different valid value that belongs to another user or tenant.
+- **Type and format:** a different data type than expected (string instead of number, array or object instead of string, `null`, an empty value, `true` instead of `1`), or the same field with a different format (a URL where the application expects a `data:` URI or a filename, a date in another format, or Unicode digits).
+- **Length and encoding:** empty values, values longer than the length enforced by the frontend, and values containing characters that the interface filters out.
+- **Relationships between fields:** values that are individually valid but inconsistent together, for example an end date before a start date, a discount that is larger than the price, or a shipping country that does not match the payment country.
+- **Missing and additional parameters:** remove parameters that look mandatory and add parameters the interface never sends (see [Mass Assignment](../07-Injection/20-Mass_Assignment.md)), and repeat a parameter with different values (see [HTTP Parameter Pollution](../07-Injection/04-HTTP_Parameter_Pollution.md)).
+- **Hand-off values:** values that are later passed to another system, such as an email address, a URL, or a file path (see [Server-Side Request Forgery](../07-Injection/19-Server-Side_Request_Forgery.md)). Use a unique value that you control, so that you can detect when and where it is used, including by a delayed or out-of-band request.
+
+Record which of the variations were accepted, because the impact depends on how the application uses the value afterwards and not only on whether it was rejected.
+
 ## Related Test Cases
 
 - All [Injection Testing](../07-Injection/README.md) test cases.
+- [HTTP Parameter Pollution](../07-Injection/04-HTTP_Parameter_Pollution.md).
+- [Mass Assignment](../07-Injection/20-Mass_Assignment.md).
+- [Server-Side Request Forgery](../07-Injection/19-Server-Side_Request_Forgery.md).
+- [Payment Functionality](10-Payment_Functionality.md).
 - [Account Enumeration and Guessable User Account](../03-Identity_Management/04-Account_Enumeration_and_Guessable_User_Account.md).
 - [Bypassing Session Management Schema](../06-Session_Management/01-Session_Management_Schema.md).
 - [Exposed Session Variables](../06-Session_Management/04-Exposed_Session_Variables.md).
@@ -61,6 +88,11 @@ Specific Testing Method:
 ## Remediation
 
 The application/system must ensure that only "logically valid" data is accepted at all input and hand off points of the application or system and data is not simply trusted once it has entered the system.
+
+- Validate every parameter on the server, even when the frontend restricts it. Check the type, the range, the length, the format, and membership in the set of allowed values (preferably with an allowlist).
+- Validate relationships between fields and between the value and the state of the user, the account, or the order, and not only each value alone.
+- Reject unexpected or unknown parameters instead of silently using or ignoring them.
+- Treat data received from other systems with the same suspicion as data received from users.
 
 ## Tools
 
