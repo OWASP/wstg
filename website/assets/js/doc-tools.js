@@ -478,6 +478,43 @@
   }
 
   /**
+   * Setup focus mode toggle
+   */
+  function setupFocusMode() {
+    var toggle = document.getElementById('focus-mode-toggle');
+    if (!toggle) return;
+
+    // Show button only on desktop
+    var mq = window.matchMedia('(min-width: 901px)');
+    if (!mq.matches) return;
+
+    toggle.style.display = 'inline-flex';
+
+    var storageKey = 'wstg-focus-mode';
+    var focusModeClass = 'focus-mode';
+
+    // Restore saved preference
+    if (localStorage.getItem(storageKey) === '1') {
+      document.documentElement.classList.add(focusModeClass);
+      toggle.classList.add('active');
+    }
+
+    // Handle toggle click
+    toggle.addEventListener('click', function() {
+      var isFocusMode = document.documentElement.classList.contains(focusModeClass);
+      if (isFocusMode) {
+        document.documentElement.classList.remove(focusModeClass);
+        toggle.classList.remove('active');
+        localStorage.setItem(storageKey, '0');
+      } else {
+        document.documentElement.classList.add(focusModeClass);
+        toggle.classList.add('active');
+        localStorage.setItem(storageKey, '1');
+      }
+    });
+  }
+
+  /**
    * Initialize all doc tools when DOM is ready
    */
   function init() {
@@ -495,6 +532,7 @@
     addPrevNext();
     setupKeyboardShortcuts();
     markExternalLinks();
+    setupFocusMode();
   }
 
   init();

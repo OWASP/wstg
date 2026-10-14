@@ -8,6 +8,13 @@
       {% include version-switcher.html %}
     </div>
     <div class="header-actions">
+      <button type="button" id="focus-mode-toggle" class="focus-mode-toggle" aria-label="Focus mode" title="Focus mode">
+        <svg class="focus-mode-icon" viewBox="0 0 24 24" width="1.25em" height="1.25em" fill="currentColor" aria-hidden="true">
+          <circle cx="12" cy="12" r="2"/>
+          <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+        <span class="focus-mode-label" aria-hidden="true">Focus</span>
+      </button>
       <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Theme: system. Click to switch." title="Theme">
         <span class="theme-toggle-icon-wrap">
           <svg class="theme-toggle-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
