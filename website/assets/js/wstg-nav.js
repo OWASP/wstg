@@ -112,6 +112,16 @@
   }
 
   function initNav(nav) {
+    // Clear previous active states
+    var previousActive = nav.querySelectorAll("[aria-current], .is-active");
+    for (var j = 0; j < previousActive.length; j++) {
+      previousActive[j].removeAttribute("aria-current");
+      var item = previousActive[j].closest(".wstg-nav-item");
+      if (item) {
+        item.classList.remove("is-active");
+      }
+    }
+
     var pagePath = normalizePath(window.location.pathname);
     var pageHash = (window.location.hash || "").replace(/^#/, "").toLowerCase();
     var activeLink = null;
@@ -355,4 +365,7 @@
   } else {
     boot();
   }
+
+  // Re-initialize nav when hash changes (H2 anchor navigation)
+  window.addEventListener("hashchange", boot);
 })();
