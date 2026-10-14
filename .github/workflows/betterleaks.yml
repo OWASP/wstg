@@ -1,0 +1,34 @@
+name: Betterleaks secret scan
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  betterleaks:
+    name: Scan repository history
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Run Betterleaks
+        run: |
+          docker run --rm \
+            --user "$(id -u):$(id -g)" \
+            -v "${GITHUB_WORKSPACE}:/repo:ro" \
+            ghcr.io/betterleaks/betterleaks:v2.0.0-rc.1 \
+            --config /repo/config/betterleaks.toml \
+            git /repo
