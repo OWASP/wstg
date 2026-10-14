@@ -2223,22 +2223,35 @@ a.version-switcher-version:hover {
 
 @media (max-width: 480px) {
   .doc-prev-next-floating {
+    display: flex;
+    gap: 0.5rem;
     left: 0.5rem;
     right: 0.5rem;
+    width: auto;
     bottom: 5rem;
-    gap: 0.25rem;
   }
 
   .doc-prev-next-btn {
-    min-width: 40px;
-    min-height: 40px;
-    padding: 0.1rem 0.3rem;
+    position: static;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0.35rem 0.4rem;
   }
 
   .doc-prev-next-tooltip {
     font-size: 0.75rem;
     padding: 0.25rem 0.5rem;
     bottom: calc(100% + 0.35rem);
+  }
+}
+
+@media (max-height: 500px) {
+  .doc-prev-next-floating {
+    bottom: 5.5rem;
+  }
+
+  .back-to-top {
+    bottom: 1rem;
   }
 }
 

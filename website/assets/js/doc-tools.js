@@ -312,12 +312,17 @@
     var currentNavPath = currentLocation.replace(/^\/(latest|v4\.2|v42|v4\.1|v41|stable)\//, '').replace(/\/+$/, '').replace(/\/#/, '#');
     var currentPagePath = currentNavPath.split('#')[0];  // Page without fragment
 
-    // Match against navUrl (exact match with fragment)
-    for (var i = 0; i < items.length; i++) {
-      var itemNavUrl = items[i].navUrl.replace(/\/+$/, '').replace(/\/#/, '#');
-      if (itemNavUrl === currentNavPath) {
-        currentIndex = i;
-        break;
+    // If on root/index, match to first nav item
+    if (!currentPagePath || currentPagePath === '') {
+      currentIndex = 0;
+    } else {
+      // Match against navUrl (exact match with fragment)
+      for (var i = 0; i < items.length; i++) {
+        var itemNavUrl = items[i].navUrl.replace(/\/+$/, '').replace(/\/#/, '#');
+        if (itemNavUrl === currentNavPath) {
+          currentIndex = i;
+          break;
+        }
       }
     }
 
@@ -326,6 +331,17 @@
       for (var i = 0; i < items.length; i++) {
         var itemPagePath = items[i].navUrl.replace(/\/+$/, '').replace(/\/#/, '#').split('#')[0];
         if (itemPagePath === currentPagePath) {
+          currentIndex = i;
+          break;
+        }
+      }
+    }
+
+    // Final fallback: match if current path ends with or contains the nav item path
+    if (currentIndex === -1) {
+      for (var i = 0; i < items.length; i++) {
+        var itemPath = items[i].navUrl.replace(/\/+$/, '').split('#')[0];
+        if (currentPagePath.endsWith(itemPath) || currentPagePath.indexOf(itemPath) !== -1) {
           currentIndex = i;
           break;
         }
@@ -395,7 +411,10 @@
    * Add floating prev/next navigation buttons (left/right arrows)
    */
   function addPrevNext() {
-    updatePrevNext();
+    // Delay to ensure nav tree is fully populated
+    setTimeout(function() {
+      updatePrevNext();
+    }, 100);
 
     // Update buttons when hash changes (H2 anchors)
     window.addEventListener('hashchange', updatePrevNext);
