@@ -282,3 +282,4 @@ If debug symbols (DWARF) are stripped, modern browsers automatically disassemble
 - [Chrome DevTools: Inspecting ArrayBuffers with the Memory Inspector](https://developer.chrome.com/docs/devtools/memory-inspector/)
 - [WebAssembly JavaScript Interface (W3C Specification)](https://www.w3.org/TR/wasm-js-api-1/)
 - [MDN Web Docs: Working with WebAssembly Memory](https://developer.mozilla.org/en-US/docs/WebAssembly/JavaScript_interface/Memory)
+- [ManuMassi/vuln_wasm](https://github.com/ManuMassi/vuln_wasm) - Collection of vulnerable WebAssembly applications (client-side and server-side) built for the study of WebAssembly security.
