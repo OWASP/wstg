@@ -1275,6 +1275,22 @@
           ]
         }
       ]
+    },
+    "WebAssembly Testing": {
+      "id": "WSTG-WASM",
+      "tests": [
+        {
+          "name": "WebAssembly Reconnaissance",
+          "id": "WSTG-WASM-01",
+          "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/13-WebAssembly_Testing/01-WebAssembly_Reconnaissance",
+          "objectives": [
+            "Find all WebAssembly modules loaded by the target application, including those not named `.wasm`, compressed, lazy-loaded, loaded through `fetch`, and manual instantiation, or embedded in JavaScript.",
+            "Identify the compiler toolchain and source language (e.g., C/C++, Rust, Go, .NET) from section metadata, imports, exports, and glue code.",
+            "Detect exposed debugging artifacts: source maps, DWARF information, and the `name` custom section.",
+            "Map the infrastructure attack surface by extracting embedded URLs, API endpoints, and internal hostnames or IP addresses."
+          ]
+        }
+      ]
     }
   }
 }
