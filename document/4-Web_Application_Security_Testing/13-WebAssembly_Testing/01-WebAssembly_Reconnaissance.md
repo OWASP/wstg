@@ -8,7 +8,7 @@
 
 WebAssembly (Wasm) is a binary instruction format delivered to the browser as a compiled module. Because it is not human-readable at first glance, it is often treated as opaque and therefore safer than JavaScript. In practice, just like traditional desktop binaries, Wasm modules can be located, fingerprinted, and analyzed.
 
-Reconnaissance is the first step in WebAssembly security testing. This phase focuses on locating Wasm modules within the web application, identifying the toolchain that produced them, checking for exposed debugging artifacts (source maps, DWARF, the `name` section), and mapping the infrastructure attack surface (URLs, API endpoints, hosts) that the modules reveal.
+Reconnaissance is the first step in WebAssembly security testing. This phase focuses on locating Wasm modules within the web application, identifying the toolchain that produced them, checking for exposed debugging artifacts such as source maps, DWARF (Debugging With Attributed Record Formats), and the `name` section, and mapping the infrastructure attack surface (URLs, API endpoints, hosts) that the modules reveal.
 
 This phase only **collects information** about the target. It deliberately stops before decompiling the code, reading its logic, or running the module under a debugger. Successfully gathering this intelligence provides the foundational map required for the subsequent testing phases.
 
@@ -83,7 +83,7 @@ A downloaded file can be checked with `file module.bin` or `od -An -tx1 -N8 modu
 
 If a file that the application loads as a module does not start with these bytes and is not compressed, the application may encode or encrypt it and decode it in JavaScript before loading it. In that case, read the decoding routine in the glue code and apply it to the downloaded file to obtain the real binary.
 
-Once the header is confirmed, check that the module is valid:
+Once the header is confirmed, check that the module is valid using `wasm-validate` from the WebAssembly Binary Toolkit (WABT):
 
 ```sh
 wasm-validate module.wasm
@@ -134,7 +134,7 @@ Automated identification is heuristic rather than definitive. Optimized, strippe
 
 When automated detection is unavailable or produces an uncertain result, inspect multiple indicators rather than relying on a single signature.
 
-The `producers` custom section is often a useful direct indicator because toolchains may record the languages and tools used to build the module, such as `clang`, `rustc`, or `wasm-bindgen`:
+The `producers` custom section is often a useful direct indicator because toolchains may record the languages and tools used to build the module, such as `clang`, `rustc`, or `wasm-bindgen`. You can inspect this using WABT's `wasm-objdump`:
 
 ```sh
 wasm-objdump -s -j producers module.wasm
