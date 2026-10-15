@@ -152,7 +152,7 @@ For each framework in scope:
     - [Logging Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html), OWASP
     - [SP 800-92](https://csrc.nist.gov/publications/detail/sp/800-92/final) Guide to Computer Security Log Management, NIST
     - [PCI DSS](https://www.pcisecuritystandards.org/document_library) Requirement 10, PCI Security Standards Council
-    - [CERT Security Improvement Modules: Securing Public Web Servers](https://resources.sei.cmu.edu/asset_files/SecurityImprovementModule/2000_006_001_13637.pdf)
+    - [CERT Security Improvement Modules: Securing Public Web Servers](https://www.sei.cmu.edu/library/securing-public-web-servers/)
 - Containers and Serverless
     - [CIS Docker Benchmark](https://www.cisecurity.org/benchmark/docker)
     - [OWASP Serverless Top 10](https://owasp.org/www-project-serverless-top-10/)
