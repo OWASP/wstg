@@ -29,118 +29,88 @@ This test case provides an operational methodology for:
 
 ## How to Test
 
-### 1. Manual Interception: DevTools Fetch Breakpoints
+### Manual Interception via DevTools Fetch Breakpoints
 
-For rapid, zero-scripting analysis during reconnaissance, testers can freeze execution prior to module instantiation using native browser breakpoints:
+For rapid, zero-extension analysis, testers can freeze execution prior to module instantiation using native browser breakpoints:
 
 1. Open DevTools (`F12`) and select the **Sources** tab.
 2. In the right-hand panel, expand **XHR/fetch Breakpoints** and click **+**.
-3. Add the target filename or extension (e.g., `.wasm` or a known API endpoint path).
+3. Enter `.wasm` (so the breakpoint triggers when the request URL contains `.wasm`).
 4. Refresh the page.
-5. The execution pauses when the network request is initiated. Testers can then use **Step Over** (`F10`) or **Step Out** (`Shift+F11`) to trace the promise resolution up to the `WebAssembly.instantiate` or `WebAssembly.instantiateStreaming` call, inspecting the `importObject` directly in the **Scope** pane.
+5. Execution pauses as soon as the network request for the `.wasm` binary is initiated. At this stage, testers have two options:
+   - **Manual Scope Inspection:** Use **Step Over** (`F10`) or **Step Out** (`Shift+F11`) to trace the promise resolution up to the `WebAssembly.instantiate` call and inspect the `importObject` in the **Scope** pane.
+   - **Console Hook Injection:** Paste the boundary proxy script (detailed in the next section) directly into the **Console** and press **Resume script execution** (`F8`) to hook the module dynamically without external tools.
 
-### 2. Automated Boundary Interception: Safe ES6 Boundary Proxies
+### Automated Boundary Interception via ES6 Proxies
 
 WebAssembly exports are non-configurable and non-writable data properties on the module instance. Directly wrapping `instance.exports` in a standard proxy target causes modern JavaScript engines (such as V8) to throw a `TypeError` regarding proxy invariants.
 
-To capture both imports and exports transparently without breaking host runtime initialization (e.g., Emscripten stack setup), wrap targets using a synthetic empty-object proxy.
+To capture both imports and exports transparently without breaking host runtime initialization (e.g., Emscripten stack setup), wrap targets by cloning descriptors into a plain mutable object proxy.
 
-Inject the following script prior to module execution (via an intercepting proxy rule in Burp Suite or ZAP, or via a pre-execution browser extension):
+While execution is paused at the `.wasm` fetch breakpoint, paste the following script into the **Console** and press `F8` to resume execution (alternatively, inject it prior to page load via an intercepting proxy):
 
 ```javascript
 (() => {
-  // Safe proxy handler avoiding ECMAScript non-configurable property invariants
+  // Clone descriptors into a plain object to satisfy ECMAScript proxy invariants
   const createSafeProxy = (realObj, boundaryName) => {
-    return new Proxy({}, {
+    const mutableTarget = Object.assign({}, realObj);
+    return new Proxy(mutableTarget, {
       get(target, prop) {
-        const orig = realObj[prop];
-        if (typeof orig === "function") {
-          return function (...args) {
-            console.group(`[Wasm Boundary] ${boundaryName} -> ${String(prop)}()`);
-            console.log("Arguments:", args);
-            try {
-              const res = orig.apply(this, args);
-              console.log("Returned:", res);
-              return res;
-            } catch (err) {
-              console.error("Execution Error:", err);
-              throw err;
-            } finally {
-              console.groupEnd();
-            }
-          };
-        }
-        return orig;
-      },
-      has(target, prop) {
-        return prop in realObj;
-      },
-      ownKeys(target) {
-        return Reflect.ownKeys(realObj);
-      },
-      getOwnPropertyDescriptor(target, prop) {
-        return {
-          configurable: true,
-          enumerable: true,
-          writable: true,
-          value: realObj[prop]
+        const val = realObj[prop];
+        if (typeof val !== "function") return val;
+        return function (...args) {
+          console.group(`[Wasm Boundary] ${boundaryName} -> ${String(prop)}()`);
+          console.log("Arguments:", args);
+          try {
+            const res = val.apply(this, args);
+            console.log("Returned:", res);
+            return res;
+          } catch (err) {
+            console.error("Execution Error:", err);
+            throw err;
+          } finally {
+            console.groupEnd();
+          }
         };
       }
     });
   };
 
-  const hookImports = (importObject) => {
-    const proxied = {};
-    for (const [modName, modExports] of Object.entries(importObject)) {
-      proxied[modName] = createSafeProxy(modExports, `Import [${modName}]`);
-    }
-    return proxied;
-  };
+  const hookImports = (importObject = {}) =>
+    Object.fromEntries(
+      Object.entries(importObject).map(([k, v]) => [
+        k,
+        typeof v === "object" && v !== null ? createSafeProxy(v, `Import [${k}]`) : v
+      ])
+    );
 
   const hookInstance = (instance, importObject) => {
-    // Expose references globally for console interaction
     window._wasmInstance = instance;
-    window._wasmMemory = instance.exports.memory || (importObject.env && importObject.env.memory);
-
+    window._wasmMemory = instance.exports.memory || importObject?.env?.memory;
     const safeExports = createSafeProxy(instance.exports, "Export");
+    console.log("[+] Live Wasm module hooked (Imports & Exports captured).");
     return new Proxy(instance, {
-      get(target, prop) {
-        if (prop === "exports") return safeExports;
-        return Reflect.get(target, prop);
-      }
+      get: (t, p) => (p === "exports" ? safeExports : Reflect.get(t, p, t))
     });
   };
 
-  // Hook WebAssembly.instantiateStreaming
   const origStreaming = WebAssembly.instantiateStreaming;
-  WebAssembly.instantiateStreaming = async function (source, importObject = {}) {
-    const proxiedImports = hookImports(importObject);
-    const result = await origStreaming.call(this, source, proxiedImports);
-    const proxiedInstance = hookInstance(result.instance, importObject);
-
-    console.log("[+] Live Wasm module hooked (Imports & Exports captured).");
-    return { module: result.module, instance: proxiedInstance };
+  WebAssembly.instantiateStreaming = async (source, imports = {}) => {
+    const res = await origStreaming(source, hookImports(imports));
+    return { module: res.module, instance: hookInstance(res.instance, imports) };
   };
 
-  // Hook WebAssembly.instantiate (buffer fallback)
   const origInstantiate = WebAssembly.instantiate;
-  WebAssembly.instantiate = async function (bytes, importObject = {}) {
-    const proxiedImports = hookImports(importObject);
-    const result = await origInstantiate.call(this, bytes, proxiedImports);
-
-    const rawInstance = result.instance || result;
-    const proxiedInstance = hookInstance(rawInstance, importObject);
-
-    console.log("[+] Live Wasm module hooked (Imports & Exports captured).");
-    if (result.instance) {
-      return { module: result.module, instance: proxiedInstance };
-    }
-    return proxiedInstance;
+  WebAssembly.instantiate = async (bytesOrModule, imports = {}) => {
+    const res = await origInstantiate(bytesOrModule, hookImports(imports));
+    return res.instance
+      ? { module: res.module, instance: hookInstance(res.instance, imports) }
+      : hookInstance(res, imports);
   };
 })();
 ```
 
-### 3. Resolving Pointers and Reading Memory
+### Resolving Pointers and Reading Memory
 
 When interacting with web forms or APIs, WebAssembly functions accept pointers rather than raw strings. For example, passing the string `"hello"` to an Emscripten-compiled export produces console output similar to:
 
@@ -178,7 +148,7 @@ console.log("Extracted String:", readWasmString(65520));
 // Output: "hello"
 ```
 
-### 4. Live Memory Inspection via DevTools Memory Inspector
+### Live Memory Inspection via DevTools Memory Inspector
 
 Linear memory is exposed as an `ArrayBuffer`. When cryptographic routines, session tokens, or API credentials are decrypted or constructed during runtime, they are held in this buffer.
 
@@ -216,7 +186,7 @@ function searchLiveMemory(pattern) {
 console.table(searchLiveMemory("(Bearer\\s[A-Za-z0-9\\-_\\.]+|AKIA[0-9A-Z]{16}|eyJ[A-Za-z0-9-_\\.]+)"));
 ```
 
-### 5. Interactive Invocation and Argument Crafting
+### Interactive Invocation and Argument Crafting
 
 Testers can validate server-side enforcement by invoking exported functions directly from the Developer Console, bypassing client-side UI limitations.
 
@@ -248,7 +218,7 @@ const isAuthorized = window._wasmInstance.exports.verify_token(tokenPayload.ptr,
 console.log("Validation output:", isAuthorized);
 ```
 
-### 6. Bytecode Execution Debugging
+### Bytecode Execution Debugging
 
 If debug symbols (DWARF) are stripped, modern browsers automatically disassemble the binary into the WebAssembly Text Format (WAT) for debugging:
 
@@ -264,7 +234,7 @@ If debug symbols (DWARF) are stripped, modern browsers automatically disassemble
 
 ## Analysis Notes and Limitations
 
-- **Proxy Invariant Rules:** Directly proxying `instance.exports` violates ECMAScript proxy invariants for non-configurable properties. Always use an empty target object (`new Proxy({}, ...)`) when building wrappers around WebAssembly exports.
+- **Proxy Invariant Rules:** Directly proxying `instance.exports` violates ECMAScript proxy invariants for non-configurable properties. Always clone descriptors into a mutable target object (`Object.assign({}, realObj)`) when building wrappers around WebAssembly exports.
 - **Memory Detachment:** Calling `memory.grow` reallocates linear memory, detaching existing `ArrayBuffer` instances. Cached typed arrays (`Uint8Array`) will become zero-length, requiring scripts to re-acquire `window._wasmMemory.buffer`.
 - **String Encodings and Representations:** Strings in WebAssembly are not universally null-terminated. While C/C++ modules (e.g., compiled via Emscripten) typically rely on null-terminated C-strings, modules compiled with Go represent strings as pointer-plus-length slices without a trailing null byte. Attempting to read until a null terminator in Go binaries can cause buffer over-reads or corrupted data; always verify the module's target ABI and calling conventions before dereferencing linear memory.
 - **Out-of-Bounds Traps:** Passing arbitrary integer values to functions expecting valid memory pointers will trigger a WebAssembly execution trap (`RuntimeError: memory access out of bounds`), immediately halting execution.
