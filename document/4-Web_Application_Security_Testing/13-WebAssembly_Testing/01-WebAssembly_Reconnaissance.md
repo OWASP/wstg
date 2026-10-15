@@ -16,7 +16,7 @@ This chapter focuses on **browser-delivered** Wasm modules. Reconnaissance of Wa
 
 ## Test Objectives
 
-- Find all WebAssembly modules loaded by the target application, including those not named `.wasm`, compressed, lazy-loaded, loaded through `fetch` and manual instantiation, or embedded in JavaScript.
+- Find all WebAssembly modules loaded by the target application, including those not named `.wasm`, compressed, lazy-loaded, loaded through `fetch`, and manual instantiation, or embedded in JavaScript.
 - Identify the compiler toolchain and source language (e.g., C/C++, Rust, Go, .NET) from section metadata, imports, exports, and glue code.
 - Detect exposed debugging artifacts: source maps, DWARF information, and the `name` custom section.
 - Map the infrastructure attack surface by extracting embedded URLs, API endpoints, and internal hostnames or IP addresses.
@@ -29,7 +29,7 @@ WebAssembly binaries are loaded by JavaScript, usually asynchronously. The most 
 
 #### Browser Developer Tools
 
-1. Open the Developer Tools and go to the **Network** tab.
+1. Open Developer Tools and go to the **Network** tab.
 2. Reload the target application and interact with it so that lazily loaded features are triggered.
 3. In Chrome and Edge, select the **Wasm** filter to display only WebAssembly requests. Firefox has no dedicated Wasm filter, so search the request list for `.wasm` and check the content type column for `application/wasm`.
 4. Check Web Workers and Service Workers as well. They are common places where Wasm is loaded, and their traffic may appear under separate targets in the DevTools.
