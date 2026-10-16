@@ -15,10 +15,10 @@ This appendix documents established penetration testing methodologies and framew
 
 The OWASP project maintains testing guides for different application types:
 
-- [OWASP Web Security Testing Guide](https://owasp.org/www-project-web-security-testing-guide/) - web applications and web services
+- [OWASP Web Security Testing Guide](https://wstg.owasp.org/) - web applications and web services
 - [OWASP Mobile Security Testing Guide](https://mas.owasp.org/) - iOS and Android applications
 - [OWASP Firmware Security Testing Methodology](https://github.com/scriptingxss/owasp-fstm) - embedded systems and firmware
-- [OWASP AI Testing Guide](https://owasp.org/www-project-ai-testing-guide/) - AI and Large Language Model (LLM) applications
+- [OWASP AI Testing Guide](https://owasp.org/projects/ai-testing-guide) - AI and Large Language Model (LLM) applications
 
 ## PCI Penetration Testing Guide
 
