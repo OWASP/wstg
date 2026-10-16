@@ -334,6 +334,8 @@
 
 #### 4.13.1 [WebAssembly Reconnaissance](4-Web_Application_Security_Testing/13-WebAssembly_Testing/01-WebAssembly_Reconnaissance.md)
 
+#### 4.13.2 [WebAssembly Static Analysis](4-Web_Application_Security_Testing/13-WebAssembly_Testing/02-WebAssembly_Static_Analysis.md)
+
 ## 5. [Reporting](5-Reporting/README.md)
 
 ### 5.1 [Reporting Structure](5-Reporting/01-Reporting_Structure.md)
