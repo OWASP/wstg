@@ -10,4 +10,6 @@
 
 4.12.4 [API Broken Function Level Authorization](04-API_Broken_Function_Level_Authorization.md)
 
+4.12.6 [Testing API Rate Limiting and Resource Consumption](06-API_Rate_Limiting_and_Resource_Consumption.md)
+
 4.12.99 [GraphQL](99-GraphQL.md)
