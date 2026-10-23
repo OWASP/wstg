@@ -1,0 +1,174 @@
+---
+layout: document
+title: WSTG - Latest
+collection_name: latest
+channel_label: Latest
+channel_path: latest
+render_with_liquid: false
+---
+
+# 2. Introduction
+
+## Purpose and Scope
+
+The OWASP Web Security Testing Guide (WSTG) is a comprehensive, open-source, community-maintained framework and set of practical techniques for testing the security of web applications and web services. It is not a rigid checklist or a compliance standard, but rather a methodology and technique reference designed to adapt to your organization's threat model, risk tolerance, and development practices.
+
+> "Security should not be a black art or closed secret that only a few can practice." - Eoin Keary
+
+The guide covers:
+
+- Traditional web applications and modern cloud-native services.
+- Infrastructure configuration, cloud deployments, and containerization.
+- Identity, authentication, authorization, and session management controls.
+- Input validation, encoding, and output handling.
+- Error handling and exception management.
+- Cryptographic implementations.
+- Business logic and workflow security.
+- Client-side technologies and user interface security.
+- API security and integration points.
+
+The guide does not replace: formal risk frameworks such as [NIST Risk Management Framework](https://csrc.nist.gov/projects/risk-management/), comprehensive threat-modeling methodologies, detailed remediation guidance (see the [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/) for that), comprehensive source code security review (which requires white-box access and architectural knowledge beyond testing), organization-specific security policies, or specialized AI/LLM application testing (see [OWASP AI Testing Guide](https://owasp.org/www-project-ai-testing-guide/) and [OWASP Top 10 for LLM Applications](https://genai.owasp.org/initiatives/top-10-for-llm-and-genai/)).
+
+## Why Web Application Security Testing Matters
+
+Web application security testing has become critical to managing risk in today's threat landscape. Several forces drive this urgency:
+
+### Economic Impact
+
+The [IBM Cost of a Data Breach Report 2026](https://www.ibm.com/reports/data-breach) found that the global average cost of a data breach has reached $4.99 million (USD), with U.S. breaches averaging $11.5 million (USD). AI-driven attacks - now present in over a quarter of reported breaches - add an average of $1 million (USD) per breach. Beyond direct costs, breaches cause operational disruption, regulatory fines, reputational damage, and loss of customer trust.
+
+### Expanding Attack Surface
+
+The traditional perimeter-based security model no longer applies. Modern applications now expose risk across:
+
+- Public APIs and microservices
+- Cloud-native infrastructure and serverless functions
+- Third-party integrations and open-source dependencies
+- Client-side code running in browsers and mobile apps
+- Supply chain risks, including compromised packages and tampered build processes
+
+A comprehensive testing program must address all of these surfaces.
+
+### Pace of Development vs. Pace of Threats
+
+Two opposing forces create urgency:
+
+1. AI-assisted development accelerates code production. Higher code velocity, if not matched by security discipline, increases the likelihood that classic vulnerabilities (injection flaws, broken authentication, business logic errors) are introduced faster than traditional testing can catch them.
+
+2. AI-augmented testing tools accelerate certain detection tasks. Dynamic and static application security testing (DAST/SAST) tools powered by machine learning can find common, known vulnerabilities more efficiently. However, these tools do not replace skilled human analysis for business logic flaws, authorization bypass, and context-specific risks that require understanding the application's intended behavior. Further, AI-assisted attacks enable adversaries to probe defenses faster and adapt to countermeasures in near real-time, which will certainly increase the pace of breaches.
+
+The solution is not to choose between human testing and tooling, but to layer both: automated scanning for low-hanging fruit, combined with targeted manual testing (perhaps even AI supplemented), and code review to find design and logic flaws.
+
+## Who Should Use This Guide
+
+The WSTG is designed for:
+
+- Penetration testers and security consultants who conduct application assessments.
+- In-house security and quality assurance teams that test software throughout development.
+- Developers and DevSecOps engineers who integrate security testing into CI/CD pipelines.
+- Security architects who design testing strategies and compliance programs.
+- Auditors and compliance officers who validate application security controls.
+- Product owners and engineering managers who scope, resource, and prioritize testing efforts.
+
+Secondary audiences include tool developers and organizations running public bug-bounty programs. The testing techniques and taxonomy in this guide are equally applicable to internal testing, third-party penetration tests, and coordinated-disclosure / bug-bounty engagements.The differences lie in authorization, rules of engagement, and how results are reported and remediated.
+
+## Core Principles of Effective Security Testing
+
+Effective security testing rests on these principles:
+
+### No Silver Bullet
+
+Automated tools (DAST, SAST, dependency scanning) are necessary and valuable, but they are insufficient on their own. Even the most sophisticated application security scanning tools cannot match the reasoning and creativity of an experienced security tester. Tools excel at finding known, signature-based vulnerabilities; they do not understand business logic or context. Security is a process of continuous improvement, not a product that can be "bought" once.
+
+### Continuous Security Testing
+
+The traditional approach-testing only after development is "complete" is wasteful and ineffective. The cost of fixing a security bug grows exponentially as it moves downstream: a flaw caught during design costs a fraction of one caught in production. Modern practices integrate security testing throughout the development lifecycle:
+
+- During design and architecture review (threat modeling).
+- During development (secure code review, unit-level security tests).
+- During integration and system testing (penetration testing, security acceptance tests).
+- In production (continuous monitoring, security regression testing).
+
+Continuous integration and continuous deployment (CI/CD) pipelines provide an opportunity to automate baseline security checks (SAST, ßdependency scanning) at every build, keeping security front-of-mind for the entire team.
+
+### Risk and Impact-Based Prioritization
+
+Prioritize testing effort based on risk, not on finding counts. A single critical authorization bypass affecting user data is more important than dozens of low-risk cross-site scripting (XSS) findings. Develop a risk model tailored to your application (e.g., confidentiality and integrity of customer data may dominate over availability), and focus testing on the controls and surfaces most critical to that risk.
+
+### Balanced Testing Approach
+
+No single testing technique is sufficient. A mature program combines:
+
+- Manual inspection and design review: to assess policies, architecture, and security process.
+- Threat modeling: to identify potential attack vectors early in the lifecycle.
+- Source code review: to find subtle flaws (business logic errors, cryptographic weaknesses, race conditions) that tools often miss or that are hard to detect from a black-box perspective.
+- Penetration testing: to validate that vulnerabilities can actually be exploited and understand their real-world impact.
+- Automated scanning (SAST, DAST, SCA): to identify common, known vulnerabilities at scale.
+
+The relative effort devoted to each technique should shift based on the SDLC phase: emphasis on manual review and threat modeling early, automation and testing later.
+
+### Clear, Actionable Reporting
+
+Test findings must be understandable and actionable for developers and business stakeholders. A report should:
+
+- Explain *what* was tested and *how* it was tested (so results can be reproduced).
+- Describe the *root cause* of each issue (so that they are hopefully less likely to reoccur in the future).
+- Provide *concrete remediation guidance* or reference to secure coding guidance (so developers know what to fix).
+- Assign a *severity or risk rating* to help prioritize remediation effort.
+- Clearly communicate the *business impact* so non-technical stakeholders understand why remediation matters.
+
+### Adaptability to Your Context
+
+There is no one-size-fits-all testing approach. The depth and breadth of testing must adapt to your application's architecture, data sensitivity, threat model, and risk tolerance. A small internal tool requires different testing rigor than a customer-facing financial application. A mature DevSecOps team can shift testing earlier into automated pipelines; a team new to security testing may start with lighter checklist-based approaches and mature from there. The WSTG provides the framework and the flexibility to help in a variety of application architectures.
+
+## How the Guide Is Organized
+
+This document is structured as follows:
+
+- This Introduction: Sets context, scope, and principles.
+- The OWASP Testing Framework: Explains how the testing framework integrates with development phases (define, design, develop, test, deploy, maintain); covers continuous integration practices, bug-bounty program design, and AI-augmented testing workflows.
+- Web Application Security Testing Categories: Provides concrete, how-to-test procedures for each major testing area (e.g., authentication, input validation, business logic).
+- Reporting: Guidance on test reporting formats, severity assessment, and communicating results to different audiences.
+- Appendices: Testing tools, suggested reading, versioning history.
+
+Readers new to security testing should start here and then progress to [Section 3](../3-The_OWASP_Testing_Framework/) for an understanding of when and how testing fits into modern development practices. Practitioners looking for specific test procedures should jump directly to [Section 4](../4-Web_Application_Security_Testing/).
+
+## How to Reference WSTG Scenarios
+
+Each scenario has an identifier in the format `WSTG-<category>-<number>`, where: 'category' is a 4 character upper case string that identifies the type of test or weakness, and 'number' is a zero-padded numeric value from 01 to 99. For example:`WSTG-INFO-02` is the second Information Gathering test.
+
+The identifiers may change between versions therefore it is preferable that other documents, reports, or tools use the format: `WSTG-<version>-<category>-<number>`, where: 'version' is the version tag with punctuation removed. For example: `WSTG-v42-INFO-02` would be understood to mean specifically the second Information Gathering test from version 4.2.
+
+If identifiers are used without including the `<version>` element then they should be assumed to refer to the latest Web Security Testing Guide content. Obviously as the guide grows and changes this becomes problematic, which is why writers or developers should include the version element.
+
+### Linking
+
+Linking to Web Security Testing Guide scenarios should be done using versioned links not `stable` or `latest` which will definitely change with time. However, it is the project team's intention that versioned links not change. For example: `https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/01-Information_Gathering/02-Fingerprint_Web_Server`. Note: the `v42` element refers to version 4.2.
+
+## Feedback and Comments
+
+As with all OWASP projects, we welcome feedback and contributions. If you discover an error, a gap in coverage, an outdated reference, or a technique that should be added or revised, please open an issue or submit a pull request on the [WSTG GitHub repository](https://github.com/OWASP/wstg). This guide is living documentation maintained by the community, and your input helps keep it accurate and relevant. We especially value real-world reports of tests that work and tests that don't, so that the guide remains practical for practitioners.
+
+## Related OWASP Projects
+
+The Web Security Testing Guide is one part of a wider set of OWASP projects that support building and testing secure applications:
+
+- [OWASP Application Security Verification Standard (ASVS)](https://owasp.org/www-project-application-security-verification-standard/): A catalog of functional security requirements that provides the "what to test" baseline. ASVS v5.0 (released May 2025) includes modern cloud-native architectures and clearer control definitions.
+- [OWASP Top 10 (2025)](https://owasp.org/Top10/2025/) and [OWASP API Security Top 10 (2023)](https://owasp.org/www-project-api-security/): Consensus rankings of the most critical security risks for web applications and APIs. These help prioritize testing focus.
+- [OWASP Top 10 for Large Language Model Applications](https://genai.owasp.org/initiatives/top-10-for-llm-and-genai/) and [OWASP AI Testing Guide](https://owasp.org/www-project-ai-testing-guide/): Specialized guidance for testing AI and LLM-powered applications, including prompt injection, hallucination, and model poisoning risks.
+- [OWASP AI Exchange](https://owaspai.org/): A community-driven knowledge base and framework for understanding and managing AI security risks, including AI governance, risk assessments, and AI-specific threat models.
+- [OWASP Mobile Application Security (MASVS/MASTG)](https://owasp.org/www-project-mobile-app-security/): Security verification standard and testing guide for iOS and Android applications.
+- [OWASP Open Common Requirements Enumeration (OpenCRE)](https://www.opencre.org/): A reference mapping framework that links security requirements, testing methods, and controls across multiple standards and frameworks (ASVS, NIST, ISO, CWE, etc.), helping contextualize WSTG guidance within the broader security landscape.
+- [OWASP Software Assurance Maturity Model (SAMM)](https://owaspsamm.org/model/): Framework for assessing and improving an organization's application security practices across the full SDLC.
+- [OWASP Threat Dragon](https://owasp.org/www-project-threat-dragon/) and [Pythonic Threat Modeling (pytm)](https://owasp.org/www-project-pytm/): Tools and methodologies for building and documenting threat models.
+- [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/): Concise, authoritative guidance on specific security topics (e.g., authentication, cryptography, API security) with code examples and best practices.
+
+## References
+
+- [IBM Cost of a Data Breach Report 2026](https://www.ibm.com/reports/data-breach)
+- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
+- [NIST Risk Management Framework (RMF)](https://csrc.nist.gov/projects/risk-management/)
+- [Common Vulnerability Scoring System (CVSS) v3.1](https://www.first.org/cvss/)
+- [OWASP Testing Guide Checklists](https://github.com/OWASP/wstg/tree/master/checklists)
+
+For a comprehensive list of suggested reading, tools, and historical context, see Appendices A, B, and E.
