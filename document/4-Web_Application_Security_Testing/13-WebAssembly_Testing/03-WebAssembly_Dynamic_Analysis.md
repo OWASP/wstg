@@ -38,8 +38,8 @@ For rapid, zero-extension analysis, testers can freeze execution prior to module
 3. Enter `.wasm` (so the breakpoint triggers when the request URL contains `.wasm`).
 4. Refresh the page.
 5. Execution pauses as soon as the network request for the `.wasm` binary is initiated. At this stage, testers have two options:
-   - **Manual Scope Inspection:** Use **Step Over** (`F10`) or **Step Out** (`Shift+F11`) to trace the promise resolution up to the `WebAssembly.instantiate` call and inspect the `importObject` in the **Scope** pane.
-   - **Console Hook Injection:** Paste the boundary proxy script (detailed in the next section) directly into the **Console** and press **Resume script execution** (`F8`) to hook the module dynamically without external tools.
+   - Manual scope inspection: Use **Step Over** (`F10`) or **Step Out** (`Shift+F11`) to trace the promise resolution up to the `WebAssembly.instantiate` call and inspect the `importObject` in the **Scope** pane.
+   - Console hook injection: Paste the boundary proxy script (detailed in the next section) directly into the **Console** and press **Resume script execution** (`F8`) to hook the module dynamically without external tools.
 
 ### Automated Boundary Interception via ES6 Proxies
 
@@ -50,8 +50,14 @@ To capture both imports and exports transparently without breaking host runtime 
 While execution is paused at the `.wasm` fetch breakpoint, paste the following script into the **Console** and press `F8` to resume execution (alternatively, inject it prior to page load via an intercepting proxy):
 
 ```javascript
+/**
+ * WebAssembly Boundary Hook (ES6 Proxy)
+ * This script intercepts WebAssembly instantiation to capture references
+ * to the active module instance and linear memory. It clones the non-configurable
+ * export descriptors into a mutable object to safely bypass JS proxy invariants,
+ * logging all arguments and return values crossing the JS/Wasm boundary.
+ */
 (() => {
-  // Clone descriptors into a plain object to satisfy ECMAScript proxy invariants
   const createSafeProxy = (realObj, boundaryName) => {
     const mutableTarget = Object.assign({}, realObj);
     return new Proxy(mutableTarget, {
@@ -152,9 +158,9 @@ console.log("Extracted String:", readWasmString(65520));
 
 Linear memory is exposed as an `ArrayBuffer`. When cryptographic routines, session tokens, or API credentials are decrypted or constructed during runtime, they are held in this buffer.
 
-Modern Chromium-based browsers feature a built-in **Memory Inspector**:
+Modern Chromium-based browsers feature a built-in Memory Inspector:
 
-1. Open DevTools -> **Console**.
+1. Open DevTools and select the **Console** tab.
 2. Type `window._wasmMemory.buffer` and press Enter.
 3. Click the small memory icon next to the returned `ArrayBuffer` (or right-click and select **Inspect in Memory Inspector**).
 4. The Memory Inspector panel provides an interactive hex/ASCII viewer:
@@ -227,17 +233,22 @@ If debug symbols (DWARF) are stripped, modern browsers automatically disassemble
 3. Review the disassembled instruction listing (`call`, `i32.load`, `local.get`, `br_if`).
 4. Click on a line number to set a breakpoint at critical branching or validation points.
 5. Trigger the application flow:
-   - When execution halts, inspect the **Scope** window to observe the values of stack registers and local variables.
+   - When execution halts, inspect the **Scope** window to observe the values of stack registers, local variables, and memory.
    - Use **Step Over** (`F10`) and **Step Into** (`F11`) to trace conditional execution branches.
 
 *Note on DWARF Metadata:* If the target module retains DWARF symbols, install the **C/C++ WebAssembly Debugging** browser extension to debug against the original C/C++ or Rust source files rather than disassembled WAT.
 
-## Analysis Notes and Limitations
+### Analysis Notes and Limitations
 
 - **Proxy Invariant Rules:** Directly proxying `instance.exports` violates ECMAScript proxy invariants for non-configurable properties. Always clone descriptors into a mutable target object (`Object.assign({}, realObj)`) when building wrappers around WebAssembly exports.
 - **Memory Detachment:** Calling `memory.grow` reallocates linear memory, detaching existing `ArrayBuffer` instances. Cached typed arrays (`Uint8Array`) will become zero-length, requiring scripts to re-acquire `window._wasmMemory.buffer`.
 - **String Encodings and Representations:** Strings in WebAssembly are not universally null-terminated. While C/C++ modules (e.g., compiled via Emscripten) typically rely on null-terminated C-strings, modules compiled with Go represent strings as pointer-plus-length slices without a trailing null byte. Attempting to read until a null terminator in Go binaries can cause buffer over-reads or corrupted data; always verify the module's target ABI and calling conventions before dereferencing linear memory.
 - **Out-of-Bounds Traps:** Passing arbitrary integer values to functions expecting valid memory pointers will trigger a WebAssembly execution trap (`RuntimeError: memory access out of bounds`), immediately halting execution.
+
+## Remediation
+
+- Treat all data crossing the WebAssembly boundary as untrusted. Enforce strict input validation, authorization, and business logic checks on the server-side rather than relying on WebAssembly client-side execution.
+- Avoid storing sensitive data, such as unencrypted credentials or persistent session tokens, in WebAssembly linear memory longer than necessary. Explicitly zero out memory regions after processing cryptographic material or secrets.
 
 ## Tools
 
@@ -245,6 +256,9 @@ If debug symbols (DWARF) are stripped, modern browsers automatically disassemble
 - **C/C++ WebAssembly Debugging (Browser Extension)** - Official browser extension enabling DWARF-based source-level debugging inside DevTools.
 - **Playwright / Puppeteer** - Automation frameworks providing direct access to the Chrome DevTools Protocol (`Debugger` and `Runtime` domains) for scriptable testing.
 - **Burp Suite / ZAP** - Intercepting HTTP proxies used to inject boundary-logging scripts into HTML responses prior to module execution.
+- [Wasabi](https://github.com/danleh/wasabi) - A dynamic analysis framework for WebAssembly, providing a high-level API for binary instrumentation.
+- [wasminspect](https://github.com/kateinoigakukun/wasminspect) - An interactive debugger for WebAssembly modules.
+- [SeeWasm](https://github.com/PKU-ASAL/SeeWasm) - An automated symbolic execution engine for WebAssembly.
 
 ## References
 
