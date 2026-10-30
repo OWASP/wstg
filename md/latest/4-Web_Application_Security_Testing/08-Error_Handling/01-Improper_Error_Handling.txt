@@ -1,0 +1,139 @@
+---
+layout: document
+title: WSTG - Latest
+collection_name: latest
+channel_label: Latest
+channel_path: latest
+render_with_liquid: false
+---
+
+# Improper Error Handling
+
+|ID          |
+|------------|
+|WSTG-ERRH-01|
+
+## Summary
+
+All types of applications (web apps, web servers, databases, APIs, etc.) will generate errors for various reasons. Developers often ignore handling these errors, or dismiss the idea that a user will ever try to trigger an error purposefully (*e.g.* sending a string where an integer is expected). When the developer only considers the happy path, they forget all other possible user input the code can receive but can't handle.
+
+Errors sometimes arise as:
+
+- Stack traces
+- Network timeouts
+- Input mismatch
+- Memory dumps
+- Debug pages or consoles left enabled in production
+- Verbose API, GraphQL, or cloud service error responses
+
+Improper error handling can allow attackers to:
+
+- Understand the APIs being used internally.
+- Map the various services integrating with each other by gaining insight on internal systems and frameworks used, which opens up doors to attack chaining.
+- Gather the versions and types of applications being used.
+- Identify filesystem paths, internal hostnames, and secrets (*e.g.* connection strings, API keys, or prompts) embedded in error output.
+- Cause a denial of service by forcing the system into a deadlock or an unhandled exception that crashes the process running it.
+- Bypass controls where a certain exception is not restricted by the logic set around the happy path, or where a failed check fails open (*e.g.* an authorization check that allows access when it throws an exception, see [CWE-636](https://cwe.mitre.org/data/definitions/636.html)).
+
+## Test Objectives
+
+- Identify existing error output.
+- Analyze the different output returned.
+- Determine whether errors expose sensitive information or cause the application to fail open.
+
+## How to Test
+
+Errors are usually seen as benign as they provide diagnostics data and messages that could help the user understand the problem at hand, or for the developer to debug that error.
+
+By trying to send unexpected data, or forcing the system into certain edge cases and scenarios, the system or application will, most of the time, give out a bit on what's happening internally, unless the developers turned off all possible errors and return a certain custom message.
+
+### Web Servers
+
+All web apps run on a web server, whether it was an integrated one or a fully fledged one. Web apps must handle and parse HTTP requests, and for that a web server is always part of the stack. Some of the most common web servers and proxies are Nginx, Apache, IIS, Caddy, and Envoy. In front of these there is often a CDN, WAF, load balancer, or API gateway (*e.g.* Cloudflare, CloudFront, Azure Front Door) that has its own error pages.
+
+Web servers have known error messages and formats. If one is not familiar with how they look, searching online for them would provide examples. Another way would be to look into their documentation, or simply setup a server locally and discover the errors by going through the pages that the web server uses.
+
+In order to trigger error messages, a tester must:
+
+- Search for random files and folders that will not be found (404s).
+- Try to request folders that exist and see the server behavior (403s, blank page, or directory listing).
+- Try sending a request that breaks the HTTP specifications ([RFC 9110](https://www.rfc-editor.org/rfc/rfc9110) for semantics, [RFC 9112](https://www.rfc-editor.org/rfc/rfc9112) for HTTP/1.1 message syntax). Examples include a very large path (414), oversized headers or cookies (431), an oversized body (413), a broken header format, an invalid method, or a changed HTTP version.
+    - Even if errors are handled on the application level, breaking the HTTP specification may make the integrated web server show itself since it has to handle the request, and developers forget to override these errors.
+    - Compare the error pages returned by each layer (CDN, WAF, proxy, application server) to identify the components in the stack and, in some cases, the origin server behind them.
+    - Malformed requests over HTTP/2 and HTTP/3 (*e.g.* invalid pseudo-headers) and request smuggling or desync probes can also cause a front-end or back-end component to return its own error page.
+
+### Applications
+
+Applications are the most susceptible to let out a wide variety of error messages, which include: stack traces, memory dumps, mishandled exceptions, and generic errors. This happens due to the fact that applications are custom built most of the time and the developers need to observe and handle all possible error cases (or have a global error catching mechanism), and these errors can appear from integrations with other services.
+
+In order to make an application throw these errors, a tester must:
+
+1. Identify possible input points where the application is expecting data.
+2. Analyze the expected input type (strings, integers, JSON, XML, etc.).
+3. Fuzz every input point based on the previous steps to have a more focused test scenario.
+   - Fuzzing every input with all possible injections is not the best solution unless you have unlimited testing time and the application can handle that much input.
+   - If fuzzing isn't an option, handpick viable inputs that have the highest chance to break a certain parser (*e.g.* a closing bracket for a JSON body, a large text where only a couple of characters are expected, CRLF injection with parameters that might be parsed by servers and input validation controls, special characters that aren't applicable for filenames, etc.).
+   - Fuzzing with malformed or junk data should be run for every type as sometimes the interpreters will break outside of the developer's exception handling.
+4. Understand the service responding with the error message and try to make a more refined fuzz list to bring out more information or error details from that service (it could be a database, a standalone service, etc.).
+
+Error messages are sometimes the main weakness in mapping out systems, especially under a microservice architecture. If services are not properly set to handle errors in a generic and uniform manner, error messages would let a tester identify which service handles which requests, and allows for a more focused attack per service.
+
+> The tester needs to keep a vigilant eye for the response type. Sometimes errors are returned as success with an error body, hide the error in a 302, or simply by having a custom way of representing that error.
+
+### Debug Modes and Framework Error Pages
+
+Frameworks and runtimes often ship with detailed error pages, interactive debuggers, or diagnostic endpoints that are meant for development only. Check whether any are reachable in production, for example:
+
+- Django with `DEBUG = True`.
+- Flask/Werkzeug interactive debugger.
+- Laravel (Ignition) and Symfony debug pages and profilers.
+- Spring Boot Actuator endpoints and default error pages that include `trace` or `message` fields.
+- Ruby on Rails development error pages.
+- ASP.NET developer exception pages.
+- Node.js frameworks (*e.g.* Express, Next.js) running in development mode, which return stack traces by default.
+
+See also [Enumerate Infrastructure and Application Admin Interfaces](../../02-Configuration_and_Deployment_Management/05-Enumerate_Infrastructure_and_Application_Admin_Interfaces/) and [Review Web Page Content for Information Leakage](../../01-Information_Gathering/05-Review_Web_Page_Content_for_Information_Leakage/).
+
+### APIs
+
+APIs often return structured errors that expose more than intended:
+
+- Send malformed JSON, XML, or the wrong `Content-Type`, wrong types, missing required fields, and out of range values, and review the structured error body. Many APIs use [RFC 9457](https://www.rfc-editor.org/rfc/rfc9457) `application/problem+json`, where `detail` or extension members may leak internals.
+- For GraphQL, review the `errors` array, in particular `extensions` (which may contain stack traces) and field suggestions ("Did you mean ...?") that reveal schema details even when introspection is disabled.
+- Compare error responses for valid and invalid resources or users to find differences that allow enumeration (see [Account Enumeration and Guessable User Account](../../03-Identity_Management/04-Account_Enumeration_and_Guessable_User_Account/)).
+
+### Cloud Services and AI-Enabled Applications
+
+- Requests that hit cloud storage, serverless functions, or API gateways directly can return provider specific XML or JSON errors that reveal bucket names, regions, account identifiers, or function names.
+- Applications that call LLM or other AI services may return raw provider errors, tool-call failures, or prompt template details when the upstream call fails or the input is malformed. Look for leaked system prompts, API keys, model or provider names, and internal endpoints.
+
+### Fail-Open Behavior
+
+When an error is triggered, observe whether security controls still apply. Check whether an authentication, authorization, rate limiting, or validation step is skipped when an exception occurs (*e.g.* a malformed token, an unavailable backing service, or a timeout), and the request is then processed as if the check had passed.
+
+### Tools
+
+- [ZAP](https://www.zaproxy.org) passive and active scan rules such as [Application Error Disclosure](https://www.zaproxy.org/docs/alerts/90022/), plus its [Fuzzer](https://www.zaproxy.org/docs/desktop/addons/fuzzer/).
+- Burp Suite Repeater and Intruder.
+- [ffuf](https://github.com/ffuf/ffuf) for fuzzing paths, parameters, and headers.
+- [Nuclei](https://github.com/projectdiscovery/nuclei-templates) templates for exposed debug pages and verbose errors.
+
+## Remediation
+
+For remediation, check out the [OWASP Top 10 Proactive Controls C3: Validate Input and Handle Exceptions](https://top10proactive.owasp.org/archive/2024/the-top-10/c3-validate-input-and-handle-exceptions/) and the [Error Handling Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html).
+
+## Playgrounds
+
+- [Juice Shop - Error Handling](https://pwning.owasp-juice.shop/companion-guide/latest/part2/security-misconfiguration.html#provoke-an-error-that-is-neither-very-gracefully-nor-consistently-handled)
+
+## References
+
+- [WSTG: Appendix D - Fuzzing](../../../6-Appendix/D-Fuzzing/)
+- [OWASP Top 10:2025 A10 Mishandling of Exceptional Conditions](https://owasp.org/Top10/2025/A10_2025-Mishandling_of_Exceptional_Conditions/)
+- [OWASP Top 10 Proactive Controls (2024) C3: Validate Input and Handle Exceptions](https://top10proactive.owasp.org/archive/2024/the-top-10/c3-validate-input-and-handle-exceptions/)
+- [ASVS v5.0 V16: Security Logging and Error Handling](https://github.com/OWASP/ASVS/blob/v5.0.0/5.0/en/0x25-V16-Security-Logging-and-Error-Handling.md)
+- [CWE 209 - Generation of Error Message Containing Sensitive Information](https://cwe.mitre.org/data/definitions/209.html)
+- [CWE 636 - Not Failing Securely (Failing Open)](https://cwe.mitre.org/data/definitions/636.html)
+- [CWE 728 - Improper Error Handling](https://cwe.mitre.org/data/definitions/728.html)
+- [RFC 9457 - Problem Details for HTTP APIs](https://www.rfc-editor.org/rfc/rfc9457)
+- [Cheat Sheet Series: Error Handling](https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html)

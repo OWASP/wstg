@@ -1,0 +1,12 @@
+---
+layout: document
+title: WSTG - v4.2
+collection_name: v42
+channel_label: v4.2
+channel_path: v4.2
+render_with_liquid: false
+---
+
+# 4.12 API Testing
+
+4.12.1 [Testing GraphQL](01-Testing_GraphQL/)

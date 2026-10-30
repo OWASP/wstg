@@ -1,0 +1,18 @@
+---
+layout: document
+title: WSTG - Latest
+collection_name: latest
+channel_label: Latest
+channel_path: latest
+render_with_liquid: false
+---
+
+# HTTP Verb Tampering
+
+|ID          |
+|------------|
+|WSTG-INJT-03|
+
+This content has been merged into: [HTTP Methods](../../02-Configuration_and_Deployment_Management/06-HTTP_Methods/)
+
+[merged]: # (WSTG-CONF-06)
