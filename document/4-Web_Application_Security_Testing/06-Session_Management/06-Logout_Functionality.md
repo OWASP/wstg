@@ -11,7 +11,7 @@ Session termination is an important part of the session lifecycle. Reducing to a
 A secure session termination requires at least the following components:
 
 - Availability of user interface controls that allow the user to manually log out.
-- Session termination after a given amount of time without activity (session timeout), covered in [Session Timeout](07-Session_Timeout.md).
+- Automatic session termination after a period of inactivity or once the session reaches its maximum lifetime (idle and absolute timeouts), covered in [Session Timeout](07-Session_Timeout.md).
 - Proper invalidation of server-side session state.
 
 There are multiple issues which can prevent the effective termination of a session. For the ideal secure web application, a user should be able to terminate at any time through the user interface. Unclear or ambiguous log out functions may cause users to mistrust such functionality.
@@ -19,8 +19,6 @@ There are multiple issues which can prevent the effective termination of a sessi
 Another common mistake in session termination is that the client-side session token is set to a new value while the server-side state remains active and can be reused by setting the session cookie back to the previous value. Sometimes only a confirmation message is shown to the user without performing any further action. This should be avoided.
 
 Some web application frameworks rely solely on the session cookie to identify the logged-on user. The user's ID is embedded in the (encrypted) cookie value. The application server does not do any tracking on the server-side of the session. When logging out, the session cookie is removed from the browser. However, since the application does not do any tracking, it does not know whether a session is logged out or not. So by reusing a session cookie it is possible to gain access to the authenticated session. A well-known example of this is the Forms Authentication functionality in ASP.NET.
-
-Users of web browsers often don't mind that an application is still open and just close the browser or a tab. A web application should be aware of this behavior and terminate the session automatically on the server-side after a defined amount of time. Testing for this is covered in [Session Timeout](07-Session_Timeout.md).
 
 The usage of a single sign-on (SSO) system instead of an application-specific authentication scheme often causes the coexistence of multiple sessions which have to be terminated separately. For instance, the termination of the application-specific session does not terminate the session in the SSO system. Navigating back to the SSO portal offers the user the possibility to log back in to the application where the log out was performed just before. On the other side a log out function in a SSO system does not necessarily cause session termination in connected applications.
 
