@@ -10,4 +10,13 @@
 
 4.12.4 [API Broken Function Level Authorization](04-API_Broken_Function_Level_Authorization.md)
 
+4.12.5 [Testing API Authentication Mechanisms](05-Testing_API_Authentication_Mechanisms.md)
+
 4.12.99 [GraphQL](99-GraphQL.md)
+
+
+
+
+
+
+
