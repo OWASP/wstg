@@ -6,19 +6,18 @@
 
 ## Summary
 
-APIs rely on stateless authentication mechanisms—JSON Web Tokens (JWT), OAuth 2.0 flows, API keys, and bearer tokens—to verify callers before granting access. Each mechanism introduces API-specific weaknesses that differ from traditional session-based web application authentication. An API key transmitted in a URL query string leaks into server logs and proxy caches. A bearer token that is never revoked allows indefinite access after credential compromise. An OAuth flow missing PKCE enforcement exposes public clients to authorization code interception.
+APIs rely on stateless authentication mechanisms (JSON Web Tokens, OAuth 2.0 flows, API keys, and bearer tokens) to verify callers before granting access. Each mechanism introduces API-specific weaknesses that differ from traditional session-based web application authentication. An API key transmitted in a URL query string leaks into server logs and proxy caches. A bearer token that is never revoked allows indefinite access after credential compromise. An OAuth flow missing PKCE enforcement exposes public clients to authorization code interception.
 
-This article covers testing procedures for authentication weaknesses specific to API contexts. For general authentication mechanism testing, see [section 4.4](../04-Authentication/README.md). For JWT structure, signature, and claim validation testing, see [4.6.10 Testing JSON Web Tokens](../06-Session_Management/10-JSON_Web_Tokens.md). For OAuth 2.0 flow weaknesses including `state` parameter validation and `redirect_uri` manipulation, see [4.5.5 Testing for OAuth Weaknesses](../05-Authorization/05-OAuth_Weaknesses.md). For MFA bypass testing, see [4.4.11 Testing Multi-Factor Authentication](../04-Authentication/11-Multi-Factor_Authentication.md).
+This article covers testing procedures for authentication weaknesses specific to API contexts. For general authentication mechanism testing, see [section 4.4](../04-Authentication/README.md). For JWT structure, signature, claim validation, and header parameter injection (`kid`, `jku`, `x5u`) testing, see [4.6.10 Testing JSON Web Tokens](../06-Session_Management/10-JSON_Web_Tokens.md). For OAuth 2.0 flow weaknesses including PKCE enforcement, `state` parameter validation, and `redirect_uri` manipulation, see [4.5.5 Testing for OAuth Weaknesses](../05-Authorization/05-OAuth_Weaknesses.md). For MFA bypass testing, see [4.4.11 Testing Multi-Factor Authentication](../04-Authentication/11-Multi-Factor_Authentication.md).
 
 ## Test Objectives
 
 - Assess whether API keys are scoped, rotated, and transmitted securely.
 - Determine whether bearer tokens expire, are revocable, and cannot be reused after logout or credential change.
-- Verify that OAuth 2.0 implementations enforce PKCE for public clients and restrict token scope to what was authorized.
+- Verify that OAuth 2.0 token scope is enforced at the resource server.
 - Evaluate stateless authentication enforcement, ensuring APIs do not fall back to session cookies.
 - Confirm that authentication endpoints enforce rate limiting.
 - Test for authentication bypass via HTTP method switching.
-- Verify that JWT `kid`, `jku`, and `x5u` header parameters are validated against strict allowlists.
 
 ## How to Test
 
@@ -26,100 +25,17 @@ This article covers testing procedures for authentication weaknesses specific to
 
 Before running the API-specific tests below, confirm that the target has been tested for general authentication weaknesses:
 
-- [4.6.10 Testing JSON Web Tokens](../06-Session_Management/10-JSON_Web_Tokens.md) covers `none` algorithm attacks, algorithm confusion (RS256→HS256), expired token acceptance, and claim tampering.
-- [4.5.5 Testing for OAuth Weaknesses](../05-Authorization/05-OAuth_Weaknesses.md) covers missing `state` parameter, `redirect_uri` manipulation, and authorization server misconfigurations.
+- [4.6.10 Testing JSON Web Tokens](../06-Session_Management/10-JSON_Web_Tokens.md) covers `none` algorithm attacks, algorithm confusion (RS256 to HS256), expired token acceptance, claim tampering, and `kid`/`jku`/`x5u` header parameter injection.
+- [4.5.5 Testing for OAuth Weaknesses](../05-Authorization/05-OAuth_Weaknesses.md) covers missing `state` parameter, `redirect_uri` manipulation, PKCE downgrade, and authorization server misconfigurations.
 - [4.4.11 Testing Multi-Factor Authentication](../04-Authentication/11-Multi-Factor_Authentication.md) covers MFA bypass techniques.
 
 The tests in this article focus on API-specific scenarios not covered by the above.
 
-### Test JWT Header Parameter Injection
-
-JWT headers can include parameters (`kid`, `jku`, `x5u`) that direct the server to a specific key or key source. When APIs expose JWKS endpoints, these parameters become attack vectors for key injection.
-
-#### 1. Key ID (kid) Injection
-
-The `kid` header parameter tells the server which key to use for verification. If the server uses `kid` in a file path lookup or database query without sanitization, injection is possible.
-
-Test with a path traversal payload:
-
-```json
-{
-  "alg": "HS256",
-  "kid": "../../../dev/null",
-  "typ": "JWT"
-}
-```
-
-Sign the token with an empty string as the secret (the contents of `/dev/null`). Send the forged token:
-
-```bash
-curl -s -o /dev/null -w "%{http_code}" \
-  -H "Authorization: Bearer <forged-token>" \
-  https://api.example.com/v1/admin/users
-```
-
-Insecure behavior: the server accepts the token. The `kid` parameter is vulnerable to path traversal.
-
-Test with a SQL injection payload:
-
-```json
-{
-  "kid": "key1' UNION SELECT 'attacker-controlled-secret' -- ",
-  "alg": "HS256"
-}
-```
-
-Sign the token with `attacker-controlled-secret` as the HMAC key and verify acceptance.
-
-#### 2. JKU and X5U Header Manipulation
-
-The `jku` (JWK Set URL) and `x5u` (X.509 URL) header parameters tell the server where to fetch the signing key. If the server follows these URLs without allowlist validation, point them to an attacker-controlled server:
-
-```json
-{
-  "alg": "RS256",
-  "jku": "https://attacker.example.com/.well-known/jwks.json"
-}
-```
-
-Host a JWKS at that URL containing your public key. Sign the token with your private key.
-
-```bash
-curl -s -o /dev/null -w "%{http_code}" \
-  -H "Authorization: Bearer <forged-token>" \
-  https://api.example.com/v1/admin/users
-```
-
-Insecure behavior: the server fetches and trusts the attacker-hosted key, accepting the forged token.
-
 ### Test OAuth 2.0 in API Context
 
-The following tests cover OAuth weaknesses specific to API consumers (native apps, SPAs, machine-to-machine clients). For general OAuth flow testing, see [4.5.5](../05-Authorization/05-OAuth_Weaknesses.md).
+The following tests cover OAuth weaknesses specific to API consumers (native apps, SPAs, machine-to-machine clients). For general OAuth flow testing including PKCE enforcement, see [4.5.5](../05-Authorization/05-OAuth_Weaknesses.md).
 
-#### 1. PKCE Bypass
-
-If the authorization server advertises PKCE support, test whether it enforces it:
-
-1. Initiate an authorization request without `code_challenge`:
-
-   ```text
-   GET /authorize?response_type=code&client_id=CLIENT_ID&redirect_uri=https://app.example.com/callback HTTP/1.1
-   Host: auth.example.com
-   ```
-
-2. Exchange the authorization code without `code_verifier`:
-
-   ```bash
-   curl -X POST https://auth.example.com/token \
-     -d "grant_type=authorization_code" \
-     -d "code=AUTH_CODE" \
-     -d "client_id=CLIENT_ID" \
-     -d "redirect_uri=https://app.example.com/callback"
-   ```
-
-Insecure behavior: the server issues an access token without verifying PKCE parameters. Public clients (SPAs, mobile apps) are then vulnerable to authorization code interception.
-
-#### 2. Scope Escalation
+#### 1. Scope Escalation
 
 Request a token with minimal scope, then attempt to access resources requiring higher privileges:
 
@@ -148,15 +64,22 @@ curl -X POST https://auth.example.com/token \
 
 Insecure behavior: the server grants a token with broader scope than authorized, or the API does not enforce scope restrictions on resource access.
 
-#### 3. Token Leakage via Referer Header
+#### 2. Implicit Flow Token Exposure
 
-For implicit flow (`response_type=token`), observe whether the access token appears in the URL fragment after redirect:
+For implicit flow (`response_type=token`), the access token appears in the URL fragment after redirect:
 
 ```text
 https://app.example.com/callback#access_token=eyJ...&token_type=bearer
 ```
 
-Check the `Referer` header on subsequent requests from the callback page. If the page loads external resources (analytics scripts, images), the token in the fragment may leak through the `Referer` header. Also check browser history and server access logs.
+The URL fragment is not included in the `Referer` header (RFC 7231 section 5.5.2), but the token is exposed through other vectors:
+
+- JavaScript on the callback page can read `location.hash` and send it to a server, including injected scripts via XSS.
+- The full URL including the fragment may persist in browser history.
+- Client-side code may store the token in `localStorage`, making it readable by any script on the same origin.
+- Redirect chains from the callback page may preserve the fragment in some browsers.
+
+The implicit flow is deprecated by the OAuth 2.0 Security BCP. For comprehensive testing of OAuth flow weaknesses, see [4.5.5](../05-Authorization/05-OAuth_Weaknesses.md).
 
 ### Test API Key Security
 
@@ -174,7 +97,7 @@ curl "https://api.example.com/v1/data?api_key=sk_live_abc123"
 curl -H "X-API-Key: sk_live_abc123" https://api.example.com/v1/data
 ```
 
-Check server access logs, proxy logs, and browser history for the key value when sent as a query parameter.
+Check server access logs, proxy logs, and browser history for the API key when sent as a query parameter.
 
 #### 2. Key Scoping
 
@@ -217,7 +140,7 @@ Search for API keys in:
 
 ```bash
 # Search JavaScript files for key patterns
-curl -s https://app.example.com/static/js/main.js | grep -iE '(api[_-]?key|apikey|x-api-key)\s*[:=]\s*["\x27]'
+curl -s https://app.example.com/static/js/main.js | grep -iP "(api[_-]?key|apikey|x-api-key)\s*[:=]\s*[\"']"
 ```
 
 ### Test Bearer Token Lifecycle
@@ -281,7 +204,7 @@ curl -X POST https://auth.example.com/token \
   -d "client_id=CLIENT_ID"
 ```
 
-Insecure behavior: the server accepts the reused refresh token instead of rejecting it and revoking the token family.
+For public clients (SPAs, native apps): insecure behavior is the server accepting the reused refresh token instead of rejecting it and revoking the token family (RFC 9700 section 4.14). Confidential clients with sender-constrained tokens may legitimately reuse refresh tokens.
 
 ### Test Stateless Authentication Enforcement
 
@@ -298,7 +221,7 @@ curl -H "Cookie: session=abc123" \
   https://api.example.com/v1/profile
 ```
 
-Insecure behavior: the API accepts session cookie authentication, making it vulnerable to CSRF attacks that token-based auth would prevent.
+If the API accepts the session cookie, verify that CSRF protections are present (`SameSite` attribute, CSRF token, `Origin` header check). Cookie-based authentication is a finding only when these defenses are absent.
 
 #### 2. Authentication Bypass via HTTP Method Switching
 
@@ -318,18 +241,6 @@ curl -X OPTIONS https://api.example.com/v1/users/123
 ```
 
 Insecure behavior: one or more methods bypass authentication. This occurs when authentication middleware is registered only for specific HTTP methods.
-
-#### 3. Token Replay Across Sessions
-
-Obtain two tokens for different users. Send User A's token in User B's session context (different IP, different `User-Agent`):
-
-```bash
-curl -H "Authorization: Bearer <user-a-token>" \
-  -H "User-Agent: DifferentBrowser/1.0" \
-  https://api.example.com/v1/profile
-```
-
-Check whether the server binds tokens to any client fingerprint. Note that IP binding is not always practical for mobile clients, but the server should at minimum detect and log token use from unexpected origins.
 
 ### Test Rate Limiting on Authentication Endpoints
 
@@ -380,36 +291,47 @@ curl -X POST https://api.example.com/v1/auth/login \
   -H "Content-Type: application/json" \
   -d '{"username": "Admin", "password": "test"}'
 
-# Unicode normalization
+# Null byte injection
 curl -X POST https://api.example.com/v1/auth/login \
   -H "Content-Type: application/json" \
   -d '{"username": "admin\u0000", "password": "test"}'
+
+# Unicode normalization (fullwidth characters NFKC-normalize to ASCII)
+curl -X POST https://api.example.com/v1/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"username": "ａｄｍｉｎ", "password": "test"}'
 ```
+
+## Related Test Cases
+
+- [Testing JSON Web Tokens (WSTG-SESS-10)](../06-Session_Management/10-JSON_Web_Tokens.md)
+- [Testing for OAuth Weaknesses (WSTG-ATHZ-05)](../05-Authorization/05-OAuth_Weaknesses.md)
+- [Testing Multi-Factor Authentication](../04-Authentication/11-Multi-Factor_Authentication.md)
 
 ## Remediation
 
-- Validate JWT `kid` parameters against a strict allowlist. Never use `kid` in file path lookups or database queries without sanitization.
-- Validate `jku` and `x5u` headers against a strict allowlist of trusted URLs. Prefer local key storage over remote key fetching.
-- Require PKCE for all public clients and enforce `code_verifier` validation at the token endpoint.
-- Enforce token scope at the resource server. Reject token requests that exceed the authorized scope.
 - Transmit API keys in headers, not URL parameters. Scope keys to specific services and environments. Implement automatic key rotation with immediate revocation of old keys.
-- Set appropriate token lifetimes. Invalidate all tokens on logout, password change, and privilege change. Implement refresh token rotation with token family revocation on reuse detection.
-- Enforce stateless authentication consistently across all API endpoints and HTTP methods. Do not fall back to session cookie authentication.
+- Set appropriate token lifetimes. Invalidate all tokens on logout, password change, and privilege change. Implement refresh token rotation with token family revocation on reuse detection for public clients.
+- Enforce token scope at the resource server. Reject token requests that exceed the authorized scope.
+- Enforce stateless authentication consistently across all API endpoints and HTTP methods. If session cookies are used, ensure CSRF defenses (`SameSite`, CSRF token, `Origin` check) are in place.
 - Implement rate limiting on all authentication endpoints with account lockout after repeated failures. Validate rate limiting cannot be bypassed via header injection or input variation.
-- Pin the expected algorithm on the server-side rather than reading it from the token header. For additional JWT and OAuth hardening, see [4.6.10](../06-Session_Management/10-JSON_Web_Tokens.md) and [4.5.5](../05-Authorization/05-OAuth_Weaknesses.md).
+- For JWT header parameter hardening (`kid`, `jku`, `x5u` allowlisting, algorithm pinning), see [4.6.10](../06-Session_Management/10-JSON_Web_Tokens.md).
+- For PKCE enforcement and OAuth flow hardening, see [4.5.5](../05-Authorization/05-OAuth_Weaknesses.md).
 
 ## References
 
-- [OWASP Testing Guide: Testing for Credentials Transported over an Encrypted Channel](../04-Authentication/01-Credentials_Transported_over_an_Encrypted_Channel.md)
-- [OWASP Testing Guide: Testing for Weak Lock Out Mechanism](../04-Authentication/03-Weak_Lock_Out_Mechanism.md)
-- [OWASP Testing Guide: Testing JSON Web Tokens](../06-Session_Management/10-JSON_Web_Tokens.md)
-- [OWASP Testing Guide: Testing for OAuth Weaknesses](../05-Authorization/05-OAuth_Weaknesses.md)
-- [OWASP Testing Guide: Testing Multi-Factor Authentication](../04-Authentication/11-Multi-Factor_Authentication.md)
+- [OWASP Testing Guide - Testing for Credentials Transported over an Encrypted Channel](../04-Authentication/01-Credentials_Transported_over_an_Encrypted_Channel.md)
+- [OWASP Testing Guide - Testing for Weak Lock Out Mechanism](../04-Authentication/03-Weak_Lock_Out_Mechanism.md)
+- [OWASP Testing Guide - Testing JSON Web Tokens](../06-Session_Management/10-JSON_Web_Tokens.md)
+- [OWASP Testing Guide - Testing for OAuth Weaknesses](../05-Authorization/05-OAuth_Weaknesses.md)
+- [OWASP Testing Guide - Testing Multi-Factor Authentication](../04-Authentication/11-Multi-Factor_Authentication.md)
 - [OWASP JWT Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_Cheat_Sheet.html)
 - [OWASP OAuth2 Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/OAuth2_Cheat_Sheet.html)
 - [RFC 7519: JSON Web Token (JWT)](https://datatracker.ietf.org/doc/html/rfc7519)
 - [RFC 7636: Proof Key for Code Exchange (PKCE)](https://datatracker.ietf.org/doc/html/rfc7636)
 - [RFC 6749: The OAuth 2.0 Authorization Framework](https://datatracker.ietf.org/doc/html/rfc6749)
+- [RFC 6750: The OAuth 2.0 Authorization Framework - Bearer Token Usage](https://datatracker.ietf.org/doc/html/rfc6750)
+- [RFC 9700: Best Current Practice for OAuth 2.0 Security](https://datatracker.ietf.org/doc/html/rfc9700)
 - [CWE-287: Improper Authentication](https://cwe.mitre.org/data/definitions/287.html)
 - [CWE-294: Authentication Bypass by Capture-replay](https://cwe.mitre.org/data/definitions/294.html)
 - [CWE-307: Improper Restriction of Excessive Authentication Attempts](https://cwe.mitre.org/data/definitions/307.html)
