@@ -23,9 +23,9 @@ Historical browser vulnerabilities (such as in IE9/10) allowed data leakage via 
 
 ### SameSite Cookie Considerations
 
-The examples below rely on the browser attaching the victim's authentication cookie to a cross-site `<script src="...">` request - a subresource load, not a top-level navigation. Per the [`SameSite`](../06-Session_Management/02-Cookies_Attributes.md#samesite-attribute) behavior described in the Cookie Attributes section, `Lax` cookies are not sent on subresource requests, so by default these PoCs won't leak data in a browser that defaults to `Lax` (Chromium-based, since Chrome 80) unless the session cookie explicitly sets `SameSite=None; Secure`.
+The examples below rely on the browser attaching the victim's authentication cookie to a cross-site `<script src="...">` request - a subresource load, not a top-level navigation. Per the [`SameSite`](../06-Session_Management/02-Cookies_Attributes.md#samesite-attribute) behavior described in the Cookie Attributes section, `Lax` cookies are not sent on subresource requests, so by default these PoCs won't leak data in a browser that defaults to `Lax` (Chromium-based browsers, since 2020) unless the session cookie explicitly sets `SameSite=None; Secure`.
 
-This doesn't mean the underlying vulnerability is fixed - only that reproducing it now depends on the cookie's `SameSite` configuration and the browser under test. Check the `Set-Cookie` header directly, and retest in a browser that doesn't default to `Lax` (e.g. Firefox) if a PoC doesn't fire.
+This doesn't mean the underlying vulnerability is fixed - only that reproducing it now depends on the cookie's `SameSite` configuration and the browser under test. Check the `Set-Cookie` header directly. Retesting in Firefox or Safari won't help if a PoC doesn't fire: a `<script src="...">` load from another site is a third-party request, and by default Firefox partitions and Safari blocks third-party cookies, so the session cookie isn't sent.
 
 ### Collect Data Using Authenticated and Unauthenticated User Sessions
 
