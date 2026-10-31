@@ -863,7 +863,8 @@
           "reference": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/08-Error_Handling/01-Improper_Error_Handling",
           "objectives": [
             "Identify existing error output.",
-            "Analyze the different output returned."
+            "Analyze the different output returned.",
+            "Determine whether errors expose sensitive information or cause the application to fail open."
           ],
           "cre_ids": [
             "166-151"
