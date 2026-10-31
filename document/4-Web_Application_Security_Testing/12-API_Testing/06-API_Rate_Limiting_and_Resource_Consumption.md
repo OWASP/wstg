@@ -1,4 +1,4 @@
-# Testing API Rate Limiting and Resource Consumption
+# API Rate Limiting and Resource Consumption
 
 |ID          |
 |------------|
@@ -27,6 +27,8 @@ This article corresponds to OWASP API Security Top 10 [API4:2023 Unrestricted Re
 
 ## How to Test
 
+Run resource-exhaustion tests (large uploads, inflated batches, high concurrency, broad date ranges) only in agreed test windows or staging environments. These tests can degrade production service for real users.
+
 ### Detect Rate Limit Headers and Behavior
 
 Send a burst of requests and observe the response headers and status codes:
@@ -43,34 +45,46 @@ Check for rate limit headers:
 
 ```bash
 curl -si -H "Authorization: Bearer <TOKEN>" \
-  https://api.example.com/v1/users/me | grep -i "rate\|limit\|retry\|x-ratelimit"
+  https://api.example.com/v1/users/me | grep -i "rate\|limit\|retry\|ratelimit"
 ```
 
-Record these standard headers when present:
+Record these common rate limit headers when present:
 
 | Header | Purpose |
 |--------|---------|
-| `X-RateLimit-Limit` | Maximum requests per window |
-| `X-RateLimit-Remaining` | Requests left in current window |
-| `X-RateLimit-Reset` | Timestamp when the window resets |
-| `Retry-After` | Seconds to wait before retrying |
+| `X-RateLimit-Limit` | Maximum requests per window (de facto convention) |
+| `X-RateLimit-Remaining` | Requests left in current window (de facto convention) |
+| `X-RateLimit-Reset` | Timestamp when the window resets (de facto convention) |
+| `RateLimit-Limit` | Maximum requests per window (IETF draft) |
+| `RateLimit-Policy` | Rate limit policy definition (IETF draft) |
+| `Retry-After` | Seconds to wait before retrying (RFC 7231) |
 
 Insecure behavior: no rate limit headers returned and no `429 Too Many Requests` after high volume.
 
 ### Bypass Rate Limits via Header Spoofing
 
-When rate limits are keyed on source IP behind a reverse proxy or load balancer, spoofing the client IP header bypasses the limit:
+First, establish a baseline by triggering the rate limit:
 
 ```bash
-for i in $(seq 1 20); do
-  curl -s -o /dev/null -w "%{http_code}\n" \
+for i in $(seq 1 200); do
+  STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
     -H "Authorization: Bearer <TOKEN>" \
-    -H "X-Forwarded-For: 192.168.1.$i" \
-    https://api.example.com/v1/users/me
+    https://api.example.com/v1/users/me)
+  echo "Request $i: $STATUS"
+  [ "$STATUS" = "429" ] && echo "Rate limit hit at request $i" && break
 done
 ```
 
-Test these headers:
+Once `429` is returned, test whether spoofing the client IP header resets the limit:
+
+```bash
+curl -s -o /dev/null -w "%{http_code}\n" \
+  -H "Authorization: Bearer <TOKEN>" \
+  -H "X-Forwarded-For: 203.0.113.1" \
+  https://api.example.com/v1/users/me
+```
+
+Test each of these headers with a different documentation address (RFC 5737):
 
 - `X-Forwarded-For`
 - `X-Real-IP`
@@ -78,13 +92,13 @@ Test these headers:
 - `X-Client-IP`
 - `True-Client-IP`
 - `CF-Connecting-IP`
-- `X-Forwarded-Host`
+- `Forwarded: for=203.0.113.1` (RFC 7239)
 
-Insecure behavior: rate limit resets when a different IP header value is sent.
+Insecure behavior: a `200 OK` returns after spoofing the header, indicating the rate limit resets per header value.
 
 ### Bypass via Path and Method Variation
 
-Test whether the rate limiter normalizes request paths:
+After triggering a rate limit (see [header spoofing](#bypass-rate-limits-via-header-spoofing)), test whether path variations reset the counter:
 
 ```bash
 # Trailing slash
@@ -122,23 +136,27 @@ curl -s -o /dev/null -w "%{http_code}" -X POST \
   https://api.example.com/v1/users/search
 ```
 
-Insecure behavior: each path variant is counted as a separate endpoint, multiplying the effective rate limit.
+Insecure behavior: a `200 OK` on a path variant after the rate limit was triggered, indicating each variant is counted as a separate endpoint.
 
 ### Bypass via Parameter Pollution
 
-Test whether the rate limiter uses request body content as part of the key:
+Test whether the rate limiter and the application parse request bodies differently. If the rate limiter keys on the first occurrence of a field but the application uses the last, an attacker can bypass per-account rate limits. For background on parser-differential attacks, see [HTTP Parameter Pollution](../07-Injection/04-HTTP_Parameter_Pollution.md).
+
+After triggering the rate limit against one account, test:
 
 ```bash
-# Add a no-op field to create a unique request
+# Add a no-op field to create a unique request signature
 curl -s -X POST -H "Content-Type: application/json" \
   -d '{"email":"test@example.com","password":"test","_nonce":"abc"}' \
   https://api.example.com/v1/login
 
-# Duplicate keys (JSON last-key-wins behavior)
+# Duplicate keys: limiter may key on first "email", app authenticates on last
 curl -s -X POST -H "Content-Type: application/json" \
   -d '{"email":"decoy@example.com","password":"test","email":"real@example.com"}' \
   https://api.example.com/v1/login
 ```
+
+Insecure behavior: the rate limiter counts the request against `decoy@example.com` while the application authenticates as `real@example.com`, allowing unlimited attempts against the real target.
 
 ### Test Pagination Abuse
 
@@ -185,17 +203,27 @@ curl -s -X POST -H "Content-Type: application/json" \
   -d '{"ids":["1","2","3"]}' \
   https://api.example.com/v1/users/lookup
 
-# Inflated batch
+# Inflated batch (string IDs matching baseline format)
 curl -s -X POST -H "Content-Type: application/json" \
   -H "Authorization: Bearer <TOKEN>" \
-  -d "{\"ids\":[$(seq -s, 1 10000)]}" \
+  -d "{\"ids\":[$(seq -f '\"%.0f\"' -s, 1 10000)]}" \
   https://api.example.com/v1/users/lookup
 ```
 
-Test GraphQL query batching:
+Increase batch sizes (10, 100, 1000) and observe whether the server rejects oversized batches.
+
+### Test GraphQL Query Complexity
+
+For comprehensive GraphQL denial-of-service testing (query depth, batching attacks, and alias-based denylist bypass), see [GraphQL (WSTG-APIT-99)](99-GraphQL.md). When testing rate limits specifically, verify that:
+
+- Query batching is capped (e.g., no more than a fixed number of queries per batch request).
+- Alias count per query is limited to prevent multiplying field resolution cost.
+- Query cost or complexity analysis rejects expensive queries before execution.
+
+Test batch size limits:
 
 ```bash
-# Batch of queries
+# Batch of queries in a single HTTP request
 curl -s -X POST -H "Content-Type: application/json" \
   -H "Authorization: Bearer <TOKEN>" \
   -d '[
@@ -206,40 +234,7 @@ curl -s -X POST -H "Content-Type: application/json" \
   https://api.example.com/graphql
 ```
 
-Increase batch sizes (10, 100, 1000) and observe whether the server rejects oversized batches.
-
-### Test GraphQL Query Complexity
-
-#### 1. Query Depth
-
-```bash
-curl -s -X POST -H "Content-Type: application/json" \
-  -H "Authorization: Bearer <TOKEN>" \
-  -d '{"query":"{ user(id:1) { friends { friends { friends { friends { friends { name } } } } } } }"}' \
-  https://api.example.com/graphql
-```
-
-#### 2. Query Aliases
-
-```bash
-curl -s -X POST -H "Content-Type: application/json" \
-  -H "Authorization: Bearer <TOKEN>" \
-  -d '{"query":"{ a1:user(id:1){name} a2:user(id:2){name} a3:user(id:3){name} a4:user(id:4){name} a5:user(id:5){name} }"}' \
-  https://api.example.com/graphql
-```
-
-Scale to 100, 500, 1000 aliases and observe response times and errors.
-
-#### 3. Query Breadth
-
-```bash
-curl -s -X POST -H "Content-Type: application/json" \
-  -H "Authorization: Bearer <TOKEN>" \
-  -d '{"query":"{ users(first:10000) { id name email role orders { id total items { id name price } } payments { id amount date } } }"}' \
-  https://api.example.com/graphql
-```
-
-Insecure behavior: all queries return full results with no complexity errors, indicating absent query cost analysis.
+Scale to 100, 500, 1000 batched queries and observe whether the server rejects oversized batches or returns errors.
 
 ### Test File Upload Size and Count Limits
 
@@ -278,8 +273,8 @@ Send a slow request using chunked transfer encoding:
 ```bash
 (echo -ne "POST /v1/process HTTP/1.1\r\nHost: api.example.com\r\nTransfer-Encoding: chunked\r\nContent-Type: application/json\r\n\r\n"; \
  echo -ne "5\r\n{\"a\":\r\n"; sleep 5; \
- echo -ne "5\r\n\"b\"}\r\n"; sleep 5; \
- echo -ne "0\r\n\r\n") | nc api.example.com 443
+ echo -ne "4\r\n\"b\"}\r\n"; sleep 5; \
+ echo -ne "0\r\n\r\n") | openssl s_client -quiet -connect api.example.com:443
 ```
 
 Also test slow search queries:
@@ -298,26 +293,30 @@ seq 1 200 | xargs -P 200 -I{} curl -s -o /dev/null -w "%{http_code}\n" \
   https://api.example.com/v1/users/me
 ```
 
-Insecure behavior: all 200 concurrent requests succeed with no `429` or `503` responses.
+Compare response codes and response times against the API's documented capacity or a baseline measured at normal load. Insecure behavior: the API shows no connection throttling (no `429` or `503` responses) and response times remain stable at volumes far exceeding documented limits, indicating absent per-client connection caps.
+
+## Related Test Cases
+
+- [GraphQL (WSTG-APIT-99)](99-GraphQL.md)
+- [HTTP Parameter Pollution](../07-Injection/04-HTTP_Parameter_Pollution.md)
 
 ## Remediation
 
-- Implement per-client, per-endpoint rate limits. Return standard rate limit headers (`X-RateLimit-Limit`, `X-RateLimit-Remaining`, `X-RateLimit-Reset`).
+- Implement per-client, per-endpoint rate limits. Return rate limit headers (the common `X-RateLimit-Limit`, `X-RateLimit-Remaining`, `X-RateLimit-Reset` or the IETF draft `RateLimit-Limit`, `RateLimit-Policy`).
 - Key rate limits on authenticated user identity, not only source IP. Ignore client-supplied IP headers for rate limiting decisions.
 - Normalize request paths before rate limit evaluation (case, trailing slashes, encoding).
 - Enforce a server-side maximum page size. Ignore client-requested values that exceed it.
 - Cap the number of items in array and bulk request parameters.
-- Implement GraphQL query depth limits, cost analysis, and batch size caps.
+- Implement GraphQL query depth limits, cost analysis, and batch size caps. See the [OWASP GraphQL Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/GraphQL_Cheat_Sheet.html).
 - Set upload and response size limits at both the web server and application layers.
 - Configure server-side request timeouts and per-client connection limits.
-- See the [OWASP REST Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html) and the [OWASP GraphQL Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/GraphQL_Cheat_Sheet.html).
+- See the [OWASP REST Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html).
 
 ## References
 
 - [CWE-770: Allocation of Resources Without Limits or Throttling](https://cwe.mitre.org/data/definitions/770.html)
 - [CWE-400: Uncontrolled Resource Consumption](https://cwe.mitre.org/data/definitions/400.html)
 - [CWE-799: Improper Control of Interaction Frequency](https://cwe.mitre.org/data/definitions/799.html)
-- [CWE-835: Loop with Unreachable Exit Condition (Infinite Loop)](https://cwe.mitre.org/data/definitions/835.html)
-- [OWASP API Security Top 10 — API4:2023 Unrestricted Resource Consumption](https://owasp.org/API-Security/editions/2023/en/0xa4-unrestricted-resource-consumption/)
+- [OWASP API Security Top 10 - API4:2023 Unrestricted Resource Consumption](https://owasp.org/API-Security/editions/2023/en/0xa4-unrestricted-resource-consumption/)
 - [OWASP REST Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html)
 - [OWASP GraphQL Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/GraphQL_Cheat_Sheet.html)
