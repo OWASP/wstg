@@ -334,6 +334,8 @@
 
 #### 4.12.4 [API Broken Function Level Authorization](4-Web_Application_Security_Testing/12-API_Testing/04-API_Broken_Function_Level_Authorization.md)
 
+#### 4.12.7 [Testing API Mass Assignment](4-Web_Application_Security_Testing/12-API_Testing/07-API_Mass_Assignment.md)
+
 #### 4.12.99 [GraphQL](4-Web_Application_Security_Testing/12-API_Testing/99-GraphQL.md)
 
 ### 4.13 [WebAssembly Testing](4-Web_Application_Security_Testing/13-WebAssembly_Testing/README.md)
