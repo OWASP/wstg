@@ -6,9 +6,9 @@
 
 ## Summary
 
-Mass assignment (also called auto-binding or object injection) occurs when an API binds client-supplied data directly to internal objects without filtering which properties a caller may set. An attacker adds unexpected fields to a request—such as `role`, `isAdmin`, or `balance`—and the server-side framework writes them to the data model.
+Mass assignment (also called auto-binding) occurs when an API binds client-supplied data directly to internal objects without filtering which properties a caller may set. An attacker adds unexpected fields (such as `role`, `isAdmin`, or `balance`) to a request, and the server-side framework writes them to the data model.
 
-For general mass assignment testing methodology, including framework-specific patterns (Spring, Laravel, ASP.NET), black-box detection techniques, and sensitive attribute wordlists, see [4.7.20 Testing for Mass Assignment (WSTG-INJT-20)](../07-Injection/20-Mass_Assignment.md).
+For general mass assignment testing methodology, including framework-specific patterns (Spring, Laravel, ASP.NET), black-box detection techniques, and sensitive attribute wordlists, see [Mass Assignment (WSTG-INJT-20)](../07-Injection/20-Mass_Assignment.md).
 
 This article covers mass assignment testing specific to API contexts: REST method behavior differences, JSON body manipulation, nested object injection, content-type switching, and GraphQL mutation mass assignment. It corresponds to OWASP API Security Top 10 [API3:2023 Broken Object Property Level Authorization](https://owasp.org/API-Security/editions/2023/en/0xa3-broken-object-property-level-authorization/).
 
@@ -32,7 +32,7 @@ The tests below build on the general mass assignment detection methodology in [W
 
 The tests in this article focus on API-specific attack vectors not addressed there.
 
-### Identify Writable Properties by Comparing GET and Response Fields
+### Identify Writable Properties by Comparing GET Responses with Write Endpoint Documentation
 
 Retrieve an object through a GET request and note every field. Then compare with what the API documentation says the corresponding write endpoint accepts:
 
@@ -61,23 +61,41 @@ Fields like `role`, `isAdmin`, `verified`, `credits`, `createdAt`, and `updatedA
 
 ### Compare PUT and PATCH Behavior
 
-REST APIs often treat PUT as full replacement and PATCH as partial update, with different validation logic on each path. This is an API-specific vector because traditional web forms use only POST:
+REST APIs often treat PUT as full replacement and PATCH as partial update, with different validation logic on each path. This is an API-specific vector because traditional web forms use only POST.
+
+First, establish a baseline by sending a valid PUT with all required fields but without extra properties:
 
 ```bash
-# PUT: full replacement — may enforce strict field validation
+# Baseline PUT: all required fields, no injection
+curl -s -X PUT -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <TOKEN>" \
+  -d '{"name":"Test","email":"test@example.com"}' \
+  https://api.example.com/v1/users/me
+```
+
+Record the response status. Then add a privileged field to the same PUT body:
+
+```bash
+# PUT with injected field
 curl -s -X PUT -H "Content-Type: application/json" \
   -H "Authorization: Bearer <TOKEN>" \
   -d '{"name":"Test","email":"test@example.com","role":"admin"}' \
   https://api.example.com/v1/users/me
+```
 
-# PATCH: partial update — may skip validation on unexpected fields
+Compare the two PUT responses. If the baseline succeeds but the injected version returns `400 Bad Request`, the API rejects the extra field on PUT. If both return the same status, the `400` may be caused by missing required fields rather than the injected property.
+
+Then test the same field with PATCH:
+
+```bash
+# PATCH with injected field
 curl -s -X PATCH -H "Content-Type: application/json" \
   -H "Authorization: Bearer <TOKEN>" \
   -d '{"role":"admin"}' \
   https://api.example.com/v1/users/me
 ```
 
-Record whether responses differ. A `400 Bad Request` on PUT but `200 OK` on PATCH with the same extra field indicates inconsistent input filtering. Test each privileged field with both methods:
+A `200 OK` on PATCH when PUT rejects the same field indicates inconsistent input filtering between methods. Test each privileged field with both methods:
 
 ```bash
 # Boolean privilege escalation via PATCH
@@ -108,31 +126,11 @@ curl -s -H "Authorization: Bearer <TOKEN>" \
 
 ### Test Mass Assignment During Object Creation
 
-Registration and resource creation endpoints are also vulnerable. Inject extra fields during signup:
-
-```bash
-curl -s -X POST -H "Content-Type: application/json" \
-  -d '{
-    "name": "New User",
-    "email": "new@example.com",
-    "password": "StrongPass123!",
-    "role": "admin",
-    "isAdmin": true,
-    "verified": true
-  }' \
-  https://api.example.com/v1/users/register
-```
-
-Authenticate with the new account and verify the applied properties:
-
-```bash
-curl -s -H "Authorization: Bearer <NEW_TOKEN>" \
-  https://api.example.com/v1/users/me | python3 -m json.tool
-```
+For testing mass assignment during object creation (registration, resource provisioning), including the `isAdmin` pattern, see [WSTG-INJT-20](../07-Injection/20-Mass_Assignment.md). When testing API endpoints, use JSON bodies and include fields discovered in the [identification step](#identify-writable-properties-by-comparing-get-responses-with-write-endpoint-documentation).
 
 ### Test Nested Object Property Injection
 
-APIs that accept JSON bodies expose nested object structures that traditional form-based mass assignment does not reach:
+APIs that accept JSON bodies make nested object injection straightforward. While form-encoded bracket syntax (such as `user[profile][permissions]`) can also target nested properties (see [WSTG-INJT-20](../07-Injection/20-Mass_Assignment.md)), JSON bodies allow arbitrarily deep nesting without relying on framework-specific parameter binding conventions:
 
 ```bash
 curl -s -X PATCH -H "Content-Type: application/json" \
@@ -175,7 +173,7 @@ curl -s -X PATCH -H "Content-Type: application/json" \
 
 ### Test Array Property Manipulation
 
-If a user object has array properties (such as `groups` or `permissions`), test whether you can add items:
+If a user object has array properties (such as `groups` or `permissions`), test whether you can overwrite them:
 
 ```bash
 curl -s -X PATCH -H "Content-Type: application/json" \
@@ -186,36 +184,27 @@ curl -s -X PATCH -H "Content-Type: application/json" \
   https://api.example.com/v1/users/me
 ```
 
-Also test array append operations if the API supports them:
-
-```bash
-curl -s -X PATCH -H "Content-Type: application/json" \
-  -H "Authorization: Bearer <TOKEN>" \
-  -d '{
-    "permissions": {"$push": "admin"}
-  }' \
-  https://api.example.com/v1/users/me
-```
+If the API backend uses a NoSQL database such as MongoDB, operators like `$push` passed in a JSON body may be interpreted as database commands. This is NoSQL operator injection, not mass assignment. See [NoSQL Injection](../07-Injection/05.6-NoSQL_Injection.md) for those tests.
 
 ### Test Content-Type Manipulation
 
-Different content types may trigger different parsing and binding paths in the framework. If the API expects JSON, test with alternative content types:
+Different content types may trigger different parsing and binding paths in the framework. If the API expects JSON, test with alternative content types using the same HTTP method established in earlier tests:
 
 ```bash
 # JSON (expected)
-curl -s -X POST -H "Content-Type: application/json" \
+curl -s -X PATCH -H "Content-Type: application/json" \
   -H "Authorization: Bearer <TOKEN>" \
   -d '{"name":"Test","role":"admin"}' \
   https://api.example.com/v1/users/me
 
-# Form-encoded (unexpected — may bypass JSON-specific validation)
-curl -s -X POST -H "Content-Type: application/x-www-form-urlencoded" \
+# Form-encoded (unexpected - may bypass JSON-specific validation)
+curl -s -X PATCH -H "Content-Type: application/x-www-form-urlencoded" \
   -H "Authorization: Bearer <TOKEN>" \
   -d "name=Test&role=admin" \
   https://api.example.com/v1/users/me
 
-# XML (if supported — may bypass JSON allowlist)
-curl -s -X POST -H "Content-Type: application/xml" \
+# XML (if supported - may bypass JSON allowlist)
+curl -s -X PATCH -H "Content-Type: application/xml" \
   -H "Authorization: Bearer <TOKEN>" \
   -d '<user><name>Test</name><role>admin</role></user>' \
   https://api.example.com/v1/users/me
@@ -231,7 +220,7 @@ GraphQL APIs may expose writable fields in mutations that are not visible in que
 
 ```bash
 curl -s -X POST -H "Content-Type: application/json" \
-  -d '{"query":"{ __type(name: \"UpdateUserInput\") { inputFields { name type { name } } } }"}' \
+  -d '{"query":"{ __type(name: \"UpdateUserInput\") { inputFields { name type { name kind ofType { name kind } } } } }"}' \
   https://api.example.com/graphql
 ```
 
@@ -269,6 +258,11 @@ curl -s -X POST -H "Content-Type: application/json" \
 
 Insecure behavior: the mutation accepts and persists the injected fields.
 
+## Related Test Cases
+
+- [Mass Assignment (WSTG-INJT-20)](../07-Injection/20-Mass_Assignment.md)
+- [NoSQL Injection](../07-Injection/05.6-NoSQL_Injection.md)
+
 ## Remediation
 
 - Use an explicit allowlist of properties that each endpoint accepts. Deny anything not on the list.
@@ -281,8 +275,8 @@ Insecure behavior: the mutation accepts and persists the injected fields.
 
 ## References
 
-- [OWASP Testing Guide — Testing for Mass Assignment (WSTG-INJT-20)](../07-Injection/20-Mass_Assignment.md)
-- [OWASP API Security Top 10 — API3:2023 Broken Object Property Level Authorization](https://owasp.org/API-Security/editions/2023/en/0xa3-broken-object-property-level-authorization/)
+- [Mass Assignment - WSTG-INJT-20](../07-Injection/20-Mass_Assignment.md)
+- [OWASP API Security Top 10 - API3:2023 Broken Object Property Level Authorization](https://owasp.org/API-Security/editions/2023/en/0xa3-broken-object-property-level-authorization/)
 - [OWASP Mass Assignment Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Mass_Assignment_Cheat_Sheet.html)
 - [CWE-915: Improperly Controlled Modification of Dynamically-Determined Object Attributes](https://cwe.mitre.org/data/definitions/915.html)
 - [CWE-284: Improper Access Control](https://cwe.mitre.org/data/definitions/284.html)
