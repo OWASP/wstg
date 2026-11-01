@@ -19,7 +19,7 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 DOC_BASE = REPO_ROOT / "document" / "4-Web_Application_Security_Testing"
 OUTPUT_PATH = REPO_ROOT / "checklists" / "checklist.json"
 REFERENCE_PREFIX = (
-    "https://owasp.org/www-project-web-security-testing-guide/latest/"
+    "https://wstg.owasp.org/latest/"
     "4-Web_Application_Security_Testing/"
 )
 
