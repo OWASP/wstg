@@ -187,6 +187,7 @@ The following table summarizes some special variables and functions to look at w
 
 - [Hackvertor](https://hackvertor.co.uk/) is an online tool which allows many types of encoding and obfuscation of JavaScript (or any string input).
 - [BeEF](https://beefproject.com) is the browser exploitation framework. A professional tool to demonstrate the real-time impact of browser vulnerabilities.
+- [myexfilxss](https://github.com/hack-ita/xss-internal-exfil-poc) is a minimal proof of concept that shows the impact of an XSS: the injected script requests an internal-only URL from the victim's browser and sends the response to the tester in a single POST.
 - [Burp Proxy](https://portswigger.net/burp/) is an interactive HTTP/S proxy server for attacking and testing web applications.
 - [XSS Assistant](https://www.greasespot.net/) Greasemonkey script that allow users to easily test any web application for cross-site-scripting flaws.
 - [Zed Attack Proxy (ZAP)](https://www.zaproxy.org) is an interactive HTTP/S proxy server for attacking and testing web applications with a built-in scanner.
