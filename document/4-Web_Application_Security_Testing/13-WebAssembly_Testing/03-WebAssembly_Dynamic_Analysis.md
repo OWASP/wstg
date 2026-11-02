@@ -38,8 +38,8 @@ When an application fetches a `.wasm` binary and instantiates it inside an async
 3. Enter `.wasm` (so the breakpoint triggers when the request URL contains `.wasm`).
 4. Refresh the page.
 5. Execution pauses as soon as the network request for the `.wasm` binary is initiated. At this stage, you have two options:
-   - Manual scope inspection: Enable **Async** stack traces in DevTools, set a breakpoint on the `WebAssembly.instantiate` call inside the `.then()` resolution handler, and resume execution (`F8`) to inspect the `importObject` in the **Scope** pane.
-   - Console hook injection: For loaders that invoke `WebAssembly.instantiate` after the fetch promise resolves, paste the boundary proxy script (detailed in the next section) into the **Console** and press **Resume script execution** (`F8`).
+   - Manual scope inspection: DevTools shows async call stacks by default. Set a breakpoint on the `WebAssembly.instantiate` (or `instantiateStreaming`) call inside the `.then()` resolution handler, and resume execution (`F8`) to inspect the `importObject` in the **Scope** pane.
+   - Console hook injection: For loaders that invoke Wasm instantiation functions inside a `.then()` callback after the fetch resolves, paste the boundary proxy script (detailed in the next section) into the **Console** and press **Resume script execution** (`F8`).
 
 Note on direct streaming calls: In loaders that pass `fetch()` directly as an argument, such as `WebAssembly.instantiateStreaming(fetch("app.wasm"), importObject)` (the canonical Go `wasm_exec.js` pattern), the JavaScript engine resolves the `WebAssembly.instantiateStreaming` function reference before evaluating `fetch()`. Replacing `WebAssembly.instantiateStreaming` in the console while paused at the fetch breakpoint will not intercept that in-flight call. To reliably hook all loading patterns, inject the proxy script before page load using DevTools Local Overrides (see [WebAssembly Reconnaissance (WSTG-WASM-01)](01-WebAssembly_Reconnaissance.md)) or an intercepting proxy's response modification rule.
 
@@ -187,7 +187,7 @@ Modern Chromium-based browsers feature a built-in Memory Inspector:
 
 #### Searching Live Memory for Transient Indicators
 
-Scan active linear memory for secrets that were not visible during static analysis. Decode the buffer using `latin1` (`iso-8859-1`) rather than `utf-8` to preserve a strict 1:1 mapping between string character indices and raw byte offsets:
+Scan active linear memory for secrets that were not visible during static analysis. Decode the buffer using the `latin1` label (which engines map to `windows-1252`) rather than `utf-8`. This preserves a strict 1:1 mapping between string character indices and raw byte offsets, keeping the reported index accurate (note that bytes `0x80` to `0x9F` decode to `windows-1252` punctuation, so avoid byte-range patterns like `[^\x00-\x7F]`):
 
 ```javascript
 function searchLiveMemory(pattern, flags = "g") {
@@ -196,7 +196,7 @@ function searchLiveMemory(pattern, flags = "g") {
     return [];
   }
   const buffer = new Uint8Array(globalThis._wasmMemory.buffer);
-  // Use latin1 so each byte maps to exactly one character, keeping match.index accurate
+  // Use latin1 (windows-1252) to map each byte to exactly one character, keeping match.index accurate
   const text = new TextDecoder("latin1").decode(buffer);
   const regex = new RegExp(pattern, flags);
   const matches = [];
@@ -232,15 +232,17 @@ function writeStringToMemory(str) {
     exports._emscripten_stack_alloc;
 
   let ptr;
-  const memory = new Uint8Array(globalThis._wasmMemory.buffer);
 
   if (typeof alloc === "function") {
     ptr = alloc(encoded.length + 1);
   } else {
-    // Fallback: Write near the end of the current memory page to avoid corrupting static data
-    ptr = memory.byteLength - (encoded.length + 64);
+    // Fallback: Write near the end of the current linear memory buffer.
+    // Confirm the region is zero/unused in the Memory Inspector first.
+    ptr = globalThis._wasmMemory.buffer.byteLength - (encoded.length + 64);
   }
 
+  // Create the TypedArray AFTER allocation, as memory.grow detaches old buffers.
+  const memory = new Uint8Array(globalThis._wasmMemory.buffer);
   memory.set(encoded, ptr);
   memory[ptr + encoded.length] = 0; // Null terminator for C-ABI strings
 
@@ -267,7 +269,7 @@ Modern browsers automatically disassemble loaded WebAssembly binaries into WAT f
    - When execution halts, inspect the **Scope** pane to observe the operand stack, local variables, global variables, and linear memory references.
    - Use **Step Over** (`F10`) and **Step Into** (`F11`) to trace conditional execution branches.
 
-Note on Debugging With Attributed Record Formats (DWARF) metadata: If the target module retains DWARF symbols (see [WebAssembly Reconnaissance (WSTG-WASM-01)](01-WebAssembly_Reconnaissance.md)), install the **C/C++ DevTools Support (DWARF)** browser extension to step through original C, C++, or Rust source files alongside the disassembled WAT view.
+Note on Debugging With Attributed Record Formats (DWARF) metadata: If the target module retains DWARF symbols (see [WebAssembly Reconnaissance (WSTG-WASM-01)](01-WebAssembly_Reconnaissance.md)), install the [C/C++ DevTools Support (DWARF)](https://chromewebstore.google.com/detail/cc++-devtools-support-dwa/pdcpmagijalfljmkmjngeonclgbbannb) browser extension to step through original C, C++, or Rust source files alongside the disassembled WAT view.
 
 ### Analysis Notes and Limitations
 
