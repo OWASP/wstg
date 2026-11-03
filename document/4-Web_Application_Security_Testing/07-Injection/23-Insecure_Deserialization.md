@@ -246,4 +246,4 @@ for deeper remediation guidance.
 - [CWE-502: Deserialization of Untrusted Data](https://cwe.mitre.org/data/definitions/502.html)
 - [OWASP Deserialization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html)
 - [OWASP Top 10 2021 A08: Software and Data Integrity Failures](https://owasp.org/Top10/2021/A08_2021-Software_and_Data_Integrity_Failures)
-- [HackTricks: Deserialization](https://book.hacktricks.wiki/en/pentesting-web/deserialization/index.html)
+- [HackTricks: Deserialization](https://hacktricks.wiki/en/pentesting-web/deserialization/index.html)
