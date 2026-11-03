@@ -154,4 +154,4 @@ To mitigate broken link hijacking, remove or update references to external resou
 - [Subdomain Takeover: Going beyond CNAME](https://0xpatrik.com/subdomain-takeover-ns/)
 - [can-i-take-over-xyz - A list of vulnerable services](https://github.com/EdOverflow/can-i-take-over-xyz/)
 - [EdOverflow - Broken Link Hijacking](https://edoverflow.com/2017/broken-link-hijacking/)
-- [OWASP AppSec Europe 2017 - Frans Rosén: DNS hijacking using cloud providers - no verification needed](https://2017.appsec.eu/presos/Developer/DNS%20hijacking%20using%20cloud%20providers%20%E2%80%93%20no%20verification%20needed%20-%20Frans%20Rosen%20-%20OWASP_AppSec-Eu_2017.pdf)
+- [OWASP AppSec Europe 2017 - Frans Rosén: DNS hijacking using cloud providers - no verification needed](https://web.archive.org/web/20260903205021/https://2017.appsec.eu/presos/Developer/DNS%20hijacking%20using%20cloud%20providers%20%E2%80%93%20no%20verification%20needed%20-%20Frans%20Rosen%20-%20OWASP_AppSec-Eu_2017.pdf)

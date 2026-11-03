@@ -822,7 +822,7 @@ Technology-specific Testing Guide pages have been created for the following DBMS
 - [David Litchfield: "Data-mining with SQL Injection and Inference"](https://dl.packetstormsecurity.net/papers/attack/sqlinference.pdf)
 - [Imperva: "Blinded SQL Injection"](https://www.imperva.com/lg/lgw.asp?pid=369)
 - [PortSwigger: "SQL Injection Cheat Sheet"](https://portswigger.net/web-security/sql-injection/cheat-sheet)
-- [Kevin Spett from SPI Dynamics: "Blind SQL Injection"](https://repo.zenk-security.com/Techniques%20d.attaques%20%20.%20%20Failles/Blind_SQLInjection.pdf)
+- [Kevin Spett from SPI Dynamics: "Blind SQL Injection"](https://web.archive.org/web/20260903204903/https://repo.zenk-security.com/Techniques%20d.attaques%20%20.%20%20Failles/Blind_SQLInjection.pdf)
 - ["ZeQ3uL" (Prathan Phongthiproek) and "Suphot Boonchamnan": "Beyond SQLi: Obfuscate and Bypass"](https://www.exploit-db.com/papers/17934/)
 - [Adi Kaploun and Eliran Goshen, Check Point Threat Intelligence & Research Team: "The Latest SQL Injection Trends"](https://blog.checkpoint.com/latest-sql-injection-trends/)
 
