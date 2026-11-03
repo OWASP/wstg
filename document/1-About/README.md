@@ -31,6 +31,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Alexander Bas
 - Davide Danelon
 - Elie Saad
+- Enes Baldemir
 - Felix Sieges
 - Himasree Kolathur
 - Ismael Goncalves
