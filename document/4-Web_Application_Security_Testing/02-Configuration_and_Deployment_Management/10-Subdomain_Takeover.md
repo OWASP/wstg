@@ -119,7 +119,7 @@ The same pattern applies to external resources that the application links to or 
 
 Crawl the application and collect every external URL, then check which of them fail to resolve or return a "not found" response from a service that allows the name to be re-registered. Prioritize by how the resource is used:
 
-- Scripts, stylesheets, and other resources loaded by the page (`<script src>`, `<link href>`, `<iframe src>`): claiming the source lets the attacker run code in the context of the application, with the same impact as stored XSS.
+- Scripts, style sheets, and other resources loaded by the page (`<script src>`, `<link href>`, `<iframe src>`): claiming the source lets the attacker run code in the context of the application, with the same impact as stored XSS.
 - Links to social media profiles, support channels, or documentation: claiming the account lets the attacker impersonate the organization to its users.
 - Domains or buckets referenced in emails, documentation, or mobile applications: these are easy to overlook because they do not appear when crawling the web application.
 
@@ -133,7 +133,7 @@ The tester has the DNS zone file available, which means DNS enumeration is not n
 
 To mitigate the risk of subdomain takeover, the vulnerable DNS resource record(s) should be removed from the DNS zone. Continuous monitoring and periodic checks are recommended as best practice.
 
-To mitigate broken link hijacking, remove or update references to external resources when they are retired, keep ownership of domains and accounts that are still referenced, and use [Subresource Integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) for scripts and stylesheets loaded from third parties.
+To mitigate broken link hijacking, remove or update references to external resources when they are retired, keep ownership of domains and accounts that are still referenced, and use [Subresource Integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) for scripts and style sheets loaded from third parties.
 
 ## Tools
 
