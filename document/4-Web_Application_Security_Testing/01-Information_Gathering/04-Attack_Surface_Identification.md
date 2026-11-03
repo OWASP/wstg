@@ -246,7 +246,8 @@ This kind of search is akin to DNS zone transfer, but relies on web-based servic
 Reverse-IP services are similar to DNS inverse queries, with the difference that the testers query a web-based application instead of a name server. There are a number of such services available. Since they tend to return partial (and often different) results, it is better to use multiple services to obtain a more comprehensive analysis.
 
 - [MxToolbox Reverse IP](https://mxtoolbox.com/ReverseLookup.aspx)
-- [DNSstuff](https://www.dnsstuff.com/) (multiple services available)
+- [ViewDNS.info Reverse IP](https://viewdns.info/reverseip/)
+- [HackerTarget Reverse IP Lookup](https://hackertarget.com/reverse-ip-lookup/)
 
 Internet asset search engines such as [Shodan](https://www.shodan.io/), [Censys](https://censys.com), and [FOFA](https://fofa.info) index internet-connected hosts and services and can also be searched by IP, certificate, or banner content to reveal other hostnames and services hosted on the same address. FOFA in particular has extensive coverage of infrastructure in China and Asia-Pacific, which can complement the coverage of Shodan and Censys. For example, an IP-based FOFA search: `ip="192.168.1.100"`, or a search for a specific title or header: `title="Example App"`. As with the other reverse-IP services above, a free tier with limited queries is available, with paid plans for more comprehensive access.
 
