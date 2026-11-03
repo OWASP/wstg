@@ -1,16 +1,11 @@
-from pydrive.auth import GoogleAuth
-from pydrive.drive import GoogleDrive
+from google_auth_oauthlib.flow import InstalledAppFlow
 
-# To Create GAuth Credentials file
-gauth = GoogleAuth()
-gauth.LoadCredentialsFile("credentials.json")
+SCOPES = ['https://www.googleapis.com/auth/drive']
 
-if gauth.credentials is None:
-    gauth.LocalWebserverAuth()
+# To create the credentials file, client_secrets.json is the OAuth client
+# downloaded from the Google Cloud console
+flow = InstalledAppFlow.from_client_secrets_file('client_secrets.json', SCOPES)
+creds = flow.run_local_server(port=0)
 
-elif gauth.access_token_expired:
-    gauth.Refresh()
-else:
-    gauth.Authorize()
-
-gauth.SaveCredentialsFile("credentials.json")
+with open('credentials.json', 'w') as f:
+    f.write(creds.to_json())

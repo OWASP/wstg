@@ -70,7 +70,8 @@
           "id": "WSTG-INFO-08",
           "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/01-Information_Gathering/08-Fingerprint_Web_Application_Framework",
           "objectives": [
-            "Fingerprint the components used by the web applications."
+            "Fingerprint the components used by the web applications.",
+            "Identify the versions of those components and determine whether any are outdated, unsupported, or affected by known vulnerabilities."
           ]
         },
         {
@@ -194,6 +195,7 @@
           "objectives": [
             "Enumerate all possible domains (previous and current), including wildcard-covered names.",
             "Identify any forgotten or misconfigured domains, and any dangling-service signature not covered by a known response fingerprint.",
+            "Identify links and resources that point to external domains, buckets, or accounts that no longer exist and could be claimed.",
             "Where a takeover is confirmed feasible, assess whether the parent application's cookies, CORS policy, OAuth redirect validation, or CSP allowlist extend trust to the claimed subdomain."
           ],
           "cre_ids": [

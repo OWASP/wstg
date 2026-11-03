@@ -11,6 +11,7 @@ It wouldn't be a stretch to say that almost every conceivable idea for a web app
 ## Test Objectives
 
 - Fingerprint the components used by the web applications.
+- Identify the versions of those components and determine whether any are outdated, unsupported, or affected by known vulnerabilities.
 
 ## How to Test
 
@@ -240,13 +241,34 @@ Sample output is presented on a screenshot below:
 ![Whatweb Output sample](images/08-whatweb_sample.png)\
 *Figure 4.1.8-6: Whatweb Output sample*
 
+### Outdated and Vulnerable Components
+
+Once a component and its version are identified, check whether that version is still supported and whether it has known vulnerabilities. Versions are often disclosed by the markers above, and also by:
+
+- Comment banners at the top of JavaScript and CSS files, such as `/*! jQuery v3.4.1 | (c) JS Foundation and other contributors | jquery.org/license */`.
+- Version numbers in filenames or query strings, such as `bootstrap-4.3.1.min.js` or `style.css?ver=6.2.1`.
+- Publicly accessible files that ship with the component, such as `readme.html`, `CHANGELOG.md`, or `package.json`.
+
+Look up each identified version in vulnerability databases such as the [NVD](https://nvd.nist.gov/), the [GitHub Advisory Database](https://github.com/advisories), and [OSV](https://osv.dev/), as well as in the vendor's own security advisories. Check the vendor's support policy, or a tracker such as [endoflife.date](https://endoflife.date/), to determine whether the version still receives security fixes.
+
+Tools can automate parts of this. For example, [Retire.js](https://retirejs.github.io/retire.js/) detects JavaScript libraries with known vulnerabilities, and [WPScan](https://github.com/wpscanteam/wpscan) reports vulnerable WordPress core, plugin, and theme versions.
+
+A match based on version alone is not proof that the vulnerability is present. Vendors and Linux distributions often backport fixes without changing the version number, and the vulnerable feature may not be in use. See [Test Network Infrastructure Configuration](../02-Configuration_and_Deployment_Management/01-Network_Infrastructure_Configuration.md) for more on reviewing known vulnerabilities and unsupported software, and confirm findings before reporting them.
+
 ## Remediation
 
 While efforts can be made to use different cookie names (through changing configs), hiding or changing file/directory paths (through rewriting or source code changes), removing known headers, etc., such efforts boil down to "security through obscurity". System owners/administrators should recognize that such efforts only slow down the most rudimentary adversaries. The time and effort might be better spent on increasing stakeholder awareness and maintaining solutions.
 
+Keep frameworks, libraries, and other components up to date, and replace components that no longer receive security fixes. Maintaining an inventory of components and their versions, for example with a software bill of materials (SBOM) and software composition analysis (SCA) tooling, makes it easier to find affected components when new vulnerabilities are published.
+
 ## Tools
 
 A list of general and well-known tools is presented below. There are also a lot of other utilities, as well as framework-based fingerprinting tools.
+
+- [WhatWeb](https://github.com/urbanadventurer/WhatWeb)
+- [Wappalyzer](https://www.wappalyzer.com/)
+- [Retire.js](https://retirejs.github.io/retire.js/)
+- [WPScan](https://github.com/wpscanteam/wpscan)
 
 ## References
 
