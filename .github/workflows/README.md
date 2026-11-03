@@ -6,7 +6,7 @@ This directory contains GitHub Actions workflows for the WSTG repository. Helper
 
 These workflows use:
 
-- Node.js and Python for various automation tasks
+- Node.js and Python (3.14) for various automation tasks. Python dependencies are pinned in `/.github/requirements.txt`
 - GitHub Actions for checkout, setup, artifact management, and API interactions
 - [markdown-link-check](https://github.com/tcort/markdown-link-check) for Markdown link checking
 

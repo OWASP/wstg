@@ -28,6 +28,7 @@ If the subdomain takeover is successful, a wide variety of attacks are possible 
 
 - Enumerate all possible domains (previous and current), including wildcard-covered names.
 - Identify any forgotten or misconfigured domains, and any dangling-service signature not covered by a known response fingerprint.
+- Identify links and resources that point to external domains, buckets, or accounts that no longer exist and could be claimed.
 - Where a takeover is confirmed feasible, assess whether the parent application's cookies, CORS policy, OAuth redirect validation, or CSP allowlist extend trust to the claimed subdomain.
 
 ## How to Test
@@ -112,6 +113,18 @@ A successful takeover is not limited to serving attacker-controlled content on t
 
 When reporting a takeover finding, check whether any of these apply to the specific subdomain claimed, since they change the finding from "content spoofing on an isolated subdomain" to "compromise of the main application's session/authorization/script trust."
 
+#### Broken Link Hijacking
+
+The same pattern applies to external resources that the application links to or loads, even when no DNS record of the target's own is involved. If a referenced domain, cloud storage bucket, code repository, package, or social media account no longer exists, an attacker may be able to register it and control what the application points to.
+
+Crawl the application and collect every external URL, then check which of them fail to resolve or return a "not found" response from a service that allows the name to be re-registered. Prioritize by how the resource is used:
+
+- Scripts, style sheets, and other resources loaded by the page (`<script src>`, `<link href>`, `<iframe src>`): claiming the source lets the attacker run code in the context of the application, with the same impact as stored XSS.
+- Links to social media profiles, support channels, or documentation: claiming the account lets the attacker impersonate the organization to its users.
+- Domains or buckets referenced in emails, documentation, or mobile applications: these are easy to overlook because they do not appear when crawling the web application.
+
+As with subdomain takeover, confirm that the resource can actually be claimed on the provider's platform before reporting, and do not register it without written approval.
+
 ### Gray-Box Testing
 
 The tester has the DNS zone file available, which means DNS enumeration is not necessary. The testing methodology is the same.
@@ -119,6 +132,8 @@ The tester has the DNS zone file available, which means DNS enumeration is not n
 ## Remediation
 
 To mitigate the risk of subdomain takeover, the vulnerable DNS resource record(s) should be removed from the DNS zone. Continuous monitoring and periodic checks are recommended as best practice.
+
+To mitigate broken link hijacking, remove or update references to external resources when they are retired, keep ownership of domains and accounts that are still referenced, and use [Subresource Integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) for scripts and style sheets loaded from third parties.
 
 ## Tools
 
@@ -130,6 +145,7 @@ To mitigate the risk of subdomain takeover, the vulnerable DNS resource record(s
 - [can-i-take-over-xyz - Vulnerable service fingerprint database](https://github.com/EdOverflow/can-i-take-over-xyz)
 - [dig - DNS lookup utility](https://man.cx/dig)
 - [OWASP Domain Protect](https://owasp.org/www-project-domain-protect)
+- [broken-link-checker - Crawls a site and reports broken links and resources](https://github.com/stevenvachon/broken-link-checker)
 
 ## References
 
@@ -137,4 +153,5 @@ To mitigate the risk of subdomain takeover, the vulnerable DNS resource record(s
 - [Subdomain Takeover: Basics](https://0xpatrik.com/subdomain-takeover-basics/)
 - [Subdomain Takeover: Going beyond CNAME](https://0xpatrik.com/subdomain-takeover-ns/)
 - [can-i-take-over-xyz - A list of vulnerable services](https://github.com/EdOverflow/can-i-take-over-xyz/)
+- [EdOverflow - Broken Link Hijacking](https://edoverflow.com/2017/broken-link-hijacking/)
 - [OWASP AppSec Europe 2017 - Frans Rosén: DNS hijacking using cloud providers - no verification needed](https://2017.appsec.eu/presos/Developer/DNS%20hijacking%20using%20cloud%20providers%20%E2%80%93%20no%20verification%20needed%20-%20Frans%20Rosen%20-%20OWASP_AppSec-Eu_2017.pdf)

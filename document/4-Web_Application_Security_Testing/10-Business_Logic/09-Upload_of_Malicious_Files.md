@@ -79,6 +79,9 @@ If the filtering is performed on the server-side, then various techniques can be
 - Using special trailing characters such as spaces, dots or null characters such as `file.asp...`, `file.php;jpg`, `file.asp%00.jpg`, `1.jpg%00.php`
 - In badly configured versions of Nginx, uploading a file as `test.jpg/x.php` may allow it to be executed as `x.php`.
 - Upload an `.htaccess` file with the following content: `AddType application/x-httpd-php .png`. This will cause the Apache server to execute `.png` images as if they were `.php` resources.
+- On IIS, upload a `web.config` file. A `web.config` placed in a directory can change how the server handles files in that directory, for example by adding a handler mapping that executes a permitted extension as server-side code.
+- On PHP servers running as CGI or FastCGI (such as PHP-FPM), upload a `.user.ini` file containing `auto_prepend_file=image.png`. If the directory also contains a PHP script, the uploaded image will be included and executed before that script runs.
+- Embed code in the file's metadata so that it still passes content checks. For example, `exiftool -Comment='<?php phpinfo(); ?>' image.jpg` adds a harmless PHP proof of execution to a valid JPEG. The code runs if the server later processes the file as code, such as through one of the configuration changes above or a [File Inclusion](../07-Injection/11.1-File_Inclusion.md) vulnerability.
 
 In some situations, you may need to combine the different filter evasion techniques discussed above in order to successfully bypass server-side filters.**
 
@@ -183,6 +186,9 @@ These are discussed further in the [XML Injection](../07-Injection/07-XML_Inject
 Many other file formats also have specific security concerns that need to be taken into account, such as:
 
 - Image files must be checked for maximum pixel/frame size.
+- SVG images are XML documents and can contain JavaScript. Scripts do not run when an SVG is displayed through an `<img>` tag or as a CSS background, but they do when the file is opened directly or embedded as a document (for example with `<object>`, `<embed>`, or `<iframe>`). If the application serves uploaded SVGs from its own origin as `image/svg+xml`, open the uploaded file's URL directly to check for stored XSS. SVGs can also be used for XXE attacks if the server parses them.
+- HTML and XHTML files can lead to stored XSS in the same way if they are served inline from the application's origin. See [Test Upload of Unexpected File Types](08-Upload_of_Unexpected_File_Types.md).
+- Polyglot files are valid in more than one format, such as a GIF image that is also valid JavaScript. Browsers refuse to execute a script served with an image MIME type such as `image/gif`, so this only works if the server returns the uploaded file with a type the browser accepts for scripts (with `X-Content-Type-Options: nosniff`, a JavaScript MIME type), and if there is a separate injection point that can load it with a `<script>` tag. When both are true, the polyglot can bypass a Content Security Policy that allows scripts from the application's own origin.
 - CSV files may allow [CSV injection attacks](https://owasp.org/www-community/attacks/CSV_Injection).
 - Office files may contain malicious macros or PowerShell code.
 - PDFs may contain malicious JavaScript.
@@ -211,6 +217,8 @@ Fully protecting against malicious file upload can be complex, and the exact ste
 
 - Metasploit's payload generation functionality
 - Intercepting proxy
+- [Upload Scanner](https://portswigger.net/bappstore/b2244cbb6953442cb3c82fa0a0d908fa) Burp Suite extension
+- [ExifTool](https://exiftool.org/) for reading and writing file metadata
 
 ## References
 
