@@ -9,7 +9,6 @@ if len(sys.argv) < 2:
     print('drive-file-id is the id of the file to update, version is optional')
     sys.exit(1)
 
-SCOPES = ['https://www.googleapis.com/auth/drive']
 XLSX_MIME = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
 
 file_id = sys.argv[1]
@@ -17,8 +16,9 @@ version = '-' + sys.argv[2] if len(sys.argv) > 2 else ''
 title = 'WSTG-Checklist{}.xlsx'.format(version)
 
 # credentials.json holds the client id/secret and refresh token, the access
-# token is refreshed automatically on the first request
-creds = Credentials.from_authorized_user_file('credentials.json', SCOPES)
+# token is refreshed automatically on the first request. No scopes are passed
+# so the refresh uses whatever scopes the token was originally granted.
+creds = Credentials.from_authorized_user_file('credentials.json')
 drive = build('drive', 'v3', credentials=creds)
 
 # Upload the new content and update the title
