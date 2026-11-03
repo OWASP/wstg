@@ -6,7 +6,7 @@
 
 ## Summary
 
-A client-side resource manipulation vulnerability is an input validation flaw. It occurs when an application accepts user-controlled input that specifies the path of a resource such as the source of an iframe, JavaScript, applet, or the handler of an XMLHttpRequest. This vulnerability consists of the ability to control the URLs that link to some resources present in a web page. The impact of this vulnerability varies, and it is usually adopted to conduct XSS attacks. This vulnerability makes it is possible to interfere with the expected application's behavior by causing it to load and render malicious objects.
+A client-side resource manipulation vulnerability is an input validation flaw. It occurs when an application accepts user-controlled input that specifies the path of a resource such as the source of an iframe, JavaScript, or the handler of an XMLHttpRequest. This vulnerability consists of the ability to control the URLs that link to some resources present in a web page. The impact of this vulnerability varies, and it is usually adopted to conduct XSS attacks. This vulnerability makes it is possible to interfere with the expected application's behavior by causing it to load and render malicious objects.
 
 The following JavaScript code shows a possible vulnerable script in which an attacker is able to control the `location.hash` (source) which reaches the attribute `src` of a script element. This particular case leads to a XSS attack as external JavaScript could be injected.
 

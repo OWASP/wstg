@@ -68,7 +68,7 @@ Applications running on accessibility mode should also be tested against clickja
 
 ### Server-Side Protection: Using Frame-Ancestors Directive of Content Security Policy
 
-The HTTP Content-Security-Policy (CSP) response header allows web page administrators to control resources the user agent is allowed to load for a given web page. The `frame-ancestors` directive in the HTTP CSP specifies the acceptable parents that may embed a web page using the `<frame>`, `<iframe>`, `<object>`, `<embed>`, or `<applet>` tags.
+The HTTP Content-Security-Policy (CSP) response header allows web page administrators to control resources the user agent is allowed to load for a given web page. The `frame-ancestors` directive in the HTTP CSP specifies the acceptable parents that may embed a web page using the `<frame>`, `<iframe>`, `<object>`, or `<embed>` tags.
 
 #### Content Security Policy Response Header
 
