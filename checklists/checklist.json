@@ -575,7 +575,7 @@
           "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/06-Session_Management/06-Logout_Functionality",
           "objectives": [
             "Assess the logout UI.",
-            "Analyze the session timeout and if the session is properly killed after logout."
+            "Verify that the session is properly terminated server-side after logout."
           ],
           "cre_ids": [
             "673-736",
@@ -588,7 +588,8 @@
           "id": "WSTG-SESS-07",
           "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/06-Session_Management/07-Session_Timeout",
           "objectives": [
-            "Validate that a hard session timeout exists."
+            "Validate that an idle timeout exists and is enforced server-side.",
+            "Validate that an absolute timeout limits the total lifetime of a session."
           ],
           "cre_ids": [
             "065-782"
