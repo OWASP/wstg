@@ -33,12 +33,14 @@ The most common misconception about PCI DSS is that it only applies to systems t
 
 | Integration Method | Self Assessment Questionnaire (SAQ) |
 |--------------------|-------------------------------------|
-| Redirect | [SAQ A](https://www.pcisecuritystandards.org/documents/PCI-DSS-v3_2_1-SAQ-A.pdf) |
-| IFRAME | [SAQ A](https://www.pcisecuritystandards.org/documents/PCI-DSS-v3_2_1-SAQ-A.pdf) |
-| Cross-domain POST | [SAQ A-EP](https://www.pcisecuritystandards.org/documents/PCI-DSS-v3_2-SAQ-A_EP-rev1_1.pdf) |
-| Backend API | [SAQ D](https://www.pcisecuritystandards.org/documents/PCI-DSS-v3_2_1-SAQ-D_Merchant.pdf) |
+| Redirect | SAQ A |
+| IFRAME | SAQ A |
+| Cross-domain POST | SAQ A-EP |
+| Backend API | SAQ D |
 
-In addition to the differences in the attack surface and risk profile of each approach, there is also a significant difference in the number of requirements between SAQ A (22 requirements) and SAQ D (329 requirements) that the organization needs to meet. As such, it's worth highlighting applications that are not using an redirect or IFRAME, as they represent increased technical and compliance risks.
+The current versions of these questionnaires are available from the [PCI SSC Document Library](https://www.pcisecuritystandards.org/document_library/?category=saqs).
+
+In addition to the differences in the attack surface and risk profile of each approach, there is also a significant difference in the number of requirements between SAQ A and SAQ D that the organization needs to meet. As such, it's worth highlighting applications that are not using an redirect or IFRAME, as they represent increased technical and compliance risks.
 
 ### Quantity Tampering
 
