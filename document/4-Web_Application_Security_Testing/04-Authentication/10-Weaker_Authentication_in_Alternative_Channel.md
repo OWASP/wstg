@@ -29,7 +29,6 @@ Bear in mind the focus of this test is on alternative channels; some authenticat
 - Progressive enrichment and graceful degradation that change functionality
 - Site use without cookies
 - Site use without JavaScript
-- Site use without plugins such as for Flash and Java
 
 Even if the scope of the test does not allow the alternative channels to be tested, their existence should be documented. These may undermine the degree of assurance in the authentication mechanisms and may be a precursor to additional testing.
 
