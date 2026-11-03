@@ -246,7 +246,7 @@ Sample output is presented on a screenshot below:
 Once a component and its version are identified, check whether that version is still supported and whether it has known vulnerabilities. Versions are often disclosed by the markers above, and also by:
 
 - Comment banners at the top of JavaScript and CSS files, such as `/*! jQuery v3.4.1 | (c) JS Foundation and other contributors | jquery.org/license */`.
-- Version numbers in file names or query strings, such as `bootstrap-4.3.1.min.js` or `style.css?ver=6.2.1`.
+- Version numbers in filenames or query strings, such as `bootstrap-4.3.1.min.js` or `style.css?ver=6.2.1`.
 - Publicly accessible files that ship with the component, such as `readme.html`, `CHANGELOG.md`, or `package.json`.
 
 Look up each identified version in vulnerability databases such as the [NVD](https://nvd.nist.gov/), the [GitHub Advisory Database](https://github.com/advisories), and [OSV](https://osv.dev/), as well as in the vendor's own security advisories. Check the vendor's support policy, or a tracker such as [endoflife.date](https://endoflife.date/), to determine whether the version still receives security fixes.
