@@ -186,9 +186,9 @@ These are discussed further in the [XML Injection](../07-Injection/07-XML_Inject
 Many other file formats also have specific security concerns that need to be taken into account, such as:
 
 - Image files must be checked for maximum pixel/frame size.
-- SVG images are XML documents. They can contain JavaScript, which leads to stored XSS if the file is served from the application's origin as `image/svg+xml`, and they can be used for XXE attacks if the server parses them.
+- SVG images are XML documents and can contain JavaScript. Scripts do not run when an SVG is displayed through an `<img>` tag or as a CSS background, but they do when the file is opened directly or embedded as a document (for example with `<object>`, `<embed>`, or `<iframe>`). If the application serves uploaded SVGs from its own origin as `image/svg+xml`, open the uploaded file's URL directly to check for stored XSS. SVGs can also be used for XXE attacks if the server parses them.
 - HTML and XHTML files can lead to stored XSS in the same way if they are served inline from the application's origin. See [Test Upload of Unexpected File Types](08-Upload_of_Unexpected_File_Types.md).
-- Polyglot files are valid in more than one format, such as a GIF image that is also valid JavaScript. They can pass image validation and then be loaded as a script, which can bypass a Content Security Policy that allows scripts from the application's own origin.
+- Polyglot files are valid in more than one format, such as a GIF image that is also valid JavaScript. Browsers refuse to execute a script served with an image MIME type such as `image/gif`, so this only works if the server returns the uploaded file with a type the browser accepts for scripts (with `X-Content-Type-Options: nosniff`, a JavaScript MIME type), and if there is a separate injection point that can load it with a `<script>` tag. When both are true, the polyglot can bypass a Content Security Policy that allows scripts from the application's own origin.
 - CSV files may allow [CSV injection attacks](https://owasp.org/www-community/attacks/CSV_Injection).
 - Office files may contain malicious macros or PowerShell code.
 - PDFs may contain malicious JavaScript.
