@@ -54,15 +54,15 @@ The exact location where that information is stored depends on the client operat
 - Mozilla Firefox:
     - Unix/Linux: `~/.cache/mozilla/firefox/`
     - Windows: `C:\Users\<user_name>\AppData\Local\Mozilla\Firefox\Profiles\<profile-id>\Cache2\`
-- Internet Explorer:
-    - `C:\Users\<user_name>\AppData\Local\Microsoft\Windows\INetCache\`
+- Microsoft Edge:
+    - Windows: `C:\Users\<user_name>\AppData\Local\Microsoft\Edge\User Data\Default\Cache`
 - Chrome:
     - Windows: `C:\Users\<user_name>\AppData\Local\Google\Chrome\User Data\Default\Cache`
     - Unix/Linux: `~/.cache/google-chrome`
 
 #### Reviewing Cached Information
 
-Firefox provides functionality for viewing cached information, which may be to your benefit as a tester. Of course the industry has also produced various extensions, and external apps which you may prefer or need for Chrome, Internet Explorer, or Edge.
+Firefox provides functionality for viewing cached information, which may be to your benefit as a tester. Of course the industry has also produced various extensions, and external apps which you may prefer or need for Chrome or Edge.
 
 Cache details are also available via developer tools in most modern browsers, such as [Firefox](https://firefox-source-docs.mozilla.org/devtools-user/storage_inspector/index.html), [Chrome](https://developer.chrome.com/docs/devtools/storage/cache), and Edge. With Firefox it is also possible to use the URL `about:cache` to check cache details.
 
