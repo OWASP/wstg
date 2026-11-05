@@ -1,4 +1,4 @@
-# Testing Service Workers
+# Service Workers
 
 |ID          |
 |------------|
@@ -16,7 +16,7 @@ This lifetime and position make a service worker a high-value target:
 - A worker installed through a cross-site scripting (XSS) flaw can survive after the flaw is fixed, because the worker stays registered in the victim's browser.
 - Cached responses can be served to the wrong user or after logout when the caching logic is careless.
 
-This page covers what is specific to service workers. For general script injection, see [Testing for JavaScript Execution](02-JavaScript_Execution.md) and [Testing for DOM-based Cross Site Scripting](01-DOM-based_Cross_Site_Scripting.md). For other client-side storage, see [Testing Browser Storage](12-Browser_Storage.md).
+This page covers what is specific to service workers. For general script injection, see [JavaScript Execution](02-JavaScript_Execution.md) and [DOM-Based Cross Site Scripting](01-DOM-based_Cross_Site_Scripting.md). For other client-side storage, see [Browser Storage](12-Browser_Storage.md).
 
 ## Test Objectives
 
@@ -54,7 +54,7 @@ Check the following:
 
 ### Review Imported Scripts
 
-Open the worker script and look for [`importScripts()`](https://developer.mozilla.org/en-US/docs/Web/API/WorkerGlobalScope/importScripts) calls and ES module imports. Any script the worker loads from another origin runs with the worker's full control over the application's requests and responses. Note third-party libraries, tag managers and CDNs, and whether the loaded files use fixed, versioned URLs. See also [Testing for Cross Site Script Inclusion](13-Cross_Site_Script_Inclusion.md) and [Testing for Content Security Policy](../02-Configuration_and_Deployment_Management/12-Content_Security_Policy.md).
+Open the worker script and look for [`importScripts()`](https://developer.mozilla.org/en-US/docs/Web/API/WorkerGlobalScope/importScripts) calls and ES module imports. Any script the worker loads from another origin runs with the worker's full control over the application's requests and responses. Note third-party libraries, tag managers and CDNs, and whether the loaded files use fixed, versioned URLs. See also [Cross Site Script Inclusion](13-Cross_Site_Script_Inclusion.md) and [Content Security Policy](../02-Configuration_and_Deployment_Management/12-Content_Security_Policy.md).
 
 ### Review Cache and Fetch Handling
 
@@ -78,7 +78,7 @@ Service workers outlive the page that registered them. Check:
 
 If the application uses `postMessage` between pages and the worker, or the Push API, review the `message`, `push` and `notificationclick` handlers:
 
-- The `message` handler should check the sender, in the same way as [Testing Web Messaging](11-Web_Messaging.md) describes for pages.
+- The `message` handler should check the sender, in the same way as [Web Messaging](11-Web_Messaging.md) describes for pages.
 - Data from a push payload should not be inserted into pages or notifications as HTML.
 - A `notificationclick` handler that opens a URL taken from the payload should only open URLs on expected origins.
 
@@ -97,7 +97,7 @@ If the application uses `postMessage` between pages and the worker, or the Push 
 - Browser developer tools (Application / Storage panels)
 - `chrome://serviceworker-internals`
 - [Burp Suite](https://portswigger.net/burp)
-- [OWASP ZAP](https://www.zaproxy.org/)
+- [Zed Attack Proxy (ZAP)](https://www.zaproxy.org/)
 
 ## References
 
