@@ -31,3 +31,5 @@
 4.11.14 [Reverse Tabnabbing](14-Reverse_Tabnabbing.md)
 
 4.11.15 [Client-side Template Injection](15-Client-Side_Template_Injection.md)
+
+4.11.16 [DOM Clobbering](16-DOM_Clobbering.md)
