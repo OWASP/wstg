@@ -114,7 +114,10 @@ The sanitizer keeps the comment unchanged, since it only contains anchor element
 ![DOM Clobbering Attack Flow](images/11-dom_clobbering_flow.png)\
 *Figure 4.11.16-1: DOM Clobbering Attack Flow*
 
-To demonstrate the issue without running external code, evaluate `String(config.url)` in the browser console after the comment is rendered. It returns the attacker's URL instead of `undefined`.
+To demonstrate the issue without running external code, evaluate `window.config`, `config.url`, and `String(config.url)` in the browser console after the comment is rendered. The last one returns the attacker's URL instead of `undefined`. In the following example, the page has already tried to load the script from the attacker's domain.
+
+![Clobbered Value in the Browser Console](images/11-dom_clobbering_console.png)\
+*Figure 4.11.16-2: Clobbered Value in the Browser Console*
 
 ### Gray-Box Testing
 
