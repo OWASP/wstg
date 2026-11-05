@@ -334,6 +334,8 @@
 
 #### 4.12.4 [API Broken Function Level Authorization](4-Web_Application_Security_Testing/12-API_Testing/04-API_Broken_Function_Level_Authorization.md)
 
+#### 4.12.6 [API Rate Limiting and Resource Consumption](4-Web_Application_Security_Testing/12-API_Testing/06-API_Rate_Limiting_and_Resource_Consumption.md)
+
 #### 4.12.99 [GraphQL](4-Web_Application_Security_Testing/12-API_Testing/99-GraphQL.md)
 
 ### 4.13 [WebAssembly Testing](4-Web_Application_Security_Testing/13-WebAssembly_Testing/README.md)
