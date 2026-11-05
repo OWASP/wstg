@@ -19,7 +19,7 @@ Browsers can store information for purposes of caching and history. Caching is u
 
 ### Browser History
 
-Technically, the **Back** button is a history and not a cache (see [Caching in HTTP: History Lists](https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html#sec13.13)). The cache and the history are two different entities. However, they share the same weakness of presenting previously displayed sensitive information.
+Technically, the **Back** button is a history and not a cache (see [HTTP Caching: History Lists](https://www.rfc-editor.org/rfc/rfc9111.html#section-6)). The cache and the history are two different entities. However, they share the same weakness of presenting previously displayed sensitive information.
 
 The first and simplest test consists of entering sensitive information into the application and logging out. Then the tester clicks the **Back** button of the browser to check whether previously displayed sensitive information can be accessed whilst unauthenticated.
 
@@ -56,6 +56,7 @@ The exact location where that information is stored depends on the client operat
     - Windows: `C:\Users\<user_name>\AppData\Local\Mozilla\Firefox\Profiles\<profile-id>\Cache2\`
 - Microsoft Edge:
     - Windows: `C:\Users\<user_name>\AppData\Local\Microsoft\Edge\User Data\Default\Cache`
+    - Unix/Linux: `~/.cache/microsoft-edge`
 - Chrome:
     - Windows: `C:\Users\<user_name>\AppData\Local\Google\Chrome\User Data\Default\Cache`
     - Unix/Linux: `~/.cache/google-chrome`
@@ -86,4 +87,4 @@ The methodology for testing is equivalent to the black-box case, as in both scen
 
 - [MDN - Cache-Control](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cache-Control)
 - [Euthanize Pragma no-cache](https://www.veggiespam.com/euthanize-pragma-no-cache/)
-- [Caching in HTTP](https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html)
+- [RFC 9111 - HTTP Caching](https://www.rfc-editor.org/rfc/rfc9111.html)
