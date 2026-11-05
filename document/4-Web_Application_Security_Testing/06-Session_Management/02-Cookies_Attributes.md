@@ -145,8 +145,7 @@ Putting all this together, we can define the most secure cookie attribute config
 
 ## References
 
-- [RFC 2965 - HTTP State Management Mechanism](https://tools.ietf.org/html/rfc2965)
-- [RFC 2616 - Hypertext Transfer Protocol - HTTP 1.1](https://tools.ietf.org/html/rfc2616)
+- [RFC 6265 - HTTP State Management Mechanism](https://www.rfc-editor.org/rfc/rfc6265.html)
 - [Cookies: HTTP State Management Mechanism - draft-ietf-httpbis-rfc6265bis](https://datatracker.ietf.org/doc/draft-ietf-httpbis-rfc6265bis/)
 - [The important "expires" attribute of Set-Cookie](https://seckb.yehg.net/2012/02/important-expires-attribute-of-set.html)
 - [HttpOnly Session ID in URL and Page Body](https://seckb.yehg.net/2012/06/httponly-session-id-in-url-and-page.html)
