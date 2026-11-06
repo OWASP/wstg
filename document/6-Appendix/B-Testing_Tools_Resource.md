@@ -35,6 +35,8 @@ The list contains only tools that are freely available to download and use (alth
     - The Web Developer extension adds a toolbar button to the browser with various web developer tools. This is the official port of the Web Developer extension for Chrome.
 - [Cookie Editor](https://chromewebstore.google.com/detail/cookie-editor/hlkenndednhfkekhgcdicdfddnkalmdm)
     - A powerful and easy to use browser extension that allows you to quickly create, edit and delete cookies for the current tab. Useful for developing, testing, or manually managing cookies.
+- [Spoof Me](https://chromewebstore.google.com/detail/spoof-me/onbjkmhileedchimkcmieeiomipdljki)
+    - Switches the User-Agent and Accept-Language headers along with the matching JavaScript signals (navigator, screen, timezone). Useful for testing how an application responds to different devices, platforms and locales. Also available for [Firefox](https://addons.mozilla.org/en-US/firefox/addon/spoof-me/).
 
 ### Specific Vulnerabilities
 
