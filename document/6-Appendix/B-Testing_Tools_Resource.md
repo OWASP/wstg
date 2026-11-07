@@ -41,6 +41,7 @@ The list contains only tools that are freely available to download and use (alth
 #### SQL Injection
 
 - [sqlmap](https://sqlmap.org)
+    - [Practical SQLmap Guide by HackITA](https://en.hackita.it/articoli/sqlmap/) - A hands-on guide covering request handling, injection techniques, database enumeration, data extraction, tamper scripts, troubleshooting, and a local lab.
 
 #### TLS
 
