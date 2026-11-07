@@ -1,0 +1,14 @@
+---
+layout: document
+title: WSTG - Latest
+collection_name: latest
+channel_label: Latest
+channel_path: latest
+render_with_liquid: false
+---
+
+# Reporting
+
+5.1 [Reporting Structure](01-Reporting_Structure/)
+
+5.2 [Naming Schemes](02-Naming_Schemes/)
