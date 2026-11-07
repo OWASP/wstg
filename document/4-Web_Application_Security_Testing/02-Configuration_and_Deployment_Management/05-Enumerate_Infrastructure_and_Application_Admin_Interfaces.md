@@ -24,7 +24,7 @@ In many instances, such interfaces do not have sufficient controls to protect th
 
 ## How to Test
 
-### Black Box Testing
+### Black-Box Testing
 
 The following section describes vectors that may be used to test for the presence of administrative interfaces. These techniques may also be used to test for related issues including privilege escalation, and are described elsewhere in this guide (for example, [bypassing authorization schema](../05-Authorization/02-Bypassing_Authorization_Schema.md) and [Insecure Direct Object References](../05-Authorization/04-Insecure_Direct_Object_References.md)) in greater detail.
 
@@ -45,7 +45,7 @@ or in a cookie:
 
 Once an administrative interface has been discovered, a combination of the above techniques may be used to attempt to bypass authentication. If this fails, the tester may wish to attempt a brute force attack. In such an instance, the tester should be aware of the potential for administrative account lockout if such functionality is present.
 
-### Gray Box Testing
+### Gray-Box Testing
 
 A more detailed examination of the server and application components should be undertaken to ensure hardening (i.e. administrator pages are not accessible to everyone through the use of IP filtering or other controls), and where applicable, verification that all components do not use default credentials or configurations.
 Source code should be reviewed to ensure that the authorization and authentication model ensures clear separation of duties between normal users and site administrators. User interface functions shared between normal and administrator users should be reviewed to ensure clear separation between the rendering of such components and the information leakage from such shared functionality.

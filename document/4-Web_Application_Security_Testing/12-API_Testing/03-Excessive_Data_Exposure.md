@@ -107,7 +107,7 @@ For endpoints that accept a JSON or XML body, test for mass assignment vulnerabi
 
 GraphQL APIs present a specific form of this issue. While GraphQL allows clients to select which fields they want, the schema may expose sensitive fields that the default UI queries do not request but that an attacker can add to a custom query.
 
-1. If introspection is enabled, retrieve the schema and review available fields on each type (see [Testing GraphQL](99-GraphQL.md)):
+1. If introspection is enabled, retrieve the schema and review available fields on each type (see [GraphQL](99-GraphQL.md)):
 
     ```graphql
     {

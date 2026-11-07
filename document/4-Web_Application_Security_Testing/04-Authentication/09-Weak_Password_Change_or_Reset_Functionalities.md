@@ -101,7 +101,7 @@ In this model, the user is emailed a link that contains a token. They can then c
 
   Testers should also verify how password reset tokens are stored on the server. If reset tokens are stored in plaintext in the database, an attacker who gains database access may be able to reuse them to reset user passwords. A more secure implementation stores a hashed version of the token and compares the hash during validation.
 
-  An alternative approach to random tokens is to use a cryptographically signed token such as a JWT. In this case, the usual JWT checks should be carried out (is the signature verified, can the "nONe" algorithm be used, can the HMAC key be brute-forced, etc). See the [Testing JSON Web Tokens](../06-Session_Management/10-JSON_Web_Tokens.md) guide for further information.
+  An alternative approach to random tokens is to use a cryptographically signed token such as a JWT. In this case, the usual JWT checks should be carried out (is the signature verified, can the "nONe" algorithm be used, can the HMAC key be brute-forced, etc). See the [JSON Web Tokens](../06-Session_Management/10-JSON_Web_Tokens.md) guide for further information.
 
 - Does the link contain a user ID?
 

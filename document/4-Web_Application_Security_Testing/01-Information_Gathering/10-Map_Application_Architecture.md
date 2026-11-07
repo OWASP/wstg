@@ -60,7 +60,7 @@ Many applications store static content on dedicated storage platforms, rather th
 - `BUCKET.s3.amazonaws.com` or `s3.REGION.amazonaws.com/BUCKET` for Amazon S3 Buckets
 - `ACCOUNT.blob.core.windows.net` for Azure Storage Accounts
 
-These storage accounts can often expose sensitive files, as discussed in the [Testing Cloud Storage Guide](../02-Configuration_and_Deployment_Management/11-Cloud_Storage.md) section.
+These storage accounts can often expose sensitive files, as discussed in [Cloud Storage](../02-Configuration_and_Deployment_Management/11-Cloud_Storage.md) section.
 
 #### Database
 
