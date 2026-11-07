@@ -19,7 +19,7 @@ As a result, to prevent other attacks, this configuration should be evaluated by
 - Make sure application paths are configured and normalized consistently across all components (application, proxy, cache, CDN, WAF) that make decisions based on the path.
 - Identify cases where trailing slashes, case sensitivity, or encoding differences cause a security control (auth/access rules, routing, cache keying) to be bypassed or behave inconsistently.
 
-## How To Test
+## How to Test
 
 ### Black-Box Testing
 

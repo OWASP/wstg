@@ -123,7 +123,7 @@ Later click on the garbage can `Delete` button to the right of the `general.user
 
 ### Related Testing
 
-- [Testing Browser Storage](../4-Web_Application_Security_Testing/11-Client-side/12-Browser_Storage.md)
+- [Browser Storage](../4-Web_Application_Security_Testing/11-Client-side/12-Browser_Storage.md)
 
 ### Google Chrome
 

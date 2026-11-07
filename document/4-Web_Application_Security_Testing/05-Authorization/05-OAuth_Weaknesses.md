@@ -166,7 +166,7 @@ Reviewing the HTML meta tags (although this tag is [not supported](https://caniu
 
 ## Related Test Cases
 
-- [Testing JSON Web Tokens](../06-Session_Management/10-JSON_Web_Tokens.md)
+- [JSON Web Tokens](../06-Session_Management/10-JSON_Web_Tokens.md)
 
 ## Remediation
 
