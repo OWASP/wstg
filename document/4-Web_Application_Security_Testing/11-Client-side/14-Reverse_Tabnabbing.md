@@ -12,7 +12,7 @@ Since the user was on the original domain when the new tab opened, they are less
 
 Links opened via the `window.open` JavaScript function are also vulnerable to this attack.
 
-_NOTE: This is a legacy issue that does not affect [modern browsers](https://caniuse.com/mdn-html_elements_a_implicit_noopener). Older versions of popular browsers (For example, versions prior to Google Chrome 88) as well as Internet Explorer are vulnerable to this attack._
+_NOTE: [Modern browsers](https://caniuse.com/mdn-html_elements_a_implicit_noopener) treat links with `target="_blank"` as if `rel="noopener"` were set, so plain links are only vulnerable in older browsers (for example, versions prior to Google Chrome 88). Links with `rel="opener"`, and pages opened with `window.open()` without the `noopener` window feature, are still vulnerable in modern browsers._
 
 ### Example
 
@@ -31,14 +31,19 @@ Imagine a web application where users are allowed to insert a URL in their profi
 
 Clicking on the link will open up a new tab while the original tab will redirect to "example.org". Suppose "example.org" looks similar to the vulnerable web application, the user is less likely to notice the change and is more likely to enter sensitive information on the page.
 
+## Test Objectives
+
+- Identify links and `window.open()` calls that open a new tab or window without `noopener`.
+- Assess whether a page opened from the application can change the location of the original page through `window.opener`.
+
 ## How to Test
 
-- Check the HTML source of the application to see if links with `target="_blank"` are using the `noopener` and `noreferrer` keywords in the `rel` attribute. If not, it is likely that the application is vulnerable to reverse tabnabbing. Such a link becomes exploitable if it either points to a third-party site that has been compromised by the attacker, or if it is user-controlled.
-- Check for areas where an attacker can insert links, i.e. control the `href` argument of an `<a>` tag. Try to insert a link to a page which has the source code given in the above example, and see if the original domain redirects. This test can be done in IE if other browsers don't work.
+- Check the HTML source of the application to see if links with `target="_blank"` are using the `noopener` and `noreferrer` keywords in the `rel` attribute. If not, it is likely that the application is vulnerable to reverse tabnabbing. Such a link becomes exploitable if it either points to a third-party site that has been compromised by the attacker, or if it is user-controlled. Also check JavaScript code for `window.open()` calls that do not pass `noopener` in the window features.
+- Check for areas where an attacker can insert links, i.e. control the `href` argument of an `<a>` tag. Try to insert a link to a page which has the source code given in the above example, and see if the original domain redirects. In modern browsers, this only works for links with `rel="opener"` or pages opened with `window.open()`; testing a plain `target="_blank"` link requires an older browser.
 
 ## Remediation
 
-It is recommended to make sure that the `rel` HTML attribute is set with the `noreferrer` and `noopener` keywords for all links.
+It is recommended to make sure that the `rel` HTML attribute is set with the `noreferrer` and `noopener` keywords for all links, and that `window.open()` calls pass `noopener` in the window features.
 
 ## References
 
