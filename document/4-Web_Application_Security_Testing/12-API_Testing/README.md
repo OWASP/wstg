@@ -10,4 +10,6 @@
 
 4.12.4 [API Broken Function Level Authorization](04-API_Broken_Function_Level_Authorization.md)
 
+4.12.7 [Testing API Mass Assignment](07-API_Mass_Assignment.md)
+
 4.12.99 [GraphQL](99-GraphQL.md)
