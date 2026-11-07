@@ -65,8 +65,8 @@ Additionally, both the signature and key exchange algorithm should support post-
 As well as being cryptographically secure, the certificate must also be considered valid (or trusted). This means that it must:
 
 - Be within the defined validity period.
-    - Any certificates issued after 1st September 2020 must not have a maximum lifespan of more than [398 days](https://blog.mozilla.org/security/2020/07/09/reducing-tls-certificate-lifespans-to-398-days/).
-    - The validity period of certificates will gradually be reduced to a maximum lifespan of [47 days in March 2029](https://github.com/cabforum/servercert/blob/main/docs/BR.md#11-overview).
+    - Publicly trusted certificates issued on or after 15th March 2026 must not have a maximum lifespan of more than [200 days](https://github.com/cabforum/servercert/blob/main/docs/BR.md#632-certificate-operational-periods-and-key-pair-usage-periods). Certificates issued between 1st September 2020 and 15th March 2026 were limited to [398 days](https://blog.mozilla.org/security/2020/07/09/reducing-tls-certificate-lifespans-to-398-days/).
+    - The maximum lifespan drops to 100 days in March 2027 and to [47 days in March 2029](https://github.com/cabforum/servercert/blob/main/docs/BR.md#11-overview).
 - Be signed by a trusted certificate authority (CA).
     - This should either be a trusted public CA for externally facing applications, or an internal CA for internal applications.
     - Don't flag internal applications as having untrusted certificates just because *your* system doesn't trust the CA.
@@ -86,7 +86,7 @@ Over the years there have been vulnerabilities in the various TLS implementation
 - [OpenSSL Insecure Renegotiation](https://www.openssl.org/news/secadv/20091111.txt) (CVE-2009-3555)
 - [OpenSSL Heartbleed](https://heartbleed.com) (CVE-2014-0160)
 - [F5 TLS POODLE](https://my.f5.com/manage/s/article/K15882) (CVE-2014-8730)
-- [Microsoft Schannel Denial of Service](https://learn.microsoft.com/en-us/security-updates/securitybulletins/2014/ms14-066) (MS14-066 / CVE-2014-6321)
+- [Microsoft Schannel Remote Code Execution](https://learn.microsoft.com/en-us/security-updates/securitybulletins/2014/ms14-066) (MS14-066 / CVE-2014-6321)
 
 ### Application Vulnerabilities
 
