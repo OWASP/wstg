@@ -270,5 +270,6 @@ Having a variety of injection locations provides the attacker with chaining poss
 
 ## References
 
-- [RFC 2616 - Hypertext Transfer Protocol - HTTP 1.1](https://tools.ietf.org/html/rfc2616)
+- [RFC 9110 - HTTP Semantics](https://datatracker.ietf.org/doc/html/rfc9110)
+- [RFC 9112 - HTTP/1.1](https://datatracker.ietf.org/doc/html/rfc9112)
 - [OWASP Attack Surface Detector](https://owasp.org/www-project-attack-surface-detector/)
