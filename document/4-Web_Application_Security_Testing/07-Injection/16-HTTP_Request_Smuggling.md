@@ -220,5 +220,5 @@ Attackers can exploit this to poison persistent backend connections, impacting m
 - [James Kettle, "HTTP/2: The Sequel is Always Worse" (PortSwigger Research)](https://portswigger.net/research/http2)
 - [Jake Miller, "h2c Smuggling: Request Smuggling Via HTTP/2 Cleartext" (Bishop Fox)](https://bishopfox.com/blog/h2c-smuggling-request)
 - [Amit Klein, Chaim Linhart, Ronen Heled, Steve Orrin: "HTTP Request Smuggling" (2005)](https://web.archive.org/web/20210816212852/https://www.cgisecurity.com/lib/http-request-smuggling.pdf)
-- [RFC 7230, Section 3.3.3: Message Body Length](https://datatracker.ietf.org/doc/html/rfc7230#section-3.3.3)
-- [RFC 7540: Hypertext Transfer Protocol Version 2 (HTTP/2)](https://datatracker.ietf.org/doc/html/rfc7540)
+- [RFC 9112, Section 6.3: Message Body Length](https://datatracker.ietf.org/doc/html/rfc9112#section-6.3)
+- [RFC 9113: HTTP/2](https://datatracker.ietf.org/doc/html/rfc9113)
