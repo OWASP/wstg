@@ -435,7 +435,7 @@
       "id": "WSTG-ATHZ",
       "tests": [
         {
-          "name": "Directory Traversal File Include",
+          "name": "Directory Traversal and File Include",
           "id": "WSTG-ATHZ-01",
           "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/05-Authorization/01-Directory_Traversal_File_Include",
           "objectives": [
