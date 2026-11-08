@@ -1214,7 +1214,8 @@
           "id": "WSTG-CLNT-14",
           "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/11-Client-side/14-Reverse_Tabnabbing",
           "objectives": [
-            ""
+            "Identify links and `window.open()` calls that open a new tab or window without `noopener`.",
+            "Assess whether a page opened from the application can change the location of the original page through `window.opener`."
           ]
         },
         {
