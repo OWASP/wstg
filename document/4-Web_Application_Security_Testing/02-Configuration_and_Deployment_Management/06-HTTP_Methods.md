@@ -21,7 +21,7 @@ HTTP offers a number of methods (or verbs) that can be used to perform actions o
 | [`OPTIONS`](https://datatracker.ietf.org/doc/html/rfc9110#section-9.3.7) | List supported HTTP methods. | Perform a [CORS Preflight](https://developer.mozilla.org/en-US/docs/Glossary/Preflight_request) request. |
 | [`TRACE`](https://datatracker.ietf.org/doc/html/rfc9110#section-9.3.8) | Echo the HTTP request for debug purposes. | |
 | [`PATCH`](https://datatracker.ietf.org/doc/html/rfc5789#section-2) |  | Modify an object. |
-| [`QUERY`](https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-safe-method-w-body#section-2) | Safe retrieval of data with a request body. | Query objects or resources with complex parameters. |
+| [`QUERY`](https://datatracker.ietf.org/doc/html/rfc10008#section-2) | Safe retrieval of data with a request body. | Query objects or resources with complex parameters. |
 
 ## Test Objectives
 
@@ -200,7 +200,7 @@ If WebDAV is present but not required, recommend disabling it; if required, ensu
 
 ### QUERY
 
-The `QUERY` method is a relatively newer HTTP method defined in [RFC 9110](https://datatracker.ietf.org/doc/html/rfc9110), designed for safe retrieval operations that require a request body. Like `POST`, it accepts structured data in the request body; unlike `POST`, it is safe and idempotent, meaning it does not modify server state and can be cached. This makes it semantically similar to `GET` but allows the expressiveness of complex filter parameters etc that would be unwieldy in a URL.
+The `QUERY` method is a newer HTTP method defined in [RFC 10008](https://datatracker.ietf.org/doc/html/rfc10008), designed for safe retrieval operations that require a request body. Like `POST`, it accepts structured data in the request body; unlike `POST`, it is safe and idempotent, meaning it does not modify server state and can be cached. This makes it semantically similar to `GET` but allows the expressiveness of complex filter parameters etc that would be unwieldy in a URL.
 
 For example, the `QUERY` method could be used to submit a complex search query with multiple filter criteria:
 
@@ -223,6 +223,7 @@ The `QUERY` method is designed to be cacheable and safe (read-only), making it d
 - The server correctly treats `QUERY` as a safe operation and does not modify server state.
 - Access control is properly enforced for `QUERY` requests.
 - The method is not used as a workaround to bypass security controls that restrict other methods.
+- If `QUERY` responses are cached, by the application or by an intermediary, the cache key includes the request content, so the result of one query cannot be returned for a different query ([RFC 10008, Section 2.7](https://datatracker.ietf.org/doc/html/rfc10008#section-2.7)).
 
 ### Access Control Bypass
 
@@ -312,7 +313,7 @@ HTTP/1.1 200 OK
 
 - [RFC 9110 - HTTP Semantics](https://datatracker.ietf.org/doc/html/rfc9110)
 - [RFC 5789 - PATCH Method for HTTP](https://datatracker.ietf.org/doc/html/rfc5789)
-- [The QUERY Method for HTTP](https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-safe-method-w-body)
+- [RFC 10008 - The HTTP QUERY Method](https://datatracker.ietf.org/doc/html/rfc10008)
 - [HTACCESS: BILBAO Method Exposed](https://web.archive.org/web/20160616172703/https://www.kernelpanik.org/docs/kernelpanik/bme.eng.pdf)
 - [Fortify - Misused HTTP Method Override](https://vulncat.fortify.com/en/detail?id=desc.dynamic.xtended_preview.often_misused_http_method_override)
 - [Mozilla Developer Network - Safe HTTP Methods](https://developer.mozilla.org/en-US/docs/Glossary/Safe/HTTP)
