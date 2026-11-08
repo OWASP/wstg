@@ -173,7 +173,7 @@ Rather than sending a token in an email, an alternative approach is to send it v
 
 Rather than sending them a link or new password, security questions can be used as a mechanism to authenticate the user. This is considered to be a weak approach, and should not be used if better options are available.
 
-See the [Weak Security Questions](08-Weak_Security_Question_Answer.md) guide for further information.
+See the [Weak Security Question Answer](08-Weak_Security_Question_Answer.md) guide for further information.
 
 ### Authenticated Identity and Configuration Changes
 

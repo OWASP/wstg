@@ -40,7 +40,7 @@ Suppose a picture sharing application allows users to upload a `.gif` or `.jpg` 
 ## Related Test Cases
 
 - [File Extensions Handling for Sensitive Information](../02-Configuration_and_Deployment_Management/03-File_Extensions_Handling_for_Sensitive_Information.md)
-- [Test Upload of Malicious Files](09-Upload_of_Malicious_Files.md)
+- [Upload of Malicious Files](09-Upload_of_Malicious_Files.md)
 
 ## Remediation
 

@@ -253,7 +253,7 @@ Look up each identified version in vulnerability databases such as the [NVD](htt
 
 Tools can automate parts of this. For example, [Retire.js](https://retirejs.github.io/retire.js/) detects JavaScript libraries with known vulnerabilities, and [WPScan](https://github.com/wpscanteam/wpscan) reports vulnerable WordPress core, plugin, and theme versions.
 
-A match based on version alone is not proof that the vulnerability is present. Vendors and Linux distributions often backport fixes without changing the version number, and the vulnerable feature may not be in use. See [Test Network Infrastructure Configuration](../02-Configuration_and_Deployment_Management/01-Network_Infrastructure_Configuration.md) for more on reviewing known vulnerabilities and unsupported software, and confirm findings before reporting them.
+A match based on version alone is not proof that the vulnerability is present. Vendors and Linux distributions often backport fixes without changing the version number, and the vulnerable feature may not be in use. See [Network Infrastructure Configuration](../02-Configuration_and_Deployment_Management/01-Network_Infrastructure_Configuration.md) for more on reviewing known vulnerabilities and unsupported software, and confirm findings before reporting them.
 
 ## Remediation
 
