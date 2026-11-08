@@ -72,7 +72,7 @@ Examples include:
 
 ## Related Test Cases
 
-- [Directory Traversal File Include](../05-Authorization/01-Directory_Traversal_File_Include.md)
+- [Directory Traversal and File Include](../05-Authorization/01-Directory_Traversal_File_Include.md)
 - [Bypassing Authorization Schema](../05-Authorization/02-Bypassing_Authorization_Schema.md)
 - [Bypassing Session Management Schema](../06-Session_Management/01-Session_Management_Schema.md)
 - [Test Business Logic Data Validation](01-Business_Logic_Data_Validation.md)

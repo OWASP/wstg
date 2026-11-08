@@ -1,6 +1,6 @@
 # 4.5 Authorization
 
-4.5.1 [Directory Traversal File Include](01-Directory_Traversal_File_Include.md)
+4.5.1 [Directory Traversal and File Include](01-Directory_Traversal_File_Include.md)
 
 4.5.2 [Bypassing Authorization Schema](02-Bypassing_Authorization_Schema.md)
 
