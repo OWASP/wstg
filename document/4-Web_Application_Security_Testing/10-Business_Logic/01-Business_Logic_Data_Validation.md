@@ -82,7 +82,7 @@ Record which of the variations were accepted, because the impact depends on how 
 - [Server-Side Request Forgery](../07-Injection/19-Server-Side_Request_Forgery.md).
 - [Payment Functionality](10-Payment_Functionality.md).
 - [Account Enumeration and Guessable User Account](../03-Identity_Management/04-Account_Enumeration_and_Guessable_User_Account.md).
-- [Bypassing Session Management Schema](../06-Session_Management/01-Session_Management_Schema.md).
+- [Session Management Schema](../06-Session_Management/01-Session_Management_Schema.md).
 - [Exposed Session Variables](../06-Session_Management/04-Exposed_Session_Variables.md).
 
 ## Remediation

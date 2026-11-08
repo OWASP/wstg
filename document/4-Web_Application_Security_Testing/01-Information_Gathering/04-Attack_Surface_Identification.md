@@ -257,7 +257,7 @@ Following information gathering from the previous techniques, testers can rely o
 
 For instance, considering the previous example regarding `www.owasp.org`, the tester could query Google and other search engines looking for information (hence, DNS names) related to the newly discovered domains of `webgoat.org`, `webscarab.com`, and `webscarab.net`.
 
-Googling techniques are explained in [Testing: Spiders, Robots, and Crawlers](01-Conduct_Search_Engine_Reconnaissance_for_Information_Leakage.md).
+Googling techniques are explained in [Conduct Search Engine Reconnaissance for Information Leakage](01-Conduct_Search_Engine_Reconnaissance_for_Information_Leakage.md).
 
 #### Digital Certificates
 

@@ -96,7 +96,7 @@ Later click on the garbage can `Delete` button to the right of the `general.user
 - [Authentication Testing](../4-Web_Application_Security_Testing/04-Authentication/README.md)
 - [Authorization Testing](../4-Web_Application_Security_Testing/05-Authorization/README.md)
 - [Session Management Testing](../4-Web_Application_Security_Testing/06-Session_Management/README.md)
-- [Cookie Attributes](../4-Web_Application_Security_Testing/06-Session_Management/02-Cookies_Attributes.md)
+- [Cookies Attributes](../4-Web_Application_Security_Testing/06-Session_Management/02-Cookies_Attributes.md)
 
 ### Google Chrome
 
