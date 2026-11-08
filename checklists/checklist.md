@@ -51,7 +51,7 @@ The following is the list of items to test during the assessment:
 | WSTG-ATHN-10      | Weaker Authentication in Alternative Channel                               |        |       |
 | WSTG-ATHN-11      | Multi-Factor Authentication (MFA)                                          |        |       |
 | **WSTG-ATHZ**     | **Authorization**                                                          |        |       |
-| WSTG-ATHZ-01      | Directory Traversal File Include                                           |        |       |
+| WSTG-ATHZ-01      | Directory Traversal and File Include                                       |        |       |
 | WSTG-ATHZ-02      | Bypassing Authorization Schema                                             |        |       |
 | WSTG-ATHZ-03      | Privilege Escalation                                                       |        |       |
 | WSTG-ATHZ-04      | Insecure Direct Object References                                          |        |       |
