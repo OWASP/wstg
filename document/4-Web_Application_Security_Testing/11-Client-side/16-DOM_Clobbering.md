@@ -75,16 +75,18 @@ Once a reference and an injection point are known, choose the markup that gives 
 |Technique|Example markup|Result|
 |---------|--------------|------|
 |Single global|`<a id="x">`|`window.x` is the anchor element.|
-|Controlled string value|`<a id="x" href="https://attacker.example/">`|`String(window.x)` returns the `href` value.|
+|Controlled string value|`<a id="x" href="https://attacker.example/">` or `<area id="x" href="https://attacker.example/">`|`String(window.x)` returns the `href` value.|
 |Second-level property|`<a id="x"><a id="x" name="y" href="https://attacker.example/">`|`window.x` is an `HTMLCollection` and `String(window.x.y)` returns the `href` value.|
+|Nested frame|`<iframe name="x" srcdoc="<a id='y' href='https://attacker.example/'></a>">`|`window.x` is the window of the frame and, once the frame has loaded, `String(window.x.y)` returns the `href` value.|
 |Form controls|`<form id="x"><input id="y">`|`window.x.y` is the input element.|
 |Built-in `document` property|`<img name="cookie">`|`document.cookie` returns the image element instead of the cookies.|
 |Built-in form property|`<form id="x"><input id="attributes">`|`window.x.attributes` returns the input element instead of the list of attributes.|
 
 Some details of these techniques matter when choosing a payload:
 
-- Most elements convert to a string such as `[object HTMLInputElement]`. An `a` element converts to the value of its `href` attribute instead, which makes it the usual choice when the reference is used as a string, for example as a URL. This includes `javascript:` URLs.
+- Most elements convert to a string such as `[object HTMLInputElement]`. An `a` or `area` element converts to the value of its `href` attribute instead, which makes these elements the usual choice when the reference is used as a string, for example as a URL. This includes `javascript:` URLs.
 - When two or more elements share the same `id`, the global refers to an `HTMLCollection`. The `name` attribute of an element in the collection then becomes a property of the collection, which allows controlling a property one level deeper.
+- The nested frame technique only works if the sanitizer allows `iframe` elements with the `srcdoc` attribute. The frame loads asynchronously, so `window.x.y` is still `undefined` when a script reads it right away; the technique works when the reference is read after the frame has loaded, for example in an event handler or a timer.
 - Clobbering a built-in property of a form can break filters that inspect it. For example, a filter that removes event handlers by looping over `form.attributes` skips the `onclick` attribute of `<form onclick="alert(1)"><input id="attributes">`, because `attributes` is now an input element without a `length`.
 
 #### Example: Clobbering a Script URL
