@@ -200,7 +200,8 @@ Often admin panels or administrative related bits of functionality are only acce
     - `X-Remote-Addr`
     - `X-Client-IP`
 - Values
-    - `127.0.0.1` (or anything in the `127.0.0.0/8` or `::1/128` address spaces)
+    - `127.0.0.1` (or anything in the `127.0.0.0/8` address space)
+    - `::1` (IPv6 only contains one loopback address)
     - `localhost`
     - Any [RFC1918](https://tools.ietf.org/html/rfc1918) address:
         - `10.0.0.0/8`
