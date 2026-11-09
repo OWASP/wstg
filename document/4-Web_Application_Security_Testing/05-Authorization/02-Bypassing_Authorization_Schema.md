@@ -208,11 +208,8 @@ Often admin panels or administrative related bits of functionality are only acce
         - `172.16.0.0/12`
         - `192.168.0.0/16`
     - Link local addresses: `169.254.0.0/16`
-    - Applications may accept the above IPv4 addresses being mapped into IPv6 via the `::ffff:0:0/96` range, for example:
-        - `::ffff:127.0.0.1` (IPv4-embedded IPv6 address)
-        - `::ffff:7f00:1` (IPv4-mapped `127.0.0.1` in compressed IPv6 format)
-        - `0:0:0:0:0:ffff:0a00:0201` (`10.0.2.1` in IPv6 format, less compression)
-    - Some applications may also accept IPv4 addresses in the NAT64 prefix `64:ff9b::/96` using the same techniques as with `::ffff:0:0/96`
+    - IPv4-mapped IPv6 addresses (`::ffff:0:0/96`), in dotted or hex form, for example `::ffff:127.0.0.1` or `::ffff:7f00:1` (both equal to `127.0.0.1`)
+    - Less commonly, the NAT64 prefix `64:ff9b::/96`, for example `64:ff9b::7f00:1` (`127.0.0.1`), if the application extracts the embedded IPv4 address
 
 > Note: Including a port element along with the address or hostname may also help bypass edge protections such as web application firewalls, etc.
 For example: `127.0.0.4:80`, `127.0.0.4:443`, `127.0.0.4:43982`
