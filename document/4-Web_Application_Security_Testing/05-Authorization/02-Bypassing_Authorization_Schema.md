@@ -201,13 +201,18 @@ Often admin panels or administrative related bits of functionality are only acce
     - `X-Client-IP`
 - Values
     - `127.0.0.1` (or anything in the `127.0.0.0/8` address space)
-    - `::1` (IPv6 only contains one loopback address)
+    - `::1` (IPv6 only contains one official loopback address)
     - `localhost`
     - Any [RFC1918](https://tools.ietf.org/html/rfc1918) address:
         - `10.0.0.0/8`
         - `172.16.0.0/12`
         - `192.168.0.0/16`
     - Link local addresses: `169.254.0.0/16`
+    - Applications may accept the above IPv4 addresses being mapped into IPv6 via the `::ffff:0:0/96` range, for example:
+        - `::ffff:127.0.0.1` (IPv4-embedded IPv6 address)
+        - `::ffff:7f00:1` (IPv4-mapped `127.0.0.1` in compressed IPv6 format)
+        - `0:0:0:0:0:ffff:0a00:0201` (`10.0.2.1` in IPv6 format, less compression)
+    - Some applications may also accept IPv4 addresses in the NAT64 prefix `64:ff9b::/96` using the same techniques as with `::ffff:0:0/96`
 
 > Note: Including a port element along with the address or hostname may also help bypass edge protections such as web application firewalls, etc.
 For example: `127.0.0.4:80`, `127.0.0.4:443`, `127.0.0.4:43982`
