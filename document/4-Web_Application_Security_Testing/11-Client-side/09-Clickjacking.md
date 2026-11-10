@@ -30,7 +30,7 @@ The power of this method is that the actions performed by the victim are origina
 
 As mentioned above, this type of attack is often designed to allow an attacker to induce users’ actions on the target site, even if anti-CSRF tokens are being used.
 
-### Load Target Web Page on a HTML Interpreter Using HTML iframe Tag
+### Load Target Web Page on an HTML Interpreter Using HTML iframe Tag
 
 If the `https://www.target.site` web page is successfully loaded into a frame, then the site is vulnerable to clickjacking. An example of HTML code to create this testing web page is displayed in the following snippet:
 

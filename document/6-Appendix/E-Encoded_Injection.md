@@ -58,7 +58,7 @@ Or by using the respective [HTML character codes](https://www.rapidtables.com/co
 <IMG src="" onerror="javascript:alert(&#34;XSS&#34;)">
 ```
 
-The above uses HTML Entities to construct the injection string. HTML Entities encoding is used to display characters that have a special meaning in HTML. For instance, `>` works as a closing bracket for a HTML tag. In order to actually display this character on the web page HTML character entities should be inserted in the page source. The injections mentioned above are one way of encoding. There are numerous other ways in which a string can be encoded (obfuscated) in order to bypass the above filter.
+The above uses HTML Entities to construct the injection string. HTML Entities encoding is used to display characters that have a special meaning in HTML. For instance, `>` works as a closing bracket for an HTML tag. In order to actually display this character on the web page HTML character entities should be inserted in the page source. The injections mentioned above are one way of encoding. There are numerous other ways in which a string can be encoded (obfuscated) in order to bypass the above filter.
 
 ### Hex Encoding
 
