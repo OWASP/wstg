@@ -8,7 +8,7 @@
 
 Path Confusion occurs when different components in the request path (routers, proxies, caches, WAFs, the application itself) disagree on what a given URL path identifies, due to path normalization, trailing slashes, case sensitivity, or encoding differences. This mismatch lets an attacker cause one component to treat a path one way while another treats it differently, bypassing a security control that relies on path matching (e.g. an access-control rule, a route handler, or a cache key).
 
-For example, if routes are not configured correctly and the target also uses a CDN, an attacker can exploit the mismatch between what the origin serves and what the cache stores/keys on to execute web cache deception attacks.
+For example, if routes are not configured correctly and the target also uses a CDN, an attacker can exploit the mismatch between what the origin serves and what the cache stores/keys on to execute web cache deception attacks. Systematic cache-key discovery and unkeyed-input poisoning are covered in [Web Cache Poisoning](16-Web_Cache_Poisoning.md).
 
 Scope note: this test is about identity confusion over the path string itself between components that should agree on it - it is not about supplying `../` or encoded traversal sequences to escape a directory (that is path traversal, covered under Input Validation / Injection testing, e.g. WSTG-ATHZ-01 / directory traversal tests). Path Confusion findings typically involve a path that is syntactically valid and does not attempt to leave the intended directory, but is interpreted inconsistently by different layers.
 
