@@ -62,13 +62,13 @@ Example:
 <iframe src="https://example.org" sandbox></iframe>
 ```
 
-If the attribute is specified by itself, all restrictions will be enabled. A developer may specify a list of [exceptions](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/iframe#sandbox) as the attributes value to fine-tune what the iframe is allowed to do:
+If the attribute is specified by itself, all restrictions will be enabled. A developer may specify a list of [exceptions](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/iframe#sandbox) as the attribute's value to fine-tune what the iframe is allowed to do:
 
 ```html
-<iframe src="https://example.org" sandbox="allow-forms allow-popups"></iframe>
+<iframe src="https://example.org" sandbox="allow-forms allow-same-origin"></iframe>
 ```
 
-This example loads an iframe which can submit forms and generate popups, however cannot load JavaScript. Allowing forms to be submitted but not allowing potentially frame busting JavaScript is ideal for a clickjacking attack, and the sandbox attribute can be used to pick precisely what functionality is available in the target application.
+This example loads an iframe which can submit forms but cannot run JavaScript. Allowing forms to be submitted but not allowing potentially frame busting JavaScript is ideal for a clickjacking attack. `allow-same-origin` is also required here for targets that check the `Origin` header, as by default sandboxed iframes send `Origin: null` and will usually be rejected. Tuning this attribute with appropriate exceptions can be used to pick precisely what functionality is available in the target application.
 
 A good way to leverage this for an attack is to begin with a broad allow list, then filter down until the target application works but any client-side protections against clickjacking fail.
 
