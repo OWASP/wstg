@@ -39,12 +39,14 @@ Perform these tests only against assets you own or have written authorization to
 
 ### 2. Discover the Cache Key
 
-For each candidate input, send two requests with the same cache-buster:
+Do not send a baseline request first under the same cache-buster. If the baseline is cached, an unkeyed mutation becomes a cache hit and never reaches the origin, which hides the vulnerability.
 
-1. Baseline request with no extra input.
-2. Mutated request that changes only one candidate input.
+For each candidate input:
 
-If the mutated request produces a different origin response, issue a third clean request with the original cache-buster and no mutation.
+1. Choose a fresh cache-buster that has not been requested before.
+2. Send the mutated request first (cache miss) so it reaches the origin, changing only one candidate input.
+3. Send a clean request with that same cache-buster and no mutation.
+4. Fetch a baseline response with a separate cache-buster for comparison.
 
 | Observation | Meaning |
 |-------------|---------|
