@@ -123,7 +123,7 @@ Confidential clients SHOULD also use the Authorization Code grant with PKCE. Cli
 
 Improper grant types for confidential clients are:
 
-- Authorization Code grant without PKCE when the deployment can support PKCE
+- Authorization Code grant without PKCE or an equivalent OpenID Connect `nonce`-based protection when the deployment can support either control. See [RFC 9700 Sections 2.1.1 and 4.5.3.2](https://datatracker.ietf.org/doc/html/rfc9700#section-2.1.1).
 - Client Credentials (Except for machine-to-machine -- see below)
 - Implicit Flow
 - ROPC
