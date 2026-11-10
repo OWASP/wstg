@@ -142,6 +142,8 @@
 
 #### 4.4.11 [Multi-Factor Authentication](4-Web_Application_Security_Testing/04-Authentication/11-Multi-Factor_Authentication.md)
 
+#### 4.4.14 [OpenID Connect Relying Party](4-Web_Application_Security_Testing/04-Authentication/14-OpenID_Connect_Relying_Party.md)
+
 ### 4.5 [Authorization](4-Web_Application_Security_Testing/05-Authorization/README.md)
 
 #### 4.5.1 [Directory Traversal and File Include](4-Web_Application_Security_Testing/05-Authorization/01-Directory_Traversal_File_Include.md)
