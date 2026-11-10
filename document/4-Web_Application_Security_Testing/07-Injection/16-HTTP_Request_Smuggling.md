@@ -260,7 +260,7 @@ If it works, the attacker controls a response in the victim's browser for the ta
 - Avoid protocol downgrades on untrusted connections
 - Terminate and revalidate backend connections upon parsing errors
 - Make every endpoint either read or reject a request body it doesn't use, and close the connection when in doubt
-- Use HTTP/2 end to end where possible, which removes most length ambiguity
+- Use HTTP/2 end-to-end where possible, which removes most length ambiguity
 
 ## Tools
 
