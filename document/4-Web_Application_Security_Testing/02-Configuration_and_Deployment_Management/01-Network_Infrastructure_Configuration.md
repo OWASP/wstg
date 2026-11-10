@@ -8,7 +8,7 @@
 
 A web application's infrastructure - web/application servers, databases, authentication servers, load balancers/CDNs, and (in modern deployments) cloud network controls and container/orchestration layers - is only as secure as its weakest, most poorly configured element. A single unreviewed or vulnerable component can compromise the application itself, even if the application's own code is sound; for example, a web server flaw disclosing source code hands an attacker information to attack the application directly.
 
-After mapping the infrastructure (see [Map Network and Application Architecture](../01-Information_Gathering/10-Map_Application_Architecture.md)), testing should:
+After mapping the infrastructure (see [Map Application Architecture](../01-Information_Gathering/10-Map_Application_Architecture.md)), testing should:
 
 - Identify every element and how it affects the application's security.
 - Review each element for known vulnerabilities.

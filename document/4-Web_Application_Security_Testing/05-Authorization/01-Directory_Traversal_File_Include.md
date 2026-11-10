@@ -1,4 +1,4 @@
-# Directory Traversal File Include
+# Directory Traversal and File Include
 
 |ID          |
 |------------|

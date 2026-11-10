@@ -49,7 +49,7 @@ The tester should draw a diagram of how the process flows, the injection points,
 ## Related Test Cases
 
 - [Cookies Attributes](../06-Session_Management/02-Cookies_Attributes.md)
-- [Test Session Timeout](../06-Session_Management/07-Session_Timeout.md)
+- [Session Timeout](../06-Session_Management/07-Session_Timeout.md)
 
 ## Remediation
 

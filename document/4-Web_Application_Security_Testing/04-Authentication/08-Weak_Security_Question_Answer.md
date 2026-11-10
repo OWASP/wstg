@@ -45,7 +45,7 @@ Try to create security questions by creating a new account or by configuring you
 
 ### Brute-forcible Answers
 
-Use the methods described in [Weak lock out mechanism](03-Weak_Lock_Out_Mechanism.md) to determine if a number of incorrectly supplied security answers trigger a lockout mechanism.
+Use the methods described in [Weak Lock Out Mechanism](03-Weak_Lock_Out_Mechanism.md) to determine if a number of incorrectly supplied security answers trigger a lockout mechanism.
 
 The first thing to take into consideration when trying to exploit security questions is the number of questions that need to be answered. The majority of applications only need the user to answer a single question, whereas some critical applications may require the user to answer two or even more questions.
 

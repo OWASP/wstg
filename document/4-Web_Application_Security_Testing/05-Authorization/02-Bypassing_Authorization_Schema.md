@@ -200,13 +200,16 @@ Often admin panels or administrative related bits of functionality are only acce
     - `X-Remote-Addr`
     - `X-Client-IP`
 - Values
-    - `127.0.0.1` (or anything in the `127.0.0.0/8` or `::1/128` address spaces)
+    - `127.0.0.1` (or anything in the `127.0.0.0/8` address space)
+    - `::1` (IPv6 only contains one official loopback address)
     - `localhost`
     - Any [RFC1918](https://tools.ietf.org/html/rfc1918) address:
         - `10.0.0.0/8`
         - `172.16.0.0/12`
         - `192.168.0.0/16`
     - Link local addresses: `169.254.0.0/16`
+    - IPv4-mapped IPv6 addresses (`::ffff:0:0/96`), in dotted or hex form, for example `::ffff:127.0.0.1` or `::ffff:7f00:1` (both equal to `127.0.0.1`)
+    - Less commonly, the NAT64 prefix `64:ff9b::/96`, for example `64:ff9b::7f00:1` (`127.0.0.1`), if the application extracts the embedded IPv4 address
 
 > Note: Including a port element along with the address or hostname may also help bypass edge protections such as web application firewalls, etc.
 For example: `127.0.0.4:80`, `127.0.0.4:443`, `127.0.0.4:43982`

@@ -98,7 +98,7 @@ The `None` value specifies that the browser will send the cookie in all contexts
 
 ### Cookie Prefixes
 
-By design cookies do not have the capabilities to guarantee the integrity and confidentiality of the information stored in them. Those limitations make it impossible for a server to have confidence about how a given cookie's attributes were set at creation. In order to give the servers such features in a backwards-compatible way, the industry has introduced the concept of [`Cookie Name Prefixes`](https://tools.ietf.org/html/draft-ietf-httpbis-cookie-prefixes-00) to facilitate passing such details embedded as part of the cookie name.
+By design cookies do not have the capabilities to guarantee the integrity and confidentiality of the information stored in them. Those limitations make it impossible for a server to have confidence about how a given cookie's attributes were set at creation. In order to give the servers such features in a backwards-compatible way, the industry has introduced the concept of [`Cookie Name Prefixes`](https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-rfc6265bis#section-4.1.3) to facilitate passing such details embedded as part of the cookie name.
 
 #### Host Prefix
 
@@ -145,8 +145,7 @@ Putting all this together, we can define the most secure cookie attribute config
 
 ## References
 
-- [RFC 2965 - HTTP State Management Mechanism](https://tools.ietf.org/html/rfc2965)
-- [RFC 2616 - Hypertext Transfer Protocol - HTTP 1.1](https://tools.ietf.org/html/rfc2616)
+- [RFC 6265 - HTTP State Management Mechanism](https://www.rfc-editor.org/rfc/rfc6265.html)
 - [Cookies: HTTP State Management Mechanism - draft-ietf-httpbis-rfc6265bis](https://datatracker.ietf.org/doc/draft-ietf-httpbis-rfc6265bis/)
 - [The important "expires" attribute of Set-Cookie](https://seckb.yehg.net/2012/02/important-expires-attribute-of-set.html)
 - [HttpOnly Session ID in URL and Page Body](https://seckb.yehg.net/2012/06/httponly-session-id-in-url-and-page.html)

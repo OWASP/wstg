@@ -61,7 +61,7 @@ The extensions and paths worth checking for fall into different categories, whic
 
 The list given above details only a few examples, since file extensions and filenames worth checking are too numerous to be comprehensively treated here. Refer to [FILExt](https://filext.com/) for a more thorough extension database, and see [SecLists' raft/common backup/config wordlists](https://github.com/danielmiessler/SecLists/tree/master/Discovery/Web-Content) for maintained, up-to-date filename lists to drive automated discovery.
 
-To identify files with a given extension, use a mix of vulnerability scanners, spidering/mirroring tools, search-engine queries (see [Testing: Spidering and googling](../01-Information_Gathering/01-Conduct_Search_Engine_Reconnaissance_for_Information_Leakage.md)), and manual inspection, since manual review overcomes gaps in automated spidering (for example, links that only appear after client-side JavaScript execution).
+To identify files with a given extension, use a mix of vulnerability scanners, spidering/mirroring tools, search-engine queries (see [Conduct Search Engine Reconnaissance for Information Leakage](../01-Information_Gathering/01-Conduct_Search_Engine_Reconnaissance_for_Information_Leakage.md)), and manual inspection, since manual review overcomes gaps in automated spidering (for example, links that only appear after client-side JavaScript execution).
 
 ##### Windows 8.3 Legacy Filename Handling
 

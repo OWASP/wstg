@@ -165,7 +165,7 @@ The header and payload are then re-encoded with base64, and the signature is rem
 eyJhbGciOiAibm9uZSIsICJ0eXAiOiAiSldUIn0K.eyJ1c2VybmFtZSI6ImFkbWluaW5pc3RyYXRvciIsImlzX2FkbWluIjp0cnVlLCJpYXQiOjE1MTYyMzkwMjIsImV4cCI6MTUxNjI0MjYyMn0.
 ```
 
-Some implementations try and avoid this by explicitly blocking the use of the `none` algorithm. If this is done in a case-insensitive way, it may be possible to bypass by specifying an algorithm such as `NoNe`.
+Some implementations try and avoid this by explicitly blocking the use of the `none` algorithm. If this check is case-sensitive (only rejecting the exact string `none`) but the library matches algorithm names case-insensitively, it may be possible to bypass it by specifying an algorithm such as `NoNe`. The `alg` value is case-sensitive according to [RFC 7515](https://www.rfc-editor.org/rfc/rfc7515.html#section-4.1.1), so a compliant library should reject `NoNe` as an unknown algorithm.
 
 #### ECDSA "Psychic Signatures"
 
@@ -353,8 +353,8 @@ If Service B trusts the IdP signature but omits `aud` validation, an attacker wi
 ## Related Test Cases
 
 - [Sensitive Information Sent via Unencrypted Channels](../09-Weak_Cryptography/03-Sensitive_Information_Sent_via_Unencrypted_Channels.md).
-- [Cookie Attributes](../06-Session_Management/02-Cookies_Attributes.md).
-- [Testing Browser Storage](../11-Client-side/12-Browser_Storage.md).
+- [Cookies Attributes](../06-Session_Management/02-Cookies_Attributes.md).
+- [Browser Storage](../11-Client-side/12-Browser_Storage.md).
 - [Server-Side Request Forgery](../07-Injection/19-Server-Side_Request_Forgery.md).
 
 ## Remediation

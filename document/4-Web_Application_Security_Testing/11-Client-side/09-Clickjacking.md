@@ -32,7 +32,7 @@ As mentioned above, this type of attack is often designed to allow an attacker t
 
 ### Load Target Web Page on a HTML Interpreter Using HTML iframe Tag
 
-Sites that do not protected against frame busting are vulnerable to clickjacking attack. If the `https://www.target.site` web page is successfully loaded into a frame, then the site is vulnerable to Clickjacking. An example of HTML code to create this testing web page is displayed in the following snippet:
+If the `https://www.target.site` web page is successfully loaded into a frame, then the site is vulnerable to clickjacking. An example of HTML code to create this testing web page is displayed in the following snippet:
 
 ```htmls
     <html>
@@ -47,7 +47,7 @@ Sites that do not protected against frame busting are vulnerable to clickjacking
 
 ### Test Application against Disabled JavaScript
 
-Since these types of client-side protections relies on JavaScript frame busting code, if the victim has JavaScript disabled or it is possible for an attacker to disable JavaScript code, the web page will not have any protection mechanism against clickjacking.
+Since client-side protections against clickjacking rely on JavaScript frame busting code, if the victim has JavaScript disabled or it is possible for an attacker to disable JavaScript code, the web page may not have any protection mechanism against clickjacking.
 
 There are few deactivation techniques that can be used with frames. More in depth techniques can be found on the [Clickjacking Defense Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Clickjacking_Defense_Cheat_Sheet.html).
 
@@ -89,9 +89,9 @@ In this case, because the `X-FRAME-OPTIONS` HTTP header has to be implemented in
 
 ### Remediation
 
-- For measures to prevent Clickjacking, see the [Clickjacking Defense Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Clickjacking_Defense_Cheat_Sheet.html).
-- For interactive labs on Clickjacking visit [Port Swigger Web Page](https://portswigger.net/web-security/clickjacking)
-- For additional resources on ClickJacking visit the [OWASP community](https://owasp.org/www-community/attacks/Clickjacking)
+- For measures to prevent clickjacking, see the [Clickjacking Defense Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Clickjacking_Defense_Cheat_Sheet.html).
+- For interactive labs on clickjacking visit [Port Swigger Web Page](https://portswigger.net/web-security/clickjacking)
+- For additional resources on clickJacking visit the [OWASP community](https://owasp.org/www-community/attacks/Clickjacking)
 
 ## References
 

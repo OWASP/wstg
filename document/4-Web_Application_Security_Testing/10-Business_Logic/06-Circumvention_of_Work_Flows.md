@@ -72,17 +72,17 @@ Examples include:
 
 ## Related Test Cases
 
-- [Testing Directory Traversal/File Include](../05-Authorization/01-Directory_Traversal_File_Include.md)
+- [Directory Traversal and File Include](../05-Authorization/01-Directory_Traversal_File_Include.md)
 - [Bypassing Authorization Schema](../05-Authorization/02-Bypassing_Authorization_Schema.md)
-- [Bypassing Session Management Schema](../06-Session_Management/01-Session_Management_Schema.md)
-- [Test Business Logic Data Validation](01-Business_Logic_Data_Validation.md)
-- [Test Ability to Forge Requests](02-Ability_to_Forge_Requests.md)
-- [Test Integrity Checks](03-Integrity_Checks.md)
-- [Test for Process Timing](04-Process_Timing.md)
-- [Test Number of Times a Function Can be Used Limits](05-Number_of_Times_a_Function_Can_Be_Used_Limits.md)
-- [Test Defenses Against Application Mis-use](07-Defenses_Against_Application_Misuse.md)
-- [Test Upload of Unexpected File Types](08-Upload_of_Unexpected_File_Types.md)
-- [Test Upload of Malicious Files](09-Upload_of_Malicious_Files.md)
+- [Session Management Schema](../06-Session_Management/01-Session_Management_Schema.md)
+- [Business Logic Data Validation](01-Business_Logic_Data_Validation.md)
+- [Ability to Forge Requests](02-Ability_to_Forge_Requests.md)
+- [Integrity Checks](03-Integrity_Checks.md)
+- [Process Timing](04-Process_Timing.md)
+- [Number of Times a Function Can Be Used Limits](05-Number_of_Times_a_Function_Can_Be_Used_Limits.md)
+- [Defenses Against Application Misuse](07-Defenses_Against_Application_Misuse.md)
+- [Upload of Unexpected File Types](08-Upload_of_Unexpected_File_Types.md)
+- [Upload of Malicious Files](09-Upload_of_Malicious_Files.md)
 
 ## Remediation
 
