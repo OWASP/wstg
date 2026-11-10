@@ -54,6 +54,8 @@ These kind of trust relationships, where requests originating from the local mac
 GET https://example.com/page?page=file:///etc/passwd
 ```
 
+If the parameter is used as a file path rather than a URL, see [File Inclusion](11.1-File_Inclusion.md) and [Directory Traversal and File Include](../05-Authorization/01-Directory_Traversal_File_Include.md).
+
 ### HTTP Methods Used
 
 All of the payloads above can apply to any type of HTTP request, and could also be injected into header and cookie values as well.
@@ -92,6 +94,11 @@ Sometimes the application allows input that matches a certain expression, like a
 - Combinations of all of the above
 
 For additional payloads and bypass techniques, see the [references](#references) section.
+
+## Related Test Cases
+
+- [Directory Traversal and File Include](../05-Authorization/01-Directory_Traversal_File_Include.md)
+- [File Inclusion](11.1-File_Inclusion.md)
 
 ## Remediation
 
