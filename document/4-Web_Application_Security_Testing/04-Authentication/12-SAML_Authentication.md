@@ -64,7 +64,7 @@ A related flaw is a parser differential, where the SP uses one XML parser to ver
 
 ### Test NameID and Attribute Handling
 
-- **Comment injection:** some parsers return only the text node after a comment. A `NameID` of `user@example.com<!---->.attacker.com` may be validated as one value and processed as another. Test with the value of an account you control, and check which identity the SP creates.
+- **Comment injection:** some parsers return only the text node before a comment. A `NameID` of `user@example.com<!---->.attacker.com` may then be read as `user@example.com`, while the signature still verifies because exclusive canonicalization drops comments, so the signed value doesn't change. Test with the value of an account you control, and check which identity the SP creates.
 - Check how the SP maps `NameID` or attributes to local accounts. If it matches by email address or username only, an attacker who controls an account at the IdP, or at an IdP the SP trusts, may be able to claim another user's identity.
 - Check whether attributes that decide roles or groups are accepted from the assertion without limits.
 
