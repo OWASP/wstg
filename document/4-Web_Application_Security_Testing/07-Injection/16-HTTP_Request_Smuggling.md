@@ -28,6 +28,7 @@ These behaviors can lead to persistent desynchronization, cache poisoning, crede
 - Detect classic CL/TE desynchronization vulnerabilities
 - Evaluate protocol translation logic (HTTP/2 → HTTP/1.1)
 - Assess H2C upgrade handling and downgrade safety
+- Identify endpoints that ignore the request body (CL.0) and whether a browser can be made to desynchronize its own connection
 - Confirm backend request queue poisoning
 
 ## How to Test
@@ -193,6 +194,57 @@ Some proxies downgrade HTTP/2 requests to HTTP/1.1 but fail to fully sanitize:
 
 Attackers can exploit this to poison persistent backend connections, impacting multiple users.
 
+#### CL.0 Desynchronization
+
+Some backends ignore `Content-Length` on endpoints that don't expect a body, such as static files, redirects or health checks. They answer the request right away and treat its body as the start of the next request on the same connection, even when the frontend parsed the request correctly.
+
+Send a request with a body to such an endpoint, followed by a normal request on the same connection. In Burp Suite Repeater, put both in a group and use "Send group in sequence (single connection)":
+
+```http
+POST /static/logo.png HTTP/1.1
+Host: vulnerable-website.com
+Content-Length: 30
+Connection: keep-alive
+
+GET /404 HTTP/1.1
+X-Ignore: X
+```
+
+```http
+GET / HTTP/1.1
+Host: vulnerable-website.com
+```
+
+Expected Result:
+
+- The second request gets the response for `GET /404` instead of the home page
+- The behavior is specific to some endpoints, so try several: static files, redirects, server-level endpoints and error pages
+
+#### Client-Side Desync
+
+When the server that ignores the body is the one the browser talks to directly over HTTP/1.1, the victim's own browser can be made to send the desynchronizing request. A page on another site sends a cross-origin `POST` with the smuggled prefix as its body, then a second request that reuses the same connection:
+
+```javascript
+fetch('https://vulnerable-website.com/redirect-me', {
+  method: 'POST',
+  body: 'GET /404 HTTP/1.1\r\nX-Ignore: X',
+  mode: 'cors',
+  credentials: 'include',
+}).catch(() => {
+  fetch('https://vulnerable-website.com/', { mode: 'no-cors', credentials: 'include' });
+});
+```
+
+Using `mode: 'cors'` against an endpoint that redirects makes the first fetch fail before the redirect is followed, so the browser keeps the connection and the second request is answered with the smuggled response.
+
+To test:
+
+1. Find an endpoint that ignores the body, as in the CL.0 test, on a host the browser reaches over HTTP/1.1 without a normalizing proxy in between.
+2. Confirm the desync with two requests on a single connection in Burp Suite.
+3. Reproduce it from a test page on another origin and check in the browser's developer tools whether the second request got the smuggled response.
+
+If it works, the attacker controls a response in the victim's browser for the target origin, which can lead to stored XSS-like effects, cache poisoning in the browser, or capturing the victim's next request.
+
 ### Indicators of Vulnerability
 
 - Inconsistent responses across identical requests
@@ -207,6 +259,8 @@ Attackers can exploit this to poison persistent backend connections, impacting m
 - Disable H2C where not required
 - Avoid protocol downgrades on untrusted connections
 - Terminate and revalidate backend connections upon parsing errors
+- Make every endpoint either read or reject a request body it doesn't use, and close the connection when in doubt
+- Use HTTP/2 end to end where possible, which removes most length ambiguity
 
 ## Tools
 
@@ -218,6 +272,7 @@ Attackers can exploit this to poison persistent backend connections, impacting m
 
 - [James Kettle, "HTTP Desync Attacks: Request Smuggling Reborn" (PortSwigger Research)](https://portswigger.net/research/http-desync-attacks-request-smuggling-reborn)
 - [James Kettle, "HTTP/2: The Sequel is Always Worse" (PortSwigger Research)](https://portswigger.net/research/http2)
+- [James Kettle, "Browser-Powered Desync Attacks" (PortSwigger Research)](https://portswigger.net/research/browser-powered-desync-attacks)
 - [Jake Miller, "h2c Smuggling: Request Smuggling Via HTTP/2 Cleartext" (Bishop Fox)](https://bishopfox.com/blog/h2c-smuggling-request)
 - [Amit Klein, Chaim Linhart, Ronen Heled, Steve Orrin: "HTTP Request Smuggling" (2005)](https://web.archive.org/web/20210816212852/https://www.cgisecurity.com/lib/http-request-smuggling.pdf)
 - [RFC 9112, Section 6.3: Message Body Length](https://datatracker.ietf.org/doc/html/rfc9112#section-6.3)
