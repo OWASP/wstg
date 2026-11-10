@@ -142,6 +142,8 @@
 
 #### 4.4.11 [Multi-Factor Authentication](4-Web_Application_Security_Testing/04-Authentication/11-Multi-Factor_Authentication.md)
 
+#### 4.4.12 [SAML Authentication](4-Web_Application_Security_Testing/04-Authentication/12-SAML_Authentication.md)
+
 ### 4.5 [Authorization](4-Web_Application_Security_Testing/05-Authorization/README.md)
 
 #### 4.5.1 [Directory Traversal and File Include](4-Web_Application_Security_Testing/05-Authorization/01-Directory_Traversal_File_Include.md)
@@ -321,6 +323,8 @@
 #### 4.11.14 [Reverse Tabnabbing](4-Web_Application_Security_Testing/11-Client-side/14-Reverse_Tabnabbing.md)
 
 #### 4.11.15 [Client-side Template Injection](4-Web_Application_Security_Testing/11-Client-side/15-Client-Side_Template_Injection.md)
+
+#### 4.11.16 [DOM Clobbering](4-Web_Application_Security_Testing/11-Client-side/16-DOM_Clobbering.md)
 
 #### 4.11.19 [Client-side Path Traversal](4-Web_Application_Security_Testing/11-Client-side/19-Client-side_Path_Traversal.md)
 
