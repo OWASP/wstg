@@ -428,6 +428,17 @@
             "Determine whether the MFA implementation is robust and secure.",
             "Attempt to bypass the MFA."
           ]
+        },
+        {
+          "name": "SAML Authentication",
+          "id": "WSTG-ATHN-12",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/04-Authentication/12-SAML_Authentication",
+          "objectives": [
+            "Identify the SAML flow in use and the endpoints involved.",
+            "Determine whether the SP validates the signature, and that the signature covers the data the SP uses.",
+            "Determine whether the SP enforces the conditions in the assertion (audience, validity period, recipient, and request binding).",
+            "Assess whether assertions can be replayed or accepted from an untrusted source."
+          ]
         }
       ]
     },
