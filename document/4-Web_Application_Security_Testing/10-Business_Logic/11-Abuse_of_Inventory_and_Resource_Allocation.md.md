@@ -1,4 +1,4 @@
-# Testing for Abuse of Inventory and Resource Allocation
+# Abuse of Inventory and Resource Allocation
 
 |ID          |
 |------------|
