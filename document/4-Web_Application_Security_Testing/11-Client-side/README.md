@@ -31,3 +31,5 @@
 4.11.14 [Reverse Tabnabbing](14-Reverse_Tabnabbing.md)
 
 4.11.15 [Client-side Template Injection](15-Client-Side_Template_Injection.md)
+
+4.11.19 [Client-side Path Traversal](19-Client-side_Path_Traversal.md)
