@@ -79,7 +79,7 @@ setTimeout(() => {
 }, 3000);
 ```
 
-Because this is a top-level navigation, `SameSite=Lax` cookies are sent. The same check works on an `<iframe>` with `frames[0].length` when the target can be framed.
+Because this is a top-level navigation, `SameSite=Lax` cookies are sent. The same check works on an `<iframe>` with `frames[0].length` when the target can be framed and its session cookie is `SameSite=None`, since a cross-site frame isn't a top-level navigation.
 
 #### Redirects
 
