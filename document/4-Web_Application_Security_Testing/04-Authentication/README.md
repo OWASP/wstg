@@ -21,3 +21,5 @@
 4.4.10 [Weaker Authentication in Alternative Channel](10-Weaker_Authentication_in_Alternative_Channel.md)
 
 4.4.11 [Multi-Factor Authentication](11-Multi-Factor_Authentication.md)
+
+4.4.14 [OpenID Connect Relying Party](14-OpenID_Connect_Relying_Party.md)
