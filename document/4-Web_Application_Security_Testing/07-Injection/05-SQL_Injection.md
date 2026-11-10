@@ -88,13 +88,17 @@ $sql = "INSERT INTO answers (" . implode(",", array_keys($_POST)) . ") VALUES (.
 How to test:
 
 1. Capture a create or update request that accepts a flexible set of fields.
-2. Keep the legitimate field names, then add one unexpected field name that contains a single quote, parenthesis, comma, comment delimiter, or subquery marker. Example form body:
+2. Keep the legitimate field names, then add one unexpected field name that contains a single quote, parenthesis, comma, comment delimiter, or subquery marker. In `application/x-www-form-urlencoded` bodies the name ends at the first `=`, so encode any `=` inside the name as `%3D`. Prefer `/**/` instead of spaces: PHP's `$_POST` converts spaces and dots in names to underscores. Example true/false pair:
 
     ```http
-    answer=42&lab_ok=1&lab_col') , (SELECT CASE WHEN (1=1) THEN 1 ELSE 1/0 END)--=x
+    answer=42&lab_ok=1&lab_col'),(SELECT/**/CASE/**/WHEN/**/(1%3D1)/**/THEN/**/1/**/ELSE/**/1/0/**/END)--=x
     ```
 
-3. Repeat with JSON property names when the API accepts arbitrary objects:
+    ```http
+    answer=42&lab_ok=1&lab_col'),(SELECT/**/CASE/**/WHEN/**/(1%3D2)/**/THEN/**/1/**/ELSE/**/1/0/**/END)--=x
+    ```
+
+3. Repeat with JSON property names when the API accepts arbitrary objects. JSON avoids the form-urlencoded name parser and is often clearer for this check:
 
     ```http
     Content-Type: application/json
@@ -102,7 +106,7 @@ How to test:
     {"answer":"42","lab_col) VALUES (1);--":"x"}
     ```
 
-4. Compare responses for syntax errors, datatype conversion errors, boolean or time differences, and out-of-band callbacks. Treat a stable difference caused only by the crafted _name_ as evidence that the name entered the SQL structure.
+4. Compare responses for syntax errors, datatype conversion errors, boolean or time differences between the `(1%3D1)` and `(1%3D2)` names, and out-of-band callbacks. Treat a stable difference caused only by the crafted _name_ as evidence that the name entered the SQL structure.
 5. If the application reflects generated SQL or database errors, redact them in evidence and stop once identifier evaluation is confirmed. Do not dump production data.
 
 Expected secure behavior: unexpected names are ignored or rejected against a fixed allowlist. The SQL column list is defined by server-side code, not by the request shape.
