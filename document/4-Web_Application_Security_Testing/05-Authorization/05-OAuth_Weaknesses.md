@@ -21,8 +21,8 @@ Since OAuth's responsibility is to delegate access rights by the owner to the cl
 
 In order to provide access to a client application, OAuth relies on several [authorization grant types](https://oauth.net/2/grant-types/) to generate an access token:
 
-- [Authorization Code](https://oauth.net/2/grant-types/authorization-code/): used by both confidential and public clients to exchange an authorization code for an access token, but recommended only for confidential clients
-- [Proof Key for Code Exchange (PKCE)](https://oauth.net/2/pkce/): PKCE builds on top of the Authorization Code grant, providing stronger security for it to be used by public clients, and improving the posture of confidential ones
+- [Authorization Code](https://oauth.net/2/grant-types/authorization-code/): used by both confidential and public clients to exchange an authorization code for an access token. [RFC 9700](https://datatracker.ietf.org/doc/html/rfc9700#section-2.1.1) requires public clients to protect this grant with PKCE, and recommends PKCE for confidential clients as well
+- [Proof Key for Code Exchange (PKCE)](https://oauth.net/2/pkce/): PKCE binds the authorization code to the client instance that started the flow. Public clients MUST use it. Confidential clients SHOULD use it, even when they also authenticate with a client secret
 - [Client Credentials](https://oauth.net/2/grant-types/client-credentials/): used for machine to machine communication, where the "user" here is the machine requesting access to its own resources from the Resource Server
 - [Device Code](https://oauth.net/2/grant-types/device-code/): used for devices with limited input capabilities.
 - [Refresh Token](https://oauth.net/2/grant-types/refresh-token/): tokens provided by the authorization server to allow clients to refresh users' access tokens once they become invalid or expire. This grant type is used in conjunction with one other grant type.
@@ -85,7 +85,7 @@ The following URL parameters indicate the OAuth flow being used:
 
 - `response_type=token`: Indicates Implicit Flow, as the client is directly requesting from the authorization server to return a token.
 - `response_type=code`: Indicates Authorization Code flow, as the client is requesting from the authorization server to return a code, that will be exchanged afterwards with a token.
-- `code_challenge=sha256(xyz)`: Indicates the PKCE extension, as no other flow uses this parameter.
+- `code_challenge=<BASE64URL-SHA256 of the code_verifier>` with `code_challenge_method=S256`: Indicates the PKCE extension. Prefer `S256`. Do not put the `code_verifier` itself into the authorization request.
 
 The following is an example authorization request for Authorization Code flow with PKCE:
 
@@ -98,7 +98,7 @@ GET /authorize
     &response_mode=query
     &state=<random_state>
     &nonce=<random_nonce>
-    &code_challenge=<random_code_challenge>
+    &code_challenge=<BASE64URL-SHA256 of the code_verifier>
     &code_challenge_method=S256 HTTP/1.1
 Host: as.example.com
 [...]
@@ -106,9 +106,9 @@ Host: as.example.com
 
 #### Public Clients
 
-The Authorization Code grant with PKCE extension is recommended for public clients. An authorization request for Authorization Code flow with PKCE should contain `response_type=code` and `code_challenge=sha256(xyz)`.
+Public clients MUST use the Authorization Code grant with PKCE. An authorization request should contain `response_type=code`, a per-transaction `code_challenge`, and `code_challenge_method=S256`.
 
-The token exchange should contain the grant type `authorization_code` and a `code_verifier`.
+The token exchange should contain the grant type `authorization_code` and the matching `code_verifier` in the token request body (or other non-URL transport), not in the browser-visible redirect URL.
 
 Improper grant types for public clients are:
 
@@ -119,10 +119,11 @@ Improper grant types for public clients are:
 
 #### Confidential Clients
 
-The Authorization Code grant is recommended for confidential clients. The PKCE extension may be used as well.
+Confidential clients SHOULD also use the Authorization Code grant with PKCE. Client authentication alone does not stop authorization code injection when an attacker can cause the legitimate confidential client to redeem a stolen code. See [RFC 9700 Section 2.1.1](https://datatracker.ietf.org/doc/html/rfc9700#section-2.1.1).
 
 Improper grant types for confidential clients are:
 
+- Authorization Code grant without PKCE when the deployment can support PKCE
 - Client Credentials (Except for machine-to-machine -- see below)
 - Implicit Flow
 - ROPC
@@ -149,15 +150,17 @@ The following tokens can be considered to be leaked credentials:
 - access token
 - refresh token
 - authorization code
-- PKCE code challenge / code verifier
+- PKCE `code_challenge` (expected in the authorization request URL)
+- PKCE `code_verifier` (must appear only in the token request, not in browser-visible URLs)
 
-Due to how OAuth works, the authorization `code` as well as the `code_challenge`, and `code_verifier` may be part of the URL. The implicit flow transports the authorization token as part of the URL if the `response_mode` is not set to [`form_post`](https://openid.net/specs/oauth-v2-form-post-response-mode-1_0.html). This may lead to leakage of the requested token or code in the referrer header, in log files, and proxies due to these parameters being passed either in the query or the fragment.
+Due to how OAuth works, the authorization `code` and the PKCE `code_challenge` may appear in browser-visible URLs. The `code_verifier` belongs in the token request to the authorization server, typically as a POST body parameter, and MUST NOT be placed in the authorization redirect URL. The implicit flow transports the authorization token as part of the URL if the `response_mode` is not set to [`form_post`](https://openid.net/specs/oauth-v2-form-post-response-mode-1_0.html). This may lead to leakage of the requested token or code in the referrer header, in log files, and proxies due to these parameters being passed either in the query or the fragment.
 
-The risk that's carried by the implicit flow leaking the tokens is far higher than leaking the `code` or any other `code_*` parameters, as they are bound to specific clients and are harder to abuse in case of leakage.
+The risk carried by the implicit flow leaking access tokens is far higher than leaking an authorization `code` or a `code_challenge`. A stolen code is still dangerous for public clients without PKCE, and for confidential clients if the attacker can force the legitimate client to redeem it.
 
 In order to test this scenario, make use of an HTTP intercepting proxy such as ZAP and intercept the OAuth traffic.
 
 - Step through the authorization process and identify any credentials present in the URL.
+- Confirm the `code_verifier` is sent only on the token request and is absent from the authorization redirect.
 - If any external resources are included in a page involved with the OAuth flow, analyze the request made to them. Credentials could be leaked in the referrer header.
 
 After stepping through the OAuth flow and using the application, a few requests are captured in the request history of an HTTP intercepting proxy. Search for the HTTP referrer header (e.g. `Referer: https://idp.example.com/`) containing the authorization server and client URL in the request history.
@@ -171,7 +174,8 @@ Reviewing the HTML meta tags (although this tag is [not supported](https://caniu
 ## Remediation
 
 - When implementing OAuth, always consider the technology used and whether the application is a server-side application that can avoid revealing secrets, or a client-side application that cannot.
-- In almost any case, use the Authorization Code flow with PKCE. One exception may be machine-to-machine flows.
+- Prefer the Authorization Code flow with PKCE for both public and confidential clients. One exception may be machine-to-machine Client Credentials flows.
+- Send the `code_verifier` in the token request body or another non-URL channel. Keep `code_challenge_method=S256`.
 - Use POST parameters or header values to transport secrets.
 - When no other possibilities exists (for example, in legacy applications that can not be migrated), implement additional security headers such as a `Referrer-Policy`.
 
@@ -188,4 +192,5 @@ Reviewing the HTML meta tags (although this tag is [not supported](https://caniu
 - [The OAuth 2.0 Authorization Framework: Bearer Token Usage](https://datatracker.ietf.org/doc/html/rfc6750)
 - [OAuth 2.0 Threat Model and Security Considerations](https://datatracker.ietf.org/doc/html/rfc6819)
 - [OAuth 2.0 Security Best Current Practice](https://datatracker.ietf.org/doc/html/rfc9700)
+- [Proof Key for Code Exchange by OAuth Public Clients](https://datatracker.ietf.org/doc/html/rfc7636)
 - [Authorization Code Flow with Proof Key for Code Exchange](https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow-with-pkce)
