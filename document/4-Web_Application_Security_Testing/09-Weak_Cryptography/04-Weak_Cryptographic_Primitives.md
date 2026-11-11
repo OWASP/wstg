@@ -26,17 +26,19 @@ Encryption, digital signatures and hashing solve different problems and use diff
 - When using AES128 or AES256, the IV (Initialization Vector) must be random and unpredictable. Refer to [FIPS 140-3, Security Requirements for Cryptographic Modules](https://csrc.nist.gov/pubs/fips/140-3/final), section random number generation tests. For example, in Java, `java.util.Random` is considered a weak random number generator. `java.security.SecureRandom` should be used instead of `java.util.Random`.
 - When a symmetric encryption algorithm is used, ECB (Electronic Code Book) mode should not be used. Prefer an authenticated mode such as GCM.
 - For SSH, CBC mode should not be used.
+- Weak ciphers such as RC4, DES, Blowfish and two-key triple DES (2TDEA, 80-bit security) should not be used.
 - Asymmetric encryption is normally done with a hybrid scheme: an elliptic curve key exchange such as X25519 (ECDH over `Curve25519`) or ECDH with P-256 agrees on a symmetric key, which then encrypts the data. Where RSA is used to encrypt directly, it needs OAEP padding and a key of at least 2048 bits. RSA with PKCS#1 v1.5 encryption padding is vulnerable to padding oracle attacks.
 
 #### Digital Signatures
 
 - Use RSA with PSS padding (RSASSA-PSS) and a key of at least 2048 bits, ECDSA with a curve of at least 256 bits such as P-256, or EdDSA (`Ed25519`). These are among the algorithms approved in [FIPS 186-5](https://csrc.nist.gov/pubs/fips/186-5/final), which no longer approves DSA for generating new signatures.
+- Keys that are too short, such as 1024-bit RSA or DSA and 160-bit ECDSA curves, should not be used.
 - Signatures must not use SHA-1 or MD5 as the hash. [NIST SP 800-131A](https://csrc.nist.gov/pubs/sp/800/131/a/r2/final) disallows SHA-1 for generating digital signatures.
 - A signature only protects data if it is verified. Check that the application verifies signatures before trusting the data, with a key it trusts, and that it doesn't let the signed data choose the algorithm, such as `alg: none` in a JSON Web Token (see [JSON Web Tokens](../06-Session_Management/10-JSON_Web_Tokens.md)).
 
 #### Hashing and Password Storage
 
-- Weak hash/encryption algorithms should not be used such MD5, RC4, DES, Blowfish, SHA1. 1024-bit RSA or DSA, 160-bit ECDSA (elliptic curves), 80/112-bit 2TDEA (two key triple DES)
+- Weak hash algorithms such as MD5 and SHA-1 should not be used.
 - Passwords should be stored with a password hashing function such as Argon2id, scrypt, bcrypt or PBKDF2, with the parameters from the [Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html), for example 600,000 iterations for PBKDF2-HMAC-SHA256. MD5 must not be used with PBKDF2, such as PBKDF2WithHmacMD5.
 
 #### Minimum Key Lengths
@@ -47,7 +49,7 @@ Message Integrity: HMAC-SHA2
 Message Hash: SHA2 256 bits
 Asymmetric encryption: RSA 2048 bits
 Symmetric-key algorithm: AES 128 bits
-Password Hashing: PBKDF2, Scrypt, Bcrypt
+Password Hashing: Argon2id, scrypt, bcrypt, PBKDF2
 ECDH, ECDSA: 256 bits
 Signatures: RSA-PSS 2048 bits, ECDSA P-256, Ed25519
 ```
