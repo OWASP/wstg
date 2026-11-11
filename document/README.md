@@ -326,6 +326,8 @@
 
 #### 4.11.16 [DOM Clobbering](4-Web_Application_Security_Testing/11-Client-side/16-DOM_Clobbering.md)
 
+#### 4.11.20 [Service Workers](4-Web_Application_Security_Testing/11-Client-side/20-Service_Workers.md)
+
 ### 4.12 [API Testing](4-Web_Application_Security_Testing/12-API_Testing/README.md)
 
 #### 4.12.0 [API Testing Overview](4-Web_Application_Security_Testing/12-API_Testing/00-API_Testing_Overview.md)
