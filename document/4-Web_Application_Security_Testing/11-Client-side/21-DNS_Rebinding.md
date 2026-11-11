@@ -55,7 +55,9 @@ curl -i -H 'Host: rebind.attacker.example:8080' http://127.0.0.1:8080/api/status
 
 If the response is the same as with `Host: localhost:8080`, the service does not check the `Host` header and is likely exploitable through DNS rebinding. A service that responds with an error, a redirect to its expected name, or a different virtual host is protected against this part of the attack.
 
-Also check whether the service requires authentication for every request, including requests from `localhost`, and whether it accepts cross-origin requests without a preflight, such as simple `POST` requests with a `text/plain` body.
+Also check whether the service requires authentication for every request, including requests from `localhost`.
+
+Separately, check whether the service accepts state-changing requests that any page can send cross-origin without a preflight, such as a simple `POST` with a `text/plain` body. That is a blind write that works without DNS rebinding, since the page does not need to read the response, so it should be reported on its own.
 
 ### Demonstrate the Attack
 
@@ -70,7 +72,7 @@ Recent versions of Chrome ask the user for permission before a public site can c
 
 ### Server-Side Rebinding
 
-If the application fetches URLs supplied by users and blocks internal addresses, submit a URL whose hostname alternates between a public address and an internal one, for example with rbndr or Singularity. Submit it several times, because each attempt only succeeds when the validation sees the public address and the fetch sees the internal one. Watch for responses, errors or timing that show the request reached an internal service. Also check whether the application follows redirects to internal addresses after validating the first URL.
+If the application fetches URLs supplied by users and blocks internal addresses, submit a URL whose hostname alternates between a public address and an internal one, for example with rbndr or Singularity. Include `0.0.0.0` among the internal addresses. On Linux, a connection to `0.0.0.0` reaches services listening on `localhost`, and filters that only block `127.0.0.0/8` often miss it. Submit it several times, because each attempt only succeeds when the validation sees the public address and the fetch sees the internal one. Watch for responses, errors or timing that show the request reached an internal service. Also check whether the application follows redirects to internal addresses after validating the first URL.
 
 ## Related Test Cases
 
