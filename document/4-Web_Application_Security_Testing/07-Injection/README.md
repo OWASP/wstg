@@ -63,3 +63,5 @@
 4.7.22 [Prototype Pollution](22-Prototype_Pollution.md)
 
 4.7.23 [Insecure Deserialization](23-Insecure_Deserialization.md)
+
+4.7.25 [Unicode Normalization and Case Mapping](25-Unicode_Normalization_and_Case_Mapping.md)
