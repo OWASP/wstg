@@ -73,7 +73,7 @@ Browsers do not follow `javascript:` URLs in a `Location` header. When the value
 ### Chains with Other Features
 
 - If the application is an OAuth or OpenID Connect client, check whether the authorization server accepts a `redirect_uri` that differs from the registered one only in path or query. Combine it with an open redirect on the client's domain and check whether the authorization code or token reaches the tester's domain, in the query, the fragment or the `Referer` header. See [OAuth Authorization Server Weaknesses](../05-Authorization/05.1-OAuth_Authorization_Server_Weaknesses.md).
-- If the application fetches URLs on the server side and only allows its own domain, point it at an open redirect on that domain and check whether the fetch follows the redirect. See [Server-Side Request Forgery](19-Server-Side_Request_Forgery.md).
+- If the application fetches URLs server-side and only allows its own domain, point it at an open redirect on that domain and check whether the fetch follows the redirect. See [Server-Side Request Forgery](19-Server-Side_Request_Forgery.md).
 - Check SAML `RelayState` and similar SSO return parameters with the same techniques. See [SAML Authentication](../04-Authentication/12-SAML_Authentication.md).
 
 ### Unvalidated Forwards
