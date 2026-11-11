@@ -1238,6 +1238,16 @@
             "Detect injection points where user input is reflected into the DOM and processed by the template engine.",
             "Assess if the injection allows for arbitrary JavaScript execution (XSS) via the template syntax."
           ]
+        },
+        {
+          "name": "DOM Clobbering",
+          "id": "WSTG-CLNT-16",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/11-Client-side/16-DOM_Clobbering",
+          "objectives": [
+            "Identify injection points where user-supplied HTML keeps its `id` or `name` attributes.",
+            "Identify scripts that read global variables, `document` properties, or form properties that may be undefined, and pass them to sensitive operations.",
+            "Assess whether clobbering those references changes the behavior of the application."
+          ]
         }
       ]
     },
