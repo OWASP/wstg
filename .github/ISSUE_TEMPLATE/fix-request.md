@@ -2,7 +2,7 @@
 name: Fix Request
 about: Create a report to help us improve
 title: ''
-labels: revise, help wanted
+labels: revise
 assignees: ''
 
 ---
