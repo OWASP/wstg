@@ -22,7 +22,7 @@ This test follows resources from allocation through release. It checks whether t
 
 ### Establish the Allocation Rules and Baseline
 
-Use an isolated test pool or designated test resources. Agree on the maximum allocation, test duration, stop conditions, and cleanup with the application owner. Use two independent test users, A and B, who can access the same pool.
+Use an isolated test pool or designated test resources. Agree on the maximum allocation, test duration, stop conditions, and cleanup with the application owner. Use two independent test users, User-A and User-B, who can access the same pool.
 
 Record:
 
