@@ -63,3 +63,5 @@
 4.7.22 [Prototype Pollution](22-Prototype_Pollution.md)
 
 4.7.23 [Insecure Deserialization](23-Insecure_Deserialization.md)
+
+4.7.26 [Server-side Document Rendering Injection](26-Server-side_Document_Rendering_Injection.md)
