@@ -15,13 +15,14 @@ A JSON request often passes through more than one parser before it is acted on. 
 - **Invalid characters in keys.** Parsers handle invalid escape sequences, such as an unpaired surrogate (`\ud800`), and control characters differently. Some reject them, some replace them with U+FFFD, and some drop them, so `"role\ud800"` can be a separate key in one parser and collide with `"role"` in another.
 - **Non-standard syntax.** Lenient parsers accept comments, trailing commas, single quotes or unquoted keys. A strict parser rejects the document, and two lenient parsers may disagree on where a comment ends.
 - **Numbers.** Large integers and special values are decoded differently. `9007199254740993` is decoded exactly by Python but becomes `9007199254740992` in JavaScript, which stores all numbers as 64-bit floating point. Some parsers accept `NaN` and `Infinity`, which RFC 8259 does not allow, and others turn out-of-range numbers into the largest representable value or into zero.
+- **Trailing data.** Python's `json` module and JavaScript's `JSON.parse` reject `{"role": "user"} {"role": "admin"}` because of the extra data after the first value. A streaming decoder, such as Go's `json.Decoder`, which many gateways and middleware use, reads only the first value and ignores the rest.
 
 Where these differences sit between a security decision and the action it protects, they can be used to bypass authorization checks, input validation, rate limits, price or quantity checks, and signature or schema validation.
 
 ## Test Objectives
 
 - Identify places where the same JSON document is parsed by more than one component.
-- Determine whether those components disagree on duplicate keys, key matching, invalid characters, non-standard syntax or numbers.
+- Determine whether those components disagree on duplicate keys, key matching, invalid characters, non-standard syntax, numbers or trailing data.
 - Assess whether a disagreement lets a request pass a check with one value and be processed with another.
 
 ## How to Test
@@ -55,7 +56,10 @@ Then try the other differences:
 {"amount": 9007199254740993}
 {"amount": 1e400}
 {"amount": NaN}
+{"role": "user"} {"role": "admin"}
 ```
+
+A bypass needs the checking parser to accept the document and the acting parser to derive the dangerous value from it. Probes that a strict parser rejects outright, such as `NaN`, `Infinity`, comments, trailing commas and single quotes, only lead somewhere when the checking layer is the lenient one. Against a strict front layer they return an error, so note which layer is strict before ruling a probe out.
 
 Look for a result that matches neither a clean accept nor a clean reject, for example:
 
