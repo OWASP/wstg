@@ -64,4 +64,4 @@
 
 4.7.23 [Insecure Deserialization](23-Insecure_Deserialization.md)
 
-4.7.25 [JSON Parser Differentials](25-JSON_Parser_Differentials.md)
+4.7.26 [JSON Parser Differentials](26-JSON_Parser_Differentials.md)

@@ -250,7 +250,7 @@
 
 #### 4.7.23 [Insecure Deserialization](4-Web_Application_Security_Testing/07-Injection/23-Insecure_Deserialization.md)
 
-#### 4.7.25 [JSON Parser Differentials](4-Web_Application_Security_Testing/07-Injection/25-JSON_Parser_Differentials.md)
+#### 4.7.26 [JSON Parser Differentials](4-Web_Application_Security_Testing/07-Injection/26-JSON_Parser_Differentials.md)
 
 ### 4.8 [Error Handling](4-Web_Application_Security_Testing/08-Error_Handling/README.md)
 
