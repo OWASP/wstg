@@ -327,7 +327,7 @@ Ensure that the application correctly handles such cases and prevents exploitati
 
 - [HTTP Parameter Pollution](../07-Injection/04-HTTP_Parameter_Pollution.md)
 - [SQL Injection](../07-Injection/05-SQL_Injection.md)
-- [the Circumvention of Work Flows](06-Circumvention_of_Work_Flows.md)
+- [Circumvention of Work Flows](06-Circumvention_of_Work_Flows.md)
 
 ## Remediation
 
