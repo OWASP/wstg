@@ -39,7 +39,7 @@ Review the client-side code and traffic for places where input is concatenated i
 - The URL fragment (`#...`), which is a DOM-based source that the server never sees in logs.
 - Values read back from an API that were originally attacker-controlled, which makes the source stored rather than reflected.
 
-In the code, follow each source to a sink such as `fetch`, `XMLHttpRequest`, `axios`, or a framework HTTP client, and note whether the value is passed through `encodeURIComponent` or validated before it reaches the path.
+In the code, follow each source to a sink such as `fetch`, `XMLHttpRequest`, `axios`, or a framework HTTP client, and note whether the value is passed through `encodeURIComponent` or validated before it reaches the path. Encoding alone is not enough: `encodeURIComponent` leaves a value of exactly `..` unchanged, so such code is still worth testing with `..` as the whole value.
 
 ### Confirm the Traversal
 
@@ -72,7 +72,7 @@ Because the back end often accepts extra or unexpected fields, a sink may act ev
 
 ## Remediation
 
-- Do not place untrusted input into a request path. Where an identifier must be used, validate it against an allow list or a strict pattern, and encode each segment with `encodeURIComponent` so that separators and dot-segments cannot change the path.
+- Do not place untrusted input into a request path. Where an identifier must be used, validate it against an allow list or a strict pattern, such as digits only. Encoding the value with `encodeURIComponent` stops `/` and `\` from adding path segments, but it leaves `.` and `..` unchanged, so a value of `..` still moves the request up one level. Validation is what prevents that.
 - Prefer passing identifiers as query-string or body parameters that the client sends through a fixed, server-defined path.
 - On the server, enforce a strict schema for each endpoint so that requests carrying unexpected parameters or shapes are rejected rather than acted upon.
 - Be aware that generated API clients often insert string parameters into the path without traversal checks, so apply the same validation in that client code.
