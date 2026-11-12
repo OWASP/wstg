@@ -22,7 +22,7 @@ There are several different ways that applications can integrate payment functio
 
 - Redirecting the user to a third-party payment gateway.
 - Loading a third-party payment gateway in an IFRAME on the application.
-- Having a HTML form that makes a cross-domain POST request to a third-party payment gateway.
+- Having an HTML form that makes a cross-domain POST request to a third-party payment gateway.
 - Accepting the card details directly, and then making a POST from the application backend to the payment gateway's API.
 
 ### PCI DSS
