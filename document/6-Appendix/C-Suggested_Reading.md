@@ -52,3 +52,4 @@
 - [Damn Vulnerable Web App](https://github.com/digininja/DVWA)
 - [Xtreme Vulnerable Web Application](https://github.com/s4n7h0/xvwa)
 - [Mutillidae](https://www.irongeek.com/i.php?page=mutillidae/mutillidae-deliberately-vulnerable-php-owasp-top-10)
+- [web-security-fixtures](https://github.com/Excession-Labs/web-security-fixtures)
