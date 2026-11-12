@@ -8,7 +8,7 @@
 
 Many applications turn user-supplied content into documents on the server: invoices, tickets and reports as PDF, web pages as images, uploaded SVG files as thumbnails, office documents converted to PDF, or XML transformed with XSLT. To do this they pass the content to a rendering engine, such as a headless browser driven by Puppeteer or Playwright, an HTML to PDF library, an image conversion tool, an office suite running without a user interface, or an XSLT processor.
 
-These engines are much more capable than the application usually needs. A headless browser runs JavaScript, follows links to files and internal addresses, and loads fonts, images and stylesheets from anywhere. When user input reaches the content being rendered without being escaped, an attacker can use the engine to:
+These engines are much more capable than the application usually needs. A headless browser runs JavaScript, follows links to files and internal addresses, and loads fonts, images and style sheets from anywhere. When user input reaches the content being rendered without being escaped, an attacker can use the engine to:
 
 - Read local files or internal web pages, and see the result in the rendered document.
 - Send requests to internal services and cloud metadata endpoints, as described in [Server-Side Request Forgery](19-Server-Side_Request_Forgery.md).
@@ -20,7 +20,7 @@ Examples include the [dompdf font cache issue (CVE-2022-28368)](https://positive
 ## Test Objectives
 
 - Identify features that render user-controlled content into documents or images on the server.
-- Identify the rendering engine and determine whether it processes HTML, CSS, JavaScript, external resources or stylesheets supplied by the user.
+- Identify the rendering engine and determine whether it processes HTML, CSS, JavaScript, external resources or style sheets supplied by the user.
 - Assess whether the renderer can be used to read local files, reach internal services or run code.
 
 ## How to Test
@@ -33,7 +33,7 @@ Look for features that produce a document from data the user controls, even indi
 - Screenshots, link previews and social media cards generated on the server.
 - Profile pictures, attachments and uploads that are converted or resized, especially SVG and office documents.
 - Fields that end up in a generated document, such as names, addresses, comments, item descriptions or report titles.
-- Features that accept XML together with a stylesheet, or a stylesheet on its own.
+- Features that accept XML together with a style sheet, or a style sheet on its own.
 
 ### Identify the Engine
 
@@ -45,7 +45,7 @@ Knowing the engine tells you which features to expect and which known vulnerabil
 
 Put simple markup in each field that appears in the document, such as `<b>bold</b>` or `<u>test</u>`, and check whether it is rendered or shown as text. If HTML is rendered, try the following, one at a time, and look at the result in the document:
 
-- An image or stylesheet from a server you control, for example `<img src="https://attacker.example/x.png">` or `<link rel="stylesheet" href="https://attacker.example/x.css">`. A request to that server confirms the renderer loads external resources and shows its IP address and `User-Agent`.
+- An image or style sheet from a server you control, for example `<img src="https://attacker.example/x.png">` or `<link rel="stylesheet" href="https://attacker.example/x.css">`. A request to that server confirms the renderer loads external resources and shows its IP address and `User-Agent`.
 - JavaScript that changes the page, for example `<script>document.write(navigator.userAgent)</script>`. If the user agent appears in the document, scripts run, and the renderer's version is visible too.
 - Local files, for example `<iframe src="file:///etc/passwd" width="800" height="600"></iframe>`, and on Windows `file:///c:/windows/win.ini`. Whether this works depends on the engine, its settings, and how the HTML is loaded into it.
 - Internal addresses, such as `http://127.0.0.1/`, `http://localhost:8080/` and cloud metadata endpoints. See [Server-Side Request Forgery](19-Server-Side_Request_Forgery.md) for the addresses and bypasses to try.
@@ -66,7 +66,7 @@ Combine these checks with [Upload of Malicious Files](../10-Business_Logic/09-Up
 
 ### XSLT
 
-If the application accepts XML and applies an XSLT stylesheet, check whether the stylesheet itself, or part of it, can be supplied by the user. An attacker-controlled stylesheet can read files with the `document()` function and, in some processors, call extension functions that run code. Send a stylesheet that outputs `system-property('xsl:vendor')` to identify the processor, then test what its extension functions allow.
+If the application accepts XML and applies an XSLT style sheet, check whether the style sheet itself, or part of it, can be supplied by the user. An attacker-controlled style sheet can read files with the `document()` function and, in some processors, call extension functions that run code. Send a style sheet that outputs `system-property('xsl:vendor')` to identify the processor, then test what its extension functions allow.
 
 ## Related Test Cases
 
@@ -82,7 +82,7 @@ If the application accepts XML and applies an XSLT stylesheet, check whether the
 - Run the renderer in a sandbox without access to local files, internal networks or cloud metadata endpoints, and with a time and memory limit.
 - Do not render with the user's session or with credentials that can reach internal services.
 - Keep the rendering engine up to date, and replace engines that are no longer maintained.
-- Do not accept stylesheets from users. Where XSLT is required, disable extension functions and external document access.
+- Do not accept style sheets from users. Where XSLT is required, disable extension functions and external document access.
 
 ## Tools
 
