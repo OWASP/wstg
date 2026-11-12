@@ -54,7 +54,7 @@ A rental service has six test projectors for one rental period. A customer may h
 
 1. As User-A, create a hold for two projectors using the normal request. Do not complete checkout.
 2. Submit a second order for two projectors, using a new order identifier but the same customer and period. If supported, compare the regular and bulk booking paths.
-3. Verify the total actually allocated to A. If the second order succeeds, repeat once to reach the six-projector test capacity, then attempt an allocation as User-B.
+3. Verify the total actually allocated to User-A. If the second order succeeds, repeat once to reach the six-projector test capacity, then attempt an allocation as User-B.
 4. Cancel User-A's holds and repeat User-B's attempt.
 
 Expected result: no booking path allows User-A's combined active holds to exceed two. Compare allocation quantities, not just request counts: one request may allocate several units. For general function-use limit tests, see [Number of Times a Function Can Be Used Limits](05-Number_of_Times_a_Function_Can_Be_Used_Limits.md).
@@ -77,7 +77,7 @@ For each case, collect the following observations using the same eligible User-B
 | Stage | Allocation Evidence | Customer Access |
 |-------|---------------------|-----------------|
 | Baseline | Known available capacity | User-B can allocate; cancel to restore the pool. |
-| After User-A's test | Quantity and state of User-A's allocations or stale reservations | User-B cannot allocate resources made unavailable by A. |
+| After User-A's test | Quantity and state of User-A's allocations or stale reservations | User-B cannot allocate resources made unavailable by User-A. |
 | After release or recovery | Capacity restored within the expected delay | User-B can allocate again. |
 
 Record the relevant requests, responses, reservation identifiers, quantities, and timestamps. Note the number of requests, duration of the blockage, and any staff action needed. Keep an unrelated application function as a control to distinguish inventory unavailability from a general outage.
