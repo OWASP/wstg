@@ -195,7 +195,7 @@ Response:
 A tool such as [GraphQL Voyager](https://apis.guru/graphql-voyager/) can be used to get a better understanding of the GraphQL endpoint:
 
 ![GraphQL Voyager](images/12-voyager.png)\
-*Figure 12.1-1: GraphQL Voyager*
+*Figure 4.12.99-1: GraphQL Voyager*
 
 This tool creates an Entity Relationship Diagram (ERD) representation of the GraphQL schema, allowing you to get a better look into the moving parts of the system you're testing. Extracting information from the drawing allows you to see you can query the Dog table for example. It also shows which properties a Dog has:
 
@@ -218,10 +218,10 @@ GraphiQL has a documentation section, which uses the data from the schema in ord
 In some cases, you will need to set the HTTP headers at the bottom, to include session ID or other mechanism of authentication. This still allows creating multiple "IDEs" with different permissions to verify if there are in fact authorization issues.
 
 ![Playground1](images/12-playground1.png)\
-*Figure 12.1-2: GraphQL Playground High Level API Docs*
+*Figure 4.12.99-2: GraphQL Playground High Level API Docs*
 
 ![Playground2](images/12-playground2.png)\
-*Figure 12.1-3: GraphQL Playground API Schema*
+*Figure 4.12.99-3: GraphQL Playground API Schema*
 
 You can even download the schemas to use in Voyager.
 
@@ -271,7 +271,7 @@ Introspection is the first place to look for authorization problems. As noted, a
 In the earlier examples, the output of the introspection query shows there is a query called `auth`. This seems like a good place to extract sensitive information such as API tokens, passwords, etc.
 
 ![Auth GraphQL Query](images/12-auth1.png)\
-*Figure 12.1-4: GraphQL Auth Query API*
+*Figure 4.12.99-4: GraphQL Auth Query API*
 
 Testing the authorization implementation varies from deployment to deployment since each schema will have different sensitive information, and hence, different targets to focus on.
 
@@ -421,7 +421,7 @@ Response:
 
 GraphQL exposes a very simple interface to allow developers to use nested queries and nested objects. This ability can also be used in a malicious way, by calling a deep nested query similar to a recursive function and causing a denial of service by using up CPU, memory, or other compute resources.
 
-Looking back at *Figure 12.1-1*, you can see that it is possible to create a loop where a Dog object contains a Veterinary object. There could be an endless amount of nested objects.
+Looking back at *Figure 4.12.99-1*, you can see that it is possible to create a loop where a Dog object contains a Veterinary object. There could be an endless amount of nested objects.
 
 This allows for a deep query which has the potential to overload the application:
 

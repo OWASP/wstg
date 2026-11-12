@@ -157,7 +157,7 @@ file= ..\..\boot.ini
 
 - [DotDotPwn - The Directory Traversal Fuzzer](https://github.com/wireghoul/dotdotpwn)
 - [Path Traversal Fuzz Strings (from WFuzz Tool)](https://github.com/xmendez/wfuzz/blob/master/wordlist/Injections/Traversal.txt)
-- [ZAP](https://www.zaproxy.org/) [ZAP's [Forced Browse](https://www.zaproxy.org/docs/desktop/addons/forced-browse/) functionality is based on a continuation of DirBuster.]
+- [ZAP](https://www.zaproxy.org/), whose [Forced Browse](https://www.zaproxy.org/docs/desktop/addons/forced-browse/) add-on is based on DirBuster
 - [Burp Suite](https://portswigger.net)
 - Encoding/Decoding tools
 - [String searcher "grep"](https://www.gnu.org/software/grep/)

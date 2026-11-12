@@ -140,7 +140,7 @@
 
 #### 4.4.10 [Weaker Authentication in Alternative Channel](4-Web_Application_Security_Testing/04-Authentication/10-Weaker_Authentication_in_Alternative_Channel.md)
 
-#### 4.4.11 [Multi-Factor Authentication](4-Web_Application_Security_Testing/04-Authentication/11-Multi-Factor_Authentication.md)
+#### 4.4.11 [Multi-Factor Authentication (MFA)](4-Web_Application_Security_Testing/04-Authentication/11-Multi-Factor_Authentication.md)
 
 #### 4.4.12 [SAML Authentication](4-Web_Application_Security_Testing/04-Authentication/12-SAML_Authentication.md)
 
@@ -294,7 +294,7 @@
 
 #### 4.11.1 [DOM-Based Cross Site Scripting](4-Web_Application_Security_Testing/11-Client-side/01-DOM-based_Cross_Site_Scripting.md)
 
-##### 4.11.1.1 [Self DOM Based Cross-Site Scripting](4-Web_Application_Security_Testing/11-Client-side/01.1-Self_DOM_Based_Cross_Site_Scripting.md)
+##### 4.11.1.1 [Self DOM Based Cross Site Scripting](4-Web_Application_Security_Testing/11-Client-side/01.1-Self_DOM_Based_Cross_Site_Scripting.md)
 
 #### 4.11.2 [JavaScript Execution](4-Web_Application_Security_Testing/11-Client-side/02-JavaScript_Execution.md)
 
@@ -350,7 +350,7 @@
 
 ### 5.1 [Reporting Structure](5-Reporting/01-Reporting_Structure.md)
 
-### 5.2 [Naming Schemes](5-Reporting/02-Naming_Schemes.md)
+### 5.2 [Vulnerability Naming Schemes](5-Reporting/02-Naming_Schemes.md)
 
 ## Appendix A. [History](6-Appendix/A-History.md)
 

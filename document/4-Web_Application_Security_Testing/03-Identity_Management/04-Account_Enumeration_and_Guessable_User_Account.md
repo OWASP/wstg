@@ -55,7 +55,7 @@ Now, the tester should try to insert an invalid user ID and a wrong password and
 > If the tester enters a nonexistent user ID, they can receive a message similar to:
 >
 > ![This User is Not Active](images/03-userisnotactive.png)\
-> *Figure 4.3.4-3: This User is Not Active*
+> *Figure 4.3.4-2: This User is Not Active*
 >
 > or a message like the following one:
 >
