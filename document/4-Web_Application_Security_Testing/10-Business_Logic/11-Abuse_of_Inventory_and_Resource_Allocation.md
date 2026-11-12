@@ -12,6 +12,8 @@ This test follows resources from allocation through release. It checks whether t
 
 [OWASP Automated Threat (OAT)-021: Denial of Inventory](https://owasp.github.io/www-project-automated-threats-to-web-applications/assets/oats/EN/OAT-021_Denial_of_Inventory.html) describes depletion without completing a purchase or commitment. [API6:2023: Unrestricted Access to Sensitive Business Flows](https://api-security.owasp.org/editions/2023/en/0xa6-unrestricted-access-to-sensitive-business-flows/) provides the broader business-flow context, including abusive bookings. Use those sources for threat definitions; this procedure focuses on demonstrating allocation failures and their effect on another customer.
 
+This test provides practical guidance for testing [OAT-021: Denial of Inventory](https://owasp.github.io/www-project-automated-threats-to-web-applications/assets/oats/EN/OAT-021_Denial_of_Inventory.html) within the sensitive business flows described by [API6:2023: Unrestricted Access to Sensitive Business Flows](https://api-security.owasp.org/editions/2023/en/0xa6-unrestricted-access-to-sensitive-business-flows/).
+
 ## Test Objectives
 
 - Identify which actions remove business resources from availability.
@@ -48,7 +50,7 @@ Where cancellation is supported, create and cancel a normal reservation, then ve
 
 #### Incomplete Allocations
 
-Start an allocation but do not complete verification, payment, or confirmation. Check from a separate session whether the resource becomes unavailable and whether it is released after the expected timeout.
+Start an allocation but do not complete verification, payment, or confirmation. Check from a separate session whether the resource becomes unavailable and whether it is released after the defined expiration period.
 
 For example, unverified appointment requests may occupy all available time slots.
 
@@ -90,7 +92,7 @@ Record the affected resources, duration, number of requests or allocations, and 
 
 ## Remediation
 
-- Enforce eligibility before granting the allocation state that requires it.
+- Complete required eligibility checks before confirming an allocation, and limit the duration of temporary holds.
 - Apply aggregate resource limits across the relevant states and channels. Make quota checks and allocation updates atomic.
 - Keep inventory and reservation state consistent after cancellation, expiration, and failed confirmation or payment.
 - Provide reconciliation and targeted cancellation procedures that restore capacity without removing legitimate bookings.
