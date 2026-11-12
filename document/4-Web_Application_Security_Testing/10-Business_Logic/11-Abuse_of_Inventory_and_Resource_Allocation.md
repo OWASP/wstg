@@ -20,71 +20,67 @@ This test follows resources from allocation through release. It checks whether t
 
 ## How to Test
 
-### Establish the Allocation Rules and Baseline
+Perform testing against designated test resources or within limits agreed with the application owner. Use a separate account or session to verify whether the test affects other users.
 
-Use an isolated test pool or designated test resources. Agree on the maximum allocation, test duration, stop conditions, and cleanup with the application owner. Use two independent test users, User-A and User-B, who can access the same pool.
+### Identify the Allocation Functions
 
-Record:
+Follow the normal booking or reservation flow and identify the functions that:
 
-- The pool and its capacity, scoped to the relevant item, service, location, and period.
-- The action that removes a resource from availability and any required verification or commitment.
-- The maximum quantity a customer can hold, which reservation states count, and whether the rule spans accounts or booking channels.
-- The release conditions and expected processing delay, including any staff recovery procedure.
+- Display available resources.
+- Hold or reserve a resource.
+- Confirm the allocation.
+- Cancel or release it.
 
-Resolve undocumented rules with the owner. As User-B, complete a normal allocation, then cancel it and confirm that the baseline capacity returns. Capture the allocation, status, and cancellation requests. Reset the pool between tests.
+Determine at which point the resource becomes unavailable and whether this happens before verification, payment, or confirmation.
 
-### Test Allocation Failures
+### Understand the Allocation Rules
 
-The following examples use hypothetical policies and small test pools. Adapt their values and request fields to the application. Apply the impact and recovery checks below to each example.
+Identify the expected limits and release conditions:
 
-#### Example 1: Appointments Allocated without Required Verification
+- How many resources may one customer hold?
+- Which verification or commitment is required?
+- How long should an incomplete reservation remain active?
+- What should happen after cancellation, expiration, or failure?
 
-A repair service has three test appointments. Its policy requires contact verification before a booking can remain confirmed. Unverified requests may hold a slot only for a defined confirmation window.
+Where cancellation is supported, create and cancel a normal reservation, then verify that the resource returns to availability.
 
-1. As User-A, follow the normal booking flow using a controlled, unverified contact. Do not complete verification.
-2. Check the actual booking state and availability. If the application marks the booking confirmed, determine whether this state bypasses the release rule for unverified requests.
-3. Repeat for the remaining test slots, within the agreed bounds. As User-B, attempt to book from the same pool.
-4. After the confirmation window and processing delay, check whether the unverified bookings still occupy capacity. Use the supported recovery path to remove them, then retry as User-B.
+### Test for Allocation Abuse
 
-Expected result: the application enforces the verification policy and releases unverified allocations as specified. Record whether falsely confirmed bookings require staff intervention. A free booking or the absence of contact verification is not a finding unless it violates the agreed policy or exposes a demonstrated abuse case.
+#### Incomplete Allocations
 
-#### Example 2: Separate Orders Exceed the Customer's Inventory Allowance
+Start an allocation but do not complete verification, payment, or confirmation. Check from a separate session whether the resource becomes unavailable and whether it is released after the expected timeout.
 
-A rental service has six test projectors for one rental period. A customer may hold two projectors in total before checkout. The application validates each order separately but may fail to count the customer's existing holds.
+For example, unverified appointment requests may occupy all available time slots.
 
-1. As User-A, create a hold for two projectors using the normal request. Do not complete checkout.
-2. Submit a second order for two projectors, using a new order identifier but the same customer and period. If supported, compare the regular and bulk booking paths.
-3. Verify the total actually allocated to User-A. If the second order succeeds, repeat once to reach the six-projector test capacity, then attempt an allocation as User-B.
-4. Cancel User-A's holds and repeat User-B's attempt.
+#### Allocation Limit Bypass
 
-Expected result: no booking path allows User-A's combined active holds to exceed two. Compare allocation quantities, not just request counts: one request may allocate several units. For general function-use limit tests, see [Number of Times a Function Can Be Used Limits](05-Number_of_Times_a_Function_Can_Be_Used_Limits.md).
+Reach the permitted allocation limit, then create another cart, order, or reservation for the same resource. Check whether the application counts all active allocations together.
 
-#### Example 3: Canceled Reservations Leave Inventory Unavailable
+For example, a rental service may limit each order to two items while allowing the same customer to create several separate orders.
 
-A store reserves three test products during checkout. Canceling an unpaid order should release its units, but the cancellation path may update the order without releasing the inventory reservation.
+This test focuses on the total inventory made unavailable. General function-use limits are covered by [Number of Times a Function Can Be Used Limits](05-Number_of_Times_a_Function_Can_Be_Used_Limits.md).
 
-1. As User-A, reserve one product, cancel the unpaid order, and confirm that its status becomes canceled.
-2. After the documented processing delay, check whether the product returns to availability. As User-B, attempt to reserve it; do not rely only on the displayed stock count.
-3. If the unit remains blocked, repeat with the remaining test units to determine whether stale reservations accumulate. Check User-B's access to the pool again.
-4. Have the owner run the supported reconciliation or administrative release procedure. Verify that User-B can reserve the recovered products.
+#### Resources Not Released
 
-Expected result: canceled orders no longer consume inventory. If a supported flow includes payment failure, test that release path separately. This checks reservation consistency after a state change; use [Process Timing](04-Process_Timing.md) for transaction timeout and hold-extension testing.
+Cancel an allocation or allow it to expire, then check whether the resource becomes available again. Where applicable, repeat the test after failed verification or payment.
 
-### Verify Customer Impact and Recovery
+For example, an order may be marked as canceled while its products remain reserved.
 
-For each case, collect the following observations using the same eligible User-B and resource pool:
+Reservation timeout manipulation is covered by [Process Timing](04-Process_Timing.md). This test focuses on whether the resource is released after the allocation ends.
 
-| Stage | Allocation Evidence | Customer Access |
-|-------|---------------------|-----------------|
-| Baseline | Known available capacity | User-B can allocate; cancel to restore the pool. |
-| After User-A's test | Quantity and state of User-A's allocations or stale reservations | User-B cannot allocate resources made unavailable by User-A. |
-| After release or recovery | Capacity restored within the expected delay | User-B can allocate again. |
+### Evaluate the Result
 
-Record the relevant requests, responses, reservation identifiers, quantities, and timestamps. Note the number of requests, duration of the blockage, and any staff action needed. Keep an unrelated application function as a control to distinguish inventory unavailability from a general outage.
+The application may be vulnerable if one or more of the following conditions apply:
 
-Confirm that User-B's failure results from User-A's allocations, not a customer restriction, stale display, or different booking period. A successful response alone does not prove allocation; inability to book one occupied slot does not prove exhaustion of the entire pool. Report only the demonstrated scope, and identify any unverified impact.
+- Resources can be held without the required commitment.
+- Allocation limits can be bypassed.
+- Canceled or expired reservations continue to consume inventory.
+- Another eligible user is prevented from obtaining the resource.
+- Limited effort can block a meaningful portion of the available inventory.
 
-Remove all test allocations, including stale reservations, and verify both availability and customer quota counters. If cleanup fails, provide the owner with the affected identifiers for recovery.
+A temporary hold is not necessarily a vulnerability if it follows the intended policy, expires within a reasonable period, and does not allow disproportionate allocation.
+
+Record the affected resources, duration, number of requests or allocations, and any manual recovery required. Remove all test allocations after testing.
 
 ## Related Test Cases
 
