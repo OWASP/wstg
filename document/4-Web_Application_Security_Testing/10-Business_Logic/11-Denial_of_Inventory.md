@@ -1,4 +1,4 @@
-# Abuse of Inventory and Resource Allocation
+# Denial of Inventory
 
 |ID          |
 |------------|
@@ -9,8 +9,6 @@
 Applications allocate limited business resources, including appointments, products, and rental equipment. Allocation abuse can make those resources unavailable to legitimate customers while the application continues to respond normally. A small number of requests may be sufficient to affect a scarce resource pool.
 
 This test follows resources from allocation through release. It checks whether the application enforces eligibility and aggregate allocation rules, and whether rejected, canceled, or expired reservations return resources to availability. Assess the result against the business's intended allocation policy.
-
-[OWASP Automated Threat (OAT)-021: Denial of Inventory](https://owasp.github.io/www-project-automated-threats-to-web-applications/assets/oats/EN/OAT-021_Denial_of_Inventory.html) describes depletion without completing a purchase or commitment. [API6:2023: Unrestricted Access to Sensitive Business Flows](https://api-security.owasp.org/editions/2023/en/0xa6-unrestricted-access-to-sensitive-business-flows/) provides the broader business-flow context, including abusive bookings. Use those sources for threat definitions; this procedure focuses on demonstrating allocation failures and their effect on another customer.
 
 This test provides practical guidance for testing [OAT-021: Denial of Inventory](https://owasp.github.io/www-project-automated-threats-to-web-applications/assets/oats/EN/OAT-021_Denial_of_Inventory.html) within the sensitive business flows described by [API6:2023: Unrestricted Access to Sensitive Business Flows](https://api-security.owasp.org/editions/2023/en/0xa6-unrestricted-access-to-sensitive-business-flows/).
 
