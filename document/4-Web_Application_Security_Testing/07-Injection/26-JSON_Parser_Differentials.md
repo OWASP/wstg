@@ -6,7 +6,7 @@
 
 ## Summary
 
-A JSON request often passes through more than one parser before it is acted on. An API gateway or web application firewall may inspect it, a service may check it against a schema or verify a signature over it, and a different service, perhaps written in another language, may then process it. If these parsers read the same document differently, a request can pass the check with one value and be processed with another. This is the JSON counterpart of [HTTP Parameter Pollution](04-HTTP_Parameter_Pollution.md).
+A JSON request often passes through more than one parser before it is acted on. An API gateway or web application firewall may inspect it, a service may check it against a schema or verify a signature over it, and a different service, perhaps written in another language, may then process it. If these parsers read the same document differently, a request can pass the check with one value and be processed with another. This is the JSON counterpart of [HTTP Parameter Pollution](04-HTTP_Parameter_Pollution.md). Disagreements about where the HTTP request itself starts and ends, such as conflicting `Content-Length` and `Transfer-Encoding` handling, are covered in [HTTP Request Smuggling](16-HTTP_Request_Smuggling.md). This page assumes both parsers already agree on the request body.
 
 [RFC 8259](https://www.rfc-editor.org/rfc/rfc8259.html#section-4) only says that object names should be unique, and that when they are not, the behavior of the software that receives the object is unpredictable. In practice, parsers differ in several ways:
 
