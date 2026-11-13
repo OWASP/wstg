@@ -20,7 +20,7 @@ There are several ways to approach the testing and measurement of code coverage:
 
 - **Path** - test each of the paths through an application that includes combinatorial and boundary value analysis testing for each decision path. While this approach offers thoroughness, the number of testable paths grows exponentially with each decision branch.
 - **Data Flow (or Taint Analysis)** - tests the assignment of variables via external interaction (normally users). Focuses on mapping the flow, transformation and use of data throughout an application.
-- **Race** - tests multiple concurrent instances of the application manipulating the same data.
+- **Race** - tests multiple concurrent instances of the application manipulating the same data. See [Race Conditions](../10-Business_Logic/10-Payment_Functionality.md#race-conditions).
 
 The choice of method and the extent to which each method is used should be negotiated with the application owner. Additionally, simpler approaches could be adopted. For example, the tester could ask the application owner about specific functions or code sections that they are particularly concerned about, and discuss how those code segments can be reached.
 
