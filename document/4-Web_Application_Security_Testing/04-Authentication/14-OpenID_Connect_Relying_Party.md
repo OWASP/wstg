@@ -56,7 +56,7 @@ Obtain a legitimate ID Token for a tester account, then mutate one claim or cond
 
 Also send the access token to the UserInfo endpoint, then present UserInfo claims for subject B while the ID Token subject is A. The RP must correlate UserInfo `sub` with the authenticated ID Token `sub`.
 
-### 4. Email and Account-Linking Lifecycle
+### Email and Account-Linking Lifecycle
 
 OIDC email claims are not a stable account primary key.
 
