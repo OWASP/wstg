@@ -40,7 +40,7 @@ Use only tester-owned accounts at both the RP and any lab identity provider. Do 
 2. Confirm the RP pins the expected issuer and does not follow attacker-controlled `authorization_endpoint` or `token_endpoint` values from untrusted metadata.
 3. When dynamic registration or multi-OP login is supported, start a login toward OP A and complete the callback as if it came from OP B. The RP must detect the mismatch. See [RFC 9207](https://datatracker.ietf.org/doc/html/rfc9207) and [RFC 9700 Section 4.4](https://datatracker.ietf.org/doc/html/rfc9700#section-4.4).
 
-### 3. ID Token Validation Matrix
+### ID Token Validation Matrix
 
 Obtain a legitimate ID Token for a tester account, then mutate one claim or condition at a time before the RP consumes it. Prefer a lab OP or a replay against a local RP build. Do not attempt to forge production OP signatures.
 
