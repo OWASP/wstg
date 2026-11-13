@@ -34,7 +34,7 @@ Use only tester-owned accounts at both the RP and any lab identity provider. Do 
    - Linking an external identity to an already authenticated local account.
    - Account recovery that trusts an OP email claim.
 
-### 2. Discovery and Issuer Binding
+### Discovery and Issuer Binding
 
 1. If the RP performs discovery from a client-supplied issuer or identifier, point discovery at a tester-controlled HTTPS metadata document only.
 2. Confirm the RP pins the expected issuer and does not follow attacker-controlled `authorization_endpoint` or `token_endpoint` values from untrusted metadata.
