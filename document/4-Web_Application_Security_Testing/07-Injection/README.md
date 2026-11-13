@@ -64,4 +64,4 @@
 
 4.7.23 [Insecure Deserialization](23-Insecure_Deserialization.md)
 
-4.7.27 [Regular Expression Denial of Service](27-Regular_Expression_Denial_of_Service.md)
+4.7.28 [Regular Expression Denial of Service](28-Regular_Expression_Denial_of_Service.md)
