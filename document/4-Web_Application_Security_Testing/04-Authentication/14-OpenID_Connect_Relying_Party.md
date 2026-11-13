@@ -10,7 +10,7 @@
 
 OAuth chapters in this guide cover delegated authorization: grant types, PKCE, redirect URIs, and token leakage. They do not provide a procedure for authenticating a user from an ID Token. Failures in relying-party validation lead to account takeover, account linking to the wrong local user, and login with unverified identity claims.
 
-This test evaluates the RP. Treat the identity provider (OP) as a separate system unless the engagement also includes that OP. Cross-link [OAuth Weaknesses](../05-Authorization/05-OAuth_Weaknesses.md) for grant-type and PKCE issues, and [JSON Web Tokens](../06-Session_Management/10-JSON_Web_Tokens.md) for generic JWT cryptography.
+This scenario evaluates the RP. Treat the OpenID Provider (OP) as a separate system unless the engagement also includes that OP. Cross-link [OAuth Weaknesses](../05-Authorization/05-OAuth_Weaknesses.md) for grant-type and PKCE issues, and [JSON Web Tokens](../06-Session_Management/10-JSON_Web_Tokens.md) for other JWT issues.
 
 > Note: Open PRs may add SAML (`WSTG-ATHN-12`) and WebAuthn (`WSTG-ATHN-13`). This article uses `WSTG-ATHN-14` so those additions can land without a numbering collision. Maintainers may renumber after merge.
 
