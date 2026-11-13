@@ -25,7 +25,7 @@ This test evaluates the RP. Treat the identity provider (OP) as a separate syste
 
 Use only tester-owned accounts at both the RP and any lab identity provider. Do not target production users.
 
-### 1. Map the OIDC Surface
+### Map the OIDC Surface
 
 1. Identify authorization requests that include `scope=openid` or that return an `id_token`.
 2. Capture the discovery document when present (`/.well-known/openid-configuration`) and record `issuer`, `jwks_uri`, `authorization_endpoint`, and `token_endpoint`.
