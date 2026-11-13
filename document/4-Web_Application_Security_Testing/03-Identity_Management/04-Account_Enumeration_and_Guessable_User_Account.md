@@ -20,6 +20,7 @@ In some cases, a message is received that reveals if the provided credentials ar
 
 - Review processes that pertain to user identification (*e.g.* registration, login, etc.).
 - Enumerate users where possible through response analysis.
+- Determine whether look-alike or differently normalized identifiers can impersonate, duplicate or take over an existing account.
 
 ## How to Test
 
@@ -182,6 +183,28 @@ If the web application has features that allow a user to access the web applicat
 - Test for variants and similarities:
     - Repeat the above steps for different variations of the reserved usernames (e.g., Admin, ADMIN, Administrator) and perform tests with different combinations of uppercase and lowercase letters to ensure case insensitivity is handled correctly.
     - The web application should treat these variants as identical to the reserved usernames, rejecting their selection or modification.
+- Test for look-alike characters:
+    - Repeat the steps with names that look like a reserved or staff username but use other characters, for example fullwidth letters (`ａｄｍｉｎ`), modifier letters (`ᴬᴰᴹᴵᴺ`), letters from another script such as the Cyrillic `а` (U+0430) in place of the Latin `a`, or an invisible character such as U+200B ZERO WIDTH SPACE appended to the name.
+    - Send the values URL-encoded from an intercepting proxy, so that the browser does not change them.
+    - The web application should reject these names, or at least flag them, if they would be shown to other users as a staff account.
+
+### Identifier Collisions
+
+Applications often lowercase, case-fold or Unicode-normalize usernames and email addresses before comparing them, and databases may compare them with a case-insensitive and accent-insensitive collation. If registration, login, password reset and other features don't all do this the same way, two different strings can end up pointing at the same account. Some examples of strings that collapse together:
+
+- Compatibility normalization (NFKC) turns `ᴬᴰᴹᴵᴺ` and `ａｄｍｉｎ` into `ADMIN` and `admin`.
+- The Kelvin sign `K` (U+212A) lowercases to `k`, and the dotless `ı` (U+0131) and the long `ſ` (U+017F) uppercase to `I` and `S`.
+- MySQL's default `utf8mb4_0900_ai_ci` collation treats `admin`, `Admin` and `ädmin` as equal.
+- Many mail providers ignore case and dots in the local part of an address, or deliver `user+tag@example.com` to `user@example.com`.
+
+The usual result is an account takeover through password reset. The reset form finds the account with a normalized form of the submitted address, but sends the reset link to the address exactly as submitted, which belongs to the attacker. Django had this bug ([CVE-2019-19844](https://www.djangoproject.com/weblog/2019/dec/18/security-releases/)), and Spotify had a similar one where registering `ᴮᴵᴳᴮᴵᴿᴰ` led to taking over the existing `bigbird` account because its username canonicalization wasn't idempotent.
+
+To test, use a target account such as `victimuser@example.com` and an attacker account with a mailbox under the tester's control:
+
+1. Try to register the attacker account, or change its username or email, to variants of the target's identifier, such as `VictimUser`, `victimuſer`, `victimuser%E2%80%8B` or `VictimUser@Example.com`. Rejecting them as already taken is the expected result.
+2. Request a password reset or passwordless login link for each variant, even those that registration rejected. Check which account the link is for and which address the email was sent to. A link for the target account delivered to the attacker's mailbox is a takeover.
+3. If a separate account was created, log in to it and check whether it shows or changes the target account's data, and whether invitations or sharing sent to the variant reach the target account.
+4. If the application links single sign-on accounts by email address, sign in through the identity provider with a variant of the target's email and check whether it gets linked to the target account. See [OAuth Weaknesses](../05-Authorization/05-OAuth_Weaknesses.md).
 
 ### Gray-Box Testing
 
@@ -199,6 +222,8 @@ Ensure the application returns consistent generic error messages in response to 
 
 Ensure default system accounts and test accounts are deleted prior to releasing the system into production (or exposing it to an untrusted network).
 
+Canonicalize usernames and email addresses in one shared function that is idempotent and used everywhere identifiers are stored or compared, for example with the [PRECIS username profiles (RFC 8265)](https://www.rfc-editor.org/rfc/rfc8265.html). Store the canonical form with a unique constraint, reject invisible and control characters, and send password reset and verification emails to the address stored on the account, never to the one submitted in the request. For usernames shown to other users, consider detecting look-alikes with the [Unicode security mechanisms (UTS #39)](https://www.unicode.org/reports/tr39/).
+
 ## Tools
 
 - [Zed Attack Proxy (ZAP)](https://www.zaproxy.org)
@@ -210,3 +235,6 @@ Ensure default system accounts and test accounts are deleted prior to releasing 
 - [Username Enumeration Vulnerabilities](https://www.gnucitizen.org/blog/username-enumeration-vulnerabilities/)
 - [Prevent WordPress Username Enumeration](https://www.jinsonvarghese.com/prevent-wordpress-username-enumeration/)
 - [Marco Mella, Sun Java Access & Identity Manager Users enumeration](https://www.exploit-db.com/exploits/32762)
+- [Spotify Engineering: Creative usernames and Spotify account hijacking](https://engineering.atspotify.com/2013/06/creative-usernames/)
+- [Django security releases: CVE-2019-19844, potential account hijack via password reset form](https://www.djangoproject.com/weblog/2019/dec/18/security-releases/)
+- [CWE-1289: Improper Validation of Unsafe Equivalence in Input](https://cwe.mitre.org/data/definitions/1289.html)
