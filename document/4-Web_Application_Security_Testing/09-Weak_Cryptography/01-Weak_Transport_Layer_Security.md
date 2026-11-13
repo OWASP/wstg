@@ -56,7 +56,7 @@ From a cryptographic perspective, there are two main areas that need to be revie
 
 Additionally, the key exchange should support post-quantum cryptography, and so should the signature where the issuing CA allows it. The following points should be considered:
 
-- For post-quantum signatures you should use at least ML-DSA-44 (according to [FIPS-204](https://csrc.nist.gov/pubs/fips/204/final)) or higher. This only applies to certificates issued by an internal CA (the certificate encoding is defined in [RFC 9881](https://www.rfc-editor.org/rfc/rfc9881)). Publicly trusted certificates can't use post-quantum signatures yet, as the [CA/Browser Forum Baseline Requirements](https://github.com/cabforum/servercert/blob/main/docs/BR.md#615-key-sizes) only permit RSA and ECDSA keys, so don't report their absence as a finding.
+- For post-quantum signatures you should use at least ML-DSA-44 (according to [FIPS-204](https://csrc.nist.gov/pubs/fips/204/final)) or higher. This only applies to certificates issued by an internal CA, and only where the clients that connect to the service can verify ML-DSA signatures (the certificate encoding is defined in [RFC 9881](https://www.rfc-editor.org/rfc/rfc9881)). Publicly trusted certificates can't use post-quantum signatures yet, as the [CA/Browser Forum Baseline Requirements](https://github.com/cabforum/servercert/blob/main/docs/BR.md#615-key-sizes) only permit RSA and ECDSA keys, so don't report their absence as a finding.
 - For post-quantum key exchanges you should use at least ML-KEM-512 (according to [FIPS-203](https://csrc.nist.gov/pubs/fips/203/final)) or higher.
 - You may use hybrid ciphers such as X25519+ML-KEM-768 during the transition to post-quantum algorithms.
 
