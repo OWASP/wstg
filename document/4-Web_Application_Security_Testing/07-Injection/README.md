@@ -63,3 +63,5 @@
 4.7.22 [Prototype Pollution](22-Prototype_Pollution.md)
 
 4.7.23 [Insecure Deserialization](23-Insecure_Deserialization.md)
+
+4.7.27 [Regular Expression Denial of Service](27-Regular_Expression_Denial_of_Service.md)
