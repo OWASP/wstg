@@ -29,6 +29,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Aaron Williams
 - Alessia Michela Di Campi
 - Alexander Bas
+- Garth Boyd
 - Davide Danelon
 - Elie Saad
 - Enes Baldemir
