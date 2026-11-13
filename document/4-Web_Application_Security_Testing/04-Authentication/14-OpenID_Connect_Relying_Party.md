@@ -66,7 +66,7 @@ OIDC email claims are not a stable account primary key.
 4. **Identifier change:** Change the local account email from address X to Y, then attempt old email-verification, reset, or linking tokens minted for X. They must be invalid after the identity transition.
 5. **Stable subject:** Prefer `(iss, sub)`. Two OPs asserting the same email must not merge accounts automatically.
 
-### 5. Session Creation and Step-Up
+### Session Creation and Step-Up
 
 1. Confirm the RP creates its own session after validating the ID Token, and that logout or password change invalidates that session.
 2. If MFA is required for local password login, attempt OP login paths that skip MFA. See [Multi-Factor Authentication](11-Multi-Factor_Authentication.md).
