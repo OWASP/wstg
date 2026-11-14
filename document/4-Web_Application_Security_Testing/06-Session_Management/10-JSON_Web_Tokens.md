@@ -379,7 +379,7 @@ If Service B trusts the IdP signature but omits `aud` validation, an attacker wi
 - [Gori](https://github.com/hahwul/gori)
     - The JWT tab decodes tokens and generates signature attack payloads, and is scriptable as `gori run jwt`.
 - [myjwt](https://github.com/hack-ita/myjwt)
-    - A Python CLI for decoding and auditing JWS tokens, verifying HMAC and asymmetric signatures, inspecting JWKS key sets, and generating test tokens and HTTP requests for authorized assessments. It can also export raw requests for Burp Repeater.
+    - A Python CLI for JWT security testing: it decodes and audits JWS tokens, verifies HMAC and asymmetric signatures, analyzes JWKS endpoints, generates and modifies tokens for security tests, sends them to explicitly configured HTTP endpoints and compares responses, and exports raw requests for Burp Repeater.
 
 ## References
 
