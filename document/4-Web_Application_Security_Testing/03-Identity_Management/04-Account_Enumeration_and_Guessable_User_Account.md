@@ -193,9 +193,9 @@ If the web application has features that allow a user to access the web applicat
 Applications often lowercase, case-fold or Unicode-normalize usernames and email addresses before comparing them, and databases may compare them with a case-insensitive and accent-insensitive collation. If registration, login, password reset and other features don't all do this the same way, two different strings can end up pointing at the same account. Some examples of strings that collapse together:
 
 - Compatibility normalization (NFKC) turns `ᴬᴰᴹᴵᴺ` and `ａｄｍｉｎ` into `ADMIN` and `admin`.
-- The Kelvin sign `K` (U+212A) lowercases to `k`, and the dotless `ı` (U+0131) and the long `ſ` (U+017F) uppercase to `I` and `S`.
+- The Kelvin sign `K` (U+212A) lowercases to `k`, and the dotless `ı` (U+0131) and the long `ſ` (U+017F) uppercase to `I` and `S`.
 - MySQL's default `utf8mb4_0900_ai_ci` collation treats `admin`, `Admin` and `ädmin` as equal.
-- Many mail providers ignore case and dots in the local part of an address, or deliver `user+tag@example.com` to `user@example.com`.
+- Many mail providers ignore case in the local part of an address and deliver `user+tag@example.com` to `user@example.com`, and some, such as Gmail, also ignore dots.
 
 The usual result is an account takeover through password reset. The reset form finds the account with a normalized form of the submitted address, but sends the reset link to the address exactly as submitted, which belongs to the attacker. Django had this bug ([CVE-2019-19844](https://www.djangoproject.com/weblog/2019/dec/18/security-releases/)), and Spotify had a similar one where registering `ᴮᴵᴳᴮᴵᴿᴰ` led to taking over the existing `bigbird` account because its username canonicalization wasn't idempotent.
 
