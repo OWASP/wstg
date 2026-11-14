@@ -28,6 +28,8 @@ The list contains only tools that are freely available to download and use (alth
     - Create multiple containers, each of which have their own isolated cookies and sessions. Useful for testing access control between different users.
 - [Firefox Web Developer](https://addons.mozilla.org/en-US/firefox/addon/web-developer/)
     - The Web Developer extension adds various web developer tools to the browser.
+- [Spoof Me](https://addons.mozilla.org/en-US/firefox/addon/spoof-me/)
+    - Applies a consistent device and locale profile (User-Agent and Client Hints, Accept-Language, navigator, screen, timezone and hardware values) to both HTTP headers and JavaScript, across all tabs and before page scripts run. Includes ready-made presets, shows which fingerprinting APIs a page reads, and can be scripted from Puppeteer/Playwright. Useful for testing device-, locale- and fingerprint-based controls.
 
 ### Chrome Extensions
 
@@ -36,7 +38,7 @@ The list contains only tools that are freely available to download and use (alth
 - [Cookie Editor](https://chromewebstore.google.com/detail/cookie-editor/hlkenndednhfkekhgcdicdfddnkalmdm)
     - A powerful and easy to use browser extension that allows you to quickly create, edit and delete cookies for the current tab. Useful for developing, testing, or manually managing cookies.
 - [Spoof Me](https://chromewebstore.google.com/detail/spoof-me/onbjkmhileedchimkcmieeiomipdljki)
-    - Switches the User-Agent and Accept-Language headers along with the matching JavaScript signals (navigator, screen, timezone). Useful for testing how an application responds to different devices, platforms and locales. Also available for [Firefox](https://addons.mozilla.org/en-US/firefox/addon/spoof-me/).
+    - Applies a consistent device and locale profile (User-Agent and Client Hints, Accept-Language, navigator, screen, timezone and hardware values) to both HTTP headers and JavaScript, across all tabs and before page scripts run. Includes ready-made presets, shows which fingerprinting APIs a page reads, and can be scripted from Puppeteer/Playwright. Useful for testing device-, locale- and fingerprint-based controls.
 
 ### Specific Vulnerabilities
 
