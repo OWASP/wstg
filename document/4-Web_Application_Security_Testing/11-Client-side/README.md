@@ -33,3 +33,5 @@
 4.11.15 [Client-side Template Injection](15-Client-Side_Template_Injection.md)
 
 4.11.16 [DOM Clobbering](16-DOM_Clobbering.md)
+
+4.11.19 [Client-side Path Traversal](19-Client-side_Path_Traversal.md)
