@@ -26,6 +26,8 @@ As with any data originating from untrusted sources, the data should be properly
 
 - Identify the usage of WebSockets.
 - Assess its implementation by using the same tests on normal HTTP channels.
+- Verify that authentication and authorization are enforced for the handshake and for every subsequent frame, subscription, and pushed event.
+- Verify that Origin allowlisting uses exact scheme, host, and port comparison.
 
 ## How to Test
 
@@ -37,15 +39,36 @@ As with any data originating from untrusted sources, the data should be properly
    - Use [ZAP's](https://www.zaproxy.org) WebSocket tab.
 2. Origin.
    - Using a WebSocket client (one can be found in the Tools section below) attempt to connect to the remote WebSocket server. If a connection is established the server may not be checking the origin header of the WebSocket handshake.
+   - Treat Origin checks as a parser problem, not only a presence check. With a controlled DNS name, try the exact allowed origin, a malicious suffix (`allowed.example.attacker.test`), a trailing dot, an unexpected port, mixed case, an IDNA/punycode twin, and scheme mismatches (`http` versus `https`). The server must compare a parsed scheme, host, and port, not a substring or loose regular expression.
 3. Confidentiality and Integrity.
    - Check that the WebSocket connection is using TLS to transport sensitive information `wss://`.
    - Check the HTTPS Implementation for security issues (Valid Certificate, BEAST, CRIME, RC4, etc). Refer to the [Weak Transport Layer Security](../09-Weak_Cryptography/01-Weak_Transport_Layer_Security.md) section of this guide.
 4. Authentication.
    - WebSockets do not handle authentication, normal black-box authentication tests should be carried out. Refer to the [Authentication Testing](../04-Authentication/README.md) sections of this guide.
+   - If the handshake carries a token in the URL, query string, or first message, confirm it is not logged by intermediaries and that it expires with the HTTP session.
 5. Authorization.
-   - WebSockets do not handle authorization, normal black-box authorization tests should be carried out. Refer to the [Authorization Testing](../05-Authorization/README.md) sections of this guide.
-6. Input Sanitization.
+   - WebSockets do not handle authorization by themselves. Apply the [Authorization Testing](../05-Authorization/README.md) tests to the handshake **and** to individual frames. A successful low-privilege connection must not imply access to every topic, room, tenant, or object on that socket.
+6. Per-Message and Subscription Authorization.
+   - Connect with two tester-owned accounts that have different roles or object membership.
+   - Capture a legitimate subscribe, join, listen, or GraphQL subscription frame from account A.
+   - Replay it on account B's connection after substituting user, session, room, channel, tenant, conversation, or object identifiers.
+   - Confirm both the immediate response and later pushed events. Authorization that filters only the first snapshot but continues to broadcast unauthorized events is a finding.
+   - After logout, password change, role removal, or token expiry on one device, verify that the still-open socket stops accepting privileged frames and stops receiving private events. Reconnect with the revoked credential and confirm the handshake or first authenticated frame is denied.
+   - If the application also exposes HTTP or long-poll fallbacks for the same events, compare authorization decisions across transports.
+7. Input Sanitization.
    - Use [ZAP's](https://www.zaproxy.org) WebSocket tab to replay and fuzz WebSocket requests and responses. Refer to the [Injection Testing](../07-Injection/README.md) section of this guide.
+
+#### Example: Per-Message Authorization
+
+Suppose account A belongs to conversation `c_a` and account B belongs to conversation `c_b`. After both accounts open authenticated sockets, capture A's subscribe frame:
+
+```json
+{"type":"subscribe","channel":"conversation","id":"c_a"}
+```
+
+On B's socket, send the same frame with `"id":"c_a"`. Secure behavior denies the subscribe and never pushes A's messages. Insecure behavior returns the history for `c_a`, or later emits events for `c_a` on B's connection.
+
+Repeat after B logs out while the socket stays open. Privileged frames and private push events must stop.
 
 #### Example 1
 
