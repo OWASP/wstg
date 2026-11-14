@@ -13,6 +13,7 @@ Many applications implement payment functionality, including e-commerce sites, s
 - Determine whether the business logic for the e-commerce functionality is robust.
 - Understand how the payment functionality works.
 - Determine whether the payment functionality is secure.
+- Determine whether concurrent requests can bypass limits, reuse single-use values or reach states the workflow should not allow.
 
 ## How to Test
 
@@ -246,20 +247,42 @@ Verify that necessary checks, such as daily limits or balance validations, are p
 
 Test the scenario where a payment is initiated, and items are added to the cart afterward. Confirming the payment may result in marking the added items as paid, which could lead to inconsistencies in the payment process.
 
-#### Race Conditions
+#### Multi-Input Systems (Bulk Payments)
+
+In systems that support bulk payments, test scenarios where the total amount remains positive, but individual inputs include negative values. For example:
+
+```plaintext
+account_id_1 = $5
+account_id_2 = -$4
+Total = $1 paid, but $5 credited
+```
+
+Ensure that the application correctly handles such cases and prevents exploitation.
+
+### Race Conditions
 
 A race condition occurs when the behavior of an application depends on the timing or sequence of events that are not properly controlled. In payment contexts, this typically manifests when multiple concurrent requests interact with shared state (such as an account balance, an inventory count, or a one-time-use coupon code) without adequate synchronization, allowing an attacker to exploit the time gap between a check and the subsequent action. This is commonly referred to as a Time-of-Check to Time-of-Use (TOCTOU) flaw.
 
-Race conditions are particularly impactful in:
+The same flaw is not limited to payments, and the techniques in this section apply to any functionality where the application must remember that something has already happened. Race conditions are particularly impactful in:
 
 - Financial transactions (transfers, payments, withdrawals)
-- One-time-use tokens or codes (coupons, gift cards, referral bonuses)
+- One-time-use tokens or codes (coupons, gift cards, referral bonuses, password reset and email confirmation links)
 - Resource allocation with limited availability (inventory, seats, registrations)
-- State transitions that should happen exactly once (account activation, approval workflows)
+- Limits on attempts or actions (login and MFA attempt counters, votes, invitation quotas, API rate limits)
+- State transitions that should happen exactly once (account activation, approval workflows, role changes)
+- Objects that are created in several steps, where the object exists for a short time before all of its fields are set
 
-To test, focus on endpoints where a value is checked and then modified, or where an action should only succeed once. Send multiple identical requests simultaneously and observe whether the application processes more than one successfully when only one should succeed.
+Older guidance treated many of these windows as too small to exploit over the internet, because network jitter spread the requests out. Two techniques changed that. With last-byte synchronization, the client sends each request except its final byte, then sends all the final bytes together. With the single-packet attack, the client sends each HTTP/2 request except its final frame, then sends all the final frames in one TCP packet, so the requests complete at the same time regardless of network latency. Both are now built into common testing tools, which makes many races reliable to reproduce.
 
-Using curl, send 20 rapid requests to a state-changing endpoint:
+Race condition testing sends bursts of requests that can create duplicate records, emails or transactions. In addition to the precautions in [Logistics](#logistics), use test accounts and keep bursts small, for example 20 to 30 requests.
+
+#### Sending Requests in Parallel
+
+To test, focus on endpoints where a value is checked and then modified, or where an action should only succeed once. Responses that take noticeably longer than others often involve several database queries or calls to other services, which widens the window. Background jobs, such as sending a confirmation email after a change, also suggest that state is updated in more than one step.
+
+Before testing for the race, send the same request a few times in sequence and note the normal responses. This baseline makes it easier to spot when a parallel burst produces something different.
+
+A simple loop with curl is enough for a first check, but it often spreads the requests out by more than the race window:
 
 ```bash
 # Send 20 near-concurrent requests to redeem a single-use coupon
@@ -272,14 +295,16 @@ done
 wait
 ```
 
-For more precise timing, use [Burp Suite Turbo Intruder](https://github.com/PortSwigger/turbo-intruder) with the gate mechanism to hold all requests and release them simultaneously:
+For more precise timing, use a tool that synchronizes the requests:
+
+- In Burp Suite Repeater, add copies of the request to a tab group and use "Send group in parallel". Over HTTP/2 this uses a single-packet attack. Over HTTP/1.1 it uses last-byte synchronization.
+- In [Turbo Intruder](https://github.com/PortSwigger/turbo-intruder), queue the requests behind a gate and release them together. The following script sends 20 copies of the request as a single-packet attack over HTTP/2:
 
 ```python
 def queueRequests(target, wordlists):
     engine = RequestEngine(endpoint=target.endpoint,
-                           concurrentConnections=20,
-                           requestsPerConnection=1,
-                           pipeline=False)
+                           concurrentConnections=1,
+                           engine=Engine.BURP2)
     for i in range(20):
         engine.queue(target.req, gate='race')
     engine.openGate('race')
@@ -288,13 +313,17 @@ def handleResponse(req, interesting):
     table.add(req)
 ```
 
+If the server only supports HTTP/1.1, use several connections with last-byte synchronization instead, for example `concurrentConnections=20` with the default engine.
+
+#### Payment Scenarios
+
 Common test scenarios include:
 
 - Concurrent Payment Confirmations:
   Initiate multiple confirmation requests (e.g., `POST /confirm-payment`) simultaneously for the same order. This may result in the same order being processed multiple times.
 
 - Callback Replay or Flooding:
-  Intercept the gateway’s callback request (e.g., to `success.php` or `/payment/callback`) and replay it rapidly in parallel. If the backend lacks proper idempotency checks, this can:
+  Intercept the gateway's callback request (e.g., to `success.php` or `/payment/callback`) and replay it rapidly in parallel. If the backend lacks proper idempotency checks, this can:
     - Trigger multiple order fulfillment events (e.g., shipping, credits).
     - Mark the same order as "paid" multiple times.
     - Cause balance inflation or inventory errors.
@@ -303,25 +332,40 @@ Common test scenarios include:
   If an account has 100 credits, send multiple concurrent requests that each spend the full balance. If the total debited exceeds the original balance (e.g., balance goes to -100), the application is vulnerable.
 
 - One-Time-Use Tokens:
-  For coupon codes, invitation links, or password reset tokens, send multiple concurrent requests that each attempt to use the token. If more than one succeeds, the application fails to atomically invalidate the token.
+  For coupon codes, gift cards or referral bonuses, send multiple concurrent requests that each attempt to use the token. If more than one succeeds, the application fails to atomically invalidate the token.
 
-Indicators of vulnerability include: multiple success responses for a single-use action, negative balances after concurrent debits, resources allocated beyond stated capacity, or duplicate side effects (multiple emails, double charges).
+#### Limit Overrun
 
-To mitigate race conditions, wrap check-and-modify operations in database transactions with row-level locking (`SELECT ... FOR UPDATE`), implement optimistic locking with version columns, require idempotency keys for state-changing requests, and invalidate tokens atomically using operations like `DELETE FROM tokens WHERE token = ? RETURNING *`.
+Outside payments, choose a function that should only succeed a limited number of times, then send more requests than the limit in a single burst. Examples include:
 
-See also [CWE-362: Concurrent Execution using Shared Resource with Improper Synchronization](https://cwe.mitre.org/data/definitions/362.html).
+- Redeeming the same invitation link, password reset link or email confirmation token.
+- Guessing a login password or an MFA code, where the account should lock or the code should expire after a few attempts. Send a burst that contains the valid value among many wrong ones and check whether more guesses were accepted than the limit allows.
+- Voting, rating or liking the same item more than once.
+- Creating more resources than the account's quota allows.
 
-#### Multi-Input Systems (Bulk Payments)
+The application is vulnerable if more requests succeed than the limit allows, or if the counter that enforces the limit ends up lower than the number of successful requests.
 
-In systems that support bulk payments, test scenarios where the total amount remains positive, but individual inputs include negative values. For example:
+#### Single-Endpoint State Races
 
-```plaintext
-account_id_1 = $5
-account_id_2 = -$4
-Total = $1 paid, but $5 credited
-```
+Some functions read the current state, compute something from it and write it back. Sending two different requests to the same endpoint at the same time can mix their effects. For example, send two password reset requests for two different accounts in the same packet, using the same session cookie for both requests, then check whether either reset email contains a token for the other account. Similarly, send two email change requests for the same account and check whether the confirmation link sent to one address confirms the other.
 
-Ensure that the application correctly handles such cases and prevents exploitation.
+#### Multi-Endpoint Races
+
+Look for two actions that are each safe on their own, but not when they overlap. Common examples:
+
+- Adding an item to a cart while the checkout request for the same cart is being processed (see also [Adding Items After Payment Initiation](#adding-items-after-payment-initiation)).
+- Changing the email address of an account while a confirmation or invitation for the old address is being accepted.
+- Removing a user from a group while that user uses a permission granted by the group.
+
+Different endpoints may take different times to reach the critical point, so the requests may not line up even when they are sent together. Warm up the connection by sending a harmless request first, and if needed add a short delay before the faster request, then repeat the test several times.
+
+#### Partial Construction
+
+When an object is created in several steps, other requests may see it before it is complete. For example, a registration flow might insert the user record first and generate the API key or confirmation token in a second query. A request that arrives in between can see an empty or default value. Test this by sending the creating request together with requests that use the new object, such as a confirmation request with an empty token, `token=` or a JSON `null`, or an API call with an empty key.
+
+#### Interpreting the Results
+
+A single unexpected response is not proof of a race. Repeat the burst several times and check the final state of the application, not only the responses. Indicators of vulnerability include multiple success responses for a single-use action, negative balances after concurrent debits, resources allocated beyond stated capacity, a counter that does not match the number of successful requests, duplicate side effects (multiple emails, double charges), or an object in a state the workflow should not allow. Error responses in the middle of a burst, such as database deadlocks or unique constraint violations, show that requests are overlapping even when the test has not yet produced a duplicate.
 
 ## Related Test Cases
 
@@ -338,8 +382,25 @@ Ensure that the application correctly handles such cases and prevents exploitati
     - The only things included in client-side requests should be item IDs and quantities.
 - Implement appropriate input validation and business logic constraints (such as checking for negative item numbers or values).
 - Ensure that application payment flow is robust and that steps can't be performed out of sequence.
+- Prevent race conditions by making each check and the update that depends on it a single atomic operation:
+    - Use a conditional update, such as `UPDATE coupons SET used = true WHERE code = ? AND used = false`, and check the number of affected rows.
+    - Use database transactions with row-level locking (`SELECT ... FOR UPDATE`) or optimistic locking with version columns.
+    - Enforce uniqueness with database constraints rather than only checking for an existing record in application code.
+    - Require idempotency keys for state-changing requests and payment callbacks, and store them with a unique constraint.
+    - Consume single-use tokens in the same statement that reads them, for example `DELETE FROM tokens WHERE token = ? RETURNING *`.
+    - Create objects with all security-relevant fields set in one step, and never treat an empty or null token as valid.
+
+## Tools
+
+- [Burp Suite Repeater](https://portswigger.net/burp/documentation/desktop/tools/repeater/send-group), which can send a group of requests in parallel
+- [Turbo Intruder](https://github.com/PortSwigger/turbo-intruder), which supports gates and the single-packet attack
+- [h2spacex](https://github.com/nxenon/h2spacex), a Python library for HTTP/2 single-packet attacks
 
 ## References
 
 - [Payment Card Industry Data Security Standard (PCI DSS)](https://www.pcisecuritystandards.org/document_library/)
 - [Visa Processing E-Commerce Payments guidance](https://web.archive.org/web/2023/https://www.visa.co.uk/dam/VCOM/regional/ve/unitedkingdom/PDF/risk/processing-e-commerce-payments-guide-73-17337.pdf)
+- [PortSwigger Research: Smashing the state machine: the true potential of web race conditions](https://portswigger.net/research/smashing-the-state-machine)
+- [PortSwigger Web Security Academy: Race conditions](https://portswigger.net/web-security/race-conditions)
+- [CWE-362: Concurrent Execution using Shared Resource with Improper Synchronization](https://cwe.mitre.org/data/definitions/362.html)
+- [CWE-367: Time-of-check Time-of-use (TOCTOU) Race Condition](https://cwe.mitre.org/data/definitions/367.html)
