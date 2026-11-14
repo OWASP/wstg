@@ -29,3 +29,5 @@
 4.2.14 [Other HTTP Security Header Misconfigurations](14-Other_HTTP_Security_Header_Misconfigurations.md)
 
 4.2.15 [Feature Flag Security Bypass](15-Feature_Flag_Security_Bypass.md)
+
+4.2.16 [Web Cache Poisoning](16-Web_Cache_Poisoning.md)
