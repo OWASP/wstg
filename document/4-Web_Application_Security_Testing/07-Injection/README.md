@@ -63,3 +63,5 @@
 4.7.22 [Prototype Pollution](22-Prototype_Pollution.md)
 
 4.7.23 [Insecure Deserialization](23-Insecure_Deserialization.md)
+
+4.7.26 [JSON Parser Differentials](26-JSON_Parser_Differentials.md)
