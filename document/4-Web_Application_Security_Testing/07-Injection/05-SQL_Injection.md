@@ -75,6 +75,42 @@ varchar value 'test' to a column of data type int.
 
 Monitor all the responses from the web server and have a look at the HTML/JavaScript source code. Sometimes the error is present inside them but for some reason (e.g. JavaScript error, HTML comments, etc) is not presented to the user. A full error message, like those in the examples, provides a wealth of information to the tester to mount a successful injection attack. However, applications often do not provide so much detail: a simple '500 Server Error' or a custom error page might be issued, meaning that we need to use blind injection techniques. In any case, it is very important to test each field separately: only one variable must vary while all the others remain constant, in order to precisely understand which parameters are vulnerable and which are not.
 
+#### SQL Injection Through Parameter Names
+
+Most SQL injection tests mutate parameter _values_. Some handlers also build SQL identifiers from attacker-controlled _names_: form field names, query-string keys, JSON property names, or CSV/XML element names that become column lists in `INSERT`, `UPDATE`, or `ORDER BY` clauses.
+
+Prepared statements and bound parameters protect SQL _values_. They do not protect SQL _identifiers_. An application that builds a statement similar to the following remains injectable even when every submitted value is parameterized:
+
+```php
+$sql = "INSERT INTO answers (" . implode(",", array_keys($_POST)) . ") VALUES (...)";
+```
+
+How to test:
+
+1. Capture a create or update request that accepts a flexible set of fields.
+2. Keep the legitimate field names, then add one unexpected field name that contains a single quote, parenthesis, comma, comment delimiter, or subquery marker. In `application/x-www-form-urlencoded` bodies the name ends at the first `=`, so encode any `=` inside the name as `%3D`. Prefer `/**/` instead of spaces: PHP's `$_POST` converts spaces and dots in names to underscores. Example true/false pair:
+
+    ```http
+    answer=42&lab_ok=1&lab_col'),(SELECT/**/CASE/**/WHEN/**/(1%3D1)/**/THEN/**/1/**/ELSE/**/1/0/**/END)--=x
+    ```
+
+    ```http
+    answer=42&lab_ok=1&lab_col'),(SELECT/**/CASE/**/WHEN/**/(1%3D2)/**/THEN/**/1/**/ELSE/**/1/0/**/END)--=x
+    ```
+
+3. Repeat with JSON property names when the API accepts arbitrary objects. JSON avoids the form-urlencoded name parser and is often clearer for this check:
+
+    ```http
+    Content-Type: application/json
+
+    {"answer":"42","lab_col) VALUES (1);--":"x"}
+    ```
+
+4. Compare responses for syntax errors, datatype conversion errors, boolean or time differences between the `(1%3D1)` and `(1%3D2)` names, and out-of-band callbacks. Treat a stable difference caused only by the crafted _name_ as evidence that the name entered the SQL structure.
+5. If the application reflects generated SQL or database errors, redact them in evidence and stop once identifier evaluation is confirmed. Do not dump production data.
+
+Expected secure behavior: unexpected names are ignored or rejected against a fixed allowlist. The SQL column list is defined by server-side code, not by the request shape.
+
 ### Standard SQL Injection Testing Methods
 
 #### Classic SQL Injection
