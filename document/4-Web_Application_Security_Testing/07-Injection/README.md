@@ -63,3 +63,5 @@
 4.7.22 [Prototype Pollution](22-Prototype_Pollution.md)
 
 4.7.23 [Insecure Deserialization](23-Insecure_Deserialization.md)
+
+4.7.24 [Server-side URL Redirect](24-Server-side_URL_Redirect.md)
