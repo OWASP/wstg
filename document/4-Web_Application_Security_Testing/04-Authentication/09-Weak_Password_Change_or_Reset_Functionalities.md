@@ -207,7 +207,7 @@ Ensure that:
 
 - Password change and reset flows are at least as strong as normal authentication and cannot bypass MFA.
 - Reset tokens are high-entropy, single-use, short-lived, and stored hashed; reset links use HTTPS and are not built from an untrusted `Host` header.
-- Reset pages do not leak tokens to third parties via the `Referer` header; set an appropriate `Referrer-Policy` and avoid third-party resources on those pages. See [Other HTTP Security Header Misconfigurations](../02-Configuration_and_Deployment_Management/14-Other_HTTP_Security_Header_Misconfigurations.md).
+- Reset pages do not leak tokens to third parties via the `Referer` header; set an appropriate `Referrer-Policy` and avoid third-party resources on those pages. See [Additional Browser Security Controls](../02-Configuration_and_Deployment_Management/14-Additional_Browser_Security_Controls.md).
 - Rate limiting, re-authentication for sensitive account changes, CSRF protection, and a consistent password policy are applied.
 
 ## References
