@@ -12,12 +12,12 @@ Unlike server-side path traversal, which reads files from the server's file syst
 
 A useful way to frame the vulnerability is as a source and a sink:
 
-- A **source** is the input that reaches the request path: a path segment, a query-string parameter, the URL fragment, or a value previously stored by the application.
-- A **sink** is the request the traversal reaches. The attacker controls only the path, so the reachable method, headers, and body are fixed by the code that builds the request. The host cannot be changed, because the request stays on the legitimate origin.
+- The source is the input that reaches the request path: a path segment, a query-string parameter, the URL fragment, or a value previously stored by the application.
+- The sink is the request the traversal reaches. The method, headers, and body are fixed by the code that builds the request. When the input only changes the path, the request stays on the legitimate origin. When the application resolves the input as a URL, the host can change too, as described below.
 
 The following figure shows the basic flow.
 
-[![CSPT2CSRF flow](images/19-cspt2csrf_flow.svg "A source value traverses into an unintended same-origin endpoint")](https://blog.doyensec.com/2024/07/02/cspt2csrf.html)\
+[![CSPT2CSRF flow](images/11-cspt2csrf_flow.svg "A source value traverses into an unintended same-origin endpoint")](https://blog.doyensec.com/2024/07/02/cspt2csrf.html)\
 *Figure 4.11.19-1: A client-side path traversal redirecting a same-origin request to an unintended endpoint*
 
 ## Test Objectives
@@ -49,10 +49,10 @@ How the input is encoded decides whether the traversal happens in the browser or
 
 - Literal `../` is collapsed by the browser, so the traversed request is what leaves the browser. A backslash (`..\`) behaves the same way, because browsers treat it as a path separator.
 - Percent-encoded dots with a literal separator, such as `%2e%2e/`, are also collapsed, because the browser decodes `%2e` to `.` before normalizing the path.
-- A percent-encoded separator, such as `%2f` or `%5c`, is **not** decoded by the browser and is sent literally. Such a payload only traverses if the server or framework later decodes and normalizes it, so test it against the back end rather than assuming a client-side effect.
+- A percent-encoded separator, such as `%2f` or `%5c`, is not decoded by the browser and is sent literally. Such a payload only traverses if the server or framework later decodes and normalizes it, so test it against the back end rather than assuming a client-side effect.
 - When the value walks downward first, the dot-segment arithmetic still applies: `foo/../profile` sent to `/api/notes/<id>` resolves to `/api/notes/profile`.
 
-The way the request URL is built also matters. When the path is assembled by string concatenation, a leading `/` in the input is just another path segment and does not escape the base. When the application builds the URL with `new URL(id, base)` and the input is the relative reference, a leading `/` produces a host-absolute path and gives the attacker full control of the path. Identify which pattern the application uses.
+The way the request URL is built also matters. When the path is assembled by string concatenation, a leading `/` in the input is just another path segment and does not escape the base. When the application builds the URL with `new URL(id, base)` and the input is the relative reference, a leading `/` produces a host-absolute path and gives the attacker full control of the path, and a value that starts with `//`, such as `//attacker.example/x`, changes the host as well. The request then goes to the attacker's server with any headers the application adds, such as a bearer token. Identify which pattern the application uses.
 
 ### Assess the Sink and Impact
 
@@ -80,7 +80,7 @@ Because the back end often accepts extra or unexpected fields, a sink may act ev
 ## Tools
 
 - [Burp Suite](https://portswigger.net/burp)
-- [OWASP ZAP](https://www.zaproxy.org)
+- [ZAP](https://www.zaproxy.org)
 - [CSPT Burp Extension](https://github.com/doyensec/CSPTBurpExtension)
 
 ## References
