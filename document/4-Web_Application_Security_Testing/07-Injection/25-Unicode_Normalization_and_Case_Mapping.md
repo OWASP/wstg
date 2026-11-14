@@ -40,6 +40,8 @@ Submit harmless probe characters wherever input is reflected, stored and display
 | `ı` | U+0131 | `%C4%B1` | `I` | Uppercasing |
 | `K` | U+212A | `%E2%84%AA` | `k`, or `K` | Lowercasing, or any normalization form |
 
+An ASCII result does not always mean Unicode normalization. On Windows, converting text to an ANSI code page applies best-fit mapping, which also turns characters such as `＂` (U+FF02) into their ASCII look-alikes. Test the same probes against each component that handles the input before deciding which transformation is responsible.
+
 If the probe is not reflected, look for its effect instead. For example, check whether a search for `ﬁle` returns the same results as a search for `file`, or whether a file uploaded as `ﬁle.txt` is listed as `file.txt`.
 
 When the source code is available, search for normalization and case conversion functions, such as `unicodedata.normalize` and `str.casefold` in Python, `String.prototype.normalize` in JavaScript, `java.text.Normalizer` and `String.toLowerCase()` without a `Locale` argument in Java, and `String.Normalize` in .NET. Note where they are called relative to validation, sanitization and encoding.
@@ -78,7 +80,7 @@ A single character can also combine both kinds of transformation. The long `ſ` 
 
 [REcollapse](https://github.com/0xacb/recollapse) generates variants of a payload with normalization and case mapping equivalents at chosen positions, which helps when the blocked characters are not known.
 
-### Test Case Mapping
+### Test Case-Insensitive Comparisons
 
 Check the inputs that are compared with keywords or allow lists without regard to case:
 
@@ -114,3 +116,4 @@ Find inputs with a maximum length, and submit values within the limit that becom
 - [Unicode Technical Report #36: Unicode Security Considerations](https://www.unicode.org/reports/tr36/)
 - [CWE-180: Incorrect Behavior Order: Validate Before Canonicalize](https://cwe.mitre.org/data/definitions/180.html)
 - [CWE-176: Improper Handling of Unicode Encoding](https://cwe.mitre.org/data/definitions/176.html)
+- [Orange Tsai: WorstFit: Unveiling Hidden Transformers in Windows ANSI](https://blog.orange.tw/posts/2025-01-worstfit-unveiling-hidden-transformers-in-windows-ansi/)
