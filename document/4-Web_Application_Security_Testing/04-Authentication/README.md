@@ -23,3 +23,5 @@
 4.4.11 [Multi-Factor Authentication (MFA)](11-Multi-Factor_Authentication.md)
 
 4.4.12 [SAML Authentication](12-SAML_Authentication.md)
+
+4.4.13 [Passkeys and WebAuthn](13-Passkeys_and_WebAuthn.md)
