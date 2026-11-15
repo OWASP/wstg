@@ -1,0 +1,18 @@
+{% comment %}
+  Search dialog. Rendered at the end of <body>, NOT inside the header: the header has
+  backdrop-filter, which would trap this position:fixed overlay inside the header box.
+{% endcomment %}
+{% assign search_key = page.collection_name | default: "latest" %}
+{% if site.data[search_key].search_index %}
+<div id="wstg-search" class="wstg-search" role="dialog" aria-modal="true" aria-label="Search the guide" hidden>
+  <div class="wstg-search-backdrop" data-search-close></div>
+  <div class="wstg-search-panel">
+    <div class="wstg-search-bar">
+      <input id="wstg-search-input" class="wstg-search-input" type="search" role="combobox" aria-expanded="false" aria-controls="wstg-search-results" aria-autocomplete="list" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" placeholder="Search topics or IDs (XSS, sqli, {{ site.data[search_key].search_example | default: 'WSTG-INJT-05' }})" aria-label="Search the guide">
+      <button type="button" class="wstg-search-close" data-search-close aria-label="Close search"><span class="wstg-search-close-esc" aria-hidden="true">Esc</span><span class="wstg-search-close-x" aria-hidden="true">&times;</span></button>
+    </div>
+    <div id="wstg-search-status" class="wstg-search-status" role="status" aria-live="polite"></div>
+    <ul id="wstg-search-results" class="wstg-search-results" role="listbox" aria-label="Search results"></ul>
+  </div>
+</div>
+{% endif %}
