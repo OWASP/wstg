@@ -134,6 +134,7 @@ The following is the list of items to test during the assessment:
 | WSTG-APIT-02      | API Broken Object Level Authorization                                      |        |       |
 | WSTG-APIT-03      | Excessive Data Exposure                                                    |        |       |
 | WSTG-APIT-04      | API Broken Function Level Authorization                                    |        |       |
+| WSTG-APIT-10      | gRPC                                                                       |        |       |
 | WSTG-APIT-99      | GraphQL                                                                    |        |       |
 | **WSTG-WASM**     | **WebAssembly Testing**                                                    |        |       |
 | WSTG-WASM-01      | WebAssembly Reconnaissance                                                 |        |       |

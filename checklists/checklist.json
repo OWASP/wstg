@@ -1303,6 +1303,17 @@
           ]
         },
         {
+          "name": "gRPC",
+          "id": "WSTG-APIT-10",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/12-API_Testing/10-gRPC",
+          "objectives": [
+            "Identify gRPC and gRPC-Web endpoints and recover the service definitions.",
+            "Determine whether reflection and built-in services expose information that should not be public.",
+            "Assess whether authentication and authorization are enforced for every method, call type, and entry point.",
+            "Assess how the service handles unexpected message content, sizes, and errors."
+          ]
+        },
+        {
           "name": "GraphQL",
           "id": "WSTG-APIT-99",
           "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/12-API_Testing/99-GraphQL",
