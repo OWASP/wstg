@@ -8,7 +8,7 @@
 
 [gRPC](https://grpc.io/) is a remote procedure call framework that runs over HTTP/2. Services and their messages are defined in `.proto` files and encoded as Protocol Buffers (protobuf), a compact binary format. Each method is called with a POST request to a path of the form `/<package>.<Service>/<Method>`, with a `content-type` of `application/grpc`. The [gRPC over HTTP/2 protocol description](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md) covers the framing and headers.
 
-Browsers cannot send native gRPC requests, so browser clients use [gRPC-Web](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md), often through a proxy such as Envoy that translates to gRPC. gRPC-Web works over HTTP/1.1 and uses the `application/grpc-web` content type, or `application/grpc-web-text` for a base64-encoded body.
+Browsers cannot send native gRPC requests, so browser clients use [gRPC-Web](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md), often through a proxy such as Envoy that translates to gRPC. gRPC-Web works over HTTP/1.1 and HTTP/2 and uses the `application/grpc-web` content type, or `application/grpc-web-text` for a base64-encoded body.
 
 gRPC APIs are exposed to the same flaws as other APIs, such as broken object and function level authorization and injection. What changes is how a tester finds the methods, builds requests, and reads responses, and a few weaknesses that come from the framework itself:
 
@@ -86,7 +86,7 @@ Authentication, authorization, rate limiting, and input checks are sometimes enf
 Protobuf messages behave differently from JSON, which affects how the server validates them:
 
 - **Unused fields:** a request message can define fields that the client never sets, such as `role`, `owner_id`, or `price`. Set them and check whether the server applies them, as described in [Mass Assignment](../07-Injection/20-Mass_Assignment.md). For update methods that take a `google.protobuf.FieldMask`, add protected fields to the mask.
-- **Default values:** in proto3, a scalar field that is not sent has its default value, such as `0`, `false`, or an empty string, and the server cannot tell it apart from a field that was sent with that value. See the [proto3 language guide](https://protobuf.dev/programming-guides/proto3/). Check how the server treats missing fields, zero amounts, and empty identifiers.
+- **Default values:** in proto3, a scalar field with implicit presence that is not sent has its default value, such as `0`, `false`, or an empty string, and the server cannot tell it apart from a field that was sent with that value. Fields declared `optional`, fields in a `oneof` and message fields track presence, so the server can tell whether they were set. See the [proto3 language guide](https://protobuf.dev/programming-guides/proto3/). Check how the server treats missing fields, zero amounts, and empty identifiers.
 - **Unexpected values:** send negative numbers to signed integer fields, very large values, and enum values that are not defined. Protobuf accepts unknown enum values in proto3, so the application must check them.
 - **Injection:** string and bytes fields reach databases, shells, and templates like any other input. Run the usual injection tests, such as [SQL Injection](../07-Injection/05-SQL_Injection.md), through the message fields.
 
