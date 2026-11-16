@@ -79,7 +79,7 @@ The HTTP Request Methods used in REST are generally:
 | HEAD    | Get metadata associated with resource’s state       |
 | OPTIONS | List available methods                              |
 
-Not all REST APIs use all of these methods or use them as defined by their RFCs, so it is important to determine how exactly each method is used for testing. Notably `PUT` is not always implemented as idempotent; this can be tested by repeating the request and observing whether the response is the same.
+Not all REST APIs use all of these methods or use them as defined by their RFCs, so it is important to determine how exactly each method is used for testing. Notably `PUT` is not always implemented as idempotent; this can be tested by repeating the request and observing whether the resource ends up in the same state, for example ensuring that no duplicate is created.
 
 #### Headers
 
