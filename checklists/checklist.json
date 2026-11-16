@@ -1117,7 +1117,8 @@
           "id": "WSTG-CLNT-03",
           "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/11-Client-side/03-HTML_Injection",
           "objectives": [
-            "Identify HTML injection points and assess the severity of the injected content."
+            "Identify HTML injection points and assess the severity of the injected content.",
+            "Assess what injected markup can do when script execution is blocked, for example by a Content Security Policy."
           ],
           "cre_ids": [
             "542-445"
