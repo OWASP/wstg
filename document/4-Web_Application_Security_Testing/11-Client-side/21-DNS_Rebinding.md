@@ -57,7 +57,7 @@ If the response is the same as with `Host: localhost:8080`, the service does not
 
 Also check whether the service requires authentication for every request, including requests from `localhost`.
 
-Separately, check whether the service accepts state-changing requests that any page can send cross-origin without a preflight, such as a simple `POST` with a `text/plain` body. That is a blind write that works without DNS rebinding, since the page does not need to read the response, so it should be reported on its own.
+Separately, check whether the service accepts state-changing requests that any page can send cross-origin without a preflight, such as a simple `POST` with a `text/plain` body. That could be a blind write that works without DNS rebinding, since the page does not need to read the response, so it should be reported on its own.
 
 ### Demonstrate the Attack
 
