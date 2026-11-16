@@ -1248,6 +1248,16 @@
             "Identify scripts that read global variables, `document` properties, or form properties that may be undefined, and pass them to sensitive operations.",
             "Assess whether clobbering those references changes the behavior of the application."
           ]
+        },
+        {
+          "name": "DNS Rebinding",
+          "id": "WSTG-CLNT-21",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/11-Client-side/21-DNS_Rebinding",
+          "objectives": [
+            "Identify services in scope that are reachable only from the local machine or an internal network and are used from a browser.",
+            "Determine whether those services accept requests with an unexpected `Host` header and without authentication.",
+            "Determine whether server-side URL fetching can be redirected to internal addresses by changing DNS answers between validation and use."
+          ]
         }
       ]
     },
