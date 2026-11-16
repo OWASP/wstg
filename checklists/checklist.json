@@ -790,6 +790,7 @@
             "Detect classic CL/TE desynchronization vulnerabilities",
             "Evaluate protocol translation logic (HTTP/2 → HTTP/1.1)",
             "Assess H2C upgrade handling and downgrade safety",
+            "Identify endpoints that ignore the request body (CL.0) and whether a browser can be made to desynchronize its own connection",
             "Confirm backend request queue poisoning"
           ]
         },
