@@ -15,7 +15,7 @@ HTTP offers a number of methods (or verbs) that can be used to perform actions o
 | [`GET`](https://datatracker.ietf.org/doc/html/rfc9110#section-9.3.1) | Request a file. | Request an object.|
 | [`HEAD`](https://datatracker.ietf.org/doc/html/rfc9110#section-9.3.2) | Request a file, but only return the HTTP headers. | |
 | [`POST`](https://datatracker.ietf.org/doc/html/rfc9110#section-9.3.3) | Submit data. | Create an object. |
-| [`PUT`](https://datatracker.ietf.org/doc/html/rfc9110#section-9.3.4) | Upload a file. | Create or replace an object, generally idempotent. |
+| [`PUT`](https://datatracker.ietf.org/doc/html/rfc9110#section-9.3.4) | Upload a file. | Create or replace an object, defined as idempotent but is not always implemented as such; repeat request to check. |
 | [`DELETE`](https://datatracker.ietf.org/doc/html/rfc9110#section-9.3.5) | Delete a file | Delete an object. |
 | [`CONNECT`](https://datatracker.ietf.org/doc/html/rfc9110#section-9.3.6) | Establish a connection to another system. | |
 | [`OPTIONS`](https://datatracker.ietf.org/doc/html/rfc9110#section-9.3.7) | List supported HTTP methods. | Perform a [CORS Preflight](https://developer.mozilla.org/en-US/docs/Glossary/Preflight_request) request. |
