@@ -144,6 +144,8 @@
 
 #### 4.4.12 [SAML Authentication](4-Web_Application_Security_Testing/04-Authentication/12-SAML_Authentication.md)
 
+#### 4.4.13 [Passkeys and WebAuthn](4-Web_Application_Security_Testing/04-Authentication/13-Passkeys_and_WebAuthn.md)
+
 ### 4.5 [Authorization](4-Web_Application_Security_Testing/05-Authorization/README.md)
 
 #### 4.5.1 [Directory Traversal and File Include](4-Web_Application_Security_Testing/05-Authorization/01-Directory_Traversal_File_Include.md)
