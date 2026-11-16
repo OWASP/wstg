@@ -50,7 +50,7 @@ The list contains only tools that are freely available to download and use (alth
 
 - [OWASP O-Saft](https://owasp.org/www-project-o-saft/)
 - [sslyze](https://github.com/nabla-c0d3/sslyze)
-- [testssl.sh](https://github.com/drwetter/testssl.sh)
+- [testssl.sh](https://github.com/testssl/testssl.sh)
 - [SSLScan](https://github.com/rbsec/sslscan)
 - [SSLLabs](https://www.ssllabs.com/ssltest/)
 
