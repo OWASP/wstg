@@ -96,6 +96,36 @@ When a Chromium-based browser applies `Lax` by default, it uses a [more permissi
 
 The `None` value specifies that the browser will send the cookie in all contexts, including cross-site requests (the normal behavior before the implementation of `SameSite`). A cookie that sets `SameSite=None` must also set the [`Secure`](#secure-attribute) attribute, _e.g._ `SameSite=None; Secure`. Chromium-based browsers and Firefox reject a `SameSite=None` cookie without `Secure`, so the cookie is not stored at all. Safari does not enforce this requirement (see the [browser compatibility table on MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Set-Cookie#browser_compatibility)).
 
+#### Partitioned Attribute
+
+The [`Partitioned`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Set-Cookie#partitioned) attribute opts a cookie into [Cookies Having Independent Partitioned State (CHIPS)](https://developer.mozilla.org/en-US/docs/Web/Privacy/Guides/Third-party_cookies/Partitioned_cookies). The browser stores the cookie separately for each top-level [site](https://developer.mozilla.org/en-US/docs/Glossary/Site), which is the site shown in the address bar. It sends the cookie only under the top-level site where it was created. For example, `widget.example` sets a partitioned cookie while embedded in `shop.example`. The browser does not send that cookie when another site embeds `widget.example`, or when the user visits `widget.example` directly.
+
+A partitioned cookie must also set the [`Secure`](#secure-attribute) attribute. To work in an embedded context across browsers, it also needs `SameSite=None`, because browsers do not send `Lax` or `Strict` cookies on cross-site subresource requests. Use the [`__Host-`](#host-prefix) prefix unless the cookie must be shared between subdomains. For example: `Set-Cookie: __Host-SID=<session token>; Path=/; Secure; HttpOnly; SameSite=None; Partitioned`.
+
+This attribute is mainly useful for applications that other sites embed, such as chat, map, or payment frames. To test it:
+
+1. Find the cookies that the application sets with `SameSite=None`.
+2. Check whether each cookie sets `Partitioned`. Review the `Set-Cookie` header, or the Partition key site column under Application > Storage > Cookies in Chrome DevTools.
+3. Load the application in an `iframe` under one top-level site, and use the feature that sets the cookie.
+4. Load the application in an `iframe` under a different top-level site, and inspect the `Cookie` header of the request to the application. The browser must not send a partitioned cookie that it stored under the first site.
+
+Use a normal Chrome window for steps three and four. Chrome allows unpartitioned third-party cookies by default, so only the `Partitioned` attribute decides the result. Firefox, Safari, and Chrome's Incognito mode [restrict third-party cookies](#third-party-cookie-restrictions) by default, so a cookie without `Partitioned` may also be missing under the second site.
+
+A missing `Partitioned` attribute is not always a finding. Where the browser allows third-party cookies, it sends a `SameSite=None` cookie without `Partitioned` to the embedded application on every site that embeds it, including an attacker's site. Adding the attribute is useful hardening when the cookie only holds state for one embedding site, such as a chat session. Do not recommend it for a cookie that must be shared across top-level sites, such as a single sign-on session checked from an `iframe`. The browser would not send a partitioned cookie under the other sites, so the feature would stop working.
+
+`Partitioned` does not replace `SameSite` as a defense against cross-site request forgery. It stops the browser from sending the cookie when an attacker's site embeds the application, but a top-level navigation lands on the application's own site. A cross-site form `POST` still includes a `SameSite=None; Partitioned` cookie that the application set while it was the top-level site.
+
+##### Third-Party Cookie Restrictions
+
+Browsers also restrict [third-party cookies](https://developer.mozilla.org/en-US/docs/Web/Privacy/Guides/Third-party_cookies) by default:
+
+- Chrome allows third-party cookies, except in Incognito mode.
+- Firefox gives third-party cookies a separate cookie jar for each top-level site, which it calls Total Cookie Protection.
+- Safari blocks third-party cookies unless they set `Partitioned`.
+- Other Chromium-based browsers, such as Edge and Brave, add their own tracking protection, so their defaults differ from Chrome's.
+
+Browsers that do not support `Partitioned` ignore the attribute and treat the cookie as an unpartitioned cookie (see the [browser compatibility table on MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Set-Cookie#browser_compatibility)). These defaults also affect whether a proof of concept works. See [Cross Site Request Forgery](05-Cross_Site_Request_Forgery.md) and [Cross Site Script Inclusion](../11-Client-side/13-Cross_Site_Script_Inclusion.md).
+
 ### Cookie Prefixes
 
 By design cookies do not have the capabilities to guarantee the integrity and confidentiality of the information stored in them. Those limitations make it impossible for a server to have confidence about how a given cookie's attributes were set at creation. In order to give the servers such features in a backwards-compatible way, the industry has introduced the concept of [`Cookie Name Prefixes`](https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-rfc6265bis#section-4.1.3) to facilitate passing such details embedded as part of the cookie name.
@@ -150,3 +180,6 @@ Putting all this together, we can define the most secure cookie attribute config
 - [The important "expires" attribute of Set-Cookie](https://seckb.yehg.net/2012/02/important-expires-attribute-of-set.html)
 - [HttpOnly Session ID in URL and Page Body](https://seckb.yehg.net/2012/06/httponly-session-id-in-url-and-page.html)
 - [Internet Explorer Cookie Internals (FAQ)](https://learn.microsoft.com/en-gb/archive/blogs/ieinternals/internet-explorer-cookie-internals-faq)
+- [Cookies Having Independent Partitioned State (CHIPS) - MDN](https://developer.mozilla.org/en-US/docs/Web/Privacy/Guides/Third-party_cookies/Partitioned_cookies)
+- [Cookies Having Independent Partitioned State (CHIPS) - Privacy Sandbox](https://privacysandbox.google.com/cookies/chips)
+- [Third-party cookies - MDN](https://developer.mozilla.org/en-US/docs/Web/Privacy/Guides/Third-party_cookies)
