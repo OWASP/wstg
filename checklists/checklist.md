@@ -30,7 +30,7 @@ The following is the list of items to test during the assessment:
 | WSTG-CONF-11      | Cloud Storage                                                              |        |       |
 | WSTG-CONF-12      | Content Security Policy                                                    |        |       |
 | WSTG-CONF-13      | Path Confusion                                                             |        |       |
-| WSTG-CONF-14      | Other HTTP Security Header Misconfigurations                               |        |       |
+| WSTG-CONF-14      | Additional Browser Security Controls                                       |        |       |
 | WSTG-CONF-15      | Feature Flag Security Bypass                                               |        |       |
 | **WSTG-IDNT**     | **Identity Management**                                                    |        |       |
 | WSTG-IDNT-01      | Role Definitions                                                           |        |       |
