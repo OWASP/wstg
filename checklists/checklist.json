@@ -230,13 +230,14 @@
           ]
         },
         {
-          "name": "Other HTTP Security Header Misconfigurations",
+          "name": "Additional Browser Security Controls",
           "id": "WSTG-CONF-14",
-          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/14-Other_HTTP_Security_Header_Misconfigurations",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/14-Additional_Browser_Security_Controls",
           "objectives": [
             "Identify improperly configured security headers.",
             "Assess the impact of misconfigured security headers.",
-            "Validate the correct implementation of required security headers."
+            "Validate the correct implementation of required security headers.",
+            "Identify third-party scripts and style sheets and determine whether they are pinned with Subresource Integrity."
           ]
         },
         {
