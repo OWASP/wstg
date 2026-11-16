@@ -68,16 +68,16 @@ REST APIs use standard HTTP methods to perform operations on resources following
 
 The HTTP Request Methods used in REST are generally:
 
-| Methods | Description                                   |
-| ------- | --------------------------------------------- |
-| GET     | Get the representation of resource’s state    |
-| QUERY   | Query resources with complex parameters       |
-| POST    | Create a new resource                         |
-| PUT     | Replace a resource                            |
-| PATCH   | Update particular fields of a resource        |
-| DELETE  | Remove a resource                             |
-| HEAD    | Get metadata associated with resource’s state |
-| OPTIONS | List available methods                        |
+| Methods | Description                                        |
+| ------- | -------------------------------------------------- |
+| GET     | Get the representation of resource’s state         |
+| QUERY   | Query resources with complex parameters            |
+| POST    | Create a new resource                              |
+| PUT     | Create or replace a resource, generally idempotent |
+| PATCH   | Update particular fields of a resource             |
+| DELETE  | Remove a resource                                  |
+| HEAD    | Get metadata associated with resource’s state      |
+| OPTIONS | List available methods                             |
 
 Not all REST APIs use all of these methods or use them in the same way, so it is important to determine how exactly each method is used for testing.
 
