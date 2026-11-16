@@ -342,6 +342,8 @@
 
 #### 4.11.19 [Client-side Path Traversal](4-Web_Application_Security_Testing/11-Client-side/19-Client-side_Path_Traversal.md)
 
+#### 4.11.20 [Service Workers](4-Web_Application_Security_Testing/11-Client-side/20-Service_Workers.md)
+
 #### 4.11.21 [DNS Rebinding](4-Web_Application_Security_Testing/11-Client-side/21-DNS_Rebinding.md)
 
 ### 4.12 [API Testing](4-Web_Application_Security_Testing/12-API_Testing/README.md)
