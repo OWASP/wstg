@@ -26,6 +26,6 @@
 
 4.2.13 [Path Confusion](13-Path_Confusion.md)
 
-4.2.14 [Other HTTP Security Header Misconfigurations](14-Other_HTTP_Security_Header_Misconfigurations.md)
+4.2.14 [Additional Browser Security Controls](14-Additional_Browser_Security_Controls.md)
 
 4.2.15 [Feature Flag Security Bypass](15-Feature_Flag_Security_Bypass.md)
