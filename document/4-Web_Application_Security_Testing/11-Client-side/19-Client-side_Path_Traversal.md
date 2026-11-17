@@ -58,7 +58,7 @@ The way the request URL is built also matters. When the path is assembled by str
 
 The HTTP method is fixed by the calling code, so a `GET` source can only reach `GET` sinks directly, and a source on a `POST`, `PUT`, `PATCH`, or `DELETE` request can reach sinks of that method. Map the endpoints reachable under each method and consider the impact:
 
-- A state-changing sink (`POST`, `PUT`, `PATCH`, or `DELETE`) reached this way is a CSRF that bypasses `SameSite` and token defenses, because the application sends the request with its own credentials and headers.
+- A state-changing sink (`POST`, `PUT`, `PATCH`, or `DELETE`) reached this way can result in CSRF that bypasses `SameSite` cookies and CSRF tokens that the front end attaches automatically, because the application sends the request with its own credentials and headers. Tokens bound to the specific action and validated beyond their presence may still prevent the request.
 - A `GET` sink is lower impact on its own, but it can be escalated. If the redirected request returns data that the page renders without sanitization, the result is Cross Site Scripting. If the response is used to build a later request, a `GET` source can be chained to a state-changing one, for example by first pointing the traversal at an uploaded file whose contents steer a second request.
 
 Because the back end often accepts extra or unexpected fields, a sink may act even when the request body is fixed by the calling code. Test whether the reachable endpoint ignores the irrelevant body it receives.
