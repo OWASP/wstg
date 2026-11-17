@@ -1315,6 +1315,16 @@
           ]
         },
         {
+          "name": "Cross-Site Leaks",
+          "id": "WSTG-CLNT-18",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/11-Client-side/18-Cross_Site_Leaks",
+          "objectives": [
+            "Identify responses that change with the authenticated user's state or data.",
+            "Determine whether a cross-site page can observe those differences through browser side channels.",
+            "Assess whether the application uses the browser defenses that stop cross-site requests or remove the side channels."
+          ]
+        },
+        {
           "name": "Client-side Path Traversal",
           "id": "WSTG-CLNT-19",
           "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/11-Client-side/19-Client-side_Path_Traversal",
