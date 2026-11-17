@@ -134,6 +134,7 @@ The following is the list of items to test during the assessment:
 | WSTG-CLNT-14      | Reverse Tabnabbing                                                         |        |       |
 | WSTG-CLNT-15      | Client-side Template Injection                                             |        |       |
 | WSTG-CLNT-16      | DOM Clobbering                                                             |        |       |
+| WSTG-CLNT-19      | Client-side Path Traversal                                                 |        |       |
 | WSTG-CLNT-21      | DNS Rebinding                                                              |        |       |
 | **WSTG-APIT**     | **API Testing**                                                            |        |       |
 | WSTG-APIT-01      | API Reconnaissance                                                         |        |       |
