@@ -37,4 +37,6 @@
 4.11.18 [Cross-Site Leaks](18-Cross_Site_Leaks.md)
 4.11.19 [Client-side Path Traversal](19-Client-side_Path_Traversal.md)
 
+4.11.20 [Service Workers](20-Service_Workers.md)
+
 4.11.21 [DNS Rebinding](21-DNS_Rebinding.md)
