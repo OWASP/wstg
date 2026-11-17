@@ -65,7 +65,7 @@ Elements like `<script>`, `<img>` and `<link>` fire `load` or `error` depending 
 </script>
 ```
 
-The exact event also depends on the `Content-Type`, `X-Content-Type-Options: nosniff` and the browser's cross-origin read blocking, so compare the two states instead of assuming which event means what. This technique needs the session cookie to be sent on subresource requests.
+Which event fires depends on the resource type, the `Content-Type`, `X-Content-Type-Options: nosniff`, the browser's cross-origin read blocking and the browser itself. The events do not reliably map to HTTP status classes: an `<img>` can fire `load` for an error response that contains a valid image, and a `<script>` can fire `error` for a `200` response that isn't valid script. The HTTP status can't be inferred from them, so compare the two states instead of assuming which event means what. This technique needs the session cookie to be sent on subresource requests.
 
 #### Frame Counting
 
@@ -73,11 +73,25 @@ A cross-origin window exposes the number of frames it contains through `window.l
 
 ```javascript
 const w = window.open('https://target.example/search?q=invoice');
-setTimeout(() => {
-  console.log(w.length);
-  w.close();
-}, 3000);
+if (!w) {
+  console.log('popup blocked, allow popups for the test page');
+} else {
+  const deadline = Date.now() + 10000;
+  let last = -1, stable = 0;
+  const poll = setInterval(() => {
+    // Wait until the frame count stops changing, or give up after 10 seconds
+    stable = w.length === last ? stable + 1 : 0;
+    last = w.length;
+    if (stable >= 5 || Date.now() > deadline) {
+      clearInterval(poll);
+      console.log(w.length);
+      w.close();
+    }
+  }, 200);
+}
 ```
+
+`window.open()` returns `null` when the browser blocks the popup, so check for that first. A fixed delay doesn't show that the page has finished loading, so poll until the count is stable, with a bounded timeout. A stable count is still only a heuristic, because frames that are added late can be missed.
 
 Because this is a top-level navigation, `SameSite=Lax` cookies are sent. The same check works on an `<iframe>` with `frames[0].length` when the target can be framed and its session cookie is `SameSite=None`, since a cross-site frame isn't a top-level navigation.
 
@@ -106,7 +120,7 @@ async function time(url) {
 }
 ```
 
-A consistent difference, such as a search that does more work when it finds results, can be enough. Timing leaks are noisy, so repeat the measurement many times before reporting one.
+A consistent difference, such as a search that does more work when it finds results, can be enough. This measures when the opaque `no-cors` promise resolves, not when the server finished processing the request. Browser scheduling, connection reuse, HTTP caching and service workers all affect it. Timing leaks are noisy, so alternate requests for the two states many times, discard the first request of each run (connection setup), use a cache-busting parameter or `cache: 'no-store'`, compare medians rather than single values, and only report a difference that is consistent across runs.
 
 ### Check the Defenses
 
@@ -122,10 +136,10 @@ Look at the response headers of the state-dependent endpoints found above.
     -H 'Sec-Fetch-Dest: script'
   ```
 
-  If the response differs based on these headers, check that it also sends `Vary: Sec-Fetch-Site, Sec-Fetch-Mode, Sec-Fetch-Dest`. Without it a cache can serve the response that was meant for a same-origin request to a cross-site one, which defeats the policy.
+  The server itself must reject the disallowed cross-site request, for example with a `403`. `Vary` doesn't enforce anything. If the response differs based on any of these headers, check that `Vary` lists those headers, and only the ones that influence the response. Without it a cache can serve the response that was meant for a same-origin request to a cross-site one.
 
 - **Cross-Origin-Opener-Policy**: with `Cross-Origin-Opener-Policy: same-origin`, a page opened from another site gets its own browsing context group, so the opener loses access to it and frame counting through `window.open()` stops working.
-- **Cross-Origin-Resource-Policy**: `Cross-Origin-Resource-Policy: same-origin` or `same-site` stops other sites from loading the response as a subresource.
+- **Cross-Origin-Resource-Policy**: `Cross-Origin-Resource-Policy: same-origin` stops every other origin from loading the response as a subresource, while `same-site` still allows other origins within the same site, such as a sibling subdomain. The right setting depends on the trust boundary, so check that it isn't looser than the application needs.
 - **Framing controls**: `Content-Security-Policy: frame-ancestors` or `X-Frame-Options` stop the page from being framed, which removes the frame-based variants.
 - **Cache**: modern browsers partition the HTTP cache by the top-level site, which stops most cache-probing leaks. Responses with sensitive, user-specific content should still use `Cache-Control: no-store`.
 
