@@ -869,6 +869,16 @@
           ]
         },
         {
+          "name": "Server-side URL Redirect",
+          "id": "WSTG-INJT-24",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/07-Injection/24-Server-side_URL_Redirect",
+          "objectives": [
+            "Identify request parameters, path segments and headers that control a redirect or forward.",
+            "Assess whether the validation of redirect targets can be bypassed to reach an external site.",
+            "Assess whether a redirect can be used to run script, or chained with OAuth, SSO or SSRF."
+          ]
+        },
+        {
           "name": "JSON Parser Differentials",
           "id": "WSTG-INJT-26",
           "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/07-Injection/26-JSON_Parser_Differentials",
