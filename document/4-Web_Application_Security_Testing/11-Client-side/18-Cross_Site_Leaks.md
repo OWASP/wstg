@@ -84,14 +84,14 @@ if (!w) {
     last = w.length;
     if (stable >= 5 || Date.now() > deadline) {
       clearInterval(poll);
-      console.log(w.length);
+      console.log(w.length, stable >= 5 ? 'stable' : 'timed out, count may be incomplete');
       w.close();
     }
   }, 200);
 }
 ```
 
-`window.open()` returns `null` when the browser blocks the popup, so check for that first. A fixed delay doesn't show that the page has finished loading, so poll until the count is stable, with a bounded timeout. A stable count is still only a heuristic, because frames that are added late can be missed.
+`window.open()` returns `null` when the browser blocks the popup, so check for that first. A fixed delay doesn't show that the page has finished loading, so poll until the count is stable, with a bounded timeout. A stable count is still only a heuristic, because frames that are added late can be missed, so the example reports whether the count was stable or the poll timed out. Treat a timed-out count as incomplete and don't compare it with a stable one.
 
 Because this is a top-level navigation, `SameSite=Lax` cookies are sent. The same check works on an `<iframe>` with `frames[0].length` when the target can be framed and its session cookie is `SameSite=None`, since a cross-site frame isn't a top-level navigation.
 
@@ -135,6 +135,8 @@ Look at the response headers of the state-dependent endpoints found above.
     -H 'Sec-Fetch-Mode: no-cors' \
     -H 'Sec-Fetch-Dest: script'
   ```
+
+  This only checks how the server handles headers you supply. It doesn't show that browsers send these headers on real cross-site requests, or that proxies, CDNs and other intermediaries pass them through unchanged. Confirm with a real cross-site request from the test page above, and check the headers in the browser's developer tools or the server logs.
 
   The server itself must reject the disallowed cross-site request, for example with a `403`. `Vary` doesn't enforce anything. If the response differs based on any of these headers, check that `Vary` lists those headers, and only the ones that influence the response. Without it a cache can serve the response that was meant for a same-origin request to a cross-site one.
 
