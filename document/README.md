@@ -252,6 +252,8 @@
 
 #### 4.7.26 [JSON Parser Differentials](4-Web_Application_Security_Testing/07-Injection/26-JSON_Parser_Differentials.md)
 
+#### 4.7.28 [Regular Expression Denial of Service](4-Web_Application_Security_Testing/07-Injection/28-Regular_Expression_Denial_of_Service.md)
+
 ### 4.8 [Error Handling](4-Web_Application_Security_Testing/08-Error_Handling/README.md)
 
 #### 4.8.1 [Improper Error Handling](4-Web_Application_Security_Testing/08-Error_Handling/01-Improper_Error_Handling.md)
