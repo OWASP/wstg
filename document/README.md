@@ -298,6 +298,8 @@
 
 #### 4.10.10 [Payment Functionality](4-Web_Application_Security_Testing/10-Business_Logic/10-Payment_Functionality.md)
 
+#### 4.10.11 [Denial of Inventory](4-Web_Application_Security_Testing/10-Business_Logic/11-Denial_of_Inventory.md)
+
 ### 4.11 [Client-side](4-Web_Application_Security_Testing/11-Client-side/README.md)
 
 #### 4.11.1 [DOM-Based Cross Site Scripting](4-Web_Application_Security_Testing/11-Client-side/01-DOM-based_Cross_Site_Scripting.md)
