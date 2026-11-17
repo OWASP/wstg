@@ -877,6 +877,16 @@
             "Determine whether those components disagree on duplicate keys, key matching, invalid characters, non-standard syntax, numbers or trailing data.",
             "Assess whether a disagreement lets a request pass a check with one value and be processed with another."
           ]
+        },
+        {
+          "name": "Regular Expression Denial of Service",
+          "id": "WSTG-INJT-28",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/07-Injection/28-Regular_Expression_Denial_of_Service",
+          "objectives": [
+            "Identify inputs that are validated or processed with regular expressions.",
+            "Determine whether any of those regular expressions take super-linear time on crafted input.",
+            "Determine whether users can supply their own regular expressions and whether those are run with any limits."
+          ]
         }
       ]
     },

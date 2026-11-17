@@ -94,6 +94,7 @@ The following is the list of items to test during the assessment:
 | WSTG-INJT-22      | Prototype Pollution                                                        |        |       |
 | WSTG-INJT-23      | Insecure Deserialization                                                   |        |       |
 | WSTG-INJT-26      | JSON Parser Differentials                                                  |        |       |
+| WSTG-INJT-28      | Regular Expression Denial of Service                                       |        |       |
 | **WSTG-ERRH**     | **Error Handling**                                                         |        |       |
 | WSTG-ERRH-01      | Improper Error Handling                                                    |        |       |
 | WSTG-ERRH-02      | Stack Traces                                                               |        |       |
