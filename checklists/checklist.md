@@ -94,6 +94,7 @@ The following is the list of items to test during the assessment:
 | WSTG-INJT-22      | Prototype Pollution                                                        |        |       |
 | WSTG-INJT-23      | Insecure Deserialization                                                   |        |       |
 | WSTG-INJT-24      | Server-side URL Redirect                                                   |        |       |
+| WSTG-INJT-25      | Unicode Normalization and Case Mapping                                     |        |       |
 | WSTG-INJT-26      | JSON Parser Differentials                                                  |        |       |
 | WSTG-INJT-27      | Server-side Document Rendering Injection                                   |        |       |
 | WSTG-INJT-28      | Regular Expression Denial of Service                                       |        |       |

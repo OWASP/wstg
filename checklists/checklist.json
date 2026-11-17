@@ -879,6 +879,16 @@
           ]
         },
         {
+          "name": "Unicode Normalization and Case Mapping",
+          "id": "WSTG-INJT-25",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/07-Injection/25-Unicode_Normalization_and_Case_Mapping",
+          "objectives": [
+            "Identify where the application normalizes or changes the case of input.",
+            "Determine whether validation, filtering or length checks run before that transformation.",
+            "Assess whether the transformation can be used to bypass filters for injection, path traversal or length limits."
+          ]
+        },
+        {
           "name": "JSON Parser Differentials",
           "id": "WSTG-INJT-26",
           "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/07-Injection/26-JSON_Parser_Differentials",
