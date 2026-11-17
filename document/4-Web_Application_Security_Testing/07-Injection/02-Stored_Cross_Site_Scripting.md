@@ -57,7 +57,7 @@ The first step is to identify all points where user input is stored into the bac
 
 #### Analyze HTML Code
 
-Input stored by the application is normally used in HTML tags, but it can also be found as part of JavaScript content. At this stage, it is fundamental to understand if input is stored and how it is positioned in the context of the page. Differently from reflected XSS, the pentester should also investigate any out-of-band channels through which the application receives and stores users input, such as via email or integration with external applications.
+Input stored by the application is normally used in HTML tags, but it can also be found as part of JavaScript content, which needs different payloads, as shown in the JavaScript context example in [Reflected Cross Site Scripting](01-Reflected_Cross_Site_Scripting.md#example-4-javascript-context). At this stage, it is fundamental to understand if input is stored and how it is positioned in the context of the page. Differently from reflected XSS, the pentester should also investigate any out-of-band channels through which the application receives and stores users input, such as via email or integration with external applications.
 
 > Note: All areas of the application accessible by administrators should be tested to identify the presence of any data submitted by users.
 
