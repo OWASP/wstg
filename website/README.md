@@ -38,8 +38,28 @@ pipeline stripped periods (`v41`) for path/data-key safety; this site keeps
 dot-free keys (`v41.yaml`, `nav-tree-v41.html`) while serving pretty paths.
 
 Generated (do not commit): channel trees under `website/{latest,stable,v4.*,v41,v42}/`,
-`_data/*.yaml` (including `_data/version_map.yaml`, which powers the per-page
+`assets/search/` (per-channel search indexes), `_data/*.yaml` (including `_data/version_map.yaml`, which powers the per-page
 version switcher in the site header), and `_includes/nav-tree-*.html`.
+
+## Search
+
+Header search (`Ctrl/Cmd+K`) uses vendored Fuse.js (`assets/js/vendor/`) and is
+separate from the sidebar Contents filter (`/`, `?filter=`).
+
+- `generate_nav.py` writes one content-hashed index per channel to
+  `assets/search/<key>.<hash>.json` (title, WSTG-ID, aliases, short summary and
+  objectives; no full bodies) and records its path as `search_index:` in
+  `_data/<key>.yaml`. `prepare_site.py` runs it for every channel.
+- `assets/js/search.js` loads Fuse and the current channel's index on first
+  interaction (hover/focus/click of the button, or `Ctrl/Cmd+K`). When the
+  Connection API reports a good connection (not `saveData`, not 2g) it also
+  prefetches when idle; browsers without that API load on demand only.
+- The header panel shows quick results; click one to open it, or press Enter to
+  go to the results page at `/<channel>/search/?search=term` (shareable;
+  generated per channel by `prepare_site.py`). Arrow-key to a result and Enter
+  opens it directly. Visiting any other page with `?search=term` redirects to the
+  results page.
+- To update Fuse, replace `assets/js/vendor/fuse.min.js`.
 
 ## Local serve
 

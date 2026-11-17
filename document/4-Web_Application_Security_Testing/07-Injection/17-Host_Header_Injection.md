@@ -90,7 +90,7 @@ $reset_url = "https://" . $_SERVER['HTTP_HOST'] . "/reset.php?token=" .$token;
 send_reset_email($email,$rset_url);
 ```
 
-By making a HTTP request to the password reset page with a tampered Host header, we can modify where the URL points:
+By making an HTTP request to the password reset page with a tampered Host header, we can modify where the URL points:
 
 ```http
 POST /request_password_reset.php HTTP/1.1

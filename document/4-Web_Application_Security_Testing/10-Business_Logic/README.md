@@ -21,3 +21,5 @@
 4.10.9 [Upload of Malicious Files](09-Upload_of_Malicious_Files.md)
 
 4.10.10 [Payment Functionality](10-Payment_Functionality.md)
+
+4.10.11 [Denial of Inventory](11-Denial_of_Inventory.md)

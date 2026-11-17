@@ -12,7 +12,7 @@ Reconnaissance is the first step in WebAssembly security testing. This phase foc
 
 This phase only **collects information** about the target. It deliberately stops before decompiling the code, reading its logic, or running the module under a debugger. Successfully gathering this intelligence provides the foundational map required for the subsequent testing phases.
 
-This chapter focuses on **browser-delivered** Wasm modules. Reconnaissance of Wasm running outside the browser (WASI runtimes, edge or serverless platforms) differs, because modules are usually not served to the client and must be obtained through other means. See the [WebAssembly Testing Overview](README.md) for the distinction.
+This chapter focuses on **browser-delivered** Wasm modules. Reconnaissance of Wasm running outside the browser (WASI runtimes, edge or serverless platforms) differs, because modules are usually not served to the client and must be obtained through other means. See the [WebAssembly Testing Overview](00-WebAssembly_Testing_Overview.md) for the distinction.
 
 ## Test Objectives
 
@@ -226,7 +226,7 @@ The raw data segments can also be dumped for manual review with `wasm-objdump -s
 
 ## Related Test Cases
 
-- [WebAssembly Testing Overview](README.md)
+- [WebAssembly Testing Overview](00-WebAssembly_Testing_Overview.md)
 - [Review Web Page Content for Information Leakage (WSTG-INFO-05)](../01-Information_Gathering/05-Review_Web_Page_Content_for_Information_Leakage.md)
 
 ## Remediation

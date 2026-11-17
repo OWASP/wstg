@@ -10,7 +10,7 @@ Clickjacking, a subset of UI redressing, is a malicious technique whereby a web 
 
 A clickjacking attack uses seemingly-harmless features of HTML and JavaScript to force the victim to perform undesired actions, such as clicking an invisible button that performs an unintended operation. This is a client-side security issue that affects a variety of browsers and platforms.
 
-To carry out this attack, an attacker creates a seemingly-harmless web page that loads the target application through the use of an inline frame (concealed with CSS code). Once this is done, an attacker may induce the victim to interact with the web page by other means (through, for example, social engineering). Like other attacks, a common prerequisite is that the victim is authenticated against the attacker’s target application.
+To carry out this attack, an attacker creates a seemingly-harmless web page that loads the target application through the use of an inline frame (concealed with CSS code). Once this is done, an attacker may induce the victim to interact with the web page by other means (through, for example, social engineering). Like other attacks, a common prerequisite is that the victim is authenticated against the attacker’s target application. Variants that don't use frames are covered in [Clickjacking Without Frames](#clickjacking-without-frames).
 
 ![Clickjacking illustration](images/11-clickjacking_description.png)\
 *Figure 4.11.9-1: Clickjacking inline frame illustration*
@@ -30,7 +30,7 @@ The power of this method is that the actions performed by the victim are origina
 
 As mentioned above, this type of attack is often designed to allow an attacker to induce users’ actions on the target site, even if anti-CSRF tokens are being used.
 
-### Load Target Web Page on a HTML Interpreter Using HTML iframe Tag
+### Load Target Web Page on an HTML Interpreter Using HTML iframe Tag
 
 If the `https://www.target.site` web page is successfully loaded into a frame, then the site is vulnerable to clickjacking. An example of HTML code to create this testing web page is displayed in the following snippet:
 
@@ -53,13 +53,24 @@ There are few deactivation techniques that can be used with frames. More in dept
 
 ### Sandbox Attribute
 
-With HTML5 a new attribute called "sandbox" is available. It enables a set of restrictions on content loaded into the iframe.
+With HTML5 a new attribute called “sandbox” is available. This is designed to protect the page from a malicious iframe and enables a set of restrictions on content loaded into the frame.
+Notably in the case of clickjacking, this disables JavaScript by default.
 
 Example:
 
 ```html
 <iframe src="https://example.org" sandbox></iframe>
 ```
+
+If the attribute is specified by itself, all restrictions will be enabled. A developer may specify a list of [exceptions](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/iframe#sandbox) as the attribute's value to fine-tune what the iframe is allowed to do:
+
+```html
+<iframe src="https://example.org" sandbox="allow-forms allow-same-origin"></iframe>
+```
+
+This example loads an iframe which can submit forms but cannot run JavaScript. Allowing forms to be submitted but not allowing potentially frame busting JavaScript is ideal for a clickjacking attack. `allow-same-origin` is also required here for targets that check the `Origin` header, as by default sandboxed iframes send `Origin: null` and will usually be rejected. Tuning this attribute with appropriate exceptions can be used to pick precisely what functionality is available in the target application.
+
+A good way to leverage this for an attack is to begin with a broad allow list, then filter down until the target application works but any client-side protections against clickjacking fail.
 
 ### Test Application on Compatibility and Accessibility Mode
 
@@ -87,9 +98,20 @@ Web proxies are known for adding and stripping headers. In the case in which a w
 
 In this case, because the `X-FRAME-OPTIONS` HTTP header has to be implemented in every page of the application, developers may have not protected every single page on the mobile version.
 
+### Clickjacking Without Frames
+
+Framing protections only apply when the target page is loaded in a frame. In DoubleClickjacking, described by Paulos Yibelo in 2024, the attacker's page asks the victim to double-click and, between the two clicks, navigates another of the victim's windows to a page of the target application, so the second click lands on a control on that page. The target page is loaded as a top-level page, so `X-Frame-Options` and the `frame-ancestors` directive don't apply, and cookies with `SameSite=Lax` are sent with the navigation.
+
+To assess the exposure:
+
+1. List the actions that complete with a single click on a page that another site can open with a top-level navigation, such as OAuth consent screens, permission grants, account deletion, and payment confirmation. Pages that need typed input or a separate confirmation step are less exposed.
+2. Check whether these controls accept a click that arrives right after the page is displayed, without any earlier interaction with the page. For example, open the page from a link in another window, keep the pointer still where the control will appear, and click as soon as it renders. If the action completes, the page is exposed.
+3. Note whether these pages rely only on framing protections, since those don't cover this case.
+
 ### Remediation
 
 - For measures to prevent clickjacking, see the [Clickjacking Defense Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Clickjacking_Defense_Cheat_Sheet.html).
+- Framing protections don't prevent clickjacking without frames. For sensitive actions, see [Defending against DoubleClickjacking](https://cheatsheetseries.owasp.org/cheatsheets/Clickjacking_Defense_Cheat_Sheet.html#defending-against-doubleclickjacking) in the same cheat sheet.
 - For interactive labs on clickjacking visit [Port Swigger Web Page](https://portswigger.net/web-security/clickjacking)
 - For additional resources on clickJacking visit the [OWASP community](https://owasp.org/www-community/attacks/Clickjacking)
 
@@ -98,3 +120,4 @@ In this case, because the `X-FRAME-OPTIONS` HTTP header has to be implemented in
 - [OWASP Clickjacking](https://owasp.org/www-community/attacks/Clickjacking)
 - [Wikipedia Clickjacking](https://en.wikipedia.org/wiki/Clickjacking)
 - [Gustav Rydstedt, Elie Bursztein, Dan Boneh, and Collin Jackson: "Busting Frame Busting: a Study of Clickjacking Vulnerabilities on Popular Sites"](https://seclab.stanford.edu/websec/framebusting/framebust.pdf)
+- [Paulos Yibelo: "DoubleClickjacking: A New Era of UI Redressing"](https://www.paulosyibelo.com/2024/12/doubleclickjacking-what.html)

@@ -1,0 +1,121 @@
+/* Header search dialog. Desktop: popover under header. Mobile: full-width sheet. */
+.wstg-search[hidden] { display: none; }
+.wstg-search { position: fixed; inset: 0; z-index: 1000; }
+.wstg-search-backdrop { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.45); }
+.wstg-search-panel {
+  position: absolute;
+  top: 4.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(640px, calc(100vw - 2rem));
+  max-height: calc(100vh - 6rem);
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+.wstg-search-bar { display: flex; gap: 0.5rem; padding: 0.75rem; border-bottom: 1px solid var(--border); }
+.wstg-search-input {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0.5rem 0.75rem;
+  font: inherit;
+  font-size: 1rem; /* >=16px avoids iOS zoom */
+  color: var(--text);
+  background: var(--bg-page);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.wstg-search-input:focus-visible { outline: 2px solid var(--link); outline-offset: 1px; }
+.wstg-search-close {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 0.6rem;
+  font: inherit;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+.wstg-search-close-x { display: none; font-size: 1.6rem; line-height: 1; }
+.wstg-search-status { padding: 0.5rem 1rem; font-size: 0.85rem; color: var(--text-muted); }
+.wstg-search-status:empty {
+  /* Visually hidden, not display:none, so live-region updates are still announced. */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+.wstg-search-results { margin: 0; padding: 0; list-style: none; overflow-y: auto; }
+.wstg-search-results:empty { display: none; }
+.wstg-search-result a {
+  display: block;
+  padding: 0.6rem 1rem;
+  color: var(--text);
+  text-decoration: none;
+  border-top: 1px solid var(--border);
+}
+.wstg-search-result[aria-selected="true"] a,
+.wstg-search-result a:hover { background: var(--bg-alt); }
+.wstg-search-result a { position: relative; }
+.wstg-search-result[aria-selected="true"] a::before {
+  /* Full-height base on the left edge, tapering to a point a few px wide. */
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 7px;
+  background: var(--link);
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+.wstg-search-result-title { display: block; font-weight: 600; }
+.wstg-search-result-meta { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; font-size: 0.8rem; color: var(--text-muted); }
+.wstg-search-id {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.05rem 0.4rem;
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+}
+body.wstg-search-open { overflow: hidden; }
+/* Keep the scrollbar's space while the page is scroll-locked so layout doesn't shift. */
+html:has(body.wstg-search-open) { scrollbar-gutter: stable; }
+
+@media (max-width: 900px) {
+  .wstg-search-close-esc { display: none; }
+  .wstg-search-close-x { display: inline; }
+  .wstg-search-panel { top: 0; left: 0; transform: none; width: 100%; max-height: 100%; height: 100%; border: 0; border-radius: 0; }
+  .wstg-search-result a { padding: 0.85rem 1rem; min-height: 48px; }
+}
+
+/* Results page (/<channel>/search/) */
+.wstg-search-page { max-width: 760px; padding: 1.5rem 0 3rem; }
+.wstg-search-form { display: flex; gap: 0.5rem; }
+.wstg-search-submit {
+  min-height: 44px;
+  padding: 0 1rem;
+  font: inherit;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(to right, var(--btn-primary-start), var(--btn-primary-end));
+  border: 0;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+.wstg-search-submit:hover { background: linear-gradient(to right, var(--btn-primary-hover-start), var(--btn-primary-hover-end)); }
+.wstg-search-page-heading { margin: 1.5rem 0 0.25rem; font-size: 1.4rem; }
+.wstg-search-page-results { margin: 0; padding: 0; list-style: none; }
+.wstg-search-page-results li { padding: 0.9rem 0; border-top: 1px solid var(--border); }
+.wstg-search-page-results a { font-weight: 600; font-size: 1.05rem; }
+.wstg-search-page-results p { margin: 0.25rem 0 0; color: var(--text-muted); font-size: 0.9rem; }

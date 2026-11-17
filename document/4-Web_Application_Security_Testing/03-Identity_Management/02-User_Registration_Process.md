@@ -51,7 +51,7 @@ Implement identification and verification requirements that correspond to the se
 
 ## Tools
 
-A HTTP proxy can be a useful tool to test this control.
+An HTTP proxy can be a useful tool to test this control.
 
 ## References
 

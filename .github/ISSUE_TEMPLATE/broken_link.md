@@ -2,7 +2,7 @@
 name: Broken Link
 about: Report broken links
 title: ''
-labels: bug, help wanted, good first issue
+labels: bug, good first issue
 assignees: ''
 
 ---
