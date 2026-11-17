@@ -24,8 +24,8 @@ Encryption, digital signatures and hashing solve different problems and use diff
 #### Encryption
 
 - When using AES128 or AES256, the IV (Initialization Vector) or nonce requirements depend on the mode:
-  - CBC: the IV must be random and unpredictable. Refer to [FIPS 140-3, Security Requirements for Cryptographic Modules](https://csrc.nist.gov/pubs/fips/140-3/final), section random number generation tests. For example, in Java, `java.util.Random` is considered a weak random number generator. `java.security.SecureRandom` should be used instead of `java.util.Random`.
-  - GCM: the nonce must be unique for every encryption under the same key, because reuse breaks both confidentiality and authentication. Prefer a counter-based or otherwise collision-resistant nonce strategy. If random 96-bit nonces are used, [NIST SP 800-38D](https://csrc.nist.gov/pubs/sp/800/38/d/final) limits a key to 2^32 invocations, so rotate the key before reaching that limit.
+    - CBC: the IV must be random and unpredictable. Refer to [FIPS 140-3, Security Requirements for Cryptographic Modules](https://csrc.nist.gov/pubs/fips/140-3/final), section random number generation tests. For example, in Java, `java.util.Random` is considered a weak random number generator. `java.security.SecureRandom` should be used instead of `java.util.Random`.
+    - GCM: the nonce must be unique for every encryption under the same key, because reuse breaks both confidentiality and authentication. Prefer a counter-based or otherwise collision-resistant nonce strategy. If random 96-bit nonces are used, [NIST SP 800-38D](https://csrc.nist.gov/pubs/sp/800/38/d/final) limits a key to 2^32 invocations, so rotate the key before reaching that limit.
 - When a symmetric encryption algorithm is used, ECB (Electronic Code Book) mode should not be used. Prefer an authenticated mode such as GCM.
 - For SSH, CBC mode should not be used.
 - Weak ciphers such as RC4, DES, Blowfish and two-key triple DES (2TDEA, 80-bit security) should not be used.
