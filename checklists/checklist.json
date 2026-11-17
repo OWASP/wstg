@@ -1122,6 +1122,16 @@
             "Understand how the payment functionality works.",
             "Determine whether the payment functionality is secure."
           ]
+        },
+        {
+          "name": "Denial of Inventory",
+          "id": "WSTG-BUSL-11",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/10-Business_Logic/11-Denial_of_Inventory",
+          "objectives": [
+            "Identify which actions remove business resources from availability.",
+            "Verify eligibility and aggregate allocation limits across reservation states and booking paths.",
+            "Demonstrate the effect on another eligible customer and verify recovery."
+          ]
         }
       ]
     },
