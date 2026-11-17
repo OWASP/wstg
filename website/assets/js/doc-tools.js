@@ -421,15 +421,46 @@
   }
 
   /**
-   * Keyboard shortcuts: ? for help, / for filter focus
+   * Keyboard shortcuts: ? for help, / for Contents filter, Left/Right for prev/next page
    */
   function setupKeyboardShortcuts() {
-    var helpMessage = 'Keyboard shortcuts:\n? - Show this help\n/ - Focus contents filter';
+    // Chrome lets arrow keys scroll the last-clicked scrollable box even while focus stays
+    // on <body>, so remember where the pointer last went down and skip the page shortcuts
+    // when that is inside something that scrolls horizontally (wide table, code block).
+    var lastPointerTarget = null;
+    document.addEventListener('pointerdown', function(e) {
+      lastPointerTarget = e.target;
+    }, true);
+
+    function inHorizontalScroller(node) {
+      for (var el = node; el && el.nodeType === 1 && el !== document.body; el = el.parentElement) {
+        if (el.scrollWidth > el.clientWidth) {
+          var ox = window.getComputedStyle(el).overflowX;
+          if (ox === 'auto' || ox === 'scroll') return true;
+        }
+      }
+      return false;
+    }
+
+    var helpMessage = 'Keyboard shortcuts:\n? - Show this help\n/ - Focus Contents filter (sidebar)\nCtrl/Cmd+K - Search the guide\n\u2190 / \u2192 - Previous / next page';
 
     document.addEventListener('keydown', function(e) {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
-      if (e.key === '?') {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+        // Plain arrows only; leave selects, editable regions, the search dialog and
+        // anything that already handled the key alone.
+        if (e.defaultPrevented || e.ctrlKey || e.metaKey || e.altKey || e.shiftKey) return;
+        if (e.target.tagName === 'SELECT' || e.target.isContentEditable) return;
+        if (inHorizontalScroller(lastPointerTarget)) return;
+        var searchDialog = document.getElementById('wstg-search');
+        if (searchDialog && !searchDialog.hidden) return;
+        var link = document.querySelector(e.key === 'ArrowLeft' ? '.doc-prev-next-prev' : '.doc-prev-next-next');
+        if (link && link.href) {
+          e.preventDefault();
+          window.location.href = link.href;
+        }
+      } else if (e.key === '?') {
         e.preventDefault();
         alert(helpMessage);
       } else if (e.key === '/') {

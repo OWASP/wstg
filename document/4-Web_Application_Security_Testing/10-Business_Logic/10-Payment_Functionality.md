@@ -267,7 +267,7 @@ for i in $(seq 1 20); do
   curl -s -X POST https://example.com/api/redeem-coupon \
     -H "Cookie: session=USER_SESSION" \
     -H "Content-Type: application/json" \
-    -d ‘{"code":"SINGLE-USE-CODE"}’ &
+    -d '{"code":"SINGLE-USE-CODE"}' &
 done
 wait
 ```
@@ -281,8 +281,8 @@ def queueRequests(target, wordlists):
                            requestsPerConnection=1,
                            pipeline=False)
     for i in range(20):
-        engine.queue(target.req, gate=’race’)
-    engine.openGate(‘race’)
+        engine.queue(target.req, gate='race')
+    engine.openGate('race')
 
 def handleResponse(req, interesting):
     table.add(req)
@@ -327,7 +327,7 @@ Ensure that the application correctly handles such cases and prevents exploitati
 
 - [HTTP Parameter Pollution](../07-Injection/04-HTTP_Parameter_Pollution.md)
 - [SQL Injection](../07-Injection/05-SQL_Injection.md)
-- [the Circumvention of Work Flows](06-Circumvention_of_Work_Flows.md)
+- [Circumvention of Work Flows](06-Circumvention_of_Work_Flows.md)
 
 ## Remediation
 

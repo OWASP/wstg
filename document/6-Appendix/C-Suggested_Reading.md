@@ -21,6 +21,10 @@
 - Writing Secure Code, by Mike Howard and David LeBlanc, published by Microsoft Press, ISBN 0735617228 (2004)
 - Secure Coding: Principles and Practices, by Mark Graff and Kenneth R. Van Wyk, published by O’Reilly, ISBN 0596002424 (2003)
 
+## Tutorials
+
+- [Practical sqlmap Guide by HackITA](https://en.hackita.it/articoli/sqlmap/) - A hands-on guide covering request handling, injection techniques, database enumeration, data extraction, tamper scripts, troubleshooting, and a local lab.
+
 ## Useful Sites
 
 - [CERT Secure Coding Standards](https://cmu-sei.github.io/secure-coding-standards/)

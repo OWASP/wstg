@@ -4,7 +4,9 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import html
+import json
 import re
 from pathlib import Path
 
@@ -255,6 +257,141 @@ def attach_hints(nodes: list[dict], doc_root: Path) -> None:
             attach_hints(children, doc_root)
 
 
+# --- Search index (Fuse.js) -------------------------------------------------
+
+EXCERPT_MAX = 240
+OBJECTIVES_MAX = 200
+HEADING_RE = re.compile(r"^#{1,6}\s+(.*?)\s*$")
+
+
+def strip_markdown(text: str) -> str:
+    """Reduce inline markdown to plain text."""
+    text = re.sub(r"!\[[^\]]*\]\([^)]*\)", "", text)
+    text = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", text)
+    text = re.sub(r"<[^>]+>", "", text)
+    text = re.sub(r"[`*_]{1,3}", "", text)
+    text = re.sub(r"^\s*(?:>|[-*+]|\d+\.)\s*", "", text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def truncate(text: str, limit: int) -> str:
+    if len(text) <= limit:
+        return text
+    cut = text[:limit].rsplit(" ", 1)[0].rstrip(" ,;:.-")
+    return cut + "…"
+
+
+def section_lines(text: str, heading: str) -> list[str]:
+    """Lines under the first heading whose text equals `heading` (case-insensitive)."""
+    lines = text.splitlines()
+    out: list[str] = []
+    inside = False
+    in_code = False
+    for line in lines:
+        if line.lstrip().startswith("```"):
+            in_code = not in_code
+            continue
+        if in_code:
+            continue
+        match = HEADING_RE.match(line)
+        if match:
+            if inside:
+                break
+            inside = match.group(1).strip().lower() == heading
+            continue
+        if inside:
+            out.append(line)
+    return out
+
+
+def extract_excerpt(text: str) -> str:
+    """First paragraph of ## Summary, else of the intro after the H1/ID table."""
+    lines = section_lines(text, "summary")
+    if not lines:
+        lines = []
+        started = False
+        for line in text.splitlines():
+            if HEADING_RE.match(line):
+                if started:
+                    break
+                started = True
+                continue
+            lines.append(line)
+    para: list[str] = []
+    for line in lines:
+        stripped = line.strip()
+        if not stripped or stripped.startswith(("|", ">")):
+            if para:
+                break
+            continue
+        para.append(stripped)
+    return truncate(strip_markdown(" ".join(para)), EXCERPT_MAX)
+
+
+def extract_objectives(text: str) -> str:
+    items = []
+    for line in section_lines(text, "test objectives"):
+        if re.match(r"^\s*(?:[-*+]|\d+\.)\s+", line):
+            items.append(strip_markdown(line))
+    return truncate("; ".join(items), OBJECTIVES_MAX)
+
+
+def build_search_records(nodes: list[dict], doc_root: Path) -> list[dict]:
+    """Flatten nav nodes (pages and ToC fragments) into lean search records."""
+    records: list[dict] = []
+
+    def walk(items: list[dict], crumb: str) -> None:
+        for node in items:
+            record: dict = {"t": node["title"], "u": node["url"]}
+            if crumb:
+                record["c"] = crumb
+            doc_path = resolve_doc_path(doc_root, node["url"])
+            text = (
+                doc_path.read_text(encoding="utf-8", errors="replace")
+                if doc_path is not None
+                else ""
+            )
+            if text and "#" not in node["url"]:
+                ids = extract_primary_ids(text)
+                if ids:
+                    record["i"] = " ".join(ids)
+                excerpt = extract_excerpt(text)
+                if excerpt:
+                    record["e"] = excerpt
+                objectives = extract_objectives(text)
+                if objectives:
+                    record["o"] = objectives
+            if node.get("hints"):
+                record["h"] = " ".join(node["hints"])
+            records.append(record)
+            walk(node.get("children") or [], crumb or node["title"])
+
+    walk(nodes, "")
+    return records
+
+
+def write_search_index(
+    records: list[dict], out_dir: Path, key: str, url_prefix: str
+) -> str:
+    """Write a content-hashed index; return its site-relative path."""
+    payload = json.dumps(
+        {"channel": url_prefix, "records": records},
+        ensure_ascii=False,
+        separators=(",", ":"),
+    )
+    digest = hashlib.sha1(payload.encode("utf-8")).hexdigest()[:8]
+    out_dir.mkdir(parents=True, exist_ok=True)
+    # Exact "<key>.<8 hex>.json" match, so a key can't clobber another channel's index
+    # (a glob like "<key>.*.json" would, if one key were a dotted prefix of another).
+    stale = re.compile(rf"^{re.escape(key)}\.[0-9a-f]{{8}}\.json$")
+    for old in out_dir.iterdir():
+        if stale.match(old.name):
+            old.unlink()
+    name = f"{key}.{digest}.json"
+    (out_dir / name).write_text(payload, encoding="utf-8")
+    return f"assets/search/{name}"
+
+
 def yaml_escape(value: str) -> str:
     return value.replace("'", "''")
 
@@ -277,9 +414,17 @@ def emit_yaml_nodes(nodes: list[dict], indent: int = 0) -> list[str]:
     return lines
 
 
-def generate_yaml(title: str, nodes: list[dict]) -> str:
+def generate_yaml(
+    title: str,
+    nodes: list[dict],
+    search_index: str | None = None,
+    search_example: str | None = None,
+) -> str:
     body = "\n".join(emit_yaml_nodes(nodes))
-    return f"docs_list_title: {title}\ndocs:\n\n{body}\n"
+    extra = f"search_index: {search_index}\n" if search_index else ""
+    if search_example:
+        extra += f"search_example: {search_example}\n"
+    return f"docs_list_title: {title}\n{extra}docs:\n\n{body}\n"
 
 
 def toc_h1_title(readme_text: str) -> str:
@@ -389,6 +534,15 @@ def main() -> None:
         help="Root of markdown content for ID scraping (default: readme parent)",
     )
     parser.add_argument(
+        "--search-example",
+        help="Example WSTG ID shown in search placeholders for this channel",
+    )
+    parser.add_argument(
+        "--search-out-dir",
+        type=Path,
+        help="Directory for the content-hashed search index JSON",
+    )
+    parser.add_argument(
         "--yaml-out",
         type=Path,
         required=True,
@@ -416,8 +570,19 @@ def main() -> None:
     attach_hints(nodes, doc_root)
     url_prefix = args.url_prefix if args.url_prefix else args.collection
 
+    search_index = None
+    if args.search_out_dir is not None:
+        search_index = write_search_index(
+            build_search_records(nodes, doc_root),
+            args.search_out_dir,
+            args.collection,
+            url_prefix,
+        )
+
     args.yaml_out.parent.mkdir(parents=True, exist_ok=True)
-    args.yaml_out.write_text(generate_yaml(args.title, nodes), encoding="utf-8")
+    args.yaml_out.write_text(
+        generate_yaml(args.title, nodes, search_index, args.search_example), encoding="utf-8"
+    )
 
     if args.html_out is not None:
         args.html_out.parent.mkdir(parents=True, exist_ok=True)

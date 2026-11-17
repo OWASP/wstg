@@ -82,7 +82,7 @@ UTF-7 encoding of
 
 ``` html
 <SCRIPT>
-    alert(‘XSS’);
+    alert('XSS');
 </SCRIPT>
 ```
 

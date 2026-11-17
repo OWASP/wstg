@@ -119,7 +119,7 @@ There are a large number of scanning tools that can be used to identify weakness
 - [sslscan](https://github.com/rbsec/sslscan)
 - [sslyze](https://github.com/nabla-c0d3/sslyze)
 - [SSL Labs](https://www.ssllabs.com/ssltest/)
-- [testssl.sh](https://github.com/drwetter/testssl.sh)
+- [testssl.sh](https://github.com/testssl/testssl.sh)
 
 ### Manual Testing
 

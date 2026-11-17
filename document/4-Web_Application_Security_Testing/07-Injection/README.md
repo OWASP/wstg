@@ -64,4 +64,12 @@
 
 4.7.23 [Insecure Deserialization](23-Insecure_Deserialization.md)
 
+4.7.24 [Server-side URL Redirect](24-Server-side_URL_Redirect.md)
+
 4.7.25 [Unicode Normalization and Case Mapping](25-Unicode_Normalization_and_Case_Mapping.md)
+
+4.7.26 [JSON Parser Differentials](26-JSON_Parser_Differentials.md)
+
+4.7.27 [Server-side Document Rendering Injection](27-Server-side_Document_Rendering_Injection.md)
+
+4.7.28 [Regular Expression Denial of Service](28-Regular_Expression_Denial_of_Service.md)

@@ -102,7 +102,7 @@
 
 #### 4.2.13 [Path Confusion](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/13-Path_Confusion.md)
 
-#### 4.2.14 [Other HTTP Security Header Misconfigurations](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/14-Other_HTTP_Security_Header_Misconfigurations.md)
+#### 4.2.14 [Additional Browser Security Controls](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/14-Additional_Browser_Security_Controls.md)
 
 #### 4.2.15 [Feature Flag Security Bypass](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/15-Feature_Flag_Security_Bypass.md)
 
@@ -140,7 +140,7 @@
 
 #### 4.4.10 [Weaker Authentication in Alternative Channel](4-Web_Application_Security_Testing/04-Authentication/10-Weaker_Authentication_in_Alternative_Channel.md)
 
-#### 4.4.11 [Multi-Factor Authentication](4-Web_Application_Security_Testing/04-Authentication/11-Multi-Factor_Authentication.md)
+#### 4.4.11 [Multi-Factor Authentication (MFA)](4-Web_Application_Security_Testing/04-Authentication/11-Multi-Factor_Authentication.md)
 
 #### 4.4.12 [SAML Authentication](4-Web_Application_Security_Testing/04-Authentication/12-SAML_Authentication.md)
 
@@ -250,7 +250,15 @@
 
 #### 4.7.23 [Insecure Deserialization](4-Web_Application_Security_Testing/07-Injection/23-Insecure_Deserialization.md)
 
+#### 4.7.24 [Server-side URL Redirect](4-Web_Application_Security_Testing/07-Injection/24-Server-side_URL_Redirect.md)
+
 #### 4.7.25 [Unicode Normalization and Case Mapping](4-Web_Application_Security_Testing/07-Injection/25-Unicode_Normalization_and_Case_Mapping.md)
+
+#### 4.7.26 [JSON Parser Differentials](4-Web_Application_Security_Testing/07-Injection/26-JSON_Parser_Differentials.md)
+
+#### 4.7.27 [Server-side Document Rendering Injection](4-Web_Application_Security_Testing/07-Injection/27-Server-side_Document_Rendering_Injection.md)
+
+#### 4.7.28 [Regular Expression Denial of Service](4-Web_Application_Security_Testing/07-Injection/28-Regular_Expression_Denial_of_Service.md)
 
 ### 4.8 [Error Handling](4-Web_Application_Security_Testing/08-Error_Handling/README.md)
 
@@ -292,11 +300,13 @@
 
 #### 4.10.10 [Payment Functionality](4-Web_Application_Security_Testing/10-Business_Logic/10-Payment_Functionality.md)
 
+#### 4.10.11 [Denial of Inventory](4-Web_Application_Security_Testing/10-Business_Logic/11-Denial_of_Inventory.md)
+
 ### 4.11 [Client-side](4-Web_Application_Security_Testing/11-Client-side/README.md)
 
 #### 4.11.1 [DOM-Based Cross Site Scripting](4-Web_Application_Security_Testing/11-Client-side/01-DOM-based_Cross_Site_Scripting.md)
 
-##### 4.11.1.1 [Self DOM Based Cross-Site Scripting](4-Web_Application_Security_Testing/11-Client-side/01.1-Self_DOM_Based_Cross_Site_Scripting.md)
+##### 4.11.1.1 [Self DOM Based Cross Site Scripting](4-Web_Application_Security_Testing/11-Client-side/01.1-Self_DOM_Based_Cross_Site_Scripting.md)
 
 #### 4.11.2 [JavaScript Execution](4-Web_Application_Security_Testing/11-Client-side/02-JavaScript_Execution.md)
 
@@ -328,6 +338,8 @@
 
 #### 4.11.16 [DOM Clobbering](4-Web_Application_Security_Testing/11-Client-side/16-DOM_Clobbering.md)
 
+#### 4.11.21 [DNS Rebinding](4-Web_Application_Security_Testing/11-Client-side/21-DNS_Rebinding.md)
+
 ### 4.12 [API Testing](4-Web_Application_Security_Testing/12-API_Testing/README.md)
 
 #### 4.12.0 [API Testing Overview](4-Web_Application_Security_Testing/12-API_Testing/00-API_Testing_Overview.md)
@@ -339,6 +351,8 @@
 #### 4.12.3 [Excessive Data Exposure](4-Web_Application_Security_Testing/12-API_Testing/03-Excessive_Data_Exposure.md)
 
 #### 4.12.4 [API Broken Function Level Authorization](4-Web_Application_Security_Testing/12-API_Testing/04-API_Broken_Function_Level_Authorization.md)
+
+#### 4.12.10 [gRPC](4-Web_Application_Security_Testing/12-API_Testing/10-gRPC.md)
 
 #### 4.12.99 [GraphQL](4-Web_Application_Security_Testing/12-API_Testing/99-GraphQL.md)
 
@@ -352,7 +366,7 @@
 
 ### 5.1 [Reporting Structure](5-Reporting/01-Reporting_Structure.md)
 
-### 5.2 [Naming Schemes](5-Reporting/02-Naming_Schemes.md)
+### 5.2 [Vulnerability Naming Schemes](5-Reporting/02-Naming_Schemes.md)
 
 ## Appendix A. [History](6-Appendix/A-History.md)
 

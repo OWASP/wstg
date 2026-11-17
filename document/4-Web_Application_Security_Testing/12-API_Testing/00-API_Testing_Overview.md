@@ -64,18 +64,22 @@ The **fragment** indicates a specific part of the resource, such as a section wi
 
 ### HTTP Methods
 
-REST APIs use standard HTTP methods to perform operations on resources following the [HTTP Request Methods](https://datatracker.ietf.org/doc/html/rfc9110#section-9) defined in [RFC 9110](https://datatracker.ietf.org/doc/html/rfc9110). These methods map to CRUD, the four basic functions of persistent storage in computer science. CRUD stands for Create, Read, Update, and Delete, which are the four operations that can be performed on data.
+REST APIs use standard HTTP methods to perform operations on resources following the [HTTP Methods](../02-Configuration_and_Deployment_Management/06-HTTP_Methods.md) defined in [RFC 9110](https://datatracker.ietf.org/doc/html/rfc9110), [RFC 5789](https://datatracker.ietf.org/doc/html/rfc5789), and [RFC 10008](https://datatracker.ietf.org/doc/html/rfc10008). These methods map to CRUD, the four basic functions of persistent storage in computer science. CRUD stands for Create, Read, Update, and Delete, which are the four operations that can be performed on data.
 
-HTTP Request Methods are:
+The HTTP Request Methods used in REST are generally:
 
-| Methods | Description                                   |
-|---------|-----------------------------------------------|
-| GET     | Get the representation of resource’s state    |
-| POST    | Create a new resource                         |
-| PUT     | Update a resource                             |
-| DELETE  | Remove a resource                             |
-| HEAD    | Get metadata associated with resource’s state |
-| OPTIONS | List available methods                        |
+| Methods | Description                                         |
+| ------- | --------------------------------------------------- |
+| GET     | Get the representation of resource’s state          |
+| QUERY   | Query resources with complex parameters             |
+| POST    | Create a new resource                               |
+| PUT     | Create or replace a resource, defined as idempotent |
+| PATCH   | Update particular fields of a resource              |
+| DELETE  | Remove a resource                                   |
+| HEAD    | Get metadata associated with resource’s state       |
+| OPTIONS | List available methods                              |
+
+Not all REST APIs use all of these methods or use them as defined by their RFCs, so it is important to determine how exactly each method is used for testing. Notably `PUT` is not always implemented as idempotent; this can be tested by repeating the request and observing whether the resource ends up in the same state, for example ensuring that no duplicate is created.
 
 #### Headers
 
