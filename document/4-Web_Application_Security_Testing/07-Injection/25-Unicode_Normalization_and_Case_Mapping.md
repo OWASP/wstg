@@ -15,7 +15,7 @@ These transformations are a problem when they run after a security check. A filt
 
 The same problem appears when two components transform input differently, for example a web application firewall that does not normalize in front of an application that does, or a front end and a back end that use different normalization forms.
 
-When different identifiers, such as usernames or email addresses, become the same value after normalization or case mapping, the risk is account collision and takeover. That is a separate issue and is not covered here.
+When different identifiers, such as usernames or email addresses, become the same value after normalization or case mapping, the risk is account collision and takeover. That is covered in [Account Enumeration and Guessable User Account](../03-Identity_Management/04-Account_Enumeration_and_Guessable_User_Account.md).
 
 ## Test Objectives
 
@@ -97,6 +97,7 @@ Find inputs with a maximum length, and submit values within the limit that becom
 - [Stored Cross Site Scripting](02-Stored_Cross_Site_Scripting.md)
 - [SQL Injection](05-SQL_Injection.md)
 - [Directory Traversal and File Include](../05-Authorization/01-Directory_Traversal_File_Include.md)
+- [Account Enumeration and Guessable User Account](../03-Identity_Management/04-Account_Enumeration_and_Guessable_User_Account.md)
 
 ## Remediation
 
