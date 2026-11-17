@@ -879,6 +879,16 @@
           ]
         },
         {
+          "name": "Server-side Document Rendering Injection",
+          "id": "WSTG-INJT-27",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/07-Injection/27-Server-side_Document_Rendering_Injection",
+          "objectives": [
+            "Identify features that render user-controlled content into documents or images on the server.",
+            "Identify the rendering engine and determine whether it processes HTML, CSS, JavaScript, external resources or style sheets supplied by the user.",
+            "Assess whether the renderer can be used to read local files, reach internal services or run code."
+          ]
+        },
+        {
           "name": "Regular Expression Denial of Service",
           "id": "WSTG-INJT-28",
           "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/07-Injection/28-Regular_Expression_Denial_of_Service",
