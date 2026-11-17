@@ -64,6 +64,8 @@
 
 4.7.23 [Insecure Deserialization](23-Insecure_Deserialization.md)
 
+4.7.24 [Server-side URL Redirect](24-Server-side_URL_Redirect.md)
+
 4.7.26 [JSON Parser Differentials](26-JSON_Parser_Differentials.md)
 
 4.7.27 [Server-side Document Rendering Injection](27-Server-side_Document_Rendering_Injection.md)
