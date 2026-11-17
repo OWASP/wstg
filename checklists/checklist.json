@@ -294,7 +294,8 @@
           "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/03-Identity_Management/04-Account_Enumeration_and_Guessable_User_Account",
           "objectives": [
             "Review processes that pertain to user identification (*e.g.* registration, login, etc.).",
-            "Enumerate users where possible through response analysis."
+            "Enumerate users where possible through response analysis.",
+            "Determine whether look-alike or differently normalized identifiers can impersonate, duplicate or take over an existing account."
           ]
         },
         {
