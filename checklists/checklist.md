@@ -116,6 +116,7 @@ The following is the list of items to test during the assessment:
 | WSTG-BUSL-08      | Upload of Unexpected File Types                                            |        |       |
 | WSTG-BUSL-09      | Upload of Malicious Files                                                  |        |       |
 | WSTG-BUSL-10      | Payment Functionality                                                      |        |       |
+| WSTG-BUSL-11      | Denial of Inventory                                                        |        |       |
 | **WSTG-CLNT**     | **Client-side**                                                            |        |       |
 | WSTG-CLNT-01      | DOM-Based Cross Site Scripting                                             |        |       |
 | WSTG-CLNT-02      | JavaScript Execution                                                       |        |       |
