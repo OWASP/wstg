@@ -1132,7 +1132,8 @@
           "objectives": [
             "Determine whether the business logic for the e-commerce functionality is robust.",
             "Understand how the payment functionality works.",
-            "Determine whether the payment functionality is secure."
+            "Determine whether the payment functionality is secure.",
+            "Determine whether concurrent requests can bypass limits, reuse single-use values or reach states the workflow should not allow."
           ]
         },
         {
