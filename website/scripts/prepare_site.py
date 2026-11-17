@@ -28,7 +28,8 @@ GENERATE_NAV = Path(__file__).resolve().parent / "generate_nav.py"
 CURRENT_STABLE = "v4.2"
 STABLE_ALIAS = "stable"
 
-# (disk/url path, data key, nav title, git tag or None for working tree)
+# (disk/url path, data key, nav title, git tag or None for working tree, and a
+# search_example: a real SQL Injection ID in that channel, used as search placeholder text)
 CHANNELS = (
     {
         "path": "latest",
@@ -36,6 +37,7 @@ CHANNELS = (
         "title": "WSTG Contents",
         "label": "Latest",
         "tag": None,
+        "search_example": "WSTG-INJT-05",
     },
     {
         "path": "v4.2",
@@ -43,6 +45,7 @@ CHANNELS = (
         "title": "WSTG Contents (v4.2)",
         "label": "v4.2",
         "tag": "v4.2",
+        "search_example": "WSTG-INPV-05",
     },
     {
         "path": "v4.1",
@@ -50,6 +53,7 @@ CHANNELS = (
         "title": "WSTG Contents (v4.1)",
         "label": "v4.1",
         "tag": "v4.1",
+        "search_example": "WSTG-INPV-05",
     },
 )
 
@@ -69,16 +73,55 @@ CONTENT_RENAMES = (
 )
 
 
-def front_matter(key: str, label: str, path: str) -> str:
-    return (
-        "---\n"
-        "layout: document\n"
-        f"title: WSTG - {label}\n"
-        f"collection_name: {key}\n"
-        f"channel_label: {label}\n"
-        f"channel_path: {path}\n"
-        "render_with_liquid: false\n"
-        "---\n\n"
+def front_matter(
+    key: str,
+    label: str,
+    path: str,
+    *,
+    title: str | None = None,
+    extra: tuple[str, ...] = (),
+) -> str:
+    lines = [
+        "---",
+        "layout: document",
+        f"title: {title or f'WSTG - {label}'}",
+        f"collection_name: {key}",
+        f"channel_label: {label}",
+        f"channel_path: {path}",
+        "render_with_liquid: false",
+        *extra,
+        "---",
+    ]
+    return "\n".join(lines) + "\n\n"
+
+
+SEARCH_PAGE_HTML = """<div id="wstg-search-page" class="wstg-search-page" data-search-page>
+  <form class="wstg-search-form" role="search" method="get" action="">
+    <label class="sr-only" for="wstg-search-page-input">Search the guide</label>
+    <input id="wstg-search-page-input" class="wstg-search-input" type="search" name="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Search topics or IDs (XSS, sqli, __EXAMPLE_ID__)">
+    <button type="submit" class="wstg-search-submit">Search</button>
+  </form>
+  <h1 id="wstg-search-page-heading" class="wstg-search-page-heading">Search</h1>
+  <p id="wstg-search-page-status" class="wstg-search-status" role="status" aria-live="polite"></p>
+  <ol id="wstg-search-page-results" class="wstg-search-page-results"></ol>
+  <noscript><p>Search needs JavaScript. Use the contents menu instead.</p></noscript>
+</div>
+"""
+
+
+def write_search_page(
+    channel_root: Path, key: str, label: str, path: str, example_id: str
+) -> None:
+    """Search results page at /<channel>/search/ (same document layout as the guide;
+    results rendered by search.js). The placeholder shows an ID valid for this channel."""
+    out = channel_root / "search" / "index.md"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    matter = front_matter(
+        key, label, path, title="Search", extra=("sitemap: false",)
+    )
+    out.write_text(
+        matter + SEARCH_PAGE_HTML.replace("__EXAMPLE_ID__", example_id),
+        encoding="utf-8",
     )
 
 
@@ -220,6 +263,7 @@ def run_generate_nav(
     key: str,
     url_prefix: str,
     doc_root: Path,
+    search_example: str,
 ) -> None:
     subprocess.run(
         [
@@ -234,6 +278,10 @@ def run_generate_nav(
             url_prefix,
             "--doc-root",
             str(doc_root),
+            "--search-example",
+            search_example,
+            "--search-out-dir",
+            str(WEBSITE / "assets" / "search"),
             "--yaml-out",
             str(WEBSITE / "_data" / f"{key}.yaml"),
             "--html-out",
@@ -264,7 +312,12 @@ def prepare_channel(channel: dict) -> Path:
         raise SystemExit(f"Missing ToC at {toc}")
 
     run_generate_nav(
-        toc=toc, title=title, key=key, url_prefix=path, doc_root=dest
+        toc=toc,
+        title=title,
+        key=key,
+        url_prefix=path,
+        doc_root=dest,
+        search_example=channel["search_example"],
     )
     readme_to_index(dest)
     for md in dest.rglob("*.md"):
@@ -275,6 +328,7 @@ def prepare_channel(channel: dict) -> Path:
     matter = front_matter(key, label, path)
     for md in dest.rglob("*.md"):
         prepend_front_matter(md, matter)
+    write_search_page(dest, key, label, path, channel["search_example"])
 
     print(f"Prepared {dest} (key={key}, tag={tag or 'working-tree'})")
     return dest

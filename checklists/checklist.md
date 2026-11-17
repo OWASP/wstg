@@ -30,7 +30,7 @@ The following is the list of items to test during the assessment:
 | WSTG-CONF-11      | Cloud Storage                                                              |        |       |
 | WSTG-CONF-12      | Content Security Policy                                                    |        |       |
 | WSTG-CONF-13      | Path Confusion                                                             |        |       |
-| WSTG-CONF-14      | Other HTTP Security Header Misconfigurations                               |        |       |
+| WSTG-CONF-14      | Additional Browser Security Controls                                       |        |       |
 | WSTG-CONF-15      | Feature Flag Security Bypass                                               |        |       |
 | **WSTG-IDNT**     | **Identity Management**                                                    |        |       |
 | WSTG-IDNT-01      | Role Definitions                                                           |        |       |
@@ -93,6 +93,10 @@ The following is the list of items to test during the assessment:
 | WSTG-INJT-21      | CSV Injection                                                              |        |       |
 | WSTG-INJT-22      | Prototype Pollution                                                        |        |       |
 | WSTG-INJT-23      | Insecure Deserialization                                                   |        |       |
+| WSTG-INJT-24      | Server-side URL Redirect                                                   |        |       |
+| WSTG-INJT-26      | JSON Parser Differentials                                                  |        |       |
+| WSTG-INJT-27      | Server-side Document Rendering Injection                                   |        |       |
+| WSTG-INJT-28      | Regular Expression Denial of Service                                       |        |       |
 | **WSTG-ERRH**     | **Error Handling**                                                         |        |       |
 | WSTG-ERRH-01      | Improper Error Handling                                                    |        |       |
 | WSTG-ERRH-02      | Stack Traces                                                               |        |       |
@@ -128,11 +132,13 @@ The following is the list of items to test during the assessment:
 | WSTG-CLNT-14      | Reverse Tabnabbing                                                         |        |       |
 | WSTG-CLNT-15      | Client-side Template Injection                                             |        |       |
 | WSTG-CLNT-16      | DOM Clobbering                                                             |        |       |
+| WSTG-CLNT-21      | DNS Rebinding                                                              |        |       |
 | **WSTG-APIT**     | **API Testing**                                                            |        |       |
 | WSTG-APIT-01      | API Reconnaissance                                                         |        |       |
 | WSTG-APIT-02      | API Broken Object Level Authorization                                      |        |       |
 | WSTG-APIT-03      | Excessive Data Exposure                                                    |        |       |
 | WSTG-APIT-04      | API Broken Function Level Authorization                                    |        |       |
+| WSTG-APIT-10      | gRPC                                                                       |        |       |
 | WSTG-APIT-99      | GraphQL                                                                    |        |       |
 | **WSTG-WASM**     | **WebAssembly Testing**                                                    |        |       |
 | WSTG-WASM-01      | WebAssembly Reconnaissance                                                 |        |       |

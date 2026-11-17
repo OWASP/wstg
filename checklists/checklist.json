@@ -230,13 +230,14 @@
           ]
         },
         {
-          "name": "Other HTTP Security Header Misconfigurations",
+          "name": "Additional Browser Security Controls",
           "id": "WSTG-CONF-14",
-          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/14-Other_HTTP_Security_Header_Misconfigurations",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/14-Additional_Browser_Security_Controls",
           "objectives": [
             "Identify improperly configured security headers.",
             "Assess the impact of misconfigured security headers.",
-            "Validate the correct implementation of required security headers."
+            "Validate the correct implementation of required security headers.",
+            "Identify third-party scripts and style sheets and determine whether they are pinned with Subresource Integrity."
           ]
         },
         {
@@ -790,6 +791,7 @@
             "Detect classic CL/TE desynchronization vulnerabilities",
             "Evaluate protocol translation logic (HTTP/2 → HTTP/1.1)",
             "Assess H2C upgrade handling and downgrade safety",
+            "Identify endpoints that ignore the request body (CL.0) and whether a browser can be made to desynchronize its own connection",
             "Confirm backend request queue poisoning"
           ]
         },
@@ -864,6 +866,46 @@
             "Assess whether serialized input is validated or restricted prior to deserialization.",
             "Evaluate whether manipulation of serialized data leads to unsafe behavior or security",
             "pact."
+          ]
+        },
+        {
+          "name": "Server-side URL Redirect",
+          "id": "WSTG-INJT-24",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/07-Injection/24-Server-side_URL_Redirect",
+          "objectives": [
+            "Identify request parameters, path segments and headers that control a redirect or forward.",
+            "Assess whether the validation of redirect targets can be bypassed to reach an external site.",
+            "Assess whether a redirect can be used to run script, or chained with OAuth, SSO or SSRF."
+          ]
+        },
+        {
+          "name": "JSON Parser Differentials",
+          "id": "WSTG-INJT-26",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/07-Injection/26-JSON_Parser_Differentials",
+          "objectives": [
+            "Identify places where the same JSON document is parsed by more than one component.",
+            "Determine whether those components disagree on duplicate keys, key matching, invalid characters, non-standard syntax, numbers or trailing data.",
+            "Assess whether a disagreement lets a request pass a check with one value and be processed with another."
+          ]
+        },
+        {
+          "name": "Server-side Document Rendering Injection",
+          "id": "WSTG-INJT-27",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/07-Injection/27-Server-side_Document_Rendering_Injection",
+          "objectives": [
+            "Identify features that render user-controlled content into documents or images on the server.",
+            "Identify the rendering engine and determine whether it processes HTML, CSS, JavaScript, external resources or style sheets supplied by the user.",
+            "Assess whether the renderer can be used to read local files, reach internal services or run code."
+          ]
+        },
+        {
+          "name": "Regular Expression Denial of Service",
+          "id": "WSTG-INJT-28",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/07-Injection/28-Regular_Expression_Denial_of_Service",
+          "objectives": [
+            "Identify inputs that are validated or processed with regular expressions.",
+            "Determine whether any of those regular expressions take super-linear time on crafted input.",
+            "Determine whether users can supply their own regular expressions and whether those are run with any limits."
           ]
         }
       ]
@@ -1117,7 +1159,8 @@
           "id": "WSTG-CLNT-03",
           "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/11-Client-side/03-HTML_Injection",
           "objectives": [
-            "Identify HTML injection points and assess the severity of the injected content."
+            "Identify HTML injection points and assess the severity of the injected content.",
+            "Assess what injected markup can do when script execution is blocked, for example by a Content Security Policy."
           ],
           "cre_ids": [
             "542-445"
@@ -1248,6 +1291,16 @@
             "Identify scripts that read global variables, `document` properties, or form properties that may be undefined, and pass them to sensitive operations.",
             "Assess whether clobbering those references changes the behavior of the application."
           ]
+        },
+        {
+          "name": "DNS Rebinding",
+          "id": "WSTG-CLNT-21",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/11-Client-side/21-DNS_Rebinding",
+          "objectives": [
+            "Identify services in scope that are reachable only from the local machine or an internal network and are used from a browser.",
+            "Determine whether those services accept requests with an unexpected `Host` header and without authentication.",
+            "Determine whether server-side URL fetching can be redirected to internal addresses by changing DNS answers between validation and use."
+          ]
         }
       ]
     },
@@ -1288,6 +1341,17 @@
           "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/12-API_Testing/04-API_Broken_Function_Level_Authorization",
           "objectives": [
             "The goal of this test is to determine if the API enforces **role or privilege-based access control** to restrict users from accessing or executing functions they are not authorized to use. This ensures that function-level security boundaries are properly enforced."
+          ]
+        },
+        {
+          "name": "gRPC",
+          "id": "WSTG-APIT-10",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/12-API_Testing/10-gRPC",
+          "objectives": [
+            "Identify gRPC and gRPC-Web endpoints and recover the service definitions.",
+            "Determine whether reflection and built-in services expose information that should not be public.",
+            "Assess whether authentication and authorization are enforced for every method, call type, and entry point.",
+            "Assess how the service handles unexpected message content, sizes, and errors."
           ]
         },
         {
