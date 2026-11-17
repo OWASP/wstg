@@ -1313,6 +1313,16 @@
           ]
         },
         {
+          "name": "Client-side Path Traversal",
+          "id": "WSTG-CLNT-19",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/11-Client-side/19-Client-side_Path_Traversal",
+          "objectives": [
+            "Identify inputs that reach the path of a client-side request.",
+            "Determine which unintended endpoints, methods, and actions those inputs can reach.",
+            "Assess the impact, including bypass of anti-CSRF defenses and escalation to Cross Site Scripting."
+          ]
+        },
+        {
           "name": "DNS Rebinding",
           "id": "WSTG-CLNT-21",
           "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/11-Client-side/21-DNS_Rebinding",
