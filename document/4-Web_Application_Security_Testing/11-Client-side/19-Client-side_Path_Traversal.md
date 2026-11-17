@@ -17,7 +17,7 @@ A useful way to frame the vulnerability is as a source and a sink:
 
 The following figure shows the basic flow.
 
-[![CSPT2CSRF flow](images/11-cspt2csrf_flow.svg "A source value traverses into an unintended same-origin endpoint")](https://blog.doyensec.com/2024/07/02/cspt2csrf.html)\
+![CSPT2CSRF flow](images/11-cspt2csrf_flow.svg "A source value traverses into an unintended same-origin endpoint")\
 *Figure 4.11.19-1: A client-side path traversal redirecting a same-origin request to an unintended endpoint*
 
 ## Test Objectives
@@ -52,7 +52,7 @@ How the input is encoded decides whether the traversal happens in the browser or
 - A percent-encoded separator, such as `%2f` or `%5c`, is not decoded by the browser and is sent literally. Such a payload only traverses if the server or framework later decodes and normalizes it, so test it against the back end rather than assuming a client-side effect.
 - When the value walks downward first, the dot-segment arithmetic still applies: `foo/../profile` sent to `/api/notes/<id>` resolves to `/api/notes/profile`.
 
-The way the request URL is built also matters. When the path is assembled by string concatenation, a leading `/` in the input is just another path segment and does not escape the base. When the application builds the URL with `new URL(id, base)` and the input is the relative reference, a leading `/` produces a host-absolute path and gives the attacker full control of the path, and a value that starts with `//`, such as `//attacker.example/x`, changes the host as well. The request then goes to the attacker's server with any headers the application adds, such as a bearer token. Identify which pattern the application uses.
+The way the request URL is built also matters. When the path is assembled by string concatenation, a leading `/` in the input is just another path segment and does not escape the base. When the application passes the input on its own as the first argument of `new URL(input, base)`, the input is resolved as a URL reference against the base: a leading `/` replaces the base's path, a value that starts with `//`, such as `//attacker.example/x`, replaces the host as well, and a value with a scheme, such as `https://attacker.example/x`, replaces the whole URL. The request then goes to the attacker's server. If the application adds a header such as a bearer token, the browser first sends a CORS preflight, which the attacker's server can approve, so the token is sent with the request. Identify which pattern the application uses.
 
 ### Assess the Sink and Impact
 
