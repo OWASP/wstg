@@ -997,7 +997,8 @@
           "id": "WSTG-CRYP-04",
           "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/09-Weak_Cryptography/04-Weak_Cryptographic_Primitives",
           "objectives": [
-            "Provide a guideline for the identification weak encryption or hashing uses and implementations."
+            "Provide a guideline for the identification weak encryption or hashing uses and implementations.",
+            "Identify weak digital signature algorithms and missing or incorrect signature verification."
           ],
           "cre_ids": [
             "170-772",
