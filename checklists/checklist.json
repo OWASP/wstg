@@ -1335,6 +1335,17 @@
           ]
         },
         {
+          "name": "Service Workers",
+          "id": "WSTG-CLNT-20",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/11-Client-side/20-Service_Workers",
+          "objectives": [
+            "Identify the service workers an application registers and the scope each one controls.",
+            "Determine whether an attacker can influence which script is registered, its scope, or the scripts it loads.",
+            "Assess whether the worker's cache and fetch handling can expose or substitute sensitive responses.",
+            "Determine whether a worker keeps running after logout or after a vulnerability is fixed."
+          ]
+        },
+        {
           "name": "DNS Rebinding",
           "id": "WSTG-CLNT-21",
           "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/11-Client-side/21-DNS_Rebinding",
