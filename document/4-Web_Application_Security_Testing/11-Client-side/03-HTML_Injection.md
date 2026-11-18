@@ -225,18 +225,13 @@ The laboratory demonstrated authenticated profile changes through both HTML Inje
 
 Although `Origin` validation may appear sufficient against conventional cross-origin CSRF attacks, an HTML Injection vulnerability within the trusted origin can allow attacker-controlled forms to pass that check and, depending on sensitive account functionality, potentially lead to HTMLi2ATO. XSS can also automate such operations after JavaScript execution. Origin validation alone cannot establish whether same-origin content or requests are trustworthy.
 
-#### Additional Testing Guidance
-
-For more information, see:
-
-- [Testing for Cross Site Request Forgery](../06-Session_Management/05-Cross_Site_Request_Forgery.md)
-- [Testing for Reflected Cross Site Scripting](../07-Injection/01-Reflected_Cross_Site_Scripting.md)
-- [Testing for Stored Cross Site Scripting](../07-Injection/02-Stored_Cross_Site_Scripting.md)
-
 ## Related Test Cases
 
 - [CSS Injection](05-CSS_Injection.md): exfiltrating data with styles when scripts are blocked.
 - [DOM Clobbering](16-DOM_Clobbering.md): using injected `id` and `name` attributes to change how existing scripts behave.
+- [Cross Site Request Forgery](../06-Session_Management/05-Cross_Site_Request_Forgery.md)
+- [Reflected Cross Site Scripting](../07-Injection/01-Reflected_Cross_Site_Scripting.md)
+- [Stored Cross Site Scripting](../07-Injection/02-Stored_Cross_Site_Scripting.md)
 
 ## Remediation
 
