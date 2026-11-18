@@ -79,7 +79,7 @@ Once we have identified that the application is using WebSockets (as described a
 
 #### Cross-Origin Handshake Client
 
-Using a WebSocket client (one can be found in the Tools section below) attempt to connect to the remote WebSocket server. If the connection is allowed the WebSocket server may not be checking the WebSocket handshake's origin header. Attempt to replay requests previously intercepted to verify that cross-domain WebSocket communication is possible.
+A standalone WebSocket client (one can be found in the Tools section below) is useful for manual protocol testing, such as replaying intercepted handshakes and messages and trying different `Origin` values. It can set any `Origin` header, so a successful connection from it cannot establish Cross-Site WebSocket Hijacking. Use the browser-based cross-origin test in the Origin step above to confirm it.
 
 ![WebSocket Client](images/11-websocket_client.png)\
 *Figure 4.11.10-2: WebSocket Client*
