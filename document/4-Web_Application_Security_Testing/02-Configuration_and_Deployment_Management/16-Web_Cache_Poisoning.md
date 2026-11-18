@@ -6,7 +6,7 @@
 
 ## Summary
 
-Web caches and CDNs store responses so later requests can be served without contacting the origin. A cache keys each stored response on a subset of the request: typically the method, scheme, host, and path, sometimes selected headers, cookies, or query parameters. Anything that changes the origin response but is absent from that key is an unkeyed input.
+Web caches and CDNs store responses so later requests can be served without contacting the origin. A cache keys each stored response on a subset of the request: typically the method, scheme, host, path, and query string, sometimes selected headers, cookies, or further query parameters. Anything that changes the origin response but is absent from that key is an unkeyed input.
 
 Web cache poisoning occurs when an attacker supplies an unkeyed input that makes the origin emit a malicious or incorrect response, and the cache stores that response under a key that ordinary users later request. Impacts include stored XSS, open redirects, denial of service through cached errors or empty bodies, and leakage of authenticated content into a shared cache.
 
@@ -31,11 +31,12 @@ Perform these tests only against assets you own or have written authorization to
 
 1. Choose a target URL that returns a stable body and is likely static or semi-static.
 2. Append a unique cache-buster query parameter that the application ignores, for example `?wstg_cb=<random>`.
-3. Request the URL twice with the same buster. Compare:
+3. Before trusting the buster, confirm it is part of the cache key: request the same path with two different buster values. Both should miss (or otherwise stay independent). If the second buster is a hit of the first, the CDN is dropping the query string from the key for that resource, and every later "isolated" probe can poison the real URL. Stop and use a different path or a keyed input instead.
+4. Request the URL twice with the same buster. Compare:
    - Status and body.
    - `Age`, `X-Cache`, `CF-Cache-Status`, `X-Cache-Status`, `X-Drupal-Cache`, or equivalent.
    - `Cache-Control`, `Expires`, `Vary`, `ETag`, and `Last-Modified`.
-4. A rising `Age`, a hit/miss transition, or an identical body served faster on the second request indicates a cache is participating.
+5. A rising `Age`, a hit/miss transition, or an identical body served faster on the second request indicates a cache is participating.
 
 ### 2. Discover the Cache Key
 
@@ -43,7 +44,7 @@ Do not send a baseline request first under the same cache-buster. If the baselin
 
 For each candidate input:
 
-1. Choose a fresh cache-buster that has not been requested before.
+1. Choose a fresh cache-buster that has not been requested before and that step 1 showed is keyed.
 2. Send the mutated request first (cache miss) so it reaches the origin, changing only one candidate input.
 3. Send a clean request with that same cache-buster and no mutation.
 4. Fetch a baseline response with a separate cache-buster for comparison.
@@ -60,7 +61,8 @@ Candidate unkeyed inputs to try one at a time:
 - Content negotiation and routing: `Accept`, `Accept-Language`, `Accept-Encoding`, `Accept-Version`, custom API version headers.
 - Method overrides: `X-HTTP-Method-Override`, `X-HTTP-Method`, `X-Method-Override` on a GET that the origin treats as HEAD or another method.
 - Cookies that change page content but may be absent from the cache key.
-- Harmless duplicate or oversized header chains that can cause an intermediary to stop parsing later keyed headers. Increase size gradually and stop at the agreed lab limit.
+- Query parameters the cache may exclude from the key while the origin still reads them: marketing parameters such as `utm_source`, `utm_campaign`, `fbclid`, and parameter-cloaking forms that append or duplicate a keyed parameter after an excluded one.
+- Fatally large or duplicate header chains that the cache accepts but the origin rejects. That is [cache-poisoned denial of service (CPDoS)](https://cpdos.org/), not a harmless canary. Use only unique cache-busted URLs, increase size gradually, and stop at the agreed lab limit.
 
 ### 3. Validate With Harmless Canaries
 
