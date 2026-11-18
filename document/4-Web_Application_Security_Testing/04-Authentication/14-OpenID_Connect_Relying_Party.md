@@ -60,16 +60,16 @@ Also send the access token to the UserInfo endpoint, then present UserInfo claim
 
 OIDC email claims are not a stable account primary key.
 
-1. **Unverified email:** With a lab OP that can omit or set `email_verified=false`, attempt login or linking. The RP must not create or merge an account solely from an unverified email.
-2. **Pre-account collision:** Register a local account using tester B's email if the RP allows unverified registration. Before B verifies, attach tester A's OP identity to that account. After B verifies or recovers the account, A's OP login must not remain attached unless B explicitly re-links it.
-3. **Login CSRF / confused-deputy linking:** Authenticate to the RP as victim account V. In a separate browser (or private profile) authenticate to the OP as attacker A and start "connect external identity" or an OP login that produces an authorization `code` and `state` bound to A's OP session. Deliver that callback URL to V's browser so V's RP session completes the redirect. Secure behavior rejects the callback itself, because its `state` (and `nonce` or PKCE verifier) belongs to a transaction started in a different browser or session. Check the callback response, not only the final account association: it should be an error, with no session change and no identity attached. Also repeat the test with the callback delivered to a browser that has no RP session. The linking or login transaction must be bound to the same user agent and RP session that started it, not only to a bearer `state` value an attacker can move between browsers.
-4. **Identifier change:** Change the local account email from address X to Y, then attempt old email-verification, reset, or linking tokens minted for X. They must be invalid after the identity transition.
-5. **Stable subject:** Prefer `(iss, sub)`. Two OPs asserting the same email must not merge accounts automatically.
+1. Unverified email: With a lab OP that can omit or set `email_verified=false`, attempt login or linking. The RP must not create or merge an account solely from an unverified email.
+2. Pre-account collision: Register a local account using tester B's email if the RP allows unverified registration. Before B verifies, attach tester A's OP identity to that account. After B verifies or recovers the account, A's OP login must not remain attached unless B explicitly re-links it.
+3. Login CSRF / confused-deputy linking: Authenticate to the RP as victim account V. In a separate browser (or private profile) authenticate to the OP as attacker A and start "connect external identity" or an OP login that produces an authorization `code` and `state` bound to A's OP session. Deliver that callback URL to V's browser so V's RP session completes the redirect. Secure behavior rejects the callback itself, because its `state` (and `nonce` or PKCE verifier) belongs to a transaction started in a different browser or session. Check the callback response, not only the final account association: it should be an error, with no session change and no identity attached. Also repeat the test with the callback delivered to a browser that has no RP session. The linking or login transaction must be bound to the same user agent and RP session that started it, not only to a bearer `state` value an attacker can move between browsers.
+4. Identifier change: Change the local account email from address X to Y, then attempt old email-verification, reset, or linking tokens minted for X. They must be invalid after the identity transition.
+5. Stable subject: Prefer `(iss, sub)`. Two OPs asserting the same email must not merge accounts automatically.
 
 ### Session Creation and Step-Up
 
 1. Confirm the RP creates its own session after validating the ID Token, and that logout or password change invalidates that session.
-2. If MFA is required for local password login, attempt OP login paths that skip MFA. See [Multi-Factor Authentication](11-Multi-Factor_Authentication.md).
+2. If MFA is required for local password login, attempt OP login paths that skip MFA. See [Multi-Factor Authentication (MFA)](11-Multi-Factor_Authentication.md).
 3. If the RP requests step-up with `acr_values` or a recent login with `max_age`, inspect the resulting ID Token. The RP must reject tokens that omit or under-assert the required `acr` / `amr` values, or whose `auth_time` is older than `max_age`.
 4. Confirm logout at the RP does not leave a reusable RP-side artifact that silently re-creates a session from a still-valid OP cookie without revalidation when that behavior is not intended.
 
@@ -80,7 +80,7 @@ OIDC email claims are not a stable account primary key.
 - [OAuth Client Weaknesses](../05-Authorization/05.2-OAuth_Client_Weaknesses.md)
 - [JSON Web Tokens](../06-Session_Management/10-JSON_Web_Tokens.md)
 - [Weak Password Change or Reset Functionalities](09-Weak_Password_Change_or_Reset_Functionalities.md)
-- [Multi-Factor Authentication](11-Multi-Factor_Authentication.md)
+- [Multi-Factor Authentication (MFA)](11-Multi-Factor_Authentication.md)
 - [SAML Authentication](12-SAML_Authentication.md)
 - [Passkeys and WebAuthn](13-Passkeys_and_WebAuthn.md)
 

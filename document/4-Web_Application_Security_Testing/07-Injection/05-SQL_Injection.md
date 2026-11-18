@@ -77,9 +77,9 @@ Monitor all the responses from the web server and have a look at the HTML/JavaSc
 
 #### SQL Injection Through Parameter Names
 
-Most SQL injection tests mutate parameter _values_. Some handlers also build SQL identifiers from attacker-controlled _names_: form field names, query-string keys, JSON property names, or CSV/XML element names that become column lists in `INSERT`, `UPDATE`, or `ORDER BY` clauses.
+Most SQL injection tests mutate parameter values. Some handlers also build SQL identifiers from attacker-controlled names: form field names, query-string keys, JSON property names, or CSV/XML element names that become column lists in `INSERT`, `UPDATE`, or `ORDER BY` clauses.
 
-Prepared statements and bound parameters protect SQL _values_. They do not protect SQL _identifiers_. An application that builds a statement similar to the following remains injectable even when every submitted value is parameterized:
+Prepared statements and bound parameters protect SQL values. They do not protect SQL identifiers. An application that builds a statement similar to the following remains injectable even when every submitted value is parameterized:
 
 ```php
 $sql = "INSERT INTO answers (" . implode(",", array_keys($_POST)) . ") VALUES (...)";
@@ -105,10 +105,10 @@ How to test:
     ```http
     Content-Type: application/json
 
-    {"answer":"42","lab_ok) VALUES (42,(SELECT CASE WHEN (1=1) THEN 1 ELSE 0 END))--":"x"}
+    {"answer":"42","lab_ok) VALUES (42,(SELECT CASE WHEN (1=1) THEN 1 ELSE 0 END))#":"x"}
     ```
 
-4. Compare responses for syntax errors, datatype conversion errors, boolean or time differences between the `(1%3D1)` and `(1%3D2)` names, and out-of-band callbacks. Treat a stable difference caused only by the crafted _name_ as evidence that the name entered the SQL structure.
+4. Compare responses for syntax errors, datatype conversion errors, boolean or time differences between the `(1%3D1)` and `(1%3D2)` names, and out-of-band callbacks. With the `VALUES` pair both inserts can succeed, so if the record can be read back, also compare the stored `lab_ok` value (`1` or `0`). Treat a stable difference caused only by the crafted name as evidence that the name entered the SQL structure.
 5. If the application reflects generated SQL or database errors, redact them in evidence and stop once identifier evaluation is confirmed. Do not dump production data.
 
 Expected secure behavior: unexpected names are ignored or rejected against a fixed allowlist. The SQL column list is defined by server-side code, not by the request shape.

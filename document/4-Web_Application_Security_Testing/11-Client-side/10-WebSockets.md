@@ -48,7 +48,7 @@ As with any data originating from untrusted sources, the data should be properly
    - WebSockets do not handle authentication, normal black-box authentication tests should be carried out. Refer to the [Authentication Testing](../04-Authentication/README.md) sections of this guide.
    - If the handshake carries a token in the URL, query string, or first message, confirm it is not logged by intermediaries and that it expires with the HTTP session.
 5. Authorization.
-   - WebSockets do not handle authorization by themselves. Apply the [Authorization Testing](../05-Authorization/README.md) tests to the handshake **and** to individual frames. A successful low-privilege connection must not imply access to every topic, room, tenant, or object on that socket.
+   - WebSockets do not handle authorization by themselves. Apply the [Authorization Testing](../05-Authorization/README.md) tests to the handshake and to individual frames. A successful low-privilege connection must not imply access to every topic, room, tenant, or object on that socket.
    - Connect with two tester-owned accounts that have different roles or object membership.
    - Capture a legitimate subscribe, join, listen, or GraphQL subscription frame from account A.
    - Replay it on account B's connection after substituting user, session, room, channel, tenant, conversation, or object identifiers.
