@@ -51,6 +51,7 @@ The following is the list of items to test during the assessment:
 | WSTG-ATHN-10      | Weaker Authentication in Alternative Channel                               |        |       |
 | WSTG-ATHN-11      | Multi-Factor Authentication (MFA)                                          |        |       |
 | WSTG-ATHN-12      | SAML Authentication                                                        |        |       |
+| WSTG-ATHN-13      | Passkeys and WebAuthn                                                      |        |       |
 | **WSTG-ATHZ**     | **Authorization**                                                          |        |       |
 | WSTG-ATHZ-01      | Directory Traversal and File Include                                       |        |       |
 | WSTG-ATHZ-02      | Bypassing Authorization Schema                                             |        |       |
