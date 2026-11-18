@@ -69,6 +69,8 @@ You can also join our [Google Group](https://groups.google.com/a/owasp.org/forum
 
 ## Core Team
 
+- [Srinivas Chippagiri (Salesforce Inc)](https://github.com/cvas22)
+- [Enes Baldemir](https://github.com/enesbaldemir)
 - [Rejah Rehim](https://github.com/rejahrehim)
 - [Victoria Drake](https://github.com/victoriadrake)
 
