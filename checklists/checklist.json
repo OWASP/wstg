@@ -463,6 +463,18 @@
             "Determine whether adding, listing and removing credentials is protected.",
             "Assess how the RP handles user identification and the data it stores for credentials."
           ]
+        },
+        {
+          "name": "OpenID Connect Relying Party",
+          "id": "WSTG-ATHN-14",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/04-Authentication/14-OpenID_Connect_Relying_Party",
+          "objectives": [
+            "Confirm the RP validates issuer discovery and authentication claims before creating a session.",
+            "Confirm account identity is bound to `(iss, sub)`, not to email alone.",
+            "Confirm account-linking and recovery flows cannot attach an attacker-controlled identity to another user's account.",
+            "Confirm mix-up defenses when the RP can use more than one OP.",
+            "Confirm the RP enforces requested authentication strength claims when it asks for MFA or recent authentication."
+          ]
         }
       ]
     },
@@ -1419,6 +1431,17 @@
           "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/12-API_Testing/04-API_Broken_Function_Level_Authorization",
           "objectives": [
             "The goal of this test is to determine if the API enforces **role or privilege-based access control** to restrict users from accessing or executing functions they are not authorized to use. This ensures that function-level security boundaries are properly enforced."
+          ]
+        },
+        {
+          "name": "Inbound Webhooks",
+          "id": "WSTG-APIT-09",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/12-API_Testing/09-Inbound_Webhooks",
+          "objectives": [
+            "Determine whether inbound webhook endpoints authenticate the sender.",
+            "Verify tenant, project, and object binding so a valid event for one customer cannot affect another.",
+            "Verify replay and duplicate-delivery handling.",
+            "Verify that revoked integrations stop accepting events and remain manageable only by authorized principals."
           ]
         },
         {
