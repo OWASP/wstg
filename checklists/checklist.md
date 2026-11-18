@@ -32,6 +32,7 @@ The following is the list of items to test during the assessment:
 | WSTG-CONF-13      | Path Confusion                                                             |        |       |
 | WSTG-CONF-14      | Additional Browser Security Controls                                       |        |       |
 | WSTG-CONF-15      | Feature Flag Security Bypass                                               |        |       |
+| WSTG-CONF-16      | Web Cache Poisoning                                                        |        |       |
 | **WSTG-IDNT**     | **Identity Management**                                                    |        |       |
 | WSTG-IDNT-01      | Role Definitions                                                           |        |       |
 | WSTG-IDNT-02      | User Registration Process                                                  |        |       |

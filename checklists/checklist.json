@@ -251,6 +251,17 @@
             "Evaluate fail-safe behavior when the feature flag service is unavailable.",
             "Identify sensitive information exposed through feature flag configurations, and stale flags that may expose deprecated or unpatched code paths."
           ]
+        },
+        {
+          "name": "Web Cache Poisoning",
+          "id": "WSTG-CONF-16",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/16-Web_Cache_Poisoning",
+          "objectives": [
+            "Identify which responses are cacheable and which request inputs form the cache key.",
+            "Find unkeyed headers, cookies, query parameters, or method-override inputs that change the origin response.",
+            "Confirm that a clean request without the unkeyed input receives the poisoned or incorrect cached response.",
+            "Verify that authenticated or personalized responses are not stored under keys reachable by other users."
+          ]
         }
       ]
     },
