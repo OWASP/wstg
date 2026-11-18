@@ -1217,7 +1217,9 @@
           "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/11-Client-side/03-HTML_Injection",
           "objectives": [
             "Identify HTML injection points and assess the severity of the injected content.",
-            "Assess what injected markup can do when script execution is blocked, for example by a Content Security Policy."
+            "Assess what injected markup can do when script execution is blocked, for example by a Content Security Policy.",
+            "Determine whether same-origin HTML Injection can undermine CSRF defenses that rely exclusively on HTTP Origin validation.",
+            "Assess whether XSS can initiate authenticated state-changing requests without additional interaction after script execution."
           ],
           "cre_ids": [
             "542-445"
