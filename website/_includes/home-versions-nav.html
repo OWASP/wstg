@@ -3,20 +3,19 @@
   <ul class="wstg-nav-list">
     <li class="wstg-nav-item">
       <a href="{{ site.baseurl }}/latest/">Latest</a>
-      <span class="home-versions-note">(development toward 5.0)</span>
+      <span class="home-versions-note">(development version)</span>
     </li>
     <li class="wstg-nav-item">
       <a href="{{ site.baseurl }}/stable/">Stable</a>
-      <span class="home-versions-note">(alias for current release; currently v4.2)</span>
+      <span class="home-versions-note">(alias for current release; currently {{ site.data.versions.stable }})</span>
     </li>
+    {% for ver in site.data.versions.list %}{% if ver.kind != "latest" %}
     <li class="wstg-nav-item">
-      <a href="{{ site.baseurl }}/v4.2/">v4.2</a>
-      <span class="home-versions-note">(canonical; prefer for citations)</span>
+      <a href="{{ site.baseurl }}/{{ ver.path }}/">{{ ver.label }}</a>
+      {% if ver.kind == "stable" %}<span class="home-versions-note">(canonical; prefer for citations)</span>
+      {% elsif ver.legacy_alias %}<span class="home-versions-note">(legacy <code>/{{ ver.legacy_alias }}/</code> redirects here)</span>{% endif %}
     </li>
-    <li class="wstg-nav-item">
-      <a href="{{ site.baseurl }}/v4.1/">v4.1</a>
-      <span class="home-versions-note">(legacy <code>/v41/</code> redirects here)</span>
-    </li>
+    {% endif %}{% endfor %}
   </ul>
   <h2 class="wstg-nav-title">Resources</h2>
   <ul class="wstg-nav-list">
