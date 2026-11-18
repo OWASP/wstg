@@ -40,6 +40,8 @@ This input will add an image tag to the page that will execute arbitrary JavaScr
 
 - Identify HTML injection points and assess the severity of the injected content.
 - Assess what injected markup can do when script execution is blocked, for example by a Content Security Policy.
+- Determine whether same-origin HTML Injection can undermine CSRF defenses that rely exclusively on HTTP Origin validation.
+- Assess whether XSS can initiate authenticated state-changing requests without additional interaction after script execution.
 
 ## How to Test
 
@@ -88,6 +90,146 @@ Chromium-based browsers block resource URLs that contain both a raw newline and 
 #### Base Tag Injection
 
 An injected `<base href="https://attacker.example/">` changes how every relative URL after it is resolved. Relative script sources, form actions, and links then point to the attacker's server. With a nonce-based CSP, an existing script tag that carries a valid nonce and a relative `src` loads from the attacker's server and runs, which turns markup injection into script execution. Check whether the page loads scripts or submits forms with relative URLs after the injection point, and whether the CSP sets `base-uri`.
+
+### Same-Origin HTML Injection and Origin-Based CSRF Defenses
+
+HTML Injection and Cross-Site Scripting (XSS) can undermine Cross-Site Request Forgery (CSRF) defenses that rely exclusively on the HTTP `Origin` header. Although Origin validation protects against many conventional cross-origin requests, it cannot distinguish legitimate application content from attacker-controlled content rendered within the same trusted origin.
+
+If an attacker can inject a functional HTML form into a trusted application page, the browser may submit that form with a legitimate, trusted `Origin` header. If JavaScript execution is also possible, XSS may initiate authenticated state-changing requests automatically after the script runs. Neither scenario requires the attacker to spoof an HTTP header.
+
+#### Example: Origin-Based CSRF Protection
+
+Consider an authenticated Flask application hosted at `http://localhost:5000`. The application validates the `Origin` header on POST requests:
+
+```python
+from flask import request, abort
+
+TRUSTED_ORIGIN = "http://localhost:5000"
+
+@app.before_request
+def csrf_origin_protection():
+    if request.method == "POST":
+        origin = request.headers.get("Origin")
+        if origin != TRUSTED_ORIGIN:
+            abort(403, description="Invalid Origin")
+```
+
+For the following tests, the application has a cookie-authenticated `POST /alterar-nome` endpoint that changes the current user's profile name. No additional CSRF token or reauthentication is required. The examples use a local laboratory and an authorized test account.
+
+#### Test 1: Cross-Origin Form Submission
+
+First, host the following form at `http://localhost:8000`:
+
+```html
+<form action="http://localhost:5000/alterar-nome" method="POST">
+  <input type="hidden" name="nome" value="CROSS-ORIGIN-TEST">
+  <button type="submit">Update Profile</button>
+</form>
+```
+
+When the form is submitted, the browser sends a request with an external origin:
+
+```http
+POST /alterar-nome HTTP/1.1
+Host: localhost:5000
+Origin: http://localhost:8000
+Content-Type: application/x-www-form-urlencoded
+
+nome=CROSS-ORIGIN-TEST
+```
+
+The middleware rejects the request with `HTTP 403 Forbidden` because the `Origin` does not match the trusted application origin.
+
+#### Test 2: Same-Origin HTML Injection
+
+Next, assume an HTML Injection vulnerability allows an attacker-controlled form to be rendered in a page served from `http://localhost:5000`:
+
+```html
+<form action="http://localhost:5000/alterar-nome" method="POST">
+  <input type="hidden" name="nome" value="HTML-POC-SUCCESS">
+  <button type="submit">Update Profile</button>
+</form>
+```
+
+After the authenticated user clicks the injected button, the browser submits a request from the trusted origin:
+
+```http
+POST /alterar-nome HTTP/1.1
+Host: localhost:5000
+Origin: http://localhost:5000
+Content-Type: application/x-www-form-urlencoded
+
+nome=HTML-POC-SUCCESS
+```
+
+The `Origin` matches the expected value, so the middleware accepts the request and the profile name is changed.
+
+This behavior was reproduced in a local Flask laboratory. It did not require JavaScript execution, session cookie theft, or `Origin` header spoofing. However, this HTML-only example required the user to submit the injected form.
+
+#### Test 3: XSS and Automatic Authenticated State Changes
+
+If attacker-controlled JavaScript executes within the trusted origin, XSS can initiate the same authenticated operation automatically, without an additional form click:
+
+```javascript
+fetch("/alterar-nome", {
+  method: "POST",
+  credentials: "same-origin",
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded"
+  },
+  body: new URLSearchParams({
+    nome: "XSS-POC-SUCCESS"
+  })
+});
+```
+
+The request is initiated from `http://localhost:5000`, so the browser can send `Origin: http://localhost:5000`. Eligible authentication cookies accompany the request, and the Origin-only CSRF check accepts it.
+
+In the local laboratory, the XSS-initiated request successfully changed the authenticated test user's profile name without any additional click or form submission after JavaScript execution.
+
+This behavior is *zero additional interaction after script execution*, but it does not necessarily make the entire exploit zero-click. Reflected XSS may require a victim to open a crafted link; stored XSS may execute when the affected page loads; and DOM-based XSS depends on its triggering conditions.
+
+#### Experimental Results
+
+| Test | Additional interaction | Observed result |
+|------|------------------------|-----------------|
+| External-origin HTML form | Submit form | HTTP 403 Forbidden |
+| Same-origin HTML Injection | Submit injected form | Authenticated profile change |
+| Same-origin XSS | None after script execution | Automatic authenticated profile change |
+
+These findings demonstrate the limitation of the specific Origin-only defense used in the laboratory. Other applications may enforce independent CSRF tokens, reauthentication, or additional checks that prevent the state change.
+
+#### How to Test
+
+1. Identify an HTML Injection point that allows functional forms, or an XSS vulnerability executing within the application's trusted origin.
+2. Identify an authenticated state-changing endpoint and determine how it validates CSRF requests.
+3. Test an equivalent request from an external origin and record whether it is rejected.
+4. Render a test form through the HTML Injection point, then submit it using an authorized authenticated account.
+5. Inspect the browser-generated `Origin` header and verify whether the intended non-destructive state change succeeds.
+6. If XSS is present, determine whether the equivalent request can be initiated automatically after JavaScript execution.
+7. Check for independent security controls and assess sensitive account functionality separately.
+
+#### Potential Impact: Account Takeover (HTMLi2ATO)
+
+HTML Injection can potentially lead to Account Takeover (ATO) if an injected form changes security-sensitive account settings, such as a registered email address, recovery method, or authentication credentials, and the application does not require effective additional verification. In such a case, user interaction with the injected form may enable persistent account compromise. This possible escalation can be described as *HTML Injection to Account Takeover* (HTMLi2ATO), but that shorthand is not an official WSTG or CWE classification.
+
+XSS may initiate equivalent authenticated requests automatically after script execution and could also result in ATO when the affected account operations permit it.
+
+The `HttpOnly` attribute does not prevent these requests: it restricts direct JavaScript access to protected cookies, but the browser still sends eligible cookies with authenticated requests. This is not an `HttpOnly` bypass.
+
+The laboratory demonstrated profile name changes through HTML Injection and XSS; it did **not** demonstrate Account Takeover. ATO must be validated against an operation that actually enables account compromise.
+
+#### Security Considerations
+
+Although `Origin` validation may appear sufficient against conventional cross-origin CSRF attacks, an HTML Injection vulnerability within the trusted origin can allow attacker-controlled forms to pass that check and, depending on sensitive account functionality, potentially lead to HTMLi2ATO. XSS can also automate such operations after JavaScript execution. Origin validation alone cannot establish whether same-origin content or requests are trustworthy.
+
+#### Additional Testing Guidance
+
+For more information, see:
+
+- [Testing for Cross Site Request Forgery](../06-Session_Management/05-Cross_Site_Request_Forgery.md)
+- [Testing for Reflected Cross Site Scripting](../07-Injection/01-Reflected_Cross_Site_Scripting.md)
+- [Testing for Stored Cross Site Scripting](../07-Injection/02-Stored_Cross_Site_Scripting.md)
 
 ## Related Test Cases
 
