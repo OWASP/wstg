@@ -8,7 +8,7 @@
 
 Inbound webhooks are HTTP callbacks that an external system sends to the application when an event occurs: payment captured, incident opened, repository updated, identity provider event, and similar notifications. The application trusts those requests to create incidents, update orders, provision accounts, or unlock workflows.
 
-Unlike ordinary API authentication, the caller is not an end user. The application must authenticate the _sender_, bind the event to the correct tenant, and make delivery idempotent. Missing those controls allows forged events, cross-tenant impact, and replay.
+Unlike ordinary API authentication, the caller is not an end user. The application must authenticate the sender, bind the event to the correct tenant, and make delivery idempotent. Missing those controls allows forged events, cross-tenant impact, and replay.
 
 This test covers inbound authenticity, authorization, replay, and lifecycle. Outbound webhook URL handling and SSRF belong with Server-Side Request Forgery testing and must not be duplicated here.
 
@@ -60,7 +60,7 @@ The application should acknowledge an exact duplicate without applying the side 
 
 1. Disable or uninstall the integration as an authorized user, then replay a previously valid event. It must fail.
 2. Rotate the signing secret, then replay events signed with the old secret.
-3. As a low-privilege user, attempt to list, edit, or delete another team's webhook configuration. Apply [Broken Object Level Authorization](02-API_Broken_Object_Level_Authorization.md) and [Broken Function Level Authorization](04-API_Broken_Function_Level_Authorization.md).
+3. As a low-privilege user, attempt to list, edit, or delete another team's webhook configuration. Apply [API Broken Object Level Authorization](02-API_Broken_Object_Level_Authorization.md) and [API Broken Function Level Authorization](04-API_Broken_Function_Level_Authorization.md).
 4. Confirm disabled hooks do not remain active while disappearing from the management UI.
 
 ## Related Test Cases
@@ -69,7 +69,7 @@ The application should acknowledge an exact duplicate without applying the side 
 - [API Broken Function Level Authorization](04-API_Broken_Function_Level_Authorization.md)
 - [Payment Functionality](../10-Business_Logic/10-Payment_Functionality.md)
 - [Server-Side Request Forgery](../07-Injection/19-Server-Side_Request_Forgery.md)
-- [Testing for Weak Transport Layer Security](../09-Weak_Cryptography/01-Weak_Transport_Layer_Security.md)
+- [Weak Transport Layer Security](../09-Weak_Cryptography/01-Weak_Transport_Layer_Security.md)
 
 ## Remediation
 

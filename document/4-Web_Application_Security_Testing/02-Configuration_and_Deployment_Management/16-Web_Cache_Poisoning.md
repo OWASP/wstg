@@ -44,7 +44,7 @@ Do not send a baseline request first under the same cache-buster. If the baselin
 
 For each candidate input:
 
-1. Choose a fresh cache-buster that has not been requested before and that step 1 showed is keyed.
+1. Choose a fresh cache-buster that has not been requested before and that you confirmed is keyed in Establish a Cache Oracle.
 2. Send the mutated request first (cache miss) so it reaches the origin, changing only one candidate input.
 3. Send a clean request with that same cache-buster and no mutation.
 4. Fetch a baseline response with a separate cache-buster for comparison.
@@ -62,7 +62,7 @@ Candidate unkeyed inputs to try one at a time:
 - Method overrides: `X-HTTP-Method-Override`, `X-HTTP-Method`, `X-Method-Override` on a GET that the origin treats as HEAD or another method.
 - Cookies that change page content but may be absent from the cache key.
 - Query parameters the cache may exclude from the key while the origin still reads them: marketing parameters such as `utm_source`, `utm_campaign`, `fbclid`, and parameter-cloaking forms that append or duplicate a keyed parameter after an excluded one.
-- Fatally large or duplicate header chains that the cache accepts but the origin rejects. That is [cache-poisoned denial of service (CPDoS)](https://cpdos.org/), not a harmless canary. Use only unique cache-busted URLs, increase size gradually, and stop at the agreed lab limit.
+- Oversized or duplicate header chains that the cache accepts but the origin rejects. That is [cache-poisoned denial of service (CPDoS)](https://cpdos.org/), not a harmless canary. Use only unique cache-busted URLs, increase size gradually, and stop at the agreed lab limit.
 
 ### 3. Validate With Harmless Canaries
 
