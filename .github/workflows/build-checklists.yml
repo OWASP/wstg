@@ -12,6 +12,11 @@ on:
         description: 'Version?'
         required: false
         default: ''
+# One run at a time; a newer master push queues behind the current run.
+concurrency:
+  group: checklists-update
+  cancel-in-progress: false
+
 jobs:
   create_pr:
     name: Create Pull Request
@@ -56,13 +61,14 @@ jobs:
       run: |
         # Setup some env vars etc for future use
         echo "SRC_BASE=OWASP/wstg@$(git log -1 --format=format:%h)" >> "$GITHUB_ENV"
-        echo "BRANCH_STAMP=$(date +"%Y%m%d%H%M%S")" >> "$GITHUB_ENV"
+        # Fixed branch: reruns update the one in-flight PR instead of opening new ones
+        echo "BRANCH=checklists-update" >> "$GITHUB_ENV"
         echo "SHORT_DATE=$(date +"%Y-%m-%d")" >> "$GITHUB_ENV"
     - name: Create Feature Branch
       if: env.CHANGED == 'true'
       run: |
         # Checkout what will be the new feature branch
-        git checkout -b "$BRANCH_STAMP"
+        git checkout -b "$BRANCH"
     - name: Push Feature Branch and Raise PR
       if: env.CHANGED == 'true'
       env:
@@ -74,8 +80,13 @@ jobs:
         if ! git diff-index --quiet HEAD --; then
           git remote set-url origin "https://github.com/OWASP/wstg.git"
           git commit -m "Publish Latest checklists $SHORT_DATE" -m "Updates based on $SRC_BASE"
-          git push --set-upstream origin "$BRANCH_STAMP"
-          gh pr create -R OWASP/wstg --fill
+          # Rebuilt from current master each run, so overwrite any in-flight branch
+          git push --set-upstream origin "$BRANCH" --force
+          if [ "$(gh pr list -R OWASP/wstg --head "$BRANCH" --state open --json number --jq length)" = "0" ]; then
+            gh pr create -R OWASP/wstg --head "$BRANCH" --fill
+          else
+            gh pr edit "$BRANCH" -R OWASP/wstg --title "Publish Latest checklists $SHORT_DATE" --body "Updates based on $SRC_BASE"
+          fi
         fi
     - name: Set XLSX Publishing Secrets
       if: env.CHANGED == 'true'
