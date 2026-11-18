@@ -441,6 +441,17 @@
             "Determine whether the SP enforces the conditions in the assertion (audience, validity period, recipient, and request binding).",
             "Assess whether assertions can be replayed or accepted from an untrusted source."
           ]
+        },
+        {
+          "name": "Passkeys and WebAuthn",
+          "id": "WSTG-ATHN-13",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/04-Authentication/13-Passkeys_and_WebAuthn",
+          "objectives": [
+            "Determine whether the RP verifies the challenge, origin and RP ID on registration and authentication.",
+            "Assess whether recovery and fallback paths weaken the protection that passkeys provide.",
+            "Determine whether adding, listing and removing credentials is protected.",
+            "Assess how the RP handles user identification and the data it stores for credentials."
+          ]
         }
       ]
     },
