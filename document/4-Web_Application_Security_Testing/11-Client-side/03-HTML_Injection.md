@@ -244,3 +244,10 @@ Encode user input for the HTML context it is written into, so that it can't open
 
 - [PortSwigger: Dangling markup injection](https://portswigger.net/web-security/cross-site-scripting/dangling-markup)
 - [Content Security Policy Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html)
+- [OWASP: Cross-Site Request Forgery Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html)
+- [OWASP: Cross-Site Scripting Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)
+- [MDN: Origin HTTP Header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Origin)
+- [MDN: Set-Cookie and HttpOnly](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Set-Cookie)
+- [MDN: Using the Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)
+- [PortSwigger: Exploiting Cross-Site Scripting Vulnerabilities](https://portswigger.net/web-security/cross-site-scripting/exploiting)
+- [Poystick: Research notes on HTML Injection, XSS, and Origin-based CSRF defenses (X post)](https://x.com/P0ystick/status/2122972397213032846)
