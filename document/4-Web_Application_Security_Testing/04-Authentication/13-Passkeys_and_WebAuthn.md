@@ -34,6 +34,7 @@ Note the following in the options the server sends:
 - `userVerification`: `required`, `preferred` or `discouraged`.
 - `allowCredentials`: whether the server lists the credentials of the account being signed in.
 - `user.id` (registration): an opaque, stable handle for the user.
+- `mediation` (login): whether the login uses `conditional` mediation (autofill). It needs an empty `allowCredentials`, so apply the `userHandle` checks under Test Assertion Checks.
 
 ### Test Challenge Handling
 
@@ -41,7 +42,7 @@ Send the login response again after the login has completed, or with a response 
 
 - A response replayed after it has been used once.
 - A response that signs a challenge issued earlier, or for a different session.
-- A response with the `challenge` in `clientDataJSON` changed.
+- A response with the `challenge` in `clientDataJSON` changed. For authentication the signature covers this value, so see the note under Test Origin and RP ID Validation about what a rejection proves.
 
 Check that the challenge is generated on the server, is unpredictable, is tied to the session or user that started the ceremony, and expires quickly.
 
@@ -56,17 +57,17 @@ What a rejected change shows depends on the ceremony:
 
 Two more inputs affect which origins the RP accepts:
 
-- Cross-origin iframes: a page on another origin can call WebAuthn from an iframe if it is allowed by the `publickey-credentials-get` permissions policy. The browser then sets `crossOrigin` to `true` in `clientDataJSON` and, in newer browsers, adds the `topOrigin`. Check whether the RP accepts such responses, and if it does, whether it is meant to be embedded by those origins.
+- Cross-origin iframes: a page on another origin can call WebAuthn from an iframe if it is allowed by the `publickey-credentials-get` (login) or `publickey-credentials-create` (registration) permissions policy. The browser then sets `crossOrigin` to `true` in `clientDataJSON` and, in newer browsers, adds the `topOrigin`. Check whether the RP accepts such responses, and if it does, whether it is meant to be embedded by those origins.
 - Related origins: an RP can let other origins use its RP ID by listing them in a JSON file at `https://<rp-id>/.well-known/webauthn`. If the file exists, check that every origin in it belongs to the organization, and that the server accepts only those origins in `clientDataJSON`.
 
 ### Test Assertion Checks
 
 - User presence and verification: if the application requires user verification (PIN or biometric), check that a response with the user-verified flag not set is rejected.
-- Signature counter: if the authenticator reports a counter, check how the server handles a counter that does not increase. Many authenticators, such as synced passkeys, always report zero, so the server should not reject those, but should log or act on a counter that goes backwards when it was previously non-zero.
+- Signature counter: if the authenticator reports a counter, check how the server handles a counter that does not increase. Many authenticators, such as synced passkeys, always report zero, so the server should not reject a stored and reported counter that are both zero. If either value is non-zero and the reported counter is less than or equal to the stored one, which includes a counter that is unchanged as well as one that goes backwards, the authenticator may be cloned, so the server should log or act on it. This is a signal and not proof, because a malfunctioning authenticator or concurrent authentications processed out of order can cause it too, so check how the server decides between logging, step-up and blocking.
 - Credential ID: send a response for a credential that belongs to a different account and check that the server matches the credential to the account it is signing in.
 - User handle: for a login without `allowCredentials`, the server finds the account from the `userHandle` in the response. Check that it matches the account that owns the credential ID, and that changing it does not sign in to another account.
 - Backup flags: the `authenticatorData` flags include backup eligibility (BE) and backup state (BS), which show whether a passkey is synced. If the RP treats synced and device-bound passkeys differently, check that it reads these flags and that a credential cannot change from device-bound to synced without the RP noticing.
-- Authenticator type: some RPs only allow certain authenticator models, which they identify by the AAGUID in the registration data. With `attestation: "none"` the AAGUID is not signed, so change it during registration and check whether the restriction can be bypassed. An RP that relies on the model must request attestation and verify it, for example against the FIDO Metadata Service.
+- Authenticator type: some RPs only allow certain authenticator models, which they identify by the AAGUID in the registration data. With `attestation: "none"` the AAGUID is not signed, so change it during registration and check whether the restriction can be bypassed. An RP that relies on the model must request attestation and verify it, for example against the [FIDO Metadata Service](https://fidoalliance.org/metadata/).
 
 ### Test Fallback and Recovery Paths
 
@@ -83,6 +84,7 @@ A passkey protects an account only if the other ways in are as strong.
 - Listing and removing credentials should be limited to the account owner. Try identifiers belonging to another account.
 - Removing the last passkey should not leave the account without a safe way in, and should not silently fall back to a weaker method.
 - Check that the same credential ID cannot be registered against two accounts.
+- Check whether registration options include the account's existing credentials in `excludeCredentials`, and that the server also rejects a credential ID that is already registered, since the client-side exclusion can be bypassed.
 
 ### Test User Identification
 
@@ -94,7 +96,7 @@ A passkey protects an account only if the other ways in are as strong.
 
 - Generate a new random challenge on the server for each ceremony, bind it to the session, and accept it once.
 - Verify the origin, RP ID hash, ceremony type, signature and credential on every response, using a maintained WebAuthn library.
-- Require user verification for sensitive actions, and decide explicitly how the signature counter is handled.
+- Require user verification for sensitive actions, and decide explicitly how the signature counter is handled, treating a non-increasing counter as a clone signal and not as proof.
 - Make recovery and fallback methods at least as strong as the passkey, or limit what an account recovered with a weaker method can do.
 - Require recent authentication to add or remove credentials, and notify the user of changes.
 - Use opaque, random user handles, and give the same response for accounts with and without passkeys.
