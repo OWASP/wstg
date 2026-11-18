@@ -36,8 +36,9 @@ Use only tester-owned accounts at both the RP and any lab identity provider. Do 
 ### Discovery and Issuer Binding
 
 1. If the RP performs discovery from a client-supplied issuer or identifier, point discovery at a tester-controlled HTTPS metadata document only.
-2. Confirm the RP pins the expected issuer and does not follow attacker-controlled `authorization_endpoint` or `token_endpoint` values from untrusted metadata.
-3. When dynamic registration or multi-OP login is supported, start a login toward OP A and complete the callback as if it came from OP B. The RP must detect the mismatch. See [RFC 9207](https://datatracker.ietf.org/doc/html/rfc9207) and [RFC 9700 Section 4.4](https://datatracker.ietf.org/doc/html/rfc9700#section-4.4).
+2. Serve a discovery document whose `issuer` value differs from the expected issuer, even slightly (a different path, a trailing slash, a different scheme or case, or an attacker-controlled host). The RP must compare the `issuer` in the document with the expected issuer using an exact string match, and with the issuer URL it used to retrieve the document, and reject any mismatch before using the metadata.
+3. Confirm the RP pins the expected issuer and does not follow attacker-controlled `authorization_endpoint` or `token_endpoint` values from untrusted metadata.
+4. When dynamic registration or multi-OP login is supported, start a login toward OP A and complete the callback as if it came from OP B. The RP must detect the mismatch. See [RFC 9207](https://datatracker.ietf.org/doc/html/rfc9207) and [RFC 9700 Section 4.4](https://datatracker.ietf.org/doc/html/rfc9700#section-4.4).
 
 ### ID Token Validation Matrix
 
@@ -61,7 +62,7 @@ OIDC email claims are not a stable account primary key.
 
 1. **Unverified email:** With a lab OP that can omit or set `email_verified=false`, attempt login or linking. The RP must not create or merge an account solely from an unverified email.
 2. **Pre-account collision:** Register a local account using tester B's email if the RP allows unverified registration. Before B verifies, attach tester A's OP identity to that account. After B verifies or recovers the account, A's OP login must not remain attached unless B explicitly re-links it.
-3. **Login CSRF / confused-deputy linking:** Authenticate to the RP as victim account V. In a separate browser (or private profile) authenticate to the OP as attacker A and start "connect external identity" or an OP login that produces an authorization `code` and `state` bound to A's OP session. Deliver that callback URL to V's browser so V's RP session completes the redirect. Secure behavior refuses to attach A's OP identity to V. The linking or login transaction must be bound to the same user agent and RP session that started it, not only to a bearer `state` value an attacker can move between browsers.
+3. **Login CSRF / confused-deputy linking:** Authenticate to the RP as victim account V. In a separate browser (or private profile) authenticate to the OP as attacker A and start "connect external identity" or an OP login that produces an authorization `code` and `state` bound to A's OP session. Deliver that callback URL to V's browser so V's RP session completes the redirect. Secure behavior rejects the callback itself, because its `state` (and `nonce` or PKCE verifier) belongs to a transaction started in a different browser or session. Check the callback response, not only the final account association: it should be an error, with no session change and no identity attached. Also repeat the test with the callback delivered to a browser that has no RP session. The linking or login transaction must be bound to the same user agent and RP session that started it, not only to a bearer `state` value an attacker can move between browsers.
 4. **Identifier change:** Change the local account email from address X to Y, then attempt old email-verification, reset, or linking tokens minted for X. They must be invalid after the identity transition.
 5. **Stable subject:** Prefer `(iss, sub)`. Two OPs asserting the same email must not merge accounts automatically.
 
