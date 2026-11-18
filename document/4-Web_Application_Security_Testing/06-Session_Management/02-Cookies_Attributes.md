@@ -115,13 +115,13 @@ A missing `Partitioned` attribute is not always a finding. Where the browser all
 
 `Partitioned` does not replace `SameSite` as a defense against cross-site request forgery. It stops the browser from sending the cookie when an attacker's site embeds the application, but a top-level navigation lands on the application's own site. A cross-site form `POST` still includes a `SameSite=None; Partitioned` cookie that the application set while it was the top-level site.
 
-##### Third-Party Cookie Restrictions
+#### Third-Party Cookie Restrictions
 
-Browsers also restrict [third-party cookies](https://developer.mozilla.org/en-US/docs/Web/Privacy/Guides/Third-party_cookies) by default:
+Browsers handle [third-party cookies](https://developer.mozilla.org/en-US/docs/Web/Privacy/Guides/Third-party_cookies) differently by default:
 
 - Chrome allows third-party cookies, except in Incognito mode.
 - Firefox gives third-party cookies a separate cookie jar for each top-level site, which it calls Total Cookie Protection.
-- Safari blocks third-party cookies unless they set `Partitioned`.
+- Safari blocks third-party cookies. Starting with [Safari 26.2](https://webkit.org/blog/17640/webkit-features-for-safari-26-2/), it allows them if they set `Partitioned`.
 - Other Chromium-based browsers, such as Edge and Brave, add their own tracking protection, so their defaults differ from Chrome's.
 
 Browsers that do not support `Partitioned` ignore the attribute and treat the cookie as an unpartitioned cookie (see the [browser compatibility table on MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Set-Cookie#browser_compatibility)). These defaults also affect whether a proof of concept works. See [Cross Site Request Forgery](05-Cross_Site_Request_Forgery.md) and [Cross Site Script Inclusion](../11-Client-side/13-Cross_Site_Script_Inclusion.md).
