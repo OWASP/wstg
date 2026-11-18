@@ -87,23 +87,25 @@ $sql = "INSERT INTO answers (" . implode(",", array_keys($_POST)) . ") VALUES (.
 
 How to test:
 
-1. Capture a create or update request that accepts a flexible set of fields.
-2. Keep the legitimate field names, then add one unexpected field name that contains a single quote, parenthesis, comma, comment delimiter, or subquery marker. In `application/x-www-form-urlencoded` bodies the name ends at the first `=`, so encode any `=` inside the name as `%3D`. Prefer `/**/` instead of spaces: PHP's `$_POST` converts spaces and dots in names to underscores. Example true/false pair:
+1. Capture a create or update request that accepts a flexible set of fields. Use a disposable lab record or a non-production environment; a successful injection may insert or update rows.
+2. Keep the legitimate field names, then add one unexpected field name that contains a single quote, parenthesis, comma, comment delimiter, or subquery marker. In `application/x-www-form-urlencoded` bodies the name ends at the first `=`, so encode any `=` inside the name as `%3D`. Prefer `/**/` instead of spaces: PHP's `$_POST` converts spaces and dots in names to underscores. Close the column list and supply a `VALUES` expression so the true and false names are valid SQL that can differ. Prefer `%23` (`#`) as the trailing comment marker under PHP/MySQL: MySQL requires whitespace after `--`, and PHP would turn that space into `_`. Example true/false pair:
 
     ```http
-    answer=42&lab_ok=1&lab_col'),(SELECT/**/CASE/**/WHEN/**/(1%3D1)/**/THEN/**/1/**/ELSE/**/1/0/**/END)--=x
+    answer=42&lab_ok)/**/VALUES/**/(42,(SELECT/**/CASE/**/WHEN/**/(1%3D1)/**/THEN/**/1/**/ELSE/**/0/**/END))%23=x
     ```
 
     ```http
-    answer=42&lab_ok=1&lab_col'),(SELECT/**/CASE/**/WHEN/**/(1%3D2)/**/THEN/**/1/**/ELSE/**/1/0/**/END)--=x
+    answer=42&lab_ok)/**/VALUES/**/(42,(SELECT/**/CASE/**/WHEN/**/(1%3D2)/**/THEN/**/1/**/ELSE/**/0/**/END))%23=x
     ```
+
+    Avoid relying on `1/0` as the false branch. Division by zero raises an error on some engines and returns `NULL` on others (for example SQLite), so both payloads can look the same.
 
 3. Repeat with JSON property names when the API accepts arbitrary objects. JSON avoids the form-urlencoded name parser and is often clearer for this check:
 
     ```http
     Content-Type: application/json
 
-    {"answer":"42","lab_col) VALUES (1);--":"x"}
+    {"answer":"42","lab_ok) VALUES (42,(SELECT CASE WHEN (1=1) THEN 1 ELSE 0 END))--":"x"}
     ```
 
 4. Compare responses for syntax errors, datatype conversion errors, boolean or time differences between the `(1%3D1)` and `(1%3D2)` names, and out-of-band callbacks. Treat a stable difference caused only by the crafted _name_ as evidence that the name entered the SQL structure.
