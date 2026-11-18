@@ -12,14 +12,13 @@ OAuth chapters in this guide cover delegated authorization: grant types, PKCE, r
 
 This scenario evaluates the RP. Treat the OpenID Provider (OP) as a separate system unless the engagement also includes that OP. Cross-link [OAuth Weaknesses](../05-Authorization/05-OAuth_Weaknesses.md) for grant-type and PKCE issues, and [JSON Web Tokens](../06-Session_Management/10-JSON_Web_Tokens.md) for other JWT issues.
 
-> Note: Open PRs may add SAML (`WSTG-ATHN-12`) and WebAuthn (`WSTG-ATHN-13`). This article uses `WSTG-ATHN-14` so those additions can land without a numbering collision. Maintainers may renumber after merge.
-
 ## Test Objectives
 
-- Confirm the RP validates issuer discovery, ID Token signatures, and authentication claims before creating a session.
+- Confirm the RP validates issuer discovery and authentication claims before creating a session.
 - Confirm account identity is bound to `(iss, sub)`, not to email alone.
 - Confirm account-linking and recovery flows cannot attach an attacker-controlled identity to another user's account.
 - Confirm mix-up defenses when the RP can use more than one OP.
+- Confirm the RP enforces requested authentication strength claims when it asks for MFA or recent authentication.
 
 ## How to Test
 
@@ -42,17 +41,17 @@ Use only tester-owned accounts at both the RP and any lab identity provider. Do 
 
 ### ID Token Validation Matrix
 
-Obtain a legitimate ID Token for a tester account, then mutate one claim or condition at a time before the RP consumes it. Prefer a lab OP or a replay against a local RP build. Do not attempt to forge production OP signatures.
+Obtain a legitimate ID Token for a tester account, then mutate one claim or condition at a time before the RP consumes it. Prefer a lab OP or a replay against a local RP build. Do not attempt to forge production OP signatures. Signature algorithm allowlists, `alg=none`, and wrong-key failures belong in [JSON Web Tokens](../06-Session_Management/10-JSON_Web_Tokens.md); keep this matrix on OIDC authentication claims.
 
 | Mutation | Expected secure result |
 |----------|------------------------|
 | Wrong `iss` | Reject |
 | Wrong or missing `aud` / unexpected `azp` | Reject |
-| Expired `exp` or future `nbf`/`iat` outside skew | Reject |
+| Expired `exp` | Reject |
 | Replayed `nonce` or missing `nonce` when the RP sent one | Reject |
-| Algorithm `none` or an unexpected algorithm | Reject |
-| Signature created with a different key | Reject |
 | Token substituted from another tester account | Session for the substituted subject must not be created under the victim's local account |
+
+`iat` validation is optional in OIDC Core. Prefer testing `exp` and `nonce` first. Do not treat `nbf` as an ID Token requirement unless the deployment documents it.
 
 Also send the access token to the UserInfo endpoint, then present UserInfo claims for subject B while the ID Token subject is A. The RP must correlate UserInfo `sub` with the authenticated ID Token `sub`.
 
@@ -62,7 +61,7 @@ OIDC email claims are not a stable account primary key.
 
 1. **Unverified email:** With a lab OP that can omit or set `email_verified=false`, attempt login or linking. The RP must not create or merge an account solely from an unverified email.
 2. **Pre-account collision:** Register a local account using tester B's email if the RP allows unverified registration. Before B verifies, attach tester A's OP identity to that account. After B verifies or recovers the account, A's OP login must not remain attached unless B explicitly re-links it.
-3. **Session-bound linking:** While authenticated as local account A, start "connect external identity." Complete the OP consent in a browser that is authenticated to the RP as local account B. The callback must not attach B's OP identity to A. Bind the linking `state` (and PKCE/`nonce` when used) to the initiating local session and purpose.
+3. **Login CSRF / confused-deputy linking:** Authenticate to the RP as victim account V. In a separate browser (or private profile) authenticate to the OP as attacker A and start "connect external identity" or an OP login that produces an authorization `code` and `state` bound to A's OP session. Deliver that callback URL to V's browser so V's RP session completes the redirect. Secure behavior refuses to attach A's OP identity to V. The linking or login transaction must be bound to the same user agent and RP session that started it, not only to a bearer `state` value an attacker can move between browsers.
 4. **Identifier change:** Change the local account email from address X to Y, then attempt old email-verification, reset, or linking tokens minted for X. They must be invalid after the identity transition.
 5. **Stable subject:** Prefer `(iss, sub)`. Two OPs asserting the same email must not merge accounts automatically.
 
@@ -70,15 +69,8 @@ OIDC email claims are not a stable account primary key.
 
 1. Confirm the RP creates its own session after validating the ID Token, and that logout or password change invalidates that session.
 2. If MFA is required for local password login, attempt OP login paths that skip MFA. See [Multi-Factor Authentication](11-Multi-Factor_Authentication.md).
-3. Confirm logout at the RP does not leave a reusable RP-side artifact that silently re-creates a session from a still-valid OP cookie without revalidation when that behavior is not intended.
-
-## Remediation
-
-- Validate ID Tokens per [OIDC Core](https://openid.net/specs/openid-connect-core-1_0.html): `iss`, `aud`, `exp`, signature, algorithm allowlist, and `nonce` when used.
-- Key local accounts on `(iss, sub)`. Treat email as a contact attribute that requires verification before linking or recovery.
-- Bind account-linking transactions to the authenticated local session that started them.
-- Invalidate outstanding verification, reset, and linking artifacts when the primary identifier changes.
-- Implement mix-up defenses when more than one OP is supported.
+3. If the RP requests step-up with `acr_values` or a recent login with `max_age`, inspect the resulting ID Token. The RP must reject tokens that omit or under-assert the required `acr` / `amr` values, or whose `auth_time` is older than `max_age`.
+4. Confirm logout at the RP does not leave a reusable RP-side artifact that silently re-creates a session from a still-valid OP cookie without revalidation when that behavior is not intended.
 
 ## Related Test Cases
 
@@ -88,6 +80,17 @@ OIDC email claims are not a stable account primary key.
 - [JSON Web Tokens](../06-Session_Management/10-JSON_Web_Tokens.md)
 - [Weak Password Change or Reset Functionalities](09-Weak_Password_Change_or_Reset_Functionalities.md)
 - [Multi-Factor Authentication](11-Multi-Factor_Authentication.md)
+- [SAML Authentication](12-SAML_Authentication.md)
+- [Passkeys and WebAuthn](13-Passkeys_and_WebAuthn.md)
+
+## Remediation
+
+- Validate ID Tokens per [OIDC Core](https://openid.net/specs/openid-connect-core-1_0.html): `iss`, `aud`, `exp`, and `nonce` when used. Apply JWT signature and algorithm checks as in [JSON Web Tokens](../06-Session_Management/10-JSON_Web_Tokens.md).
+- When requesting `acr_values` or `max_age`, enforce `acr` / `amr` / `auth_time` in the ID Token before creating or elevating a session.
+- Key local accounts on `(iss, sub)`. Treat email as a contact attribute that requires verification before linking or recovery.
+- Bind account-linking and login transactions to the user agent and RP session that started them.
+- Invalidate outstanding verification, reset, and linking artifacts when the primary identifier changes.
+- Implement mix-up defenses when more than one OP is supported.
 
 ## Tools
 
