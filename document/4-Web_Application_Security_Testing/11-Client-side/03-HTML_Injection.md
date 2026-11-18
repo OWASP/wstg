@@ -114,7 +114,7 @@ def csrf_origin_protection():
             abort(403, description="Invalid Origin")
 ```
 
-For the following tests, the application has a cookie-authenticated `POST /alterar-nome` endpoint that changes the current user's profile name. No additional CSRF token or reauthentication is required. The examples use a local laboratory and an authorized test account.
+For the following tests, the application has a cookie-authenticated `POST /alterar-nome` endpoint that changes the current user's profile name. No additional CSRF token or reauthentication is required. The examples use a local laboratory and an authorized test account. The HTTP requests shown below are illustrative; `session=TEST_SESSION_VALUE` represents a valid test-session cookie.
 
 #### Test 1: Cross-Origin Form Submission
 
@@ -133,6 +133,7 @@ When the form is submitted, the browser sends a request with an external origin:
 POST /alterar-nome HTTP/1.1
 Host: localhost:5000
 Origin: http://localhost:8000
+Cookie: session=TEST_SESSION_VALUE
 Content-Type: application/x-www-form-urlencoded
 
 nome=CROSS-ORIGIN-TEST
@@ -157,6 +158,7 @@ After the authenticated user clicks the injected button, the browser submits a r
 POST /alterar-nome HTTP/1.1
 Host: localhost:5000
 Origin: http://localhost:5000
+Cookie: session=TEST_SESSION_VALUE
 Content-Type: application/x-www-form-urlencoded
 
 nome=HTML-POC-SUCCESS
@@ -183,11 +185,11 @@ fetch("/alterar-nome", {
 });
 ```
 
-The request is initiated from `http://localhost:5000`, so the browser can send `Origin: http://localhost:5000`. Eligible authentication cookies accompany the request, and the Origin-only CSRF check accepts it.
+For this same-origin POST request, the browser sends `Origin: http://localhost:5000`, which matches the application's trusted origin. Eligible authentication cookies accompany the request, and the Origin-only CSRF check accepts it.
 
 In the local laboratory, the XSS-initiated request successfully changed the authenticated test user's profile name without any additional click or form submission after JavaScript execution.
 
-This behavior is *zero additional interaction after script execution*, but it does not necessarily make the entire exploit zero-click. Reflected XSS may require a victim to open a crafted link; stored XSS may execute when the affected page loads; and DOM-based XSS depends on its triggering conditions.
+This behavior requires no further user interaction once the injected script executes. However, this does not necessarily make the entire attack zero-click. Reflected XSS may require a victim to open a crafted link; stored XSS may execute when the affected page loads; and DOM-based XSS depends on its triggering conditions.
 
 #### Experimental Results
 
@@ -211,13 +213,13 @@ These findings demonstrate the limitation of the specific Origin-only defense us
 
 #### Potential Impact: Account Takeover (HTMLi2ATO)
 
-HTML Injection can potentially lead to Account Takeover (ATO) if an injected form changes security-sensitive account settings, such as a registered email address, recovery method, or authentication credentials, and the application does not require effective additional verification. In such a case, user interaction with the injected form may enable persistent account compromise. This possible escalation can be described as *HTML Injection to Account Takeover* (HTMLi2ATO), but that shorthand is not an official WSTG or CWE classification.
+HTML Injection can lead to Account Takeover (ATO) if an injected form changes security-sensitive account settings, such as a registered email address, recovery method, or authentication credentials, and the application does not require effective additional verification. In such a case, user interaction with the injected form may enable persistent account compromise. This attack chain may be described as HTML Injection to Account Takeover (HTMLi2ATO), although HTMLi2ATO is not a standardized OWASP or CWE classification.
 
 XSS may initiate equivalent authenticated requests automatically after script execution and could also result in ATO when the affected account operations permit it.
 
 The `HttpOnly` attribute does not prevent these requests: it restricts direct JavaScript access to protected cookies, but the browser still sends eligible cookies with authenticated requests. This is not an `HttpOnly` bypass.
 
-The laboratory demonstrated profile name changes through HTML Injection and XSS; it did **not** demonstrate Account Takeover. ATO must be validated against an operation that actually enables account compromise.
+The laboratory demonstrated authenticated profile changes through both HTML Injection and XSS. Account Takeover was not demonstrated and depends on the availability of exploitable account-management operations. ATO must be validated against an operation that actually enables account compromise.
 
 #### Security Considerations
 
