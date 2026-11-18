@@ -54,7 +54,7 @@ Secure behavior accepts the event only for the tenant whose credential signed it
 2. Send two events with the same event ID or delivery ID and different payloads.
 3. Concurrently deliver the same event twice.
 
-The application should acknowledge duplicates without applying the side effect twice. State-changing handlers need an idempotency key derived from the vendor event ID or a signed delivery ID. Payment-oriented callback replay and flooding are also covered under [Payment Functionality](../10-Business_Logic/10-Payment_Functionality.md); keep the two procedures consistent.
+The application should acknowledge an exact duplicate without applying the side effect twice. An event that reuses an event ID or delivery ID with a different payload must not be treated as an ordinary duplicate: the application should reject or flag it (for example with a `409` or `422` response and an alert) and must not apply the new payload. State-changing handlers need an idempotency key derived from the vendor event ID or a signed delivery ID, and the idempotency record should bind that key to the original event identity and a hash of its payload. Payment-oriented callback replay and flooding are also covered under [Payment Functionality](../10-Business_Logic/10-Payment_Functionality.md); keep the two procedures consistent.
 
 ### Lifecycle and Management
 
@@ -78,7 +78,7 @@ The application should acknowledge duplicates without applying the side effect t
 - Reject weaker legacy signature algorithms when a stronger one is advertised.
 - Include timestamp and delivery identity in the signed material; reject stale and duplicate deliveries.
 - Derive tenant context from the verified credential, not from mutable body fields alone.
-- Make handlers idempotent.
+- Make handlers idempotent, and bind each idempotency record to the original event identity and payload so that a reused ID with a different payload is rejected or flagged.
 - On uninstall, secret rotation, or permission removal, immediately invalidate verification material and stop processing.
 
 ## Tools
