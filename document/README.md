@@ -106,6 +106,8 @@
 
 #### 4.2.15 [Feature Flag Security Bypass](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/15-Feature_Flag_Security_Bypass.md)
 
+#### 4.2.16 [Web Cache Poisoning](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/16-Web_Cache_Poisoning.md)
+
 ### 4.3 [Identity Management](4-Web_Application_Security_Testing/03-Identity_Management/README.md)
 
 #### 4.3.1 [Role Definitions](4-Web_Application_Security_Testing/03-Identity_Management/01-Role_Definitions.md)

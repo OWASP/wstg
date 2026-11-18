@@ -29,3 +29,5 @@
 4.2.14 [Additional Browser Security Controls](14-Additional_Browser_Security_Controls.md)
 
 4.2.15 [Feature Flag Security Bypass](15-Feature_Flag_Security_Bypass.md)
+
+4.2.16 [Web Cache Poisoning](16-Web_Cache_Poisoning.md)
