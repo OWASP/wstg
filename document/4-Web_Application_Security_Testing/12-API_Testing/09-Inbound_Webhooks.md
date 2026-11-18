@@ -91,5 +91,5 @@ The application should acknowledge duplicates without applying the side effect t
 
 - [Standard Webhooks](https://www.standardwebhooks.com/)
 - [GitHub Docs - Validating webhook deliveries](https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries)
-- [OWASP API Security Top 10 - API10:2023 Unsafe Consumption of APIs](https://owasp.org/API-Security/editions/2023/en/0xa10-unsafe-consumption-of-apis/)
+- [OWASP API Security Top 10 - API10:2023 Unsafe Consumption of APIs](https://owasp.org/API-Security/editions/2023/en/0xaa-unsafe-consumption-of-apis/)
 - [RFC 9110 - HTTP Semantics](https://datatracker.ietf.org/doc/html/rfc9110)
