@@ -463,6 +463,18 @@
             "Determine whether adding, listing and removing credentials is protected.",
             "Assess how the RP handles user identification and the data it stores for credentials."
           ]
+        },
+        {
+          "name": "OpenID Connect Relying Party",
+          "id": "WSTG-ATHN-14",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/04-Authentication/14-OpenID_Connect_Relying_Party",
+          "objectives": [
+            "Confirm the RP validates issuer discovery and authentication claims before creating a session.",
+            "Confirm account identity is bound to `(iss, sub)`, not to email alone.",
+            "Confirm account-linking and recovery flows cannot attach an attacker-controlled identity to another user's account.",
+            "Confirm mix-up defenses when the RP can use more than one OP.",
+            "Confirm the RP enforces requested authentication strength claims when it asks for MFA or recent authentication."
+          ]
         }
       ]
     },
