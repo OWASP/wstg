@@ -39,7 +39,8 @@ As with any data originating from untrusted sources, the data should be properly
    - Use [ZAP's](https://www.zaproxy.org) WebSocket tab.
 2. Origin.
    - Using a WebSocket client (one can be found in the Tools section below) attempt to connect to the remote WebSocket server. If a connection is established the server may not be checking the origin header of the WebSocket handshake.
-   - Treat Origin checks as a parser problem, not only a presence check. With a controlled DNS name, try the exact allowed origin, a malicious suffix (`allowed.example.attacker.test`), a trailing dot, an unexpected port, mixed case, an IDNA/punycode twin, and scheme mismatches (`http` versus `https`). The server must compare a parsed scheme, host, and port, not a substring or loose regular expression.
+   - Cross-Site WebSocket Hijacking matters when the socket authenticates with cookies (or another credential the browser sends automatically). If the only credential is a token in the first message or a non-cookie header, a foreign page cannot use the victim's session just by opening a socket, and Origin checks are not the main control.
+   - Browsers send a lowercase `Origin`. Focus on values a real browser or embed can produce: the exact allowed origin, a malicious prefix or suffix that still matches a loose check (`https://attackerallowed.example` / `https://allowed.example.attacker.test`), an unexpected port, an IDNA/punycode twin, scheme mismatches (`http` versus `https`), and `Origin: null` from a sandboxed iframe. The server must compare a parsed scheme, host, and port, not a substring or loose regular expression.
 3. Confidentiality and Integrity.
    - Check that the WebSocket connection is using TLS to transport sensitive information `wss://`.
    - Check the HTTPS Implementation for security issues (Valid Certificate, BEAST, CRIME, RC4, etc). Refer to the [Weak Transport Layer Security](../09-Weak_Cryptography/01-Weak_Transport_Layer_Security.md) section of this guide.
@@ -48,17 +49,16 @@ As with any data originating from untrusted sources, the data should be properly
    - If the handshake carries a token in the URL, query string, or first message, confirm it is not logged by intermediaries and that it expires with the HTTP session.
 5. Authorization.
    - WebSockets do not handle authorization by themselves. Apply the [Authorization Testing](../05-Authorization/README.md) tests to the handshake **and** to individual frames. A successful low-privilege connection must not imply access to every topic, room, tenant, or object on that socket.
-6. Per-Message and Subscription Authorization.
    - Connect with two tester-owned accounts that have different roles or object membership.
    - Capture a legitimate subscribe, join, listen, or GraphQL subscription frame from account A.
    - Replay it on account B's connection after substituting user, session, room, channel, tenant, conversation, or object identifiers.
    - Confirm both the immediate response and later pushed events. Authorization that filters only the first snapshot but continues to broadcast unauthorized events is a finding.
    - After logout, password change, role removal, or token expiry on one device, verify that the still-open socket stops accepting privileged frames and stops receiving private events. Reconnect with the revoked credential and confirm the handshake or first authenticated frame is denied.
    - If the application also exposes HTTP or long-poll fallbacks for the same events, compare authorization decisions across transports.
-7. Input Sanitization.
+6. Input Sanitization.
    - Use [ZAP's](https://www.zaproxy.org) WebSocket tab to replay and fuzz WebSocket requests and responses. Refer to the [Injection Testing](../07-Injection/README.md) section of this guide.
 
-#### Example: Per-Message Authorization
+#### Per-Message Authorization
 
 Suppose account A belongs to conversation `c_a` and account B belongs to conversation `c_b`. After both accounts open authenticated sockets, capture A's subscribe frame:
 
@@ -68,16 +68,16 @@ Suppose account A belongs to conversation `c_a` and account B belongs to convers
 
 On B's socket, send the same frame with `"id":"c_a"`. Secure behavior denies the subscribe and never pushes A's messages. Insecure behavior returns the history for `c_a`, or later emits events for `c_a` on B's connection.
 
-Repeat after B logs out while the socket stays open. Privileged frames and private push events must stop.
+To test revocation on a live subscription, keep A's socket subscribed to `c_a`, then remove A's membership (or log A out) and confirm that socket stops receiving `c_a` events and rejects further privileged frames. Checking B after B logs out does not exercise revocation of an authorized subscriber.
 
-#### Example 1
+#### Intercepting With ZAP
 
 Once we have identified that the application is using WebSockets (as described above) we can use the [Zed Attack Proxy (ZAP)](https://www.zaproxy.org) to intercept the WebSocket request and responses. ZAP can then be used to replay and fuzz the WebSocket request/responses.
 
 ![ZAP WebSockets](images/11-owasp_zap_websockets.png)\
 *Figure 4.11.10-1: ZAP WebSockets*
 
-#### Example 2
+#### Cross-Origin Handshake Client
 
 Using a WebSocket client (one can be found in the Tools section below) attempt to connect to the remote WebSocket server. If the connection is allowed the WebSocket server may not be checking the WebSocket handshake's origin header. Attempt to replay requests previously intercepted to verify that cross-domain WebSocket communication is possible.
 
