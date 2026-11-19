@@ -69,7 +69,7 @@ After the pre-tag PR is merged, the tag is pushed and the website deploy succeed
 3. Release title: "WSTG v5.0" (example).
 4. Description: Summary of major changes (optional).
 5. Attach assets (optional):
-    - Run `build-ebooks-typst.yml` workflow (manual dispatch), then download artifacts: `wstg-v5.0.pdf`, `wstg-v5.0.epub`.
+    - Download the artifacts from the `build-ebooks-typst.yml` run triggered by the tag push (see Phase 5): `wstg-v5.0.pdf`, `wstg-v5.0.epub`.
     - Attach to the Release.
 6. Publish.
 

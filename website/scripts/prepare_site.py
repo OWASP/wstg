@@ -516,6 +516,11 @@ def remove_stable_content_artifacts() -> None:
 
 
 def prepare(channels: list[str] | None = None) -> None:
+    if not CURRENT_STABLE:
+        raise SystemExit(
+            f"No release tags (v{MIN_VERSION[0]}.{MIN_VERSION[1]} or newer) found. "
+            "Fetch them first: git fetch --tags"
+        )
     wanted = set(channels) if channels else None
     alias_names = {a for a, _ in PATH_REDIRECTS}
     if wanted is not None:

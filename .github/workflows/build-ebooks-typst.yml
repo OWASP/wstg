@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - 'v[0-9]*.[0-9]*'
+      - '!v*-*'  # skip prereleases such as v5.0-rc1
   workflow_dispatch:
     inputs:
       version:
