@@ -120,7 +120,7 @@ A more in-depth analysis would require three HTTP requests for each HTTP paramet
 
 The same parameter can also be sent in more than one place, for example in the query string and in a `POST` body. Frameworks that merge the two give precedence differently. For a request to `POST /?role=user` with `role=admin` in the body:
 
-- PHP's `$_REQUEST` returns `admin`, with the default `request_order` of `GP`.
+- PHP's `$_REQUEST` returns `admin`, with `request_order=GP` as set in the `php.ini` files shipped with PHP. Without it, the order falls back to `variables_order`, which also puts `POST` after `GET`.
 - Flask's `request.values` returns `user`.
 
 If one component validates the value from one source and another uses the value from the other, the check can be bypassed. Send the parameter in both places with different values, and observe which one the application uses when it validates the input and when it performs the action.
