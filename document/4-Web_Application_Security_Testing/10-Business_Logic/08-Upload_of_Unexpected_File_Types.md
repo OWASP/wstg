@@ -75,7 +75,7 @@ For example, an application may accept a ZIP file through a general File field, 
 
 - [File Extensions Handling for Sensitive Information](../02-Configuration_and_Deployment_Management/03-File_Extensions_Handling_for_Sensitive_Information.md)
 - [Upload of Malicious Files](09-Upload_of_Malicious_Files.md)
-- [Testing for Stored Cross Site Scripting](../07-Input_Validation_Testing/02-Testing_for_Stored_Cross_Site_Scripting.md)
+- [Testing for Stored Cross Site Scripting](../07-Injection/02-Stored_Cross_Site_Scripting.md)
 
 ## Remediation
 
