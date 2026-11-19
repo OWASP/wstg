@@ -95,7 +95,7 @@ Different tools provide different views of the same module. Use multiple represe
 | Browser DevTools | WAT and source maps | Viewing the module's textual representation and source mapping directly in Chrome or Firefox |
 | `wasm2js` (Binaryen) | JavaScript representation | Compiling Wasm into readable JavaScript for easier logic analysis |
 | `wasm-dis` (Binaryen) | Alternative text representation | Cross-checking output from another tool |
-| Ghidra / Radare2 | Disassembly and decompiler view | Navigating larger modules and cross-references |
+| Ghidra / radare2 / Rizin | Disassembly and decompiler view | Navigating larger modules and cross-references |
 
 Example commands:
 
@@ -180,7 +180,7 @@ This is the one dynamic verification step in this test case. Static inspection m
 
    A successful validation confirms format validity, not compatibility with the application.
 
-5. Use the modified copy in the test client: Serve `module-modified.wasm` in place of the original response using browser DevTools Local Overrides (enable **Sources** > **Overrides**, right-click the `.wasm` network request to select **Override content**, and replace the saved file on disk; see [WebAssembly Reconnaissance (WSTG-WASM-01)](01-WebAssembly_Reconnaissance.md) for an introduction). Keep the original URL unchanged. Note that Subresource Integrity (SRI) checks (when the loader passes an `integrity` option to `fetch()`) or application-level signed manifests/hash checks can block the loading of modified modules.
+5. Use the modified copy in the test client: Serve `module-modified.wasm` in place of the original response using browser DevTools Local Overrides (enable **Sources** > **Overrides**, right-click the `.wasm` network request to select **Override content**, and replace the saved file on disk; see [WebAssembly Reconnaissance (WSTG-WASM-01)](01-WebAssembly_Reconnaissance.md) for an introduction). If you test through Zed Attack Proxy (ZAP), its [Map Local](https://www.zaproxy.org/blog/2023-10-31-maplocal-add-on/) add-on can serve the local file for the module's URL instead. Keep the original URL unchanged. Note that Subresource Integrity (SRI) checks (when the loader passes an `integrity` option to `fetch()`) or application-level signed manifests/hash checks can block the loading of modified modules.
 6. Compare the observed behavior: Repeat the same action. Record whether the UI changes and whether the application receives a successful or rejected back-end response.
 
 #### Interpreting Results
@@ -215,7 +215,7 @@ This is the one dynamic verification step in this test case. Static inspection m
 - Symbolic execution frameworks: [Owi](https://github.com/OCamlPro/owi) for advanced static and symbolic analysis of Wasm binaries.
 - Online explorers: [WebAssembly Code Explorer](https://wasdk.github.io/wasmcodeexplorer/) and [WasmFiddle++](https://anonyco.github.io/WasmFiddlePlusPlus/) for quick binary inspection without local installations.
 - [LLVM (`llvm-dwarfdump`)](https://llvm.org/docs/CommandGuide/llvm-dwarfdump.html) - Inspecting DWARF debug info.
-- [Ghidra WebAssembly plugin](https://github.com/nneonneo/ghidra-wasm-plugin) and [Radare2 / Cutter](https://cutter.re/) - Disassemblers and decompilers supporting Wasm.
+- [Ghidra WebAssembly plugin](https://github.com/nneonneo/ghidra-wasm-plugin), [radare2](https://rada.re/), and [Rizin / Cutter](https://rizin.re/) - Disassemblers and decompilers supporting Wasm.
 - [WASM-Hunter](https://github.com/Galaxy-sc/WASM-Hunter) - Automated extraction of function names and structural indicators from Wasm modules.
 
 ## References
