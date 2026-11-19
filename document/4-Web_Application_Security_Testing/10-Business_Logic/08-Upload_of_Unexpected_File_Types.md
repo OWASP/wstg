@@ -18,6 +18,10 @@ Suppose a picture sharing application allows users to upload a `.gif` or `.jpg` 
 
 ## Test Objectives
 
+- Verify that temporary file references remain bound to the uploading user, original field, and validated file type.
+- Determine whether expired or missing upload metadata causes the application to reject the reference or safely revalidate the underlying file.
+- Check whether references can be reused in fields with different validation requirements or by users who do not own the files.
+- Verify that file delivery does not allow untrusted content to execute under the application's origin.
 - Review the project documentation for file types that are rejected by the system.
 - Verify that the unwelcomed file types are rejected and handled safely.
 - Verify that file batch uploads are secure and do not allow any bypass against the set security measures.
@@ -41,27 +45,20 @@ Suppose a picture sharing application allows users to upload a `.gif` or `.jpg` 
 
 File upload security checks must remain effective throughout the file's lifecycle, including temporary storage, later association with application records, and delivery to clients. Expiration of upload metadata is not itself a vulnerability. The risk arises when an application continues to trust an existing file reference without revalidating it for the current operation, including its type, ownership, and authorization requirements.
 
-#### Test Objectives
-
-- Verify that temporary file references remain bound to the uploading user, original field, and validated file type.
-- Determine whether expired or missing upload metadata causes the application to reject the reference or safely revalidate the underlying file.
-- Check whether references can be reused in fields with different validation requirements or by users who do not own the files.
-- Verify that file delivery does not allow untrusted content to execute under the application's origin.
-
 #### Testing Procedure
 
 Perform the following tests only with accounts and files you control in an authorized test environment:
 
 1. Identify a workflow that uploads a file to temporary storage and later submits a file identifier, basename, or token to associate it with a record. Record the temporary reference and the field's accepted types.
-2. Upload a harmless file allowed by a general-purpose File field. Observe the file's lifetime and any associated validation metadata in the test environment.
+2. Upload a harmless file allowed by a general file upload field. Observe the file's lifetime and any associated validation metadata in the test environment.
 3. After the metadata naturally expires, or after simulating that expiration in an isolated laboratory, submit the original reference through its intended workflow. Verify that the application rejects it or revalidates the file before use.
-4. Where a second field applies different constraints (for example, an Image field), submit the same reference through that field's normal request. Verify that the server enforces the destination field's content and type requirements rather than trusting the earlier validation.
+4. Where a second field applies different constraints (for example, an image-only field), submit the same reference through that field's normal request. Verify that the server enforces the destination field's content and type requirements rather than trusting the earlier validation.
 5. Using two controlled test accounts, attempt to reference an upload owned by the other account. Repeat with roles having different permissions. Verify that ownership and authorization are enforced at every step, including when the file is moved or downloaded. A cross-user authorization issue must be independently demonstrated; cross-field reuse alone does not establish one.
 6. If the file is moved to permanent storage or associated with another resource, verify that its validated type, owner, and permitted use are preserved or re-established. Check that the actual stored contents still match the file that was validated, including after association or promotion. Where appropriate, inspect the content again or compare a cryptographic hash of the validated bytes with the stored object to detect replacement or modification. Missing metadata must not cause a permissive fallback.
 7. Request the stored file through each relevant rendering or download endpoint. Inspect the response `Content-Type`, `Content-Disposition`, and `X-Content-Type-Options` headers, and determine whether untrusted files are served from the application's origin.
 8. With harmless test content, confirm whether the browser downloads the file, displays it as inert content, or interprets it as an active document. Report actual script execution separately from mere storage or inline rendering.
 
-For example, an application may accept a ZIP file through a general File field, retain the temporary file longer than its metadata, and later accept its reference in an Image field. If the file is then served inline with an invalid or inappropriate response `Content-Type`, and without appropriate content-sniffing protections, some browsers may interpret attacker-controlled HTML as an active document. This outcome is browser- and response-dependent; it must be verified rather than assumed.
+For example, an application may accept a ZIP file through a general file upload field, retain the temporary file longer than its metadata, and later accept its reference in an image-only field. If the file is then served inline with an invalid or inappropriate response `Content-Type`, and without appropriate content-sniffing protections, some browsers may interpret attacker-controlled HTML as an active document. This outcome is browser- and response-dependent; it must be verified rather than assumed.
 
 #### Testing Client-Side Trust and HTTP Tampering
 
@@ -75,7 +72,18 @@ Upload validation decisions must be enforced by the server, not inferred from cl
 
 Response and request tampering are testing techniques, not vulnerabilities by themselves. A client-side display change or an accepted HTTP response code alone does not establish a server-side validation bypass.
 
-#### File Delivery Considerations
+## Related Test Cases
+
+- [File Extensions Handling for Sensitive Information](../02-Configuration_and_Deployment_Management/03-File_Extensions_Handling_for_Sensitive_Information.md)
+- [Upload of Malicious Files](09-Upload_of_Malicious_Files.md)
+- [Stored Cross Site Scripting](../07-Injection/02-Stored_Cross_Site_Scripting.md)
+- [Insecure Direct Object References](../05-Authorization/04-Insecure_Direct_Object_References.md)
+
+## Remediation
+
+Applications should be developed with mechanisms to only accept and manipulate "acceptable" files that the rest of the application functionality is ready to handle and expecting. Some specific examples include: deny lists or allow lists of file extensions, using "Content-Type" from the header, or using a file type recognizer, all to only allow specified file types into the system.
+
+### File Delivery Considerations
 
 - Use a correct response `Content-Type` based on validated content and intended use; do not copy an unvalidated filename extension directly into the header.
 - Set `X-Content-Type-Options: nosniff` as a defense-in-depth measure. Browsers enforce MIME-type restrictions in specific contexts, notably script and stylesheet requests; this header is not a general guarantee against rendering active HTML content and does not replace content validation, forced downloads, or origin isolation.
@@ -83,20 +91,10 @@ Response and request tampering are testing techniques, not vulnerabilities by th
 - Consider delivering untrusted user files from an isolated origin without application credentials, especially where active content cannot be excluded.
 - Distinguish execution in an anonymous browser context from execution in an authenticated session when assessing impact.
 
-## Related Test Cases
-
-- [File Extensions Handling for Sensitive Information](../02-Configuration_and_Deployment_Management/03-File_Extensions_Handling_for_Sensitive_Information.md)
-- [Upload of Malicious Files](09-Upload_of_Malicious_Files.md)
-- [Stored Cross Site Scripting](../07-Injection/02-Stored_Cross_Site_Scripting.md)
-
-## Remediation
-
-Applications should be developed with mechanisms to only accept and manipulate "acceptable" files that the rest of the application functionality is ready to handle and expecting. Some specific examples include: deny lists or allow lists of file extensions, using "Content-Type" from the header, or using a file type recognizer, all to only allow specified file types into the system.
-
 ## References
 
 - [OWASP - Unrestricted File Upload](https://owasp.org/www-community/vulnerabilities/Unrestricted_File_Upload)
 - [File upload security best practices: Block a malicious file upload](https://www.computerweekly.com/answer/File-upload-security-best-practices-Block-a-malicious-file-upload)
 - [Stop people uploading malicious PHP files via forms](https://stackoverflow.com/questions/602539/stop-people-uploading-malicious-php-files-via-forms)
 - [CWE-434: Unrestricted Upload of File with Dangerous Type](https://cwe.mitre.org/data/definitions/434.html)
-- [Tarcísio Luchesi (Poystick) — Upload Metadata Expiration, Cross-Field File Reuse, MIME Sniffing, Stored XSS](https://x.com/P0ystick/status/2123420300217856345?a=zG_V3W7Es20E8M6UABU&s=19)
+- [Tarcísio Luchesi (Poystick) — Upload Metadata Expiration, Cross-Field File Reuse, MIME Sniffing, Stored XSS](https://x.com/P0ystick/status/2123420300217856345)
