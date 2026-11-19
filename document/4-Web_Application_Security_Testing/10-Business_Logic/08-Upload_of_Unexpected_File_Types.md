@@ -57,7 +57,7 @@ Perform the following tests only with accounts and files you control in an autho
 3. After the metadata naturally expires, or after simulating that expiration in an isolated laboratory, submit the original reference through its intended workflow. Verify that the application rejects it or revalidates the file before use.
 4. Where a second field applies different constraints (for example, an Image field), submit the same reference through that field's normal request. Verify that the server enforces the destination field's content and type requirements rather than trusting the earlier validation.
 5. Using two controlled test accounts, attempt to reference an upload owned by the other account. Repeat with roles having different permissions. Verify that ownership and authorization are enforced at every step, including when the file is moved or downloaded. A cross-user authorization issue must be independently demonstrated; cross-field reuse alone does not establish one.
-6. If the file is moved to permanent storage, verify that its validated type, owner, and permitted use are preserved or re-established. Missing metadata must not cause a permissive fallback.
+6. If the file is moved to permanent storage or associated with another resource, verify that its validated type, owner, and permitted use are preserved or re-established. Check that the actual stored contents still match the file that was validated, including after association or promotion. Where appropriate, inspect the content again or compare a cryptographic hash of the validated bytes with the stored object to detect replacement or modification. Missing metadata must not cause a permissive fallback.
 7. Request the stored file through each relevant rendering or download endpoint. Inspect the response `Content-Type`, `Content-Disposition`, and `X-Content-Type-Options` headers, and determine whether untrusted files are served from the application's origin.
 8. With harmless test content, confirm whether the browser downloads the file, displays it as inert content, or interprets it as an active document. Report actual script execution separately from mere storage or inline rendering.
 
@@ -78,7 +78,7 @@ Response and request tampering are testing techniques, not vulnerabilities by th
 #### File Delivery Considerations
 
 - Use a correct response `Content-Type` based on validated content and intended use; do not copy an unvalidated filename extension directly into the header.
-- Set `X-Content-Type-Options: nosniff` as a defense-in-depth measure, while recognizing that it does not prevent every active-content scenario.
+- Set `X-Content-Type-Options: nosniff` as a defense-in-depth measure. Browsers enforce MIME-type restrictions in specific contexts, notably script and stylesheet requests; this header is not a general guarantee against rendering active HTML content and does not replace content validation, forced downloads, or origin isolation.
 - Use `Content-Disposition: attachment` for untrusted files that should be downloaded rather than rendered inline.
 - Consider delivering untrusted user files from an isolated origin without application credentials, especially where active content cannot be excluded.
 - Distinguish execution in an anonymous browser context from execution in an authenticated session when assessing impact.
