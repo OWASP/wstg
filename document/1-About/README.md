@@ -21,6 +21,8 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 
 ## Core Team
 
+- Srinivas Chippagiri (Salesforce Inc)
+- Enes Baldemir
 - Rejah Rehim
 - Victoria Drake
 
