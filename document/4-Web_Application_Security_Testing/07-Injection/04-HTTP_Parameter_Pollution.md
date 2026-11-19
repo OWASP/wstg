@@ -129,6 +129,19 @@ When a cache and the origin server read duplicate parameters differently, the sa
 
 Crafting a full exploit from a parameter pollution weakness is beyond the scope of this text. See the references for examples and details.
 
+### Server-Side Parameter Pollution
+
+An application may also copy user input into a request it sends to another service, such as an internal REST API. If the input is placed into that request without encoding, the user controls the structure of the internal request, not just one value in it. The internal request isn't visible to the tester, so its effects have to be inferred from the responses.
+
+Look for inputs that the application is likely to pass on, such as search fields, user and account identifiers, and values the application looks up in another system. Then send URL-encoded control characters in the value. The application decodes them once, so they reach the internal request as syntax:
+
+- `%23` (`#`): for example `name=peter%23x`. If the internal URL is built by string concatenation, everything after `#` becomes a fragment and isn't sent, which can drop parameters the application appends after the input, such as a filter. A result for `peter`, rather than no result or an error about `peter#x`, suggests the request was truncated. Send `#` encoded, because a literal `#` starts the fragment of the tester's own request and never reaches the server.
+- `%26` (`&`): for example `name=peter%26x=1` adds a parameter to the internal request. Use parameter names the internal API is likely to accept, such as names seen in other requests, responses, or API documentation, and look for a change in behavior. A parameter that the application also appends, such as `name=peter%26publicProfile=false`, is then sent twice, and the way the internal API handles duplicate parameters decides which value is used.
+- `%2f` with `..`: if the value is placed in a path, such as `/api/users/{name}`, then `name=peter%2f..%2fadmin` can make the request go to `/api/users/admin`, because many HTTP clients resolve dot segments before sending the request. More `..%2f` segments can reach other internal endpoints. This is the server-side counterpart of [Client-side Path Traversal](../11-Client-side/19-Client-side_Path_Traversal.md).
+- `"` in JSON bodies: if the value is copied into a JSON body by string formatting, such as `{"name":"INPUT","role":"user"}`, then `peter","is_admin":true,"x":"y` adds an `is_admin` field. A field that the template already contains after the input, such as `role`, ends up in the body twice, and most JSON parsers keep the last occurrence, so the injected value is ignored. See [JSON Parser Differentials](26-JSON_Parser_Differentials.md). If the input is itself sent as JSON, escape the quotes (`\"`) so that they survive the first parser.
+
+Compare each response with the response for a plain value. An error that mentions an unexpected parameter, a result that ignores a filter, or data for a different object all suggest that the input reaches an internal request unencoded.
+
 ### Client-Side HPP
 
 Similarly to server-side HPP, manual testing is the only reliable technique to audit web applications in order to detect parameter pollution vulnerabilities affecting client-side components. While in the server-side variant the attacker leverages a vulnerable web application to access protected data or to perform actions that are either not permitted or not supposed to be executed, client-side attacks aim at subverting client-side components and technologies.
@@ -149,7 +162,7 @@ In particular, pay attention to responses having HPP vectors within `data`, `src
 - Where a single value is expected, reject requests that contain the parameter more than once, or that contain an array or object instead of a string.
 - Validate the same value that is later used, after any parsing and decoding.
 - Make sure that proxies, web application firewalls, and the application parse duplicate parameters in the same way.
-- Encode user input when building query strings for requests to other services.
+- Encode user input when building query strings and paths for requests to other services, using the URL and parameter builders of the HTTP client rather than string concatenation, and build JSON bodies with a serializer.
 
 ## Tools
 
@@ -164,3 +177,4 @@ In particular, pay attention to responses having HPP vectors within `data`, `src
 - [How to Detect HTTP Parameter Pollution Attacks - Chrysostomos Daniel](https://www.acunetix.com/blog/whitepaper-http-parameter-pollution/)
 - [CAPEC-460: HTTP Parameter Pollution (HPP) - Evgeny Lebanidze](https://capec.mitre.org/data/definitions/460.html)
 - [Automated Discovery of Parameter Pollution Vulnerabilities in Web Applications - Marco Balduzzi, Carmen Torrano Gimenez, Davide Balzarotti, Engin Kirda](https://s3.eurecom.fr/docs/ndss11_hpp.pdf)
+- [Server-side parameter pollution - PortSwigger Web Security Academy](https://portswigger.net/web-security/api-testing/server-side-parameter-pollution)
