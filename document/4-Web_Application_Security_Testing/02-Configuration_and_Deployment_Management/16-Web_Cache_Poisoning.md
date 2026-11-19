@@ -78,19 +78,21 @@ After the poisoned response is stored, request the same URL and cache-buster wit
 
 1. Authenticate as tester A and request a personalized page through the cache with a unique buster.
 2. From an anonymous session or tester B, request the same URL and buster.
-3. If B receives A's private content, record the disclosure. Compare the result with a cache-bypassed baseline and cache telemetry before assigning a cause.
+3. If B receives A's private content, record the disclosure. Use origin observations and cache telemetry to determine which layer supplied the response.
 
 #### Verify Tenant Isolation
 
-Use an isolated test environment with two tenants, A and B, that have no access to each other's data. Give each tenant a distinct synthetic record. Use separate sessions with equivalent roles. Choose a protected, read-only view that both tenants use, such as the list of records for the current tenant.
+Use an isolated test environment with two tenants, A and B, that have no access to each other's data. Give each tenant a distinct synthetic record and use separate sessions with equivalent roles. Choose a protected, read-only route through the shared cache under test, such as the list of records for the current tenant. Record whether the policy allows the cache to reuse responses within a tenant or requires it to avoid storing them.
 
-1. Establish the expected response for each tenant through an approved cache bypass that keeps the same origin routing and authorization. Verify that each session sees its own record. If a baseline exposes the other tenant's record, investigate origin routing and authorization before evaluating the shared cache.
-2. Start with a known empty cache state for the test resource. Request the view using the normal tenant context in A's session, then in B's session. Repeat in reverse order from a fresh cache state. Where the policy allows caching within each tenant, repeat the authorized reads to observe a hit for each tenant.
-3. Compare the status and tenant-specific response content with each baseline. Use cache logs, traces, or a [`Cache-Status`](https://www.rfc-editor.org/rfc/rfc9211.html) field from the relevant cache to confirm how it handled each request. If multiple caches are present, identify which layer the evidence describes.
+1. Establish the expected response for each session from the synthetic records and access policy. Verify it with requests that reach the origin under the same routing and authorization rules. Use a controlled cache bypass or observe origin processing from an empty cache state. If you cannot verify the origin response, record that limitation.
+2. Start each sequence with a known empty cache for the test resource or independent test entries that preserve the policy under test. Request the view in A's session and then B's session. Repeat the same reads and check each response against the expected status and content. Run the sequence again starting with B.
+3. Use logs, traces, or a [`Cache-Status`](https://www.rfc-editor.org/rfc/rfc9211.html) field to identify how the cache under test handled each request. An outer cache can serve a response that carries a status field from an earlier request to an inner cache. Correlate the evidence with the current request and the layer under test.
 
-An unexpected record from another tenant is an isolation failure even if the responsible layer is still unknown. Treat matching responses as evidence for the tested configuration when you can confirm the intended hits or policy-driven bypass. If cache behavior is unobservable or expected hits are absent, record the cache result as inconclusive. A correct response on a miss alone does not verify isolation on cache hits.
+Report any response containing data the session is forbidden to access as an isolation failure. If the origin also returns the wrong data, investigate origin routing and authorization before attributing the disclosure to caching.
 
-Record the tested route and access policy, request order, cache state and observations, expected and observed records, and the result. Remove credentials and session identifiers from the evidence.
+For intentionally cached responses, confirm a hit for each tenant and verify its content. For responses that must stay out of the shared cache, verify that the cache declines to store them and forwards repeated reads. A single miss or an absent header is insufficient evidence. Record the cache result as inconclusive when the expected behavior cannot be observed.
+
+Record the tested route, policy, cache layer, request order, initial cache state, expected and observed content, and result. Include request IDs or timestamps when available. Remove credentials and session identifiers from the evidence.
 
 ### 5. Normalization Differentials
 
