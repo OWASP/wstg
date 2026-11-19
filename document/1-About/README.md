@@ -56,8 +56,8 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Samuele Casarin
 - Sevban Dönmez
 - Srinivas Chippagiri
-- Tarcísio Luchesi (Poystick)
 - Stefano Calzavara
+- Tarcísio Luchesi (Poystick)
 - Tal Argoni
 - Victoria Drake
 
