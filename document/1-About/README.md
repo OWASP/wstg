@@ -57,8 +57,8 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Sevban Dönmez
 - Srinivas Chippagiri
 - Stefano Calzavara
-- Tarcísio Luchesi (Poystick)
 - Tal Argoni
+- Tarcísio Luchesi (Poystick)
 - Victoria Drake
 
 ## Graphic Designers
