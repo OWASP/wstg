@@ -71,12 +71,11 @@ For example, an application may accept a ZIP file through a general File field, 
 - Consider delivering untrusted user files from an isolated origin without application credentials, especially where active content cannot be excluded.
 - Distinguish execution in an anonymous browser context from execution in an authenticated session when assessing impact.
 
-For related XSS testing, see [Testing for Stored Cross Site Scripting](../07-Input_Validation_Testing/02-Testing_for_Stored_Cross_Site_Scripting.md).
-
 ## Related Test Cases
 
 - [File Extensions Handling for Sensitive Information](../02-Configuration_and_Deployment_Management/03-File_Extensions_Handling_for_Sensitive_Information.md)
 - [Upload of Malicious Files](09-Upload_of_Malicious_Files.md)
+- [Testing for Stored Cross Site Scripting](../07-Input_Validation_Testing/02-Testing_for_Stored_Cross_Site_Scripting.md)
 
 ## Remediation
 
