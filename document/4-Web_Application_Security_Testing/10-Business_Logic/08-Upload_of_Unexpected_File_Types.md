@@ -86,7 +86,7 @@ Applications should be developed with mechanisms to only accept and manipulate "
 ### File Delivery Considerations
 
 - Use a correct response `Content-Type` based on validated content and intended use; do not copy an unvalidated filename extension directly into the header.
-- Set `X-Content-Type-Options: nosniff` as a defense-in-depth measure. Browsers enforce MIME-type restrictions in specific contexts, notably script and stylesheet requests; this header is not a general guarantee against rendering active HTML content and does not replace content validation, forced downloads, or origin isolation.
+- Set `X-Content-Type-Options: nosniff` as a defense-in-depth measure. Browsers enforce MIME-type restrictions in specific contexts, notably script and style sheet requests; this header is not a general guarantee against rendering active HTML content and does not replace content validation, forced downloads, or origin isolation.
 - Use `Content-Disposition: attachment` for untrusted files that should be downloaded rather than rendered inline.
 - Consider delivering untrusted user files from an isolated origin without application credentials, especially where active content cannot be excluded.
 - Distinguish execution in an anonymous browser context from execution in an authenticated session when assessing impact.
