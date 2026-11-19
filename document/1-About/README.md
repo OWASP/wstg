@@ -60,6 +60,7 @@ This document is released under the [Creative Commons 4.0 License](https://creat
 - Srinivas Chippagiri
 - Stefano Calzavara
 - Tal Argoni
+- Tarcísio Luchesi (Poystick)
 - Victoria Drake
 
 ## Graphic Designers
