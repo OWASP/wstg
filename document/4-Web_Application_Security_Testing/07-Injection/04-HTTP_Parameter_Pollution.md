@@ -6,11 +6,11 @@
 
 ## Summary
 
-HTTP Parameter Pollution tests the applications response to receiving multiple HTTP parameters with the same name; for example, if the parameter `username` is included in the GET or POST parameters twice.
+HTTP Parameter Pollution tests the application's response to receiving multiple HTTP parameters with the same name; for example, if the parameter `username` is included in the GET or POST parameters twice.
 
-Supplying multiple HTTP parameters with the same name may cause an application to interpret values in unanticipated ways. By exploiting these effects, an attacker may be able to bypass input validation, trigger application errors or modify internal variables values. As HTTP Parameter Pollution (in short *HPP*) affects a building block of all web technologies, server and client-side attacks exist.
+Supplying multiple HTTP parameters with the same name may cause an application to interpret values in unanticipated ways. By exploiting these effects, an attacker may be able to bypass input validation, trigger application errors or modify the values of internal variables. As HTTP Parameter Pollution (in short *HPP*) affects a building block of all web technologies, server and client-side attacks exist.
 
-Current HTTP standards do not include guidance on how to interpret multiple input parameters with the same name. For instance, [RFC 3986](https://www.ietf.org/rfc/rfc3986.txt) simply defines the term *Query String* as a series of field-value pairs and [RFC 2396](https://www.ietf.org/rfc/rfc2396.txt) defines classes of reversed and unreserved query string characters. Without a standard in place, web application components handle this edge case in a variety of ways (see the table below for details).
+Current HTTP standards do not include guidance on how to interpret multiple input parameters with the same name. For instance, [RFC 3986](https://www.ietf.org/rfc/rfc3986.txt) simply defines the term *Query String* as a series of field-value pairs and [RFC 2396](https://www.ietf.org/rfc/rfc2396.txt) defines classes of reserved and unreserved query string characters. Without a standard in place, web application components handle this edge case in a variety of ways (see the table below for details).
 
 By itself, this is not necessarily an indication of vulnerability. However, if the developer is not aware of the problem, the presence of duplicated parameters may produce an anomalous behavior in the application that can be potentially exploited by an attacker. As often in security, unexpected behaviors are a usual source of weaknesses that could lead to HTTP Parameter Pollution attacks in this case. To better introduce this class of vulnerabilities and the outcome of HPP attacks, it is interesting to analyze some real-life examples that have been discovered in the past.
 
@@ -18,7 +18,7 @@ By itself, this is not necessarily an indication of vulnerability. However, if t
 
 In 2009, immediately after the publication of the first research on HTTP Parameter Pollution, the technique received attention from the security community as a possible way to bypass web application firewalls.
 
-One of these flaws, affecting *ModSecurity SQL Injection Core Rules*, represents a perfect example of the impedance mismatch between applications and filters. The ModSecurity filter would correctly apply a deny list for the following string: `select 1,2,3 from table`, thus blocking this example URL from being processed by the web server: `/index.aspx?page=select 1,2,3 from table`. However, by exploiting the concatenation of multiple HTTP parameters, an attacker could cause the application server to concatenate the string after the ModSecurity filter already accepted the input. As an example, the URL `/index.aspx?page=select 1&page=2,3` from table would not trigger the ModSecurity filter, yet the application layer would concatenate the input back into the full malicious string.
+One of these flaws, affecting *ModSecurity SQL Injection Core Rules*, represents a perfect example of the impedance mismatch between applications and filters. The ModSecurity filter would correctly apply a deny list for the following string: `select 1,2,3 from table`, thus blocking this example URL from being processed by the web server: `/index.aspx?page=select 1,2,3 from table`. However, by exploiting the concatenation of multiple HTTP parameters, an attacker could cause the application server to concatenate the string after the ModSecurity filter already accepted the input. As an example, the URL `/index.aspx?page=select 1&page=2,3 from table` would not trigger the ModSecurity filter, yet the application layer would concatenate the input back into the full malicious string.
 
 Another HPP vulnerability turned out to affect *Apple Cups*, the well-known printing system used by many Unix systems. Exploiting HPP, an attacker could easily trigger a Cross-Site Scripting vulnerability using the following URL: `https://127.0.0.1:631/admin/?kerberos=onmouseover=alert(1)&kerberos`. The application validation checkpoint could be bypassed by adding an extra `kerberos` argument having a valid string (e.g. empty string). As the validation checkpoint would only consider the second occurrence, the first `kerberos` parameter was not properly sanitized before being used to generate dynamic HTML content. Successful exploitation would result in JavaScript code execution under the context of the hosting site.
 
@@ -26,7 +26,7 @@ Another HPP vulnerability turned out to affect *Apple Cups*, the well-known prin
 
 An even more critical HPP vulnerability was discovered in *Blogger*, the popular blogging platform. The bug allowed malicious users to take ownership of the victim’s blog by using the following HTTP request (`https://www.blogger.com/add-authors.do`):
 
-```html
+```http
 POST /add-authors.do HTTP/1.1
 [...]
 
@@ -47,8 +47,13 @@ Given the URL and query string: `https://example.com/?color=red&color=blue`
 | ASP.NET Core / Kestrel | All occurrences available (`StringValues`; comma-joined when stringified) | `color=red,blue` |
 | PHP (Apache / php-fpm / Nginx) | Last occurrence only | `color=blue` |
 | Java Servlet (Tomcat, Jetty, and similar) | First occurrence only | `color=red` |
-| Node.js / Express | First occurrence only | `color=red` |
-| Python (Django, Flask, and similar) | All occurrences in a list / MultiDict | `color=['red','blue']` |
+| Node.js / Express (`req.query`) | All occurrences as an array | `color=['red','blue']` |
+| Node.js `URL` API (`URLSearchParams.get()`, not Express `req.query`) | First occurrence only; all with `.getAll()` | `color=red` |
+| Python / Django (`request.GET['color']`, `.get()`) | Last occurrence only; all with `.getlist()` | `color=blue` |
+| Python / Flask (`request.args['color']`, `.get()`) | First occurrence only; all with `.getlist()` | `color=red` |
+| Go (`FormValue()`, `URL.Query().Get()`) | First occurrence only; all in `URL.Query()["color"]` | `color=red` |
+
+A parser that returns an array can also cause type confusion: code that expects a string may skip a check or fail when it receives `['red','blue']`. Some parsers also build arrays or objects from bracket syntax, such as `color[]=red` in PHP, or in Express with the `qs` (extended) query parser, which was the default before Express 5.
 
 Behaviors for other servers and older platforms vary; always confirm on the system under test. Historical research on this topic includes AppSec EU 2009 (Carettoni & di Paola).
 
@@ -59,7 +64,7 @@ Behaviors for other servers and older platforms vary; always confirm on the syst
 
 ## How to Test
 
-Whether an specific page or API endpoint is vulnerable to HPP will depend on the interaction between multiple components, including the application, the web server, the web application firewall and any middleware. Where these vary for different parts of an application (such as a microservice architecture), this can result in some parts of the application being vulnerable and not others.
+Whether a specific page or API endpoint is vulnerable to HPP will depend on the interaction between multiple components, including the application, the web server, the web application firewall and any middleware. Where these vary for different parts of an application (such as a microservice architecture), this can result in some parts of the application being vulnerable and not others.
 
 As in-depth business logic knowledge is necessary, testing HPP requires manual testing. Automatic tools can only partially assist auditors as they tend to generate too many false positives. In addition, HPP can manifest itself in client-side and server-side components.
 
@@ -98,7 +103,7 @@ Content-Type: application/json
 }
 ```
 
-and submit the new request.
+and submit the new request. Duplicate keys in a JSON body are handled by the JSON parser rather than the query string parser; see [JSON Parser Differentials](26-JSON_Parser_Differentials.md).
 
 Analyze the response page to determine which value(s) were parsed. In the above example, the search results may show `kittens`, `puppies`, some combination of both (`kittens,puppies` or `kittens~puppies` or `['kittens','puppies']`), may give an empty result, or error page.
 
@@ -111,7 +116,33 @@ A more in-depth analysis would require three HTTP requests for each HTTP paramet
 3. Send a new request combining step (1) and (2). Again, save the HTTP response. E.g. `page?par1=val1&par1=HPP_TEST1`
 4. Compare the responses obtained during all previous steps. If the response from (3) is different from (1) and the response from (3) is also different from (2), there is an impedance mismatch that may be eventually abused to trigger HPP vulnerabilities.
 
+#### Query String and Body Parameters
+
+The same parameter can also be sent in more than one place, for example in the query string and in a `POST` body. Frameworks that merge the two give precedence differently. For a request to `POST /?role=user` with `role=admin` in the body:
+
+- PHP's `$_REQUEST` returns `admin`, with `request_order=GP` as set in the `php.ini` files shipped with PHP. Without it, the order falls back to `variables_order`, which also puts `POST` after `GET`.
+- Flask's `request.values` returns `user`.
+
+If one component validates the value from one source and another uses the value from the other, the check can be bypassed. Send the parameter in both places with different values, and observe which one the application uses when it validates the input and when it performs the action.
+
+When a cache and the origin server read duplicate parameters differently, the same technique can also affect cached responses. See [Web Cache Poisoning](../02-Configuration_and_Deployment_Management/16-Web_Cache_Poisoning.md).
+
 Crafting a full exploit from a parameter pollution weakness is beyond the scope of this text. See the references for examples and details.
+
+### Server-Side Parameter Pollution
+
+An application may also copy user input into a request it sends to another service, such as an internal REST API. If the input is placed into that request without encoding, the user controls the structure of the internal request, not just one value in it. The internal request isn't visible to the tester, so its effects have to be inferred from the responses.
+
+Look for inputs that the application is likely to pass on, such as search fields, user and account identifiers, and values the application looks up in another system. Then send URL-encoded control characters in the value. The application decodes them once, so they reach the internal request as syntax:
+
+- `%23` (`#`): for example `name=peter%23x`. If the internal URL is built by string concatenation, everything after `#` becomes a fragment and isn't sent, which can drop parameters the application appends after the input, such as a filter. A result for `peter`, rather than no result or an error about `peter#x`, suggests the request was truncated. Send `#` encoded, because a literal `#` starts the fragment of the tester's own request and never reaches the server.
+- `%26` (`&`): for example `name=peter%26x=1` adds a parameter to the internal request. Use parameter names the internal API is likely to accept, such as names seen in other requests, responses, or API documentation, and look for a change in behavior. An injected parameter can also override an existing one, because it is then sent twice and the way the internal API parses duplicate parameters decides which value is used (see the table above):
+    - For a parameter the application appends after the input, such as `name=peter%26publicProfile=false`, the injected value comes first, so it wins on stacks that use the first occurrence, such as Flask or Go.
+    - For the input's own parameter, such as `name=peter%26name=admin`, the injected value comes last, so it wins on stacks that use the last occurrence, such as PHP or Django. The application may check access for `peter` while the internal API returns `admin`.
+- `%2f` with `..`: if the value is placed in a path, such as `/api/users/{name}`, then `name=peter%2f..%2fadmin` is decoded to `peter/../admin` and the internal URL becomes `/api/users/peter/../admin`. Some HTTP clients, such as Node.js `fetch` and Python `requests`, resolve these dot segments before sending the request, so it goes to `/api/users/admin`. Others send them as they are, and a proxy or the internal server may or may not resolve them. This depends on the HTTP client, any intermediaries, and the internal server, so confirm the effect from the responses rather than assuming it. More `..%2f` segments can reach other internal endpoints. This is the server-side counterpart of [Client-side Path Traversal](../11-Client-side/19-Client-side_Path_Traversal.md).
+- `"` in JSON bodies: if the value is copied into a JSON body by string formatting, such as `{"name":"INPUT","role":"user"}`, then `peter","is_admin":true,"x":"y` adds an `is_admin` field. A field that the template already contains after the input, such as `role`, ends up in the body twice, and most JSON parsers keep the last occurrence, so the injected value is ignored. See [JSON Parser Differentials](26-JSON_Parser_Differentials.md). If the input is itself sent as JSON, escape the quotes (`\"`) so that they survive the first parser.
+
+Compare each response with the response for a plain value. An error that mentions an unexpected parameter, a result that ignores a filter, or data for a different object all suggest that the input reaches an internal request unencoded.
 
 ### Client-Side HPP
 
@@ -127,6 +158,14 @@ Similarly to server-side HPP, pollute each HTTP parameter with `%26HPP_TEST` and
 
 In particular, pay attention to responses having HPP vectors within `data`, `src`, `href` attributes or form actions. Again, whether or not this default behavior reveals a potential vulnerability depends on the specific input validation, filtering, and application business logic. This can also affect query string parameters used in `XMLHttpRequest` (XHR), `fetch`, and runtime attribute creation.
 
+## Remediation
+
+- Read each parameter from one explicit source, such as the query string or the body, rather than from a merged collection.
+- Where a single value is expected, reject requests that contain the parameter more than once, or that contain an array or object instead of a string.
+- Validate the same value that is later used, after any parsing and decoding.
+- Make sure that proxies, web application firewalls, and the application parse duplicate parameters in the same way.
+- Encode user input when building query strings and paths for requests to other services, using the URL and parameter builders of the HTTP client rather than string concatenation, and build JSON bodies with a serializer.
+
 ## Tools
 
 - [ZAP Passive/Active Scanners](https://www.zaproxy.org)
@@ -140,3 +179,4 @@ In particular, pay attention to responses having HPP vectors within `data`, `src
 - [How to Detect HTTP Parameter Pollution Attacks - Chrysostomos Daniel](https://www.acunetix.com/blog/whitepaper-http-parameter-pollution/)
 - [CAPEC-460: HTTP Parameter Pollution (HPP) - Evgeny Lebanidze](https://capec.mitre.org/data/definitions/460.html)
 - [Automated Discovery of Parameter Pollution Vulnerabilities in Web Applications - Marco Balduzzi, Carmen Torrano Gimenez, Davide Balzarotti, Engin Kirda](https://s3.eurecom.fr/docs/ndss11_hpp.pdf)
+- [Server-side parameter pollution - PortSwigger Web Security Academy](https://portswigger.net/web-security/api-testing/server-side-parameter-pollution)
