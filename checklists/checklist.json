@@ -1131,6 +1131,10 @@
           "id": "WSTG-BUSL-08",
           "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/10-Business_Logic/08-Upload_of_Unexpected_File_Types",
           "objectives": [
+            "Verify that temporary file references remain bound to the uploading user, original field, and validated file type.",
+            "Determine whether expired or missing upload metadata causes the application to reject the reference or safely revalidate the underlying file.",
+            "Check whether references can be reused in fields with different validation requirements or by users who do not own the files.",
+            "Verify that file delivery does not allow untrusted content to execute under the application's origin.",
             "Review the project documentation for file types that are rejected by the system.",
             "Verify that the unwelcomed file types are rejected and handled safely.",
             "Verify that file batch uploads are secure and do not allow any bypass against the set security measures."
