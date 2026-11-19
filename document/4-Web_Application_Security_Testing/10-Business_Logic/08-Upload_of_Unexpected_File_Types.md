@@ -63,6 +63,18 @@ Perform the following tests only with accounts and files you control in an autho
 
 For example, an application may accept a ZIP file through a general File field, retain the temporary file longer than its metadata, and later accept its reference in an Image field. If the file is then served inline with an invalid or inappropriate response `Content-Type`, and without appropriate content-sniffing protections, some browsers may interpret attacker-controlled HTML as an active document. This outcome is browser- and response-dependent; it must be verified rather than assumed.
 
+#### Testing Client-Side Trust and HTTP Tampering
+
+Upload validation decisions must be enforced by the server, not inferred from client-side checks, modified HTTP responses, or values supplied in subsequent requests.
+
+1. In an authorized test environment, upload a harmless test file and inspect the response for a file reference, validation status, reported MIME type, and other metadata.
+2. Using an intercepting proxy, alter the response presented to the test browser to indicate successful validation or a different permitted file type. Observe whether the client enables otherwise restricted actions or constructs a subsequent association request from these values.
+3. Independently modify the subsequent request, where applicable, to change the file reference, declared type, destination field, or validation status. Do not assume that changing the response changes server-side state.
+4. Submit the resulting request through the application's normal workflow and verify that the server independently checks the referenced object's actual content, ownership, authorization, and destination field restrictions.
+5. Confirm the server rejects invalid associations even if client-side checks were bypassed or response-derived metadata was altered. Record a finding only if a prohibited operation is accepted by the backend.
+
+Response and request tampering are testing techniques, not vulnerabilities by themselves. A client-side display change or an accepted HTTP response code alone does not establish a server-side validation bypass.
+
 #### File Delivery Considerations
 
 - Use a correct response `Content-Type` based on validated content and intended use; do not copy an unvalidated filename extension directly into the header.
