@@ -3,7 +3,8 @@ name: Build Ebooks (Modern)
 on:
   push:
     tags:
-      - 'v*'
+      - 'v[0-9]*.[0-9]*'
+      - '!v*-*'  # skip prereleases such as v5.0-rc1
   workflow_dispatch:
     inputs:
       version:
@@ -13,6 +14,10 @@ on:
 
 permissions:
   contents: read
+
+env:
+  # Tag pushes have no dispatch input; use the tag name (e.g. v5.0).
+  VERSION: ${{ github.event.inputs.version || github.ref_name }}
 
 jobs:
   build:
@@ -35,7 +40,6 @@ jobs:
       - name: Generate Ebooks
         run: |
           set -euo pipefail
-          VERSION="${{ github.event.inputs.version }}"
           BUILD_DIR="build-ebooks"
           mkdir -p "$BUILD_DIR"
 
@@ -99,13 +103,13 @@ jobs:
       - name: Upload PDF
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: wstg-${{ github.event.inputs.version }}.pdf
-          path: build-ebooks/wstg-typst-${{ github.event.inputs.version }}.pdf
+          name: wstg-${{ env.VERSION }}.pdf
+          path: build-ebooks/wstg-typst-${{ env.VERSION }}.pdf
           archive: false  # Disable zipping
 
       - name: Upload EPUB
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: wstg-${{ github.event.inputs.version }}.epub
-          path: build-ebooks/wstg-typst-${{ github.event.inputs.version }}.epub
+          name: wstg-${{ env.VERSION }}.epub
+          path: build-ebooks/wstg-typst-${{ env.VERSION }}.epub
           archive: false  # Disable zipping

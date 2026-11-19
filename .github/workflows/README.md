@@ -21,7 +21,7 @@ For building checklists and Create a PR with changes made in the master.
 
 Builds PDF and EPUB e-books using Typst (modern implementation).
 
-- Trigger: Manual (`workflow_dispatch`), GitHub web UI.
+- Trigger: Push of a release tag (`vMAJOR.MINOR`), or manual (`workflow_dispatch`), GitHub web UI.
 - Pipeline:
   1. **list-chapters.py**: Generates synthetic chapter headings and outputs files in reading order
   2. **build-link-manifest.py**: Extracts real heading IDs from Pandoc AST for accurate cross-chapter links
@@ -127,38 +127,11 @@ This workflow:
 
 Builds and publishes the Jekyll-based `https://wstg.owasp.org/` site from `website/` source and `document/` guide content.
 
-- Trigger: Push to `master` when `website/**` or `document/**` changes, or manual (`workflow_dispatch`).
+- Trigger: Push to `master` when `website/**` or `document/**` changes, push of a release tag (`vMAJOR.MINOR`; always builds from `master`), or manual (`workflow_dispatch`).
 - Pipeline:
     1. **prepare_site.py**: Extracts guide snapshots from git tags (e.g., v4.2) and working tree (latest), generates channel trees and navigation YAML/HTML.
     2. **Jekyll build**: Compiles site to static HTML with front matter, links, and redirects.
     3. **copy_markdown_for_agents.py**: Exports Markdown for LLM agents.
     4. **Deploy**: Publishes built site to `gh-pages` branch (served by GitHub Pages at wstg.owasp.org).
-- Auto-triggers on post-tag PR merge (when `website/scripts/prepare_site.py` or `_config.yml` is updated) to rebuild with new version. See [RELEASES.md](../../RELEASES.md) for release process.
+- A new release tag adds a version channel automatically (versions are discovered from git tags; the newest is stable). See [RELEASES.md](../../RELEASES.md) for release process.
 - See: [website/README.md](../../website/README.md) for channel structure, pretty URLs, local serve.
-
-## `www_latest_update.yml`
-
-Publishes the latest web content using the @wstgbot account to
-`OWASP/www-project-web-security-testing-guide`.
-
-- Trigger: Push to `master` when `document/**` changes, or manual (`workflow_dispatch`).
-- Copies `document/` into the www repo’s `latest/`, prepends front matter, copies `info.md`.
-- Runs `.github/www/scripts/generate_nav.py` to write:
-    - `_data/latest.yaml` (nested ToC + filter hints)
-    - `_includes/nav-tree-latest.html` (pre-rendered sidebar tree)
-    - Slim chapter-only `latest/README.md` / `index.md` landing ToC
-- See: `/.github/www/latest/` and `/.github/www/scripts/README.md`.
-
-## `www_stable_update.yml`
-
-Publishes stable and versioned web content using the @wstgbot account to
-`OWASP/www-project-web-security-testing-guide` (legacy OWASP.org deployment).
-
-- Trigger: Tag applied to repository (format `v*`). Runs only for authorized actors (`kingthorin`, `ThunderSon`, `rejahrehim`, `victoriadrake`).
-- Extracts `document/` from the tagged commit, copies to `stable/` and versioned folder (e.g. `v50/` for tag `v5.0`).
-- Reads front matter and nav config from `.github/www/<VERSION_PATH>/` files within the tagged commit (must be pre-committed).
-- Generates navigation YAML and HTML includes via `.github/www/scripts/generate_nav.py`.
-- Pushes branch `stable-update` to wstgbot's fork and creates PR on `OWASP/www-project-web-security-testing-guide`.
-- Manual step: maintainers must review and merge the PR to publish.
-- See: `.github/www/` for per-version front matter and nav config.
-- Full release workflow: see [RELEASES.md](../../RELEASES.md).

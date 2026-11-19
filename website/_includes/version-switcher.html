@@ -18,7 +18,7 @@
 {% comment %} Badge tone reuses the channel banner colour classes (light + dark). {% endcomment %}
 {% if page.collection_name == "latest" %}
   {% assign badge_tone = "latest" %}
-{% elsif page.collection_name == "stable" or page.channel_label == site.stable_version %}
+{% elsif page.collection_name == "stable" or page.channel_path == site.data.versions.stable %}
   {% assign badge_tone = "stable" %}
 {% else %}
   {% assign badge_tone = "past" %}
@@ -32,12 +32,10 @@
   <div class="version-switcher-panel">
     <p class="version-switcher-heading">Switch version</p>
     <ul class="version-switcher-list">
-      {% assign vkeys = "latest,v42,v41" | split: "," %}
-      {% assign vlabels = "Latest,v4.2,v4.1" | split: "," %}
-      {% assign vpaths = "latest,v4.2,v4.1" | split: "," %}
-      {% for vk in vkeys %}
-        {% assign vlabel = vlabels[forloop.index0] %}
-        {% assign vpath = vpaths[forloop.index0] %}
+      {% for ver in site.data.versions.list %}
+        {% assign vk = ver.key %}
+        {% assign vlabel = ver.label %}
+        {% assign vpath = ver.path %}
         {% if vk == page.collection_name %}
         <li class="version-switcher-item is-current">
           <span class="version-switcher-version">{{ vlabel }}</span>
@@ -81,8 +79,8 @@
             {% assign target = "/" | append: vpath | append: "/" %}
             {% assign note = "No direct equivalent" %}
           {% endif %}
-        {% if vk == "v42" %}
-          {% assign v42_target = target %}
+        {% if ver.kind == "stable" %}
+          {% assign stable_target = target %}
         {% endif %}
         <li class="version-switcher-item">
           <a class="version-switcher-version" href="{{ site.baseurl }}{{ target }}">{{ vlabel }}</a>
@@ -91,17 +89,18 @@
         {% endif %}
       {% endfor %}
       {% comment %}
-        Stable is a path-preserving alias of v4.2 (every /stable/ page redirects
-        there), so reuse the resolved v4.2 target under the /stable/ prefix.
+        Stable is a path-preserving alias of the newest release (every /stable/
+        page redirects there), so reuse the resolved stable target under /stable/.
       {% endcomment %}
-      {% if page.collection_name == "v42" %}
+      {% assign stable_prefix = "/" | append: site.data.versions.stable %}
+      {% if page.channel_path == site.data.versions.stable %}
         {% assign stable_rel = rel %}
       {% else %}
-        {% assign stable_rel = v42_target | remove_first: "/v4.2" %}
+        {% assign stable_rel = stable_target | remove_first: stable_prefix %}
       {% endif %}
       <li class="version-switcher-item">
         <a class="version-switcher-version" href="{{ site.baseurl }}/stable{{ stable_rel }}">Stable</a>
-        <span class="version-switcher-note">(Now points to {{ site.stable_version }})</span>
+        <span class="version-switcher-note">(Now points to {{ site.data.versions.stable }})</span>
       </li>
     </ul>
   </div>

@@ -10,9 +10,11 @@ from __future__ import annotations
 import shutil
 from pathlib import Path
 
+from prepare_site import CHANNELS as _CHANNELS
+
 WEBSITE = Path(__file__).resolve().parents[1]
 SITE = WEBSITE / "_site"
-CHANNELS = ("latest", "v4.1", "v4.2")
+CHANNELS = tuple(c["path"] for c in _CHANNELS)
 
 
 def copy_channel_markdown(channel: str) -> int:
