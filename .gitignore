@@ -344,10 +344,7 @@ website/Gemfile.lock
 # Built by website/scripts/prepare_site.py
 website/latest/
 website/stable/
-website/v4.1/
-website/v4.2/
-website/v41/
-website/v42/
+website/v[0-9]*/
 website/_data/*.yaml
 website/_includes/nav-tree-*.html
 website/assets/search/

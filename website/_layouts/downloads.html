@@ -24,7 +24,7 @@ layout: default
           <p class="wstg-nav-home"><a href="{{ site.baseurl }}/">← Home</a></p>
           <h2 class="wstg-nav-title">On This Page</h2>
           <ul class="wstg-nav-list">
-            <li class="wstg-nav-item"><a href="#version-42">Version 4.2</a></li>
+            {% for ver in site.data.versions.list %}{% if ver.kind == "stable" %}<li class="wstg-nav-item"><a href="#current-release">Version {{ ver.label | remove_first: "v" }}</a></li>{% endif %}{% endfor %}
             <li class="wstg-nav-item"><a href="#historical-releases">Historical Releases</a></li>
           </ul>
         </nav>

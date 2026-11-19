@@ -35,10 +35,10 @@
   function getPageCollection() {
     var path = window.location.pathname;
     if (path.includes('/latest/')) return 'latest';
-    if (path.includes('/v4.2/') || path.includes('/v42/')) return 'v42';
-    if (path.includes('/v4.1/') || path.includes('/v41/')) return 'v41';
     if (path.includes('/stable/')) return 'stable';
-    return null;
+    // /v4.2/ (or legacy /v42/) -> 'v42'
+    var m = path.match(/\/v(\d+)\.?(\d+)\//);
+    return m ? 'v' + m[1] + m[2] : null;
   }
 
   /**
@@ -57,14 +57,8 @@
       return baseId;  // e.g., "WSTG-INFO-01"
     }
 
-    // Add version prefix for v4.2 and v4.1
-    if (collection === 'v42') {
-      return baseId.replace(/^WSTG-/, 'WSTG-v42-');  // e.g., "WSTG-v42-INFO-01"
-    } else if (collection === 'v41') {
-      return baseId.replace(/^WSTG-/, 'WSTG-v41-');  // e.g., "WSTG-v41-INFO-01"
-    }
-
-    return baseId;
+    // Add version prefix, e.g., "WSTG-v42-INFO-01"
+    return baseId.replace(/^WSTG-/, 'WSTG-' + collection + '-');
   }
 
   /**
@@ -187,7 +181,7 @@
 
     // Remove 'latest', 'v4.2', etc from the path
     var collection = parts[0];
-    if (!['latest', 'v42', 'v41', 'stable'].includes(collection)) return null;
+    if (!/^(latest|stable|v\d+\.?\d+)$/.test(collection)) return null;
 
     // Get the remaining parts (chapter/section/test)
     var pathParts = parts.slice(1);
@@ -309,7 +303,7 @@
     var currentIndex = -1;
 
     // Extract nav path from current location (remove /latest/ or /v4.2/ etc and trailing slashes)
-    var currentNavPath = currentLocation.replace(/^\/(latest|v4\.2|v42|v4\.1|v41|stable)\//, '').replace(/\/+$/, '').replace(/\/#/, '#');
+    var currentNavPath = currentLocation.replace(/^\/(latest|stable|v\d+\.?\d+)\//, '').replace(/\/+$/, '').replace(/\/#/, '#');
     var currentPagePath = currentNavPath.split('#')[0];  // Page without fragment
 
     // If on root/index, match to first nav item

@@ -10,7 +10,7 @@ Published preview: `https://wstg.owasp.org/`
 
 | Branch | Role |
 |--------|------|
-| `master` | Guide (`document/`) plus this site **source** and deploy workflow (same idea as `.github/www` + `www_*_update` workflows). |
+| `master` | Guide (`document/`) plus this site **source** and deploy workflow. |
 | `gh-pages` | **Built** static site only. Written by `.github/workflows/deploy-website.yml` (do not hand-edit). |
 
 GitHub Pages should deploy from branch **`gh-pages`** / root (not “GitHub Actions”), with custom domain `wstg.owasp.org`.
@@ -20,13 +20,14 @@ GitHub Pages should deploy from branch **`gh-pages`** / root (not “GitHub Acti
 | Path | Content |
 |------|---------|
 | `/latest/` | Working-tree `document/` |
-| `/v4.2/`, `/v4.1/` | Versioned snapshots from git tags |
-| `/stable/` | Path-preserving redirects → current stable (`v4.2`) |
+| `/v4.2/`, `/v4.1/`, … | One versioned snapshot per git release tag (`vMAJOR.MINOR`, 4.1 and newer) |
+| `/stable/` | Path-preserving redirects → the newest tag |
 | `/v42/`, `/v41/` | Legacy redirects → `/v4.2/`, `/v4.1/` |
 
 `/stable/` is a floating pointer, not a second copy of the guide. Prefer
-`/v4.2/` (etc.) for citations. Set `stable_version` in `_config.yml` and
-`CURRENT_STABLE` in `scripts/prepare_site.py` when the current release changes.
+`/v4.2/` (etc.) for citations. Versions are discovered from git tags by
+`scripts/prepare_site.py`, which writes `_data/versions.yaml`; pushing a new
+`vMAJOR.MINOR` tag is all a release needs on the website side.
 
 Prepare also rewrites Markdown for the site: strip `.md` from links, map
 `README` → directory URLs, add one extra `../` on leaf pages (pretty
@@ -37,7 +38,7 @@ Canonical version URLs use a **period** (`v4.1`). The old owasp.org publish
 pipeline stripped periods (`v41`) for path/data-key safety; this site keeps
 dot-free keys (`v41.yaml`, `nav-tree-v41.html`) while serving pretty paths.
 
-Generated (do not commit): channel trees under `website/{latest,stable,v4.*,v41,v42}/`,
+Generated (do not commit): channel trees under `website/{latest,stable,v*}/`,
 `assets/search/` (per-channel search indexes), `_data/*.yaml` (including `_data/version_map.yaml`, which powers the per-page
 version switcher in the site header), and `_includes/nav-tree-*.html`.
 

@@ -12,27 +12,29 @@ import re
 import sys
 from pathlib import Path
 
+from prepare_site import CHANNELS as _CHANNELS, CURRENT_STABLE
+
 WEBSITE = Path(__file__).resolve().parents[1]
-CHANNELS = {
-    "latest": {
-        "label": "Latest",
-        "url_prefix": "https://wstg.owasp.org/latest",
-        "md_prefix": "https://wstg.owasp.org/md/latest",
-        "description": "Latest development version",
-    },
-    "v4.2": {
-        "label": "v4.2 (Stable)",
-        "url_prefix": "https://wstg.owasp.org/v4.2",
-        "md_prefix": "https://wstg.owasp.org/md/v4.2",
-        "description": "Current stable release",
-    },
-    "v4.1": {
-        "label": "v4.1 (Archived)",
-        "url_prefix": "https://wstg.owasp.org/v4.1",
-        "md_prefix": "https://wstg.owasp.org/md/v4.1",
-        "description": "Previous release (archived)",
-    },
-}
+def _channels() -> dict:
+    out = {}
+    for c in _CHANNELS:
+        path = c["path"]
+        if not c["tag"]:
+            label, desc = "Latest", "Latest development version"
+        elif path == CURRENT_STABLE:
+            label, desc = f"{path} (Stable)", "Current stable release"
+        else:
+            label, desc = f"{path} (Archived)", "Previous release (archived)"
+        out[path] = {
+            "label": label,
+            "url_prefix": f"https://wstg.owasp.org/{path}",
+            "md_prefix": f"https://wstg.owasp.org/md/{path}",
+            "description": desc,
+        }
+    return out
+
+
+CHANNELS = _channels()
 
 # Map README-style sections to meaningful category names
 SECTION_NAMES = {
