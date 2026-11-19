@@ -81,7 +81,7 @@ Response and request tampering are testing techniques, not vulnerabilities by th
 
 ## Remediation
 
-Applications should be developed with mechanisms to only accept and manipulate "acceptable" files that the rest of the application functionality is ready to handle and expecting. Some specific examples include: deny lists or allow lists of file extensions, using "Content-Type" from the header, or using a file type recognizer, all to only allow specified file types into the system.
+Applications should accept and process only file types that their functionality is designed to handle. Enforce server-side allow lists of permitted file types and inspect the actual file contents using appropriate file type recognition or parsing. File extensions and the request `Content-Type` header are client-controlled indicators and must not be trusted as proof of a file\u0027s type. Revalidate the stored content when files are associated with application records or moved to permanent storage, particularly if their contents may have changed after the initial check.
 
 ### File Delivery Considerations
 
