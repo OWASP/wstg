@@ -88,3 +88,4 @@ Applications should be developed with mechanisms to only accept and manipulate "
 - [File upload security best practices: Block a malicious file upload](https://www.computerweekly.com/answer/File-upload-security-best-practices-Block-a-malicious-file-upload)
 - [Stop people uploading malicious PHP files via forms](https://stackoverflow.com/questions/602539/stop-people-uploading-malicious-php-files-via-forms)
 - [CWE-434: Unrestricted Upload of File with Dangerous Type](https://cwe.mitre.org/data/definitions/434.html)
+- [Tarcísio Luchesi (Poystick) — Upload Metadata Expiration, Cross-Field File Reuse, MIME Sniffing, Stored XSS](https://x.com/P0ystick/status/2123420300217856345?a=zG_V3W7Es20E8M6UABU&s=19)
