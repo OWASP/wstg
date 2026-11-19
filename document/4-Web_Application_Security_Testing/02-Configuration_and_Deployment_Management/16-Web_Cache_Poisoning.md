@@ -78,7 +78,27 @@ After the poisoned response is stored, request the same URL and cache-buster wit
 
 1. Authenticate as tester A and request a personalized page through the cache with a unique buster.
 2. From an anonymous session or tester B, request the same URL and buster.
-3. If B receives A's content, the cache key omits the credential that distinguishes users. Treat `Vary: Cookie` absence, missing `Cache-Control: private`, and shared CDN hit headers as supporting evidence.
+3. If the second session receives A's private content, record the disclosure. Check whether the effective cache key and reuse rules distinguish the users' access scopes. Review the cache policy, response directives such as `Cache-Control: private`, variation such as `Vary: Cookie` where applicable, and hit or miss evidence from the relevant cache layer. Use those observations and the origin response to investigate the cause.
+
+#### Verify Tenant Isolation
+
+Shared caches can disclose tenant-specific content when their selection or reuse rules fail to distinguish tenant access scopes. Review the effective cache policy against the application's trusted tenant context, such as the hostname, a validated tenant header, a session, or a verified token claim. Account for any narrower user permissions within each tenant.
+
+Use an isolated test environment with two tenants, A and B, that have no access to each other's data. Give each tenant a distinct synthetic record and use separate sessions with equivalent roles. Choose a protected, read-only route through the shared cache under test, such as the list of records for the current tenant. Record whether the policy allows the cache to reuse responses within a tenant or requires it to avoid storing them.
+
+1. Establish the expected response for each session from the synthetic records and access policy. Verify it with requests that reach the origin under the same routing and authorization rules. Use a controlled cache bypass or observe origin processing from an empty cache state. If you cannot verify the origin response, record that limitation.
+2. Start with a known empty cache state for the test resource. Request the view in A's session. If the policy calls for reuse, repeat A's read and confirm that the cache under test serves the expected response before moving to B. If reuse cannot be confirmed, record that limitation.
+3. Request the view in B's session and repeat the read. If the policy calls for reuse, confirm a hit for B as well. Compare each response in both sessions with its expected status and content. Repeat starting with B from an independent empty state that preserves the tested routing and cache policy.
+4. Use logs, traces, or a [`Cache-Status`](https://www.rfc-editor.org/rfc/rfc9211.html) field to identify how the cache under test handled each request. An outer cache can serve a response that carries a status field from an earlier request to an inner cache. Correlate the evidence with the current request and the layer under test. When policy prohibits storage, verify that the cache forwards repeated reads. Confirm non-storage with evidence from that layer, such as cache logs or a reported storage decision.
+
+Use the following outcomes for the tested route, sessions, and cache layer.
+
+- Isolation failure. A response contains data the session is forbidden to access. If the origin also returns the wrong data, investigate origin routing and authorization before attributing the disclosure to caching.
+- Cache policy failure. The cache stores a response that the policy prohibits it from storing. Record this outcome even if the responses contain only authorized data.
+- Verified. The responses match their expected status and content. In both directions, the intended hits or the decision to forward without storage are observable.
+- Inconclusive. The expected cache behavior cannot be verified. Examples include an unconfirmed first hit or repeated misses without evidence of a storage decision. Record any observed failures even if another part of the test is inconclusive.
+
+Record the tested route, policy, cache layer, request order, initial cache state, expected and observed content, and result. Include request IDs or timestamps when available. Remove credentials and session identifiers from the evidence.
 
 ### 5. Normalization Differentials
 
