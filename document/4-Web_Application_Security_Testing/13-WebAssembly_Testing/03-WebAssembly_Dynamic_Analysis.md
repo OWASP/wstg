@@ -8,7 +8,7 @@
 
 Dynamic analysis evaluates a WebAssembly (Wasm) module by executing it within its host runtime (primarily modern web browsers) and observing its behavior in real time. While static analysis maps declared interfaces and embedded data at rest, dynamic analysis examines runtime execution state, live linear memory mutations, cross-boundary data flows between JavaScript (JS) and Wasm, and client-side decision logic.
 
-Because browser-based WebAssembly runs inside an isolated sandbox without direct access to the Document Object Model (DOM), network, or platform Application Programming Interfaces (APIs), it interacts with the application exclusively through imported host functions and exported module entry points. Furthermore, WebAssembly only handles primitive numeric types (`i32`, `i64`, `f32`, `f64`). Higher-level data types, such as strings, arrays, JavaScript Object Notation (JSON) payloads, and cryptographic tokens, are passed across the boundary as numeric memory pointers (offsets) into the module's linear memory.
+Because browser-based WebAssembly runs inside an isolated sandbox without direct access to the Document Object Model (DOM), network, or platform Application Programming Interfaces (APIs), it interacts with the application exclusively through imported host functions and exported module entry points. Modules compiled from C, C++, Rust, or Go usually exchange only numeric values (`i32`, `i64`, `f32`, `f64`) with the host. Higher-level data types, such as strings, arrays, JavaScript Object Notation (JSON) payloads, and cryptographic tokens, are passed across the boundary as numeric memory pointers (offsets) into the module's linear memory. Modules that use reference types (`externref`) or WebAssembly garbage collection (Wasm GC), such as Kotlin/Wasm or Dart builds, can also receive JavaScript values directly and keep objects outside linear memory.
 
 This test case provides an operational methodology for:
 
@@ -31,17 +31,17 @@ This test case provides an operational methodology for:
 
 ### Manual Interception via DevTools Fetch Breakpoints
 
-When an application fetches a `.wasm` binary and instantiates it inside an asynchronous `.then()` callback (the standard Emscripten loader pattern), you can freeze execution prior to module instantiation using native browser breakpoints:
+When an application fetches a `.wasm` binary and only looks up `WebAssembly.instantiate` or `WebAssembly.instantiateStreaming` after the fetch has started (for example, inside a `.then()` callback or after an `await`), you can freeze execution prior to module instantiation using native browser breakpoints:
 
 1. Open DevTools (`F12`) and select the **Sources** tab.
-2. In the right-hand panel, expand **XHR/fetch Breakpoints** and click **+**.
+2. In the right-hand panel, expand **XHR/fetch Breakpoints** (**XHR Breakpoints** in Firefox) and click **+**.
 3. Enter `.wasm` (so the breakpoint triggers when the request URL contains `.wasm`).
 4. Refresh the page.
 5. Execution pauses as soon as the network request for the `.wasm` binary is initiated. At this stage, you have two options:
-   - Manual scope inspection: DevTools shows async call stacks by default. Set a breakpoint on the `WebAssembly.instantiate` (or `instantiateStreaming`) call inside the `.then()` resolution handler, and resume execution (`F8`) to inspect the `importObject` in the **Scope** pane.
-   - Console hook injection: For loaders that invoke Wasm instantiation functions inside a `.then()` callback after the fetch resolves, paste the boundary proxy script (detailed in the next section) into the **Console** and press **Resume script execution** (`F8`).
+   - Manual scope inspection: DevTools shows async call stacks by default. Set a breakpoint on the `WebAssembly.instantiate` (or `instantiateStreaming`) call that runs after the fetch, and resume execution (`F8`) to inspect the `importObject` in the **Scope** pane.
+   - Console hook injection: For loaders that look up the Wasm instantiation functions after the fetch starts, paste the boundary proxy script (detailed in the next section) into the **Console** and press **Resume script execution** (`F8`).
 
-Note on direct streaming calls: In loaders that pass `fetch()` directly as an argument, such as `WebAssembly.instantiateStreaming(fetch("app.wasm"), importObject)` (the canonical Go `wasm_exec.js` pattern), the JavaScript engine resolves the `WebAssembly.instantiateStreaming` function reference before evaluating `fetch()`. Replacing `WebAssembly.instantiateStreaming` in the console while paused at the fetch breakpoint will not intercept that in-flight call. To reliably hook all loading patterns, inject the proxy script before page load using DevTools Local Overrides (see [WebAssembly Reconnaissance (WSTG-WASM-01)](01-WebAssembly_Reconnaissance.md)) or an intercepting proxy's response modification rule.
+Note on direct streaming calls: In loaders that pass `fetch()` directly as an argument, such as `WebAssembly.instantiateStreaming(fetch("app.wasm"), importObject)` (the canonical Go `wasm_exec.js` pattern), the JavaScript engine resolves the `WebAssembly.instantiateStreaming` function reference before evaluating `fetch()`. Replacing `WebAssembly.instantiateStreaming` in the console while paused at the fetch breakpoint will not intercept that in-flight call. To reliably hook all loading patterns, inject the proxy script before page load using DevTools Local Overrides (see [WebAssembly Reconnaissance (WSTG-WASM-01)](01-WebAssembly_Reconnaissance.md)) or an intercepting proxy's response modification rule (such as a ZAP Replacer rule that inserts the script into the page or loader JavaScript).
 
 ### Automated Boundary Interception via ES6 Proxies
 
@@ -197,7 +197,8 @@ function searchLiveMemory(pattern, flags = "g") {
   }
   const buffer = new Uint8Array(globalThis._wasmMemory.buffer);
   // Use latin1 (windows-1252) to map each byte to exactly one character, keeping match.index accurate
-  const text = new TextDecoder("latin1").decode(buffer);
+  // Decode a copy, since TextDecoder rejects views over a SharedArrayBuffer (threaded builds)
+  const text = new TextDecoder("latin1").decode(buffer.slice());
   const regex = new RegExp(pattern, flags);
   const matches = [];
   let match;
@@ -215,9 +216,9 @@ console.table(
 
 ### Interactive Invocation and Argument Crafting
 
-Evaluate client-side validation and business logic by invoking exported functions directly from the Developer Console, bypassing user interface (UI) restrictions. If a sensitive action succeeds after forcing a client-side check, verify whether the server independently enforces authorization and input validation.
+Evaluate client-side validation and business logic by invoking exported functions directly from the browser console, bypassing user interface (UI) restrictions. If a sensitive action succeeds after forcing a client-side check, verify whether the server independently enforces authorization and input validation.
 
-When invoking an export that requires a string or byte array, allocate memory using the module's allocator (`malloc`, `_malloc`, or `_emscripten_stack_alloc`). If no allocator is exported, write the payload into an unused region near the end of the current linear memory buffer rather than low offsets (such as `1024`), which typically hold static data segments:
+When invoking an export that requires a string or byte array, allocate memory using the module's heap allocator (`malloc`, `_malloc`, or `__wbindgen_malloc` for Rust/wasm-bindgen builds). Memory from `_emscripten_stack_alloc` can be overwritten by the next call into the module, so if it is the only allocator exported, wrap the allocation, the write, and the call in `stackSave()`/`stackRestore()`. If no allocator is exported, write the payload into an unused region near the end of the current linear memory buffer rather than low offsets (such as `1024`), which typically hold static data segments:
 
 ```javascript
 function writeStringToMemory(str) {
@@ -226,15 +227,18 @@ function writeStringToMemory(str) {
   }
   const encoded = new TextEncoder().encode(str);
   const exports = globalThis._wasmInstance.exports;
-  const alloc =
-    exports.malloc ||
-    exports._malloc ||
-    exports._emscripten_stack_alloc;
+  const size = encoded.length + 1;
+  const malloc = exports.malloc || exports._malloc;
 
   let ptr;
 
-  if (typeof alloc === "function") {
-    ptr = alloc(encoded.length + 1);
+  if (typeof malloc === "function") {
+    ptr = malloc(size);
+  } else if (typeof exports.__wbindgen_malloc === "function") {
+    ptr = exports.__wbindgen_malloc(size, 1); // (size, alignment)
+  } else if (typeof exports._emscripten_stack_alloc === "function") {
+    // Stack memory: call stackSave() before and stackRestore() after the target call.
+    ptr = exports._emscripten_stack_alloc(size);
   } else {
     // Fallback: Write near the end of the current linear memory buffer.
     // Confirm the region is zero/unused in the Memory Inspector first.
@@ -275,9 +279,9 @@ Note on Debugging With Attributed Record Formats (DWARF) metadata: If the target
 
 - Proxy invariant rules: Directly proxying `instance.exports` violates ECMAScript proxy invariants for non-configurable properties. Always clone descriptors into a mutable target object (`Object.assign({}, realObj)`) and cache function wrappers when building hooks around WebAssembly exports.
 - Multi-instance and late-bound imports: The example hook stores the most recently instantiated module on `globalThis._wasmInstance` and snapshots `importObject` namespaces at call time. Applications that load multiple Wasm modules concurrently or populate import namespaces asynchronously during dynamic linking require storing instances in an array and proxying the parent import object directly.
-- Memory detachment: Calling `memory.grow` reallocates linear memory, detaching existing `ArrayBuffer` references. Cached typed arrays (`Uint8Array`) become zero-length, requiring scripts to re-read `globalThis._wasmMemory.buffer`.
+- Memory detachment: For non-shared memory, calling `memory.grow` detaches existing `ArrayBuffer` references and cached typed arrays (`Uint8Array`) become zero-length. For shared memory, the old `SharedArrayBuffer` is not detached, but existing views keep their old length and silently miss the new pages. In both cases, re-read `globalThis._wasmMemory.buffer` after any call that may grow memory.
 - String encodings and representations: Strings in WebAssembly are not universally null-terminated. While C/C++ modules typically rely on null-terminated strings, modules compiled with Go or Rust represent strings as pointer-plus-length slices without a trailing null byte. Always verify the module's target ABI and calling conventions before reading or writing linear memory.
-- Out-of-bounds traps: Passing arbitrary integer values to functions expecting valid memory pointers triggers a WebAssembly execution trap (`RuntimeError: memory access out of bounds`), immediately halting execution.
+- Out-of-bounds traps: Passing an address outside the current memory size to a function expecting a valid memory pointer triggers a WebAssembly execution trap (`RuntimeError: memory access out of bounds`), immediately halting execution. An arbitrary in-bounds value reads unrelated data without an error.
 
 ## Related Test Cases
 
