@@ -12,6 +12,8 @@
 
 4.12.5 [Testing API Authentication Mechanisms](05-Testing_API_Authentication_Mechanisms.md)
 
+4.12.6 [API Rate Limiting and Resource Consumption](06-API_Rate_Limiting_and_Resource_Consumption.md)
+
 4.12.9 [Inbound Webhooks](09-Inbound_Webhooks.md)
 
 4.12.10 [gRPC](10-gRPC.md)
