@@ -1440,6 +1440,19 @@
           ]
         },
         {
+          "name": "Testing API Authentication Mechanisms",
+          "id": "WSTG-APIT-05",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/12-API_Testing/05-Testing_API_Authentication_Mechanisms",
+          "objectives": [
+            "Assess whether API keys are scoped, rotated, and transmitted securely.",
+            "Determine whether bearer tokens are revocable after logout or credential change.",
+            "Verify that OAuth 2.0 token scope is enforced at the authorization server and the resource server.",
+            "Evaluate whether APIs that accept session cookies enforce CSRF defenses.",
+            "Test whether authentication is enforced for every HTTP method on an endpoint.",
+            "Confirm that OAuth token endpoints enforce rate limiting."
+          ]
+        },
+        {
           "name": "Inbound Webhooks",
           "id": "WSTG-APIT-09",
           "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/12-API_Testing/09-Inbound_Webhooks",
@@ -1485,6 +1498,31 @@
             "Identify the compiler toolchain and source language (e.g., C/C++, Rust, Go, .NET) from section metadata, imports, exports, and glue code.",
             "Detect exposed debugging artifacts: source maps, DWARF information, and the `name` custom section.",
             "Map the infrastructure attack surface by extracting embedded URLs, API endpoints, and internal hostnames or IP addresses."
+          ]
+        },
+        {
+          "name": "WebAssembly Static Analysis",
+          "id": "WSTG-WASM-02",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/13-WebAssembly_Testing/02-WebAssembly_Static_Analysis",
+          "objectives": [
+            "Identify the module format and enumerate its sections.",
+            "Inspect imports, exports, types, functions, tables, memory, globals, element segments, code, and data.",
+            "Convert the binary into readable representations such as WAT, pseudo-code, disassembly, or JavaScript.",
+            "Map data-segment offsets and inspect retained debug or compiler metadata in depth.",
+            "Use a controlled modification of a test copy to check whether a security-sensitive decision appears to be enforced only in client-side code."
+          ]
+        },
+        {
+          "name": "WebAssembly Dynamic Analysis",
+          "id": "WSTG-WASM-03",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/13-WebAssembly_Testing/03-WebAssembly_Dynamic_Analysis",
+          "objectives": [
+            "Intercept the module loading pipeline (`WebAssembly.instantiate`, `WebAssembly.instantiateStreaming`, and `new WebAssembly.Instance`) to capture references to active instances and memory segments.",
+            "Capture and log bidirectional function calls, arguments, memory pointers, and return values crossing the JS/Wasm boundary without violating runtime proxy invariants.",
+            "Dereference numeric memory pointers to reconstruct strings, structures, and sensitive parameters exchanged between JavaScript and WebAssembly.",
+            "Search, inspect, and monitor live linear memory (`WebAssembly.Memory`) for transient secrets, unencrypted credentials, and authorization states using native browser tooling.",
+            "Debug executing modules at runtime using instruction-level breakpoints within disassembled WAT views.",
+            "Test client-side business logic and validation routines by invoking exported functions with crafted inputs via the browser console."
           ]
         }
       ]
