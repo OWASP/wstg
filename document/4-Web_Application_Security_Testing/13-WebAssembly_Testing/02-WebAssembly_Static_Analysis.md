@@ -10,7 +10,7 @@ Static analysis examines a WebAssembly (Wasm) module without executing it. A Was
 
 This test case focuses on identifying the module's structure and obtaining useful representations of its contents. It covers inspecting standard and custom sections, mapping the module interface, extracting embedded data, and analyzing retained metadata. While most current browser modules use the core WebAssembly specification, the WebAssembly Component Model is emerging to provide richer interoperability, which may require newer tooling to parse effectively.
 
-This test also describes an optional, controlled client-side modification (the only dynamic verification step in this test case). This modification helps validate observations about security-sensitive decisions identified during static inspection. It is a limited behavioral check, not proof that a server-side control is absent. Any security finding should be confirmed and reported under the relevant vulnerability-focused test case.
+This test also describes an optional, controlled client-side modification that helps validate observations about security-sensitive decisions identified during static inspection. It is a limited behavioral check, not proof that a server-side control is absent. Any security finding should be confirmed and reported under the relevant vulnerability-focused test case.
 
 ## Test Objectives
 
@@ -156,7 +156,7 @@ This step documents the boundary between the module and its host. Deeper analysi
 
 ### Hybrid Analysis: Validating Static Findings via Controlled Module Modification
 
-This is the one dynamic verification step in this test case. Static inspection may reveal that a Wasm function determines whether a user interface (UI) action is enabled. In an authorized assessment, you can make a minimal offline patch to a local copy of the module and observe whether the client-side behavior changes. Modifying the browser-side module does not demonstrate a server-side vulnerability.
+Static inspection may reveal that a Wasm function determines whether a user interface (UI) action is enabled. In an authorized assessment, you can make a minimal offline patch to a local copy of the module and observe whether the client-side behavior changes. Modifying the browser-side module does not demonstrate a server-side vulnerability.
 
 #### Procedure
 
@@ -180,7 +180,13 @@ This is the one dynamic verification step in this test case. Static inspection m
 
    A successful validation confirms format validity, not compatibility with the application.
 
-5. Use the modified copy in the test client: Serve `module-modified.wasm` in place of the original response using browser DevTools Local Overrides (enable **Sources** > **Overrides**, right-click the `.wasm` network request to select **Override content**, and replace the saved file on disk; see [WebAssembly Reconnaissance (WSTG-WASM-01)](01-WebAssembly_Reconnaissance.md) for an introduction). If you test through Zed Attack Proxy (ZAP), its [Map Local](https://www.zaproxy.org/blog/2023-10-31-maplocal-add-on/) add-on can serve the local file for the module's URL instead. Keep the original URL unchanged. Note that Subresource Integrity (SRI) checks (when the loader passes an `integrity` option to `fetch()`) or application-level signed manifests/hash checks can block the loading of modified modules.
+5. Use the modified copy in the test client: Serve `module-modified.wasm` in place of the original response, keeping the original URL unchanged:
+
+   - Browser DevTools Local Overrides: enable **Sources** > **Overrides**, right-click the `.wasm` network request, select **Override content**, and replace the saved file on disk. See [WebAssembly Reconnaissance (WSTG-WASM-01)](01-WebAssembly_Reconnaissance.md) for an introduction.
+   - Zed Attack Proxy (ZAP): the [Map Local](https://www.zaproxy.org/blog/2023-10-31-maplocal-add-on/) add-on can serve the local file for the module's URL.
+
+   Subresource Integrity (SRI) checks (when the loader passes an `integrity` option to `fetch()`) or application-level signed manifests or hash checks can block the loading of modified modules.
+
 6. Compare the observed behavior: Repeat the same action. Record whether the UI changes and whether the application receives a successful or rejected back-end response.
 
 #### Interpreting Results
