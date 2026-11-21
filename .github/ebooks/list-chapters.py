@@ -12,7 +12,7 @@ a synthetic H1 heading is generated instead from the folder name.
 Synthetic headings:
   - Are marked with {.synthetic} class for filter identification
   - Use folder-based IDs: "3-Web_App_Testing" → H1 {.synthetic #web-app-testing}
-  - Support numbered chapters (0-6) and lettered appendices (A-F)
+  - Support numbered chapters (0-6) and lettered appendices (A-Z)
   - Preserve chapter numbers/letters in display: "3. Web Application Testing"
 
 Real prose README.md files (e.g. 0-Foreword, 1-About, 2-Introduction) are
@@ -65,11 +65,11 @@ def synthesize_heading(dirpath: str, root: str) -> tuple[str, str]:
     The id is derived the same way links.lua derives a link target from a
     folder name (numbering stripped, then slugified) so it always matches.
     The display title preserves chapter numbers (0-6) and appendix letters
-    (A-F) for clarity in the outline.
+    (A-Z) for clarity in the outline.
     """
     name = os.path.basename(dirpath)
     num_match = DIR_NUMBER_RE.match(name)
-    letter_match = re.match(r"^([A-F])-", name)
+    letter_match = re.match(r"^([A-Z])-", name)
     chapter_num = int(num_match.group(1)) if num_match else None
     chapter_letter = letter_match.group(1) if letter_match else None
 

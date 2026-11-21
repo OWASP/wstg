@@ -3,7 +3,7 @@
 
   Strategy:
     - Synthetic chapter headings (folder-based, marked {.synthetic}) stay at H1
-    - Numbered chapter headings (0-6, A-F prefix) stay at H1
+    - Numbered chapter headings (0-6, A-Z prefix) stay at H1
     - All other content headings are demoted: H1 → H2, H2 → H3, etc.
 
   This creates proper nesting: chapters at H1, sections within chapters at H2+.
@@ -23,7 +23,7 @@ function Header(el)
 
     -- Check if heading is a numbered chapter (e.g., "0. Foreword", "3. Framework", "A. History")
     local heading_text = pandoc.utils.stringify(el.content)
-    local is_chapter = heading_text:match("^%d+%.%s") or heading_text:match("^[A-F]%.%s")
+    local is_chapter = heading_text:match("^%d+%.%s") or heading_text:match("^[A-Z]%.%s")
 
     -- Don't demote chapters; demote everything else
     if not is_synthetic and not is_chapter then
