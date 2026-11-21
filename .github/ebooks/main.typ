@@ -14,6 +14,12 @@
 
 #let version = sys.inputs.at("version", default: "dev")
 
+// PDF metadata (title shown by PDF readers and in document properties)
+#set document(
+  title: "OWASP Web Security Testing Guide " + version,
+  author: "OWASP Foundation",
+)
+
 // ---------------------------------------------------------------------------
 // Front cover
 // ---------------------------------------------------------------------------
