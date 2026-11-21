@@ -26,33 +26,27 @@ We use an article template to help ensure topics are complete and easy to unders
 
 ### Project Folder Structure
 
-When adding articles and images, please place articles in the appropriate sub-section directory. Place images in an `images/` folder within the article directory. Here is an example of the project structure:
+When adding articles and images, please place articles in the appropriate sub-section directory. Place images in an `images/` folder within the article directory. Chapter folders use two-digit prefixes so they sort correctly. Here is an example of the project structure:
 
 ```sh
 document/
- ├───0_Foreword/
- │   └───0_Foreword.md
- ├───1_About/
+ ├───00-Foreword/
+ │   └───README.md
+ ├───01-About/
+ │   └───README.md
+ ├───02-Introduction/
+ │   └───README.md
+ ├───03-The_OWASP_Testing_Framework/
+ │   ├───README.md
+ │   └───0-The_Web_Security_Testing_Framework.md
+ ├───05-Information_Gathering/
  │   ├───images/
  │   │   └───example.jpg
- │   └───1_About.md
- ├───2_Introduction/
- │   ├───images/
- │   │   └───example.jpg
- │   └───2_Introduction.md
- ├───3_The_OWASP_Testing_Framework/
- │   ├───images/
- │   │   └───example.jpg
- │   └───3_The_OWASP_Testing_Framework.md
- ├───4_Web_Application_Security_Testing/
- │   ├───4.1_Introduction_and_Objectives/
- │   │   └───4.1_Testing_Introduction_and_Objectives.md
- │   ├───4.2_Information_Gathering/
- │   │   ├───images/
- │   │   │   └───example.jpg
- │   │   ├───4.2_Testing_Information_Gathering.md
- │   │   └───4.2.1_Conduct_Search_Engine_Discovery.md
-
+ │   ├───README.md
+ │   └───01-Conduct_Search_Engine_Reconnaissance_for_Information_Leakage.md
+ ├───...
+ ├───18-Reporting/
+ └───19-Appendix/
 ```
 
 ### Code Syntax Highlighting
@@ -74,24 +68,24 @@ Caption images and figures using title case. Use the section and sub-section num
 #### Image Naming
 
 - Use **lowercase filenames** for all images (e.g., `example.jpg`, not `Example.jpg`)
-- Prefix images with the **section identifier** (01, 02, 03, etc.) using a hyphen to indicate ownership (e.g., `07-ssti_xvwa.jpeg` for section 4.7)
+- Prefix images with the **chapter folder number** (two digits, e.g. `11-` for `11-Injection`) using a hyphen to indicate ownership (e.g., `11-ssti_xvwa.jpeg`)
 - For images used by a single document across multiple sections (e.g., Appendix), use the appendix identifier (e.g., `f-` prefix for Appendix F)
-- Use descriptive, readable names after the prefix (e.g., `04-basm-parammod.jpg`)
+- Use descriptive, readable names after the prefix (e.g., `08-basm-parammod.jpg`)
 
 #### Captions
 
-For example, caption the first image shown in section 4.7, sub-section 18 as follows:
+For example, caption the first image shown in section 11 (Injection), sub-section 18 as follows:
 
 ```md
-![SSTI XVWA Example](images/07-ssti_xvwa.jpeg)\
-*Figure 4.7.18-1: SSTI XVWA Example*
+![SSTI XVWA Example](images/11-ssti_xvwa.jpeg)\
+*Figure 11.18-1: SSTI XVWA Example*
 ```
 
-Another example, caption the first image in section 4.4, sub-section 4 as follows:
+Another example, caption the first image in section 8 (Authentication), sub-section 4 as follows:
 
 ```md
-![Authentication Bypass](images/04-basm-parammod.jpg)\
-*Figure 4.4.4-1: Authentication Bypass Example*
+![Authentication Bypass](images/08-basm-parammod.jpg)\
+*Figure 8.4-1: Authentication Bypass Example*
 ```
 
 ### Inline Links

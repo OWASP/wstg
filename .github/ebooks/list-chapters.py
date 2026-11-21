@@ -82,8 +82,11 @@ def synthesize_heading(dirpath: str, root: str) -> tuple[str, str]:
     depth = len(os.path.relpath(dirpath, root).split(os.sep))
 
     if depth == 1:
-        if chapter_num is not None:
-            # All numbered chapters: "4-Web_Application_Security_Testing" → "4. Web Application Security Testing"
+        if base == "Appendix":
+            # "19-Appendix" → "Appendix" (individual appendices carry letters)
+            display_title = plain_title
+        elif chapter_num is not None:
+            # All numbered chapters: "05-Information_Gathering" → "5. Information Gathering"
             display_title = f"{chapter_num}. {plain_title}"
         elif chapter_letter is not None:
             # Appendices: "A-History" → "A. History"
