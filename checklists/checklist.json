@@ -1453,6 +1453,17 @@
           ]
         },
         {
+          "name": "API Rate Limiting and Resource Consumption",
+          "id": "WSTG-APIT-06",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/12-API_Testing/06-API_Rate_Limiting_and_Resource_Consumption",
+          "objectives": [
+            "Verify that per-client and per-endpoint rate limits are enforced.",
+            "Identify bypass techniques for existing rate limits.",
+            "Confirm that pagination, batch operations, and query complexity are bounded.",
+            "Verify that upload size, response size, and timeout controls exist."
+          ]
+        },
+        {
           "name": "Inbound Webhooks",
           "id": "WSTG-APIT-09",
           "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/12-API_Testing/09-Inbound_Webhooks",
