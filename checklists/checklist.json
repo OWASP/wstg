@@ -1357,6 +1357,17 @@
             "Determine whether those services accept requests with an unexpected `Host` header and without authentication.",
             "Determine whether server-side URL fetching can be redirected to internal addresses by changing DNS answers between validation and use."
           ]
+        },
+        {
+          "name": "Server-Sent Events",
+          "id": "WSTG-CLNT-20",
+          "reference": "https://wstg.owasp.org/latest/15-Client-side/20-Server-Sent_Events",
+          "objectives": [
+            "Identify the use of Server-Sent Events and how each stream is authenticated.",
+            "Determine whether a stream can be read from another origin or by another user.",
+            "Verify that authorization is enforced when the stream is opened, for every event it sends, and after the user's access changes.",
+            "Assess whether user-controlled data can inject fields or events into the stream, or script into the page that consumes it."
+          ]
         }
       ]
     },

@@ -136,6 +136,7 @@ The following is the list of items to test during the assessment:
 | WSTG-CLNT-17      | Client-side Path Traversal                                                 |        |       |
 | WSTG-CLNT-18      | Service Workers                                                            |        |       |
 | WSTG-CLNT-19      | DNS Rebinding                                                              |        |       |
+| WSTG-CLNT-20      | Server-Sent Events                                                         |        |       |
 | **WSTG-APIT**     | **API Testing**                                                            |        |       |
 | WSTG-APIT-01      | API Reconnaissance                                                         |        |       |
 | WSTG-APIT-02      | API Broken Object Level Authorization                                      |        |       |
