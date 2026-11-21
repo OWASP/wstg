@@ -61,6 +61,13 @@
     it
   }
 
+  // Long unbroken tokens (JWTs, cookies, URLs) have no break opportunity and
+  // run off the page; add zero-width spaces so they wrap at the margin.
+  show raw: it => {
+    show regex("\\S{40,}"): m => m.text.clusters().chunks(20).map(c => c.join()).join(sym.zws)
+    it
+  }
+
   show raw.where(block: false): it => {
     box(
       fill: luma(240),
