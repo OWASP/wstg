@@ -59,6 +59,7 @@ local function resolve_link(target, frag)
 
   -- Infer filename from path: "dir/file" -> "file", "dir" -> "dir".
   local base = target:match("([^/]+)$") or target
+  local is_readme = base == "" or base:lower() == "readme"
 
   -- Special case: README or empty -> use parent folder name.
   if base == "" or base:lower() == "readme" then
@@ -71,16 +72,20 @@ local function resolve_link(target, frag)
   local base_slug = slugify(base)
 
   -- Try manifest: look for a file matching the target path.
+  -- Drop leading ./ and ../ so a relative target can be compared as a path suffix.
+  local suffix = target:gsub("^%.%./", ""):gsub("^%./", "")
+  while suffix:match("^%.%./") do suffix = suffix:gsub("^%.%./", "") end
   for filepath, headings in pairs(manifest) do
-    -- Normalize manifest filepath for comparison.
     local manifest_file = filepath:gsub("%.md$", ""):gsub("%.markdown$", "")
-
-    -- Check if this manifest file matches the target.
-    if manifest_file == target or manifest_file:match(target .. "$") then
+    local n = #suffix
+    if manifest_file == suffix or (#manifest_file > n and manifest_file:sub(-n - 1) == "/" .. suffix) then
       if headings[base_slug] then
         return headings[base_slug]
       end
-      -- If file found but heading slug not found, fall through to fallback.
+      -- Page title heading id (filename slug often differs from the H1 text).
+      if not is_readme and headings["__first"] then
+        return headings["__first"]
+      end
       break
     end
   end

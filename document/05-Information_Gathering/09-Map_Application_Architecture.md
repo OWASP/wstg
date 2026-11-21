@@ -78,7 +78,7 @@ When it's not possible to conclusively determine the database, the tester can of
 
 These are not hard rules, but can certainly give you a reasonable starting point if no better information is available.
 
-#### Authentication
+#### Authentication Backends
 
 Most applications have user authentication. There are multiple authentication backends that can be used, such as:
 

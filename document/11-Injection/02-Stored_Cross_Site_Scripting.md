@@ -155,7 +155,7 @@ Also consider that legacy browsers such as Internet Explorer may not handle MIME
 
 Blind Cross-site Scripting is a form of stored XSS. It generally occurs when the attacker’s payload is saved on the server/infrastructure and later reflected back to the victim from the backend application. For example in feedback forms, an attacker can submit the malicious payload using the form, and once the backend user/admin of the application views the attacker’s submission via the backend application, the attacker’s payload will get executed. Blind Cross-site Scripting is hard to confirm in the real-world scenario but one of the best tools for this is [XSS Hunter](https://xsshunter.com/).
 
-> Note: Testers should carefully consider the privacy implications of using public or third party services while performing security tests. (See [#tools](#tools).)
+> Note: Testers should carefully consider the privacy implications of using public or third party services while performing security tests. (See [Tools](#tools).)
 
 ### Gray-Box Testing
 
