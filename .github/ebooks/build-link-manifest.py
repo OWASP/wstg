@@ -47,8 +47,8 @@ def extract_headings_from_json(json_data: dict) -> dict[str, str]:
             if block.get("t") == "Header":
                 c = block.get("c", [])
                 if len(c) >= 3:
-                    content = c[1]  # inline content
-                    heading_id = c[2]  # attributes [id, classes, kvpairs]
+                    heading_id = c[1]  # attributes [id, classes, kvpairs]
+                    content = c[2]  # inline content
 
                     if content and isinstance(heading_id, list) and len(heading_id) > 0:
                         heading_id = heading_id[0]  # extract id string
@@ -72,6 +72,8 @@ def extract_headings_from_json(json_data: dict) -> dict[str, str]:
                             slug = slugify(text)
                             if heading_id:
                                 headings[slug] = heading_id
+                                # First heading = the page's own title (see links.lua)
+                                headings.setdefault("__first", heading_id)
 
             # Recurse into nested structures
             for key, val in block.items():

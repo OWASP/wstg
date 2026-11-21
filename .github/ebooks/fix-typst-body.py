@@ -35,8 +35,8 @@ def main() -> None:
     text = re.sub(r"(?m)^([ \t]*)/(.*)$", esc_slash, text)
 
     # extract-media paths → root-absolute
-    text = text.replace('#image("build-ebooks/media/', f'#image("{args.media_prefix}')
-    text = text.replace('#image("media/', f'#image("{args.media_prefix}')
+    text = text.replace('image("build-ebooks/media/', f'image("{args.media_prefix}')
+    text = text.replace('image("media/', f'image("{args.media_prefix}')
 
     # Convert ID tables to styled badges
     # Matches: #align(center)[#table(...[ID]...[WSTG-…]...)]
