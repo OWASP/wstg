@@ -120,6 +120,8 @@
 
 #### 4.3.5 [Weak or Unenforced Username Policy](4-Web_Application_Security_Testing/03-Identity_Management/05-Weak_or_Unenforced_Username_Policy.md)
 
+#### 4.3.6 [Email Address Verification](4-Web_Application_Security_Testing/03-Identity_Management/06-Email_Address_Verification.md)
+
 ### 4.4 [Authentication](4-Web_Application_Security_Testing/04-Authentication/README.md)
 
 #### 4.4.1 [Credentials Transported over an Encrypted Channel](4-Web_Application_Security_Testing/04-Authentication/01-Credentials_Transported_over_an_Encrypted_Channel.md)
