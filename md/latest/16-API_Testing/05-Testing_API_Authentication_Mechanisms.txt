@@ -1,0 +1,271 @@
+---
+layout: document
+title: WSTG - Latest
+collection_name: latest
+channel_label: Latest
+channel_path: latest
+render_with_liquid: false
+---
+
+# Testing API Authentication Mechanisms
+
+|ID          |
+|------------|
+|WSTG-APIT-05|
+
+## Summary
+
+APIs rely on stateless authentication mechanisms (JSON Web Tokens, OAuth 2.0 flows, API keys, and bearer tokens) to verify callers before granting access. Each mechanism introduces API-specific weaknesses that differ from traditional session-based web application authentication. An API key transmitted in a URL query string leaks into server logs and proxy caches. A bearer token that is never revoked allows indefinite access after credential compromise. An API key issued for a staging environment that is also accepted in production extends the impact of any key leak.
+
+This article covers testing procedures for authentication weaknesses specific to API contexts. For general authentication mechanism testing, see [section 8](../../08-Authentication/). For JWT structure, signature, claim validation, and header parameter injection (`kid`, `jku`, `x5u`) testing, see [JSON Web Tokens (WSTG-SESS-10)](../../10-Session_Management/10-JSON_Web_Tokens/). For OAuth 2.0 grant types and token leakage, see [OAuth Weaknesses (WSTG-ATHZ-05)](../../09-Authorization/05-OAuth_Weaknesses/), and for authorization server tests including redirect URI validation, PKCE downgrade, and token lifetime, see [OAuth Authorization Server Weaknesses](../../09-Authorization/05.1-OAuth_Authorization_Server_Weaknesses/). For MFA bypass testing, see [Multi-Factor Authentication (WSTG-ATHN-10)](../../08-Authentication/10-Multi-Factor_Authentication/).
+
+## Test Objectives
+
+- Assess whether API keys are scoped, rotated, and transmitted securely.
+- Determine whether bearer tokens are revocable after logout or credential change.
+- Verify that OAuth 2.0 token scope is enforced at the authorization server and the resource server.
+- Evaluate whether APIs that accept session cookies enforce CSRF defenses.
+- Test whether authentication is enforced for every HTTP method on an endpoint.
+- Confirm that OAuth token endpoints enforce rate limiting.
+
+## How to Test
+
+### Test OAuth 2.0 in API Context
+
+The following tests cover OAuth weaknesses specific to API consumers (native apps, SPAs, machine-to-machine clients).
+
+#### 1. Scope Escalation
+
+Request a token with minimal scope, then attempt a write operation that requires a higher privilege. Target an object that you own so that a successful bypass does not modify other users' data:
+
+```bash
+# Request token with read-only scope
+curl -X POST https://auth.example.com/token \
+  -d "grant_type=client_credentials" \
+  -d "client_id=CLIENT_ID" \
+  -d "client_secret=CLIENT_SECRET" \
+  -d "scope=read"
+
+# Attempt a harmless write on a tester-owned object with the read-only token
+curl -X PATCH \
+  -H "Authorization: Bearer <read-only-token>" \
+  -H "Content-Type: application/json" \
+  -d '{"display_name": "scope-test"}' \
+  https://api.example.com/v1/resources/<tester-owned-resource-id>
+```
+
+Also test whether the authorization server issues a broader scope than originally granted. Scope is requested in the authorization request (RFC 6749 section 4.1.1), not in the authorization code exchange. Request more scope than the client is allowed in the authorization request, or request a wider scope when using a refresh token, which the server must reject (RFC 6749 section 6):
+
+```bash
+curl -X POST https://auth.example.com/token \
+  -d "grant_type=refresh_token" \
+  -d "refresh_token=REFRESH_TOKEN" \
+  -d "client_id=CLIENT_ID" \
+  -d "scope=read write admin"
+```
+
+Insecure behavior: the server grants a token with broader scope than authorized, or the API does not enforce scope restrictions on resource access.
+
+#### 2. Implicit Flow Token Exposure
+
+For implicit flow (`response_type=token`), the access token appears in the URL fragment after redirect:
+
+```text
+https://app.example.com/callback#access_token=eyJ...&token_type=bearer
+```
+
+The URL fragment is not included in the `Referer` header (RFC 9110 section 10.1.3), but the token is exposed through other vectors:
+
+- JavaScript on the callback page can read `location.hash` and send it to a server, including injected scripts via XSS.
+- The full URL including the fragment may persist in browser history.
+- Client-side code may store the token in `localStorage`, making it readable by any script on the same origin.
+- A redirect from the callback page whose `Location` header has no fragment inherits the fragment of the callback URL (RFC 9110 section 10.2.2), so redirect chains carry the token to the next site. Test any redirects that follow the callback.
+
+The implicit flow is deprecated by the OAuth 2.0 Security BCP. For testing of deprecated grant types, see [OAuth Weaknesses (WSTG-ATHZ-05)](../../09-Authorization/05-OAuth_Weaknesses/).
+
+### Test API Key Security
+
+API keys are the primary credential type for machine-to-machine API access. Unlike session tokens, they are often long-lived and not bound to a user session.
+
+#### 1. Key Transmission
+
+Inspect whether the API key is sent in the URL query string or in a header:
+
+```bash
+# Insecure: key in URL (logged by proxies, servers, CDNs)
+curl "https://api.example.com/v1/data?api_key=sk_live_abc123"
+
+# Secure: key in header
+curl -H "X-API-Key: sk_live_abc123" https://api.example.com/v1/data
+```
+
+Query strings are recorded in server, proxy, and CDN logs and in browser history, so treat a key sent as a query parameter as exposed to anyone with access to those records.
+
+#### 2. Key Scoping
+
+Test whether a key issued for one service or environment works on another:
+
+```bash
+# Use a staging key against production
+curl -H "X-API-Key: sk_staging_abc123" https://api.example.com/v1/data
+
+# Use a read-only key for write operations
+curl -X POST \
+  -H "X-API-Key: sk_readonly_abc123" \
+  -H "Content-Type: application/json" \
+  -d '{"name": "test"}' \
+  https://api.example.com/v1/resources
+```
+
+Insecure behavior: the key is accepted outside its intended scope.
+
+#### 3. Key Rotation and Revocation
+
+Obtain a new API key through the key management interface. Test whether the old key still works:
+
+```bash
+curl -H "X-API-Key: <old-key>" https://api.example.com/v1/data
+```
+
+Insecure behavior: the old key remains valid indefinitely after rotation.
+
+Also test revocation propagation delay: after revoking a key, send requests at intervals (immediately, 30 seconds, one minute, five minutes) to determine how long the revoked key remains active. Caching layers or distributed systems may introduce significant delays.
+
+#### 4. Key Exposure in Client-Side Code
+
+Search client-side code for embedded API keys using the techniques in [API Reconnaissance (WSTG-APIT-01)](../01-API_Reconnaissance/#the-client-side-application) and [Excessive Data Exposure (WSTG-APIT-03)](../03-Excessive_Data_Exposure/#examine-javascript-source-maps-and-client-side-bundles). Also check mobile application packages (APK/IPA). For each key found, determine its scope using the key scoping tests above.
+
+Insecure behavior: a key with write or privileged scope is embedded in code delivered to clients.
+
+### Test Bearer Token Lifecycle
+
+Test access token and refresh token lifetimes as described in [OAuth Authorization Server Weaknesses](../../09-Authorization/05.1-OAuth_Authorization_Server_Weaknesses/#token-lifetime).
+
+Stateless JWT access tokens typically remain valid until they expire unless the API checks a revocation list. For those tokens, a long lifetime is the finding rather than the absence of revocation. Apply the following tests to session-backed (opaque) access tokens by replaying them against the API, and to refresh tokens by replaying them at the token endpoint (`grant_type=refresh_token`).
+
+#### 1. Token Revocation
+
+Authenticate, obtain a token, then log out or revoke the token. Replay the revoked token. For a refresh token, send it to the token endpoint instead of the API and check whether a new access token is issued:
+
+```bash
+# Log out / revoke
+curl -X POST https://api.example.com/v1/auth/logout \
+  -H "Authorization: Bearer <token>"
+
+# Replay the revoked token
+curl -H "Authorization: Bearer <token>" \
+  https://api.example.com/v1/profile
+```
+
+Insecure behavior: the revoked token still grants access.
+
+#### 2. Token Reuse After Password Change
+
+Change the user's password, then replay a token issued before the password change (for a refresh token, replay it at the token endpoint as above):
+
+```bash
+# Change password
+curl -X POST https://api.example.com/v1/auth/change-password \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json" \
+  -d '{"old_password": "old", "new_password": "new"}'
+
+# Replay the pre-change token
+curl -H "Authorization: Bearer <token>" \
+  https://api.example.com/v1/profile
+```
+
+Insecure behavior: the old token continues to work after a password change.
+
+#### 3. Refresh Token Reuse
+
+Test refresh token reuse as described in [OAuth Authorization Server Weaknesses](../../09-Authorization/05.1-OAuth_Authorization_Server_Weaknesses/#test-refresh-token-lifetime-validation). When judging the result for API clients, apply RFC 9700 section 4.14.2: reuse is a finding when the client is public (SPA, native app) and the refresh token is neither rotated nor sender-constrained. Confidential clients, such as machine-to-machine integrations that authenticate to the token endpoint, may legitimately reuse refresh tokens.
+
+### Test Session Cookie Acceptance
+
+Some APIs accept both bearer tokens and session cookies. Accepting cookies is not a weakness by itself, but browsers send cookies automatically, so cookie-authenticated API requests need CSRF defenses.
+
+Send a request without a bearer token but with a session cookie obtained from a browser login:
+
+```bash
+# Authenticate via browser and capture session cookie
+# Then use only the cookie against the API
+curl -H "Cookie: session=abc123" \
+  https://api.example.com/v1/profile
+```
+
+If the API accepts the session cookie, verify that CSRF protections are present (`SameSite` attribute, CSRF token, `Origin` header check) as described in [Cross Site Request Forgery (WSTG-SESS-05)](../../10-Session_Management/05-Cross_Site_Request_Forgery/). Cookie-based authentication is a finding only when these defenses are absent.
+
+### Test Authentication Across HTTP Methods
+
+Authentication middleware is sometimes registered for only some HTTP methods on a route, so an endpoint that requires a token for `GET` may accept `POST`, `PUT`, `PATCH`, `DELETE`, or `HEAD` without one. Compare the response to an authenticated request with the response to the same request without credentials, repeated for each method. Use a harmless request against an object you own, since a successful bypass performs the action. The method-switching technique is described in [HTTP Methods (WSTG-CONF-05)](../../06-Configuration_and_Deployment_Management/05-HTTP_Methods/#access-control-bypass).
+
+Insecure behavior: an unauthenticated request returns a 2xx response or a validation error instead of `401` or `403`. `OPTIONS` is often answered without authentication for CORS preflight, so a response to it is not a finding.
+
+### Test Rate Limiting on Token Endpoints
+
+Lockout, CAPTCHA, and rate limiting on login endpoints, including evasion by rotating IP addresses, are covered in [Weak Lock Out Mechanism (WSTG-ATHN-02)](../../08-Authentication/02-Weak_Lock_Out_Mechanism/). When the API trusts client IP headers such as `X-Forwarded-For` for rate limiting, also test whether spoofing the header evades the limit, as described for IP-based checks in [Multi-Factor Authentication (WSTG-ATHN-10)](../../08-Authentication/10-Multi-Factor_Authentication/).
+
+OAuth token endpoints that accept client credentials are a separate brute-force target. Test whether the token endpoint rate-limits failed client authentication, using a client registered for testing so that any lockout does not affect production integrations:
+
+```bash
+for i in $(seq 1 50); do
+  curl -s -o /dev/null -w "%{http_code}\n" \
+    -X POST https://auth.example.com/token \
+    -d "grant_type=client_credentials" \
+    -d "client_id=TEST_CLIENT_ID" \
+    -d "client_secret=wrong_secret_$i"
+done
+```
+
+Insecure behavior: all 50 requests return the same error response (such as `401` with `invalid_client`) with no `429 Too Many Requests`, increasing delay, or client lockout.
+
+## Related Test Cases
+
+- [JSON Web Tokens (WSTG-SESS-10)](../../10-Session_Management/10-JSON_Web_Tokens/)
+- [OAuth Weaknesses (WSTG-ATHZ-05)](../../09-Authorization/05-OAuth_Weaknesses/)
+- [OAuth Authorization Server Weaknesses](../../09-Authorization/05.1-OAuth_Authorization_Server_Weaknesses/)
+- [Multi-Factor Authentication (MFA) (WSTG-ATHN-10)](../../08-Authentication/10-Multi-Factor_Authentication/)
+- [Weak Lock Out Mechanism (WSTG-ATHN-02)](../../08-Authentication/02-Weak_Lock_Out_Mechanism/)
+- [Cross Site Request Forgery (WSTG-SESS-05)](../../10-Session_Management/05-Cross_Site_Request_Forgery/)
+- [HTTP Methods (WSTG-CONF-05)](../../06-Configuration_and_Deployment_Management/05-HTTP_Methods/)
+- [API Reconnaissance (WSTG-APIT-01)](../01-API_Reconnaissance/)
+
+## Remediation
+
+- Transmit API keys in headers, not URL parameters. Scope keys to specific services and environments. Support key rotation with a short, defined overlap period, and revoke old keys when it ends.
+- Set appropriate token lifetimes. Invalidate refresh tokens and session-backed tokens on logout, password change, and privilege change. For public clients, rotate refresh tokens or sender-constrain them, and revoke the token family on reuse detection.
+- Enforce token scope at the resource server. Reject token requests that exceed the authorized scope.
+- Apply authentication to every route regardless of HTTP method, and deny by default.
+- If session cookies are accepted by the API, ensure CSRF defenses (`SameSite`, CSRF token, `Origin` check) are in place.
+- Rate limit authentication and token endpoints, and apply lockout controls as described in [Weak Lock Out Mechanism (WSTG-ATHN-02)](../../08-Authentication/02-Weak_Lock_Out_Mechanism/).
+- For JWT header parameter hardening (`kid`, `jku`, `x5u` allowlisting, algorithm pinning), see [JSON Web Tokens (WSTG-SESS-10)](../../10-Session_Management/10-JSON_Web_Tokens/).
+- For PKCE enforcement and authorization server hardening, see [OAuth Authorization Server Weaknesses](../../09-Authorization/05.1-OAuth_Authorization_Server_Weaknesses/).
+
+## Tools
+
+- [ZAP](https://www.zaproxy.org/) - Intercepting proxy for capturing, replaying, and modifying API requests and tokens.
+- [Burp Suite](https://portswigger.net/burp) - Intercepting proxy with Repeater and Intruder for replaying tokens and testing rate limits.
+- [Postman](https://www.postman.com/) - API client for sending requests with different credentials, scopes, and keys.
+- [curl](https://curl.se/) - Command-line HTTP client used in the examples above.
+
+## References
+
+- [OWASP API Security Top 10: API2:2023 Broken Authentication](https://owasp.org/API-Security/editions/2023/en/0xa2-broken-authentication/)
+- [OWASP JWT Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_Cheat_Sheet.html)
+- [OWASP OAuth2 Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/OAuth2_Cheat_Sheet.html)
+- [RFC 7519: JSON Web Token (JWT)](https://datatracker.ietf.org/doc/html/rfc7519)
+- [RFC 7636: Proof Key for Code Exchange (PKCE)](https://datatracker.ietf.org/doc/html/rfc7636)
+- [RFC 6749: The OAuth 2.0 Authorization Framework](https://datatracker.ietf.org/doc/html/rfc6749)
+- [RFC 6750: The OAuth 2.0 Authorization Framework - Bearer Token Usage](https://datatracker.ietf.org/doc/html/rfc6750)
+- [RFC 9110: HTTP Semantics](https://datatracker.ietf.org/doc/html/rfc9110)
+- [RFC 9700: Best Current Practice for OAuth 2.0 Security](https://datatracker.ietf.org/doc/html/rfc9700)
+- [CWE-287: Improper Authentication](https://cwe.mitre.org/data/definitions/287.html)
+- [CWE-294: Authentication Bypass by Capture-replay](https://cwe.mitre.org/data/definitions/294.html)
+- [CWE-307: Improper Restriction of Excessive Authentication Attempts](https://cwe.mitre.org/data/definitions/307.html)
+- [CWE-345: Insufficient Verification of Data Authenticity](https://cwe.mitre.org/data/definitions/345.html)
+- [CWE-346: Origin Validation Error](https://cwe.mitre.org/data/definitions/346.html)
+- [CWE-352: Cross-Site Request Forgery (CSRF)](https://cwe.mitre.org/data/definitions/352.html)
+- [CWE-522: Insufficiently Protected Credentials](https://cwe.mitre.org/data/definitions/522.html)
+- [CWE-613: Insufficient Session Expiration](https://cwe.mitre.org/data/definitions/613.html)
+- [CWE-798: Use of Hard-coded Credentials](https://cwe.mitre.org/data/definitions/798.html)

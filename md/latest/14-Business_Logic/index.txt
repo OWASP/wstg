@@ -1,0 +1,34 @@
+---
+layout: document
+title: WSTG - Latest
+collection_name: latest
+channel_label: Latest
+channel_path: latest
+render_with_liquid: false
+---
+
+# 14 Business Logic
+
+14.0 [Introduction to Business Logic](00-Introduction_to_Business_Logic/)
+
+14.1 [Business Logic Data Validation](01-Business_Logic_Data_Validation/)
+
+14.2 [Ability to Forge Requests](02-Ability_to_Forge_Requests/)
+
+14.3 [Integrity Checks](03-Integrity_Checks/)
+
+14.4 [Process Timing](04-Process_Timing/)
+
+14.5 [Number of Times a Function Can Be Used Limits](05-Number_of_Times_a_Function_Can_Be_Used_Limits/)
+
+14.6 [Circumvention of Work Flows](06-Circumvention_of_Work_Flows/)
+
+14.7 [Defenses Against Application Misuse](07-Defenses_Against_Application_Misuse/)
+
+14.8 [Upload of Unexpected File Types](08-Upload_of_Unexpected_File_Types/)
+
+14.9 [Upload of Malicious Files](09-Upload_of_Malicious_Files/)
+
+14.10 [Payment Functionality](10-Payment_Functionality/)
+
+14.11 [Denial of Inventory](11-Denial_of_Inventory/)

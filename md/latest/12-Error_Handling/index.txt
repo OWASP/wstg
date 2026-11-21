@@ -1,0 +1,12 @@
+---
+layout: document
+title: WSTG - Latest
+collection_name: latest
+channel_label: Latest
+channel_path: latest
+render_with_liquid: false
+---
+
+# 12 Error Handling
+
+12.1 [Improper Error Handling](01-Improper_Error_Handling/)

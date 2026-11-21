@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WSTG - Latest | OWASP Web Security Testing Guide</title>
+<meta name="description" content="The premier cybersecurity testing resource for web application developers and security professionals.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="WSTG - Latest">
+<meta property="og:description" content="The premier cybersecurity testing resource for web application developers and security professionals.">
+<meta property="og:image" content="https://wstg.owasp.org/assets/images/wstg-cover.png">
+<meta property="og:url" content="https://wstg.owasp.org/latest/11-Injection/05-LDAP_Injection/">
+<meta property="og:site_name" content="OWASP Web Security Testing Guide">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="WSTG - Latest">
+<meta name="twitter:description" content="The premier cybersecurity testing resource for web application developers and security professionals.">
+<meta name="twitter:image" content="https://wstg.owasp.org/assets/images/wstg-cover.png">
+<link rel="canonical" href="https://wstg.owasp.org/latest/11-Injection/05-LDAP_Injection/">
+<link rel="icon" href="/assets/images/wstg-shield.png" type="image/png">
+<link rel="apple-touch-icon" href="/assets/images/wstg-shield.png">
+<meta name="theme-color" content="#1a1d23">
+<script>
+(function () {
+  var t;
+  try { t = localStorage.getItem('wstg-theme'); } catch (e) {}
+  var effective;
+  if (!t || t === 'system') {
+    effective = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  } else {
+    effective = t;
+  }
+  document.documentElement.setAttribute('data-theme', effective);
+})();
+</script>
+<link rel="preload" href="/assets/fonts/poppins-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/barlow-500.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/wstg-search.css">
+
+<link rel="stylesheet" href="/assets/css/wstg-nav.css">
+
+
+</head>
+<body id="top" class="page-document">
+  <div class="skip-links">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="#page-end" class="skip-link">Skip to bottom of page</a>
+  </div>
+  <header class="site-header">
+  <div class="container container-wide header-inner">
+    <div class="header-left">
+      <a href="/" class="header-brand" aria-label="WSTG home">
+        <img class="header-brand-shield" src="/assets/images/wstg-shield-40.png" width="40" height="40" alt="">
+        <span class="header-brand-name"><span class="wstg-wordmark">WSTG</span></span>
+      </a>
+      
+
+
+
+
+
+
+
+
+<details class="version-switcher version-switcher--latest">
+  <summary class="version-switcher-summary channel-banner--latest">
+    <span class="version-switcher-badge">Latest</span>
+    <span class="version-switcher-caret" aria-hidden="true">&#9662;</span>
+    <span class="visually-hidden">Switch version</span>
+  </summary>
+  <div class="version-switcher-panel">
+    <p class="version-switcher-heading">Switch version</p>
+    <ul class="version-switcher-list">
+      
+        
+        
+        
+        
+        <li class="version-switcher-item is-current">
+          <span class="version-switcher-version">Latest</span>
+          <span class="version-switcher-note">(You are here)</span>
+        </li>
+        
+      
+        
+        
+        
+        
+          
+          
+          
+          
+          
+          
+          
+          
+        
+        <li class="version-switcher-item">
+          <a class="version-switcher-version" href="/v4.2/">v4.2</a>
+          <span class="version-switcher-note">(No direct equivalent)</span>
+        </li>
+        
+      
+        
+        
+        
+        
+          
+          
+          
+          
+          
+          
+          
+          
+        
+        <li class="version-switcher-item">
+          <a class="version-switcher-version" href="/v4.1/">v4.1</a>
+          <span class="version-switcher-note">(No direct equivalent)</span>
+        </li>
+        
+      
+      
+      
+      
+      <li class="version-switcher-item">
+        <a class="version-switcher-version" href="/stable/">Stable</a>
+        <span class="version-switcher-note">(Now points to v4.2)</span>
+      </li>
+    </ul>
+  </div>
+</details>
+
+
+    </div>
+    <div class="header-actions">
+      
+
+
+
+<button type="button" id="wstg-search-open" class="theme-toggle wstg-search-open" aria-label="Search the guide" aria-haspopup="dialog" aria-keyshortcuts="Control+K Meta+K" title="Search (Ctrl/Cmd+K)"
+  data-index="/assets/search/latest.36e1ecd9.json"
+  data-results="/latest/search/"
+  data-fuse="/assets/js/vendor/fuse.min.js">
+  <span class="theme-toggle-icon-wrap">
+    <svg class="theme-toggle-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+      <path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+    </svg>
+  </span>
+  <span class="theme-toggle-label" aria-hidden="true">Search</span>
+</button>
+
+
+      <button type="button" id="focus-mode-toggle" class="focus-mode-toggle" aria-label="Focus mode" title="Focus mode">
+        <svg class="focus-mode-icon" viewBox="0 0 24 24" width="1.25em" height="1.25em" fill="currentColor" aria-hidden="true">
+          <circle cx="12" cy="12" r="2"/>
+          <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+        <span class="focus-mode-label" aria-hidden="true">Focus</span>
+      </button>
+      <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Theme: system. Click to switch." title="Theme">
+        <span class="theme-toggle-icon-wrap">
+          <svg class="theme-toggle-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path fill="currentColor" d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
+          </svg>
+        </span>
+        <span class="theme-toggle-label" aria-hidden="true">Theme</span>
+      </button>
+      <a href="https://owasp.org/" class="ext-link" rel="noopener noreferrer" target="_blank" aria-label="OWASP (external)">
+        <img class="owasp-wordmark-img" src="/assets/images/owasp-logo-header.svg" alt="" width="133" height="40">
+        <span class="sr-only"> (opens in new window)</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+  <header class="project-header">
+  <div class="container container-wide">
+    <div class="project-header-top">
+      <h1 class="project-title">OWASP Web Security Testing Guide</h1>
+      <p class="project-subtitle">An OWASP Flagship Project</p>
+    </div>
+    
+    <p class="project-tagline">Web application security testing guidance.</p>
+    
+  </div>
+</header>
+
+
+<div class="channel-banners" role="region" aria-label="Version status">
+  
+  <div class="channel-banner channel-banner--latest">
+    This content represents the latest contributions to the Web Security Testing Guide, and may frequently change.
+  </div>
+  
+
+  
+
+  
+</div>
+
+<main id="main-content" class="site-main">
+  <div class="container container-wide">
+    <div class="doc-nav-bar">
+      <button type="button" id="doc-nav-toggle" class="doc-nav-toggle" aria-controls="doc-sidebar" aria-expanded="false">
+        <span class="doc-nav-toggle-icon" aria-hidden="true"></span>
+        Contents
+      </button>
+    </div>
+    <div class="doc-layout">
+      <div id="doc-nav-backdrop" class="doc-nav-backdrop" hidden></div>
+      <aside id="doc-sidebar" class="doc-sidebar" aria-label="Guide contents">
+        <button type="button" id="doc-nav-close" class="doc-nav-close" aria-label="Close contents">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        
+
+
+<nav class="wstg-nav" id="wstg-nav-latest" aria-label="WSTG Contents">
+  <p class="wstg-nav-home"><a href="/">← Home</a></p>
+  <h2 class="wstg-nav-title"><a href="/latest/">WSTG Contents</a></h2>
+  <label class="wstg-nav-filter-label" for="wstg-nav-filter-latest">Filter Contents</label>
+  <input id="wstg-nav-filter-latest" class="wstg-nav-filter" type="search" placeholder="Filter (XSS, sqli, WSTG-INJT-05, 4.7)" autocomplete="off">
+  <div class="wstg-nav-filter-controls">
+    <button type="button" class="wstg-nav-filter-clear" hidden>Clear Filter</button>
+    <div class="wstg-nav-filter-count" hidden aria-live="polite" aria-atomic="true"></div>
+  </div>
+  <div class="wstg-nav-controls">
+    <button type="button" data-wstg-expand>Expand All</button>
+    <button type="button" data-wstg-collapse>Collapse All</button>
+  </div>
+  <ul class="wstg-nav-list">
+    
+    
+<li class="wstg-nav-item" data-title="0. Foreword">
+<a href="/latest/00-Foreword/" data-nav-url="00-Foreword/" title="0. Foreword">0. Foreword</a>
+</li>
+<li class="wstg-nav-item" data-title="1. About">
+<a href="/latest/01-About/" data-nav-url="01-About/" title="1. About">1. About</a>
+</li>
+<li class="wstg-nav-item" data-title="2. Introduction">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/02-Introduction/" data-nav-url="02-Introduction/" title="2. Introduction">2. Introduction</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="2.1 Purpose and Scope">
+<a href="/latest/02-Introduction/#purpose-and-scope" data-nav-url="02-Introduction/#purpose-and-scope" title="2.1 Purpose and Scope">2.1 Purpose and Scope</a>
+</li>
+<li class="wstg-nav-item" data-title="2.2 Why Web Application Security Testing Matters">
+<a href="/latest/02-Introduction/#why-web-application-security-testing-matters" data-nav-url="02-Introduction/#why-web-application-security-testing-matters" title="2.2 Why Web Application Security Testing Matters">2.2 Why Web Application Security Testing Matters</a>
+</li>
+<li class="wstg-nav-item" data-title="2.3 Who Should Use This Guide">
+<a href="/latest/02-Introduction/#who-should-use-this-guide" data-nav-url="02-Introduction/#who-should-use-this-guide" title="2.3 Who Should Use This Guide">2.3 Who Should Use This Guide</a>
+</li>
+<li class="wstg-nav-item" data-title="2.4 Core Principles of Effective Security Testing">
+<a href="/latest/02-Introduction/#core-principles-of-effective-security-testing" data-nav-url="02-Introduction/#core-principles-of-effective-security-testing" title="2.4 Core Principles of Effective Security Testing">2.4 Core Principles of Effective Security Testing</a>
+</li>
+<li class="wstg-nav-item" data-title="2.5 How the Guide Is Organized">
+<a href="/latest/02-Introduction/#how-the-guide-is-organized" data-nav-url="02-Introduction/#how-the-guide-is-organized" title="2.5 How the Guide Is Organized">2.5 How the Guide Is Organized</a>
+</li>
+<li class="wstg-nav-item" data-title="2.6 How to Reference WSTG Scenarios">
+<a href="/latest/02-Introduction/#how-to-reference-wstg-scenarios" data-nav-url="02-Introduction/#how-to-reference-wstg-scenarios" title="2.6 How to Reference WSTG Scenarios">2.6 How to Reference WSTG Scenarios</a>
+</li>
+<li class="wstg-nav-item" data-title="2.7 Feedback and Comments">
+<a href="/latest/02-Introduction/#feedback-and-comments" data-nav-url="02-Introduction/#feedback-and-comments" title="2.7 Feedback and Comments">2.7 Feedback and Comments</a>
+</li>
+<li class="wstg-nav-item" data-title="2.8 Related OWASP Projects">
+<a href="/latest/02-Introduction/#related-owasp-projects" data-nav-url="02-Introduction/#related-owasp-projects" title="2.8 Related OWASP Projects">2.8 Related OWASP Projects</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="3. The OWASP Testing Framework">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/03-The_OWASP_Testing_Framework/" data-nav-url="03-The_OWASP_Testing_Framework/" title="3. The OWASP Testing Framework">3. The OWASP Testing Framework</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="3.1 The Web Security Testing Framework">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/03-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework" data-nav-url="03-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework" title="3.1 The Web Security Testing Framework">3.1 The Web Security Testing Framework</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="3.2 Testing Activities">
+<a href="/latest/03-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#testing-activities" data-nav-url="03-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#testing-activities" title="3.2 Testing Activities">3.2 Testing Activities</a>
+</li>
+<li class="wstg-nav-item" data-title="3.3 Requirements and Policy Review">
+<a href="/latest/03-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#requirements-and-policy-review" data-nav-url="03-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#requirements-and-policy-review" title="3.3 Requirements and Policy Review">3.3 Requirements and Policy Review</a>
+</li>
+<li class="wstg-nav-item" data-title="3.4 Design, Architecture, and Threat Modeling">
+<a href="/latest/03-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#design-architecture-and-threat-modeling" data-nav-url="03-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#design-architecture-and-threat-modeling" title="3.4 Design, Architecture, and Threat Modeling">3.4 Design, Architecture, and Threat Modeling</a>
+</li>
+<li class="wstg-nav-item" data-title="3.5 Code-Level Review and Analysis">
+<a href="/latest/03-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#code-level-review-and-analysis" data-nav-url="03-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#code-level-review-and-analysis" title="3.5 Code-Level Review and Analysis">3.5 Code-Level Review and Analysis</a>
+</li>
+<li class="wstg-nav-item" data-title="3.6 Dynamic and Penetration Testing">
+<a href="/latest/03-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#dynamic-and-penetration-testing" data-nav-url="03-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#dynamic-and-penetration-testing" title="3.6 Dynamic and Penetration Testing">3.6 Dynamic and Penetration Testing</a>
+</li>
+<li class="wstg-nav-item" data-title="3.7 Continuous Integration Pipeline Testing">
+<a href="/latest/03-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#continuous-integration-pipeline-testing" data-nav-url="03-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#continuous-integration-pipeline-testing" title="3.7 Continuous Integration Pipeline Testing">3.7 Continuous Integration Pipeline Testing</a>
+</li>
+<li class="wstg-nav-item" data-title="3.8 Continuous and Crowd-Sourced Testing">
+<a href="/latest/03-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#continuous-and-crowd-sourced-testing" data-nav-url="03-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#continuous-and-crowd-sourced-testing" title="3.8 Continuous and Crowd-Sourced Testing">3.8 Continuous and Crowd-Sourced Testing</a>
+</li>
+<li class="wstg-nav-item" data-title="3.9 Matching Activity to Cadence">
+<a href="/latest/03-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#matching-activity-to-cadence" data-nav-url="03-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#matching-activity-to-cadence" title="3.9 Matching Activity to Cadence">3.9 Matching Activity to Cadence</a>
+</li>
+<li class="wstg-nav-item" data-title="3.10 Where to Start">
+<a href="/latest/03-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#where-to-start" data-nav-url="03-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework#where-to-start" title="3.10 Where to Start">3.10 Where to Start</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="3.11 Bug Bounty Programs as a Testing Technique">
+<a href="/latest/03-The_OWASP_Testing_Framework/1-Bug_Bounty_Programs" data-nav-url="03-The_OWASP_Testing_Framework/1-Bug_Bounty_Programs" title="3.11 Bug Bounty Programs as a Testing Technique">3.11 Bug Bounty Programs as a Testing Technique</a>
+</li>
+<li class="wstg-nav-item" data-title="3.12 Human-AI Collaborative Testing">
+<a href="/latest/03-The_OWASP_Testing_Framework/2-Human-AI_Collaborative_Testing" data-nav-url="03-The_OWASP_Testing_Framework/2-Human-AI_Collaborative_Testing" title="3.12 Human-AI Collaborative Testing">3.12 Human-AI Collaborative Testing</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="4. Introduction and Objectives">
+<a href="/latest/04-Introduction_and_Objectives/" data-nav-url="04-Introduction_and_Objectives/" title="4. Introduction and Objectives">4. Introduction and Objectives</a>
+</li>
+<li class="wstg-nav-item" data-title="5. Information Gathering">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/05-Information_Gathering/" data-nav-url="05-Information_Gathering/" title="5. Information Gathering">5. Information Gathering</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="5.1 Conduct Search Engine Reconnaissance for Information Leakage" data-hints="wstg-info-01 info-01">
+<a href="/latest/05-Information_Gathering/01-Conduct_Search_Engine_Reconnaissance_for_Information_Leakage" data-nav-url="05-Information_Gathering/01-Conduct_Search_Engine_Reconnaissance_for_Information_Leakage" title="5.1 Conduct Search Engine Reconnaissance for Information Leakage">5.1 Conduct Search Engine Reconnaissance for Information Leakage</a>
+</li>
+<li class="wstg-nav-item" data-title="5.2 Fingerprint Web Server" data-hints="wstg-info-02 info-02">
+<a href="/latest/05-Information_Gathering/02-Fingerprint_Web_Server" data-nav-url="05-Information_Gathering/02-Fingerprint_Web_Server" title="5.2 Fingerprint Web Server">5.2 Fingerprint Web Server</a>
+</li>
+<li class="wstg-nav-item" data-title="5.3 Review Webserver Metafiles for Information Leakage" data-hints="robots robots.txt sitemap sitemap.xml wstg-info-03 info-03">
+<a href="/latest/05-Information_Gathering/03-Review_Webserver_Metafiles_for_Information_Leakage" data-nav-url="05-Information_Gathering/03-Review_Webserver_Metafiles_for_Information_Leakage" title="5.3 Review Webserver Metafiles for Information Leakage">5.3 Review Webserver Metafiles for Information Leakage</a>
+</li>
+<li class="wstg-nav-item" data-title="5.4 Attack Surface Identification" data-hints="wstg-info-04 info-04">
+<a href="/latest/05-Information_Gathering/04-Attack_Surface_Identification" data-nav-url="05-Information_Gathering/04-Attack_Surface_Identification" title="5.4 Attack Surface Identification">5.4 Attack Surface Identification</a>
+</li>
+<li class="wstg-nav-item" data-title="5.5 Review Web Page Content for Information Leakage" data-hints="wstg-info-05 info-05">
+<a href="/latest/05-Information_Gathering/05-Review_Web_Page_Content_for_Information_Leakage" data-nav-url="05-Information_Gathering/05-Review_Web_Page_Content_for_Information_Leakage" title="5.5 Review Web Page Content for Information Leakage">5.5 Review Web Page Content for Information Leakage</a>
+</li>
+<li class="wstg-nav-item" data-title="5.6 Identify Application Entry Points" data-hints="wstg-info-06 info-06">
+<a href="/latest/05-Information_Gathering/06-Identify_Application_Entry_Points" data-nav-url="05-Information_Gathering/06-Identify_Application_Entry_Points" title="5.6 Identify Application Entry Points">5.6 Identify Application Entry Points</a>
+</li>
+<li class="wstg-nav-item" data-title="5.7 Map Execution Paths Through Application" data-hints="wstg-info-07 info-07">
+<a href="/latest/05-Information_Gathering/07-Map_Execution_Paths_Through_Application" data-nav-url="05-Information_Gathering/07-Map_Execution_Paths_Through_Application" title="5.7 Map Execution Paths Through Application">5.7 Map Execution Paths Through Application</a>
+</li>
+<li class="wstg-nav-item" data-title="5.8 Fingerprint Web Application Framework" data-hints="wstg-info-08 info-08">
+<a href="/latest/05-Information_Gathering/08-Fingerprint_Web_Application_Framework" data-nav-url="05-Information_Gathering/08-Fingerprint_Web_Application_Framework" title="5.8 Fingerprint Web Application Framework">5.8 Fingerprint Web Application Framework</a>
+</li>
+<li class="wstg-nav-item" data-title="5.9 Map Application Architecture" data-hints="wstg-info-09 info-09">
+<a href="/latest/05-Information_Gathering/09-Map_Application_Architecture" data-nav-url="05-Information_Gathering/09-Map_Application_Architecture" title="5.9 Map Application Architecture">5.9 Map Application Architecture</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="6. Configuration and Deployment Management">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/06-Configuration_and_Deployment_Management/" data-nav-url="06-Configuration_and_Deployment_Management/" title="6. Configuration and Deployment Management">6. Configuration and Deployment Management</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="6.1 Network Infrastructure Configuration" data-hints="wstg-conf-01 conf-01">
+<a href="/latest/06-Configuration_and_Deployment_Management/01-Network_Infrastructure_Configuration" data-nav-url="06-Configuration_and_Deployment_Management/01-Network_Infrastructure_Configuration" title="6.1 Network Infrastructure Configuration">6.1 Network Infrastructure Configuration</a>
+</li>
+<li class="wstg-nav-item" data-title="6.2 Application Platform Configuration" data-hints="wstg-conf-02 conf-02">
+<a href="/latest/06-Configuration_and_Deployment_Management/02-Application_Platform_Configuration" data-nav-url="06-Configuration_and_Deployment_Management/02-Application_Platform_Configuration" title="6.2 Application Platform Configuration">6.2 Application Platform Configuration</a>
+</li>
+<li class="wstg-nav-item" data-title="6.3 Review Old Backup and Unreferenced Files for Sensitive Information" data-hints="wstg-conf-03 conf-03">
+<a href="/latest/06-Configuration_and_Deployment_Management/03-Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information" data-nav-url="06-Configuration_and_Deployment_Management/03-Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information" title="6.3 Review Old Backup and Unreferenced Files for Sensitive Information">6.3 Review Old Backup and Unreferenced Files for Sensitive Information</a>
+</li>
+<li class="wstg-nav-item" data-title="6.4 Enumerate Infrastructure and Application Admin Interfaces" data-hints="wstg-conf-04 conf-04">
+<a href="/latest/06-Configuration_and_Deployment_Management/04-Enumerate_Infrastructure_and_Application_Admin_Interfaces" data-nav-url="06-Configuration_and_Deployment_Management/04-Enumerate_Infrastructure_and_Application_Admin_Interfaces" title="6.4 Enumerate Infrastructure and Application Admin Interfaces">6.4 Enumerate Infrastructure and Application Admin Interfaces</a>
+</li>
+<li class="wstg-nav-item" data-title="6.5 HTTP Methods" data-hints="wstg-conf-05 conf-05">
+<a href="/latest/06-Configuration_and_Deployment_Management/05-HTTP_Methods" data-nav-url="06-Configuration_and_Deployment_Management/05-HTTP_Methods" title="6.5 HTTP Methods">6.5 HTTP Methods</a>
+</li>
+<li class="wstg-nav-item" data-title="6.6 HTTP Strict Transport Security" data-hints="hsts headers wstg-conf-06 conf-06">
+<a href="/latest/06-Configuration_and_Deployment_Management/06-HTTP_Strict_Transport_Security" data-nav-url="06-Configuration_and_Deployment_Management/06-HTTP_Strict_Transport_Security" title="6.6 HTTP Strict Transport Security">6.6 HTTP Strict Transport Security</a>
+</li>
+<li class="wstg-nav-item" data-title="6.7 File Permissions" data-hints="wstg-conf-07 conf-07">
+<a href="/latest/06-Configuration_and_Deployment_Management/07-File_Permissions" data-nav-url="06-Configuration_and_Deployment_Management/07-File_Permissions" title="6.7 File Permissions">6.7 File Permissions</a>
+</li>
+<li class="wstg-nav-item" data-title="6.8 Subdomain Takeover" data-hints="wstg-conf-08 conf-08">
+<a href="/latest/06-Configuration_and_Deployment_Management/08-Subdomain_Takeover" data-nav-url="06-Configuration_and_Deployment_Management/08-Subdomain_Takeover" title="6.8 Subdomain Takeover">6.8 Subdomain Takeover</a>
+</li>
+<li class="wstg-nav-item" data-title="6.9 Cloud Storage" data-hints="s3 bucket blob storage wstg-conf-09 conf-09">
+<a href="/latest/06-Configuration_and_Deployment_Management/09-Cloud_Storage" data-nav-url="06-Configuration_and_Deployment_Management/09-Cloud_Storage" title="6.9 Cloud Storage">6.9 Cloud Storage</a>
+</li>
+<li class="wstg-nav-item" data-title="6.10 Content Security Policy" data-hints="csp headers wstg-conf-10 conf-10">
+<a href="/latest/06-Configuration_and_Deployment_Management/10-Content_Security_Policy" data-nav-url="06-Configuration_and_Deployment_Management/10-Content_Security_Policy" title="6.10 Content Security Policy">6.10 Content Security Policy</a>
+</li>
+<li class="wstg-nav-item" data-title="6.11 Path Confusion" data-hints="wstg-conf-11 conf-11 wstg-athz-01 athz-01">
+<a href="/latest/06-Configuration_and_Deployment_Management/11-Path_Confusion" data-nav-url="06-Configuration_and_Deployment_Management/11-Path_Confusion" title="6.11 Path Confusion">6.11 Path Confusion</a>
+</li>
+<li class="wstg-nav-item" data-title="6.12 Additional Browser Security Controls" data-hints="wstg-conf-12 conf-12">
+<a href="/latest/06-Configuration_and_Deployment_Management/12-Additional_Browser_Security_Controls" data-nav-url="06-Configuration_and_Deployment_Management/12-Additional_Browser_Security_Controls" title="6.12 Additional Browser Security Controls">6.12 Additional Browser Security Controls</a>
+</li>
+<li class="wstg-nav-item" data-title="6.13 Feature Flag Security Bypass" data-hints="wstg-conf-13 conf-13">
+<a href="/latest/06-Configuration_and_Deployment_Management/13-Feature_Flag_Security_Bypass" data-nav-url="06-Configuration_and_Deployment_Management/13-Feature_Flag_Security_Bypass" title="6.13 Feature Flag Security Bypass">6.13 Feature Flag Security Bypass</a>
+</li>
+<li class="wstg-nav-item" data-title="6.14 Web Cache Poisoning" data-hints="wstg-conf-14 conf-14">
+<a href="/latest/06-Configuration_and_Deployment_Management/14-Web_Cache_Poisoning" data-nav-url="06-Configuration_and_Deployment_Management/14-Web_Cache_Poisoning" title="6.14 Web Cache Poisoning">6.14 Web Cache Poisoning</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="7. Identity Management">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/07-Identity_Management/" data-nav-url="07-Identity_Management/" title="7. Identity Management">7. Identity Management</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="7.1 Role Definitions" data-hints="wstg-idnt-01 idnt-01">
+<a href="/latest/07-Identity_Management/01-Role_Definitions" data-nav-url="07-Identity_Management/01-Role_Definitions" title="7.1 Role Definitions">7.1 Role Definitions</a>
+</li>
+<li class="wstg-nav-item" data-title="7.2 User Registration Process" data-hints="wstg-idnt-02 idnt-02">
+<a href="/latest/07-Identity_Management/02-User_Registration_Process" data-nav-url="07-Identity_Management/02-User_Registration_Process" title="7.2 User Registration Process">7.2 User Registration Process</a>
+</li>
+<li class="wstg-nav-item" data-title="7.3 Account Provisioning Process" data-hints="wstg-idnt-03 idnt-03">
+<a href="/latest/07-Identity_Management/03-Account_Provisioning_Process" data-nav-url="07-Identity_Management/03-Account_Provisioning_Process" title="7.3 Account Provisioning Process">7.3 Account Provisioning Process</a>
+</li>
+<li class="wstg-nav-item" data-title="7.4 Account Enumeration and Guessable User Account" data-hints="wstg-idnt-04 idnt-04">
+<a href="/latest/07-Identity_Management/04-Account_Enumeration_and_Guessable_User_Account" data-nav-url="07-Identity_Management/04-Account_Enumeration_and_Guessable_User_Account" title="7.4 Account Enumeration and Guessable User Account">7.4 Account Enumeration and Guessable User Account</a>
+</li>
+<li class="wstg-nav-item" data-title="7.5 Email Address Verification" data-hints="wstg-idnt-05 idnt-05">
+<a href="/latest/07-Identity_Management/05-Email_Address_Verification" data-nav-url="07-Identity_Management/05-Email_Address_Verification" title="7.5 Email Address Verification">7.5 Email Address Verification</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="8. Authentication">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/08-Authentication/" data-nav-url="08-Authentication/" title="8. Authentication">8. Authentication</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="8.1 Default Credentials" data-hints="wstg-athn-01 athn-01">
+<a href="/latest/08-Authentication/01-Default_Credentials" data-nav-url="08-Authentication/01-Default_Credentials" title="8.1 Default Credentials">8.1 Default Credentials</a>
+</li>
+<li class="wstg-nav-item" data-title="8.2 Weak Lock Out Mechanism" data-hints="rate limit bruteforce brute force account lockout wstg-athn-02 athn-02">
+<a href="/latest/08-Authentication/02-Weak_Lock_Out_Mechanism" data-nav-url="08-Authentication/02-Weak_Lock_Out_Mechanism" title="8.2 Weak Lock Out Mechanism">8.2 Weak Lock Out Mechanism</a>
+</li>
+<li class="wstg-nav-item" data-title="8.3 Bypassing Authentication Schema" data-hints="wstg-athn-03 athn-03">
+<a href="/latest/08-Authentication/03-Bypassing_Authentication_Schema" data-nav-url="08-Authentication/03-Bypassing_Authentication_Schema" title="8.3 Bypassing Authentication Schema">8.3 Bypassing Authentication Schema</a>
+</li>
+<li class="wstg-nav-item" data-title="8.4 Vulnerable Remember Password" data-hints="wstg-athn-04 athn-04">
+<a href="/latest/08-Authentication/04-Vulnerable_Remember_Password" data-nav-url="08-Authentication/04-Vulnerable_Remember_Password" title="8.4 Vulnerable Remember Password">8.4 Vulnerable Remember Password</a>
+</li>
+<li class="wstg-nav-item" data-title="8.5 Browser Cache Weaknesses" data-hints="wstg-athn-05 athn-05">
+<a href="/latest/08-Authentication/05-Browser_Cache_Weaknesses" data-nav-url="08-Authentication/05-Browser_Cache_Weaknesses" title="8.5 Browser Cache Weaknesses">8.5 Browser Cache Weaknesses</a>
+</li>
+<li class="wstg-nav-item" data-title="8.6 Weak Authentication Methods" data-hints="wstg-athn-06 athn-06">
+<a href="/latest/08-Authentication/06-Weak_Authentication_Methods" data-nav-url="08-Authentication/06-Weak_Authentication_Methods" title="8.6 Weak Authentication Methods">8.6 Weak Authentication Methods</a>
+</li>
+<li class="wstg-nav-item" data-title="8.7 Weak Security Question Answer" data-hints="wstg-athn-07 athn-07">
+<a href="/latest/08-Authentication/07-Weak_Security_Question_Answer" data-nav-url="08-Authentication/07-Weak_Security_Question_Answer" title="8.7 Weak Security Question Answer">8.7 Weak Security Question Answer</a>
+</li>
+<li class="wstg-nav-item" data-title="8.8 Weak Password Change or Reset Functionalities" data-hints="wstg-athn-08 athn-08">
+<a href="/latest/08-Authentication/08-Weak_Password_Change_or_Reset_Functionalities" data-nav-url="08-Authentication/08-Weak_Password_Change_or_Reset_Functionalities" title="8.8 Weak Password Change or Reset Functionalities">8.8 Weak Password Change or Reset Functionalities</a>
+</li>
+<li class="wstg-nav-item" data-title="8.9 Weaker Authentication in Alternative Channel" data-hints="wstg-athn-09 athn-09">
+<a href="/latest/08-Authentication/09-Weaker_Authentication_in_Alternative_Channel" data-nav-url="08-Authentication/09-Weaker_Authentication_in_Alternative_Channel" title="8.9 Weaker Authentication in Alternative Channel">8.9 Weaker Authentication in Alternative Channel</a>
+</li>
+<li class="wstg-nav-item" data-title="8.10 Multi-Factor Authentication (MFA)" data-hints="mfa 2fa totp wstg-athn-10 athn-10">
+<a href="/latest/08-Authentication/10-Multi-Factor_Authentication" data-nav-url="08-Authentication/10-Multi-Factor_Authentication" title="8.10 Multi-Factor Authentication (MFA)">8.10 Multi-Factor Authentication (MFA)</a>
+</li>
+<li class="wstg-nav-item" data-title="8.11 SAML Authentication" data-hints="wstg-athn-11 athn-11">
+<a href="/latest/08-Authentication/11-SAML_Authentication" data-nav-url="08-Authentication/11-SAML_Authentication" title="8.11 SAML Authentication">8.11 SAML Authentication</a>
+</li>
+<li class="wstg-nav-item" data-title="8.12 Passkeys and WebAuthn" data-hints="wstg-athn-12 athn-12">
+<a href="/latest/08-Authentication/12-Passkeys_and_WebAuthn" data-nav-url="08-Authentication/12-Passkeys_and_WebAuthn" title="8.12 Passkeys and WebAuthn">8.12 Passkeys and WebAuthn</a>
+</li>
+<li class="wstg-nav-item" data-title="8.13 OpenID Connect Relying Party" data-hints="wstg-athn-13 athn-13">
+<a href="/latest/08-Authentication/13-OpenID_Connect_Relying_Party" data-nav-url="08-Authentication/13-OpenID_Connect_Relying_Party" title="8.13 OpenID Connect Relying Party">8.13 OpenID Connect Relying Party</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="9. Authorization">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/09-Authorization/" data-nav-url="09-Authorization/" title="9. Authorization">9. Authorization</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="9.1 Directory Traversal and File Include" data-hints="path traversal dotdot lfi wstg-athz-01 athz-01">
+<a href="/latest/09-Authorization/01-Directory_Traversal_File_Include" data-nav-url="09-Authorization/01-Directory_Traversal_File_Include" title="9.1 Directory Traversal and File Include">9.1 Directory Traversal and File Include</a>
+</li>
+<li class="wstg-nav-item" data-title="9.2 Bypassing Authorization Schema" data-hints="wstg-athz-02 athz-02">
+<a href="/latest/09-Authorization/02-Bypassing_Authorization_Schema" data-nav-url="09-Authorization/02-Bypassing_Authorization_Schema" title="9.2 Bypassing Authorization Schema">9.2 Bypassing Authorization Schema</a>
+</li>
+<li class="wstg-nav-item" data-title="9.3 Privilege Escalation" data-hints="privesc wstg-athz-03 athz-03">
+<a href="/latest/09-Authorization/03-Privilege_Escalation" data-nav-url="09-Authorization/03-Privilege_Escalation" title="9.3 Privilege Escalation">9.3 Privilege Escalation</a>
+</li>
+<li class="wstg-nav-item" data-title="9.4 Insecure Direct Object References" data-hints="idor wstg-athz-04 athz-04">
+<a href="/latest/09-Authorization/04-Insecure_Direct_Object_References" data-nav-url="09-Authorization/04-Insecure_Direct_Object_References" title="9.4 Insecure Direct Object References">9.4 Insecure Direct Object References</a>
+</li>
+<li class="wstg-nav-item" data-title="9.5 OAuth Weaknesses" data-hints="oauth2 wstg-athz-05 athz-05">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/09-Authorization/05-OAuth_Weaknesses" data-nav-url="09-Authorization/05-OAuth_Weaknesses" title="9.5 OAuth Weaknesses">9.5 OAuth Weaknesses</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="9.5.1 OAuth Authorization Server Weaknesses" data-hints="oauth2">
+<a href="/latest/09-Authorization/05.1-OAuth_Authorization_Server_Weaknesses" data-nav-url="09-Authorization/05.1-OAuth_Authorization_Server_Weaknesses" title="9.5.1 OAuth Authorization Server Weaknesses">9.5.1 OAuth Authorization Server Weaknesses</a>
+</li>
+<li class="wstg-nav-item" data-title="9.5.2 OAuth Client Weaknesses" data-hints="oauth2">
+<a href="/latest/09-Authorization/05.2-OAuth_Client_Weaknesses" data-nav-url="09-Authorization/05.2-OAuth_Client_Weaknesses" title="9.5.2 OAuth Client Weaknesses">9.5.2 OAuth Client Weaknesses</a>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="10. Session Management">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/10-Session_Management/" data-nav-url="10-Session_Management/" title="10. Session Management">10. Session Management</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="10.1 Session Management Schema" data-hints="wstg-sess-01 sess-01">
+<a href="/latest/10-Session_Management/01-Session_Management_Schema" data-nav-url="10-Session_Management/01-Session_Management_Schema" title="10.1 Session Management Schema">10.1 Session Management Schema</a>
+</li>
+<li class="wstg-nav-item" data-title="10.2 Cookies Attributes" data-hints="cookies set-cookie httponly samesite secure flag wstg-sess-02 sess-02">
+<a href="/latest/10-Session_Management/02-Cookies_Attributes" data-nav-url="10-Session_Management/02-Cookies_Attributes" title="10.2 Cookies Attributes">10.2 Cookies Attributes</a>
+</li>
+<li class="wstg-nav-item" data-title="10.3 Session Fixation" data-hints="wstg-sess-03 sess-03">
+<a href="/latest/10-Session_Management/03-Session_Fixation" data-nav-url="10-Session_Management/03-Session_Fixation" title="10.3 Session Fixation">10.3 Session Fixation</a>
+</li>
+<li class="wstg-nav-item" data-title="10.4 Exposed Session Variables" data-hints="wstg-sess-04 sess-04">
+<a href="/latest/10-Session_Management/04-Exposed_Session_Variables" data-nav-url="10-Session_Management/04-Exposed_Session_Variables" title="10.4 Exposed Session Variables">10.4 Exposed Session Variables</a>
+</li>
+<li class="wstg-nav-item" data-title="10.5 Cross Site Request Forgery" data-hints="csrf xsrf wstg-sess-05 sess-05">
+<a href="/latest/10-Session_Management/05-Cross_Site_Request_Forgery" data-nav-url="10-Session_Management/05-Cross_Site_Request_Forgery" title="10.5 Cross Site Request Forgery">10.5 Cross Site Request Forgery</a>
+</li>
+<li class="wstg-nav-item" data-title="10.6 Logout Functionality" data-hints="wstg-sess-06 sess-06">
+<a href="/latest/10-Session_Management/06-Logout_Functionality" data-nav-url="10-Session_Management/06-Logout_Functionality" title="10.6 Logout Functionality">10.6 Logout Functionality</a>
+</li>
+<li class="wstg-nav-item" data-title="10.7 Session Timeout" data-hints="wstg-sess-07 sess-07">
+<a href="/latest/10-Session_Management/07-Session_Timeout" data-nav-url="10-Session_Management/07-Session_Timeout" title="10.7 Session Timeout">10.7 Session Timeout</a>
+</li>
+<li class="wstg-nav-item" data-title="10.8 Session Puzzling" data-hints="wstg-sess-08 sess-08">
+<a href="/latest/10-Session_Management/08-Session_Puzzling" data-nav-url="10-Session_Management/08-Session_Puzzling" title="10.8 Session Puzzling">10.8 Session Puzzling</a>
+</li>
+<li class="wstg-nav-item" data-title="10.9 Session Hijacking" data-hints="wstg-sess-09 sess-09">
+<a href="/latest/10-Session_Management/09-Session_Hijacking" data-nav-url="10-Session_Management/09-Session_Hijacking" title="10.9 Session Hijacking">10.9 Session Hijacking</a>
+</li>
+<li class="wstg-nav-item" data-title="10.10 JSON Web Tokens" data-hints="jwt wstg-sess-10 sess-10">
+<a href="/latest/10-Session_Management/10-JSON_Web_Tokens" data-nav-url="10-Session_Management/10-JSON_Web_Tokens" title="10.10 JSON Web Tokens">10.10 JSON Web Tokens</a>
+</li>
+<li class="wstg-nav-item" data-title="10.11 Concurrent Sessions" data-hints="wstg-sess-11 sess-11">
+<a href="/latest/10-Session_Management/11-Concurrent_Sessions" data-nav-url="10-Session_Management/11-Concurrent_Sessions" title="10.11 Concurrent Sessions">10.11 Concurrent Sessions</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="11. Injection">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/11-Injection/" data-nav-url="11-Injection/" title="11. Injection">11. Injection</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="11.1 Reflected Cross Site Scripting" data-hints="xss wstg-injt-01 injt-01">
+<a href="/latest/11-Injection/01-Reflected_Cross_Site_Scripting" data-nav-url="11-Injection/01-Reflected_Cross_Site_Scripting" title="11.1 Reflected Cross Site Scripting">11.1 Reflected Cross Site Scripting</a>
+</li>
+<li class="wstg-nav-item" data-title="11.2 Stored Cross Site Scripting" data-hints="xss wstg-injt-02 injt-02">
+<a href="/latest/11-Injection/02-Stored_Cross_Site_Scripting" data-nav-url="11-Injection/02-Stored_Cross_Site_Scripting" title="11.2 Stored Cross Site Scripting">11.2 Stored Cross Site Scripting</a>
+</li>
+<li class="wstg-nav-item" data-title="11.3 HTTP Parameter Pollution" data-hints="hpp wstg-injt-03 injt-03">
+<a href="/latest/11-Injection/03-HTTP_Parameter_Pollution" data-nav-url="11-Injection/03-HTTP_Parameter_Pollution" title="11.3 HTTP Parameter Pollution">11.3 HTTP Parameter Pollution</a>
+</li>
+<li class="wstg-nav-item" data-title="11.4 SQL Injection" data-hints="sqli wstg-injt-04 injt-04">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/11-Injection/04-SQL_Injection" data-nav-url="11-Injection/04-SQL_Injection" title="11.4 SQL Injection">11.4 SQL Injection</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="11.4.1 Oracle">
+<a href="/latest/11-Injection/04.1-Oracle" data-nav-url="11-Injection/04.1-Oracle" title="11.4.1 Oracle">11.4.1 Oracle</a>
+</li>
+<li class="wstg-nav-item" data-title="11.4.2 MySQL">
+<a href="/latest/11-Injection/04.2-MySQL" data-nav-url="11-Injection/04.2-MySQL" title="11.4.2 MySQL">11.4.2 MySQL</a>
+</li>
+<li class="wstg-nav-item" data-title="11.4.3 SQL Server" data-hints="mssql sql server">
+<a href="/latest/11-Injection/04.3-SQL_Server" data-nav-url="11-Injection/04.3-SQL_Server" title="11.4.3 SQL Server">11.4.3 SQL Server</a>
+</li>
+<li class="wstg-nav-item" data-title="11.4.4 PostgreSQL">
+<a href="/latest/11-Injection/04.4-PostgreSQL" data-nav-url="11-Injection/04.4-PostgreSQL" title="11.4.4 PostgreSQL">11.4.4 PostgreSQL</a>
+</li>
+<li class="wstg-nav-item" data-title="11.4.5 MS Access">
+<a href="/latest/11-Injection/04.5-MS_Access" data-nav-url="11-Injection/04.5-MS_Access" title="11.4.5 MS Access">11.4.5 MS Access</a>
+</li>
+<li class="wstg-nav-item" data-title="11.4.6 NoSQL Injection" data-hints="sqli nosqli">
+<a href="/latest/11-Injection/04.6-NoSQL_Injection" data-nav-url="11-Injection/04.6-NoSQL_Injection" title="11.4.6 NoSQL Injection">11.4.6 NoSQL Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="11.4.7 ORM Injection">
+<a href="/latest/11-Injection/04.7-ORM_Injection" data-nav-url="11-Injection/04.7-ORM_Injection" title="11.4.7 ORM Injection">11.4.7 ORM Injection</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="11.5 LDAP Injection" data-hints="ldapi wstg-injt-05 injt-05">
+<a href="/latest/11-Injection/05-LDAP_Injection" data-nav-url="11-Injection/05-LDAP_Injection" title="11.5 LDAP Injection">11.5 LDAP Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="11.6 XML Injection" data-hints="xxe xmli xml injection wstg-injt-06 injt-06">
+<a href="/latest/11-Injection/06-XML_Injection" data-nav-url="11-Injection/06-XML_Injection" title="11.6 XML Injection">11.6 XML Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="11.7 SSI Injection" data-hints="ssi injection wstg-injt-07 injt-07">
+<a href="/latest/11-Injection/07-SSI_Injection" data-nav-url="11-Injection/07-SSI_Injection" title="11.7 SSI Injection">11.7 SSI Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="11.8 XPath Injection" data-hints="xpathi xml wstg-injt-08 injt-08">
+<a href="/latest/11-Injection/08-XPath_Injection" data-nav-url="11-Injection/08-XPath_Injection" title="11.8 XPath Injection">11.8 XPath Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="11.9 IMAP SMTP Injection" data-hints="email injection wstg-injt-09 injt-09">
+<a href="/latest/11-Injection/09-IMAP_SMTP_Injection" data-nav-url="11-Injection/09-IMAP_SMTP_Injection" title="11.9 IMAP SMTP Injection">11.9 IMAP SMTP Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="11.10 Code Injection" data-hints="rce wstg-injt-10 injt-10">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/11-Injection/10-Code_Injection" data-nav-url="11-Injection/10-Code_Injection" title="11.10 Code Injection">11.10 Code Injection</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="11.10.1 File Inclusion" data-hints="lfi rfi">
+<a href="/latest/11-Injection/10.1-File_Inclusion" data-nav-url="11-Injection/10.1-File_Inclusion" title="11.10.1 File Inclusion">11.10.1 File Inclusion</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="11.11 Command Injection" data-hints="rce cmdi os command wstg-injt-11 injt-11">
+<a href="/latest/11-Injection/11-Command_Injection" data-nav-url="11-Injection/11-Command_Injection" title="11.11 Command Injection">11.11 Command Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="11.12 Format String Injection" data-hints="format string bug wstg-injt-12 injt-12">
+<a href="/latest/11-Injection/12-Format_String_Injection" data-nav-url="11-Injection/12-Format_String_Injection" title="11.12 Format String Injection">11.12 Format String Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="11.13 Incubated Vulnerability" data-hints="wstg-injt-13 injt-13">
+<a href="/latest/11-Injection/13-Incubated_Vulnerability" data-nav-url="11-Injection/13-Incubated_Vulnerability" title="11.13 Incubated Vulnerability">11.13 Incubated Vulnerability</a>
+</li>
+<li class="wstg-nav-item" data-title="11.14 HTTP Response Splitting" data-hints="crlf response splitting wstg-injt-14 injt-14">
+<a href="/latest/11-Injection/14-HTTP_Response_Splitting" data-nav-url="11-Injection/14-HTTP_Response_Splitting" title="11.14 HTTP Response Splitting">11.14 HTTP Response Splitting</a>
+</li>
+<li class="wstg-nav-item" data-title="11.15 HTTP Request Smuggling" data-hints="http smuggling wstg-injt-15 injt-15">
+<a href="/latest/11-Injection/15-HTTP_Request_Smuggling" data-nav-url="11-Injection/15-HTTP_Request_Smuggling" title="11.15 HTTP Request Smuggling">11.15 HTTP Request Smuggling</a>
+</li>
+<li class="wstg-nav-item" data-title="11.16 Host Header Injection" data-hints="host header injection headers wstg-injt-16 injt-16">
+<a href="/latest/11-Injection/16-Host_Header_Injection" data-nav-url="11-Injection/16-Host_Header_Injection" title="11.16 Host Header Injection">11.16 Host Header Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="11.17 Server-side Template Injection" data-hints="ssti wstg-injt-17 injt-17">
+<a href="/latest/11-Injection/17-Server-side_Template_Injection" data-nav-url="11-Injection/17-Server-side_Template_Injection" title="11.17 Server-side Template Injection">11.17 Server-side Template Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="11.18 Server-Side Request Forgery" data-hints="ssrf wstg-injt-18 injt-18">
+<a href="/latest/11-Injection/18-Server-Side_Request_Forgery" data-nav-url="11-Injection/18-Server-Side_Request_Forgery" title="11.18 Server-Side Request Forgery">11.18 Server-Side Request Forgery</a>
+</li>
+<li class="wstg-nav-item" data-title="11.19 Mass Assignment" data-hints="mass assign wstg-injt-19 injt-19">
+<a href="/latest/11-Injection/19-Mass_Assignment" data-nav-url="11-Injection/19-Mass_Assignment" title="11.19 Mass Assignment">11.19 Mass Assignment</a>
+</li>
+<li class="wstg-nav-item" data-title="11.20 CSV Injection" data-hints="formula injection wstg-injt-20 injt-20">
+<a href="/latest/11-Injection/20-CSV_Injection" data-nav-url="11-Injection/20-CSV_Injection" title="11.20 CSV Injection">11.20 CSV Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="11.21 Prototype Pollution" data-hints="pp wstg-injt-21 injt-21">
+<a href="/latest/11-Injection/21-Prototype_Pollution" data-nav-url="11-Injection/21-Prototype_Pollution" title="11.21 Prototype Pollution">11.21 Prototype Pollution</a>
+</li>
+<li class="wstg-nav-item" data-title="11.22 Insecure Deserialization" data-hints="wstg-injt-22 injt-22">
+<a href="/latest/11-Injection/22-Insecure_Deserialization" data-nav-url="11-Injection/22-Insecure_Deserialization" title="11.22 Insecure Deserialization">11.22 Insecure Deserialization</a>
+</li>
+<li class="wstg-nav-item" data-title="11.23 Server-side URL Redirect" data-hints="open redirect wstg-injt-23 injt-23">
+<a href="/latest/11-Injection/23-Server-side_URL_Redirect" data-nav-url="11-Injection/23-Server-side_URL_Redirect" title="11.23 Server-side URL Redirect">11.23 Server-side URL Redirect</a>
+</li>
+<li class="wstg-nav-item" data-title="11.24 Unicode Normalization and Case Mapping" data-hints="wstg-injt-24 injt-24">
+<a href="/latest/11-Injection/24-Unicode_Normalization_and_Case_Mapping" data-nav-url="11-Injection/24-Unicode_Normalization_and_Case_Mapping" title="11.24 Unicode Normalization and Case Mapping">11.24 Unicode Normalization and Case Mapping</a>
+</li>
+<li class="wstg-nav-item" data-title="11.25 JSON Parser Differentials" data-hints="wstg-injt-25 injt-25">
+<a href="/latest/11-Injection/25-JSON_Parser_Differentials" data-nav-url="11-Injection/25-JSON_Parser_Differentials" title="11.25 JSON Parser Differentials">11.25 JSON Parser Differentials</a>
+</li>
+<li class="wstg-nav-item" data-title="11.26 Server-side Document Rendering Injection" data-hints="wstg-injt-26 injt-26">
+<a href="/latest/11-Injection/26-Server-side_Document_Rendering_Injection" data-nav-url="11-Injection/26-Server-side_Document_Rendering_Injection" title="11.26 Server-side Document Rendering Injection">11.26 Server-side Document Rendering Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="11.27 Regular Expression Denial of Service" data-hints="wstg-injt-27 injt-27">
+<a href="/latest/11-Injection/27-Regular_Expression_Denial_of_Service" data-nav-url="11-Injection/27-Regular_Expression_Denial_of_Service" title="11.27 Regular Expression Denial of Service">11.27 Regular Expression Denial of Service</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="12. Error Handling">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/12-Error_Handling/" data-nav-url="12-Error_Handling/" title="12. Error Handling">12. Error Handling</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="12.1 Improper Error Handling" data-hints="wstg-errh-01 errh-01">
+<a href="/latest/12-Error_Handling/01-Improper_Error_Handling" data-nav-url="12-Error_Handling/01-Improper_Error_Handling" title="12.1 Improper Error Handling">12.1 Improper Error Handling</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="13. Weak Cryptography">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/13-Weak_Cryptography/" data-nav-url="13-Weak_Cryptography/" title="13. Weak Cryptography">13. Weak Cryptography</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="13.1 Weak Transport Layer Security" data-hints="tls ssl https wstg-cryp-01 cryp-01">
+<a href="/latest/13-Weak_Cryptography/01-Weak_Transport_Layer_Security" data-nav-url="13-Weak_Cryptography/01-Weak_Transport_Layer_Security" title="13.1 Weak Transport Layer Security">13.1 Weak Transport Layer Security</a>
+</li>
+<li class="wstg-nav-item" data-title="13.2 Padding Oracle" data-hints="padding oracle attack wstg-cryp-02 cryp-02">
+<a href="/latest/13-Weak_Cryptography/02-Padding_Oracle" data-nav-url="13-Weak_Cryptography/02-Padding_Oracle" title="13.2 Padding Oracle">13.2 Padding Oracle</a>
+</li>
+<li class="wstg-nav-item" data-title="13.3 Sensitive Information Sent via Unencrypted Channels" data-hints="tls ssl https cleartext wstg-cryp-03 cryp-03">
+<a href="/latest/13-Weak_Cryptography/03-Sensitive_Information_Sent_via_Unencrypted_Channels" data-nav-url="13-Weak_Cryptography/03-Sensitive_Information_Sent_via_Unencrypted_Channels" title="13.3 Sensitive Information Sent via Unencrypted Channels">13.3 Sensitive Information Sent via Unencrypted Channels</a>
+</li>
+<li class="wstg-nav-item" data-title="13.4 Weak Cryptographic Primitives" data-hints="wstg-cryp-04 cryp-04">
+<a href="/latest/13-Weak_Cryptography/04-Weak_Cryptographic_Primitives" data-nav-url="13-Weak_Cryptography/04-Weak_Cryptographic_Primitives" title="13.4 Weak Cryptographic Primitives">13.4 Weak Cryptographic Primitives</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="14. Business Logic">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/14-Business_Logic/" data-nav-url="14-Business_Logic/" title="14. Business Logic">14. Business Logic</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="14.0 Introduction to Business Logic">
+<a href="/latest/14-Business_Logic/00-Introduction_to_Business_Logic" data-nav-url="14-Business_Logic/00-Introduction_to_Business_Logic" title="14.0 Introduction to Business Logic">14.0 Introduction to Business Logic</a>
+</li>
+<li class="wstg-nav-item" data-title="14.1 Business Logic Data Validation" data-hints="wstg-busl-01 busl-01">
+<a href="/latest/14-Business_Logic/01-Business_Logic_Data_Validation" data-nav-url="14-Business_Logic/01-Business_Logic_Data_Validation" title="14.1 Business Logic Data Validation">14.1 Business Logic Data Validation</a>
+</li>
+<li class="wstg-nav-item" data-title="14.2 Ability to Forge Requests" data-hints="wstg-busl-02 busl-02">
+<a href="/latest/14-Business_Logic/02-Ability_to_Forge_Requests" data-nav-url="14-Business_Logic/02-Ability_to_Forge_Requests" title="14.2 Ability to Forge Requests">14.2 Ability to Forge Requests</a>
+</li>
+<li class="wstg-nav-item" data-title="14.3 Integrity Checks" data-hints="wstg-busl-03 busl-03">
+<a href="/latest/14-Business_Logic/03-Integrity_Checks" data-nav-url="14-Business_Logic/03-Integrity_Checks" title="14.3 Integrity Checks">14.3 Integrity Checks</a>
+</li>
+<li class="wstg-nav-item" data-title="14.4 Process Timing" data-hints="race condition toctou wstg-busl-04 busl-04">
+<a href="/latest/14-Business_Logic/04-Process_Timing" data-nav-url="14-Business_Logic/04-Process_Timing" title="14.4 Process Timing">14.4 Process Timing</a>
+</li>
+<li class="wstg-nav-item" data-title="14.5 Number of Times a Function Can Be Used Limits" data-hints="rate limit bruteforce brute force wstg-busl-05 busl-05">
+<a href="/latest/14-Business_Logic/05-Number_of_Times_a_Function_Can_Be_Used_Limits" data-nav-url="14-Business_Logic/05-Number_of_Times_a_Function_Can_Be_Used_Limits" title="14.5 Number of Times a Function Can Be Used Limits">14.5 Number of Times a Function Can Be Used Limits</a>
+</li>
+<li class="wstg-nav-item" data-title="14.6 Circumvention of Work Flows" data-hints="wstg-busl-06 busl-06">
+<a href="/latest/14-Business_Logic/06-Circumvention_of_Work_Flows" data-nav-url="14-Business_Logic/06-Circumvention_of_Work_Flows" title="14.6 Circumvention of Work Flows">14.6 Circumvention of Work Flows</a>
+</li>
+<li class="wstg-nav-item" data-title="14.7 Defenses Against Application Misuse" data-hints="wstg-busl-07 busl-07">
+<a href="/latest/14-Business_Logic/07-Defenses_Against_Application_Misuse" data-nav-url="14-Business_Logic/07-Defenses_Against_Application_Misuse" title="14.7 Defenses Against Application Misuse">14.7 Defenses Against Application Misuse</a>
+</li>
+<li class="wstg-nav-item" data-title="14.8 Upload of Unexpected File Types" data-hints="wstg-busl-08 busl-08">
+<a href="/latest/14-Business_Logic/08-Upload_of_Unexpected_File_Types" data-nav-url="14-Business_Logic/08-Upload_of_Unexpected_File_Types" title="14.8 Upload of Unexpected File Types">14.8 Upload of Unexpected File Types</a>
+</li>
+<li class="wstg-nav-item" data-title="14.9 Upload of Malicious Files" data-hints="wstg-busl-09 busl-09">
+<a href="/latest/14-Business_Logic/09-Upload_of_Malicious_Files" data-nav-url="14-Business_Logic/09-Upload_of_Malicious_Files" title="14.9 Upload of Malicious Files">14.9 Upload of Malicious Files</a>
+</li>
+<li class="wstg-nav-item" data-title="14.10 Payment Functionality" data-hints="wstg-busl-10 busl-10">
+<a href="/latest/14-Business_Logic/10-Payment_Functionality" data-nav-url="14-Business_Logic/10-Payment_Functionality" title="14.10 Payment Functionality">14.10 Payment Functionality</a>
+</li>
+<li class="wstg-nav-item" data-title="14.11 Denial of Inventory" data-hints="wstg-busl-11 busl-11">
+<a href="/latest/14-Business_Logic/11-Denial_of_Inventory" data-nav-url="14-Business_Logic/11-Denial_of_Inventory" title="14.11 Denial of Inventory">14.11 Denial of Inventory</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="15. Client-side">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/15-Client-side/" data-nav-url="15-Client-side/" title="15. Client-side">15. Client-side</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="15.1 DOM-Based Cross Site Scripting" data-hints="xss dom xss domxss wstg-clnt-01 clnt-01">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/15-Client-side/01-DOM-based_Cross_Site_Scripting" data-nav-url="15-Client-side/01-DOM-based_Cross_Site_Scripting" title="15.1 DOM-Based Cross Site Scripting">15.1 DOM-Based Cross Site Scripting</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="15.1.1 Self DOM Based Cross Site Scripting" data-hints="xss dom xss domxss">
+<a href="/latest/15-Client-side/01.1-Self_DOM_Based_Cross_Site_Scripting" data-nav-url="15-Client-side/01.1-Self_DOM_Based_Cross_Site_Scripting" title="15.1.1 Self DOM Based Cross Site Scripting">15.1.1 Self DOM Based Cross Site Scripting</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="15.2 JavaScript Execution" data-hints="wstg-clnt-02 clnt-02">
+<a href="/latest/15-Client-side/02-JavaScript_Execution" data-nav-url="15-Client-side/02-JavaScript_Execution" title="15.2 JavaScript Execution">15.2 JavaScript Execution</a>
+</li>
+<li class="wstg-nav-item" data-title="15.3 HTML Injection" data-hints="wstg-clnt-03 clnt-03">
+<a href="/latest/15-Client-side/03-HTML_Injection" data-nav-url="15-Client-side/03-HTML_Injection" title="15.3 HTML Injection">15.3 HTML Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="15.4 Client-side URL Redirect" data-hints="open redirect wstg-clnt-04 clnt-04">
+<a href="/latest/15-Client-side/04-Client-side_URL_Redirect" data-nav-url="15-Client-side/04-Client-side_URL_Redirect" title="15.4 Client-side URL Redirect">15.4 Client-side URL Redirect</a>
+</li>
+<li class="wstg-nav-item" data-title="15.5 CSS Injection" data-hints="wstg-clnt-05 clnt-05">
+<a href="/latest/15-Client-side/05-CSS_Injection" data-nav-url="15-Client-side/05-CSS_Injection" title="15.5 CSS Injection">15.5 CSS Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="15.6 Client-side Resource Manipulation" data-hints="wstg-clnt-06 clnt-06">
+<a href="/latest/15-Client-side/06-Client-side_Resource_Manipulation" data-nav-url="15-Client-side/06-Client-side_Resource_Manipulation" title="15.6 Client-side Resource Manipulation">15.6 Client-side Resource Manipulation</a>
+</li>
+<li class="wstg-nav-item" data-title="15.7 Cross Origin Resource Sharing" data-hints="cors headers wstg-clnt-07 clnt-07">
+<a href="/latest/15-Client-side/07-Cross_Origin_Resource_Sharing" data-nav-url="15-Client-side/07-Cross_Origin_Resource_Sharing" title="15.7 Cross Origin Resource Sharing">15.7 Cross Origin Resource Sharing</a>
+</li>
+<li class="wstg-nav-item" data-title="15.8 Clickjacking" data-hints="ui redress ui redressing x-frame-options framing wstg-clnt-08 clnt-08">
+<a href="/latest/15-Client-side/08-Clickjacking" data-nav-url="15-Client-side/08-Clickjacking" title="15.8 Clickjacking">15.8 Clickjacking</a>
+</li>
+<li class="wstg-nav-item" data-title="15.9 WebSockets" data-hints="ws wstg-clnt-09 clnt-09">
+<a href="/latest/15-Client-side/09-WebSockets" data-nav-url="15-Client-side/09-WebSockets" title="15.9 WebSockets">15.9 WebSockets</a>
+</li>
+<li class="wstg-nav-item" data-title="15.10 Web Messaging" data-hints="postmessage post message wstg-clnt-10 clnt-10">
+<a href="/latest/15-Client-side/10-Web_Messaging" data-nav-url="15-Client-side/10-Web_Messaging" title="15.10 Web Messaging">15.10 Web Messaging</a>
+</li>
+<li class="wstg-nav-item" data-title="15.11 Browser Storage" data-hints="localstorage sessionstorage wstg-clnt-11 clnt-11">
+<a href="/latest/15-Client-side/11-Browser_Storage" data-nav-url="15-Client-side/11-Browser_Storage" title="15.11 Browser Storage">15.11 Browser Storage</a>
+</li>
+<li class="wstg-nav-item" data-title="15.12 Cross Site Script Inclusion" data-hints="xssi wstg-clnt-12 clnt-12">
+<a href="/latest/15-Client-side/12-Cross_Site_Script_Inclusion" data-nav-url="15-Client-side/12-Cross_Site_Script_Inclusion" title="15.12 Cross Site Script Inclusion">15.12 Cross Site Script Inclusion</a>
+</li>
+<li class="wstg-nav-item" data-title="15.13 Reverse Tabnabbing" data-hints="tabnabbing window.opener wstg-clnt-13 clnt-13">
+<a href="/latest/15-Client-side/13-Reverse_Tabnabbing" data-nav-url="15-Client-side/13-Reverse_Tabnabbing" title="15.13 Reverse Tabnabbing">15.13 Reverse Tabnabbing</a>
+</li>
+<li class="wstg-nav-item" data-title="15.14 Client-side Template Injection" data-hints="csti wstg-clnt-14 clnt-14">
+<a href="/latest/15-Client-side/14-Client-Side_Template_Injection" data-nav-url="15-Client-side/14-Client-Side_Template_Injection" title="15.14 Client-side Template Injection">15.14 Client-side Template Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="15.15 DOM Clobbering" data-hints="wstg-clnt-15 clnt-15">
+<a href="/latest/15-Client-side/15-DOM_Clobbering" data-nav-url="15-Client-side/15-DOM_Clobbering" title="15.15 DOM Clobbering">15.15 DOM Clobbering</a>
+</li>
+<li class="wstg-nav-item" data-title="15.16 Cross-Site Leaks" data-hints="wstg-clnt-16 clnt-16">
+<a href="/latest/15-Client-side/16-Cross_Site_Leaks" data-nav-url="15-Client-side/16-Cross_Site_Leaks" title="15.16 Cross-Site Leaks">15.16 Cross-Site Leaks</a>
+</li>
+<li class="wstg-nav-item" data-title="15.17 Client-side Path Traversal" data-hints="wstg-clnt-17 clnt-17">
+<a href="/latest/15-Client-side/17-Client-side_Path_Traversal" data-nav-url="15-Client-side/17-Client-side_Path_Traversal" title="15.17 Client-side Path Traversal">15.17 Client-side Path Traversal</a>
+</li>
+<li class="wstg-nav-item" data-title="15.18 Service Workers" data-hints="wstg-clnt-18 clnt-18">
+<a href="/latest/15-Client-side/18-Service_Workers" data-nav-url="15-Client-side/18-Service_Workers" title="15.18 Service Workers">15.18 Service Workers</a>
+</li>
+<li class="wstg-nav-item" data-title="15.19 DNS Rebinding" data-hints="wstg-clnt-19 clnt-19">
+<a href="/latest/15-Client-side/19-DNS_Rebinding" data-nav-url="15-Client-side/19-DNS_Rebinding" title="15.19 DNS Rebinding">15.19 DNS Rebinding</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="16. API Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/16-API_Testing/" data-nav-url="16-API_Testing/" title="16. API Testing">16. API Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="16.0 API Testing Overview">
+<a href="/latest/16-API_Testing/00-API_Testing_Overview" data-nav-url="16-API_Testing/00-API_Testing_Overview" title="16.0 API Testing Overview">16.0 API Testing Overview</a>
+</li>
+<li class="wstg-nav-item" data-title="16.1 API Reconnaissance" data-hints="wstg-apit-01 apit-01">
+<a href="/latest/16-API_Testing/01-API_Reconnaissance" data-nav-url="16-API_Testing/01-API_Reconnaissance" title="16.1 API Reconnaissance">16.1 API Reconnaissance</a>
+</li>
+<li class="wstg-nav-item" data-title="16.2 API Broken Object Level Authorization" data-hints="bola idor wstg-apit-02 apit-02">
+<a href="/latest/16-API_Testing/02-API_Broken_Object_Level_Authorization" data-nav-url="16-API_Testing/02-API_Broken_Object_Level_Authorization" title="16.2 API Broken Object Level Authorization">16.2 API Broken Object Level Authorization</a>
+</li>
+<li class="wstg-nav-item" data-title="16.3 Excessive Data Exposure" data-hints="wstg-apit-03 apit-03">
+<a href="/latest/16-API_Testing/03-Excessive_Data_Exposure" data-nav-url="16-API_Testing/03-Excessive_Data_Exposure" title="16.3 Excessive Data Exposure">16.3 Excessive Data Exposure</a>
+</li>
+<li class="wstg-nav-item" data-title="16.4 API Broken Function Level Authorization" data-hints="bfla wstg-apit-04 apit-04">
+<a href="/latest/16-API_Testing/04-API_Broken_Function_Level_Authorization" data-nav-url="16-API_Testing/04-API_Broken_Function_Level_Authorization" title="16.4 API Broken Function Level Authorization">16.4 API Broken Function Level Authorization</a>
+</li>
+<li class="wstg-nav-item" data-title="16.5 Testing API Authentication Mechanisms" data-hints="wstg-apit-05 apit-05 wstg-sess-10 sess-10 wstg-athz-05 athz-05 wstg-athn-10 athn-10">
+<a href="/latest/16-API_Testing/05-Testing_API_Authentication_Mechanisms" data-nav-url="16-API_Testing/05-Testing_API_Authentication_Mechanisms" title="16.5 Testing API Authentication Mechanisms">16.5 Testing API Authentication Mechanisms</a>
+</li>
+<li class="wstg-nav-item" data-title="16.6 API Rate Limiting and Resource Consumption" data-hints="wstg-apit-06 apit-06">
+<a href="/latest/16-API_Testing/06-API_Rate_Limiting_and_Resource_Consumption" data-nav-url="16-API_Testing/06-API_Rate_Limiting_and_Resource_Consumption" title="16.6 API Rate Limiting and Resource Consumption">16.6 API Rate Limiting and Resource Consumption</a>
+</li>
+<li class="wstg-nav-item" data-title="16.7 API Mass Assignment" data-hints="mass assign wstg-apit-07 apit-07 wstg-injt-19 injt-19">
+<a href="/latest/16-API_Testing/07-API_Mass_Assignment" data-nav-url="16-API_Testing/07-API_Mass_Assignment" title="16.7 API Mass Assignment">16.7 API Mass Assignment</a>
+</li>
+<li class="wstg-nav-item" data-title="16.9 Inbound Webhooks" data-hints="wstg-apit-09 apit-09">
+<a href="/latest/16-API_Testing/09-Inbound_Webhooks" data-nav-url="16-API_Testing/09-Inbound_Webhooks" title="16.9 Inbound Webhooks">16.9 Inbound Webhooks</a>
+</li>
+<li class="wstg-nav-item" data-title="16.10 gRPC" data-hints="wstg-apit-10 apit-10">
+<a href="/latest/16-API_Testing/10-gRPC" data-nav-url="16-API_Testing/10-gRPC" title="16.10 gRPC">16.10 gRPC</a>
+</li>
+<li class="wstg-nav-item" data-title="16.99 GraphQL" data-hints="gql wstg-apit-99 apit-99">
+<a href="/latest/16-API_Testing/99-GraphQL" data-nav-url="16-API_Testing/99-GraphQL" title="16.99 GraphQL">16.99 GraphQL</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="17. WebAssembly Testing">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/17-WebAssembly_Testing/" data-nav-url="17-WebAssembly_Testing/" title="17. WebAssembly Testing">17. WebAssembly Testing</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="17.0 WebAssembly Testing Overview">
+<a href="/latest/17-WebAssembly_Testing/00-WebAssembly_Testing_Overview" data-nav-url="17-WebAssembly_Testing/00-WebAssembly_Testing_Overview" title="17.0 WebAssembly Testing Overview">17.0 WebAssembly Testing Overview</a>
+</li>
+<li class="wstg-nav-item" data-title="17.1 WebAssembly Reconnaissance" data-hints="wstg-wasm-01 wasm-01">
+<a href="/latest/17-WebAssembly_Testing/01-WebAssembly_Reconnaissance" data-nav-url="17-WebAssembly_Testing/01-WebAssembly_Reconnaissance" title="17.1 WebAssembly Reconnaissance">17.1 WebAssembly Reconnaissance</a>
+</li>
+<li class="wstg-nav-item" data-title="17.2 WebAssembly Static Analysis" data-hints="wstg-wasm-02 wasm-02">
+<a href="/latest/17-WebAssembly_Testing/02-WebAssembly_Static_Analysis" data-nav-url="17-WebAssembly_Testing/02-WebAssembly_Static_Analysis" title="17.2 WebAssembly Static Analysis">17.2 WebAssembly Static Analysis</a>
+</li>
+<li class="wstg-nav-item" data-title="17.3 WebAssembly Dynamic Analysis" data-hints="wstg-wasm-03 wasm-03">
+<a href="/latest/17-WebAssembly_Testing/03-WebAssembly_Dynamic_Analysis" data-nav-url="17-WebAssembly_Testing/03-WebAssembly_Dynamic_Analysis" title="17.3 WebAssembly Dynamic Analysis">17.3 WebAssembly Dynamic Analysis</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="18. Reporting">
+<details>
+<summary>
+<span class="wstg-nav-summary-row">
+<span class="wstg-nav-chevron" aria-hidden="true"></span>
+<a href="/latest/18-Reporting/" data-nav-url="18-Reporting/" title="18. Reporting">18. Reporting</a>
+</span>
+</summary>
+<ul>
+<li class="wstg-nav-item" data-title="18.1 Reporting Structure">
+<a href="/latest/18-Reporting/01-Reporting_Structure" data-nav-url="18-Reporting/01-Reporting_Structure" title="18.1 Reporting Structure">18.1 Reporting Structure</a>
+</li>
+<li class="wstg-nav-item" data-title="18.2 Vulnerability Naming Schemes">
+<a href="/latest/18-Reporting/02-Naming_Schemes" data-nav-url="18-Reporting/02-Naming_Schemes" title="18.2 Vulnerability Naming Schemes">18.2 Vulnerability Naming Schemes</a>
+</li>
+</ul>
+</details>
+</li>
+<li class="wstg-nav-item" data-title="Appendix A. History">
+<a href="/latest/19-Appendix/A-History" data-nav-url="19-Appendix/A-History" title="Appendix A. History">Appendix A. History</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix B. Testing Tools Resource">
+<a href="/latest/19-Appendix/B-Testing_Tools_Resource" data-nav-url="19-Appendix/B-Testing_Tools_Resource" title="Appendix B. Testing Tools Resource">Appendix B. Testing Tools Resource</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix C. Suggested Reading">
+<a href="/latest/19-Appendix/C-Suggested_Reading" data-nav-url="19-Appendix/C-Suggested_Reading" title="Appendix C. Suggested Reading">Appendix C. Suggested Reading</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix D. Fuzzing">
+<a href="/latest/19-Appendix/D-Fuzzing" data-nav-url="19-Appendix/D-Fuzzing" title="Appendix D. Fuzzing">Appendix D. Fuzzing</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix E. Encoded Injection">
+<a href="/latest/19-Appendix/E-Encoded_Injection" data-nav-url="19-Appendix/E-Encoded_Injection" title="Appendix E. Encoded Injection">Appendix E. Encoded Injection</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix F. Leveraging Dev Tools">
+<a href="/latest/19-Appendix/F-Leveraging_Dev_Tools" data-nav-url="19-Appendix/F-Leveraging_Dev_Tools" title="Appendix F. Leveraging Dev Tools">Appendix F. Leveraging Dev Tools</a>
+</li>
+<li class="wstg-nav-item" data-title="Appendix G. Penetration Testing Methodologies">
+<a href="/latest/19-Appendix/G-Penetration_Testing_Methodologies" data-nav-url="19-Appendix/G-Penetration_Testing_Methodologies" title="Appendix G. Penetration Testing Methodologies">Appendix G. Penetration Testing Methodologies</a>
+</li>
+
+  </ul>
+</nav>
+<script src="/assets/js/wstg-nav.js" defer></script>
+<script src="/assets/js/anchor-links.js" defer></script>
+
+      </aside>
+      <article class="doc-content">
+        <h1 id="ldap-injection">LDAP Injection</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>WSTG-INJT-05</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="summary">Summary</h2>
+
+<p>The Lightweight Directory Access Protocol (LDAP) is used to store information about users, hosts, and many other objects. <a href="https://community.owasp.org/attacks/LDAP_Injection">LDAP injection</a> is a server-side attack, which could allow sensitive information about users and hosts represented in an LDAP structure to be disclosed, modified, or inserted. This is done by manipulating input parameters afterwards passed to internal search, add, and modify functions.</p>
+
+<p>A web application could use LDAP in order to let users authenticate or search other users’ information inside a corporate structure. The goal of LDAP injection attacks is to inject LDAP search filters metacharacters in a query which will be executed by the application.</p>
+
+<p><a href="https://www.ietf.org/rfc/rfc2254.txt">Rfc2254</a> defines a grammar on how to build a search filter on LDAPv3 and extends <a href="https://www.ietf.org/rfc/rfc1960.txt">Rfc1960</a> (LDAPv2).</p>
+
+<p>An LDAP search filter is constructed in Polish notation, also known as <a href="https://en.wikipedia.org/wiki/Polish_notation">Polish notation prefix notation</a>.</p>
+
+<p>This means that a pseudo code condition on a search filter like this:</p>
+
+<p><code class="language-plaintext highlighter-rouge">find("cn=John &amp; userPassword=mypass")</code></p>
+
+<p>will be represented as:</p>
+
+<p><code class="language-plaintext highlighter-rouge">find("(&amp;(cn=John)(userPassword=mypass))")</code></p>
+
+<p>Boolean conditions and group aggregations on an LDAP search filter could be applied by using the following metacharacters:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Metachar</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>&amp;</td>
+      <td>Boolean AND</td>
+    </tr>
+    <tr>
+      <td>|</td>
+      <td>Boolean OR</td>
+    </tr>
+    <tr>
+      <td>!</td>
+      <td>Boolean NOT</td>
+    </tr>
+    <tr>
+      <td>=</td>
+      <td>Equals</td>
+    </tr>
+    <tr>
+      <td>~=</td>
+      <td>Approx</td>
+    </tr>
+    <tr>
+      <td>&gt;=</td>
+      <td>Greater than</td>
+    </tr>
+    <tr>
+      <td>&lt;=</td>
+      <td>Less than</td>
+    </tr>
+    <tr>
+      <td>*</td>
+      <td>Any character</td>
+    </tr>
+    <tr>
+      <td>()</td>
+      <td>Grouping parenthesis</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>More complete examples on how to build a search filter can be found in the related RFC.</p>
+
+<p>A successful exploitation of an LDAP injection vulnerability could allow the tester to:</p>
+
+<ul>
+  <li>Access unauthorized content</li>
+  <li>Evade application restrictions</li>
+  <li>Gather unauthorized information</li>
+  <li>Add or modify Objects inside LDAP tree structure</li>
+</ul>
+
+<h2 id="test-objectives">Test Objectives</h2>
+
+<ul>
+  <li>Identify LDAP injection points.</li>
+  <li>Assess the severity of the injection.</li>
+</ul>
+
+<h2 id="how-to-test">How to Test</h2>
+
+<h3 id="example-1-search-filters">Example 1: Search Filters</h3>
+
+<p>Let’s suppose we have a web application using a search filter like the following one:</p>
+
+<p><code class="language-plaintext highlighter-rouge">searchfilter="(cn="+user+")"</code></p>
+
+<p>which is instantiated by an HTTP request like this:</p>
+
+<p><code class="language-plaintext highlighter-rouge">https://www.example.com/ldapsearch?user=John</code></p>
+
+<p>If the value <code class="language-plaintext highlighter-rouge">John</code> is replaced with a <code class="language-plaintext highlighter-rouge">*</code>, by sending the request:</p>
+
+<p><code class="language-plaintext highlighter-rouge">https://www.example.com/ldapsearch?user=*</code></p>
+
+<p>the filter will look like:</p>
+
+<p><code class="language-plaintext highlighter-rouge">searchfilter="(cn=*)"</code></p>
+
+<p>which matches every object with a ‘cn’ attribute equals to anything.</p>
+
+<p>If the application is vulnerable to LDAP injection, it will display some or all of the user’s attributes, depending on the application’s execution flow and the permissions of the LDAP connected user.</p>
+
+<p>A tester could use a trial-and-error approach, by inserting in the parameter <code class="language-plaintext highlighter-rouge">(</code>, <code class="language-plaintext highlighter-rouge">|</code>, <code class="language-plaintext highlighter-rouge">&amp;</code>, <code class="language-plaintext highlighter-rouge">*</code> and the other characters, in order to check the application for errors.</p>
+
+<h3 id="example-2-login">Example 2: Login</h3>
+
+<p>If a web application uses LDAP to check user credentials during the login process and it is vulnerable to LDAP injection, it is possible to bypass the authentication check by injecting an always true LDAP query (in a similar way to SQL and XPATH injection ).</p>
+
+<p>Let’s suppose a web application uses a filter to match LDAP user/password pair.</p>
+
+<p><code class="language-plaintext highlighter-rouge">searchlogin= "(&amp;(uid="+user+")(userPassword={MD5}"+base64(pack("H*",md5(pass)))+"))";</code></p>
+
+<p>By using the following values:</p>
+
+<pre><code class="language-txt">user=*)(uid=*))(|(uid=*
+pass=password
+</code></pre>
+
+<p>the search filter will results in:</p>
+
+<p><code class="language-plaintext highlighter-rouge">searchlogin="(&amp;(uid=*)(uid=*))(|(uid=*)(userPassword={MD5}X03MO1qnZdYdgyfeuILPmQ==))";</code></p>
+
+<p>which is correct and always true. This way, the tester will gain logged-in status as the first user in LDAP tree.</p>
+
+<h2 id="tools">Tools</h2>
+
+<ul>
+  <li><a href="https://www.ldapadministrator.com">Softerra LDAP Browser</a></li>
+</ul>
+
+<h2 id="references">References</h2>
+
+<ul>
+  <li><a href="https://cheatsheetseries.owasp.org/cheatsheets/LDAP_Injection_Prevention_Cheat_Sheet.html">LDAP Injection Prevention Cheat Sheet</a></li>
+</ul>
+
+<h3 id="whitepapers">Whitepapers</h3>
+
+<ul>
+  <li><a href="https://networkdls.com/File/Entity/article-archive/ldap-injection.pdf">Sacha Faust: LDAP Injection: Are Your Applications Vulnerable?</a></li>
+  <li><a href="https://www.redbooks.ibm.com/redbooks/pdfs/sg244986.pdf">IBM paper: Understanding LDAP</a></li>
+  <li><a href="https://www.ietf.org/rfc/rfc1960.txt">RFC 1960: A String Representation of LDAP Search Filters</a></li>
+  <li><a href="https://www.blackhat.com/presentations/bh-europe-08/Alonso-Parada/Whitepaper/bh-eu-08-alonso-parada-WP.pdf">LDAP injection</a></li>
+</ul>
+
+      </article>
+    </div>
+  </div>
+</main>
+<script src="/assets/js/doc-nav.js" defer></script>
+<script src="/assets/js/doc-tools.js" defer></script>
+
+  <footer id="page-end" class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-standalone">
+      <a href="https://owasp.org/" class="footer-logo ext-link" rel="noopener noreferrer" aria-label="OWASP Foundation (external)">
+        <img src="/assets/images/owasp-logo-footer.svg" alt="OWASP Foundation" width="213" height="64" loading="lazy">
+      </a>
+      <p class="footer-tagline">An OWASP Foundation project. <a href="https://owasp.org/" class="ext-link" rel="noopener noreferrer">About OWASP</a></p>
+      <div class="footer-buttons">
+        <a href="https://github.com/OWASP/wstg" class="btn btn-primary btn-github btn-github--footer ext-link" rel="noopener noreferrer" target="_blank" aria-label="View on GitHub (opens in new window)">
+          <svg class="icon-github" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" width="16" height="16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 2.97-1.86 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          View on GitHub
+        </a>
+      </div>
+      <p class="footer-back-to-top"><a href="#top" class="footer-back-to-top-link">Back to top</a></p>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-legal">OWASP, the OWASP logo, and Global AppSec are registered trademarks and AppSec Days, AppSec California, AppSec Cali, SnowFROC, OWASP Boston Application Security Conference, and LASCON are trademarks of the OWASP Foundation, Inc.</p>
+      <p class="footer-copy">&copy; 2026, OWASP Foundation Inc. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<a href="#top" id="back-to-top" class="back-to-top" aria-label="Back to top" title="Back to top">
+  <svg class="back-to-top-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</a>
+
+  
+
+
+<div id="wstg-search" class="wstg-search" role="dialog" aria-modal="true" aria-label="Search the guide" hidden>
+  <div class="wstg-search-backdrop" data-search-close></div>
+  <div class="wstg-search-panel">
+    <div class="wstg-search-bar">
+      <input id="wstg-search-input" class="wstg-search-input" type="search" role="combobox" aria-expanded="false" aria-controls="wstg-search-results" aria-autocomplete="list" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" placeholder="Search topics or IDs (XSS, sqli, WSTG-INJT-05)" aria-label="Search the guide">
+      <button type="button" class="wstg-search-close" data-search-close aria-label="Close search"><span class="wstg-search-close-esc" aria-hidden="true">Esc</span><span class="wstg-search-close-x" aria-hidden="true">&times;</span></button>
+    </div>
+    <div id="wstg-search-status" class="wstg-search-status" role="status" aria-live="polite"></div>
+    <ul id="wstg-search-results" class="wstg-search-results" role="listbox" aria-label="Search results"></ul>
+  </div>
+</div>
+
+
+  <script src="/assets/js/theme.js" defer></script>
+  <script src="/assets/js/search.js" defer></script>
+</body>
+</html>

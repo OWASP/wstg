@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="330" viewBox="0 0 780 330" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <rect width="780" height="330" fill="#ffffff"/>
+  <text x="390" y="22" text-anchor="middle" fill="#334155" font-size="12" font-weight="bold">CSPT redirects a same-origin request to an unintended endpoint</text>
+  <!-- boxes -->
+  <g fill="#eef2f7" stroke="#334155" stroke-width="1.5">
+    <rect x="20" y="135" width="150" height="60" rx="6"/>
+    <rect x="210" y="128" width="230" height="74" rx="6"/>
+    <rect x="490" y="45" width="270" height="60" rx="6"/>
+    <rect x="490" y="225" width="270" height="60" rx="6"/>
+  </g>
+  <!-- labels -->
+  <g fill="#0f172a" text-anchor="middle">
+    <text x="95" y="161">Victim opens</text>
+    <text x="95" y="178">attacker's link</text>
+    <text x="325" y="150">App JS builds the path:</text>
+    <text x="325" y="169" font-family="monospace" font-size="12">"/api/notes/" + id</text>
+    <text x="325" y="187" font-family="monospace" font-size="12">id = "../admin/delete"</text>
+    <text x="625" y="70">Intended endpoint</text>
+    <text x="625" y="88" font-family="monospace" font-size="12">GET /api/notes/&lt;id&gt;</text>
+    <text x="625" y="250">Unintended endpoint</text>
+    <text x="625" y="268" font-family="monospace" font-size="12">/api/admin/delete</text>
+  </g>
+  <!-- arrows -->
+  <defs>
+    <marker id="a" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#334155"/>
+    </marker>
+  </defs>
+  <g stroke="#334155" stroke-width="1.5" fill="none" marker-end="url(#a)">
+    <path d="M170,165 L205,165"/>
+    <path d="M440,150 C465,125 470,95 486,82"/>
+    <path d="M440,180 C465,215 470,245 486,252"/>
+  </g>
+  <text x="390" y="318" text-anchor="middle" fill="#64748b" font-size="11">The browser collapses "../" before sending, so the same-origin request reaches /api/admin/delete with the victim's cookies and tokens.</text>
+</svg>

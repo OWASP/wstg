@@ -1,0 +1,18 @@
+---
+layout: document
+title: WSTG - Latest
+collection_name: latest
+channel_label: Latest
+channel_path: latest
+render_with_liquid: false
+---
+
+# 17 WebAssembly Testing
+
+17.0 [WebAssembly Testing Overview](00-WebAssembly_Testing_Overview/)
+
+17.1 [WebAssembly Reconnaissance](01-WebAssembly_Reconnaissance/)
+
+17.2 [WebAssembly Static Analysis](02-WebAssembly_Static_Analysis/)
+
+17.3 [WebAssembly Dynamic Analysis](03-WebAssembly_Dynamic_Analysis/)

@@ -1,0 +1,104 @@
+---
+layout: document
+title: WSTG - Latest
+collection_name: latest
+channel_label: Latest
+channel_path: latest
+render_with_liquid: false
+---
+
+# Inbound Webhooks
+
+|ID          |
+|------------|
+|WSTG-APIT-09|
+
+## Summary
+
+Inbound webhooks are HTTP callbacks that an external system sends to the application when an event occurs: payment captured, incident opened, repository updated, identity provider event, and similar notifications. The application trusts those requests to create incidents, update orders, provision accounts, or unlock workflows.
+
+Unlike ordinary API authentication, the caller is not an end user. The application must authenticate the sender, bind the event to the correct tenant, and make delivery idempotent. Missing those controls allows forged events, cross-tenant impact, and replay.
+
+This test covers inbound authenticity, authorization, replay, and lifecycle. Outbound webhook URL handling and SSRF belong with Server-Side Request Forgery testing and must not be duplicated here.
+
+## Test Objectives
+
+- Determine whether inbound webhook endpoints authenticate the sender.
+- Verify tenant, project, and object binding so a valid event for one customer cannot affect another.
+- Verify replay and duplicate-delivery handling.
+- Verify that revoked integrations stop accepting events and remain manageable only by authorized principals.
+
+## How to Test
+
+Use only tester-owned integrations and synthetic events. Do not send forged events against another customer's tenant.
+
+### Inventory Webhook Receivers
+
+1. Review integration settings, API docs, and reverse-proxy routes for paths such as `/webhooks/`, `/callbacks/`, `/hooks/`, or vendor-specific suffixes.
+2. Capture a legitimate delivery to a tester-owned endpoint, including headers and raw body.
+3. Record claimed authentication: shared secret, HMAC signature, mutual TLS, IP allowlist, or none.
+
+### Sender Authentication
+
+1. Replay the captured body without signature headers.
+2. Replay with an empty or attacker-chosen signature.
+3. Modify one byte of the raw body while keeping the original signature. Verification must run over the exact raw bytes the server received, not over a re-serialized JSON object.
+4. Keep the signature and change a field the scheme does not cover, or add an unused field, and check whether the handler still acts on unsigned data. Reordering JSON properties alone should fail an HMAC over the raw body; that result only proves byte-exact verification, not that every consumed field was signed.
+5. If the vendor still emits a weaker companion signature (for example GitHub's SHA-1 `X-Hub-Signature` next to `X-Hub-Signature-256`), replay with only the weaker header or with a valid weak signature and a broken strong one. Secure behavior rejects the downgrade.
+6. If timestamps are signed, replay an old event outside the accepted skew.
+
+Secure behavior rejects unauthenticated, mistyped, body-tampered, and algorithm-downgraded deliveries. IP allowlists alone are weak; treat them as defense in depth, not as the only control.
+
+### Tenant and Object Binding
+
+1. Capture a valid event for tester tenant A.
+2. Replace non-secret identifiers such as service ID, site ID, shop ID, project GUID, or account slug with tester tenant B's corresponding identifier, keeping A's signature material when the signature does not cover those fields.
+3. Send the modified event to the global or B-facing webhook URL.
+
+Secure behavior accepts the event only for the tenant whose credential signed it. Identifiers that are visible in UIs or APIs must not be treated as capabilities.
+
+### Replay and Idempotency
+
+1. Send the same valid event twice.
+2. Send two events with the same event ID or delivery ID and different payloads.
+3. Concurrently deliver the same event twice.
+
+The application should acknowledge an exact duplicate without applying the side effect twice. An event that reuses an event ID or delivery ID with a different payload must not be treated as an ordinary duplicate: the application should reject or flag it (for example with a `409` or `422` response and an alert) and must not apply the new payload. State-changing handlers need an idempotency key derived from the vendor event ID or a signed delivery ID, and the idempotency record should bind that key to the original event identity and a hash of its payload. Payment-oriented callback replay and flooding are also covered under [Payment Functionality](../../14-Business_Logic/10-Payment_Functionality/); keep the two procedures consistent.
+
+### Lifecycle and Management
+
+1. Disable or uninstall the integration as an authorized user, then replay a previously valid event. It must fail.
+2. Rotate the signing secret, then replay events signed with the old secret.
+3. As a low-privilege user, attempt to list, edit, or delete another team's webhook configuration. Apply [API Broken Object Level Authorization](../02-API_Broken_Object_Level_Authorization/) and [API Broken Function Level Authorization](../04-API_Broken_Function_Level_Authorization/).
+4. Confirm disabled hooks do not remain active while disappearing from the management UI.
+
+## Related Test Cases
+
+- [API Broken Object Level Authorization](../02-API_Broken_Object_Level_Authorization/)
+- [API Broken Function Level Authorization](../04-API_Broken_Function_Level_Authorization/)
+- [Payment Functionality](../../14-Business_Logic/10-Payment_Functionality/)
+- [Server-Side Request Forgery](../../11-Injection/18-Server-Side_Request_Forgery/)
+- [Weak Transport Layer Security](../../13-Weak_Cryptography/01-Weak_Transport_Layer_Security/)
+
+## Remediation
+
+- Authenticate every inbound webhook with a per-tenant secret, HMAC over the raw body and relevant headers, or mutual TLS.
+- Compare signatures with a constant-time function.
+- Reject weaker legacy signature algorithms when a stronger one is advertised.
+- Include timestamp and delivery identity in the signed material; reject stale and duplicate deliveries.
+- Derive tenant context from the verified credential, not from mutable body fields alone.
+- Make handlers idempotent, and bind each idempotency record to the original event identity and payload so that a reused ID with a different payload is rejected or flagged.
+- On uninstall, secret rotation, or permission removal, immediately invalidate verification material and stop processing.
+
+## Tools
+
+- [Zed Attack Proxy](https://www.zaproxy.org)
+- [Burp Suite](https://portswigger.net/burp)
+- Vendor webhook CLI or signed-request test harness for the integration under test
+
+## References
+
+- [Standard Webhooks](https://www.standardwebhooks.com/)
+- [GitHub Docs - Validating webhook deliveries](https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries)
+- [OWASP API Security Top 10 - API10:2023 Unsafe Consumption of APIs](https://owasp.org/API-Security/editions/2023/en/0xaa-unsafe-consumption-of-apis/)
+- [RFC 9110 - HTTP Semantics](https://datatracker.ietf.org/doc/html/rfc9110)

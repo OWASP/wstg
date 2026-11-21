@@ -1,0 +1,61 @@
+---
+layout: document
+title: WSTG - Latest
+collection_name: latest
+channel_label: Latest
+channel_path: latest
+render_with_liquid: false
+---
+
+# 0. Foreword
+
+*To be confirmed.*
+
+## Why OWASP?
+
+The Open Worldwide Application Security Project® (OWASP®) is a nonprofit foundation whose vision is no more insecure software. Its mission is to be the global open community that powers secure software through education, tools, and collaboration.
+
+Creating a guide like this takes expertise from hundreds of people around the world. There are many ways to test for security flaws, and this guide attempts to capture consensus on how to perform that testing quickly, accurately, and efficiently. OWASP brings practitioners together to form a leading-practice approach to software security problems, as a vendor-neutral community rather than a commercial vendor or regulator.
+
+Making this guide completely free and open supports that mission. Anyone can learn the techniques used to test for common security issues. Security should not be a black art or closed secret. It should be open to security practitioners, and also to developers, QA, and technical managers. This project keeps that expertise in the hands of the people who build and ship software.
+
+This guide must reach developers and software testers. There are not nearly enough application security specialists to solve the problem alone. Much of the responsibility for application security falls on developers, because they write the code. Developers cannot be expected to produce secure software if they never test for the classes of bugs that introduce vulnerability.
+
+Keeping this information current is critical. The OWASP community maintains and expands this guide through [GitHub](https://github.com/OWASP/wstg/) Issues and Pull Requests so it can keep pace with the application security threat landscape.
+
+This guide is a testament to the passion and energy of OWASP members and project volunteers. It helps change the world a line of code at a time.
+
+## Tailoring and Prioritizing
+
+Adopt this guide in your organization. Tailor the material to match your technologies, processes, and structure.
+
+Several roles commonly use this guide:
+
+- Developers should use this guide to help produce secure code. These tests should be part of normal code and unit testing procedures.
+- Software testers and QA should use this guide to expand the test cases they apply. Catching these vulnerabilities early saves considerable time, effort, and money later.
+- Security specialists should use this guide with other techniques to verify that security issues have not been missed.
+- Project Managers should treat security issues as bugs in code and design, and plan accordingly.
+
+When performing security testing, continuously re-prioritize. There are infinite ways an application could fail, and organizations always have limited testing time and resources. Spend that time on security issues that present real risk to the business. Contextualize risk in terms of the application and its use cases.
+
+View this guide as a set of techniques for finding different types of security issues. Not all techniques are equally important for every system. Avoid treating the guide as a checklist. New vulnerabilities continue to appear, and no guide can be an exhaustive list of things to test for. Use it as a strong place to start.
+
+## The Role of Automated Tools
+
+Automated security tools such as dynamic application security testing (DAST), static application security testing (SAST), and software composition analysis (SCA) help scale testing and find many classes of issues. Use them for what they do well: breadth of coverage, repeatable checks, and enforcing baseline policy. Open tools in the ecosystem, including [ZAP](https://www.zaproxy.org/), can support that work without locking teams into a single vendor.
+
+These tools are still generic. They are built for applications in general, not for your custom code and business rules. They can find many common problems, but they often lack the application-specific context needed to detect deeper flaws. The most serious issues are frequently intertwined with business logic and custom design, which is where the techniques in this guide matter most.
+
+Running a tool is usually fast. Investigating and verifying each finding takes time. If the goal is to find and eliminate the most serious flaws as quickly as possible, balance automated scanning with the manual and semi-automated techniques described here. Well-balanced application security programs use both: tools for breadth, and this guide for depth and judgment.
+
+## Call to Action
+
+If you build, design, or test software, get familiar with the security testing guidance in this document. It is a road map for testing many of the issues applications face today, but it is not exhaustive. If you find errors or gaps, open an Issue or submit a Pull Request on the [WSTG GitHub repository](https://github.com/OWASP/wstg/). That helps thousands of others who use this guide.
+
+Please consider [joining us](https://owasp.org/membership/) as an individual or corporate member so that we can continue to produce materials like this testing guide and the other projects at OWASP.
+
+Thank you to all past and future contributors to this guide. Your work helps make applications worldwide more secure.
+
+---
+
+Open Worldwide Application Security Project and OWASP are registered trademarks of the OWASP Foundation, Inc.

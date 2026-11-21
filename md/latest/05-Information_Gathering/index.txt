@@ -1,0 +1,30 @@
+---
+layout: document
+title: WSTG - Latest
+collection_name: latest
+channel_label: Latest
+channel_path: latest
+render_with_liquid: false
+---
+
+# 5 Information Gathering
+
+5.0 [Information Gathering Overview](00-Information_Gathering_Overview/)
+
+5.1 [Conduct Search Engine Reconnaissance for Information Leakage](01-Conduct_Search_Engine_Reconnaissance_for_Information_Leakage/)
+
+5.2 [Fingerprint Web Server](02-Fingerprint_Web_Server/)
+
+5.3 [Review Webserver Metafiles for Information Leakage](03-Review_Webserver_Metafiles_for_Information_Leakage/)
+
+5.4 [Attack Surface Identification](04-Attack_Surface_Identification/)
+
+5.5 [Review Web Page Content for Information Leakage](05-Review_Web_Page_Content_for_Information_Leakage/)
+
+5.6 [Identify Application Entry Points](06-Identify_Application_Entry_Points/)
+
+5.7 [Map Execution Paths Through Application](07-Map_Execution_Paths_Through_Application/)
+
+5.8 [Fingerprint Web Application Framework](08-Fingerprint_Web_Application_Framework/)
+
+5.9 [Map Application Architecture](09-Map_Application_Architecture/)
