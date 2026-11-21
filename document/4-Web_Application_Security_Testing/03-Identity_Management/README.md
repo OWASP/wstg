@@ -9,3 +9,5 @@
 4.3.4 [Account Enumeration and Guessable User Account](04-Account_Enumeration_and_Guessable_User_Account.md)
 
 4.3.5 [Weak or Unenforced Username Policy](05-Weak_or_Unenforced_Username_Policy.md)
+
+4.3.6 [Email Address Verification](06-Email_Address_Verification.md)
