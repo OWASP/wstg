@@ -44,7 +44,7 @@ For each one, note whether the application requires the address to be verified f
 
 1. Register an account with a tester-controlled address and do not open the verification email.
 2. Check whether the account can sign in, and which functions work. Pay attention to functions that act on the identity of the address, such as accepting an invitation, joining an organization by domain, linking a single sign-on identity or requesting a password reset.
-3. Repeat with an address the tester does not control. If the unverified account can do anything that the owner of that address would not expect, the application trusts an address it has not verified.
+3. Repeat with a registration that uses the address of a second tester-controlled account, never a real third party. If the unverified account can do anything that the owner of that address would not expect, the application trusts an address it has not verified.
 
 ### Test the Verification Token
 
@@ -60,7 +60,7 @@ For each one, note whether the application requires the address to be verified f
 2. Check whether the new address must be verified before it replaces the old one, and whether the old address is notified of the change with a way to undo it.
 3. While a change is pending, check which address password reset and login links are sent to, and whether the old address still works.
 4. Start a change to address B, then change to address C, and open the link sent to B. Only the latest pending change should be accepted.
-5. Send several change requests in parallel, using the race condition techniques in [Payment Functionality](../10-Business_Logic/10-Payment_Functionality.md), and check whether a link meant for one address can confirm another.
+5. Send several change requests in parallel, using the race condition techniques in [Payment Functionality](../10-Business_Logic/10-Payment_Functionality.md#race-conditions), and check whether a link meant for one address can confirm another.
 
 ### Test for Pre-Account Hijacking
 
