@@ -8,7 +8,7 @@
 
 Mass assignment (also called auto-binding) occurs when an API binds client-supplied data directly to internal objects without filtering which properties a caller may set. An attacker adds unexpected fields (such as `role`, `isAdmin`, or `balance`) to a request, and the server-side framework writes them to the data model.
 
-For general mass assignment testing methodology, including framework-specific patterns (Spring, Laravel, ASP.NET), black-box detection techniques, and sensitive attribute wordlists, see [Mass Assignment (WSTG-INJT-20)](../07-Injection/20-Mass_Assignment.md). This article covers mass assignment testing specific to API contexts: REST method behavior differences, JSON body manipulation, nested object injection, content-type switching, and GraphQL mutation mass assignment. It also complements the brief mass assignment check in [Excessive Data Exposure](03-Excessive_Data_Exposure.md). It corresponds to OWASP API Security Top 10 [API3:2023 Broken Object Property Level Authorization](https://owasp.org/API-Security/editions/2023/en/0xa3-broken-object-property-level-authorization/).
+For general mass assignment testing methodology, including framework-specific patterns (Spring, Laravel, ASP.NET), black-box detection techniques, and sensitive attribute wordlists, see [Mass Assignment (WSTG-INJT-19)](../07-Injection/19-Mass_Assignment.md). This article covers mass assignment testing specific to API contexts: REST method behavior differences, JSON body manipulation, nested object injection, content-type switching, and GraphQL mutation mass assignment. It also complements the brief mass assignment check in [Excessive Data Exposure](03-Excessive_Data_Exposure.md). It corresponds to OWASP API Security Top 10 [API3:2023 Broken Object Property Level Authorization](https://owasp.org/API-Security/editions/2023/en/0xa3-broken-object-property-level-authorization/).
 
 ## Test Objectives
 
@@ -119,11 +119,11 @@ curl -s -H "Authorization: Bearer <TOKEN>" \
 
 ### Test Mass Assignment During Object Creation
 
-For testing mass assignment during object creation (registration, resource provisioning), including the `isAdmin` pattern, see [WSTG-INJT-20](../07-Injection/20-Mass_Assignment.md). When testing API endpoints, use JSON bodies and include fields discovered in the [identification step](#identify-writable-properties-by-comparing-get-responses-with-write-endpoint-documentation).
+For testing mass assignment during object creation (registration, resource provisioning), including the `isAdmin` pattern, see [WSTG-INJT-19](../07-Injection/19-Mass_Assignment.md). When testing API endpoints, use JSON bodies and include fields discovered in the [identification step](#identify-writable-properties-by-comparing-get-responses-with-write-endpoint-documentation).
 
 ### Test Nested Object Property Injection
 
-APIs that accept JSON bodies make nested object injection straightforward. While form-encoded bracket syntax (such as `user[profile][permissions]`) can also target nested properties (see [WSTG-INJT-20](../07-Injection/20-Mass_Assignment.md)), JSON bodies allow arbitrarily deep nesting without relying on framework-specific parameter binding conventions:
+APIs that accept JSON bodies make nested object injection straightforward. While form-encoded bracket syntax (such as `user[profile][permissions]`) can also target nested properties (see [WSTG-INJT-19](../07-Injection/19-Mass_Assignment.md)), JSON bodies allow arbitrarily deep nesting without relying on framework-specific parameter binding conventions:
 
 ```bash
 curl -s -X PATCH -H "Content-Type: application/json" \
@@ -177,7 +177,7 @@ curl -s -X PATCH -H "Content-Type: application/json" \
   https://api.example.com/v1/users/me
 ```
 
-If the API backend uses a NoSQL database such as MongoDB, operators like `$push` passed in a JSON body may be interpreted as database commands. This is NoSQL operator injection, not mass assignment. See [NoSQL Injection](../07-Injection/05.6-NoSQL_Injection.md) for those tests.
+If the API backend uses a NoSQL database such as MongoDB, operators like `$push` passed in a JSON body may be interpreted as database commands. This is NoSQL operator injection, not mass assignment. See [NoSQL Injection](../07-Injection/04.6-NoSQL_Injection.md) for those tests.
 
 ### Test Content-Type Manipulation
 
@@ -258,9 +258,9 @@ Insecure behavior: the mutation accepts and persists the injected fields.
 
 ## Related Test Cases
 
-- [Mass Assignment (WSTG-INJT-20)](../07-Injection/20-Mass_Assignment.md)
+- [Mass Assignment (WSTG-INJT-19)](../07-Injection/19-Mass_Assignment.md)
 - [Excessive Data Exposure](03-Excessive_Data_Exposure.md)
-- [NoSQL Injection](../07-Injection/05.6-NoSQL_Injection.md)
+- [NoSQL Injection](../07-Injection/04.6-NoSQL_Injection.md)
 
 ## Remediation
 
@@ -270,7 +270,7 @@ Insecure behavior: the mutation accepts and persists the injected fields.
 - For GraphQL, define strict input types that exclude sensitive fields rather than mirroring the output type.
 - Validate nested object and array properties with the same rigor as top-level fields.
 - Write integration tests that verify rejected properties remain unchanged after an update request.
-- For general mass assignment prevention patterns, see [WSTG-INJT-20](../07-Injection/20-Mass_Assignment.md) and the [OWASP Mass Assignment Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Mass_Assignment_Cheat_Sheet.html).
+- For general mass assignment prevention patterns, see [WSTG-INJT-19](../07-Injection/19-Mass_Assignment.md) and the [OWASP Mass Assignment Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Mass_Assignment_Cheat_Sheet.html).
 
 ## References
 

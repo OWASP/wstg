@@ -68,7 +68,7 @@ The application should acknowledge an exact duplicate without applying the side 
 - [API Broken Object Level Authorization](02-API_Broken_Object_Level_Authorization.md)
 - [API Broken Function Level Authorization](04-API_Broken_Function_Level_Authorization.md)
 - [Payment Functionality](../10-Business_Logic/10-Payment_Functionality.md)
-- [Server-Side Request Forgery](../07-Injection/19-Server-Side_Request_Forgery.md)
+- [Server-Side Request Forgery](../07-Injection/18-Server-Side_Request_Forgery.md)
 - [Weak Transport Layer Security](../09-Weak_Cryptography/01-Weak_Transport_Layer_Security.md)
 
 ## Remediation

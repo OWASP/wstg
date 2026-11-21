@@ -183,7 +183,7 @@ Here are some commonly-used scan tools that include web server fingerprinting fu
 - [Netcraft Site Report](https://sitereport.netcraft.com/), an online tool that scans sites for information, including web server details.
 - [Nikto](https://github.com/sullo/nikto), an Open Source command-line scanning tool.
 - [Nmap](https://nmap.org/), an Open Source command-line tool that also has a GUI, [Zenmap](https://nmap.org/zenmap/).
-- [WhatWeb](https://github.com/urbanadventurer/WhatWeb) and [httpx](https://github.com/projectdiscovery/httpx) (`-tech-detect`), which identify web server software alongside other technologies (see [Fingerprint Web Application Framework](08-Fingerprint_Web_Application_Framework.md) and [Fingerprint Web Application](09-Fingerprint_Web_Application.md) for their broader tech-stack detection use).
+- [WhatWeb](https://github.com/urbanadventurer/WhatWeb) and [httpx](https://github.com/projectdiscovery/httpx) (`-tech-detect`), which identify web server software alongside other technologies (see [Fingerprint Web Application Framework](08-Fingerprint_Web_Application_Framework.md) for their broader tech-stack detection use).
 
 ## Remediation
 

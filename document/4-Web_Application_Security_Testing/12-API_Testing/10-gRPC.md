@@ -85,10 +85,10 @@ Authentication, authorization, rate limiting, and input checks are sometimes enf
 
 Protobuf messages behave differently from JSON, which affects how the server validates them:
 
-- **Unused fields:** a request message can define fields that the client never sets, such as `role`, `owner_id`, or `price`. Set them and check whether the server applies them, as described in [Mass Assignment](../07-Injection/20-Mass_Assignment.md). For update methods that take a `google.protobuf.FieldMask`, add protected fields to the mask.
+- **Unused fields:** a request message can define fields that the client never sets, such as `role`, `owner_id`, or `price`. Set them and check whether the server applies them, as described in [Mass Assignment](../07-Injection/19-Mass_Assignment.md). For update methods that take a `google.protobuf.FieldMask`, add protected fields to the mask.
 - **Default values:** in proto3, a scalar field with implicit presence that is not sent has its default value, such as `0`, `false`, or an empty string, and the server cannot tell it apart from a field that was sent with that value. Fields declared `optional`, fields in a `oneof`, and message fields track presence, so the server can tell whether they were set. See the [proto3 language guide](https://protobuf.dev/programming-guides/proto3/). Check how the server treats missing fields, zero amounts, and empty identifiers.
 - **Unexpected values:** send negative numbers to signed integer fields, very large values, and enum values that are not defined. Protobuf accepts unknown enum values in proto3, so the application must check them.
-- **Injection:** string and bytes fields reach databases, shells, and templates like any other input. Run the usual injection tests, such as [SQL Injection](../07-Injection/05-SQL_Injection.md), through the message fields.
+- **Injection:** string and bytes fields reach databases, shells, and templates like any other input. Run the usual injection tests, such as [SQL Injection](../07-Injection/04-SQL_Injection.md), through the message fields.
 
 Tools that can build and send gRPC requests from the service definitions include grpcurl, [grpcui](https://github.com/fullstorydev/grpcui), the [ZAP gRPC add-on](https://www.zaproxy.org/docs/desktop/addons/grpc-support/), and Burp Suite with a protobuf extension.
 

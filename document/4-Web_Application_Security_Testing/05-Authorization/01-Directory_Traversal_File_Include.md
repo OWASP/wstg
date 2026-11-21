@@ -150,8 +150,8 @@ file= ..\..\boot.ini
 
 ## Related Test Cases
 
-- [File Inclusion](../07-Injection/11.1-File_Inclusion.md)
-- [Server-Side Request Forgery](../07-Injection/19-Server-Side_Request_Forgery.md)
+- [File Inclusion](../07-Injection/10.1-File_Inclusion.md)
+- [Server-Side Request Forgery](../07-Injection/18-Server-Side_Request_Forgery.md)
 
 ## Tools
 

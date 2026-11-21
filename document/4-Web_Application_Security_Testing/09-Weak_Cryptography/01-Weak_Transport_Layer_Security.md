@@ -93,7 +93,7 @@ Over the years there have been vulnerabilities in the various TLS implementation
 As well as the underlying TLS configuration being securely configured, the application also needs to use it in a secure way. Some of these points are addressed elsewhere in this guide:
 
 - [Not sending sensitive data over unencrypted channels (WSTG-CRYP-03)](03-Sensitive_Information_Sent_via_Unencrypted_Channels.md)
-- [Setting the HTTP Strict-Transport-Security header (WSTG-CONF-07)](../02-Configuration_and_Deployment_Management/07-HTTP_Strict_Transport_Security.md)
+- [Setting the HTTP Strict-Transport-Security header (WSTG-CONF-06)](../02-Configuration_and_Deployment_Management/06-HTTP_Strict_Transport_Security.md)
 - [Setting the Secure flag on cookies (WSTG-SESS-02)](../06-Session_Management/02-Cookies_Attributes.md)
 
 #### Mixed Active Content

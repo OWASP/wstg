@@ -70,7 +70,7 @@ In this case, the value of the `menuitem` parameter is used to tell the applicat
 
 In the above examples the modification of a single parameter is sufficient. However, sometimes the object reference may be split between more than one parameter, and testing should be adjusted accordingly.
 
-For tenant-specific responses that pass through a shared cache, see [Verify Tenant Isolation](../02-Configuration_and_Deployment_Management/16-Web_Cache_Poisoning.md#verify-tenant-isolation).
+For tenant-specific responses that pass through a shared cache, see [Verify Tenant Isolation](../02-Configuration_and_Deployment_Management/14-Web_Cache_Poisoning.md#verify-tenant-isolation).
 
 ## References
 

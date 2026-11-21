@@ -8,14 +8,47 @@ This folder also shows how to format specific types of content:
 
 - [HTTP Requests and Responses](999-Foo_Testing/3-Format_for_HTTP_Request_Response.md)
 
-## Merged or Retired Tests
+## Merged or Removed Tests
 
-When a test is merged into another test, retain the original file to preserve ID continuity.
+Tests that are merged into another test, or removed entirely, are retired by replacing the file content with a short placeholder page. The placeholder keeps the ID and title visible so references to the old test can be traced.
 
-At the end of the file, include the following reference-style metadata marker:
+### Merged
 
-`[merged]: # (WSTG-XXXX-XX)`
+Use when the content now lives in another test.
 
-Replace `WSTG-XXXX-XX` with the destination test ID.
+```markdown
+# Original Title
 
-This ensures merged tests are explicitly identifiable while keeping the Markdown valid and render-safe.
+|ID          |
+|------------|
+|WSTG-XXXX-NN|
+
+This content has been merged into: [Destination Title](relative/path/to/Destination.md)
+
+[merged]: # (WSTG-YYYY-MM)
+```
+
+- The sentence is `This content has been merged into: [Destination Title](relative/link.md)`.
+- The final line is the reference-style metadata marker `[merged]: # (WSTG-YYYY-MM)`, where `WSTG-YYYY-MM` is the destination test ID. It is render-safe and machine-readable.
+
+### Removed
+
+Use when the content is retired with no replacement.
+
+```markdown
+# Original Title
+
+|ID          |
+|------------|
+|WSTG-XXXX-NN|
+
+This content has been removed.
+```
+
+- The final non-blank line is exactly `This content has been removed.` (the checklist generator in `.github/json/scripts/generate_checklist_json.py` detects removed pages by this line).
+- No `[merged]` marker is used.
+
+### Notes
+
+- Placeholder pages are a stopgap: they should be deleted, and the remaining tests renumbered, at the next renumbering pass (for example, when preparing a new WSTG release).
+- Update inbound links to point at the destination test (merged) or drop them (removed).

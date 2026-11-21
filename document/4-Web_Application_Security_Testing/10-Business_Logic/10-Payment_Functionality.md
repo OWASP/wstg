@@ -57,7 +57,7 @@ Some sites may also provide a drop-down menu of valid quantities (such as items 
 
 If the full basket details are passed to the payment gateway (rather than simply passing a total value), it may also be possible to tamper the values at that stage.
 
-Finally, if the application is vulnerable to [HTTP parameter pollution](../07-Injection/04-HTTP_Parameter_Pollution.md) then it may be possible to cause unexpected behavior by passing a parameter multiple times, such as:
+Finally, if the application is vulnerable to [HTTP parameter pollution](../07-Injection/03-HTTP_Parameter_Pollution.md) then it may be possible to cause unexpected behavior by passing a parameter multiple times, such as:
 
 ```http
 POST /api/basket/add
@@ -180,7 +180,7 @@ If the application supports discount codes, then there are various checks that s
 - Is there any brute-force protection?
 - Can multiple discount codes be applied at once?
 - Can discount codes be applied multiple times?
-- Can you [inject wildcard characters](../07-Injection/05-SQL_Injection.md#sql-wildcard-injection) such as `%` or `*`?
+- Can you [inject wildcard characters](../07-Injection/04-SQL_Injection.md#sql-wildcard-injection) such as `%` or `*`?
 - Are discount codes exposed in the HTML source or hidden `<input>` fields anywhere on the application?
 
 In addition to these, the usual vulnerabilities such as SQL injection should be tested for.
@@ -369,8 +369,8 @@ A single unexpected response is not proof of a race. Repeat the burst several ti
 
 ## Related Test Cases
 
-- [HTTP Parameter Pollution](../07-Injection/04-HTTP_Parameter_Pollution.md)
-- [SQL Injection](../07-Injection/05-SQL_Injection.md)
+- [HTTP Parameter Pollution](../07-Injection/03-HTTP_Parameter_Pollution.md)
+- [SQL Injection](../07-Injection/04-SQL_Injection.md)
 - [Circumvention of Work Flows](06-Circumvention_of_Work_Flows.md)
 
 ## Remediation

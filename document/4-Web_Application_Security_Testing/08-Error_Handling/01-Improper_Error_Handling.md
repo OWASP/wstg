@@ -83,7 +83,7 @@ Frameworks and runtimes often ship with detailed error pages, interactive debugg
 - ASP.NET developer exception pages.
 - Node.js frameworks (*e.g.* Express, Next.js) running in development mode, which return stack traces by default.
 
-See also [Enumerate Infrastructure and Application Admin Interfaces](../02-Configuration_and_Deployment_Management/05-Enumerate_Infrastructure_and_Application_Admin_Interfaces.md) and [Review Web Page Content for Information Leakage](../01-Information_Gathering/05-Review_Web_Page_Content_for_Information_Leakage.md).
+See also [Enumerate Infrastructure and Application Admin Interfaces](../02-Configuration_and_Deployment_Management/04-Enumerate_Infrastructure_and_Application_Admin_Interfaces.md) and [Review Web Page Content for Information Leakage](../01-Information_Gathering/05-Review_Web_Page_Content_for_Information_Leakage.md).
 
 ### APIs
 

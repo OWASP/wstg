@@ -190,7 +190,7 @@ If the web application has features that allow a user to access the web applicat
 
 ### Identifier Collisions
 
-Applications often lowercase, case-fold or Unicode-normalize usernames and email addresses before comparing them, and databases may compare them with a case-insensitive and accent-insensitive collation. If registration, login, password reset and other features don't all do this the same way, two different strings can end up pointing at the same account. [Unicode Normalization and Case Mapping](../07-Injection/25-Unicode_Normalization_and_Case_Mapping.md) explains these transformations in more detail. Some examples of strings that collapse together:
+Applications often lowercase, case-fold or Unicode-normalize usernames and email addresses before comparing them, and databases may compare them with a case-insensitive and accent-insensitive collation. If registration, login, password reset and other features don't all do this the same way, two different strings can end up pointing at the same account. [Unicode Normalization and Case Mapping](../07-Injection/24-Unicode_Normalization_and_Case_Mapping.md) explains these transformations in more detail. Some examples of strings that collapse together:
 
 - Compatibility normalization (NFKC) turns `ᴬᴰᴹᴵᴺ` and `ａｄｍｉｎ` into `ADMIN` and `admin`.
 - The Kelvin sign `K` (U+212A) lowercases to `k`, and the dotless `ı` (U+0131) and the long `ſ` (U+017F) uppercase to `I` and `S`.

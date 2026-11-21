@@ -8,7 +8,7 @@
 
 APIs rely on stateless authentication mechanisms (JSON Web Tokens, OAuth 2.0 flows, API keys, and bearer tokens) to verify callers before granting access. Each mechanism introduces API-specific weaknesses that differ from traditional session-based web application authentication. An API key transmitted in a URL query string leaks into server logs and proxy caches. A bearer token that is never revoked allows indefinite access after credential compromise. An API key issued for a staging environment that is also accepted in production extends the impact of any key leak.
 
-This article covers testing procedures for authentication weaknesses specific to API contexts. For general authentication mechanism testing, see [section 4.4](../04-Authentication/README.md). For JWT structure, signature, claim validation, and header parameter injection (`kid`, `jku`, `x5u`) testing, see [JSON Web Tokens (WSTG-SESS-10)](../06-Session_Management/10-JSON_Web_Tokens.md). For OAuth 2.0 grant types and token leakage, see [OAuth Weaknesses (WSTG-ATHZ-05)](../05-Authorization/05-OAuth_Weaknesses.md), and for authorization server tests including redirect URI validation, PKCE downgrade, and token lifetime, see [OAuth Authorization Server Weaknesses](../05-Authorization/05.1-OAuth_Authorization_Server_Weaknesses.md). For MFA bypass testing, see [Multi-Factor Authentication (WSTG-ATHN-11)](../04-Authentication/11-Multi-Factor_Authentication.md).
+This article covers testing procedures for authentication weaknesses specific to API contexts. For general authentication mechanism testing, see [section 4.4](../04-Authentication/README.md). For JWT structure, signature, claim validation, and header parameter injection (`kid`, `jku`, `x5u`) testing, see [JSON Web Tokens (WSTG-SESS-10)](../06-Session_Management/10-JSON_Web_Tokens.md). For OAuth 2.0 grant types and token leakage, see [OAuth Weaknesses (WSTG-ATHZ-05)](../05-Authorization/05-OAuth_Weaknesses.md), and for authorization server tests including redirect URI validation, PKCE downgrade, and token lifetime, see [OAuth Authorization Server Weaknesses](../05-Authorization/05.1-OAuth_Authorization_Server_Weaknesses.md). For MFA bypass testing, see [Multi-Factor Authentication (WSTG-ATHN-10)](../04-Authentication/10-Multi-Factor_Authentication.md).
 
 ## Test Objectives
 
@@ -189,13 +189,13 @@ If the API accepts the session cookie, verify that CSRF protections are present 
 
 ### Test Authentication Across HTTP Methods
 
-Authentication middleware is sometimes registered for only some HTTP methods on a route, so an endpoint that requires a token for `GET` may accept `POST`, `PUT`, `PATCH`, `DELETE`, or `HEAD` without one. Compare the response to an authenticated request with the response to the same request without credentials, repeated for each method. Use a harmless request against an object you own, since a successful bypass performs the action. The method-switching technique is described in [HTTP Methods (WSTG-CONF-06)](../02-Configuration_and_Deployment_Management/06-HTTP_Methods.md#access-control-bypass).
+Authentication middleware is sometimes registered for only some HTTP methods on a route, so an endpoint that requires a token for `GET` may accept `POST`, `PUT`, `PATCH`, `DELETE`, or `HEAD` without one. Compare the response to an authenticated request with the response to the same request without credentials, repeated for each method. Use a harmless request against an object you own, since a successful bypass performs the action. The method-switching technique is described in [HTTP Methods (WSTG-CONF-05)](../02-Configuration_and_Deployment_Management/05-HTTP_Methods.md#access-control-bypass).
 
 Insecure behavior: an unauthenticated request returns a 2xx response or a validation error instead of `401` or `403`. `OPTIONS` is often answered without authentication for CORS preflight, so a response to it is not a finding.
 
 ### Test Rate Limiting on Token Endpoints
 
-Lockout, CAPTCHA, and rate limiting on login endpoints, including evasion by rotating IP addresses, are covered in [Weak Lock Out Mechanism (WSTG-ATHN-03)](../04-Authentication/03-Weak_Lock_Out_Mechanism.md). When the API trusts client IP headers such as `X-Forwarded-For` for rate limiting, also test whether spoofing the header evades the limit, as described for IP-based checks in [Multi-Factor Authentication (WSTG-ATHN-11)](../04-Authentication/11-Multi-Factor_Authentication.md).
+Lockout, CAPTCHA, and rate limiting on login endpoints, including evasion by rotating IP addresses, are covered in [Weak Lock Out Mechanism (WSTG-ATHN-02)](../04-Authentication/02-Weak_Lock_Out_Mechanism.md). When the API trusts client IP headers such as `X-Forwarded-For` for rate limiting, also test whether spoofing the header evades the limit, as described for IP-based checks in [Multi-Factor Authentication (WSTG-ATHN-10)](../04-Authentication/10-Multi-Factor_Authentication.md).
 
 OAuth token endpoints that accept client credentials are a separate brute-force target. Test whether the token endpoint rate-limits failed client authentication, using a client registered for testing so that any lockout does not affect production integrations:
 
@@ -216,10 +216,10 @@ Insecure behavior: all 50 requests return the same error response (such as `401`
 - [JSON Web Tokens (WSTG-SESS-10)](../06-Session_Management/10-JSON_Web_Tokens.md)
 - [OAuth Weaknesses (WSTG-ATHZ-05)](../05-Authorization/05-OAuth_Weaknesses.md)
 - [OAuth Authorization Server Weaknesses](../05-Authorization/05.1-OAuth_Authorization_Server_Weaknesses.md)
-- [Multi-Factor Authentication (MFA) (WSTG-ATHN-11)](../04-Authentication/11-Multi-Factor_Authentication.md)
-- [Weak Lock Out Mechanism (WSTG-ATHN-03)](../04-Authentication/03-Weak_Lock_Out_Mechanism.md)
+- [Multi-Factor Authentication (MFA) (WSTG-ATHN-10)](../04-Authentication/10-Multi-Factor_Authentication.md)
+- [Weak Lock Out Mechanism (WSTG-ATHN-02)](../04-Authentication/02-Weak_Lock_Out_Mechanism.md)
 - [Cross Site Request Forgery (WSTG-SESS-05)](../06-Session_Management/05-Cross_Site_Request_Forgery.md)
-- [HTTP Methods (WSTG-CONF-06)](../02-Configuration_and_Deployment_Management/06-HTTP_Methods.md)
+- [HTTP Methods (WSTG-CONF-05)](../02-Configuration_and_Deployment_Management/05-HTTP_Methods.md)
 - [API Reconnaissance (WSTG-APIT-01)](01-API_Reconnaissance.md)
 
 ## Remediation
@@ -229,7 +229,7 @@ Insecure behavior: all 50 requests return the same error response (such as `401`
 - Enforce token scope at the resource server. Reject token requests that exceed the authorized scope.
 - Apply authentication to every route regardless of HTTP method, and deny by default.
 - If session cookies are accepted by the API, ensure CSRF defenses (`SameSite`, CSRF token, `Origin` check) are in place.
-- Rate limit authentication and token endpoints, and apply lockout controls as described in [Weak Lock Out Mechanism (WSTG-ATHN-03)](../04-Authentication/03-Weak_Lock_Out_Mechanism.md).
+- Rate limit authentication and token endpoints, and apply lockout controls as described in [Weak Lock Out Mechanism (WSTG-ATHN-02)](../04-Authentication/02-Weak_Lock_Out_Mechanism.md).
 - For JWT header parameter hardening (`kid`, `jku`, `x5u` allowlisting, algorithm pinning), see [JSON Web Tokens (WSTG-SESS-10)](../06-Session_Management/10-JSON_Web_Tokens.md).
 - For PKCE enforcement and authorization server hardening, see [OAuth Authorization Server Weaknesses](../05-Authorization/05.1-OAuth_Authorization_Server_Weaknesses.md).
 

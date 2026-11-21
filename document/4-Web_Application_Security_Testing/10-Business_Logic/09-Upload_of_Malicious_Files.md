@@ -81,7 +81,7 @@ If the filtering is performed on the server-side, then various techniques can be
 - Upload an `.htaccess` file with the following content: `AddType application/x-httpd-php .png`. This will cause the Apache server to execute `.png` images as if they were `.php` resources.
 - On IIS, upload a `web.config` file. A `web.config` placed in a directory can change how the server handles files in that directory, for example by adding a handler mapping that executes a permitted extension as server-side code.
 - On PHP servers running as CGI or FastCGI (such as PHP-FPM), upload a `.user.ini` file containing `auto_prepend_file=image.png`. If the directory also contains a PHP script, the uploaded image will be included and executed before that script runs.
-- Embed code in the file's metadata so that it still passes content checks. For example, `exiftool -Comment='<?php phpinfo(); ?>' image.jpg` adds a harmless PHP proof of execution to a valid JPEG. The code runs if the server later processes the file as code, such as through one of the configuration changes above or a [File Inclusion](../07-Injection/11.1-File_Inclusion.md) vulnerability.
+- Embed code in the file's metadata so that it still passes content checks. For example, `exiftool -Comment='<?php phpinfo(); ?>' image.jpg` adds a harmless PHP proof of execution to a valid JPEG. The code runs if the server later processes the file as code, such as through one of the configuration changes above or a [File Inclusion](../07-Injection/10.1-File_Inclusion.md) vulnerability.
 
 In some situations, you may need to combine the different filter evasion techniques discussed above in order to successfully bypass server-side filters.**
 
@@ -179,7 +179,7 @@ A successful ZIP bomb attack will result in a denial of service, and can also le
 
 XML files have a number of potential vulnerabilities such as XML eXternal Entities (XXE) and denial of service attacks such as the [billion laughs attack](https://en.wikipedia.org/wiki/Billion_laughs_attack).
 
-These are discussed further in the [XML Injection](../07-Injection/07-XML_Injection.md) guide.
+These are discussed further in the [XML Injection](../07-Injection/06-XML_Injection.md) guide.
 
 #### Other File Formats
 
@@ -205,8 +205,8 @@ When there is file upload feature supported, the following API/methods are commo
 
 ## Related Test Cases
 
-- [File Extensions Handling for Sensitive Information](../02-Configuration_and_Deployment_Management/03-File_Extensions_Handling_for_Sensitive_Information.md)
-- [XML Injection](../07-Injection/07-XML_Injection.md)
+- [Review Old Backup and Unreferenced Files for Sensitive Information](../02-Configuration_and_Deployment_Management/03-Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information.md)
+- [XML Injection](../07-Injection/06-XML_Injection.md)
 - [Upload of Unexpected File Types](08-Upload_of_Unexpected_File_Types.md)
 
 ## Remediation

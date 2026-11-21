@@ -74,7 +74,7 @@ Response and request tampering are testing techniques, not vulnerabilities by th
 
 ## Related Test Cases
 
-- [File Extensions Handling for Sensitive Information](../02-Configuration_and_Deployment_Management/03-File_Extensions_Handling_for_Sensitive_Information.md)
+- [Review Old Backup and Unreferenced Files for Sensitive Information](../02-Configuration_and_Deployment_Management/03-Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information.md)
 - [Upload of Malicious Files](09-Upload_of_Malicious_Files.md)
 - [Stored Cross Site Scripting](../07-Injection/02-Stored_Cross_Site_Scripting.md)
 - [Insecure Direct Object References](../05-Authorization/04-Insecure_Direct_Object_References.md)

@@ -86,7 +86,7 @@ curl -s -o /dev/null -w "%{http_code}\n" \
   https://api.example.com/v1/users/me
 ```
 
-For related IP-spoofing and lockout bypass techniques, see [Weak Lock Out Mechanism](../04-Authentication/03-Weak_Lock_Out_Mechanism.md) and [Testing Multi-Factor Authentication](../04-Authentication/11-Multi-Factor_Authentication.md). Test each of these headers with a different documentation address ([RFC 5737](https://www.rfc-editor.org/rfc/rfc5737)):
+For related IP-spoofing and lockout bypass techniques, see [Weak Lock Out Mechanism](../04-Authentication/02-Weak_Lock_Out_Mechanism.md) and [Testing Multi-Factor Authentication](../04-Authentication/10-Multi-Factor_Authentication.md). Test each of these headers with a different documentation address ([RFC 5737](https://www.rfc-editor.org/rfc/rfc5737)):
 
 - `X-Forwarded-For`
 - `X-Real-IP`
@@ -142,7 +142,7 @@ Insecure behavior: a `200 OK` on a path variant after the rate limit was trigger
 
 ### Bypass via Parameter Pollution
 
-Test whether the rate limiter and the application parse request bodies differently. If the rate limiter keys on the first occurrence of a field but the application uses the last, an attacker can bypass per-account rate limits. For background on parser-differential attacks, see [HTTP Parameter Pollution](../07-Injection/04-HTTP_Parameter_Pollution.md).
+Test whether the rate limiter and the application parse request bodies differently. If the rate limiter keys on the first occurrence of a field but the application uses the last, an attacker can bypass per-account rate limits. For background on parser-differential attacks, see [HTTP Parameter Pollution](../07-Injection/03-HTTP_Parameter_Pollution.md).
 
 Trigger the rate limit by repeatedly sending failed logins for `real@example.com` until `429` is returned, then test:
 
@@ -302,9 +302,9 @@ Compare response codes and response times against the documented capacity of the
 ## Related Test Cases
 
 - [GraphQL (WSTG-APIT-99)](99-GraphQL.md)
-- [HTTP Parameter Pollution](../07-Injection/04-HTTP_Parameter_Pollution.md)
-- [Weak Lock Out Mechanism](../04-Authentication/03-Weak_Lock_Out_Mechanism.md)
-- [Testing Multi-Factor Authentication](../04-Authentication/11-Multi-Factor_Authentication.md)
+- [HTTP Parameter Pollution](../07-Injection/03-HTTP_Parameter_Pollution.md)
+- [Weak Lock Out Mechanism](../04-Authentication/02-Weak_Lock_Out_Mechanism.md)
+- [Testing Multi-Factor Authentication](../04-Authentication/10-Multi-Factor_Authentication.md)
 - [Number of Times a Function Can Be Used Limits](../10-Business_Logic/05-Number_of_Times_a_Function_Can_Be_Used_Limits.md)
 - [Upload of Malicious Files](../10-Business_Logic/09-Upload_of_Malicious_Files.md)
 
