@@ -70,9 +70,7 @@
 
 #### 4.1.8 [Fingerprint Web Application Framework](4-Web_Application_Security_Testing/01-Information_Gathering/08-Fingerprint_Web_Application_Framework.md)
 
-#### 4.1.9 [Fingerprint Web Application](4-Web_Application_Security_Testing/01-Information_Gathering/09-Fingerprint_Web_Application.md)
-
-#### 4.1.10 [Map Application Architecture](4-Web_Application_Security_Testing/01-Information_Gathering/10-Map_Application_Architecture.md)
+#### 4.1.9 [Map Application Architecture](4-Web_Application_Security_Testing/01-Information_Gathering/09-Map_Application_Architecture.md)
 
 ### 4.2 [Configuration and Deployment Management](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/README.md)
 
@@ -80,33 +78,29 @@
 
 #### 4.2.2 [Application Platform Configuration](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/02-Application_Platform_Configuration.md)
 
-#### 4.2.3 [File Extensions Handling for Sensitive Information](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/03-File_Extensions_Handling_for_Sensitive_Information.md)
+#### 4.2.3 [Review Old Backup and Unreferenced Files for Sensitive Information](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/03-Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information.md)
 
-#### 4.2.4 [Review Old Backup and Unreferenced Files for Sensitive Information](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/04-Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information.md)
+#### 4.2.4 [Enumerate Infrastructure and Application Admin Interfaces](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/04-Enumerate_Infrastructure_and_Application_Admin_Interfaces.md)
 
-#### 4.2.5 [Enumerate Infrastructure and Application Admin Interfaces](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/05-Enumerate_Infrastructure_and_Application_Admin_Interfaces.md)
+#### 4.2.5 [HTTP Methods](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/05-HTTP_Methods.md)
 
-#### 4.2.6 [HTTP Methods](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/06-HTTP_Methods.md)
+#### 4.2.6 [HTTP Strict Transport Security](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/06-HTTP_Strict_Transport_Security.md)
 
-#### 4.2.7 [HTTP Strict Transport Security](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/07-HTTP_Strict_Transport_Security.md)
+#### 4.2.7 [File Permissions](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/07-File_Permissions.md)
 
-#### 4.2.8 [RIA Cross Domain Policy](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/08-RIA_Cross_Domain_Policy.md)
+#### 4.2.8 [Subdomain Takeover](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/08-Subdomain_Takeover.md)
 
-#### 4.2.9 [File Permissions](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/09-File_Permissions.md)
+#### 4.2.9 [Cloud Storage](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/09-Cloud_Storage.md)
 
-#### 4.2.10 [Subdomain Takeover](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/10-Subdomain_Takeover.md)
+#### 4.2.10 [Content Security Policy](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/10-Content_Security_Policy.md)
 
-#### 4.2.11 [Cloud Storage](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/11-Cloud_Storage.md)
+#### 4.2.11 [Path Confusion](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/11-Path_Confusion.md)
 
-#### 4.2.12 [Content Security Policy](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/12-Content_Security_Policy.md)
+#### 4.2.12 [Additional Browser Security Controls](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/12-Additional_Browser_Security_Controls.md)
 
-#### 4.2.13 [Path Confusion](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/13-Path_Confusion.md)
+#### 4.2.13 [Feature Flag Security Bypass](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/13-Feature_Flag_Security_Bypass.md)
 
-#### 4.2.14 [Additional Browser Security Controls](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/14-Additional_Browser_Security_Controls.md)
-
-#### 4.2.15 [Feature Flag Security Bypass](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/15-Feature_Flag_Security_Bypass.md)
-
-#### 4.2.16 [Web Cache Poisoning](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/16-Web_Cache_Poisoning.md)
+#### 4.2.14 [Web Cache Poisoning](4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/14-Web_Cache_Poisoning.md)
 
 ### 4.3 [Identity Management](4-Web_Application_Security_Testing/03-Identity_Management/README.md)
 
@@ -118,39 +112,35 @@
 
 #### 4.3.4 [Account Enumeration and Guessable User Account](4-Web_Application_Security_Testing/03-Identity_Management/04-Account_Enumeration_and_Guessable_User_Account.md)
 
-#### 4.3.5 [Weak or Unenforced Username Policy](4-Web_Application_Security_Testing/03-Identity_Management/05-Weak_or_Unenforced_Username_Policy.md)
-
-#### 4.3.6 [Email Address Verification](4-Web_Application_Security_Testing/03-Identity_Management/06-Email_Address_Verification.md)
+#### 4.3.5 [Email Address Verification](4-Web_Application_Security_Testing/03-Identity_Management/05-Email_Address_Verification.md)
 
 ### 4.4 [Authentication](4-Web_Application_Security_Testing/04-Authentication/README.md)
 
-#### 4.4.1 [Credentials Transported over an Encrypted Channel](4-Web_Application_Security_Testing/04-Authentication/01-Credentials_Transported_over_an_Encrypted_Channel.md)
+#### 4.4.1 [Default Credentials](4-Web_Application_Security_Testing/04-Authentication/01-Default_Credentials.md)
 
-#### 4.4.2 [Default Credentials](4-Web_Application_Security_Testing/04-Authentication/02-Default_Credentials.md)
+#### 4.4.2 [Weak Lock Out Mechanism](4-Web_Application_Security_Testing/04-Authentication/02-Weak_Lock_Out_Mechanism.md)
 
-#### 4.4.3 [Weak Lock Out Mechanism](4-Web_Application_Security_Testing/04-Authentication/03-Weak_Lock_Out_Mechanism.md)
+#### 4.4.3 [Bypassing Authentication Schema](4-Web_Application_Security_Testing/04-Authentication/03-Bypassing_Authentication_Schema.md)
 
-#### 4.4.4 [Bypassing Authentication Schema](4-Web_Application_Security_Testing/04-Authentication/04-Bypassing_Authentication_Schema.md)
+#### 4.4.4 [Vulnerable Remember Password](4-Web_Application_Security_Testing/04-Authentication/04-Vulnerable_Remember_Password.md)
 
-#### 4.4.5 [Vulnerable Remember Password](4-Web_Application_Security_Testing/04-Authentication/05-Vulnerable_Remember_Password.md)
+#### 4.4.5 [Browser Cache Weaknesses](4-Web_Application_Security_Testing/04-Authentication/05-Browser_Cache_Weaknesses.md)
 
-#### 4.4.6 [Browser Cache Weaknesses](4-Web_Application_Security_Testing/04-Authentication/06-Browser_Cache_Weaknesses.md)
+#### 4.4.6 [Weak Authentication Methods](4-Web_Application_Security_Testing/04-Authentication/06-Weak_Authentication_Methods.md)
 
-#### 4.4.7 [Weak Authentication Methods](4-Web_Application_Security_Testing/04-Authentication/07-Weak_Authentication_Methods.md)
+#### 4.4.7 [Weak Security Question Answer](4-Web_Application_Security_Testing/04-Authentication/07-Weak_Security_Question_Answer.md)
 
-#### 4.4.8 [Weak Security Question Answer](4-Web_Application_Security_Testing/04-Authentication/08-Weak_Security_Question_Answer.md)
+#### 4.4.8 [Weak Password Change or Reset Functionalities](4-Web_Application_Security_Testing/04-Authentication/08-Weak_Password_Change_or_Reset_Functionalities.md)
 
-#### 4.4.9 [Weak Password Change or Reset Functionalities](4-Web_Application_Security_Testing/04-Authentication/09-Weak_Password_Change_or_Reset_Functionalities.md)
+#### 4.4.9 [Weaker Authentication in Alternative Channel](4-Web_Application_Security_Testing/04-Authentication/09-Weaker_Authentication_in_Alternative_Channel.md)
 
-#### 4.4.10 [Weaker Authentication in Alternative Channel](4-Web_Application_Security_Testing/04-Authentication/10-Weaker_Authentication_in_Alternative_Channel.md)
+#### 4.4.10 [Multi-Factor Authentication (MFA)](4-Web_Application_Security_Testing/04-Authentication/10-Multi-Factor_Authentication.md)
 
-#### 4.4.11 [Multi-Factor Authentication (MFA)](4-Web_Application_Security_Testing/04-Authentication/11-Multi-Factor_Authentication.md)
+#### 4.4.11 [SAML Authentication](4-Web_Application_Security_Testing/04-Authentication/11-SAML_Authentication.md)
 
-#### 4.4.12 [SAML Authentication](4-Web_Application_Security_Testing/04-Authentication/12-SAML_Authentication.md)
+#### 4.4.12 [Passkeys and WebAuthn](4-Web_Application_Security_Testing/04-Authentication/12-Passkeys_and_WebAuthn.md)
 
-#### 4.4.13 [Passkeys and WebAuthn](4-Web_Application_Security_Testing/04-Authentication/13-Passkeys_and_WebAuthn.md)
-
-#### 4.4.14 [OpenID Connect Relying Party](4-Web_Application_Security_Testing/04-Authentication/14-OpenID_Connect_Relying_Party.md)
+#### 4.4.13 [OpenID Connect Relying Party](4-Web_Application_Security_Testing/04-Authentication/13-OpenID_Connect_Relying_Party.md)
 
 ### 4.5 [Authorization](4-Web_Application_Security_Testing/05-Authorization/README.md)
 
@@ -198,81 +188,75 @@
 
 #### 4.7.2 [Stored Cross Site Scripting](4-Web_Application_Security_Testing/07-Injection/02-Stored_Cross_Site_Scripting.md)
 
-#### 4.7.3 [HTTP Verb Tampering](4-Web_Application_Security_Testing/07-Injection/03-HTTP_Verb_Tampering.md)
+#### 4.7.3 [HTTP Parameter Pollution](4-Web_Application_Security_Testing/07-Injection/03-HTTP_Parameter_Pollution.md)
 
-#### 4.7.4 [HTTP Parameter Pollution](4-Web_Application_Security_Testing/07-Injection/04-HTTP_Parameter_Pollution.md)
+#### 4.7.4 [SQL Injection](4-Web_Application_Security_Testing/07-Injection/04-SQL_Injection.md)
 
-#### 4.7.5 [SQL Injection](4-Web_Application_Security_Testing/07-Injection/05-SQL_Injection.md)
+##### 4.7.4.1 [Oracle](4-Web_Application_Security_Testing/07-Injection/04.1-Oracle.md)
 
-##### 4.7.5.1 [Oracle](4-Web_Application_Security_Testing/07-Injection/05.1-Oracle.md)
+##### 4.7.4.2 [MySQL](4-Web_Application_Security_Testing/07-Injection/04.2-MySQL.md)
 
-##### 4.7.5.2 [MySQL](4-Web_Application_Security_Testing/07-Injection/05.2-MySQL.md)
+##### 4.7.4.3 [SQL Server](4-Web_Application_Security_Testing/07-Injection/04.3-SQL_Server.md)
 
-##### 4.7.5.3 [SQL Server](4-Web_Application_Security_Testing/07-Injection/05.3-SQL_Server.md)
+##### 4.7.4.4 [PostgreSQL](4-Web_Application_Security_Testing/07-Injection/04.4-PostgreSQL.md)
 
-##### 4.7.5.4 [PostgreSQL](4-Web_Application_Security_Testing/07-Injection/05.4-PostgreSQL.md)
+##### 4.7.4.5 [MS Access](4-Web_Application_Security_Testing/07-Injection/04.5-MS_Access.md)
 
-##### 4.7.5.5 [MS Access](4-Web_Application_Security_Testing/07-Injection/05.5-MS_Access.md)
+##### 4.7.4.6 [NoSQL Injection](4-Web_Application_Security_Testing/07-Injection/04.6-NoSQL_Injection.md)
 
-##### 4.7.5.6 [NoSQL Injection](4-Web_Application_Security_Testing/07-Injection/05.6-NoSQL_Injection.md)
+##### 4.7.4.7 [ORM Injection](4-Web_Application_Security_Testing/07-Injection/04.7-ORM_Injection.md)
 
-##### 4.7.5.7 [ORM Injection](4-Web_Application_Security_Testing/07-Injection/05.7-ORM_Injection.md)
+#### 4.7.5 [LDAP Injection](4-Web_Application_Security_Testing/07-Injection/05-LDAP_Injection.md)
 
-##### 4.7.5.8 [Client-side](4-Web_Application_Security_Testing/07-Injection/05.8-Client-side.md)
+#### 4.7.6 [XML Injection](4-Web_Application_Security_Testing/07-Injection/06-XML_Injection.md)
 
-#### 4.7.6 [LDAP Injection](4-Web_Application_Security_Testing/07-Injection/06-LDAP_Injection.md)
+#### 4.7.7 [SSI Injection](4-Web_Application_Security_Testing/07-Injection/07-SSI_Injection.md)
 
-#### 4.7.7 [XML Injection](4-Web_Application_Security_Testing/07-Injection/07-XML_Injection.md)
+#### 4.7.8 [XPath Injection](4-Web_Application_Security_Testing/07-Injection/08-XPath_Injection.md)
 
-#### 4.7.8 [SSI Injection](4-Web_Application_Security_Testing/07-Injection/08-SSI_Injection.md)
+#### 4.7.9 [IMAP SMTP Injection](4-Web_Application_Security_Testing/07-Injection/09-IMAP_SMTP_Injection.md)
 
-#### 4.7.9 [XPath Injection](4-Web_Application_Security_Testing/07-Injection/09-XPath_Injection.md)
+#### 4.7.10 [Code Injection](4-Web_Application_Security_Testing/07-Injection/10-Code_Injection.md)
 
-#### 4.7.10 [IMAP SMTP Injection](4-Web_Application_Security_Testing/07-Injection/10-IMAP_SMTP_Injection.md)
+##### 4.7.10.1 [File Inclusion](4-Web_Application_Security_Testing/07-Injection/10.1-File_Inclusion.md)
 
-#### 4.7.11 [Code Injection](4-Web_Application_Security_Testing/07-Injection/11-Code_Injection.md)
+#### 4.7.11 [Command Injection](4-Web_Application_Security_Testing/07-Injection/11-Command_Injection.md)
 
-##### 4.7.11.1 [File Inclusion](4-Web_Application_Security_Testing/07-Injection/11.1-File_Inclusion.md)
+#### 4.7.12 [Format String Injection](4-Web_Application_Security_Testing/07-Injection/12-Format_String_Injection.md)
 
-#### 4.7.12 [Command Injection](4-Web_Application_Security_Testing/07-Injection/12-Command_Injection.md)
+#### 4.7.13 [Incubated Vulnerability](4-Web_Application_Security_Testing/07-Injection/13-Incubated_Vulnerability.md)
 
-#### 4.7.13 [Format String Injection](4-Web_Application_Security_Testing/07-Injection/13-Format_String_Injection.md)
+#### 4.7.14 [HTTP Response Splitting](4-Web_Application_Security_Testing/07-Injection/14-HTTP_Response_Splitting.md)
 
-#### 4.7.14 [Incubated Vulnerability](4-Web_Application_Security_Testing/07-Injection/14-Incubated_Vulnerability.md)
+#### 4.7.15 [HTTP Request Smuggling](4-Web_Application_Security_Testing/07-Injection/15-HTTP_Request_Smuggling.md)
 
-#### 4.7.15 [HTTP Response Splitting](4-Web_Application_Security_Testing/07-Injection/15-HTTP_Response_Splitting.md)
+#### 4.7.16 [Host Header Injection](4-Web_Application_Security_Testing/07-Injection/16-Host_Header_Injection.md)
 
-#### 4.7.16 [HTTP Request Smuggling](4-Web_Application_Security_Testing/07-Injection/16-HTTP_Request_Smuggling.md)
+#### 4.7.17 [Server-side Template Injection](4-Web_Application_Security_Testing/07-Injection/17-Server-side_Template_Injection.md)
 
-#### 4.7.17 [Host Header Injection](4-Web_Application_Security_Testing/07-Injection/17-Host_Header_Injection.md)
+#### 4.7.18 [Server-Side Request Forgery](4-Web_Application_Security_Testing/07-Injection/18-Server-Side_Request_Forgery.md)
 
-#### 4.7.18 [Server-side Template Injection](4-Web_Application_Security_Testing/07-Injection/18-Server-side_Template_Injection.md)
+#### 4.7.19 [Mass Assignment](4-Web_Application_Security_Testing/07-Injection/19-Mass_Assignment.md)
 
-#### 4.7.19 [Server-Side Request Forgery](4-Web_Application_Security_Testing/07-Injection/19-Server-Side_Request_Forgery.md)
+#### 4.7.20 [CSV Injection](4-Web_Application_Security_Testing/07-Injection/20-CSV_Injection.md)
 
-#### 4.7.20 [Mass Assignment](4-Web_Application_Security_Testing/07-Injection/20-Mass_Assignment.md)
+#### 4.7.21 [Prototype Pollution](4-Web_Application_Security_Testing/07-Injection/21-Prototype_Pollution.md)
 
-#### 4.7.21 [CSV Injection](4-Web_Application_Security_Testing/07-Injection/21-CSV_Injection.md)
+#### 4.7.22 [Insecure Deserialization](4-Web_Application_Security_Testing/07-Injection/22-Insecure_Deserialization.md)
 
-#### 4.7.22 [Prototype Pollution](4-Web_Application_Security_Testing/07-Injection/22-Prototype_Pollution.md)
+#### 4.7.23 [Server-side URL Redirect](4-Web_Application_Security_Testing/07-Injection/23-Server-side_URL_Redirect.md)
 
-#### 4.7.23 [Insecure Deserialization](4-Web_Application_Security_Testing/07-Injection/23-Insecure_Deserialization.md)
+#### 4.7.24 [Unicode Normalization and Case Mapping](4-Web_Application_Security_Testing/07-Injection/24-Unicode_Normalization_and_Case_Mapping.md)
 
-#### 4.7.24 [Server-side URL Redirect](4-Web_Application_Security_Testing/07-Injection/24-Server-side_URL_Redirect.md)
+#### 4.7.25 [JSON Parser Differentials](4-Web_Application_Security_Testing/07-Injection/25-JSON_Parser_Differentials.md)
 
-#### 4.7.25 [Unicode Normalization and Case Mapping](4-Web_Application_Security_Testing/07-Injection/25-Unicode_Normalization_and_Case_Mapping.md)
+#### 4.7.26 [Server-side Document Rendering Injection](4-Web_Application_Security_Testing/07-Injection/26-Server-side_Document_Rendering_Injection.md)
 
-#### 4.7.26 [JSON Parser Differentials](4-Web_Application_Security_Testing/07-Injection/26-JSON_Parser_Differentials.md)
-
-#### 4.7.27 [Server-side Document Rendering Injection](4-Web_Application_Security_Testing/07-Injection/27-Server-side_Document_Rendering_Injection.md)
-
-#### 4.7.28 [Regular Expression Denial of Service](4-Web_Application_Security_Testing/07-Injection/28-Regular_Expression_Denial_of_Service.md)
+#### 4.7.27 [Regular Expression Denial of Service](4-Web_Application_Security_Testing/07-Injection/27-Regular_Expression_Denial_of_Service.md)
 
 ### 4.8 [Error Handling](4-Web_Application_Security_Testing/08-Error_Handling/README.md)
 
 #### 4.8.1 [Improper Error Handling](4-Web_Application_Security_Testing/08-Error_Handling/01-Improper_Error_Handling.md)
-
-#### 4.8.2 [Stack Traces](4-Web_Application_Security_Testing/08-Error_Handling/02-Stack_Traces.md)
 
 ### 4.9 [Weak Cryptography](4-Web_Application_Security_Testing/09-Weak_Cryptography/README.md)
 
@@ -328,31 +312,29 @@
 
 #### 4.11.7 [Cross Origin Resource Sharing](4-Web_Application_Security_Testing/11-Client-side/07-Cross_Origin_Resource_Sharing.md)
 
-#### 4.11.8 [Cross Site Flashing](4-Web_Application_Security_Testing/11-Client-side/08-Cross_Site_Flashing.md)
+#### 4.11.8 [Clickjacking](4-Web_Application_Security_Testing/11-Client-side/08-Clickjacking.md)
 
-#### 4.11.9 [Clickjacking](4-Web_Application_Security_Testing/11-Client-side/09-Clickjacking.md)
+#### 4.11.9 [WebSockets](4-Web_Application_Security_Testing/11-Client-side/09-WebSockets.md)
 
-#### 4.11.10 [WebSockets](4-Web_Application_Security_Testing/11-Client-side/10-WebSockets.md)
+#### 4.11.10 [Web Messaging](4-Web_Application_Security_Testing/11-Client-side/10-Web_Messaging.md)
 
-#### 4.11.11 [Web Messaging](4-Web_Application_Security_Testing/11-Client-side/11-Web_Messaging.md)
+#### 4.11.11 [Browser Storage](4-Web_Application_Security_Testing/11-Client-side/11-Browser_Storage.md)
 
-#### 4.11.12 [Browser Storage](4-Web_Application_Security_Testing/11-Client-side/12-Browser_Storage.md)
+#### 4.11.12 [Cross Site Script Inclusion](4-Web_Application_Security_Testing/11-Client-side/12-Cross_Site_Script_Inclusion.md)
 
-#### 4.11.13 [Cross Site Script Inclusion](4-Web_Application_Security_Testing/11-Client-side/13-Cross_Site_Script_Inclusion.md)
+#### 4.11.13 [Reverse Tabnabbing](4-Web_Application_Security_Testing/11-Client-side/13-Reverse_Tabnabbing.md)
 
-#### 4.11.14 [Reverse Tabnabbing](4-Web_Application_Security_Testing/11-Client-side/14-Reverse_Tabnabbing.md)
+#### 4.11.14 [Client-side Template Injection](4-Web_Application_Security_Testing/11-Client-side/14-Client-Side_Template_Injection.md)
 
-#### 4.11.15 [Client-side Template Injection](4-Web_Application_Security_Testing/11-Client-side/15-Client-Side_Template_Injection.md)
+#### 4.11.15 [DOM Clobbering](4-Web_Application_Security_Testing/11-Client-side/15-DOM_Clobbering.md)
 
-#### 4.11.16 [DOM Clobbering](4-Web_Application_Security_Testing/11-Client-side/16-DOM_Clobbering.md)
+#### 4.11.16 [Cross-Site Leaks](4-Web_Application_Security_Testing/11-Client-side/16-Cross_Site_Leaks.md)
 
-#### 4.11.18 [Cross-Site Leaks](4-Web_Application_Security_Testing/11-Client-side/18-Cross_Site_Leaks.md)
+#### 4.11.17 [Client-side Path Traversal](4-Web_Application_Security_Testing/11-Client-side/17-Client-side_Path_Traversal.md)
 
-#### 4.11.19 [Client-side Path Traversal](4-Web_Application_Security_Testing/11-Client-side/19-Client-side_Path_Traversal.md)
+#### 4.11.18 [Service Workers](4-Web_Application_Security_Testing/11-Client-side/18-Service_Workers.md)
 
-#### 4.11.20 [Service Workers](4-Web_Application_Security_Testing/11-Client-side/20-Service_Workers.md)
-
-#### 4.11.21 [DNS Rebinding](4-Web_Application_Security_Testing/11-Client-side/21-DNS_Rebinding.md)
+#### 4.11.19 [DNS Rebinding](4-Web_Application_Security_Testing/11-Client-side/19-DNS_Rebinding.md)
 
 ### 4.12 [API Testing](4-Web_Application_Security_Testing/12-API_Testing/README.md)
 

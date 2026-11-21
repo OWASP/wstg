@@ -354,8 +354,8 @@ If Service B trusts the IdP signature but omits `aud` validation, an attacker wi
 
 - [Sensitive Information Sent via Unencrypted Channels](../09-Weak_Cryptography/03-Sensitive_Information_Sent_via_Unencrypted_Channels.md).
 - [Cookies Attributes](../06-Session_Management/02-Cookies_Attributes.md).
-- [Browser Storage](../11-Client-side/12-Browser_Storage.md).
-- [Server-Side Request Forgery](../07-Injection/19-Server-Side_Request_Forgery.md).
+- [Browser Storage](../11-Client-side/11-Browser_Storage.md).
+- [Server-Side Request Forgery](../07-Injection/18-Server-Side_Request_Forgery.md).
 
 ## Remediation
 

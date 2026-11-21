@@ -16,27 +16,25 @@
 
 4.11.7 [Cross Origin Resource Sharing](07-Cross_Origin_Resource_Sharing.md)
 
-4.11.8 [Cross Site Flashing](08-Cross_Site_Flashing.md)
+4.11.8 [Clickjacking](08-Clickjacking.md)
 
-4.11.9 [Clickjacking](09-Clickjacking.md)
+4.11.9 [WebSockets](09-WebSockets.md)
 
-4.11.10 [WebSockets](10-WebSockets.md)
+4.11.10 [Web Messaging](10-Web_Messaging.md)
 
-4.11.11 [Web Messaging](11-Web_Messaging.md)
+4.11.11 [Browser Storage](11-Browser_Storage.md)
 
-4.11.12 [Browser Storage](12-Browser_Storage.md)
+4.11.12 [Cross Site Script Inclusion](12-Cross_Site_Script_Inclusion.md)
 
-4.11.13 [Cross Site Script Inclusion](13-Cross_Site_Script_Inclusion.md)
+4.11.13 [Reverse Tabnabbing](13-Reverse_Tabnabbing.md)
 
-4.11.14 [Reverse Tabnabbing](14-Reverse_Tabnabbing.md)
+4.11.14 [Client-side Template Injection](14-Client-Side_Template_Injection.md)
 
-4.11.15 [Client-side Template Injection](15-Client-Side_Template_Injection.md)
+4.11.15 [DOM Clobbering](15-DOM_Clobbering.md)
 
-4.11.16 [DOM Clobbering](16-DOM_Clobbering.md)
+4.11.16 [Cross-Site Leaks](16-Cross_Site_Leaks.md)
+4.11.17 [Client-side Path Traversal](17-Client-side_Path_Traversal.md)
 
-4.11.18 [Cross-Site Leaks](18-Cross_Site_Leaks.md)
-4.11.19 [Client-side Path Traversal](19-Client-side_Path_Traversal.md)
+4.11.18 [Service Workers](18-Service_Workers.md)
 
-4.11.20 [Service Workers](20-Service_Workers.md)
-
-4.11.21 [DNS Rebinding](21-DNS_Rebinding.md)
+4.11.19 [DNS Rebinding](19-DNS_Rebinding.md)

@@ -69,7 +69,7 @@ It is possible to inject HTML code.
 
 ### Injection Without Script Execution
 
-An injection point is still worth reporting when scripts can't run, for example because the application filters event handlers or a [Content Security Policy](../02-Configuration_and_Deployment_Management/12-Content_Security_Policy.md) blocks inline script. Plain markup can still leak data or redirect the user.
+An injection point is still worth reporting when scripts can't run, for example because the application filters event handlers or a [Content Security Policy](../02-Configuration_and_Deployment_Management/10-Content_Security_Policy.md) blocks inline script. Plain markup can still leak data or redirect the user.
 
 #### Dangling Markup
 
@@ -228,7 +228,7 @@ Although `Origin` validation may appear sufficient against conventional cross-or
 ## Related Test Cases
 
 - [CSS Injection](05-CSS_Injection.md): exfiltrating data with styles when scripts are blocked.
-- [DOM Clobbering](16-DOM_Clobbering.md): using injected `id` and `name` attributes to change how existing scripts behave.
+- [DOM Clobbering](15-DOM_Clobbering.md): using injected `id` and `name` attributes to change how existing scripts behave.
 - [Cross Site Request Forgery](../06-Session_Management/05-Cross_Site_Request_Forgery.md)
 - [Reflected Cross Site Scripting](../07-Injection/01-Reflected_Cross_Site_Scripting.md)
 - [Stored Cross Site Scripting](../07-Injection/02-Stored_Cross_Site_Scripting.md)

@@ -8,7 +8,7 @@
 
 A web application's infrastructure - web/application servers, databases, authentication servers, load balancers/CDNs, and (in modern deployments) cloud network controls and container/orchestration layers - is only as secure as its weakest, most poorly configured element. A single unreviewed or vulnerable component can compromise the application itself, even if the application's own code is sound; for example, a web server flaw disclosing source code hands an attacker information to attack the application directly.
 
-After mapping the infrastructure (see [Map Application Architecture](../01-Information_Gathering/10-Map_Application_Architecture.md)), testing should:
+After mapping the infrastructure (see [Map Application Architecture](../01-Information_Gathering/09-Map_Application_Architecture.md)), testing should:
 
 - Identify every element and how it affects the application's security.
 - Review each element for known vulnerabilities.
@@ -59,7 +59,7 @@ For example: a security group meant to allow the load balancer to reach the appl
 
 ### Administrative Tools
 
-Any web server infrastructure requires the existence of administrative tools to maintain and update the information used by the application. This information includes static content (web pages, graphic files), application source code, user authentication databases, etc. The type of administrative tools used can vary depending on the specific site, technology, or software in use: some are web-based administrative consoles (see also [Enumerate Infrastructure and Application Admin Interfaces](05-Enumerate_Infrastructure_and_Application_Admin_Interfaces.md), which covers this in more depth, including modern cloud, Kubernetes, and CI/CD consoles), some are plain-text configuration files (as with Apache), and some are OS-native GUI/command-line tools (as with Microsoft's IIS server or `kubectl`/cloud CLIs in modern deployments).
+Any web server infrastructure requires the existence of administrative tools to maintain and update the information used by the application. This information includes static content (web pages, graphic files), application source code, user authentication databases, etc. The type of administrative tools used can vary depending on the specific site, technology, or software in use: some are web-based administrative consoles (see also [Enumerate Infrastructure and Application Admin Interfaces](04-Enumerate_Infrastructure_and_Application_Admin_Interfaces.md), which covers this in more depth, including modern cloud, Kubernetes, and CI/CD consoles), some are plain-text configuration files (as with Apache), and some are OS-native GUI/command-line tools (as with Microsoft's IIS server or `kubectl`/cloud CLIs in modern deployments).
 
 In most cases, the server configuration is managed with various file maintenance tools, administered through SSH/SFTP, WebDAV, network file systems (NFS, CIFS), infrastructure-as-code pipelines (Terraform/CloudFormation/Ansible), or GitOps tooling that pushes configuration changes automatically. Obviously, the operating system of the elements that make up the application architecture will also be managed using other tools. Applications may also contain embedded administrative interfaces for managing application data (users, content, etc.).
 

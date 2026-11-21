@@ -69,17 +69,17 @@ For every parameter observed in the previous steps, replay the request with a mo
 - **Type and format:** a different data type than expected (string instead of number, array or object instead of string, `null`, an empty value, `true` instead of `1`), or the same field with a different format (a URL where the application expects a `data:` URI or a filename, a date in another format, or Unicode digits).
 - **Length and encoding:** empty values, values longer than the length enforced by the frontend, and values containing characters that the interface filters out.
 - **Relationships between fields:** values that are individually valid but inconsistent together, for example an end date before a start date, a discount that is larger than the price, or a shipping country that does not match the payment country.
-- **Missing and additional parameters:** remove parameters that look mandatory and add parameters the interface never sends (see [Mass Assignment](../07-Injection/20-Mass_Assignment.md)), and repeat a parameter with different values (see [HTTP Parameter Pollution](../07-Injection/04-HTTP_Parameter_Pollution.md)).
-- **Hand-off values:** values that are later passed to another system, such as an email address, a URL, or a file path (see [Server-Side Request Forgery](../07-Injection/19-Server-Side_Request_Forgery.md)). Use a unique value that you control, so that you can detect when and where it is used, including by a delayed or out-of-band request.
+- **Missing and additional parameters:** remove parameters that look mandatory and add parameters the interface never sends (see [Mass Assignment](../07-Injection/19-Mass_Assignment.md)), and repeat a parameter with different values (see [HTTP Parameter Pollution](../07-Injection/03-HTTP_Parameter_Pollution.md)).
+- **Hand-off values:** values that are later passed to another system, such as an email address, a URL, or a file path (see [Server-Side Request Forgery](../07-Injection/18-Server-Side_Request_Forgery.md)). Use a unique value that you control, so that you can detect when and where it is used, including by a delayed or out-of-band request.
 
 Record which of the variations were accepted, because the impact depends on how the application uses the value afterwards and not only on whether it was rejected.
 
 ## Related Test Cases
 
 - All [Injection Testing](../07-Injection/README.md) test cases.
-- [HTTP Parameter Pollution](../07-Injection/04-HTTP_Parameter_Pollution.md).
-- [Mass Assignment](../07-Injection/20-Mass_Assignment.md).
-- [Server-Side Request Forgery](../07-Injection/19-Server-Side_Request_Forgery.md).
+- [HTTP Parameter Pollution](../07-Injection/03-HTTP_Parameter_Pollution.md).
+- [Mass Assignment](../07-Injection/19-Mass_Assignment.md).
+- [Server-Side Request Forgery](../07-Injection/18-Server-Side_Request_Forgery.md).
 - [Payment Functionality](10-Payment_Functionality.md).
 - [Account Enumeration and Guessable User Account](../03-Identity_Management/04-Account_Enumeration_and_Guessable_User_Account.md).
 - [Session Management Schema](../06-Session_Management/01-Session_Management_Schema.md).

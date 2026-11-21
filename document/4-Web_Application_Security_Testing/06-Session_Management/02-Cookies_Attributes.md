@@ -8,7 +8,7 @@
 
 Web Cookies (herein referred to as cookies) are often a key attack vector for malicious users (typically targeting other users) and the application should always take due diligence to protect cookies.
 
-HTTP is a stateless protocol, meaning that it doesn't hold any reference to requests being sent by the same user. In order to fix this issue, sessions were created and appended to HTTP requests. Browsers, as discussed in [testing browser storage](../11-Client-side/12-Browser_Storage.md), contain a multitude of storage mechanisms. In that section of the guide, each is discussed thoroughly.
+HTTP is a stateless protocol, meaning that it doesn't hold any reference to requests being sent by the same user. In order to fix this issue, sessions were created and appended to HTTP requests. Browsers, as discussed in [testing browser storage](../11-Client-side/11-Browser_Storage.md), contain a multitude of storage mechanisms. In that section of the guide, each is discussed thoroughly.
 
 The most used session storage mechanism in browsers is cookie storage. Cookies can be set by the server, by including a [`Set-Cookie`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Set-Cookie) header in the HTTP response or via JavaScript. Cookies can be used for a multitude of reasons, such as:
 
@@ -78,7 +78,7 @@ The [`SameSite`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Cookie
 - `Lax`
 - `None`
 
-`SameSite` compares [sites](https://developer.mozilla.org/en-US/docs/Glossary/Site), not origins. A site is the scheme and registrable domain, such as `https://mydomain.com`, so `https://app.mydomain.com` and `https://otherapp.mydomain.com` are the same site even though they are different origins. `SameSite` does not restrict requests between them. If an attacker controls any subdomain of the same site, for example through XSS or a [subdomain takeover](../02-Configuration_and_Deployment_Management/10-Subdomain_Takeover.md), they can send requests to the application that include its cookies, even `Strict` ones. When you assess how much protection `SameSite` provides, consider every subdomain of the site.
+`SameSite` compares [sites](https://developer.mozilla.org/en-US/docs/Glossary/Site), not origins. A site is the scheme and registrable domain, such as `https://mydomain.com`, so `https://app.mydomain.com` and `https://otherapp.mydomain.com` are the same site even though they are different origins. `SameSite` does not restrict requests between them. If an attacker controls any subdomain of the same site, for example through XSS or a [subdomain takeover](../02-Configuration_and_Deployment_Management/08-Subdomain_Takeover.md), they can send requests to the application that include its cookies, even `Strict` ones. When you assess how much protection `SameSite` provides, consider every subdomain of the site.
 
 ##### Strict Value
 
@@ -124,7 +124,7 @@ Browsers handle [third-party cookies](https://developer.mozilla.org/en-US/docs/W
 - Safari blocks third-party cookies. Starting with [Safari 26.2](https://webkit.org/blog/17640/webkit-features-for-safari-26-2/), it allows them if they set `Partitioned`.
 - Other Chromium-based browsers, such as Edge and Brave, add their own tracking protection, so their defaults differ from Chrome's.
 
-Browsers that do not support `Partitioned` ignore the attribute and treat the cookie as an unpartitioned cookie (see the [browser compatibility table on MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Set-Cookie#browser_compatibility)). These defaults also affect whether a proof of concept works. See [Cross Site Request Forgery](05-Cross_Site_Request_Forgery.md) and [Cross Site Script Inclusion](../11-Client-side/13-Cross_Site_Script_Inclusion.md).
+Browsers that do not support `Partitioned` ignore the attribute and treat the cookie as an unpartitioned cookie (see the [browser compatibility table on MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Set-Cookie#browser_compatibility)). These defaults also affect whether a proof of concept works. See [Cross Site Request Forgery](05-Cross_Site_Request_Forgery.md) and [Cross Site Script Inclusion](../11-Client-side/12-Cross_Site_Script_Inclusion.md).
 
 ### Cookie Prefixes
 

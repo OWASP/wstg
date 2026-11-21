@@ -40,7 +40,7 @@ Opening Dev Tools can be accomplished in a number of ways.
 
 ### Related Testing
 
-- [Browser Cache Weaknesses](../4-Web_Application_Security_Testing/04-Authentication/06-Browser_Cache_Weaknesses.md)
+- [Browser Cache Weaknesses](../4-Web_Application_Security_Testing/04-Authentication/05-Browser_Cache_Weaknesses.md)
 
 ### Google Chrome
 
@@ -123,7 +123,7 @@ Later click on the garbage can `Delete` button to the right of the `general.user
 
 ### Related Testing
 
-- [Browser Storage](../4-Web_Application_Security_Testing/11-Client-side/12-Browser_Storage.md)
+- [Browser Storage](../4-Web_Application_Security_Testing/11-Client-side/11-Browser_Storage.md)
 
 ### Google Chrome
 
@@ -250,9 +250,9 @@ All major browsers support encoding and decoding strings in various ways leverag
 
 ### Related Testing
 
-- [Browser Cache Weaknesses](../4-Web_Application_Security_Testing/04-Authentication/06-Browser_Cache_Weaknesses.md)
-- [Weaker Authentication in Alternative Channel](../4-Web_Application_Security_Testing/04-Authentication/10-Weaker_Authentication_in_Alternative_Channel.md)
-- [Clickjacking](../4-Web_Application_Security_Testing/11-Client-side/09-Clickjacking.md)
+- [Browser Cache Weaknesses](../4-Web_Application_Security_Testing/04-Authentication/05-Browser_Cache_Weaknesses.md)
+- [Weaker Authentication in Alternative Channel](../4-Web_Application_Security_Testing/04-Authentication/09-Weaker_Authentication_in_Alternative_Channel.md)
+- [Clickjacking](../4-Web_Application_Security_Testing/11-Client-side/08-Clickjacking.md)
 
 ### Google Chrome
 

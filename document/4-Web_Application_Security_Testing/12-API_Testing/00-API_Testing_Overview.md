@@ -64,7 +64,7 @@ The **fragment** indicates a specific part of the resource, such as a section wi
 
 ### HTTP Methods
 
-REST APIs use standard HTTP methods to perform operations on resources following the [HTTP Methods](../02-Configuration_and_Deployment_Management/06-HTTP_Methods.md) defined in [RFC 9110](https://datatracker.ietf.org/doc/html/rfc9110), [RFC 5789](https://datatracker.ietf.org/doc/html/rfc5789), and [RFC 10008](https://datatracker.ietf.org/doc/html/rfc10008). These methods map to CRUD, the four basic functions of persistent storage in computer science. CRUD stands for Create, Read, Update, and Delete, which are the four operations that can be performed on data.
+REST APIs use standard HTTP methods to perform operations on resources following the [HTTP Methods](../02-Configuration_and_Deployment_Management/05-HTTP_Methods.md) defined in [RFC 9110](https://datatracker.ietf.org/doc/html/rfc9110), [RFC 5789](https://datatracker.ietf.org/doc/html/rfc5789), and [RFC 10008](https://datatracker.ietf.org/doc/html/rfc10008). These methods map to CRUD, the four basic functions of persistent storage in computer science. CRUD stands for Create, Read, Update, and Delete, which are the four operations that can be performed on data.
 
 The HTTP Request Methods used in REST are generally:
 

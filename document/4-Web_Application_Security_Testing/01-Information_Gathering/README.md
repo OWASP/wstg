@@ -18,6 +18,4 @@
 
 4.1.8 [Fingerprint Web Application Framework](08-Fingerprint_Web_Application_Framework.md)
 
-4.1.9 [Fingerprint Web Application](09-Fingerprint_Web_Application.md)
-
-4.1.10 [Map Application Architecture](10-Map_Application_Architecture.md)
+4.1.9 [Map Application Architecture](09-Map_Application_Architecture.md)
