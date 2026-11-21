@@ -15,46 +15,42 @@ The following is the list of items to test during the assessment:
 | WSTG-INFO-06      | Identify Application Entry Points                                          |        |       |
 | WSTG-INFO-07      | Map Execution Paths Through Application                                    |        |       |
 | WSTG-INFO-08      | Fingerprint Web Application Framework                                      |        |       |
-| WSTG-INFO-09      | Fingerprint Web Application                                                |        |       |
-| WSTG-INFO-10      | Map Application Architecture                                               |        |       |
+| WSTG-INFO-09      | Map Application Architecture                                               |        |       |
 | **WSTG-CONF**     | **Configuration and Deployment Management**                                |        |       |
 | WSTG-CONF-01      | Network Infrastructure Configuration                                       |        |       |
 | WSTG-CONF-02      | Application Platform Configuration                                         |        |       |
-| WSTG-CONF-03      | File Extensions Handling for Sensitive Information                         |        |       |
-| WSTG-CONF-04      | Review Old Backup and Unreferenced Files for Sensitive Information         |        |       |
-| WSTG-CONF-05      | Enumerate Infrastructure and Application Admin Interfaces                  |        |       |
-| WSTG-CONF-06      | HTTP Methods                                                               |        |       |
-| WSTG-CONF-07      | HTTP Strict Transport Security                                             |        |       |
-| WSTG-CONF-09      | File Permissions                                                           |        |       |
-| WSTG-CONF-10      | Subdomain Takeover                                                         |        |       |
-| WSTG-CONF-11      | Cloud Storage                                                              |        |       |
-| WSTG-CONF-12      | Content Security Policy                                                    |        |       |
-| WSTG-CONF-13      | Path Confusion                                                             |        |       |
-| WSTG-CONF-14      | Additional Browser Security Controls                                       |        |       |
-| WSTG-CONF-15      | Feature Flag Security Bypass                                               |        |       |
-| WSTG-CONF-16      | Web Cache Poisoning                                                        |        |       |
+| WSTG-CONF-03      | Review Old Backup and Unreferenced Files for Sensitive Information         |        |       |
+| WSTG-CONF-04      | Enumerate Infrastructure and Application Admin Interfaces                  |        |       |
+| WSTG-CONF-05      | HTTP Methods                                                               |        |       |
+| WSTG-CONF-06      | HTTP Strict Transport Security                                             |        |       |
+| WSTG-CONF-07      | File Permissions                                                           |        |       |
+| WSTG-CONF-08      | Subdomain Takeover                                                         |        |       |
+| WSTG-CONF-09      | Cloud Storage                                                              |        |       |
+| WSTG-CONF-10      | Content Security Policy                                                    |        |       |
+| WSTG-CONF-11      | Path Confusion                                                             |        |       |
+| WSTG-CONF-12      | Additional Browser Security Controls                                       |        |       |
+| WSTG-CONF-13      | Feature Flag Security Bypass                                               |        |       |
+| WSTG-CONF-14      | Web Cache Poisoning                                                        |        |       |
 | **WSTG-IDNT**     | **Identity Management**                                                    |        |       |
 | WSTG-IDNT-01      | Role Definitions                                                           |        |       |
 | WSTG-IDNT-02      | User Registration Process                                                  |        |       |
 | WSTG-IDNT-03      | Account Provisioning Process                                               |        |       |
 | WSTG-IDNT-04      | Account Enumeration and Guessable User Account                             |        |       |
-| WSTG-IDNT-05      | Weak or Unenforced Username Policy                                         |        |       |
-| WSTG-IDNT-06      | Email Address Verification                                                 |        |       |
+| WSTG-IDNT-05      | Email Address Verification                                                 |        |       |
 | **WSTG-ATHN**     | **Authentication**                                                         |        |       |
-| WSTG-ATHN-01      | Credentials Transported over an Encrypted Channel                          |        |       |
-| WSTG-ATHN-02      | Default Credentials                                                        |        |       |
-| WSTG-ATHN-03      | Weak Lock Out Mechanism                                                    |        |       |
-| WSTG-ATHN-04      | Bypassing Authentication Schema                                            |        |       |
-| WSTG-ATHN-05      | Vulnerable Remember Password                                               |        |       |
-| WSTG-ATHN-06      | Browser Cache Weaknesses                                                   |        |       |
-| WSTG-ATHN-07      | Weak Authentication Methods                                                |        |       |
-| WSTG-ATHN-08      | Weak Security Question Answer                                              |        |       |
-| WSTG-ATHN-09      | Weak Password Change or Reset Functionalities                              |        |       |
-| WSTG-ATHN-10      | Weaker Authentication in Alternative Channel                               |        |       |
-| WSTG-ATHN-11      | Multi-Factor Authentication (MFA)                                          |        |       |
-| WSTG-ATHN-12      | SAML Authentication                                                        |        |       |
-| WSTG-ATHN-13      | Passkeys and WebAuthn                                                      |        |       |
-| WSTG-ATHN-14      | OpenID Connect Relying Party                                               |        |       |
+| WSTG-ATHN-01      | Default Credentials                                                        |        |       |
+| WSTG-ATHN-02      | Weak Lock Out Mechanism                                                    |        |       |
+| WSTG-ATHN-03      | Bypassing Authentication Schema                                            |        |       |
+| WSTG-ATHN-04      | Vulnerable Remember Password                                               |        |       |
+| WSTG-ATHN-05      | Browser Cache Weaknesses                                                   |        |       |
+| WSTG-ATHN-06      | Weak Authentication Methods                                                |        |       |
+| WSTG-ATHN-07      | Weak Security Question Answer                                              |        |       |
+| WSTG-ATHN-08      | Weak Password Change or Reset Functionalities                              |        |       |
+| WSTG-ATHN-09      | Weaker Authentication in Alternative Channel                               |        |       |
+| WSTG-ATHN-10      | Multi-Factor Authentication (MFA)                                          |        |       |
+| WSTG-ATHN-11      | SAML Authentication                                                        |        |       |
+| WSTG-ATHN-12      | Passkeys and WebAuthn                                                      |        |       |
+| WSTG-ATHN-13      | OpenID Connect Relying Party                                               |        |       |
 | **WSTG-ATHZ**     | **Authorization**                                                          |        |       |
 | WSTG-ATHZ-01      | Directory Traversal and File Include                                       |        |       |
 | WSTG-ATHZ-02      | Bypassing Authorization Schema                                             |        |       |
@@ -76,35 +72,33 @@ The following is the list of items to test during the assessment:
 | **WSTG-INJT**     | **Injection**                                                              |        |       |
 | WSTG-INJT-01      | Reflected Cross Site Scripting                                             |        |       |
 | WSTG-INJT-02      | Stored Cross Site Scripting                                                |        |       |
-| WSTG-INJT-03      | HTTP Verb Tampering                                                        |        |       |
-| WSTG-INJT-04      | HTTP Parameter Pollution                                                   |        |       |
-| WSTG-INJT-05      | SQL Injection                                                              |        |       |
-| WSTG-INJT-06      | LDAP Injection                                                             |        |       |
-| WSTG-INJT-07      | XML Injection                                                              |        |       |
-| WSTG-INJT-08      | SSI Injection                                                              |        |       |
-| WSTG-INJT-09      | XPath Injection                                                            |        |       |
-| WSTG-INJT-10      | IMAP SMTP Injection                                                        |        |       |
-| WSTG-INJT-11      | Code Injection                                                             |        |       |
-| WSTG-INJT-12      | Command Injection                                                          |        |       |
-| WSTG-INJT-13      | Format String Injection                                                    |        |       |
-| WSTG-INJT-14      | Incubated Vulnerability                                                    |        |       |
-| WSTG-INJT-15      | HTTP Response Splitting                                                    |        |       |
-| WSTG-INJT-16      | HTTP Request Smuggling                                                     |        |       |
-| WSTG-INJT-17      | Host Header Injection                                                      |        |       |
-| WSTG-INJT-18      | Server-side Template Injection                                             |        |       |
-| WSTG-INJT-19      | Server-Side Request Forgery                                                |        |       |
-| WSTG-INJT-20      | Mass Assignment                                                            |        |       |
-| WSTG-INJT-21      | CSV Injection                                                              |        |       |
-| WSTG-INJT-22      | Prototype Pollution                                                        |        |       |
-| WSTG-INJT-23      | Insecure Deserialization                                                   |        |       |
-| WSTG-INJT-24      | Server-side URL Redirect                                                   |        |       |
-| WSTG-INJT-25      | Unicode Normalization and Case Mapping                                     |        |       |
-| WSTG-INJT-26      | JSON Parser Differentials                                                  |        |       |
-| WSTG-INJT-27      | Server-side Document Rendering Injection                                   |        |       |
-| WSTG-INJT-28      | Regular Expression Denial of Service                                       |        |       |
+| WSTG-INJT-03      | HTTP Parameter Pollution                                                   |        |       |
+| WSTG-INJT-04      | SQL Injection                                                              |        |       |
+| WSTG-INJT-05      | LDAP Injection                                                             |        |       |
+| WSTG-INJT-06      | XML Injection                                                              |        |       |
+| WSTG-INJT-07      | SSI Injection                                                              |        |       |
+| WSTG-INJT-08      | XPath Injection                                                            |        |       |
+| WSTG-INJT-09      | IMAP SMTP Injection                                                        |        |       |
+| WSTG-INJT-10      | Code Injection                                                             |        |       |
+| WSTG-INJT-11      | Command Injection                                                          |        |       |
+| WSTG-INJT-12      | Format String Injection                                                    |        |       |
+| WSTG-INJT-13      | Incubated Vulnerability                                                    |        |       |
+| WSTG-INJT-14      | HTTP Response Splitting                                                    |        |       |
+| WSTG-INJT-15      | HTTP Request Smuggling                                                     |        |       |
+| WSTG-INJT-16      | Host Header Injection                                                      |        |       |
+| WSTG-INJT-17      | Server-side Template Injection                                             |        |       |
+| WSTG-INJT-18      | Server-Side Request Forgery                                                |        |       |
+| WSTG-INJT-19      | Mass Assignment                                                            |        |       |
+| WSTG-INJT-20      | CSV Injection                                                              |        |       |
+| WSTG-INJT-21      | Prototype Pollution                                                        |        |       |
+| WSTG-INJT-22      | Insecure Deserialization                                                   |        |       |
+| WSTG-INJT-23      | Server-side URL Redirect                                                   |        |       |
+| WSTG-INJT-24      | Unicode Normalization and Case Mapping                                     |        |       |
+| WSTG-INJT-25      | JSON Parser Differentials                                                  |        |       |
+| WSTG-INJT-26      | Server-side Document Rendering Injection                                   |        |       |
+| WSTG-INJT-27      | Regular Expression Denial of Service                                       |        |       |
 | **WSTG-ERRH**     | **Error Handling**                                                         |        |       |
 | WSTG-ERRH-01      | Improper Error Handling                                                    |        |       |
-| WSTG-ERRH-02      | Stack Traces                                                               |        |       |
 | **WSTG-CRYP**     | **Weak Cryptography**                                                      |        |       |
 | WSTG-CRYP-01      | Weak Transport Layer Security                                              |        |       |
 | WSTG-CRYP-02      | Padding Oracle                                                             |        |       |
@@ -130,18 +124,18 @@ The following is the list of items to test during the assessment:
 | WSTG-CLNT-05      | CSS Injection                                                              |        |       |
 | WSTG-CLNT-06      | Client-side Resource Manipulation                                          |        |       |
 | WSTG-CLNT-07      | Cross Origin Resource Sharing                                              |        |       |
-| WSTG-CLNT-09      | Clickjacking                                                               |        |       |
-| WSTG-CLNT-10      | WebSockets                                                                 |        |       |
-| WSTG-CLNT-11      | Web Messaging                                                              |        |       |
-| WSTG-CLNT-12      | Browser Storage                                                            |        |       |
-| WSTG-CLNT-13      | Cross Site Script Inclusion                                                |        |       |
-| WSTG-CLNT-14      | Reverse Tabnabbing                                                         |        |       |
-| WSTG-CLNT-15      | Client-side Template Injection                                             |        |       |
-| WSTG-CLNT-16      | DOM Clobbering                                                             |        |       |
-| WSTG-CLNT-18      | Cross-Site Leaks                                                           |        |       |
-| WSTG-CLNT-19      | Client-side Path Traversal                                                 |        |       |
-| WSTG-CLNT-20      | Service Workers                                                            |        |       |
-| WSTG-CLNT-21      | DNS Rebinding                                                              |        |       |
+| WSTG-CLNT-08      | Clickjacking                                                               |        |       |
+| WSTG-CLNT-09      | WebSockets                                                                 |        |       |
+| WSTG-CLNT-10      | Web Messaging                                                              |        |       |
+| WSTG-CLNT-11      | Browser Storage                                                            |        |       |
+| WSTG-CLNT-12      | Cross Site Script Inclusion                                                |        |       |
+| WSTG-CLNT-13      | Reverse Tabnabbing                                                         |        |       |
+| WSTG-CLNT-14      | Client-side Template Injection                                             |        |       |
+| WSTG-CLNT-15      | DOM Clobbering                                                             |        |       |
+| WSTG-CLNT-16      | Cross-Site Leaks                                                           |        |       |
+| WSTG-CLNT-17      | Client-side Path Traversal                                                 |        |       |
+| WSTG-CLNT-18      | Service Workers                                                            |        |       |
+| WSTG-CLNT-19      | DNS Rebinding                                                              |        |       |
 | **WSTG-APIT**     | **API Testing**                                                            |        |       |
 | WSTG-APIT-01      | API Reconnaissance                                                         |        |       |
 | WSTG-APIT-02      | API Broken Object Level Authorization                                      |        |       |
