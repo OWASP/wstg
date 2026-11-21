@@ -1464,6 +1464,17 @@
           ]
         },
         {
+          "name": "API Mass Assignment",
+          "id": "WSTG-APIT-07",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/12-API_Testing/07-API_Mass_Assignment",
+          "objectives": [
+            "Identify API endpoints that accept structured input (JSON, XML, form-encoded) for object creation or modification.",
+            "Determine which object properties can be set through client-supplied data by comparing API responses across methods.",
+            "Confirm whether privileged or internal-only properties are accepted through REST-specific vectors (PUT vs PATCH, nested JSON, content-type switching).",
+            "Test GraphQL mutations for field-level authorization bypass."
+          ]
+        },
+        {
           "name": "Inbound Webhooks",
           "id": "WSTG-APIT-09",
           "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/12-API_Testing/09-Inbound_Webhooks",
