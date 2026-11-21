@@ -16,12 +16,9 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # Repo root (…/wstg)
 REPO_ROOT = Path(__file__).resolve().parents[3]
-DOC_BASE = REPO_ROOT / "document" / "4-Web_Application_Security_Testing"
+DOC_BASE = REPO_ROOT / "document"
 OUTPUT_PATH = REPO_ROOT / "checklists" / "checklist.json"
-REFERENCE_PREFIX = (
-    "https://wstg.owasp.org/latest/"
-    "4-Web_Application_Security_Testing/"
-)
+REFERENCE_PREFIX = "https://wstg.owasp.org/latest/"
 
 OPENCRE_STANDARD = "OWASP Web Security Testing Guide (WSTG)"
 OPENCRE_BASE_URL = "https://www.opencre.org/rest/v1/standard"

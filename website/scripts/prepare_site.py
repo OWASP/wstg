@@ -241,10 +241,17 @@ def convert_readmes_to_redirects(channel_root: Path, channel_path: str) -> None:
 
 
 def set_root_index_to_foreword(channel_root: Path) -> None:
-    foreword = channel_root / "0-Foreword" / "index.md"
-    if not foreword.is_file():
-        foreword = channel_root / "0-Foreword" / "README.md"
-    if not foreword.is_file():
+    # "00-Foreword" in the current layout, "0-Foreword" in older tagged releases.
+    foreword = None
+    for folder in ("00-Foreword", "0-Foreword"):
+        for name in ("index.md", "README.md"):
+            candidate = channel_root / folder / name
+            if candidate.is_file():
+                foreword = candidate
+                break
+        if foreword:
+            break
+    if foreword is None:
         raise SystemExit(f"Missing Foreword under {channel_root}")
     shutil.copy2(foreword, channel_root / "index.md")
 

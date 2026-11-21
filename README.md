@@ -10,6 +10,28 @@ Welcome to the official repository for the Open Worldwide Application Security P
 
 We are currently working on release version 5.0. You can [read the current document here on GitHub](https://github.com/OWASP/wstg/tree/master/document).
 
+> [!NOTE]
+> Version 5.0 flattens the former chapter 4 (Web Application Security Testing) into top-level chapters, and chapter folders now use two-digit prefixes so they sort correctly. Test identifiers (`WSTG-<category>-<number>`) are unchanged. Links to the older layout keep working through the [versioned releases](https://github.com/OWASP/wstg/releases) (e.g. v4.2), but `latest` links will break.
+>
+> | v4.2 | v5.0 |
+> | --- | --- |
+> | 4.0 Introduction and Objectives | 4. Introduction and Objectives |
+> | 4.1 Information Gathering | 5. Information Gathering |
+> | 4.2 Configuration and Deployment Management | 6. Configuration and Deployment Management |
+> | 4.3 Identity Management | 7. Identity Management |
+> | 4.4 Authentication | 8. Authentication |
+> | 4.5 Authorization | 9. Authorization |
+> | 4.6 Session Management | 10. Session Management |
+> | 4.7 Input Validation | 11. Injection |
+> | 4.8 Error Handling | 12. Error Handling |
+> | 4.9 Weak Cryptography | 13. Weak Cryptography |
+> | 4.10 Business Logic | 14. Business Logic |
+> | 4.11 Client-side | 15. Client-side |
+> | 4.12 API Testing | 16. API Testing |
+> | (new) | 17. WebAssembly Testing |
+> | 5. Reporting | 18. Reporting |
+> | 6. Appendix | 19. Appendix |
+
 For the last stable release, [check release 4.2](https://github.com/OWASP/wstg/releases/tag/v4.2). Also available [online](https://owasp.org/www-project-web-security-testing-guide/v42/).
 
 - [How To Reference WSTG Scenarios](#how-to-reference-wstg-scenarios)
@@ -47,7 +69,7 @@ This project is only possible thanks to the work of many dedicated volunteers. E
 
 To learn how to contribute successfully, read the [contribution guide](CONTRIBUTING.md).
 
-Successful contributors appear on [the project's list of authors, reviewers, or editors](document/1-About/README.md).
+Successful contributors appear on [the project's list of authors, reviewers, or editors](document/01-About/README.md).
 
 ## Chat With Us
 

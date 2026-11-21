@@ -24,15 +24,15 @@ File: `README.md` (repository root)
 - Update "currently working on" version (e.g., from "4.2" to "5.0").
 - Update "last stable release" version and link.
 
-File: `document/1-About/README.md` (formerly 1-Frontispiece; path may differ)
+File: `document/01-About/README.md` (formerly 1-Frontispiece; path may differ)
 
 - Update version references and dates.
 
-File: `document/2-Introduction/README.md`
+File: `document/02-Introduction/README.md`
 
 - Update version mentions if applicable.
 
-File: `document/6-Appendix/E-History.md`
+File: `document/19-Appendix/A-History.md`
 
 - Add entry for the new release with date, key changes, and authors.
 

@@ -43,7 +43,23 @@ SECTION_NAMES = {
     "2-Introduction": "Introduction",
     "3-The_OWASP_Testing_Framework": "Testing Framework",
     "4-Web_Application_Security_Testing": "Web Application Testing",
+    "00-Foreword": "0. Foreword",
+    "01-About": "1. About",
+    "02-Introduction": "2. Introduction",
+    "03-The_OWASP_Testing_Framework": "3. The OWASP Testing Framework",
+    "19-Appendix": "Appendix",
 }
+
+
+def section_name_for(dirname: str) -> str:
+    """Display name for a section folder, keeping the chapter number without its
+    leading zero (e.g. "05-Information_Gathering" -> "5. Information Gathering")."""
+    if dirname in SECTION_NAMES:
+        return SECTION_NAMES[dirname]
+    m = re.match(r"^(\d+)-(.*)$", dirname)
+    if not m:
+        return dirname.replace("_", " ")
+    return f"{int(m.group(1))}. {m.group(2).replace('_', ' ')}"
 
 
 def get_section_title(path: Path) -> str:
@@ -74,7 +90,7 @@ def gather_content_tree(channel_key: str) -> dict:
         if not section_dir.is_dir() or section_dir.name.startswith("_"):
             continue
 
-        section_name = SECTION_NAMES.get(section_dir.name, section_dir.name.replace("_", " "))
+        section_name = section_name_for(section_dir.name)
         docs = []
 
         for md_file in sorted(section_dir.rglob("*.md")):
@@ -163,7 +179,7 @@ def generate_llms_full_txt(channel_key: str = "latest") -> str:
         if not section_dir.is_dir() or section_dir.name.startswith("_"):
             continue
 
-        section_name = SECTION_NAMES.get(section_dir.name, section_dir.name.replace("_", " "))
+        section_name = section_name_for(section_dir.name)
         lines.append(f"## {section_name}")
         lines.append("")
 

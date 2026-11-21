@@ -1,9 +1,0 @@
-# 4.13 WebAssembly Testing
-
-4.13.0 [WebAssembly Testing Overview](00-WebAssembly_Testing_Overview.md)
-
-4.13.1 [WebAssembly Reconnaissance](01-WebAssembly_Reconnaissance.md)
-
-4.13.2 [WebAssembly Static Analysis](02-WebAssembly_Static_Analysis.md)
-
-4.13.3 [WebAssembly Dynamic Analysis](03-WebAssembly_Dynamic_Analysis.md)
