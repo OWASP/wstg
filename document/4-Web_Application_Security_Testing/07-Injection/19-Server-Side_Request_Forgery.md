@@ -73,6 +73,69 @@ In some cases, a server may convert uploaded files to PDF format. Try injecting 
 <iframe src="file:///c:/windows/win.ini" width="400" height="400">
 ```
 
+### API Entry Points
+
+APIs commonly accept URLs in JSON or XML bodies rather than query strings, for example webhook and callback registration, import-by-URL, avatar or logo fetch, link preview, and identity provider settings. Review the API specification and responses for fields named `url`, `uri`, `callback`, `webhook`, `endpoint`, `redirect`, `host`, `feed`, or `source`, including nested ones.
+
+```http
+POST /api/v1/webhooks HTTP/1.1
+Content-Type: application/json
+
+{"url": "http://127.0.0.1:8080/admin", "events": ["order.created"]}
+```
+
+Test each such field with the payloads above and the [bypasses below](#common-filter-bypass). Also consider:
+
+- Different validation on create and update: register an allowed external URL, then change it to an internal one with an update (`PUT` or `PATCH`) request. Alternatively, register a URL you control that later redirects to an internal address, which tests whether validation happens only once.
+- Delayed fetches: webhook deliveries, report generation, and imports are often processed asynchronously and are blind. Trigger the event, then use the techniques in [Blind SSRF Detection](#blind-ssrf-detection).
+- Other fetching features: link previews and PDF or screenshot generation (see [PDF Generators](#pdf-generators)), and URL-based file import.
+- Request methods: webhook deliveries are usually `POST`, which many internal services (including cloud metadata) do not answer, so confirm with a destination you control before concluding the target is unreachable.
+
+For GraphQL, aliasing or batching the same URL-accepting mutation or query can probe many internal hosts or ports in a single request. See [GraphQL](../12-API_Testing/99-GraphQL.md#batching-attacks).
+
+### Cloud and Container Metadata
+
+If a request can be made to an internal address with a `GET`, try the metadata services of the hosting platform. Obtaining credentials from them is a common way to escalate an SSRF.
+
+```http
+# AWS (IMDSv1)
+http://169.254.169.254/latest/meta-data/iam/security-credentials/
+
+# GCP (requires the header Metadata-Flavor: Google)
+http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token
+
+# Azure (requires the header Metadata: true)
+http://169.254.169.254/metadata/instance?api-version=2021-02-01
+```
+
+- AWS IMDSv2 requires a `PUT` request to obtain a token and a custom header on every request. If the vulnerable feature cannot control the method and headers, IMDSv2 blocks credential theft through that vector, but the SSRF itself remains, so continue testing other internal targets.
+- GCP and Azure require custom headers. Header injection into the outbound request may allow them to be satisfied.
+- AWS ECS and Fargate expose task credentials at `http://169.254.170.2/v2/credentials/<GUID>`. The GUID is only available in the container's `AWS_CONTAINER_CREDENTIALS_RELATIVE_URI` environment variable, so obtain it first, for example by reading `file:///proc/self/environ` as described in [Fetch a Local File](#fetch-a-local-file).
+- EKS Pod Identity serves credentials at `http://169.254.170.23`. IRSA uses a projected token file (`/var/run/secrets/eks.amazonaws.com/serviceaccount/token`) and has no network endpoint, so it is only reachable through a file read.
+- Other internal services may be reachable, for example the Kubernetes API (`https://kubernetes.default.svc/`, which normally returns `401` or `403` without a token, but still shows the API server is reachable), Consul (`http://consul:8500/v1/catalog/services`), and the Docker Engine API if exposed on TCP (`http://host:2375/containers/json`).
+
+### Blind SSRF Detection
+
+When the response does not show the fetched content, use an out-of-band (OAST) service such as Burp Collaborator or interactsh. Submit a unique URL under your control and watch for HTTP and DNS interactions:
+
+```json
+{"url": "http://<OAST_DOMAIN>/ssrf-test-1"}
+```
+
+- A DNS-only interaction indicates the server resolves the host but egress filtering may block the connection. Try different ports and schemes.
+- Callbacks may arrive minutes or hours later for asynchronous features, so keep monitoring and use a unique identifier per injection point.
+- Differences in response time or error messages for open and closed internal ports can also indicate SSRF when no out-of-band interaction is possible.
+
+### Identity Provider Integrations
+
+Features that accept an OpenID Connect issuer or a SAML metadata URL cause the server to fetch the document. Clients append `/.well-known/openid-configuration` to the issuer themselves, so supply only the issuer:
+
+```json
+{"issuer": "http://127.0.0.1:8080"}
+```
+
+A more realistic case is an issuer you control whose discovery document sets `jwks_uri` or `token_endpoint` to an internal address.
+
 ### Common Filter Bypass
 
 Some applications block references to `localhost` and `127.0.0.1`. This can be circumvented by:
@@ -99,6 +162,8 @@ For additional payloads and bypass techniques, see the [references](#references)
 
 - [Directory Traversal and File Include](../05-Authorization/01-Directory_Traversal_File_Include.md)
 - [File Inclusion](11.1-File_Inclusion.md)
+- [Inbound Webhooks](../12-API_Testing/09-Inbound_Webhooks.md)
+- [GraphQL](../12-API_Testing/99-GraphQL.md)
 
 ## Remediation
 
