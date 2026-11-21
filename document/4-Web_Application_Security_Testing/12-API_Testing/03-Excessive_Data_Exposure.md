@@ -101,7 +101,7 @@ Each nested object should be reviewed for fields that exceed what the consuming 
 
 ### Test for Mass Assignment
 
-For endpoints that accept a JSON or XML body, test for mass assignment vulnerabilities by adding extra fields to the request body beyond those displayed in the application interface. Fields such as role identifiers, privilege flags, or account status attributes are high-value targets.
+For endpoints that accept a JSON or XML body, test for mass assignment vulnerabilities by adding extra fields to the request body beyond those displayed in the application interface. Fields such as role identifiers, privilege flags, or account status attributes are high-value targets. For the full set of API mass assignment tests, see [API Mass Assignment](07-API_Mass_Assignment.md).
 
 ### Check for Sensitive Data in GraphQL Responses
 
