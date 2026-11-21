@@ -316,6 +316,17 @@
           "objectives": [
             ""
           ]
+        },
+        {
+          "name": "Email Address Verification",
+          "id": "WSTG-IDNT-06",
+          "reference": "https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/03-Identity_Management/06-Email_Address_Verification",
+          "objectives": [
+            "Determine what an account can do before its email address is verified.",
+            "Assess whether verification and email change flows bind the proof of ownership to the right address and account.",
+            "Determine whether an attacker can pre-create or keep access to an account that will belong to the victim.",
+            "Identify email address syntax that is read differently by the application and by the mail infrastructure, and whether it grants domain-based access."
+          ]
         }
       ]
     },

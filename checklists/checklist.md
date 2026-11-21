@@ -39,6 +39,7 @@ The following is the list of items to test during the assessment:
 | WSTG-IDNT-03      | Account Provisioning Process                                               |        |       |
 | WSTG-IDNT-04      | Account Enumeration and Guessable User Account                             |        |       |
 | WSTG-IDNT-05      | Weak or Unenforced Username Policy                                         |        |       |
+| WSTG-IDNT-06      | Email Address Verification                                                 |        |       |
 | **WSTG-ATHN**     | **Authentication**                                                         |        |       |
 | WSTG-ATHN-01      | Credentials Transported over an Encrypted Channel                          |        |       |
 | WSTG-ATHN-02      | Default Credentials                                                        |        |       |
