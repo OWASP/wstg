@@ -90,6 +90,8 @@ jobs:
           #   --toc-depth=2: show only chapters and first-level sections
           #   --split-level=1: split on H1 headings (chapters)
           #   -M toc-title=Contents: set TOC heading title
+          #   -M title/author/lang: EPUB metadata (dc:title, dc:creator, dc:language)
+          #   --epub-title-page=false: the cover image already serves as the title page
           LINK_MANIFEST="$MANIFEST_PATH" pandoc "${MD_FILES[@]}" \
             --lua-filter=".github/ebooks/filters/links.lua" \
             --lua-filter=".github/ebooks/filters/demote-headings.lua" \
@@ -97,6 +99,10 @@ jobs:
             --toc --toc-depth=2 \
             --split-level=1 \
             -M toc-title=Contents \
+            -M title="OWASP Web Security Testing Guide ${VERSION}" \
+            -M author="OWASP Foundation" \
+            -M lang=en \
+            --epub-title-page=false \
             --epub-cover-image=.github/ebooks/assets/cover.jpg \
             -o "$BUILD_DIR/wstg-typst-${VERSION}.epub"
 
