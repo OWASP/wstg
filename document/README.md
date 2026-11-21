@@ -334,6 +334,8 @@
 
 ### 15.19 [DNS Rebinding](15-Client-side/19-DNS_Rebinding.md)
 
+### 15.20 [Server-Sent Events](15-Client-side/20-Server-Sent_Events.md)
+
 ## 16. [API Testing](16-API_Testing/README.md)
 
 ### 16.0 [API Testing Overview](16-API_Testing/00-API_Testing_Overview.md)
