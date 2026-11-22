@@ -29,7 +29,7 @@ Consequently, spatial and temporal memory safety vulnerabilities allow attackers
 
 ## How to Test
 
-Note: This test case assumes familiarity with the static inspection and runtime memory hooking techniques covered in [WebAssembly Static Analysis (WSTG-WASM-02)](02-WebAssembly_Static_Analysis.md) and [WebAssembly Dynamic Analysis (WSTG-WASM-03)](03-WebAssembly_Dynamic_Analysis.md).
+Note: This test case assumes familiarity with the static inspection and runtime memory hooking techniques covered in [WebAssembly Static Analysis](02-WebAssembly_Static_Analysis.md) and [WebAssembly Dynamic Analysis](03-WebAssembly_Dynamic_Analysis.md).
 
 ### Testing for Stack Buffer Overflows and Host Sink Escalation
 
@@ -229,7 +229,11 @@ To test for cross-boundary integer truncation and internal overflows:
 
 ## Related Test Cases
 
-- [WebAssembly Reconnaissance (WSTG-WASM-01)](01-WebAssembly_Reconnaissance.md)
+- [WebAssembly Reconnaissance](01-WebAssembly_Reconnaissance.md)
+- [WebAssembly Static Analysis](02-WebAssembly_Static_Analysis.md)
+- [WebAssembly Dynamic Analysis](03-WebAssembly_Dynamic_Analysis.md)
+- [Format String Injection](../11-Injection/12-Format_String_Injection.md)
+- [DOM-Based Cross Site Scripting](../15-Client-side/01-DOM-based_Cross_Site_Scripting.md)
 - [WebAssembly Static Analysis (WSTG-WASM-02)](02-WebAssembly_Static_Analysis.md)
 - [WebAssembly Dynamic Analysis (WSTG-WASM-03)](03-WebAssembly_Dynamic_Analysis.md)
 - [Testing for Format String Injection (WSTG-INPV-13)](../11-Injection/12-Format_String_Injection.md)
