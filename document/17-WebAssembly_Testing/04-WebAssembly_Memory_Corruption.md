@@ -234,10 +234,6 @@ To test for cross-boundary integer truncation and internal overflows:
 - [WebAssembly Dynamic Analysis](03-WebAssembly_Dynamic_Analysis.md)
 - [Format String Injection](../11-Injection/12-Format_String_Injection.md)
 - [DOM-Based Cross Site Scripting](../15-Client-side/01-DOM-based_Cross_Site_Scripting.md)
-- [WebAssembly Static Analysis (WSTG-WASM-02)](02-WebAssembly_Static_Analysis.md)
-- [WebAssembly Dynamic Analysis (WSTG-WASM-03)](03-WebAssembly_Dynamic_Analysis.md)
-- [Testing for Format String Injection (WSTG-INPV-13)](../11-Injection/12-Format_String_Injection.md)
-- [Testing for DOM-Based Cross Site Scripting (WSTG-CLNT-01)](../15-Client-side/01-DOM-based_Cross_Site_Scripting.md)
 
 ## Remediation
 
