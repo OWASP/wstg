@@ -370,6 +370,8 @@
 
 ### 17.3 [WebAssembly Dynamic Analysis](17-WebAssembly_Testing/03-WebAssembly_Dynamic_Analysis.md)
 
+### 17.4 [WebAssembly Memory Corruption](17-WebAssembly_Testing/04-WebAssembly_Memory_Corruption.md)
+
 ## 18. [Reporting](18-Reporting/README.md)
 
 ### 18.1 [Reporting Structure](18-Reporting/01-Reporting_Structure.md)
