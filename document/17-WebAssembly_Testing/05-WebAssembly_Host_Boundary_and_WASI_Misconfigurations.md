@@ -11,6 +11,7 @@ WebAssembly (Wasm) enforces a deny-by-default sandbox: a module cannot access th
 Even when a Wasm module is compiled from a memory-safe language such as Rust or Go, misconfigurations at the host boundary or within server-side WebAssembly System Interface (WASI) runtimes (such as Wasmtime, Wasmer, WasmEdge, or edge compute platforms) can introduce severe vulnerabilities. Common failure modes include:
 
 - Exposing overly permissive JavaScript (JS) or host Application Programming Interfaces (APIs) through the module's `importObject`.
+- Weakening browser Content Security Policy (CSP) headers with `'unsafe-eval'` instead of `'wasm-unsafe-eval'` to allow Wasm compilation.
 - Treating data returned from a Wasm module as trusted and passing it into unsanitized DOM sinks, database queries, or shell commands.
 - Granting broad WASI filesystem, environment variable, or network capabilities to untrusted or multi-tenant Wasm workloads.
 - Reusing a single `WebAssembly.Instance` across multiple users or requests without resetting linear memory and global state, leading to cross-tenant data leakage.
@@ -20,6 +21,7 @@ This test case focuses on auditing the host-guest trust boundary in browser, Nod
 ## Test Objectives
 
 - Enumerate all host imports and WASI capabilities granted to a Wasm module and identify overly permissive bindings.
+- Audit browser Content Security Policy (CSP) headers to verify that Wasm execution does not rely on `'unsafe-eval'` or overly broad source allowlists.
 - Test whether attacker-controlled data crossing the JS/Wasm boundary or Foreign Function Interface (FFI) glue code triggers Cross-Site Scripting (XSS), prototype pollution, or host command injection.
 - Verify that WASI filesystem mounts enforce least-privilege directory scoping, read-only permissions where appropriate, and symlink restrictions.
 - Check for leaked host environment variables and unrestricted outbound networking leading to Server-Side Request Forgery (SSRF) in WASI workloads.
@@ -50,6 +52,16 @@ In browser and Node.js runtimes, the host controls what a module can do via the 
    - Browser hosts: wrappers around `eval`, `new Function`, `document.write`, `innerHTML`, `fetch` (without Uniform Resource Locator (URL) allowlisting), or `localStorage`/`document.cookie`.
    - Node.js or custom server hosts: bindings to `child_process`, `fs`, database clients, or internal HTTP clients.
 4. Trace whether untrusted input processed by the Wasm module flows into these imports or into exported return values consumed by the host. For example, a Rust module compiled with `wasm-bindgen` may return a formatted string that the JavaScript caller assigns directly to `element.innerHTML`, causing DOM-based XSS without any memory corruption inside the Wasm binary.
+
+### Auditing Browser Content Security Policy (CSP) for WebAssembly
+
+Modern browsers enforce CSP on WebAssembly compilation and instantiation (`WebAssembly.compile`, `WebAssembly.instantiate`, and `WebAssembly.instantiateStreaming`). Because strict `script-src` policies block Wasm compilation by default, developers frequently weaken the policy to make modules load.
+
+1. Inspect the `Content-Security-Policy` HTTP response header on pages that load `.wasm` modules.
+2. Check whether `script-src` (or `default-src`) includes `'unsafe-eval'` solely to permit WebAssembly execution:
+   - Flag `'unsafe-eval'` as a misconfiguration: it enables arbitrary JavaScript string evaluation (`eval()`, `new Function()`, and string-based `setTimeout()`), weakening XSS protections across the entire origin.
+   - Verify whether the application instead uses the dedicated `'wasm-unsafe-eval'` keyword, which permits Wasm compilation without enabling JavaScript `eval()`.
+3. Review `connect-src` and `script-src` allowlists to ensure `.wasm` binaries cannot be fetched from overly broad or untrusted third-party origins (such as wildcard hosts or unpinned public Content Delivery Networks (CDNs)).
 
 ### Testing Cross-Boundary Serialization and FFI Glue Code
 
@@ -110,15 +122,14 @@ To test for cross-tenant state leakage:
 
 ## Related Test Cases
 
-- [WebAssembly Reconnaissance](01-WebAssembly_Reconnaissance.md)
 - [WebAssembly Static Analysis](02-WebAssembly_Static_Analysis.md)
 - [WebAssembly Dynamic Analysis](03-WebAssembly_Dynamic_Analysis.md)
-- [WebAssembly Memory Corruption](04-WebAssembly_Memory_Corruption.md)
 - [DOM-Based Cross Site Scripting](../15-Client-side/01-DOM-based_Cross_Site_Scripting.md)
 
 ## Remediation
 
 - Apply the principle of least privilege to `importObject` and WASI capabilities: expose only the exact host functions required by the module, and never bind generic execution primitives (`eval`, `Function`, unrestricted `child_process`, or unfiltered `fetch`) to untrusted Wasm code.
+- Use `'wasm-unsafe-eval'` rather than `'unsafe-eval'` in the CSP `script-src` directive when enabling WebAssembly in browsers, and restrict `connect-src` and `script-src` to trusted origins.
 - Treat all values returned by a Wasm module as untrusted input on the host side. Apply context-appropriate encoding, sanitization, and schema validation before passing Wasm output to DOM sinks, SQL queries, or OS APIs.
 - Scope WASI filesystem mounts to dedicated, minimal directories with read-only permissions wherever write access is unnecessary, and avoid mounting directories that contain host secrets or symlinks pointing outside the sandbox.
 - Explicitly allowlist individual environment variables and outbound HTTP/socket destinations rather than inheriting the host environment (`--inherit-env`) or allowing unrestricted egress.
@@ -134,6 +145,7 @@ To test for cross-tenant state leakage:
 ## References
 
 - [WebAssembly Security Model](https://webassembly.org/docs/security/)
+- [MDN Web Docs: CSP `script-src` (`wasm-unsafe-eval`)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/script-src)
 - [WebAssembly System Interface (WASI)](https://wasi.dev/)
 - [WebAssembly Component Model](https://component-model.bytecodealliance.org/)
 - [Wasmtime Security Documentation](https://docs.wasmtime.dev/security.html)
