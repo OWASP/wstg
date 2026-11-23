@@ -258,5 +258,6 @@ Insecure behavior: all 50 requests return the same error response (such as `401`
 - [CWE-346: Origin Validation Error](https://cwe.mitre.org/data/definitions/346.html)
 - [CWE-352: Cross-Site Request Forgery (CSRF)](https://cwe.mitre.org/data/definitions/352.html)
 - [CWE-522: Insufficiently Protected Credentials](https://cwe.mitre.org/data/definitions/522.html)
-- [CWE-613: Insufficient Session Expiration](https://cwe.mitre.org/data/definitions/613.html)
 - [CWE-798: Use of Hard-coded Credentials](https://cwe.mitre.org/data/definitions/798.html)
+- [CWE-1463: Insufficient Session Timeout Value](https://cwe.mitre.org/data/definitions/1463.html)
+- [CWE-1464: Improper Session Invalidation](https://cwe.mitre.org/data/definitions/1464.html)
