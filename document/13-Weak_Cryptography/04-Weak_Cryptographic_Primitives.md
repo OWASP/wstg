@@ -133,12 +133,12 @@ Other common sensitive keywords: sysadmin, root, privilege, pass, key, code, mas
 - Use static code analysis tool to do source code review such as klocwork, Fortify, Coverity, CheckMark for the following cases.
 
 ```text
-CWE-261: Weak Cryptography for Passwords
+CWE-261: Weak Encoding for Password
 CWE-323: Reusing a Nonce, Key Pair in Encryption
 CWE-326: Inadequate Encryption Strength
 CWE-327: Use of a Broken or Risky Cryptographic Algorithm
-CWE-328: Reversible One-Way Hash
-CWE-329: Not Using a Random IV with CBC Mode
+CWE-328: Use of Weak Hash
+CWE-329: Generation of Predictable IV with CBC Mode
 CWE-330: Use of Insufficiently Random Values
 CWE-347: Improper Verification of Cryptographic Signature
 CWE-354: Improper Validation of Integrity Check Value
