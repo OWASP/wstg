@@ -123,7 +123,8 @@ Because `COEP: require-corp` blocks cross-origin subresources unless they opt in
 
 1. Inspect HTTP response headers for the page hosting the threaded Wasm module and its subresources:
    - Verify whether `window.crossOriginIsolated` evaluates to `true` in the browser console.
-   - Check whether sensitive authenticated endpoints (such as JSON APIs, user-specific scripts, or private media) were hastily configured with `Cross-Origin-Resource-Policy: cross-origin` or overly broad `Access-Control-Allow-Origin` headers, allowing third-party origins to embed or read them.
+   - Check whether sensitive user-specific subresources (such as private media, images, or personalized scripts) were hastily configured with `Cross-Origin-Resource-Policy: cross-origin`. While permissive CORP does not allow cross-origin JavaScript to read the raw response body, it permits third-party origins to embed the resource—potentially enabling metadata leaks, Cross-Site Script Inclusion (XSSI), or side-channel exposure in a cross-origin isolated attacker page.
+   - Separately verify that authenticated endpoints (such as JSON APIs) were not configured with overly broad CORS headers (for example, reflected `Access-Control-Allow-Origin` values alongside `Access-Control-Allow-Credentials: true`), which would allow cross-origin JavaScript to directly read sensitive response data.
 2. Check whether the application runs untrusted Wasm code or third-party scripts inside the same cross-origin isolated origin as sensitive secrets:
    - In a cross-origin isolated context, browsers expose higher-resolution timers (`performance.now()`) and `SharedArrayBuffer`-based counting threads, which can facilitate microarchitectural timing attacks against sensitive data residing in the same renderer process.
 
@@ -145,7 +146,7 @@ Because `COEP: require-corp` blocks cross-origin subresources unless they opt in
 - On server-side and edge runtimes, enforce strict execution budgets using fuel metering or epoch-based interruption so runaway loops terminate deterministically.
 - When compiling untrusted Wasm modules, enforce strict binary size and complexity limits, use streaming or baseline compilation modes where appropriate, and isolate compilation in resource-bounded worker processes with timeouts.
 - Copy validated input data out of `SharedArrayBuffer` into private, non-shared memory (or pass immutable copies) before acting on it to eliminate TOCTOU windows, use atomic operations (`i32.atomic.*` / `Atomics`) for all shared synchronization state, and enforce bounded timeouts on `memory.atomic.wait` and `Atomics.wait` calls so faulted threads cannot deadlock the worker pool.
-- Apply `Cross-Origin-Resource-Policy: cross-origin` only to genuinely public static assets when enabling `COOP`/`COEP`, and never execute untrusted Wasm workloads in the same origin or process as sensitive authenticated data.
+- Apply `Cross-Origin-Resource-Policy: cross-origin` only to genuinely public static assets (rather than blanket-applying it or loosening CORS on authenticated endpoints) when enabling `COOP`/`COEP`, and never execute untrusted Wasm workloads in the same origin or process as sensitive authenticated data.
 
 ## Tools
 
