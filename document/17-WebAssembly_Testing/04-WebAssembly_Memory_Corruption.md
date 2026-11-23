@@ -33,7 +33,7 @@ Note: This test case assumes familiarity with the static inspection and runtime 
 
 ### Testing for Stack Buffer Overflows and Host Sink Escalation
 
-When local arrays and variables have their addresses taken in C/C++, compilers allocate them contiguously on the unmanaged shadow stack inside linear memory. An unbounded write (e.g., via `strcpy`, `sprintf`, or `strncpy` where the length parameter is derived from `strlen(source)` rather than the destination capacity) overflows into adjacent variables on the shadow stack or corrupts writable `.data` segments.
+When local arrays and variables have their addresses taken in C/C++, compilers allocate them on the unmanaged shadow stack inside linear memory. However, C and C++ do not guarantee the relative ordering, adjacency, or placement direction of local variables, and compiler optimizations or stack-slot coloring can reorder variables across frames. When an overflowed input buffer happens to reside at a lower linear-memory address than a sensitive local variable or pointer, an unbounded write (e.g., via `strcpy`, `sprintf`, or `strncpy` where the length parameter is derived from `strlen(source)` rather than the destination capacity) overflows upward into adjacent stack variables or corrupts writable `.data` segments.
 
 Memory corruption inside the Wasm sandbox escalates into a critical host vulnerability when corrupted memory is passed back to JavaScript glue code, such as Document Object Model (DOM) sinks, or evaluated via toolchain macros such as Emscripten's `EM_ASM`.
 
@@ -56,20 +56,21 @@ void render_greeting(char* username) {
 
 To test and exploit this condition:
 
-1. Identify functions that copy user-controlled input into local buffers adjacent to state variables, static `.data` templates, or buffers passed to host imports (`EM_ASM`, `emscripten_run_script`, or DOM manipulation wrappers).
-2. Determine the exact byte distance (delta) between the start of the input buffer (`display_name`) and the target buffer (`script_tpl`) on the shadow stack (e.g., `32` bytes due to stack alignment).
-3. Supply a payload that pads the input buffer and overwrites the adjacent command or template buffer with an execution payload:
-   - Browser host (DOM XSS):
+1. Identify functions that copy user-controlled input into local buffers alongside state variables, static `.data` templates, or buffers passed to host imports (`EM_ASM`, `emscripten_run_script`, or DOM manipulation wrappers).
+2. Inspect the compiled module's disassembly (`wasm2wat` or `wasm-objdump -d`) or runtime linear memory to verify the actual compiled stack layout—confirming that the target buffer (`script_tpl`) is placed at a higher linear-memory address than the input buffer (`display_name`) in that specific build—and measure the exact byte distance (delta) between their starting addresses.
+3. Supply a payload matching the verified offset for the target build (for example, `32` bytes of padding is illustrative for a build where alignment places `script_tpl` 32 bytes above `display_name`, rather than a universal offset) to overwrite the adjacent command or template buffer with an execution payload:
 
-    ```text
-    AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAalert(document.domain);//
-    ```
+    - Browser host (DOM XSS):
 
-   - Server-side or Node.js host (RCE):
+        ```text
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAalert(document.domain);//
+        ```
 
-    ```text
-    AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAconst { execSync } = require('child_process'); console.log(execSync('id').toString());//
-    ```
+    - Server-side host (RCE):
+
+        ```text
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAconst { execSync } = require('child_process'); console.log(execSync('id').toString());//
+        ```
 
 4. Trigger the function and verify whether the overwritten memory buffer executes within the host JavaScript context.
 
@@ -77,28 +78,36 @@ To test and exploit this condition:
 
 In raw `wasm-ld` invocations and legacy or custom toolchain builds compiled without `--stack-first`, the shadow stack is placed after the writable `.data` and `.bss` sections and grows downward toward them. Unbounded recursion or large dynamic stack frames (`alloca`, oversized local arrays) in such builds do not crash the module: once the stack pointer descends past the bottom of the stack region, each new frame silently overwrites globals and static data.
 
-Consider a module that derives recursion depth from user input:
+When evaluating or constructing recursion test cases, note that optimizing compilers can eliminate unused stack buffers via dead-store elimination or collapse recursive calls via tail-call optimization. To reliably accumulate shadow-stack frames, the buffer must be preserved in linear memory (e.g., via `volatile` stores) and read after the recursive call so the frame remains live across recursion:
 
 ```c
 int is_admin = 0; // Zero-initialized global stored in .bss, below the shadow stack
 
-void process(int depth, char* note) {
-    char frame[64];
-    strncpy(frame, note, 64); // Attacker-controlled frame contents
-    if (depth > 0)
-        process(depth - 1, note);
+__attribute__((noinline))
+int process(int depth, const char* note) {
+    volatile char frame[64];
+    for (int i = 0; i < 64; i++) {
+        frame[i] = note[i]; // Attacker-controlled frame contents
+    }
+    if (depth <= 0) {
+        return frame[0];
+    }
+    // Reading frame after recursion prevents tail-call elimination and dead-store elimination
+    return process(depth - 1, note) + frame[depth & 63];
 }
 
-void handle_request(int depth, char* note) {
+int handle_request(int depth, const char* note) {
     // Flaw: the depth bound exceeds the shadow stack capacity (64 KiB)
-    if (depth < 1500)
-        process(depth, note);
+    if (depth > 0 && depth < 1500) {
+        return process(depth, note);
+    }
+    return 0;
 }
 ```
 
 To test for shadow-stack exhaustion:
 
-1. Check whether the module places the shadow stack above `.data` and `.bss` (by inspecting the initial value of the stack pointer `global[0]` relative to data segment offsets) and estimate the per-frame cost (here, roughly 80 bytes: a 64-byte buffer plus saved arguments and alignment).
+1. Check whether the module places the shadow stack above `.data` and `.bss` by inspecting the initial value of the stack pointer (`global[0]`) relative to data segment offsets, and disassemble the target recursive function (`wasm2wat` or `wasm-objdump -d`) to inspect its stack-pointer decrement (`global.get 0` / `i32.sub` / `global.set 0`) and establish the exact per-frame stack consumption in the compiled Wasm binary rather than relying on source-level estimates.
 2. Drive the recursion depth or allocation size from user input until the cumulative frame size crosses the bottom of the stack region (e.g., submit `depth` values in increasing steps).
 3. Verify whether the global (`is_admin`) now holds attacker-influenced frame contents instead of the module trapping (a clean crash indicates the depth bound remained within the stack region or hit address `0`, not that the recursion flaw is absent).
 4. Confirm that the corruption is silent in uninstrumented builds: builds compiled with `-sSTACK_OVERFLOW_CHECK` or `-sASSERTIONS` abort with `Stack overflow!` when Emscripten's stack cookies are clobbered, whereas uninstrumented builds without `--stack-first` corrupt `.data` and `.bss` without any error.
@@ -108,11 +117,11 @@ To test for shadow-stack exhaustion:
 
 Although attackers cannot overwrite return addresses on the managed call stack, C/C++ function pointers and C++ virtual method tables (`vtables`) are stored in linear memory as 32-bit integers representing indices into the module's `__indirect_function_table`. At runtime, these indices are invoked via the `call_indirect` instruction.
 
-Consider a function where a buffer sits adjacent to a function pointer on the shadow stack:
+Consider a function where a buffer sits adjacent to a function pointer on the shadow stack (the table indices noted in comments below are illustrative; actual table indices are assigned by the compiler and linker rather than fixed by the WebAssembly ABI):
 
 ```c
-bool run_privileged_task() { return true; }  // Table index 1
-bool run_standard_task()   { return false; } // Table index 2
+bool run_privileged_task() { return true; }  // Illustrative table index (e.g., 1)
+bool run_standard_task()   { return false; } // Illustrative table index (e.g., 2)
 
 bool dispatch_task(char* token) {
     bool (*task_handler)(void) = 0;
@@ -132,12 +141,12 @@ bool dispatch_task(char* token) {
 
 To test for indirect call redirection:
 
-1. Inspect the module's `Elem` section to map the valid function indices registered in `__indirect_function_table` (for example, index `1` for `run_privileged_task` and index `2` for `run_standard_task`).
+1. Inspect the module's `Elem` section to map the actual function indices registered in `__indirect_function_table` for the compiled binary (for instance, `run_privileged_task` might be assigned index `1` in one build, but this varies by toolchain and linkage).
 2. Verify that the target function shares the exact Wasm type signature `(param ...) (result ...)` expected by the `call_indirect` instruction; otherwise, the runtime will trap with a signature mismatch.
-3. Overflow the adjacent buffer (`token_buf[16]`) to overwrite the stored `i32` function pointer with the target table index (`0x01`). Because `task_handler` is initialized to `0` and linear memory is little-endian, writing `\x01` (plus the trailing null byte from `strcpy`) sets the index to `1`; adjust the padding length if compiler stack alignment inserts extra bytes between the buffer and the pointer:
+3. Verify the compiled stack offset between `token_buf` and `task_handler`, then overflow `token_buf` to overwrite the stored `i32` function pointer with the target table index resolved in Step 1 (using `0x01` as an illustrative example where `task_handler` is initialized to `0` and linear memory is little-endian):
 
    ```javascript
-   // Padding to reach task_handler (adjust if stack alignment adds bytes), followed by table index 1
+   // Illustrative payload assuming 16-byte distance and target table index 1 from the module's Elem section
    const payload = "A".repeat(16) + "\x01";
    ```
 
@@ -145,9 +154,9 @@ To test for indirect call redirection:
 
 ### Testing for Heap Use-After-Free (UAF) and Double Free
 
-WebAssembly modules compiled from C/C++ bundle a linear-memory allocator (such as `dlmalloc` or `emmalloc`) to manage dynamic heap chunks. Because WebAssembly lacks randomized heap allocation (no ASLR), heap behavior is strictly deterministic: when a chunk is freed via `free()`, it is placed into a freelist bin and immediately reused for subsequent `malloc()` requests of a matching size.
+WebAssembly modules compiled from C/C++ bundle a linear-memory allocator (such as `dlmalloc` or `emmalloc`) to manage dynamic heap chunks. While WebAssembly lacks randomized heap placement (no ASLR), whether a freed chunk is reused by a subsequent `malloc()` request depends on the specific allocator implementation, size-class binning, chunk coalescing, prior allocation history, and any intervening allocations.
 
-If the application retains a dangling pointer to a freed struct on the heap, an attacker who can trigger a new allocation of the same size can overwrite the freed struct's fields.
+If the application retains a dangling pointer to a freed struct on the heap, an attacker who can trigger a new allocation that reclaims the freed chunk can overwrite the freed struct's fields.
 
 ```c
 typedef struct {
@@ -173,18 +182,18 @@ void store_note(int size, char* note) {
 }
 ```
 
-To test for deterministic Heap UAF:
+To test for Heap UAF:
 
 1. Identify workflows where an object or structure is freed (`close_session`), but references to the pointer remain accessible to validation routines (e.g., an authorization check reading `active_session->role`).
-2. Trigger the deallocation function to place the target chunk into the allocator's freelist.
-3. Trigger a user-controlled allocation (`store_note`) requesting a byte size equal or close to the freed structure (`40` bytes). The deterministic allocator will assign the exact same linear memory address to the new buffer.
+2. Trigger the deallocation function to place the target chunk into the allocator's freelist, minimizing intervening allocations that could consume or split the freed chunk.
+3. Trigger a user-controlled allocation (`store_note`) requesting a byte size matching the freed structure's size class (`40` bytes), and verify the pointer address returned by `malloc` (via runtime inspection, memory hooks, or observing overlapping reads/writes) to confirm that the allocator reassigned the freed chunk's linear memory address rather than assuming immediate reuse.
 4. Populate the new allocation with padding aligned to the target struct's layout (`32` bytes of `'A'` followed by `"admin"`).
 5. Invoke the validation routine that dereferences the dangling pointer (`active_session->role`) and confirm whether it reads the attacker-supplied value (`"admin"`).
 
-A closely related condition is the double free (`free()` invoked twice on the same chunk). Bundled linear-memory allocators perform limited metadata validation compared to hardened native allocators, and layout is fully deterministic. To test:
+A closely related condition is the double free (`free()` invoked twice on the same chunk). Bundled linear-memory allocators perform limited metadata validation compared to hardened native allocators, and heap layout is reproducible for a given allocator implementation and allocation sequence. To test:
 
 1. Invoke the deallocation routine twice on the same object and observe whether the allocator aborts (`dlmalloc` ships basic consistency checks) or silently corrupts the freelist (`emmalloc` performs minimal validation).
-2. Perform subsequent allocations in the relevant size classes and check whether two logically distinct objects resolve to the same linear memory address (overlapping chunks), allowing a write through one handle to corrupt the other.
+2. Perform subsequent allocations in the relevant size classes and inspect the returned addresses to determine whether two logically distinct objects resolve to the same linear memory address (overlapping chunks), allowing a write through one handle to corrupt the other.
 
 ### Testing for Format String Vulnerabilities in Linear Memory
 
@@ -214,8 +223,10 @@ if (index == 1) {
 To test for cross-boundary integer truncation and internal overflows:
 
 1. JS-to-Wasm truncation bypass: When JavaScript blocks a specific positive integer `N` (such as index `1`) while allowing larger positive numbers, supply `2^32 + N` (for `N = 1`, send `4294967297` / `0x100000001`).
-   - In JavaScript: `4294967297 == 1` evaluates to `false`, and `4294967297 >= 0` evaluates to `true`, bypassing the filter.
-   - Across the Wasm boundary: The `i32` parameter truncates the upper bits, converting `4294967297` directly into `1` inside the C function and returning the restricted array element (`records[1]`).
+
+    - In JavaScript: `4294967297 == 1` evaluates to `false`, and `4294967297 >= 0` evaluates to `true`, bypassing the filter.
+    - Across the Wasm boundary: The `i32` parameter truncates the upper bits, converting `4294967297` directly into `1` inside the C function and returning the restricted array element (`records[1]`).
+
 2. Allocation size wrap-around: When an exported Wasm function calculates buffer sizes internally (e.g., `malloc(len + 1)` or `malloc(count * 4)`), pass boundary values such as `0xFFFFFFFF` (`-1` / `4294967295`) or `0x40000001` (`1073741825`) to wrap 32-bit multiplication or addition, resulting in an undersized heap allocation followed by an out-of-bounds heap write.
 
 ### Analysis Notes and Limitations
@@ -223,7 +234,7 @@ To test for cross-boundary integer truncation and internal overflows:
 - Page-granular trap boundaries: WebAssembly only traps (`RuntimeError: memory access out of bounds`) when a memory read or write crosses the outer limit of allocated 64 KiB pages. Out-of-bounds operations within allocated pages execute silently. Pages added at runtime through `memory.grow` are zero-filled, and bounds checks compare against the current page count rather than the module's declared maximum.
 - Emscripten stack cookies: Assertion-enabled Emscripten builds include JavaScript helpers (`writeStackCookie` and `checkStackCookie`) that place magic values (`0x02135467` and `0x89BACDFE`) at the end of the shadow stack, plus a `0x63736d65` (`'emsc'`) sentinel at address `0` when null-write detection (`CHECK_NULL_WRITES`) is enabled. Unlike native per-function stack canaries checked before every `ret` instruction, these cookies are verified at thread startup, at the end of each JavaScript tick, and at program exit (`-sSTACK_OVERFLOW_CHECK=1`); `-sSTACK_OVERFLOW_CHECK=2` additionally instruments every stack-pointer assignment, catching overflows closer to their origin. Intra-frame stack overflows between local variables remain undetected in default builds.
 - Signature enforcement on `call_indirect`: Unlike native Return-Oriented Programming (ROP) or Jump-Oriented Programming (JOP), `call_indirect` cannot jump to arbitrary byte offsets. Redirection is strictly restricted to functions listed in `__indirect_function_table` that match the call site's exact parameter and return type signature.
-- Residual data in reused heap chunks: Fresh linear memory pages (including pages added by `memory.grow`) are zero-filled, so no information crosses module instances. Within a long-running instance, however, freed chunks retain their contents until overwritten and `malloc` does not zero memory: sensitive data such as tokens, keys, or Personally Identifiable Information (PII) processed in one session can leak to the next user of the same instance, particularly on server-side and edge runtimes. Test by storing a secret, freeing it, reallocating the same size class, and reading the buffer without initializing it.
+- Residual data in reused heap chunks: Fresh linear memory pages (including pages added by `memory.grow`) are zero-filled, so no information crosses module instances. Within a long-running instance, however, freed chunks retain their contents until overwritten and `malloc` does not zero memory: sensitive data such as tokens, keys, or Personally Identifiable Information (PII) processed in one session can leak to the next user of the same instance, particularly on server-side and edge runtimes. Test by storing a secret, freeing it, reallocating a chunk that reclaims the same linear memory address, and reading the buffer without initializing it.
 - Shared memory and threads: Modules built with POSIX threads (`-pthread`) share a single `WebAssembly.Memory` across workers. Bounds checks remain per-access, but check-then-use patterns on shared indices and pointers introduce Time-of-Check to Time-of-Use (TOCTOU) race conditions that can defeat validation performed on the main thread.
 - 64-bit linear memory (`memory64`): Engines supporting the `memory64` proposal raise the linear memory index type to 64 bits. Modules compiled against 64-bit memories change the boundary behavior documented in this test case: JavaScript interactions with `i64` values use `BigInt` (`ToBigInt64` rather than `ToInt32` truncation), so 32-bit truncation techniques must be re-evaluated for `i64` boundaries.
 
