@@ -110,7 +110,7 @@ To test for shared-memory concurrency flaws:
 2. Identify shared buffers, ring buffers, or state structs in `SharedArrayBuffer` that are accessed from both JavaScript and Wasm workers.
 3. Look for non-atomic loads/stores (`i32.load`, `i32.store`) operating on shared flags, lengths, or indices instead of atomic operations (`i32.atomic.load`, `i32.atomic.rmw.cmpxchg`).
 4. Test for TOCTOU by spawning concurrent requests or modifying the target offset in `SharedArrayBuffer` in a tight loop from the browser console or a worker while triggering the validation-and-execution flow. Observe whether the Wasm worker acts on modified data that would have failed the initial check.
-5. Check for unbounded blocking waits (`memory.atomic.wait32`, `memory.atomic.wait64`, or `Atomics.wait` with no timeout). Trigger error paths or dropped messages between threads to verify whether a missing `memory.atomic.notify` or an unreleased mutex permanently deadlocks worker threads and starves the worker pool.
+5. Check for unbounded blocking waits (`memory.atomic.wait32`, `memory.atomic.wait64`, or `Atomics.wait` with no timeout) inside worker threads, and separately check for main-thread misuse—calling `Atomics.wait` on the browser's main thread throws a `TypeError` (and blocking `memory.atomic.wait*` traps) rather than blocking, so main-thread code must use `Atomics.waitAsync`. In workers, trigger error paths or dropped messages between threads to verify whether a missing `memory.atomic.notify` or an unreleased mutex permanently deadlocks worker threads and starves the worker pool.
 
 ### Auditing Cross-Origin Isolation (`COOP`/`COEP`) and Side-Channel Exposure
 
@@ -145,7 +145,7 @@ Because `COEP: require-corp` blocks cross-origin subresources unless they opt in
 - Offload long-running browser Wasm workloads to dedicated Web Workers so they cannot freeze the main UI thread, and enforce timeouts via `Worker.terminate()`.
 - On server-side and edge runtimes, enforce strict execution budgets using fuel metering or epoch-based interruption so runaway loops terminate deterministically.
 - When compiling untrusted Wasm modules, enforce strict binary size and complexity limits, use streaming or baseline compilation modes where appropriate, and isolate compilation in resource-bounded worker processes with timeouts.
-- Copy validated input data out of `SharedArrayBuffer` into private, non-shared memory (or pass immutable copies) before acting on it to eliminate TOCTOU windows, use atomic operations (`i32.atomic.*` / `Atomics`) for all shared synchronization state, and enforce bounded timeouts on `memory.atomic.wait` and `Atomics.wait` calls so faulted threads cannot deadlock the worker pool.
+- Copy validated input data out of `SharedArrayBuffer` into private, non-shared memory (or pass immutable copies) before acting on it to eliminate TOCTOU windows, use atomic operations (`i32.atomic.*` / `Atomics`) for all shared synchronization state, and enforce bounded timeouts on worker-side `memory.atomic.wait` and `Atomics.wait` calls (using `Atomics.waitAsync` on the main thread) so faulted threads cannot deadlock the worker pool or throw runtime errors.
 - Apply `Cross-Origin-Resource-Policy: cross-origin` only to genuinely public static assets (rather than blanket-applying it or loosening CORS on authenticated endpoints) when enabling `COOP`/`COEP`, and never execute untrusted Wasm workloads in the same origin or process as sensitive authenticated data.
 
 ## Tools
