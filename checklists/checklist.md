@@ -152,3 +152,4 @@ The following is the list of items to test during the assessment:
 | WSTG-WASM-01      | WebAssembly Reconnaissance                                                 |        |       |
 | WSTG-WASM-02      | WebAssembly Static Analysis                                                |        |       |
 | WSTG-WASM-03      | WebAssembly Dynamic Analysis                                               |        |       |
+| WSTG-WASM-04      | WebAssembly Memory Corruption                                              |        |       |

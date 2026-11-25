@@ -1517,6 +1517,19 @@
             "Debug executing modules at runtime using instruction-level breakpoints within disassembled WAT views.",
             "Test client-side business logic and validation routines by invoking exported functions with crafted inputs via the browser console."
           ]
+        },
+        {
+          "name": "WebAssembly Memory Corruption",
+          "id": "WSTG-WASM-04",
+          "reference": "https://wstg.owasp.org/latest/17-WebAssembly_Testing/04-WebAssembly_Memory_Corruption",
+          "objectives": [
+            "Exploit stack buffer overflows to overwrite adjacent variables, authorization flags, or command buffers in linear memory.",
+            "Trigger shadow-stack exhaustion via deep recursion or oversized stack frames to overwrite global (`.data` and `.bss`) state.",
+            "Corrupt static `.data` segments or stack buffers passed to JavaScript sinks and inline macros (such as `EM_ASM`) to achieve XSS or host code execution.",
+            "Subvert internal module control flow by overwriting function pointers (`__indirect_function_table` indices) used in `call_indirect` dispatches.",
+            "Exploit heap Use-After-Free (UAF) and double-free conditions to overwrite the contents of freed-and-reallocated chunks and subvert authentication or state checks.",
+            "Trigger format string vulnerabilities and 32-bit integer truncations across the JS/Wasm boundary to bypass host validation and achieve arbitrary memory reads or writes."
+          ]
         }
       ]
     }
