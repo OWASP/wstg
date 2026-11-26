@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="410" viewBox="0 0 860 410" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <rect width="860" height="410" fill="#ffffff"/>
+  <text x="430" y="24" text-anchor="middle" fill="#334155" font-size="13" font-weight="bold">Which part of a forged request each CSRF defense checks, and what to change when testing it</text>
+  <!-- forged request -->
+  <rect x="20" y="48" width="390" height="214" rx="6" fill="#eef2f7" stroke="#334155" stroke-width="1.5"/>
+  <text x="34" y="44" fill="#64748b" font-size="11">Forged request sent by the victim's browser</text>
+  <g fill="#e2e8f0">
+    <rect x="28" y="110" width="374" height="20" rx="3"/>
+    <rect x="28" y="132" width="374" height="20" rx="3"/>
+    <rect x="28" y="154" width="374" height="20" rx="3"/>
+    <rect x="28" y="176" width="374" height="20" rx="3"/>
+    <rect x="28" y="220" width="374" height="20" rx="3"/>
+  </g>
+  <g fill="#0f172a" font-family="monospace" font-size="12">
+    <text x="36" y="76">POST /account/email HTTP/1.1</text>
+    <text x="36" y="98">Host: example.com</text>
+    <text x="36" y="125">Origin: https://attacker.example</text>
+    <text x="36" y="147">Referer: https://attacker.example/</text>
+    <text x="36" y="169">Sec-Fetch-Site: cross-site</text>
+    <text x="36" y="191">Cookie: session=...; csrf=...</text>
+    <text x="36" y="235">email=a@attacker.example&amp;csrf=...</text>
+  </g>
+  <!-- defenses -->
+  <g fill="#ffffff" stroke="#334155" stroke-width="1.5">
+    <rect x="480" y="48" width="360" height="54" rx="6"/>
+    <rect x="480" y="112" width="360" height="54" rx="6"/>
+    <rect x="480" y="176" width="360" height="54" rx="6"/>
+    <rect x="480" y="240" width="360" height="54" rx="6"/>
+    <rect x="480" y="304" width="360" height="54" rx="6"/>
+  </g>
+  <g fill="#0f172a">
+    <text x="494" y="69" font-weight="bold">Origin and Referer check</text>
+    <text x="494" y="89" font-size="12" fill="#334155">Try: no referrer (Origin: null), look-alike host, GET</text>
+    <text x="494" y="133" font-weight="bold">Fetch Metadata check</text>
+    <text x="494" y="153" font-size="12" fill="#334155">Try: send from a subdomain (same-site)</text>
+    <text x="494" y="197" font-weight="bold">SameSite session cookie</text>
+    <text x="494" y="217" font-size="12" fill="#334155">Try: GET or _method override, a subdomain page</text>
+    <text x="494" y="261" font-weight="bold">CSRF token</text>
+    <text x="494" y="281" font-size="12" fill="#334155">Try: remove, empty, another user's token, GET</text>
+    <text x="494" y="325" font-weight="bold">Double-submit cookie</text>
+    <text x="494" y="345" font-size="12" fill="#334155">Try: set the csrf cookie from a subdomain</text>
+  </g>
+  <!-- arrows: defense -> checked part of the request -->
+  <defs>
+    <marker id="a" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#334155"/>
+    </marker>
+  </defs>
+  <g stroke="#334155" stroke-width="1.5" fill="none" marker-end="url(#a)">
+    <path d="M480,70 C450,70 440,120 412,120"/>
+    <path d="M480,80 C455,80 445,142 412,142"/>
+    <path d="M480,139 C450,139 440,164 412,164"/>
+    <path d="M480,203 C450,203 440,186 412,186"/>
+    <path d="M480,267 C450,267 440,230 412,230"/>
+    <path d="M480,326 C440,326 445,190 412,190" stroke-dasharray="4 3"/>
+    <path d="M480,334 C440,334 445,234 412,234" stroke-dasharray="4 3"/>
+  </g>
+  <text x="430" y="384" text-anchor="middle" fill="#64748b" font-size="11">Host the proof of concept on a different site. A page on any subdomain is same-site: SameSite cookies are sent with its requests,</text>
+  <text x="430" y="399" text-anchor="middle" fill="#64748b" font-size="11">it gets Sec-Fetch-Site: same-site, and it can set cookies for the parent domain.</text>
+</svg>
