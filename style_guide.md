@@ -129,7 +129,7 @@ Avoid using passive voice. For example:
 
 ### Second Person
 
-Do not write in the first or third person, such as by using *I* or *he*. When giving technical instruction, address the reader in the second person. Use a [zero or implied subject](https://en.wikipedia.org/wiki/Subject_(grammar)#Forms_of_the_subject), or if you must, use *you*.
+Do not write in the first or third person, such as by using *I* or *he*. When giving technical instruction, address the reader in the second person. Use a [zero or implied subject](https://en.wikipedia.org/wiki/Subject_(grammar)#Forms_of_the_subject_in_English), or if you must, use *you*.
 
 > Bad: "He/she/an IT monkey would run this code to test..."  
 > Better: "By running this code, you can test..."  
