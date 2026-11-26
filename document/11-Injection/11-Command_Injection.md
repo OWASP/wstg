@@ -267,10 +267,12 @@ The following APIs in different programming languages can execute operating syst
 | C/C++ | `system()`, `exec()`, `ShellExecute()` |
 | Python | `exec()`, `eval()`, `os.system()`, `os.popen()`, `subprocess.Popen()`, `subprocess.call()` |
 | PHP | `system()`, `shell_exec()`, `exec()`, `proc_open()`, `eval()`, `passthru()` |
-| Node.js | `child_process.exec()`, `execSync()`, `spawn()` |
+| Node.js | `child_process.exec()`, `execSync()`; `spawn()`, `spawnSync()`, `execFile()`, `execFileSync()` when called with `shell: true` |
 | Ruby | `system()`, `exec()`, `Open3.popen3()` |
 | Go | `exec.Command()` |
 | C# | `Process.Start()` |
+
+APIs that take the program and its arguments as separate values and do not start a shell, such as Node.js [`spawn()` and `execFile()` without the `shell` option](https://nodejs.org/api/child_process.html#asynchronous-process-creation), pass characters like `;` and `|` to the program literally. Shell metacharacter payloads will not work against them, but they may still be vulnerable to argument injection, where user input that starts with `-` is read as an option by the called program.
 
 ## Remediation
 
