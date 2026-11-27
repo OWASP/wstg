@@ -1,0 +1,145 @@
+---
+layout: document
+title: WSTG - Latest
+collection_name: latest
+channel_label: Latest
+channel_path: latest
+render_with_liquid: false
+---
+
+# Web Cache Poisoning
+
+|ID          |
+|------------|
+|WSTG-CONF-14|
+
+## Summary
+
+Web caches and CDNs store responses so later requests can be served without contacting the origin. A cache keys each stored response on a subset of the request: typically the method, scheme, host, path, and query string, sometimes selected headers, cookies, or further query parameters. Anything that changes the origin response but is absent from that key is an unkeyed input.
+
+Web cache poisoning occurs when an attacker supplies an unkeyed input that makes the origin emit a malicious or incorrect response, and the cache stores that response under a key that ordinary users later request. Impacts include stored XSS, open redirects, denial of service through cached errors or empty bodies, and leakage of authenticated content into a shared cache.
+
+This test is about discovering and validating the cache key. It is distinct from:
+
+- [Path Confusion](../11-Path_Confusion/), which covers cache deception through path identity mismatches.
+- [Host Header Injection](../../11-Injection/16-Host_Header_Injection/), which covers one common poisoning input.
+- [HTTP Request Smuggling](../../11-Injection/15-HTTP_Request_Smuggling/), which can also poison caches through desynchronization.
+
+## Test Objectives
+
+- Identify which responses are cacheable and which request inputs form the cache key.
+- Find unkeyed headers, cookies, query parameters, or method-override inputs that change the origin response.
+- Confirm that a clean request without the unkeyed input receives the poisoned or incorrect cached response.
+- Verify that authenticated or personalized responses are not stored under keys reachable by other users.
+
+## How to Test
+
+Perform these tests only against assets you own or have written authorization to test. Prefer dedicated staging or uniquely named disposable URLs. Never prime a shared production asset with a harmful payload.
+
+### 1. Establish a Cache Oracle
+
+1. Choose a target URL that returns a stable body and is likely static or semi-static.
+2. Append a unique cache-buster query parameter that the application ignores, for example `?wstg_cb=<random>`.
+3. Before trusting the buster, confirm it is part of the cache key: request the same path with two different buster values. Both should miss (or otherwise stay independent). If the second buster is a hit of the first, the CDN is dropping the query string from the key for that resource, and every later "isolated" probe can poison the real URL. Stop and use a different path or a keyed input instead.
+4. Request the URL twice with the same buster. Compare:
+   - Status and body.
+   - `Age`, `X-Cache`, `CF-Cache-Status`, `X-Cache-Status`, `X-Drupal-Cache`, or equivalent.
+   - `Cache-Control`, `Expires`, `Vary`, `ETag`, and `Last-Modified`.
+5. A rising `Age`, a hit/miss transition, or an identical body served faster on the second request indicates a cache is participating.
+
+### 2. Discover the Cache Key
+
+Do not send a baseline request first under the same cache-buster. If the baseline is cached, an unkeyed mutation becomes a cache hit and never reaches the origin, which hides the vulnerability.
+
+For each candidate input:
+
+1. Choose a fresh cache-buster that has not been requested before and that you confirmed is keyed in Establish a Cache Oracle.
+2. Send the mutated request first (cache miss) so it reaches the origin, changing only one candidate input.
+3. Send a clean request with that same cache-buster and no mutation.
+4. Fetch a baseline response with a separate cache-buster for comparison.
+
+| Observation | Meaning |
+|-------------|---------|
+| Clean request returns the mutated response | The input is unkeyed. Cache poisoning is possible. |
+| Clean request returns the baseline response | The input is keyed, or the mutated response was not stored. |
+| Mutated request is never cached | The cache may exclude that header or status. Record it and continue. |
+
+Candidate unkeyed inputs to try one at a time:
+
+- Headers that applications often trust: `X-Forwarded-Host`, `X-Forwarded-Scheme`, `X-Forwarded-Proto`, `X-Original-URL`, `X-Rewrite-URL`, `X-Host`, `Forwarded`.
+- Content negotiation and routing: `Accept`, `Accept-Language`, `Accept-Encoding`, `Accept-Version`, custom API version headers.
+- Method overrides: `X-HTTP-Method-Override`, `X-HTTP-Method`, `X-Method-Override` on a GET that the origin treats as HEAD or another method.
+- Cookies that change page content but may be absent from the cache key.
+- Query parameters the cache may exclude from the key while the origin still reads them: marketing parameters such as `utm_source`, `utm_campaign`, `fbclid`, and parameter-cloaking forms that append or duplicate a keyed parameter after an excluded one.
+- Oversized or duplicate header chains that the cache accepts but the origin rejects. That is [cache-poisoned denial of service (CPDoS)](https://cpdos.org/), not a harmless canary. Use only unique cache-busted URLs, increase size gradually, and stop at the agreed lab limit.
+
+### 3. Validate With Harmless Canaries
+
+Prefer canaries that prove impact without harming other users:
+
+- Reflect a unique token into an HTML body, location header, or JSON field.
+- Force a distinctive error page or empty body for a disposable URL.
+- Cache a redirect to a tester-controlled HTTPS canary host.
+
+After the poisoned response is stored, request the same URL and cache-buster without the unkeyed input. Capture both the priming and the clean hit as evidence.
+
+### 4. Authenticated and Personalized Content
+
+1. Authenticate as tester A and request a personalized page through the cache with a unique buster.
+2. From an anonymous session or tester B, request the same URL and buster.
+3. If the second session receives A's private content, record the disclosure. Check whether the effective cache key and reuse rules distinguish the users' access scopes. Review the cache policy, response directives such as `Cache-Control: private`, variation such as `Vary: Cookie` where applicable, and hit or miss evidence from the relevant cache layer. Use those observations and the origin response to investigate the cause.
+
+#### Verify Tenant Isolation
+
+Shared caches can disclose tenant-specific content when their selection or reuse rules fail to distinguish tenant access scopes. Review the effective cache policy against the application's trusted tenant context, such as the hostname, a validated tenant header, a session, or a verified token claim. Account for any narrower user permissions within each tenant.
+
+Use an isolated test environment with two tenants, A and B, that have no access to each other's data. Give each tenant a distinct synthetic record and use separate sessions with equivalent roles. Choose a protected, read-only route through the shared cache under test, such as the list of records for the current tenant. Record whether the policy allows the cache to reuse responses within a tenant or requires it to avoid storing them.
+
+1. Establish the expected response for each session from the synthetic records and access policy. Verify it with requests that reach the origin under the same routing and authorization rules. Use a controlled cache bypass or observe origin processing from an empty cache state. If you cannot verify the origin response, record that limitation.
+2. Start with a known empty cache state for the test resource. Request the view in A's session. If the policy calls for reuse, repeat A's read and confirm that the cache under test serves the expected response before moving to B. If reuse cannot be confirmed, record that limitation.
+3. Request the view in B's session and repeat the read. If the policy calls for reuse, confirm a hit for B as well. Compare each response in both sessions with its expected status and content. Repeat starting with B from an independent empty state that preserves the tested routing and cache policy.
+4. Use logs, traces, or a [`Cache-Status`](https://www.rfc-editor.org/rfc/rfc9211.html) field to identify how the cache under test handled each request. An outer cache can serve a response that carries a status field from an earlier request to an inner cache. Correlate the evidence with the current request and the layer under test. When policy prohibits storage, verify that the cache forwards repeated reads. Confirm non-storage with evidence from that layer, such as cache logs or a reported storage decision.
+
+Use the following outcomes for the tested route, sessions, and cache layer.
+
+- Isolation failure. A response contains data the session is forbidden to access. If the origin also returns the wrong data, investigate origin routing and authorization before attributing the disclosure to caching.
+- Cache policy failure. The cache stores a response that the policy prohibits it from storing. Record this outcome even if the responses contain only authorized data.
+- Verified. The responses match their expected status and content. In both directions, the intended hits or the decision to forward without storage are observable.
+- Inconclusive. The expected cache behavior cannot be verified. Examples include an unconfirmed first hit or repeated misses without evidence of a storage decision. Record any observed failures even if another part of the test is inconclusive.
+
+Record the tested route, policy, cache layer, request order, initial cache state, expected and observed content, and result. Include request IDs or timestamps when available. Remove credentials and session identifiers from the evidence.
+
+### 5. Normalization Differentials
+
+Path Confusion already covers deception through alternate paths. For poisoning, compare whether the cache and origin normalize the same:
+
+- Slash versus backslash.
+- Encoded separators.
+- Dot-segments that stay inside the resource.
+- Duplicate slashes.
+
+If one form returns an error that is stored under the canonical key, ordinary clients receive the error. Keep the target URL unique to the test.
+
+## Remediation
+
+- Include every input that changes the response in the cache key, or strip those inputs before the request reaches the origin.
+- Emit correct `Vary` values for headers that affect the response.
+- Do not cache authenticated or personalized responses in a shared cache unless the key includes the relevant credential and the response is explicitly intended to be shared.
+- Prefer origin-controlled `Cache-Control` over extension-based CDN heuristics.
+- Reject or normalize unexpected forwarding and method-override headers at a trusted edge.
+
+## Tools
+
+- [Zed Attack Proxy](https://www.zaproxy.org)
+- [Burp Suite](https://portswigger.net/burp)
+- [Param Miner](https://github.com/PortSwigger/param-miner)
+
+## References
+
+- [RFC 9111 - HTTP Caching](https://datatracker.ietf.org/doc/html/rfc9111)
+- [RFC 9110 - HTTP Semantics (`Vary`)](https://datatracker.ietf.org/doc/html/rfc9110#section-12.5.5)
+- [OWASP Web Cache Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Web_Cache_Security_Cheat_Sheet.html)
+- [Practical Web Cache Poisoning](https://portswigger.net/research/practical-web-cache-poisoning)
+- [Bypassing Web Cache Poisoning Countermeasures](https://portswigger.net/research/bypassing-web-cache-poisoning-countermeasures)
+- [Path Confusion](../11-Path_Confusion/)
+- [Host Header Injection](../../11-Injection/16-Host_Header_Injection/)

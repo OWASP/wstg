@@ -1,0 +1,161 @@
+---
+layout: document
+title: WSTG - Latest
+collection_name: latest
+channel_label: Latest
+channel_path: latest
+render_with_liquid: false
+---
+
+# WebAssembly Host Boundary and WASI Misconfigurations
+
+|ID          |
+|------------|
+|WSTG-WASM-05|
+
+## Summary
+
+WebAssembly (Wasm) enforces a deny-by-default sandbox: a module cannot access the Document Object Model (DOM), network, filesystem, or operating system unless the host explicitly supplies those capabilities through imported functions. This design protects the host from direct unauthorized execution, but it shifts the security boundary to the host-guest interface.
+
+Even when a Wasm module is compiled from a memory-safe language such as Rust or Go, misconfigurations at the host boundary or within server-side WebAssembly System Interface (WASI) runtimes (such as Wasmtime, Wasmer, WasmEdge, or edge compute platforms) can introduce severe vulnerabilities. Common failure modes include:
+
+- Exposing overly permissive JavaScript (JS) or host Application Programming Interfaces (APIs) through the module's `importObject`.
+- Weakening browser Content Security Policy (CSP) headers with `'unsafe-eval'` instead of `'wasm-unsafe-eval'` to allow Wasm compilation.
+- Treating data returned from a Wasm module as trusted and passing it into unsanitized DOM sinks, database queries, or shell commands.
+- Granting broad WASI filesystem, environment variable, or network capabilities to untrusted or multi-tenant Wasm workloads.
+- Reusing a single `WebAssembly.Instance` across multiple users or requests without resetting linear memory and global state, leading to cross-tenant data leakage.
+
+This test case focuses on auditing the host-guest trust boundary in browser, Node.js, and server-side/edge WASI deployments.
+
+## Test Objectives
+
+- Enumerate all host imports and WASI capabilities granted to a Wasm module and identify overly permissive bindings.
+- Audit browser Content Security Policy (CSP) headers to verify that Wasm execution does not rely on `'unsafe-eval'` or overly broad source allowlists.
+- Test whether attacker-controlled data crossing the JS/Wasm boundary or Foreign Function Interface (FFI) glue code triggers Cross-Site Scripting (XSS), prototype pollution, or host command injection.
+- Verify that WASI filesystem mounts enforce least-privilege directory scoping, read-only permissions where appropriate, and symlink restrictions.
+- Check for leaked host environment variables and unrestricted outbound networking leading to Server-Side Request Forgery (SSRF) in WASI workloads.
+- Test server-side and edge Wasm deployments for state and memory leakage across reused instances.
+
+## How to Test
+
+Note: This test case builds on the interface mapping and boundary hooking techniques covered in [WebAssembly Static Analysis](../02-WebAssembly_Static_Analysis/) and [WebAssembly Dynamic Analysis](../03-WebAssembly_Dynamic_Analysis/).
+
+### Auditing Over-Privileged Host Imports
+
+In browser and Node.js runtimes, the host controls what a module can do via the `importObject` passed to `WebAssembly.instantiate`, `WebAssembly.instantiateStreaming`, or `new WebAssembly.Instance`.
+
+1. Enumerate the module's declared imports statically using the WebAssembly Binary Toolkit (WABT) or `wasm-tools`:
+
+   ```sh
+   wasm-objdump -x -j Import module.wasm
+   ```
+
+   For modules built against the WebAssembly Component Model (WASI Preview 2), inspect the typed WebAssembly Interface Type (WIT) imports instead:
+
+   ```sh
+   wasm-tools component wit component.wasm
+   ```
+
+2. Inspect the host loader code (or capture the live `importObject` using the boundary hook from [WebAssembly Dynamic Analysis](../03-WebAssembly_Dynamic_Analysis/)) to map each imported function to its underlying host implementation.
+3. Flag dangerous capabilities exposed to the guest module:
+   - Browser hosts: wrappers around `eval`, `new Function`, `document.write`, `innerHTML`, `fetch` (without Uniform Resource Locator (URL) allowlisting), or `localStorage`/`document.cookie`.
+   - Node.js or custom server hosts: bindings to `child_process`, `fs`, database clients, or internal HTTP clients.
+4. Trace whether untrusted input processed by the Wasm module flows into these imports or into exported return values consumed by the host. For example, a Rust module compiled with `wasm-bindgen` may return a formatted string that the JavaScript caller assigns directly to `element.innerHTML`, causing DOM-based XSS without any memory corruption inside the Wasm binary.
+
+### Auditing Browser Content Security Policy (CSP) for WebAssembly
+
+Modern browsers enforce CSP on WebAssembly compilation and instantiation (`WebAssembly.compile`, `WebAssembly.instantiate`, and `WebAssembly.instantiateStreaming`). Because strict `script-src` policies block Wasm compilation by default, developers frequently weaken the policy to make modules load.
+
+1. Inspect the `Content-Security-Policy` HTTP response header on pages that load `.wasm` modules.
+2. Check whether `script-src` (or `default-src`) includes `'unsafe-eval'` solely to permit WebAssembly execution:
+   - Flag `'unsafe-eval'` as a misconfiguration: it enables arbitrary JavaScript string evaluation (`eval()`, `new Function()`, and string-based `setTimeout()`), weakening XSS protections across the entire origin.
+   - Verify whether the application instead uses the dedicated `'wasm-unsafe-eval'` keyword, which permits Wasm compilation without enabling JavaScript `eval()`.
+3. Review `connect-src` and `script-src` allowlists to ensure `.wasm` binaries cannot be fetched from overly broad or untrusted third-party origins (such as wildcard hosts or unpinned public Content Delivery Networks (CDNs)).
+
+### Testing Cross-Boundary Serialization and FFI Glue Code
+
+High-level language bindings (such as `wasm-bindgen`, `serde-wasm-bindgen`, or Emscripten's Embind) automatically marshal complex JavaScript objects, arrays, and strings across the linear memory boundary.
+
+Consider a host wrapper that passes a deserialized JSON object or JavaScript value into a Wasm export and merges the returned object back into application state:
+
+```javascript
+const parsed = wasmModule.parse_user_config(userInput);
+Object.assign(appConfig, parsed);
+```
+
+To test FFI and serialization boundaries:
+
+1. Pass unexpected JavaScript types (`null`, `undefined`, objects with custom `toString()`/`valueOf()`, oversized `BigInt` values, or deeply nested JSON) to exported functions and observe whether the glue code throws unhandled exceptions, coerces values unexpectedly, or bypasses validation.
+2. Test for prototype pollution when a Wasm module parses JSON or key-value pairs and constructs JavaScript objects across the boundary (for example, submitting keys such as `__proto__`, `constructor`, or `prototype` to see whether host object properties are polluted after the return value is merged).
+3. Verify whether host-side validation and Wasm-side parsing disagree on input structure (parser differential), such as duplicate JSON keys, Unicode normalization, or embedded null bytes (`\u0000`) where a C-based Wasm parser truncates the string earlier than the JavaScript validator.
+
+### Testing WASI Filesystem Capabilities and Directory Escapes
+
+WASI uses a capability-based model where the host grants access to specific directories (called preopened directories, typically configured via flags such as `--dir` in Wasmtime). Misconfigured mounts or weak path validation inside the guest can expose sensitive host files.
+
+1. Check the module's WASI filesystem imports (`wasi_snapshot_preview1` functions such as `path_open`, `fd_read`, `fd_write`, `path_symlink`, `path_unlink_file`, or Preview 2 `wasi:filesystem/types` interfaces).
+2. Review runtime launch arguments, container manifests, or host embedding code (for example, `WasiCtxBuilder::preopened_dir` in Wasmtime) to identify:
+   - Overly broad mounts (such as mounting `/`, `/etc`, `/var`, or the application root containing `.env` files, source code, or private keys).
+   - Unnecessary write permissions (`DirPerms::WRITE` / `FilePerms::WRITE`) on directories that only require read access.
+3. Submit path traversal payloads (`../../.env`, `/etc/passwd`, mixed slashes, or URL-encoded sequences) to endpoints whose inputs are passed to WASI file operations:
+   - Although compliant WASI runtimes block `..` traversal outside a preopened directory root, traversal *within* an overly broad preopened directory still succeeds.
+   - If the guest can create symlinks (`path_symlink`) or the preopened directory contains existing symlinks pointing outside the mount, test whether the runtime or host configuration permits symlink resolution across the directory boundary.
+
+### Testing WASI Environment Variable and Network Exposure
+
+Server-side and edge WASI workloads often run alongside host secrets and internal networks.
+
+1. Inspect imports for environment access (`environ_get` and `environ_sizes_get` in WASI Preview 1, or `wasi:cli/environment` in Preview 2) and networking (`sock_accept`, `sock_recv`, `sock_send`, or `wasi:http/outgoing-handler` and `wasi:sockets`).
+2. Check whether the host runtime inherits the full host environment (for example, `--inherit-env` in Wasmtime or passing `process.env` directly into a WASI context). If the Wasm module logs diagnostics, renders templates, or executes user-supplied plugins, test whether host secrets (cloud credentials, database connection strings, or API tokens) can be read from the guest environment.
+3. When the module has outbound HTTP or socket capabilities (either through WASI interfaces or host-imported `fetch` bindings), test for SSRF:
+   - Supply internal target addresses such as `http://169.254.169.254/latest/meta-data/`, `http://127.0.0.1:<port>/`, or internal cluster DNS names.
+   - Test DNS rebinding and HTTP redirects (such as an external URL returning `302 Found` to `http://127.0.0.1/`) to verify whether the host enforces allowlists after redirect resolution and IP resolution rather than only on the initial URL string.
+
+### Testing Multi-Tenant Instance Reuse and State Leakage
+
+To avoid repeated compilation and instantiation latency, server-side hosts and plugin platforms sometimes pool and reuse a single `WebAssembly.Instance` across multiple requests or tenants. Unlike native OS processes, reusing a Wasm instance preserves linear memory, global variables, and any in-memory WASI state between invocations.
+
+To test for cross-tenant state leakage:
+
+1. Send an authenticated request (Tenant A) that processes sensitive data, such as a session token, authorization flag, or Personally Identifiable Information (PII), inside the Wasm workload.
+2. Immediately send a second request (Tenant B) to the same endpoint with a different account, empty payload, or minimal input, and check whether:
+   - Global state (such as a cached role, user ID, or configuration flag) from Tenant A persists and affects Tenant B's authorization or output.
+   - Uninitialized buffers or residual heap data from Tenant A appear in Tenant B's response (for example, via a short write or length mismatch).
+   - Files written to a shared preopened temporary directory (such as `/tmp`) by Tenant A remain readable or modifiable by Tenant B.
+
+### Analysis Notes and Limitations
+
+- WASI Preview 1 versus Preview 2 (Component Model): Legacy WASI modules import flat C-style functions from `wasi_snapshot_preview1`, whereas newer WASI Preview 2 components import versioned WIT interfaces (`wasi:filesystem`, `wasi:cli`, `wasi:http`, `wasi:sockets`). Standard `wasm-objdump` does not parse Component Model binaries; use `wasm-tools component wit` to inspect their capability surface.
+- Runtime sandbox bugs versus misconfigurations: This test case evaluates host configuration and boundary trust assumptions. Escape vulnerabilities caused by bugs in the underlying Wasm engine (such as JIT compiler or bounds-check flaws in V8, Wasmtime, or Wasmer) depend on the exact engine version and should be tracked against vendor security advisories.
+- Capability lifetime: In most Wasm runtimes, capabilities passed at instantiation (such as preopened file descriptors or closures inside `importObject`) remain valid for the entire lifetime of the instance and cannot be revoked dynamically once execution begins.
+
+## Related Test Cases
+
+- [WebAssembly Static Analysis](../02-WebAssembly_Static_Analysis/)
+- [WebAssembly Dynamic Analysis](../03-WebAssembly_Dynamic_Analysis/)
+- [DOM-Based Cross Site Scripting](../../15-Client-side/01-DOM-based_Cross_Site_Scripting/)
+
+## Remediation
+
+- Apply the principle of least privilege to `importObject` and WASI capabilities: expose only the exact host functions required by the module, and never bind generic execution primitives (`eval`, `Function`, unrestricted `child_process`, or unfiltered `fetch`) to untrusted Wasm code.
+- Use `'wasm-unsafe-eval'` rather than `'unsafe-eval'` in the CSP `script-src` directive when enabling WebAssembly in browsers, and restrict `connect-src` and `script-src` to trusted origins.
+- Treat all values returned by a Wasm module as untrusted input on the host side. Apply context-appropriate encoding, sanitization, and schema validation before passing Wasm output to DOM sinks, SQL queries, or OS APIs.
+- Scope WASI filesystem mounts to dedicated, minimal directories with read-only permissions wherever write access is unnecessary, and avoid mounting directories that contain host secrets or symlinks pointing outside the sandbox.
+- Explicitly allowlist individual environment variables and outbound HTTP/socket destinations rather than inheriting the host environment (`--inherit-env`) or allowing unrestricted egress.
+- Isolate multi-tenant workloads by creating a fresh `WebAssembly.Instance` (and isolated temporary directory) per request or tenant, or by using engine-supported instance pooling with clean memory resets between invocations.
+
+## Tools
+
+- [WebAssembly Binary Toolkit (WABT)](https://github.com/WebAssembly/wabt) - `wasm-objdump -x -j Import` for enumerating core module and WASI Preview 1 imports.
+- [wasm-tools](https://github.com/bytecodealliance/wasm-tools) - `wasm-tools component wit` for inspecting WASI Preview 2 and Component Model interfaces.
+- [Wasmtime](https://github.com/bytecodealliance/wasmtime) - Bytecode Alliance WebAssembly runtime with fine-grained WASI capability flags for local reproduction and testing.
+- [ZAP](https://www.zaproxy.org/) and [Burp Suite](https://portswigger.net/burp) - Intercepting proxies for testing SSRF, path traversal, and cross-tenant state leakage against server-side and edge Wasm endpoints.
+
+## References
+
+- [WebAssembly Security Model](https://webassembly.org/docs/security/)
+- [MDN Web Docs: CSP `script-src` (`wasm-unsafe-eval`)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/script-src)
+- [WebAssembly System Interface (WASI)](https://wasi.dev/)
+- [WebAssembly Component Model](https://component-model.bytecodealliance.org/)
+- [Wasmtime Security Documentation](https://docs.wasmtime.dev/security.html)
+- [wasm-bindgen Repository](https://github.com/wasm-bindgen/wasm-bindgen)

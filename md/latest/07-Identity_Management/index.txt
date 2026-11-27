@@ -1,0 +1,20 @@
+---
+layout: document
+title: WSTG - Latest
+collection_name: latest
+channel_label: Latest
+channel_path: latest
+render_with_liquid: false
+---
+
+# 7 Identity Management
+
+7.1 [Role Definitions](01-Role_Definitions/)
+
+7.2 [User Registration Process](02-User_Registration_Process/)
+
+7.3 [Account Provisioning Process](03-Account_Provisioning_Process/)
+
+7.4 [Account Enumeration and Guessable User Account](04-Account_Enumeration_and_Guessable_User_Account/)
+
+7.5 [Email Address Verification](05-Email_Address_Verification/)

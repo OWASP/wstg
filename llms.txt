@@ -1,0 +1,256 @@
+# OWASP Web Security Testing Guide
+
+> Comprehensive testing resource for web application security
+
+## Latest
+
+Latest development version
+
+- [Interactive Guide](https://wstg.owasp.org/latest/)
+- [Markdown Version](https://wstg.owasp.org/md/latest/README.md)
+
+### 10. Session Management
+
+- [Session Management Schema](https://wstg.owasp.org/md/latest/10-Session_Management/01-Session_Management_Schema.txt)
+- [Cookies Attributes](https://wstg.owasp.org/md/latest/10-Session_Management/02-Cookies_Attributes.txt)
+- [Session Fixation](https://wstg.owasp.org/md/latest/10-Session_Management/03-Session_Fixation.txt)
+- [Exposed Session Variables](https://wstg.owasp.org/md/latest/10-Session_Management/04-Exposed_Session_Variables.txt)
+- [Cross Site Request Forgery](https://wstg.owasp.org/md/latest/10-Session_Management/05-Cross_Site_Request_Forgery.txt)
+- [Logout Functionality](https://wstg.owasp.org/md/latest/10-Session_Management/06-Logout_Functionality.txt)
+- [Session Timeout](https://wstg.owasp.org/md/latest/10-Session_Management/07-Session_Timeout.txt)
+- [Session Puzzling](https://wstg.owasp.org/md/latest/10-Session_Management/08-Session_Puzzling.txt)
+- [Session Hijacking](https://wstg.owasp.org/md/latest/10-Session_Management/09-Session_Hijacking.txt)
+- [JSON Web Tokens](https://wstg.owasp.org/md/latest/10-Session_Management/10-JSON_Web_Tokens.txt)
+- ... and 1 more
+
+### 11. Injection
+
+- [Reflected Cross Site Scripting](https://wstg.owasp.org/md/latest/11-Injection/01-Reflected_Cross_Site_Scripting.txt)
+- [Stored Cross Site Scripting](https://wstg.owasp.org/md/latest/11-Injection/02-Stored_Cross_Site_Scripting.txt)
+- [HTTP Parameter Pollution](https://wstg.owasp.org/md/latest/11-Injection/03-HTTP_Parameter_Pollution.txt)
+- [SQL Injection](https://wstg.owasp.org/md/latest/11-Injection/04-SQL_Injection.txt)
+- [Oracle](https://wstg.owasp.org/md/latest/11-Injection/04.1-Oracle.txt)
+- [MySQL](https://wstg.owasp.org/md/latest/11-Injection/04.2-MySQL.txt)
+- [SQL Server](https://wstg.owasp.org/md/latest/11-Injection/04.3-SQL_Server.txt)
+- [PostgreSQL](https://wstg.owasp.org/md/latest/11-Injection/04.4-PostgreSQL.txt)
+- [MS Access](https://wstg.owasp.org/md/latest/11-Injection/04.5-MS_Access.txt)
+- [NoSQL Injection](https://wstg.owasp.org/md/latest/11-Injection/04.6-NoSQL_Injection.txt)
+- ... and 25 more
+
+### 12. Error Handling
+
+- [Improper Error Handling](https://wstg.owasp.org/md/latest/12-Error_Handling/01-Improper_Error_Handling.txt)
+
+### 13. Weak Cryptography
+
+- [Weak Transport Layer Security](https://wstg.owasp.org/md/latest/13-Weak_Cryptography/01-Weak_Transport_Layer_Security.txt)
+- [Padding Oracle](https://wstg.owasp.org/md/latest/13-Weak_Cryptography/02-Padding_Oracle.txt)
+- [Sensitive Information Sent via Unencrypted Channels](https://wstg.owasp.org/md/latest/13-Weak_Cryptography/03-Sensitive_Information_Sent_via_Unencrypted_Channels.txt)
+- [Weak Cryptographic Primitives](https://wstg.owasp.org/md/latest/13-Weak_Cryptography/04-Weak_Cryptographic_Primitives.txt)
+
+### 14. Business Logic
+
+- [Introduction to Business Logic](https://wstg.owasp.org/md/latest/14-Business_Logic/00-Introduction_to_Business_Logic.txt)
+- [Business Logic Data Validation](https://wstg.owasp.org/md/latest/14-Business_Logic/01-Business_Logic_Data_Validation.txt)
+- [Ability to Forge Requests](https://wstg.owasp.org/md/latest/14-Business_Logic/02-Ability_to_Forge_Requests.txt)
+- [Integrity Checks](https://wstg.owasp.org/md/latest/14-Business_Logic/03-Integrity_Checks.txt)
+- [Process Timing](https://wstg.owasp.org/md/latest/14-Business_Logic/04-Process_Timing.txt)
+- [Number of Times a Function Can Be Used Limits](https://wstg.owasp.org/md/latest/14-Business_Logic/05-Number_of_Times_a_Function_Can_Be_Used_Limits.txt)
+- [Circumvention of Work Flows](https://wstg.owasp.org/md/latest/14-Business_Logic/06-Circumvention_of_Work_Flows.txt)
+- [Defenses Against Application Misuse](https://wstg.owasp.org/md/latest/14-Business_Logic/07-Defenses_Against_Application_Misuse.txt)
+- [Upload of Unexpected File Types](https://wstg.owasp.org/md/latest/14-Business_Logic/08-Upload_of_Unexpected_File_Types.txt)
+- [Upload of Malicious Files](https://wstg.owasp.org/md/latest/14-Business_Logic/09-Upload_of_Malicious_Files.txt)
+- ... and 2 more
+
+### 15. Client-side
+
+- [DOM-Based Cross Site Scripting](https://wstg.owasp.org/md/latest/15-Client-side/01-DOM-based_Cross_Site_Scripting.txt)
+- [Self DOM Based Cross Site Scripting](https://wstg.owasp.org/md/latest/15-Client-side/01.1-Self_DOM_Based_Cross_Site_Scripting.txt)
+- [JavaScript Execution](https://wstg.owasp.org/md/latest/15-Client-side/02-JavaScript_Execution.txt)
+- [HTML Injection](https://wstg.owasp.org/md/latest/15-Client-side/03-HTML_Injection.txt)
+- [Client-side URL Redirect](https://wstg.owasp.org/md/latest/15-Client-side/04-Client-side_URL_Redirect.txt)
+- [CSS Injection](https://wstg.owasp.org/md/latest/15-Client-side/05-CSS_Injection.txt)
+- [Client-side Resource Manipulation](https://wstg.owasp.org/md/latest/15-Client-side/06-Client-side_Resource_Manipulation.txt)
+- [Cross Origin Resource Sharing](https://wstg.owasp.org/md/latest/15-Client-side/07-Cross_Origin_Resource_Sharing.txt)
+- [Clickjacking](https://wstg.owasp.org/md/latest/15-Client-side/08-Clickjacking.txt)
+- [WebSockets](https://wstg.owasp.org/md/latest/15-Client-side/09-WebSockets.txt)
+- ... and 11 more
+
+### 16. API Testing
+
+- [API Testing Overview](https://wstg.owasp.org/md/latest/16-API_Testing/00-API_Testing_Overview.txt)
+- [API Reconnaissance](https://wstg.owasp.org/md/latest/16-API_Testing/01-API_Reconnaissance.txt)
+- [API Broken Object Level Authorization](https://wstg.owasp.org/md/latest/16-API_Testing/02-API_Broken_Object_Level_Authorization.txt)
+- [Excessive Data Exposure](https://wstg.owasp.org/md/latest/16-API_Testing/03-Excessive_Data_Exposure.txt)
+- [API Broken Function Level Authorization](https://wstg.owasp.org/md/latest/16-API_Testing/04-API_Broken_Function_Level_Authorization.txt)
+- [Testing API Authentication Mechanisms](https://wstg.owasp.org/md/latest/16-API_Testing/05-Testing_API_Authentication_Mechanisms.txt)
+- [API Rate Limiting and Resource Consumption](https://wstg.owasp.org/md/latest/16-API_Testing/06-API_Rate_Limiting_and_Resource_Consumption.txt)
+- [API Mass Assignment](https://wstg.owasp.org/md/latest/16-API_Testing/07-API_Mass_Assignment.txt)
+- [Inbound Webhooks](https://wstg.owasp.org/md/latest/16-API_Testing/09-Inbound_Webhooks.txt)
+- [gRPC](https://wstg.owasp.org/md/latest/16-API_Testing/10-gRPC.txt)
+- ... and 1 more
+
+### 17. WebAssembly Testing
+
+- [WebAssembly Testing Overview](https://wstg.owasp.org/md/latest/17-WebAssembly_Testing/00-WebAssembly_Testing_Overview.txt)
+- [WebAssembly Reconnaissance](https://wstg.owasp.org/md/latest/17-WebAssembly_Testing/01-WebAssembly_Reconnaissance.txt)
+- [WebAssembly Static Analysis](https://wstg.owasp.org/md/latest/17-WebAssembly_Testing/02-WebAssembly_Static_Analysis.txt)
+- [WebAssembly Dynamic Analysis](https://wstg.owasp.org/md/latest/17-WebAssembly_Testing/03-WebAssembly_Dynamic_Analysis.txt)
+- [WebAssembly Memory Corruption](https://wstg.owasp.org/md/latest/17-WebAssembly_Testing/04-WebAssembly_Memory_Corruption.txt)
+- [WebAssembly Host Boundary and WASI Misconfigurations](https://wstg.owasp.org/md/latest/17-WebAssembly_Testing/05-WebAssembly_Host_Boundary_and_WASI_Misconfigurations.txt)
+- [WebAssembly Resource Exhaustion and Concurrency](https://wstg.owasp.org/md/latest/17-WebAssembly_Testing/06-WebAssembly_Resource_Exhaustion_and_Concurrency.txt)
+
+### 18. Reporting
+
+- [Reporting Structure](https://wstg.owasp.org/md/latest/18-Reporting/01-Reporting_Structure.txt)
+- [Vulnerability Naming Schemes](https://wstg.owasp.org/md/latest/18-Reporting/02-Naming_Schemes.txt)
+
+### 3. The OWASP Testing Framework
+
+- [The Web Security Testing Framework](https://wstg.owasp.org/md/latest/03-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.txt)
+- [Bug Bounty Programs as a Testing Technique](https://wstg.owasp.org/md/latest/03-The_OWASP_Testing_Framework/1-Bug_Bounty_Programs.txt)
+- [Human-AI Collaborative Testing](https://wstg.owasp.org/md/latest/03-The_OWASP_Testing_Framework/2-Human-AI_Collaborative_Testing.txt)
+
+### 5. Information Gathering
+
+- [Information Gathering Overview](https://wstg.owasp.org/md/latest/05-Information_Gathering/00-Information_Gathering_Overview.txt)
+- [Conduct Search Engine Reconnaissance for Information Leakage](https://wstg.owasp.org/md/latest/05-Information_Gathering/01-Conduct_Search_Engine_Reconnaissance_for_Information_Leakage.txt)
+- [Fingerprint Web Server](https://wstg.owasp.org/md/latest/05-Information_Gathering/02-Fingerprint_Web_Server.txt)
+- [Review Webserver Metafiles for Information Leakage](https://wstg.owasp.org/md/latest/05-Information_Gathering/03-Review_Webserver_Metafiles_for_Information_Leakage.txt)
+- [Attack Surface Identification](https://wstg.owasp.org/md/latest/05-Information_Gathering/04-Attack_Surface_Identification.txt)
+- [Review Web Page Content for Information Leakage](https://wstg.owasp.org/md/latest/05-Information_Gathering/05-Review_Web_Page_Content_for_Information_Leakage.txt)
+- [Identify Application Entry Points](https://wstg.owasp.org/md/latest/05-Information_Gathering/06-Identify_Application_Entry_Points.txt)
+- [Map Execution Paths Through Application](https://wstg.owasp.org/md/latest/05-Information_Gathering/07-Map_Execution_Paths_Through_Application.txt)
+- [Fingerprint Web Application Framework](https://wstg.owasp.org/md/latest/05-Information_Gathering/08-Fingerprint_Web_Application_Framework.txt)
+- [Map Application Architecture](https://wstg.owasp.org/md/latest/05-Information_Gathering/09-Map_Application_Architecture.txt)
+
+### 6. Configuration and Deployment Management
+
+- [Network Infrastructure Configuration](https://wstg.owasp.org/md/latest/06-Configuration_and_Deployment_Management/01-Network_Infrastructure_Configuration.txt)
+- [Application Platform Configuration](https://wstg.owasp.org/md/latest/06-Configuration_and_Deployment_Management/02-Application_Platform_Configuration.txt)
+- [Review Old Backup and Unreferenced Files for Sensitive Information](https://wstg.owasp.org/md/latest/06-Configuration_and_Deployment_Management/03-Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information.txt)
+- [Enumerate Infrastructure and Application Admin Interfaces](https://wstg.owasp.org/md/latest/06-Configuration_and_Deployment_Management/04-Enumerate_Infrastructure_and_Application_Admin_Interfaces.txt)
+- [HTTP Methods](https://wstg.owasp.org/md/latest/06-Configuration_and_Deployment_Management/05-HTTP_Methods.txt)
+- [HTTP Strict Transport Security](https://wstg.owasp.org/md/latest/06-Configuration_and_Deployment_Management/06-HTTP_Strict_Transport_Security.txt)
+- [File Permissions](https://wstg.owasp.org/md/latest/06-Configuration_and_Deployment_Management/07-File_Permissions.txt)
+- [Subdomain Takeover](https://wstg.owasp.org/md/latest/06-Configuration_and_Deployment_Management/08-Subdomain_Takeover.txt)
+- [Cloud Storage](https://wstg.owasp.org/md/latest/06-Configuration_and_Deployment_Management/09-Cloud_Storage.txt)
+- [Content Security Policy](https://wstg.owasp.org/md/latest/06-Configuration_and_Deployment_Management/10-Content_Security_Policy.txt)
+- ... and 4 more
+
+### 7. Identity Management
+
+- [Role Definitions](https://wstg.owasp.org/md/latest/07-Identity_Management/01-Role_Definitions.txt)
+- [User Registration Process](https://wstg.owasp.org/md/latest/07-Identity_Management/02-User_Registration_Process.txt)
+- [Account Provisioning Process](https://wstg.owasp.org/md/latest/07-Identity_Management/03-Account_Provisioning_Process.txt)
+- [Account Enumeration and Guessable User Account](https://wstg.owasp.org/md/latest/07-Identity_Management/04-Account_Enumeration_and_Guessable_User_Account.txt)
+- [Email Address Verification](https://wstg.owasp.org/md/latest/07-Identity_Management/05-Email_Address_Verification.txt)
+
+### 8. Authentication
+
+- [Default Credentials](https://wstg.owasp.org/md/latest/08-Authentication/01-Default_Credentials.txt)
+- [Weak Lock Out Mechanism](https://wstg.owasp.org/md/latest/08-Authentication/02-Weak_Lock_Out_Mechanism.txt)
+- [Bypassing Authentication Schema](https://wstg.owasp.org/md/latest/08-Authentication/03-Bypassing_Authentication_Schema.txt)
+- [Vulnerable Remember Password](https://wstg.owasp.org/md/latest/08-Authentication/04-Vulnerable_Remember_Password.txt)
+- [Browser Cache Weaknesses](https://wstg.owasp.org/md/latest/08-Authentication/05-Browser_Cache_Weaknesses.txt)
+- [Weak Authentication Methods](https://wstg.owasp.org/md/latest/08-Authentication/06-Weak_Authentication_Methods.txt)
+- [Weak Security Question Answer](https://wstg.owasp.org/md/latest/08-Authentication/07-Weak_Security_Question_Answer.txt)
+- [Weak Password Change or Reset Functionalities](https://wstg.owasp.org/md/latest/08-Authentication/08-Weak_Password_Change_or_Reset_Functionalities.txt)
+- [Weaker Authentication in Alternative Channel](https://wstg.owasp.org/md/latest/08-Authentication/09-Weaker_Authentication_in_Alternative_Channel.txt)
+- [Multi-Factor Authentication (MFA)](https://wstg.owasp.org/md/latest/08-Authentication/10-Multi-Factor_Authentication.txt)
+- ... and 3 more
+
+### 9. Authorization
+
+- [Directory Traversal and File Include](https://wstg.owasp.org/md/latest/09-Authorization/01-Directory_Traversal_File_Include.txt)
+- [Bypassing Authorization Schema](https://wstg.owasp.org/md/latest/09-Authorization/02-Bypassing_Authorization_Schema.txt)
+- [Privilege Escalation](https://wstg.owasp.org/md/latest/09-Authorization/03-Privilege_Escalation.txt)
+- [Insecure Direct Object References](https://wstg.owasp.org/md/latest/09-Authorization/04-Insecure_Direct_Object_References.txt)
+- [OAuth Weaknesses](https://wstg.owasp.org/md/latest/09-Authorization/05-OAuth_Weaknesses.txt)
+- [OAuth Authorization Server Weaknesses](https://wstg.owasp.org/md/latest/09-Authorization/05.1-OAuth_Authorization_Server_Weaknesses.txt)
+- [OAuth Client Weaknesses](https://wstg.owasp.org/md/latest/09-Authorization/05.2-OAuth_Client_Weaknesses.txt)
+
+### Appendix
+
+- [A. History](https://wstg.owasp.org/md/latest/19-Appendix/A-History.txt)
+- [B. Testing Tools Resource](https://wstg.owasp.org/md/latest/19-Appendix/B-Testing_Tools_Resource.txt)
+- [C. Suggested Reading](https://wstg.owasp.org/md/latest/19-Appendix/C-Suggested_Reading.txt)
+- [D. Fuzzing {#fuzzing}](https://wstg.owasp.org/md/latest/19-Appendix/D-Fuzzing.txt)
+- [E. Encoded Injection {#encoded-injection}](https://wstg.owasp.org/md/latest/19-Appendix/E-Encoded_Injection.txt)
+- [F. Leveraging Dev Tools {#leveraging-dev-tools}](https://wstg.owasp.org/md/latest/19-Appendix/F-Leveraging_Dev_Tools.txt)
+- [G. Penetration Testing Methodologies](https://wstg.owasp.org/md/latest/19-Appendix/G-Penetration_Testing_Methodologies.txt)
+
+## v4.2 (Stable)
+
+Current stable release
+
+- [Interactive Guide](https://wstg.owasp.org/v4.2/)
+- [Markdown Version](https://wstg.owasp.org/md/v4.2/README.md)
+
+### 6. Appendix
+
+- [Testing Tools Resource](https://wstg.owasp.org/md/v4.2/6-Appendix/A-Testing_Tools_Resource.txt)
+- [Suggested Reading](https://wstg.owasp.org/md/v4.2/6-Appendix/B-Suggested_Reading.txt)
+- [Fuzz Vectors](https://wstg.owasp.org/md/v4.2/6-Appendix/C-Fuzz_Vectors.txt)
+- [Encoded Injection](https://wstg.owasp.org/md/v4.2/6-Appendix/D-Encoded_Injection.txt)
+- [History](https://wstg.owasp.org/md/v4.2/6-Appendix/E-History.txt)
+- [Leveraging Dev Tools](https://wstg.owasp.org/md/v4.2/6-Appendix/F-Leveraging_Dev_Tools.txt)
+
+### Testing Framework
+
+- [The Web Security Testing Framework](https://wstg.owasp.org/md/v4.2/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.txt)
+- [Penetration Testing Methodologies](https://wstg.owasp.org/md/v4.2/3-The_OWASP_Testing_Framework/1-Penetration_Testing_Methodologies.txt)
+
+### Web Application Testing
+
+- [README](https://wstg.owasp.org/md/v4.2/4-Web_Application_Security_Testing/00-Introduction_and_Objectives/)
+- [4.0 Introduction and Objectives](https://wstg.owasp.org/md/v4.2/4-Web_Application_Security_Testing/00-Introduction_and_Objectives/index.txt)
+- [Conduct Search Engine Discovery Reconnaissance for Information Leakage](https://wstg.owasp.org/md/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/01-Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage.txt)
+- [Fingerprint Web Server](https://wstg.owasp.org/md/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/02-Fingerprint_Web_Server.txt)
+- [Review Webserver Metafiles for Information Leakage](https://wstg.owasp.org/md/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/03-Review_Webserver_Metafiles_for_Information_Leakage.txt)
+- [Enumerate Applications on Webserver](https://wstg.owasp.org/md/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/04-Enumerate_Applications_on_Webserver.txt)
+- [Review Webpage Content for Information Leakage](https://wstg.owasp.org/md/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/05-Review_Webpage_Content_for_Information_Leakage.txt)
+- [Identify Application Entry Points](https://wstg.owasp.org/md/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/06-Identify_Application_Entry_Points.txt)
+- [Map Execution Paths Through Application](https://wstg.owasp.org/md/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/07-Map_Execution_Paths_Through_Application.txt)
+- [Fingerprint Web Application Framework](https://wstg.owasp.org/md/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/08-Fingerprint_Web_Application_Framework.txt)
+- ... and 125 more
+
+## v4.1 (Archived)
+
+Previous release (archived)
+
+- [Interactive Guide](https://wstg.owasp.org/v4.1/)
+- [Markdown Version](https://wstg.owasp.org/md/v4.1/README.md)
+
+### 6. Appendix
+
+- [Testing Tools Resource](https://wstg.owasp.org/md/v4.1/6-Appendix/A-Testing_Tools_Resource.txt)
+- [Suggested Reading](https://wstg.owasp.org/md/v4.1/6-Appendix/B-Suggested_Reading.txt)
+- [Fuzz Vectors](https://wstg.owasp.org/md/v4.1/6-Appendix/C-Fuzz_Vectors.txt)
+- [Encoded Injection](https://wstg.owasp.org/md/v4.1/6-Appendix/D-Encoded_Injection.txt)
+- [History](https://wstg.owasp.org/md/v4.1/6-Appendix/E-History.txt)
+
+### Testing Framework
+
+- [The Web Security Testing Framework](https://wstg.owasp.org/md/v4.1/3-The_OWASP_Testing_Framework/0-The_Web_Security_Testing_Framework.txt)
+- [Penetration Testing Methodologies](https://wstg.owasp.org/md/v4.1/3-The_OWASP_Testing_Framework/1-Penetration_Testing_Methodologies.txt)
+
+### Web Application Testing
+
+- [README](https://wstg.owasp.org/md/v4.1/4-Web_Application_Security_Testing/00-Introduction_and_Objectives/)
+- [4.0 Introduction and Objectives](https://wstg.owasp.org/md/v4.1/4-Web_Application_Security_Testing/00-Introduction_and_Objectives/index.txt)
+- [Conduct Search Engine Discovery Reconnaissance for Information Leakage](https://wstg.owasp.org/md/v4.1/4-Web_Application_Security_Testing/01-Information_Gathering/01-Conduct_Search_Engine_Discovery_Reconnaissance_for_Information_Leakage.txt)
+- [Fingerprint Web Server](https://wstg.owasp.org/md/v4.1/4-Web_Application_Security_Testing/01-Information_Gathering/02-Fingerprint_Web_Server.txt)
+- [Review Webserver Metafiles for Information Leakage](https://wstg.owasp.org/md/v4.1/4-Web_Application_Security_Testing/01-Information_Gathering/03-Review_Webserver_Metafiles_for_Information_Leakage.txt)
+- [Enumerate Applications on Webserver](https://wstg.owasp.org/md/v4.1/4-Web_Application_Security_Testing/01-Information_Gathering/04-Enumerate_Applications_on_Webserver.txt)
+- [Review Webpage Comments and Metadata for Information Leakage](https://wstg.owasp.org/md/v4.1/4-Web_Application_Security_Testing/01-Information_Gathering/05-Review_Webpage_Comments_and_Metadata_for_Information_Leakage.txt)
+- [Identify Application Entry Points](https://wstg.owasp.org/md/v4.1/4-Web_Application_Security_Testing/01-Information_Gathering/06-Identify_Application_Entry_Points.txt)
+- [Map Execution Paths Through Application](https://wstg.owasp.org/md/v4.1/4-Web_Application_Security_Testing/01-Information_Gathering/07-Map_Execution_Paths_Through_Application.txt)
+- [Fingerprint Web Application Framework](https://wstg.owasp.org/md/v4.1/4-Web_Application_Security_Testing/01-Information_Gathering/08-Fingerprint_Web_Application_Framework.txt)
+- ... and 122 more
+
+## Resources
+
+- [GitHub Repository](https://github.com/OWASP/wstg)
+- [Contribution Guide](https://github.com/OWASP/wstg/blob/master/CONTRIBUTING.md)
+- [Code of Conduct](https://github.com/OWASP/wstg/blob/master/CODE_OF_CONDUCT.md)

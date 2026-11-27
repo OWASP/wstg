@@ -1,0 +1,169 @@
+---
+layout: document
+title: WSTG - Latest
+collection_name: latest
+channel_label: Latest
+channel_path: latest
+render_with_liquid: false
+---
+
+# Server-Sent Events
+
+|ID          |
+|------------|
+|WSTG-CLNT-20|
+
+## Summary
+
+[Server-Sent Events](https://html.spec.whatwg.org/multipage/server-sent-events.html) (SSE) let a server push a stream of events to the browser over a long-lived HTTP response with the `text/event-stream` content type. Browsers read the stream with the `EventSource` API, and many applications also read it with `fetch()`, for example to stream responses from a large language model. SSE is commonly used for notifications, live dashboards, chat, progress updates and log tailing.
+
+Unlike [WebSockets](../09-WebSockets/), SSE is ordinary HTTP. The stream is a `GET` request when it is opened with `EventSource`, it is subject to the same-origin policy and CORS, and the browser reconnects automatically when the connection drops. Each event is a group of `field: value` lines ended by a blank line, where the fields are `data`, `event`, `id` and `retry`, and lines that start with `:` are comments:
+
+```text
+event: notification
+id: 1042
+data: {"from":"alice","text":"Build finished"}
+
+```
+
+Weaknesses in this area include:
+
+- Streams that authenticate with cookies or with a token in the URL, and that can be read cross-origin or leak the token.
+- Missing authorization on channels, topics or object IDs in the stream URL, and streams that keep sending private events after logout or a permission change.
+- Event stream injection, where user-controlled data containing line breaks is written into the stream and adds fields or whole events.
+- Replay of past events through the `Last-Event-ID` header without checking whether the user may see them.
+- Event data inserted into the page unsafely, caching of private streams, and missing limits on long-lived connections.
+
+## Test Objectives
+
+- Identify the use of Server-Sent Events and how each stream is authenticated.
+- Determine whether a stream can be read from another origin or by another user.
+- Verify that authorization is enforced when the stream is opened, for every event it sends, and after the user's access changes.
+- Assess whether user-controlled data can inject fields or events into the stream, or script into the page that consumes it.
+
+## How to Test
+
+Use two tester-owned accounts with different roles or object membership, and a site on a different origin that the tester controls.
+
+### Identify Server-Sent Events
+
+- Search the client-side code for `EventSource`, `text/event-stream`, and helper libraries that wrap `fetch()` for SSE.
+- In the browser developer tools, look for long-running requests with a `text/event-stream` response. Chromium-based browsers show the parsed events of an `EventSource` request in an EventStream tab.
+- Look for endpoints with names such as `/stream`, `/events`, `/sse`, `/subscribe` or `/notifications`, and for API documentation that describes streaming responses.
+
+A stream can be read outside the browser with curl. The `-N` option turns off output buffering so events are shown as they arrive:
+
+```bash
+curl -N -H "Accept: text/event-stream" -H "Cookie: session=..." "https://target.example/api/stream"
+```
+
+### Test Authentication of the Stream
+
+`EventSource` cannot send custom request headers, so applications that use it usually authenticate the stream with cookies or with a token in the query string. Applications that use `fetch()` can send an `Authorization` header instead.
+
+- Open the stream without credentials, with an expired session, and with a token from another account, and check that each request is rejected.
+- If the token is in the URL, check whether it is a long-lived session or API token, whether it appears in server, proxy or analytics logs, and whether it expires with the session. A short-lived token issued only for the stream reduces the impact of it being logged.
+- Log out, change the password, or remove the user's role in another tab, and check whether the open stream is closed. The browser reconnects automatically, so also check that the reconnection is rejected. A server can stop an `EventSource` from reconnecting by answering with `204 No Content`.
+
+### Test Cross-Origin Access
+
+A cross-origin `EventSource` uses CORS. Without `withCredentials`, the browser does not send cookies to another origin. With `withCredentials: true`, it sends them, but only lets the page read the stream if the response has an `Access-Control-Allow-Origin` header with the page's exact origin and `Access-Control-Allow-Credentials: true`.
+
+While signed in to the target in a browser, open a page on a tester-controlled origin that runs:
+
+```javascript
+const es = new EventSource("https://target.example/api/stream", { withCredentials: true });
+es.onmessage = (e) => console.log("message", e.data);
+es.addEventListener("notification", (e) => console.log("notification", e.data));
+es.onerror = () => console.log("error", es.readyState);
+```
+
+`onmessage` only receives events without an `event` field, so add a listener for each event type seen in the stream. If the page receives the victim's events, the stream's CORS policy trusts the tester's origin. Test the origins described in [Cross Origin Resource Sharing](../07-Cross_Origin_Resource_Sharing/), such as reflected origins, loose prefix or suffix matching, and `null`.
+
+With `withCredentials: true`, the browser sends the request with the user's cookies even when the page is not allowed to read the response, unless the `SameSite` attribute of the cookies prevents it. Note that `SameSite` works on the site, not the origin, so two different origins of the same site, such as `app.example.com` and `api.example.com`, can still send each other cookies. It is not a replacement for CORS. If opening a stream has side effects, such as subscribing the user to a channel or starting a job, test it as described in [Cross Site Request Forgery](../../10-Session_Management/05-Cross_Site_Request_Forgery/).
+
+### Test Authorization of Channels and Events
+
+1. Open a stream as account A and note every identifier in the URL or query string, such as user, tenant, channel, room, conversation, job or document IDs.
+2. Open the same stream as account B with A's identifiers, and check whether B receives A's events. Check events sent later, not only the first ones. A server that checks the first snapshot but then broadcasts every event on a shared channel still leaks data.
+3. Remove A's access to a channel while A's stream is open, and check whether A keeps receiving its events.
+4. If the same events are also available through a polling API or a WebSocket, compare the authorization decisions across them.
+
+### Test Event Replay
+
+When the browser reconnects, it sends the `id` of the last event it received in the `Last-Event-ID` request header, and many servers use it to send the events the client missed. A non-browser client can send any value:
+
+```bash
+curl -N -H "Accept: text/event-stream" -H "Cookie: session=..." -H "Last-Event-ID: 0" "https://target.example/api/stream"
+```
+
+- Check whether a low or old value returns events from before the user had access, events of other users, or events of other tenants when IDs are global.
+- `Last-Event-ID` is user-controlled input. Test it like any other header, for example for SQL injection if it is used in a query to load the missed events.
+
+### Test Event Stream Injection
+
+In the event stream format a line can end with a line feed (LF), a carriage return (CR) or both. If the server writes user-controlled data into a `data:` line without removing or encoding line breaks, the data can add fields or whole events. Sanitizers that only remove LF often miss a lone CR.
+
+For example, if a chat message is written as `data: <message>` and the tester sends a message with the value below, where `\r` is a carriage return:
+
+```text
+hi\r\revent: admin\rdata: {"action":"logout"}
+```
+
+Every other user on the channel receives two events, the original message and an `admin` event chosen by the tester:
+
+```text
+data: hi
+
+event: admin
+data: {"action":"logout"}
+
+```
+
+To test, send values that contain `%0d`, `%0a` and `%0d%0a` through every input that is reflected in a stream, such as messages, usernames, filenames and job names, and read the raw stream with curl. Look for new events, and for injected fields:
+
+- `event:` can trigger client handlers for other event types, which may have more privileged behavior.
+- `id:` changes the value the browser sends in `Last-Event-ID` on its next reconnection.
+- `retry:` changes how long the browser waits before reconnecting.
+
+Data serialized as JSON on a single `data:` line is safe from this, because JSON encodes line breaks inside strings.
+
+### Test Client-Side Handling of Events
+
+Review the handlers that process events. If event data is written to the page with `innerHTML`, `insertAdjacentHTML`, a template engine without escaping, or a Markdown renderer that allows HTML, test it as described in [DOM-Based Cross Site Scripting](../01-DOM-based_Cross_Site_Scripting/). This is common in applications that render streamed language model output as Markdown. Also check whether handlers act on event data without checking it, for example by following a URL from an event as in [Client-side URL Redirect](../04-Client-side_URL_Redirect/).
+
+### Test Caching and Resource Limits
+
+- Check that private streams are sent with `Cache-Control: no-store`, and that a shared cache or CDN does not serve one user's stream to another. See [Browser Cache Weaknesses](../../08-Authentication/05-Browser_Cache_Weaknesses/).
+- Check that streams are only served over HTTPS. A page served over HTTPS cannot open an `http://` stream, but the stream URL may still be reachable over HTTP.
+- Open many streams with one account and check whether the server limits them per user and closes idle connections. Long-lived connections use server resources even when no events are sent. See [API Rate Limiting and Resource Consumption](../../16-API_Testing/06-API_Rate_Limiting_and_Resource_Consumption/).
+
+## Related Test Cases
+
+- [WebSockets](../09-WebSockets/)
+- [Cross Origin Resource Sharing](../07-Cross_Origin_Resource_Sharing/)
+- [DOM-Based Cross Site Scripting](../01-DOM-based_Cross_Site_Scripting/)
+- [Logout Functionality](../../10-Session_Management/06-Logout_Functionality/)
+- [HTTP Response Splitting](../../11-Injection/14-HTTP_Response_Splitting/)
+
+## Remediation
+
+- Authenticate streams with cookies that have `SameSite=Lax` or `SameSite=Strict` (not `None`), or with short-lived tokens issued only for the stream, and do not put long-lived tokens in the URL. Cookie attributes do not replace authorization checks or a strict CORS policy on the stream.
+- Authorize every channel and object when the stream is opened and every event before it is sent, and close streams when the session ends or the user's access changes.
+- Only replay events through `Last-Event-ID` that the current user may see, and treat the header as untrusted input.
+- Do not write raw user input into the stream. Serialize event data as JSON on a single `data:` line, or remove CR and LF characters from every field.
+- Treat event data as untrusted in the client, and insert it with `textContent` or a sanitizer.
+- Use an exact CORS allowlist for credentialed streams, send private streams with `Cache-Control: no-store`, and limit the number and lifetime of streams per user.
+
+## Tools
+
+- Browser developer tools, which show the events of `EventSource` requests
+- [curl](https://curl.se/), with the `-N` option to read a stream as it arrives
+- [Burp Suite](https://portswigger.net/burp) or [ZAP](https://www.zaproxy.org/), to intercept and replay the request that opens the stream
+
+## References
+
+- [WHATWG HTML Standard: Server-sent events](https://html.spec.whatwg.org/multipage/server-sent-events.html)
+- [MDN: Using server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events)
+- [OWASP HTML5 Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/HTML5_Security_Cheat_Sheet.html)
+- [CWE-93: Improper Neutralization of CRLF Sequences](https://cwe.mitre.org/data/definitions/93.html)

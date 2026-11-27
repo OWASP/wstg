@@ -1,0 +1,126 @@
+---
+layout: document
+title: WSTG - Latest
+collection_name: latest
+channel_label: Latest
+channel_path: latest
+render_with_liquid: false
+---
+
+# Email Address Verification
+
+|ID          |
+|------------|
+|WSTG-IDNT-05|
+
+## Summary
+
+Many applications use an email address as the main identifier of an account, and trust it for more than sending messages. A verified address may be used to reset the password, to link a single sign-on identity to an existing account, to join an organization automatically, or to get a role because the address is on a trusted domain such as `@example.com`. That trust is only justified if the application has proven that the user controls the address, and if every component that reads the address agrees on what it is.
+
+Weaknesses in this area include:
+
+- Accounts that can be used before the address is verified, or verification links that are not bound to the address they were sent to.
+- Email change flows that let an attacker move an account to an address they do not control, or take over an account by changing its address without re-authentication.
+- Pre-account hijacking, where an attacker creates an account with the victim's address before the victim signs up, and keeps access after the victim starts using it.
+- Parser discrepancies, where the application's validation logic and the library or server that sends the email read the same address differently. An attacker can then receive the verification email for an address that the application considers to be on a trusted domain.
+
+This test focuses on how the application proves ownership of an address and what it grants because of it. Canonicalization of identifiers such as case folding and Unicode normalization is covered in [Account Enumeration and Guessable User Account](../04-Account_Enumeration_and_Guessable_User_Account/), and the handling of the `email_verified` claim from an OpenID Provider in [OpenID Connect Relying Party](../../08-Authentication/13-OpenID_Connect_Relying_Party/).
+
+## Test Objectives
+
+- Determine what an account can do before its email address is verified.
+- Assess whether verification and email change flows bind the proof of ownership to the right address and account.
+- Determine whether an attacker can pre-create or keep access to an account that will belong to the victim.
+- Identify email address syntax that is read differently by the application and by the mail infrastructure, and whether it grants domain-based access.
+
+## How to Test
+
+Use at least two tester-controlled mailboxes on different domains, and if the application grants access by domain, a mailbox on that domain or the help of the owner to read mail sent to it. A local mail catcher such as [Mailpit](https://mailpit.axllent.org/) is useful in a lab, because it shows the exact recipient of every message the application sends. When testing a deployed application, a domain with a catch-all mailbox or an out-of-band service that records SMTP interactions, such as Burp Collaborator, shows which address a message was actually delivered to.
+
+### Identify Email-Based Trust
+
+List every place where the application relies on an email address:
+
+- Registration, login and password reset.
+- Linking of single sign-on identities to existing accounts, and creation of accounts from single sign-on.
+- Invitations, and automatic membership of an organization or tenant based on the domain of the address.
+- Role mapping, allowlists and blocklists that use the domain, such as "only `@example.com` addresses can register" or "users from `@example.com` are administrators".
+- Notifications and approval flows that are sent to the address, for example email-based approval of a login or a payment.
+
+For each one, note whether the application requires the address to be verified first.
+
+### Test Use Before Verification
+
+1. Register an account with a tester-controlled address and do not open the verification email.
+2. Check whether the account can sign in, and which functions work. Pay attention to functions that act on the identity of the address, such as accepting an invitation, joining an organization by domain, linking a single sign-on identity or requesting a password reset.
+3. Repeat with a registration that uses the address of a second tester-controlled account, never a real third party. If the unverified account can do anything that the owner of that address would not expect, the application trusts an address it has not verified.
+
+### Test the Verification Token
+
+1. Request a verification email for address A, then change the address of the same account to B before using the link. Open the link sent to A, and check which address is marked as verified. The link must only verify A, and only if A is still the address of the account.
+2. Open a verification link while signed in as another account, or while signed out, and check that it only verifies the account it was issued for.
+3. Check that the link expires, that it stops working after it is used or after a new one is requested, and that the token cannot be guessed or derived from the address, the user ID or the time.
+4. Check whether the token appears in places where others can read it, such as the response to the request that triggered the email, a redirect to a third-party site, or analytics requests made by the landing page.
+5. Check whether the hostname in the link comes from the `Host` header of the request, as described for password reset links in [Weak Password Change or Reset Functionalities](../../08-Authentication/08-Weak_Password_Change_or_Reset_Functionalities/). If it does, an attacker who triggers the email with a modified header can receive the token when the victim clicks the link.
+
+### Test Email Change
+
+1. Change the address of an account and check whether the application asks for the current password or another form of re-authentication. Without it, anyone with access to a session, for example through session hijacking or cross-site request forgery, can take the account over by moving it to their address and resetting the password.
+2. Check whether the new address must be verified before it replaces the old one, and whether the old address is notified of the change with a way to undo it.
+3. While a change is pending, check which address password reset and login links are sent to, and whether the old address still works.
+4. Start a change to address B, then change to address C, and open the link sent to B. Only the latest pending change should be accepted.
+5. Send several change requests in parallel, using the race condition techniques in [Payment Functionality](../../14-Business_Logic/10-Payment_Functionality/#race-conditions), and check whether a link meant for one address can confirm another.
+
+### Test for Pre-Account Hijacking
+
+In these tests, tester A plays the attacker and tester B plays the victim, using an address that B controls.
+
+1. **Classic and federated merge:** A registers with B's address and a password, without verifying it. B then signs in with a single sign-on provider that returns the same address. Check whether the application merges the accounts and whether A's password still works afterwards.
+2. **Unexpired session:** A registers with B's address and stays signed in. B then claims the account, for example by resetting the password through the address. Check whether A's session is still valid.
+3. **Trojan identifier:** A registers with B's address and links an identity A controls, such as a second single sign-on account or a phone number. After B claims the account, check whether A can still sign in with that identity.
+4. **Unexpired email change:** A registers with B's address, starts a change to an address A controls, and does not confirm it. After B claims the account, A confirms the change. Check whether the link is still accepted.
+
+Any of these that succeed allow the attacker to access the account once the victim starts using it.
+
+### Test for Parser Discrepancies
+
+An address that the application validates as `user@trusted.example` may be delivered somewhere else if the code that sends the email, the mail library or a mail server parses it differently. This matters most where the application grants access based on the domain, but it can also be used to verify an address the tester does not own.
+
+Submit variants of an address in the trusted domain that, under some parsers, point to a tester-controlled mailbox, and check where the verification email arrives and which address the application displays and stores. Useful variants include:
+
+- **Quoted local parts:** `"attacker@attacker.example"@trusted.example` is a valid address on `trusted.example`, but code that takes everything after the first `@` as the domain, or a mail component that ignores the quotes, can treat it as an address on `attacker.example`.
+- **Comments:** `attacker@attacker.example(@trusted.example)` can pass a check that only looks for `@trusted.example` somewhere in the address, while parsers that remove comments, such as `parseaddr()` in Python's `email.utils`, read it as `attacker@attacker.example`.
+- **Encoded-words:** some mail libraries decode [RFC 2047](https://www.rfc-editor.org/rfc/rfc2047) encoded-words, which are meant for display names, inside the address itself. In Q encoding `=40` is `@`, so an address such as `=?utf-8?q?attacker=40attacker.example?=@trusted.example` can be validated as a `trusted.example` address and decoded to a different one when the email is sent. Try other charsets and the `b` (Base64) encoding too.
+- **Routing syntax:** source routes such as `@trusted.example:attacker@attacker.example`, the percent hack `attacker%attacker.example@trusted.example`, and UUCP bang paths such as `attacker.example!attacker@trusted.example` are obsolete, but some parsers and mail servers still handle them.
+- **Unicode and Punycode:** characters that some libraries convert to `@`, quotes or angle brackets when they normalize the address or decode Punycode.
+
+If a variant delivers the verification email to the tester while the application shows an address on the trusted domain, check what that address grants, such as joining the organization of `trusted.example` or getting the role mapped to its domain.
+
+## Related Test Cases
+
+- [User Registration Process](../02-User_Registration_Process/)
+- [Account Enumeration and Guessable User Account](../04-Account_Enumeration_and_Guessable_User_Account/)
+- [Weak Password Change or Reset Functionalities](../../08-Authentication/08-Weak_Password_Change_or_Reset_Functionalities/)
+- [OpenID Connect Relying Party](../../08-Authentication/13-OpenID_Connect_Relying_Party/)
+- [Host Header Injection](../../11-Injection/16-Host_Header_Injection/)
+
+## Remediation
+
+- Do not grant anything that depends on the identity of an email address until the address is verified, including organization membership, role mapping, invitations and linking of single sign-on identities.
+- Bind verification tokens to the account and to the exact address they were sent to, make them single use, expire them, and invalidate them when the address changes or a new token is issued.
+- Require re-authentication to change the email address, verify the new address before it replaces the old one, and notify the old address with a way to revert the change.
+- When an unverified account is claimed through its address, for example by password reset or single sign-on, end its other sessions and remove the password, identities and pending changes that were added before verification.
+- Parse email addresses with one strict parser, reject syntax that the application does not need, such as quoted local parts, comments, source routes and encoded-words, and pass the parsed address to the mail library instead of the original input. Make domain-based decisions on that parsed address only.
+
+## Tools
+
+- [Mailpit](https://mailpit.axllent.org/), an email testing tool that captures messages sent by an application
+- [Burp Suite](https://portswigger.net/burp), whose Collaborator records SMTP interactions
+
+## References
+
+- [PortSwigger Research: Splitting the email atom: exploiting parsers to bypass access controls](https://portswigger.net/research/splitting-the-email-atom)
+- [Avinash Sudhodanan and Andrew Paverd: Pre-hijacked accounts: An Empirical Study of Security Failures in User Account Creation on the Web](https://www.usenix.org/conference/usenixsecurity22/presentation/sudhodanan)
+- [RFC 5322: Internet Message Format](https://www.rfc-editor.org/rfc/rfc5322)
+- [RFC 2047: MIME Part Three: Message Header Extensions for Non-ASCII Text](https://www.rfc-editor.org/rfc/rfc2047)
+- [OWASP Input Validation Cheat Sheet: Email Address Validation](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html#email-address-validation)

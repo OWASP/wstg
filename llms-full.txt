@@ -1,0 +1,849 @@
+# OWASP Web Security Testing Guide - Latest
+
+Complete markdown reference for LLM consumption.
+
+## 0. Foreword
+
+# 0. Foreword
+
+*To be confirmed.*
+
+## Why OWASP?
+
+The Open Worldwide Application Security Project® (OWASP®) is a nonprofit foundation whose vision is no more insecure software. Its mission is to be the global open community that powers secure software through education, tools, and collaboration.
+
+Creating a guide like this takes expertise from hundreds of people around the world. There are many ways to test for security flaws, and this guide attempts to capture consensus on how to perform that testing quickly, accurately, and efficiently. OWASP brings practitioners together to form a leading-practice approach to software security problems, as a vendor-neutral community rather than a commercial vendor or regulator.
+
+Making this guide completely free and open supports that mission. Anyone can learn the techniques used to test for common security issues. Security should not be a black art or closed secret. It should be open to security practitioners, and also to developers, QA, and technical managers. This project keeps that expertise in the hands of the people who build and ship software.
+
+This guide must reach developers and software testers. There are not nearly enough application security specialists to solve the problem alone. Much of the responsibility for application security falls on developers, because they write the code. Developers cannot be expected to produce secure software if they never test for the classes of bugs that introduce vulnerability.
+
+Keeping this information current is critical. The OWASP community maintains and expands this guide through [GitHub](https://github.com/OWASP/wstg/) Issues and Pull Requests so it can keep pace with the application security threat landscape.
+
+This guide is a testament to the passion and energy of OWASP members and project volunteers. It helps change the world a line of code at a time.
+
+## Tailoring and Prioritizing
+
+Adopt this guide in your organization. Tailor the material to match your technologies, processes, and structure.
+
+Several roles commonly use this guide:
+
+- Developers should use this guide to help produce secure code. These tests should be part of normal code and unit testing procedures.
+- Software testers and QA should use this guide to expand the test cases they apply. Catching these vulnerabilities early saves considerable time, effort, and money later.
+- Security specialists should use this guide with other techniques to verify that security issues have not been missed.
+- Project Managers should treat security issues as bugs in code and design, and plan accordingly.
+
+When performing security testing, continuously re-prioritize. There are infinite ways an application could fail, and organizations always have limited testing time and resources. Spend that time on security issues that present real risk to the business. Contextualize risk in terms of the application and its use cases.
+
+View this guide as a set of techniques for finding different types of security issues. Not all techniques are equally important for every system. Avoid treating the guide as a checklist. New vulnerabilities continue to appear, and no guide can be an exhaustive list of things to test for. Use it as a strong place to start.
+
+## The Role of Automated Tools
+
+Automated security tools such as dynamic application security testing (DAST), static application security testing (SAST), and software composition analysis (SCA) help scale testing and find many classes of issues. Use them for what they do well: breadth of coverage, repeatable checks, and enforcing baseline policy. Open tools in the ecosystem, including [ZAP](https://www.zaproxy.org/), can support that work without locking teams into a single vendor.
+
+These tools are still generic. They are built for applications in general, not for your custom code and business rules. They can find many common problems, but they often lack the application-specific context needed to detect deeper flaws. The most serious issues are frequently intertwined with business logic and custom design, which is where the techniques in this guide matter most.
+
+Running a tool is usually fast. Investigating and verifying each finding takes time. If the goal is to find and eliminate the most serious flaws as quickly as possible, balance automated scanning with the manual and semi-automated techniques described here. Well-balanced application security programs use both: tools for breadth, and this guide for depth and judgment.
+
+## Call to Action
+
+If you build, design, or test software, get familiar with the security testing guidance in this document. It is a road map for testing many of the issues applications face today, but it is not exhaustive. If you find errors or gaps, open an Issue or submit a Pull Request on the [WSTG GitHub repository](https://github.com/OWASP/wstg/). That helps thousands of others who use this guide.
+
+Please consider [joining us](https://owasp.org/membership/) as an individual or corporate member so that we can continue to produce materials like this testing guide and the other projects at OWASP.
+
+Thank you to all past and future contributors to this guide. Your work helps make applications worldwide more secure.
+
+---
+
+Open Worldwide Application Security Project and OWASP are registered trademarks of the OWASP Foundation, Inc.
+
+## 1. About
+
+# 1. About
+
+## Welcome
+
+> As we focus on incremental improvement, this release introduces numerous updates. We've standardized scenario formats to create a better reading experience, added objectives for each testing scenario, merged sections, and added new scenarios on some modern testing topics.
+>
+> - Rick Mitchell
+
+OWASP thanks the many authors, reviewers, and editors for their hard work in bringing this guide to where it is today. If you have any comments or suggestions on the Testing Guide, please feel free to open an Issue or submit a fix/contribution via Pull Request to our [GitHub repository](https://github.com/OWASP/wstg/).
+
+## Copyright and Licensee
+
+Copyright © 2026 The OWASP® Foundation.
+
+This document is released under the [Creative Commons 4.0 License](https://creativecommons.org/licenses/by-sa/4.0/). Please read and understand the license and copyright conditions.
+
+## Leaders
+
+- Elie Saad
+- Rick Mitchell
+
+## Core Team
+
+- Srinivas Chippagiri (Salesforce Inc)
+- Enes Baldemir
+- Rejah Rehim
+- Victoria Drake
+
+## Authors
+
+- Aaron Williams
+- Alessia Michela Di Campi
+- Alexander Bas
+- Garth Boyd
+- Davide Danelon
+- Elie Saad
+- Enes Baldemir
+- Felix Sieges
+- Himasree Kolathur
+- Ismael Goncalves
+- Janos Zold
+- Jeremy Bonghwan Choi
+- Jinson Varghese Behanan
+- Joel Espunya
+- Joel Aviad Ossi
+- Manh Pham Tien
+- Mark Clayton
+- Meysam Bal-afkan
+- Mohamed Bassia (0xBassia)
+- Mohammad Hossein Sadeghian
+- Omar Jezi
+- Or Asaf
+- Phu Nguyen (Tony)
+- rbsec
+- Rick Mitchell
+- Rishu Ranjan
+- Rubal Jain
+- Samuele Casarin
+- Sevban Dönmez
+- Srinivas Chippagiri
+- Stefano Calzavara
+- Tal Argoni
+- Tarcísio Luchesi (Poystick)
+- Victoria Drake
+
+## Graphic Designers
+
+- Hugo Costa
+- Jishnu Vijayan C K
+- Muhammed Anees
+- Ramzi Fazah
+
+## Reviewers or Editors
+
+- Abhi M Balakrishnan
+- Asharaf Ali
+- Elie Saad
+- Enes Baldemir
+- Eoin Murphy
+- Evan Read (alp1n3-eth)
+- Francisco Bustos
+- frozensolid
+- Hsiang-Chih Hsu
+- Jeremy Bonghwan Choi
+- Jinson Varghese Behanan
+- Lukasz Lubczynski
+- Miguel Arevalo
+- Najam Ul Saqib
+- Nikoleta Misheva
+- Olivier Konaté
+- Patrick Santos
+- Rejah Rehim
+- Rick Mitchell
+- Roman Mueller
+- Srinivas Chippagiri
+- Thomas Lim
+- Tom Bowyer
+- Victoria Drake
+
+## Trademarks
+
+- Java, Java Web Server, and JSP are registered trademarks of Sun Microsystems, Inc.
+- Merriam-Webster is a trademark of Merriam-Webster, Inc.
+- Microsoft is a registered trademark of Microsoft Corporation.
+- Octave is a service mark of Carnegie Mellon University.
+- Open Worldwide Application Security Project and OWASP are registered trademarks of the OWASP Foundation, Inc.
+- VeriSign and Thawte are registered trademarks of VeriSign, Inc.
+- Visa is a registered trademark of VISA USA.
+
+All other products and company names may be trademarks of their respective owners. Use of a term in this document should not be regarded as affecting the validity of any trademark or service mark.
+
+## Contacting OWASP
+
+Contact details for the [OWASP Foundation](https://owasp.org/) are available [online](https://owasp.org/contact/). If you have a question concerning a particular project, we strongly recommend using the [Google Group](https://groups.google.com/a/owasp.org/forum/) for that project. Many questions can also be answered by searching the [OWASP](https://owasp.org/) site, so please check there first.
+
+### Follow Us
+
+[![Follow OWASP on LinkedIn](images/follow_badge.png)](https://www.linkedin.com/company/owasp/)
+
+[![Follow @owasp_wstg on twitter](https://img.shields.io/twitter/follow/owasp_wstg?style=social)](https://twitter.com/owasp_wstg)
+
+## 2. Introduction
+
+# 2. Introduction
+
+## Purpose and Scope
+
+The OWASP Web Security Testing Guide (WSTG) is a comprehensive, open-source, community-maintained framework and set of practical techniques for testing the security of web applications and web services. It is not a rigid checklist or a compliance standard, but rather a methodology and technique reference designed to adapt to your organization's threat model, risk tolerance, and development practices.
+
+> "Security should not be a black art or closed secret that only a few can practice." - Eoin Keary
+
+The guide covers:
+
+- Traditional web applications and modern cloud-native services.
+- Infrastructure configuration, cloud deployments, and containerization.
+- Identity, authentication, authorization, and session management controls.
+- Input validation, encoding, and output handling.
+- Error handling and exception management.
+- Cryptographic implementations.
+- Business logic and workflow security.
+- Client-side technologies and user interface security.
+- API security and integration points.
+
+The guide does not replace: formal risk frameworks such as [NIST Risk Management Framework](https://csrc.nist.gov/projects/risk-management/), comprehensive threat-modeling methodologies, detailed remediation guidance (see the [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/) for that), comprehensive source code security review (which requires white-box access and architectural knowledge beyond testing), organization-specific security policies, or specialized AI/LLM application testing (see [OWASP AI Testing Guide](https://owasp.org/www-project-ai-testing-guide/) and [OWASP Top 10 for LLM Applications](https://genai.owasp.org/initiatives/top-10-for-llm-and-genai/)).
+
+## Why Web Application Security Testing Matters
+
+Web application security testing has become critical to managing risk in today's threat landscape. Several forces drive this urgency:
+
+### Economic Impact
+
+The [IBM Cost of a Data Breach Report 2026](https://www.ibm.com/reports/data-breach) found that the global average cost of a data breach has reached $4.99 million (USD), with U.S. breaches averaging $11.5 million (USD). AI-driven attacks - now present in over a quarter of reported breaches - add an average of $1 million (USD) per breach. Beyond direct costs, breaches cause operational disruption, regulatory fines, reputational damage, and loss of customer trust.
+
+### Expanding Attack Surface
+
+The traditional perimeter-based security model no longer applies. Modern applications now expose risk across:
+
+- Public APIs and microservices
+- Cloud-native infrastructure and serverless functions
+- Third-party integrations and open-source dependencies
+- Client-side code running in browsers and mobile apps
+- Supply chain risks, including compromised packages and tampered build processes
+
+A comprehensive testing program must address all of these surfaces.
+
+### Pace of Development vs. Pace of Threats
+
+Two opposing forces create urgency:
+
+1. AI-assisted development accelerates code production. Higher code velocity, if not matched by security discipline, increases the likelihood that classic vulnerabilities (injection flaws, broken authentication, business logic errors) are introduced faster than traditional testing can catch them.
+
+2. AI-augmented testing tools accelerate certain detection tasks. Dynamic and static application security testing (DAST/SAST) tools powered by machine learning can find common, known vulnerabilities more efficiently. However, these tools do not replace skilled human analysis for business logic flaws, authorization bypass, and context-specific risks that require understanding the application's intended behavior. Further, AI-assisted attacks enable adversaries to probe defenses faster and adapt to countermeasures in near real-time, which will certainly increase the pace of breaches.
+
+The solution is not to choose between human testing and tooling, but to layer both: automated scanning for low-hanging fruit, combined with targeted manual testing (perhaps even AI supplemented), and code review to find design and logic flaws.
+
+## Who Should Use This Guide
+
+The WSTG is designed for:
+
+- Penetration testers and security consultants who conduct application assessments.
+- In-house security and quality assurance teams that test software throughout development.
+- Developers and DevSecOps engineers who integrate security testing into CI/CD pipelines.
+- Security architects who design testing strategies and compliance programs.
+- Auditors and compliance officers who validate application security controls.
+- Product owners and engineering managers who scope, resource, and prioritize testing efforts.
+
+Secondary audiences include tool developers and organizations running public bug-bounty programs. The testing techniques and taxonomy in this guide are equally applicable to internal testing, third-party penetration tests, and coordinated-disclosure / bug-bounty engagements.The differences lie in authorization, rules of engagement, and how results are reported and remediated.
+
+## Core Principles of Effective Security Testing
+
+Effective security testing rests on these principles:
+
+### No Silver Bullet
+
+Automated tools (DAST, SAST, dependency scanning) are necessary and valuable, but they are insufficient on their own. Even the most sophisticated application security scanning tools cannot match the reasoning and creativity of an experienced security tester. Tools excel at finding known, signature-based vulnerabilities; they do not understand business logic or context. Security is a process of continuous improvement, not a product that can be "bought" once.
+
+### Continuous Security Testing
+
+The traditional approach-testing only after development is "complete" is wasteful and ineffective. The cost of fixing a security bug grows exponentially as it moves downstream: a flaw caught during design costs a fraction of one caught in production. Modern practices integrate security testing throughout the development lifecycle:
+
+- During design and architecture review (threat modeling).
+- During development (secure code review, unit-level security tests).
+- During integration and system testing (penetration testing, security acceptance tests).
+- In production (continuous monitoring, security regression testing).
+
+Continuous integration and continuous deployment (CI/CD) pipelines provide an opportunity to automate baseline security checks (SAST, ßdependency scanning) at every build, keeping security front-of-mind for the entire team.
+
+### Risk and Impact-Based Prioritization
+
+Prioritize testing effort based on risk, not on finding counts. A single critical authorization bypass affecting user data is more important than dozens of low-risk cross-site scripting (XSS) findings. Develop a risk model tailored to your application (e.g., confidentiality and integrity of customer data may dominate over availability), and focus testing on the controls and surfaces most critical to that risk.
+
+### Balanced Testing Approach
+
+No single testing technique is sufficient. A mature program combines:
+
+- Manual inspection and design review: to assess policies, architecture, and security process.
+- Threat modeling: to identify potential attack vectors early in the lifecycle.
+- Source code review: to find subtle flaws (business logic errors, cryptographic weaknesses, race conditions) that tools often miss or that are hard to detect from a black-box perspective.
+- Penetration testing: to validate that vulnerabilities can actually be exploited and understand their real-world impact.
+- Automated scanning (SAST, DAST, SCA): to identify common, known vulnerabilities at scale.
+
+The relative effort devoted to each technique should shift based on the SDLC phase: emphasis on manual review and threat modeling early, automation and testing later.
+
+### Clear, Actionable Reporting
+
+Test findings must be understandable and actionable for developers and business stakeholders. A report should:
+
+- Explain *what* was tested and *how* it was tested (so results can be reproduced).
+- Describe the *root cause* of each issue (so that they are hopefully less likely to reoccur in the future).
+- Provide *concrete remediation guidance* or reference to secure coding guidance (so developers know what to fix).
+- Assign a *severity or risk rating* to help prioritize remediation effort.
+- Clearly communicate the *business impact* so non-technical stakeholders understand why remediation matters.
+
+### Adaptability to Your Context
+
+There is no one-size-fits-all testing approach. The depth and breadth of testing must adapt to your application's architecture, data sensitivity, threat model, and risk tolerance. A small internal tool requires different testing rigor than a customer-facing financial application. A mature DevSecOps team can shift testing earlier into automated pipelines; a team new to security testing may start with lighter checklist-based approaches and mature from there. The WSTG provides the framework and the flexibility to help in a variety of application architectures.
+
+## How the Guide Is Organized
+
+This document is structured as follows:
+
+- This Introduction: Sets context, scope, and principles.
+- The OWASP Testing Framework (Section 3): Explains how the testing framework integrates with development phases (define, design, develop, test, deploy, maintain); covers continuous integration practices, bug-bounty program design, and AI-augmented testing workflows.
+- Web Application Security Testing Categories (Sections 4-17): Provides concrete, how-to-test procedures for each major testing area (e.g., authentication, input validation, business logic).
+- Reporting (Section 18): Guidance on test reporting formats, severity assessment, and communicating results to different audiences.
+- Appendices (Appendix A-G): Testing tools, suggested reading, versioning history.
+
+Readers new to security testing should start here and then progress to [Section 3](../03-The_OWASP_Testing_Framework/) for an understanding of when and how testing fits into modern development practices. Practitioners looking for specific test procedures should jump directly to [Sections 4-17](../04-Introduction_and_Objectives/).
+
+## How to Reference WSTG Scenarios
+
+Each scenario has an identifier in the format `WSTG-<category>-<number>`, where: 'category' is a 4 character upper case string that identifies the type of test or weakness, and 'number' is a zero-padded numeric value from 01 to 99. For example:`WSTG-INFO-02` is the second Information Gathering test.
+
+The identifiers may change between versions therefore it is preferable that other documents, reports, or tools use the format: `WSTG-<version>-<category>-<number>`, where: 'version' is the version tag with punctuation removed. For example: `WSTG-v42-INFO-02` would be understood to mean specifically the second Information Gathering test from version 4.2.
+
+If identifiers are used without including the `<version>` element then they should be assumed to refer to the latest Web Security Testing Guide content. Obviously as the guide grows and changes this becomes problematic, which is why writers or developers should include the version element.
+
+### Linking
+
+Linking to Web Security Testing Guide scenarios should be done using versioned links not `stable` or `latest` which will definitely change with time. However, it is the project team's intention that versioned links not change. For example: `https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/01-Information_Gathering/02-Fingerprint_Web_Server`. Note: the `v42` element refers to version 4.2.
+
+## Feedback and Comments
+
+As with all OWASP projects, we welcome feedback and contributions. If you discover an error, a gap in coverage, an outdated reference, or a technique that should be added or revised, please open an issue or submit a pull request on the [WSTG GitHub repository](https://github.com/OWASP/wstg). This guide is living documentation maintained by the community, and your input helps keep it accurate and relevant. We especially value real-world reports of tests that work and tests that don't, so that the guide remains practical for practitioners.
+
+## Related OWASP Projects
+
+The Web Security Testing Guide is one part of a wider set of OWASP projects that support building and testing secure applications:
+
+- [OWASP Application Security Verification Standard (ASVS)](https://owasp.org/www-project-application-security-verification-standard/): A catalog of functional security requirements that provides the "what to test" baseline. ASVS v5.0 (released May 2025) includes modern cloud-native architectures and clearer control definitions.
+- [OWASP Top 10 (2025)](https://owasp.org/Top10/2025/) and [OWASP API Security Top 10 (2023)](https://owasp.org/www-project-api-security/): Consensus rankings of the most critical security risks for web applications and APIs. These help prioritize testing focus.
+- [OWASP Top 10 for Large Language Model Applications](https://genai.owasp.org/initiatives/top-10-for-llm-and-genai/) and [OWASP AI Testing Guide](https://owasp.org/www-project-ai-testing-guide/): Specialized guidance for testing AI and LLM-powered applications, including prompt injection, hallucination, and model poisoning risks.
+- [OWASP AI Exchange](https://owaspai.org/): A community-driven knowledge base and framework for understanding and managing AI security risks, including AI governance, risk assessments, and AI-specific threat models.
+- [OWASP Mobile Application Security (MASVS/MASTG)](https://owasp.org/www-project-mobile-app-security/): Security verification standard and testing guide for iOS and Android applications.
+- [OWASP Open Common Requirements Enumeration (OpenCRE)](https://www.opencre.org/): A reference mapping framework that links security requirements, testing methods, and controls across multiple standards and frameworks (ASVS, NIST, ISO, CWE, etc.), helping contextualize WSTG guidance within the broader security landscape.
+- [OWASP Software Assurance Maturity Model (SAMM)](https://owaspsamm.org/model/): Framework for assessing and improving an organization's application security practices across the full SDLC.
+- [OWASP Threat Dragon](https://owasp.org/www-project-threat-dragon/) and [Pythonic Threat Modeling (pytm)](https://owasp.org/www-project-pytm/): Tools and methodologies for building and documenting threat models.
+- [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/): Concise, authoritative guidance on specific security topics (e.g., authentication, cryptography, API security) with code examples and best practices.
+
+## References
+
+- [IBM Cost of a Data Breach Report 2026](https://www.ibm.com/reports/data-breach)
+- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
+- [NIST Risk Management Framework (RMF)](https://csrc.nist.gov/projects/risk-management/)
+- [Common Vulnerability Scoring System (CVSS) v3.1](https://www.first.org/cvss/)
+- [OWASP Testing Guide Checklists](https://github.com/OWASP/wstg/tree/master/checklists)
+
+For a comprehensive list of suggested reading, tools, and historical context, see Appendices A, B, and E.
+
+## 3. The OWASP Testing Framework
+
+# The OWASP Testing Framework
+
+3.1 [The Web Security Testing Framework](0-The_Web_Security_Testing_Framework/)
+
+3.2 [Testing Activities](0-The_Web_Security_Testing_Framework/#testing-activities)
+
+3.3 [Requirements and Policy Review](0-The_Web_Security_Testing_Framework/#requirements-and-policy-review)
+
+3.4 [Design, Architecture, and Threat Modeling](0-The_Web_Security_Testing_Framework/#design-architecture-and-threat-modeling)
+
+3.5 [Code-Level Review and Analysis](0-The_Web_Security_Testing_Framework/#code-level-review-and-analysis)
+
+3.6 [Dynamic and Penetration Testing](0-The_Web_Security_Testing_Framework/#dynamic-and-penetration-testing)
+
+3.7 [Continuous Integration Pipeline Testing](0-The_Web_Security_Testing_Framework/#continuous-integration-pipeline-testing)
+
+3.8 [Continuous and Crowd-Sourced Testing](0-The_Web_Security_Testing_Framework/#continuous-and-crowd-sourced-testing)
+
+3.9 [Matching Activity to Cadence](0-The_Web_Security_Testing_Framework/#matching-activity-to-cadence)
+
+3.10 [Where to Start](0-The_Web_Security_Testing_Framework/#where-to-start)
+
+3.11 [Bug Bounty Programs as a Testing Technique](1-Bug_Bounty_Programs/)
+
+3.12 [Human-AI Collaborative Testing](2-Human-AI_Collaborative_Testing/)
+
+## 4. Introduction and Objectives
+
+# 4. Introduction and Objectives
+
+This section describes the OWASP web application security testing methodology and explains how to test for evidence of vulnerabilities within the application due to deficiencies with identified security controls.
+
+## What is Web Application Security Testing?
+
+A security test is a method of evaluating the security of a computer system or network by methodically validating and verifying the effectiveness of application security controls. A web application security test focuses only on evaluating the security of a web application. The process involves an active analysis of the application for any weaknesses, technical flaws, or vulnerabilities. Any security issues that are found will be presented to the system owner, together with an assessment of the impact, a proposal for mitigation or a technical solution.
+
+## What is a Vulnerability?
+
+A vulnerability is a flaw or weakness in a system's design, implementation, operation or management that could be exploited to compromise the system's security objectives.
+
+## What is a Threat?
+
+A threat is anything (a malicious external attacker, an internal user, a system instability, etc) that may harm the assets owned by an application (resources of value, such as the data in a database or in the file system) by exploiting a vulnerability.
+
+## What is a Test?
+
+A test is an action to demonstrate that an application meets the security requirements of its stakeholders.
+
+## The Approach in Writing this Guide
+
+The OWASP approach is open and collaborative:
+
+- Open: every security expert can participate with their experience in the project. Everything is free.
+- Collaborative: brainstorming is performed before the articles are written so the team can share ideas and develop a collective vision of the project. That means rough consensus, a wider audience and increased participation.
+
+This approach tends to result in a defined Testing Methodology that will be:
+
+- Consistent
+- Reproducible
+- Rigorous
+- Under quality control
+
+The problems to be addressed are fully documented and tested. It is important to use various methods to test all the known vulnerabilities and document all the security test activities.
+
+## What Is the OWASP Testing Methodology?
+
+Security testing will never be an exact science where a complete list of all possible issues that should be tested can be defined. In fact, security testing is only one of the several suitable techniques for testing the security of web applications under certain circumstances. The goal of this project is to collect all the possible testing techniques, explain these techniques, and keep the guide updated. The OWASP Web Application Security Testing methodology is based on the black box approach. The tester has little to no information about the application to be tested.
+
+The testing model consists of:
+
+- Tester: Who performs the testing activities
+- Tools and methodology: The core of this Testing Guide project
+- Application: The black box to test
+
+Testing can be categorized as passive or active:
+
+### Passive Testing
+
+During passive testing, a tester tries to understand the application's logic and explores the application as an end user. Tools can be used for information gathering. For example, an HTTP(S) proxy can be used to observe all the HTTP(S) requests and responses. At the end of this phase, the tester should generally understand all the access points and functionality of the system (e.g., HTTP headers, parameters, cookies, APIs, technology usage/patterns, etc). The [Information Gathering](../05-Information_Gathering/) section explains how to perform passive testing.
+
+For example, a tester may find a page at the following URL: `https://www.example.com/login/auth_form`
+
+This may indicate an authentication form where the application requests a username and password.
+
+The following parameters represent two access points to the application: `https://www.example.com/appx?a=1&b=1`
+
+In this case, the application has two access points (parameters `a` and `b`). All the input points found in this phase represent targets for testing. Keeping track of the directory or call tree of the application and all the access points can be useful during active testing.
+
+### Active Testing
+
+During active testing, a tester uses the methodologies described in the following sections.
+
+The set of active tests have been split into 12 categories:
+
+- Information Gathering
+- Configuration and Deployment Management Testing
+- Identity Management Testing
+- Authentication Testing
+- Authorization Testing
+- Session Management Testing
+- Injection Testing
+- Error Handling
+- Weak Cryptography
+- Business Logic Testing
+- Client-side Testing
+- API Testing
+
+## 5. Information Gathering
+
+# 5 Information Gathering
+
+5.0 [Information Gathering Overview](00-Information_Gathering_Overview/)
+
+5.1 [Conduct Search Engine Reconnaissance for Information Leakage](01-Conduct_Search_Engine_Reconnaissance_for_Information_Leakage/)
+
+5.2 [Fingerprint Web Server](02-Fingerprint_Web_Server/)
+
+5.3 [Review Webserver Metafiles for Information Leakage](03-Review_Webserver_Metafiles_for_Information_Leakage/)
+
+5.4 [Attack Surface Identification](04-Attack_Surface_Identification/)
+
+5.5 [Review Web Page Content for Information Leakage](05-Review_Web_Page_Content_for_Information_Leakage/)
+
+5.6 [Identify Application Entry Points](06-Identify_Application_Entry_Points/)
+
+5.7 [Map Execution Paths Through Application](07-Map_Execution_Paths_Through_Application/)
+
+5.8 [Fingerprint Web Application Framework](08-Fingerprint_Web_Application_Framework/)
+
+5.9 [Map Application Architecture](09-Map_Application_Architecture/)
+
+## 6. Configuration and Deployment Management
+
+# 6 Configuration and Deployment Management
+
+6.1 [Network Infrastructure Configuration](01-Network_Infrastructure_Configuration/)
+
+6.2 [Application Platform Configuration](02-Application_Platform_Configuration/)
+
+6.3 [Review Old Backup and Unreferenced Files for Sensitive Information](03-Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information/)
+
+6.4 [Enumerate Infrastructure and Application Admin Interfaces](04-Enumerate_Infrastructure_and_Application_Admin_Interfaces/)
+
+6.5 [HTTP Methods](05-HTTP_Methods/)
+
+6.6 [HTTP Strict Transport Security](06-HTTP_Strict_Transport_Security/)
+
+6.7 [File Permissions](07-File_Permissions/)
+
+6.8 [Subdomain Takeover](08-Subdomain_Takeover/)
+
+6.9 [Cloud Storage](09-Cloud_Storage/)
+
+6.10 [Content Security Policy](10-Content_Security_Policy/)
+
+6.11 [Path Confusion](11-Path_Confusion/)
+
+6.12 [Additional Browser Security Controls](12-Additional_Browser_Security_Controls/)
+
+6.13 [Feature Flag Security Bypass](13-Feature_Flag_Security_Bypass/)
+
+6.14 [Web Cache Poisoning](14-Web_Cache_Poisoning/)
+
+## 7. Identity Management
+
+# 7 Identity Management
+
+7.1 [Role Definitions](01-Role_Definitions/)
+
+7.2 [User Registration Process](02-User_Registration_Process/)
+
+7.3 [Account Provisioning Process](03-Account_Provisioning_Process/)
+
+7.4 [Account Enumeration and Guessable User Account](04-Account_Enumeration_and_Guessable_User_Account/)
+
+7.5 [Email Address Verification](05-Email_Address_Verification/)
+
+## 8. Authentication
+
+# 8 Authentication
+
+8.1 [Default Credentials](01-Default_Credentials/)
+
+8.2 [Weak Lock Out Mechanism](02-Weak_Lock_Out_Mechanism/)
+
+8.3 [Bypassing Authentication Schema](03-Bypassing_Authentication_Schema/)
+
+8.4 [Vulnerable Remember Password](04-Vulnerable_Remember_Password/)
+
+8.5 [Browser Cache Weaknesses](05-Browser_Cache_Weaknesses/)
+
+8.6 [Weak Authentication Methods](06-Weak_Authentication_Methods/)
+
+8.7 [Weak Security Question Answer](07-Weak_Security_Question_Answer/)
+
+8.8 [Weak Password Change or Reset Functionalities](08-Weak_Password_Change_or_Reset_Functionalities/)
+
+8.9 [Weaker Authentication in Alternative Channel](09-Weaker_Authentication_in_Alternative_Channel/)
+
+8.10 [Multi-Factor Authentication (MFA)](10-Multi-Factor_Authentication/)
+
+8.11 [SAML Authentication](11-SAML_Authentication/)
+
+8.12 [Passkeys and WebAuthn](12-Passkeys_and_WebAuthn/)
+
+8.13 [OpenID Connect Relying Party](13-OpenID_Connect_Relying_Party/)
+
+## 9. Authorization
+
+# 9 Authorization
+
+9.1 [Directory Traversal and File Include](01-Directory_Traversal_File_Include/)
+
+9.2 [Bypassing Authorization Schema](02-Bypassing_Authorization_Schema/)
+
+9.3 [Privilege Escalation](03-Privilege_Escalation/)
+
+9.4 [Insecure Direct Object References](04-Insecure_Direct_Object_References/)
+
+9.5 [OAuth Weaknesses](05-OAuth_Weaknesses/)
+
+9.5.1 [OAuth Authorization Server Weaknesses](05.1-OAuth_Authorization_Server_Weaknesses/)
+
+9.5.2 [OAuth Client Weaknesses](05.2-OAuth_Client_Weaknesses/)
+
+## 10. Session Management
+
+# 10 Session Management
+
+10.1 [Session Management Schema](01-Session_Management_Schema/)
+
+10.2 [Cookies Attributes](02-Cookies_Attributes/)
+
+10.3 [Session Fixation](03-Session_Fixation/)
+
+10.4 [Exposed Session Variables](04-Exposed_Session_Variables/)
+
+10.5 [Cross Site Request Forgery](05-Cross_Site_Request_Forgery/)
+
+10.6 [Logout Functionality](06-Logout_Functionality/)
+
+10.7 [Session Timeout](07-Session_Timeout/)
+
+10.8 [Session Puzzling](08-Session_Puzzling/)
+
+10.9 [Session Hijacking](09-Session_Hijacking/)
+
+10.10 [JSON Web Tokens](10-JSON_Web_Tokens/)
+
+10.11 [Concurrent Sessions](11-Concurrent_Sessions/)
+
+## 11. Injection
+
+# 11 Injection
+
+11.1 [Reflected Cross Site Scripting](01-Reflected_Cross_Site_Scripting/)
+
+11.2 [Stored Cross Site Scripting](02-Stored_Cross_Site_Scripting/)
+
+11.3 [HTTP Parameter Pollution](03-HTTP_Parameter_Pollution/)
+
+11.4 [SQL Injection](04-SQL_Injection/)
+
+- 11.4.1 [Oracle](04.1-Oracle/)
+
+- 11.4.2 [MySQL](04.2-MySQL/)
+
+- 11.4.3 [SQL Server](04.3-SQL_Server/)
+
+- 11.4.4 [PostgreSQL](04.4-PostgreSQL/)
+
+- 11.4.5 [MS Access](04.5-MS_Access/)
+
+- 11.4.6 [NoSQL Injection](04.6-NoSQL_Injection/)
+
+- 11.4.7 [ORM Injection](04.7-ORM_Injection/)
+
+11.5 [LDAP Injection](05-LDAP_Injection/)
+
+11.6 [XML Injection](06-XML_Injection/)
+
+11.7 [SSI Injection](07-SSI_Injection/)
+
+11.8 [XPath Injection](08-XPath_Injection/)
+
+11.9 [IMAP SMTP Injection](09-IMAP_SMTP_Injection/)
+
+11.10 [Code Injection](10-Code_Injection/)
+
+- 11.10.1 [File Inclusion](10.1-File_Inclusion/)
+
+11.11 [Command Injection](11-Command_Injection/)
+
+11.12 [Format String Injection](12-Format_String_Injection/)
+
+11.13 [Incubated Vulnerability](13-Incubated_Vulnerability/)
+
+11.14 [HTTP Response Splitting](14-HTTP_Response_Splitting/)
+
+11.15 [HTTP Request Smuggling](15-HTTP_Request_Smuggling/)
+
+11.16 [Host Header Injection](16-Host_Header_Injection/)
+
+11.17 [Server-side Template Injection](17-Server-side_Template_Injection/)
+
+11.18 [Server-Side Request Forgery](18-Server-Side_Request_Forgery/)
+
+11.19 [Mass Assignment](19-Mass_Assignment/)
+
+11.20 [CSV Injection](20-CSV_Injection/)
+
+11.21 [Prototype Pollution](21-Prototype_Pollution/)
+
+11.22 [Insecure Deserialization](22-Insecure_Deserialization/)
+
+11.23 [Server-side URL Redirect](23-Server-side_URL_Redirect/)
+
+11.24 [Unicode Normalization and Case Mapping](24-Unicode_Normalization_and_Case_Mapping/)
+
+11.25 [JSON Parser Differentials](25-JSON_Parser_Differentials/)
+
+11.26 [Server-side Document Rendering Injection](26-Server-side_Document_Rendering_Injection/)
+
+11.27 [Regular Expression Denial of Service](27-Regular_Expression_Denial_of_Service/)
+
+## 12. Error Handling
+
+# 12 Error Handling
+
+12.1 [Improper Error Handling](01-Improper_Error_Handling/)
+
+## 13. Weak Cryptography
+
+# 13 Weak Cryptography
+
+13.1 [Weak Transport Layer Security](01-Weak_Transport_Layer_Security/)
+
+13.2 [Padding Oracle](02-Padding_Oracle/)
+
+13.3 [Sensitive Information Sent via Unencrypted Channels](03-Sensitive_Information_Sent_via_Unencrypted_Channels/)
+
+13.4 [Weak Cryptographic Primitives](04-Weak_Cryptographic_Primitives/)
+
+## 14. Business Logic
+
+# 14 Business Logic
+
+14.0 [Introduction to Business Logic](00-Introduction_to_Business_Logic/)
+
+14.1 [Business Logic Data Validation](01-Business_Logic_Data_Validation/)
+
+14.2 [Ability to Forge Requests](02-Ability_to_Forge_Requests/)
+
+14.3 [Integrity Checks](03-Integrity_Checks/)
+
+14.4 [Process Timing](04-Process_Timing/)
+
+14.5 [Number of Times a Function Can Be Used Limits](05-Number_of_Times_a_Function_Can_Be_Used_Limits/)
+
+14.6 [Circumvention of Work Flows](06-Circumvention_of_Work_Flows/)
+
+14.7 [Defenses Against Application Misuse](07-Defenses_Against_Application_Misuse/)
+
+14.8 [Upload of Unexpected File Types](08-Upload_of_Unexpected_File_Types/)
+
+14.9 [Upload of Malicious Files](09-Upload_of_Malicious_Files/)
+
+14.10 [Payment Functionality](10-Payment_Functionality/)
+
+14.11 [Denial of Inventory](11-Denial_of_Inventory/)
+
+## 15. Client-side
+
+# 15 Client-side
+
+15.1 [DOM-Based Cross Site Scripting](01-DOM-based_Cross_Site_Scripting/)
+
+- 15.1.1 [Self DOM Based Cross Site Scripting](01.1-Self_DOM_Based_Cross_Site_Scripting/)
+
+15.2 [JavaScript Execution](02-JavaScript_Execution/)
+
+15.3 [HTML Injection](03-HTML_Injection/)
+
+15.4 [Client-side URL Redirect](04-Client-side_URL_Redirect/)
+
+15.5 [CSS Injection](05-CSS_Injection/)
+
+15.6 [Client-side Resource Manipulation](06-Client-side_Resource_Manipulation/)
+
+15.7 [Cross Origin Resource Sharing](07-Cross_Origin_Resource_Sharing/)
+
+15.8 [Clickjacking](08-Clickjacking/)
+
+15.9 [WebSockets](09-WebSockets/)
+
+15.10 [Web Messaging](10-Web_Messaging/)
+
+15.11 [Browser Storage](11-Browser_Storage/)
+
+15.12 [Cross Site Script Inclusion](12-Cross_Site_Script_Inclusion/)
+
+15.13 [Reverse Tabnabbing](13-Reverse_Tabnabbing/)
+
+15.14 [Client-side Template Injection](14-Client-Side_Template_Injection/)
+
+15.15 [DOM Clobbering](15-DOM_Clobbering/)
+
+15.16 [Cross-Site Leaks](16-Cross_Site_Leaks/)
+15.17 [Client-side Path Traversal](17-Client-side_Path_Traversal/)
+
+15.18 [Service Workers](18-Service_Workers/)
+
+15.19 [DNS Rebinding](19-DNS_Rebinding/)
+
+15.20 [Server-Sent Events](20-Server-Sent_Events/)
+
+## 16. API Testing
+
+# 16 API Testing
+
+16.0 [API Testing Overview](00-API_Testing_Overview/)
+
+16.1 [API Reconnaissance](01-API_Reconnaissance/)
+
+16.2 [API Broken Object Level Authorization](02-API_Broken_Object_Level_Authorization/)
+
+16.3 [Excessive Data Exposure](03-Excessive_Data_Exposure/)
+
+16.4 [API Broken Function Level Authorization](04-API_Broken_Function_Level_Authorization/)
+
+16.5 [Testing API Authentication Mechanisms](05-Testing_API_Authentication_Mechanisms/)
+
+16.6 [API Rate Limiting and Resource Consumption](06-API_Rate_Limiting_and_Resource_Consumption/)
+
+16.7 [API Mass Assignment](07-API_Mass_Assignment/)
+
+16.9 [Inbound Webhooks](09-Inbound_Webhooks/)
+
+16.10 [gRPC](10-gRPC/)
+
+16.99 [GraphQL](99-GraphQL/)
+
+## 17. WebAssembly Testing
+
+# 17 WebAssembly Testing
+
+17.0 [WebAssembly Testing Overview](00-WebAssembly_Testing_Overview/)
+
+17.1 [WebAssembly Reconnaissance](01-WebAssembly_Reconnaissance/)
+
+17.2 [WebAssembly Static Analysis](02-WebAssembly_Static_Analysis/)
+
+17.3 [WebAssembly Dynamic Analysis](03-WebAssembly_Dynamic_Analysis/)
+
+17.4 [WebAssembly Memory Corruption](04-WebAssembly_Memory_Corruption/)
+
+17.5 [WebAssembly Host Boundary and WASI Misconfigurations](05-WebAssembly_Host_Boundary_and_WASI_Misconfigurations/)
+
+17.6 [WebAssembly Resource Exhaustion and Concurrency](06-WebAssembly_Resource_Exhaustion_and_Concurrency/)
+
+## 18. Reporting
+
+# Reporting
+
+5.1 [Reporting Structure](01-Reporting_Structure/)
+
+5.2 [Vulnerability Naming Schemes](02-Naming_Schemes/)
+
+## Appendix
+
+# Appendix
+
+Appendix A. [History](A-History/)
+
+Appendix B. [Testing Tools Resource](B-Testing_Tools_Resource/)
+
+Appendix C. [Suggested Reading](C-Suggested_Reading/)
+
+Appendix D. [Fuzzing](D-Fuzzing/)
+
+Appendix E. [Encoded Injection](E-Encoded_Injection/)
+
+Appendix F. [Leveraging Dev Tools](F-Leveraging_Dev_Tools/)
+
+## search
+
+<div id="wstg-search-page" class="wstg-search-page" data-search-page>
+  <form class="wstg-search-form" role="search" method="get" action="">
+    <label class="sr-only" for="wstg-search-page-input">Search the guide</label>
+    <input id="wstg-search-page-input" class="wstg-search-input" type="search" name="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Search topics or IDs (XSS, sqli, WSTG-INJT-05)">
+    <button type="submit" class="wstg-search-submit">Search</button>
+  </form>
+  <h1 id="wstg-search-page-heading" class="wstg-search-page-heading">Search</h1>
+  <p id="wstg-search-page-status" class="wstg-search-status" role="status" aria-live="polite"></p>
+  <ol id="wstg-search-page-results" class="wstg-search-page-results"></ol>
+  <noscript><p>Search needs JavaScript. Use the contents menu instead.</p></noscript>
+</div>

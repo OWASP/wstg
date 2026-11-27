@@ -1,0 +1,21 @@
+---
+layout: document
+title: Search
+collection_name: latest
+channel_label: Latest
+channel_path: latest
+render_with_liquid: false
+sitemap: false
+---
+
+<div id="wstg-search-page" class="wstg-search-page" data-search-page>
+  <form class="wstg-search-form" role="search" method="get" action="">
+    <label class="sr-only" for="wstg-search-page-input">Search the guide</label>
+    <input id="wstg-search-page-input" class="wstg-search-input" type="search" name="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Search topics or IDs (XSS, sqli, WSTG-INJT-05)">
+    <button type="submit" class="wstg-search-submit">Search</button>
+  </form>
+  <h1 id="wstg-search-page-heading" class="wstg-search-page-heading">Search</h1>
+  <p id="wstg-search-page-status" class="wstg-search-status" role="status" aria-live="polite"></p>
+  <ol id="wstg-search-page-results" class="wstg-search-page-results"></ol>
+  <noscript><p>Search needs JavaScript. Use the contents menu instead.</p></noscript>
+</div>

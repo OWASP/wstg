@@ -1,0 +1,24 @@
+---
+layout: document
+title: WSTG - Latest
+collection_name: latest
+channel_label: Latest
+channel_path: latest
+render_with_liquid: false
+---
+
+# 9 Authorization
+
+9.1 [Directory Traversal and File Include](01-Directory_Traversal_File_Include/)
+
+9.2 [Bypassing Authorization Schema](02-Bypassing_Authorization_Schema/)
+
+9.3 [Privilege Escalation](03-Privilege_Escalation/)
+
+9.4 [Insecure Direct Object References](04-Insecure_Direct_Object_References/)
+
+9.5 [OAuth Weaknesses](05-OAuth_Weaknesses/)
+
+9.5.1 [OAuth Authorization Server Weaknesses](05.1-OAuth_Authorization_Server_Weaknesses/)
+
+9.5.2 [OAuth Client Weaknesses](05.2-OAuth_Client_Weaknesses/)
