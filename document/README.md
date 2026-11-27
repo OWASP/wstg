@@ -372,6 +372,10 @@
 
 ### 17.4 [WebAssembly Memory Corruption](17-WebAssembly_Testing/04-WebAssembly_Memory_Corruption.md)
 
+### 17.5 [WebAssembly Host Boundary and WASI Misconfigurations](17-WebAssembly_Testing/05-WebAssembly_Host_Boundary_and_WASI_Misconfigurations.md)
+
+### 17.6 [WebAssembly Resource Exhaustion and Concurrency](17-WebAssembly_Testing/06-WebAssembly_Resource_Exhaustion_and_Concurrency.md)
+
 ## 18. [Reporting](18-Reporting/README.md)
 
 ### 18.1 [Reporting Structure](18-Reporting/01-Reporting_Structure.md)
