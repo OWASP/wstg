@@ -1543,6 +1543,18 @@
             "Check for leaked host environment variables and unrestricted outbound networking leading to Server-Side Request Forgery (SSRF) in WASI workloads.",
             "Test server-side and edge Wasm deployments for state and memory leakage across reused instances."
           ]
+        },
+        {
+          "name": "WebAssembly Resource Exhaustion and Concurrency",
+          "id": "WSTG-WASM-06",
+          "reference": "https://wstg.owasp.org/latest/17-WebAssembly_Testing/06-WebAssembly_Resource_Exhaustion_and_Concurrency",
+          "objectives": [
+            "Verify whether linear memory and table growth (`memory.grow`, `table.grow`) are bounded by explicit maximum limits and host resource caps.",
+            "Test whether long-running loops or algorithmic complexity in Wasm exports can starve browser threads or server-side runtimes lacking fuel metering or epoch interruption.",
+            "Assess platforms that compile user-supplied Wasm modules for compilation-time and memory-usage exhaustion (compilation bombs).",
+            "Identify TOCTOU race conditions, unsynchronized shared-state mutations, and unbounded wait deadlocks in multi-threaded modules using `SharedArrayBuffer`.",
+            "Audit `COOP`, `COEP`, and Cross-Origin Resource Policy (CORP) headers deployed to enable Wasm threads for unintended cross-origin exposure."
+          ]
         }
       ]
     }
