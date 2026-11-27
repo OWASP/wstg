@@ -1530,6 +1530,19 @@
             "Exploit heap Use-After-Free (UAF) and double-free conditions to overwrite the contents of freed-and-reallocated chunks and subvert authentication or state checks.",
             "Trigger format string vulnerabilities and 32-bit integer truncations across the JS/Wasm boundary to bypass host validation and achieve arbitrary memory reads or writes."
           ]
+        },
+        {
+          "name": "WebAssembly Host Boundary and WASI Misconfigurations",
+          "id": "WSTG-WASM-05",
+          "reference": "https://wstg.owasp.org/latest/17-WebAssembly_Testing/05-WebAssembly_Host_Boundary_and_WASI_Misconfigurations",
+          "objectives": [
+            "Enumerate all host imports and WASI capabilities granted to a Wasm module and identify overly permissive bindings.",
+            "Audit browser Content Security Policy (CSP) headers to verify that Wasm execution does not rely on `'unsafe-eval'` or overly broad source allowlists.",
+            "Test whether attacker-controlled data crossing the JS/Wasm boundary or Foreign Function Interface (FFI) glue code triggers Cross-Site Scripting (XSS), prototype pollution, or host command injection.",
+            "Verify that WASI filesystem mounts enforce least-privilege directory scoping, read-only permissions where appropriate, and symlink restrictions.",
+            "Check for leaked host environment variables and unrestricted outbound networking leading to Server-Side Request Forgery (SSRF) in WASI workloads.",
+            "Test server-side and edge Wasm deployments for state and memory leakage across reused instances."
+          ]
         }
       ]
     }
