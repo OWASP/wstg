@@ -199,7 +199,8 @@ Some applications compare a token in the request with the same value in a cookie
 #### Origin and Referer Checks
 
 - Send the request from the proof-of-concept page and confirm that a foreign `Origin` or `Referer` is rejected.
-- Suppress the `Referer` header by adding `<meta name="referrer" content="no-referrer">` to the page. The browser then omits `Referer` and sends `Origin: null` with the `POST` request. If the application only checks `Referer` when it is present, or accepts `Origin: null`, the check can be bypassed.
+- Suppress the `Referer` header by adding `<meta name="referrer" content="no-referrer">` to the page, or by serving it with `Referrer-Policy: no-referrer`. If the application only checks `Referer` when it is present, omitting it bypasses the check. This does not change the `Origin` header, which still carries the submitting page's origin.
+- Send `Origin: null` by submitting the request from an opaque origin, such as a sandboxed iframe without `allow-same-origin` (`<iframe sandbox="allow-scripts allow-forms">`) or a `data:` URL. If the application accepts `Origin: null`, the check can be bypassed.
 - Top-level `GET` navigations don't include an `Origin` header at all. An `Origin` check that allows a missing header doesn't protect an action that can also be triggered with `GET`.
 - Check for partial matching. If the application only checks that the value starts with or contains the expected origin, a page on a host such as `https://example.com.attacker.example` passes.
 
