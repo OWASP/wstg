@@ -175,9 +175,54 @@ Content-Type: text/plain
 
 When this data is sent as a POST request, the server will happily accept the name and password fields and ignore the one with the name padding as it does not need it.
 
+### Testing CSRF Defenses
+
+Most applications have some CSRF defense, so a proof of concept that fails doesn't end the test. Identify which defense protects each state-changing request, then change the forged request as described below and check whether the action is still performed. Host the proof-of-concept page on a different site, not on a subdomain of the application, and test in a current browser, because the browser decides which cookies and headers are sent. Figure 10.5-4 shows which part of the forged request each defense checks.
+
+![Which part of a forged request each CSRF defense checks](images/10-csrf_defense_checks.svg)\
+*Figure 10.5-4: What Each CSRF Defense Checks*
+
+#### CSRF Tokens
+
+Capture a legitimate state-changing request and find the token, for example in a hidden form field, in the body, or in a custom header such as `X-CSRF-Token`. Then send the request in the following ways:
+
+- Remove the token, and separately send it with an empty value. Some applications only validate the token when it is present.
+- Send the same parameters with another method, such as `GET`, or with another content type. Validation is sometimes tied to one method or one parser.
+- Log in as a second user and use that user's valid token in the victim's request. If it is accepted, the token isn't bound to the session, and an attacker can use a token from their own account.
+- Reuse a token after logging out and back in, or after it should have expired.
+- If the token is sent in a custom header, send the request without the header. A cross-site form can't add custom headers, so a request that is accepted without the header isn't protected by it.
+
+#### Double-Submit Cookies
+
+Some applications compare a token in the request with the same value in a cookie, without keeping it on the server. This only works if an attacker can't set the cookie. A page on any subdomain of the site, for example through XSS or user-hosted content on `sub.example.com`, can set a cookie for the parent domain with `Domain=example.com`, and then submit a matching token. If the original cookie is also present, the cookie with the more specific `Path` is sent first, and many parsers use the first value. Check whether the cookie value is signed or bound to the session, and whether any subdomain can be controlled by an attacker. Cookies with the `__Host-` prefix can't be set from another subdomain.
+
+#### Origin and Referer Checks
+
+- Send the request from the proof-of-concept page and confirm that a foreign `Origin` or `Referer` is rejected.
+- Suppress the `Referer` header by adding `<meta name="referrer" content="no-referrer">` to the page, or by serving it with `Referrer-Policy: no-referrer`. If the application only checks `Referer` when it is present, omitting it bypasses the check. This does not change the `Origin` header, which still carries the submitting page's origin.
+- Send `Origin: null` by submitting the request from an opaque origin, such as a sandboxed iframe without `allow-same-origin` (`<iframe sandbox="allow-scripts allow-forms">`) or a `data:` URL. If the application accepts `Origin: null`, the check can be bypassed.
+- Top-level `GET` navigations don't include an `Origin` header at all. An `Origin` check that allows a missing header doesn't protect an action that can also be triggered with `GET`.
+- Check for partial matching. If the application only checks that the value starts with or contains the expected origin, a page on a host such as `https://example.com.attacker.example` passes.
+
+#### SameSite Cookies
+
+[SameSite Cookie Considerations](#samesite-cookie-considerations) explains which requests carry the session cookie. When the cookie is `SameSite=Lax`:
+
+- Check whether the action also works with `GET`, or with a method override parameter such as `_method=POST` in the query string (see [HTTP Method Overriding](../06-Configuration_and_Deployment_Management/05-HTTP_Methods.md#http-method-overriding)). A top-level `GET` navigation from another site carries `Lax` cookies, so either one lets a link perform the action.
+- `SameSite` only restricts cross-site requests. A page on any subdomain is same-site, so `Lax` and `Strict` cookies are sent with its requests. XSS or attacker-controlled content on any subdomain can therefore be used to forge requests, so include subdomains when assessing the impact.
+
+#### Fetch Metadata
+
+If the application rejects requests based on the `Sec-Fetch-Site` header, check which values it allows. A form submitted from another site is sent with `Sec-Fetch-Site: cross-site`, and one submitted from a subdomain with `Sec-Fetch-Site: same-site`. An application that allows `same-site` is still exposed to its subdomains. Also check how requests without the header are handled, since older browsers and non-browser clients don't send it.
+
 ## Remediation
 
-- See the [OWASP CSRF Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html) for prevention measures.
+- Protect every state-changing request with a CSRF token that is unpredictable, bound to the user's session, and validated on the server regardless of the method or content type. Reject requests where the token is missing.
+- Don't change state with `GET` requests, and don't accept method overrides for state-changing actions.
+- If double-submit cookies are used, sign the token or bind it to the session, and use the `__Host-` cookie prefix.
+- As an additional check, compare the `Origin` header, or `Sec-Fetch-Site`, with the expected value using an exact match, and treat a missing or `null` value as a failure for state-changing requests.
+- Set `SameSite=Lax` or `SameSite=Strict` on session cookies as defense in depth, not as the only defense, since it doesn't protect against same-site requests.
+- See the [OWASP CSRF Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html) for more detail.
 
 ## Tools
 
