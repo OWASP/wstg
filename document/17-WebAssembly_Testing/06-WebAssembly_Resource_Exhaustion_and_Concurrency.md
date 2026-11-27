@@ -81,7 +81,7 @@ When testing platforms that accept untrusted `.wasm` uploads:
 
 ### Testing for Shared Memory Race Conditions and TOCTOU
 
-Modules compiled with POSIX threads (for example, Emscripten `-pthread` or Rust `atomics` + `bulk-memory`) share a single `WebAssembly.Memory({ shared: true })` backed by a `SharedArrayBuffer` across the main thread and Web Workers.
+Modules compiled with POSIX threads (for example, Emscripten `-pthread` or Rust `atomics` + `bulk-memory`) use a single shared `WebAssembly.Memory` instance backed by a `SharedArrayBuffer` across the main thread and Web Workers.
 
 When the host or one thread validates data stored in shared linear memory before another thread (or the Wasm module) consumes it, an attacker who can trigger concurrent operations can modify the shared bytes between the check and the use (double-fetch / TOCTOU).
 
