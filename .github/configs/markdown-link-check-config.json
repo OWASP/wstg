@@ -11,13 +11,14 @@
         { "pattern": "^https://www\\.baidu\\.com" },
         { "pattern": "^https://developer\\.android\\.com" },
         { "pattern": "^https://github\\.com" },
-        { "pattern": "^https://.*\\.gnu\\.org" }
+        { "pattern": "^https://.*\\.gnu\\.org" },
+        { "pattern": "^https://.*\\.youtube\\.com" }
     ],
     "httpHeaders": [
         {
             "urls": ["https://", "http://"],
             "headers": {
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0"
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:161.0) Gecko/20100101 Firefox/161.0"
             }
         }
     ],
