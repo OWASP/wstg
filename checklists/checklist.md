@@ -154,3 +154,4 @@ The following is the list of items to test during the assessment:
 | WSTG-WASM-03      | WebAssembly Dynamic Analysis                                               |        |       |
 | WSTG-WASM-04      | WebAssembly Memory Corruption                                              |        |       |
 | WSTG-WASM-05      | WebAssembly Host Boundary and WASI Misconfigurations                       |        |       |
+| WSTG-WASM-06      | WebAssembly Resource Exhaustion and Concurrency                            |        |       |
